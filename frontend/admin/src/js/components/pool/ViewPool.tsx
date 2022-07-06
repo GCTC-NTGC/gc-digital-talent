@@ -3,7 +3,10 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import {
+  CheckIcon,
+  ClipboardIcon,
   CogIcon,
+  ExternalLinkIcon,
   HomeIcon,
   TicketIcon,
   UserGroupIcon,
@@ -13,23 +16,24 @@ import {
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
-import {
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-} from "@common/components/Tabs";
 import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { IconLink } from "@common/components/Link";
+import { Input } from "@common/components/form";
+import { Button } from "@common/components";
+import { IconButton } from "@common/components/Button";
+import { FormProvider, useForm } from "react-hook-form";
 import { useAdminRoutes } from "../../adminRoutes";
 import { useGetPoolQuery } from "../../api/generated";
 import type { Pool } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
+
+const Spacer = ({ children }: { children: React.ReactNode }) => (
+  <span data-h2-margin="b(bottom-right, s)">{children}</span>
+);
 
 interface ViewPoolPageProps {
   pool: Pool;
@@ -39,6 +43,17 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const adminPaths = useAdminRoutes();
+  const form = useForm();
+  const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
+
+  /** Reset link copied after 3 seconds */
+  React.useEffect(() => {
+    if (linkCopied) {
+      setTimeout(() => {
+        setLinkCopied(false);
+      }, 3000);
+    }
+  }, [linkCopied, setLinkCopied]);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Pool Details",
@@ -69,17 +84,6 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
     },
   ] as BreadcrumbsProps["links"];
 
-  const tabs = [
-    intl.formatMessage({
-      defaultMessage: "Pool details",
-      description: "Tabs title for the individual pool details.",
-    }),
-    intl.formatMessage({
-      defaultMessage: "Pool candidates",
-      description: "Tabs title for the individual pool candidates.",
-    }),
-  ];
-
   return (
     <DashboardContentContainer>
       <PageHeader icon={ViewGridIcon}>{poolName}</PageHeader>
@@ -89,7 +93,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         data-h2-flex-wrap="b(wrap)"
         data-h2-margin="b(top-bottom, m)"
       >
-        <span data-h2-margin="b(bottom-right, s)">
+        <Spacer>
           <IconLink
             mode="solid"
             color="secondary"
@@ -103,8 +107,8 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 "Link text for button to manage candidates of a specific pool",
             })}
           </IconLink>
-        </span>
-        <span data-h2-margin="b(bottom-right, s)">
+        </Spacer>
+        <Spacer>
           <IconLink
             mode="solid"
             color="secondary"
@@ -118,8 +122,8 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 "Link text for button to manage requests of a specific pool",
             })}
           </IconLink>
-        </span>
-        <span data-h2-margin="b(bottom-right, s)">
+        </Spacer>
+        <Spacer>
           <IconLink
             mode="solid"
             color="secondary"
@@ -132,21 +136,77 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               description: "Link text for button to edit a specific pool",
             })}
           </IconLink>
-        </span>
+        </Spacer>
       </div>
-      <Tabs>
-        <TabList>
-          {tabs.map((tab, index) => (
-            <Tab key={tab} index={index}>
-              {tab}
-            </Tab>
-          ))}
-        </TabList>
-        <TabPanels>
-          <TabPanel>{tabs[0]}</TabPanel>
-          <TabPanel>{tabs[1]}</TabPanel>
-        </TabPanels>
-      </Tabs>
+      <FormProvider {...form}>
+        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+          {intl.formatMessage({
+            defaultMessage: "View pool advertisement",
+            description: "Sub title for admin view pool page",
+          })}
+        </h2>
+        <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
+          <Spacer>
+            <Input
+              readOnly
+              value={pool.id}
+              hideOptional
+              id="poolUrl"
+              name="poolUrl"
+              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Pool advertisement",
+                description: "Label for pool advertisement url field",
+              })}
+            />
+          </Spacer>
+          <Spacer>
+            <IconButton
+              data-h2-margin="b(bottom, xxs)"
+              mode="outline"
+              color="secondary"
+              disabled={linkCopied}
+              icon={linkCopied ? CheckIcon : ClipboardIcon}
+              onClick={() => {
+                // TO DO: Update with real URL once we get it
+                navigator.clipboard.writeText(pool.id);
+                setLinkCopied(true);
+              }}
+            >
+              <span aria-live={linkCopied ? "assertive" : "off"}>
+                {linkCopied
+                  ? intl.formatMessage({
+                      defaultMessage: "Link copied!",
+                      description:
+                        "Button text to be displayed after link was copied",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Copy link",
+                      description: "Button text to copy a url",
+                    })}
+              </span>
+            </IconButton>
+          </Spacer>
+          <Spacer>
+            <IconLink
+              data-h2-margin="b(bottom, xxs)"
+              mode="outline"
+              color="secondary"
+              type="button"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              icon={ExternalLinkIcon}
+            >
+              {intl.formatMessage({
+                defaultMessage: "View pool advertisement",
+                description:
+                  "Link text to view the public facing pool advertisement",
+              })}
+            </IconLink>
+          </Spacer>
+        </div>
+      </FormProvider>
     </DashboardContentContainer>
   );
 };
