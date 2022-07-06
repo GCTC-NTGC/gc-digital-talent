@@ -61,7 +61,7 @@ export type FormValues = {
   govEmployee: Option["value"][];
 };
 
-const defaultFormValues = {
+export const defaultFormValues = {
   pools: [],
   languages: [],
   classifications: [],
@@ -91,6 +91,7 @@ const SearchFilter = ({
   isOpen,
   onDismiss,
   onSubmit,
+  activeFilters,
 }: SearchFilterProps): JSX.Element => {
   const { formatMessage } = useIntl();
 
@@ -140,7 +141,7 @@ const SearchFilter = ({
       <BasicForm
         {...{ onSubmit }}
         options={{
-          defaultValues: defaultFormValues,
+          defaultValues: activeFilters,
         }}
       >
         <div style={{ display: "flex" }}>
