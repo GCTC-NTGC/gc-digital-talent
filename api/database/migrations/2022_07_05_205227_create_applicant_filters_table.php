@@ -17,6 +17,7 @@ class CreateApplicantFiltersTable extends Migration
         Schema::create('applicant_filters', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->boolean('has_diploma')->nullable(true);
             $table->boolean('has_disability')->nullable(true);
             $table->boolean('is_indigenous')->nullable(true);
