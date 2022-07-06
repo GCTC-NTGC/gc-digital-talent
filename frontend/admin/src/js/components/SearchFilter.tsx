@@ -6,6 +6,9 @@ import { BasicForm } from "@common/components/form";
 import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import "./SearchFilter.css";
+import { useFormContext } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import type { Option } from "@common/components/form/Select/SelectFieldV2";
 
 const SearchFilterFooter = (): JSX.Element => {
   const { reset } = useFormContext();
@@ -31,9 +34,38 @@ const SearchFilterFooter = (): JSX.Element => {
   );
 };
 
+export type FormValues = {
+  pools: Option["value"][];
+  languages: Option["value"][];
+  classifications: Option["value"][];
+  workPreferences: Option["value"][];
+  workLocations: Option["value"][];
+  education: Option["value"][];
+  durationPreferences: Option["value"][];
+  availability: Option["value"][];
+  skillFilter: Option["value"][];
+  profileComplete: Option["value"][];
+  govEmployee: Option["value"][];
+};
+
+const defaultFormValues = {
+  pools: [],
+  languages: [],
+  classifications: [],
+  workPreferences: [],
+  workLocations: [],
+  education: [],
+  durationPreferences: [],
+  availability: [],
+  skillFilter: [],
+  profileComplete: [],
+  govEmployee: [],
+};
+
 interface SearchFilterProps {
   isOpen: boolean;
   onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
+  onSubmit: SubmitHandler<FormValues>;
 }
 
 const generateOptionsFromValues = (item: string, index: number) => ({
@@ -44,9 +76,8 @@ const generateOptionsFromValues = (item: string, index: number) => ({
 const SearchFilter = ({
   isOpen,
   onDismiss,
+  onSubmit,
 }: SearchFilterProps): JSX.Element => {
-  const handleSubmit = () => {};
-  const handleClear = () => {};
   const { formatMessage } = useIntl();
 
   const optionsData = {
@@ -104,7 +135,12 @@ const SearchFilter = ({
           "Narrow down your table results using the following filters.",
       })}
     >
-      <BasicForm onSubmit={() => {}}>
+      <BasicForm
+        {...{ onSubmit }}
+        options={{
+          defaultValues: defaultFormValues,
+        }}
+      >
         <div style={{ display: "flex" }}>
           <div style={{ flexGrow: 1 }}>
             <MultiSelectFieldV2
