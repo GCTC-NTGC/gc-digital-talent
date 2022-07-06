@@ -7,30 +7,29 @@ import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import "./SearchFilter.css";
 
-interface SearchFilterFooterProps {
-  handleClear: () => void;
-  handleSubmit: () => void;
-}
+const SearchFilterFooter = (): JSX.Element => {
+  const { reset } = useFormContext();
+  const handleClear = () => {
+    reset();
+  };
 
-const SearchFilterFooter = ({
-  handleClear,
-  handleSubmit,
-}: SearchFilterFooterProps): JSX.Element => (
-  <div style={{ display: "flex", placeContent: "space-between" }}>
-    <Button type="reset" color="secondary" mode="outline" onClick={handleClear}>
-      <FormattedMessage
-        description="Reset button within the search filter dialog"
-        defaultMessage="Clear filters"
-      />
-    </Button>
-    <Button type="submit" color="cta" onClick={handleSubmit}>
-      <FormattedMessage
-        description="Submit button within the search filter dialog"
-        defaultMessage="Show results"
-      />
-    </Button>
-  </div>
-);
+  return (
+    <div style={{ display: "flex", placeContent: "space-between" }}>
+      <Button color="secondary" mode="outline" onClick={handleClear}>
+        <FormattedMessage
+          description="Clear button within the search filter dialog"
+          defaultMessage="Clear filters"
+        />
+      </Button>
+      <Button type="submit" color="cta">
+        <FormattedMessage
+          description="Submit button within the search filter dialog"
+          defaultMessage="Show results"
+        />
+      </Button>
+    </div>
+  );
+};
 
 interface SearchFilterProps {
   isOpen: boolean;
@@ -105,7 +104,6 @@ const SearchFilter = ({
         defaultMessage:
           "Narrow down your table results using the following filters.",
       })}
-      footer={<SearchFilterFooter handleSubmit={handleSubmit} />}
     >
       <BasicForm onSubmit={() => {}}>
         <div style={{ display: "flex" }}>
@@ -215,6 +213,9 @@ const SearchFilter = ({
             />
           </div>
         </div>
+        <Dialog.Footer>
+          <SearchFilterFooter />
+        </Dialog.Footer>
       </BasicForm>
     </Dialog>
   );
