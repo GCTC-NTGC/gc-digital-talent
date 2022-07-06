@@ -53,6 +53,26 @@ query getPool($id: ID!) {
     ...pool
   }
 }
+
+query getPoolAdvertisement($id: ID!) {
+  poolAdvertisement(id: $id) {
+    id
+    name {
+      en
+      fr
+    }
+    classifications {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+  }
+}
+
 query getCreatePoolData {
   users {
     id

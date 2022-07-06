@@ -23,12 +23,11 @@ import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { IconLink } from "@common/components/Link";
 import { Input } from "@common/components/form";
-import { Button } from "@common/components";
 import { IconButton } from "@common/components/Button";
 import { FormProvider, useForm } from "react-hook-form";
 import { useAdminRoutes } from "../../adminRoutes";
-import { useGetPoolQuery } from "../../api/generated";
-import type { Pool } from "../../api/generated";
+import { useGetPoolAdvertisementQuery } from "../../api/generated";
+import type { PoolAdvertisement } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 const Spacer = ({ children }: { children: React.ReactNode }) => (
@@ -36,7 +35,7 @@ const Spacer = ({ children }: { children: React.ReactNode }) => (
 );
 
 interface ViewPoolPageProps {
-  pool: Pool;
+  pool: PoolAdvertisement;
 }
 
 export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
@@ -215,16 +214,16 @@ interface ViewPoolProps {
   poolId: string;
 }
 
-const ViewPool: React.FC<ViewPoolProps> = ({ poolId }) => {
+const ViewPool = ({ poolId }: ViewPoolProps) => {
   const intl = useIntl();
-  const [{ data, fetching, error }] = useGetPoolQuery({
+  const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId },
   });
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.pool ? (
-        <ViewPoolPage pool={data.pool} />
+      {data?.poolAdvertisement ? (
+        <ViewPoolPage pool={data.poolAdvertisement} />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>
