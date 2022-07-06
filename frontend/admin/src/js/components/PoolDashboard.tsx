@@ -22,8 +22,9 @@ import { UpdateUser } from "./user/UpdateUser";
 import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
-import { UpdatePool } from "./pool/UpdatePool";
 import DeprecatedViewPool from "./pool/deprecated/ViewPool";
+import DeprecatedUpdatePool from "./pool/deprecated/UpdatePool";
+import EditPool from "./pool/EditPool";
 import ViewPool from "./pool/ViewPool";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
@@ -177,9 +178,14 @@ const routes = (
     }),
   },
   {
-    path: paths.poolUpdate(":id"),
+    path: paths.poolEdit(":id"),
     action: ({ params }) => ({
-      component: <UpdatePool poolId={params.id as string} />,
+      component: checkFeatureFlag("FEATURE_DIRECTINTAKE") ? (
+        <EditPool poolId={params.id as string} />
+      ) : (
+        /* deprecated */
+        <DeprecatedUpdatePool poolId={params.id as string} />
+      ),
       authorizedRoles: [Role.Admin],
     }),
   },
