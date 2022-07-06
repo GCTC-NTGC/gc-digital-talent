@@ -13,7 +13,7 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   /** The style type of the element. */
   color?: Color;
   /** The style mode of the element. */
-  mode?: "solid" | "outline" | "inline";
+  mode?: "solid" | "outline" | "inline" | "tableHeader";
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
   type?: "button" | "submit" | "reset";
@@ -22,7 +22,7 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
 
 export const colorMap: Record<
   Color,
-  Record<"solid" | "outline" | "inline", Record<string, string>>
+  Record<"solid" | "outline" | "inline" | "tableHeader", Record<string, string>>
 > = {
   primary: {
     solid: {
@@ -40,6 +40,7 @@ export const colorMap: Record<
       "data-h2-bg-color": "b([light]white[0])",
       "data-h2-font-color": "b(lightpurple)",
     },
+    tableHeader: {},
   },
   secondary: {
     solid: {
@@ -56,6 +57,15 @@ export const colorMap: Record<
       "data-h2-border": "b([light]white[0], all, solid, s)",
       "data-h2-bg-color": "b([light]white[0])",
       "data-h2-font-color": "b(lightnavy)",
+    },
+    tableHeader: {
+      "data-h2-border": "b(lightnavy, all, solid, s)",
+      "data-h2-bg-color": "b(lightnavy)",
+      "data-h2-padding": "b(all, none)",
+      "data-h2-font-color": "b(white)",
+      "data-h2-font-weight": "b(800)",
+      "data-h2-text-align": "b(left)",
+      "data-h2-font-size": "b(caption)",
     },
   },
   cta: {
@@ -74,6 +84,7 @@ export const colorMap: Record<
       "data-h2-bg-color": "b([light]white[0])",
       "data-h2-font-color": "b(darkgold)",
     },
+    tableHeader: {},
   },
   white: {
     solid: {
@@ -91,6 +102,7 @@ export const colorMap: Record<
       "data-h2-bg-color": "b([light]white[0])",
       "data-h2-font-color": "b(white)",
     },
+    tableHeader: {},
   },
   black: {
     solid: {
@@ -108,6 +120,7 @@ export const colorMap: Record<
       "data-h2-bg-color": "b([light]white[0])",
       "data-h2-font-color": "b(black)",
     },
+    tableHeader: {},
   },
   "ia-primary": {
     solid: {
@@ -125,6 +138,7 @@ export const colorMap: Record<
       "data-h2-bg-color": "b([light]white[0])",
       "data-h2-font-color": "b(ia-pink)",
     },
+    tableHeader: {},
   },
   "ia-secondary": {
     solid: {
@@ -142,6 +156,7 @@ export const colorMap: Record<
       "data-h2-bg-color": "b([light]white[0])",
       "data-h2-font-color": "b(ia-purple)",
     },
+    tableHeader: {},
   },
 };
 

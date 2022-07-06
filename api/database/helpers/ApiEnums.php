@@ -137,4 +137,77 @@ class ApiEnums
             self::POOL_STATUS_TAKING_APPLICATIONS,
         ];
     }
+
+    const GENERIC_JOB_TITLE_KEY_TECHNICIAN_IT01 = 'TECHNICIAN_IT01';
+    const GENERIC_JOB_TITLE_KEY_ANALYST_IT02 = 'ANALYST_IT02';
+    const GENERIC_JOB_TITLE_KEY_TEAM_LEADER_IT03 = 'TEAM_LEADER_IT03';
+    const GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03 = 'TECHNICAL_ADVISOR_IT03';
+    const GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04 = 'SENIOR_ADVISOR_IT04';
+    const GENERIC_JOB_TITLE_KEY_MANAGER_IT04 = 'MANAGER_IT04';
+    /**
+     * A collection of enums for GenericJobTitles in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function genericJobTitleKeys() : array
+    {
+        return [
+            self::GENERIC_JOB_TITLE_KEY_TECHNICIAN_IT01,
+            self::GENERIC_JOB_TITLE_KEY_ANALYST_IT02,
+            self::GENERIC_JOB_TITLE_KEY_TEAM_LEADER_IT03,
+            self::GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03,
+            self::GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04,
+            self::GENERIC_JOB_TITLE_KEY_MANAGER_IT04,
+        ];
+    }
+
+    /**
+     * Pool Advertisement statuses
+     */
+    const POOL_ADVERTISEMENT_IS_DRAFT = 'DRAFT';
+    const POOL_ADVERTISEMENT_IS_PUBLISHED = 'PUBLISHED';
+    const POOL_ADVERTISEMENT_IS_EXPIRED = 'EXPIRED';
+    public static function poolAdvertisementStatuses() : array
+    {
+        return [
+            self::POOL_ADVERTISEMENT_IS_DRAFT,
+            self::POOL_ADVERTISEMENT_IS_PUBLISHED,
+            self::POOL_ADVERTISEMENT_IS_EXPIRED,
+        ];
+    }
+
+    /**
+     * Pool Advertisement languages
+     */
+    const POOL_ADVERTISEMENT_ENGLISH = 'ENGLISH';
+    const POOL_ADVERTISEMENT_FRENCH = 'FRENCH';
+    const POOL_ADVERTISEMENT_VARIOUS = 'VARIOUS';
+    const POOL_ADVERTISEMENT_BILINGUAL_INTERMEDIATE = 'BILINGUAL_INTERMEDIATE';
+    const POOL_ADVERTISEMENT_BILINGUAL_ADVANCED = 'BILINGUAL_ADVANCED';
+    public static function poolAdvertisementLanguages() : array
+    {
+        return [
+            self::POOL_ADVERTISEMENT_ENGLISH,
+            self::POOL_ADVERTISEMENT_FRENCH,
+            self::POOL_ADVERTISEMENT_VARIOUS,
+            self::POOL_ADVERTISEMENT_BILINGUAL_INTERMEDIATE,
+            self::POOL_ADVERTISEMENT_BILINGUAL_ADVANCED,
+        ];
+    }
+
+    /**
+     * Pool Advertisement security clearances
+     */
+    const POOL_ADVERTISEMENT_RELIABILITY = 'RELIABILITY';
+    const POOL_ADVERTISEMENT_SECRET = 'SECRET';
+    const POOL_ADVERTISEMENT_TOP_SECRET = 'TOP_SECRET';
+    public static function poolAdvertisementSecurity() : array
+    {
+        return [
+            self::POOL_ADVERTISEMENT_RELIABILITY,
+            self::POOL_ADVERTISEMENT_SECRET,
+            self::POOL_ADVERTISEMENT_TOP_SECRET,
+        ];
+    }
+
 }

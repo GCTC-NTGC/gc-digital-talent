@@ -18,16 +18,22 @@ class UserSeederLocal extends Seeder
     {
         // shared auth users for testing
         User::factory()->create([
+            'first_name' => 'Admin',
+            'last_name' => 'Test',
             'email' => 'admin@test.com',
             'sub' => 'admin@test.com',
             'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
         ]);
         User::factory()->create([
+            'first_name' => 'Applicant',
+            'last_name' => 'Test',
             'email' => 'applicant@test.com',
             'sub' => 'applicant@test.com',
             'roles' => [ApiEnums::ROLE_APPLICANT]
         ]);
         User::factory()->create([
+            'first_name' => 'No Role',
+            'last_name' => 'Test',
             'email' => 'noroles@test.com',
             'sub' => 'noroles@test.com',
             'roles' => []

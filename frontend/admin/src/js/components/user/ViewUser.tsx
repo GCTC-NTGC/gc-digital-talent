@@ -8,7 +8,13 @@ import {
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
-import { Tab, TabSet } from "@common/components/tabs";
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+} from "@common/components/Tabs";
 import { commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
@@ -64,6 +70,17 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
     },
   ] as BreadcrumbsProps["links"];
 
+  const tabs = [
+    intl.formatMessage({
+      defaultMessage: "General Information",
+      description: "Tabs title for the individual user general info.",
+    }),
+    intl.formatMessage({
+      defaultMessage: "Candidate Profile",
+      description: "Tabs title for the individual user profile.",
+    }),
+  ];
+
   return (
     <>
       <PageHeader icon={UserCircleIcon}>{pageTitle}</PageHeader>
@@ -94,24 +111,23 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
           </UserProfilePrintButton>
         </div>
       </div>
-      <TabSet>
-        <Tab
-          text={intl.formatMessage({
-            defaultMessage: "General Information",
-            description: "Tabs title for the individual user general info.",
-          })}
-        >
-          <GeneralInfoTabApi userId={user.id} />
-        </Tab>
-        <Tab
-          text={intl.formatMessage({
-            defaultMessage: "Candidate Profile",
-            description: "Tabs title for the individual user profile.",
-          })}
-        >
-          <UserProfileApi userId={user.id} />
-        </Tab>
-      </TabSet>
+      <Tabs>
+        <TabList>
+          {tabs.map((tab, index) => (
+            <Tab key={tab} index={index}>
+              {tab}
+            </Tab>
+          ))}
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <GeneralInfoTabApi userId={user.id} />
+          </TabPanel>
+          <TabPanel>
+            <UserProfileApi userId={user.id} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </>
   );
 };

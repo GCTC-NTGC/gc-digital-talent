@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
-import Toast from "@common/components/Toast";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { AuthenticationContext } from "@common/components/Auth";
 import { Button } from "@common/components";
@@ -332,7 +331,6 @@ export const Router: React.FC = () => {
       <Helmet>
         <html lang={getLocale(intl)} />
       </Helmet>
-      <Toast />
       {loggedIn && (
         <Dialog
           confirmation
