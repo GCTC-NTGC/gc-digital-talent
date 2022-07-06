@@ -54,11 +54,11 @@ export function invertSkillExperienceTree(experiences: Experience[]): Skill[] {
     );
 
     // step 2 - clone the experiences and strip off the child skills to prevent circular references
-    const skillWithChildrenRemoved = skillsInThisExperience.map(
+    const experienceWithChildrenRemoved = skillsInThisExperience.map(
       (experience) => {
         return {
           ...experience,
-          experiences: [],
+          skills: [],
         };
       },
     );
@@ -66,7 +66,7 @@ export function invertSkillExperienceTree(experiences: Experience[]): Skill[] {
     // step 3 - clone the skill and attach the experience collection
     return {
       ...skill,
-      experiences: skillWithChildrenRemoved,
+      experiences: experienceWithChildrenRemoved,
     };
   });
   return skillsWithExperiences;
