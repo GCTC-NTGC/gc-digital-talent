@@ -23,30 +23,6 @@ import {
   Language,
 } from "../api/generated";
 
-const SearchFilterFooter = (): JSX.Element => {
-  const { reset } = useFormContext();
-  const handleClear = () => {
-    reset();
-  };
-
-  return (
-    <div style={{ display: "flex", placeContent: "space-between" }}>
-      <Button color="secondary" mode="outline" onClick={handleClear}>
-        <FormattedMessage
-          description="Clear button within the search filter dialog"
-          defaultMessage="Clear filters"
-        />
-      </Button>
-      <Button type="submit" color="cta">
-        <FormattedMessage
-          description="Submit button within the search filter dialog"
-          defaultMessage="Show results"
-        />
-      </Button>
-    </div>
-  );
-};
-
 export type FormValues = {
   pools: Option["value"][];
   languages: Option["value"][];
@@ -73,6 +49,30 @@ export const defaultFormValues = {
   skillFilter: [],
   profileComplete: [],
   govEmployee: [],
+};
+
+const SearchFilterFooter = (): JSX.Element => {
+  const { reset } = useFormContext();
+  const handleClear = () => {
+    reset(defaultFormValues);
+  };
+
+  return (
+    <div style={{ display: "flex", placeContent: "space-between" }}>
+      <Button color="secondary" mode="outline" onClick={handleClear}>
+        <FormattedMessage
+          description="Clear button within the search filter dialog"
+          defaultMessage="Clear filters"
+        />
+      </Button>
+      <Button type="submit" color="cta">
+        <FormattedMessage
+          description="Submit button within the search filter dialog"
+          defaultMessage="Show results"
+        />
+      </Button>
+    </div>
+  );
 };
 
 interface SearchFilterProps {
