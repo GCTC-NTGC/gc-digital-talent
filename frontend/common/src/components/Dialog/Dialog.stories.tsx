@@ -4,12 +4,14 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import type { HandlerFunction } from "@storybook/addon-actions";
 import DialogComponent from "./Dialog";
+import OverlayOrDialogDecorator from "../../../.storybook/decorators/OverlayOrDialogDecorator";
 
 import Button from "../Button";
 
 export default {
   component: DialogComponent,
   title: "Components/Dialog",
+  decorators: [OverlayOrDialogDecorator],
   argTypes: {
     // Disabled because controlled and overridden anyhow.
     isOpen: { control: { disable: true } },
