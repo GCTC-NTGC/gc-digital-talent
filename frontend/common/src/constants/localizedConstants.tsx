@@ -19,6 +19,7 @@ import {
   JobLookingStatus,
   PoolStatus,
   GovEmployeeType,
+  AdvertisementStatus,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -740,4 +741,28 @@ export const getGovEmployeeType = (
     govEmployeeType,
     govEmployeeTypeId,
     `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
+  );
+
+export const advertisementStatus = defineMessages({
+  [AdvertisementStatus.Draft]: {
+    defaultMessage: "Draft",
+    description: "Draft pool advertisement status",
+  },
+  [AdvertisementStatus.Published]: {
+    defaultMessage: "Published",
+    description: "Published pool advertisement status",
+  },
+  [AdvertisementStatus.Expired]: {
+    defaultMessage: "Expired",
+    description: "Expired pool advertisement status",
+  },
+});
+
+export const getAdvertisementStatus = (
+  advertisementStatusId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    advertisementStatus,
+    advertisementStatusId,
+    `Invalid  Advertisement Status '${advertisementStatusId}'`,
   );
