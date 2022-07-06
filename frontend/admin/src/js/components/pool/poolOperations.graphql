@@ -63,6 +63,8 @@ query getPoolAdvertisement($id: ID!) {
     }
     expiryDate
     advertisementStatus
+    advertisementLanguage
+    securityClearance
     classifications {
       id
       group
@@ -85,6 +87,52 @@ query getPoolAdvertisement($id: ID!) {
       fr
     }
     keyTasks {
+      en
+      fr
+    }
+    essentialSkills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      families {
+        id
+        key
+        description {
+          en
+          fr
+        }
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
+    nonessentialSkills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      families {
+        id
+        key
+        description {
+          en
+          fr
+        }
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
+    advertisementLocation {
       en
       fr
     }

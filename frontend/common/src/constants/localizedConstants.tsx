@@ -20,6 +20,8 @@ import {
   PoolStatus,
   GovEmployeeType,
   AdvertisementStatus,
+  PoolAdvertisementLanguage,
+  SecurityStatus,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -133,6 +135,38 @@ export const getLanguageAbility = (
     languageAbilities,
     languageAbilityId,
     `Invalid Language Ability '${languageAbilityId}'`,
+  );
+
+export const languageRequirements = defineMessages({
+  [PoolAdvertisementLanguage.BilingualAdvanced]: {
+    defaultMessage: "Bilingual advanced",
+    description: "The language requirement is bilingual advanced.",
+  },
+  [PoolAdvertisementLanguage.BilingualIntermediate]: {
+    defaultMessage: "Bilingual intermediate",
+    description: "The language requirement is bilingual intermediate.",
+  },
+  [PoolAdvertisementLanguage.English]: {
+    defaultMessage: "English only",
+    description: "The language requirement is English only.",
+  },
+  [PoolAdvertisementLanguage.French]: {
+    defaultMessage: "French only",
+    description: "The language requirement is French only.",
+  },
+  [PoolAdvertisementLanguage.Various]: {
+    defaultMessage: "Various",
+    description: "The language requirement is various.",
+  },
+});
+
+export const getLanguageRequirement = (
+  languageRequirementId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    languageRequirements,
+    languageRequirementId,
+    `Invalid Language Requirement '${languageRequirementId}'`,
   );
 
 export const workRegions = defineMessages({
@@ -765,4 +799,28 @@ export const getAdvertisementStatus = (
     advertisementStatus,
     advertisementStatusId,
     `Invalid  Advertisement Status '${advertisementStatusId}'`,
+  );
+
+export const securityClearances = defineMessages({
+  [SecurityStatus.Reliability]: {
+    defaultMessage: "Reliability",
+    description: "Reliability security clearance",
+  },
+  [SecurityStatus.Secret]: {
+    defaultMessage: "Secret",
+    description: "Secret security clearance",
+  },
+  [SecurityStatus.TopSecret]: {
+    defaultMessage: "Top Secret",
+    description: "Top secret security clearance",
+  },
+});
+
+export const getSecurityClearance = (
+  securityClearanceId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    securityClearances,
+    securityClearanceId,
+    `Invalid  Advertisement Status '${securityClearanceId}'`,
   );

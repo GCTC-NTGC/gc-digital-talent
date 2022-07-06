@@ -21,13 +21,21 @@ import { getLocale } from "@common/helpers/localize";
 
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
-import { IconLink } from "@common/components/Link";
+import Chip, { Chips } from "@common/components/Chip";
+import Link, { IconLink } from "@common/components/Link";
 import { Input } from "@common/components/form";
 import { IconButton } from "@common/components/Button";
 import { FormProvider, useForm } from "react-hook-form";
-import { getAdvertisementStatus } from "@common/constants/localizedConstants";
+import {
+  getAdvertisementStatus,
+  getLanguageRequirement,
+  getSecurityClearance,
+} from "@common/constants/localizedConstants";
 import { useAdminRoutes } from "../../adminRoutes";
-import { useGetPoolAdvertisementQuery } from "../../api/generated";
+import {
+  SkillCategory,
+  useGetPoolAdvertisementQuery,
+} from "../../api/generated";
 import type {
   LocalizedString,
   Maybe,
@@ -91,6 +99,42 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
   const genericTitle = classification?.genericJobTitles?.length
     ? classification.genericJobTitles[0]
     : null;
+
+  const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {
+    return skill.families?.some(
+      (family) => family.category === SkillCategory.Technical,
+    );
+  });
+
+  const essentialTransferableSkills = pool.essentialSkills?.filter((skill) => {
+    return skill.families?.some(
+      (family) => family.category === SkillCategory.Behavioural,
+    );
+  });
+
+  const nonEssentialOccupationalSkills = pool.nonessentialSkills?.filter(
+    (skill) => {
+      return skill.families?.some(
+        (family) => family.category === SkillCategory.Technical,
+      );
+    },
+  );
+
+  const nonEssentialTransferableSkills = pool.nonessentialSkills?.filter(
+    (skill) => {
+      return skill.families?.some(
+        (family) => family.category === SkillCategory.Behavioural,
+      );
+    },
+  );
+
+  const languageRequirement = intl.formatMessage(
+    getLanguageRequirement(pool.advertisementLanguage ?? ""),
+  );
+
+  const securityClearance = intl.formatMessage(
+    getSecurityClearance(pool.securityClearance ?? ""),
+  );
 
   const links = [
     {
@@ -384,7 +428,170 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <p>{pool.keyTasks?.fr || ""}</p>
           </Spacer>
         </div>
+        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+          {intl.formatMessage({
+            defaultMessage: "Need to have skills",
+            description: "Title required skills for a pool advertisement",
+          })}
+        </h2>
+        {essentialOccupationalSkills?.length ? (
+          <>
+            <h3 data-h2-font-size="b(h4)">
+              {intl.formatMessage({
+                defaultMessage: "Occupational",
+                description:
+                  "Title for pool advertisement occupational skill list",
+              })}
+            </h3>
+            <Chips>
+              {essentialOccupationalSkills.map((skill) => (
+                <Chip
+                  key={`occupationalSkill-${skill.id}`}
+                  mode="outline"
+                  color="primary"
+                  label={getLocalizedName(skill.name, intl)}
+                />
+              ))}
+            </Chips>
+          </>
+        ) : null}
+        {essentialTransferableSkills?.length ? (
+          <>
+            <h3 data-h2-font-size="b(h4)">
+              {intl.formatMessage({
+                defaultMessage: "Transferable",
+                description:
+                  "Title for pool advertisement transferable skill list",
+              })}
+            </h3>
+            <Chips>
+              {essentialTransferableSkills.map((skill) => (
+                <Chip
+                  key={`occupationalSkill-${skill.id}`}
+                  mode="outline"
+                  color="primary"
+                  label={getLocalizedName(skill.name, intl)}
+                />
+              ))}
+            </Chips>
+          </>
+        ) : null}
+        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+          {intl.formatMessage({
+            defaultMessage: "Nice to have skills",
+            description: "Title optional skills for a pool advertisement",
+          })}
+        </h2>
+        {nonEssentialOccupationalSkills?.length ? (
+          <>
+            <h3 data-h2-font-size="b(h4)">
+              {intl.formatMessage({
+                defaultMessage: "Occupational",
+                description:
+                  "Title for pool advertisement occupational skill list",
+              })}
+            </h3>
+            <Chips>
+              {nonEssentialOccupationalSkills.map((skill) => (
+                <Chip
+                  key={`occupationalSkill-${skill.id}`}
+                  mode="outline"
+                  color="primary"
+                  label={getLocalizedName(skill.name, intl)}
+                />
+              ))}
+            </Chips>
+          </>
+        ) : null}
+        {nonEssentialTransferableSkills?.length ? (
+          <>
+            <h3 data-h2-font-size="b(h4)">
+              {intl.formatMessage({
+                defaultMessage: "Transferable",
+                description:
+                  "Title for pool advertisement transferable skill list",
+              })}
+            </h3>
+            <Chips>
+              {nonEssentialTransferableSkills.map((skill) => (
+                <Chip
+                  key={`occupationalSkill-${skill.id}`}
+                  mode="outline"
+                  color="primary"
+                  label={getLocalizedName(skill.name, intl)}
+                />
+              ))}
+            </Chips>
+          </>
+        ) : null}
+        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+          {intl.formatMessage({
+            defaultMessage: "Requirements",
+            description: "Title for a pool advertisement requirements",
+          })}
+        </h2>
+        <ul>
+          <li>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Language requirement: {languageRequirement}",
+                description: "Pool advertisement language requirement",
+              },
+              {
+                languageRequirement,
+              },
+            )}
+          </li>
+          <li>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Security clearance: {securityClearance}",
+                description:
+                  "Pool advertisement security clearance requirement",
+              },
+              {
+                securityClearance,
+              },
+            )}
+          </li>
+          <li>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Location (EN): {locationEn}",
+                description: "Pool advertisement location requirement, English",
+              },
+              {
+                locationEn: pool.advertisementLocation?.en ?? "",
+              },
+            )}
+          </li>
+          <li>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Location (FR): {locationFr}",
+                description: "Pool advertisement location requirement, French",
+              },
+              {
+                locationFr: pool.advertisementLocation?.fr ?? "",
+              },
+            )}
+          </li>
+        </ul>
       </FormProvider>
+      <p data-h2-margin="b(top, l)">
+        <Link
+          type="button"
+          mode="solid"
+          color="secondary"
+          href={adminPaths.poolTable()}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Back to pools",
+            description:
+              "Link text for buttons to go back to the admin pools page",
+          })}
+        </Link>
+      </p>
     </DashboardContentContainer>
   );
 };
