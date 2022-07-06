@@ -1,15 +1,92 @@
 import { InputMaybe, OrderByClause, SortOrder } from "@common/api/generated";
 import React from "react";
+import { IntlShape } from "react-intl";
+import { IndeterminateCheckbox } from "../Table/tableComponents";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
 // Information about a column in a table
 export type Column<T> = {
   label: string;
+  header?: React.ReactNode;
   id: IdType<T>;
   accessor: (object: T) => React.ReactNode;
   sortColumnName?: string; // API requires exact DB column name for sorting, not the name of the field in the API 😢
 };
+
+// This defines the row selection column
+export function rowSelectionColumn<T>(
+  intl: IntlShape,
+  selectedRows: T[],
+  pageSize: number,
+  onRowSelectionChange: (e: RowSelectedEvent<T>) => void,
+): Column<T> {
+  return {
+    label: intl.formatMessage({
+      defaultMessage: "Selection",
+      description:
+        "Label for the row-selection column in the tables column-selection modal.",
+    }),
+    header: (
+      <IndeterminateCheckbox
+        checked={selectedRows.length === pageSize}
+        indeterminate={
+          selectedRows.length > 0 && selectedRows.length < pageSize
+        }
+        onChange={() => {
+          onRowSelectionChange({ setSelected: selectedRows.length < pageSize });
+        }}
+      />
+    ),
+    accessor: (r) => {
+      return (
+        <input
+          type="checkbox"
+          checked={selectedRows.includes(r)}
+          onChange={() => {
+            onRowSelectionChange({
+              row: r,
+              setSelected: !selectedRows.includes(r),
+            });
+          }}
+        />
+      );
+    }, // callback extracted to separate function to stabilize memoized component>
+    id: "selection",
+  };
+}
+
+// row(s) are becoming selected or deselected
+// if row is null then toggle all rows on the page simultaneously
+export type RowSelectedEvent<T> = {
+  row?: T;
+  setSelected: boolean;
+};
+
+// pass in the event and setSelectedRows will be called with the right set of rows
+export function handleRowSelectedChange<T>(
+  allRows: T[],
+  selectedRows: T[],
+  setSelectedRows: (rows: T[]) => void,
+  { row, setSelected }: RowSelectedEvent<T>,
+): void {
+  if (row && setSelected) {
+    // row is provided, add row to selected list
+    setSelectedRows([...selectedRows, row]);
+  }
+  if (row && !setSelected) {
+    // row is provided, remove row from selected list
+    setSelectedRows(selectedRows.filter((r) => r !== row));
+  }
+  if (!row && setSelected) {
+    // row not provided, add all rows to selected list
+    setSelectedRows([...allRows]);
+  }
+  if (!row && !setSelected) {
+    // row not provided, remove all rows from selected list
+    setSelectedRows([]);
+  }
+}
 
 // Information about the sorting order of a table
 export interface SortingRule<T> {

@@ -24,6 +24,7 @@ function BasicTable<T extends Record<string, unknown>>({
   hiddenColumnIds,
 }: BasicTableProps<T>): ReactElement {
   const intl = useIntl();
+
   // calculate a new sortingRule and emit it to parent
   const handleColumnSelect = (column: Column<T>): void => {
     // some columns are not sortable
@@ -97,7 +98,7 @@ function BasicTable<T extends Record<string, unknown>>({
                     })}
                     onClick={() => handleColumnSelect(column)}
                   >
-                    {column.label}
+                    {column.header ? column.header : column.label}
                     {sortingRule?.column.id === column.id && (
                       <SortIcon isSortedDesc={sortingRule.desc} />
                     )}
