@@ -3,7 +3,10 @@
  */
 
 import { fakeApplicants } from "../fakeData";
-import { invertSkillExperienceTree, invertSkillTree } from "./skillUtils";
+import {
+  invertSkillExperienceTree,
+  invertSkillSkillFamilyTree,
+} from "./skillUtils";
 import {
   Experience,
   Skill,
@@ -49,7 +52,7 @@ describe("skill util tests", () => {
         ],
       },
     ];
-    const actual = invertSkillTree(skills);
+    const actual = invertSkillSkillFamilyTree(skills);
     expect(actual).toEqual(expected);
   });
   test("inverts a skill tree with three skills in a single family", () => {
@@ -129,7 +132,7 @@ describe("skill util tests", () => {
         ],
       },
     ];
-    const actual = invertSkillTree(skills);
+    const actual = invertSkillSkillFamilyTree(skills);
     expect(actual).toEqual(expected);
   });
   test("inverts a skill tree with a single skill in three families", () => {
@@ -213,7 +216,7 @@ describe("skill util tests", () => {
         ],
       },
     ];
-    const actual = invertSkillTree(skills);
+    const actual = invertSkillSkillFamilyTree(skills);
     expect(actual).toEqual(expected);
   });
   test("inverts an experience tree with a single experience in a single skill", () => {

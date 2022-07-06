@@ -7,7 +7,7 @@ import { notEmpty } from "./util";
  * @param { Skill[] } skills - The collection of skills with child skill families to invert
  * @returns { SkillFamily[] } - The new collection of skill families with child skills
  */
-export function invertSkillTree(skills: Skill[]): SkillFamily[] {
+export function invertSkillSkillFamilyTree(skills: Skill[]): SkillFamily[] {
   const allChildSkillFamilies = flatMap(skills, (s) => s.families).filter(
     notEmpty,
   );
@@ -72,4 +72,4 @@ export function invertSkillExperienceTree(experiences: Experience[]): Skill[] {
   return skillsWithExperiences;
 }
 
-export default { invertSkillTree, invertSkillExperienceTree };
+export default { invertSkillSkillFamilyTree, invertSkillExperienceTree };
