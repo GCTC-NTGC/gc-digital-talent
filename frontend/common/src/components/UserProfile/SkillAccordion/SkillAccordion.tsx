@@ -27,6 +27,10 @@ import {
   isWorkExperience,
 } from "../../../types/ExperienceUtils";
 
+const purpleText = (chunks: string[]) => (
+  <span data-h2-font-color="b(lightpurple)">{...chunks}</span>
+);
+
 export interface SkillAccordionProps {
   skill: Skill;
 }
@@ -43,7 +47,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     const { title, description, startDate, endDate, details } = experience;
     return (
       <>
-        <p data-h2-font-color="b(lightpurple)"> {title} </p>
+        <p data-h2-font-color="b(lightpurple)">{title}</p>
         <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
         <p> {description} </p>
         <p> {details} </p>
@@ -110,16 +114,13 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <>
         <p>
-          <span data-h2-font-color="b(lightpurple)" title="award">
-            {" "}
-            {title}{" "}
-          </span>
           {intl.formatMessage(
             {
-              defaultMessage: " issued by {issuedBy}",
+              defaultMessage:
+                "<purpleText>{title}</purpleText> issued by {issuedBy}",
               description: "The award title is issued by some group",
             },
-            { issuedBy },
+            { issuedBy, title, purpleText },
           )}
         </p>
         <p>
@@ -158,13 +159,13 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <>
         <p>
-          <span data-h2-font-color="b(lightpurple)"> {title} </span>
           {intl.formatMessage(
             {
-              defaultMessage: " at {organization}",
+              defaultMessage:
+                "<purpleText>{title}</purpleText> at {organization}",
               description: "Title at organization",
             },
-            { organization },
+            { organization, title, purpleText },
           )}
         </p>
         <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
@@ -198,15 +199,12 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <>
         <p>
-          <span data-h2-font-color="b(lightpurple)" title="work">
-            {role}{" "}
-          </span>
           {intl.formatMessage(
             {
-              defaultMessage: " at {division}",
+              defaultMessage: "<purpleText>{role}</purpleText> at {division}",
               description: "Role at Team, Group or Division",
             },
-            { division },
+            { division, role, purpleText },
           )}
         </p>
         <p>{organization}</p>

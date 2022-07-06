@@ -86,7 +86,13 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
             "Definition of accepted ways to identify as a visible minority",
         })}
       </p>
-      <Definition url="https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=45152" />
+      <Definition
+        url={
+          intl.locale === "en"
+            ? "https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=45152"
+            : "https://www23.statcan.gc.ca/imdb/p3Var_f.pl?Function=DEC&Id=45152"
+        }
+      />
     </Dialog>
   );
 };
