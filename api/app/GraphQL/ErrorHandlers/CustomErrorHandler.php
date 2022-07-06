@@ -27,7 +27,7 @@ class CustomErrorHandler implements ErrorHandler
     }
     public static function handle(Error $error, Closure $next): array
     {
-        Log::error('Brinda throw GRAPHQL Error: '.$error->message);
+        Log::error('GRAPHQL Error: '.$error->message);
         $underlyingException = $error->getPrevious();
 
         if ($underlyingException instanceof RendersErrorsExtensions) {
