@@ -16,7 +16,7 @@ Follow the regular github process to apply the changes in the [`/GCTC-NTGC/tc-re
 1. Clone the repository to your workstation
 2. Make a feature branch with your changes
 3. Open a pull request
-4. Have your feature branch merged into `main`.
+4. Have your feature branch merged into `main`
 
 More information on how to work with the repository and the Jekyll site builder are in [`/GCTC-NTGC/tc-report#readme`](https://github.com/GCTC-NTGC/tc-report#readme).
 
