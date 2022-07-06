@@ -9,7 +9,10 @@ import { toast } from "react-toastify";
 import { empty, notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { getGovEmployeeType } from "@common/constants/localizedConstants";
-import { enumToOptions } from "@common/helpers/formUtils";
+import {
+  enumToOptions,
+  objectsToSortedOptions,
+} from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
 import {
   Classification,
@@ -151,7 +154,6 @@ export const GovernmentInfoForm: React.FunctionComponent<
   groupSelection,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
   // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
   const classGroupsWithDupes: { value: string; label: string }[] =
@@ -182,19 +184,6 @@ export const GovernmentInfoForm: React.FunctionComponent<
         label: iterator.level.toString(),
       };
     });
-
-  const departmentOptions: { value: string; label: string }[] = departments.map(
-    ({ id, name }) => ({
-      value: id,
-      label:
-        name[locale] ??
-        intl.formatMessage({
-          defaultMessage: "Error: department name not found.",
-          description:
-            "Error message when department name is not found on request page.",
-        }),
-    }),
-  );
 
   // render the actual form
   return (
@@ -255,7 +244,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
                 description:
                   "Null selection for department select input in the request form.",
               })}
-              options={departmentOptions}
+              options={objectsToSortedOptions(departments, intl)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
