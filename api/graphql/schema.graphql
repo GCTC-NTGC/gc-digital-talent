@@ -417,10 +417,11 @@ type PoolCandidateSearchRequest {
     department: Department @belongsTo
     jobTitle: String @rename(attribute: "job_title")
     additionalComments: String @rename(attribute: "additional_comments")
-    poolCandidateFilter: PoolCandidateFilter! @belongsTo
     requestedDate: DateTime @rename(attribute: "created_at")
     status: PoolCandidateSearchStatus
     adminNotes: String @rename(attribute: "admin_notes")
+    poolCandidateFilter: PoolCandidateFilter @belongsTo
+    applicantFilter: ApplicantFilter @belongsTo
 }
 
 enum SkillCategory {
@@ -1007,13 +1008,40 @@ input PoolCandidateFilterBelongsTo {
     create: CreatePoolCandidateFilterInput!
 }
 
+input CreateApplicantFilterPoolRecordInput {
+    pool: PoolBelongsTo!
+    expiryStatus: CandidateExpiryFilter @rename(attribute: "expiry_status")
+    statuses: [PoolCandidateStatus] @rename(attribute: "pool_candidate_statuses")
+}
+
+input ApplicantFilterPoolRecordHasMany {
+    create: [CreateApplicantFilterPoolRecordInput!]
+}
+
+input CreateApplicantFilterInput {
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    equity: EquitySelectionsInput
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    locationPreferences: [WorkRegion] @rename(attribute: "work_regions")
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    expectedClassifications: ClassificationBelongsToMany
+    skills: SkillBelongsToMany
+    poolFilters: ApplicantFilterPoolRecordHasMany
+}
+
+input ApplicantFilterBelongsTo {
+    create: CreateApplicantFilterInput!
+}
+
 input CreatePoolCandidateSearchRequestInput {
     fullName: String! @rename(attribute: "full_name")
     email: Email!
     department: DepartmentBelongsTo!
     jobTitle: String! @rename(attribute: "job_title")
     additionalComments: String @rename(attribute: "additional_comments")
-    poolCandidateFilter: PoolCandidateFilterBelongsTo!
+    poolCandidateFilter: PoolCandidateFilterBelongsTo # TODO: remove this field when we've completed the transition from using poolCandidateCount to applicantCount
+    applicantFilter: ApplicantFilterBelongsTo # TODO: make this required when we've completed the transition from using poolCandidateCount to applicantCount
     # requestedDate will be set to current date in Eloquent model.
     # status will be set to PENDING in Eloquent model.
 }

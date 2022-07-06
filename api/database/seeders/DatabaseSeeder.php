@@ -156,9 +156,14 @@ class DatabaseSeeder extends Seeder
                 })->create();
         });
 
-        ApplicantFilter::factory()->sparse()->withRelationships(true)->count(10)->create();
-
-        PoolCandidateSearchRequest::factory()->count(10)->create();
+        // Create some SearchRequests with old filters, some with new.
+        PoolCandidateSearchRequest::factory()->count(5)->create([
+            'applicant_filter_id' => null
+        ]);
+        PoolCandidateSearchRequest::factory()->count(5)->create([
+            'pool_candidate_filter_id' => null,
+            'applicant_filter_id' => ApplicantFilter::factory()->sparse()->withRelationships(true)
+        ]);
     }
 
     // drop all rows from some tables so that the seeder can fill them fresh
