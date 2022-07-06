@@ -1,11 +1,18 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* NOTE: This is temporary until we start the Candidates/Requests pages */
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { ViewGridIcon, HomeIcon } from "@heroicons/react/outline";
+import {
+  CogIcon,
+  HomeIcon,
+  TicketIcon,
+  UserGroupIcon,
+  ViewGridIcon,
+} from "@heroicons/react/outline";
 
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
-import { Link } from "@common/components";
 import {
   Tabs,
   TabList,
@@ -18,15 +25,17 @@ import { getLocale } from "@common/helpers/localize";
 
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { IconLink } from "@common/components/Link";
 import { useAdminRoutes } from "../../adminRoutes";
 import { useGetPoolQuery } from "../../api/generated";
 import type { Pool } from "../../api/generated";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 interface ViewPoolPageProps {
   pool: Pool;
 }
 
-export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
+export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const adminPaths = useAdminRoutes();
@@ -72,36 +81,58 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
   ];
 
   return (
-    <>
-      <PageHeader icon={ViewGridIcon}>{pageTitle}</PageHeader>
+    <DashboardContentContainer>
+      <PageHeader icon={ViewGridIcon}>{poolName}</PageHeader>
       <Breadcrumbs links={links} />
       <div
-        data-h2-align-items="b(center)"
         data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column) m(row)"
-        data-h2-margin="b(top-bottom, l)"
+        data-h2-flex-wrap="b(wrap)"
+        data-h2-margin="b(top-bottom, m)"
       >
-        {pool.name && (
-          <h2
-            data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
-            data-h2-font-weight="b(800)"
-          >
-            {poolName}
-          </h2>
-        )}
-        <div data-h2-margin="m(left, auto)">
-          <Link
-            mode="outline"
-            color="primary"
+        <span data-h2-margin="b(bottom-right, s)">
+          <IconLink
+            mode="solid"
+            color="secondary"
             type="button"
-            href={adminPaths.poolUpdate(pool.id)}
+            href="#"
+            icon={UserGroupIcon}
           >
             {intl.formatMessage({
-              defaultMessage: "Edit pool",
+              defaultMessage: "Manage candidates",
+              description:
+                "Link text for button to manage candidates of a specific pool",
+            })}
+          </IconLink>
+        </span>
+        <span data-h2-margin="b(bottom-right, s)">
+          <IconLink
+            mode="solid"
+            color="secondary"
+            type="button"
+            href="#"
+            icon={TicketIcon}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Manage requests",
+              description:
+                "Link text for button to manage requests of a specific pool",
+            })}
+          </IconLink>
+        </span>
+        <span data-h2-margin="b(bottom-right, s)">
+          <IconLink
+            mode="solid"
+            color="secondary"
+            type="button"
+            href={adminPaths.poolUpdate(pool.id)}
+            icon={CogIcon}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Edit pool advertisement",
               description: "Link text for button to edit a specific pool",
             })}
-          </Link>
-        </div>
+          </IconLink>
+        </span>
       </div>
       <Tabs>
         <TabList>
@@ -116,7 +147,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
           <TabPanel>{tabs[1]}</TabPanel>
         </TabPanels>
       </Tabs>
-    </>
+    </DashboardContentContainer>
   );
 };
 
