@@ -36,7 +36,7 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
 };
 
-type FooterProps = Pick<DialogProps, "children">;
+type FooterProps = { children: DialogProps["footer"] };
 const Footer = ({ children }: FooterProps) => (
   <div
     className="dialog__footer"
