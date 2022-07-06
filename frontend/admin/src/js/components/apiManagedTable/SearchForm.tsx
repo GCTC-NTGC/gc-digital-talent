@@ -1,4 +1,5 @@
 import React from "react";
+import debounce from "lodash/debounce";
 import { useIntl } from "react-intl";
 
 import DropdownMenu, {
@@ -7,7 +8,7 @@ import DropdownMenu, {
   MenuList,
 } from "@common/components/DropdownMenu";
 
-import { useDebounce, type SearchColumn } from "./basicTableHelpers";
+import type { SearchColumn } from "./basicTableHelpers";
 
 export interface SearchFormProps {
   onChange: (val: string | undefined, col: string | undefined) => void;
@@ -16,25 +17,38 @@ export interface SearchFormProps {
 
 const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
   const intl = useIntl();
-  const [searchTerm, setSearchTerm] = React.useState<string | undefined>(
-    undefined,
-  );
   const [column, setColumn] = React.useState<SearchColumn | undefined>(
     undefined,
   );
-  const debouncedSearchTerm = useDebounce(searchTerm, 200);
+  const [searchTerm, setSearchTerm] = React.useState<string | undefined>(
+    undefined,
+  );
   const showDropdown = searchBy && searchBy.length;
 
-  React.useEffect(() => {
-    onChange(debouncedSearchTerm, column?.value);
-    // NOTE: onChange causes infinite rerenders
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearchTerm, column]);
+  const handleChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      setSearchTerm(e.target.value);
+      onChange(e.target.value, column?.value);
+    },
+    [column, onChange],
+  );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setSearchTerm(e.target.value);
+  const debouncedChangeHandler = React.useMemo(
+    () => debounce(handleChange, 300),
+    [handleChange],
+  );
+
+  const handleColumnChange = (col: SearchColumn | undefined) => {
+    setColumn(col);
+    onChange(searchTerm, col?.value);
   };
+
+  React.useEffect(() => {
+    return () => {
+      debouncedChangeHandler.cancel();
+    };
+  }, [debouncedChangeHandler]);
 
   const allTableMsg = intl.formatMessage({
     defaultMessage: "All table",
@@ -54,11 +68,14 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
             {column ? column.label : allTableMsg}
           </MenuButton>
           <MenuList>
-            <MenuItem onSelect={() => setColumn(undefined)}>
+            <MenuItem onSelect={() => handleColumnChange(undefined)}>
               {allTableMsg}
             </MenuItem>
             {searchBy.map((col) => (
-              <MenuItem key={col.value} onSelect={() => setColumn(col)}>
+              <MenuItem
+                key={col.value}
+                onSelect={() => handleColumnChange(col)}
+              >
                 {col.label}
               </MenuItem>
             ))}
@@ -69,7 +86,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
         name="search"
         id="tableSearch"
         type="text"
-        onChange={(e) => handleChange(e)}
+        onChange={debouncedChangeHandler}
         aria-label={intl.formatMessage({
           defaultMessage: "Search Table",
           description: "Label for search field on admin tables.",
