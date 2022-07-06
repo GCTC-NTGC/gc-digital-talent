@@ -63,20 +63,23 @@ const SelectFieldV2 = ({
           <Controller
             {...{ name, rules }}
             render={({ field }) => {
-              /** Converts our react-hook-form state to Option format that
-               * react-select understands. */
-              const convertValueToOption = (val: Option["value"]) =>
-                options.find((o) => val === o.value);
-              /** Converts react-select's more complex Option type into state we
-               * want in react-hook-form: an array of values. This works whether
-               * react-select is working with Option[] (MultiValue) or Option
-               * (SingleValue) */
+              /** Converts our react-hook-form state to Option or Option[]
+               * format that react-select understands. */
+              const convertValueToOption = (
+                val: Option["value"] | Option["value"][],
+              ) =>
+                isArray<Option["value"]>(val)
+                  ? // Converts to Option[] for MultiSelect.
+                    options.filter((o) => val?.includes(o.value)) || []
+                  : // Converts to Option or null for single Select.
+                    options.find((o) => val === o.value) || null;
+
               const convertSingleOrMultiOptionsToValues = (
                 singleOrMulti: PropsValue<Option>,
               ) =>
                 isArray<Option>(singleOrMulti)
                   ? field.onChange(singleOrMulti.map((o) => o.value))
-                  : field.onChange(singleOrMulti?.value || null);
+                  : field.onChange(singleOrMulti ? [singleOrMulti?.value] : []);
 
               return (
                 <ReactSelect
