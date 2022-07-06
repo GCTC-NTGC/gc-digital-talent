@@ -30,7 +30,7 @@ describe("Admin Workflow Tests", () => {
 
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "AllUsers");
+      aliasQuery(req, "AllUsersPaginated");
       aliasQuery(req, "User");
       aliasMutation(req, "UpdateUserAsAdmin");
     });
@@ -41,7 +41,7 @@ describe("Admin Workflow Tests", () => {
   it("Searches for a user and reviews the profile", () => {
     // find the applicant user to review
     cy.findByRole("link", { name: /Manage users/i }).click();
-    cy.wait("@gqlAllUsersQuery");
+    cy.wait("@gqlAllUsersPaginatedQuery");
 
     searchForUser("Applicant Test");
 
@@ -76,7 +76,7 @@ describe("Admin Workflow Tests", () => {
   it("Searches for a user and edits the phone number", () => {
     // find the applicant user to edit
     cy.findByRole("link", { name: /Manage users/i }).click();
-    cy.wait("@gqlAllUsersQuery");
+    cy.wait("@gqlAllUsersPaginatedQuery");
     searchForUser("Applicant");
 
     cy.findByRole("table")
