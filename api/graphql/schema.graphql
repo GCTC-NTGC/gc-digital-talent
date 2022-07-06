@@ -392,22 +392,22 @@ type PoolCandidateFilter {
 
 type ApplicantFilterPoolRecord {
     pool: Pool!
-    expiryStatus: CandidateExpiryFilter
+    expiryStatus: CandidateExpiryFilter @rename(attribute: "expiry_status")
     statuses: [PoolCandidateStatus] @rename(attribute: "pool_candidate_statuses")
 }
 
+# ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
 type ApplicantFilter {
     id: ID!
-    expectedClassifications: [Classification]
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     equity: EquitySelections
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
-    locationPreferences: [WorkRegion]
-    wouldAcceptTemporary: Boolean
-    skills: [Skill]
-    jobLookingStatus: [JobLookingStatus]
-    pools: [ApplicantFilterPoolRecord]
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    expectedClassifications: [Classification] @belongsToMany(relation: "classifications")
+    skills: [Skill] @belongsToMany
+    poolFilters: [ApplicantFilterPoolRecord] @hasMany(relation: "applicantFilterPoolRecords")
 }
 
 type PoolCandidateSearchRequest {
@@ -664,6 +664,8 @@ type Query {
     departments: [Department]! @all
     poolCandidateFilter(id: ID! @eq): PoolCandidateFilter @find @guard @can(ability: "view", query: true)
     poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "viewAny")
+    applicantFilter(id: ID! @eq): ApplicantFilter @find @guard @can(ability: "view", query: true)
+    applicantFilters: [ApplicantFilter]! @all @guard @can(ability: "viewAny")
     poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
     poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
     latestPoolCandidateSearchRequests(limit: Int @limit): [PoolCandidateSearchRequest]! @all @orderBy(column: "created_at", direction: DESC) @guard @can(ability: "viewAny")

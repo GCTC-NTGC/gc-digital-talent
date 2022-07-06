@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class ApplicantFilter
  *
- * @property int $id
+ * @property string $id
  * @property boolean $has_diploma
  * @property boolean $has_disability
  * @property boolean $is_indigenous

@@ -44,8 +44,21 @@ type Applicant {
   expectedGenericJobTitles: [GenericJobTitle]
 }
 
+type ApplicantFilter {
+  id: ID!
+  hasDiploma: Boolean
+  equity: EquitySelections
+  languageAbility: LanguageAbility
+  operationalRequirements: [OperationalRequirement]
+  locationPreferences: [WorkRegion]
+  wouldAcceptTemporary: Boolean
+  expectedClassifications: [Classification]
+  skills: [Skill]
+  poolFilters: [ApplicantFilterPoolRecord]
+}
+
 input ApplicantFilterInput {
-  poolCandidates: UserPoolFilterInput
+  pools: UserPoolFilterInput
   jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES]
   languageAbility: LanguageAbility
   expectedClassifications: [ClassificationFilterInput]
@@ -832,6 +845,8 @@ type Query {
   departments: [Department]!
   poolCandidateFilter(id: ID!): PoolCandidateFilter
   poolCandidateFilters: [PoolCandidateFilter]!
+  applicantFilter(id: ID!): ApplicantFilter
+  applicantFilters: [ApplicantFilter]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
   latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!

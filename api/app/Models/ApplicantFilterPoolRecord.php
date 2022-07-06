@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Class ApplicantFilterPoolRecord
  *
- * @property int $id
+ * @property string $id
  * @property int $pool_id
  * @property int $applicant_filter_id
  * @property string $expiry_status
