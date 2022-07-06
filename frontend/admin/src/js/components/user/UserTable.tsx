@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Link, useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
@@ -81,6 +81,10 @@ export const UserTable: React.FC = () => {
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
   const [searchState, setSearchState] = useState<string | undefined>();
+
+  useEffect(() => {
+    setSelectedRows([]);
+  }, [currentPage, pageSize, searchState, sortingRule]);
 
   const [result] = useAllUsersPaginatedQuery({
     variables: {
