@@ -18,7 +18,6 @@ import {
   WorkRegion,
   OperationalRequirement,
   JobLookingStatus,
-  EducationType,
   GovEmployeeType,
   Language,
 } from "../api/generated";
@@ -29,7 +28,6 @@ export type FormValues = {
   classifications: Option["value"][];
   workPreferences: Option["value"][];
   workLocations: Option["value"][];
-  education: Option["value"][];
   durationPreferences: Option["value"][];
   availability: Option["value"][];
   skillFilter: Option["value"][];
@@ -43,7 +41,6 @@ export const defaultFormValues = {
   classifications: [],
   workPreferences: [],
   workLocations: [],
-  education: [],
   durationPreferences: [],
   availability: [],
   skillFilter: [],
@@ -113,7 +110,6 @@ const SearchFilter = ({
       value,
       label: formatMessage(getWorkRegion(value)),
     })),
-    education: enumToOptions(EducationType),
     durationPreferences: ["Term", "Indeterminate"].map(
       generateOptionsFromValues,
     ),
@@ -196,16 +192,6 @@ const SearchFilter = ({
         </div>
         <div style={{ display: "flex" }}>
           <div style={{ flexGrow: 1 }}>
-            <SelectFieldV2
-              forceArrayFormValue
-              id="education"
-              label={formatMessage({
-                defaultMessage: "Education",
-              })}
-              options={optionsData.education}
-            />
-          </div>
-          <div style={{ flexGrow: 1, marginLeft: 20 }}>
             <SelectFieldV2
               forceArrayFormValue
               id="durationPreferences"
