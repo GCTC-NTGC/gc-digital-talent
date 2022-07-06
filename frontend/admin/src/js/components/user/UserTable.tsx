@@ -169,12 +169,13 @@ export const UserTable: React.FC = () => {
         })}
       </h2>
       <TableHeader
-        onSearchChange={(term: string | undefined, col: string | undefined) =>
+        onSearchChange={(term: string | undefined, col: string | undefined) => {
+          setCurrentPage(1);
           setSearchState({
             term,
             col,
-          })
-        }
+          });
+        }}
         columns={columns}
         addBtn={{
           label: intl.formatMessage({
