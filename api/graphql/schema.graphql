@@ -721,7 +721,13 @@ input CreateUserInput {
     # Personal info
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
-    email: Email @rules(apply: ["unique:users,email"])
+    email: Email @rules(apply: ["unique:users,email"],
+    messages: [
+        {
+            rule: "unique"
+            message: "Email address should be unique"
+        }
+    ])
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
