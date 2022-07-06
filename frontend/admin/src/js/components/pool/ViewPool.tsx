@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* NOTE: This is temporary until we start the Candidates/Requests pages */
 import * as React from "react";
-import { useIntl } from "react-intl";
+import { useIntl, type IntlShape } from "react-intl";
 import {
   CheckIcon,
   ClipboardIcon,
@@ -25,14 +25,41 @@ import { IconLink } from "@common/components/Link";
 import { Input } from "@common/components/form";
 import { IconButton } from "@common/components/Button";
 import { FormProvider, useForm } from "react-hook-form";
+import { getAdvertisementStatus } from "@common/constants/localizedConstants";
 import { useAdminRoutes } from "../../adminRoutes";
 import { useGetPoolAdvertisementQuery } from "../../api/generated";
-import type { PoolAdvertisement } from "../../api/generated";
+import type {
+  LocalizedString,
+  Maybe,
+  PoolAdvertisement,
+} from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
-const Spacer = ({ children }: { children: React.ReactNode }) => (
-  <span data-h2-margin="b(bottom-right, s)">{children}</span>
+type SpacerProps = React.HTMLProps<HTMLSpanElement>;
+
+const Spacer = ({ children, ...rest }: SpacerProps) => (
+  <span data-h2-margin="b(bottom-right, s)" {...rest}>
+    {children}
+  </span>
 );
+
+const getLocalizedName = (
+  name: Maybe<LocalizedString>,
+  intl: IntlShape,
+): string => {
+  const locale = getLocale(intl);
+
+  const notAvailable = intl.formatMessage({
+    defaultMessage: "N/A",
+    description: "displayed when localized string not available",
+  });
+
+  if (!name) {
+    return notAvailable;
+  }
+
+  return name[locale] ?? notAvailable;
+};
 
 interface ViewPoolPageProps {
   pool: PoolAdvertisement;
@@ -60,6 +87,10 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
   });
 
   const poolName = pool.name ? pool.name[locale] : pageTitle;
+  const classification = pool.classifications ? pool.classifications[0] : null;
+  const genericTitle = classification?.genericJobTitles?.length
+    ? classification.genericJobTitles[0]
+    : null;
 
   const links = [
     {
@@ -203,6 +234,154 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   "Link text to view the public facing pool advertisement",
               })}
             </IconLink>
+          </Spacer>
+        </div>
+        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+          {intl.formatMessage({
+            defaultMessage: "Details",
+            description: "Sub title for admin view pool page",
+          })}
+        </h2>
+        {classification ? (
+          <>
+            <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
+              <Spacer>
+                <Input
+                  id="targetClassification"
+                  name="targetClassification"
+                  type="text"
+                  readOnly
+                  hideOptional
+                  value={`${classification.group}-0${classification.level}`}
+                  label={intl.formatMessage({
+                    defaultMessage: "Target classification",
+                    description:
+                      "Label for a pool advertisements classification group and level",
+                  })}
+                />
+              </Spacer>
+              <Spacer>
+                <Input
+                  id="genericTitle"
+                  name="genericTitle"
+                  type="text"
+                  readOnly
+                  hideOptional
+                  value={getLocalizedName(genericTitle?.name, intl)}
+                  label={intl.formatMessage({
+                    defaultMessage: "Generic",
+                    description:
+                      "Label for a pool advertisements generic title",
+                  })}
+                />
+              </Spacer>
+            </div>
+            <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
+              <Spacer style={{ flex: 1 }}>
+                <Input
+                  id="specificTitleEn"
+                  name="specificTitleEn"
+                  type="text"
+                  readOnly
+                  hideOptional
+                  value={classification?.name?.en ?? ""}
+                  label={intl.formatMessage({
+                    defaultMessage: "Specific Title (EN)",
+                    description:
+                      "Label for a pool advertisements specific English title",
+                  })}
+                />
+              </Spacer>
+              <Spacer style={{ flex: 1 }}>
+                <Input
+                  id="specificTitleFr"
+                  name="specificTitleFr"
+                  type="text"
+                  readOnly
+                  hideOptional
+                  value={classification?.name?.fr ?? ""}
+                  label={intl.formatMessage({
+                    defaultMessage: "Specific Title (FR)",
+                    description:
+                      "Label for a pool advertisements specific French title",
+                  })}
+                />
+              </Spacer>
+            </div>
+          </>
+        ) : null}
+        <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
+          <Spacer>
+            <Input
+              id="expiryDate"
+              name="expiryDate"
+              type="text"
+              readOnly
+              hideOptional
+              value={new Date(pool.expiryDate).toLocaleString(locale, {
+                dateStyle: "medium",
+              })}
+              label={intl.formatMessage({
+                defaultMessage: "Closing date",
+                description: "Label for a pool advertisements expiry date",
+              })}
+            />
+          </Spacer>
+          <Spacer>
+            <Input
+              id="status"
+              name="status"
+              type="text"
+              readOnly
+              hideOptional
+              value={intl.formatMessage(
+                getAdvertisementStatus(pool.advertisementStatus ?? ""),
+              )}
+              label={intl.formatMessage({
+                defaultMessage: "Status",
+                description: "Label for a pool advertisements status",
+              })}
+            />
+          </Spacer>
+        </div>
+        <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
+          <Spacer style={{ flex: 1 }}>
+            <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+              {intl.formatMessage({
+                defaultMessage: "Your Impact (EN)",
+                description: "Title for English pool advertisement impact",
+              })}
+            </h2>
+            <p>{pool.yourImpact?.en || ""}</p>
+          </Spacer>
+          <Spacer style={{ flex: 1 }}>
+            <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+              {intl.formatMessage({
+                defaultMessage: "Your Impact (FR)",
+                description: "Title for French pool advertisement impact",
+              })}
+            </h2>
+            <p>{pool.yourImpact?.fr || ""}</p>
+          </Spacer>
+        </div>
+        <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
+          <Spacer style={{ flex: 1 }}>
+            <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+              {intl.formatMessage({
+                defaultMessage: "Your Work (EN)",
+                description: "Title for English pool advertisement Work",
+              })}
+            </h2>
+            <p>{pool.keyTasks?.en || ""}</p>
+          </Spacer>
+          <Spacer style={{ flex: 1 }}>
+            <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+              {intl.formatMessage({
+                defaultMessage: "Your Work (FR)",
+                description: "Title for French pool advertisement Work",
+              })}
+            </h2>
+            <p>{pool.keyTasks?.fr || ""}</p>
           </Spacer>
         </div>
       </FormProvider>

@@ -61,6 +61,8 @@ query getPoolAdvertisement($id: ID!) {
       en
       fr
     }
+    expiryDate
+    advertisementStatus
     classifications {
       id
       group
@@ -69,6 +71,22 @@ query getPoolAdvertisement($id: ID!) {
         en
         fr
       }
+      genericJobTitles {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+    yourImpact {
+      en
+      fr
+    }
+    keyTasks {
+      en
+      fr
     }
   }
 }
