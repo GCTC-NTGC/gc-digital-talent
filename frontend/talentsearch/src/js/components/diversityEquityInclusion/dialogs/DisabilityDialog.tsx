@@ -85,7 +85,13 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
             "Definition of accepted ways to identify as person with a disability.",
         })}
       </p>
-      <Definition url="https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1" />
+      <Definition
+        url={
+          intl.locale === "en"
+            ? "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1"
+            : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1"
+        }
+      />
     </Dialog>
   );
 };
