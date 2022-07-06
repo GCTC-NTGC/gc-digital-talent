@@ -154,7 +154,6 @@ export const GovernmentInfoForm: React.FunctionComponent<
   groupSelection,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
   // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
   const classGroupsWithDupes: { value: string; label: string }[] =

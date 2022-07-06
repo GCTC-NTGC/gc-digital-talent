@@ -78,7 +78,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useTalentSearchRoutes();
   const cacheKey = "ts-createRequest";
 
