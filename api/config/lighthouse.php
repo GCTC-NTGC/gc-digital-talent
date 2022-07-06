@@ -211,9 +211,8 @@ return [
     */
 
     'error_handlers' => [
-        // \Nuwave\Lighthouse\Execution\ExtensionErrorHandler::class,
-        // \Nuwave\Lighthouse\Execution\ReportingErrorHandler::class,
-        \App\GraphQL\ErrorHandlers\CustomErrorHandler::class,
+        \Nuwave\Lighthouse\Execution\ExtensionErrorHandler::class,
+        \Nuwave\Lighthouse\Execution\ReportingErrorHandler::class,
     ],
 
     /*
