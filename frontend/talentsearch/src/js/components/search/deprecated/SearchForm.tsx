@@ -385,8 +385,8 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           <Checklist
             idPrefix="employmentEquity"
             legend={intl.formatMessage({
-              defaultMessage: "Conditions of employment",
-              description: "Legend for the Conditions of employment checklist",
+              defaultMessage: "Employment equity groups",
+              description: "Legend for the employment equity checklist",
             })}
             name="employmentEquity"
             context={intl.formatMessage(

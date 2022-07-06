@@ -1657,10 +1657,6 @@
     "defaultMessage": "<bold>Remarque :</bold> Si vous sélectionnez plus d'un groupe visé par l'équité en matière d'emploi, TOUS les candidats qui se sont déclarés membres de N'IMPORTE LEQUEL des groupes visés par l'équité en matière d'emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l'équité en matière d'emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
     "description": "Context for employment equity filter in search form."
   },
-  "ps2IK6": {
-    "defaultMessage": "Conditions d'emploi",
-    "description": "Legend for the Conditions of employment checklist"
-  },
   "sdUnnh": {
     "defaultMessage": "Je m'identifie comme faisant partie d'un ou de plusieurs groupes de minorités visibles.",
     "description": "Label for the checkbox to identify as a visible minority under employment equity"
@@ -1668,5 +1664,13 @@
   "z44LTK": {
     "defaultMessage": "Tel que défini par <link>Statistique Canada</link>.",
     "description": "Link to Statistics Canada's employment equity definitions"
+  },
+  "sk9CeW": {
+    "defaultMessage": "Langue",
+    "description": "Legend for the Working Language Ability radio buttons"
+  },
+  "m3qn9l": {
+    "defaultMessage": "Groupes visés par l’équité en matière d’emploi",
+    "description": "Legend for the employment equity checklist"
   }
 }
