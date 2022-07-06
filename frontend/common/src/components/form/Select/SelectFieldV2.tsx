@@ -23,6 +23,8 @@ export interface SelectFieldV2Props {
   placeholder?: string;
   /** Whether field allows multiple selections. */
   isMulti?: boolean;
+  /** Whether to force all form values into array, even single Select. */
+  forceArrayFormValue?: boolean;
 }
 
 // User-defined type guard for react-select's readonly Options.
@@ -40,6 +42,7 @@ const SelectFieldV2 = ({
   rules,
   placeholder,
   isMulti = false,
+  forceArrayFormValue = false,
 }: SelectFieldV2Props): JSX.Element => {
   // Defaults from minimal attributes.
   id ??= camelCase(label); // eslint-disable-line no-param-reassign
@@ -74,12 +77,23 @@ const SelectFieldV2 = ({
                   : // Converts to Option or null for single Select.
                     options.find((o) => val === o.value) || null;
 
+              /** Converts react-select's Option type storage formats into state
+               * we want in react-hook-form: a value or array of values. This
+               * works whether react-select is storing a MultiValue (Option[]))
+               * or SingleValue (Option). */
               const convertSingleOrMultiOptionsToValues = (
                 singleOrMulti: PropsValue<Option>,
               ) =>
+                /* eslint-disable no-nested-ternary, prettier/prettier */
                 isArray<Option>(singleOrMulti)
+                  // Stores MultiValue as array of values.
                   ? field.onChange(singleOrMulti.map((o) => o.value))
-                  : field.onChange(singleOrMulti ? [singleOrMulti?.value] : []);
+                  : forceArrayFormValue
+                    // Stores SingleValue as array of one value, or null as empty array.
+                    ? field.onChange(singleOrMulti ? [singleOrMulti?.value] : [])
+                    // Stores SingleValue as value or null
+                    : field.onChange(singleOrMulti?.value || null);
+                /* eslint-enable no-nested-ternary, prettier/prettier */
 
               return (
                 <ReactSelect

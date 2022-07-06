@@ -118,6 +118,7 @@ const SearchFilter = ({
           </div>
           <div style={{ minWidth: 200, marginLeft: 20 }}>
             <SelectFieldV2
+              forceArrayFormValue
               id="languages"
               label={formatMessage({
                 defaultMessage: "Languages",
@@ -158,6 +159,7 @@ const SearchFilter = ({
         <div style={{ display: "flex" }}>
           <div style={{ flexGrow: 1 }}>
             <SelectFieldV2
+              forceArrayFormValue
               id="education"
               label={formatMessage({
                 defaultMessage: "Education",
@@ -167,6 +169,7 @@ const SearchFilter = ({
           </div>
           <div style={{ flexGrow: 1, marginLeft: 20 }}>
             <SelectFieldV2
+              forceArrayFormValue
               id="durationPreference"
               label={formatMessage({
                 defaultMessage: "Duration Preference",
@@ -185,6 +188,7 @@ const SearchFilter = ({
           </div>
           <div style={{ marginLeft: 20 }}>
             <SelectFieldV2
+              forceArrayFormValue
               id="profileComplete"
               label={formatMessage({
                 defaultMessage: "Profile Complete",
@@ -205,6 +209,7 @@ const SearchFilter = ({
           </div>
           <div style={{ marginLeft: 20 }}>
             <SelectFieldV2
+              forceArrayFormValue
               id="govEmployee"
               label={formatMessage({
                 defaultMessage: "Government Employee",
