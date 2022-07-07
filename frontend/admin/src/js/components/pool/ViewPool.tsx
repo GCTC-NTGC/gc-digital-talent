@@ -154,7 +154,13 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
       icon: <ViewGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
-      title: poolName,
+      title: intl.formatMessage(
+        {
+          defaultMessage: `Pool ID #{id}`,
+          description: "Current pool breadcrumb text",
+        },
+        { id: pool.id },
+      ),
     },
   ] as BreadcrumbsProps["links"];
 
