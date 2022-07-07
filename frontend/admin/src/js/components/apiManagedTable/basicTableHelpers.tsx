@@ -24,19 +24,18 @@ export function rowSelectionColumn<T extends RecordWithId>(
   intl: IntlShape,
   selectedRows: T[],
   pageSize: number,
-  rowLabelText: (row: T) => string,
   onRowSelectionChange: (e: RowSelectedEvent<T>) => void,
 ): Column<T> {
   return {
     label: intl.formatMessage({
-      defaultMessage: "Selection",
+      defaultMessage: "Row Selection",
       description:
         "Label for the row-selection column in the tables column-selection modal.",
     }),
     header: (
       <IndeterminateCheckbox
         labelText={intl.formatMessage({
-          defaultMessage: "List",
+          defaultMessage: "Select/Unselect all",
           description: "Header label for the row-selection column in tables.",
         })}
         checked={selectedRows.length === pageSize}
@@ -49,20 +48,24 @@ export function rowSelectionColumn<T extends RecordWithId>(
       />
     ),
     accessor: (r) => {
+      const checked = selectedRows.includes(r);
       return (
         <label htmlFor={`select-${r.id}`}>
           <input
             id={`select-${r.id}`}
             type="checkbox"
-            checked={selectedRows.includes(r)}
+            checked={checked}
             onChange={() => {
               onRowSelectionChange({
                 row: r,
-                setSelected: !selectedRows.includes(r),
+                setSelected: !checked,
               });
             }}
           />{" "}
-          {rowLabelText(r)}
+          {intl.formatMessage({
+            defaultMessage: "Select/Unselect",
+            description: "Label for the row-selection column in tables.",
+          })}
         </label>
       );
     }, // callback extracted to separate function to stabilize memoized component>

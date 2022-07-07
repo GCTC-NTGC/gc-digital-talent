@@ -104,7 +104,7 @@ export const UserTable: React.FC = () => {
 
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
-      rowSelectionColumn(intl, selectedRows, pageSize, fullName, (event) =>
+      rowSelectionColumn(intl, selectedRows, pageSize, (event) =>
         handleRowSelectedChange(
           filteredData,
           selectedRows,
