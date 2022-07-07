@@ -1,3 +1,8 @@
+import { toHaveNoViolations } from "jest-axe";
+
+expect.extend(toHaveNoViolations);
+
+
 // source: https://stackoverflow.com/a/49591765
 global.console = {
   ...console,
