@@ -180,7 +180,10 @@ export const UserTable: React.FC = () => {
   return (
     <div data-h2-margin="b(top-bottom, m)">
       <h2 id="user-table-heading" data-h2-visibility="b(invisible)">
-        All Users
+        {intl.formatMessage({
+          defaultMessage: "All Users",
+          description: "Heading for the users table",
+        })}
       </h2>
       <TableHeader
         onSearchChange={(val: string | undefined) => setSearchState(val)}
