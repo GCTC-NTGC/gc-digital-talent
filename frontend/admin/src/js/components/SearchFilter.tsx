@@ -10,6 +10,7 @@ import { useFormContext } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import type { Option } from "@common/components/form/Select/SelectFieldV2";
 import { enumToOptions } from "@common/helpers/formUtils";
+import mapValues from "lodash/mapValues";
 import {
   getLanguage,
   getWorkRegion,
@@ -50,8 +51,9 @@ export const defaultFormValues = {
 
 const SearchFilterFooter = (): JSX.Element => {
   const { reset } = useFormContext();
+  const { emptyFormValues } = useSearchFilterOptions();
   const handleClear = () => {
-    reset(defaultFormValues);
+    reset(emptyFormValues);
   };
 
   return (
@@ -84,12 +86,7 @@ const generateOptionsFromValues = (item: string) => ({
   value: item.toLowerCase().replace(" ", "-"),
 });
 
-const SearchFilter = ({
-  isOpen,
-  onDismiss,
-  onSubmit,
-  activeFilters,
-}: SearchFilterProps): JSX.Element => {
+const useSearchFilterOptions = () => {
   const { formatMessage } = useIntl();
 
   const optionsData = {
@@ -120,6 +117,20 @@ const SearchFilter = ({
     profileComplete: ["Yes", "No"].map(generateOptionsFromValues),
     govEmployee: enumToOptions(GovEmployeeType),
   };
+
+  const emptyFormValues = mapValues(optionsData, (val) => [])
+
+  return { optionsData, emptyFormValues }
+}
+
+const SearchFilter = ({
+  isOpen,
+  onDismiss,
+  onSubmit,
+  activeFilters,
+}: SearchFilterProps): JSX.Element => {
+  const { formatMessage } = useIntl();
+  const { optionsData } = useSearchFilterOptions();
 
   return (
     <Dialog
