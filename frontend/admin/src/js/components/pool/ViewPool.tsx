@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* NOTE: This is temporary until we start the Candidates/Requests pages */
 import * as React from "react";
-import { useIntl, type IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 import {
   CheckIcon,
   ClipboardIcon,
@@ -17,7 +17,7 @@ import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
 import { commonMessages } from "@common/messages";
-import { getLocale } from "@common/helpers/localize";
+import { getLocale, getLocalizedName } from "@common/helpers/localize";
 
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
@@ -36,11 +36,7 @@ import {
   SkillCategory,
   useGetPoolAdvertisementQuery,
 } from "../../api/generated";
-import type {
-  LocalizedString,
-  Maybe,
-  PoolAdvertisement,
-} from "../../api/generated";
+import type { PoolAdvertisement } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type SpacerProps = React.HTMLProps<HTMLSpanElement>;
@@ -50,24 +46,6 @@ const Spacer = ({ children, ...rest }: SpacerProps) => (
     {children}
   </span>
 );
-
-const getLocalizedName = (
-  name: Maybe<LocalizedString>,
-  intl: IntlShape,
-): string => {
-  const locale = getLocale(intl);
-
-  const notAvailable = intl.formatMessage({
-    defaultMessage: "N/A",
-    description: "displayed when localized string not available",
-  });
-
-  if (!name) {
-    return notAvailable;
-  }
-
-  return name[locale] ?? notAvailable;
-};
 
 interface ViewPoolPageProps {
   pool: PoolAdvertisement;
