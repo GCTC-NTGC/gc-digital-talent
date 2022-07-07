@@ -294,7 +294,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         </h2>
         {classification ? (
           <>
-            <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
+            <div data-h2-display="b(flex)">
               <Spacer>
                 <Input
                   id="targetClassification"
@@ -326,7 +326,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 />
               </Spacer>
             </div>
-            <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
+            <div data-h2-display="b(flex)">
               <Spacer style={{ flex: 1 }}>
                 <Input
                   id="specificTitleEn"
@@ -360,7 +360,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             </div>
           </>
         ) : null}
-        <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
+        <div data-h2-display="b(flex)">
           <Spacer>
             <Input
               id="expiryDate"
@@ -394,7 +394,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             />
           </Spacer>
         </div>
-        <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
+        <div data-h2-display="b(flex)">
           <Spacer style={{ flex: 1 }}>
             <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
               {intl.formatMessage({
@@ -414,7 +414,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <p>{pool.yourImpact?.fr || ""}</p>
           </Spacer>
         </div>
-        <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
+        <div data-h2-display="b(flex)">
           <Spacer style={{ flex: 1 }}>
             <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
               {intl.formatMessage({
