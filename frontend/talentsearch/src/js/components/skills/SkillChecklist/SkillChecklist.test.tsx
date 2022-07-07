@@ -3,7 +3,7 @@
  */
 import React from "react";
 import { fakeSkillFamilies, fakeSkills } from "@common/fakeData";
-import { render, screen, fireEvent } from "../../../tests/testUtils";
+import { render, screen, fireEvent, axeTest } from "../../../tests/testUtils";
 import SkillChecklist from "./SkillChecklist";
 
 const testData = fakeSkillFamilies(5, fakeSkills(10));
@@ -16,6 +16,12 @@ const renderSkillChecklist = () => {
 };
 
 describe("Skill Checklist Tests", () => {
+  it("should have no accessibility errors", async () => {
+    const { container } = renderSkillChecklist();
+
+    await axeTest(container);
+  });
+
   test("should display the skill checklist div", async () => {
     renderSkillChecklist();
     const element = screen.getByTestId("skillChecklist");

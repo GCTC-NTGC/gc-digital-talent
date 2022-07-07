@@ -2,45 +2,41 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
 import { fakeClassifications, fakeDepartments } from "@common/fakeData";
 import React from "react";
 import { CreateAccountForm, CreateAccountFormProps } from "./CreateAccountPage";
+import { axeTest, render } from "../../tests/testUtils";
 
 const mockDepartments = fakeDepartments();
 const mockClassifications = fakeClassifications();
 const mockSave = jest.fn();
 
-const renderWithReactIntl = (
-  component: React.ReactNode,
-  locale?: "en" | "fr",
-  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
-) => {
-  return render(
-    <IntlProvider locale={locale || "en"} messages={messages}>
-      {component}
-    </IntlProvider>,
-  );
-};
-
 const renderCreateAccountForm = ({
   departments,
   classifications,
   handleCreateAccount,
-}: CreateAccountFormProps) => (
-  <>
-    {renderWithReactIntl(
-      <CreateAccountForm
-        departments={departments}
-        classifications={classifications}
-        handleCreateAccount={handleCreateAccount}
-      />,
-    )}
-  </>
-);
+}: CreateAccountFormProps) =>
+  render(
+    <CreateAccountForm
+      departments={departments}
+      classifications={classifications}
+      handleCreateAccount={handleCreateAccount}
+    />,
+  );
 
 describe("Create Account Form tests", () => {
+  it("should have no accessibility errors", async () => {
+    const { container } = renderCreateAccountForm({
+      departments: mockDepartments,
+      classifications: mockClassifications,
+      handleCreateAccount: mockSave,
+    });
+
+    await axeTest(container);
+  });
+
   it("should render fields", () => {
     renderCreateAccountForm({
       departments: mockDepartments,
