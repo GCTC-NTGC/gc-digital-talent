@@ -330,7 +330,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   hideOptional
                   value={classification?.name?.en ?? ""}
                   label={intl.formatMessage({
-                    defaultMessage: "Specific Title (EN)",
+                    defaultMessage: "Specific Title (English)",
                     description:
                       "Label for a pool advertisements specific English title",
                   })}
@@ -345,7 +345,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   hideOptional
                   value={classification?.name?.fr ?? ""}
                   label={intl.formatMessage({
-                    defaultMessage: "Specific Title (FR)",
+                    defaultMessage: "Specific Title (French)",
                     description:
                       "Label for a pool advertisements specific French title",
                   })}
@@ -392,7 +392,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           <Spacer style={{ flex: 1 }}>
             <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
               {intl.formatMessage({
-                defaultMessage: "Your Impact (EN)",
+                defaultMessage: "Your Impact (English)",
                 description: "Title for English pool advertisement impact",
               })}
             </h2>
@@ -401,7 +401,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           <Spacer style={{ flex: 1 }}>
             <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
               {intl.formatMessage({
-                defaultMessage: "Your Impact (FR)",
+                defaultMessage: "Your Impact (French)",
                 description: "Title for French pool advertisement impact",
               })}
             </h2>
@@ -412,7 +412,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           <Spacer style={{ flex: 1 }}>
             <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
               {intl.formatMessage({
-                defaultMessage: "Your Work (EN)",
+                defaultMessage: "Your Work (English)",
                 description: "Title for English pool advertisement Work",
               })}
             </h2>
@@ -421,7 +421,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           <Spacer style={{ flex: 1 }}>
             <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
               {intl.formatMessage({
-                defaultMessage: "Your Work (FR)",
+                defaultMessage: "Your Work (French)",
                 description: "Title for French pool advertisement Work",
               })}
             </h2>
@@ -557,7 +557,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           <li>
             {intl.formatMessage(
               {
-                defaultMessage: "Location (EN): {locationEn}",
+                defaultMessage: "Location (English): {locationEn}",
                 description: "Pool advertisement location requirement, English",
               },
               {
@@ -568,7 +568,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           <li>
             {intl.formatMessage(
               {
-                defaultMessage: "Location (FR): {locationFr}",
+                defaultMessage: "Location (French): {locationFr}",
                 description: "Pool advertisement location requirement, French",
               },
               {
