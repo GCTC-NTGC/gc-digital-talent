@@ -5,7 +5,7 @@ import {
 import { enumToOptions } from "@common/helpers/formUtils";
 import mapValues from "lodash/mapValues";
 import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
+import useLocale from "./useLocale";
 import {
   WorkRegion,
   OperationalRequirement,
@@ -33,7 +33,7 @@ function notNullOrUndefined<TValue>(
 
 export default function useSearchFilterOptions() {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const locale = useLocale();
   // TODO: Implement way to return `fetching` states from hook, so that can pass
   // to react-select's `isLoading` prop on <Select />.
   // See: https://react-select.com/props#select-props
