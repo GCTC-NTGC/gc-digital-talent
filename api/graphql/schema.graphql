@@ -725,7 +725,7 @@ input CreateUserInput {
     messages: [
         {
             rule: "unique"
-            message: "Email address should be unique"
+            message: "Email address already exists"
         }
     ])
     telephone: PhoneNumber
@@ -1170,7 +1170,7 @@ input GenericJobTitleBelongsToMany {
 }
 
 type Mutation {
-    createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
+    createUser(user: CreateUserInput! @spread): User  @guard @can(ability: "create") @field(resolver: "CreateUser")
     updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
     updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User @update @guard @can(ability: "update", find: "id")
     deleteUser(id: ID!): User @delete(globalId: false) @guard @can(ability: "delete", find: "id")
