@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import type { ComponentMeta, ComponentStory, StoryFn } from "@storybook/react";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import Button from "@common/components/Button";
 import type { SubmitHandler } from "react-hook-form";
-import SearchFilter, { defaultFormValues } from "./SearchFilter";
+import SearchFilter from "./SearchFilter";
 import type { FormValues } from "./SearchFilter";
 import OverlayOrDialogDecorator from "@common/../.storybook/decorators/OverlayOrDialogDecorator";
+import useSearchFilterOptions from "./useSearchFilterOptions";
 
 export default {
   title: "Admin/SearchFilter",
@@ -14,8 +15,9 @@ export default {
 } as ComponentMeta<typeof SearchFilter>;
 
 export const Default: ComponentStory<typeof SearchFilter> = () => {
+  const { emptyFormValues } = useSearchFilterOptions();
   const [activeFilters, setActiveFilters] =
-    useState<FormValues>(defaultFormValues);
+    useState<FormValues>(emptyFormValues);
   const [isOpen, setIsOpen] = useState(true);
 
   const handleOpen = () => setIsOpen(true);
