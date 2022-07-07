@@ -94,7 +94,7 @@ const SearchFilter = ({
               options={optionsData.pools}
             />
           </div>
-          <div style={{ minWidth: 200, marginLeft: 20 }}>
+          <div style={{ minWidth: 300, marginLeft: 20 }}>
             <SelectFieldV2
               forceArrayFormValue
               id="languages"

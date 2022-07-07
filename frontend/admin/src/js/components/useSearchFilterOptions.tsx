@@ -1,6 +1,6 @@
 import {
-  getLanguage,
   getWorkRegion,
+  getLanguageAbility,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import mapValues from "lodash/mapValues";
@@ -11,7 +11,7 @@ import {
   OperationalRequirement,
   JobLookingStatus,
   GovEmployeeType,
-  Language,
+  LanguageAbility,
   useAllSkillsQuery,
   useGetClassificationsQuery,
   useGetPoolsQuery,
@@ -47,11 +47,9 @@ export default function useSearchFilterOptions() {
       // TODO: Is there a reason name and translations are optional?
       label: name?.[locale] || "Error: name not loaded",
     })),
-    // TODO: Does this correspond to User operations: lookingForEnglish,
-    // lookingForFrench, lookingForBilingual? If so, we need new localizedConstants
-    languages: enumToOptions(Language).map(({ value }) => ({
+    languages: enumToOptions(LanguageAbility).map(({ value }) => ({
       value,
-      label: intl.formatMessage(getLanguage(value)),
+      label: intl.formatMessage(getLanguageAbility(value)),
     })),
     classifications: classificationsData?.classifications
       .filter(notNullOrUndefined)
