@@ -11,7 +11,7 @@ import {
 } from "@common/components/Tabs";
 import { matchStringCaseDiacriticInsensitive } from "@common/helpers/formUtils";
 import Pagination, { usePaginationVars } from "@common/components/Pagination";
-import { invertSkillTree } from "@common/helpers/skillUtils";
+import { invertSkillSkillFamilyTree } from "@common/helpers/skillUtils";
 import AddedSkills from "../AddedSkills";
 import SkillResults from "../SkillResults";
 import SkillChecklist from "../SkillChecklist";
@@ -87,7 +87,7 @@ const AddSkillsToExperience: React.FunctionComponent<
 
   // this function can be a bit heavy
   const allSkillFamilies = useMemo(
-    () => invertSkillTree(allSkills),
+    () => invertSkillSkillFamilyTree(allSkills),
     [allSkills],
   );
 
