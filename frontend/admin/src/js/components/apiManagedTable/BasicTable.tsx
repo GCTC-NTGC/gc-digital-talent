@@ -95,7 +95,9 @@ function BasicTable<T extends RecordWithId>({
                     type="button"
                     mode="tableHeader"
                     color="secondary"
-                    disabled={!column.sortColumnName}
+                    disabled={
+                      !column.sortColumnName && column.id !== "selection"
+                    }
                     title={intl.formatMessage({
                       defaultMessage: "Toggle SortBy",
                       description: "Title to toggle sorting order of a table",
