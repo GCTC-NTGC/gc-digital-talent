@@ -343,37 +343,9 @@
     "defaultMessage": "Soumis",
     "description": "Default text for submitted button."
   },
-  "3HAFul": {
-    "defaultMessage": "Déplacements selon les besoins",
-    "description": "The operational requirement described as travel as required."
-  },
-  "8QkGEF": {
-    "defaultMessage": "Transport de matériel jusqu'à 20 kg",
-    "description": "The operational requirement described as transport equipment up to 20kg."
-  },
-  "Dk5E2+": {
-    "defaultMessage": "Garde 24/7",
-    "description": "The operational requirement described as 24/7 on-call."
-  },
-  "hCy99h": {
-    "defaultMessage": "Travailler des quarts de travail",
-    "description": "The operational requirement described as shift work."
-  },
-  "vhFe42": {
-    "defaultMessage": "Permis de conduire",
-    "description": "The operational requirement described as driver's license."
-  },
   "6I3OCB": {
     "defaultMessage": "Travailler les fins de semaine",
     "description": "The operational requirement described as work weekends."
-  },
-  "Bw9k0J": {
-    "defaultMessage": "Travailler des heures supplémentaires prévues",
-    "description": "The operational requirement described as scheduled overtime."
-  },
-  "eJCfxF": {
-    "defaultMessage": "Travailler des heures supplémentaires à court préavis",
-    "description": "The operational requirement described as short notice overtime."
   },
   "ACppq6": {
     "defaultMessage": "Placé Occasionnels",
@@ -844,7 +816,7 @@
     "description": "The operational requirement described as 24/7 on-call."
   },
   "janplU": {
-    "defaultMessage": "Bilingues (français et anglais)",
+    "defaultMessage": "Bilingue (français et anglais)",
     "description": "The language ability is bilingual - both English and French."
   },
   "jhImZp": {
@@ -937,10 +909,6 @@
   "p8Gi1k": {
     "defaultMessage": "Modifier les préférences de travail",
     "description": "Text on link to update a users work preferences."
-  },
-  "pXDHYb": {
-    "defaultMessage": "Voir l'expérience :",
-    "description": "Tabs title for the users experience list in applicant profile."
   },
   "pbXAOp": {
     "defaultMessage": "Afficher {numOfRows}",
@@ -1041,5 +1009,33 @@
   "zKjtAa": {
     "defaultMessage": "Territoires du Nord-Ouest",
     "description": "Northwest Territories selection for province or territory input"
+  },
+  "4pZrst": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à voyager au besoin.",
+    "description": "The operational requirement described as travel as required."
+  },
+  "Gc9PeN": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler par quarts.",
+    "description": "The operational requirement described as shift work."
+  },
+  "KzhnAz": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement).",
+    "description": "The operational requirement described as occasional overtime."
+  },
+  "QhRU19": {
+    "defaultMessage": "Doit posséder un permis de conduire valide ou une mobilité personnelle du degré normalement associé à la possession d'un permis de conduire valide.",
+    "description": "The operational requirement described as driver's license."
+  },
+  "XpK4rL": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à transporter, soulever et déposer de l'équipement pouvant peser jusqu'à 20 kg.",
+    "description": "The operational requirement described as transport equipment up to 20kg."
+  },
+  "vDrJp6": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler sur appel 24/7.",
+    "description": "The operational requirement described as 24/7 on-call."
+  },
+  "vvtqRv": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
+    "description": "The operational requirement described as regular overtime."
   }
 }

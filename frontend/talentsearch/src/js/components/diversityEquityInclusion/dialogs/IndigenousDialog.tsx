@@ -84,7 +84,13 @@ const IndigenousDialog: React.FC<EquityDialogProps> = ({
           description: "Definition of accepted ways to identify as indigenous.",
         })}
       </p>
-      <Definition url="https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=42927" />
+      <Definition
+        url={
+          intl.locale === "en"
+            ? "https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=42927"
+            : "https://www23.statcan.gc.ca/imdb/p3Var_f.pl?Function=DEC&Id=42927"
+        }
+      />
     </Dialog>
   );
 };
