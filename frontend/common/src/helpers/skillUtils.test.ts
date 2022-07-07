@@ -2,8 +2,19 @@
  * @jest-environment jsdom
  */
 
-import { invertSkillTree } from "./skillUtils";
-import { Skill, SkillCategory, SkillFamily } from "../api/generated";
+import { fakeApplicants } from "../fakeData";
+import {
+  invertSkillExperienceTree,
+  invertSkillSkillFamilyTree,
+} from "./skillUtils";
+import {
+  Experience,
+  Skill,
+  SkillCategory,
+  SkillFamily,
+} from "../api/generated";
+
+const fakeApplicant = fakeApplicants(1)[0];
 
 describe("skill util tests", () => {
   test("inverts a skill tree with a single skill in a single family", () => {
@@ -41,7 +52,7 @@ describe("skill util tests", () => {
         ],
       },
     ];
-    const actual = invertSkillTree(skills);
+    const actual = invertSkillSkillFamilyTree(skills);
     expect(actual).toEqual(expected);
   });
   test("inverts a skill tree with three skills in a single family", () => {
@@ -121,7 +132,7 @@ describe("skill util tests", () => {
         ],
       },
     ];
-    const actual = invertSkillTree(skills);
+    const actual = invertSkillSkillFamilyTree(skills);
     expect(actual).toEqual(expected);
   });
   test("inverts a skill tree with a single skill in three families", () => {
@@ -205,7 +216,166 @@ describe("skill util tests", () => {
         ],
       },
     ];
-    const actual = invertSkillTree(skills);
+    const actual = invertSkillSkillFamilyTree(skills);
+    expect(actual).toEqual(expected);
+  });
+  test("inverts an experience tree with a single experience in a single skill", () => {
+    const experiences: Experience[] = [
+      {
+        id: "1",
+        applicant: fakeApplicant,
+        skills: [
+          {
+            id: "1",
+            key: "skill_one",
+            name: {},
+          },
+        ],
+      },
+    ];
+    const expected: Skill[] = [
+      {
+        id: "1",
+        key: "skill_one",
+        name: {},
+        experiences: [
+          {
+            id: "1",
+            applicant: fakeApplicant,
+            skills: [],
+          },
+        ],
+      },
+    ];
+    const actual = invertSkillExperienceTree(experiences);
+    expect(actual).toEqual(expected);
+  });
+  test("inverts an experience tree with three experiences in a single skill", () => {
+    const experiences: Experience[] = [
+      {
+        id: "1",
+        applicant: fakeApplicant,
+        skills: [
+          {
+            id: "1",
+            key: "skill_one",
+            name: {},
+          },
+        ],
+      },
+      {
+        id: "2",
+        applicant: fakeApplicant,
+        skills: [
+          {
+            id: "1",
+            key: "skill_one",
+            name: {},
+          },
+        ],
+      },
+      {
+        id: "3",
+        applicant: fakeApplicant,
+        skills: [
+          {
+            id: "1",
+            key: "skill_one",
+            name: {},
+          },
+        ],
+      },
+    ];
+    const expected: Skill[] = [
+      {
+        id: "1",
+        key: "skill_one",
+        name: {},
+        experiences: [
+          {
+            id: "1",
+            applicant: fakeApplicant,
+            skills: [],
+          },
+          {
+            id: "2",
+            applicant: fakeApplicant,
+            skills: [],
+          },
+          {
+            id: "3",
+            applicant: fakeApplicant,
+            skills: [],
+          },
+        ],
+      },
+    ];
+    const actual = invertSkillExperienceTree(experiences);
+    expect(actual).toEqual(expected);
+  });
+  test("inverts an experience tree with a single experience in three skills", () => {
+    const experiences: Experience[] = [
+      {
+        id: "1",
+        applicant: fakeApplicant,
+        skills: [
+          {
+            id: "1",
+            key: "skill_one",
+            name: {},
+          },
+          {
+            id: "2",
+            key: "skill_two",
+            name: {},
+          },
+          {
+            id: "3",
+            key: "skill_three",
+            name: {},
+          },
+        ],
+      },
+    ];
+    const expected: Skill[] = [
+      {
+        id: "1",
+        key: "skill_one",
+        name: {},
+        experiences: [
+          {
+            id: "1",
+            applicant: fakeApplicant,
+            skills: [],
+          },
+        ],
+      },
+      {
+        id: "2",
+        key: "skill_two",
+        name: {},
+        experiences: [
+          {
+            id: "1",
+            applicant: fakeApplicant,
+            skills: [],
+          },
+        ],
+      },
+      {
+        id: "3",
+        key: "skill_three",
+        name: {},
+        experiences: [
+          {
+            id: "1",
+            applicant: fakeApplicant,
+            skills: [],
+          },
+        ],
+      },
+    ];
+    const actual = invertSkillExperienceTree(experiences);
     expect(actual).toEqual(expected);
   });
 });

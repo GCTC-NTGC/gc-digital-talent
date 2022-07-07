@@ -5,6 +5,7 @@ import { AuthenticationContext } from "@common/components/Auth";
 import { Helmet } from "react-helmet";
 import { getLocale } from "@common/helpers/localize";
 import { useIntl } from "react-intl";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { AdminRoutes, useAdminRoutes } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
@@ -22,6 +23,7 @@ import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
+import DeprecatedViewPool from "./pool/deprecated/ViewPool";
 import ViewPool from "./pool/ViewPool";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
@@ -38,6 +40,10 @@ import { Role } from "../api/generated";
 import DashboardPage from "./dashboard/DashboardPage";
 import ViewUser from "./user/ViewUser";
 import HomePage from "./home/HomePage";
+
+const ViewPoolPage = checkFeatureFlag("FEATURE_DIRECTINTAKE")
+  ? ViewPool
+  : DeprecatedViewPool;
 
 const routes = (
   paths: AdminRoutes,
@@ -180,7 +186,7 @@ const routes = (
   {
     path: paths.poolView(":id"),
     action: ({ params }) => ({
-      component: <ViewPool poolId={params.id as string} />,
+      component: <ViewPoolPage poolId={params.id as string} />,
       authorizedRoles: [Role.Admin],
     }),
   },

@@ -19,6 +19,7 @@ const Link: React.FC<LinkProps> = ({
   href,
   title,
   color,
+  disabled,
   mode = "solid",
   block = false,
   external = false,
@@ -38,6 +39,7 @@ const Link: React.FC<LinkProps> = ({
             "data-h2-radius": "b(s)",
             "data-h2-padding": "b(top-bottom, xs) b(right-left, s)",
             "data-h2-font-size": "b(caption) m(normal)",
+            ...(disabled && { style: { opacity: 0.6, pointerEvents: "none" } }),
             ...(color && mode ? { ...colorMap[color][mode] } : {}),
             ...(block
               ? {
