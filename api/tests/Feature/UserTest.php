@@ -2315,6 +2315,25 @@ class UserTest extends TestCase
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'user_id' => User::factory([
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+                'is_woman' => true,
+            ])
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'user_id' => User::factory([
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_BILINGUAL,
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+            ])
+        ]);
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -2374,11 +2393,11 @@ class UserTest extends TestCase
             ]
         ])->assertJson([
             'data' => [
-                'countApplicants' => 13
+                'countApplicants' => 15
             ]
         ]);
 
-        // Assert query with another filter will return proper count
+        // Assert query with english filter will return proper count, including the one bilingual candidate
         $this->graphQL(/** @lang Graphql */ '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
@@ -2392,7 +2411,127 @@ class UserTest extends TestCase
             ]
         ])->assertJson([
             'data' => [
-                'countApplicants' => 8
+                'countApplicants' => 10
+            ]
+        ]);
+
+        // Assert query with equity filter = false does nothing, the same result as just pools filter above
+        $this->graphQL(/** @lang Graphql */ '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$pool1['id']]
+                ],
+                'equity' => [
+                    'isWoman' => false,
+                    'hasDisability' => false,
+                    'isIndigenous' => false,
+                    'isVisibleMinority' => false,
+                ],
+            ]
+        ])->assertJson([
+            'data' => [
+                'countApplicants' => 15
+            ]
+        ]);
+    }
+
+    public function testCountApplicantsQuerySalaryClassifications(): void
+    {
+        // Recycling salary/classification tests //
+
+        $user = User::All()->first();
+        $pool1 = Pool::factory()->create([
+            'user_id' => $user['id'],
+        ]);
+
+        PoolCandidate::factory()->count(5)->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+                'expected_salary' => [],
+            ])
+        ]);
+
+        PoolCandidate::factory()->count(5)->sequence(fn () => [
+            'pool_id' => $pool1->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+                'expected_salary' => ['_50_59K', '_70_79K'],
+            ])
+                ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
+                    $classificationLvl1 = Classification::factory()->create([
+                        'group' => 'ZZ',
+                        'level' => 1,
+                        'min_salary' => 50000,
+                        'max_salary' => 69000,
+                    ]);
+                    $candidate->expectedClassifications()->sync($classificationLvl1);
+                })->create();
+
+        PoolCandidate::factory()->count(5)->sequence(fn () => [
+            'pool_id' => $pool1->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+                'expected_salary' => ['_60_69K', '_80_89K'],
+            ])
+                ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
+                    $candidate->expectedClassifications()->delete();
+                })->create();
+
+        PoolCandidate::factory()->count(5)->sequence(fn () => [
+            'pool_id' => $pool1->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+                'expected_salary' => ['_90_99K', '_100K_PLUS']
+            ])
+                ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
+                    $candidate->expectedClassifications()->delete();
+                })->create();
+
+        // Assert query with just pool filter
+        $this->graphQL(/** @lang Graphql */ '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$pool1['id']]
+                ],
+            ]
+        ])->assertJson([
+            'data' => [
+                'countApplicants' => 20
+            ]
+        ]);
+
+        // Assert query to test classification-salary
+        $this->graphQL(/** @lang Graphql */ '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$pool1['id']]
+                ],
+                'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]],
+            ]
+        ])->assertJson([
+            'data' => [
+                'countApplicants' => 10
             ]
         ]);
     }
