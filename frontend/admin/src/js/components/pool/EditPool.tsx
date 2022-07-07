@@ -7,6 +7,7 @@ import { Button, Link } from "@common/components";
 import PageHeader from "@common/components/PageHeader";
 import { HomeIcon, ViewGridIcon } from "@heroicons/react/outline";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import TableOfContents from "@common/components/TableOfContents";
 import {
   PoolAdvertisement,
   useGetPoolAdvertisementQuery,
@@ -24,7 +25,7 @@ interface EditPoolFormProps {
   onExtend: () => void;
 }
 
-const EditPoolForm = ({
+export const EditPoolForm = ({
   poolAdvertisement,
   onSave,
   onPublish,
@@ -70,6 +71,65 @@ const EditPoolForm = ({
     },
   ] as BreadcrumbsProps["links"];
 
+  const sectionMetadata = {
+    poolName: {
+      id: "pool-name",
+      title: intl.formatMessage({
+        defaultMessage: "Pool name and target classification",
+        description: "Sub title for pool name and classification",
+      }),
+    },
+    closingDate: {
+      id: "closing-date",
+      title: intl.formatMessage({
+        defaultMessage: "Closing date",
+        description: "Sub title for pool closing date",
+      }),
+    },
+    yourImpact: {
+      id: "your-impact",
+      title: intl.formatMessage({
+        defaultMessage: "Your impact",
+        description: "Sub title for the pool introduction",
+      }),
+    },
+    workTasks: {
+      id: "work-tasks",
+      title: intl.formatMessage({
+        defaultMessage: "Work tasks",
+        description: "Sub title for the pool work tasks",
+      }),
+    },
+    essentialSkills: {
+      id: "essential-skills",
+      title: intl.formatMessage({
+        defaultMessage: "Essential skills (Need to have)",
+        description: "Sub title for the pool essential skills",
+      }),
+    },
+    assetSkills: {
+      id: "asset-skills",
+      title: intl.formatMessage({
+        defaultMessage: "Asset skills (Nice to have skills)",
+        description: "Sub title for the pool essential skills",
+      }),
+    },
+    otherRequirements: {
+      id: "other-requirements",
+      title: intl.formatMessage({
+        defaultMessage: "Other requirements",
+        description: "Sub title for the pool other requirements",
+      }),
+    },
+    status: {
+      id: "status",
+      title: intl.formatMessage({
+        defaultMessage: "Advertisement status",
+        description: "Sub title for the pool advertisement status",
+      }),
+    },
+  };
+
   return (
     <DashboardContentContainer>
       <PageHeader icon={ViewGridIcon}>
@@ -79,227 +139,276 @@ const EditPoolForm = ({
         })}
       </PageHeader>
       <Breadcrumbs links={links} />
-      <p>on this page</p>
-      {/* Pool name and target classification section */}
-      <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-        {intl.formatMessage({
-          defaultMessage: "Pool name and target classification",
-          description: "Sub title for pool name and classification",
-        })}
-      </h2>
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "Select the classification intended for this recruitment process.",
-          description:
-            "Helper message for selecting a classification for the pool",
-        })}
-      </p>
-      Classification:{" "}
-      {poolAdvertisement.classifications &&
-        poolAdvertisement.classifications[0]?.id}
-      Specific Title (ENGLISH): {poolAdvertisement.name?.en}
-      Specific Title (FRENCH): {poolAdvertisement.name?.fr}
-      <Button
-        onClick={() => onSave(poolAdvertisement)}
-        color="cta"
-        mode="solid"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Save pool name",
-          description: "Text on a button to save the pool name",
-        })}
-      </Button>
-      {/* Closing date section */}
-      <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-        {intl.formatMessage({
-          defaultMessage: "Closing date",
-          description: "Sub title for pool closing date",
-        })}
-      </h2>
-      Closing date
-      {poolAdvertisement.expiryDate}
-      <Button
-        onClick={() => onSave(poolAdvertisement)}
-        color="cta"
-        mode="solid"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Save closing date",
-          description: "Text on a button to save the pool closing date",
-        })}
-      </Button>
-      {/* Your impact section */}
-      <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-        {intl.formatMessage({
-          defaultMessage: "Your impact",
-          description: "Sub title for the pool introduction",
-        })}
-      </h2>
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "This information lets applicants know what kind of work, and environment they are applying to. Use this space to talk about the area of government this process will aim to improve. And the value this kind of work creates.",
-          description: "Helper message for filling in the pool introduction",
-        })}
-      </p>
-      English - Your impact
-      {poolAdvertisement.yourImpact?.en}
-      French - Your impact
-      {poolAdvertisement.yourImpact?.fr}
-      <Button
-        onClick={() => onSave(poolAdvertisement)}
-        color="cta"
-        mode="solid"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Save introduction",
-          description: "Text on a button to save the pool introduction",
-        })}
-      </Button>
-      {/* Work tasks section */}
-      <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-        {intl.formatMessage({
-          defaultMessage: "Work tasks",
-          description: "Sub title for the pool work tasks",
-        })}
-      </h2>
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "This information lets applicants know the type of work they will be expected to perform. Talk about the tasks and expectations related to this work.",
-          description: "Helper message for filling in the pool work tasks",
-        })}
-      </p>
-      English - Your work
-      {poolAdvertisement.keyTasks?.en}
-      French - Your work
-      {poolAdvertisement.keyTasks?.fr}
-      <Button
-        onClick={() => onSave(poolAdvertisement)}
-        color="cta"
-        mode="solid"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Save work tasks",
-          description: "Text on a button to save the pool work tasks",
-        })}
-      </Button>
-      {/* Essential skills section */}
-      <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-        {intl.formatMessage({
-          defaultMessage: "Essential skills (Need to have)",
-          description: "Sub title for the pool essential skills",
-        })}
-      </h2>
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "Select the skills that you are looking for in applicants. Any skill selected here will be required for any applicant to apply. To increase the diversity of applications try to keep the selected number of skills to a minimum.",
-          description:
-            "Helper message for filling in the pool essential skills",
-        })}
-      </p>
-      {JSON.stringify(poolAdvertisement.essentialSkills)}
-      <Button
-        onClick={() => onSave(poolAdvertisement)}
-        color="cta"
-        mode="solid"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Save essential skills",
-          description: "Text on a button to save the pool essential skills",
-        })}
-      </Button>
-      {/* Asset skills section */}
-      <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-        {intl.formatMessage({
-          defaultMessage: "Asset skills (Nice to have skills)",
-          description: "Sub title for the pool essential skills",
-        })}
-      </h2>
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "Select skills that will improve the chances of quality matches with managers. These can typically be learned on the job and are not necessary to be accepted into the pool.",
-          description: "Helper message for filling in the pool asset skills",
-        })}
-      </p>
-      {JSON.stringify(poolAdvertisement.nonessentialSkills)}
-      <Button
-        onClick={() => onSave(poolAdvertisement)}
-        color="cta"
-        mode="solid"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Save asset skills",
-          description: "Text on a button to save the pool asset skills",
-        })}
-      </Button>
-      {/* Other requirements section */}
-      <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-        {intl.formatMessage({
-          defaultMessage: "Other requirements",
-          description: "Sub title for the pool other requirements",
-        })}
-      </h2>
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "Select the requirements needed for this advertisement.",
-          description:
-            "Helper message for filling in the pool other requirements",
-        })}
-      </p>
-      <Button
-        onClick={() => onSave(poolAdvertisement)}
-        color="cta"
-        mode="solid"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Save other requirements",
-          description: "Text on a button to save the pool other requirements",
-        })}
-      </Button>
-      {/* Advertisement status section */}
-      <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-        {intl.formatMessage({
-          defaultMessage: "Advertisement status",
-          description: "Sub title for the pool advertisement status",
-        })}
-      </h2>
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "Use these options to publish or close your advertisement. A live advertisement will allow applicants to submit applications to this pool.",
-          description:
-            "Helper message for changing the pool advertisement status",
-        })}
-      </p>
-      <Button onClick={() => onPublish()} color="secondary" mode="solid">
-        {intl.formatMessage({
-          defaultMessage: "Publish",
-          description: "Text on a button to publish the pool",
-        })}
-      </Button>
-      <Button onClick={() => onDelete()} color="secondary" mode="solid">
-        {intl.formatMessage({
-          defaultMessage: "Delete",
-          description: "Text on a button to delete the pool",
-        })}
-      </Button>
-      <Button onClick={() => onClose()} color="secondary" mode="solid">
-        {intl.formatMessage({
-          defaultMessage: "Close",
-          description: "Text on a button to close the pool",
-        })}
-      </Button>
-      <Button onClick={() => onExtend()} color="secondary" mode="solid">
-        {intl.formatMessage({
-          defaultMessage: "Extend the date",
-          description: "Text on a button to extend the expiry date the pool",
-        })}
-      </Button>
+      <TableOfContents.Wrapper>
+        <TableOfContents.Navigation>
+          <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
+            {sectionMetadata.poolName.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sectionMetadata.closingDate.id}>
+            {sectionMetadata.closingDate.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sectionMetadata.yourImpact.id}>
+            {sectionMetadata.yourImpact.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sectionMetadata.workTasks.id}>
+            {sectionMetadata.workTasks.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sectionMetadata.essentialSkills.id}>
+            {sectionMetadata.essentialSkills.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sectionMetadata.assetSkills.id}>
+            {sectionMetadata.assetSkills.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
+            {sectionMetadata.status.title}
+          </TableOfContents.AnchorLink>
+        </TableOfContents.Navigation>
+
+        <TableOfContents.Content>
+          {/* Pool name and target classification section */}
+          <TableOfContents.Section id={sectionMetadata.poolName.id}>
+            <TableOfContents.Heading>
+              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+                {sectionMetadata.poolName.title}
+              </h2>
+            </TableOfContents.Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Select the classification intended for this recruitment process.",
+                description:
+                  "Helper message for selecting a classification for the pool",
+              })}
+            </p>
+            Classification:{" "}
+            {poolAdvertisement.classifications &&
+              poolAdvertisement.classifications[0]?.id}
+            Specific Title (ENGLISH): {poolAdvertisement.name?.en}
+            Specific Title (FRENCH): {poolAdvertisement.name?.fr}
+            <Button
+              onClick={() => onSave(poolAdvertisement)}
+              color="cta"
+              mode="solid"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Save pool name",
+                description: "Text on a button to save the pool name",
+              })}
+            </Button>
+          </TableOfContents.Section>
+
+          {/* Closing date section */}
+          <TableOfContents.Section id={sectionMetadata.closingDate.id}>
+            <TableOfContents.Heading>
+              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+                {sectionMetadata.closingDate.title}
+              </h2>
+            </TableOfContents.Heading>
+            Closing date
+            {poolAdvertisement.expiryDate}
+            <Button
+              onClick={() => onSave(poolAdvertisement)}
+              color="cta"
+              mode="solid"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Save closing date",
+                description: "Text on a button to save the pool closing date",
+              })}
+            </Button>
+          </TableOfContents.Section>
+
+          {/* Your impact section */}
+          <TableOfContents.Section id={sectionMetadata.yourImpact.id}>
+            <TableOfContents.Heading>
+              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+                {sectionMetadata.yourImpact.title}
+              </h2>
+            </TableOfContents.Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This information lets applicants know what kind of work, and environment they are applying to. Use this space to talk about the area of government this process will aim to improve. And the value this kind of work creates.",
+                description:
+                  "Helper message for filling in the pool introduction",
+              })}
+            </p>
+            English - Your impact
+            {poolAdvertisement.yourImpact?.en}
+            French - Your impact
+            {poolAdvertisement.yourImpact?.fr}
+            <Button
+              onClick={() => onSave(poolAdvertisement)}
+              color="cta"
+              mode="solid"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Save introduction",
+                description: "Text on a button to save the pool introduction",
+              })}
+            </Button>
+          </TableOfContents.Section>
+
+          {/* Work tasks section */}
+          <TableOfContents.Section id={sectionMetadata.workTasks.id}>
+            <TableOfContents.Heading>
+              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+                {sectionMetadata.workTasks.title}
+              </h2>
+            </TableOfContents.Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This information lets applicants know the type of work they will be expected to perform. Talk about the tasks and expectations related to this work.",
+                description:
+                  "Helper message for filling in the pool work tasks",
+              })}
+            </p>
+            English - Your work
+            {poolAdvertisement.keyTasks?.en}
+            French - Your work
+            {poolAdvertisement.keyTasks?.fr}
+            <Button
+              onClick={() => onSave(poolAdvertisement)}
+              color="cta"
+              mode="solid"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Save work tasks",
+                description: "Text on a button to save the pool work tasks",
+              })}
+            </Button>
+          </TableOfContents.Section>
+
+          {/* Essential skills section */}
+          <TableOfContents.Section id={sectionMetadata.essentialSkills.id}>
+            <TableOfContents.Heading>
+              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+                {sectionMetadata.essentialSkills.title}
+              </h2>
+            </TableOfContents.Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Select the skills that you are looking for in applicants. Any skill selected here will be required for any applicant to apply. To increase the diversity of applications try to keep the selected number of skills to a minimum.",
+                description:
+                  "Helper message for filling in the pool essential skills",
+              })}
+            </p>
+            {JSON.stringify(poolAdvertisement.essentialSkills)}
+            <Button
+              onClick={() => onSave(poolAdvertisement)}
+              color="cta"
+              mode="solid"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Save essential skills",
+                description:
+                  "Text on a button to save the pool essential skills",
+              })}
+            </Button>
+          </TableOfContents.Section>
+
+          {/* Asset skills section */}
+          <TableOfContents.Section id={sectionMetadata.assetSkills.id}>
+            <TableOfContents.Heading>
+              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+                {sectionMetadata.assetSkills.title}
+              </h2>
+            </TableOfContents.Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Select skills that will improve the chances of quality matches with managers. These can typically be learned on the job and are not necessary to be accepted into the pool.",
+                description:
+                  "Helper message for filling in the pool asset skills",
+              })}
+            </p>
+            {JSON.stringify(poolAdvertisement.nonessentialSkills)}
+            <Button
+              onClick={() => onSave(poolAdvertisement)}
+              color="cta"
+              mode="solid"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Save asset skills",
+                description: "Text on a button to save the pool asset skills",
+              })}
+            </Button>
+          </TableOfContents.Section>
+
+          {/* Other requirements section */}
+          <TableOfContents.Section id={sectionMetadata.otherRequirements.id}>
+            <TableOfContents.Heading>
+              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+                {sectionMetadata.otherRequirements.title}
+              </h2>
+            </TableOfContents.Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Select the requirements needed for this advertisement.",
+                description:
+                  "Helper message for filling in the pool other requirements",
+              })}
+            </p>
+            <Button
+              onClick={() => onSave(poolAdvertisement)}
+              color="cta"
+              mode="solid"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Save other requirements",
+                description:
+                  "Text on a button to save the pool other requirements",
+              })}
+            </Button>
+          </TableOfContents.Section>
+
+          {/* Advertisement status section */}
+          <TableOfContents.Section id={sectionMetadata.status.id}>
+            <TableOfContents.Heading>
+              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+                {sectionMetadata.status.title}
+              </h2>
+            </TableOfContents.Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Use these options to publish or close your advertisement. A live advertisement will allow applicants to submit applications to this pool.",
+                description:
+                  "Helper message for changing the pool advertisement status",
+              })}
+            </p>
+            <Button onClick={() => onPublish()} color="secondary" mode="solid">
+              {intl.formatMessage({
+                defaultMessage: "Publish",
+                description: "Text on a button to publish the pool",
+              })}
+            </Button>
+            <Button onClick={() => onDelete()} color="secondary" mode="solid">
+              {intl.formatMessage({
+                defaultMessage: "Delete",
+                description: "Text on a button to delete the pool",
+              })}
+            </Button>
+            <Button onClick={() => onClose()} color="secondary" mode="solid">
+              {intl.formatMessage({
+                defaultMessage: "Close",
+                description: "Text on a button to close the pool",
+              })}
+            </Button>
+            <Button onClick={() => onExtend()} color="secondary" mode="solid">
+              {intl.formatMessage({
+                defaultMessage: "Extend the date",
+                description:
+                  "Text on a button to extend the expiry date the pool",
+              })}
+            </Button>
+          </TableOfContents.Section>
+        </TableOfContents.Content>
+      </TableOfContents.Wrapper>
+
       <Link
         href={adminPaths.poolTable()}
         color="secondary"
@@ -312,7 +421,6 @@ const EditPoolForm = ({
             "Text on a link to navigate back to the pool dashboard page",
         })}
       </Link>
-      {JSON.stringify(poolAdvertisement)}
     </DashboardContentContainer>
   );
 };
@@ -321,7 +429,7 @@ interface EditPoolProps {
   poolId: Scalars["ID"];
 }
 
-const EditPool = ({ poolId }: EditPoolProps) => {
+export const EditPool = ({ poolId }: EditPoolProps) => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId },
