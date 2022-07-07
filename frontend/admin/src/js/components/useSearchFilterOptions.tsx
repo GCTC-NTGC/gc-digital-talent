@@ -5,12 +5,16 @@ import {
 import { enumToOptions } from "@common/helpers/formUtils";
 import mapValues from "lodash/mapValues";
 import { useIntl } from "react-intl";
+import { getLocale } from "@common/helpers/localize";
 import {
   WorkRegion,
   OperationalRequirement,
   JobLookingStatus,
   GovEmployeeType,
   Language,
+  useAllSkillsQuery,
+  useGetClassificationsQuery,
+  useGetPoolsQuery,
 } from "../api/generated";
 
 const generateOptionsFromValues = (item: string) => ({
@@ -18,39 +22,71 @@ const generateOptionsFromValues = (item: string) => ({
   value: item.toLowerCase().replace(" ", "-"),
 });
 
+// This is use way to remove null and undefined values from list types, which
+// makes working with them simpler (e.g. `arr.map( ... )`)
+// Source: https://stackoverflow.com/a/46700791
+function notNullOrUndefined<TValue>(
+  value: TValue | null | undefined,
+): value is TValue {
+  return value !== null && value !== undefined;
+}
+
 export default function useSearchFilterOptions() {
-  const { formatMessage } = useIntl();
+  const intl = useIntl();
+  const locale = getLocale(intl);
+  // TODO: Implement way to return `fetching` states from hook, so that can pass
+  // to react-select's `isLoading` prop on <Select />.
+  // See: https://react-select.com/props#select-props
+  const [{ data: skillsData }] = useAllSkillsQuery();
+  const [{ data: classificationsData }] = useGetClassificationsQuery();
+  const [{ data: poolsData }] = useGetPoolsQuery();
 
   const optionsData = {
-    pools: [
-      "Digital Talent",
-      "Women in STEM",
-      "Indigenous Apprenticeship Program",
-    ].map(generateOptionsFromValues),
+    pools: poolsData?.pools.filter(notNullOrUndefined).map(({ id, name }) => ({
+      value: id,
+      // TODO: Is there a reason name and translations are optional?
+      label: name?.[locale] || "Error: name not loaded",
+    })),
+    // TODO: Does this correspond to User operations: lookingForEnglish,
+    // lookingForFrench, lookingForBilingual? If so, we need new localizedConstants
     languages: enumToOptions(Language).map(({ value }) => ({
       value,
-      label: formatMessage(getLanguage(value)),
+      label: intl.formatMessage(getLanguage(value)),
     })),
-    classifications: ["CS-01", "CS-02", "CS-03", "CS-04", "CS-05"].map(
-      generateOptionsFromValues,
-    ),
+    classifications: classificationsData?.classifications
+      .filter(notNullOrUndefined)
+      .map(({ id, group, level }) => ({
+        value: id,
+        label: `${group}-${level}`,
+      })),
+    // TODO: Localize these.
     workPreferences: enumToOptions(OperationalRequirement),
     workLocations: enumToOptions(WorkRegion).map(({ value }) => ({
       value,
-      label: formatMessage(getWorkRegion(value)),
+      label: intl.formatMessage(getWorkRegion(value)),
     })),
+    // TODO: Move this to localizedConstants.tsx
     durationPreferences: ["Term", "Indeterminate"].map(
       generateOptionsFromValues,
     ),
+    // TODO: Localize these.
     availability: enumToOptions(JobLookingStatus),
-    skillFilter: ["Data Analysis", "Data Cleaning", "Database Design"].map(
-      generateOptionsFromValues,
-    ),
+    skillFilter: skillsData?.skills
+      .filter(notNullOrUndefined)
+      .map(({ id, name }) => ({
+        value: id,
+        // TODO: Is there a reason translations are optional?
+        label: name[locale] || "Error: name not loaded",
+      })),
+    // TODO: Move this to localizedConstants.tsx
     profileComplete: ["Yes", "No"].map(generateOptionsFromValues),
+    // TODO: Localize these.
     govEmployee: enumToOptions(GovEmployeeType),
   };
 
-  const emptyFormValues = mapValues(optionsData, (val) => []);
+  // Creates an object keyed with all fields, each with empty array.
+  // Unlike Array.prototype.reduce(), creates clear type. Used for defaults.
+  const emptyFormValues = mapValues(optionsData, () => []);
 
   return { optionsData, emptyFormValues };
 }

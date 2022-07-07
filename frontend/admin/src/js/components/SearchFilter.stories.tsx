@@ -7,11 +7,32 @@ import SearchFilter from "./SearchFilter";
 import type { FormValues } from "./SearchFilter";
 import OverlayOrDialogDecorator from "@common/../.storybook/decorators/OverlayOrDialogDecorator";
 import useSearchFilterOptions from "./useSearchFilterOptions";
+import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
 
 export default {
   title: "Admin/SearchFilter",
   component: SearchFilter,
   decorators: [OverlayOrDialogDecorator],
+  parameters: {
+    apiResponses: {
+      AllSkills: {
+        data: {
+          skills: fakeSkills(30),
+        },
+      },
+      GetClassifications: {
+        data: {
+          classifications: fakeClassifications(),
+        },
+      },
+      getPools: {
+        data: {
+          pools: fakePools(),
+        },
+      },
+    },
+  },
+
 } as ComponentMeta<typeof SearchFilter>;
 
 export const Default: ComponentStory<typeof SearchFilter> = () => {
