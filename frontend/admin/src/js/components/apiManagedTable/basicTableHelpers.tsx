@@ -1,7 +1,12 @@
 import { InputMaybe, OrderByClause, SortOrder } from "@common/api/generated";
 import React from "react";
 import { IntlShape } from "react-intl";
+import { Scalars } from "../../api/generated";
 import { IndeterminateCheckbox } from "../Table/tableComponents";
+
+export interface RecordWithId extends Record<string, unknown> {
+  id: Scalars["ID"];
+}
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
@@ -15,10 +20,11 @@ export type Column<T> = {
 };
 
 // This defines the row selection column
-export function rowSelectionColumn<T>(
+export function rowSelectionColumn<T extends RecordWithId>(
   intl: IntlShape,
   selectedRows: T[],
   pageSize: number,
+  rowLabelText: (row: T) => string,
   onRowSelectionChange: (e: RowSelectedEvent<T>) => void,
 ): Column<T> {
   return {
@@ -29,6 +35,10 @@ export function rowSelectionColumn<T>(
     }),
     header: (
       <IndeterminateCheckbox
+        labelText={intl.formatMessage({
+          defaultMessage: "List",
+          description: "Header label for the row-selection column in tables.",
+        })}
         checked={selectedRows.length === pageSize}
         indeterminate={
           selectedRows.length > 0 && selectedRows.length < pageSize
@@ -40,16 +50,20 @@ export function rowSelectionColumn<T>(
     ),
     accessor: (r) => {
       return (
-        <input
-          type="checkbox"
-          checked={selectedRows.includes(r)}
-          onChange={() => {
-            onRowSelectionChange({
-              row: r,
-              setSelected: !selectedRows.includes(r),
-            });
-          }}
-        />
+        <label htmlFor={`select-${r.id}`}>
+          <input
+            id={`select-${r.id}`}
+            type="checkbox"
+            checked={selectedRows.includes(r)}
+            onChange={() => {
+              onRowSelectionChange({
+                row: r,
+                setSelected: !selectedRows.includes(r),
+              });
+            }}
+          />{" "}
+          {rowLabelText(r)}
+        </label>
       );
     }, // callback extracted to separate function to stabilize memoized component>
     id: "selection",

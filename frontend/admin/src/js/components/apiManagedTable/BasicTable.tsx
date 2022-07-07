@@ -2,11 +2,15 @@ import { Button } from "@common/components";
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 import SortIcon from "../Table/SortIcon";
-import { Column, ColumnsOf, IdType, SortingRule } from "./basicTableHelpers";
+import {
+  Column,
+  ColumnsOf,
+  IdType,
+  RecordWithId,
+  SortingRule,
+} from "./basicTableHelpers";
 
-export interface BasicTableProps<
-  T extends Record<string, unknown> = Record<string, unknown>,
-> {
+export interface BasicTableProps<T extends RecordWithId = RecordWithId> {
   columns: ColumnsOf<T>;
   data: Array<T>;
   labelledBy?: string;
@@ -15,7 +19,7 @@ export interface BasicTableProps<
   hiddenColumnIds: Array<IdType<T>>;
 }
 
-function BasicTable<T extends Record<string, unknown>>({
+function BasicTable<T extends RecordWithId>({
   columns,
   data,
   labelledBy,
