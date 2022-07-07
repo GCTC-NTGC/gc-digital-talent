@@ -226,7 +226,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           })}
         </h2>
         <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
-          <Spacer>
+          <Spacer data-h2-width="b(25)">
             <Input
               readOnly
               value={pool.id}
