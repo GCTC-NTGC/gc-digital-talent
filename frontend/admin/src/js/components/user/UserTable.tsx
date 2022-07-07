@@ -67,11 +67,15 @@ export const UserTable: React.FC = () => {
 
   const searchStateToFilterInput = (
     val: string | undefined,
+    col: string | undefined,
   ): InputMaybe<UserFilterInput> => {
     if (!val) return undefined;
 
     return {
-      name: val,
+      generalSearch: val && !col ? val : undefined,
+      email: col === "email" ? val : undefined,
+      name: col === "name" ? val : undefined,
+      telephone: col === "phone" ? val : undefined,
     };
   };
 
@@ -80,7 +84,10 @@ export const UserTable: React.FC = () => {
   const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
-  const [searchState, setSearchState] = useState<string | undefined>();
+  const [searchState, setSearchState] = useState<{
+    term: string | undefined;
+    col: string | undefined;
+  }>();
 
   useEffect(() => {
     setSelectedRows([]);
@@ -88,7 +95,7 @@ export const UserTable: React.FC = () => {
 
   const [result] = useAllUsersPaginatedQuery({
     variables: {
-      where: searchStateToFilterInput(searchState),
+      where: searchStateToFilterInput(searchState?.term, searchState?.col),
       page: currentPage,
       first: pageSize,
       orderBy: sortingRuleToOrderByClause(sortingRule),
@@ -182,11 +189,17 @@ export const UserTable: React.FC = () => {
       <h2 id="user-table-heading" data-h2-visibility="b(invisible)">
         {intl.formatMessage({
           defaultMessage: "All Users",
-          description: "Heading for the users table",
+          description: "Title for the admin users table",
         })}
       </h2>
       <TableHeader
-        onSearchChange={(val: string | undefined) => setSearchState(val)}
+        onSearchChange={(term: string | undefined, col: string | undefined) => {
+          setCurrentPage(1);
+          setSearchState({
+            term,
+            col,
+          });
+        }}
         columns={columns}
         addBtn={{
           label: intl.formatMessage({
@@ -196,6 +209,29 @@ export const UserTable: React.FC = () => {
           }),
           path: paths.userCreate(),
         }}
+        searchBy={[
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Name",
+              description: "Label for user table search dropdown (name).",
+            }),
+            value: "name",
+          },
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Email",
+              description: "Label for user table search dropdown (email).",
+            }),
+            value: "email",
+          },
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Phone",
+              description: "Label for user table search dropdown (phone).",
+            }),
+            value: "phone",
+          },
+        ]}
         onColumnHiddenChange={(event) =>
           handleColumnHiddenChange(
             allColumnIds,

@@ -32,6 +32,18 @@ function poolCandidatesLinkAccessor(
   );
 }
 
+function viewLinkAccessor(
+  editUrlRoot: string,
+  id: string,
+  title: string | undefined | null,
+) {
+  return (
+    <Link href={`${editUrlRoot}/${id}`} type="link">
+      {title}
+    </Link>
+  );
+}
+
 export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   pools,
   editUrlRoot,
@@ -62,7 +74,12 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           defaultMessage: "Pool Name",
           description: "Title displayed for the Pool table pool name column.",
         }),
-        accessor: (d) => (d.name ? d.name[getLocale(intl)] : ""),
+        accessor: (d) =>
+          viewLinkAccessor(
+            editUrlRoot,
+            d.id,
+            d.name ? d.name[getLocale(intl)] : "",
+          ),
       },
       {
         Header: intl.formatMessage({

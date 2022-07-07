@@ -43,7 +43,7 @@ class AuthController extends Controller
             'scope' => $scope,
             'state' => $state,
             'nonce' => $nonce,
-            'acr_values' => 'gckey',
+            'acr_values' => 'gckeymfa',
             'ui_locales' => $ui_locales,
         ]);
 

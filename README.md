@@ -4,9 +4,14 @@ The GC Digital Talent app is divided into multiple services, each treated as its
 - `/api`, the API service
 - `/frontend`, an npm project for frontend client code containing multiple [workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces):
   - `/admin`, a CRUD-style admin dashboard
-  - `/talentsearch`, pages related to searching and requesting talent from pools
   - `/common`, code shared by multiple other workspaces
-- `/tc-report`, static content copied from [another repo](https://github.com/GCTC-NTGC/tc-report) using [git-subtree](https://www.atlassian.com/git/tutorials/git-subtree). Merge updates from that repo with `git subtree pull -P tc-report https://github.com/GCTC-NTGC/tc-report _site --squash`
+  - `/cypress`, e2e testing with [`Cypress`](/frontend/cypress/README.md)
+  - `/indigenousapprenticeship`, pages related to the Indigenous Apprenticeship Program
+  - `/talentsearch`, pages related to searching and requesting talent from pools
+  
+- `/tc-report`, static content copied from [another repo](https://github.com/GCTC-NTGC/tc-report)
+  - The files in this directory of this repository __should never be directly edited__.
+  - See [`documentation/tc-report.md`](documentation/tc-report.md) for more information
 - `/infrastructure`, support files for the docker infrastructure to run the project
   - this includes a mock oauth2 server (only used for local development envs)
 - `/maintenance`, additional scripts which run inside the docker containers for setup and updates
