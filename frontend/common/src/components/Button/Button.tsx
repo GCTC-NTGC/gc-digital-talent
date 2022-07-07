@@ -162,7 +162,16 @@ export const colorMap: Record<
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { children, type, color, mode, block = false, classNames, ...rest },
+    {
+      children,
+      type,
+      color,
+      mode,
+      disabled,
+      block = false,
+      classNames,
+      ...rest
+    },
     ref,
   ) => {
     return (
@@ -171,6 +180,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={`button ${classNames}`}
         // eslint-disable-next-line react/button-has-type
         type={type || "button"}
+        disabled={disabled}
         data-h2-radius="b(s)"
         data-h2-padding="b(top-bottom, xs) b(right-left, s)"
         data-h2-font-size="b(caption) m(normal)"
@@ -180,6 +190,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           : { "data-h2-display": "b(inline-block)" })}
         {...colorMap[color][mode]}
         style={{
+          opacity: disabled ? "0.6" : undefined,
           width: block ? "100%" : "auto",
         }}
         {...rest}

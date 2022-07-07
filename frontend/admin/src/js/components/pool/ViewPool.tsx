@@ -157,6 +157,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             color="secondary"
             type="button"
             href="#"
+            disabled
             icon={UserGroupIcon}
           >
             {intl.formatMessage({
@@ -172,6 +173,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             color="secondary"
             type="button"
             href="#"
+            disabled
             icon={TicketIcon}
           >
             {intl.formatMessage({
