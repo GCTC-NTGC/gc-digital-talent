@@ -24,19 +24,6 @@ export type FormValues = {
   govEmployee: Option["value"][];
 };
 
-export const defaultFormValues = {
-  pools: [],
-  languages: [],
-  classifications: [],
-  workPreferences: [],
-  workLocations: [],
-  durationPreferences: [],
-  availability: [],
-  skillFilter: [],
-  profileComplete: [],
-  govEmployee: [],
-};
-
 const SearchFilterFooter = (): JSX.Element => {
   const { reset } = useFormContext();
   const { emptyFormValues } = useSearchFilterOptions();
