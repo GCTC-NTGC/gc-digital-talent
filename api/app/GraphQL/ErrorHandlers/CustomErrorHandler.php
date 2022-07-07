@@ -17,12 +17,6 @@ class CustomErrorHandler implements ErrorHandler
 {
     public function __invoke(?Error $error, Closure $next): ?array
     {
-
-
-        // // Error handlers are instantiated once per query
-        // $this->errorCount++;
-
-        // Keep the pipeline going, last step formats the error into an array
         return $next($error);
     }
     public static function handle(Error $error, Closure $next): array
@@ -33,7 +27,7 @@ class CustomErrorHandler implements ErrorHandler
         if ($underlyingException instanceof RendersErrorsExtensions) {
             // Reconstruct the error, passing in the extensions of the underlying exception
             $error = new Error( // @phpstan-ignore-line TODO remove after graphql-php upgrade
-                "nBrindas error",
+                $error->message,
                 $error->nodes,
                 $error->getSource(),
                 $error->getPositions(),
