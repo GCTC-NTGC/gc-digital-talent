@@ -539,16 +539,7 @@ export const OperationalRequirementCandidateDescription = defineMessages({
   },
 });
 
-export const getOperationalRequirementCandidateDescription = (
-  operationalRequirementId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    OperationalRequirementCandidateDescription,
-    operationalRequirementId,
-    `Invalid Operational Requirement '${operationalRequirementId}'`,
-  );
-
-export const operationalRequirements = defineMessages({
+export const OperationalRequirementFull = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "Availability, willingness and ability to work shift-work.",
     description: "The operational requirement described as shift work.",
@@ -591,14 +582,65 @@ export const operationalRequirements = defineMessages({
   },
 });
 
+export const OperationalRequirementShort = defineMessages({
+  [OperationalRequirement.ShiftWork]: {
+    defaultMessage: "Shift-work",
+    description:
+      "The operational requirement described as shift work. (short-form for limited space)",
+  },
+  [OperationalRequirement.OnCall]: {
+    defaultMessage: "24/7 on-call",
+    description:
+      "The operational requirement described as 24/7 on-call. (short-form for limited space)",
+  },
+  [OperationalRequirement.Travel]: {
+    defaultMessage: "Travel",
+    description:
+      "The operational requirement described as travel as required. (short-form for limited space)",
+  },
+  [OperationalRequirement.TransportEquipment]: {
+    defaultMessage: "Transport & Lift (20kg)",
+    description:
+      "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)",
+  },
+  [OperationalRequirement.DriversLicense]: {
+    defaultMessage: "Driver's license",
+    description:
+      "The operational requirement described as driver's license. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage: "Overtime (regular)",
+    description:
+      "The operational requirement described as regular overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage: "Overtime (occasional)",
+    description:
+      "The operational requirement described as occasional overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "Weekends",
+    description:
+      "The operational requirement described as work weekends. (short-form for limited space)",
+  },
+});
+
 export const getOperationalRequirement = (
   operationalRequirementId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    operationalRequirements,
+  type: "candidateDescription" | "full" | "short" = "full",
+): MessageDescriptor => {
+  const messageDictionary = {
+    candidateDescription: OperationalRequirementCandidateDescription,
+    full: OperationalRequirementFull,
+    short: OperationalRequirementShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[type],
     operationalRequirementId,
     `Invalid Operational Requirement '${operationalRequirementId}'`,
   );
+};
 
 export const provinceOrTerritory = defineMessages({
   [ProvinceOrTerritory.Alberta]: {

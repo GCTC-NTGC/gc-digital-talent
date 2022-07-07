@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { commonMessages, errorMessages } from "@common/messages";
 import { Checklist, RadioGroup } from "@common/components/form";
-import { getOperationalRequirementCandidateDescription } from "@common/constants/localizedConstants";
+import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
@@ -173,7 +173,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                   ).map(({ value }) => ({
                     value,
                     label: intl.formatMessage(
-                      getOperationalRequirementCandidateDescription(value),
+                      getOperationalRequirement(value, 'candidateDescription'),
                       { bold },
                     ),
                   }))}

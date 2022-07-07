@@ -1,6 +1,7 @@
 import {
   getWorkRegion,
   getLanguageAbility,
+  getOperationalRequirement,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import mapValues from "lodash/mapValues";
@@ -57,8 +58,10 @@ export default function useSearchFilterOptions() {
         value: id,
         label: `${group}-${level}`,
       })),
-    // TODO: Localize these.
-    workPreferences: enumToOptions(OperationalRequirement),
+    workPreferences: enumToOptions(OperationalRequirement).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getOperationalRequirement(value, "short")),
+    })),
     workLocations: enumToOptions(WorkRegion).map(({ value }) => ({
       value,
       label: intl.formatMessage(getWorkRegion(value)),
