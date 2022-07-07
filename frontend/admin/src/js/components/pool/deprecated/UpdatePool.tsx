@@ -430,3 +430,5 @@ export const UpdatePool: React.FunctionComponent<{
     </Pending>
   );
 };
+
+export default UpdatePool;

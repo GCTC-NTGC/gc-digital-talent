@@ -324,7 +324,7 @@ interface EditPoolProps {
 const EditPool = ({ poolId }: EditPoolProps) => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
-    variables: { poolId },
+    variables: { id: poolId },
   });
   return (
     <Pending fetching={fetching} error={error}>
