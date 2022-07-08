@@ -14,6 +14,10 @@ export default {
   component: SearchFilter,
   decorators: [OverlayOrDialogDecorator],
   parameters: {
+    apiResponsesConfig: {
+      minTimeout: 2000,
+      maxTimeout: 10000,
+    },
     apiResponses: {
       AllSkills: {
         data: {
