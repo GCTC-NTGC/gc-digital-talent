@@ -59,8 +59,13 @@ type ContainerProps = React.HTMLAttributes<HTMLDivElement>;
 const Row = (props: ContainerProps) => (
   <div className="search-filter__row" {...props} />
 );
+
 const Item = (props: ContainerProps) => (
-  <div className="search-filter__item" {...props} />
+  <div data-h2-margin="b(left, s)" {...props} />
+);
+
+const GrowItem = (props: ContainerProps) => (
+  <div data-h2-margin="b(left, s)" {...props} className="search-filter__grow" />
 );
 
 interface SearchFilterProps {
@@ -102,7 +107,7 @@ const SearchFilter = ({
         }}
       >
         <Row>
-          <Item>
+          <GrowItem>
             <MultiSelectFieldV2
               id="pools"
               label={formatMessage({
@@ -111,7 +116,7 @@ const SearchFilter = ({
               options={optionsData.pools}
               isLoading={apiResults.pools.fetching}
             />
-          </Item>
+          </GrowItem>
           <Item style={{ minWidth: 300 }}>
             <SelectFieldV2
               forceArrayFormValue
@@ -124,7 +129,7 @@ const SearchFilter = ({
           </Item>
         </Row>
         <Row>
-          <Item style={{ minWidth: 175 }}>
+          <GrowItem style={{ minWidth: 175 }}>
             <MultiSelectFieldV2
               id="classifications"
               label={formatMessage({
@@ -133,8 +138,8 @@ const SearchFilter = ({
               options={optionsData.classifications}
               isLoading={apiResults.classifications.fetching}
             />
-          </Item>
-          <Item>
+          </GrowItem>
+          <GrowItem>
             <MultiSelectFieldV2
               id="workPreferences"
               label={formatMessage({
@@ -142,8 +147,8 @@ const SearchFilter = ({
               })}
               options={optionsData.workPreferences}
             />
-          </Item>
-          <Item>
+          </GrowItem>
+          <GrowItem>
             <MultiSelectFieldV2
               id="workLocations"
               label={formatMessage({
@@ -151,11 +156,11 @@ const SearchFilter = ({
               })}
               options={optionsData.workLocations}
             />
-          </Item>
+          </GrowItem>
         </Row>
         <Row>
           {enableEducationType && (
-            <Item>
+            <GrowItem>
               <MultiSelectFieldV2
                 id="educationTypes"
                 label={formatMessage({
@@ -163,9 +168,9 @@ const SearchFilter = ({
                 })}
                 options={optionsData.educationTypes}
               />
-            </Item>
+            </GrowItem>
           )}
-          <Item>
+          <GrowItem>
             <SelectFieldV2
               forceArrayFormValue
               id="durationPreferences"
@@ -174,8 +179,8 @@ const SearchFilter = ({
               })}
               options={optionsData.durationPreferences}
             />
-          </Item>
-          <Item>
+          </GrowItem>
+          <GrowItem>
             <MultiSelectFieldV2
               id="availability"
               label={formatMessage({
@@ -183,7 +188,7 @@ const SearchFilter = ({
               })}
               options={optionsData.availability}
             />
-          </Item>
+          </GrowItem>
           <Item>
             <SelectFieldV2
               forceArrayFormValue
@@ -196,7 +201,7 @@ const SearchFilter = ({
           </Item>
         </Row>
         <Row>
-          <Item>
+          <GrowItem>
             <MultiSelectFieldV2
               id="skillFilter"
               label={formatMessage({
@@ -205,7 +210,7 @@ const SearchFilter = ({
               options={optionsData.skillFilter}
               isLoading={apiResults.skills.fetching}
             />
-          </Item>
+          </GrowItem>
           <Item>
             <SelectFieldV2
               forceArrayFormValue
