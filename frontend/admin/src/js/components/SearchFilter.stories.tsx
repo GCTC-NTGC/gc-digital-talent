@@ -3,11 +3,11 @@ import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import Button from "@common/components/Button";
 import type { SubmitHandler } from "react-hook-form";
+import OverlayOrDialogDecorator from "@common/../.storybook/decorators/OverlayOrDialogDecorator";
+import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
 import SearchFilter from "./SearchFilter";
 import type { FormValues } from "./SearchFilter";
-import OverlayOrDialogDecorator from "@common/../.storybook/decorators/OverlayOrDialogDecorator";
 import useSearchFilterOptions from "./useSearchFilterOptions";
-import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
 
 export default {
   title: "Admin/SearchFilter",
@@ -32,7 +32,6 @@ export default {
       },
     },
   },
-
 } as ComponentMeta<typeof SearchFilter>;
 
 export const Default: ComponentStory<typeof SearchFilter> = () => {
