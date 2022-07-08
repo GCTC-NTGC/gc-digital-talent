@@ -47,6 +47,8 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const OperationalRequirementsSortOrder = [
     OperationalRequirement.OvertimeShortNotice,
     OperationalRequirement.OvertimeScheduled,
+    OperationalRequirement.OvertimeOccasional,
+    OperationalRequirement.OvertimeRegular,
     OperationalRequirement.ShiftWork,
     OperationalRequirement.OnCall,
     OperationalRequirement.Travel,
