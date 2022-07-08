@@ -217,7 +217,7 @@
       "query": null
     },
     {
-      "key": "p",
+      "key": "print",
       "query": "print"
     },
     {
@@ -225,11 +225,27 @@
       "query": "screen and (min-width: 48em)"
     },
     {
+      "key": "p-tablet",
+      "query": "screen and (min-width: 48em)"
+    },
+    {
       "key": "m",
       "query": "screen and (min-width: 64em)"
     },
     {
+      "key": "l-tablet",
+      "query": "screen and (min-width: 73em)"
+    },
+    {
+      "key": "laptop",
+      "query": "screen and (min-width: 80em)"
+    },
+    {
       "key": "l",
+      "query": "screen and (min-width: 100em)"
+    },
+    {
+      "key": "desktop",
       "query": "screen and (min-width: 100em)"
     }
   ],

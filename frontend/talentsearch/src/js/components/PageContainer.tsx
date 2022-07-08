@@ -120,7 +120,7 @@ export const PageContainer: React.FC<{
   return (
     <ScrollToTop>
       <>
-        <a href="#main" data-h2-visibility="b(hidden)">
+        <a href="#main" data-h2-visibility="b(invisible) b:focus(visible)">
           {intl.formatMessage({
             defaultMessage: "Skip to main content",
             description: "Assistive technology skip link",

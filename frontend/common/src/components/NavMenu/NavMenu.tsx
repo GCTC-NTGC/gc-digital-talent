@@ -6,10 +6,7 @@ export interface NavMenuProps {
 }
 
 const ListItem: React.FC = ({ children }) => (
-  <li
-    data-h2-margin="b(0, x1, x.5, 0)"
-    data-h2-display="b(block) m(inline-block)"
-  >
+  <li data-h2-flex-item="b(content)">
     <span data-h2-margin="b(0, 0, x.5, 0)" data-h2-font-style="b:hover(reset)">
       {children}
     </span>
@@ -21,33 +18,42 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
   utilityItems,
 }) => {
   return (
-    <div data-h2-flex-grid="b(center, 0, x3)">
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        data-h2-text-align="b(center) m(left)"
-      >
-        <nav>
-          <ul className="reset-ul">
-            {mainItems.map((item) => (
-              <ListItem key={item.key}>{item}</ListItem>
-            ))}
-          </ul>
-        </nav>
-      </div>
-      {utilityItems && utilityItems.length > 0 ? (
-        <div
-          data-h2-flex-item="b(1of1) m(1of2)"
-          data-h2-text-align="b(center) m(right)"
-        >
-          <nav>
-            <ul className="reset-ul">
-              {utilityItems.map((item) => (
-                <ListItem key={item.key}>{item}</ListItem>
-              ))}
-            </ul>
-          </nav>
+    <div data-h2-container="b(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-padding="b(x1, 0)">
+        <div data-h2-flex-grid="b(center, 0, x3, 0)">
+          <div
+            data-h2-flex-item="b(1of1) p-tablet(1of2)"
+            data-h2-text-align="b(center) p-tablet(left)"
+          >
+            <nav>
+              <ul
+                data-h2-list-style="b(none)"
+                data-h2-flex-grid="b(flex-start, 0, x1, 0)">
+                {mainItems.map((item) => (
+                  <ListItem key={item.key}>{item}</ListItem>
+                ))}
+              </ul>
+            </nav>
+          </div>
+          {utilityItems && utilityItems.length > 0 ? (
+            <div
+              data-h2-flex-item="b(1of1) p-tablet(1of2)"
+              data-h2-text-align="b(center) p-tablet(right)"
+            >
+              <nav>
+                <ul
+                  data-h2-list-style="b(none)"
+                  data-h2-flex-grid="b(flex-start, 0, x1, 0)"
+                  data-h2-justify-content="b(flex-end)">
+                  {utilityItems.map((item) => (
+                    <ListItem key={item.key}>{item}</ListItem>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          ) : null}
         </div>
-      ) : null}
+      </div>
     </div>
   );
 };

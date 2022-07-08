@@ -23,10 +23,10 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl }) => {
       data-h2-padding="b(x1, 0)"
       data-h2-border="b(bottom, 1px, solid, dt-gray)">
       <div data-h2-container="b(center, large, x2)">
-        <div data-h2-flex-grid="b(center, 0, x3)">
+        <div data-h2-flex-grid="b(flex-start, 0, x1) p-tablet(center, 0, x3)">
           <div
-            data-h2-flex-item="b(1of1) m(1of2)"
-            data-h2-text-align="b(center) m(left)"
+            data-h2-flex-item="b(1of1) p-tablet(1of2)"
+            data-h2-text-align="b(center) p-tablet(left)"
           >
             <a
               href={`https://www.canada.ca/${locale}.html`}
@@ -44,8 +44,8 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl }) => {
             </a>
           </div>
           <div
-            data-h2-flex-item="b(1of1) m(1of2)"
-            data-h2-text-align="b(center) m(right)"
+            data-h2-flex-item="b(1of1) p-tablet(1of2)"
+            data-h2-text-align="b(center) p-tablet(right)"
           >
             <Link
               href={languageTogglePath}

@@ -19,54 +19,60 @@ const EstimatedCandidates: React.FunctionComponent<
   const intl = useIntl();
 
   return (
-    <div
-      data-h2-background-color="b(dt-white)"
-      data-h2-border="b(all, 1px, solid, light.dt-gray)"
-      data-h2-shadow="b(m)"
-    >
+    <div data-h2-height="b(100%)">
       <div
-        data-h2-background-color="b(dt-linear)"
-        data-h2-padding="b(x.5)"
-      >
-        <p
-          data-h2-color="b(dt-white)"
-          data-h2-font-size="b(h4, 1.3)"
-          data-h2-margin="b(0)"
-          data-h2-font-weight="b(700)"
+        data-h2-position="b(sticky)"
+        data-h2-offset="p-tablet(x3, auto, auto, auto)">
+        <div
+          data-h2-background-color="b(dt-white)"
+          data-h2-overflow="b(hidden, all)"
+          data-h2-radius="b(10px)"
+          data-h2-shadow="b(l)"
         >
-          {intl.formatMessage({
-            defaultMessage: "Estimated Candidates",
-            description:
-              "Heading for total estimated candidates box next to search form.",
-          })}
-        </p>
-      </div>
-      <div
-        data-h2-margin="b(x1, x2)"
-        aria-live="polite"
-      >
-        <p data-h2-text-align="b(center)">
-          {updatePending ? (
-            <Spinner />
-          ) : (
-            <>
-              {intl.formatMessage(
-                {
-                  defaultMessage: `{candidateCount, plural,
-                      one {There is approximately <weight>{candidateCount}</weight> candidate right now who meets your criteria.}
-                      other {There are approximately <weight>{candidateCount}</weight> candidates right now who meet your criteria.}
-                    }`,
-                  description:
-                    "Message for total estimated candidates box next to search form.",
-                },
-                {
-                  weight,
-                  candidateCount,
-                },
+          <div
+            data-h2-background-color="b(dt-secondary)"
+            data-h2-padding="b(x1)"
+          >
+            <p
+              data-h2-color="b(dt-white)"
+              data-h2-font-size="b(h5, 1.3)"
+              data-h2-font-weight="b(700)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Estimated Candidates",
+                description:
+                  "Heading for total estimated candidates box next to search form.",
+              })}
+            </p>
+          </div>
+          <div
+            data-h2-padding="b(x1)"
+            aria-live="polite"
+          >
+            <p data-h2-text-align="b(center)">
+              {updatePending ? (
+                <Spinner />
+              ) : (
+                <>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: `{candidateCount, plural,
+                          one {There is approximately <weight>{candidateCount}</weight> candidate right now who meets your criteria.}
+                          other {There are approximately <weight>{candidateCount}</weight> candidates right now who meet your criteria.}
+                        }`,
+                      description:
+                        "Message for total estimated candidates box next to search form.",
+                    },
+                    {
+                      weight,
+                      candidateCount,
+                    },
+                  )}
+                </>
               )}
-            </>
-          )}
-        </p>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -33,17 +33,11 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
   }
   return (
     <>
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        style={{ padding: "0", paddingLeft: "1rem" }}
-      >
-        <p data-h2-margin="b(x1, 0, 0, 0)" data-h2-font-weight="b(700)">
+      <div data-h2-padding="b(x1)">
+        <p data-h2-font-weight="b(700)">
           {pool?.name?.[locale]}
         </p>
-        <p
-          data-h2-margin="b(x.125, 0, x1, 0)"
-          data-h2-font-weight="b(200)"
-        >
+        <p data-h2-margin="b(x.5, 0, x1, 0)">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -57,7 +51,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
             },
           )}
         </p>
-        <p data-h2-margin="b(x1, 0, 0, 0)" data-h2-font-size="b(caption)">
+        <p data-h2-margin="b(x1, 0, 0, 0)">
           {intl.formatMessage(
             {
               defaultMessage: "Pool Owner: {firstName} {lastName}",
@@ -69,15 +63,9 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
             },
           )}
         </p>
-        <p data-h2-margin="b(x1, 0, x.5, 0)" data-h2-font-size="b(caption)">
+        <p data-h2-margin="b(x1, 0)">
           {pool?.description?.[locale]}
         </p>
-      </div>
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        data-h2-display="b(flex)"
-        data-h2-justify-content="b(center) m(flex-end)"
-      >
         <Button color="cta" mode="solid" onClick={handleSubmit}>
           {intl.formatMessage({
             defaultMessage: "Request Candidates",
