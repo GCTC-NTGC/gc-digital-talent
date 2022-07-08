@@ -5,7 +5,7 @@ import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { getJobLookingStatusDescription } from "@common/constants/localizedConstants";
+import { getJobLookingStatus } from "@common/constants/localizedConstants";
 import { BasicForm, RadioGroup } from "@common/components/form";
 import Pending from "@common/components/Pending";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
@@ -136,7 +136,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               JobLookingStatusSortOrder,
             ).map(({ value }) => ({
               value,
-              label: intl.formatMessage(getJobLookingStatusDescription(value), {
+              label: intl.formatMessage(getJobLookingStatus(value), {
                 bold,
               }),
             }))}

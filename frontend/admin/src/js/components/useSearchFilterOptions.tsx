@@ -4,6 +4,7 @@ import {
   getLanguageAbility,
   getOperationalRequirement,
   getEducationType,
+  getJobLookingStatus,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import mapValues from "lodash/mapValues";
@@ -83,8 +84,10 @@ export default function useSearchFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getEmploymentDuration(value, "short")),
     })),
-    // TODO: Localize these.
-    availability: enumToOptions(JobLookingStatus),
+    availability: enumToOptions(JobLookingStatus).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getJobLookingStatus(value, "short")),
+    })),
     skillFilter: skillsData?.skills
       .filter(notNullOrUndefined)
       .map(({ id, name }) => ({
