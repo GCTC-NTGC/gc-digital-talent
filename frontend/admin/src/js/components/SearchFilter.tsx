@@ -17,6 +17,9 @@ export type FormValues = {
   classifications: Option["value"][];
   workPreferences: Option["value"][];
   workLocations: Option["value"][];
+  // TODO: Add this back in once data model settles.
+  // See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
+  // educationTypes: Option["value"][];
   durationPreferences: Option["value"][];
   availability: Option["value"][];
   skillFilter: Option["value"][];

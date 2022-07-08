@@ -3,6 +3,7 @@ import {
   getEmploymentDuration,
   getLanguageAbility,
   getOperationalRequirement,
+  // getEducationType,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import mapValues from "lodash/mapValues";
@@ -11,6 +12,7 @@ import useLocale from "./useLocale";
 import {
   WorkRegion,
   OperationalRequirement,
+  // EducationType,
   JobLookingStatus,
   LanguageAbility,
   useAllSkillsQuery,
@@ -67,6 +69,10 @@ export default function useSearchFilterOptions() {
       value,
       label: intl.formatMessage(getWorkRegion(value)),
     })),
+    // educationTypes: enumToOptions(EducationType).map(({ value }) => ({
+    //   value,
+    //   label: intl.formatMessage(getEducationType(value)),
+    // })),
     durationPreferences: ["term", "indeterminate"].map((value) => ({
       value,
       label: intl.formatMessage(getEmploymentDuration(value, "short")),
