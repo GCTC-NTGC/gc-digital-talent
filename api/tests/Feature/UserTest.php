@@ -41,7 +41,9 @@ class UserTest extends TestCase
 
     public function testCreateUserDefaultRoles()
     {
-        $this->graphQL(/** @lang GraphQL */ '
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
             mutation CreateUser($user: CreateUserInput!) {
                 createUser(user: $user) {
                     firstName
@@ -52,14 +54,16 @@ class UserTest extends TestCase
                     roles
                 }
             }
-        ', [
-            'user' => [
-                'firstName' => 'Jane',
-                'lastName' => 'Tester',
-                'email' => 'jane@test.com',
-                // If roles is not set, it should come back as empty array.
+        ',
+            [
+                'user' => [
+                    'firstName' => 'Jane',
+                    'lastName' => 'Tester',
+                    'email' => 'jane@test.com',
+                    // If roles is not set, it should come back as empty array.
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'createUser' => [
                     'firstName' => 'Jane',
@@ -77,7 +81,9 @@ class UserTest extends TestCase
 
     public function testCreateUserAdminRole()
     {
-        $this->graphQL(/** @lang GraphQL */ '
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
             mutation CreateUser($user: CreateUserInput!) {
                 createUser(user: $user) {
                     firstName
@@ -88,14 +94,16 @@ class UserTest extends TestCase
                     roles
                 }
             }
-        ', [
-            'user' => [
-                'firstName' => 'Jane',
-                'lastName' => 'Tester',
-                'email' => 'jane@test.com',
-                'roles' => ['ADMIN']
+        ',
+            [
+                'user' => [
+                    'firstName' => 'Jane',
+                    'lastName' => 'Tester',
+                    'email' => 'jane@test.com',
+                    'roles' => ['ADMIN']
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'createUser' => [
                     'firstName' => 'Jane',
@@ -114,19 +122,23 @@ class UserTest extends TestCase
     public function testUpdateUserRole()
     {
         $user = User::factory()->create(['roles' => []]);
-        $this->graphQL(/** @lang GraphQL */ '
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
             mutation UpdateUser($id: ID!, $user: UpdateUserAsAdminInput!) {
                 updateUserAsAdmin(id: $id, user: $user) {
                     id
                     roles
                 }
             }
-        ', [
-            'id' => $user->id,
-            'user' => [
-                'roles' => ['ADMIN']
+        ',
+            [
+                'id' => $user->id,
+                'user' => [
+                    'roles' => ['ADMIN']
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'updateUserAsAdmin' => [
                     'id' => strval($user->id),
@@ -173,7 +185,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with no pool filter will return all users, including unavailable
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -181,9 +195,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -194,7 +210,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool filter but no statuses filter
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -202,15 +220,17 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'poolFilters' => [
-                    [
-                        'poolId' => $pool1['id'],
+        ',
+            [
+                'where' => [
+                    'poolFilters' => [
+                        [
+                            'poolId' => $pool1['id'],
+                        ]
                     ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -221,7 +241,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool filter, only expired status
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -229,16 +251,18 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'poolFilters' => [
-                    [
-                        'poolId' => $pool1['id'],
-                        'statuses' => [ApiEnums::CANDIDATE_STATUS_EXPIRED],
+        ',
+            [
+                'where' => [
+                    'poolFilters' => [
+                        [
+                            'poolId' => $pool1['id'],
+                            'statuses' => [ApiEnums::CANDIDATE_STATUS_EXPIRED],
+                        ]
                     ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -249,7 +273,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool filter, expired + available statuses
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -257,16 +283,18 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'poolFilters' => [
-                    [
-                        'poolId' => $pool1['id'],
-                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE, ApiEnums::CANDIDATE_STATUS_EXPIRED],
+        ',
+            [
+                'where' => [
+                    'poolFilters' => [
+                        [
+                            'poolId' => $pool1['id'],
+                            'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE, ApiEnums::CANDIDATE_STATUS_EXPIRED],
+                        ]
                     ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -277,7 +305,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool filter, empty array of statuses will return all candidates in pool.
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -285,16 +315,18 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'poolFilters' => [
-                    [
-                        'poolId' => $pool1['id'],
-                        'statuses' => [],
+        ',
+            [
+                'where' => [
+                    'poolFilters' => [
+                        [
+                            'poolId' => $pool1['id'],
+                            'statuses' => [],
+                        ]
                     ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -305,7 +337,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with unknown pool filter will return zero
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -313,16 +347,18 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'poolFilters' => [
-                    [
-                        'poolId' => '00000000-0000-0000-0000-000000000000',
-                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+        ',
+            [
+                'where' => [
+                    'poolFilters' => [
+                        [
+                            'poolId' => '00000000-0000-0000-0000-000000000000',
+                            'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                        ]
                     ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -389,7 +425,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with no parameters returns all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -397,7 +435,8 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ')->assertJson([
+        '
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -408,7 +447,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool and expiryStatus ACTIVE returns correct users
-        $response = $this->graphQL(/** @lang Graphql */ '
+        $response = $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -416,17 +457,19 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'poolFilters' => [
-                    [
-                        'poolId' => $myPool->id,
-                        'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+        ',
+            [
+                'where' => [
+                    'poolFilters' => [
+                        [
+                            'poolId' => $myPool->id,
+                            'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+                            'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                        ]
                     ]
                 ]
             ]
-        ]);
+        );
         $response->assertJson([
             'data' => [
                 'usersPaginated' => [
@@ -438,7 +481,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query for pool without setting expiryStatus returns ACTIVE users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -446,16 +491,18 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'poolFilters' => [
-                    [
-                        'poolId' => $myPool->id,
-                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+        ',
+            [
+                'where' => [
+                    'poolFilters' => [
+                        [
+                            'poolId' => $myPool->id,
+                            'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                        ]
                     ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -466,7 +513,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool and expiryStatus EXPIRED returns correct users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -474,18 +523,20 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'poolFilters' => [
-                    [
+        ',
+            [
+                'where' => [
+                    'poolFilters' => [
+                        [
 
-                        'poolId' => $myPool->id,
-                        'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
-                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                            'poolId' => $myPool->id,
+                            'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
+                            'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                        ]
                     ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -496,7 +547,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with pool and expiryStatus ALL returns all users in pool
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -504,17 +557,19 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'poolFilters' => [
-                    [
-                        'poolId' => $myPool->id,
-                        'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
-                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+        ',
+            [
+                'where' => [
+                    'poolFilters' => [
+                        [
+                            'poolId' => $myPool->id,
+                            'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
+                            'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                        ]
                     ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -543,7 +598,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with no LanguageAbility filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -551,9 +608,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -564,7 +623,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with ENGLISH filter will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -572,11 +633,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'languageAbility' => "ENGLISH"
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'languageAbility' => "ENGLISH"
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -587,7 +652,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with FRENCH filter will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -595,11 +662,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'languageAbility' => "FRENCH"
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'languageAbility' => "FRENCH"
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -610,7 +681,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with BILINGUAL filter will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -618,11 +691,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'languageAbility' => "BILINGUAL"
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'languageAbility' => "BILINGUAL"
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -645,12 +722,14 @@ class UserTest extends TestCase
             'group' => 'ZZ',
             'level' => 1,
         ]);
-        User::factory()->count(2)->create()->each(function($user) use ($classification) {
+        User::factory()->count(2)->create()->each(function ($user) use ($classification) {
             $user->expectedClassifications()->save($classification);
         });
 
         // Assert query with no classifications filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -658,9 +737,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -671,7 +752,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with classification filter will return correct number of users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -679,11 +762,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'expectedClassifications' => [['group' => 'ZZ', 'level' => 1 ]],
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]],
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -694,7 +781,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with unknown classification filter will return zero
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -702,11 +791,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234]],
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -752,7 +845,9 @@ class UserTest extends TestCase
         $user3->expectedClassifications()->delete();
 
         // Assert query with no classifications filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -760,9 +855,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -773,7 +870,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with classification filter will return users in range and overlapping.
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -781,11 +880,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'expectedClassifications' => [['group' => 'ZZ', 'level' => 1 ]],
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]],
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -796,7 +899,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with unknown classification filter will return zero
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -804,11 +909,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234]],
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -831,24 +940,24 @@ class UserTest extends TestCase
         $this->seed(GenericJobTitleSeeder::class);
 
         // Create 3 users which correspond to IT-03
-        User::factory()->count(1)->create(['expected_salary' => []])->each(function($user) {
+        User::factory()->count(1)->create(['expected_salary' => []])->each(function ($user) {
             $user->expectedGenericJobTitles()->sync(
                 GenericJobTitle::where('key', ApiEnums::GENERIC_JOB_TITLE_KEY_TEAM_LEADER_IT03)->get()
             );
         });
-        User::factory()->count(2)->create(['expected_salary' => []])->each(function($user) {
+        User::factory()->count(2)->create(['expected_salary' => []])->each(function ($user) {
             $user->expectedGenericJobTitles()->sync(
                 GenericJobTitle::where('key', ApiEnums::GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03)->get()
             );
         });
         // Create 4 users which correspond to IT-04
-        User::factory()->count(4)->create(['expected_salary' => []])->each(function($user) {
+        User::factory()->count(4)->create(['expected_salary' => []])->each(function ($user) {
             $user->expectedGenericJobTitles()->sync(
                 GenericJobTitle::where('key', ApiEnums::GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04)->get()
             );
         });
         // Create 7 users which correspond to both IT-03 and IT-04
-        User::factory()->count(7)->create(['expected_salary' => []])->each(function($user) {
+        User::factory()->count(7)->create(['expected_salary' => []])->each(function ($user) {
             $user->expectedGenericJobTitles()->sync(
                 GenericJobTitle::whereIn('key', [
                     ApiEnums::GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04,
@@ -859,7 +968,9 @@ class UserTest extends TestCase
 
 
         // Assert query with no classifications filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -867,9 +978,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -880,7 +993,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with one classification filter will return correct number of users.
-        $results = $this->graphQL(/** @lang Graphql */ '
+        $results = $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -888,11 +1003,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'expectedClassifications' => [['group' => 'IT', 'level' => 3 ]],
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'expectedClassifications' => [['group' => 'IT', 'level' => 3]],
+                    ]
+                ]
             ]
-        ]);
+        );
         $results->assertJson([
             'data' => [
                 'usersPaginated' => [
@@ -904,7 +1023,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with two classification filters will return correct number of users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -912,14 +1033,18 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'expectedClassifications' => [
-                    ['group' => 'IT', 'level' => 3 ],
-                    ['group' => 'IT', 'level' => 4 ]
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'expectedClassifications' => [
+                            ['group' => 'IT', 'level' => 3],
+                            ['group' => 'IT', 'level' => 4]
+                        ]
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -930,7 +1055,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert that adding an unknown classification to query to classification won't reduce number of users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -938,15 +1065,19 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'expectedClassifications' => [
-                    ['group' => 'IT', 'level' => 3 ],
-                    ['group' => 'IT', 'level' => 4 ],
-                    ['group' => 'QQ', 'level' => 9]
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'expectedClassifications' => [
+                            ['group' => 'IT', 'level' => 3],
+                            ['group' => 'IT', 'level' => 4],
+                            ['group' => 'QQ', 'level' => 9]
+                        ]
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -978,7 +1109,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with no operationalRequirements filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -986,9 +1119,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -999,7 +1134,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with empty operationalRequirements filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1007,11 +1144,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'operationalRequirements' => []
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'operationalRequirements' => []
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1022,7 +1163,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with one operationalRequirement filter will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1030,11 +1173,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'operationalRequirements' => [ $operationalRequirement1 ],
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'operationalRequirements' => [$operationalRequirement1],
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1045,7 +1192,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with two operationalRequirement filters will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1053,11 +1202,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'operationalRequirements' => [ $operationalRequirement1, $operationalRequirement2 ],
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'operationalRequirements' => [$operationalRequirement1, $operationalRequirement2],
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1068,7 +1221,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with an unused operationalRequirement filter will return zero
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1076,11 +1231,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'operationalRequirements' => [$operationalRequirement3],
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'operationalRequirements' => [$operationalRequirement3],
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1104,7 +1263,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with no locationPreferences filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1112,9 +1273,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1125,7 +1288,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with locationPreferences filter will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1133,11 +1298,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'locationPreferences' => ["TELEWORK"],
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'locationPreferences' => ["TELEWORK"],
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1148,7 +1317,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with empty locationPreferences filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1156,11 +1327,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'locationPreferences' => [],
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'locationPreferences' => [],
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1184,7 +1359,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query no hasDiploma filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1192,9 +1369,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1205,7 +1384,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with hasDiploma filter set to true will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1213,11 +1394,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'hasDiploma' => true,
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'hasDiploma' => true,
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1228,7 +1413,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with hasDiploma filter set to false will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1236,11 +1423,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'hasDiploma' => false,
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'hasDiploma' => false,
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1264,7 +1455,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query no wouldAcceptTemporary filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1272,9 +1465,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1285,7 +1480,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with wouldAcceptTemporary filter set to true will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1293,11 +1490,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'wouldAcceptTemporary' => true,
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'wouldAcceptTemporary' => true,
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1308,7 +1509,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with wouldAcceptTemporary filter set to false will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1316,11 +1519,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'wouldAcceptTemporary' => false,
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'wouldAcceptTemporary' => false,
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1352,7 +1559,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with no jobLookingStatus filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1360,9 +1569,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1373,7 +1584,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with empty jobLookingStatus filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1381,11 +1594,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'jobLookingStatus' => []
+        ',
+            [
+                'where' => [
+                    'jobLookingStatus' => []
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1396,7 +1611,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with one jobLookingStatus filter will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1404,11 +1621,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'jobLookingStatus' => [ $availableStatus ],
+        ',
+            [
+                'where' => [
+                    'jobLookingStatus' => [$availableStatus],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1419,7 +1638,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with two jobLookingStatus filters will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1427,11 +1648,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'jobLookingStatus' => [ $availableStatus, $openStatus ],
+        ',
+            [
+                'where' => [
+                    'jobLookingStatus' => [$availableStatus, $openStatus],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1442,7 +1665,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with an unused jobLookingStatus filter will return zero
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1450,11 +1675,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'jobLookingStatus' => [$inactiveStatus],
+        ',
+            [
+                'where' => [
+                    'jobLookingStatus' => [$inactiveStatus],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1498,7 +1725,7 @@ class UserTest extends TestCase
 
         // Create some complete users.
         User::factory()->count(3)
-            ->afterCreating(function($user) {
+            ->afterCreating(function ($user) {
                 $user->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
             })
             ->create([
@@ -1515,7 +1742,9 @@ class UserTest extends TestCase
             ]);
 
         // Assert query no isProfileComplete filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1523,9 +1752,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1536,7 +1767,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with isProfileComplete filter set to true will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1544,11 +1777,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'isProfileComplete' => true,
+        ',
+            [
+                'where' => [
+                    'isProfileComplete' => true,
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1559,7 +1794,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with isProfileComplete filter set to false will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1567,11 +1804,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'isProfileComplete' => false,
+        ',
+            [
+                'where' => [
+                    'isProfileComplete' => false,
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1586,246 +1825,290 @@ class UserTest extends TestCase
     {
         // Create initial data.
         PoolCandidate::factory()->count(5)->create([
-        'has_disability' => false,
-        'is_indigenous' => false,
-        'is_visible_minority' => false,
-        'is_woman' => false,
-        'expiry_date' => config('constants.far_future_date'),
-        'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'has_disability' => false,
+            'is_indigenous' => false,
+            'is_visible_minority' => false,
+            'is_woman' => false,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
 
         // Create one new candidate for each EmploymentEquity filter
         PoolCandidate::factory()->create([
-        'has_disability' => true,
-        'is_indigenous' => false,
-        'is_visible_minority' => false,
-        'is_woman' => false,
-        'expiry_date' => config('constants.far_future_date'),
-        'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'has_disability' => true,
+            'is_indigenous' => false,
+            'is_visible_minority' => false,
+            'is_woman' => false,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
         PoolCandidate::factory()->create([
-        'has_disability' => false,
-        'is_indigenous' => true,
-        'is_visible_minority' => false,
-        'is_woman' => false,
-        'expiry_date' => config('constants.far_future_date'),
-        'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'has_disability' => false,
+            'is_indigenous' => true,
+            'is_visible_minority' => false,
+            'is_woman' => false,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
         PoolCandidate::factory()->create([
-        'has_disability' => false,
-        'is_indigenous' => false,
-        'is_visible_minority' => true,
-        'is_woman' => false,
-        'expiry_date' => config('constants.far_future_date'),
-        'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'has_disability' => false,
+            'is_indigenous' => false,
+            'is_visible_minority' => true,
+            'is_woman' => false,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
         PoolCandidate::factory()->create([
-        'has_disability' => false,
-        'is_indigenous' => false,
-        'is_visible_minority' => false,
-        'is_woman' => true,
-        'expiry_date' => config('constants.far_future_date'),
-        'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'has_disability' => false,
+            'is_indigenous' => false,
+            'is_visible_minority' => false,
+            'is_woman' => true,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
 
         // Assert query with no EmploymentEquity filter will return all candidates
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
         query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)
         }
-        ', [
-        'where' => []
-        ])->assertJson([
-        'data' => [
-            'countPoolCandidates' => 9
-        ]
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
+            'data' => [
+                'countPoolCandidates' => 9
+            ]
         ]);
 
         // Assert query with isIndigenous filter will return correct candidate count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)
             }
-        ', [
-            'where' => [
-            'equity' => [
-                'isIndigenous' => true,
-                'isWoman' => false,
-                'isVisibleMinority' => false,
-                'hasDisability' => false
+        ',
+            [
+                'where' => [
+                    'equity' => [
+                        'isIndigenous' => true,
+                        'isWoman' => false,
+                        'isVisibleMinority' => false,
+                        'hasDisability' => false
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
-            'countPoolCandidates' => 1
+                'countPoolCandidates' => 1
             ]
         ]);
         // Assert query with isVisibleMinority filter will return correct candidate count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)
             }
-        ', [
-            'where' => [
-            'equity' => [
-                'isIndigenous' => false,
-                'isWoman' => false,
-                'isVisibleMinority' => true,
-                'hasDisability' => false
+        ',
+            [
+                'where' => [
+                    'equity' => [
+                        'isIndigenous' => false,
+                        'isWoman' => false,
+                        'isVisibleMinority' => true,
+                        'hasDisability' => false
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
-            'countPoolCandidates' => 1
+                'countPoolCandidates' => 1
             ]
         ]);
         // Assert query with hasDisability filter will return correct candidate count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)
             }
-        ', [
-            'where' => [
-            'equity' => [
-                'isIndigenous' => false,
-                'isWoman' => false,
-                'isVisibleMinority' => false,
-                'hasDisability' => true
+        ',
+            [
+                'where' => [
+                    'equity' => [
+                        'isIndigenous' => false,
+                        'isWoman' => false,
+                        'isVisibleMinority' => false,
+                        'hasDisability' => true
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
-            'countPoolCandidates' => 1
+                'countPoolCandidates' => 1
             ]
         ]);
         // Assert query with isWoman filter will return correct candidate count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)
             }
-        ', [
-            'where' => [
-            'equity' => [
-                'isIndigenous' => false,
-                'isWoman' => true,
-                'isVisibleMinority' => false,
-                'hasDisability' => false
+        ',
+            [
+                'where' => [
+                    'equity' => [
+                        'isIndigenous' => false,
+                        'isWoman' => true,
+                        'isVisibleMinority' => false,
+                        'hasDisability' => false
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
-            'countPoolCandidates' => 1
+                'countPoolCandidates' => 1
             ]
         ]);
         // Assert query with isWoman OR isIndigenous filter will return correct candidate count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)
             }
-        ', [
-            'where' => [
-            'equity' => [
-                'isIndigenous' => true,
-                'isWoman' => true,
-                'isVisibleMinority' => false,
-                'hasDisability' => false
+        ',
+            [
+                'where' => [
+                    'equity' => [
+                        'isIndigenous' => true,
+                        'isWoman' => true,
+                        'isVisibleMinority' => false,
+                        'hasDisability' => false
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
-            'countPoolCandidates' => 2
+                'countPoolCandidates' => 2
             ]
         ]);
         // Assert query with isWoman OR isIndigenous OR isMinority filter will return correct candidate count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)
             }
-        ', [
-            'where' => [
-            'equity' => [
-                'isIndigenous' => true,
-                'isWoman' => true,
-                'isVisibleMinority' => true,
-                'hasDisability' => false
+        ',
+            [
+                'where' => [
+                    'equity' => [
+                        'isIndigenous' => true,
+                        'isWoman' => true,
+                        'isVisibleMinority' => true,
+                        'hasDisability' => false
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
-            'countPoolCandidates' => 3
+                'countPoolCandidates' => 3
             ]
         ]);
         // Assert query above with empty selection in equity object will not break the code and matches the returned candidate count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)
             }
-        ', [
-            'where' => [
-            'equity' => [
-                'isIndigenous' => true,
-                'isWoman' => true,
-                'isVisibleMinority' => true,
+        ',
+            [
+                'where' => [
+                    'equity' => [
+                        'isIndigenous' => true,
+                        'isWoman' => true,
+                        'isVisibleMinority' => true,
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
-            'countPoolCandidates' => 3
+                'countPoolCandidates' => 3
             ]
         ]);
         // Assert query with all equity filters true will return correct candidate count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)
             }
-        ', [
-            'where' => [
-            'equity' => [
-                'isIndigenous' => true,
-                'isWoman' => true,
-                'isVisibleMinority' => true,
-                'hasDisability' => true
+        ',
+            [
+                'where' => [
+                    'equity' => [
+                        'isIndigenous' => true,
+                        'isWoman' => true,
+                        'isVisibleMinority' => true,
+                        'hasDisability' => true
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
-            'countPoolCandidates' => 4
+                'countPoolCandidates' => 4
             ]
         ]);
         // Assert query with all EmploymentEquity filters set to false will return all candidates
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)
             }
-        ', [
-            'where' => [
-            'equity' => [
-                'isIndigenous' => false,
-                'isWoman' => false,
-                'isVisibleMinority' => false,
-                'hasDisability' => false
-            ],
+        ',
+            [
+                'where' => [
+                    'equity' => [
+                        'isIndigenous' => false,
+                        'isWoman' => false,
+                        'isVisibleMinority' => false,
+                        'hasDisability' => false
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
-            'countPoolCandidates' => 9
+                'countPoolCandidates' => 9
             ]
         ]);
         // Assert query with all EmploymentEquity filters set to null or not present will return all candidates same as above
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countPoolCandidates($where: PoolCandidateFilterInput) {
             countPoolCandidates(where: $where)
             }
-        ', [
-            'where' => [
-            'equity' => [
-                'isIndigenous' => null,
-                'isWoman' => null,
-            ],
+        ',
+            [
+                'where' => [
+                    'equity' => [
+                        'isIndigenous' => null,
+                        'isWoman' => null,
+                    ]
+                ],
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
-            'countPoolCandidates' => 9
+                'countPoolCandidates' => 9
             ]
         ]);
     }
@@ -1834,7 +2117,7 @@ class UserTest extends TestCase
     {
         // Create initial data set
         Skill::factory()->count(20)->create();
-        User::factory()->count(5)->create()->each(function($user) {
+        User::factory()->count(5)->create()->each(function ($user) {
             AwardExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) {
@@ -1897,7 +2180,9 @@ class UserTest extends TestCase
         })->create();
 
         // Assert query no skills filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1905,9 +2190,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1918,7 +2205,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query empty skills filter array will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1926,11 +2215,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'skills' => []
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'skills' => []
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1941,7 +2234,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with one skills filter will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1949,11 +2244,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'skills' => [$skill1['id']]
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'skills' => [$skill1['id']]
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1964,7 +2263,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with two skills will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1972,11 +2273,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'skills' => [$skill1['id'], $skill2['id']]
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'skills' => [$skill1['id'], $skill2['id']]
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -1987,7 +2292,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with unused skill will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -1995,11 +2302,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'skills' => [$skill3['id']]
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'skills' => [$skill3['id']]
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2023,7 +2334,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query no isGovEmployee filter will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2031,9 +2344,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2044,7 +2359,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with isGovEmployee filter set to true will return correct user count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2052,11 +2369,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'isGovEmployee' => true,
+        ',
+            [
+                'where' => [
+                    'isGovEmployee' => true,
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2067,7 +2386,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with isGovEmployee filter set to false will return all users
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2075,11 +2396,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'isGovEmployee' => false,
+        ',
+            [
+                'where' => [
+                    'isGovEmployee' => false,
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2098,7 +2421,9 @@ class UserTest extends TestCase
         $usersByCreated = User::select('id')->orderByDesc('created_at')->get()->toArray();
 
         // Assert query no orderBy given defaults to created_at desc
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     data {
@@ -2106,9 +2431,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'data' => $usersByCreated
@@ -2117,7 +2444,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query orders by given attribute
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($orderBy: [OrderByClause!]) {
                 usersPaginated(orderBy: $orderBy) {
                     data {
@@ -2125,14 +2454,16 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'orderBy' => [
-                [
-                'column' => 'first_name',
-                'order' => 'ASC'
+        ',
+            [
+                'orderBy' => [
+                    [
+                        'column' => 'first_name',
+                        'order' => 'ASC'
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'data' => $usersByName
@@ -2160,7 +2491,7 @@ class UserTest extends TestCase
         // attach AVAILABLE status to ensure filtering by pools doesn't filter by status
         // Attach new user in the pool with the desired classification
         PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function($user) use ($myClassification) {
+            'user_id' => User::factory()->afterCreating(function ($user) use ($myClassification) {
                 $user->expectedClassifications()->delete();
                 $user->expectedClassifications()->save($myClassification);
             })->create([
@@ -2173,7 +2504,7 @@ class UserTest extends TestCase
 
         // Attach new user in the pool that overlaps the expected salary range and has a matching class group (but not level).
         PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function($user) {
+            'user_id' => User::factory()->afterCreating(function ($user) {
                 $user->expectedClassifications()->delete();
             })->create([
                 'expected_salary' => ['_60_69K']
@@ -2185,7 +2516,7 @@ class UserTest extends TestCase
 
         // Attach new user in the pool that is over the expected salary range and has a matching class group (but not level).
         PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function($user) {
+            'user_id' => User::factory()->afterCreating(function ($user) {
                 $user->expectedClassifications()->delete();
             })->create([
                 'expected_salary' => ['_90_99K', '_100K_PLUS']
@@ -2199,7 +2530,7 @@ class UserTest extends TestCase
 
         // Attach new user in the pool with the desired classification WRONG POOL
         PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function($user) use ($myClassification) {
+            'user_id' => User::factory()->afterCreating(function ($user) use ($myClassification) {
                 $user->expectedClassifications()->delete();
                 $user->expectedClassifications()->save($myClassification);
             })->create([
@@ -2212,7 +2543,7 @@ class UserTest extends TestCase
 
         // Attach new user in the pool that overlaps the expected salary range and has a matching class group (but not level). WRONG POOL
         PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function($user) {
+            'user_id' => User::factory()->afterCreating(function ($user) {
                 $user->expectedClassifications()->delete();
             })->create([
                 'expected_salary' => ['_60_69K']
@@ -2224,7 +2555,7 @@ class UserTest extends TestCase
 
         // Attach new user in the pool that is over the expected salary range and has a matching class group (but not level).  WRONG POOL
         PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function($user) {
+            'user_id' => User::factory()->afterCreating(function ($user) {
                 $user->expectedClassifications()->delete();
             })->create([
                 'expected_salary' => ['_90_99K', '_100K_PLUS']
@@ -2235,7 +2566,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with just pool filters will return all users in that pool
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2243,16 +2576,15 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'poolFilters' => [
-                    [
-                        'poolId' => $myPool->id,
-                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'pools' => [$myPool->id],
                     ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2263,7 +2595,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with classification filter will return users in range and overlapping in that pool
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2271,17 +2605,16 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'poolFilters' => [
-                    [
-                        'poolId' => $myPool->id,
-                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
-                    ]
-                ],
-                'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]]
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'pools' => [$myPool->id],
+                        'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]]
+                    ],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2292,7 +2625,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with unknown classification filter will return zero
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2300,17 +2635,16 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'poolFilters' => [
-                    [
-                        'poolId' => $myPool->id,
-                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
-                    ]
-                ],
-                'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'pools' => [$myPool->id],
+                        'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234]],
+                    ],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2394,15 +2728,19 @@ class UserTest extends TestCase
         ]);
 
         // Query specifying just a pool will return all non-expired, available-status candidates whose Users are looking for or open to opportunities.
-        $response = $this->graphQL(/** @lang Graphql */ '
+        $response = $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'pools' => [$pool1['id']],
+        ',
+            [
+                'where' => [
+                    'pools' => [$pool1['id']],
+                ]
             ]
-        ]);
+        );
         $response->assertJson([
             'data' => [
                 'countApplicants' => 13
@@ -2410,16 +2748,20 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with another filter will return proper count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'pools' => [$pool1['id']],
-                'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+        ',
+            [
+                'where' => [
+                    'pools' => [$pool1['id']],
+                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 8
             ]
@@ -2461,7 +2803,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert no filters returns all five users plus admin@test.com
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2469,9 +2813,11 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2483,7 +2829,9 @@ class UserTest extends TestCase
 
         // Name filtering  //
         // casing should not matter
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2491,11 +2839,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'name' => 'sAm',
+        ',
+            [
+                'where' => [
+                    'name' => 'sAm',
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2505,7 +2855,9 @@ class UserTest extends TestCase
             ]
         ]);
         // ensure single letter returns all relevant results
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2513,11 +2865,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'name' => 'r',
+        ',
+            [
+                'where' => [
+                    'name' => 'r',
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2527,7 +2881,9 @@ class UserTest extends TestCase
             ]
         ]);
         // test a full name
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2535,11 +2891,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'name' => 'BoB rOb',
+        ',
+            [
+                'where' => [
+                    'name' => 'BoB rOb',
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2549,7 +2907,9 @@ class UserTest extends TestCase
             ]
         ]);
         // test name segments
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2557,11 +2917,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'name' => 'bo ro',
+        ',
+            [
+                'where' => [
+                    'name' => 'bo ro',
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2571,7 +2933,9 @@ class UserTest extends TestCase
             ]
         ]);
         // test name segments but in reverse
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2579,11 +2943,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'name' => 'ro bo',
+        ',
+            [
+                'where' => [
+                    'name' => 'ro bo',
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2594,7 +2960,9 @@ class UserTest extends TestCase
         ]);
 
         // ensure queries with multiple filter variables apply separately as AND operations (builds off assertion above)
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2602,12 +2970,14 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'name' => 'r',
-                'telephone' => "12345",
+        ',
+            [
+                'where' => [
+                    'name' => 'r',
+                    'telephone' => "12345",
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2618,7 +2988,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert email filter with partial email returns correct count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2626,11 +2998,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'email' => 'user.com',
+        ',
+            [
+                'where' => [
+                    'email' => 'user.com',
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2641,7 +3015,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert filtering for phone digit in general search returns correct count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2649,11 +3025,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'generalSearch' => '9',
+        ',
+            [
+                'where' => [
+                    'generalSearch' => '9',
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2664,7 +3042,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert filtering for last name in general search returns correct count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2672,11 +3052,13 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'generalSearch' => 'man',
+        ',
+            [
+                'where' => [
+                    'generalSearch' => 'man',
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -2687,7 +3069,9 @@ class UserTest extends TestCase
         ]);
 
         // Assert filtering general search and name search (both subqueries) filter as AND
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -2695,12 +3079,14 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ', [
-            'where' => [
-                'generalSearch' => '@user.com',
-                'name' => 'zak',
+        ',
+            [
+                'where' => [
+                    'generalSearch' => '@user.com',
+                    'name' => 'zak',
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
