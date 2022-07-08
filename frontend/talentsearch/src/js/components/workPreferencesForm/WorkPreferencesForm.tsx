@@ -45,8 +45,6 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
     return <span data-h2-font-weight="b(700)">{msg}</span>;
   }
   const OperationalRequirementsSortOrder = [
-    OperationalRequirement.OvertimeShortNotice,
-    OperationalRequirement.OvertimeScheduled,
     OperationalRequirement.OvertimeOccasional,
     OperationalRequirement.OvertimeRegular,
     OperationalRequirement.ShiftWork,
