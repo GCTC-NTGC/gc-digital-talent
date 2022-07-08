@@ -79,7 +79,8 @@ const SearchFilter = ({
   enableEducationType = false,
 }: SearchFilterProps): JSX.Element => {
   const { formatMessage } = useIntl();
-  const { optionsData } = useSearchFilterOptions(enableEducationType);
+  const { optionsData, apiResults } =
+    useSearchFilterOptions(enableEducationType);
 
   return (
     <Dialog
@@ -108,6 +109,7 @@ const SearchFilter = ({
                 defaultMessage: "Pools",
               })}
               options={optionsData.pools}
+              isLoading={apiResults.pools.fetching}
             />
           </Item>
           <Item style={{ minWidth: 300 }}>
@@ -129,6 +131,7 @@ const SearchFilter = ({
                 defaultMessage: "Classifications",
               })}
               options={optionsData.classifications}
+              isLoading={apiResults.classifications.fetching}
             />
           </Item>
           <Item>
@@ -200,6 +203,7 @@ const SearchFilter = ({
                 defaultMessage: "Skill Filter",
               })}
               options={optionsData.skillFilter}
+              isLoading={apiResults.skills.fetching}
             />
           </Item>
           <Item>

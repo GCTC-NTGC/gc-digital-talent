@@ -38,9 +38,9 @@ export default function useSearchFilterOptions(enableEducationType = false) {
   // TODO: Implement way to return `fetching` states from hook, so that can pass
   // to react-select's `isLoading` prop on <Select />.
   // See: https://react-select.com/props#select-props
-  const [{ data: skillsData }] = useAllSkillsQuery();
-  const [{ data: classificationsData }] = useGetClassificationsQuery();
-  const [{ data: poolsData }] = useGetPoolsQuery();
+  const [skillsRes] = useAllSkillsQuery();
+  const [classificationsRes] = useGetClassificationsQuery();
+  const [poolsRes] = useGetPoolsQuery();
 
   const yesOption = {
     value: "true",
@@ -49,16 +49,18 @@ export default function useSearchFilterOptions(enableEducationType = false) {
   };
 
   const optionsData = {
-    pools: poolsData?.pools.filter(notNullOrUndefined).map(({ id, name }) => ({
-      value: id,
-      // TODO: Must name and translations be optional in types?
-      label: name?.[locale] || "Error: name not loaded",
-    })),
+    pools: poolsRes.data?.pools
+      .filter(notNullOrUndefined)
+      .map(({ id, name }) => ({
+        value: id,
+        // TODO: Must name and translations be optional in types?
+        label: name?.[locale] || "Error: name not loaded",
+      })),
     languages: enumToOptions(LanguageAbility).map(({ value }) => ({
       value,
       label: intl.formatMessage(getLanguageAbility(value)),
     })),
-    classifications: classificationsData?.classifications
+    classifications: classificationsRes.data?.classifications
       .filter(notNullOrUndefined)
       .map(({ id, group, level }) => ({
         value: id,
@@ -88,7 +90,7 @@ export default function useSearchFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getJobLookingStatus(value, "short")),
     })),
-    skillFilter: skillsData?.skills
+    skillFilter: skillsRes.data?.skills
       .filter(notNullOrUndefined)
       .map(({ id, name }) => ({
         value: id,
@@ -103,5 +105,13 @@ export default function useSearchFilterOptions(enableEducationType = false) {
   // Unlike Array.prototype.reduce(), creates clear type. Used for defaults.
   const emptyFormValues = mapValues(optionsData, () => []);
 
-  return { optionsData, emptyFormValues };
+  return {
+    optionsData,
+    emptyFormValues,
+    apiResults: {
+      skills: skillsRes,
+      classifications: classificationsRes,
+      pools: poolsRes,
+    },
+  };
 }
