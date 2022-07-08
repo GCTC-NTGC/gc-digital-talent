@@ -111,7 +111,7 @@ export const UserTable: React.FC = () => {
 
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
-      rowSelectionColumn(intl, selectedRows, pageSize, (event) =>
+      rowSelectionColumn(intl, selectedRows, filteredData.length, (event) =>
         handleRowSelectedChange(
           filteredData,
           selectedRows,
@@ -171,15 +171,7 @@ export const UserTable: React.FC = () => {
         id: "edit",
       },
     ],
-    [
-      intl,
-      selectedRows,
-      pageSize,
-      setSelectedRows,
-      filteredData,
-      paths,
-      pathname,
-    ],
+    [intl, selectedRows, setSelectedRows, filteredData, paths, pathname],
   );
 
   const allColumnIds = columns.map((c) => c.id);
