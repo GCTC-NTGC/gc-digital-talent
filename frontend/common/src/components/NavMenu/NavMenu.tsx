@@ -1,14 +1,25 @@
 import React, { ReactElement } from "react";
 
+export interface ListItemProps {
+  lastItem?: boolean;
+}
+
 export interface NavMenuProps {
   mainItems: ReactElement[];
   utilityItems?: ReactElement[];
 }
 
-const ListItem: React.FC = ({ children }) => (
+const ListItem: React.FC<ListItemProps> = ({ lastItem, children }) => (
   <li
-    data-h2-margin="b(top, none) b(bottom, s) b(right, none) m(right, m)"
     data-h2-display="b(block) m(inline-block)"
+    {...(lastItem
+      ? {
+          "data-h2-margin": "b(top, none) b(bottom, s) b(right, none)",
+        }
+      : {
+          "data-h2-margin":
+            "b(top, none) b(bottom, s) b(right, none) m(right, m)",
+        })}
   >
     <span data-h2-margin="b(bottom, s)" data-h2-font-style="b:h(reset)">
       {children}
@@ -41,8 +52,10 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
         >
           <nav>
             <ul className="reset-ul">
-              {utilityItems.map((item) => (
-                <ListItem key={item.key}>{item}</ListItem>
+              {utilityItems.map((item, i, arr) => (
+                <ListItem key={item.key} lastItem={i + 1 === arr.length}>
+                  {item}
+                </ListItem>
               ))}
             </ul>
           </nav>
