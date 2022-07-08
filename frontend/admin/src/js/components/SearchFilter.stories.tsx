@@ -14,10 +14,6 @@ export default {
   component: SearchFilter,
   decorators: [OverlayOrDialogDecorator],
   parameters: {
-    apiResponsesConfig: {
-      minTimeout: 2000,
-      maxTimeout: 10000,
-    },
     apiResponses: {
       AllSkills: {
         data: {
@@ -66,6 +62,15 @@ const Template: ComponentStory<typeof SearchFilter> = (args) => {
 };
 
 export const Default = Template.bind({});
+
+export const RandomLatency = Template.bind({});
+RandomLatency.parameters = {
+  apiResponsesConfig: {
+    minTimeout: 2000,
+    maxTimeout: 10000,
+  },
+  chromatic: { disableSnapshot: true },
+};
 
 export const WithEducationSelect = Template.bind({});
 WithEducationSelect.args = {
