@@ -7,7 +7,7 @@ export interface NavMenuProps {
 
 const ListItem: React.FC = ({ children }) => (
   <li
-    data-h2-margin="b(top, none) b(bottom, s) b(right, m)"
+    data-h2-margin="b(top, none) b(bottom, s) b(right, none) m(right, m)"
     data-h2-display="b(block) m(inline-block)"
   >
     <span data-h2-margin="b(bottom, s)" data-h2-font-style="b:h(reset)">
