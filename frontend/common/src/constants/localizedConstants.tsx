@@ -110,6 +110,45 @@ export const getEducationRequirement = (
     `Invalid Education Requirement '${educationRequirementId}'`,
   );
 
+export const employmentDurationShort = defineMessages({
+  term: {
+    defaultMessage: "Term",
+    description:
+      "Duration of a non-permanent length (short-form for limited space)",
+  },
+  indeterminate: {
+    defaultMessage: "Indeterminate",
+    description: "Duration that is permanent (short-form for limited space)",
+  },
+});
+
+export const employmentDurationLong = defineMessages({
+  term: {
+    defaultMessage: "Term duration (short term, long term)",
+    description: "Duration of a non-permanent length",
+  },
+  indeterminate: {
+    defaultMessage: "Indeterminate duration (permanent)",
+    description: "Duration that is permanent",
+  },
+});
+
+export const getEmploymentDuration = (
+  employmentDurationId: string | number,
+  format: "long" | "short" = "long",
+): MessageDescriptor => {
+  const messageDictionary = {
+    long: employmentDurationLong,
+    short: employmentDurationShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[format],
+    employmentDurationId,
+    `Invalid Employment Duration '${employmentDurationId}'`,
+  );
+};
+
 export const languageAbilities = defineMessages({
   [LanguageAbility.English]: {
     defaultMessage: "English only",
@@ -627,7 +666,7 @@ export const OperationalRequirementShort = defineMessages({
 
 export const getOperationalRequirement = (
   operationalRequirementId: string | number,
-  type: "candidateDescription" | "full" | "short" = "full",
+  format: "candidateDescription" | "full" | "short" = "full",
 ): MessageDescriptor => {
   const messageDictionary = {
     candidateDescription: OperationalRequirementCandidateDescription,
@@ -636,7 +675,7 @@ export const getOperationalRequirement = (
   };
 
   return getOrThrowError(
-    messageDictionary[type],
+    messageDictionary[format],
     operationalRequirementId,
     `Invalid Operational Requirement '${operationalRequirementId}'`,
   );

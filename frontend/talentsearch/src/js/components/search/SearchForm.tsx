@@ -8,6 +8,7 @@ import { getLanguageAbility } from "@common/constants";
 import {
   getOperationalRequirement,
   getWorkRegion,
+  getEmploymentDuration,
 } from "@common/constants/localizedConstants";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
@@ -382,17 +383,13 @@ const SearchForm: React.FC<SearchFormProps> = ({
               },
               {
                 value: "true",
-                label: intl.formatMessage({
-                  defaultMessage: "Term duration (short term, long term)",
-                  description: "Duration of a non-permanent length",
-                }),
+                label: intl.formatMessage(getEmploymentDuration("term")),
               },
               {
                 value: "nothing",
-                label: intl.formatMessage({
-                  defaultMessage: "Indeterminate duration (permanent)",
-                  description: "Duration that is permanent",
-                }),
+                label: intl.formatMessage(
+                  getEmploymentDuration("indeterminate"),
+                ),
               },
             ]}
           />

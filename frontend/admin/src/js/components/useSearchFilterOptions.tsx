@@ -1,5 +1,6 @@
 import {
   getWorkRegion,
+  getEmploymentDuration,
   getLanguageAbility,
   getOperationalRequirement,
 } from "@common/constants/localizedConstants";
@@ -66,10 +67,10 @@ export default function useSearchFilterOptions() {
       value,
       label: intl.formatMessage(getWorkRegion(value)),
     })),
-    // TODO: Move this to localizedConstants.tsx
-    durationPreferences: ["Term", "Indeterminate"].map(
-      generateOptionsFromValues,
-    ),
+    durationPreferences: ["term", "indeterminate"].map((value) => ({
+      value,
+      label: intl.formatMessage(getEmploymentDuration(value, "short")),
+    })),
     // TODO: Localize these.
     availability: enumToOptions(JobLookingStatus),
     skillFilter: skillsData?.skills
