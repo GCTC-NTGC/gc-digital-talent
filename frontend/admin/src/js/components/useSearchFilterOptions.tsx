@@ -12,7 +12,6 @@ import {
   WorkRegion,
   OperationalRequirement,
   JobLookingStatus,
-  GovEmployeeType,
   LanguageAbility,
   useAllSkillsQuery,
   useGetClassificationsQuery,
@@ -42,6 +41,12 @@ export default function useSearchFilterOptions() {
   const [{ data: skillsData }] = useAllSkillsQuery();
   const [{ data: classificationsData }] = useGetClassificationsQuery();
   const [{ data: poolsData }] = useGetPoolsQuery();
+
+  const yesOption = {
+    value: "true",
+    // No description since common term that can be de-duplicated by FormatJS.
+    label: intl.formatMessage({ defaultMessage: "Yes" }),
+  };
 
   const optionsData = {
     pools: poolsData?.pools.filter(notNullOrUndefined).map(({ id, name }) => ({
@@ -80,10 +85,8 @@ export default function useSearchFilterOptions() {
         // TODO: Is there a reason translations are optional?
         label: name[locale] || "Error: name not loaded",
       })),
-    // TODO: Move this to localizedConstants.tsx
-    profileComplete: ["Yes", "No"].map(generateOptionsFromValues),
-    // TODO: Localize these.
-    govEmployee: enumToOptions(GovEmployeeType),
+    profileComplete: [yesOption],
+    govEmployee: [yesOption],
   };
 
   // Creates an object keyed with all fields, each with empty array.
