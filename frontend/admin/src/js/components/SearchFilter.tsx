@@ -151,16 +151,6 @@ const SearchFilter = ({
           </Item>
         </Row>
         <Row>
-          <Item>
-            <SelectFieldV2
-              forceArrayFormValue
-              id="durationPreferences"
-              label={formatMessage({
-                defaultMessage: "Duration Preferences",
-              })}
-              options={optionsData.durationPreferences}
-            />
-          </Item>
           {enableEducationType && (
             <Item>
               <MultiSelectFieldV2
@@ -172,6 +162,16 @@ const SearchFilter = ({
               />
             </Item>
           )}
+          <Item>
+            <SelectFieldV2
+              forceArrayFormValue
+              id="durationPreferences"
+              label={formatMessage({
+                defaultMessage: "Duration Preferences",
+              })}
+              options={optionsData.durationPreferences}
+            />
+          </Item>
           <Item>
             <MultiSelectFieldV2
               id="availability"
