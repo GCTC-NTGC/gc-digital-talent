@@ -102,6 +102,7 @@ const SelectFieldV2 = ({
                 <ReactSelect
                   isClearable={isMulti || !isRequired}
                   {...field}
+                  // TODO: Make default placeholder text locale-aware.
                   {...{ placeholder, options, isMulti, isLoading }}
                   value={convertValueToOption(field.value)}
                   // This only affects react-hook-form state, not internal react-select state.
