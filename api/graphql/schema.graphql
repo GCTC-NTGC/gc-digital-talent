@@ -633,10 +633,9 @@ input ApplicantFilterInput {
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
     locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
     wouldAcceptTemporary: Boolean @scope
-    jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES] @builder(method: "App\\Models\\User@filterByJobLookingStatus")
     expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
     skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
-    pool: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
+    pools: [ID] @builder(method: "App\\Models\\User@filterByAvailableInPools")
 }
 
 type Query {
@@ -647,7 +646,7 @@ type Query {
     applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
     applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
     # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
-    countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
+    countApplicants(where: ApplicantFilterInput): Int! @count(model: "User", scopes: ["availableForOpportunities"])
     pool(id: ID! @eq): Pool @find
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all

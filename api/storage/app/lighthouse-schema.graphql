@@ -57,23 +57,30 @@ type ApplicantFilter {
   poolFilters: [ApplicantFilterPoolRecord]
 }
 
+input ApplicantFilterBelongsTo {
+  create: CreateApplicantFilterInput!
+}
+
 input ApplicantFilterInput {
-  pools: UserPoolFilterInput
-  jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES]
+  hasDiploma: Boolean
+  equity: EquitySelectionsInput
   languageAbility: LanguageAbility
-  expectedClassifications: [ClassificationFilterInput]
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  equity: EquitySelectionsInput
-  hasDiploma: Boolean
   wouldAcceptTemporary: Boolean
+  expectedClassifications: [ClassificationFilterInput]
   skills: [ID]
+  pools: UserPoolFilterInput
 }
 
 type ApplicantFilterPoolRecord {
   pool: Pool!
   expiryStatus: CandidateExpiryFilter
   statuses: [PoolCandidateStatus]
+}
+
+input ApplicantFilterPoolRecordHasMany {
+  create: [CreateApplicantFilterPoolRecordInput!]
 }
 
 type AwardExperience implements Experience {
@@ -207,6 +214,24 @@ input ConnectOrCreateBelongsTo {
   create: CreateUserInput
 }
 
+input CreateApplicantFilterInput {
+  hasDiploma: Boolean
+  equity: EquitySelectionsInput
+  languageAbility: LanguageAbility
+  operationalRequirements: [OperationalRequirement]
+  locationPreferences: [WorkRegion]
+  wouldAcceptTemporary: Boolean
+  expectedClassifications: ClassificationBelongsToMany
+  skills: SkillBelongsToMany
+  poolFilters: ApplicantFilterPoolRecordHasMany
+}
+
+input CreateApplicantFilterPoolRecordInput {
+  pool: PoolBelongsTo!
+  expiryStatus: CandidateExpiryFilter
+  statuses: [PoolCandidateStatus]
+}
+
 input CreateClassificationInput {
   name: LocalizedStringInput
   group: String!
@@ -263,7 +288,8 @@ input CreatePoolCandidateSearchRequestInput {
   department: DepartmentBelongsTo!
   jobTitle: String!
   additionalComments: String
-  poolCandidateFilter: PoolCandidateFilterBelongsTo!
+  poolCandidateFilter: PoolCandidateFilterBelongsTo
+  applicantFilter: ApplicantFilterBelongsTo
 }
 
 input CreatePoolInput {
@@ -773,10 +799,11 @@ type PoolCandidateSearchRequest {
   department: Department
   jobTitle: String
   additionalComments: String
-  poolCandidateFilter: PoolCandidateFilter!
   requestedDate: DateTime
   status: PoolCandidateSearchStatus
   adminNotes: String
+  poolCandidateFilter: PoolCandidateFilter
+  applicantFilter: ApplicantFilter
 }
 
 enum PoolCandidateSearchStatus {

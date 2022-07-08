@@ -2321,9 +2321,10 @@ class UserTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
             'user_id' => User::factory([
                 'language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+                'job_looking_status' => ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES
             ])
         ]);
+        // Should appear in searches, but in pool 2.
         PoolCandidate::factory()->create([
             'pool_id' => $pool2['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -2333,6 +2334,7 @@ class UserTest extends TestCase
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
+        // Expired in pool - should not appear in searches
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => '2000-01-01',
@@ -2342,15 +2344,17 @@ class UserTest extends TestCase
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
+        // Already placed - should not appear in searches
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
             'user_id' => User::factory([
                 'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+                'job_looking_status' => ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES
             ])
         ]);
+        // User status inactive - should not appear in searches
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -2361,19 +2365,17 @@ class UserTest extends TestCase
             ])
         ]);
 
-        // Assert query with only pools filter will return proper count
-        $this->graphQL(/** @lang Graphql */ '
+        // Query specifying just a pool will return all non-expired, available-status candidates whose Users are looking for or open to opportunities.
+        $response = $this->graphQL(/** @lang Graphql */ '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']],
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE]
-                ]
+                'pools' => [$pool1['id']],
             ]
-        ])->assertJson([
+        ]);
+        $response->assertJson([
             'data' => [
                 'countApplicants' => 13
             ]
@@ -2386,10 +2388,7 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']],
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE]
-                ],
+                'pools' => [$pool1['id']],
                 'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
             ]
         ])->assertJson([

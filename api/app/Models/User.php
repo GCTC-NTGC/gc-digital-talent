@@ -227,6 +227,38 @@ class User extends Model implements Authenticatable
 
         return $query;
     }
+    /**
+     * Return applicants with PoolCandidates in any of the given pools.
+     * Only consider pool candidates who still available,
+     * ie not expired and with the AVAILABLE status.
+     *
+     * @param Builder $query
+     * @param array $poolIds
+     * @return Builder
+     */
+    public function filterByAvailableInPools(Builder $query, array $poolIds): Builder
+    {
+        if (empty($poolIds)) {
+            return $query;
+        }
+
+        // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
+        $query->whereExists(function ($query) use ($poolIds) {
+            $query->select('id')
+                ->from('pool_candidates')
+                ->whereColumn('pool_candidates.user_id', 'users.id')
+                ->whereIn('pool_candidates.pool_id', $poolIds)
+                ->where(function ($query) {
+                    $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+                        ->orWhereNull('expiry_date');
+                })
+                ->where(function ($query) {
+                    $query->where('pool_candidates.pool_candidate_status', ApiEnums::CANDIDATE_STATUS_AVAILABLE);
+                });
+        });
+
+        return $query;
+    }
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         // If filtering for a specific language the query should return candidates of that language OR bilingual.
@@ -551,6 +583,18 @@ RAWSQL2;
         if ($isGovEmployee) {
             $query->where('is_gov_employee', true);
         }
+        return $query;
+    }
+
+    /**
+     * Restrict the query to users who are either Actively Looking for or Open to opportunities.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeAvailableForOpportunities(Builder $query): Builder
+    {
+        $query->whereIn('job_looking_status', [ApiEnums::USER_STATUS_ACTIVELY_LOOKING, ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES]);
         return $query;
     }
 }
