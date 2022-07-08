@@ -75,7 +75,7 @@ const Dialog: React.FC<DialogProps> = ({
             className="dialog-close"
             data-h2-padding="b(x.5)"
             data-h2-position="b(absolute)"
-            data-h2-offset="b(x.5, x.5, 0, 0)"
+            data-h2-offset="b(x.5, x.5, auto, auto)"
             {...(confirmation
               ? {
                   "data-h2-color": "b(dt-black)",

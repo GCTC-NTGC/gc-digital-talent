@@ -53,7 +53,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
       <div
         data-h2-display="b(flex)"
         data-h2-flex-wrap="b(wrap)"
-        data-h2-margin="b(x1, 0)"
+        data-h2-margin="b(x2, 0, 0, 0)"
       >
         <span data-h2-margin="b(0, x.5, x.5, 0)">
           <IconLink

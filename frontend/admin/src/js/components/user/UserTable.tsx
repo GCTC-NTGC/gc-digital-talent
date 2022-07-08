@@ -101,7 +101,13 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
 
   const data = useMemo(() => users.filter(notEmpty), [users]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <div data-h2-padding="b(0, 0, x3, 0)">
+      <div data-h2-container="b(center, large, x2)">
+        <Table data={data} columns={columns} />
+      </div>
+    </div>
+  );
 };
 
 export const UserTableApi: React.FunctionComponent = () => {

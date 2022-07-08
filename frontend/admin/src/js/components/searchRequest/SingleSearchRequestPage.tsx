@@ -8,22 +8,23 @@ export const SingleSearchRequestPage: React.FunctionComponent<{
   const intl = useIntl();
   return (
     <div>
-      <header data-h2-padding="b(x2, x3, 0, x3)">
-        <h1
-          data-h2-font-weight="b(800)"
-          data-h2-margin="b(0)"
-          style={{ letterSpacing: "-2px" }}
-          data-h2-font-size="b(h2, 1.3)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "View Request",
-            description:
-              "Heading displayed above the single search request component.",
-          })}
-        </h1>
-      </header>
-      <div data-h2-padding="b(0, x3)">
-        <SingleSearchRequestApi searchRequestId={searchRequestId} />
+      <div data-h2-padding="b(0, 0, x3, 0)">
+        <div data-h2-container="b(center, large, x2)">
+          <header>
+            <h1
+              data-h2-font-weight="b(400)"
+              data-h2-margin="b(x2, 0, x1, 0)"
+              style={{ letterSpacing: "-2px" }}
+            >
+              {intl.formatMessage({
+                defaultMessage: "View Request",
+                description:
+                  "Heading displayed above the single search request component.",
+              })}
+            </h1>
+          </header>
+          <SingleSearchRequestApi searchRequestId={searchRequestId} />
+        </div>
       </div>
     </div>
   );

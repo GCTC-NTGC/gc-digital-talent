@@ -96,7 +96,7 @@ function Table<T extends Record<string, unknown>>({
   return (
     <div>
       {filter ? (
-        <div data-h2-padding="b(x1, x3)">
+        <div data-h2-padding="b(x1, 0)">
           <div data-h2-flex-grid="b(center, 0, x1)">
             <div data-h2-flex-item="b(1of1) m(1of3)">
               <GlobalFilter
@@ -162,7 +162,7 @@ function Table<T extends Record<string, unknown>>({
       <div
         data-h2-overflow="b(auto, all)"
         style={{ maxWidth: "100%" }}
-        data-h2-shadow="b(s)"
+        data-h2-shadow="b(m)"
       >
         <table
           aria-labelledby={labelledBy}
@@ -178,7 +178,7 @@ function Table<T extends Record<string, unknown>>({
                     key={column.id}
                     data-h2-background-color="b(light.dt-secondary)"
                     data-h2-color="b(dt-white)"
-                    data-h2-font-weight="b(800)"
+                    data-h2-font-weight="b(700)"
                     data-h2-padding="b(x.5, x1)"
                     data-h2-text-align="b(left)"
                     data-h2-font-size="b(caption)"

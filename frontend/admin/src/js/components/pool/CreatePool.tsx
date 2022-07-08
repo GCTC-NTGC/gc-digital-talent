@@ -130,14 +130,16 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   );
 
   return (
-    <section>
-      <h2 data-h2-text-align="b(center)" data-h2-margin="b(0)">
+    <section data-h2-container="b(left, s)">
+      <h2
+        data-h2-font-weight="b(700)"
+        data-h2-margin="b(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create Pool",
           description: "Title displayed on the create a pool form.",
         })}
       </h2>
-      <div data-h2-container="b(center, s)">
+      <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Select

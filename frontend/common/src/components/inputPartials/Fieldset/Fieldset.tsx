@@ -55,7 +55,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
           <span
             aria-hidden="true"
             role="presentation"
-            data-h2-font-size="b(copy)"
+            data-h2-font-size="b(caption)"
           >
             {legend}
           </span>
@@ -108,8 +108,8 @@ const Fieldset: React.FC<FieldsetProps> = ({
         </div>
       </div>
       <div
-        data-h2-border="b(all, 1px, solid, dark.dt-gray)"
-        data-h2-radius="b(s)"
+        data-h2-border="b(all, 1px, solid, dt-gray)"
+        data-h2-radius="b(input)"
         data-h2-padding="b(x.125, x.5, 0, x.5)"
       >
         {children}

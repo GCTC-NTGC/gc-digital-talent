@@ -36,8 +36,8 @@ const Link: React.FC<LinkProps> = ({
       {...(type === "button"
         ? {
             "data-h2-radius": "b(s)",
-            "data-h2-padding": "b(x.25, x.5)",
-            "data-h2-font-size": "b(caption) m(copy)",
+            "data-h2-padding": "b(x.5, x1)",
+            "data-h2-font-size": "b(copy)",
             ...(color && mode ? { ...colorMap[color][mode] } : {}),
             ...(block
               ? {

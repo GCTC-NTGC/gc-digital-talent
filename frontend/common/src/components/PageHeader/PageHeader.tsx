@@ -11,15 +11,16 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, children, ...rest }) => {
 
   return (
     <h1
-      data-h2-display="b(flex)"
-      data-h2-font-weight="b(300)"
-      data-h2-align-items="b(center)"
-      data-h2-margin="b(0, 0, x1, 0)"
-      data-h2-justify-content="b(start)"
+      data-h2-margin="b(x2, 0, x1, 0)"
       {...rest}
     >
-      {Icon && <Icon className="page-header__icon" />}
-      <span>{children}</span>
+      {Icon && <Icon
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(0, x1, 0, 0)"
+        data-h2-width="b(x2.5)"
+        data-h2-vertical-align="b(middle)"
+        className="page-header__icon" />}
+      <span data-h2-vertical-align="b(middle)">{children}</span>
     </h1>
   );
 };

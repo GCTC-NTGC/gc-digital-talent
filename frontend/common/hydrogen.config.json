@@ -5,7 +5,7 @@
     "code": "https://github.com/hydrogen-design-system/hydrogen",
     "roadmap": "https://github.com/orgs/hydrogen-design-system/projects/1"
   },
-  "debug": false,
+  "debug": true,
   "temp": [
     "../*/src/views/*.html"
   ],
@@ -16,197 +16,164 @@
     "../indigenousapprenticeship/src/js"
   ],
   "output": "src/css",
-  "variables": {
-    "css": false,
-    "sass": false
-  },
-  "resetStyles": true,
+  "variables": true,
+  "reset_styles": true,
+  "dark_mode": "preference",
   "colors": [
     {
       "key": "dt-black",
       "color": "#1E1E23",
-      "scale": {
-        "light": "auto",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "auto",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": []
     },
     {
       "key": "dt-white",
       "color": "#FFFFFF",
-      "scale": {
-        "light": "auto",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "auto",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": []
     },
     {
       "key": "dt-gray",
       "color": "#B9B9B9",
-      "scale": {
-        "light": "#F0F0F0",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "#646464",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": [
+        {
+          "key": "light",
+          "color": "#F0F0F0"
+        },
+        {
+          "key": "dark",
+          "color": "#646464"
+        }
+      ]
     },
     {
       "key": "dt-primary",
       "color": "#674C90",
-      "scale": {
-        "light": "auto",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "#363661",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": [
+        {
+          "key": "dark",
+          "color": "#363661"
+        }
+      ]
     },
     {
       "key": "dt-secondary",
       "color": "#072131",
-      "scale": {
-        "light": "#1D2C4C",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "auto",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": [
+        {
+          "key": "light",
+          "color": "#1D2C4C"
+        }
+      ]
     },
     {
       "key": "dt-accent",
       "color": "#F8A812",
-      "scale": {
-        "light": "#FBDCA5",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "#F8A812",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": [
+        {
+          "key": "light",
+          "color": "#FBDCA5"
+        },
+        {
+          "key": "dark",
+          "color": "#F8A812"
+        }
+      ]
     },
     {
       "key": "dt-success",
       "color": "#087835",
-      "scale": {
-        "light": "auto",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "auto",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": []
     },
     {
       "key": "dt-error",
       "color": "#e90101",
-      "scale": {
-        "light": "auto",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "auto",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": []
     },
     {
       "key": "ia-black",
       "color": "#1E1E23",
-      "scale": {
-        "light": "auto",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "auto",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": []
     },
     {
       "key": "ia-white",
       "color": "#FFFFFF",
-      "scale": {
-        "light": "auto",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "auto",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": []
     },
     {
       "key": "ia-gray",
       "color": "#B9B9B9",
-      "scale": {
-        "light": "#F0F0F0",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "#646464",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": [
+        {
+          "key": "light",
+          "color": "#F0F0F0"
+        },
+        {
+          "key": "dark",
+          "color": "#646464"
+        }
+      ]
     },
     {
       "key": "ia-primary",
       "color": "#C01E5A",
-      "scale": {
-        "light": "#E9568A",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "#781443",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": [
+        {
+          "key": "light",
+          "color": "#E9568A"
+        },
+        {
+          "key": "dark",
+          "color": "#781443"
+        }
+      ]
     },
     {
       "key": "ia-secondary",
       "color": "#272F6B",
-      "scale": {
-        "light": "#4D5194",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "#211C53",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": [
+        {
+          "key": "light",
+          "color": "#4D5194"
+        },
+        {
+          "key": "dark",
+          "color": "#211C53"
+        }
+      ]
     },
     {
       "key": "ia-error",
       "color": "#AE0000",
-      "scale": {
-        "light": "auto",
-        "lighter": "auto",
-        "lightest": "auto",
-        "dark": "auto",
-        "darker": "auto",
-        "darkest": "auto"
-      }
+      "modifiers": []
     }
   ],
   "containers": [
     {
       "key": "s",
-      "maxWidth": "39rem"
+      "max_width": "39rem"
+    },
+    {
+      "key": "small",
+      "max_width": "39rem"
     },
     {
       "key": "m",
-      "maxWidth": "60rem"
+      "max_width": "60rem"
+    },
+    {
+      "key": "medium",
+      "max_width": "60rem"
     },
     {
       "key": "l",
-      "maxWidth": "80rem"
+      "max_width": "80rem"
+    },
+    {
+      "key": "large",
+      "max_width": "80rem"
     },
     {
       "key": "full",
-      "maxWidth": "none"
+      "max_width": "none"
     }
   ],
   "fonts": [
@@ -278,6 +245,10 @@
     {
       "key": "l",
       "radius": "100%"
+    },
+    {
+      "key": "input",
+      "radius": "4px"
     }
   ],
   "shadows": [
@@ -325,15 +296,15 @@
   "typography": [
     {
       "size": "100%",
-      "lineHeight": "1.3",
-      "queryKey": "b",
-      "typeScale": "1.25"
+      "line_height": "1.3",
+      "query_key": "b",
+      "type_scale": "1.2"
     },
     {
       "size": "112.5%",
-      "lineHeight": "1.3",
-      "queryKey": "l",
-      "typeScale": "1.25"
+      "line_height": "1.3",
+      "query_key": "l",
+      "type_scale": "1.2"
     }
   ]
 }

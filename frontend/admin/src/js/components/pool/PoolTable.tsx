@@ -111,7 +111,11 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
 
   return (
-    <Table data={data} columns={columns} hiddenCols={["id", "description"]} />
+    <div data-h2-padding="b(0, 0, x3, 0)">
+      <div data-h2-container="b(center, large, x2)">
+        <Table data={data} columns={columns} hiddenCols={["id", "description"]} />
+      </div>
+    </div>
   );
 };
 

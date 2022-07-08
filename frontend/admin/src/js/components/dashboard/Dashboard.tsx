@@ -121,7 +121,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
         })}
       </a>
 
-      <div data-h2-display="b(flex)" data-h2-align-items="b(stretch)">
+      <div data-h2-flex-grid="b(stretch, 0, 0)">
         <AdminSideMenu
           isOpen={isMenuOpen}
           onToggle={handleMenuToggle}
@@ -135,7 +135,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
             data-h2-align-items="b(space-between)"
           >
             <Header baseUrl={ADMIN_APP_DIR} />
-            <main id="main" data-h2-margin="b(0, 0, 0, auto)">
+            <main id="main">
               {content}
             </main>
             <Footer baseUrl={ADMIN_APP_DIR} />

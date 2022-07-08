@@ -11,6 +11,7 @@ module.exports = {
     app: [
       "./src/js/dashboard.tsx",
       "../common/src/css/hydrogen.css",
+      "../common/src/css/hydrogen.vars.css",
       "../common/src/css/common.css",
       "./src/css/app.css",
     ],

@@ -155,11 +155,11 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     <>
       <h2
         id="latest-requests-heading"
-        data-h2-font-weight="b(800)"
-        data-h2-margin="b(x1, 0)"
+        data-h2-font-weight="b(700)"
+        data-h2-margin="b(x3, 0, x1, 0)"
       >
         {intl.formatMessage({
-          defaultMessage: "Latests requests",
+          defaultMessage: "Latest requests",
           description:
             "Title for the latests requests table in the admin dashboard",
         })}

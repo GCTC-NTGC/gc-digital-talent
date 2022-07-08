@@ -61,13 +61,12 @@ const Pill: React.FC<PillProps> = ({
 }): React.ReactElement => {
   return (
     <span
-      data-h2-padding="b(x.5)"
+      data-h2-padding="b(x.25, x.75)"
       {...(block
         ? { "data-h2-display": "b(block)" }
         : { "data-h2-display": "b(inline-block)" })}
       data-h2-radius="b(m)"
       data-h2-font-size="b(caption)"
-      data-h2-font-family="b(sans)"
       {...colorMap[color][mode]}
       data-h2-margin="b(x.125)"
       data-h2-text-align="b(center)"
@@ -75,9 +74,7 @@ const Pill: React.FC<PillProps> = ({
     >
       {/* parent span already has a display style */}
       <span
-        data-h2-display="b(flex)"
-        data-h2-align-items="b(center)"
-        data-h2-justify-content="b(center)"
+
       >
         {children}
       </span>

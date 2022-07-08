@@ -44,74 +44,71 @@ const Footer: React.FunctionComponent<{
     <footer
       className="footer"
       data-h2-border="b(top, 1px, solid, dt-gray)"
-      data-h2-background-color="b(light.dt-gray.6)"
+      data-h2-padding="b(x2, 0)"
+      data-h2-background-color="b(lightest.dt-gray)"
       style={{ marginTop: "auto" }}
     >
-      <div data-h2-flex-grid="b(center, 0, x3)">
-        <div
-          data-h2-flex-item="b(1of1) m(1of2)"
-          data-h2-padding="b(0, 0, 0, x3)"
-          data-h2-text-align="b(center) m(left)"
-        >
-          <nav>
-            <ul
-              style={{ gap: "1rem" }}
-              className="reset-ul"
-              data-h2-display="b(flex)"
-              data-h2-flex-wrap="b(wrap)"
-              data-h2-justify-content="b(center) m(flex-start)"
-              data-h2-margin="b(0, 0, x.25, 0)"
+      <div data-h2-container="b(center, large, x2)">
+        <div data-h2-flex-grid="b(center, 0, x3)">
+          <div
+            data-h2-flex-item="b(1of1) m(1of2)"
+            data-h2-text-align="b(center) m(left)"
+          >
+            <nav>
+              <ul
+                style={{ gap: "1rem" }}
+                className="reset-ul"
+              >
+                {links.map(({ route, label }) => (
+                  <li
+                    key={label}
+                    data-h2-display="b(inline-block)"
+                    data-h2-margin="b(0, x1, 0, 0)"
+                  >
+                    {/* These links must use real anchor links, not the history api, as they may direct to outside of this app. */}
+                    <a href={route}>{label}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <p
+              data-h2-font-size="b(caption)"
+              data-h2-color="b(dark.dt-gray)"
+              data-h2-margin="b(x1, 0, 0, 0)"
             >
-              {links.map(({ route, label }) => (
-                <li
-                  key={label}
-                  data-h2-display="b(inline-block)"
-                  data-h2-margin="b(0)"
-                >
-                  {/* These links must use real anchor links, not the history api, as they may direct to outside of this app. */}
-                  <a href={route}>{label}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <p
-            data-h2-font-size="b(caption)"
-            data-h2-color="b(dark.dt-gray)"
-            data-h2-margin="b(x1, 0, 0, 0)"
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Date Modified: {modifiedDate}",
+                  description:
+                    "Header for the sites last date modification found in the footer.",
+                },
+                {
+                  modifiedDate: new Date(process.env.BUILD_DATE ?? "1970-01-01")
+                    .toISOString()
+                    .slice(0, 10),
+                },
+              )}
+            </p>
+          </div>
+          <div
+            data-h2-flex-item="b(1of1) m(1of2)"
+            data-h2-text-align="b(center) m(right)"
           >
-            {intl.formatMessage(
-              {
-                defaultMessage: "Date Modified: {modifiedDate}",
-                description:
-                  "Header for the sites last date modification found in the footer.",
-              },
-              {
-                modifiedDate: new Date(process.env.BUILD_DATE ?? "1970-01-01")
-                  .toISOString()
-                  .slice(0, 10),
-              },
-            )}
-          </p>
-        </div>
-        <div
-          data-h2-flex-item="b(1of1) m(1of2)"
-          data-h2-padding="b(0, x2, 0, 0)"
-          data-h2-text-align="b(center) m(right)"
-        >
-          <a
-            href={`https://www.canada.ca/${intl.locale}.html`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              style={{ width: "12rem" }}
-              src={imageUrl(baseUrl, "logo_canada.png")}
-              alt={intl.formatMessage({
-                defaultMessage: "Canada.ca",
-                description: "Alt text for the Canada logo link in the Footer.",
-              })}
-            />
-          </a>
+            <a
+              href={`https://www.canada.ca/${intl.locale}.html`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                style={{ width: "12rem" }}
+                src={imageUrl(baseUrl, "logo_canada.png")}
+                alt={intl.formatMessage({
+                  defaultMessage: "Canada.ca",
+                  description: "Alt text for the Canada logo link in the Footer.",
+                })}
+              />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

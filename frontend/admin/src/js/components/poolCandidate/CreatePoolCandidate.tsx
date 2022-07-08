@@ -343,17 +343,19 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   );
 
   return (
-    <section>
-      <h2 data-h2-text-align="b(center)" data-h2-margin="b(0)">
+    <section data-h2-container="b(left, s)">
+      <h2
+        data-h2-font-weight="b(700)"
+        data-h2-margin="b(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create Pool Candidate",
           description: "Title displayed on the create a user form.",
         })}
       </h2>
-      <div data-h2-container="b(center, s)">
+      <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h4>
+            <h4 data-h2-margin="b(x2, 0, x1, 0)">
               {intl.formatMessage({
                 description: "Heading for the user information section",
                 defaultMessage: "User Information",
@@ -386,7 +388,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               }}
             />
             <UserFormSection control={control} userOptions={userOptions} />
-            <h4>
+            <h4 data-h2-margin="b(x2, 0, x1, 0)">
               {intl.formatMessage({
                 description: "Heading for the candidate information section",
                 defaultMessage: "Candidate Information",

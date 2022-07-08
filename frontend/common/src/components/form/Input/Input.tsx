@@ -44,7 +44,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   const error = get(errors, name)?.message;
 
   return (
-    <div data-h2-margin="b(0, 0, x.125, 0)">
+    <div data-h2-margin="b(x1, 0)">
       <InputWrapper
         inputId={id}
         label={label}
@@ -55,12 +55,10 @@ const Input: React.FunctionComponent<InputProps> = ({
         errorPosition={errorPosition}
       >
         <input
-          data-h2-padding="b(x.125)"
-          data-h2-radius="b(s)"
-          data-h2-border="b(all, 1px, solid, dark.dt-gray)"
+          data-h2-padding="b(x.25, x.5)"
+          data-h2-radius="b(input)"
+          data-h2-border="b(all, 1px, solid, dt-gray)"
           style={{ width: "100%" }}
-          data-h2-font-size="b(copy)"
-          data-h2-font-family="b(sans)"
           id={id}
           {...register(name, rules)}
           type={type}

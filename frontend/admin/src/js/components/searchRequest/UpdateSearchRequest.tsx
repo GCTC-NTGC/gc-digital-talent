@@ -89,7 +89,9 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
 
   return (
     <section>
-      <h2 data-h2-font-size="b(h4, 1.3)">
+      <h2
+        data-h2-margin="b(x2, 0, x.5, 0)"
+        data-h2-font-size="b(h4, 1.3)">
         {intl.formatMessage({
           defaultMessage: "Personal Notes",
           description:
@@ -100,7 +102,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(handleStatusChangeToDone)}>
             <div
-              data-h2-border="b(bottom, 1px, solid, light.dt-gray)"
+              data-h2-border="b(bottom, 1px, solid, dt-gray)"
               data-h2-margin="b(0, 0, x1, 0)"
               data-h2-padding="b(0, 0, x1, 0)"
             >
@@ -117,7 +119,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
               <div data-h2-text-align="b(right)">
                 <Button
                   color="primary"
-                  mode="solid"
+                  mode="outline"
                   onClick={() => {
                     handleSaveNotes(getValues());
                   }}

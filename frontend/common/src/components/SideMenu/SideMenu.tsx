@@ -45,54 +45,51 @@ const SideMenu: React.FC<SideMenuProps> = ({
   };
 
   return !isSmallScreen || isOpen ? (
-    <FocusLock
-      autoFocus
-      returnFocus
-      disabled={!isSmallScreen}
-      className={`side-menu${isOpen ? ` side-menu--open` : ``}`}
-    >
-      <RemoveScroll
-        enabled={isSmallScreen && isOpen}
-        data-h2-padding="b(x.25)"
-        data-h2-overflow="b(auto, y)"
-        data-h2-background-color="b(light.dt-secondary)"
-        data-h2-shadow="m(m)"
-        data-h2-position="b(fixed)"
-        data-h2-width="b(100%)"
+    <div data-h2-flex-item="b(content)">
+      <FocusLock
+        autoFocus
+        returnFocus
+        disabled={!isSmallScreen}
+        className={`side-menu${isOpen ? ` side-menu--open` : ``}`}
       >
-        <nav
-          /**
-           * Ignore `no-noninteractive-element-interactions` since
-           * this is captured to close the element
-           */
-          onKeyDown={handleKeyDown}
-          aria-label={label}
-          className="side-menu__inner"
-          data-h2-display="b(flex)"
-          data-h2-flex-direction="b(column)"
-          data-h2-align-items="b(stretch)"
-          data-h2-justify-content="b(space-between)"
+        <RemoveScroll
+          enabled={isSmallScreen && isOpen}
+          data-h2-background-color="b(light.dt-secondary)"
+          data-h2-height="b(100%)"
         >
-          <div data-h2-margin="b(x.5, 0)" className="side-menu__header">
-            <SideMenuItem as="button" onClick={handleToggle} icon={MenuIcon}>
-              {isOpen ? "Close" : "Open"} Menu
-            </SideMenuItem>
-            {header}
-          </div>
-          <div
-            data-h2-margin="b(x1, 0, 0, 0) m(x2, 0, 0, 0) l(x3, 0, 0, 0)"
-            className="side-menu__content"
+          <nav
+            /**
+             * Ignore `no-noninteractive-element-interactions` since
+             * this is captured to close the element
+             */
+            onKeyDown={handleKeyDown}
+            aria-label={label}
+            className="side-menu__inner"
+            data-h2-height="b(100%)"
+            data-h2-display="b(flex)"
+            data-h2-flex-direction="b(column)"
           >
-            {children}
-          </div>
-          {footer && (
-            <div data-h2-margin="b(x.5, 0)" className="side-menu__footer">
-              {footer}
+            <div className="side-menu__header">
+              <SideMenuItem as="button" onClick={handleToggle} icon={MenuIcon}>
+                {isOpen ? "Close" : "Open"} Menu
+              </SideMenuItem>
+              {header}
             </div>
-          )}
-        </nav>
-      </RemoveScroll>
-    </FocusLock>
+            <div
+              data-h2-margin="b(x1, 0, 0, 0) m(x2, 0, 0, 0) l(x3, 0, 0, 0)"
+              className="side-menu__content"
+            >
+              {children}
+            </div>
+            {footer && (
+              <div className="side-menu__footer">
+                {footer}
+              </div>
+            )}
+          </nav>
+        </RemoveScroll>
+      </FocusLock>
+    </div>
   ) : null;
 };
 

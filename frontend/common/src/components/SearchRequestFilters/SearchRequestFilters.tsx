@@ -182,13 +182,13 @@ const SearchRequestFilters: React.FunctionComponent<
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 
   return (
-    <section data-h2-flex-grid="b(flex-start, 0, x.25)">
+    <section data-h2-flex-grid="b(stretch, 0, x1)">
       <div
         data-h2-flex-item="b(1of1) s(1of2)"
-        data-h2-border="s(right, 1px, solid, light.dt-gray)"
+        data-h2-border="s(right, 1px, solid, dt-gray)"
         style={{ paddingBottom: "0" }}
       >
-        <div data-h2-padding="s(right, s)">
+        <div>
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Group and level",
@@ -224,12 +224,8 @@ const SearchRequestFilters: React.FunctionComponent<
           />
         </div>
       </div>
-      <div
-        data-h2-flex-item="b(1of1) s(1of2)"
-        data-h2-padding="s(0, 0, 0, x4)"
-        style={{ paddingTop: "0" }}
-      >
-        <div data-h2-padding="s(0, 0, 0, x4)">
+      <div data-h2-flex-item="b(1of1) s(1of2)">
+        <div>
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Work Location",

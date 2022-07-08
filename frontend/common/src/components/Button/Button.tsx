@@ -27,7 +27,7 @@ export const colorMap: Record<
   primary: {
     solid: {
       "data-h2-border": "b(all, 1px, solid, dt-primary)",
-      "data-h2-background-color": "b(dt-primary)",
+      "data-h2-background-color": "b(dt-primary) b:hover(dark.dt-primary)",
       "data-h2-color": "b(dt-white)",
     },
     outline: {
@@ -159,10 +159,10 @@ const Button: React.FC<ButtonProps> = ({
       className={`button ${classNames}`}
       // eslint-disable-next-line react/button-has-type
       type={type || "button"}
-      data-h2-radius="b(s)"
-      data-h2-padding="b(x.5, x.25)"
-      data-h2-font-size="b(caption) m(copy)"
-      data-h2-font-family="b(sans)"
+      data-h2-radius="b(input)"
+      data-h2-padding="b(x.5, x1)"
+      data-h2-font-size="b(copy)"
+      data-h2-transition="b:hover(background, .2s, ease, 0s)"
       {...(block
         ? { "data-h2-display": "b(block)" }
         : { "data-h2-display": "b(inline-block)" })}

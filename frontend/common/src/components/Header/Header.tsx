@@ -19,41 +19,45 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl }) => {
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
   return (
-    <header data-h2-border="b(all, 1px, solid, dt-gray)">
-      <div data-h2-flex-grid="b(center, 0, x3)">
-        <div
-          data-h2-flex-item="b(1of1) m(1of2)"
-          data-h2-text-align="b(center) m(left)"
-        >
-          <a
-            href={`https://www.canada.ca/${locale}.html`}
-            target="_blank"
-            rel="noopener noreferrer"
+    <header
+      data-h2-padding="b(x1, 0)"
+      data-h2-border="b(bottom, 1px, solid, dt-gray)">
+      <div data-h2-container="b(center, large, x2)">
+        <div data-h2-flex-grid="b(center, 0, x3)">
+          <div
+            data-h2-flex-item="b(1of1) m(1of2)"
+            data-h2-text-align="b(center) m(left)"
           >
-            <img
-              style={{ width: "20rem" }}
-              src={imageUrl(baseUrl, "logo_goc_colour.svg")}
-              alt={intl.formatMessage({
-                defaultMessage: "Canada.ca",
-                description: "Alt text for the Canada logo link in the Header.",
+            <a
+              href={`https://www.canada.ca/${locale}.html`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                style={{ width: "20rem" }}
+                src={imageUrl(baseUrl, "logo_goc_colour.svg")}
+                alt={intl.formatMessage({
+                  defaultMessage: "Canada.ca",
+                  description: "Alt text for the Canada logo link in the Header.",
+                })}
+              />
+            </a>
+          </div>
+          <div
+            data-h2-flex-item="b(1of1) m(1of2)"
+            data-h2-text-align="b(center) m(right)"
+          >
+            <Link
+              href={languageTogglePath}
+              lang={changeToLang === "en" ? "en" : "fr"}
+              title={intl.formatMessage({
+                defaultMessage: "Change language",
+                description: "Title for the language toggle link.",
               })}
-            />
-          </a>
-        </div>
-        <div
-          data-h2-flex-item="b(1of1) m(1of2)"
-          data-h2-text-align="b(center) m(right)"
-        >
-          <Link
-            href={languageTogglePath}
-            lang={changeToLang === "en" ? "en" : "fr"}
-            title={intl.formatMessage({
-              defaultMessage: "Change language",
-              description: "Title for the language toggle link.",
-            })}
-          >
-            {changeToLang === "en" ? "English" : "Français"}
-          </Link>
+            >
+              {changeToLang === "en" ? "English" : "Français"}
+            </Link>
+          </div>
         </div>
       </div>
     </header>
