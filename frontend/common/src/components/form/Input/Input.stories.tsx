@@ -94,3 +94,14 @@ ElementLabelText.args = {
   },
   context: "Additional context about this field.",
 };
+
+export const ReadOnlyTextInput = TemplateInput.bind({});
+
+ReadOnlyTextInput.args = {
+  type: "text",
+  id: "firstName",
+  label: "First Name",
+  name: "firstName",
+  readOnly: true,
+  hideOptional: true,
+};

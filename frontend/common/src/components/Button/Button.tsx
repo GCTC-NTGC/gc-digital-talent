@@ -167,6 +167,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       type = "button",
       color = "primary",
       mode = "solid",
+      disabled,
       block = false,
       classNames,
       ...rest
@@ -177,7 +178,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         className={`button ${classNames}`}
         // eslint-disable-next-line react/button-has-type
-        {...{ ref, type }}
+        {...{ ref, type, disabled }}
         data-h2-radius="b(s)"
         data-h2-padding="b(top-bottom, xs) b(right-left, s)"
         data-h2-font-size="b(caption) m(normal)"
@@ -187,6 +188,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           : { "data-h2-display": "b(inline-block)" })}
         {...colorMap[color][mode]}
         style={{
+          opacity: disabled ? "0.6" : undefined,
           width: block ? "100%" : "auto",
         }}
         {...rest}
