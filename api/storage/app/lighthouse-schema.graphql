@@ -1247,7 +1247,7 @@ input UserBelongsTo {
 }
 
 input UserFilterInput {
-  poolCandidates: UserPoolFilterInput
+  poolFilters: [UserPoolFilterInput]
   languageAbility: LanguageAbility
   expectedClassifications: [ClassificationFilterInput]
   operationalRequirements: [OperationalRequirement]
@@ -1275,9 +1275,9 @@ type UserPaginator {
 }
 
 input UserPoolFilterInput {
-  pools: [ID!]!
+  poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
-  statuses: [PoolCandidateStatus!] = []
+  statuses: [PoolCandidateStatus!]
 }
 
 type UserPublicProfile {

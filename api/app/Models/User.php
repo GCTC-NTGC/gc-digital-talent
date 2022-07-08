@@ -198,33 +198,53 @@ class User extends Model implements Authenticatable
     }
 
     // Search filters
-    public function filterByPools(Builder $query, array $poolCandidates): Builder
+
+    /**
+     * Filters users by the Pools they are in.
+     *
+     * @param Builder $query
+     * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus and statuses fields.
+     * @return Builder
+     */
+    public function filterByPools(Builder $query, array $poolFilters): Builder
     {
-        if (empty($poolCandidates)) {
+        if (empty($poolFilters)) {
             return $query;
         }
 
         // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
-        $query->whereExists(function ($query) use ($poolCandidates) {
+        $query->whereExists(function ($query) use ($poolFilters) {
             $query->select('id')
                 ->from('pool_candidates')
                 ->whereColumn('pool_candidates.user_id', 'users.id')
-                ->whereIn('pool_candidates.pool_id', $poolCandidates['pools'])
-                ->where(function ($query) use ($poolCandidates) {
-                    if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
-                        $query->whereDate('expiry_date', '>=', date("Y-m-d"))
-                            ->orWhereNull('expiry_date');
-                    } else if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
-                        $query->whereDate('expiry_date', '<', date("Y-m-d"));
+                ->where(function ($query) use ($poolFilters) {
+                    $makePoolFilterClause = function ($filter) {
+                        return function ($query) use ($filter) {
+                            $query->where('pool_candidates.pool_id', $filter['poolId']);
+                            $query->where(function ($query) use ($filter) {
+                                if ($filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+                                    $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+                                    ->orWhereNull('expiry_date');
+                                } else if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+                                    $query->whereDate('expiry_date', '<', date("Y-m-d"));
+                                }
+                            });
+                            if (array_key_exists('statuses', $filter) && !empty($filter['statuses'])) {
+                                $query->whereIn('pool_candidates.pool_candidate_status', $filter['statuses']);
+                            }
+                            return $query;
+                        };
+                    };
+                    foreach($poolFilters as $index => $filter) {
+                        if ($index == 0) {
+                            $query->where($makePoolFilterClause($filter));
+                        } else {
+                            $query->orWhere($makePoolFilterClause($filter));
+                        }
                     }
-                })
-                ->where(function ($query) use ($poolCandidates) {
-                    if (array_key_exists('statuses', $poolCandidates) && !empty($poolCandidates['statuses'])) {
-                        $query->whereIn('pool_candidates.pool_candidate_status', $poolCandidates['statuses']);
-                    }
+                    return $query;
                 });
         });
-
         return $query;
     }
     /**
@@ -241,23 +261,15 @@ class User extends Model implements Authenticatable
         if (empty($poolIds)) {
             return $query;
         }
-
-        // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
-        $query->whereExists(function ($query) use ($poolIds) {
-            $query->select('id')
-                ->from('pool_candidates')
-                ->whereColumn('pool_candidates.user_id', 'users.id')
-                ->whereIn('pool_candidates.pool_id', $poolIds)
-                ->where(function ($query) {
-                    $query->whereDate('expiry_date', '>=', date("Y-m-d"))
-                        ->orWhereNull('expiry_date');
-                })
-                ->where(function ($query) {
-                    $query->where('pool_candidates.pool_candidate_status', ApiEnums::CANDIDATE_STATUS_AVAILABLE);
-                });
-        });
-
-        return $query;
+        $poolFilters = [];
+        foreach ($poolIds as $index => $poolId) {
+            $poolFilters[$index] = [
+                'poolId' => $poolId,
+                'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+                'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE]
+            ];
+        }
+        return $this->filterByPools($query, $poolFilters);
     }
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {

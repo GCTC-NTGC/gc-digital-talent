@@ -591,9 +591,9 @@ enum CandidateExpiryFilter {
 }
 
 input UserPoolFilterInput {
-    pools: [ID!]!
+    poolId: ID!
     expiryStatus: CandidateExpiryFilter = ACTIVE
-    statuses: [PoolCandidateStatus!] = []
+    statuses: [PoolCandidateStatus!]
 }
 
 input PoolCandidateFilterInput {
@@ -608,7 +608,7 @@ input PoolCandidateFilterInput {
 }
 
 input UserFilterInput {
-    poolCandidates: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
+    poolFilters: [UserPoolFilterInput] @builder(method: "App\\Models\\User@filterByPools")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
     expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")

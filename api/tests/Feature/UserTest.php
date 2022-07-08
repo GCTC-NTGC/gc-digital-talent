@@ -204,8 +204,10 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']],
+                'poolFilters' => [
+                    [
+                        'poolId' => $pool1['id'],
+                    ]
                 ]
             ]
         ])->assertJson([
@@ -229,9 +231,11 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']],
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_EXPIRED],
+                'poolFilters' => [
+                    [
+                        'poolId' => $pool1['id'],
+                        'statuses' => [ApiEnums::CANDIDATE_STATUS_EXPIRED],
+                    ]
                 ]
             ]
         ])->assertJson([
@@ -255,9 +259,11 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']],
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE, ApiEnums::CANDIDATE_STATUS_EXPIRED],
+                'poolFilters' => [
+                    [
+                        'poolId' => $pool1['id'],
+                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE, ApiEnums::CANDIDATE_STATUS_EXPIRED],
+                    ]
                 ]
             ]
         ])->assertJson([
@@ -281,9 +287,11 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']],
-                    'statuses' => [],
+                'poolFilters' => [
+                    [
+                        'poolId' => $pool1['id'],
+                        'statuses' => [],
+                    ]
                 ]
             ]
         ])->assertJson([
@@ -307,9 +315,11 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => ['00000000-0000-0000-0000-000000000000'],
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                'poolFilters' => [
+                    [
+                        'poolId' => '00000000-0000-0000-0000-000000000000',
+                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                    ]
                 ]
             ]
         ])->assertJson([
@@ -336,11 +346,13 @@ class UserTest extends TestCase
             'pool_id' => $myPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
+        // A candidate which expires today is not expired YET.
         PoolCandidate::factory()->create([
             'expiry_date' => date("Y-m-d"),
             'pool_id' => $myPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
+        // Candidates without expiry dates are considered active.
         PoolCandidate::factory()->count(3)->create([
             'expiry_date' => null,
             'pool_id' => $myPool->id,
@@ -395,8 +407,8 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query for pool with default expiryStatus returns correct users
-        $this->graphQL(/** @lang Graphql */ '
+        // Assert query with pool and expiryStatus ACTIVE returns correct users
+        $response = $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
@@ -406,12 +418,16 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$myPool->id],
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                'poolFilters' => [
+                    [
+                        'poolId' => $myPool->id,
+                        'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                    ]
                 ]
             ]
-        ])->assertJson([
+        ]);
+        $response->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
@@ -421,7 +437,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query with pool and expiryStatus ACTIVE returns correct users
+        // Assert query for pool without setting expiryStatus returns ACTIVE users
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -432,10 +448,11 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$myPool->id],
-                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                'poolFilters' => [
+                    [
+                        'poolId' => $myPool->id,
+                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                    ]
                 ]
             ]
         ])->assertJson([
@@ -459,10 +476,13 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$myPool->id],
-                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                'poolFilters' => [
+                    [
+
+                        'poolId' => $myPool->id,
+                        'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
+                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                    ]
                 ]
             ]
         ])->assertJson([
@@ -486,10 +506,12 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$myPool->id],
-                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                'poolFilters' => [
+                    [
+                        'poolId' => $myPool->id,
+                        'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
+                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                    ]
                 ]
             ]
         ])->assertJson([
@@ -2223,9 +2245,11 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$myPool->id],
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                'poolFilters' => [
+                    [
+                        'poolId' => $myPool->id,
+                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                    ]
                 ]
             ]
         ])->assertJson([
@@ -2249,9 +2273,11 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$myPool->id],
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                'poolFilters' => [
+                    [
+                        'poolId' => $myPool->id,
+                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                    ]
                 ],
                 'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]]
             ]
@@ -2276,9 +2302,11 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'poolCandidates' => [
-                    'pools' => [$myPool->id],
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                'poolFilters' => [
+                    [
+                        'poolId' => $myPool->id,
+                        'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
+                    ]
                 ],
                 'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
             ]
