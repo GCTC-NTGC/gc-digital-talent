@@ -407,7 +407,7 @@ type ApplicantFilter {
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     expectedClassifications: [Classification] @belongsToMany(relation: "classifications")
     skills: [Skill] @belongsToMany
-    poolFilters: [ApplicantFilterPoolRecord] @hasMany(relation: "applicantFilterPoolRecords")
+    pools: [Pool] @belongsToMany
 }
 
 type PoolCandidateSearchRequest {
@@ -1007,16 +1007,6 @@ input PoolCandidateFilterBelongsTo {
     create: CreatePoolCandidateFilterInput!
 }
 
-input CreateApplicantFilterPoolRecordInput {
-    pool: PoolBelongsTo!
-    expiryStatus: CandidateExpiryFilter @rename(attribute: "expiry_status")
-    statuses: [PoolCandidateStatus] @rename(attribute: "pool_candidate_statuses")
-}
-
-input ApplicantFilterPoolRecordHasMany {
-    create: [CreateApplicantFilterPoolRecordInput!]
-}
-
 input CreateApplicantFilterInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     equity: EquitySelectionsInput
@@ -1026,7 +1016,7 @@ input CreateApplicantFilterInput {
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     expectedClassifications: ClassificationBelongsToMany
     skills: SkillBelongsToMany
-    poolFilters: ApplicantFilterPoolRecordHasMany
+    pools: PoolBelongsToMany
 }
 
 input ApplicantFilterBelongsTo {

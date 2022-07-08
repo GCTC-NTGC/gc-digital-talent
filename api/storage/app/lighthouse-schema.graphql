@@ -54,7 +54,7 @@ type ApplicantFilter {
   wouldAcceptTemporary: Boolean
   expectedClassifications: [Classification]
   skills: [Skill]
-  poolFilters: [ApplicantFilterPoolRecord]
+  pools: [Pool]
 }
 
 input ApplicantFilterBelongsTo {
@@ -70,17 +70,13 @@ input ApplicantFilterInput {
   wouldAcceptTemporary: Boolean
   expectedClassifications: [ClassificationFilterInput]
   skills: [ID]
-  pools: UserPoolFilterInput
+  pools: [ID]
 }
 
 type ApplicantFilterPoolRecord {
   pool: Pool!
   expiryStatus: CandidateExpiryFilter
   statuses: [PoolCandidateStatus]
-}
-
-input ApplicantFilterPoolRecordHasMany {
-  create: [CreateApplicantFilterPoolRecordInput!]
 }
 
 type AwardExperience implements Experience {
@@ -223,13 +219,7 @@ input CreateApplicantFilterInput {
   wouldAcceptTemporary: Boolean
   expectedClassifications: ClassificationBelongsToMany
   skills: SkillBelongsToMany
-  poolFilters: ApplicantFilterPoolRecordHasMany
-}
-
-input CreateApplicantFilterPoolRecordInput {
-  pool: PoolBelongsTo!
-  expiryStatus: CandidateExpiryFilter
-  statuses: [PoolCandidateStatus]
+  pools: PoolBelongsToMany
 }
 
 input CreateClassificationInput {

@@ -46,8 +46,8 @@ class ApplicantFilterTest extends TestCase
         $filters = ApplicantFilter::factory()->count(2)->create();
 
         $response = $this->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
             query {
                 applicantFilters {
                     id
@@ -64,7 +64,8 @@ class ApplicantFilterTest extends TestCase
                     wouldAcceptTemporary
                 }
             }
-        ');
+        '
+        );
         $response->assertJson([
             'data' => [
                 'applicantFilters' => [
@@ -111,8 +112,8 @@ class ApplicantFilterTest extends TestCase
         $filters = ApplicantFilter::factory()->count(3)->create();
 
         $response = $this->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
             query ($id: ID!) {
                 applicantFilter(id: $id) {
                     id
@@ -129,9 +130,11 @@ class ApplicantFilterTest extends TestCase
                     wouldAcceptTemporary
                 }
             }
-        ', [
-            'id' => $filters[1]->id,
-        ]);
+        ',
+            [
+                'id' => $filters[1]->id,
+            ]
+        );
         $response->assertJson([
             'data' => [
                 'applicantFilter' => [
@@ -172,7 +175,7 @@ class ApplicantFilterTest extends TestCase
 
         $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
         $this->assertEquals(10, $filters->count());
-        foreach($filters as $filter) {
+        foreach ($filters as $filter) {
             $this->assertGreaterThan(0, $filter->classifications()->count());
             $this->assertGreaterThan(0, $filter->skills()->count());
             $this->assertGreaterThan(0, $filter->pools()->count());
@@ -180,7 +183,7 @@ class ApplicantFilterTest extends TestCase
         }
 
         // Test that the pool and applicantFilterPoolRecord relationships use the same underlying data.
-        foreach($filters as $filter) {
+        foreach ($filters as $filter) {
             $poolIds = $filter->pools->pluck('id')->toArray();
             $poolRecordPoolIds = $filter->applicantFilterPoolRecords->pluck('pool_id')->toArray();
             $this->assertEqualsCanonicalizing($poolIds, $poolRecordPoolIds);
@@ -199,8 +202,8 @@ class ApplicantFilterTest extends TestCase
 
         $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
         $response = $this->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
             query {
                 applicantFilters {
                     id
@@ -218,26 +221,23 @@ class ApplicantFilterTest extends TestCase
                             fr
                         }
                     }
-                    poolFilters {
-                        expiryStatus
-                        statuses
-                        pool {
-                            id
-                            name {
-                                en
-                                fr
-                            }
-                            key
+                    pools {
+                        id
+                        name {
+                            en
+                            fr
                         }
+                        key
                     }
                 }
             }
-        ');
+        '
+        );
         // Assert that each relationship collection has the right size.
         foreach ($response->json('data.applicantFilters') as $filter) {
             $this->assertCount($filters->find($filter['id'])->classifications->count(), $filter['expectedClassifications']);
             $this->assertCount($filters->find($filter['id'])->skills->count(), $filter['skills']);
-            $this->assertCount($filters->find($filter['id'])->applicantFilterPoolRecords->count(), $filter['poolFilters']);
+            $this->assertCount($filters->find($filter['id'])->pools->count(), $filter['pools']);
         }
 
         // Assert that the content of at least one item in each collection is correct.
@@ -258,15 +258,11 @@ class ApplicantFilterTest extends TestCase
                                 'name' => $filters[0]->skills->first()->name,
                             ],
                         ],
-                        'poolFilters' => [
+                        'pools' => [
                             [
-                                'expiryStatus' => $filters[0]->applicantFilterPoolRecords->first()->expiry_status,
-                                'statuses' => $filters[0]->applicantFilterPoolRecords->first()->pool_candidate_statuses,
-                                'pool' => [
-                                    'id' => $filters[0]->applicantFilterPoolRecords->first()->pool->id,
-                                    'name' => $filters[0]->applicantFilterPoolRecords->first()->pool->name,
-                                    'key' => $filters[0]->applicantFilterPoolRecords->first()->pool->key,
-                                ],
+                                'id' => $filters[0]->applicantFilterPoolRecords->first()->pool->id,
+                                'name' => $filters[0]->applicantFilterPoolRecords->first()->pool->name,
+                                'key' => $filters[0]->applicantFilterPoolRecords->first()->pool->key,
                             ],
                         ],
                     ],
