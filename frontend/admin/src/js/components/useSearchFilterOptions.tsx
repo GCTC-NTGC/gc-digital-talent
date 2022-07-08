@@ -18,11 +18,6 @@ import {
   useGetPoolsQuery,
 } from "../api/generated";
 
-const generateOptionsFromValues = (item: string) => ({
-  label: item,
-  value: item.toLowerCase().replace(" ", "-"),
-});
-
 // This is use way to remove null and undefined values from list types, which
 // makes working with them simpler (e.g. `arr.map( ... )`)
 // Source: https://stackoverflow.com/a/46700791
@@ -51,7 +46,7 @@ export default function useSearchFilterOptions() {
   const optionsData = {
     pools: poolsData?.pools.filter(notNullOrUndefined).map(({ id, name }) => ({
       value: id,
-      // TODO: Is there a reason name and translations are optional?
+      // TODO: Must name and translations be optional in types?
       label: name?.[locale] || "Error: name not loaded",
     })),
     languages: enumToOptions(LanguageAbility).map(({ value }) => ({
@@ -82,7 +77,7 @@ export default function useSearchFilterOptions() {
       .filter(notNullOrUndefined)
       .map(({ id, name }) => ({
         value: id,
-        // TODO: Is there a reason translations are optional?
+        // TODO: Must name and translations be optional in types?
         label: name[locale] || "Error: name not loaded",
       })),
     profileComplete: [yesOption],
