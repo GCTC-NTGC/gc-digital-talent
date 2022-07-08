@@ -55,6 +55,14 @@ const SearchFilterFooter = ({
   );
 };
 
+type ContainerProps = React.HTMLAttributes<HTMLDivElement>;
+const Row = (props: ContainerProps) => (
+  <div className="search-filter__row" {...props} />
+);
+const Item = (props: ContainerProps) => (
+  <div className="search-filter__item" {...props} />
+);
+
 interface SearchFilterProps {
   isOpen: boolean;
   onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
@@ -92,8 +100,8 @@ const SearchFilter = ({
           defaultValues: activeFilters,
         }}
       >
-        <div style={{ display: "flex" }}>
-          <div style={{ flexGrow: 1 }}>
+        <Row>
+          <Item>
             <MultiSelectFieldV2
               id="pools"
               label={formatMessage({
@@ -101,8 +109,8 @@ const SearchFilter = ({
               })}
               options={optionsData.pools}
             />
-          </div>
-          <div style={{ minWidth: 300, marginLeft: 20 }}>
+          </Item>
+          <Item style={{ minWidth: 300 }}>
             <SelectFieldV2
               forceArrayFormValue
               id="languages"
@@ -111,10 +119,10 @@ const SearchFilter = ({
               })}
               options={optionsData.languages}
             />
-          </div>
-        </div>
-        <div style={{ display: "flex" }}>
-          <div style={{ flexGrow: 1, minWidth: 175 }}>
+          </Item>
+        </Row>
+        <Row>
+          <Item style={{ minWidth: 175 }}>
             <MultiSelectFieldV2
               id="classifications"
               label={formatMessage({
@@ -122,8 +130,8 @@ const SearchFilter = ({
               })}
               options={optionsData.classifications}
             />
-          </div>
-          <div style={{ flexGrow: 1, marginLeft: 20 }}>
+          </Item>
+          <Item>
             <MultiSelectFieldV2
               id="workPreferences"
               label={formatMessage({
@@ -131,8 +139,8 @@ const SearchFilter = ({
               })}
               options={optionsData.workPreferences}
             />
-          </div>
-          <div style={{ flexGrow: 1, marginLeft: 20 }}>
+          </Item>
+          <Item>
             <MultiSelectFieldV2
               id="workLocations"
               label={formatMessage({
@@ -140,10 +148,10 @@ const SearchFilter = ({
               })}
               options={optionsData.workLocations}
             />
-          </div>
-        </div>
-        <div style={{ display: "flex" }}>
-          <div style={{ flexGrow: 1 }}>
+          </Item>
+        </Row>
+        <Row>
+          <Item>
             <SelectFieldV2
               forceArrayFormValue
               id="durationPreferences"
@@ -152,9 +160,9 @@ const SearchFilter = ({
               })}
               options={optionsData.durationPreferences}
             />
-          </div>
+          </Item>
           {enableEducationType && (
-            <div style={{ flexGrow: 1, marginLeft: 20 }}>
+            <Item>
               <MultiSelectFieldV2
                 id="educationTypes"
                 label={formatMessage({
@@ -162,9 +170,9 @@ const SearchFilter = ({
                 })}
                 options={optionsData.educationTypes}
               />
-            </div>
+            </Item>
           )}
-          <div style={{ flexGrow: 1, marginLeft: 20 }}>
+          <Item>
             <MultiSelectFieldV2
               id="availability"
               label={formatMessage({
@@ -172,8 +180,8 @@ const SearchFilter = ({
               })}
               options={optionsData.availability}
             />
-          </div>
-          <div style={{ marginLeft: 20 }}>
+          </Item>
+          <Item>
             <SelectFieldV2
               forceArrayFormValue
               id="profileComplete"
@@ -182,10 +190,10 @@ const SearchFilter = ({
               })}
               options={optionsData.profileComplete}
             />
-          </div>
-        </div>
-        <div style={{ display: "flex" }}>
-          <div style={{ flexGrow: 1 }}>
+          </Item>
+        </Row>
+        <Row>
+          <Item>
             <MultiSelectFieldV2
               id="skillFilter"
               label={formatMessage({
@@ -193,8 +201,8 @@ const SearchFilter = ({
               })}
               options={optionsData.skillFilter}
             />
-          </div>
-          <div style={{ marginLeft: 20 }}>
+          </Item>
+          <Item>
             <SelectFieldV2
               forceArrayFormValue
               id="govEmployee"
@@ -203,8 +211,8 @@ const SearchFilter = ({
               })}
               options={optionsData.govEmployee}
             />
-          </div>
-        </div>
+          </Item>
+        </Row>
         <Dialog.Footer>
           <SearchFilterFooter />
         </Dialog.Footer>

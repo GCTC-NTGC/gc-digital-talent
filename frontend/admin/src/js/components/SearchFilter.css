@@ -2,3 +2,16 @@
 [data-reach-dialog-content] {
   width: 95vw;
 }
+
+.search-filter__row {
+  display: flex;
+}
+
+.search-filter__row > :first-child {
+  margin-left: 0;
+}
+
+.search-filter__item {
+  flex-grow: 1;
+  margin-left: 20px;
+}
