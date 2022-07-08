@@ -3,7 +3,7 @@ import {
   getEmploymentDuration,
   getLanguageAbility,
   getOperationalRequirement,
-  // getEducationType,
+  getEducationType,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import mapValues from "lodash/mapValues";
@@ -12,7 +12,7 @@ import useLocale from "./useLocale";
 import {
   WorkRegion,
   OperationalRequirement,
-  // EducationType,
+  EducationType,
   JobLookingStatus,
   LanguageAbility,
   useAllSkillsQuery,
@@ -29,7 +29,9 @@ function notNullOrUndefined<TValue>(
   return value !== null && value !== undefined;
 }
 
-export default function useSearchFilterOptions() {
+// TODO: Remove this toggle after data model settles.
+// See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
+export default function useSearchFilterOptions(enableEducationType = false) {
   const intl = useIntl();
   const locale = useLocale();
   // TODO: Implement way to return `fetching` states from hook, so that can pass
@@ -69,10 +71,14 @@ export default function useSearchFilterOptions() {
       value,
       label: intl.formatMessage(getWorkRegion(value)),
     })),
-    // educationTypes: enumToOptions(EducationType).map(({ value }) => ({
-    //   value,
-    //   label: intl.formatMessage(getEducationType(value)),
-    // })),
+    ...(enableEducationType
+      ? {
+          educationTypes: enumToOptions(EducationType).map(({ value }) => ({
+            value,
+            label: intl.formatMessage(getEducationType(value)),
+          })),
+        }
+      : {}),
     durationPreferences: ["term", "indeterminate"].map((value) => ({
       value,
       label: intl.formatMessage(getEmploymentDuration(value, "short")),

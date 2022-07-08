@@ -17,9 +17,9 @@ export type FormValues = {
   classifications: Option["value"][];
   workPreferences: Option["value"][];
   workLocations: Option["value"][];
-  // TODO: Add this back in once data model settles.
+  // TODO: Make mandatory once data model settles.
   // See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
-  // educationTypes: Option["value"][];
+  educationTypes?: Option["value"][];
   durationPreferences: Option["value"][];
   availability: Option["value"][];
   skillFilter: Option["value"][];
@@ -27,9 +27,12 @@ export type FormValues = {
   govEmployee: Option["value"][];
 };
 
-const SearchFilterFooter = (): JSX.Element => {
+type SearchFilterFooterProps = Pick<SearchFilterProps, "enableEducationType">;
+const SearchFilterFooter = ({
+  enableEducationType,
+}: SearchFilterFooterProps): JSX.Element => {
   const { reset } = useFormContext();
-  const { emptyFormValues } = useSearchFilterOptions();
+  const { emptyFormValues } = useSearchFilterOptions(enableEducationType);
   const handleClear = () => {
     reset(emptyFormValues);
   };
@@ -57,6 +60,7 @@ interface SearchFilterProps {
   onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
   onSubmit: SubmitHandler<FormValues>;
   activeFilters: FormValues;
+  enableEducationType?: boolean;
 }
 
 const SearchFilter = ({
@@ -64,9 +68,10 @@ const SearchFilter = ({
   onDismiss,
   onSubmit,
   activeFilters,
+  enableEducationType = false,
 }: SearchFilterProps): JSX.Element => {
   const { formatMessage } = useIntl();
-  const { optionsData } = useSearchFilterOptions();
+  const { optionsData } = useSearchFilterOptions(enableEducationType);
 
   return (
     <Dialog
@@ -148,6 +153,17 @@ const SearchFilter = ({
               options={optionsData.durationPreferences}
             />
           </div>
+          {enableEducationType && (
+            <div style={{ flexGrow: 1, marginLeft: 20 }}>
+              <MultiSelectFieldV2
+                id="educationTypes"
+                label={formatMessage({
+                  defaultMessage: "Education",
+                })}
+                options={optionsData.educationTypes}
+              />
+            </div>
+          )}
           <div style={{ flexGrow: 1, marginLeft: 20 }}>
             <MultiSelectFieldV2
               id="availability"

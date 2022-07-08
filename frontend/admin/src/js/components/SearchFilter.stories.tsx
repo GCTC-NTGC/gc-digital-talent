@@ -34,7 +34,7 @@ export default {
   },
 } as ComponentMeta<typeof SearchFilter>;
 
-export const Default: ComponentStory<typeof SearchFilter> = () => {
+const Template: ComponentStory<typeof SearchFilter> = (args) => {
   const { emptyFormValues } = useSearchFilterOptions();
   const [activeFilters, setActiveFilters] =
     useState<FormValues>(emptyFormValues);
@@ -53,9 +53,17 @@ export const Default: ComponentStory<typeof SearchFilter> = () => {
       <Button onClick={handleOpen}>Filters</Button>
       <SearchFilter
         {...{ isOpen, activeFilters }}
+        {...args}
         onDismiss={handleDismiss}
         onSubmit={handleSubmit}
       />
     </>
   );
+};
+
+export const Default = Template.bind({});
+
+export const WithEducationSelect = Template.bind({});
+WithEducationSelect.args = {
+  enableEducationType: true,
 };
