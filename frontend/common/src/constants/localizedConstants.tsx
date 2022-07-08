@@ -578,7 +578,7 @@ export const OperationalRequirementCandidateDescription = defineMessages({
       "The operational requirement described as occasional overtime.",
   },
   [OperationalRequirement.OvertimeRegular]: {
-    defaultMessage: "...requires me to <bold>work regular overtime/bold>.",
+    defaultMessage: "...requires me to <bold>work regular overtime</bold>.",
     description: "The operational requirement described as regular overtime.",
   },
 });
