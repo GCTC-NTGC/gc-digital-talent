@@ -209,6 +209,7 @@ type Applicant {
     educationExperiences: [EducationExperience]
     personalExperiences: [PersonalExperience]
     workExperiences: [WorkExperience]
+
     expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
 
 }
@@ -580,7 +581,7 @@ input KeyFilterInput {
     key: KeyString!
 }
 
-input PoolFilterInput {
+input IdInput {
     id: ID!
 }
 
@@ -604,7 +605,7 @@ input PoolCandidateFilterInput {
     languageAbility: LanguageAbility @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
-    pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
+    pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
 }
 
 input UserFilterInput {
@@ -627,8 +628,8 @@ input ApplicantFilterInput {
     locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
     wouldAcceptTemporary: Boolean @scope
     expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
-    skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
-    pools: [ID] @builder(method: "App\\Models\\User@filterByAvailableInPools")
+    skills: [IdInput] @pluck(key: "id") @builder(method: "App\\Models\\User@filterBySkills") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+    pools: [IdInput] @pluck(key: "id") @builder(method: "App\\Models\\User@filterByAvailableInPools") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
 }
 
 type Query {
@@ -1002,12 +1003,12 @@ input PoolCandidateFilterBelongsTo {
 
 input CreateApplicantFilterInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
-    equity: EquitySelectionsInput
+    equity: EquitySelectionsInput @spread
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
-    locationPreferences: [WorkRegion] @rename(attribute: "work_regions")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
-    expectedClassifications: ClassificationBelongsToMany
+    expectedClassifications: ClassificationBelongsToMany @rename(attribute: "classifications")
     skills: SkillBelongsToMany
     pools: PoolBelongsToMany
 }

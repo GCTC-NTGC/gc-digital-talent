@@ -86,16 +86,17 @@ class ApplicantFilterFactory extends Factory
             $pools = Pool::inRandomOrder()->limit(
                 $this->faker->numberBetween($minCount, 1)
             )->get();
-            $pools->each(function (Pool $pool) use ($filter, $sparse) {
-                $recordFactory = ApplicantFilterPoolRecord::factory();
-                if ($sparse) {
-                    $recordFactory = $recordFactory->sparse();
-                }
-                $filter->applicantFilterPoolRecords()->save($recordFactory->make([
-                    'pool_id' => $pool->id,
-                    'applicant_filter_id' => $filter->id,
-                ]));
-            });
+            $filter->pools()->saveMany($pools);
+            // $pools->each(function (Pool $pool) use ($filter, $sparse) {
+            //     $recordFactory = ApplicantFilterPoolRecord::factory();
+            //     if ($sparse) {
+            //         $recordFactory = $recordFactory->sparse();
+            //     }
+            //     $filter->applicantFilterPoolRecords()->save($recordFactory->make([
+            //         'pool_id' => $pool->id,
+            //         'applicant_filter_id' => $filter->id,
+            //     ]));
+            // });
         });
     }
 }

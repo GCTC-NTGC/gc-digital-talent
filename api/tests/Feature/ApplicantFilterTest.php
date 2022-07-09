@@ -3,14 +3,16 @@
 namespace Tests\Feature;
 
 use App\Models\ApplicantFilter;
-use App\Models\ApplicantFilterPoolRecord;
+use App\Models\Pool;
+use App\Models\PoolCandidate;
+use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
 use Database\Seeders\ClassificationSeeder;
+use Database\Seeders\DepartmentSeeder;
+use Database\Seeders\GenericJobTitleSeeder;
 use Database\Seeders\PoolSeeder;
 use Database\Seeders\SkillSeeder;
-use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
@@ -34,6 +36,53 @@ class ApplicantFilterTest extends TestCase
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
         $newUser->save();
+    }
+
+    /**
+     * Transform an ApplicantFilter to an ApplicantFilterInput array.
+     */
+    protected function filterToInput(ApplicantFilter $filter)
+    {
+        $onlyId = function ($item) {
+            return ['id' => $item->id];
+        };
+        return [
+            'hasDiploma' => $filter->has_diploma,
+            'equity' => [
+                'isWoman' => $filter->is_woman,
+                'hasDisability' => $filter->has_disability,
+                'isIndigenous' => $filter->is_indigenous,
+                'isVisibleMinority' => $filter->is_visible_minority,
+            ],
+            'languageAbility' => $filter->language_ability,
+            'operationalRequirements' => $filter->operational_requirements,
+            'locationPreferences' => $filter->location_preferences,
+            'wouldAcceptTemporary' => $filter->would_accept_temporary,
+            'expectedClassifications' => $filter->classifications->map(function ($classification) {
+                return [
+                    'group' => $classification->group,
+                    'level' => $classification->level,
+                ];
+            })->toArray(),
+            'skills' => $filter->skills->map($onlyId)->toArray(),
+            'pools' => $filter->pools->map($onlyId)->toArray(),
+        ];
+    }
+
+    protected function filterToCreateInput(ApplicantFilter $filter)
+    {
+        $input = $this->filterToInput($filter);
+        $input['expectedClassifications'] = [
+            'sync' => $filter->classifications->pluck('id')->toArray()
+        ];
+        $input['skills'] = [
+            'sync' => $filter->skills->pluck('id')->toArray()
+        ];
+        $input['pools'] = [
+            'sync' => $filter->pools->pluck('id')->toArray()
+        ];
+
+        return $input;
     }
 
     /**
@@ -269,5 +318,203 @@ class ApplicantFilterTest extends TestCase
                 ],
             ],
         ]);
+    }
+
+    /**
+     * Test that a PoolCandidateSearchRequest can be created, containing an ApplicantFilter
+     */
+    public function testCanCreateARequest()
+    {
+        // Seed everything required
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(SkillSeeder::class);
+        $pool = Pool::factory()->create();
+
+        $filter = ApplicantFilter::factory()->withRelationships()->create();
+
+        // make a request to pull fake data from - don't save it in DB.
+        $request = PoolCandidateSearchRequest::factory()->make([
+            'pool_candidate_filter_id' => null,
+            'applicant_filter_id' => null,
+        ]);
+        $response = $this->graphQL(
+            /** @lang Graphql */
+            '
+            mutation createSearchRequest($request: CreatePoolCandidateSearchRequestInput!) {
+                createPoolCandidateSearchRequest(poolCandidateSearchRequest: $request) {
+                    id
+                    email
+                    fullName
+                    department {
+                        id
+                    }
+                }
+            }
+        ',
+            [
+                'request' => [
+                    'fullName' => $request->full_name,
+                    'email' => $request->email,
+                    'department' => [
+                        'connect' => $request->department_id
+                    ],
+                    'jobTitle' => $request->job_title,
+                    'applicantFilter' => [
+                        'create' => $this->filterToCreateInput($filter)
+                    ]
+                ]
+            ]
+        );
+        $response->assertJson([
+            'data' => [
+                'createPoolCandidateSearchRequest' => [
+                    'email' => $request->email,
+                    'fullName' => $request->full_name,
+                    'department' => [
+                        'id' => $request->department_id
+                    ],
+                ],
+            ],
+        ]);
+
+    }
+
+    /**
+     * Test that we can use an ApplicantFilter in a search, save it as part of a PoolCandidateSearchRequest, retrieve it, and get the same results again.
+     */
+    public function testFilterCanBeStoredAndRetrievedWithoutChangingResults()
+    {
+        // Seed everything used in generating Users
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(GenericJobTitleSeeder::class);
+        $this->seed(SkillSeeder::class);
+        $pool = Pool::factory()->create();
+
+        // Create candidates who may show up in searches
+        $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
+            'pool_id' => $pool->id,
+            'user_id' => User::factory()->activelyLooking()->withExpectedGenericJobTitles()->withSkills(10)
+        ]);
+
+
+        // Generate a filter that matches at least one candidate
+        $candidate = $candidates->random();
+        $filter = ApplicantFilter::factory()->create(
+            [
+                'has_diploma' => $candidate->user->has_diploma,
+                'has_disability' => $candidate->user->has_disability,
+                'is_indigenous' => $candidate->user->is_indigenous,
+                'is_visible_minority' => $candidate->user->is_visible_minority,
+                'is_woman' => $candidate->user->is_woman,
+                'would_accept_temporary' => $candidate->user->would_accept_temporary,
+                'language_ability' => $candidate->user->language_ability,
+                'location_preferences' => $candidate->user->location_preferences,
+                'operational_requirements' => $candidate->user->operational_requirements,
+            ]
+        );
+        $filter->classifications()->saveMany(
+            $candidate->user->expectedGenericJobTitles->pluck('classification')->unique()
+        );
+        $candidateSkills = $candidate->user->experiences->pluck('skills')->flatten()->unique();
+        $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
+        $filter->pools()->save($pool);
+
+        $response = $this->graphQL(
+            /** @lang Graphql */
+            '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ',
+            [
+                'where' => $this->filterToInput($filter)
+            ]
+        );
+        // Sanity check - we should have at least one candidate in the filter.
+        $firstCount = $response->json('data.countApplicants');
+        $this->assertGreaterThan(0, $firstCount);
+
+        // Store the filter with a search request
+
+        // make a request to pull fake data from - don't save it in DB.
+        $request = PoolCandidateSearchRequest::factory()->make([
+            'pool_candidate_filter_id' => null,
+            'applicant_filter_id' => null,
+        ]);
+        $response = $this->graphQL(
+            /** @lang Graphql */
+            '
+            mutation createSearchRequest($request: CreatePoolCandidateSearchRequestInput!) {
+                createPoolCandidateSearchRequest(poolCandidateSearchRequest: $request) {
+                    id
+                }
+            }
+        ',
+            [
+                'request' => [
+                    'fullName' => $request->full_name,
+                    'email' => $request->email,
+                    'department' => [
+                        'connect' => $request->department_id
+                    ],
+                    'jobTitle' => $request->job_title,
+                    'applicantFilter' => [
+                        'create' => $this->filterToCreateInput($filter)
+                    ]
+                ]
+            ]
+        );
+        $requestId = $response->json('data.createPoolCandidateSearchRequest.id');
+        $response = $this->graphQL(
+            /** @lang Graphql */
+            '
+            query poolCandidateSearchRequest($id: ID!) {
+                poolCandidateSearchRequest(id: $id) {
+                    applicantFilter {
+                        hasDiploma
+                        equity {
+                            isWoman
+                            hasDisability
+                            isIndigenous
+                            isVisibleMinority
+                        }
+                        languageAbility
+                        operationalRequirements
+                        wouldAcceptTemporary
+                        expectedClassifications {
+                            group
+                            level
+                        }
+                        skills {
+                            id
+                        }
+                        pools {
+                            id
+                        }
+                    }
+                }
+            }
+        ',
+            [
+                'id' => $requestId
+            ]
+        );
+        $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
+
+        // Now use the retrieved filter to get the same count
+        $response = $this->graphQL(
+            /** @lang Graphql */
+            '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ',
+            [
+                'where' => $retrievedFilter,
+            ]
+        );
+        $this->assertEquals($firstCount, $response->json('data.countApplicants'));
     }
 }

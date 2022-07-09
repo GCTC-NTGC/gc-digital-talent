@@ -69,8 +69,8 @@ input ApplicantFilterInput {
   locationPreferences: [WorkRegion]
   wouldAcceptTemporary: Boolean
   expectedClassifications: [ClassificationFilterInput]
-  skills: [ID]
-  pools: [ID]
+  skills: [IdInput]
+  pools: [IdInput]
 }
 
 type ApplicantFilterPoolRecord {
@@ -496,6 +496,10 @@ enum GovEmployeeType {
   INDETERMINATE
 }
 
+input IdInput {
+  id: ID!
+}
+
 enum JobLookingStatus {
   ACTIVELY_LOOKING
   OPEN_TO_OPPORTUNITIES
@@ -779,7 +783,7 @@ input PoolCandidateFilterInput {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
-  pools: [PoolFilterInput]
+  pools: [IdInput]
 }
 
 type PoolCandidateSearchRequest {
@@ -809,10 +813,6 @@ enum PoolCandidateStatus {
   UNAVAILABLE
   EXPIRED
   PLACED_CASUAL
-}
-
-input PoolFilterInput {
-  id: ID!
 }
 
 enum PoolStatus {
@@ -1247,17 +1247,10 @@ input UserBelongsTo {
 }
 
 input UserFilterInput {
+  applicantFilter: ApplicantFilterInput
   poolFilters: [UserPoolFilterInput]
-  languageAbility: LanguageAbility
-  expectedClassifications: [ClassificationFilterInput]
-  operationalRequirements: [OperationalRequirement]
-  locationPreferences: [WorkRegion]
-  equity: EquitySelectionsInput
-  hasDiploma: Boolean
-  wouldAcceptTemporary: Boolean
   jobLookingStatus: [JobLookingStatus]
   isProfileComplete: Boolean
-  skills: [ID]
   isGovEmployee: Boolean
   telephone: String
   email: String
