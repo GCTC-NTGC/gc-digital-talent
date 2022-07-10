@@ -42,7 +42,7 @@ const Template: ComponentStory<typeof SearchFilter> = (args) => {
 
   const handleOpen = () => setIsOpen(true);
   const handleDismiss = () => setIsOpen(false);
-  const handleSubmit: SubmitHandler<FormValues> = (data, event) => {
+  const handleSubmit: SubmitHandler<FormValues> = (data) => {
     action("Update filter")(data);
     setActiveFilters(data);
     setIsOpen(false);

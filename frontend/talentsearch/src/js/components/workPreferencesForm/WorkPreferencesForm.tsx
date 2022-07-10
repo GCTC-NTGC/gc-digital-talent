@@ -173,7 +173,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                   ).map(({ value }) => ({
                     value,
                     label: intl.formatMessage(
-                      getOperationalRequirement(value, 'candidateDescription'),
+                      getOperationalRequirement(value, "candidateDescription"),
                       { bold },
                     ),
                   }))}
