@@ -16,9 +16,15 @@ import {
   LightningBoltIcon,
   BriefcaseIcon as BriefcaseIconOutline,
   PhoneIcon,
+  LightBulbIcon,
+  CheckCircleIcon,
 } from "@heroicons/react/outline";
 import Accordion from "@common/components/accordion";
 import { strong } from "@common/helpers/format";
+import {
+  getLanguageRequirement,
+  getSecurityClearance,
+} from "@common/constants/localizedConstants";
 import { useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -96,6 +102,14 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
   const canApply =
     poolAdvertisement.advertisementStatus &&
     poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;
+
+  const languageRequirement = intl.formatMessage(
+    getLanguageRequirement(poolAdvertisement.advertisementLanguage ?? ""),
+  );
+
+  const securityClearance = intl.formatMessage(
+    getSecurityClearance(poolAdvertisement.securityClearance ?? ""),
+  );
 
   const applyBtn = (
     <ApplyButton
@@ -322,6 +336,59 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             <TableOfContents.Heading>
               {sections.requirements.title}
             </TableOfContents.Heading>
+            <IconTitle icon={LightBulbIcon}>
+              {intl.formatMessage({
+                defaultMessage: "Experience and education",
+                description:
+                  "Title for experience and education pool requirements",
+              })}
+            </IconTitle>
+            <IconTitle icon={CheckCircleIcon}>
+              {intl.formatMessage({
+                defaultMessage: "Other requirements",
+                description: "Title for other pool requirements",
+              })}
+            </IconTitle>
+            <ul>
+              <li>
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Language requirement: {languageRequirement}",
+                    description: "Pool advertisement language requirement",
+                  },
+                  {
+                    languageRequirement,
+                  },
+                )}
+              </li>
+              <li>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Security clearance: {securityClearance}",
+                    description:
+                      "Pool advertisement security clearance requirement",
+                  },
+                  {
+                    securityClearance,
+                  },
+                )}
+              </li>
+              {poolAdvertisement.advertisementLocation && (
+                <li>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: "Location: {location}",
+                      description:
+                        "Pool advertisement location requirement, English",
+                    },
+                    {
+                      location: poolAdvertisement.advertisementLocation[locale],
+                    },
+                  )}
+                </li>
+              )}
+            </ul>
           </TableOfContents.Section>
           <TableOfContents.Section id={sections.details.id}>
             <TableOfContents.Heading>

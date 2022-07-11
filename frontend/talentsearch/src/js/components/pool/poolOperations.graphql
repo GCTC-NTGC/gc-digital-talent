@@ -36,6 +36,12 @@ query getPoolAdvertisement($id: ID!) {
     }
     expiryDate
     advertisementStatus
+    advertisementLanguage
+    securityClearance
+    advertisementLocation {
+      en
+      fr
+    }
     yourImpact {
       en
       fr
