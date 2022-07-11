@@ -15,8 +15,10 @@ import TableOfContents from "@common/components/TableOfContents";
 import {
   LightningBoltIcon,
   BriefcaseIcon as BriefcaseIconOutline,
+  PhoneIcon,
 } from "@heroicons/react/outline";
 import Accordion from "@common/components/accordion";
+import { strong } from "@common/helpers/format";
 import { useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -24,6 +26,50 @@ import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import commonMessages from "../commonMessages";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
+
+interface ApplyButtonProps {
+  disabled: boolean;
+  href: string;
+}
+
+const ApplyButton = ({ disabled, href }: ApplyButtonProps) => {
+  const intl = useIntl();
+  return (
+    <Link
+      type="button"
+      color="primary"
+      mode="solid"
+      disabled={disabled}
+      href={href}
+    >
+      {intl.formatMessage({
+        defaultMessage: "Apply for this process",
+        description: "Link text to apply for a pool advertisement",
+      })}
+    </Link>
+  );
+};
+interface IconTitleProps {
+  children: React.ReactNode;
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+}
+
+const IconTitle = ({ children, icon }: IconTitleProps) => {
+  const Icon = icon;
+
+  return (
+    <h3 data-h2-display="b(flex)" data-h2-align-items="b(center)">
+      <Icon style={{ width: "1em", marginRight: "0.5rem" }} />
+      <span>{children}</span>
+    </h3>
+  );
+};
+
+// NOTE: Not entirely sure why this is failing?
+const accommodationEmail = (chunks: string[]) => (
+  // eslint-disable-next-line jsx-a11y/anchor-has-content
+  <a href="mailto:fames@acanteipsum.ca">{...chunks}</a>
+);
 
 interface PoolAdvertisementProps {
   poolAdvertisement: PoolAdvertisement;
@@ -47,6 +93,16 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
   const localizedTitle = getLocalizedName(genericTitle?.name, intl);
   const classificationSuffix = `${classification?.group}-0${classification?.level}`;
   const fullTitle = `${localizedClassificationName} ${localizedTitle} (${classificationSuffix})`;
+  const canApply =
+    poolAdvertisement.advertisementStatus &&
+    poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;
+
+  const applyBtn = (
+    <ApplyButton
+      disabled={!canApply}
+      href={paths.poolApply(poolAdvertisement.id)}
+    />
+  );
 
   const links = [
     {
@@ -154,24 +210,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 }}
               />
             </div>
-            {poolAdvertisement.advertisementStatus &&
-              poolAdvertisement.advertisementStatus ===
-                AdvertisementStatus.Published && (
-                <div>
-                  <Link
-                    type="button"
-                    color="primary"
-                    mode="solid"
-                    href={paths.poolApply(poolAdvertisement.id)}
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Apply for this process",
-                      description:
-                        "Link text to apply for a pool advertisement",
-                    })}
-                  </Link>
-                </div>
-              )}
+            <div>{applyBtn}</div>
           </div>
         </div>
       </div>
@@ -246,35 +285,25 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
 
             {poolAdvertisement.yourImpact ? (
               <>
-                <h3 data-h2-display="b(flex)" data-h2-align-items="b(center)">
-                  <LightningBoltIcon
-                    style={{ width: "1em", marginRight: "0.5rem" }}
-                  />
-                  <span>
-                    {intl.formatMessage({
-                      defaultMessage: "Your impact",
-                      description:
-                        "Title for a pool advertisements impact section.",
-                    })}
-                  </span>
-                </h3>
+                <IconTitle icon={LightningBoltIcon}>
+                  {intl.formatMessage({
+                    defaultMessage: "Your impact",
+                    description:
+                      "Title for a pool advertisements impact section.",
+                  })}
+                </IconTitle>
                 {poolAdvertisement.yourImpact[locale]}
               </>
             ) : null}
             {poolAdvertisement.keyTasks ? (
               <>
-                <h3 data-h2-display="b(flex)" data-h2-align-items="b(center)">
-                  <BriefcaseIconOutline
-                    style={{ width: "1em", marginRight: "0.5rem" }}
-                  />
-                  <span>
-                    {intl.formatMessage({
-                      defaultMessage: "Your work",
-                      description:
-                        "Title for a pool advertisements key tasks section.",
-                    })}
-                  </span>
-                </h3>
+                <IconTitle icon={BriefcaseIconOutline}>
+                  {intl.formatMessage({
+                    defaultMessage: "Your work",
+                    description:
+                      "Title for a pool advertisements key tasks section.",
+                  })}
+                </IconTitle>
                 {poolAdvertisement.keyTasks[locale]}
               </>
             ) : null}
@@ -298,11 +327,73 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             <TableOfContents.Heading>
               {sections.details.title}
             </TableOfContents.Heading>
+            <IconTitle icon={PhoneIcon}>
+              {intl.formatMessage({
+                defaultMessage: "Contact and Accommodations",
+                description:
+                  "Title for contact information on pool advertisement",
+              })}
+            </IconTitle>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Do you require accommodations? or do you have any questions about this process?",
+                description:
+                  "Opening sentence asking if accommodations are needed",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Please contact the Digital Community Management Office if you require any accommodations during this application process.",
+                description:
+                  "Description of what to do when accommodations are needed",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "<strong>Email</strong>: <accommodationEmail>fames@acanteipsum.ca</accommodationEmail>",
+                },
+                {
+                  strong,
+                  accommodationEmail,
+                },
+              )}
+            </p>
+            <IconTitle icon={PhoneIcon}>
+              {intl.formatMessage({
+                defaultMessage: "Hiring Policies",
+                description:
+                  "Title for hiring information on pool advertisement",
+              })}
+            </IconTitle>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Preference will be given to veterans, Canadian citizens and to permanent residents.",
+                description: "First hiring policy for pool advertisement",
+              })}
+            </p>
           </TableOfContents.Section>
           <TableOfContents.Section id={sections.apply.id}>
             <TableOfContents.Heading>
               {sections.apply.title}
             </TableOfContents.Heading>
+            <p>
+              {canApply
+                ? intl.formatMessage({
+                    defaultMessage:
+                      "If this process looks like the right fit for you apply now!",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "The deadline for submission has passed.",
+                    description:
+                      "Message displayed when the pool advertisement has expired.",
+                  })}
+            </p>
+            {applyBtn}
           </TableOfContents.Section>
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
