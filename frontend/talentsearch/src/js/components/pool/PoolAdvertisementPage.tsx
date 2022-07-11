@@ -223,7 +223,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 })}
               </p>
             </Accordion>
-            {classification?.group && classification.level && (
+            {genericTitle?.key && (
               <Accordion
                 title={intl.formatMessage(
                   {
@@ -240,11 +240,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   },
                 )}
               >
-                <ClassificationDefinition
-                  group={classification.group}
-                  level={classification.level}
-                  name={genericTitle?.key}
-                />
+                <ClassificationDefinition name={genericTitle.key} />
               </Accordion>
             )}
 
