@@ -35,5 +35,6 @@ query getPoolAdvertisement($id: ID!) {
       maxSalary
     }
     expiryDate
+    advertisementStatus
   }
 }

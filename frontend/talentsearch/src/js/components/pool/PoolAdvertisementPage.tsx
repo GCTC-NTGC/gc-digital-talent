@@ -10,6 +10,7 @@ import { Link } from "@common/components";
 import { getLocale, getLocalizedName } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 
+import { AdvertisementStatus } from "@common/api/generated";
 import { useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -95,19 +96,24 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 }}
               />
             </div>
-            <div>
-              <Link
-                type="button"
-                color="primary"
-                mode="solid"
-                href={paths.poolApply(poolAdvertisement.id)}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Apply for this process",
-                  description: "Link text to apply for a pool advertisement",
-                })}
-              </Link>
-            </div>
+            {poolAdvertisement.advertisementStatus &&
+              poolAdvertisement.advertisementStatus ===
+                AdvertisementStatus.Published && (
+                <div>
+                  <Link
+                    type="button"
+                    color="primary"
+                    mode="solid"
+                    href={paths.poolApply(poolAdvertisement.id)}
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Apply for this process",
+                      description:
+                        "Link text to apply for a pool advertisement",
+                    })}
+                  </Link>
+                </div>
+              )}
           </div>
         </div>
       </div>
