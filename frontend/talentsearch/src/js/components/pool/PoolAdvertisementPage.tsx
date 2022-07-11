@@ -16,12 +16,14 @@ import {
   LightningBoltIcon,
   BriefcaseIcon as BriefcaseIconOutline,
 } from "@heroicons/react/outline";
+import Accordion from "@common/components/accordion";
 import { useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import commonMessages from "../commonMessages";
 import PoolInfoCard from "./PoolInfoCard";
+import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
 
 interface PoolAdvertisementProps {
   poolAdvertisement: PoolAdvertisement;
@@ -43,8 +45,8 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
     intl,
   );
   const localizedTitle = getLocalizedName(genericTitle?.name, intl);
-  const classificationSuffix = `(${classification?.group}-0${classification?.level})`;
-  const fullTitle = `${localizedClassificationName} ${localizedTitle} ${classificationSuffix}`;
+  const classificationSuffix = `${classification?.group}-0${classification?.level}`;
+  const fullTitle = `${localizedClassificationName} ${localizedTitle} (${classificationSuffix})`;
 
   const links = [
     {
@@ -199,7 +201,53 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             <TableOfContents.Heading>
               {sections.about.title}
             </TableOfContents.Heading>
-            {/** TO DO: Accordions here */}
+            <Accordion
+              title={intl.formatMessage({
+                defaultMessage: "What are pool recruitment's?",
+                description:
+                  "Title for according describing pool recruitment's",
+              })}
+            >
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
+                  description: "Description of pool recruitment, paragraph one",
+                })}
+              </p>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "When hiring managers have IT staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
+                  description: "Description of pool recruitment, paragraph two",
+                })}
+              </p>
+            </Accordion>
+            {classification?.group && classification.level && (
+              <Accordion
+                title={intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "What does {classification}{genericTitle} mean?",
+                    description:
+                      "Title for description of a pool advertisements classification group/level",
+                  },
+                  {
+                    classification: classificationSuffix,
+                    genericTitle: genericTitle?.name
+                      ? ` ${genericTitle.name[locale]}`
+                      : ``,
+                  },
+                )}
+              >
+                <ClassificationDefinition
+                  group={classification.group}
+                  level={classification.level}
+                  name={genericTitle?.key}
+                />
+              </Accordion>
+            )}
+
             {poolAdvertisement.yourImpact ? (
               <>
                 <h3 data-h2-display="b(flex)" data-h2-align-items="b(center)">

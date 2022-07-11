@@ -64,7 +64,8 @@ const PoolInfoCard = ({
             defaultMessage: "Salary range:",
             description: "Label for pool advertisement salary range",
           })}{" "}
-          {localizeSalaryRange(salary.min, salary.max, locale)} {classification}
+          {localizeSalaryRange(salary.min, salary.max, locale)} (
+          {classification})
         </span>
       </P>
     </div>
