@@ -24,7 +24,7 @@ import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import DeprecatedViewPool from "./pool/deprecated/ViewPool";
 import DeprecatedUpdatePool from "./pool/deprecated/UpdatePool";
-import EditPool from "./pool/EditPool";
+import EditPool from "./pool/EditPool/EditPool";
 import ViewPool from "./pool/ViewPool";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";

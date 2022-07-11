@@ -737,7 +737,7 @@ export const getJobLookingStatusDescription = (
   getOrThrowError(
     JobLookingStatusDescription,
     jobLookingStatusDescriptionId,
-    `Invalid Job Looking  Status '${jobLookingStatusDescriptionId}'`,
+    `Invalid Job Looking Status '${jobLookingStatusDescriptionId}'`,
   );
 
 export const getProvinceOrTerritory = (
@@ -818,7 +818,7 @@ export const getAdvertisementStatus = (
   getOrThrowError(
     advertisementStatus,
     advertisementStatusId,
-    `Invalid  Advertisement Status '${advertisementStatusId}'`,
+    `Invalid Advertisement Status '${advertisementStatusId}'`,
   );
 
 export const securityClearances = defineMessages({

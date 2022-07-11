@@ -10,23 +10,45 @@ import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import TableOfContents from "@common/components/TableOfContents";
 import {
   PoolAdvertisement,
-  useGetPoolAdvertisementQuery,
   Scalars,
-} from "../../api/generated";
-import DashboardContentContainer from "../DashboardContentContainer";
-import { useAdminRoutes } from "../../adminRoutes";
+  Classification,
+  useGetEditPoolDataQuery,
+  Maybe,
+} from "../../../api/generated";
+import DashboardContentContainer from "../../DashboardContentContainer";
+import { useAdminRoutes } from "../../../adminRoutes";
+import PoolNameSection from "./PoolNameSection";
+import ClosingDateSection from "./ClosingDateSection";
+import YourImpactSection from "./YourImpactSection";
+import WorkTasksSection from "./WorkTasksSection";
+import OtherRequirementsSection from "./OtherRequirementsSection";
 
 interface EditPoolFormProps {
   poolAdvertisement: PoolAdvertisement;
-  onSave: (poolAdvertisement: PoolAdvertisement) => void;
+  classifications: Array<Maybe<Classification>>;
+  onSave: (submitData: unknown) => void;
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
   onExtend: () => void;
 }
 
+export interface SectionMetadata {
+  id: string;
+  title: string;
+}
+
+type SpacerProps = React.HTMLProps<HTMLSpanElement>;
+
+export const Spacer = ({ children, ...rest }: SpacerProps) => (
+  <span data-h2-margin="b(bottom-right, s)" {...rest}>
+    {children}
+  </span>
+);
+
 export const EditPoolForm = ({
   poolAdvertisement,
+  classifications,
   onSave,
   onPublish,
   onDelete,
@@ -165,120 +187,28 @@ export const EditPoolForm = ({
         </TableOfContents.Navigation>
 
         <TableOfContents.Content>
-          {/* Pool name and target classification section */}
-          <TableOfContents.Section id={sectionMetadata.poolName.id}>
-            <TableOfContents.Heading>
-              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-                {sectionMetadata.poolName.title}
-              </h2>
-            </TableOfContents.Heading>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Select the classification intended for this recruitment process.",
-                description:
-                  "Helper message for selecting a classification for the pool",
-              })}
-            </p>
-            Classification:{" "}
-            {poolAdvertisement.classifications &&
-              poolAdvertisement.classifications[0]?.id}
-            Specific Title (ENGLISH): {poolAdvertisement.name?.en}
-            Specific Title (FRENCH): {poolAdvertisement.name?.fr}
-            <Button
-              onClick={() => onSave(poolAdvertisement)}
-              color="cta"
-              mode="solid"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Save pool name",
-                description: "Text on a button to save the pool name",
-              })}
-            </Button>
-          </TableOfContents.Section>
+          <PoolNameSection
+            poolAdvertisement={poolAdvertisement}
+            classifications={classifications}
+            sectionMetadata={sectionMetadata.poolName}
+            onSave={onSave}
+          />
+          <ClosingDateSection
+            poolAdvertisement={poolAdvertisement}
+            sectionMetadata={sectionMetadata.closingDate}
+            onSave={onSave}
+          />
+          <YourImpactSection
+            poolAdvertisement={poolAdvertisement}
+            sectionMetadata={sectionMetadata.yourImpact}
+            onSave={onSave}
+          />
 
-          {/* Closing date section */}
-          <TableOfContents.Section id={sectionMetadata.closingDate.id}>
-            <TableOfContents.Heading>
-              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-                {sectionMetadata.closingDate.title}
-              </h2>
-            </TableOfContents.Heading>
-            Closing date
-            {poolAdvertisement.expiryDate}
-            <Button
-              onClick={() => onSave(poolAdvertisement)}
-              color="cta"
-              mode="solid"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Save closing date",
-                description: "Text on a button to save the pool closing date",
-              })}
-            </Button>
-          </TableOfContents.Section>
-
-          {/* Your impact section */}
-          <TableOfContents.Section id={sectionMetadata.yourImpact.id}>
-            <TableOfContents.Heading>
-              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-                {sectionMetadata.yourImpact.title}
-              </h2>
-            </TableOfContents.Heading>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "This information lets applicants know what kind of work, and environment they are applying to. Use this space to talk about the area of government this process will aim to improve. And the value this kind of work creates.",
-                description:
-                  "Helper message for filling in the pool introduction",
-              })}
-            </p>
-            English - Your impact
-            {poolAdvertisement.yourImpact?.en}
-            French - Your impact
-            {poolAdvertisement.yourImpact?.fr}
-            <Button
-              onClick={() => onSave(poolAdvertisement)}
-              color="cta"
-              mode="solid"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Save introduction",
-                description: "Text on a button to save the pool introduction",
-              })}
-            </Button>
-          </TableOfContents.Section>
-
-          {/* Work tasks section */}
-          <TableOfContents.Section id={sectionMetadata.workTasks.id}>
-            <TableOfContents.Heading>
-              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-                {sectionMetadata.workTasks.title}
-              </h2>
-            </TableOfContents.Heading>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "This information lets applicants know the type of work they will be expected to perform. Talk about the tasks and expectations related to this work.",
-                description:
-                  "Helper message for filling in the pool work tasks",
-              })}
-            </p>
-            English - Your work
-            {poolAdvertisement.keyTasks?.en}
-            French - Your work
-            {poolAdvertisement.keyTasks?.fr}
-            <Button
-              onClick={() => onSave(poolAdvertisement)}
-              color="cta"
-              mode="solid"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Save work tasks",
-                description: "Text on a button to save the pool work tasks",
-              })}
-            </Button>
-          </TableOfContents.Section>
+          <WorkTasksSection
+            poolAdvertisement={poolAdvertisement}
+            sectionMetadata={sectionMetadata.workTasks}
+            onSave={onSave}
+          />
 
           {/* Essential skills section */}
           <TableOfContents.Section id={sectionMetadata.essentialSkills.id}>
@@ -295,7 +225,7 @@ export const EditPoolForm = ({
                   "Helper message for filling in the pool essential skills",
               })}
             </p>
-            {JSON.stringify(poolAdvertisement.essentialSkills)}
+
             <Button
               onClick={() => onSave(poolAdvertisement)}
               color="cta"
@@ -324,7 +254,7 @@ export const EditPoolForm = ({
                   "Helper message for filling in the pool asset skills",
               })}
             </p>
-            {JSON.stringify(poolAdvertisement.nonessentialSkills)}
+
             <Button
               onClick={() => onSave(poolAdvertisement)}
               color="cta"
@@ -337,33 +267,11 @@ export const EditPoolForm = ({
             </Button>
           </TableOfContents.Section>
 
-          {/* Other requirements section */}
-          <TableOfContents.Section id={sectionMetadata.otherRequirements.id}>
-            <TableOfContents.Heading>
-              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-                {sectionMetadata.otherRequirements.title}
-              </h2>
-            </TableOfContents.Heading>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Select the requirements needed for this advertisement.",
-                description:
-                  "Helper message for filling in the pool other requirements",
-              })}
-            </p>
-            <Button
-              onClick={() => onSave(poolAdvertisement)}
-              color="cta"
-              mode="solid"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Save other requirements",
-                description:
-                  "Text on a button to save the pool other requirements",
-              })}
-            </Button>
-          </TableOfContents.Section>
+          <OtherRequirementsSection
+            poolAdvertisement={poolAdvertisement}
+            sectionMetadata={sectionMetadata.otherRequirements}
+            onSave={onSave}
+          />
 
           {/* Advertisement status section */}
           <TableOfContents.Section id={sectionMetadata.status.id}>
@@ -431,8 +339,8 @@ interface EditPoolProps {
 
 export const EditPool = ({ poolId }: EditPoolProps) => {
   const intl = useIntl();
-  const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
-    variables: { id: poolId },
+  const [{ data, fetching, error }] = useGetEditPoolDataQuery({
+    variables: { poolId },
   });
   return (
     <Pending fetching={fetching} error={error}>
@@ -440,7 +348,10 @@ export const EditPool = ({ poolId }: EditPoolProps) => {
         {data?.poolAdvertisement ? (
           <EditPoolForm
             poolAdvertisement={data.poolAdvertisement}
-            onSave={() => console.warn("onSave not yet implemented")}
+            classifications={data.classifications}
+            onSave={(submitData: unknown) =>
+              console.warn("onSave not yet implemented", submitData)
+            }
             onPublish={() => console.warn("onPublish not yet implemented")}
             onDelete={() => console.warn("onDelete not yet implemented")}
             onClose={() => console.warn("onClose not yet implemented")}

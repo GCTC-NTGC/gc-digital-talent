@@ -1,0 +1,97 @@
+# query to populated the edit pool page
+query getEditPoolData($poolId: ID!) {
+  # the existing data of the pool to edit
+  poolAdvertisement(id: $poolId) {
+    id
+    name {
+      en
+      fr
+    }
+    expiryDate
+    advertisementStatus
+    advertisementLanguage
+    securityClearance
+    classifications {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+      genericJobTitles {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+    yourImpact {
+      en
+      fr
+    }
+    keyTasks {
+      en
+      fr
+    }
+    essentialSkills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      families {
+        id
+        key
+        description {
+          en
+          fr
+        }
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
+    nonessentialSkills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      families {
+        id
+        key
+        description {
+          en
+          fr
+        }
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
+    advertisementLocation {
+      en
+      fr
+    }
+  }
+
+  # all classifications to populate form dropdown
+  classifications {
+    id
+    group
+    level
+    name {
+      en
+      fr
+    }
+  }
+}
