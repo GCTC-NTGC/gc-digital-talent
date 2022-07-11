@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { invertSkillExperienceTree } from "../../helpers/skillUtils";
 import ExperienceAccordion, {
   ExperiencePaths,
 } from "./ExperienceAccordion/ExperienceAccordion";
@@ -14,7 +15,7 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "../../types/ExperienceUtils";
-import { AwardExperience, Experience, Skill } from "../../api/generated";
+import { AwardExperience, Experience } from "../../api/generated";
 import ExperienceByTypeListing from "./ExperienceByTypeListing";
 
 export interface ExperienceSectionProps {
@@ -31,42 +32,65 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const awardExperiences =
-    experiences
-      ?.filter(isAwardExperience)
-      .map(
-        (award: AwardExperience) =>
-          ({
-            ...award,
-            startDate: award.awardedDate,
-            endDate: award.awardedDate,
-          } as AwardExperience & { startDate: string; endDate: string }),
-      )
-      .sort(compareByDate) || [];
-  const communityExperiences =
-    experiences?.filter(isCommunityExperience).sort(compareByDate) || [];
-  const educationExperiences =
-    experiences?.filter(isEducationExperience).sort(compareByDate) || [];
-  const personalExperiences =
-    experiences?.filter(isPersonalExperience).sort(compareByDate) || [];
-  const workExperiences =
-    experiences?.filter(isWorkExperience).sort(compareByDate) || [];
+  const awardExperiences = React.useMemo(
+    () =>
+      experiences
+        ?.filter(isAwardExperience)
+        .map(
+          (award: AwardExperience) =>
+            ({
+              ...award,
+              startDate: award.awardedDate,
+              endDate: award.awardedDate,
+            } as AwardExperience & { startDate: string; endDate: string }),
+        )
+        .sort(compareByDate) || [],
+    [experiences],
+  );
 
-  const allExperiences = [
-    ...awardExperiences,
-    ...communityExperiences,
-    ...educationExperiences,
-    ...personalExperiences,
-    ...workExperiences,
-  ];
+  const communityExperiences = React.useMemo(
+    () => experiences?.filter(isCommunityExperience).sort(compareByDate) || [],
+    [experiences],
+  );
+
+  const educationExperiences = React.useMemo(
+    () => experiences?.filter(isEducationExperience).sort(compareByDate) || [],
+    [experiences],
+  );
+
+  const personalExperiences = React.useMemo(
+    () => experiences?.filter(isPersonalExperience).sort(compareByDate) || [],
+    [experiences],
+  );
+
+  const workExperiences = React.useMemo(
+    () => experiences?.filter(isWorkExperience).sort(compareByDate) || [],
+    [experiences],
+  );
+
+  const allExperiences = React.useMemo(
+    () => [
+      ...awardExperiences,
+      ...communityExperiences,
+      ...educationExperiences,
+      ...personalExperiences,
+      ...workExperiences,
+    ],
+    [
+      awardExperiences,
+      communityExperiences,
+      educationExperiences,
+      personalExperiences,
+      workExperiences,
+    ],
+  );
 
   const sortedByDate = allExperiences.sort(compareByDate);
 
-  const allSkills: Skill[] =
-    experiences?.reduce((accumulator: Skill[], currentValue: Experience) => {
-      const skills = currentValue.skills || [];
-      return [...accumulator, ...skills];
-    }, []) || [];
+  const allSkills = React.useMemo(
+    () => invertSkillExperienceTree(allExperiences),
+    [allExperiences],
+  );
   const skillIds = allSkills.map(({ id }) => id);
   const sortedBySkills = allSkills
     .filter(({ id }, index) => !skillIds.includes(id, index + 1)) // Remove duplicate skills
