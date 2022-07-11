@@ -35,12 +35,13 @@ GRAPHQL;
      */
     public function transform($argumentValue)
     {
-        return Utils::applyEach(
+        $output = Utils::mapEach(
             function ($value) {
                 return $this->pluckFromArgumentSet($value);
             },
             $argumentValue
         );
+        return $output;
     }
 
     protected function pluckFromArgumentSet(ArgumentSet $argumentSet)
