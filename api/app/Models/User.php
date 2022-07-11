@@ -163,7 +163,7 @@ class User extends Model implements Authenticatable
             return true;
         }
     }
-    public function scopeIsProfileComplete(Builder $query, bool $isProfileComplete): Builder
+    public function scopeIsProfileComplete(Builder $query, ?bool $isProfileComplete): Builder
     {
         if ($isProfileComplete) {
             $query->whereNotNull('first_name');
@@ -206,7 +206,7 @@ class User extends Model implements Authenticatable
      * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus and statuses fields.
      * @return Builder
      */
-    public function filterByPools(Builder $query, array $poolFilters): Builder
+    public function filterByPools(Builder $query, ?array $poolFilters): Builder
     {
         if (empty($poolFilters)) {
             return $query;
@@ -256,7 +256,7 @@ class User extends Model implements Authenticatable
      * @param array $poolIds
      * @return Builder
      */
-    public function filterByAvailableInPools(Builder $query, array $poolIds): Builder
+    public function filterByAvailableInPools(Builder $query, ?array $poolIds): Builder
     {
         if (empty($poolIds)) {
             return $query;
@@ -295,6 +295,9 @@ class User extends Model implements Authenticatable
     }
     public function filterByLocationPreferences(Builder $query, array $locations): Builder
     {
+        if (empty($locations)) {
+            return $query;
+        }
         // LocationPreferences acts as an OR filter. The query should return candidates willing to work in ANY of the locations.
         $query->where(function ($query) use ($locations) {
             foreach ($locations as $index => $location) {
@@ -308,8 +311,11 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public function filterByJobLookingStatus(Builder $query, array $statuses): Builder
+    public function filterByJobLookingStatus(Builder $query, ?array $statuses): Builder
     {
+        if (empty($statuses)) {
+            return $query;
+        }
         // JobLookingStatus acts as an OR filter. The query should return users with ANY of the statuses.
         $query->where(function ($query) use ($statuses) {
             foreach ($statuses as $index => $status) {
@@ -323,7 +329,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public function filterBySkills(Builder $query, array $skills): Builder
+    public function filterBySkills(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
@@ -364,7 +370,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public function scopeClassifications(Builder $query, array $classifications): Builder
+    public function scopeClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -398,7 +404,7 @@ class User extends Model implements Authenticatable
 
         return $query;
     }
-    public function filterByClassificationToGenericJobTitles(Builder $query, array $classifications): Builder
+    public function filterByClassificationToGenericJobTitles(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -427,7 +433,7 @@ class User extends Model implements Authenticatable
 
         return $query;
     }
-    private function filterByClassificationToSalary(Builder $query, array $classifications): Builder
+    private function filterByClassificationToSalary(Builder $query, ?array $classifications): Builder
     {
         // When managers search for a classification, also return any users whose expected salary
         // ranges overlap with the min/max salaries of any of those classifications.
@@ -436,8 +442,9 @@ class User extends Model implements Authenticatable
 
         // This subquery only works for a non-zero number of filter classifications.
         // If passed zero classifications then return same query builder unchanged.
-        if (count($classifications) == 0)
+        if (empty($classifications)) {
             return $query;
+        }
 
         $parameters = [];
         $sql = <<<RAWSQL1
@@ -495,7 +502,7 @@ RAWSQL2;
         return $query->whereRaw('EXISTS (' . $sql . ')', $parameters);
     }
 
-    public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder
+    public function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
     {
         if ($hasDiploma) {
             $query->where('has_diploma', true);
@@ -511,7 +518,7 @@ RAWSQL2;
     }
 
 
-    public function filterByEquity(Builder $query, array $equity): Builder
+    public function filterByEquity(Builder $query, ?array $equity): Builder
     {
         if (empty($equity)) {
             return $query;
@@ -590,7 +597,7 @@ RAWSQL2;
         return $query;
     }
 
-    public function scopeIsGovEmployee(Builder $query, bool $isGovEmployee): Builder
+    public function scopeIsGovEmployee(Builder $query, ?bool $isGovEmployee): Builder
     {
         if ($isGovEmployee) {
             $query->where('is_gov_employee', true);
