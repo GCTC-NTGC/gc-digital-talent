@@ -38,10 +38,8 @@ const FilterBlock: React.FunctionComponent<{
       >
         {title}
       </h3>
-      <p data-h2-margin="b(x1, 0)">
-        {text}
-      </p>
-      {children && <div style={{ maxWidth: "30rem" }}>{children}</div>}
+      <p data-h2-margin="b(x1, 0)">{text}</p>
+      {children && <div>{children}</div>}
     </div>
   );
 };

@@ -82,7 +82,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 
   function candidateResults() {
     return candidateCount > 0 ? (
-      <div data-h2-flex-item="b(1of1) p-tablet(1of2)">
+      <div data-h2-flex-item="b(1of1)">
         <div
           data-h2-shadow="b(l)"
           data-h2-height="b(100%)"
@@ -101,12 +101,12 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     ) : (
       <div data-h2-flex-item="b(1of1)">
         <div
-            data-h2-shadow="b(l)"
-            data-h2-height="b(100%)"
-            data-h2-overflow="b(hidden, all)"
-            data-h2-radius="b(0, 10px, 10px, 0)"
-            data-h2-border="b(left, 1rem, solid, dark.dt-gray)"
-          >
+          data-h2-shadow="b(l)"
+          data-h2-height="b(100%)"
+          data-h2-overflow="b(hidden, all)"
+          data-h2-radius="b(0, 10px, 10px, 0)"
+          data-h2-border="b(left, 1rem, solid, dark.dt-gray)"
+        >
           <div data-h2-padding="b(x1)">
             <p data-h2-font-weight="b(700)">
               {intl.formatMessage({
@@ -135,13 +135,10 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   }
 
   return (
-    <div data-h2-container="b(center, large, x1) p-tablet(center, large, x2)">
+    <div data-h2-container="b(center, medium, x1) p-tablet(center, medium, x2)">
       <div data-h2-flex-grid="b(flex-start, 0, x1) p-tablet(stretch, 0, x2) l-tablet(stretch, 0, x4) desktop(stretch, 0, x5)">
-        <div data-h2-flex-item="b(1of1) p-tablet(2of3)">
-          <h2
-            data-h2-color="b(dt-black)"
-            data-h2-margin="b(x3, 0, x1, 0)"
-          >
+        <div data-h2-flex-item="b(1of1) p-tablet(3of5)">
+          <h2 data-h2-color="b(dt-black)" data-h2-margin="b(x3, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage: "How to use this tool",
               description:
@@ -165,10 +162,12 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
         </div>
         <div
           data-h2-display="b(none) p-tablet(block)"
-          data-h2-flex-item="b(1of1) p-tablet(1of3)">
+          data-h2-flex-item="b(1of1) p-tablet(2of5)"
+        >
           <div
             data-h2-height="b(100%)"
-            data-h2-padding="b(x1, 0, 0, 0) p-tablet(x3, 0, 0, 0)">
+            data-h2-padding="b(x1, 0, 0, 0) p-tablet(x3, 0, 0, 0)"
+          >
             <EstimatedCandidates
               candidateCount={candidateCount}
               updatePending={updatePending}
@@ -198,9 +197,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
         <SearchFilterAdvice
           classificationFilterCount={classificationFilterCount}
           cmoAssetFilterCount={cmoAssetFilterCount}
-          operationalRequirementFilterCount={
-            operationalRequirementFilterCount
-          }
+          operationalRequirementFilterCount={operationalRequirementFilterCount}
         />
       </div>
       <div data-h2-flex-item="b(1of1)">

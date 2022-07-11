@@ -22,41 +22,45 @@ const RequestPage: React.FunctionComponent = () => {
   const candidateCount = state ? state.some.candidateCount : null;
 
   return (
-    <section
-      style={{
-        background:
-          "linear-gradient(to right, rgba(103, 76, 144, 0.9) 0%, rgba(29, 44, 76, 1) 100%) no-repeat",
-        backgroundSize: "calc(100%) calc(85%)",
-        backgroundPosition: "bottom",
-      }}
-      data-h2-padding="b(0, 0, x2, 0)"
-    >
-      <h1
-        data-h2-margin="b(x.5, 0, 0, 0)"
-        data-h2-text-align="b(center)"
-        data-h2-background-color="b(dt-white)"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Search the Digital Talent Pool",
-          description: "Main heading displayed at the top of request page.",
-        })}
-      </h1>
+    <section>
+      <div data-h2-container="b(center, medium, x1) p-tablet(center, medium, x2)">
+        <h1
+          data-h2-margin="b(x2.5, 0, 0, 0) p-tablet(x4, 0, 0, 0)"
+          data-h2-font-size="b(h1, 1)"
+          data-h2-font-weight="b(700)"
+          data-h2-text-align="b(center)"
+          style={{ letterSpacing: "-2px" }}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Search the Digital Talent Pool",
+            description: "Main heading displayed at the top of request page.",
+          })}
+        </h1>
+      </div>
       <div
-        data-h2-container="b(center, xl)"
-        data-h2-radius="b(s)"
-        data-h2-shadow="b(s)"
-        data-h2-padding="b(x2, x4, x2, x2)"
-        data-h2-background-color="b(dt-white)"
-        data-h2-display="b(flex)"
-        data-h2-justify-content="b(center)"
-        data-h2-align-items="b(center)"
-        style={{ minHeight: "70rem" }}
+        data-h2-background-color="b(dt-linear)"
+        data-h2-margin="b(x3, 0, 0, 0) p-tablet(x6, 0, 0, 0)"
+        data-h2-position="b(relative)"
       >
-        <CreateRequest
-          poolCandidateFilter={poolCandidateFilter}
-          searchFormInitialValues={initialValues}
-          candidateCount={candidateCount}
-        />
+        <div
+          data-h2-position="b(relative)"
+          data-h2-offset="b(-x2, auto, auto, auto) p-tablet(-x4, auto, auto, auto)"
+        >
+          <div data-h2-container="b(center, medium, x1) p-tablet(center, medium, x2)">
+            <div
+              data-h2-radius="b(s)"
+              data-h2-shadow="b(xl)"
+              data-h2-padding="b(x1) p-tablet(x2)"
+              data-h2-background-color="b(dt-white)"
+            >
+              <CreateRequest
+                poolCandidateFilter={poolCandidateFilter}
+                searchFormInitialValues={initialValues}
+                candidateCount={candidateCount}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

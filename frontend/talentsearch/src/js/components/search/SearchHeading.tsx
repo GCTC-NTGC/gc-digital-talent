@@ -19,7 +19,7 @@ const SearchHeading: React.FunctionComponent = () => {
           backgroundBlendMode: "multiply",
         }}
       >
-        <div data-h2-container="b(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-container="b(center, medium, x1) p-tablet(center, medium, x2)">
           <h1
             data-h2-font-size="b(h1, 1)"
             data-h2-text-align="b(center)"
@@ -36,7 +36,7 @@ const SearchHeading: React.FunctionComponent = () => {
         </div>
       </div>
       <div data-h2-margin="b(-x2, 0, 0, 0) p-tablet(-x4, 0, 0, 0)">
-        <div data-h2-container="b(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-container="b(center, medium, x1) p-tablet(center, medium, x2)">
           <div
             data-h2-background-color="b(dt-white)"
             data-h2-padding="b(x2) p-tablet(x2, x4)"

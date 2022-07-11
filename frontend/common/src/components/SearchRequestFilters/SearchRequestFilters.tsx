@@ -39,7 +39,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
   };
 
   return (
-    <div data-h2-padding="b(0, 0, x.5, 0)">
+    <div data-h2-padding="b(0, 0, x1, 0)">
       <div data-h2-visibility="b(visible) s(hidden)">
         <p
           data-h2-display="b(inline)"
@@ -182,82 +182,83 @@ const SearchRequestFilters: React.FunctionComponent<
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 
   return (
-    <section data-h2-flex-grid="b(stretch, 0, x1)">
-      <div
-        data-h2-flex-item="b(1of1) s(1of2)"
-        data-h2-border="s(right, 1px, solid, dt-gray)"
-        style={{ paddingBottom: "0" }}
-      >
-        <div>
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Group and level",
-              description:
-                "Title for group and level on summary of filters section",
-            })}
-            content={classifications}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Education Level",
-              description:
-                "Title for education level on summary of filters section",
-            })}
-            content={educationLevel}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Type of opportunity",
-              description:
-                "Title for type of opportunity section on summary of filters section",
-            })}
-            content={typeOfOpportunity}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage:
-                "Conditions of employment / Operational requirements",
-              description:
-                "Title for operational requirements section on summary of filters section",
-            })}
-            content={operationalRequirements}
-          />
-        </div>
-      </div>
-      <div data-h2-flex-item="b(1of1) s(1of2)">
-        <div>
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Work Location",
-              description:
-                "Title for work location section on summary of filters section",
-            })}
-            content={workLocations}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Work language ability",
-              description:
-                "Title for work language on summary of filters section",
-            })}
-            content={languageAbility}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Employment equity",
-              description:
-                "Title for employment equity section on summary of filters section",
-            })}
-            content={employmentEquity}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Skills",
-              description:
-                "Title for skills section on summary of filters section",
-            })}
-            content={skills}
-          />
+    <section data-h2-radius="b(s)" data-h2-background-color="b(dt-gray.light)">
+      <div data-h2-padding="b(x1, x1, 0, x1) p-tablet(x2, x2, x1, x2)">
+        <div data-h2-flex-grid="b(flex-start, 0, 0, x1) p-tablet(flex-start, 0, x2, 0)">
+          <div
+            data-h2-flex-item="b(1of1) p-tablet(1of2)"
+            style={{ paddingBottom: "0" }}
+          >
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Group and level",
+                description:
+                  "Title for group and level on summary of filters section",
+              })}
+              content={classifications}
+            />
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Education Level",
+                description:
+                  "Title for education level on summary of filters section",
+              })}
+              content={educationLevel}
+            />
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Type of opportunity",
+                description:
+                  "Title for type of opportunity section on summary of filters section",
+              })}
+              content={typeOfOpportunity}
+            />
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage:
+                  "Conditions of employment / Operational requirements",
+                description:
+                  "Title for operational requirements section on summary of filters section",
+              })}
+              content={operationalRequirements}
+            />
+          </div>
+          <div data-h2-flex-item="b(1of1) p-tablet(1of2)">
+            <div>
+              <FilterBlock
+                title={intl.formatMessage({
+                  defaultMessage: "Work Location",
+                  description:
+                    "Title for work location section on summary of filters section",
+                })}
+                content={workLocations}
+              />
+              <FilterBlock
+                title={intl.formatMessage({
+                  defaultMessage: "Work language ability",
+                  description:
+                    "Title for work language on summary of filters section",
+                })}
+                content={languageAbility}
+              />
+              <FilterBlock
+                title={intl.formatMessage({
+                  defaultMessage: "Employment equity",
+                  description:
+                    "Title for employment equity section on summary of filters section",
+                })}
+                content={employmentEquity}
+              />
+              <FilterBlock
+                title={intl.formatMessage({
+                  defaultMessage: "Skills",
+                  description:
+                    "Title for skills section on summary of filters section",
+                })}
+                content={skills}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
