@@ -10,7 +10,3 @@
 .search-filter__row > :first-child {
   margin-left: 0;
 }
-
-.search-filter__grow {
-  flex-grow: 1;
-}

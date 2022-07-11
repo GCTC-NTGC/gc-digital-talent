@@ -5,13 +5,13 @@ import Button from "@common/components/Button";
 import type { SubmitHandler } from "react-hook-form";
 import OverlayOrDialogDecorator from "@common/../.storybook/decorators/OverlayOrDialogDecorator";
 import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
-import SearchFilter from "./SearchFilter";
-import type { FormValues } from "./SearchFilter";
-import useSearchFilterOptions from "./useSearchFilterOptions";
+import UserTableFilterDialog from "./UserTableFilterDialog";
+import type { FormValues } from "./UserTableFilterDialog";
+import useFilterOptions from "./useFilterOptions";
 
 export default {
-  title: "Admin/SearchFilter",
-  component: SearchFilter,
+  title: "Users/UserTableFilterDialog",
+  component: UserTableFilterDialog,
   decorators: [OverlayOrDialogDecorator],
   parameters: {
     apiResponses: {
@@ -32,10 +32,10 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof SearchFilter>;
+} as ComponentMeta<typeof UserTableFilterDialog>;
 
-const Template: ComponentStory<typeof SearchFilter> = (args) => {
-  const { emptyFormValues } = useSearchFilterOptions();
+const Template: ComponentStory<typeof UserTableFilterDialog> = (args) => {
+  const { emptyFormValues } = useFilterOptions();
   const [activeFilters, setActiveFilters] =
     useState<FormValues>(emptyFormValues);
   const [isOpen, setIsOpen] = useState(true);
@@ -51,7 +51,7 @@ const Template: ComponentStory<typeof SearchFilter> = (args) => {
   return (
     <>
       <Button onClick={handleOpen}>Filters</Button>
-      <SearchFilter
+      <UserTableFilterDialog
         {...{ isOpen, activeFilters }}
         {...args}
         onDismiss={handleDismiss}

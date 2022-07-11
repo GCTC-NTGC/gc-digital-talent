@@ -9,7 +9,7 @@ import {
 import { enumToOptions } from "@common/helpers/formUtils";
 import mapValues from "lodash/mapValues";
 import { useIntl } from "react-intl";
-import useLocale from "./useLocale";
+import useLocale from "../useLocale";
 import {
   WorkRegion,
   OperationalRequirement,
@@ -19,7 +19,7 @@ import {
   useAllSkillsQuery,
   useGetClassificationsQuery,
   useGetPoolsQuery,
-} from "../api/generated";
+} from "../../api/generated";
 
 // This is use way to remove null and undefined values from list types, which
 // makes working with them simpler (e.g. `arr.map( ... )`)
@@ -32,7 +32,7 @@ function notNullOrUndefined<TValue>(
 
 // TODO: Remove this toggle after data model settles.
 // See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
-export default function useSearchFilterOptions(enableEducationType = false) {
+export default function useFilterOptions(enableEducationType = false) {
   const intl = useIntl();
   const locale = useLocale();
   // TODO: Implement way to return `fetching` states from hook, so that can pass
@@ -43,6 +43,7 @@ export default function useSearchFilterOptions(enableEducationType = false) {
   const [poolsRes] = useGetPoolsQuery();
 
   const yesOption = {
+    // Values expected to be strings or numbers.
     value: "true",
     // No description since common term that can be de-duplicated by FormatJS.
     label: intl.formatMessage({ defaultMessage: "Yes" }),
@@ -56,7 +57,7 @@ export default function useSearchFilterOptions(enableEducationType = false) {
         // TODO: Must name and translations be optional in types?
         label: name?.[locale] || "Error: name not loaded",
       })),
-    languages: enumToOptions(LanguageAbility).map(({ value }) => ({
+    languageAbility: enumToOptions(LanguageAbility).map(({ value }) => ({
       value,
       label: intl.formatMessage(getLanguageAbility(value)),
     })),
@@ -66,31 +67,33 @@ export default function useSearchFilterOptions(enableEducationType = false) {
         value: id,
         label: `${group}-${level}`,
       })),
-    workPreferences: enumToOptions(OperationalRequirement).map(({ value }) => ({
-      value,
-      label: intl.formatMessage(getOperationalRequirement(value, "short")),
-    })),
-    workLocations: enumToOptions(WorkRegion).map(({ value }) => ({
+    operationalRequirement: enumToOptions(OperationalRequirement).map(
+      ({ value }) => ({
+        value,
+        label: intl.formatMessage(getOperationalRequirement(value, "short")),
+      }),
+    ),
+    workRegion: enumToOptions(WorkRegion).map(({ value }) => ({
       value,
       label: intl.formatMessage(getWorkRegion(value)),
     })),
     ...(enableEducationType
       ? {
-          educationTypes: enumToOptions(EducationType).map(({ value }) => ({
+          educationType: enumToOptions(EducationType).map(({ value }) => ({
             value,
             label: intl.formatMessage(getEducationType(value)),
           })),
         }
       : {}),
-    durationPreferences: ["term", "indeterminate"].map((value) => ({
+    employmentDuration: ["term", "indeterminate"].map((value) => ({
       value,
       label: intl.formatMessage(getEmploymentDuration(value, "short")),
     })),
-    availability: enumToOptions(JobLookingStatus).map(({ value }) => ({
+    jobLookingStatus: enumToOptions(JobLookingStatus).map(({ value }) => ({
       value,
       label: intl.formatMessage(getJobLookingStatus(value, "short")),
     })),
-    skillFilter: skillsRes.data?.skills
+    skills: skillsRes.data?.skills
       .filter(notNullOrUndefined)
       .map(({ id, name }) => ({
         value: id,
@@ -108,7 +111,7 @@ export default function useSearchFilterOptions(enableEducationType = false) {
   return {
     optionsData,
     emptyFormValues,
-    apiResults: {
+    rawGraphqlResults: {
       skills: skillsRes,
       classifications: classificationsRes,
       pools: poolsRes,

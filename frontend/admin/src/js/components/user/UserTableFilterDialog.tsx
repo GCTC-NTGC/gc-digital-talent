@@ -5,34 +5,32 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { BasicForm } from "@common/components/form";
 import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
-import "./SearchFilter.css";
+import "./UserTableFilterDialog.css";
 import { useFormContext } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import type { Option } from "@common/components/form/Select/SelectFieldV2";
-import useSearchFilterOptions from "./useSearchFilterOptions";
+import useFilterOptions from "./useFilterOptions";
 
 export type FormValues = {
   pools: Option["value"][];
-  languages: Option["value"][];
+  languageAbility: Option["value"][];
   classifications: Option["value"][];
-  workPreferences: Option["value"][];
-  workLocations: Option["value"][];
+  operationalRequirement: Option["value"][];
+  workRegion: Option["value"][];
   // TODO: Make mandatory once data model settles.
   // See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
-  educationTypes?: Option["value"][];
-  durationPreferences: Option["value"][];
-  availability: Option["value"][];
-  skillFilter: Option["value"][];
+  educationType?: Option["value"][];
+  employmentDuration: Option["value"][];
+  jobLookingStatus: Option["value"][];
+  skills: Option["value"][];
   profileComplete: Option["value"][];
   govEmployee: Option["value"][];
 };
 
-type SearchFilterFooterProps = Pick<SearchFilterProps, "enableEducationType">;
-const SearchFilterFooter = ({
-  enableEducationType,
-}: SearchFilterFooterProps): JSX.Element => {
+type FooterProps = Pick<UserTableFilterDialogProps, "enableEducationType">;
+const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
   const { reset } = useFormContext();
-  const { emptyFormValues } = useSearchFilterOptions(enableEducationType);
+  const { emptyFormValues } = useFilterOptions(enableEducationType);
   const handleClear = () => {
     reset(emptyFormValues);
   };
@@ -55,20 +53,17 @@ const SearchFilterFooter = ({
   );
 };
 
-type ContainerProps = React.HTMLAttributes<HTMLDivElement>;
-const Row = (props: ContainerProps) => (
+type RowProps = React.HTMLAttributes<HTMLDivElement>;
+const Row = (props: RowProps) => (
   <div className="search-filter__row" {...props} />
 );
 
-const Item = (props: ContainerProps) => (
-  <div data-h2-margin="b(left, s)" {...props} />
+type ItemProps = React.HTMLAttributes<HTMLDivElement> & { grow?: boolean };
+const Item = ({ grow = false, ...rest }: ItemProps) => (
+  <div data-h2-margin="b(left, s)" {...rest} {...(grow && { flexGrow: 1 })} />
 );
 
-const GrowItem = (props: ContainerProps) => (
-  <div data-h2-margin="b(left, s)" {...props} className="search-filter__grow" />
-);
-
-interface SearchFilterProps {
+interface UserTableFilterDialogProps {
   isOpen: boolean;
   onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
   onSubmit: SubmitHandler<FormValues>;
@@ -76,16 +71,16 @@ interface SearchFilterProps {
   enableEducationType?: boolean;
 }
 
-const SearchFilter = ({
+const UserTableFilterDialog = ({
   isOpen,
   onDismiss,
   onSubmit,
   activeFilters,
   enableEducationType = false,
-}: SearchFilterProps): JSX.Element => {
+}: UserTableFilterDialogProps): JSX.Element => {
   const { formatMessage } = useIntl();
-  const { optionsData, apiResults } =
-    useSearchFilterOptions(enableEducationType);
+  const { optionsData, rawGraphqlResults } =
+    useFilterOptions(enableEducationType);
 
   return (
     <Dialog
@@ -107,88 +102,88 @@ const SearchFilter = ({
         }}
       >
         <Row>
-          <GrowItem>
+          <Item grow>
             <MultiSelectFieldV2
               id="pools"
               label={formatMessage({
                 defaultMessage: "Pools",
               })}
               options={optionsData.pools}
-              isLoading={apiResults.pools.fetching}
+              isLoading={rawGraphqlResults.pools.fetching}
             />
-          </GrowItem>
-          <Item style={{ minWidth: 300 }}>
+          </Item>
+          <Item>
             <SelectFieldV2
               forceArrayFormValue
               id="languages"
               label={formatMessage({
                 defaultMessage: "Languages",
               })}
-              options={optionsData.languages}
+              options={optionsData.languageAbility}
             />
           </Item>
         </Row>
         <Row>
-          <GrowItem style={{ minWidth: 175 }}>
+          <Item grow>
             <MultiSelectFieldV2
               id="classifications"
               label={formatMessage({
                 defaultMessage: "Classifications",
               })}
               options={optionsData.classifications}
-              isLoading={apiResults.classifications.fetching}
+              isLoading={rawGraphqlResults.classifications.fetching}
             />
-          </GrowItem>
-          <GrowItem>
+          </Item>
+          <Item grow>
             <MultiSelectFieldV2
               id="workPreferences"
               label={formatMessage({
                 defaultMessage: "Work Preferences",
               })}
-              options={optionsData.workPreferences}
+              options={optionsData.operationalRequirement}
             />
-          </GrowItem>
-          <GrowItem>
+          </Item>
+          <Item grow>
             <MultiSelectFieldV2
               id="workLocations"
               label={formatMessage({
                 defaultMessage: "Work Locations",
               })}
-              options={optionsData.workLocations}
+              options={optionsData.workRegion}
             />
-          </GrowItem>
+          </Item>
         </Row>
         <Row>
           {enableEducationType && (
-            <GrowItem>
+            <Item grow>
               <MultiSelectFieldV2
                 id="educationTypes"
                 label={formatMessage({
                   defaultMessage: "Education",
                 })}
-                options={optionsData.educationTypes}
+                options={optionsData.educationType}
               />
-            </GrowItem>
+            </Item>
           )}
-          <GrowItem>
+          <Item>
             <SelectFieldV2
               forceArrayFormValue
               id="durationPreferences"
               label={formatMessage({
                 defaultMessage: "Duration Preferences",
               })}
-              options={optionsData.durationPreferences}
+              options={optionsData.employmentDuration}
             />
-          </GrowItem>
-          <GrowItem>
+          </Item>
+          <Item grow>
             <MultiSelectFieldV2
               id="availability"
               label={formatMessage({
                 defaultMessage: "Availability",
               })}
-              options={optionsData.availability}
+              options={optionsData.jobLookingStatus}
             />
-          </GrowItem>
+          </Item>
           <Item>
             <SelectFieldV2
               forceArrayFormValue
@@ -201,16 +196,16 @@ const SearchFilter = ({
           </Item>
         </Row>
         <Row>
-          <GrowItem>
+          <Item grow>
             <MultiSelectFieldV2
-              id="skillFilter"
+              id="skills"
               label={formatMessage({
                 defaultMessage: "Skill Filter",
               })}
-              options={optionsData.skillFilter}
-              isLoading={apiResults.skills.fetching}
+              options={optionsData.skills}
+              isLoading={rawGraphqlResults.skills.fetching}
             />
-          </GrowItem>
+          </Item>
           <Item>
             <SelectFieldV2
               forceArrayFormValue
@@ -223,11 +218,11 @@ const SearchFilter = ({
           </Item>
         </Row>
         <Dialog.Footer>
-          <SearchFilterFooter />
+          <Footer />
         </Dialog.Footer>
       </BasicForm>
     </Dialog>
   );
 };
 
-export default SearchFilter;
+export default UserTableFilterDialog;
