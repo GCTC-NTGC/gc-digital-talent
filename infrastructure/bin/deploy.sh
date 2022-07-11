@@ -32,7 +32,6 @@ php artisan lighthouse:print-schema --write
 ### Install all npm dependencies
 cd $ROOT_DIR/frontend
 npm ci --include=dev
-npm rebuild node-sass
 
 # Run h2-build using workspace command from /frontend
 npm run h2-build --workspace common
