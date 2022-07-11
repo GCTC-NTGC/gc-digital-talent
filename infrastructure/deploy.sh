@@ -80,7 +80,6 @@ php artisan lighthouse:print-schema --write
 
 cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend
 npm install
-npm rebuild node-sass
 
 ### Common
 
