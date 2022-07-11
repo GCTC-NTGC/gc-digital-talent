@@ -1,35 +1,71 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* NOTE: This is temporary until we start the Candidates/Requests pages */
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { ViewGridIcon, HomeIcon } from "@heroicons/react/outline";
+import {
+  CheckIcon,
+  ClipboardIcon,
+  CogIcon,
+  ExternalLinkIcon,
+  HomeIcon,
+  TicketIcon,
+  UserGroupIcon,
+  ViewGridIcon,
+} from "@heroicons/react/outline";
 
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
-import { Link } from "@common/components";
-import {
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-} from "@common/components/Tabs";
 import { commonMessages } from "@common/messages";
-import { getLocale } from "@common/helpers/localize";
+import { getLocale, getLocalizedName } from "@common/helpers/localize";
 
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import Chip, { Chips } from "@common/components/Chip";
+import Link, { IconLink } from "@common/components/Link";
+import { Input } from "@common/components/form";
+import { IconButton } from "@common/components/Button";
+import { FormProvider, useForm } from "react-hook-form";
+import {
+  getAdvertisementStatus,
+  getLanguageRequirement,
+  getSecurityClearance,
+} from "@common/constants/localizedConstants";
 import { useAdminRoutes } from "../../adminRoutes";
-import { useGetPoolQuery } from "../../api/generated";
-import type { Pool } from "../../api/generated";
+import {
+  SkillCategory,
+  useGetPoolAdvertisementQuery,
+} from "../../api/generated";
+import type { PoolAdvertisement } from "../../api/generated";
+import DashboardContentContainer from "../DashboardContentContainer";
+
+type SpacerProps = React.HTMLProps<HTMLSpanElement>;
+
+const Spacer = ({ children, ...rest }: SpacerProps) => (
+  <span data-h2-margin="b(bottom-right, s)" {...rest}>
+    {children}
+  </span>
+);
 
 interface ViewPoolPageProps {
-  pool: Pool;
+  pool: PoolAdvertisement;
 }
 
-export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
+export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const adminPaths = useAdminRoutes();
+  const form = useForm();
+  const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
+
+  /** Reset link copied after 3 seconds */
+  React.useEffect(() => {
+    if (linkCopied) {
+      setTimeout(() => {
+        setLinkCopied(false);
+      }, 3000);
+    }
+  }, [linkCopied, setLinkCopied]);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Pool Details",
@@ -37,6 +73,46 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
   });
 
   const poolName = pool.name ? pool.name[locale] : pageTitle;
+  const classification = pool.classifications ? pool.classifications[0] : null;
+  const genericTitle = classification?.genericJobTitles?.length
+    ? classification.genericJobTitles[0]
+    : null;
+
+  const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {
+    return skill.families?.some(
+      (family) => family.category === SkillCategory.Technical,
+    );
+  });
+
+  const essentialTransferableSkills = pool.essentialSkills?.filter((skill) => {
+    return skill.families?.some(
+      (family) => family.category === SkillCategory.Behavioural,
+    );
+  });
+
+  const nonEssentialOccupationalSkills = pool.nonessentialSkills?.filter(
+    (skill) => {
+      return skill.families?.some(
+        (family) => family.category === SkillCategory.Technical,
+      );
+    },
+  );
+
+  const nonEssentialTransferableSkills = pool.nonessentialSkills?.filter(
+    (skill) => {
+      return skill.families?.some(
+        (family) => family.category === SkillCategory.Behavioural,
+      );
+    },
+  );
+
+  const languageRequirement = intl.formatMessage(
+    getLanguageRequirement(pool.advertisementLanguage ?? ""),
+  );
+
+  const securityClearance = intl.formatMessage(
+    getSecurityClearance(pool.securityClearance ?? ""),
+  );
 
   const links = [
     {
@@ -56,67 +132,453 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
       icon: <ViewGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
-      title: poolName,
+      title: intl.formatMessage(
+        {
+          defaultMessage: `Pool ID #{id}`,
+          description: "Current pool breadcrumb text",
+        },
+        { id: pool.id },
+      ),
     },
   ] as BreadcrumbsProps["links"];
 
-  const tabs = [
-    intl.formatMessage({
-      defaultMessage: "Pool details",
-      description: "Tabs title for the individual pool details.",
-    }),
-    intl.formatMessage({
-      defaultMessage: "Pool candidates",
-      description: "Tabs title for the individual pool candidates.",
-    }),
-  ];
-
   return (
-    <>
-      <PageHeader icon={ViewGridIcon}>{pageTitle}</PageHeader>
+    <DashboardContentContainer>
+      <PageHeader icon={ViewGridIcon}>{poolName}</PageHeader>
       <Breadcrumbs links={links} />
       <div
-        data-h2-align-items="b(center)"
         data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column) m(row)"
-        data-h2-margin="b(top-bottom, l)"
+        data-h2-flex-wrap="b(wrap)"
+        data-h2-margin="b(top-bottom, m)"
       >
-        {pool.name && (
-          <h2
-            data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
-            data-h2-font-weight="b(800)"
-          >
-            {poolName}
-          </h2>
-        )}
-        <div data-h2-margin="m(left, auto)">
-          <Link
-            mode="outline"
-            color="primary"
+        <Spacer>
+          <IconLink
+            mode="solid"
+            color="secondary"
             type="button"
-            href={adminPaths.poolUpdate(pool.id)}
+            href="#"
+            disabled
+            icon={UserGroupIcon}
           >
             {intl.formatMessage({
-              defaultMessage: "Edit pool",
+              defaultMessage: "Manage candidates",
+              description:
+                "Link text for button to manage candidates of a specific pool",
+            })}
+          </IconLink>
+        </Spacer>
+        <Spacer>
+          <IconLink
+            mode="solid"
+            color="secondary"
+            type="button"
+            href="#"
+            disabled
+            icon={TicketIcon}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Manage requests",
+              description:
+                "Link text for button to manage requests of a specific pool",
+            })}
+          </IconLink>
+        </Spacer>
+        <Spacer>
+          <IconLink
+            mode="solid"
+            color="secondary"
+            type="button"
+            href={adminPaths.poolUpdate(pool.id)}
+            icon={CogIcon}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Edit pool advertisement",
               description: "Link text for button to edit a specific pool",
             })}
-          </Link>
-        </div>
+          </IconLink>
+        </Spacer>
       </div>
-      <Tabs>
-        <TabList>
-          {tabs.map((tab, index) => (
-            <Tab key={tab} index={index}>
-              {tab}
-            </Tab>
-          ))}
-        </TabList>
-        <TabPanels>
-          <TabPanel>{tabs[0]}</TabPanel>
-          <TabPanel>{tabs[1]}</TabPanel>
-        </TabPanels>
-      </Tabs>
-    </>
+      <FormProvider {...form}>
+        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+          {intl.formatMessage({
+            defaultMessage: "View pool advertisement",
+            description: "Sub title for admin view pool page",
+          })}
+        </h2>
+        <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
+          <Spacer data-h2-width="b(25)">
+            <Input
+              readOnly
+              value={pool.id}
+              hideOptional
+              id="poolUrl"
+              name="poolUrl"
+              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Pool advertisement",
+                description: "Label for pool advertisement url field",
+              })}
+            />
+          </Spacer>
+          <Spacer>
+            <IconButton
+              data-h2-margin="b(bottom, xxs)"
+              mode="outline"
+              color="secondary"
+              disabled={linkCopied}
+              icon={linkCopied ? CheckIcon : ClipboardIcon}
+              onClick={() => {
+                // TO DO: Update with real URL once we get it
+                navigator.clipboard.writeText(pool.id);
+                setLinkCopied(true);
+              }}
+            >
+              <span aria-live={linkCopied ? "assertive" : "off"}>
+                {linkCopied
+                  ? intl.formatMessage({
+                      defaultMessage: "Link copied!",
+                      description:
+                        "Button text to be displayed after link was copied",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Copy link",
+                      description: "Button text to copy a url",
+                    })}
+              </span>
+            </IconButton>
+          </Spacer>
+          <Spacer>
+            <IconLink
+              data-h2-margin="b(bottom, xxs)"
+              mode="outline"
+              color="secondary"
+              type="button"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              icon={ExternalLinkIcon}
+            >
+              {intl.formatMessage({
+                defaultMessage: "View pool advertisement",
+                description:
+                  "Link text to view the public facing pool advertisement",
+              })}
+            </IconLink>
+          </Spacer>
+        </div>
+        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+          {intl.formatMessage({
+            defaultMessage: "Details",
+            description: "Sub title for admin view pool page",
+          })}
+        </h2>
+        {classification ? (
+          <>
+            <div data-h2-display="b(flex)">
+              <Spacer>
+                <Input
+                  id="targetClassification"
+                  name="targetClassification"
+                  type="text"
+                  readOnly
+                  hideOptional
+                  value={`${classification.group}-0${classification.level}`}
+                  label={intl.formatMessage({
+                    defaultMessage: "Target classification",
+                    description:
+                      "Label for a pool advertisements classification group and level",
+                  })}
+                />
+              </Spacer>
+              <Spacer>
+                <Input
+                  id="genericTitle"
+                  name="genericTitle"
+                  type="text"
+                  readOnly
+                  hideOptional
+                  value={getLocalizedName(genericTitle?.name, intl)}
+                  label={intl.formatMessage({
+                    defaultMessage: "Generic",
+                    description:
+                      "Label for a pool advertisements generic title",
+                  })}
+                />
+              </Spacer>
+            </div>
+            <div data-h2-display="b(flex)">
+              <Spacer style={{ flex: 1 }}>
+                <Input
+                  id="specificTitleEn"
+                  name="specificTitleEn"
+                  type="text"
+                  readOnly
+                  hideOptional
+                  value={classification?.name?.en ?? ""}
+                  label={intl.formatMessage({
+                    defaultMessage: "Specific Title (English)",
+                    description:
+                      "Label for a pool advertisements specific English title",
+                  })}
+                />
+              </Spacer>
+              <Spacer style={{ flex: 1 }}>
+                <Input
+                  id="specificTitleFr"
+                  name="specificTitleFr"
+                  type="text"
+                  readOnly
+                  hideOptional
+                  value={classification?.name?.fr ?? ""}
+                  label={intl.formatMessage({
+                    defaultMessage: "Specific Title (French)",
+                    description:
+                      "Label for a pool advertisements specific French title",
+                  })}
+                />
+              </Spacer>
+            </div>
+          </>
+        ) : null}
+        <div data-h2-display="b(flex)">
+          <Spacer>
+            <Input
+              id="expiryDate"
+              name="expiryDate"
+              type="text"
+              readOnly
+              hideOptional
+              value={new Date(pool.expiryDate).toLocaleString(locale, {
+                dateStyle: "medium",
+              })}
+              label={intl.formatMessage({
+                defaultMessage: "Closing date",
+                description: "Label for a pool advertisements expiry date",
+              })}
+            />
+          </Spacer>
+          <Spacer>
+            <Input
+              id="status"
+              name="status"
+              type="text"
+              readOnly
+              hideOptional
+              value={intl.formatMessage(
+                getAdvertisementStatus(pool.advertisementStatus ?? ""),
+              )}
+              label={intl.formatMessage({
+                defaultMessage: "Status",
+                description: "Label for a pool advertisements status",
+              })}
+            />
+          </Spacer>
+        </div>
+        <div data-h2-display="b(flex)">
+          <Spacer style={{ flex: 1 }}>
+            <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+              {intl.formatMessage({
+                defaultMessage: "Your Impact (English)",
+                description: "Title for English pool advertisement impact",
+              })}
+            </h2>
+            <p>{pool.yourImpact?.en || ""}</p>
+          </Spacer>
+          <Spacer style={{ flex: 1 }}>
+            <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+              {intl.formatMessage({
+                defaultMessage: "Your Impact (French)",
+                description: "Title for French pool advertisement impact",
+              })}
+            </h2>
+            <p>{pool.yourImpact?.fr || ""}</p>
+          </Spacer>
+        </div>
+        <div data-h2-display="b(flex)">
+          <Spacer style={{ flex: 1 }}>
+            <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+              {intl.formatMessage({
+                defaultMessage: "Your Work (English)",
+                description: "Title for English pool advertisement Work",
+              })}
+            </h2>
+            <p>{pool.keyTasks?.en || ""}</p>
+          </Spacer>
+          <Spacer style={{ flex: 1 }}>
+            <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+              {intl.formatMessage({
+                defaultMessage: "Your Work (French)",
+                description: "Title for French pool advertisement Work",
+              })}
+            </h2>
+            <p>{pool.keyTasks?.fr || ""}</p>
+          </Spacer>
+        </div>
+        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+          {intl.formatMessage({
+            defaultMessage: "Need to have skills",
+            description: "Title required skills for a pool advertisement",
+          })}
+        </h2>
+        {essentialOccupationalSkills?.length ? (
+          <>
+            <h3 data-h2-font-size="b(h4)">
+              {intl.formatMessage({
+                defaultMessage: "Occupational",
+                description:
+                  "Title for pool advertisement occupational skill list",
+              })}
+            </h3>
+            <Chips>
+              {essentialOccupationalSkills.map((skill) => (
+                <Chip
+                  key={`occupationalSkill-${skill.id}`}
+                  mode="outline"
+                  color="primary"
+                  label={getLocalizedName(skill.name, intl)}
+                />
+              ))}
+            </Chips>
+          </>
+        ) : null}
+        {essentialTransferableSkills?.length ? (
+          <>
+            <h3 data-h2-font-size="b(h4)">
+              {intl.formatMessage({
+                defaultMessage: "Transferable",
+                description:
+                  "Title for pool advertisement transferable skill list",
+              })}
+            </h3>
+            <Chips>
+              {essentialTransferableSkills.map((skill) => (
+                <Chip
+                  key={`occupationalSkill-${skill.id}`}
+                  mode="outline"
+                  color="primary"
+                  label={getLocalizedName(skill.name, intl)}
+                />
+              ))}
+            </Chips>
+          </>
+        ) : null}
+        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+          {intl.formatMessage({
+            defaultMessage: "Nice to have skills",
+            description: "Title optional skills for a pool advertisement",
+          })}
+        </h2>
+        {nonEssentialOccupationalSkills?.length ? (
+          <>
+            <h3 data-h2-font-size="b(h4)">
+              {intl.formatMessage({
+                defaultMessage: "Occupational",
+                description:
+                  "Title for pool advertisement occupational skill list",
+              })}
+            </h3>
+            <Chips>
+              {nonEssentialOccupationalSkills.map((skill) => (
+                <Chip
+                  key={`occupationalSkill-${skill.id}`}
+                  mode="outline"
+                  color="primary"
+                  label={getLocalizedName(skill.name, intl)}
+                />
+              ))}
+            </Chips>
+          </>
+        ) : null}
+        {nonEssentialTransferableSkills?.length ? (
+          <>
+            <h3 data-h2-font-size="b(h4)">
+              {intl.formatMessage({
+                defaultMessage: "Transferable",
+                description:
+                  "Title for pool advertisement transferable skill list",
+              })}
+            </h3>
+            <Chips>
+              {nonEssentialTransferableSkills.map((skill) => (
+                <Chip
+                  key={`occupationalSkill-${skill.id}`}
+                  mode="outline"
+                  color="primary"
+                  label={getLocalizedName(skill.name, intl)}
+                />
+              ))}
+            </Chips>
+          </>
+        ) : null}
+        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+          {intl.formatMessage({
+            defaultMessage: "Requirements",
+            description: "Title for a pool advertisement requirements",
+          })}
+        </h2>
+        <ul>
+          <li>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Language requirement: {languageRequirement}",
+                description: "Pool advertisement language requirement",
+              },
+              {
+                languageRequirement,
+              },
+            )}
+          </li>
+          <li>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Security clearance: {securityClearance}",
+                description:
+                  "Pool advertisement security clearance requirement",
+              },
+              {
+                securityClearance,
+              },
+            )}
+          </li>
+          <li>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Location (English): {locationEn}",
+                description: "Pool advertisement location requirement, English",
+              },
+              {
+                locationEn: pool.advertisementLocation?.en ?? "",
+              },
+            )}
+          </li>
+          <li>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Location (French): {locationFr}",
+                description: "Pool advertisement location requirement, French",
+              },
+              {
+                locationFr: pool.advertisementLocation?.fr ?? "",
+              },
+            )}
+          </li>
+        </ul>
+      </FormProvider>
+      <p data-h2-margin="b(top, l)">
+        <Link
+          type="button"
+          mode="solid"
+          color="secondary"
+          href={adminPaths.poolTable()}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Back to pools",
+            description:
+              "Link text for buttons to go back to the admin pools page",
+          })}
+        </Link>
+      </p>
+    </DashboardContentContainer>
   );
 };
 
@@ -124,16 +586,16 @@ interface ViewPoolProps {
   poolId: string;
 }
 
-const ViewPool: React.FC<ViewPoolProps> = ({ poolId }) => {
+const ViewPool = ({ poolId }: ViewPoolProps) => {
   const intl = useIntl();
-  const [{ data, fetching, error }] = useGetPoolQuery({
+  const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId },
   });
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.pool ? (
-        <ViewPoolPage pool={data.pool} />
+      {data?.poolAdvertisement ? (
+        <ViewPoolPage pool={data.poolAdvertisement} />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>

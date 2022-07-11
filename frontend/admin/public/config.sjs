@@ -12,6 +12,7 @@ const filterEmpty = (value) => value != "(none)" ? value : undefined;
 const data = new Map([
     ["OAUTH_LOGOUT_URI", filterEmpty("<!--#echo var="OAUTH_LOGOUT_URI" -->")],
     ["OAUTH_POST_LOGOUT_REDIRECT", filterEmpty("<!--#echo var="OAUTH_POST_LOGOUT_REDIRECT" -->")],
+    ["FEATURE_DIRECTINTAKE", filterEmpty("<!--#echo var="FEATURE_DIRECTINTAKE" -->")],
 ]);
 
 window.__SERVER_CONFIG__ = data;

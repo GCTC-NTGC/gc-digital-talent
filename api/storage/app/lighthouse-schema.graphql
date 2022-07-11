@@ -1,3 +1,9 @@
+enum AdvertisementStatus {
+  DRAFT
+  PUBLISHED
+  EXPIRED
+}
+
 type Applicant {
   id: ID!
   firstName: String
@@ -365,6 +371,11 @@ A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
 """
 scalar DateTime
 
+"""
+A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sP`, e.g. `2020-04-20T13:53:12+02:00`.
+"""
+scalar DateTimeTz
+
 type Department {
   id: ID!
   departmentNumber: Int!
@@ -730,6 +741,35 @@ type Pool {
   status: PoolStatus
 }
 
+type PoolAdvertisement {
+  id: ID!
+  expiryDate: DateTimeTz
+  isPublished: Boolean
+  name: LocalizedString
+  description: LocalizedString
+  classifications: [Classification]
+  assetCriteria: [CmoAsset]
+  essentialCriteria: [CmoAsset]
+  operationalRequirements: [OperationalRequirement]
+  keyTasks: LocalizedString
+  yourImpact: LocalizedString
+  advertisementLocation: LocalizedString
+  securityClearance: SecurityStatus
+  advertisementLanguage: PoolAdvertisementLanguage
+  status: PoolStatus
+  advertisementStatus: AdvertisementStatus
+  essentialSkills: [Skill!]
+  nonessentialSkills: [Skill!]
+}
+
+enum PoolAdvertisementLanguage {
+  ENGLISH
+  FRENCH
+  VARIOUS
+  BILINGUAL_INTERMEDIATE
+  BILINGUAL_ADVANCED
+}
+
 input PoolBelongsTo {
   connect: ID!
 }
@@ -848,6 +888,7 @@ type Query {
   applicants: [Applicant]!
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: ID!): Pool
+  poolAdvertisement(id: ID!): PoolAdvertisement
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: ID!): PoolCandidate
@@ -948,6 +989,12 @@ enum SalaryRange {
   _80_89K
   _90_99K
   _100K_PLUS
+}
+
+enum SecurityStatus {
+  RELIABILITY
+  SECRET
+  TOP_SECRET
 }
 
 """Information about pagination using a simple paginator."""

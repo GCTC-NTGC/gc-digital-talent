@@ -16,6 +16,7 @@ import {
 } from "@common/helpers/storageUtils";
 import { EquitySelections } from "@common/api/generated";
 import Pending from "@common/components/Pending";
+import { objectsToSortedOptions } from "@common/helpers/formUtils";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import {
   Department,
@@ -33,7 +34,6 @@ import {
 } from "../../api/generated";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
 
-type Option<V> = { value: V; label: string };
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
 type FormValues = {
   fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
@@ -78,7 +78,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useTalentSearchRoutes();
   const cacheKey = "ts-createRequest";
 
@@ -157,27 +156,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       });
   };
 
-  const departmentOptions: Option<string>[] = departments
-    .sort((a, b) => {
-      const aName: Maybe<string> = a.name[locale];
-      const bName: Maybe<string> = b.name[locale];
-      if (aName && bName) {
-        return aName.localeCompare(bName, locale);
-      }
-
-      return 0;
-    })
-    .map(({ id, name }) => ({
-      value: id,
-      label:
-        name[locale] ??
-        intl.formatMessage({
-          defaultMessage: "Error: department name not found.",
-          description:
-            "Error message when department name is not found on request page.",
-        }),
-    }));
-
   function span(msg: string): JSX.Element {
     return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
   }
@@ -237,7 +215,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Null selection for department select input in the request form.",
                   })}
-                  options={departmentOptions}
+                  options={objectsToSortedOptions(departments, intl)}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
