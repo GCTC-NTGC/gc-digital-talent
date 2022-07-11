@@ -2248,7 +2248,9 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'skills' => [$skill1['id']]
+                        'skills' => [
+                            ['id' => $skill1['id']]
+                        ]
                     ]
                 ]
             ]
@@ -2277,7 +2279,10 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'skills' => [$skill1['id'], $skill2['id']]
+                        'skills' => [
+                            ['id' => $skill1['id']],
+                            ['id' => $skill2['id']]
+                        ]
                     ]
                 ]
             ]
@@ -2306,7 +2311,9 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'skills' => [$skill3['id']]
+                        'skills' => [
+                            ['id' => $skill3['id']]
+                        ]
                     ]
                 ]
             ]
@@ -2580,7 +2587,9 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'pools' => [$myPool->id],
+                        'pools' => [
+                            ['id' => $myPool->id],
+                        ]
                     ]
                 ]
             ]
@@ -2609,7 +2618,9 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'pools' => [$myPool->id],
+                        'pools' => [
+                            ['id' => $myPool->id],
+                        ],
                         'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]]
                     ],
                 ]
@@ -2639,7 +2650,9 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'pools' => [$myPool->id],
+                        'pools' => [
+                            ['id' => $myPool->id]
+                        ],
                         'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234]],
                     ],
                 ]
@@ -2737,7 +2750,9 @@ class UserTest extends TestCase
         ',
             [
                 'where' => [
-                    'pools' => [$pool1['id']],
+                    'pools' => [
+                        ['id' => $pool1['id']],
+                    ]
                 ]
             ]
         );
@@ -2757,7 +2772,9 @@ class UserTest extends TestCase
         ',
             [
                 'where' => [
-                    'pools' => [$pool1['id']],
+                    'pools' => [
+                        ['id' => $pool1['id']],
+                    ],
                     'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
                 ]
             ]
