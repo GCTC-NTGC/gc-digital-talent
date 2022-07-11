@@ -1,6 +1,8 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
+import { format, formatDistance } from "date-fns";
+import { fr } from "date-fns/locale";
 import { Maybe, Scalars } from "../api/generated";
-import { Locales } from "./localize";
+import { getLocale, Locales } from "./localize";
 
 export function formattedDate(date: Scalars["Date"], locale: Locales) {
   const formatter = new Intl.DateTimeFormat(locale, {
@@ -45,3 +47,41 @@ export function getDateRange({
         { d1 },
       );
 }
+
+const DAY_IN_MILLISECONDS = 86400000;
+
+export const relativeDate = (date: Date, intl: IntlShape) => {
+  const strLocale = getLocale(intl);
+  const locale = strLocale === "fr" ? fr : undefined;
+  const now = new Date();
+  const diff = now.getTime() - date.getTime();
+  let relative = formatDistance(date, now, {
+    locale,
+    addSuffix: true,
+  });
+
+  if (diff < DAY_IN_MILLISECONDS && diff > -(DAY_IN_MILLISECONDS - 1)) {
+    relative = intl.formatMessage({
+      defaultMessage: "Today",
+      description: "Text displayed when relative date is today.",
+    });
+  }
+
+  if (diff < DAY_IN_MILLISECONDS * 2 && diff > 0) {
+    relative = intl.formatMessage({
+      defaultMessage: "Tomorrow",
+      description: "Text displayed when relative date is tomorrow.",
+    });
+  }
+
+  if (diff > -(DAY_IN_MILLISECONDS * 2) && diff < 0) {
+    relative = intl.formatMessage({
+      defaultMessage: "Yesterday",
+      description: "Text displayed when relative date is yesterday.",
+    });
+  }
+
+  const formatted = format(date, "PP", { locale });
+
+  return `${formatted} (${relative})`;
+};

@@ -6,6 +6,7 @@ import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
+import { Link } from "@common/components";
 import { getLocale, getLocalizedName } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 
@@ -14,6 +15,7 @@ import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import commonMessages from "../commonMessages";
+import PoolInfoCard from "./PoolInfoCard";
 
 interface PoolAdvertisementProps {
   poolAdvertisement: PoolAdvertisement;
@@ -77,6 +79,36 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
       >
         <div data-h2-container="b(center, m)">
           <Breadcrumbs links={links} />
+          <div
+            data-h2-display="b(flex)"
+            data-h2-flex-direction="b(column) m(row)"
+            data-h2-justify-content="b(space-between)"
+            data-h2-align-items="b(center) m(flex-end)"
+            data-h2-margin="b(top, m)"
+          >
+            <div>
+              <PoolInfoCard
+                closingDate={poolAdvertisement.expiryDate}
+                salary={{
+                  min: classification?.minSalary,
+                  max: classification?.maxSalary,
+                }}
+              />
+            </div>
+            <div>
+              <Link
+                type="button"
+                color="primary"
+                mode="solid"
+                href={paths.poolApply(poolAdvertisement.id)}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Apply for this process",
+                  description: "Link text to apply for a pool advertisement",
+                })}
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </>

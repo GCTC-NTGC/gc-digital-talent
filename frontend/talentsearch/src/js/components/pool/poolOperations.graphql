@@ -31,6 +31,9 @@ query getPoolAdvertisement($id: ID!) {
           fr
         }
       }
+      minSalary
+      maxSalary
     }
+    expiryDate
   }
 }
