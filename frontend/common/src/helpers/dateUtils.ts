@@ -50,38 +50,62 @@ export function getDateRange({
 
 const DAY_IN_MILLISECONDS = 86400000;
 
-export const relativeDate = (date: Date, intl: IntlShape) => {
+/**
+ *
+ * @param date The date you would like to format
+ * @param intl react-intl object
+ * @returns Boolean if in past otherwise, string of formatted date
+ */
+export const relativeExpiryDate = (
+  date: Date,
+  intl: IntlShape,
+): string | boolean => {
   const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
   const now = new Date();
   const diff = now.getTime() - date.getTime();
-  let relative = formatDistance(date, now, {
+  const time = format(date, `h:mm aaaa xxxxx`);
+  const days = formatDistance(date, now, {
     locale,
     addSuffix: true,
   });
 
-  if (diff < DAY_IN_MILLISECONDS && diff > -(DAY_IN_MILLISECONDS - 1)) {
-    relative = intl.formatMessage({
-      defaultMessage: "Today",
-      description: "Text displayed when relative date is today.",
+  if (diff > 0) {
+    return intl.formatMessage({
+      defaultMessage: "The deadline for submission has passed.",
+      description: "Message displayed when a date has expired.",
     });
+  }
+
+  if (diff < DAY_IN_MILLISECONDS) {
+    return intl.formatMessage(
+      {
+        defaultMessage: "Closes today at {time}",
+        description: "Text displayed when relative date is today.",
+      },
+      {
+        time,
+      },
+    );
   }
 
   if (diff < DAY_IN_MILLISECONDS * 2 && diff > 0) {
-    relative = intl.formatMessage({
-      defaultMessage: "Tomorrow",
-      description: "Text displayed when relative date is tomorrow.",
-    });
+    return intl.formatMessage(
+      {
+        defaultMessage: "Closes tomorrow at {time}",
+        description: "Text displayed when relative date is tomorrow.",
+      },
+      { time },
+    );
   }
 
-  if (diff > -(DAY_IN_MILLISECONDS * 2) && diff < 0) {
-    relative = intl.formatMessage({
-      defaultMessage: "Yesterday",
-      description: "Text displayed when relative date is yesterday.",
-    });
-  }
-
-  const formatted = format(date, "PP", { locale });
-
-  return `${formatted} (${relative})`;
+  return intl.formatMessage(
+    {
+      defaultMessage: "Closes {days}",
+      description: "Text displayed when expiry date is in X amount of days",
+    },
+    {
+      days,
+    },
+  );
 };

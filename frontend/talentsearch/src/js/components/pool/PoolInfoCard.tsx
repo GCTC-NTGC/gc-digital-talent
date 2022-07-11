@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { CalendarIcon, CurrencyDollarIcon } from "@heroicons/react/solid";
 
 import { getLocale, localizeSalaryRange } from "@common/helpers/localize";
-import { relativeDate } from "@common/helpers/dateUtils";
+import { relativeExpiryDate } from "@common/helpers/dateUtils";
 
 import type { Maybe } from "../../api/generated";
 
@@ -52,7 +52,7 @@ const PoolInfoCard = ({
             defaultMessage: "Closing date:",
             description: "Label for pool advertisement closing date",
           })}{" "}
-          {relativeDate(new Date(closingDate), intl)}
+          {relativeExpiryDate(new Date(closingDate), intl)}
         </span>
       </P>
       <P>
