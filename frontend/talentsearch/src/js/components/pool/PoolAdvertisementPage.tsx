@@ -11,6 +11,11 @@ import { getLocale, getLocalizedName } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 
 import { AdvertisementStatus } from "@common/api/generated";
+import TableOfContents from "@common/components/TableOfContents";
+import {
+  LightningBoltIcon,
+  BriefcaseIcon as BriefcaseIconOutline,
+} from "@heroicons/react/outline";
 import { useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -38,7 +43,8 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
     intl,
   );
   const localizedTitle = getLocalizedName(genericTitle?.name, intl);
-  const fullTitle = `${localizedClassificationName} ${localizedTitle} (${classification?.group}-0${classification?.level})`;
+  const classificationSuffix = `(${classification?.group}-0${classification?.level})`;
+  const fullTitle = `${localizedClassificationName} ${localizedTitle} ${classificationSuffix}`;
 
   const links = [
     {
@@ -53,6 +59,55 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
       title: fullTitle,
     },
   ] as BreadcrumbsProps["links"];
+
+  const sections: Record<string, { id: string; title: string }> = {
+    about: {
+      id: "about-section",
+      title: intl.formatMessage({
+        defaultMessage: "About this process",
+        description: "Title for the about section of a pool advertisement",
+      }),
+    },
+    requiredSkills: {
+      id: "required-skills-section",
+      title: intl.formatMessage({
+        defaultMessage: "Need to have",
+        description:
+          "Title for the required skills section of a pool advertisement",
+      }),
+    },
+    optionalSkills: {
+      id: "optional-skills-section",
+      title: intl.formatMessage({
+        defaultMessage: "Nice to have",
+        description:
+          "Title for the optional skills section of a pool advertisement",
+      }),
+    },
+    requirements: {
+      id: "requirements-section",
+      title: intl.formatMessage({
+        defaultMessage: "Requirements",
+        description:
+          "Title for the requirements section of a pool advertisement",
+      }),
+    },
+    details: {
+      id: "details-section",
+      title: intl.formatMessage({
+        defaultMessage: "Additional details",
+        description: "Title for the details section of a pool advertisement",
+      }),
+    },
+    apply: {
+      id: "apply-section",
+      title: intl.formatMessage({
+        defaultMessage: "Apply now",
+        description:
+          "Title for the apply button section of a pool advertisement",
+      }),
+    },
+  };
 
   return (
     <>
@@ -90,6 +145,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             <div>
               <PoolInfoCard
                 closingDate={poolAdvertisement.expiryDate}
+                classification={classificationSuffix}
                 salary={{
                   min: classification?.minSalary,
                   max: classification?.maxSalary,
@@ -117,6 +173,95 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
           </div>
         </div>
       </div>
+      <TableOfContents.Wrapper>
+        <TableOfContents.Navigation>
+          <TableOfContents.AnchorLink id={sections.about.id}>
+            {sections.about.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sections.requiredSkills.id}>
+            {sections.requiredSkills.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sections.optionalSkills.id}>
+            {sections.optionalSkills.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sections.requirements.id}>
+            {sections.requirements.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sections.details.id}>
+            {sections.details.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sections.apply.id}>
+            {sections.apply.title}
+          </TableOfContents.AnchorLink>
+        </TableOfContents.Navigation>
+        <TableOfContents.Content>
+          <TableOfContents.Section id={sections.about.id}>
+            <TableOfContents.Heading>
+              {sections.about.title}
+            </TableOfContents.Heading>
+            {/** TO DO: Accordions here */}
+            {poolAdvertisement.yourImpact ? (
+              <>
+                <h3 data-h2-display="b(flex)" data-h2-align-items="b(center)">
+                  <LightningBoltIcon
+                    style={{ width: "1em", marginRight: "0.5rem" }}
+                  />
+                  <span>
+                    {intl.formatMessage({
+                      defaultMessage: "Your impact",
+                      description:
+                        "Title for a pool advertisements impact section.",
+                    })}
+                  </span>
+                </h3>
+                {poolAdvertisement.yourImpact[locale]}
+              </>
+            ) : null}
+            {poolAdvertisement.keyTasks ? (
+              <>
+                <h3 data-h2-display="b(flex)" data-h2-align-items="b(center)">
+                  <BriefcaseIconOutline
+                    style={{ width: "1em", marginRight: "0.5rem" }}
+                  />
+                  <span>
+                    {intl.formatMessage({
+                      defaultMessage: "Your work",
+                      description:
+                        "Title for a pool advertisements key tasks section.",
+                    })}
+                  </span>
+                </h3>
+                {poolAdvertisement.keyTasks[locale]}
+              </>
+            ) : null}
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.requiredSkills.id}>
+            <TableOfContents.Heading>
+              {sections.requiredSkills.title}
+            </TableOfContents.Heading>
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.optionalSkills.id}>
+            <TableOfContents.Heading>
+              {sections.optionalSkills.title}
+            </TableOfContents.Heading>
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.requirements.id}>
+            <TableOfContents.Heading>
+              {sections.requirements.title}
+            </TableOfContents.Heading>
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.details.id}>
+            <TableOfContents.Heading>
+              {sections.details.title}
+            </TableOfContents.Heading>
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.apply.id}>
+            <TableOfContents.Heading>
+              {sections.apply.title}
+            </TableOfContents.Heading>
+          </TableOfContents.Section>
+        </TableOfContents.Content>
+      </TableOfContents.Wrapper>
     </>
   );
 };

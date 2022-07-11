@@ -9,6 +9,7 @@ import type { Maybe } from "../../api/generated";
 
 interface PoolInfoCardProps {
   closingDate: Date;
+  classification: string;
   salary: {
     min: Maybe<number>;
     max: Maybe<number>;
@@ -25,7 +26,11 @@ const P: React.FC = ({ children }) => (
   </p>
 );
 
-const PoolInfoCard = ({ closingDate, salary }: PoolInfoCardProps) => {
+const PoolInfoCard = ({
+  closingDate,
+  salary,
+  classification,
+}: PoolInfoCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -59,7 +64,7 @@ const PoolInfoCard = ({ closingDate, salary }: PoolInfoCardProps) => {
             defaultMessage: "Salary range:",
             description: "Label for pool advertisement salary range",
           })}{" "}
-          {localizeSalaryRange(salary.min, salary.max, locale)}
+          {localizeSalaryRange(salary.min, salary.max, locale)} {classification}
         </span>
       </P>
     </div>

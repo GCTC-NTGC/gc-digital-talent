@@ -36,5 +36,13 @@ query getPoolAdvertisement($id: ID!) {
     }
     expiryDate
     advertisementStatus
+    yourImpact {
+      en
+      fr
+    }
+    keyTasks {
+       en
+       fr
+    }
   }
 }
