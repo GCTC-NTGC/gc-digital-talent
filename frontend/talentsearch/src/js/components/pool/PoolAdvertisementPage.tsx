@@ -6,6 +6,7 @@ import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
+import Card from "@common/components/Card";
 import { Link } from "@common/components";
 import { getLocale, getLocalizedName } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
@@ -447,6 +448,90 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   "Title for experience and education pool requirements",
               })}
             </IconTitle>
+            <div
+              data-h2-display="b(flex)"
+              data-h2-flex-direction="b(column) m(row)"
+              data-h2-align-items="b(center) m(stretch)"
+            >
+              <Card
+                color="ts-secondary"
+                style={{ width: "100%" }}
+                title={intl.formatMessage({
+                  defaultMessage: "Combination Experience",
+                  description:
+                    "Title for pool applicant experience requirements",
+                })}
+              >
+                <p data-h2-margin="b(top, none)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "2 or more years of combined experience in a related field including any of the following:",
+                    description:
+                      "lead in to list of experience required for a pool applicant",
+                  })}
+                </p>
+                <ul>
+                  <li>
+                    {intl.formatMessage({
+                      defaultMessage: "On-the-job learning",
+                      description:
+                        "pool experience requirement, on job learning",
+                    })}
+                  </li>
+                  <li>
+                    {intl.formatMessage({
+                      defaultMessage: "Non-conventional training",
+                      description:
+                        "pool experience requirement, non-conventional training",
+                    })}
+                  </li>
+                  <li>
+                    {intl.formatMessage({
+                      defaultMessage: "Formal education",
+                      description:
+                        "pool experience requirement, formal education",
+                    })}
+                  </li>
+                  <li>
+                    {intl.formatMessage({
+                      defaultMessage: "Other field related experience",
+                      description: "pool experience requirement, other",
+                    })}
+                  </li>
+                </ul>
+              </Card>
+              <div
+                data-h2-font-size="b(h4)"
+                data-h2-padding="b(all, s)"
+                data-h2-font-weight="b(800)"
+                data-h2-align-self="b(center)"
+                style={{ textTransform: "uppercase" }}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "or",
+                  description:
+                    "that appears between different experience requirements for a pool applicant",
+                })}
+              </div>
+              <Card
+                style={{ width: "100%" }}
+                color="ts-secondary"
+                title={intl.formatMessage({
+                  defaultMessage: "2-Year Post-secondary Experience",
+                  description:
+                    "Title for pool applicant education requirements",
+                })}
+              >
+                <p data-h2-margin="b(top-bottom, none)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Successful completion of two years of post secondary education in computer science, information technology, information management or another specialty relevant to this position.",
+                    description:
+                      "post secondary education experience for pool advertisement",
+                  })}
+                </p>
+              </Card>
+            </div>
             <IconTitle icon={CheckCircleIcon}>
               {intl.formatMessage({
                 defaultMessage: "Other requirements",
