@@ -4,7 +4,6 @@ import { IntlShape } from "react-intl";
 
 import CheckButton from "@common/components/CheckButton";
 import { Scalars } from "../../api/generated";
-import { IndeterminateCheckbox } from "../Table/tableComponents";
 
 export interface RecordWithId extends Record<string, unknown> {
   id: Scalars["ID"];
