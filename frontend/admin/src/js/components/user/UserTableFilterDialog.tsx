@@ -60,7 +60,11 @@ const Row = (props: RowProps) => (
 
 type ItemProps = React.HTMLAttributes<HTMLDivElement> & { grow?: boolean };
 const Item = ({ grow = false, ...rest }: ItemProps) => (
-  <div data-h2-margin="b(left, s)" {...rest} {...(grow && { flexGrow: 1 })} />
+  <div
+    data-h2-margin="b(left, s)"
+    {...rest}
+    style={{ ...(grow && { flexGrow: 1 }) }}
+  />
 );
 
 interface UserTableFilterDialogProps {
