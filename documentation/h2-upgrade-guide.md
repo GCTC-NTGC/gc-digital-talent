@@ -79,5 +79,5 @@ You can choose to ignore these additions, but they might be nice for you to know
 - headings and paragraphs no longer have a default margin on them, so no more pesky resetting them to 0
 
 # Josh's list of random things that are helpful to have on hand
-docker-compose run -w /var/www/html maintenance bash
+`docker-compose run -w /var/www/html maintenance bash`
 
