@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Nuwave\Lighthouse\Exceptions\RendersErrorsExtensions;
 
+// Source: https://lighthouse-php.com/master/digging-deeper/error-handling.html#additional-error-information
 class CustomException extends Exception implements RendersErrorsExtensions
 {
     /**
