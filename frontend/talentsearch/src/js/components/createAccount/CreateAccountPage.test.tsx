@@ -3,7 +3,6 @@
  */
 import "@testing-library/jest-dom";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
-import { IntlProvider, MessageFormatElement } from "react-intl";
 import { fakeClassifications, fakeDepartments } from "@common/fakeData";
 import React from "react";
 import { CreateAccountForm, CreateAccountFormProps } from "./CreateAccountPage";
