@@ -10,7 +10,7 @@ import { Link } from "@common/components";
 import { getLocale, getLocalizedName } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 
-import { AdvertisementStatus } from "@common/api/generated";
+import { AdvertisementStatus, SkillCategory } from "@common/api/generated";
 import TableOfContents from "@common/components/TableOfContents";
 import {
   LightningBoltIcon,
@@ -18,6 +18,8 @@ import {
   PhoneIcon,
   LightBulbIcon,
   CheckCircleIcon,
+  ChipIcon,
+  CloudIcon,
 } from "@heroicons/react/outline";
 import Accordion from "@common/components/accordion";
 import { strong } from "@common/helpers/format";
@@ -25,6 +27,7 @@ import {
   getLanguageRequirement,
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
+import { categorizeSkill } from "@common/helpers/skillUtils";
 import { useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -64,7 +67,11 @@ const IconTitle = ({ children, icon }: IconTitleProps) => {
   const Icon = icon;
 
   return (
-    <h3 data-h2-display="b(flex)" data-h2-align-items="b(center)">
+    <h3
+      data-h2-display="b(flex)"
+      data-h2-align-items="b(center)"
+      data-h2-font-size="b(h4)"
+    >
       <Icon style={{ width: "1em", marginRight: "0.5rem" }} />
       <span>{children}</span>
     </h3>
@@ -109,6 +116,11 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
 
   const securityClearance = intl.formatMessage(
     getSecurityClearance(poolAdvertisement.securityClearance ?? ""),
+  );
+
+  const essentialSkills = categorizeSkill(poolAdvertisement.essentialSkills);
+  const nonEssentialSkills = categorizeSkill(
+    poolAdvertisement.nonessentialSkills,
   );
 
   const applyBtn = (
@@ -296,7 +308,6 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 <ClassificationDefinition name={genericTitle.key} />
               </Accordion>
             )}
-
             {poolAdvertisement.yourImpact ? (
               <>
                 <IconTitle icon={LightningBoltIcon}>
@@ -326,11 +337,104 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             <TableOfContents.Heading>
               {sections.requiredSkills.title}
             </TableOfContents.Heading>
+            {essentialSkills[SkillCategory.Technical]?.length ? (
+              <>
+                <IconTitle icon={ChipIcon}>
+                  {intl.formatMessage({
+                    defaultMessage: "Occupational skills",
+                    description:
+                      "Title for occupational skills on a pool advertisement",
+                  })}
+                </IconTitle>
+                <p>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "To be admitted into this process, you will need to submit sufficient information to verify your experience in <strong>all of these  skills (Need to have - Occupational)</strong> with your application.",
+                      description:
+                        "Explanation of a pools required occupational skills",
+                    },
+                    {
+                      strong,
+                    },
+                  )}
+                </p>
+                {essentialSkills[SkillCategory.Technical]?.map((skill) => (
+                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
+                    <p>{skill.description ? skill.description[locale] : ""}</p>
+                  </Accordion>
+                ))}
+              </>
+            ) : null}
+            {essentialSkills[SkillCategory.Behavioural]?.length ? (
+              <>
+                <IconTitle icon={CloudIcon}>
+                  {intl.formatMessage({
+                    defaultMessage: "Transferrable skills",
+                    description:
+                      "Title for transferrable skills on a pool advertisement",
+                  })}
+                </IconTitle>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "To be admitted into this process, you will need to display  capability in these skills during the assessment process.",
+                    description:
+                      "Explanation of a pools required transferrable skills",
+                  })}
+                </p>
+                {essentialSkills[SkillCategory.Behavioural]?.map((skill) => (
+                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
+                    <p>{skill.description ? skill.description[locale] : ""}</p>
+                  </Accordion>
+                ))}
+              </>
+            ) : null}
           </TableOfContents.Section>
           <TableOfContents.Section id={sections.optionalSkills.id}>
             <TableOfContents.Heading>
               {sections.optionalSkills.title}
             </TableOfContents.Heading>
+            {nonEssentialSkills[SkillCategory.Technical]?.length ? (
+              <>
+                <IconTitle icon={ChipIcon}>
+                  {intl.formatMessage({
+                    defaultMessage: "Occupational skills",
+                    description:
+                      "Title for occupational skills on a pool advertisement",
+                  })}
+                </IconTitle>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "To strengthen your application, take into consideration these skills that many hiring managers are looking for.",
+                    description:
+                      "Explanation of a pools optional transferrable skills",
+                  })}
+                </p>
+                {nonEssentialSkills[SkillCategory.Technical]?.map((skill) => (
+                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
+                    <p>{skill.description ? skill.description[locale] : ""}</p>
+                  </Accordion>
+                ))}
+              </>
+            ) : null}
+            {nonEssentialSkills[SkillCategory.Behavioural]?.length ? (
+              <>
+                <IconTitle icon={CloudIcon}>
+                  {intl.formatMessage({
+                    defaultMessage: "Transferrable skills",
+                    description:
+                      "Title for transferrable skills on a pool advertisement",
+                  })}
+                </IconTitle>
+                {nonEssentialSkills[SkillCategory.Behavioural]?.map((skill) => (
+                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
+                    <p>{skill.description ? skill.description[locale] : ""}</p>
+                  </Accordion>
+                ))}
+              </>
+            ) : null}
           </TableOfContents.Section>
           <TableOfContents.Section id={sections.requirements.id}>
             <TableOfContents.Heading>

@@ -50,5 +50,47 @@ query getPoolAdvertisement($id: ID!) {
        en
        fr
     }
+        essentialSkills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      families {
+        id
+        key
+        description {
+          en
+          fr
+        }
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
+    nonessentialSkills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      families {
+        id
+        key
+        description {
+          en
+          fr
+        }
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
   }
 }
