@@ -15,7 +15,7 @@ module.exports = {
     },
     {
       path: "frontend/admin/dist/app.js",
-      maxSize: "305 kB",
+      maxSize: "310 kB",
     },
     {
       path: "frontend/indigenousapprenticeship/dist/app.js",
