@@ -76,6 +76,7 @@ export const localizeCurrency = (
     currency,
     currencyDisplay: "narrowSymbol",
     maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
   }).format(value);
 };
 
