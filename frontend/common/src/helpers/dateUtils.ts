@@ -63,14 +63,14 @@ export const relativeExpiryDate = (
   const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
   const now = new Date();
-  const diff = now.getTime() - date.getTime();
+  const diff = date.getTime() - now.getTime();
   const time = format(date, `h:mm aaaa xxxxx`);
   const days = formatDistance(date, now, {
     locale,
     addSuffix: true,
   });
 
-  if (diff > 0) {
+  if (diff < 0) {
     return intl.formatMessage({
       defaultMessage: "The deadline for submission has passed.",
       description: "Message displayed when a date has expired.",
