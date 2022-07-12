@@ -69,7 +69,7 @@ export function rowSelectionColumn<T extends RecordWithId>(
           label={labelAccessor(r)}
         />
       );
-    }, // callback extracted to separate function to stabilize memoized component>
+    }, // callback extracted to separate function to stabilize memoized component
     id: "selection",
   };
 }
