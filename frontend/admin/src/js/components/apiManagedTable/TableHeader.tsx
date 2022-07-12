@@ -4,17 +4,26 @@ import { Fieldset } from "@common/components/inputPartials";
 import React, { ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
 import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
-import SearchForm from "../Table/SearchForm";
+import SearchForm from "./SearchForm";
 import {
   ButtonIcon,
   IndeterminateCheckbox,
   Spacer,
 } from "../Table/tableComponents";
-import { ColumnHiddenEvent, ColumnsOf, IdType } from "./basicTableHelpers";
+import type {
+  ColumnHiddenEvent,
+  ColumnsOf,
+  IdType,
+  SearchColumn,
+} from "./basicTableHelpers";
 
 export interface TableHeaderProps<T extends Record<string, unknown>> {
-  onSearchChange: (val: string | undefined) => void;
+  onSearchChange: (
+    val: string | undefined,
+    col: SearchColumn["value"] | undefined,
+  ) => void;
   columns: ColumnsOf<T>;
+  searchBy?: Array<SearchColumn>;
   addBtn?: {
     path: string;
     label: string;
@@ -27,6 +36,7 @@ export interface TableHeaderProps<T extends Record<string, unknown>> {
 
 function TableHeader<T extends Record<string, unknown>>({
   onSearchChange,
+  searchBy,
   columns,
   addBtn,
   filter = true,
@@ -58,7 +68,7 @@ function TableHeader<T extends Record<string, unknown>>({
             data-h2-display="b(flex)"
             data-h2-justify-content="b(flex-end)"
           >
-            <SearchForm onChange={onSearchChange} />
+            <SearchForm onChange={onSearchChange} searchBy={searchBy} />
             <Spacer>
               <Button
                 mode="outline"
@@ -131,7 +141,7 @@ function TableHeader<T extends Record<string, unknown>>({
                     </div>
                     {columns.map((column) => (
                       <div key={column.id} data-h2-margin="b(top-bottom, xxs)">
-                        <label htmlFor={column.label}>
+                        <label htmlFor={column.id}>
                           <input
                             id={column.id}
                             type="checkbox"

@@ -263,7 +263,9 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                   link: (msg: string) =>
                     link(
                       msg,
-                      "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html",
+                      intl.locale === "en"
+                        ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html"
+                        : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/carriere-domaine-numerique.html",
                     ),
                 },
               )}

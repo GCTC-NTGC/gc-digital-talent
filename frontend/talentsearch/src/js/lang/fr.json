@@ -565,7 +565,7 @@
     "description": "Message in My Status Form."
   },
   "/AJCvK": {
-    "defaultMessage": "Ajouter<hidden>{title} </hidden>au profil",
+    "defaultMessage": "Ajouter <hidden>{title} </hidden>au profil",
     "description": "Text label for button to add employment equity category to profile."
   },
   "/DCykA": {
@@ -980,7 +980,7 @@
     "description": "Label displayed on Personal Experience form for current experience bounded box"
   },
   "OQ+K+X": {
-    "defaultMessage": "Retirer<hidden>{title} </hidden>du profil",
+    "defaultMessage": "Retirer <hidden>{title} </hidden>du profil",
     "description": "Text label for button to remove employment equity category from profile."
   },
   "OT0QP3": {
