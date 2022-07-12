@@ -1,6 +1,8 @@
 import { InputMaybe, OrderByClause, SortOrder } from "@common/api/generated";
 import React from "react";
 import { IntlShape } from "react-intl";
+
+import CheckButton from "@common/components/CheckButton";
 import { Scalars } from "../../api/generated";
 import { IndeterminateCheckbox } from "../Table/tableComponents";
 
@@ -29,6 +31,7 @@ export function rowSelectionColumn<T extends RecordWithId>(
   intl: IntlShape,
   selectedRows: T[],
   pageSize: number,
+  labelAccessor: (item: T) => string,
   onRowSelectionChange: (e: RowSelectedEvent<T>) => void,
 ): Column<T> {
   return {
@@ -38,16 +41,17 @@ export function rowSelectionColumn<T extends RecordWithId>(
         "Label for the row-selection column in the tables column-selection modal.",
     }),
     header: (
-      <IndeterminateCheckbox
-        labelText={intl.formatMessage({
-          defaultMessage: "Select/Unselect all",
-          description: "Header label for the row-selection column in tables.",
-        })}
+      <CheckButton
+        color="white"
         checked={selectedRows.length === pageSize}
         indeterminate={
           selectedRows.length > 0 && selectedRows.length < pageSize
         }
-        onChange={() => {
+        label={intl.formatMessage({
+          defaultMessage: "Select/Unselect all",
+          description: "Header label for the row-selection column in tables.",
+        })}
+        onToggle={() => {
           onRowSelectionChange({ setSelected: selectedRows.length < pageSize });
         }}
       />
@@ -55,23 +59,16 @@ export function rowSelectionColumn<T extends RecordWithId>(
     accessor: (r) => {
       const checked = selectedRows.includes(r);
       return (
-        <label htmlFor={`select-${r.id}`}>
-          <input
-            id={`select-${r.id}`}
-            type="checkbox"
-            checked={checked}
-            onChange={() => {
-              onRowSelectionChange({
-                row: r,
-                setSelected: !checked,
-              });
-            }}
-          />{" "}
-          {intl.formatMessage({
-            defaultMessage: "Select/Unselect",
-            description: "Label for the row-selection column in tables.",
-          })}
-        </label>
+        <CheckButton
+          checked={checked}
+          onToggle={() => {
+            onRowSelectionChange({
+              row: r,
+              setSelected: !checked,
+            });
+          }}
+          label={labelAccessor(r)}
+        />
       );
     }, // callback extracted to separate function to stabilize memoized component>
     id: "selection",

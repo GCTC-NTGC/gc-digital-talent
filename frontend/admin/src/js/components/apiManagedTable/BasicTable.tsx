@@ -70,6 +70,7 @@ function BasicTable<T extends RecordWithId>({
 
     return {};
   };
+
   return (
     <div
       data-h2-overflow="b(all, auto)"
@@ -81,36 +82,52 @@ function BasicTable<T extends RecordWithId>({
           <tr>
             {columns
               .filter((column) => !hiddenColumnIds.includes(column.id))
-              .map((column) => (
-                <th
-                  key={column.id}
-                  data-h2-bg-color="b(lightnavy)"
-                  data-h2-padding="b(right-left, m) b(top-bottom, s)"
-                  role="columnheader"
-                  {...calculateTableHeaderProps(column)}
-                >
-                  <Button
-                    data-h2-display="b(flex)"
-                    data-h2-align-items="b(center)"
-                    type="button"
-                    mode="tableHeader"
-                    color="secondary"
-                    disabled={
-                      !column.sortColumnName && column.id !== "selection"
-                    }
-                    title={intl.formatMessage({
-                      defaultMessage: "Toggle SortBy",
-                      description: "Title to toggle sorting order of a table",
-                    })}
-                    onClick={() => handleColumnSelect(column)}
+              .map((column) => {
+                const label = column.header ? column.header : column.label;
+                return (
+                  <th
+                    key={column.id}
+                    data-h2-bg-color="b(lightnavy)"
+                    data-h2-padding="b(all, s)"
+                    role="columnheader"
+                    {...calculateTableHeaderProps(column)}
                   >
-                    {column.header ? column.header : column.label}
-                    {sortingRule?.column.id === column.id && (
-                      <SortIcon isSortedDesc={sortingRule.desc} />
+                    {column.sortColumnName ? (
+                      <Button
+                        data-h2-display="b(flex)"
+                        data-h2-align-items="b(center)"
+                        type="button"
+                        mode="tableHeader"
+                        color="secondary"
+                        disabled={
+                          !column.sortColumnName && column.id !== "selection"
+                        }
+                        title={intl.formatMessage({
+                          defaultMessage: "Toggle SortBy",
+                          description:
+                            "Title to toggle sorting order of a table",
+                        })}
+                        onClick={() => handleColumnSelect(column)}
+                      >
+                        {label}
+                        {sortingRule?.column.id === column.id && (
+                          <SortIcon isSortedDesc={sortingRule.desc} />
+                        )}
+                      </Button>
+                    ) : (
+                      <span
+                        data-h2-display="b(block)"
+                        data-h2-font-color="b(white)"
+                        data-h2-font-weight="b(800)"
+                        data-h2-text-align="b(left)"
+                        data-h2-font-size="b(caption)"
+                      >
+                        {label}
+                      </span>
                     )}
-                  </Button>
-                </th>
-              ))}
+                  </th>
+                );
+              })}
           </tr>
         </thead>
         <tbody>

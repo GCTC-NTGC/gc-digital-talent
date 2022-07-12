@@ -111,13 +111,18 @@ export const UserTable: React.FC = () => {
 
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
-      rowSelectionColumn(intl, selectedRows, filteredData.length, (event) =>
-        handleRowSelectedChange(
-          filteredData,
-          selectedRows,
-          setSelectedRows,
-          event,
-        ),
+      rowSelectionColumn(
+        intl,
+        selectedRows,
+        filteredData.length,
+        (user: Data) => `${user.firstName} ${user.lastName}`,
+        (event) =>
+          handleRowSelectedChange(
+            filteredData,
+            selectedRows,
+            setSelectedRows,
+            event,
+          ),
       ),
       {
         label: intl.formatMessage({
