@@ -21,7 +21,6 @@ chmod -R 775 ./storage
 # setup frontend workspace
 cd /var/www/html/frontend
 npm install
-npm rebuild node-sass
 
 # setup common project
 cd /var/www/html/frontend/common
