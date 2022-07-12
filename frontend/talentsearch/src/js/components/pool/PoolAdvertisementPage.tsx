@@ -29,7 +29,7 @@ import {
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
-import { useGetPoolAdvertisementQuery } from "../../api/generated";
+import { Role, useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
@@ -668,9 +668,16 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
     variables: { id },
   });
 
+  let visible = data?.me?.roles?.includes(Role.Admin) ?? false;
+  if (
+    data?.poolAdvertisement?.advertisementStatus !== AdvertisementStatus.Draft
+  ) {
+    visible = true;
+  }
+
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.poolAdvertisement ? (
+      {data?.poolAdvertisement && visible ? (
         <PoolAdvertisement poolAdvertisement={data?.poolAdvertisement} />
       ) : (
         <NotFound

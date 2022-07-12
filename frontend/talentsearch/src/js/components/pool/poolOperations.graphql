@@ -9,6 +9,9 @@ query getPool($id: ID!) {
 }
 
 query getPoolAdvertisement($id: ID!) {
+  me {
+    roles
+  }
   poolAdvertisement(id: $id) {
     id
     name {
