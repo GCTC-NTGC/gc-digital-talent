@@ -62,8 +62,8 @@ type ItemProps = React.HTMLAttributes<HTMLDivElement> & { grow?: boolean };
 const Item = ({ grow = false, ...rest }: ItemProps) => (
   <div
     data-h2-margin="b(left, s)"
+    {...(grow && { style: { flexGrow: 1 } })}
     {...rest}
-    style={{ ...(grow && { flexGrow: 1 }) }}
   />
 );
 
@@ -116,7 +116,7 @@ const UserTableFilterDialog = ({
               isLoading={rawGraphqlResults.pools.fetching}
             />
           </Item>
-          <Item>
+          <Item style={{ minWidth: 275 }}>
             <SelectFieldV2
               forceArrayFormValue
               id="languages"
