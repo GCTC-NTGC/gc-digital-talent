@@ -141,7 +141,7 @@ function TableHeader<T extends Record<string, unknown>>({
                     </div>
                     {columns.map((column) => (
                       <div key={column.id} data-h2-margin="b(top-bottom, xxs)">
-                        <label htmlFor={column.label}>
+                        <label htmlFor={column.id}>
                           <input
                             id={column.id}
                             type="checkbox"

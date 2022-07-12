@@ -2,8 +2,11 @@ import React, { HTMLAttributes } from "react";
 import { useIntl } from "react-intl";
 
 export const IndeterminateCheckbox: React.FC<
-  React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }
-> = ({ indeterminate, ...rest }) => {
+  React.HTMLProps<HTMLInputElement> & {
+    indeterminate: boolean;
+    labelText?: string;
+  }
+> = ({ indeterminate, labelText, ...rest }) => {
   const intl = useIntl();
   const ref = React.useRef<HTMLInputElement>(null);
 
@@ -21,10 +24,11 @@ export const IndeterminateCheckbox: React.FC<
         ref={ref}
         {...rest}
       />{" "}
-      {intl.formatMessage({
-        defaultMessage: "Toggle All",
-        description: "Label displayed on the Table Columns toggle fieldset.",
-      })}
+      {labelText ||
+        intl.formatMessage({
+          defaultMessage: "Toggle All",
+          description: "Label displayed on the Table Columns toggle fieldset.",
+        })}
     </label>
   );
 };
