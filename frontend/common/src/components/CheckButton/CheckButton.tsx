@@ -16,9 +16,11 @@ const borderMap = {
 const colorMap = {
   black: {
     "data-h2-font-color": "b(black)",
+    "data-h2-bg-color": "b(lightpurple[0]) b:h(lightpurple[.25])",
   },
   white: {
     "data-h2-font-color": "b(lightgray)",
+    "data-h2-bg-color": "b(white[0]) b:h(white[.25])",
   },
 };
 
@@ -55,7 +57,6 @@ const CheckButton = ({
       className="check-button"
       type="button"
       onClick={handleClick}
-      data-h2-bg-color="b(lightpurple[0]) b:h(lightpurple[.05])"
       data-h2-padding="b(all, xs)"
       data-h2-radius="b(s)"
       data-h2-display="b(inline-flex)"
