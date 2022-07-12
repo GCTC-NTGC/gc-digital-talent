@@ -86,6 +86,8 @@
       "key": "lightpurple",
       "color": "#674C90",
       "opacities": [
+        "0",
+        ".05",
         ".1"
       ]
     },

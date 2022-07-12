@@ -1,16 +1,7 @@
 .check-button {
-  background-color: rgba(0,0,0,0);
-  border-radius: 0.5rem;
   border: none;
   cursor: pointer;
-  align-items: center;
-  display: flex;
-  justify-content: center;
   transition: background-color 150ms ease-in;
-}
-
-.check-button:hover {
-  background-color: rgba(0,0,0,0.05);
 }
 
 .check-button__inner {
@@ -18,7 +9,6 @@
 }
 
 .check-button__icon {
-  display: block;
   height: 0.75rem;
   width: 0.75rem;
 }

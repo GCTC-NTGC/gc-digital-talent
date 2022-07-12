@@ -55,8 +55,10 @@ const CheckButton = ({
       className="check-button"
       type="button"
       onClick={handleClick}
+      data-h2-bg-color="b(lightpurple[0]) b:h(lightpurple[.05])"
       data-h2-padding="b(all, xs)"
-      data-h2-radius="b(xs)"
+      data-h2-radius="b(s)"
+      data-h2-display="b(inline-flex)"
       {...colorMap[color]}
     >
       <span data-h2-visibility="b(invisible)">
@@ -81,7 +83,7 @@ const CheckButton = ({
         data-h2-padding="b(all, xxs)"
         {...borderMap[color]}
       >
-        <Icon className="check-button__icon" />
+        <Icon className="check-button__icon" data-h2-display="b(block)" />
       </span>
     </button>
   );
