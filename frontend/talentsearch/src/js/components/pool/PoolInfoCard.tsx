@@ -7,7 +7,7 @@ import { relativeExpiryDate } from "@common/helpers/dateUtils";
 
 import type { Maybe } from "../../api/generated";
 
-interface PoolInfoCardProps {
+export interface PoolInfoCardProps {
   closingDate: Date;
   classification: string;
   salary: {
