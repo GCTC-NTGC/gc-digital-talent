@@ -14,6 +14,9 @@ import Table from "../Table";
 import type { ColumnsOf } from "../Table";
 
 import {
+  ApplicantFilter,
+  LocalizedString,
+  Maybe,
   PoolCandidateFilter,
   useLatestRequestsQuery,
 } from "../../api/generated";
@@ -59,7 +62,8 @@ const statusAccessor = (
 
 interface IRow {
   original: {
-    poolCandidateFilter: PoolCandidateFilter;
+    poolCandidateFilter?: PoolCandidateFilter;
+    applicantFilter?: ApplicantFilter;
   };
 }
 
@@ -94,19 +98,35 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
         description:
           "Title displayed on the latest requests table for the pool column.",
       }),
-      accessor: ({ poolCandidateFilter }) =>
-        poolCandidateFilter?.pools
-          ? poolCandidateFilter.pools[0]?.name?.[locale]
-          : null,
-      Cell: ({ row: { original } }: { row: IRow }) =>
-        original.poolCandidateFilter.pools?.map(
-          (pool) =>
+      accessor: ({ poolCandidateFilter, applicantFilter }) => {
+        const pools = applicantFilter?.pools ?? poolCandidateFilter?.pools;
+        return pools
+          ? pools
+              .filter(notEmpty)
+              .map(
+                (pool: { name?: Maybe<LocalizedString> }) =>
+                  pool?.name?.[locale],
+              )
+              .filter(notEmpty)
+              .join(", ")
+          : null;
+      },
+      Cell: ({ row: { original } }: { row: IRow }) => {
+        const pools =
+          original?.applicantFilter?.pools ??
+          original?.poolCandidateFilter?.pools;
+        return pools?.map(
+          (pool, index) =>
             pool && (
-              <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
-                {pool.name?.[locale]}
-              </a>
+              <>
+                <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
+                  {pool.name?.[locale]}
+                </a>
+                {index > 0 && ", "}
+              </>
             ),
-        ),
+        );
+      },
     },
     {
       Header: intl.formatMessage({

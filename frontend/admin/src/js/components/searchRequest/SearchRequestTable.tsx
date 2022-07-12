@@ -102,14 +102,16 @@ export const SearchRequestTable: React.FunctionComponent<
         }),
         accessor: ({ poolCandidateFilter }) =>
           // TODO: get pools from applicantFilter if it is defined.
-          poolCandidateFilter?.pools?.map(
-            (pool) =>
-              pool && (
-                <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
-                  {pool.name?.[locale]}
-                </a>
-              ),
-          ),
+          poolCandidateFilter
+            ? poolCandidateFilter?.pools?.map(
+                (pool) =>
+                  pool && (
+                    <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
+                      {pool.name?.[locale]}
+                    </a>
+                  ),
+              )
+            : "SHOULD HAVE GOT DATA FROM APPLICANT FILTER INSTEAD",
       },
       {
         Header: intl.formatMessage({
