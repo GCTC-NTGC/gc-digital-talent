@@ -721,13 +721,13 @@ input CreateUserInput {
     # Personal info
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
-    email: Email @rules(apply: ["unique:users,email"],
-    messages: [
-        {
+    email: Email @rules(
+        apply: ["unique:users,email"],
+        messages: [{
             rule: "unique"
             message: "Email address already exists"
-        }
-    ])
+        }]
+    )
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
