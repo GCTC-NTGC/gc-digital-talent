@@ -22,7 +22,61 @@ const Template: Story<{ label: string }> = (args) => {
   };
 
   return (
-    <CheckButton checked={isChecked} onToggle={handleCheck} label={label} />
+    <div
+      data-h2-display="b(flex)"
+      data-h2-justify-content="b(space-around)"
+      style={{ margin: "-1rem" }}
+    >
+      <div
+        data-h2-display="b(flex)"
+        data-h2-flex-direction="b(column)"
+        data-h2-align-items="b(center)"
+        style={{ padding: "1rem" }}
+      >
+        <span>Not Checked</span>
+        <CheckButton
+          checked={false}
+          onToggle={() => action("clicked not checked")}
+          label="Not Checked"
+        />
+      </div>
+      <div
+        data-h2-display="b(flex)"
+        data-h2-flex-direction="b(column)"
+        data-h2-align-items="b(center)"
+        style={{ padding: "1rem" }}
+      >
+        <span>Checked</span>
+        <CheckButton
+          checked
+          onToggle={() => action("clicked checked")}
+          label="Checked"
+        />
+      </div>
+      <div
+        data-h2-display="b(flex)"
+        data-h2-flex-direction="b(column)"
+        data-h2-align-items="b(center)"
+        style={{ padding: "1rem" }}
+      >
+        <span>Indeterminate</span>
+        <CheckButton
+          checked={false}
+          indeterminate
+          onToggle={() => action("clicked indeterminate")}
+          label="Indeterminate"
+        />
+      </div>
+      <div
+        data-h2-display="b(flex)"
+        data-h2-flex-direction="b(column)"
+        data-h2-align-items="b(center)"
+        style={{ padding: "1rem" }}
+      >
+        <span>Controlled</span>
+        <CheckButton checked={isChecked} onToggle={handleCheck} label={label} />
+      </div>
+    </div>
   );
 };
 
