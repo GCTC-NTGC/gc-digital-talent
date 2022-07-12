@@ -21,8 +21,6 @@ import {
   PoolCandidateFilter,
   ApplicantFilterInput,
   WorkRegion,
-  CandidateExpiryFilter,
-  PoolCandidateStatus,
   UserPoolFilterInput,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";

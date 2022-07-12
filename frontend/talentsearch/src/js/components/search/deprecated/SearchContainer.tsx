@@ -3,6 +3,7 @@ import { notEmpty } from "@common/helpers/util";
 import { useIntl } from "react-intl";
 import pick from "lodash/pick";
 import { pushToStateThenNavigate } from "@common/helpers/router";
+import { unpackMaybes } from "@common/helpers/formUtils";
 import {
   Classification,
   CmoAsset,
@@ -24,7 +25,6 @@ import SearchFilterAdvice from "../SearchFilterAdvice";
 import SearchPools from "../SearchPools";
 import Spinner from "../../Spinner";
 import { useTalentSearchRoutes } from "../../../talentSearchRoutes";
-import { unpackMaybes } from "@common/helpers/formUtils";
 
 export interface SearchContainerProps {
   classifications: Classification[];
