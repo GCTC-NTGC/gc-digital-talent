@@ -47,7 +47,7 @@ export function rowSelectionColumn<T extends RecordWithId>(
           selectedRows.length > 0 && selectedRows.length < pageSize
         }
         label={intl.formatMessage({
-          defaultMessage: "Select/Unselect all",
+          defaultMessage: "Select/Deselect all",
           description: "Header label for the row-selection column in tables.",
         })}
         onToggle={() => {
