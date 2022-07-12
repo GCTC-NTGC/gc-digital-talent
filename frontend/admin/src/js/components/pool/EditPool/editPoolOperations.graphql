@@ -94,4 +94,27 @@ query getEditPoolData($poolId: ID!) {
       fr
     }
   }
+
+   # all skills to populate skill pickers
+  skills {
+   id
+    key
+    name {
+      en
+      fr
+    }
+    families {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
 }

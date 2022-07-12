@@ -7,7 +7,7 @@ import InputError from "../InputError/InputError";
 
 export interface FieldsetProps {
   /** The text for the legend element. */
-  legend: string;
+  legend?: string;
   /** The name of this form control. */
   name?: string;
   /** Controls whether Required or Optional text appears above the fieldset. */

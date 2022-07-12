@@ -14,6 +14,7 @@ import {
   Classification,
   useGetEditPoolDataQuery,
   Maybe,
+  Skill,
 } from "../../../api/generated";
 import DashboardContentContainer from "../../DashboardContentContainer";
 import { useAdminRoutes } from "../../../adminRoutes";
@@ -23,10 +24,12 @@ import YourImpactSection from "./YourImpactSection";
 import WorkTasksSection from "./WorkTasksSection";
 import OtherRequirementsSection from "./OtherRequirementsSection";
 import StatusSection from "./StatusSection";
+import EssentialSkillsSection from "./EssentialSkillsSection";
 
 interface EditPoolFormProps {
   poolAdvertisement: PoolAdvertisement;
   classifications: Array<Maybe<Classification>>;
+  skills: Array<Maybe<Skill>>;
   onSave: (submitData: unknown) => void;
   onPublish: () => void;
   onDelete: () => void;
@@ -51,6 +54,7 @@ export const Spacer = ({ children, ...rest }: SpacerProps) => (
 export const EditPoolForm = ({
   poolAdvertisement,
   classifications,
+  skills,
   onSave,
   onPublish,
   onDelete,
@@ -212,41 +216,17 @@ export const EditPoolForm = ({
             sectionMetadata={sectionMetadata.yourImpact}
             onSave={onSave}
           />
-
           <WorkTasksSection
             poolAdvertisement={poolAdvertisement}
             sectionMetadata={sectionMetadata.workTasks}
             onSave={onSave}
           />
-
-          {/* Essential skills section */}
-          <TableOfContents.Section id={sectionMetadata.essentialSkills.id}>
-            <TableOfContents.Heading>
-              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-                {sectionMetadata.essentialSkills.title}
-              </h2>
-            </TableOfContents.Heading>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Select the skills that you are looking for in applicants. Any skill selected here will be required for any applicant to apply. To increase the diversity of applications try to keep the selected number of skills to a minimum.",
-                description:
-                  "Helper message for filling in the pool essential skills",
-              })}
-            </p>
-
-            <Button
-              onClick={() => onSave(poolAdvertisement)}
-              color="cta"
-              mode="solid"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Save essential skills",
-                description:
-                  "Text on a button to save the pool essential skills",
-              })}
-            </Button>
-          </TableOfContents.Section>
+          <EssentialSkillsSection
+            poolAdvertisement={poolAdvertisement}
+            skills={skills}
+            sectionMetadata={sectionMetadata.essentialSkills}
+            onSave={onSave}
+          />
 
           {/* Asset skills section */}
           <TableOfContents.Section id={sectionMetadata.assetSkills.id}>
@@ -326,6 +306,7 @@ export const EditPool = ({ poolId }: EditPoolProps) => {
           <EditPoolForm
             poolAdvertisement={data.poolAdvertisement}
             classifications={data.classifications}
+            skills={data.skills}
             onSave={(submitData: unknown) =>
               console.warn("onSave not yet implemented", submitData)
             }

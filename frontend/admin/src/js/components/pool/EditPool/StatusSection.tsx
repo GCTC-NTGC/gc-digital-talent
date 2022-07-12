@@ -5,7 +5,12 @@ import { useIntl } from "react-intl";
 import { Button } from "@common/components";
 import { AdvertisementStatus } from "admin/src/js/api/generated";
 import { heavyPrimary } from "@common/helpers/format";
-import { PencilIcon } from "@heroicons/react/outline";
+import {
+  FolderOpenIcon,
+  LockClosedIcon,
+  PencilIcon,
+  SpeakerphoneIcon,
+} from "@heroicons/react/outline";
 import { SectionMetadata } from "./EditPool";
 
 interface StatusSectionProps {
@@ -114,13 +119,13 @@ export const StatusSection = ({
                 data-h2-align-items="b(center)"
                 style={{ gap: "0.5rem" }}
               >
-                {/* <PencilIcon
+                <SpeakerphoneIcon
                   style={{
                     width: "1rem",
                     height: "1rem",
                     marginRight: "0.5rem",
                   }}
-                /> */}
+                />
                 <span>
                   {intl.formatMessage(
                     {
@@ -171,13 +176,13 @@ export const StatusSection = ({
                 data-h2-align-items="b(center)"
                 style={{ gap: "0.5rem" }}
               >
-                {/* <PencilIcon
+                <LockClosedIcon
                   style={{
                     width: "1rem",
                     height: "1rem",
                     marginRight: "0.5rem",
                   }}
-                /> */}
+                />
                 <span>
                   {intl.formatMessage(
                     {
@@ -217,7 +222,7 @@ export const StatusSection = ({
             </Button>
           </>
         ) : undefined}
-        {/* Expired status */}
+        {/* Archived status */}
         {poolAdvertisement.advertisementStatus ===
         AdvertisementStatus.Archived ? (
           <div
@@ -231,13 +236,13 @@ export const StatusSection = ({
               data-h2-align-items="b(center)"
               style={{ gap: "0.5rem" }}
             >
-              {/* <PencilIcon
-              style={{
-                width: "1rem",
-                height: "1rem",
-                marginRight: "0.5rem",
-              }}
-            /> */}
+              <FolderOpenIcon
+                style={{
+                  width: "1rem",
+                  height: "1rem",
+                  marginRight: "0.5rem",
+                }}
+              />
               <span>
                 {intl.formatMessage(
                   {
