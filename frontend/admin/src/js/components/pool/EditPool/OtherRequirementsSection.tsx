@@ -7,25 +7,27 @@ import {
   SecurityStatus,
 } from "@common/api/generated";
 import { useIntl } from "react-intl";
-import { Select, Submit, TextArea } from "@common/components/form";
+import { Input, RadioGroup, Select, Submit } from "@common/components/form";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
-import WordCounter from "@common/components/WordCounter/WordCounter";
-import { countNumberOfWords, enumToOptions } from "@common/helpers/formUtils";
-import { errorMessages } from "@common/messages";
+import { enumToOptions } from "@common/helpers/formUtils";
 import isEmpty from "lodash/isEmpty";
 import {
   getLanguageRequirement,
   getSecurityClearance,
-  languageRequirements,
 } from "@common/constants/localizedConstants";
 import { SectionMetadata, Spacer } from "./EditPool";
 
+enum LocationOption {
+  RemoteOptional = "REMOTE_OPTIONAL",
+  SpecificLocation = "SPECIFIC_LOCATION",
+}
+
 type FormValues = {
-  LanguageRequirement: PoolAdvertisement["advertisementLanguage"];
-  SecurityRequirement: PoolAdvertisement["securityClearance"];
-  LocationOption: "REMOTE_OPTIONAL" | "SPECIFIC_LOCATION";
-  SpecificLocationEn?: LocalizedString["en"];
-  SpecificLocationFr?: LocalizedString["fr"];
+  languageRequirement: PoolAdvertisement["advertisementLanguage"];
+  securityRequirement: PoolAdvertisement["securityClearance"];
+  locationOption: LocationOption;
+  specificLocationEn?: LocalizedString["en"];
+  specificLocationFr?: LocalizedString["fr"];
 };
 
 interface OtherRequirementsSectionProps {
@@ -42,24 +44,24 @@ export const OtherRequirementsSection = ({
   const intl = useIntl();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
-    LanguageRequirement: initialData.advertisementLanguage,
-    SecurityRequirement: initialData.securityClearance,
-    LocationOption:
+    languageRequirement: initialData.advertisementLanguage,
+    securityRequirement: initialData.securityClearance,
+    locationOption:
       isEmpty(initialData.advertisementLocation?.en) &&
       isEmpty(initialData.advertisementLocation?.fr)
-        ? "REMOTE_OPTIONAL"
-        : "SPECIFIC_LOCATION",
-    SpecificLocationEn: initialData.advertisementLocation?.en,
-    SpecificLocationFr: initialData.advertisementLocation?.fr,
+        ? LocationOption.RemoteOptional
+        : LocationOption.SpecificLocation,
+    specificLocationEn: initialData.advertisementLocation?.en,
+    specificLocationFr: initialData.advertisementLocation?.fr,
   });
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(poolAdvertisement),
   });
   const { handleSubmit, control } = methods;
-  const watchYourWorkEn: FormValues["LocationOption"] = useWatch({
+  const locationOption: FormValues["locationOption"] = useWatch({
     control,
-    name: "LocationOption",
+    name: "locationOption",
   });
 
   return (
@@ -125,6 +127,71 @@ export const OtherRequirementsSection = ({
             </Spacer>
             <Spacer style={{ flex: 1 }} />
           </div>
+          <div data-h2-display="b(flex)">
+            <Spacer style={{ flex: 1 }}>
+              <RadioGroup
+                idPrefix="locationOption"
+                legend={intl.formatMessage({
+                  defaultMessage: "Location",
+                  description: "Location options in Edit Pool Form",
+                })}
+                name="locationOption"
+                items={[
+                  {
+                    value: LocationOption.RemoteOptional,
+                    label: intl.formatMessage({
+                      defaultMessage: "Remote optional (Recommended)",
+                      description:
+                        "Label displayed for 'remote optional' option",
+                    }),
+                  },
+                  {
+                    value: LocationOption.SpecificLocation,
+                    label: intl.formatMessage({
+                      defaultMessage: "Specific location (Specify below)",
+                      description:
+                        "Label displayed for 'specific location' option",
+                    }),
+                  },
+                ]}
+              />
+            </Spacer>
+            <Spacer style={{ flex: 1 }} />
+          </div>
+          {locationOption === LocationOption.SpecificLocation ? (
+            <>
+              <div data-h2-display="b(flex)">
+                <Spacer style={{ flex: 1 }}>
+                  <Input
+                    id="specificLocationEn"
+                    name="specificLocationEn"
+                    type="text"
+                    label={intl.formatMessage({
+                      defaultMessage: "Specific Location (English)",
+                      description:
+                        "Label for a pool advertisements specific English Location",
+                    })}
+                  />
+                </Spacer>
+                <Spacer style={{ flex: 1 }} />
+              </div>
+              <div data-h2-display="b(flex)">
+                <Spacer style={{ flex: 1 }}>
+                  <Input
+                    id="specificLocationFr"
+                    name="specificLocationFr"
+                    type="text"
+                    label={intl.formatMessage({
+                      defaultMessage: "Specific Location (French)",
+                      description:
+                        "Label for a pool advertisements specific French Location",
+                    })}
+                  />
+                </Spacer>
+                <Spacer style={{ flex: 1 }} />
+              </div>
+            </>
+          ) : undefined}
           <Submit
             text={intl.formatMessage({
               defaultMessage: "Save other requirements",

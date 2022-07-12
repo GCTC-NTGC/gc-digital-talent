@@ -22,6 +22,7 @@ import ClosingDateSection from "./ClosingDateSection";
 import YourImpactSection from "./YourImpactSection";
 import WorkTasksSection from "./WorkTasksSection";
 import OtherRequirementsSection from "./OtherRequirementsSection";
+import StatusSection from "./StatusSection";
 
 interface EditPoolFormProps {
   poolAdvertisement: PoolAdvertisement;
@@ -31,6 +32,7 @@ interface EditPoolFormProps {
   onDelete: () => void;
   onClose: () => void;
   onExtend: () => void;
+  onArchive: () => void;
 }
 
 export interface SectionMetadata {
@@ -54,6 +56,7 @@ export const EditPoolForm = ({
   onDelete,
   onClose,
   onExtend,
+  onArchive,
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
   const adminPaths = useAdminRoutes();
@@ -162,7 +165,10 @@ export const EditPoolForm = ({
       </PageHeader>
       <Breadcrumbs links={links} />
       <TableOfContents.Wrapper>
-        <TableOfContents.Navigation>
+        <TableOfContents.Navigation
+          data-h2-bg-color="b(lightgray)"
+          data-h2-radius="b(s)"
+        >
           <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
             {sectionMetadata.poolName.title}
           </TableOfContents.AnchorLink>
@@ -180,6 +186,9 @@ export const EditPoolForm = ({
           </TableOfContents.AnchorLink>
           <TableOfContents.AnchorLink id={sectionMetadata.assetSkills.id}>
             {sectionMetadata.assetSkills.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sectionMetadata.otherRequirements.id}>
+            {sectionMetadata.otherRequirements.title}
           </TableOfContents.AnchorLink>
           <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
             {sectionMetadata.status.title}
@@ -273,47 +282,15 @@ export const EditPoolForm = ({
             onSave={onSave}
           />
 
-          {/* Advertisement status section */}
-          <TableOfContents.Section id={sectionMetadata.status.id}>
-            <TableOfContents.Heading>
-              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-                {sectionMetadata.status.title}
-              </h2>
-            </TableOfContents.Heading>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Use these options to publish or close your advertisement. A live advertisement will allow applicants to submit applications to this pool.",
-                description:
-                  "Helper message for changing the pool advertisement status",
-              })}
-            </p>
-            <Button onClick={() => onPublish()} color="secondary" mode="solid">
-              {intl.formatMessage({
-                defaultMessage: "Publish",
-                description: "Text on a button to publish the pool",
-              })}
-            </Button>
-            <Button onClick={() => onDelete()} color="secondary" mode="solid">
-              {intl.formatMessage({
-                defaultMessage: "Delete",
-                description: "Text on a button to delete the pool",
-              })}
-            </Button>
-            <Button onClick={() => onClose()} color="secondary" mode="solid">
-              {intl.formatMessage({
-                defaultMessage: "Close",
-                description: "Text on a button to close the pool",
-              })}
-            </Button>
-            <Button onClick={() => onExtend()} color="secondary" mode="solid">
-              {intl.formatMessage({
-                defaultMessage: "Extend the date",
-                description:
-                  "Text on a button to extend the expiry date the pool",
-              })}
-            </Button>
-          </TableOfContents.Section>
+          <StatusSection
+            poolAdvertisement={poolAdvertisement}
+            sectionMetadata={sectionMetadata.status}
+            onPublish={onPublish}
+            onDelete={onDelete}
+            onClose={onClose}
+            onExtend={onExtend}
+            onArchive={onArchive}
+          />
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
 
@@ -356,6 +333,7 @@ export const EditPool = ({ poolId }: EditPoolProps) => {
             onDelete={() => console.warn("onDelete not yet implemented")}
             onClose={() => console.warn("onClose not yet implemented")}
             onExtend={() => console.warn("onExtend not yet implemented")}
+            onArchive={() => console.warn("onArchive not yet implemented")}
           />
         ) : (
           <NotFound

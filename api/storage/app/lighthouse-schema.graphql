@@ -2,6 +2,7 @@ enum AdvertisementStatus {
   DRAFT
   PUBLISHED
   EXPIRED
+  ARCHIVED
 }
 
 type Applicant {
