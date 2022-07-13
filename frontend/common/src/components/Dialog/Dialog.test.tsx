@@ -53,7 +53,7 @@ describe("Dialog", () => {
     expect(handleDismiss).toHaveBeenCalledTimes(1);
   });
 
-  it("should render subtitle", () => {
+  it("Should render subtitle", () => {
     const subtitle = "subtitle";
     const { getByText } = renderDialog({
       ...defaultProps,
