@@ -6,7 +6,7 @@ import { screen } from "@testing-library/react";
 import React from "react";
 import { fakeClassifications, fakeCmoAssets } from "@common/fakeData";
 
-import { render } from "../../tests/testUtils";
+import { axeTest, render } from "../../tests/testUtils";
 import { SearchContainer } from "./SearchContainer";
 import type { SearchContainerProps } from "./SearchContainer";
 
@@ -20,22 +20,24 @@ const renderSearchContainer = ({
 }: MockSearchContainerProps) => {
   const mockUpdate = jest.fn();
   const mockSubmit = jest.fn();
-  return (
-    <>
-      {render(
-        <SearchContainer
-          classifications={mockClassifications}
-          cmoAssets={mockCmoAssets}
-          candidateCount={candidateCount}
-          onUpdateCandidateFilter={mockUpdate}
-          onSubmit={mockSubmit}
-        />,
-      )}
-    </>
+  return render(
+    <SearchContainer
+      classifications={mockClassifications}
+      cmoAssets={mockCmoAssets}
+      candidateCount={candidateCount}
+      onUpdateCandidateFilter={mockUpdate}
+      onSubmit={mockSubmit}
+    />,
   );
 };
 
 describe("SearchContainer", () => {
+  it("should have no accessibility errors", async () => {
+    const { container } = renderSearchContainer({ candidateCount: 10 });
+
+    await axeTest(container);
+  });
+
   it("should render request button with candidates", async () => {
     renderSearchContainer({ candidateCount: 10 });
     await expect(

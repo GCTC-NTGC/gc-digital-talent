@@ -36,4 +36,6 @@ module.exports = {
 
   // Module file extensions for importing
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+
+  setupFilesAfterEnv: ["./src/js/tests/setup.ts"],
 };

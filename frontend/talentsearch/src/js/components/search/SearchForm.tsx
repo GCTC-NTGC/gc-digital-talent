@@ -165,9 +165,9 @@ const SearchForm: React.FC<SearchFormProps> = ({
     [cmoAssets, locale, intl],
   );
 
-  const operationalRequirementsSubset = [
-    OperationalRequirement.OvertimeShortNotice,
-    OperationalRequirement.OvertimeScheduled,
+  const operationalRequirementsSubsetV2 = [
+    OperationalRequirement.OvertimeOccasional,
+    OperationalRequirement.OvertimeRegular,
     OperationalRequirement.ShiftWork,
     OperationalRequirement.OnCall,
     OperationalRequirement.Travel,
@@ -275,7 +275,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                 "Legend for the Conditions of Employment filter checklist",
             })}
             name="operationalRequirements"
-            items={operationalRequirementsSubset.map((value) => ({
+            items={operationalRequirementsSubsetV2.map((value) => ({
               value,
               label: intl.formatMessage(getOperationalRequirement(value)),
             }))}

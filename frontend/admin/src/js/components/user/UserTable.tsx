@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Link, useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
@@ -21,6 +21,8 @@ import {
   sortingRuleToOrderByClause,
   IdType,
   handleColumnHiddenChange,
+  rowSelectionColumn,
+  handleRowSelectedChange,
 } from "../apiManagedTable/basicTableHelpers";
 import { tableEditButtonAccessor } from "../Table";
 import TableFooter from "../apiManagedTable/TableFooter";
@@ -62,8 +64,66 @@ export const UserTable: React.FC = () => {
   const intl = useIntl();
   const paths = useAdminRoutes();
   const { pathname } = useLocation();
+
+  const searchStateToFilterInput = (
+    val: string | undefined,
+    col: string | undefined,
+  ): InputMaybe<UserFilterInput> => {
+    if (!val) return undefined;
+
+    return {
+      generalSearch: val && !col ? val : undefined,
+      email: col === "email" ? val : undefined,
+      name: col === "name" ? val : undefined,
+      telephone: col === "phone" ? val : undefined,
+    };
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
+  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
+  const [selectedRows, setSelectedRows] = useState<User[]>([]);
+  const [searchState, setSearchState] = useState<{
+    term: string | undefined;
+    col: string | undefined;
+  }>();
+
+  useEffect(() => {
+    setSelectedRows([]);
+  }, [currentPage, pageSize, searchState, sortingRule]);
+
+  const [result] = useAllUsersPaginatedQuery({
+    variables: {
+      where: searchStateToFilterInput(searchState?.term, searchState?.col),
+      page: currentPage,
+      first: pageSize,
+      orderBy: sortingRuleToOrderByClause(sortingRule),
+    },
+  });
+
+  const { data, fetching, error } = result;
+
+  const filteredData: Array<Data> = useMemo(() => {
+    const users = data?.usersPaginated?.data ?? [];
+    return users.filter(notEmpty);
+  }, [data?.usersPaginated?.data]);
+
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
+      rowSelectionColumn(
+        intl,
+        selectedRows,
+        filteredData.length,
+        (user: Data) => `${user.firstName} ${user.lastName}`,
+        (event) =>
+          handleRowSelectedChange(
+            filteredData,
+            selectedRows,
+            setSelectedRows,
+            event,
+          ),
+      ),
       {
         label: intl.formatMessage({
           defaultMessage: "Candidate Name",
@@ -116,47 +176,8 @@ export const UserTable: React.FC = () => {
         id: "edit",
       },
     ],
-    [pathname, intl, paths],
+    [intl, selectedRows, setSelectedRows, filteredData, paths, pathname],
   );
-
-  const searchStateToFilterInput = (
-    val: string | undefined,
-    col: string | undefined,
-  ): InputMaybe<UserFilterInput> => {
-    if (!val) return undefined;
-
-    return {
-      generalSearch: val && !col ? val : undefined,
-      email: col === "email" ? val : undefined,
-      name: col === "name" ? val : undefined,
-      telephone: col === "phone" ? val : undefined,
-    };
-  };
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
-  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
-  const [searchState, setSearchState] = useState<{
-    term: string | undefined;
-    col: string | undefined;
-  }>();
-
-  const [result] = useAllUsersPaginatedQuery({
-    variables: {
-      where: searchStateToFilterInput(searchState?.term, searchState?.col),
-      page: currentPage,
-      first: pageSize,
-      orderBy: sortingRuleToOrderByClause(sortingRule),
-    },
-  });
-
-  const { data, fetching, error } = result;
-
-  const filteredData: Array<Data> = useMemo(() => {
-    const users = data?.usersPaginated?.data ?? [];
-    return users.filter(notEmpty);
-  }, [data?.usersPaginated?.data]);
 
   const allColumnIds = columns.map((c) => c.id);
 

@@ -6,7 +6,7 @@ import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { fakeSkills } from "@common/fakeData";
 import { Skill } from "../../../api/generated";
-import { render } from "../../../tests/testUtils";
+import { axeTest, render } from "../../../tests/testUtils";
 import SkillResults, { SkillBlock } from "./SkillResults";
 
 const skills = fakeSkills();
@@ -54,6 +54,12 @@ function renderSkillBlock(
 }
 
 describe("Skill Results Tests", () => {
+  it("should have no accessibility errors", async () => {
+    const { container } = renderSkillResults("Results");
+
+    await axeTest(container);
+  });
+
   test("should display the correct title", async () => {
     const title = "Results";
     renderSkillResults(title);

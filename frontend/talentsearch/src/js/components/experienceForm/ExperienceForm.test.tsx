@@ -7,17 +7,73 @@ import React from "react";
 import { fakeSkills } from "@common/fakeData";
 import { act } from "react-dom/test-utils";
 import fakeExperiences from "@common/fakeData/fakeExperiences";
-import { render } from "../../tests/testUtils";
+import { axeTest, render } from "../../tests/testUtils";
 import { ExperienceForm, ExperienceFormProps } from "./ExperienceForm";
 import type { ExperienceQueryData, ExperienceType } from "./types";
 
 const mockSkills = fakeSkills(50);
 const mockExperiences = fakeExperiences(5);
+const mockCallback = jest.fn();
 
 const renderExperienceForm = (props: ExperienceFormProps) =>
   render(<ExperienceForm {...props} />);
 
 describe("ExperienceForm", () => {
+  it("award type should have no accessibility errors", async () => {
+    const { container } = renderExperienceForm({
+      experienceType: "award",
+      onUpdateExperience: mockCallback,
+      deleteExperience: mockCallback,
+      skills: mockSkills,
+    });
+
+    await axeTest(container);
+  });
+
+  it("community type should have no accessibility errors", async () => {
+    const { container } = renderExperienceForm({
+      experienceType: "community",
+      onUpdateExperience: mockCallback,
+      deleteExperience: mockCallback,
+      skills: mockSkills,
+    });
+
+    await axeTest(container);
+  });
+
+  it("education type should have no accessibility errors", async () => {
+    const { container } = renderExperienceForm({
+      experienceType: "education",
+      onUpdateExperience: mockCallback,
+      deleteExperience: mockCallback,
+      skills: mockSkills,
+    });
+
+    await axeTest(container);
+  });
+
+  it("personal type should have no accessibility errors", async () => {
+    const { container } = renderExperienceForm({
+      experienceType: "personal",
+      onUpdateExperience: mockCallback,
+      deleteExperience: mockCallback,
+      skills: mockSkills,
+    });
+
+    await axeTest(container);
+  });
+
+  it("work type should have no accessibility errors", async () => {
+    const { container } = renderExperienceForm({
+      experienceType: "work",
+      onUpdateExperience: mockCallback,
+      deleteExperience: mockCallback,
+      skills: mockSkills,
+    });
+
+    await axeTest(container);
+  });
+
   it("should render award fields", () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();

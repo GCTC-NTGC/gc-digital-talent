@@ -5,7 +5,14 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { fakeUsers } from "@common/fakeData";
 import { WorkLocationPreferenceQuery, WorkRegion } from "../../api/generated";
-import { render, screen, fireEvent, act, waitFor } from "../../tests/testUtils";
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  waitFor,
+  axeTest,
+} from "../../tests/testUtils";
 import {
   WorkLocationPreferenceForm,
   WorkLocationPreferenceFormProps,
@@ -14,16 +21,13 @@ import {
 const renderWorkLocationPreferenceForm = ({
   initialData,
   handleWorkLocationPreference,
-}: WorkLocationPreferenceFormProps) => (
-  <>
-    {render(
-      <WorkLocationPreferenceForm
-        initialData={initialData}
-        handleWorkLocationPreference={handleWorkLocationPreference}
-      />,
-    )}
-  </>
-);
+}: WorkLocationPreferenceFormProps) =>
+  render(
+    <WorkLocationPreferenceForm
+      initialData={initialData}
+      handleWorkLocationPreference={handleWorkLocationPreference}
+    />,
+  );
 
 const mockUser = fakeUsers()[0];
 
@@ -47,6 +51,16 @@ const mockInitialEmptyData: WorkLocationPreferenceQuery | undefined = {
 };
 
 describe("WorkLocationPreferenceForm", () => {
+  it("should have no accessibility errors", async () => {
+    await act(async () => {
+      const { container } = renderWorkLocationPreferenceForm({
+        initialData: mockInitialData,
+        handleWorkLocationPreference: jest.fn(),
+      });
+
+      await axeTest(container);
+    });
+  });
   it("should render fields", async () => {
     const mockSave = jest.fn(() => Promise.resolve(mockUser));
 
