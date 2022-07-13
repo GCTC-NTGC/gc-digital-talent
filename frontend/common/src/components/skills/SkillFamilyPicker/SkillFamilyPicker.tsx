@@ -27,7 +27,6 @@ const SkillFamilyPicker: React.FunctionComponent<SkillFamilyPickerProps> = ({
   const intl = useIntl();
 
   const methods = useForm<FormValues>({
-    // defaultValues: dataToFormValues(poolAdvertisement),
     defaultValues: { skillFamily: NULL_SELECTION },
   });
   const { watch } = methods;
@@ -40,6 +39,13 @@ const SkillFamilyPicker: React.FunctionComponent<SkillFamilyPickerProps> = ({
     );
     return () => subscription.unsubscribe();
   }, [onSelectSkillFamily, watch]);
+
+  const allSkillsWithDuplicates = skillFamilies.flatMap(
+    (family) => family.skills,
+  );
+  const uniqueSkillCount = new Set(
+    allSkillsWithDuplicates.map((skill) => skill?.id),
+  ).size;
 
   return (
     <div
@@ -55,11 +61,16 @@ const SkillFamilyPicker: React.FunctionComponent<SkillFamilyPickerProps> = ({
             name="skillFamily"
             hideOptional
             items={[
-              { value: "NULL_SELECTION", label: nullSelectionLabel },
+              {
+                value: "NULL_SELECTION",
+                label: `${nullSelectionLabel} (${uniqueSkillCount})`,
+              },
               ...skillFamilies.map((family) => {
                 return {
                   value: family.id,
-                  label: getLocalizedName(family.name, intl),
+                  label: `${getLocalizedName(family.name, intl)} (${
+                    family.skills ? family.skills.length : "0"
+                  })`,
                 };
               }),
             ]}

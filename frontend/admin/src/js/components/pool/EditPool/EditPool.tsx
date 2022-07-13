@@ -8,12 +8,12 @@ import PageHeader from "@common/components/PageHeader";
 import { HomeIcon, ViewGridIcon } from "@heroicons/react/outline";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import TableOfContents from "@common/components/TableOfContents";
+import { notEmpty } from "@common/helpers/util";
 import {
   PoolAdvertisement,
   Scalars,
   Classification,
   useGetEditPoolDataQuery,
-  Maybe,
   Skill,
 } from "../../../api/generated";
 import DashboardContentContainer from "../../DashboardContentContainer";
@@ -28,8 +28,8 @@ import EssentialSkillsSection from "./EssentialSkillsSection";
 
 interface EditPoolFormProps {
   poolAdvertisement: PoolAdvertisement;
-  classifications: Array<Maybe<Classification>>;
-  skills: Array<Maybe<Skill>>;
+  classifications: Array<Classification>;
+  skills: Array<Skill>;
   onSave: (submitData: unknown) => void;
   onPublish: () => void;
   onDelete: () => void;
@@ -305,8 +305,8 @@ export const EditPool = ({ poolId }: EditPoolProps) => {
         {data?.poolAdvertisement ? (
           <EditPoolForm
             poolAdvertisement={data.poolAdvertisement}
-            classifications={data.classifications}
-            skills={data.skills}
+            classifications={data.classifications.filter(notEmpty)}
+            skills={data.skills.filter(notEmpty)}
             onSave={(submitData: unknown) =>
               console.warn("onSave not yet implemented", submitData)
             }

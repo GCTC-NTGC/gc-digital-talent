@@ -1,11 +1,12 @@
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import {
   Maybe,
   PoolAdvertisement,
   Skill,
   SkillCategory,
+  SkillFamily,
 } from "@common/api/generated";
 import { useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
@@ -17,21 +18,22 @@ import {
   TabPanels,
   Tabs,
 } from "@common/components/Tabs";
-// import SkillFamilyPicker from "@common/skills/SkillFamilyPicker";
-
 import SkillFamilyPicker from "@common/components/skills/SkillFamilyPicker/SkillFamilyPicker";
-
 import { invertSkillSkillFamilyTree } from "@common/helpers/skillUtils";
+import { SkillResults } from "@common/components/skills/SkillResults/SkillResults";
+import Pagination, { usePaginationVars } from "@common/components/Pagination";
+import Chip, { Chips } from "@common/components/Chip";
+import { getLocalizedName } from "@common/helpers/localize";
 import { SectionMetadata } from "./EditPool";
+
+const paginationPageSize = 5;
 
 interface EssentialSkillsSectionProps {
   poolAdvertisement: PoolAdvertisement;
-  skills: Array<Maybe<Skill>>;
+  skills: Array<Skill>;
   sectionMetadata: SectionMetadata;
   onSave: (submitData: unknown) => void;
 }
-
-const handleSkillFamilyChange = (x: unknown) => console.log(x);
 
 export const EssentialSkillsSection = ({
   poolAdvertisement,
@@ -41,11 +43,50 @@ export const EssentialSkillsSection = ({
 }: EssentialSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
 
+  const [selectedTechnicalSkillFamilyId, setSelectedTechnicalSkillFamilyId] =
+    useState<SkillFamily["id"]>();
+
+  const [selectedTechnicalSkills, setSelectedTechnicalSkills] = useState<
+    Array<Skill>
+  >(poolAdvertisement.essentialSkills ? poolAdvertisement.essentialSkills : []);
+
   // this function can be a bit heavy
   const allSkillFamilies = useMemo(
-    () => invertSkillSkillFamilyTree(skills.filter(notEmpty)),
+    () => invertSkillSkillFamilyTree(skills),
     [skills],
   );
+
+  const technicalSkillFamilyFilteredSkills = selectedTechnicalSkillFamilyId
+    ? // we have a skill family Id to check
+      skills.filter((skill) =>
+        skill?.families?.some(
+          (family) => family.id === selectedTechnicalSkillFamilyId,
+        ),
+      )
+    : // no skill family id to check -> match any technical skill family
+      skills.filter((skill) =>
+        skill?.families?.some(
+          (family) => family.category === SkillCategory.Technical,
+        ),
+      );
+
+  const technicalSkillsFamilySkillsPagination = usePaginationVars<Skill>(
+    paginationPageSize,
+    technicalSkillFamilyFilteredSkills,
+  );
+
+  const handleAddSkill = (id: Skill["id"]) => {
+    const skillToAdd = skills.find((skill) => skill.id === id);
+    if (skillToAdd) {
+      setSelectedTechnicalSkills([...selectedTechnicalSkills, skillToAdd]);
+    }
+  };
+
+  const handleRemoveSkill = (id: Skill["id"]) => {
+    setSelectedTechnicalSkills(
+      selectedTechnicalSkills.filter((skill) => skill.id !== id),
+    );
+  };
 
   const tabs = [
     intl.formatMessage({
@@ -100,37 +141,42 @@ export const EssentialSkillsSection = ({
               skillFamilies={allSkillFamilies.filter(
                 (sf) => sf.category === SkillCategory.Technical,
               )}
-              onSelectSkillFamily={handleSkillFamilyChange}
+              onSelectSkillFamily={(id) => {
+                setSelectedTechnicalSkillFamilyId(id);
+                technicalSkillsFamilySkillsPagination.setCurrentPage(1);
+              }}
             />
-            {/* <SkillResults
+            <SkillResults
               title={intl.formatMessage(
                 {
                   defaultMessage: "Results ({skillCount})",
                   description: "A title for a skill list of results",
                 },
                 {
-                  skillCount: familyFilteredSkills.length,
+                  skillCount: technicalSkillFamilyFilteredSkills.length,
                 },
               )}
-              skills={mainstreamSkillsPagination.currentTableData}
-              addedSkills={addedSkills || []}
-              handleAddSkill={onAddSkill}
-              handleRemoveSkill={onRemoveSkill}
-            /> */}
-            {/* <Pagination
+              skills={technicalSkillsFamilySkillsPagination.currentTableData}
+              addedSkills={selectedTechnicalSkills}
+              onAddSkill={(id) => handleAddSkill(id)}
+              onRemoveSkill={(id) => handleRemoveSkill(id)}
+            />
+            <Pagination
               ariaLabel={intl.formatMessage({
                 defaultMessage: "Mainstream skills results",
               })}
               color="primary"
               mode="outline"
-              currentPage={mainstreamSkillsPagination.currentPage}
-              pageSize={resultsPaginationPageSize}
-              totalCount={familyFilteredSkills.length}
+              currentPage={technicalSkillsFamilySkillsPagination.currentPage}
+              pageSize={paginationPageSize}
+              totalCount={technicalSkillFamilyFilteredSkills.length}
               onCurrentPageChange={(page) =>
-                mainstreamSkillsPagination.setCurrentPage(page)
+                technicalSkillsFamilySkillsPagination.setCurrentPage(page)
               }
-              onPageSizeChange={mainstreamSkillsPagination.setPageSize}
-            /> */}
+              onPageSizeChange={
+                technicalSkillsFamilySkillsPagination.setPageSize
+              }
+            />
           </TabPanel>
           <TabPanel>
             {/* <SkillChecklist
@@ -201,6 +247,30 @@ export const EssentialSkillsSection = ({
           </TabPanel>
         </TabPanels>
       </Tabs>
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "Selected essential skills ({skillCount})",
+            description: "A title for an essential skill list",
+          },
+          {
+            skillCount: selectedTechnicalSkills.length,
+          },
+        )}
+      </p>
+      <Chips>
+        {selectedTechnicalSkills.map((skill) => {
+          return (
+            <Chip
+              key={skill.id}
+              label={getLocalizedName(skill.name, intl)}
+              color="primary"
+              mode="outline"
+              onDismiss={() => handleRemoveSkill(skill.id)}
+            />
+          );
+        })}
+      </Chips>
       <Button onClick={() => onSave(undefined)} color="cta" mode="solid">
         {intl.formatMessage({
           defaultMessage: "Save essential skills",
