@@ -44,4 +44,3 @@ jobs:
       - name: "Run Unit Tests: all workspaces"
         working-directory: frontend
         run: npm run test --workspaces --if-present
-        shell: bash
