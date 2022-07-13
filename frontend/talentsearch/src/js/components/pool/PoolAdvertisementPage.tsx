@@ -269,7 +269,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             </TableOfContents.Heading>
             <Accordion
               title={intl.formatMessage({
-                defaultMessage: "What are pool recruitment's?",
+                defaultMessage: "What are pool recruitments?",
                 description:
                   "Title for according describing pool recruitment's",
               })}
@@ -593,7 +593,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Do you require accommodations? or do you have any questions about this process?",
+                  "Do you require accommodations, or do you have any questions about this process?",
                 description:
                   "Opening sentence asking if accommodations are needed",
               })}
