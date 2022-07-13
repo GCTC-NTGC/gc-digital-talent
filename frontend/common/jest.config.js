@@ -27,7 +27,7 @@ module.exports = {
     "^.+\\.tsx?$": "ts-jest",
   },
 
-  collectCoverage: true,
+  collectCoverage: false,
   coverageReporters: ["json", "html"],
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
