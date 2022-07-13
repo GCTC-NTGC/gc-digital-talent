@@ -13,6 +13,7 @@ import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
 import { fakeUsers } from "@common/fakeData";
 import { AboutMeForm, AboutMeFormProps } from "./AboutMeForm";
+import { axeTest } from "../../tests/testUtils";
 
 const mockUser = fakeUsers()[0];
 
@@ -31,18 +32,23 @@ const renderWithReactIntl = (
 const renderAboutMeForm = ({
   initialUser,
   onUpdateAboutMe,
-}: AboutMeFormProps) => (
-  <>
-    {renderWithReactIntl(
-      <AboutMeForm
-        initialUser={initialUser}
-        onUpdateAboutMe={onUpdateAboutMe}
-      />,
-    )}
-  </>
-);
+}: AboutMeFormProps) =>
+  renderWithReactIntl(
+    <AboutMeForm initialUser={initialUser} onUpdateAboutMe={onUpdateAboutMe} />,
+  );
 
 describe("AboutMeForm", () => {
+  it("should have no accessibility errors", async () => {
+    const mockSave = jest.fn();
+    await act(async () => {
+      const { container } = renderAboutMeForm({
+        initialUser: mockUser,
+        onUpdateAboutMe: mockSave,
+      });
+      await axeTest(container);
+    });
+  });
+
   it("should render fields", async () => {
     const mockSave = jest.fn();
 

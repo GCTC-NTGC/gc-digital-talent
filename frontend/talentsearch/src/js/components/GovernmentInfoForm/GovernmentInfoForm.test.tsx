@@ -9,7 +9,13 @@ import {
   fakeUsers,
 } from "@common/fakeData";
 import { act } from "react-dom/test-utils";
-import { render, screen, fireEvent, waitFor } from "../../tests/testUtils";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  axeTest,
+} from "../../tests/testUtils";
 import {
   GovInfoFormWithProfileWrapper as GovernmentInfoForm,
   GovInfoFormWithProfileWrapperProps as GovernmentInfoFormProps,
@@ -37,6 +43,19 @@ const renderGovInfoForm = ({
 };
 
 describe("GovernmentInfoForm", () => {
+  it("should have no accessibility errors", async () => {
+    await act(async () => {
+      const { container } = renderGovInfoForm({
+        initialData: mockUser,
+        departments: mockDepartments,
+        classifications: mockClassifications,
+        submitHandler: mockSave,
+      });
+
+      await axeTest(container);
+    });
+  });
+
   it("should render the form", async () => {
     await act(async () => {
       renderGovInfoForm({
