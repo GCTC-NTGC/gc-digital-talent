@@ -11,7 +11,7 @@ const definitionMap: Record<string, React.FC> = {
   [GenericJobTitleKey.TechnicianIt01]: ITDefinitions.LevelOne,
   [GenericJobTitleKey.AnalystIt02]: ITDefinitions.LevelTwo,
   [GenericJobTitleKey.TeamLeaderIt03]: ITDefinitions.LevelThreeLead,
-  [GenericJobTitleKey.TechnicalAdvisorIt03]: ITDefinitions.LevelThreeLead,
+  [GenericJobTitleKey.TechnicalAdvisorIt03]: ITDefinitions.LevelThreeAdvisor,
   [GenericJobTitleKey.SeniorAdvisorIt04]: ITDefinitions.LevelFourAdvisor,
   [GenericJobTitleKey.ManagerIt04]: ITDefinitions.LevelFourManager,
 };
