@@ -572,6 +572,15 @@ export const OperationalRequirementCandidateDescription = defineMessages({
       "...requires me to <bold>work overtime on short notice</bold>.",
     description: "The operational requirement described as overtime.",
   },
+  [OperationalRequirement.OvertimeOccasional]: {
+    defaultMessage: "...requires me to <bold>work occasional overtime</bold>.",
+    description:
+      "The operational requirement described as occasional overtime.",
+  },
+  [OperationalRequirement.OvertimeRegular]: {
+    defaultMessage: "...requires me to <bold>work regular overtime</bold>.",
+    description: "The operational requirement described as regular overtime.",
+  },
 });
 
 export const getOperationalRequirementCandidateDescription = (
@@ -609,12 +618,23 @@ export const operationalRequirements = defineMessages({
       "Must possess a valid driver's license or personal mobility to the degree normally associated with possession of a valid driver's license.",
     description: "The operational requirement described as driver's license.",
   },
-  [OperationalRequirement.OvertimeScheduled]: {
+  [OperationalRequirement.OvertimeRegular]: {
     defaultMessage:
       "Availability, willingness and ability to work overtime (Regularly).",
     description: "The operational requirement described as regular overtime.",
   },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage:
+      "Availability, willingness and ability to work overtime (scheduled)",
+    description: "The operational requirement described as scheduled overtime.",
+  },
   [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage:
+      "Availability, willingness and ability to work overtime (short notice)",
+    description:
+      "The operational requirement described as short notice overtime.",
+  },
+  [OperationalRequirement.OvertimeOccasional]: {
     defaultMessage:
       "Availability, willingness and ability to work overtime (Occasionally).",
     description:
