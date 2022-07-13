@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
-import { Button, Link } from "@common/components";
+import { Link } from "@common/components";
 import PageHeader from "@common/components/PageHeader";
 import { HomeIcon, ViewGridIcon } from "@heroicons/react/outline";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
