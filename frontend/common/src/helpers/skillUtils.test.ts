@@ -378,4 +378,8 @@ describe("skill util tests", () => {
     const actual = invertSkillExperienceTree(experiences);
     expect(actual).toEqual(expected);
   });
+  test("THIS TEST SHOULD FAIL", () => {
+    const x = 1;
+    expect(x).toEqual(2);
+  });
 });
