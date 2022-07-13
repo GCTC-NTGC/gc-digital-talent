@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Dialog from "@common/components/Dialog";
 import { Button } from "@common/components";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -9,7 +9,9 @@ import "./UserTableFilterDialog.css";
 import { useFormContext } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import type { Option } from "@common/components/form/Select/SelectFieldV2";
+import { FilterIcon } from "@heroicons/react/outline";
 import useFilterOptions from "./useFilterOptions";
+import { ButtonIcon } from "../Table/tableComponents";
 
 export type FormValues = {
   pools: Option["value"][];
@@ -229,4 +231,54 @@ const UserTableFilterDialog = ({
   );
 };
 
+type UserTableFilterButtonProps = Pick<
+  UserTableFilterDialogProps,
+  "onSubmit" | "enableEducationType"
+> & { isOpenDefault?: boolean };
+const UserTableFilterButton = ({
+  onSubmit,
+  isOpenDefault = false,
+  ...rest
+}: UserTableFilterButtonProps) => {
+  const { emptyFormValues } = useFilterOptions();
+  const [activeFilters, setActiveFilters] =
+    useState<FormValues>(emptyFormValues);
+  const [isOpen, setIsOpen] = useState(isOpenDefault);
+
+  const handleOpen = () => setIsOpen(true);
+  const handleDismiss = () => setIsOpen(false);
+  const handleSubmit: SubmitHandler<FormValues> = (data) => {
+    onSubmit(data);
+    setActiveFilters(data);
+    setIsOpen(false);
+  };
+
+  return (
+    <>
+      <Button
+        onClick={handleOpen}
+        mode="outline"
+        color="black"
+        type="button"
+        data-h2-display="b(inline-flex)"
+        data-h2-align-items="b(center)"
+      >
+        <ButtonIcon icon={FilterIcon} />
+        <span>
+          <FormattedMessage
+            defaultMessage="Filter"
+            description="Text label for button to open filter dialog on admin tables."
+          />
+        </span>
+      </Button>
+      <UserTableFilterDialog
+        {...{ isOpen, activeFilters }}
+        {...rest}
+        onDismiss={handleDismiss}
+        onSubmit={handleSubmit}
+      />
+    </>
+  );
+};
+UserTableFilterDialog.Button = UserTableFilterButton;
 export default UserTableFilterDialog;

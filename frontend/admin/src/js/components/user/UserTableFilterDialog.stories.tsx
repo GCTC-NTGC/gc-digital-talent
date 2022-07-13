@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Button from "@common/components/Button";
 import type { SubmitHandler } from "react-hook-form";
 import OverlayOrDialogDecorator from "@common/../.storybook/decorators/OverlayOrDialogDecorator";
 import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
 import UserTableFilterDialog from "./UserTableFilterDialog";
 import type { FormValues } from "./UserTableFilterDialog";
-import useFilterOptions from "./useFilterOptions";
 
 export default {
-  title: "Users/UserTableFilterDialog",
-  component: UserTableFilterDialog,
+  title: "Users/UserTableFilterDialog.Button",
+  component: UserTableFilterDialog.Button,
   decorators: [OverlayOrDialogDecorator],
   parameters: {
     apiResponses: {
@@ -32,39 +30,26 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof UserTableFilterDialog>;
+} as ComponentMeta<typeof UserTableFilterDialog.Button>;
 
-const Template: ComponentStory<typeof UserTableFilterDialog> = (args) => {
-  const { emptyFormValues } = useFilterOptions();
-  const [activeFilters, setActiveFilters] =
-    useState<FormValues>(emptyFormValues);
-  const [isOpen, setIsOpen] = useState(true);
-
-  const handleOpen = () => setIsOpen(true);
-  const handleDismiss = () => setIsOpen(false);
+const Template: ComponentStory<typeof UserTableFilterDialog.Button> = (
+  args,
+) => {
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
     action("Update filter")(data);
-    setActiveFilters(data);
-    setIsOpen(false);
   };
 
-  return (
-    <>
-      <Button onClick={handleOpen}>Filters</Button>
-      <UserTableFilterDialog
-        {...{ isOpen, activeFilters }}
-        {...args}
-        onDismiss={handleDismiss}
-        onSubmit={handleSubmit}
-      />
-    </>
-  );
+  return <UserTableFilterDialog.Button {...args} onSubmit={handleSubmit} />;
 };
 
 export const Default = Template.bind({});
+Default.args = {
+  isOpenDefault: true,
+};
 
 export const RandomLatency = Template.bind({});
 RandomLatency.parameters = {
+  ...Default.args,
   apiResponsesConfig: {
     minTimeout: 2000,
     maxTimeout: 10000,
@@ -74,5 +59,6 @@ RandomLatency.parameters = {
 
 export const WithEducationSelect = Template.bind({});
 WithEducationSelect.args = {
+  ...Default.args,
   enableEducationType: true,
 };
