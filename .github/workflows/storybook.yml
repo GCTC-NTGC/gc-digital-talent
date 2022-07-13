@@ -1,0 +1,59 @@
+name: Chromatic Storybook
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - .github/workflows/storybook.yml
+      - frontend/**
+  pull_request:
+    paths:
+      - .github/workflows/storybook.yml
+      - frontend/**
+
+jobs:
+  deployment:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    env:
+      NPM_VERSION: '8.3.0'
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          # Chromatic requires full git history.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v2.5.1
+        with:
+          node-version-file: 'frontend/.nvmrc'
+          cache: npm
+          cache-dependency-path: |
+            frontend/package-lock.json
+
+      - name: Upgrade to latest npm
+        run: npm install --global npm@${{ env.NPM_VERSION }}
+
+      - name: "Install dependencies: workspace"
+        working-directory: frontend
+        run: |
+          npm install
+
+      - name: "Build: all workspaces"
+        working-directory: frontend
+        run: |
+          npm run h2-build --workspace common
+          npm run codegen --workspaces
+          npm run intl-compile --workspaces
+
+      - name: "Publish Storybook: all"
+        uses: chromaui/action@v1
+        env:
+          MERGE_STORYBOOKS: true
+        with:
+          workingDir: frontend/admin
+          projectToken: 87148152bdff
+          # Auto-accept UI Tests on Chromatic platform.
+          # We use this setting because we're not relying on UI Tests at the
+          # moment, and want the GitHub status check in PRs (for "UI Tests") to
+          # display immediately as "passing".
+          autoAcceptChanges: true
