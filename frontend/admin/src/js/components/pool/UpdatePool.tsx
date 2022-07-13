@@ -152,7 +152,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
     }),
   );
 
-  const operationalRequirementsSubset = [
+  const operationalRequirementsSubsetV2 = [
     OperationalRequirement.OvertimeOccasional,
     OperationalRequirement.OvertimeRegular,
     OperationalRequirement.ShiftWork,
@@ -308,7 +308,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form operational requirements field.",
               })}
-              options={operationalRequirementsSubset.map((value) => ({
+              options={operationalRequirementsSubsetV2.map((value) => ({
                 value,
                 label: intl.formatMessage(getOperationalRequirement(value)),
               }))}

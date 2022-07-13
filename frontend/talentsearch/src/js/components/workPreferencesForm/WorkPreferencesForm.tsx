@@ -43,7 +43,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   function bold(msg: string) {
     return <span data-h2-font-weight="b(700)">{msg}</span>;
   }
-  const operationalRequirementsSubSelection = [
+  const operationalRequirementsSubsetV2 = [
     OperationalRequirement.OvertimeOccasional,
     OperationalRequirement.OvertimeRegular,
     OperationalRequirement.ShiftWork,
@@ -166,7 +166,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                       "Legend for optional work preferences check list in work preferences form",
                   })}
                   name="acceptedOperationalRequirements"
-                  items={operationalRequirementsSubSelection.map((value) => ({
+                  items={operationalRequirementsSubsetV2.map((value) => ({
                     value,
                     label: intl.formatMessage(
                       getOperationalRequirementCandidateDescription(value),

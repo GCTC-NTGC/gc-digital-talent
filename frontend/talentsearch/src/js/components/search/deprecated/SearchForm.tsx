@@ -184,7 +184,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     [cmoAssets, locale, intl],
   );
 
-  const operationalRequirementsSubset = [
+  const operationalRequirementsSubsetV2 = [
     OperationalRequirement.ShiftWork,
     OperationalRequirement.WorkWeekends,
     OperationalRequirement.OvertimeScheduled,
@@ -291,7 +291,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                 "Legend for the Conditions of Employment filter checklist",
             })}
             name="operationalRequirements"
-            items={operationalRequirementsSubset.map((value) => ({
+            items={operationalRequirementsSubsetV2.map((value) => ({
               value,
               label: intl.formatMessage(getOperationalRequirement(value)),
             }))}
