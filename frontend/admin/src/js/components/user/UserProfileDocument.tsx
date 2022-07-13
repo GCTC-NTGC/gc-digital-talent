@@ -43,11 +43,11 @@ const Heading: React.FC<HeadingProps & HTMLAttributes<HTMLHeadingElement>> = ({
 
   return (
     <El
-      data-h2-display="b(flex)"
-      data-h2-font-weight="b(800)"
-      data-h2-align-items="b(center)"
-      data-h2-margin="b(0, 0, x1, 0)"
-      data-h2-justify-content="b(start)"
+      data-h2-display="base(flex)"
+      data-h2-font-weight="base(800)"
+      data-h2-align-items="base(center)"
+      data-h2-margin="base(0, 0, x1, 0)"
+      data-h2-justify-content="base(start)"
       {...rest}
     >
       {Icon && <Icon className="heading-icon" />}

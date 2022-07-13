@@ -27,6 +27,10 @@ import {
   isWorkExperience,
 } from "../../../types/ExperienceUtils";
 
+const purpleText = (chunks: string[]) => (
+  <span data-h2-color="base(dt-primary)">{...chunks}</span>
+);
+
 export interface SkillAccordionProps {
   skill: Skill;
 }
@@ -43,7 +47,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     const { title, description, startDate, endDate, details } = experience;
     return (
       <>
-        <p data-h2-color="b(dt-primary)"> {title} </p>
+        <p data-h2-color="base(dt-primary)">{title}</p>
         <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
         <p> {description} </p>
         <p> {details} </p>
@@ -66,7 +70,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <div>
         <p>
-          <span data-h2-color="b(dt-primary)"> {areaOfStudy} </span>
+          <span data-h2-color="base(dt-primary)"> {areaOfStudy} </span>
           {intl.formatMessage(
             {
               defaultMessage: " at {institution}",
@@ -78,10 +82,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         <p>
           {" "}
           {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
-          <span
-            data-h2-color="b(dt-primary)"
-            data-h2-font-style="b(italic)"
-          >
+          <span data-h2-color="base(dt-primary)" data-h2-font-style="base(italic)">
             {" "}
             {status ? intl.formatMessage(getEducationStatus(status)) : ""}{" "}
           </span>
@@ -110,16 +111,13 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <>
         <p>
-          <span data-h2-color="b(dt-primary)" title="award">
-            {" "}
-            {title}{" "}
-          </span>
           {intl.formatMessage(
             {
-              defaultMessage: " issued by {issuedBy}",
+              defaultMessage:
+                "<purpleText>{title}</purpleText> issued by {issuedBy}",
               description: "The award title is issued by some group",
             },
-            { issuedBy },
+            { issuedBy, title, purpleText },
           )}
         </p>
         <p>
@@ -158,13 +156,13 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <>
         <p>
-          <span data-h2-color="b(dt-primary)"> {title} </span>
           {intl.formatMessage(
             {
-              defaultMessage: " at {organization}",
+              defaultMessage:
+                "<purpleText>{title}</purpleText> at {organization}",
               description: "Title at organization",
             },
-            { organization },
+            { organization, title, purpleText },
           )}
         </p>
         <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
@@ -198,15 +196,12 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <>
         <p>
-          <span data-h2-color="b(dt-primary)" title="work">
-            {role}{" "}
-          </span>
           {intl.formatMessage(
             {
-              defaultMessage: " at {division}",
+              defaultMessage: "<purpleText>{role}</purpleText> at {division}",
               description: "Role at Team, Group or Division",
             },
-            { division },
+            { division, role, purpleText },
           )}
         </p>
         <p>{organization}</p>
@@ -284,10 +279,10 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             )
       }
     >
-      <div data-h2-padding="b(0, 0, 0, x2)" data-testid="detail">
+      <div data-h2-padding="base(0, 0, 0, x2)" data-testid="detail">
         {renderDetail()}
       </div>
-      <div data-h2-padding="b(0, 0, 0, x2)" />
+      <div data-h2-padding="base(0, 0, 0, x2)" />
     </Accordion>
   );
 };

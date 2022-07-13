@@ -41,34 +41,34 @@ const Home: React.FunctionComponent = () => {
 
   return (
     <>
-      <div data-h2-overflow="b(hidden, x)">
+      <div data-h2-overflow="base(hidden, x)">
         <div
           className="hero"
-          data-h2-position="b(relative)"
-          data-h2-overflow="b(hidden, all)"
+          data-h2-position="base(relative)"
+          data-h2-overflow="base(hidden, all)"
         >
           <div
             className="hero__content"
-            data-h2-position="b(absolute)"
-            data-h2-width="b(100%)"
+            data-h2-position="base(absolute)"
+            data-h2-width="base(100%)"
           >
-            <div data-h2-container="b(center, full)">
+            <div data-h2-container="base(center, full)">
               <div
-                data-h2-padding="b(0, x.5) s(0, x2)"
-                data-h2-display="b(flex)"
-                data-h2-flex-direction="b(column)"
-                data-h2-align-items="b(center)"
-                data-h2-justify-content="b(space-between)"
+                data-h2-padding="base(0, x.5) p-tablet(0, x2)"
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-align-items="base(center)"
+                data-h2-justify-content="base(space-between)"
               >
                 <div
                   className="hero__logo"
-                  data-h2-margin="l(x1, 0, 0, 0)"
-                  data-h2-width="m(50%)"
+                  data-h2-margin="desktop(x1, 0, 0, 0)"
+                  data-h2-width="l-tablet(50%)"
                 >
                   <h1>
                     <img
-                      data-h2-margin="b(x1, 0, 0, 0)"
-                      data-h2-width="b(100%)"
+                      data-h2-margin="base(x1, 0, 0, 0)"
+                      data-h2-width="base(100%)"
                       src={imageUrl(
                         INDIGENOUSAPPRENTICESHIP_APP_DIR,
                         `logo-${intl.locale}.svg`,
@@ -84,9 +84,9 @@ const Home: React.FunctionComponent = () => {
                 </div>
                 <div
                   className="hero__apply"
-                  data-h2-display="b(flex)"
-                  data-h2-justify-content="b(center)"
-                  data-h2-width="m(25%)"
+                  data-h2-display="base(flex)"
+                  data-h2-justify-content="base(center)"
+                  data-h2-width="l-tablet(25%)"
                 >
                   <Button
                     color="ia-primary"
@@ -107,22 +107,22 @@ const Home: React.FunctionComponent = () => {
             className="hero__image"
             src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "hero.jpg")}
             alt=""
-            data-h2-position="b(relative)"
+            data-h2-position="base(relative)"
           />
         </div>
         <div
           className="about-program"
-          data-h2-margin="m(0, 0, x4, 0)"
-          data-h2-padding="b(0, x1) m(x1)"
-          data-h2-position="b(relative)"
-          data-h2-background-color="b(ia-white)"
-          data-h2-radius="b(s)"
+          data-h2-margin="l-tablet(0, 0, x4, 0)"
+          data-h2-padding="base(0, x1) l-tablet(x1)"
+          data-h2-position="base(relative)"
+          data-h2-background-color="base(ia-white)"
+          data-h2-radius="base(s)"
         >
-          <div data-h2-display="m(flex)" data-h2-align-items="m(flex-start)">
+          <div data-h2-display="l-tablet(flex)" data-h2-align-items="l-tablet(flex-start)">
             <div
               className="program__image-wrapper about-program__image-wrapper"
-              data-h2-position="b(relative)"
-              data-h2-padding="m(0, x1) l(0, x4)"
+              data-h2-position="base(relative)"
+              data-h2-padding="l-tablet(0, x1) desktop(0, x4)"
             >
               <img
                 src={imageUrl(
@@ -131,34 +131,34 @@ const Home: React.FunctionComponent = () => {
                 )}
                 className="program__image program__image--woman-smiling"
                 alt=""
-                data-h2-position="b(relative)"
-                data-h2-shadow="b(xs)"
+                data-h2-position="base(relative)"
+                data-h2-shadow="base(xs)"
               />
               <div
                 className="circle circle--top-right"
-                data-h2-position="b(absolute)"
-                data-h2-background-color="b(ia-primary)"
+                data-h2-position="base(absolute)"
+                data-h2-background-color="base(ia-primary)"
               />
               <div
                 className="circle circle--lg circle--bottom-left"
-                data-h2-position="b(absolute)"
-                data-h2-background-color="b(ia-secondary)"
+                data-h2-position="base(absolute)"
+                data-h2-background-color="base(ia-secondary)"
               />
               <img
                 src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "feathers.png")}
                 className="about-program__feathers"
                 alt=""
-                data-h2-position="b(absolute)"
+                data-h2-position="base(absolute)"
               />
             </div>
             <div
               className="program__content"
-              data-h2-background-color="b(ia-white)"
-              data-h2-padding="m(0, x1) l(0, x3)"
+              data-h2-background-color="base(ia-white)"
+              data-h2-padding="l-tablet(0, x1) desktop(0, x3)"
             >
               <Heading
                 className="about-program__title"
-                data-h2-font-size="b(h3, 1.3)"
+                data-h2-font-size="base(h3, 1.3)"
               >
                 {intl.formatMessage({
                   defaultMessage: "About the Program",
@@ -186,7 +186,7 @@ const Home: React.FunctionComponent = () => {
                   description: "Third paragraph about the program",
                 })}
               </p>
-              <div data-h2-margin="b(x2, 0, 0, 0)">
+              <div data-h2-margin="base(x2, 0, 0, 0)">
                 <CTAButtons
                   onClickApply={() => setApplyDialogOpen(true)}
                   onClickLearn={() => setLearnDialogOpen(true)}
@@ -197,17 +197,17 @@ const Home: React.FunctionComponent = () => {
         </div>
         <div
           className="learn-program"
-          data-h2-container="m(center, m)"
-          data-h2-margin="m(x4, 0)"
-          data-h2-position="b(relative)"
-          data-h2-background-color="b(ia-white)"
-          data-h2-radius="b(s)"
+          data-h2-container="l-tablet(center, m)"
+          data-h2-margin="l-tablet(x4, 0)"
+          data-h2-position="base(relative)"
+          data-h2-background-color="base(ia-white)"
+          data-h2-radius="base(s)"
         >
-          <div data-h2-display="m(flex)">
+          <div data-h2-display="l-tablet(flex)">
             <div
               className="program__image-wrapper learn-program__image-wrapper"
-              data-h2-position="b(relative)"
-              data-h2-padding="m(0, x1)"
+              data-h2-position="base(relative)"
+              data-h2-padding="l-tablet(0, x1)"
             >
               <img
                 src={imageUrl(
@@ -216,29 +216,29 @@ const Home: React.FunctionComponent = () => {
                 )}
                 className="program__image"
                 alt=""
-                data-h2-position="b(relative)"
+                data-h2-position="base(relative)"
               />
               <img
                 src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "gloves.png")}
                 className="learn-program__gloves"
                 alt=""
-                data-h2-position="b(absolute)"
+                data-h2-position="base(absolute)"
               />
               <RadiatingCircles
                 className="learn-program__circles"
-                data-h2-color="b(ia-gray)"
-                data-h2-position="b(absolute)"
-                data-h2-width="b(100%)"
+                data-h2-color="base(ia-gray)"
+                data-h2-position="base(absolute)"
+                data-h2-width="base(100%)"
               />
             </div>
             <div
               className="learn-program__content"
-              data-h2-position="b(relative)"
-              data-h2-margin="b(0, 0, x2, 0) m(0, 0, x.125, 0)"
+              data-h2-position="base(relative)"
+              data-h2-margin="base(0, 0, x2, 0) l-tablet(0, 0, x.125, 0)"
             >
               <Heading
-                data-h2-font-size="b(h3, 1.3)"
-                data-h2-margin="b(x2, 0, 0, 0) m(x.125, 0, 0, 0)"
+                data-h2-font-size="base(h3, 1.3)"
+                data-h2-margin="base(x2, 0, 0, 0) l-tablet(x.125, 0, 0, 0)"
                 className="learn-program__title"
               >
                 {intl.formatMessage({
@@ -270,7 +270,7 @@ const Home: React.FunctionComponent = () => {
                     "First paragraph what will you learn at the program",
                 })}
               </p>
-              <div data-h2-visibility="b(visible) m(invisible)">
+              <div data-h2-visibility="base(visible) l-tablet(invisible)">
                 <CTAButtons
                   onClickApply={() => setApplyDialogOpen(true)}
                   onClickLearn={() => setLearnDialogOpen(true)}
@@ -281,17 +281,17 @@ const Home: React.FunctionComponent = () => {
         </div>
         <div
           className="who-program"
-          data-h2-container="m(center, m)"
-          data-h2-margin="m(x4, 0)"
-          data-h2-position="b(relative)"
-          data-h2-background-color="b(ia-white)"
-          data-h2-radius="b(s)"
+          data-h2-container="l-tablet(center, m)"
+          data-h2-margin="l-tablet(x4, 0)"
+          data-h2-position="base(relative)"
+          data-h2-background-color="base(ia-white)"
+          data-h2-radius="base(s)"
         >
-          <div data-h2-display="m(flex)">
+          <div data-h2-display="l-tablet(flex)">
             <div
               className="program__image-wrapper who-program__image-wrapper"
-              data-h2-position="b(relative)"
-              data-h2-padding="b(0, x1)"
+              data-h2-position="base(relative)"
+              data-h2-padding="base(0, x1)"
             >
               <img
                 src={imageUrl(
@@ -299,31 +299,31 @@ const Home: React.FunctionComponent = () => {
                   "applicant.jpg",
                 )}
                 className="program__image"
-                data-h2-position="b(relative)"
+                data-h2-position="base(relative)"
                 alt=""
               />
               <Triangle
                 className="who-program__triangle"
-                data-h2-position="b(absolute)"
-                data-h2-width="b(100%)"
-                data-h2-color="b(ia-secondary)"
+                data-h2-position="base(absolute)"
+                data-h2-width="base(100%)"
+                data-h2-color="base(ia-secondary)"
               />
               <img
                 src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
                 className="who-program__ulu who-program__ulu--mobile"
                 alt=""
-                data-h2-position="b(absolute)"
-                data-h2-visibility="m(hidden)"
+                data-h2-position="base(absolute)"
+                data-h2-visibility="l-tablet(hidden)"
               />
             </div>
             <div
               className="who-program__content"
-              data-h2-margin="b(0, 0, x3, 0) m(0, 0, x.125, 0)"
+              data-h2-margin="base(0, 0, x3, 0) l-tablet(0, 0, x.125, 0)"
             >
               <Heading
                 className="about-program__title"
-                data-h2-font-size="b(h3, 1.3)"
-                data-h2-margin="b(x3, 0, 0, 0) m(x.125, 0, 0, 0)"
+                data-h2-font-size="base(h3, 1.3)"
+                data-h2-margin="base(x3, 0, 0, 0) l-tablet(x.125, 0, 0, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Who is the program for?",
@@ -345,10 +345,10 @@ const Home: React.FunctionComponent = () => {
                   description: "Second paragraph about who the program is for",
                 })}
               </p>
-              <div data-h2-display="m(flex)">
+              <div data-h2-display="l-tablet(flex)">
                 <div
-                  data-h2-width="m(50%)"
-                  data-h2-margin="b(0, 0, x1, 0) m(0, x.5, x1, 0)"
+                  data-h2-width="l-tablet(50%)"
+                  data-h2-margin="base(0, 0, x1, 0) l-tablet(0, x.5, x1, 0)"
                 >
                   <Button
                     color="ia-primary"
@@ -368,15 +368,15 @@ const Home: React.FunctionComponent = () => {
                 src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
                 className="who-program__ulu who-program__ulu--desktop"
                 alt=""
-                data-h2-position="b(absolute)"
-                data-h2-visibility="b(hidden) m(visible)"
+                data-h2-position="base(absolute)"
+                data-h2-visibility="base(hidden) l-tablet(visible)"
               />
             </div>
           </div>
         </div>
         <div
           className="quote-wrapper"
-          data-h2-padding="b(x4, 0)"
+          data-h2-padding="base(x4, 0)"
           style={{
             backgroundImage: `url(${imageUrl(
               INDIGENOUSAPPRENTICESHIP_APP_DIR,
@@ -384,11 +384,11 @@ const Home: React.FunctionComponent = () => {
             )})`,
           }}
         >
-          <div data-h2-container="b(center, m)">
+          <div data-h2-container="base(center, m)">
             <Heading
               light
-              data-h2-color="b(ia-white)"
-              data-h2-text-align="b(center)"
+              data-h2-color="base(ia-white)"
+              data-h2-text-align="base(center)"
             >
               {intl.formatMessage({
                 defaultMessage: "What We’re Hearing",
@@ -400,19 +400,19 @@ const Home: React.FunctionComponent = () => {
         </div>
         <div
           className="apply-program"
-          data-h2-padding="b(x3, 0, 0, 0) m(x4, 0, 0, 0)"
-          data-h2-position="b(relative)"
+          data-h2-padding="base(x3, 0, 0, 0) l-tablet(x4, 0, 0, 0)"
+          data-h2-position="base(relative)"
         >
           <div
             className="apply-program__box-wrapper"
-            data-h2-container="b(center, m)"
-            data-h2-position="b(relative)"
+            data-h2-container="base(center, m)"
+            data-h2-position="base(relative)"
           >
             <div
               className="apply-program__box"
-              data-h2-background-color="b(light.ia-secondary)"
-              data-h2-color="b(ia-white)"
-              data-h2-shadow="b(m)"
+              data-h2-background-color="base(light.ia-secondary)"
+              data-h2-color="base(ia-white)"
+              data-h2-shadow="base(m)"
             >
               <div
                 className="apply-program__box__image"
@@ -425,15 +425,15 @@ const Home: React.FunctionComponent = () => {
               />
               <div
                 className="apply-program__box__text"
-                data-h2-padding="b(x1) m(x1, x2, x1, x4)"
+                data-h2-padding="base(x1) l-tablet(x1, x2, x1, x4)"
               >
                 <Heading
                   light
-                  data-h2-display="b(flex)"
-                  data-h2-flex-direction="b(column)"
-                  data-h2-margin="b(x.125, 0, 0, 0)"
-                  data-h2-color="b(ia-white)"
-                  data-h2-font-size="b(h3, 1.3)"
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                  data-h2-margin="base(x.125, 0, 0, 0)"
+                  data-h2-color="base(ia-white)"
+                  data-h2-font-size="base(h3, 1.3)"
                 >
                   <span>
                     {intl.formatMessage({
@@ -470,7 +470,7 @@ const Home: React.FunctionComponent = () => {
             </div>
           </div>
           <div
-            data-h2-visibility="b(visible) m(hidden)"
+            data-h2-visibility="base(visible) l-tablet(hidden)"
             className="apply-program__bg"
             style={{
               backgroundImage: `url(${imageUrl(
@@ -480,7 +480,7 @@ const Home: React.FunctionComponent = () => {
             }}
           />
           <div
-            data-h2-visibility="b(hidden) m(visible)"
+            data-h2-visibility="base(hidden) l-tablet(visible)"
             className="apply-program__bg"
             style={{
               backgroundImage: `url(${imageUrl(
@@ -492,26 +492,26 @@ const Home: React.FunctionComponent = () => {
         </div>
         <div
           className="portal-panel"
-          data-h2-background-color="b(ia-secondary)"
-          data-h2-color="b(ia-white)"
-          data-h2-position="b(relative)"
-          data-h2-padding="b(0, 0, x3, 0)"
+          data-h2-background-color="base(ia-secondary)"
+          data-h2-color="base(ia-white)"
+          data-h2-position="base(relative)"
+          data-h2-padding="base(0, 0, x3, 0)"
         >
           <div
             className="portal-panel__inner"
-            data-h2-container="b(center, m)"
-            data-h2-position="b(relative)"
+            data-h2-container="base(center, m)"
+            data-h2-position="base(relative)"
           >
             <div
               className="portal-panel__banner-wrapper"
-              data-h2-display="b(flex)"
-              data-h2-justify-content="b(center)"
+              data-h2-display="base(flex)"
+              data-h2-justify-content="base(center)"
             >
               <Banner>
                 <Heading
                   color="white"
-                  data-h2-margin="b(x.125, 0)"
-                  data-h2-font-size="b(h3)"
+                  data-h2-margin="base(x.125, 0)"
+                  data-h2-font-size="base(h3)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Coming Soon!",
@@ -520,8 +520,8 @@ const Home: React.FunctionComponent = () => {
                 </Heading>
               </Banner>
             </div>
-            <div data-h2-text-align="b(center)">
-              <Heading light color="white" data-h2-margin="b(x.125, 0, 0, 0)">
+            <div data-h2-text-align="base(center)">
+              <Heading light color="white" data-h2-margin="base(x.125, 0, 0, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "IT Apprenticeship Program for Indigenous Peoples + The Indigenous Talent Portal",
@@ -529,8 +529,8 @@ const Home: React.FunctionComponent = () => {
                 })}
               </Heading>
               <div
-                data-h2-container="b(center, s)"
-                data-h2-margin="b(x3, 0)"
+                data-h2-container="base(center, s)"
+                data-h2-margin="base(x3, 0)"
               >
                 <Heading as="h3" color="white">
                   {intl.formatMessage({
@@ -549,8 +549,8 @@ const Home: React.FunctionComponent = () => {
                 </p>
               </div>
               <div
-                data-h2-display="m(flex)"
-                data-h2-margin="b(x3, 0)"
+                data-h2-display="l-tablet(flex)"
+                data-h2-margin="base(x3, 0)"
                 className="portal-panel__steps"
               >
                 <div className="portal-panel__step">
@@ -633,8 +633,8 @@ const Home: React.FunctionComponent = () => {
                 </div>
               </div>
               <div
-                data-h2-container="b(center, s)"
-                data-h2-margin="b(x3, 0)"
+                data-h2-container="base(center, s)"
+                data-h2-margin="base(x3, 0)"
               >
                 <Heading as="h3" color="white">
                   {intl.formatMessage({
@@ -653,13 +653,13 @@ const Home: React.FunctionComponent = () => {
                 </p>
               </div>
               <div
-                data-h2-display="m(flex)"
-                data-h2-margin="b(x1, 0) m(x3, 0)"
+                data-h2-display="l-tablet(flex)"
+                data-h2-margin="base(x1, 0) l-tablet(x3, 0)"
                 className="portal-panel__strategy"
               >
                 <div
                   className="portal-panel__strategy__item"
-                  data-h2-width="b(100%) s(50%) m(25%)"
+                  data-h2-width="base(100%) p-tablet(50%) l-tablet(25%)"
                 >
                   <Card
                     Icon={People}
@@ -679,7 +679,7 @@ const Home: React.FunctionComponent = () => {
                 </div>
                 <div
                   className="portal-panel__strategy__item"
-                  data-h2-width="b(100%) s(50%) m(25%)"
+                  data-h2-width="base(100%) p-tablet(50%) l-tablet(25%)"
                 >
                   <Card
                     Icon={TrendingUp}
@@ -699,7 +699,7 @@ const Home: React.FunctionComponent = () => {
                 </div>
                 <div
                   className="portal-panel__strategy__item"
-                  data-h2-width="b(100%) s(50%) m(25%)"
+                  data-h2-width="base(100%) p-tablet(50%) l-tablet(25%)"
                 >
                   <Card
                     Icon={BarChart}
@@ -719,7 +719,7 @@ const Home: React.FunctionComponent = () => {
                 </div>
                 <div
                   className="portal-panel__strategy__item"
-                  data-h2-width="b(100%) s(50%) m(25%)"
+                  data-h2-width="base(100%) p-tablet(50%) l-tablet(25%)"
                 >
                   <Card
                     Icon={Calendar}
@@ -741,15 +741,15 @@ const Home: React.FunctionComponent = () => {
             </div>
             <div
               className="talent-portal-wrapper"
-              data-h2-position="b(relative)"
-              data-h2-margin="m(x4, 0, 0, 0)"
+              data-h2-position="base(relative)"
+              data-h2-margin="l-tablet(x4, 0, 0, 0)"
             >
               <div
                 className="talent-portal-card"
-                data-h2-position="b(relative)"
-                data-h2-margin="m(x2, 0)"
-                data-h2-background-color="b(light.ia-secondary)"
-                data-h2-color="b(ia-white)"
+                data-h2-position="base(relative)"
+                data-h2-margin="l-tablet(x2, 0)"
+                data-h2-background-color="base(light.ia-secondary)"
+                data-h2-color="base(ia-white)"
                 style={{
                   backgroundImage: `url(${imageUrl(
                     INDIGENOUSAPPRENTICESHIP_APP_DIR,
@@ -757,12 +757,12 @@ const Home: React.FunctionComponent = () => {
                   )})`,
                 }}
               >
-                <div data-h2-display="m(flex)">
+                <div data-h2-display="l-tablet(flex)">
                   <div
                     className="talent-portal-card__content"
-                    data-h2-padding="b(x2)"
+                    data-h2-padding="base(x2)"
                   >
-                    <Heading color="white" light data-h2-margin="b(x.125, 0, 0, 0)">
+                    <Heading color="white" light data-h2-margin="base(x.125, 0, 0, 0)">
                       {intl.formatMessage({
                         defaultMessage: "About the Indigenous Talent Portal",
                         description: "Talent Portal information heading",
@@ -795,21 +795,21 @@ const Home: React.FunctionComponent = () => {
               </div>
               <Triangle
                 className="talent-portal__triangle"
-                data-h2-position="b(absolute)"
-                data-h2-width="b(75%)"
-                data-h2-color="b(light.ia-secondary)"
+                data-h2-position="base(absolute)"
+                data-h2-width="base(75%)"
+                data-h2-color="base(light.ia-secondary)"
               />
             </div>
           </div>
           <RadiatingCircles
             className="portal-panel__bg-item portal-panel__circles"
-            data-h2-color="b(ia-primary)"
-            data-h2-position="b(absolute)"
-            data-h2-width="b(50%)"
+            data-h2-color="base(ia-primary)"
+            data-h2-position="base(absolute)"
+            data-h2-width="base(50%)"
           />
           <ThickCircle
             className="portal-panel__bg-item portal-panel__thick-circle"
-            data-h2-position="b(absolute)"
+            data-h2-position="base(absolute)"
           />
         </div>
       </div>

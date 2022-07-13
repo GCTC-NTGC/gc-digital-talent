@@ -4,7 +4,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { Pool, UserPublicProfile } from "../../api/generated";
 
-interface SearchPoolsProps {
+export interface SearchPoolsProps {
   candidateCount: number;
   pool?: Pick<Pool, "name" | "description">;
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName">;
@@ -23,8 +23,8 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
   function bold(msg: string) {
     return (
       <span
-        data-h2-font-weight="b(700)"
-        data-h2-color="b(dt-primary)"
+        data-h2-font-weight="base(700)"
+        data-h2-color="base(dt-primary)"
         data-testid="candidateCount"
       >
         {msg}
@@ -33,11 +33,11 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
   }
   return (
     <>
-      <div data-h2-padding="b(x1)">
-        <p data-h2-font-weight="b(700)">
+      <div data-h2-padding="base(x1)">
+        <p data-h2-font-weight="base(700)">
           {pool?.name?.[locale]}
         </p>
-        <p data-h2-margin="b(x.5, 0, x1, 0)">
+        <p data-h2-margin="base(x.5, 0, x1, 0)">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -51,7 +51,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
             },
           )}
         </p>
-        <p data-h2-margin="b(x1, 0, 0, 0)">
+        <p data-h2-margin="base(x1, 0, 0, 0)">
           {intl.formatMessage(
             {
               defaultMessage: "Pool Owner: {firstName} {lastName}",
@@ -63,7 +63,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
             },
           )}
         </p>
-        <p data-h2-margin="b(x1, 0)">
+        <p data-h2-margin="base(x1, 0)">
           {pool?.description?.[locale]}
         </p>
         <Button color="cta" mode="solid" onClick={handleSubmit}>

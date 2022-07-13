@@ -15,7 +15,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
 
   return (
     <div>
-      <h2 data-h2-font-size="b(h3, 1.3)">
+      <h2 data-h2-font-size="base(h3, 1.3)">
         {intl.formatMessage({
           defaultMessage: "1. Work Experience Details",
           description: "Title for Work Experience form",
@@ -28,8 +28,8 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
           description: "Description blurb for Work Experience form",
         })}
       </p>
-      <div data-h2-display="b(flex)" data-h2-padding="b(x1, 0, 0, 0)">
-        <div data-h2-padding="b(0, x2, 0, 0)">
+      <div data-h2-display="base(flex)" data-h2-padding="base(x1, 0, 0, 0)">
+        <div data-h2-padding="base(0, x2, 0, 0)">
           <Input
             id="role"
             label={intl.formatMessage({
@@ -81,8 +81,8 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
             })}
             name="currentRole"
           />
-          <div data-h2-display="b(flex)">
-            <div data-h2-padding="b(0, x.5, 0, 0)">
+          <div data-h2-display="base(flex)">
+            <div data-h2-padding="base(0, x.5, 0, 0)">
               <Input
                 id="startDate"
                 label={intl.formatMessage({

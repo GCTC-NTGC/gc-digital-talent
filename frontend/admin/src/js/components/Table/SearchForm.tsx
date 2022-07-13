@@ -1,0 +1,44 @@
+import React from "react";
+import { useIntl } from "react-intl";
+import { useAsyncDebounce } from "react-table";
+
+export interface SearchFormProps {
+  onChange: (val: string | undefined) => void;
+}
+
+const SearchForm: React.FC<SearchFormProps> = ({ onChange }) => {
+  const intl = useIntl();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    onChange(e.target.value);
+  };
+
+  const debouncedHandleChange = useAsyncDebounce(handleChange, 200);
+
+  return (
+    <div data-h2-display="base(flex)" data-h2-margin="base(0, 0, 0, x.5)">
+      <input
+        name="search"
+        id="tableSearch"
+        type="text"
+        onChange={debouncedHandleChange}
+        aria-label={intl.formatMessage({
+          defaultMessage: "Search Table",
+          description: "Label for search field on admin tables.",
+        })}
+        placeholder={intl.formatMessage({
+          defaultMessage: "Start writing here...",
+          description:
+            "Placeholder displayed on the Global Filter form Search field.",
+        })}
+        data-h2-border="base(all, 1px, solid, dt-black)"
+        data-h2-radius="base(s)"
+        data-h2-background-color="base(dt-white)"
+        data-h2-padding="base(x.25, x.5)"
+      />
+    </div>
+  );
+};
+
+export default SearchForm;

@@ -15,7 +15,7 @@ export interface FieldsetProps {
   /** If an error string is provided, it will appear below the fieldset inputs. */
   error?: string;
   /** If a context string is provided, a small button will appear which, when toggled, shows the context string. */
-  context?: string;
+  context?: string | React.ReactNode;
   /** If true, all input elements in this fieldset will be disabled. */
   disabled?: boolean;
   /** If true, and required is false, 'Optional' will not be shown above the fieldset. */
@@ -43,36 +43,39 @@ const Fieldset: React.FC<FieldsetProps> = ({
         border: "0 none",
         padding: "0",
       }}
-      data-h2-margin="b(0, 0, x.125, 0)"
+      data-h2-margin="base(0, 0, x.125, 0)"
     >
-      <legend data-h2-visibility="b(invisible)">{legend}</legend>
+      <legend data-h2-visibility="base(invisible)">{legend}</legend>
       <div
-        data-h2-display="b(flex)"
-        data-h2-flex-wrap="b(wrap)"
-        data-h2-margin="b(0, 0, x.125, 0)"
+        data-h2-display="base(flex)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-align-items="base(center)"
+        data-h2-justify-content="base(flex-start)"
+        data-h2-margin="base(0, 0, x.125, 0)"
       >
-        <div style={{ flex: "1" }}>
-          <span
-            aria-hidden="true"
-            role="presentation"
-            data-h2-font-size="b(caption)"
-          >
-            {legend}
-          </span>
-        </div>
-        <div>
+        <span
+          aria-hidden="true"
+          role="presentation"
+          data-h2-font-size="base(caption)"
+          data-h2-margin="base(right, xxs)"
+        >
+          {legend}
+        </span>
+        <div data-h2-display="base(flex)" data-h2-align-items="base(center)">
           {
             /** If hideOptional is true, only show text if required is true. */
             (required || !hideOptional) && (
               <span
-                data-h2-font-size="b(caption)"
+                data-h2-font-size="base(caption)"
                 {...(required
-                  ? { "data-h2-color": "b(dt-error)" }
-                  : { "data-h2-color": "b(dark.dt-gray)" })}
+                  ? { "data-h2-color": "base(dt-error)" }
+                  : { "data-h2-color": "base(dark.dt-gray)" })}
               >
+                (
                 {required
                   ? intl.formatMessage(commonMessages.required)
                   : intl.formatMessage(commonMessages.optional)}
+                )
               </span>
             )
           }
@@ -80,12 +83,12 @@ const Fieldset: React.FC<FieldsetProps> = ({
             <button
               type="button"
               className="input-label-context-button"
-              data-h2-margin="b(0, 0, 0, x.125)"
+              data-h2-margin="base(0, 0, 0, x.125)"
               onClick={() =>
                 setContextIsActive((currentState) => !currentState)
               }
             >
-              <span data-h2-visibility="b(invisible)">
+              <span data-h2-visibility="base(invisible)">
                 {intl.formatMessage({
                   defaultMessage: "Toggle context",
                   description:
@@ -95,12 +98,12 @@ const Fieldset: React.FC<FieldsetProps> = ({
               {contextIsActive ? (
                 <XCircleIcon
                   style={{ width: "calc(1rem/1.25)" }}
-                  data-h2-color="b(dt-primary)"
+                  data-h2-color="base(dt-primary)"
                 />
               ) : (
                 <QuestionMarkCircleIcon
                   style={{ width: "calc(1rem/1.25)" }}
-                  data-h2-color="b(dt-primary)"
+                  data-h2-color="base(dt-primary)"
                 />
               )}
             </button>
@@ -108,19 +111,19 @@ const Fieldset: React.FC<FieldsetProps> = ({
         </div>
       </div>
       <div
-        data-h2-border="b(all, 1px, solid, dt-gray)"
-        data-h2-radius="b(input)"
-        data-h2-padding="b(x.125, x.5, 0, x.5)"
+        data-h2-border="base(all, 1px, solid, dt-gray)"
+        data-h2-radius="base(input)"
+        data-h2-padding="base(x.125, x.5, 0, x.5)"
       >
         {children}
       </div>
       {error && (
-        <div data-h2-display="b(block)" data-h2-margin="b(x.125, 0, 0, 0)">
+        <div data-h2-display="base(block)" data-h2-margin="base(x.125, 0, 0, 0)">
           <InputError isVisible={!!error} error={error} />
         </div>
       )}
       {contextIsActive && context && (
-        <div data-h2-display="b(block)" data-h2-margin="b(x.125, 0, 0, 0)">
+        <div data-h2-display="base(block)" data-h2-margin="base(x.125, 0, 0, 0)">
           <InputContext
             isVisible={contextIsActive && !!context}
             context={context}

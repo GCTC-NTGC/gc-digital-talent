@@ -28,12 +28,12 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   return (
     <>
       <div
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column)"
-        data-h2-align-items="b(flex-start)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-align-items="base(flex-start)"
         {...rest}
       >
-        <div style={{ width: "100%" }}>
+        <div>
           <InputLabel
             inputId={inputId}
             label={label}
@@ -44,19 +44,28 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
           />
         </div>
         {error && errorPosition === "top" && (
-          <div data-h2-display="b(block)" data-h2-margin="b(0, 0, x.125, 0)">
+          <div
+            data-h2-display="base(block)"
+            data-h2-margin="base(0, 0, x.125, 0)"
+          >
             <InputError isVisible={!!error} error={error} />
           </div>
         )}
         {children}
       </div>
       {error && errorPosition === "bottom" && (
-        <div data-h2-display="b(block)" data-h2-margin="b(x.125, 0, 0, 0)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputError isVisible={!!error} error={error} />
         </div>
       )}
       {contextVisible && context && (
-        <div data-h2-display="b(block)" data-h2-margin="b(x.125, 0, 0, 0)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputContext
             isVisible={contextVisible && !!context}
             context={context}

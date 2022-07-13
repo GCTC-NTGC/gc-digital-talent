@@ -8,7 +8,6 @@ import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
-import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { emptyToNull } from "@common/helpers/util";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
@@ -90,10 +89,10 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   };
 
   return (
-    <section data-h2-container="b(left, s)">
+    <section data-h2-container="base(left, s)">
       <h2
-        data-h2-font-weight="b(700)"
-        data-h2-margin="b(x2, 0, x1, 0)">
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Update User",
           description: "Title displayed on the update a user form.",
@@ -146,12 +145,6 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               })}
               type="tel"
               name="telephone"
-              rules={{
-                pattern: {
-                  value: phoneNumberRegex,
-                  message: intl.formatMessage(errorMessages.telephone),
-                },
-              }}
             />
             <Select
               id="preferredLang"

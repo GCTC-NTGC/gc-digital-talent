@@ -5,7 +5,7 @@ import { getLanguageProficiency } from "../../../constants/localizedConstants";
 
 // styling a text bit with red colour within intls
 function redText(msg: string) {
-  return <span data-h2-color="b(dt-error)">{msg}</span>;
+  return <span data-h2-color="base(dt-error)">{msg}</span>;
 }
 
 const LanguageInformationSection: React.FunctionComponent<{
@@ -37,9 +37,9 @@ const LanguageInformationSection: React.FunctionComponent<{
 
   return (
     <div
-      data-h2-background-color="b(light.dt-gray)"
-      data-h2-padding="b(x1)"
-      data-h2-radius="b(s)"
+      data-h2-background-color="base(light.dt-gray)"
+      data-h2-padding="base(x1)"
+      data-h2-radius="base(s)"
     >
       {lookingForEnglish && !lookingForFrench && !lookingForBilingual && (
         <p>
@@ -47,7 +47,7 @@ const LanguageInformationSection: React.FunctionComponent<{
             defaultMessage: "Interested in:",
             description: "Interested in label and colon",
           })}{" "}
-          <span data-h2-font-weight="b(700)">
+          <span data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "English positions",
               description: "English Positions message",
@@ -61,7 +61,7 @@ const LanguageInformationSection: React.FunctionComponent<{
             defaultMessage: "Interested in:",
             description: "Interested in label and colon",
           })}{" "}
-          <span data-h2-font-weight="b(700)">
+          <span data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "French positions",
               description: "French Positions message",
@@ -75,7 +75,7 @@ const LanguageInformationSection: React.FunctionComponent<{
             defaultMessage: "Interested in:",
             description: "Interested in label and colon",
           })}{" "}
-          <span data-h2-font-weight="b(700)">
+          <span data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "English or French positions",
               description: "English or French Positions message",
@@ -89,7 +89,7 @@ const LanguageInformationSection: React.FunctionComponent<{
             defaultMessage: "Interested in:",
             description: "Interested in label and colon",
           })}{" "}
-          <span data-h2-font-weight="b(700)">
+          <span data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Bilingual positions (English and French)",
               description: "Bilingual Positions message",
@@ -104,7 +104,7 @@ const LanguageInformationSection: React.FunctionComponent<{
             description:
               "Completed a government of canada abbreviation evaluation label and colon",
           })}{" "}
-          <span data-h2-font-weight="b(700)">
+          <span data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Yes, completed English evaluation",
               description: "Completed an English language evaluation",
@@ -119,7 +119,7 @@ const LanguageInformationSection: React.FunctionComponent<{
             description:
               "Completed a government of canada abbreviation evaluation label and colon",
           })}{" "}
-          <span data-h2-font-weight="b(700)">
+          <span data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Yes, completed French evaluation",
               description: "Completed a French language evaluation",
@@ -134,7 +134,7 @@ const LanguageInformationSection: React.FunctionComponent<{
             description:
               "Completed a government of canada abbreviation evaluation label and colon",
           })}{" "}
-          <span data-h2-font-weight="b(700)">
+          <span data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "No",
               description: "No, did not completed a language evaluation",
@@ -151,7 +151,7 @@ const LanguageInformationSection: React.FunctionComponent<{
             description:
               "Evaluation results for second language, results in that order followed by a colon",
           })}{" "}
-          <span data-h2-font-weight="b(700)">
+          <span data-h2-font-weight="base(700)">
             {comprehensionLevel}, {writtenLevel}, {verbalLevel}
           </span>
         </p>
@@ -164,7 +164,7 @@ const LanguageInformationSection: React.FunctionComponent<{
               description:
                 "Estimated skill in second language, followed by a colon",
             })}{" "}
-            <span data-h2-font-weight="b(700)">
+            <span data-h2-font-weight="base(700)">
               {estimatedLanguageAbility
                 ? getLanguageProficiency(estimatedLanguageAbility)
                     .defaultMessage
@@ -210,6 +210,15 @@ const LanguageInformationSection: React.FunctionComponent<{
                 description: "Message to click on the words to begin something",
               })}
             </a>
+          )}
+          {!editPath && (
+            <>
+              {intl.formatMessage({
+                defaultMessage: "No information has been provided.",
+                description:
+                  "Message on Admin side when user not filled language section.",
+              })}
+            </>
           )}
         </p>
       )}

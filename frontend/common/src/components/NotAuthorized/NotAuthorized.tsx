@@ -11,14 +11,14 @@ const NotAuthorized: React.FC<NotAuthorizedProps> = ({
 }) => {
   return (
     <div
-      data-h2-flex-grid="b(flex-start, 0, x3)"
-      data-h2-container="b(center, l)"
+      data-h2-flex-grid="base(flex-start, 0, x3)"
+      data-h2-container="base(center, l)"
     >
-      <div data-h2-flex-item="b(1of1)" data-h2-text-align="b(center)">
+      <div data-h2-flex-item="base(1of1)" data-h2-text-align="base(center)">
         <h3
-          data-h2-font-size="b(h4, 1.3)"
-          data-h2-font-weight="b(700)"
-          data-h2-margin="b(0, 0, x1, 0)"
+          data-h2-font-size="base(h4, 1.3)"
+          data-h2-font-weight="base(700)"
+          data-h2-margin="base(0, 0, x1, 0)"
         >
           {headingMessage}
         </h3>

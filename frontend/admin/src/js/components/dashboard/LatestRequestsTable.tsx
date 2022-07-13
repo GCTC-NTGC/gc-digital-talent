@@ -9,6 +9,7 @@ import type { PoolCandidateSearchStatus } from "@common/api/generated";
 
 import { notEmpty } from "@common/helpers/util";
 import Pending from "@common/components/Pending";
+import Heading from "@common/components/Heading";
 import Table from "../Table";
 import type { ColumnsOf } from "../Table";
 
@@ -24,7 +25,7 @@ type Data = NonNullable<
 >;
 
 const hiddenText = (...chunks: string[]) => (
-  <span data-h2-visibility="b(invisible)">{chunks}</span>
+  <span data-h2-visibility="base(invisible)">{chunks}</span>
 );
 
 const requestActionAccessor = (
@@ -33,7 +34,12 @@ const requestActionAccessor = (
   intl: IntlShape,
   fullName?: string | null,
 ) => (
-  <a key={id} href={path} data-h2-display="b(block)" data-h2-width="b(100%)">
+  <a
+    key={id}
+    href={path}
+    data-h2-display="base(block)"
+    data-h2-width="base(100%)"
+  >
     {intl.formatMessage(
       {
         defaultMessage: "View request<hidden>{name}</hidden>",
@@ -153,17 +159,17 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
 
   return (
     <>
-      <h2
+      <Heading
         id="latest-requests-heading"
-        data-h2-font-weight="b(700)"
-        data-h2-margin="b(x3, 0, x1, 0)"
+        level="h2"
+        data-h2-margin="base(x3, 0, x1, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Latest requests",
           description:
             "Title for the latests requests table in the admin dashboard",
         })}
-      </h2>
+      </Heading>
       <Table
         labelledBy="latest-requests-heading"
         data={tableData || []}

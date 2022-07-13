@@ -19,26 +19,26 @@ const colorMap: Record<
 > = {
   primary: {
     solid: {
-      "data-h2-color": "b(dt-white)",
+      "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-color": "b(dark.dt-primary)",
+      "data-h2-color": "base(dark.dt-primary)",
     },
   },
   secondary: {
     solid: {
-      "data-h2-color": "b(dt-white)",
+      "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-color": "b(dark.dt-secondary)",
+      "data-h2-color": "base(dark.dt-secondary)",
     },
   },
   neutral: {
     solid: {
-      "data-h2-color": "b(dt-white)",
+      "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-color": "b(dark.dt-gray)",
+      "data-h2-color": "base(dark.dt-gray)",
     },
   },
 };
@@ -54,13 +54,13 @@ const Chip: React.FC<ChipProps> = ({
       color={color}
       mode={mode}
       role="listitem"
-      data-h2-padding="b(x.125, x.25)"
+      data-h2-padding="base(x.125, x.25)"
     >
       {label}
       {onDismiss && (
         <XCircleIcon
           style={{ width: "1.25rem", cursor: "pointer" }}
-          data-h2-margin="b(0, 0, 0, x.125)"
+          data-h2-margin="base(0, 0, 0, x.125)"
           {...colorMap[color][mode]}
           role="button"
           onClick={onDismiss}

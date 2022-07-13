@@ -19,6 +19,9 @@ import {
   JobLookingStatus,
   PoolStatus,
   GovEmployeeType,
+  AdvertisementStatus,
+  PoolAdvertisementLanguage,
+  SecurityStatus,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -132,6 +135,38 @@ export const getLanguageAbility = (
     languageAbilities,
     languageAbilityId,
     `Invalid Language Ability '${languageAbilityId}'`,
+  );
+
+export const languageRequirements = defineMessages({
+  [PoolAdvertisementLanguage.BilingualAdvanced]: {
+    defaultMessage: "Bilingual advanced",
+    description: "The language requirement is bilingual advanced.",
+  },
+  [PoolAdvertisementLanguage.BilingualIntermediate]: {
+    defaultMessage: "Bilingual intermediate",
+    description: "The language requirement is bilingual intermediate.",
+  },
+  [PoolAdvertisementLanguage.English]: {
+    defaultMessage: "English only",
+    description: "The language requirement is English only.",
+  },
+  [PoolAdvertisementLanguage.French]: {
+    defaultMessage: "French only",
+    description: "The language requirement is French only.",
+  },
+  [PoolAdvertisementLanguage.Various]: {
+    defaultMessage: "Various",
+    description: "The language requirement is various.",
+  },
+});
+
+export const getLanguageRequirement = (
+  languageRequirementId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    languageRequirements,
+    languageRequirementId,
+    `Invalid Language Requirement '${languageRequirementId}'`,
   );
 
 export const workRegions = defineMessages({
@@ -550,38 +585,44 @@ export const getOperationalRequirementCandidateDescription = (
 
 export const operationalRequirements = defineMessages({
   [OperationalRequirement.ShiftWork]: {
-    defaultMessage: "Shift work",
+    defaultMessage: "Availability, willingness and ability to work shift-work.",
     description: "The operational requirement described as shift work.",
   },
   [OperationalRequirement.OnCall]: {
-    defaultMessage: "24/7 on-call",
+    defaultMessage:
+      "Availability, willingness and ability to work 24/7 on-call status.",
     description: "The operational requirement described as 24/7 on-call.",
   },
   [OperationalRequirement.Travel]: {
-    defaultMessage: "Travel as required",
+    defaultMessage:
+      "Availability, willingness and ability to travel as required.",
     description: "The operational requirement described as travel as required.",
   },
   [OperationalRequirement.TransportEquipment]: {
-    defaultMessage: "Transport equipment up to 20kg",
+    defaultMessage:
+      "Availability, willingness and ability to transport, lift and set down equipment weighing up to 20kg.",
     description:
       "The operational requirement described as transport equipment up to 20kg.",
   },
   [OperationalRequirement.DriversLicense]: {
-    defaultMessage: "Driver's license",
+    defaultMessage:
+      "Must possess a valid driver's license or personal mobility to the degree normally associated with possession of a valid driver's license.",
     description: "The operational requirement described as driver's license.",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage:
+      "Availability, willingness and ability to work overtime (Regularly).",
+    description: "The operational requirement described as regular overtime.",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage:
+      "Availability, willingness and ability to work overtime (Occasionally).",
+    description:
+      "The operational requirement described as occasional overtime.",
   },
   [OperationalRequirement.WorkWeekends]: {
     defaultMessage: "Work weekends",
     description: "The operational requirement described as work weekends.",
-  },
-  [OperationalRequirement.OvertimeScheduled]: {
-    defaultMessage: "Work scheduled overtime",
-    description: "The operational requirement described as scheduled overtime.",
-  },
-  [OperationalRequirement.OvertimeShortNotice]: {
-    defaultMessage: "Work overtime on short notice",
-    description:
-      "The operational requirement described as short notice overtime.",
   },
 });
 
@@ -734,4 +775,52 @@ export const getGovEmployeeType = (
     govEmployeeType,
     govEmployeeTypeId,
     `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
+  );
+
+export const advertisementStatus = defineMessages({
+  [AdvertisementStatus.Draft]: {
+    defaultMessage: "Draft",
+    description: "Draft pool advertisement status",
+  },
+  [AdvertisementStatus.Published]: {
+    defaultMessage: "Published",
+    description: "Published pool advertisement status",
+  },
+  [AdvertisementStatus.Expired]: {
+    defaultMessage: "Expired",
+    description: "Expired pool advertisement status",
+  },
+});
+
+export const getAdvertisementStatus = (
+  advertisementStatusId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    advertisementStatus,
+    advertisementStatusId,
+    `Invalid  Advertisement Status '${advertisementStatusId}'`,
+  );
+
+export const securityClearances = defineMessages({
+  [SecurityStatus.Reliability]: {
+    defaultMessage: "Reliability",
+    description: "Reliability security clearance",
+  },
+  [SecurityStatus.Secret]: {
+    defaultMessage: "Secret",
+    description: "Secret security clearance",
+  },
+  [SecurityStatus.TopSecret]: {
+    defaultMessage: "Top Secret",
+    description: "Top secret security clearance",
+  },
+});
+
+export const getSecurityClearance = (
+  securityClearanceId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    securityClearances,
+    securityClearanceId,
+    `Invalid  Advertisement Status '${securityClearanceId}'`,
   );

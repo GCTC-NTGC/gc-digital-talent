@@ -2,7 +2,7 @@ import React from "react";
 
 export interface InputContextProps {
   isVisible: boolean;
-  context: string;
+  context: string | React.ReactNode;
 }
 
 export const InputContext: React.FC<InputContextProps> = ({
@@ -11,12 +11,12 @@ export const InputContext: React.FC<InputContextProps> = ({
 }) => {
   return isVisible ? (
     <span
-      data-h2-display="b(block)"
-      data-h2-radius="b(s)"
-      data-h2-background-color="b(dt-primary.1)"
-      data-h2-padding="b(x.5)"
-      data-h2-color="b(dt-primary)"
-      data-h2-font-size="b(caption)"
+      data-h2-display="base(block)"
+      data-h2-radius="base(s)"
+      data-h2-background-color="base(dt-primary.1)"
+      data-h2-padding="base(x.5)"
+      data-h2-color="base(dt-primary)"
+      data-h2-font-size="base(caption)"
       role="alert"
     >
       {context}

@@ -167,10 +167,10 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   );
 
   return (
-    <section data-h2-container="b(left, s)">
+    <section data-h2-container="base(left, s)">
       <h2
-        data-h2-font-weight="b(700)"
-        data-h2-margin="b(x2, 0, x1, 0)">
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Update Pool Candidate",
           description: "Title displayed on the update a user form.",
@@ -179,7 +179,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h4 data-h2-margin="b(x2, 0, x1, 0)">
+            <h4 data-h2-margin="base(x2, 0, x1, 0)">
               {intl.formatMessage({
                 description: "Heading for the user information section",
                 defaultMessage: "User Information",
@@ -248,7 +248,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 label: intl.formatMessage(getLanguage(value)),
               }))}
             />
-            <h4 data-h2-margin="b(x2, 0, x1, 0)">
+            <h4 data-h2-margin="base(x2, 0, x1, 0)">
               {intl.formatMessage({
                 description: "Heading for the candidate information section",
                 defaultMessage: "Candidate Information",

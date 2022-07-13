@@ -4,6 +4,7 @@ Authenticatable
 BEHAVIOURAL
 colour
 colours
+combobox
 corejs
 darkgold
 darkgray
@@ -39,8 +40,10 @@ subquery
 TALENTSEARCH
 TELEWORK
 testid
+textbox
 toastify
 Unencrypted
 unlocalized
 urql
+viewports
 WCAG

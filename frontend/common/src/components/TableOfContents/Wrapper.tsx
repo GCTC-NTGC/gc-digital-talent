@@ -2,11 +2,11 @@ import React from "react";
 
 const Wrapper: React.FC = ({ children }) => (
   <div
-    data-h2-position="b(relative)"
-    data-h2-flex-grid="b(flex-start, 0, 0)"
-    data-h2-container="b(center, l)"
-    data-h2-padding="b(0, x.5)"
-    data-h2-margin="b(0, 0, x2, 0)"
+    data-h2-position="base(relative)"
+    data-h2-flex-grid="base(flex-start, 0, 0)"
+    data-h2-container="base(center, l)"
+    data-h2-padding="base(0, x.5)"
+    data-h2-margin="base(0, 0, x2, 0)"
   >
     {children}
   </div>

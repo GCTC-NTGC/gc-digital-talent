@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-key */
-import React, { ReactElement, useState } from "react";
+import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
+import React, { HTMLAttributes, ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -9,10 +10,13 @@ import {
   Column,
   usePagination,
 } from "react-table";
-import { Button } from "@common/components";
+import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
-import GlobalFilter from "../GlobalFilter";
+import { PlusIcon, TableIcon } from "@heroicons/react/outline";
+import Dialog from "@common/components/Dialog";
+import { Fieldset } from "@common/components/inputPartials";
 import SortIcon from "./SortIcon";
+import SearchForm from "./SearchForm";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
@@ -21,6 +25,11 @@ export interface TableProps<
 > {
   columns: Array<Column<T>>;
   data: Array<T>;
+  title?: string;
+  addBtn?: {
+    path: string;
+    label: string;
+  };
   filter?: boolean;
   pagination?: boolean;
   hiddenCols?: string[];
@@ -55,10 +64,31 @@ const IndeterminateCheckbox: React.FC<
   );
 };
 
+const Spacer: React.FC = ({ children }) => (
+  <div data-h2-margin="base(0, 0, 0, x.5)" style={{ flexShrink: 0 }}>
+    {children}
+  </div>
+);
+
+const ButtonIcon: React.FC<{
+  icon: React.FC<HTMLAttributes<HTMLOrSVGElement>>;
+}> = ({ icon }) => {
+  const Icon = icon;
+
+  return (
+    <Icon
+      style={{ height: "1em", width: "1rem" }}
+      data-h2-margin="base(right, xs)"
+    />
+  );
+};
+
 function Table<T extends Record<string, unknown>>({
   columns,
   data,
   labelledBy,
+  title,
+  addBtn,
   filter = true,
   pagination = true,
   hiddenCols = [],
@@ -68,11 +98,10 @@ function Table<T extends Record<string, unknown>>({
     getTableBodyProps,
     headerGroups,
     prepareRow,
-    setGlobalFilter,
-    state,
     allColumns,
     getToggleHideAllColumnsProps,
     rows,
+    setGlobalFilter,
     state: { pageIndex, pageSize },
     gotoPage,
     setPageSize,
@@ -94,46 +123,62 @@ function Table<T extends Record<string, unknown>>({
   const intl = useIntl();
 
   return (
-    <div>
-      {filter ? (
-        <div data-h2-padding="b(x1, 0)">
-          <div data-h2-flex-grid="b(center, 0, x1)">
-            <div data-h2-flex-item="b(1of1) m(1of3)">
-              <GlobalFilter
-                globalFilter={state.globalFilter}
-                setGlobalFilter={setGlobalFilter}
-              />
-            </div>
-            <div
-              data-h2-flex-item="b(1of1) m(2of3)"
-              data-h2-text-align="b(center) m(right)"
-            >
-              <div data-h2-position="b(relative)" style={{ float: "right" }}>
+    <div data-h2-margin="base(top-bottom, m)">
+      {filter && (
+        <div
+          data-h2-align-items="base(center)"
+          data-h2-display="base(flex)"
+          data-h2-background-color="base(dt-gray.light)"
+          data-h2-justify-content="base(space-between)"
+          data-h2-radius="base(s, s, none, none)"
+          data-h2-padding="base(x.5)"
+        >
+          <div style={{ flexShrink: 0 }}>
+            {title && <span data-h2-font-weight="base(800)">{title}</span>}
+          </div>
+          <div
+            style={{ flexShrink: 0 }}
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(flex-end)"
+          >
+            <SearchForm onChange={setGlobalFilter} />
+            <Spacer>
+              <div data-h2-position="base(relative)">
                 <Button
-                  color="secondary"
-                  mode="inline"
-                  onClick={() => {
-                    setShowList((currentState) => !currentState);
-                  }}
+                  mode="outline"
+                  color="black"
+                  type="button"
+                  data-h2-display="base(inline-flex)"
+                  data-h2-align-items="base(center)"
+                  onClick={() => setShowList(!showList)}
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Hide/Show Table Columns",
-                    description: "Label displayed on the Table Columns toggle.",
-                  })}
+                  <ButtonIcon icon={TableIcon} />
+                  <span>
+                    {intl.formatMessage({
+                      defaultMessage: "Columns",
+                      description:
+                        "Label displayed on the Table Columns toggle button.",
+                    })}
+                  </span>
                 </Button>
-                {showList ? (
-                  <div
-                    data-h2-position="b(absolute)"
-                    data-h2-margin="b(0, x.5)"
-                    data-h2-padding="b(x.5)"
-                    data-h2-border="b(all, 1px, solid, dt-gray)"
-                    data-h2-radius="b(s)"
-                    data-h2-background-color="b(dt-white)"
-                    style={{
-                      textAlign: "left",
-                    }}
+                <Dialog
+                  color="ts-primary"
+                  isOpen={showList}
+                  onDismiss={() => setShowList(false)}
+                  title={intl.formatMessage({
+                    defaultMessage: "Table columns",
+                    description:
+                      "Dialog title for the admin tables columns toggle.",
+                  })}
+                >
+                  <Fieldset
+                    legend={intl.formatMessage({
+                      defaultMessage: "Visible columns",
+                      description:
+                        "Legend for the column toggle in admin tables.",
+                    })}
                   >
-                    <div>
+                    <div data-h2-margin="base(top-bottom, xxs)">
                       <IndeterminateCheckbox
                         {...(getToggleHideAllColumnsProps() as React.ComponentProps<
                           typeof IndeterminateCheckbox
@@ -141,7 +186,10 @@ function Table<T extends Record<string, unknown>>({
                       />
                     </div>
                     {allColumns.map((column) => (
-                      <div key={column.id}>
+                      <div
+                        key={column.id}
+                        data-h2-margin="base(top-bottom, xxs)"
+                      >
                         <label htmlFor={column.Header?.toString()}>
                           <input
                             id={column.Header?.toString()}
@@ -152,21 +200,37 @@ function Table<T extends Record<string, unknown>>({
                         </label>
                       </div>
                     ))}
-                  </div>
-                ) : null}
+                  </Fieldset>
+                </Dialog>
               </div>
-            </div>
+            </Spacer>
+            {addBtn && (
+              <Spacer>
+                <Link
+                  mode="outline"
+                  color="black"
+                  type="button"
+                  data-h2-display="base(inline-flex)"
+                  data-h2-align-items="base(center)"
+                  style={{ textDecoration: "none" }}
+                  href={addBtn.path}
+                >
+                  <ButtonIcon icon={PlusIcon} />
+                  <span>{addBtn.label}</span>
+                </Link>
+              </Spacer>
+            )}
           </div>
         </div>
-      ) : null}
+      )}
       <div
-        data-h2-overflow="b(auto, all)"
+        data-h2-overflow="base(auto, all)"
         style={{ maxWidth: "100%" }}
-        data-h2-shadow="b(m)"
+        data-h2-shadow="base(m)"
       >
         <table
           aria-labelledby={labelledBy}
-          data-h2-width="b(100%)"
+          data-h2-width="base(100%)"
           {...getTableProps()}
         >
           <thead>
@@ -176,16 +240,16 @@ function Table<T extends Record<string, unknown>>({
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     key={column.id}
-                    data-h2-background-color="b(light.dt-secondary)"
-                    data-h2-color="b(dt-white)"
-                    data-h2-font-weight="b(700)"
-                    data-h2-padding="b(x.5, x1)"
-                    data-h2-text-align="b(left)"
-                    data-h2-font-size="b(caption)"
+                    data-h2-background-color="base(light.dt-secondary)"
+                    data-h2-color="base(dt-white)"
+                    data-h2-font-weight="base(700)"
+                    data-h2-padding="base(x.5, x1)"
+                    data-h2-text-align="base(left)"
+                    data-h2-font-size="base(caption)"
                   >
                     <span
-                      data-h2-display="b(flex)"
-                      data-h2-align-items="b(center)"
+                      data-h2-display="base(flex)"
+                      data-h2-align-items="base(center)"
                     >
                       <span>{column.render("Header")}</span>
                       {column.isSorted && (
@@ -206,9 +270,9 @@ function Table<T extends Record<string, unknown>>({
                     return (
                       <td
                         {...cell.getCellProps()}
-                        data-h2-padding="b(x.5)"
-                        data-h2-text-align="b(left)"
-                        data-h2-font-size="b(caption)"
+                        data-h2-padding="base(x.5)"
+                        data-h2-text-align="base(left)"
+                        data-h2-font-size="base(caption)"
                       >
                         {cell.render("Cell")}
                       </td>
@@ -220,20 +284,59 @@ function Table<T extends Record<string, unknown>>({
           </tbody>
         </table>
       </div>
-      {pagination && (
-        <Pagination
-          currentPage={pageIndex + 1}
-          handlePageChange={(pageNumber) => gotoPage(pageNumber - 1)}
-          handlePageSize={setPageSize}
-          pageSize={pageSize}
-          pageSizes={[10, 20, 30, 40, 50]}
-          totalCount={rows.length}
-          ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
-          color="black"
-          mode="outline"
-          data-h2-margin="b(all, none)"
-        />
-      )}
+      <div
+        data-h2-align-items="base(center)"
+        data-h2-display="base(flex)"
+        data-h2-background-color="base(dt-gray.light)"
+        data-h2-justify-content="base(space-between)"
+        data-h2-radius="base(none, none, s, s)"
+        data-h2-padding="base(x.5)"
+      >
+        <div
+          data-h2-display="base(flex)"
+          data-h2-align-items="base(center)"
+          data-h2-margin="base(0, x.5, 0, 0)"
+        >
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Selected actions:",
+              description: "Label for action buttons in footer of admin table.",
+            })}
+          </p>
+          <Spacer>
+            <Button type="button" mode="solid" color="primary">
+              {intl.formatMessage({
+                defaultMessage: "Download XML",
+                description:
+                  "Text label for button to download an xml file of items in a table.",
+              })}
+            </Button>
+          </Spacer>
+          <Spacer>
+            <Button type="button" mode="solid" color="primary">
+              {intl.formatMessage({
+                defaultMessage: "Download PDF",
+                description:
+                  "Text label for button to download a pdf of items in a table.",
+              })}
+            </Button>
+          </Spacer>
+        </div>
+        {pagination && (
+          <Pagination
+            currentPage={pageIndex + 1}
+            onCurrentPageChange={(pageNumber) => gotoPage(pageNumber - 1)}
+            onPageSizeChange={setPageSize}
+            pageSize={pageSize}
+            pageSizes={[10, 20, 30, 40, 50]}
+            totalCount={rows.length}
+            ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
+            color="black"
+            mode="outline"
+            data-h2-margin="base(all, none)"
+          />
+        )}
+      </div>
     </div>
   );
 }

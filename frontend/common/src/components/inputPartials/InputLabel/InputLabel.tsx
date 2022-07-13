@@ -30,28 +30,34 @@ const InputLabel: React.FC<InputLabelProps> = ({
   const intl = useIntl();
   return (
     <div
-      data-h2-display="b(flex)"
-      data-h2-flex-wrap="b(wrap)"
-      data-h2-margin="b(0, 0, x.125, 0)"
+      data-h2-display="base(flex)"
+      data-h2-flex-wrap="base(wrap)"
+      data-h2-align-items="base(center)"
+      data-h2-justify-content="base(flex-start)"
+      data-h2-margin="base(0, 0, x.125, 0)"
     >
-      <div style={{ flex: "1" }}>
-        <label data-h2-font-size="b(caption)" htmlFor={inputId}>
-          {label}
-        </label>
-      </div>
-      <div>
+      <label
+        data-h2-font-size="base(caption)"
+        data-h2-margin="base(right, xxs)"
+        htmlFor={inputId}
+      >
+        {label}
+      </label>
+      <div data-h2-display="base(flex)" data-h2-align-items="base(center)">
         {
           /** If hideOptional is true, only show text if required is true. */
           (required || !hideOptional) && (
             <span
-              data-h2-font-size="b(caption)"
+              data-h2-font-size="base(caption)"
               {...(required
-                ? { "data-h2-color": "b(dt-error)" }
-                : { "data-h2-color": "b(dark.dt-gray)" })}
+                ? { "data-h2-color": "base(dt-error)" }
+                : { "data-h2-color": "base(dark.dt-gray)" })}
             >
+              (
               {required
                 ? intl.formatMessage(commonMessages.required)
                 : intl.formatMessage(commonMessages.optional)}
+              )
             </span>
           )
         }
@@ -59,10 +65,10 @@ const InputLabel: React.FC<InputLabelProps> = ({
           <button
             type="button"
             className="input-label-context-button"
-            data-h2-margin="b(0, 0, 0, x.125)"
+            data-h2-margin="base(0, 0, 0, x.125)"
             onClick={clickHandler}
           >
-            <span data-h2-visibility="b(invisible)">
+            <span data-h2-visibility="base(invisible)">
               {intl.formatMessage({
                 defaultMessage: "Toggle context",
                 description:
@@ -72,12 +78,12 @@ const InputLabel: React.FC<InputLabelProps> = ({
             {contextIsActive ? (
               <XCircleIcon
                 style={{ width: "calc(1rem/1.25)" }}
-                data-h2-color="b(dt-primary)"
+                data-h2-color="base(dt-primary)"
               />
             ) : (
               <QuestionMarkCircleIcon
                 style={{ width: "calc(1rem/1.25)" }}
-                data-h2-color="b(dt-primary)"
+                data-h2-color="base(dt-primary)"
               />
             )}
           </button>

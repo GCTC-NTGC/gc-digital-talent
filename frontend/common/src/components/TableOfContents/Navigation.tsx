@@ -6,16 +6,16 @@ const Navigation: React.FC = ({ children }) => {
 
   return (
     <div
-      data-h2-flex-item="b(1of1) s(1of4)"
-      data-h2-visibility="b(hidden) s(visible)"
-      data-h2-text-align="b(right)"
-      data-h2-position="b(sticky)"
+      data-h2-flex-item="base(1of1) p-tablet(1of4)"
+      data-h2-visibility="base(hidden) p-tablet(visible)"
+      data-h2-text-align="base(right)"
+      data-h2-position="base(sticky)"
     >
       <p
         id="toc-heading"
-        data-h2-font-size="b(h5, 1.3)"
-        data-h2-font-weight="b(800)"
-        data-h2-margin="b(x2, 0, 0, 0)"
+        data-h2-font-size="base(h5, 1.3)"
+        data-h2-font-weight="base(800)"
+        data-h2-margin="base(x2, 0, 0, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "On this page",
@@ -24,9 +24,9 @@ const Navigation: React.FC = ({ children }) => {
       </p>
       <nav
         aria-labelledby="toc-heading"
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column)"
-        data-h2-align-items="b(flex-end)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-align-items="base(flex-end)"
       >
         {children}
       </nav>

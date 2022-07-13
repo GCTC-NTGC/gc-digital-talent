@@ -8,10 +8,18 @@ import {
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
-import { Tab, TabSet } from "@common/components/tabs";
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+} from "@common/components/Tabs";
 import { commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { isEmpty } from "lodash";
+import Heading from "@common/components/Heading";
 import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -32,7 +40,13 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
     description: "Title for the page when viewing an individual user.",
   });
 
-  const userName = `${user?.firstName} ${user?.lastName}`;
+  let userName = `${user?.firstName} ${user?.lastName}`;
+  if (isEmpty(user?.firstName) && isEmpty(user?.firstName)) {
+    userName = intl.formatMessage({
+      defaultMessage: "(Missing name)",
+      description: "Message for Missing names in profile",
+    });
+  }
 
   const links = [
     {
@@ -56,25 +70,36 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
     },
   ] as BreadcrumbsProps["links"];
 
+  const tabs = [
+    intl.formatMessage({
+      defaultMessage: "General Information",
+      description: "Tabs title for the individual user general info.",
+    }),
+    intl.formatMessage({
+      defaultMessage: "Candidate Profile",
+      description: "Tabs title for the individual user profile.",
+    }),
+  ];
+
   return (
     <>
       <PageHeader icon={UserCircleIcon}>{pageTitle}</PageHeader>
       <Breadcrumbs links={links} />
       <div
-        data-h2-align-items="b(center)"
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column) m(row)"
-        data-h2-margin="b(x2, 0)"
+        data-h2-align-items="base(center)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-margin="base(x2, 0)"
       >
         {userName !== " " && (
-          <h3
-            data-h2-margin="b(x.5, 0) m(0)"
-            data-h2-font-weight="b(800)"
+          <Heading
+            level="h2"
+            data-h2-margin="base(x.5, 0) l-tablet(0)"
           >
             {userName}
-          </h3>
+          </Heading>
         )}
-        <div data-h2-margin="m(0)">
+        <div data-h2-margin="l-tablet(0)">
           <UserProfilePrintButton userId={user.id}>
             <span>
               <PrinterIcon style={{ width: "1rem" }} />{" "}
@@ -86,24 +111,23 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
           </UserProfilePrintButton>
         </div>
       </div>
-      <TabSet>
-        <Tab
-          text={intl.formatMessage({
-            defaultMessage: "General Information",
-            description: "Tabs title for the individual user general info.",
-          })}
-        >
-          <GeneralInfoTabApi userId={user.id} />
-        </Tab>
-        <Tab
-          text={intl.formatMessage({
-            defaultMessage: "Candidate Profile",
-            description: "Tabs title for the individual user profile.",
-          })}
-        >
-          <UserProfileApi userId={user.id} />
-        </Tab>
-      </TabSet>
+      <Tabs>
+        <TabList>
+          {tabs.map((tab, index) => (
+            <Tab key={tab} index={index}>
+              {tab}
+            </Tab>
+          ))}
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <GeneralInfoTabApi userId={user.id} />
+          </TabPanel>
+          <TabPanel>
+            <UserProfileApi userId={user.id} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </>
   );
 };

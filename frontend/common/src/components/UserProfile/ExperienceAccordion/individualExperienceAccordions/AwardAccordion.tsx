@@ -72,7 +72,7 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
       Icon={BriefCaseIcon}
       defaultOpen={defaultOpen}
     >
-      <div data-h2-padding="b(0, 0, 0, x2)">
+      <div data-h2-padding="base(0, 0, 0, x2)">
         <p>
           {intl.formatMessage(
             {
@@ -100,8 +100,8 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
         </p>
       </div>
       <hr />
-      <div data-h2-padding="b(0, 0, 0, x2)">{skillsList}</div>
-      <div data-h2-padding="b(0, 0, 0, x2)">
+      <div data-h2-padding="base(0, 0, 0, x2)">{skillsList}</div>
+      <div data-h2-padding="base(0, 0, 0, x2)">
         <p>
           {intl.formatMessage(
             {
@@ -113,7 +113,7 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
         </p>
       </div>
       {editUrl && (
-        <div data-h2-padding="b(0, 0, 0, x2)">
+        <div data-h2-padding="base(0, 0, 0, x2)">
           <Link href={editUrl} color="primary" mode="outline" type="button">
             {intl.formatMessage({
               defaultMessage: "Edit Experience",

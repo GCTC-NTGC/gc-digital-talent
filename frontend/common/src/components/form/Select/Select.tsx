@@ -38,7 +38,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
 
   const error = get(errors, name)?.message;
   return (
-    <div data-h2-margin="b(x1, 0)">
+    <div data-h2-margin="base(x1, 0)">
       <InputWrapper
         inputId={id}
         label={label}
@@ -47,9 +47,9 @@ const Select: React.FunctionComponent<SelectProps> = ({
         error={error}
       >
         <select
-          data-h2-padding="b(x.25, x.5)"
-          data-h2-radius="b(input)"
-          data-h2-border="b(all, 1px, solid, dt-gray)"
+          data-h2-padding="base(x.25, x.5)"
+          data-h2-radius="base(input)"
+          data-h2-border="base(all, 1px, solid, dt-gray)"
           id={id}
           style={{ width: "100%", paddingTop: "4.5px", paddingBottom: "4.5px" }}
           {...register(name, rules)}

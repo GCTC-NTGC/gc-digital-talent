@@ -17,9 +17,9 @@ const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
   const poolCandidates = unpackMaybes(applicant.poolCandidates);
   return (
     <div
-      data-h2-background-color="b(light.dt-gray)"
-      data-h2-padding="b(x1)"
-      data-h2-radius="b(s)"
+      data-h2-background-color="base(light.dt-gray)"
+      data-h2-padding="base(x1)"
+      data-h2-radius="base(s)"
     >
       {(!poolCandidates || poolCandidates.length === 0) && (
         <p>
@@ -34,10 +34,10 @@ const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
         poolCandidates.map((poolCandidate) => (
           <div
             key={poolCandidate?.id}
-            data-h2-display="b(flex)"
-            data-h2-flex-direction="b(row)"
-            data-h2-justify-content="b(space-between)"
-            data-h2-padding="b(x1, 0)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(row)"
+            data-h2-justify-content="base(space-between)"
+            data-h2-padding="base(x1, 0)"
           >
             <div>
               <p>{poolCandidate?.pool?.name?.[locale]}</p>

@@ -9,7 +9,7 @@ const SearchHeading: React.FunctionComponent = () => {
   return (
     <header>
       <div
-        data-h2-padding="b(x2.5, 0, x4, 0) p-tablet(x4, 0, x6, 0)"
+        data-h2-padding="base(x2.5, 0, x4, 0) p-tablet(x4, 0, x6, 0)"
         style={{
           background: `linear-gradient(70deg, rgba(103, 76, 144, 0.9), rgba(29, 44, 76, 1)), url(${imageUrl(
             paths.home(),
@@ -19,12 +19,12 @@ const SearchHeading: React.FunctionComponent = () => {
           backgroundBlendMode: "multiply",
         }}
       >
-        <div data-h2-container="b(center, medium, x1) p-tablet(center, medium, x2)">
+        <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
           <h1
-            data-h2-font-size="b(h1, 1)"
-            data-h2-text-align="b(center)"
-            data-h2-color="b(dt-white)"
-            data-h2-font-weight="b(700)"
+            data-h2-font-size="base(h1, 1)"
+            data-h2-text-align="base(center)"
+            data-h2-color="base(dt-white)"
+            data-h2-font-weight="base(700)"
             style={{ letterSpacing: "-2px" }}
           >
             {intl.formatMessage({
@@ -35,18 +35,18 @@ const SearchHeading: React.FunctionComponent = () => {
           </h1>
         </div>
       </div>
-      <div data-h2-margin="b(-x2, 0, 0, 0) p-tablet(-x4, 0, 0, 0)">
-        <div data-h2-container="b(center, medium, x1) p-tablet(center, medium, x2)">
+      <div data-h2-margin="base(-x2, 0, 0, 0) p-tablet(-x4, 0, 0, 0)">
+        <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
           <div
-            data-h2-background-color="b(dt-white)"
-            data-h2-padding="b(x2) p-tablet(x2, x4)"
-            data-h2-radius="b(s)"
-            data-h2-shadow="b(s)"
+            data-h2-background-color="base(dt-white)"
+            data-h2-padding="base(x2) p-tablet(x2, x4)"
+            data-h2-radius="base(s)"
+            data-h2-shadow="base(s)"
           >
             <h2
-              data-h2-color="b(dt-black)"
-              data-h2-margin="b(0, 0, x1, 0)"
-              data-h2-text-align="b(center) p-tablet(left)"
+              data-h2-color="base(dt-black)"
+              data-h2-margin="base(0, 0, x1, 0)"
+              data-h2-text-align="base(center) p-tablet(left)"
             >
               {intl.formatMessage({
                 defaultMessage: "About the Digital Talent Pool",

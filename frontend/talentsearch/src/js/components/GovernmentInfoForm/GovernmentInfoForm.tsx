@@ -9,7 +9,10 @@ import { toast } from "react-toastify";
 import { empty, notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { getGovEmployeeType } from "@common/constants/localizedConstants";
-import { enumToOptions } from "@common/helpers/formUtils";
+import {
+  enumToOptions,
+  objectsToSortedOptions,
+} from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
 import {
   Classification,
@@ -151,7 +154,6 @@ export const GovernmentInfoForm: React.FunctionComponent<
   groupSelection,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
   // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
   const classGroupsWithDupes: { value: string; label: string }[] =
@@ -183,23 +185,10 @@ export const GovernmentInfoForm: React.FunctionComponent<
       };
     });
 
-  const departmentOptions: { value: string; label: string }[] = departments.map(
-    ({ id, name }) => ({
-      value: id,
-      label:
-        name[locale] ??
-        intl.formatMessage({
-          defaultMessage: "Error: department name not found.",
-          description:
-            "Error message when department name is not found on request page.",
-        }),
-    }),
-  );
-
   // render the actual form
   return (
     <div>
-      <div data-h2-flex-item="b(1of1) s(1of2) m(1of6) l(1of12)">
+      <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of6) desktop(1of12)">
         <RadioGroup
           idPrefix="govEmployeeYesNo"
           legend={intl.formatMessage({
@@ -241,7 +230,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
       </div>
       {govEmployee === "yes" && (
         <>
-          <div data-h2-padding="b(x1, 0)">
+          <div data-h2-padding="base(x1, 0)">
             <Select
               id="department"
               name="department"
@@ -255,13 +244,13 @@ export const GovernmentInfoForm: React.FunctionComponent<
                 description:
                   "Null selection for department select input in the request form.",
               })}
-              options={departmentOptions}
+              options={objectsToSortedOptions(departments, intl)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
           </div>
-          <div data-h2-padding="b(0, 0, x.5, 0)" data-h2-flex-item="b(1of3)">
+          <div data-h2-padding="base(0, 0, x.5, 0)" data-h2-flex-item="base(1of3)">
             <RadioGroup
               idPrefix="govEmployeeType"
               legend={intl.formatMessage({
@@ -298,7 +287,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
       {govEmployee === "yes" &&
         (govEmployeeStatus === GovEmployeeType.Term ||
           govEmployeeStatus === GovEmployeeType.Indeterminate) && (
-          <div data-h2-padding="b(0, 0, x1, 0)">
+          <div data-h2-padding="base(0, 0, x1, 0)">
             <Checkbox
               id="lateralDeployBool"
               label={intl.formatMessage({
@@ -325,12 +314,12 @@ export const GovernmentInfoForm: React.FunctionComponent<
             })}
           </p>
         )}
-      <div data-h2-display="b(flex)" data-h2-flex-direction="b(column) s(row)">
+      <div data-h2-display="base(flex)" data-h2-flex-direction="base(column) p-tablet(row)">
         {govEmployee === "yes" &&
           (govEmployeeStatus === GovEmployeeType.Term ||
             govEmployeeStatus === GovEmployeeType.Indeterminate ||
             govEmployeeStatus === GovEmployeeType.Casual) && (
-            <div data-h2-padding="s(0, x2, 0, 0)" style={{ width: "100%" }}>
+            <div data-h2-padding="p-tablet(0, x2, 0, 0)" style={{ width: "100%" }}>
               <Select
                 id="currentClassificationGroup"
                 label={intl.formatMessage({
@@ -495,10 +484,11 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
           const message = intl.formatMessage(profileMessages.profileCompleted);
           if (!preProfileStatus && currentProfileStatus) {
             toast.success(message);
+            navigate(paths.profile());
           }
-          navigate(paths.profile());
-          toast.success(intl.formatMessage(profileMessages.userUpdated));
         }
+        navigate(paths.profile());
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));

@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
   const location = useLocation();
 
   return (
-    <div data-h2-padding="b(x1)">
+    <div data-h2-padding="base(x1)">
       <PageHeader icon={HomeIcon}>
         {intl.formatMessage({
           defaultMessage: "Home",
@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
             "Instructional text for the talent cloud pool manager portal home page.",
         })}
       </p>
-      <div data-h2-width="b(100%) m(50%) l(25%)" data-h2-margin="b(x2, 0, 0, 0)">
+      <div data-h2-width="base(100%) l-tablet(50%) desktop(25%)" data-h2-margin="base(x2, 0, 0, 0)">
         <CardLink
           external
           href={apiRoutes.login(location.pathname, getLocale(intl))}

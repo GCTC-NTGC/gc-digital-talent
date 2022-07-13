@@ -16,6 +16,7 @@ import {
 } from "@common/helpers/storageUtils";
 import { EquitySelections } from "@common/api/generated";
 import Pending from "@common/components/Pending";
+import { objectsToSortedOptions } from "@common/helpers/formUtils";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import {
   Department,
@@ -33,7 +34,6 @@ import {
 } from "../../api/generated";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
 
-type Option<V> = { value: V; label: string };
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
 type FormValues = {
   fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
@@ -78,7 +78,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useTalentSearchRoutes();
   const cacheKey = "ts-createRequest";
 
@@ -157,26 +156,13 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       });
   };
 
-  const departmentOptions: Option<string>[] = departments.map(
-    ({ id, name }) => ({
-      value: id,
-      label:
-        name[locale] ??
-        intl.formatMessage({
-          defaultMessage: "Error: department name not found.",
-          description:
-            "Error message when department name is not found on request page.",
-        }),
-    }),
-  );
-
   function span(msg: string): JSX.Element {
-    return <span data-h2-color="b(dt-primary)">{msg}</span>;
+    return <span data-h2-color="base(dt-primary)">{msg}</span>;
   }
 
   return (
     <section>
-      <h2 data-h2-margin="b(0, 0, x1, 0)">
+      <h2 data-h2-margin="base(0, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Request Form",
           description: "Heading for request form.",
@@ -191,8 +177,8 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       </p>
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div data-h2-flex-grid="b(flex-start, 0, 0) p-tablet(flex-start, 0, x2, 0)">
-            <div data-h2-flex-item="b(1of1) p-tablet(1of2)">
+          <div data-h2-flex-grid="base(flex-start, 0, 0) p-tablet(flex-start, 0, x2, 0)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 id="fullName"
                 type="text"
@@ -211,7 +197,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 }}
               />
             </div>
-            <div data-h2-flex-item="b(1of1) p-tablet(1of2)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Select
                 id="department"
                 name="department"
@@ -225,13 +211,13 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                   description:
                     "Null selection for department select input in the request form.",
                 })}
-                options={departmentOptions}
+                options={objectsToSortedOptions(departments, intl)}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
               />
             </div>
-            <div data-h2-flex-item="b(1of1) p-tablet(1of2)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 id="email"
                 type="email"
@@ -251,7 +237,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 }}
               />
             </div>
-            <div data-h2-flex-item="b(1of1) p-tablet(1of2)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 id="jobTitle"
                 type="text"
@@ -272,7 +258,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             </div>
           </div>
           <div>
-            <p data-h2-margin="b(x2, 0, 0, 0)">
+            <p data-h2-margin="base(x2, 0, 0, 0)">
               {intl.formatMessage({
                 defaultMessage:
                   "In this field please include any additional details and qualifications you are seeking from the candidates such as: programming languages, certifications, knowledge, or a specific work location.",
@@ -291,14 +277,14 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               rows={8}
             />
           </div>
-          <h2 data-h2-margin="b(x2, 0, x1, 0)">
+          <h2 data-h2-margin="base(x2, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage: "Summary of filters",
               description: "Title of Summary of filters section",
             })}
           </h2>
           <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
-          <p data-h2-margin="b(x2, 0, x1, 0)" data-h2-font-weight="b(600)">
+          <p data-h2-margin="base(x2, 0, x1, 0)" data-h2-font-weight="base(600)">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -312,15 +298,15 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               },
             )}
           </p>
-          <div data-h2-flex-grid="b(flex-start, 0, 0, x1) p-tablet(center, 0, x2, 0)">
+          <div data-h2-flex-grid="base(flex-start, 0, 0, x1) p-tablet(center, 0, x2, 0)">
             <div
-              data-h2-text-align="b(center) p-tablet(left)"
-              data-h2-flex-item="b(1of1) p-tablet(1of2)"
+              data-h2-text-align="base(center) p-tablet(left)"
+              data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
               <Button
                 color="primary"
                 mode="outline"
-                data-h2-margin="b(0, x.5, 0, 0)"
+                data-h2-margin="base(0, x.5, 0, 0)"
                 onClick={() => {
                   // Save the initial search form values to the state so they are available to user when click back.
                   pushToStateThenNavigate(paths.search(), {
@@ -336,8 +322,8 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               </Button>
             </div>
             <div
-              data-h2-text-align="b(center) p-tablet(right)"
-              data-h2-flex-item="b(1of1) p-tablet(1of2)"
+              data-h2-text-align="base(center) p-tablet(right)"
+              data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
               <Submit
                 color="cta"

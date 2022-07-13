@@ -4,10 +4,13 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
+"A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sP`, e.g. `2020-04-20T13:53:12+02:00`."
+scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
+
 "A RFC 5321 compliant email."
 scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
 
-"A phone number string which must comply with E.164 international notation, including country code and preceding '+'."
+"A phone number string, accepts any string"
 scalar PhoneNumber
 
 "A human readable ID"
@@ -240,6 +243,33 @@ enum PoolStatus {
     NOT_TAKING_APPLICATIONS
 }
 
+type PoolAdvertisement {
+    id: ID!
+    expiryDate: DateTimeTz @rename(attribute: "expiry_date")
+    isPublished: Boolean @rename(attribute: "is_published")
+    name: LocalizedString
+    description: LocalizedString
+    classifications: [Classification] @belongsToMany
+    assetCriteria: [CmoAsset] @belongsToMany
+    essentialCriteria: [CmoAsset] @belongsToMany
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    keyTasks: LocalizedString @rename(attribute: "key_tasks")
+    yourImpact: LocalizedString @rename(attribute: "your_impact")
+    advertisementLocation: LocalizedString @rename(attribute: "advertisement_location")
+    securityClearance: SecurityStatus @rename(attribute: "security_clearance")
+    advertisementLanguage: PoolAdvertisementLanguage @rename(attribute: "advertisement_language")
+    status: PoolStatus @rename(attribute: "pool_status")
+    advertisementStatus: AdvertisementStatus @rename(attribute: "advertisement_status")
+    essentialSkills: [Skill!] @belongsToMany
+    nonessentialSkills: [Skill!] @belongsToMany
+}
+
+enum AdvertisementStatus {
+    DRAFT
+    PUBLISHED
+    EXPIRED
+}
+
 enum PoolCandidateStatus {
     AVAILABLE
     PLACED_INDETERMINATE
@@ -248,6 +278,20 @@ enum PoolCandidateStatus {
     UNAVAILABLE
     EXPIRED
     PLACED_CASUAL
+}
+
+enum SecurityStatus{
+    RELIABILITY
+    SECRET
+    TOP_SECRET
+}
+
+enum PoolAdvertisementLanguage {
+    ENGLISH
+    FRENCH
+    VARIOUS
+    BILINGUAL_INTERMEDIATE
+    BILINGUAL_ADVANCED
 }
 
 type PoolCandidate {
@@ -572,11 +616,16 @@ enum CANDIDATE_EXPIRY_FILTER {
 input UserPoolFilterInput {
     pools: [ID!]!
     expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
-    statuses: [PoolCandidateStatus!]
+    statuses: [PoolCandidateStatus!] = []
+}
+input ApplicantPoolFilterInput {
+    pools: [ID]!
+    expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
+    statuses: [PoolCandidateStatus!] = [AVAILABLE]
 }
 
 input PoolCandidateFilterInput {
-    classifications: [ClassificationFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByClassifications")
+    classifications: [ClassificationFilterInput] @scope
     cmoAssets: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
     hasDiploma: Boolean @scope
     equity: EquitySelectionsInput @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
@@ -586,10 +635,10 @@ input PoolCandidateFilterInput {
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
 }
 
-input UserFilterAndOrderInput {
+input UserFilterInput {
     poolCandidates: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
-    expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
+    expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
     locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
     equity: EquitySelectionsInput @builder(method: "App\\Models\\User@filterByEquity")
@@ -599,25 +648,44 @@ input UserFilterAndOrderInput {
     isProfileComplete: Boolean @scope
     skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
     isGovEmployee: Boolean @scope
-    orderBy: String   # This needs to be the name of the field in the database eg. first_name
+    telephone: String @scope
+    email: String @scope
+    name: String @builder(method: "App\\Models\\User@filterByName")
+    generalSearch: String @builder(method: "App\\Models\\User@filterByGeneralSearch")
+}
+
+input ApplicantFilterInput {
+    poolCandidates: ApplicantPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
+    jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES] @builder(method: "App\\Models\\User@filterByJobLookingStatus")
+    languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
+    expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
+    operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
+    locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
+    equity: EquitySelectionsInput @builder(method: "App\\Models\\User@filterByEquity")
+    hasDiploma: Boolean @scope
+    wouldAcceptTemporary: Boolean @scope
+    skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
 }
 
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
-    usersPaginated(where: UserFilterAndOrderInput): [User]! @paginate(defaultCount: 10, maxCount: 1000 scopes: ["order"]) @guard @can(ability: "viewAny")
+    usersPaginated(where: UserFilterInput orderBy: [OrderByClause!] @orderBy): [User]! @orderBy(column: "created_at", direction: DESC) @paginate(defaultCount: 10, maxCount: 1000 ) @guard @can(ability: "viewAny")
     applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
     applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
+    # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
+    countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
     pool(id: ID! @eq): Pool @find
+    poolAdvertisement(id: ID! @eq): PoolAdvertisement @find(model: "Pool")
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
     poolCandidates: [PoolCandidate]! @all(scopes: ["expiryFilter"]) @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
-    countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate" scopes: ["expiryFilter", "available"])
+    countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants") @count(model: "PoolCandidate" scopes: ["expiryFilter", "available"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
-    searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]! @all(scopes: ["expiryFilter", "available"]) @guard @can(ability: "viewAny")
+    searchPoolCandidates(where: PoolCandidateFilterInput orderBy: [OrderByClause!] @orderBy, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]! @all(scopes: ["expiryFilter", "available"]) @orderBy(column: "created_at", direction: DESC) @guard @can(ability: "viewAny")
     classification(id: ID! @eq): Classification @find
     classifications: [Classification]! @all
     cmoAsset(id: ID! @eq): CmoAsset @find
@@ -803,7 +871,7 @@ input UpdateUserAsUserInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
     locationExemptions: String @rename(attribute: "location_exemptions")
-    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: accepted_operational_requirements)
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     expectedGenericJobTitles: GenericJobTitleBelongsToMany

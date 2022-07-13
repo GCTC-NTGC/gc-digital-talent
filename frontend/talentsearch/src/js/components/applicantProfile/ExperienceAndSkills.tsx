@@ -140,13 +140,13 @@ const ExperienceAndSkills: React.FunctionComponent<
       })}
     >
       <div
-        data-h2-display="b(flex)"
-        data-h2-align-items="b(center)"
-        data-h2-flex-direction="b(column) m(row)"
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(center)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
       >
         <p
-          data-h2-font-style="b(reset)"
-          data-h2-font-weight="b(700)"
+          data-h2-font-style="base(reset)"
+          data-h2-font-weight="base(700)"
           style={{ textTransform: "uppercase" }}
         >
           {intl.formatMessage({
@@ -156,36 +156,36 @@ const ExperienceAndSkills: React.FunctionComponent<
           })}
         </p>
         <div
-          data-h2-margin="b(auto, auto, x1, auto) s(x1, auto, auto, x1)"
-          data-h2-padding="b(x1)"
-          data-h2-display="b(flex)"
-          data-h2-flex-direction="b(column) s(row)"
-          data-h2-justify-content="b(center) m(space-between)"
-          data-h2-radius="b(s)"
-          data-h2-background-color="b(light.dt-gray)"
+          data-h2-margin="base(auto, auto, x1, auto) p-tablet(x1, auto, auto, x1)"
+          data-h2-padding="base(x1)"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column) p-tablet(row)"
+          data-h2-justify-content="base(center) l-tablet(space-between)"
+          data-h2-radius="base(s)"
+          data-h2-background-color="base(light.dt-gray)"
           style={{ flexGrow: "2" }}
         >
           {links.map(({ title, href, icon }) => (
             <a
               key={title}
               href={href}
-              data-h2-display="b(flex)"
-              data-h2-align-items="b(center)"
-              data-h2-margin="b(x.25, auto) m(0, auto)"
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(center)"
+              data-h2-margin="base(x.25, auto) l-tablet(0, auto)"
             >
               {icon}
-              <span data-h2-padding="b(0, x.25, 0, x.125)">{title}</span>
+              <span data-h2-padding="base(0, x.25, 0, x.125)">{title}</span>
             </a>
           ))}
         </div>
       </div>
       {!experiences || experiences?.length === 0 ? (
         <div
-          data-h2-radius="b(s)"
-          data-h2-background-color="b(light.dt-gray)"
-          data-h2-padding="b(x1)"
+          data-h2-radius="base(s)"
+          data-h2-background-color="base(light.dt-gray)"
+          data-h2-padding="base(x1)"
         >
-          <p data-h2-font-style="b(italic)">
+          <p data-h2-font-style="base(italic)">
             {intl.formatMessage({
               defaultMessage:
                 "There are no experiences on your profile yet. You can add some using the links above.",

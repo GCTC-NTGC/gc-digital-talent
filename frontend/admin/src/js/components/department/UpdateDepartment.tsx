@@ -68,10 +68,10 @@ export const UpdateDepartmentForm: React.FunctionComponent<
   };
 
   return (
-    <section data-h2-container="b(left, s)">
+    <section data-h2-container="base(left, s)">
       <h2
-        data-h2-font-weight="b(700)"
-        data-h2-margin="b(x2, 0, x1, 0)">
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Update Department",
           description: "Title displayed on the update a department form.",

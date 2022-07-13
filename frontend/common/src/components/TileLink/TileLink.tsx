@@ -5,25 +5,25 @@ import type { Color } from "../Button";
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
-    "data-h2-border": "b(left, .5rem, solid, dt-primary)",
+    "data-h2-border": "base(left, .5rem, solid, dt-primary)",
   },
   secondary: {
-    "data-h2-border": "b(left, .5rem, solid, dt-secondary)",
+    "data-h2-border": "base(left, .5rem, solid, dt-secondary)",
   },
   cta: {
-    "data-h2-border": "b(left, .5rem, solid, dark.dt-accent)",
+    "data-h2-border": "base(left, .5rem, solid, dark.dt-accent)",
   },
   white: {
-    "data-h2-border": "b(left, .5rem, solid, dt-white)",
+    "data-h2-border": "base(left, .5rem, solid, dt-white)",
   },
   black: {
-    "data-h2-border": "b(left, .5rem, solid, dt-black)",
+    "data-h2-border": "base(left, .5rem, solid, dt-black)",
   },
   "ia-primary": {
-    "data-h2-border": "b(left, .5rem, solid, ia-primary)",
+    "data-h2-border": "base(left, .5rem, solid, ia-primary)",
   },
   "ia-secondary": {
-    "data-h2-border": "b(left, .5rem, solid, ia-secondary)",
+    "data-h2-border": "base(left, .5rem, solid, ia-secondary)",
   },
 };
 
@@ -45,12 +45,12 @@ const TileLink: React.FC<TileLinkProps> = ({
   <a
     href={href}
     title={title}
-    data-h2-background-color="b(dt-white) b:hover(light.dt-gray)"
-    data-h2-display="b(flex)"
-    data-h2-align-items="b(flex-end)"
-    data-h2-shadow="b(m)"
-    data-h2-padding="b(x.5)"
-    data-h2-justify-content="b(space-between)"
+    data-h2-background-color="base(dt-white) base:hover(light.dt-gray)"
+    data-h2-display="base(flex)"
+    data-h2-align-items="base(flex-end)"
+    data-h2-shadow="base(m)"
+    data-h2-padding="base(x.5)"
+    data-h2-justify-content="base(space-between)"
     {...colorMap[color]}
     {...rest}
     onClick={
@@ -63,10 +63,10 @@ const TileLink: React.FC<TileLinkProps> = ({
     }
   >
     <span
-      data-h2-display="b(block)"
-      data-h2-overflow="b(hidden, all)"
-      data-h2-padding="b(x3, 0, 0, 0)"
-      data-h2-width="b(100%)"
+      data-h2-display="base(block)"
+      data-h2-overflow="base(hidden, all)"
+      data-h2-padding="base(x3, 0, 0, 0)"
+      data-h2-width="base(100%)"
       style={{
         textOverflow: "ellipsis",
         whiteSpace: "nowrap",

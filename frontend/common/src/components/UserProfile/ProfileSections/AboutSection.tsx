@@ -21,7 +21,7 @@ interface AboutSectionProps {
 
 // styling a text bit with red colour within intl
 function redText(msg: string) {
-  return <span data-h2-color="b(dt-error)">{msg}</span>;
+  return <span data-h2-color="base(dt-error)">{msg}</span>;
 }
 
 const AboutSection: React.FC<AboutSectionProps> = ({
@@ -39,23 +39,23 @@ const AboutSection: React.FC<AboutSectionProps> = ({
   const intl = useIntl();
   return (
     <div
-      data-h2-background-color="b(light.dt-gray)"
-      data-h2-padding="b(x1)"
-      data-h2-radius="b(s)"
+      data-h2-background-color="base(light.dt-gray)"
+      data-h2-padding="base(x1)"
+      data-h2-radius="base(s)"
     >
       <div
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="s(row) b(column)"
-        data-h2-justify-content="b(space-between)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="p-tablet(row) base(column)"
+        data-h2-justify-content="base(space-between)"
       >
         <div>
-          {!!firstName && !!lastName && (
+          {(!!firstName || !!lastName) && (
             <p>
               {intl.formatMessage({
                 defaultMessage: "Name:",
                 description: "Name label and colon",
               })}{" "}
-              <span data-h2-font-weight="b(700)">
+              <span data-h2-font-weight="base(700)">
                 {firstName} {lastName}
               </span>
             </p>
@@ -66,7 +66,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 defaultMessage: "Email:",
                 description: "Email label and colon",
               })}{" "}
-              <span data-h2-font-weight="b(700)">{email}</span>
+              <span data-h2-font-weight="base(700)">{email}</span>
             </p>
           )}
           {!!telephone && (
@@ -75,7 +75,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 defaultMessage: "Phone:",
                 description: "Phone label and colon",
               })}{" "}
-              <span data-h2-font-weight="b(700)">{telephone}</span>
+              <span data-h2-font-weight="base(700)">{telephone}</span>
             </p>
           )}
         </div>
@@ -87,7 +87,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 description:
                   "Preferred Language for communication purposes label and colon",
               })}{" "}
-              <span data-h2-font-weight="b(700)">
+              <span data-h2-font-weight="base(700)">
                 {preferredLang ? getLanguage(preferredLang).defaultMessage : ""}
               </span>
             </p>
@@ -98,7 +98,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 defaultMessage: "Current Location:",
                 description: "Current Location label and colon",
               })}{" "}
-              <span data-h2-font-weight="b(700)">
+              <span data-h2-font-weight="base(700)">
                 {currentCity},{" "}
                 {currentProvince
                   ? getProvinceOrTerritory(currentProvince).defaultMessage

@@ -21,13 +21,13 @@ const Family: React.FunctionComponent<FamilyProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const uncheckedStyle = { "data-h2-font-weight": "b(400)" };
-  const checkedStyle = { "data-h2-font-weight": "b(700)" };
+  const uncheckedStyle = { "data-h2-font-weight": "base(400)" };
+  const checkedStyle = { "data-h2-font-weight": "base(700)" };
 
   return (
     <div
       {...(checked ? checkedStyle : uncheckedStyle)}
-      data-h2-padding="b(x.125)"
+      data-h2-padding="base(x.125)"
       key={family.key}
     >
       <label>
@@ -93,8 +93,8 @@ const Category: React.FunctionComponent<CategoryProps> = ({
   };
 
   return (
-    <div data-h2-flex-item="s(1of2)">
-      <p data-h2-font-weight="b(800)" data-h2-display="b(flex)">
+    <div data-h2-flex-item="p-tablet(1of2)">
+      <p data-h2-font-weight="base(800)" data-h2-display="base(flex)">
         &nbsp;
         {image}
         &nbsp;&nbsp;{title}
@@ -143,7 +143,7 @@ const SkillChecklist: React.FunctionComponent<SkillChecklistProps> = ({
 
   return (
     <div
-      data-h2-flex-grid="b(normal, 0, x1)"
+      data-h2-flex-grid="base(normal, 0, x1)"
       data-testid="skillChecklist"
     >
       {Object.keys(skillCategories).map((category) => {

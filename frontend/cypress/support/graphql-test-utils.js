@@ -21,13 +21,3 @@ export const aliasMutation = (req, operationName) => {
     req.alias = `gql${operationName}Mutation`
   }
 }
-
-export const setUpGraphqlIntercepts = () => {
-  cy.intercept('POST', '/graphql', (req) => {
-    // Creates aliases for use later.
-    // E.g., cy.wait('@gqlgetMeQuery')
-    aliasQuery(req, 'getMe')
-    aliasQuery(req, 'me')
-    aliasQuery(req, 'countPoolCandidates')
-  })
-}

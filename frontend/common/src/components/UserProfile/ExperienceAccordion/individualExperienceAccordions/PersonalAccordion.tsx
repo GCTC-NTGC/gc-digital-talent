@@ -30,7 +30,7 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p data-h2-color="b(dt-primary)">{skill.name?.[locale]}</p>
+            <p data-h2-color="base(dt-primary)">{skill.name?.[locale]}</p>
             <p>{skill.description?.[locale]}</p>
           </li>
         </ul>
@@ -58,12 +58,12 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
       Icon={BriefCaseIcon}
       defaultOpen={defaultOpen}
     >
-      <div data-h2-padding="b(0, 0, 0, x2)">
+      <div data-h2-padding="base(0, 0, 0, x2)">
         <p>{description}</p>
       </div>
       <hr />
-      <div data-h2-padding="b(0, 0, 0, x2)">{skillsList}</div>
-      <div data-h2-padding="b(0, 0, 0, x2)">
+      <div data-h2-padding="base(0, 0, 0, x2)">{skillsList}</div>
+      <div data-h2-padding="base(0, 0, 0, x2)">
         <p>
           {intl.formatMessage(
             {
@@ -75,7 +75,7 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
         </p>
       </div>
       {editUrl && (
-        <div data-h2-padding="b(0, 0, 0, x2)">
+        <div data-h2-padding="base(0, 0, 0, x2)">
           <Link href={editUrl} color="primary" mode="outline" type="button">
             {intl.formatMessage({
               defaultMessage: "Edit Experience",

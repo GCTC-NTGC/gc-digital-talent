@@ -5,7 +5,6 @@ import { OperationResult } from "urql";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
 import { ProvinceOrTerritory, Language } from "@common/api/generated";
 import { commonMessages, errorMessages } from "@common/messages";
-import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
@@ -117,7 +116,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           defaultValues: initialDataToFormValues(initialUser),
         }}
       >
-        <h2 data-h2-font-size="b(h3, 1.3)" data-h2-font-weight="b(700)">
+        <h2 data-h2-font-size="base(h3, 1.3)" data-h2-font-weight="base(700)">
           {intl.formatMessage({
             defaultMessage: "Personal Information",
             description:
@@ -132,8 +131,8 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               "Description for Personal Information section of the About Me form",
           })}
         </p>
-        <div data-h2-flex-item="b(1of1)" data-h2-padding="b(x1, 0, 0, 0)">
-          <div data-h2-padding="b(0, x2, 0, 0)">
+        <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
+          <div data-h2-padding="base(0, x2, 0, 0)">
             <RadioGroup
               idPrefix="required-lang-preferences"
               legend={intl.formatMessage({
@@ -201,15 +200,11 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
-                pattern: {
-                  value: phoneNumberRegex,
-                  message: intl.formatMessage(errorMessages.telephone),
-                },
               }}
             />
           </div>
         </div>
-        <h2 data-h2-font-size="b(h3, 1.3)" data-h2-font-weight="b(700)">
+        <h2 data-h2-font-size="base(h3, 1.3)" data-h2-font-weight="base(700)">
           {intl.formatMessage({
             defaultMessage: "Account Details",
             description:
@@ -224,8 +219,8 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               "Description for Account Details section of the About Me form",
           })}
         </p>
-        <div data-h2-flex-item="b(1of1)" data-h2-padding="b(x1, 0, 0, 0)">
-          <div data-h2-padding="b(0, x2, 0, 0)">
+        <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
+          <div data-h2-padding="base(0, x2, 0, 0)">
             <Input
               id="firstName"
               name="firstName"

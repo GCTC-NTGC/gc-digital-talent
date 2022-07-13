@@ -2,11 +2,11 @@ import React from "react";
 
 const styleMap: Record<"active" | "inactive", Record<string, string>> = {
   active: {
-    "data-h2-color": "b(dt-primary)",
-    "data-h2-font-weight": "b(bold)",
+    "data-h2-color": "base(dt-primary)",
+    "data-h2-font-weight": "base(bold)",
   },
   inactive: {
-    "data-h2-color": "b(dt-black)",
+    "data-h2-color": "base(dt-black)",
   },
 };
 
@@ -73,7 +73,7 @@ const Tab: React.FC<TabProps> = ({
     label = effectiveText;
   } else if (iconPosition === "left") {
     label = (
-      <div data-h2-display="b(flex)">
+      <div data-h2-display="base(flex)">
         {effectiveIcon}
         &nbsp;
         {effectiveText}
@@ -81,7 +81,7 @@ const Tab: React.FC<TabProps> = ({
     );
   } else if (iconPosition === "right") {
     label = (
-      <div data-h2-display="b(flex)">
+      <div data-h2-display="base(flex)">
         {effectiveText}
         &nbsp;
         {effectiveIcon}
@@ -98,9 +98,9 @@ const Tab: React.FC<TabProps> = ({
   // build the data attribute collection for this tab
   const tabAttributes: Record<string, unknown> = {
     // margin & padding same for each tab
-    "data-h2-padding": "b(x.25, x.5)",
+    "data-h2-padding": "base(x.25, x.5)",
     // the *end* layout needs this margin to push it to the right
-    ...(placement === "end" && { "data-h2-margin": "b(auto)" }),
+    ...(placement === "end" && { "data-h2-margin": "base(auto)" }),
     // styles based on active/inactive
     ...styleMap[tabAppearance],
   };

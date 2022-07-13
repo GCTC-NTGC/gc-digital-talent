@@ -66,17 +66,17 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
   children,
 }) => (
   <div
-    data-h2-visibility="b(visible) m(hidden)"
-    data-h2-position="b(fixed)"
-    data-h2-offset="b(auto, x.25, x.25, auto)"
+    data-h2-visibility="base(visible) l-tablet(hidden)"
+    data-h2-position="base(fixed)"
+    data-h2-offset="base(auto, x.25, x.25, auto)"
     style={{ zIndex: 9998, opacity: show ? 1 : 0 }}
   >
     <Button
       mode="solid"
       color="secondary"
-      data-h2-display="b(inline-flex)"
-      data-h2-align-items="b(center)"
-      data-h2-shadow="b(s)"
+      data-h2-display="base(inline-flex)"
+      data-h2-align-items="base(center)"
+      data-h2-shadow="base(s)"
       onClick={onClick}
     >
       <MenuIcon
@@ -114,14 +114,14 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
 
   return (
     <>
-      <a href="#main" data-h2-visibility="b(hidden)">
+      <a href="#main" data-h2-visibility="base(hidden)">
         {intl.formatMessage({
           defaultMessage: "Skip to main content",
           description: "Assistive technology skip link",
         })}
       </a>
 
-      <div data-h2-flex-grid="b(stretch, 0, 0)">
+      <div data-h2-flex-grid="base(stretch, 0, 0)">
         <AdminSideMenu
           isOpen={isMenuOpen}
           onToggle={handleMenuToggle}
@@ -130,9 +130,9 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
         <SideMenuContentWrapper>
           <div
             className="content-inner"
-            data-h2-display="b(flex)"
-            data-h2-flex-direction="b(column)"
-            data-h2-align-items="b(space-between)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-align-items="base(space-between)"
           >
             <Header baseUrl={ADMIN_APP_DIR} />
             <main id="main">

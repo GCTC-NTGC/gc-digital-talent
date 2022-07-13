@@ -23,7 +23,7 @@ export interface ChecklistProps {
   /** Set of validation rules and error messages to impose on all input elements. */
   rules?: RegisterOptions;
   /** If a context string is provided, a small button will appear which, when toggled, shows the context string below the inputs. */
-  context?: string;
+  context?: string | React.ReactNode;
   /** If true, all input elements in this fieldset will be disabled. */
   disabled?: boolean;
   /** If true, and this input is not required, 'Optional' will not be shown above the fieldset. */
@@ -72,12 +72,12 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
             // Don't show Required tag, error or context on individual input, as its handled by Fieldset.
             required={false}
             hideOptional
-            data-h2-flex-direction="b(row)"
-            data-h2-align-items="b(center)"
+            data-h2-flex-direction="base(row)"
+            data-h2-align-items="base(center)"
           >
             <input
               style={{ order: -1 }}
-              data-h2-margin="b(0, x.125, x.125, 0)"
+              data-h2-margin="base(0, x.125, x.125, 0)"
               id={id}
               {...register(name, rules)}
               value={value}

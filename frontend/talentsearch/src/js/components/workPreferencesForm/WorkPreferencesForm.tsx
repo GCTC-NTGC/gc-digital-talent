@@ -42,7 +42,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
 }) => {
   const intl = useIntl();
   function bold(msg: string) {
-    return <span data-h2-font-weight="b(700)">{msg}</span>;
+    return <span data-h2-font-weight="base(700)">{msg}</span>;
   }
   const OperationalRequirementsSortOrder = [
     OperationalRequirement.OvertimeShortNotice,
@@ -119,8 +119,8 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(x1, 0, 0, 0)">
-              <div data-h2-padding="b(0, x2, 0, 0)">
+            <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
+              <div data-h2-padding="base(0, x2, 0, 0)">
                 <RadioGroup
                   idPrefix="required-work-preferences"
                   legend={intl.formatMessage({
@@ -156,8 +156,8 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                 />
               </div>
             </div>
-            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(x1, 0, 0, 0)">
-              <div data-h2-padding="b(0, x2, 0, 0)">
+            <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
+              <div data-h2-padding="base(0, x2, 0, 0)">
                 <Checklist
                   idPrefix="optional-work-preferences"
                   legend={intl.formatMessage({
@@ -180,8 +180,8 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                 />
               </div>
             </div>
-            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(x1, 0, 0, 0)">
-              <div data-h2-padding="b(0, x2, 0, 0)">
+            <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
+              <div data-h2-padding="base(0, x2, 0, 0)">
                 <ProfileFormFooter mode="saveButton" />
               </div>
             </div>

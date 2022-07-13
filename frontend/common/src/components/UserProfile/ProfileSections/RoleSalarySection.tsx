@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { isEmpty } from "lodash";
 import { getGenericJobTitles } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
@@ -11,41 +12,40 @@ const RoleSalarySection: React.FunctionComponent<{
   const { expectedGenericJobTitles } = applicant;
   const expectedClassificationArray = expectedGenericJobTitles
     ? expectedGenericJobTitles.map((es) => (
-        <li data-h2-font-weight="b(700)" key={es?.key}>
+        <li data-h2-font-weight="base(700)" key={es?.key}>
           {es ? getGenericJobTitles(es.key).defaultMessage : ""}
         </li>
       ))
     : null;
   // styling a text bit with red colour within intl
   function redText(msg: string) {
-    return <span data-h2-color="b(dt-error)">{msg}</span>;
+    return <span data-h2-color="base(dt-error)">{msg}</span>;
   }
+
+  const anyCriteriaSelected = !isEmpty(expectedClassificationArray);
 
   return (
     <div id="role-and-salary-expectations">
       <div
-        data-h2-background-color="b(light.dt-gray)"
-        data-h2-padding="b(x1)"
-        data-h2-radius="b(s)"
+        data-h2-background-color="base(light.dt-gray)"
+        data-h2-padding="base(x1)"
+        data-h2-radius="base(s)"
       >
-        {expectedClassificationArray !== null &&
-          expectedClassificationArray.length > 0 && (
-            <>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "I would like to be referred for jobs at the following levels:",
-                  description:
-                    "Label for Role and salary expectations sections",
-                })}
-              </p>
-              <ul data-h2-padding="b(left, l)">
-                {expectedClassificationArray}
-              </ul>
-            </>
-          )}
-        {(expectedClassificationArray === null ||
-          expectedClassificationArray.length <= 0) && (
+        {anyCriteriaSelected && (
+          <>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "I would like to be referred for jobs at the following levels:",
+                description: "Label for Role and salary expectations sections",
+              })}
+            </p>
+            <ul data-h2-padding="base(0, 0, 0, x2)">
+              {expectedClassificationArray}
+            </ul>
+          </>
+        )}
+        {!anyCriteriaSelected && editPath && (
           <>
             <p>
               {intl.formatMessage({
@@ -75,6 +75,15 @@ const RoleSalarySection: React.FunctionComponent<{
               </a>
             </p>
           </>
+        )}
+        {!anyCriteriaSelected && !editPath && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "No information has been provided.",
+              description:
+                "Message on Admin side when user not filled RoleSalary section.",
+            })}
+          </p>
         )}
       </div>
     </div>

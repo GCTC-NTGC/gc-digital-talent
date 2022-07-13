@@ -37,7 +37,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
   const intl = useIntl();
 
   function bold(msg: string) {
-    return <span data-h2-font-weight="b(700)">{msg}</span>;
+    return <span data-h2-font-weight="base(700)">{msg}</span>;
   }
 
   const isFormActive = initialData?.me?.isProfileComplete;
@@ -68,7 +68,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     }
   };
 
-  const disabledColor: Record<string, unknown> = !isFormActive ? {"data-h2-color": "b(dark.dt-gray)"} : {};
+  const disabledColor: Record<string, unknown> = !isFormActive ? {"data-h2-color": "base(dark.dt-gray)"} : {};
 
   return (
     <div>
@@ -89,10 +89,10 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
         </div>
         {!isFormActive && (
           <div
-            data-h2-color="b(dt-primary)"
-            data-h2-padding="b(x1)"
-            data-h2-radius="b(s)"
-            data-h2-background-color="b(light.dt-primary.1)"
+            data-h2-color="base(dt-primary)"
+            data-h2-padding="base(x1)"
+            data-h2-radius="base(s)"
+            data-h2-background-color="base(light.dt-primary.1)"
           >
             <p>
               {intl.formatMessage(
@@ -115,7 +115,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
           </div>
         )}
 
-        <div data-h2-padding="b(x.5, 0, 0, 0)" {...disabledColor}>
+        <div data-h2-padding="base(x.5, 0, 0, 0)" {...disabledColor}>
           <RadioGroup
             idPrefix="myStatus"
             legend={intl.formatMessage({

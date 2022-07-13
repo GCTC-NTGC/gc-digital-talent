@@ -64,9 +64,9 @@ const LoginOrLogout = () => {
           })}
           footer={
             <div
-              data-h2-display="b(flex)"
-              data-h2-align-items="b(center)"
-              data-h2-justify-content="b(flex-end)"
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(center)"
+              data-h2-justify-content="base(flex-end)"
             >
               <Button
                 mode="outline"
@@ -81,7 +81,7 @@ const LoginOrLogout = () => {
                   description: "Link text to cancel logging out.",
                 })}
               </Button>
-              <span data-h2-margin="b(0, 0, 0, x.5)">
+              <span data-h2-margin="base(0, 0, 0, x.5)">
                 <Button
                   mode="solid"
                   color="primary"
@@ -99,7 +99,7 @@ const LoginOrLogout = () => {
             </div>
           }
         >
-          <p data-h2-font-size="b(h5)">
+          <p data-h2-font-size="base(h5)">
             {intl.formatMessage({
               defaultMessage: "Are you sure you would like to logout?",
               description:

@@ -23,12 +23,12 @@ const RequestPage: React.FunctionComponent = () => {
 
   return (
     <section>
-      <div data-h2-container="b(center, medium, x1) p-tablet(center, medium, x2)">
+      <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
         <h1
-          data-h2-margin="b(x2.5, 0, 0, 0) p-tablet(x4, 0, 0, 0)"
-          data-h2-font-size="b(h1, 1)"
-          data-h2-font-weight="b(700)"
-          data-h2-text-align="b(center)"
+          data-h2-margin="base(x2.5, 0, 0, 0) p-tablet(x4, 0, 0, 0)"
+          data-h2-font-size="base(h1, 1)"
+          data-h2-font-weight="base(700)"
+          data-h2-text-align="base(center)"
           style={{ letterSpacing: "-2px" }}
         >
           {intl.formatMessage({
@@ -38,20 +38,20 @@ const RequestPage: React.FunctionComponent = () => {
         </h1>
       </div>
       <div
-        data-h2-background-color="b(dt-linear)"
-        data-h2-margin="b(x3, 0, 0, 0) p-tablet(x6, 0, 0, 0)"
-        data-h2-position="b(relative)"
+        data-h2-background-color="base(dt-linear)"
+        data-h2-margin="base(x3, 0, 0, 0) p-tablet(x6, 0, 0, 0)"
+        data-h2-position="base(relative)"
       >
         <div
-          data-h2-position="b(relative)"
-          data-h2-offset="b(-x2, auto, auto, auto) p-tablet(-x4, auto, auto, auto)"
+          data-h2-position="base(relative)"
+          data-h2-offset="base(-x2, auto, auto, auto) p-tablet(-x4, auto, auto, auto)"
         >
-          <div data-h2-container="b(center, medium, x1) p-tablet(center, medium, x2)">
+          <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
             <div
-              data-h2-radius="b(s)"
-              data-h2-shadow="b(xl)"
-              data-h2-padding="b(x1) p-tablet(x2)"
-              data-h2-background-color="b(dt-white)"
+              data-h2-radius="base(s)"
+              data-h2-shadow="base(xl)"
+              data-h2-padding="base(x1) p-tablet(x2)"
+              data-h2-background-color="base(dt-white)"
             >
               <CreateRequest
                 poolCandidateFilter={poolCandidateFilter}

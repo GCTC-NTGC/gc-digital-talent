@@ -8,7 +8,7 @@ import type { ExperiencePaths } from "../ExperienceAccordion/ExperienceAccordion
 
 // styling a text bit with red colour within intls
 function redText(msg: string) {
-  return <span data-h2-color="b(dt-error)">{msg}</span>;
+  return <span data-h2-color="base(dt-error)">{msg}</span>;
 }
 
 export type PathFunc = (path: void | string, id: void | string) => string;
@@ -39,9 +39,9 @@ const SkillExperienceSection: React.FunctionComponent<{
       {" "}
       {!experiences || experiences?.length === 0 ? (
         <div
-          data-h2-background-color="b(light.dt-gray)"
-          data-h2-padding="b(x1)"
-          data-h2-radius="b(s)"
+          data-h2-background-color="base(light.dt-gray)"
+          data-h2-padding="base(x1)"
+          data-h2-radius="base(s)"
         >
           <p>
             {intl.formatMessage({
@@ -71,7 +71,7 @@ const SkillExperienceSection: React.FunctionComponent<{
           </p>
         </div>
       ) : (
-        <div data-h2-padding="b(x1)" data-h2-radius="b(s)">
+        <div data-h2-padding="base(x1)" data-h2-radius="base(s)">
           <ExperienceSection
             experiences={experiences?.filter(notEmpty)}
             experienceEditPaths={experienceEditPaths as ExperiencePaths}

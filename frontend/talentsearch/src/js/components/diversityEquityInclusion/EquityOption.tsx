@@ -5,7 +5,7 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/outline";
 import { Button } from "@common/components";
 
 const hiddenText = (...chunks: string[]) => (
-  <span data-h2-visibility="b(invisible)">{chunks}</span>
+  <span data-h2-visibility="base(invisible)">{chunks}</span>
 );
 
 interface EquityOptionProps {
@@ -50,17 +50,17 @@ const EquityOption: React.FC<EquityOptionProps> = ({
 
   return (
     <div
-      data-h2-margin="b(x.125, 0, 0, 0)"
-      data-h2-padding="b(x.5)"
-      data-h2-shadow="b(m)"
-      data-h2-radius="b(0px, s, s, 0px)"
-      data-h2-overflow="b(hidden, all)"
-      data-h2-display="b(flex)"
-      data-h2-align-items="b(center)"
-      data-h2-justify-content="b(space-between)"
+      data-h2-margin="base(x.125, 0, 0, 0)"
+      data-h2-padding="base(x.5)"
+      data-h2-shadow="base(m)"
+      data-h2-radius="base(0px, s, s, 0px)"
+      data-h2-overflow="base(hidden, all)"
+      data-h2-display="base(flex)"
+      data-h2-align-items="base(center)"
+      data-h2-justify-content="base(space-between)"
       {...(isAdded
-        ? { "data-h2-border": "b(left, .5rem, solid, dark.dt-primary)" }
-        : { "data-h2-border": "b(left, .5rem, solid, dt-primary)" })}
+        ? { "data-h2-border": "base(left, .5rem, solid, dark.dt-primary)" }
+        : { "data-h2-border": "base(left, .5rem, solid, dt-primary)" })}
     >
       <span>{title}</span>
       <span style={{ flexShrink: 0 }}>
@@ -70,10 +70,10 @@ const EquityOption: React.FC<EquityOptionProps> = ({
           mode="outline"
           color={isAdded ? "secondary" : "primary"}
         >
-          <span data-h2-display="b(flex)" data-h2-align-items="b(center)">
+          <span data-h2-display="base(flex)" data-h2-align-items="base(center)">
             <Icon
               style={{ height: iconSize, width: iconSize }}
-              data-h2-margin="b(0, x.125, 0, 0)"
+              data-h2-margin="base(0, x.125, 0, 0)"
             />
             <span>{isAdded ? removeText : addText}</span>
           </span>

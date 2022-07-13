@@ -11,9 +11,9 @@ export interface AlertProps {
 
 const typeMap = {
   success: {
-    "data-h2-border": "b(all, 1px, solid, dt-success)",
-    "data-h2-background-color": "b(light.dt-success.1)",
-    "data-h2-color": "b(dt-success)",
+    "data-h2-border": "base(all, 1px, solid, dt-success)",
+    "data-h2-background-color": "base(light.dt-success.1)",
+    "data-h2-color": "base(dt-success)",
   },
 };
 
@@ -26,23 +26,23 @@ const Alert: React.FunctionComponent<AlertProps> = ({
 }) => {
   return (
     <div
-      data-h2-display="b(flex)"
-      data-h2-flex-direction="b(column)"
-      data-h2-radius="b(s)"
-      data-h2-padding="b(0, x.5)"
-      data-h2-margin="b(x1, 0)"
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-radius="base(s)"
+      data-h2-padding="base(0, x.5)"
+      data-h2-margin="base(x1, 0)"
       {...typeMap[type]}
       {...rest}
     >
       <p
-        data-h2-display="b(flex)"
-        data-h2-align-items="b(center)"
-        data-h2-font-weight="b(600)"
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(center)"
+        data-h2-font-weight="base(600)"
       >
-        <span data-h2-margin="b(0, x.25, 0, 0)">{icon}</span>
+        <span data-h2-margin="base(0, x.25, 0, 0)">{icon}</span>
         {title}
       </p>
-      <p data-h2-margin="b(0, 0, 0, 0)">{message}</p>
+      <p data-h2-margin="base(0, 0, 0, 0)">{message}</p>
     </div>
   );
 };

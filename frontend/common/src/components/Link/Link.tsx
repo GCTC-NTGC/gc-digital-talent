@@ -19,6 +19,7 @@ const Link: React.FC<LinkProps> = ({
   href,
   title,
   color,
+  disabled,
   mode = "solid",
   block = false,
   external = false,
@@ -35,16 +36,17 @@ const Link: React.FC<LinkProps> = ({
       className={`${type === "button" && `button `}${className}`}
       {...(type === "button"
         ? {
-            "data-h2-radius": "b(s)",
-            "data-h2-padding": "b(x.5, x1)",
-            "data-h2-font-size": "b(copy)",
+            "data-h2-radius": "base(s)",
+            "data-h2-padding": "base(x.5, x1)",
+            "data-h2-font-size": "base(copy)",
+            ...(disabled && { style: { opacity: 0.6, pointerEvents: "none" } }),
             ...(color && mode ? { ...colorMap[color][mode] } : {}),
             ...(block
               ? {
-                  "data-h2-display": "b(block)",
-                  "data-h2-text-align": "b(center)",
+                  "data-h2-display": "base(block)",
+                  "data-h2-text-align": "base(center)",
                 }
-              : { "data-h2-display": "b(inline-block)" }),
+              : { "data-h2-display": "base(inline-block)" }),
           }
         : {})}
       {...rest}

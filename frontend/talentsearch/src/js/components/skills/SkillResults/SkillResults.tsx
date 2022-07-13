@@ -18,24 +18,24 @@ export const SkillBlock: React.FunctionComponent<{
 
   return (
     <div
-      data-h2-border="b(top, 1px, solid, light.dt-gray)"
-      data-h2-padding="b(x.5, 0)"
+      data-h2-border="base(top, 1px, solid, light.dt-gray)"
+      data-h2-padding="base(x.5, 0)"
     >
       <div
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(row)"
-        data-h2-justify-content="b(space-between)"
-        data-h2-align-items="b(center)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(row)"
+        data-h2-justify-content="base(space-between)"
+        data-h2-align-items="base(center)"
       >
         {isAdded ? (
           <span
-            data-h2-color="b(dt-primary)"
-            data-h2-font-weight="b(700)"
-            data-h2-display="b(flex)"
-            data-h2-align-items="b(flex-start)"
+            data-h2-color="base(dt-primary)"
+            data-h2-font-weight="base(700)"
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(flex-start)"
           >
             <CheckCircleIcon style={{ width: "1.125rem" }} />
-            <span data-h2-padding="b(0, 0, 0, x.125)">{name[locale]}</span>
+            <span data-h2-padding="base(0, 0, 0, x.125)">{name[locale]}</span>
           </span>
         ) : (
           <span>{name[locale]}</span>

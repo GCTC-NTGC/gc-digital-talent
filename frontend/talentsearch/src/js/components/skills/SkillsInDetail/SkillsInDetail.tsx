@@ -31,8 +31,8 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
   const MAX_WORDS = 160;
 
   return (
-    <section data-h2-margin="b(0, 0, x2, 0)">
-      <h2 data-h2-font-size="b(h3, 1.3)">
+    <section data-h2-margin="base(0, 0, x2, 0)">
+      <h2 data-h2-font-size="base(h3, 1.3)">
         {intl.formatMessage({
           defaultMessage: "3. Skills in detail",
           description:
@@ -48,9 +48,9 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
         })}
       </p>
       <ul
-        data-h2-margin="b(0, 0, x1, 0)"
-        data-h2-color="b(dark.dt-gray)"
-        data-h2-font-style="b(italic)"
+        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-color="base(dark.dt-gray)"
+        data-h2-font-style="base(italic)"
       >
         <li>
           {intl.formatMessage({
@@ -86,35 +86,35 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
         </li>
       </ul>
       <div
-        data-h2-padding="b(x1)"
-        data-h2-background-color="b(light.dt-gray)"
-        data-h2-radius="b(s)"
+        data-h2-padding="base(x1)"
+        data-h2-background-color="base(light.dt-gray)"
+        data-h2-radius="base(s)"
       >
         {skills.length > 0 ? (
           skills.map(({ id, name, skillId }, index) => (
             <React.Fragment key={id}>
               <div
-                data-h2-display="b(flex)"
-                data-h2-justify-content="b(space-between)"
+                data-h2-display="base(flex)"
+                data-h2-justify-content="base(space-between)"
               >
-                <p data-h2-font-weight="b(700)">
+                <p data-h2-font-weight="base(700)">
                   {index + 1}. {name[locale]}
                 </p>
                 <Button
                   color="secondary"
                   mode="inline"
-                  data-h2-padding="b(x.5, 0)"
-                  data-h2-font-style="b(underline)"
-                  data-h2-display="b(flex)"
-                  data-h2-align-items="b(center)"
+                  data-h2-padding="base(x.5, 0)"
+                  data-h2-font-style="base(underline)"
+                  data-h2-display="base(flex)"
+                  data-h2-align-items="base(center)"
                   onClick={() => {
                     onDelete(skillId);
                   }}
                 >
                   <TrashIcon style={{ width: "1rem" }} />
                   <span
-                    data-h2-padding="b(0, 0, 0, x.25)"
-                    data-h2-visibility="b(invisible) s(visible)"
+                    data-h2-padding="base(0, 0, 0, x.25)"
+                    data-h2-visibility="base(invisible) p-tablet(visible)"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Remove from experience",
@@ -155,7 +155,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                     },
                   }}
                 >
-                  <div data-h2-align-self="b(flex-end)">
+                  <div data-h2-align-self="base(flex-end)">
                     <WordCounter
                       text={
                         watchSkills && watchSkills[index]
@@ -170,7 +170,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
             </React.Fragment>
           ))
         ) : (
-          <p data-h2-font-style="b(italic)">
+          <p data-h2-font-style="base(italic)">
             {intl.formatMessage({
               defaultMessage:
                 "There are no skills attached to this experience yet. You can add some on the step above.",

@@ -23,11 +23,11 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 
   const emptyArrayOutput = (input: string | string[] | null | undefined) => {
     return input && !isEmpty(input) ? (
-      <p data-h2-display="b(inline)" data-h2-color="b(dt-black)">
+      <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
         {input}
       </p>
     ) : (
-      <ul data-h2-color="b(dt-black)">
+      <ul data-h2-color="base(dt-black)">
         <li>
           {intl.formatMessage({
             defaultMessage: "(None selected)",
@@ -39,21 +39,21 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
   };
 
   return (
-    <div data-h2-padding="b(0, 0, x1, 0)">
-      <div data-h2-visibility="b(visible) s(hidden)">
+    <div data-h2-padding="base(0, 0, x1, 0)">
+      <div data-h2-visibility="base(visible) p-tablet(hidden)">
         <p
-          data-h2-display="b(inline)"
-          data-h2-padding="b(0, x.125, 0, 0)"
-          data-h2-font-weight="b(600)"
+          data-h2-display="base(inline)"
+          data-h2-padding="base(0, x.125, 0, 0)"
+          data-h2-font-weight="base(600)"
         >
           {title}:
         </p>
         {content instanceof Array && content.length > 0 ? (
-          <p data-h2-display="b(inline)" data-h2-color="b(dt-black)">
+          <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
             {content.map((text): string => text).join(", ")}
           </p>
         ) : (
-          <p data-h2-display="b(inline)" data-h2-color="b(dt-black)">
+          <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
             {content && !isEmpty(content)
               ? content
               : intl.formatMessage({
@@ -63,16 +63,16 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
           </p>
         )}
       </div>
-      <div data-h2-visibility="b(hidden) s(visible)">
+      <div data-h2-visibility="base(hidden) p-tablet(visible)">
         <p
-          data-h2-display="b(block)"
-          data-h2-padding="b(0, x.125, 0, 0)"
-          data-h2-font-weight="b(600)"
+          data-h2-display="base(block)"
+          data-h2-padding="base(0, x.125, 0, 0)"
+          data-h2-font-weight="base(600)"
         >
           {title}
         </p>
         {content instanceof Array && content.length > 0 ? (
-          <ul data-h2-color="b(dt-black)">
+          <ul data-h2-color="base(dt-black)">
             {content.map((text) => (
               <li key={uniqueId()}>{text}</li>
             ))}
@@ -182,11 +182,11 @@ const SearchRequestFilters: React.FunctionComponent<
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 
   return (
-    <section data-h2-radius="b(s)" data-h2-background-color="b(dt-gray.light)">
-      <div data-h2-padding="b(x1, x1, 0, x1) p-tablet(x2, x2, x1, x2)">
-        <div data-h2-flex-grid="b(flex-start, 0, 0, x1) p-tablet(flex-start, 0, x2, 0)">
+    <section data-h2-radius="base(s)" data-h2-background-color="base(dt-gray.light)">
+      <div data-h2-padding="base(x1, x1, 0, x1) p-tablet(x2, x2, x1, x2)">
+        <div data-h2-flex-grid="base(flex-start, 0, 0, x1) p-tablet(flex-start, 0, x2, 0)">
           <div
-            data-h2-flex-item="b(1of1) p-tablet(1of2)"
+            data-h2-flex-item="base(1of1) p-tablet(1of2)"
             style={{ paddingBottom: "0" }}
           >
             <FilterBlock
@@ -223,7 +223,7 @@ const SearchRequestFilters: React.FunctionComponent<
               content={operationalRequirements}
             />
           </div>
-          <div data-h2-flex-item="b(1of1) p-tablet(1of2)">
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <div>
               <FilterBlock
                 title={intl.formatMessage({

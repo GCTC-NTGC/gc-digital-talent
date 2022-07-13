@@ -13,28 +13,51 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
     Applicant,
     "isWoman" | "hasDisability" | "isIndigenous" | "isVisibleMinority"
   >;
-}> = ({ applicant }) => {
+  editPath?: string;
+}> = ({ applicant, editPath }) => {
   const intl = useIntl();
 
   const { isWoman, hasDisability, isIndigenous, isVisibleMinority } = applicant;
+  const anyCriteriaSelected =
+    isWoman || isIndigenous || isVisibleMinority || hasDisability;
 
   return (
     <div
-      data-h2-background-color="b(light.dt-gray)"
-      data-h2-padding="b(x1)"
-      data-h2-radius="b(s)"
+      data-h2-background-color="base(light.dt-gray)"
+      data-h2-padding="base(x1)"
+      data-h2-radius="base(s)"
     >
-      {!isWoman && !isIndigenous && !isVisibleMinority && !hasDisability && (
+      {!anyCriteriaSelected && editPath && (
+        <>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "You have not identified as a member of any employment equity groups.",
+              description:
+                "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please.",
+            })}
+          </p>
+          <p>
+            <a href={editPath}>
+              {intl.formatMessage({
+                defaultMessage: "Click here to get started.",
+                description: "Message to click on the words to begin something",
+              })}
+            </a>
+          </p>
+        </>
+      )}
+      {!anyCriteriaSelected && !editPath && (
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "You have not identified as a member of any employment equity groups.",
+              "I am not identified as a member of any employment equity groups.",
             description:
-              "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please.",
+              "Message on Admin side when user not filled DiversityEquityInclusion section.",
           })}
         </p>
       )}
-      {(isWoman || isIndigenous || isVisibleMinority || hasDisability) && (
+      {anyCriteriaSelected && (
         <div>
           <p>
             {intl.formatMessage({
@@ -43,7 +66,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                 "Label preceding what groups the user identifies as part of, followed by a colon",
             })}{" "}
           </p>{" "}
-          <ul data-h2-padding="b(0, 0, 0, x2)">
+          <ul data-h2-padding="base(0, 0, 0, x2)">
             {isIndigenous && (
               <li>&quot;{indigenousLocalized.defaultMessage}&quot;</li>
             )}{" "}

@@ -32,6 +32,18 @@ function poolCandidatesLinkAccessor(
   );
 }
 
+function viewLinkAccessor(
+  editUrlRoot: string,
+  id: string,
+  title: string | undefined | null,
+) {
+  return (
+    <Link href={`${editUrlRoot}/${id}`} type="link">
+      {title}
+    </Link>
+  );
+}
+
 export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   pools,
   editUrlRoot,
@@ -62,7 +74,12 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           defaultMessage: "Pool Name",
           description: "Title displayed for the Pool table pool name column.",
         }),
-        accessor: (d) => (d.name ? d.name[getLocale(intl)] : ""),
+        accessor: (d) =>
+          viewLinkAccessor(
+            editUrlRoot,
+            d.id,
+            d.name ? d.name[getLocale(intl)] : "",
+          ),
       },
       {
         Header: intl.formatMessage({
@@ -111,8 +128,8 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
 
   return (
-    <div data-h2-padding="b(0, 0, x3, 0)">
-      <div data-h2-container="b(center, large, x2)">
+    <div data-h2-padding="base(0, 0, x3, 0)">
+      <div data-h2-container="base(center, large, x2)">
         <Table data={data} columns={columns} hiddenCols={["id", "description"]} />
       </div>
     </div>

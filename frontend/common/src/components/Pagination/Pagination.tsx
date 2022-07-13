@@ -27,9 +27,9 @@ export interface PaginationProps {
   /** Button mode type  */
   mode: "solid" | "outline" | "inline";
   /** Callback that changes to the page number value. */
-  handlePageChange: (pageNumber: number) => void;
+  onCurrentPageChange: (pageNumber: number) => void;
   /** Callback that changes max number of visible items on a single page */
-  handlePageSize: (pageSize: number) => void;
+  onPageSizeChange: (pageSize: number) => void;
 }
 
 const Pagination: React.FunctionComponent<PaginationProps> = ({
@@ -41,8 +41,8 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   ariaLabel,
   color,
   mode,
-  handlePageChange,
-  handlePageSize,
+  onCurrentPageChange,
+  onPageSizeChange,
   ...rest
 }) => {
   const intl = useIntl();
@@ -58,11 +58,11 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   const lessThanTwoItems = currentPage === 0 || paginationRange.length < 2;
 
   const nextPage = () => {
-    handlePageChange(currentPage + 1);
+    onCurrentPageChange(currentPage + 1);
   };
 
   const previousPage = () => {
-    handlePageChange(currentPage - 1);
+    onCurrentPageChange(currentPage - 1);
   };
 
   const lastPage = paginationRange[paginationRange.length - 1];
@@ -70,25 +70,25 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   const isRightArrowDisabled = currentPage === lastPage;
   return (
     <div
-      data-h2-padding="b(x.5)"
-      data-h2-display="b(flex)"
-      data-h2-align-items="b(center)"
-      data-h2-flex-direction="b(column) s(row)"
+      data-h2-padding="base(x.5)"
+      data-h2-display="base(flex)"
+      data-h2-align-items="base(center)"
+      data-h2-flex-direction="base(column) p-tablet(row)"
     >
       <nav
         role="navigation"
         aria-label={ariaLabel}
-        data-h2-margin="b(0, 0, x.5, 0) s(0, x.5, 0, 0)"
+        data-h2-margin="base(0, 0, x.5, 0) p-tablet(0, x.5, 0, 0)"
       >
         <ul
           className="reset-ul"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(center)"
-          data-h2-margin="b(0, 0, 0, 0)"
+          data-h2-display="base(flex)"
+          data-h2-align-items="base(center)"
+          data-h2-margin="base(0, 0, 0, 0)"
           {...rest}
         >
           {/* left navigation arrow */}
-          <li data-h2-margin="b(0)">
+          <li data-h2-margin="base(0)">
             <Button
               classNames={
                 isLeftArrowDisabled || lessThanTwoItems ? "disabled" : ""
@@ -104,8 +104,8 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   "Aria label for previous page button in pagination nav",
               })}
               onClick={previousPage}
-              data-h2-margin="b(0, x.125, 0, 0)"
-              data-h2-padding="b(x.125, x.25)"
+              data-h2-margin="base(0, x.125, 0, 0)"
+              data-h2-padding="base(x.125, x.25)"
               data-testid="leftArrowButton"
             >
               <ArrowLeftIcon style={{ width: "1.125rem" }} />
@@ -117,8 +117,8 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
               return (
                 <li
                   key={`${index + 1}-dots`}
-                  data-h2-display="b(flex)"
-                  data-h2-margin="b(0, x.25)"
+                  data-h2-display="base(flex)"
+                  data-h2-margin="base(0, x.25)"
                   data-testid="dots"
                 >
                   <DotsHorizontalIcon style={{ width: "1.125rem" }} />
@@ -127,10 +127,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
             }
             const current = pageNumber === currentPage;
             return (
-              <li
-                key={`${pageNumber}-pageNumber`}
-                data-h2-margin="b(0)"
-              >
+              <li key={`${pageNumber}-pageNumber`} data-h2-margin="base(0)">
                 <Button
                   classNames={lessThanTwoItems ? "disabled" : ""}
                   data-testid="pagination"
@@ -147,9 +144,9 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                     { pageNumber },
                   )}
                   aria-current={current}
-                  onClick={() => handlePageChange(Number(pageNumber))}
-                  data-h2-margin="b(0, x.125)"
-                  data-h2-padding="b(x.125, x.25)"
+                  onClick={() => onCurrentPageChange(Number(pageNumber))}
+                  data-h2-margin="base(0, x.125)"
+                  data-h2-padding="base(x.125, x.25)"
                 >
                   {pageNumber}
                 </Button>
@@ -157,7 +154,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
             );
           })}
           {/* right navigation arrow */}
-          <li data-h2-margin="b(0)">
+          <li data-h2-margin="base(0)">
             <Button
               classNames={
                 isRightArrowDisabled || lessThanTwoItems ? "disabled" : ""
@@ -173,8 +170,8 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   "Aria label for next page button in pagination nav",
               })}
               onClick={nextPage}
-              data-h2-margin="b(0, 0, 0, x.125)"
-              data-h2-padding="b(x.125, x.25)"
+              data-h2-margin="base(0, 0, 0, x.125)"
+              data-h2-padding="base(x.125, x.25)"
               data-testid="rightArrowButton"
             >
               <ArrowRightIcon style={{ width: "1.125rem" }} />
@@ -182,7 +179,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           </li>
         </ul>
       </nav>
-      <div data-h2-margin="b(0, 0, x.5, 0) s(0, x.5, 0, 0)">
+      <div data-h2-margin="base(0, 0, x.5, 0) p-tablet(0, x.5, 0, 0)">
         <span>
           {intl.formatMessage({
             defaultMessage: "Go to page:",
@@ -193,7 +190,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
             value={currentPage}
             onChange={(e) => {
               const p = e.target.value ? Number(e.target.value) : 0;
-              handlePageChange(p);
+              onCurrentPageChange(p);
             }}
             disabled={lessThanTwoItems}
             min={1}
@@ -207,7 +204,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           style={{ cursor: "pointer" }}
           value={pageSize}
           onChange={(e) => {
-            handlePageSize(Number(e.target.value));
+            onPageSizeChange(Number(e.target.value));
           }}
         >
           {pageSizes.map((numOfRows) => (

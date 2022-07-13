@@ -5,7 +5,6 @@ import Input from ".";
 import type { InputProps } from ".";
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import { phoneNumberRegex } from "../../../constants/regularExpressions";
 
 export default {
   component: Input,
@@ -78,11 +77,7 @@ TelephoneInput.args = {
   name: "telephone",
   label: "Telephone",
   rules: {
-    required: "This field is required",
-    pattern: {
-      value: phoneNumberRegex,
-      message: "This field must follow the pattern +123243234.",
-    },
+    required: true,
   },
 };
 
@@ -91,11 +86,22 @@ export const ElementLabelText = TemplateInput.bind({});
 ElementLabelText.args = {
   type: "text",
   id: "firstName",
-  label: <span data-h2-font-weight="b(700)">First name</span>,
+  label: <span data-h2-font-weight="base(700)">First name</span>,
   name: "firstNameElement",
   rules: {
     required: "This field is required",
     maxLength: { value: 50, message: "Too long!" },
   },
   context: "Additional context about this field.",
+};
+
+export const ReadOnlyTextInput = TemplateInput.bind({});
+
+ReadOnlyTextInput.args = {
+  type: "text",
+  id: "firstName",
+  label: "First Name",
+  name: "firstName",
+  readOnly: true,
+  hideOptional: true,
 };

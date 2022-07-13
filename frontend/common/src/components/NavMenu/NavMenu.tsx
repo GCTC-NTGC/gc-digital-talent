@@ -6,8 +6,8 @@ export interface NavMenuProps {
 }
 
 const ListItem: React.FC = ({ children }) => (
-  <li data-h2-flex-item="b(content)">
-    <span data-h2-margin="b(0, 0, x.5, 0)" data-h2-font-style="b:hover(reset)">
+  <li data-h2-flex-item="base(content)">
+    <span data-h2-margin="base(0, 0, x.5, 0)" data-h2-font-style="base:hover(reset)">
       {children}
     </span>
   </li>
@@ -18,17 +18,17 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
   utilityItems,
 }) => {
   return (
-    <div data-h2-container="b(center, large, x1) p-tablet(center, large, x2)">
-      <div data-h2-padding="b(x1, 0)">
-        <div data-h2-flex-grid="b(center, 0, x3, 0)">
+    <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-padding="base(x1, 0)">
+        <div data-h2-flex-grid="base(center, 0, x3, 0)">
           <div
-            data-h2-flex-item="b(1of1) p-tablet(1of2)"
-            data-h2-text-align="b(center) p-tablet(left)"
+            data-h2-flex-item="base(1of1) p-tablet(1of2)"
+            data-h2-text-align="base(center) p-tablet(left)"
           >
             <nav>
               <ul
-                data-h2-list-style="b(none)"
-                data-h2-flex-grid="b(flex-start, 0, x1, 0)">
+                data-h2-list-style="base(none)"
+                data-h2-flex-grid="base(flex-start, 0, x1, 0)">
                 {mainItems.map((item) => (
                   <ListItem key={item.key}>{item}</ListItem>
                 ))}
@@ -37,14 +37,14 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
           </div>
           {utilityItems && utilityItems.length > 0 ? (
             <div
-              data-h2-flex-item="b(1of1) p-tablet(1of2)"
-              data-h2-text-align="b(center) p-tablet(right)"
+              data-h2-flex-item="base(1of1) p-tablet(1of2)"
+              data-h2-text-align="base(center) p-tablet(right)"
             >
               <nav>
                 <ul
-                  data-h2-list-style="b(none)"
-                  data-h2-flex-grid="b(flex-start, 0, x1, 0)"
-                  data-h2-justify-content="b(flex-end)">
+                  data-h2-list-style="base(none)"
+                  data-h2-flex-grid="base(flex-start, 0, x1, 0)"
+                  data-h2-justify-content="base(flex-end)">
                   {utilityItems.map((item) => (
                     <ListItem key={item.key}>{item}</ListItem>
                   ))}

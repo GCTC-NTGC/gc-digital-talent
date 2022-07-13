@@ -1,4 +1,5 @@
 import React from "react";
+import Heading from "../Heading";
 
 import "./pageHeader.css";
 
@@ -10,18 +11,17 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, children, ...rest }) => {
   const Icon = icon || null;
 
   return (
-    <h1
-      data-h2-margin="b(x2, 0, x1, 0)"
-      {...rest}
-    >
-      {Icon && <Icon
-        data-h2-display="b(inline-block)"
-        data-h2-margin="b(0, x1, 0, 0)"
-        data-h2-width="b(x2.5)"
-        data-h2-vertical-align="b(middle)"
-        className="page-header__icon" />}
-      <span data-h2-vertical-align="b(middle)">{children}</span>
-    </h1>
+    <Heading level="h1" {...rest}>
+      {Icon && (
+        <Icon
+          className="page-header__icon"
+          data-h2-margin="base(0, x1, 0, 0)"
+          data-h2-width="base(x2)"
+          data-h2-vertical-align="base(middle)"
+        />
+      )}
+      <span data-h2-vertical-align="base(middle)">{children}</span>
+    </Heading>
   );
 };
 

@@ -23,6 +23,8 @@ export interface InputProps
   /** If input is not required, hide the 'Optional' label */
   hideOptional?: boolean;
   errorPosition?: "top" | "bottom";
+  // Whether to trim leading/ending whitespace upon blurring of an input, default on
+  whitespaceTrim?: boolean;
 }
 
 const Input: React.FunctionComponent<InputProps> = ({
@@ -32,19 +34,29 @@ const Input: React.FunctionComponent<InputProps> = ({
   name,
   rules = {},
   type,
+  readOnly,
   errorPosition = "bottom",
   hideOptional,
+  whitespaceTrim = true,
   ...rest
 }) => {
   const {
     register,
     formState: { errors },
+    setValue,
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message;
 
+  const whitespaceTrimmer = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (whitespaceTrim) {
+      const value = e.target.value.trim();
+      setValue(name, value);
+    }
+  };
+
   return (
-    <div data-h2-margin="b(x1, 0)">
+    <div data-h2-margin="base(x1, 0)">
       <InputWrapper
         inputId={id}
         label={label}
@@ -55,13 +67,18 @@ const Input: React.FunctionComponent<InputProps> = ({
         errorPosition={errorPosition}
       >
         <input
-          data-h2-padding="b(x.25, x.5)"
-          data-h2-radius="b(input)"
-          data-h2-border="b(all, 1px, solid, dt-gray)"
+          data-h2-padding="base(x.25, x.5)"
+          data-h2-radius="base(input)"
+          data-h2-border="base(all, 1px, solid, dt-gray)"
           style={{ width: "100%" }}
           id={id}
           {...register(name, rules)}
+          onBlur={whitespaceTrimmer}
           type={type}
+          {...(readOnly && {
+            "data-h2-bg-color": "base(dt-gray.light)",
+          })}
+          readOnly={readOnly}
           aria-required={rules.required ? "true" : undefined}
           aria-invalid={error ? "true" : "false"}
           {...rest}

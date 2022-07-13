@@ -16,16 +16,16 @@ export interface CardLinkProps {
 
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
-    "data-h2-background-color": "b(dt-linear)",
-    "data-h2-color": "b(dt-white)",
+    "data-h2-background-color": "base(dt-linear)",
+    "data-h2-color": "base(dt-white)",
   },
   "ia-primary": {
-    "data-h2-background-color": "b(ia-linear-secondary)",
-    "data-h2-color": "b(ia-white)",
+    "data-h2-background-color": "base(ia-linear-secondary)",
+    "data-h2-color": "base(ia-white)",
   },
   "ia-secondary": {
-    "data-h2-background-color": "b(ia-linear-primary)",
-    "data-h2-color": "b(ia-white)",
+    "data-h2-background-color": "base(ia-linear-primary)",
+    "data-h2-color": "base(ia-white)",
   },
 };
 
@@ -51,30 +51,30 @@ const CardLink: React.FC<CardLinkProps> = ({
           : undefined
       }
       className="card-link"
-      data-h2-display="b(inline-block)"
-      data-h2-radius="b(s)"
-      data-h2-shadow="b(s) b:hover(l)"
+      data-h2-display="base(inline-block)"
+      data-h2-radius="base(s)"
+      data-h2-shadow="base(s) base:hover(l)"
       {...rest}
     >
       <span
         className="card-link__header"
-        data-h2-display="b(block)"
-        data-h2-font-size="b(h4) l(h3)"
-        data-h2-font-weight="b(800)"
-        data-h2-padding="b(x.5)"
-        data-h2-radius="b(s, s, 0px, 0px)"
+        data-h2-display="base(block)"
+        data-h2-font-size="base(h4) desktop(h3)"
+        data-h2-font-weight="base(800)"
+        data-h2-padding="base(x.5)"
+        data-h2-radius="base(s, s, 0px, 0px)"
         {...{ ...colorMap[color] }}
       >
         {children}
       </span>
       <span
         className="card-link__label"
-        data-h2-background-color="b(dt-white)"
-        data-h2-display="b(flex)"
-        data-h2-align-items="b(center)"
-        data-h2-justify-content="b(flex-start)"
-        data-h2-radius="b(0, 0, s, s)"
-        data-h2-padding="b(x.5)"
+        data-h2-background-color="base(dt-white)"
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(center)"
+        data-h2-justify-content="base(flex-start)"
+        data-h2-radius="base(0, 0, s, s)"
+        data-h2-padding="base(x.5)"
       >
         {Icon && <Icon className="card-link__icon" />}
         <span>{label}</span>

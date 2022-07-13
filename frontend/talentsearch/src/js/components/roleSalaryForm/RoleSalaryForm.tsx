@@ -10,7 +10,6 @@ import NotFound from "@common/components/NotFound";
 import { toast } from "react-toastify";
 import { navigate } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
-import find from "lodash/find";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import {
   DialogLevelOne,
@@ -57,11 +56,11 @@ const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
     <Button
       color="black"
       mode="inline"
-      data-h2-padding="b(0)"
-      data-h2-font-size="b(caption)"
+      data-h2-padding="base(0)"
+      data-h2-font-size="base(caption)"
       onClick={click}
     >
-      <span data-h2-font-style="b(underline)">{children}</span>
+      <span data-h2-font-style="base(underline)">{children}</span>
     </Button>
   );
 };
@@ -89,7 +88,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   // intl styling functions section
   // bolding, adding a link, and to add a button opening modals onto text
   function bold(msg: string) {
-    return <span data-h2-font-weight="b(700)">{msg}</span>;
+    return <span data-h2-font-weight="base(700)">{msg}</span>;
   }
   function link(msg: string, url: string) {
     return <a href={url}>{msg}</a>;
@@ -132,7 +131,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           defaultValues: initialFormValues,
         }}
       >
-        <p data-h2-margin="b(0, 0, x2, 0)">
+        <p data-h2-margin="base(0, 0, x2, 0)">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -247,11 +246,11 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           ]}
         />
         <div
-          data-h2-background-color="b(light.dt-gray)"
-          data-h2-margin="b(x1, 0, 0, 0)"
-          data-h2-radius="b(s)"
+          data-h2-background-color="base(light.dt-gray)"
+          data-h2-margin="base(x1, 0, 0, 0)"
+          data-h2-radius="base(s)"
         >
-          <p data-h2-padding="b(x1, 0, x1, x.5)">
+          <p data-h2-padding="base(x1, 0, x1, x.5)">
             <span>
               <InformationCircleIcon style={{ width: "0.9rem" }} />{" "}
               {intl.formatMessage(
@@ -264,7 +263,9 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                   link: (msg: string) =>
                     link(
                       msg,
-                      "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html",
+                      intl.locale === "en"
+                        ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html"
+                        : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/carriere-domaine-numerique.html",
                     ),
                 },
               )}

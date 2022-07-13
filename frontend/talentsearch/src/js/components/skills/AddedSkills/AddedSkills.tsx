@@ -23,7 +23,7 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
 
   return (
     <>
-      <h3 data-h2-font-size="b(h5, 1.3)">
+      <h3 data-h2-font-size="base(h5, 1.3)">
         {intl.formatMessage({
           defaultMessage: "Skills attached to this experience",
           description:
@@ -59,11 +59,11 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
 
       {filteredSkills.length >= 6 && (
         <div
-          data-h2-border="b(all, 1px, solid, dt-accent)"
-          data-h2-background-color="b(dt-accent.1)"
-          data-h2-padding="b(x.5)"
-          data-h2-radius="b(s)"
-          data-h2-color="b(darker.dt-accent)"
+          data-h2-border="base(all, 1px, solid, dt-accent)"
+          data-h2-background-color="base(dt-accent.1)"
+          data-h2-padding="base(x.5)"
+          data-h2-radius="base(s)"
+          data-h2-color="base(darker.dt-accent)"
           role="alert"
         >
           <i>

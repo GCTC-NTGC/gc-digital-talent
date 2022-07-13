@@ -29,7 +29,6 @@ import {
   getOperationalRequirement,
 } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
-import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -92,8 +91,8 @@ const UserFormSection: React.FunctionComponent<{
     <>
       <div
         {...(userMode === "existing"
-          ? { "data-h2-visibility": "b(visible)" }
-          : { "data-h2-visibility": "b(hidden)" })}
+          ? { "data-h2-visibility": "base(visible)" }
+          : { "data-h2-visibility": "base(hidden)" })}
       >
         <Select
           id="user"
@@ -119,8 +118,8 @@ const UserFormSection: React.FunctionComponent<{
       </div>
       <div
         {...(userMode === "new"
-          ? { "data-h2-visibility": "b(visible)" }
-          : { "data-h2-visibility": "b(hidden)" })}
+          ? { "data-h2-visibility": "base(visible)" }
+          : { "data-h2-visibility": "base(hidden)" })}
       >
         <Input
           id="email"
@@ -176,10 +175,10 @@ const UserFormSection: React.FunctionComponent<{
           type="tel"
           name="telephone"
           rules={{
-            pattern: {
-              value: phoneNumberRegex,
-              message: intl.formatMessage(errorMessages.telephone),
-            },
+            required:
+              userMode === "new"
+                ? intl.formatMessage(errorMessages.required)
+                : undefined,
           }}
         />
         <Select
@@ -343,10 +342,10 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   );
 
   return (
-    <section data-h2-container="b(left, s)">
+    <section data-h2-container="base(left, s)">
       <h2
-        data-h2-font-weight="b(700)"
-        data-h2-margin="b(x2, 0, x1, 0)">
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create Pool Candidate",
           description: "Title displayed on the create a user form.",
@@ -355,7 +354,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h4 data-h2-margin="b(x2, 0, x1, 0)">
+            <h4 data-h2-margin="base(x2, 0, x1, 0)">
               {intl.formatMessage({
                 description: "Heading for the user information section",
                 defaultMessage: "User Information",
@@ -388,7 +387,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               }}
             />
             <UserFormSection control={control} userOptions={userOptions} />
-            <h4 data-h2-margin="b(x2, 0, x1, 0)">
+            <h4 data-h2-margin="base(x2, 0, x1, 0)">
               {intl.formatMessage({
                 description: "Heading for the candidate information section",
                 defaultMessage: "Candidate Information",

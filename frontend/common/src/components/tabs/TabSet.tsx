@@ -56,9 +56,9 @@ const TabSet: React.FC<TabSetProps> = ({ children }): React.ReactElement => {
   return (
     <>
       <div
-        data-h2-display="b(flex)"
-        data-h2-align-items="b(center)"
-        data-h2-margin="b(0, 0, x.5, 0)"
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(center)"
+        data-h2-margin="base(0, 0, x.5, 0)"
         role="tablist"
       >
         {childrenWithProps}

@@ -36,26 +36,26 @@ const ManagerInfo: React.FunctionComponent<{
   return (
     <>
       <h2
-        data-h2-margin="b(x2, 0, x.5, 0)"
-        data-h2-font-size="b(h4, 1.3)">
+        data-h2-margin="base(x2, 0, x.5, 0)"
+        data-h2-font-size="base(h4, 1.3)">
         {intl.formatMessage({
           defaultMessage: "Manager Information",
           description:
             "Heading for the manager info section of the single search request view.",
         })}
       </h2>
-      <div data-h2-background-color="b(lightest.dt-gray)">
+      <div data-h2-background-color="base(lightest.dt-gray)">
         <div
-          data-h2-flex-grid="b(stretch, x1, x1, 0)"
+          data-h2-flex-grid="base(stretch, x1, x1, 0)"
           style={{ overflowWrap: "break-word" }}
         >
           <div
-            data-h2-flex-item="b(1of1) s(1of4)"
-            data-h2-border="s(right, 1px, solid, dt-gray)"
+            data-h2-flex-item="base(1of1) p-tablet(1of4)"
+            data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
           >
             <div
-              data-h2-padding="b(0, x1, 0, 0)"
-              data-h2-height="b(100%)">
+              data-h2-padding="base(0, x1, 0, 0)"
+              data-h2-height="base(100%)">
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage: "Full Name",
@@ -75,12 +75,12 @@ const ManagerInfo: React.FunctionComponent<{
             </div>
           </div>
           <div
-            data-h2-flex-item="b(1of1) s(1of4)"
-            data-h2-border="s(right, 1px, solid, dt-gray)"
+            data-h2-flex-item="base(1of1) p-tablet(1of4)"
+            data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
           >
             <div
-              data-h2-padding="b(0, x1, 0, 0)"
-              data-h2-height="b(100%)">
+              data-h2-padding="base(0, x1, 0, 0)"
+              data-h2-height="base(100%)">
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage: "Department",
@@ -100,12 +100,12 @@ const ManagerInfo: React.FunctionComponent<{
             </div>
           </div>
           <div
-            data-h2-flex-item="b(1of1) s(1of4)"
-            data-h2-border="s(right, 1px, solid, dt-gray)"
+            data-h2-flex-item="base(1of1) p-tablet(1of4)"
+            data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
           >
             <div
-              data-h2-padding="b(0, x1, 0, 0)"
-              data-h2-height="b(100%)">
+              data-h2-padding="base(0, x1, 0, 0)"
+              data-h2-height="base(100%)">
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage: "Pool Requested",
@@ -140,10 +140,10 @@ const ManagerInfo: React.FunctionComponent<{
             </div>
           </div>
           <div
-            data-h2-flex-item="b(1of1) s(1of4)">
+            data-h2-flex-item="base(1of1) p-tablet(1of4)">
             <div
-              data-h2-padding="b(0, x1, 0, 0)"
-              data-h2-height="b(100%)">
+              data-h2-padding="base(0, x1, 0, 0)"
+              data-h2-height="base(100%)">
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage: "Date Requested",
@@ -223,7 +223,7 @@ export const SingleSearchRequest: React.FunctionComponent<
   };
 
   function span(msg: string): JSX.Element {
-    return <span data-h2-font-weight="b(600)">{msg}</span>;
+    return <span data-h2-font-weight="base(600)">{msg}</span>;
   }
   return (
     <section>
@@ -245,8 +245,8 @@ export const SingleSearchRequest: React.FunctionComponent<
       <ManagerInfo searchRequest={searchRequest} />
       <div>
         <h2
-          data-h2-margin="b(x2, 0, x.5, 0)"
-          data-h2-font-size="b(h4, 1.3)">
+          data-h2-margin="base(x2, 0, x.5, 0)"
+          data-h2-font-size="base(h4, 1.3)">
           {intl.formatMessage({
             defaultMessage: "Request Information",
             description:
@@ -254,13 +254,13 @@ export const SingleSearchRequest: React.FunctionComponent<
           })}
         </h2>
         <div
-          data-h2-padding="b(x1)"
-          data-h2-background-color="b(lightest.dt-gray)">
+          data-h2-padding="base(x1)"
+          data-h2-background-color="base(lightest.dt-gray)">
           <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
           <div
-            data-h2-padding="b(x1, 0, 0, 0)"
-            data-h2-border="b(top, 1px, solid, dt-gray)"
-            data-h2-margin="b(x1, 0, 0, 0)">
+            data-h2-padding="base(x1, 0, 0, 0)"
+            data-h2-border="base(top, 1px, solid, dt-gray)"
+            data-h2-margin="base(x1, 0, 0, 0)">
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Additional Comments",
@@ -274,8 +274,8 @@ export const SingleSearchRequest: React.FunctionComponent<
       </div>
       <div>
         <h2
-          data-h2-margin="b(x2, 0, 0, 0)"
-          data-h2-font-size="b(h4, 1.3)">
+          data-h2-margin="base(x2, 0, 0, 0)"
+          data-h2-font-size="base(h4, 1.3)">
           {intl.formatMessage({
             defaultMessage: "Candidate Results",
             description:

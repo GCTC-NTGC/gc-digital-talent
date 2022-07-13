@@ -3,6 +3,8 @@ import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
+import { getLocale } from "@common/helpers/localize";
+import { Helmet } from "react-helmet";
 import ClientProvider from "./ClientProvider";
 import PageContainer, { MenuLink } from "./PageContainer";
 import {
@@ -44,6 +46,9 @@ export const Router: React.FC = () => {
         menuItems={menuItems}
         contentRoutes={routes(indigenousApprenticeshipPaths)}
       />
+      <Helmet>
+        <html lang={getLocale(intl)} data-h2 />
+      </Helmet>
       <Toast />
     </ClientProvider>
   );

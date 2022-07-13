@@ -162,6 +162,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="status-section">
             <HeadingWrapper show={!!sections.myStatus?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={LightBulbIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -173,7 +174,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.myStatus?.editUrl && (
                 <Link
                   href={sections.myStatus.editUrl}
-                  data-h2-color="b(dt-primary)"
+                  data-h2-color="base(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit My Status",
@@ -189,6 +190,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="pools-section">
             <HeadingWrapper show={!!sections.hiringPools?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={UserGroupIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -200,7 +202,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.hiringPools?.editUrl && (
                 <Link
                   href={sections.hiringPools.editUrl}
-                  data-h2-color="b(dt-primary)"
+                  data-h2-color="base(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit My Hiring Pools",
@@ -220,6 +222,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="about-section">
             <HeadingWrapper show={!!sections.about?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={UserIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -231,7 +234,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.about?.editUrl && (
                 <Link
                   href={sections.about.editUrl}
-                  data-h2-color="b(dt-primary)"
+                  data-h2-color="base(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit About Me",
@@ -255,6 +258,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="language-section">
             <HeadingWrapper show={!!sections.language?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={ChatAlt2Icon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -267,7 +271,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.language?.editUrl && (
                 <Link
                   href={sections.language.editUrl}
-                  data-h2-color="b(dt-primary)"
+                  data-h2-color="base(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Language Information",
@@ -280,7 +284,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.language?.override ? (
               sections.language.override
             ) : (
-              <LanguageInformationSection applicant={applicant} />
+              <LanguageInformationSection
+                applicant={applicant}
+                editPath={sections.language?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -288,6 +295,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="government-section">
             <HeadingWrapper show={!!sections.government?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={LibraryIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -300,7 +308,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.government?.editUrl && (
                 <Link
                   href={sections.government.editUrl}
-                  data-h2-color="b(dt-primary)"
+                  data-h2-color="base(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Government Information",
@@ -313,7 +321,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.government?.override ? (
               sections.government.override
             ) : (
-              <GovernmentInformationSection applicant={applicant} />
+              <GovernmentInformationSection
+                applicant={applicant}
+                editPath={sections.government?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -321,6 +332,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="work-location-section">
             <HeadingWrapper show={!!sections.workLocation?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={LocationMarkerIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -332,7 +344,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.workLocation?.editUrl && (
                 <Link
                   href={sections.workLocation.editUrl}
-                  data-h2-color="b(dt-primary)"
+                  data-h2-color="base(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Work Location",
@@ -345,7 +357,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.workLocation?.override ? (
               sections.workLocation.override
             ) : (
-              <WorkLocationSection applicant={applicant} />
+              <WorkLocationSection
+                applicant={applicant}
+                editPath={sections.workLocation?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -353,6 +368,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="work-preferences-section">
             <HeadingWrapper show={!!sections.workPreferences?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={ThumbUpIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -364,7 +380,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.workPreferences?.editUrl && (
                 <Link
                   href={sections.workPreferences.editUrl}
-                  data-h2-color="b(dt-primary)"
+                  data-h2-color="base(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Work Preferences",
@@ -377,7 +393,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.workPreferences?.override ? (
               sections.workPreferences.override
             ) : (
-              <WorkPreferencesSection applicant={applicant} />
+              <WorkPreferencesSection
+                applicant={applicant}
+                editPath={sections.workPreferences?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -385,6 +404,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="diversity-equity-inclusion-section">
             <HeadingWrapper show={!!sections.employmentEquity?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={UserCircleIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -397,7 +417,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.employmentEquity?.editUrl && (
                 <Link
                   href={sections.employmentEquity.editUrl}
-                  data-h2-color="b(dt-primary)"
+                  data-h2-color="base(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Diversity, Equity and Inclusion",
@@ -410,7 +430,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.employmentEquity?.override ? (
               sections.employmentEquity.override
             ) : (
-              <DiversityEquityInclusionSection applicant={applicant} />
+              <DiversityEquityInclusionSection
+                applicant={applicant}
+                editPath={sections.employmentEquity?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -418,6 +441,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="role-and-salary-section">
             <HeadingWrapper show={!!sections.roleSalary?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={CurrencyDollarIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -430,7 +454,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.roleSalary?.editUrl && (
                 <Link
                   href={sections.roleSalary.editUrl}
-                  data-h2-color="b(dt-primary)"
+                  data-h2-color="base(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Role and Salary",
@@ -454,6 +478,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="skills-and-experience-section">
             <HeadingWrapper show={!!sections.skillsExperience?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={LightningBoltIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -466,7 +491,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.skillsExperience?.editUrl && (
                 <Link
                   href={sections.skillsExperience.editUrl}
-                  data-h2-color="b(dt-primary)"
+                  data-h2-color="base(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Skills and Experience",

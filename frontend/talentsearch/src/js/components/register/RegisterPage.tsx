@@ -14,7 +14,7 @@ const keyRegistrationLink = (path: string, ...chunks: React.ReactNode[]) => (
 );
 
 const boldText = (...chunks: React.ReactNode[]) => (
-  <span data-h2-font-weight="b(800)">{chunks}</span>
+  <span data-h2-font-weight="base(800)">{chunks}</span>
 );
 
 const RegisterPage: React.FC = () => {
@@ -26,9 +26,9 @@ const RegisterPage: React.FC = () => {
   return (
     <>
       <div
-        data-h2-padding="b(x1, x.5)"
-        data-h2-color="b(dt-white)"
-        data-h2-text-align="b(center)"
+        data-h2-padding="base(x1, x.5)"
+        data-h2-color="base(dt-white)"
+        data-h2-text-align="base(center)"
         style={{
           background: `url(${imageUrl(
             TALENTSEARCH_APP_DIR,
@@ -39,7 +39,7 @@ const RegisterPage: React.FC = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 data-h2-margin="b(x2, 0)">
+        <h1 data-h2-margin="base(x2, 0)">
           {intl.formatMessage({
             defaultMessage: "Register using GC Key",
             description:
@@ -47,7 +47,7 @@ const RegisterPage: React.FC = () => {
           })}
         </h1>
       </div>
-      <div data-h2-container="b(center, s)" data-h2-margin="b(x3, 0)">
+      <div data-h2-container="base(center, s)" data-h2-margin="base(x3, 0)">
         <p>
           {intl.formatMessage({
             defaultMessage:
@@ -77,12 +77,12 @@ const RegisterPage: React.FC = () => {
             },
           )}
         </p>
-        <hr data-h2-margin="b(x2, 0)" />
+        <hr data-h2-margin="base(x2, 0)" />
         <div
-          data-h2-display="b(flex)"
-          data-h2-flex-direction="b(column) m(row)"
-          data-h2-align-items="b(center)"
-          data-h2-justify-content="b(space-between)"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column) l-tablet(row)"
+          data-h2-align-items="base(center)"
+          data-h2-justify-content="base(space-between)"
         >
           <p>
             <Link href={loginPath} external>

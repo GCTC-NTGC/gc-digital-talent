@@ -138,8 +138,7 @@ export const useRouter = (
           authorizationLoaded &&
           empty(loggedInEmail)
         ) {
-          redirect(welcomeRoute);
-          return null;
+          navigate(welcomeRoute);
         }
 
         // handling a redirect
@@ -161,7 +160,7 @@ export const useRouter = (
         let isAuthorized: boolean;
 
         // if there is a list of authorized roles required then let's see if the user is authorized
-        if (authorizationRequired) {
+        if (authorizationLoaded && authorizationRequired) {
           // the user is considered authorized if there are no roles needed or they have at least one of the required roles
           isAuthorized =
             authorizedRoles.length === 0 ||

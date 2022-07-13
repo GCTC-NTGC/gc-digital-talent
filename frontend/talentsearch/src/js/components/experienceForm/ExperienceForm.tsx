@@ -158,7 +158,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         {experienceType === "personal" && <PersonalExperienceForm />}
         {experienceType === "work" && <WorkExperienceForm />}
         <ExperienceSkills skills={skills} />
-        <h2 data-h2-font-size="b(h3, 1.3)">
+        <h2 data-h2-font-size="base(h3, 1.3)">
           {intl.formatMessage({
             defaultMessage: "4. Additional information for this experience",
             description: "Title for addition information on Experience form",
@@ -187,7 +187,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
             type="button"
             mode="outline"
             color="secondary"
-            data-h2-margin="b(x2, 0, 0, 0)"
+            data-h2-margin="base(x2, 0, 0, 0)"
           >
             <span>
               <TrashIcon style={{ width: "0.9rem" }} />{" "}
@@ -212,8 +212,8 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         onDismiss={() => setDialogOpen(false)}
         footer={
           <div
-            data-h2-display="b(flex)"
-            data-h2-justify-content="b(space-between)"
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(space-between)"
           >
             {exitDialogButton}
             {deleteButton}

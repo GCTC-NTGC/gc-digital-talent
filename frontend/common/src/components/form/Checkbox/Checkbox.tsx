@@ -42,7 +42,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   const error = get(errors, name)?.message;
 
   return (
-    <div data-h2-margin="b(0, 0, x.125, 0)">
+    <div data-h2-margin="base(0, 0, x.125, 0)">
       {!boundingBox ? (
         <InputWrapper
           inputId={id}
@@ -50,12 +50,12 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           required={!!rules.required}
           context={context}
           error={error}
-          data-h2-flex-direction="b(row)"
-          data-h2-align-items="b(center)"
+          data-h2-flex-direction="base(row)"
+          data-h2-align-items="base(center)"
         >
           <input
             style={{ order: -1 }}
-            data-h2-margin="b(0, x.125, x.125, 0)"
+            data-h2-margin="base(0, x.125, x.125, 0)"
             id={id}
             {...register(name, rules)}
             type="checkbox"
@@ -73,11 +73,11 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           error={error}
         >
           <div
-            data-h2-border="b(all, 1px, solid, dark.dt-gray)"
-            data-h2-radius="b(s)"
-            data-h2-padding="b(x.125, x.5)"
-            data-h2-display="b(flex)"
-            data-h2-align-items="b(center)"
+            data-h2-border="base(all, 1px, solid, dark.dt-gray)"
+            data-h2-radius="base(s)"
+            data-h2-padding="base(x.125, x.5)"
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(center)"
             style={{ width: "100%" }}
           >
             <label htmlFor={id}>
@@ -89,8 +89,8 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
                 {...rest}
               />
               <span
-                data-h2-margin="b(0, 0, 0, x.25)"
-                data-h2-font-size="b(caption)"
+                data-h2-margin="base(0, 0, 0, x.25)"
+                data-h2-font-size="base(caption)"
               >
                 {label}
               </span>

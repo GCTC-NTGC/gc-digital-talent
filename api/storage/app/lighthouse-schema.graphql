@@ -1,3 +1,9 @@
+enum AdvertisementStatus {
+  DRAFT
+  PUBLISHED
+  EXPIRED
+}
+
 type Applicant {
   id: ID!
   firstName: String
@@ -42,6 +48,25 @@ type Applicant {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   expectedGenericJobTitles: [GenericJobTitle]
+}
+
+input ApplicantFilterInput {
+  poolCandidates: ApplicantPoolFilterInput
+  jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES]
+  languageAbility: LanguageAbility
+  expectedClassifications: [ClassificationFilterInput]
+  operationalRequirements: [OperationalRequirement]
+  locationPreferences: [WorkRegion]
+  equity: EquitySelectionsInput
+  hasDiploma: Boolean
+  wouldAcceptTemporary: Boolean
+  skills: [ID]
+}
+
+input ApplicantPoolFilterInput {
+  pools: [ID]!
+  expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
+  statuses: [PoolCandidateStatus!] = [AVAILABLE]
 }
 
 type AwardExperience implements Experience {
@@ -316,6 +341,11 @@ scalar Date
 A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
 """
 scalar DateTime
+
+"""
+A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sP`, e.g. `2020-04-20T13:53:12+02:00`.
+"""
+scalar DateTimeTz
 
 type Department {
   id: ID!
@@ -660,9 +690,7 @@ input PersonalExperienceInput {
   skills: UpdateExperienceSkills
 }
 
-"""
-A phone number string which must comply with E.164 international notation, including country code and preceding '+'.
-"""
+"""A phone number string, accepts any string"""
 scalar PhoneNumber
 
 type Pool {
@@ -678,6 +706,35 @@ type Pool {
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
   status: PoolStatus
+}
+
+type PoolAdvertisement {
+  id: ID!
+  expiryDate: DateTimeTz
+  isPublished: Boolean
+  name: LocalizedString
+  description: LocalizedString
+  classifications: [Classification]
+  assetCriteria: [CmoAsset]
+  essentialCriteria: [CmoAsset]
+  operationalRequirements: [OperationalRequirement]
+  keyTasks: LocalizedString
+  yourImpact: LocalizedString
+  advertisementLocation: LocalizedString
+  securityClearance: SecurityStatus
+  advertisementLanguage: PoolAdvertisementLanguage
+  status: PoolStatus
+  advertisementStatus: AdvertisementStatus
+  essentialSkills: [Skill!]
+  nonessentialSkills: [Skill!]
+}
+
+enum PoolAdvertisementLanguage {
+  ENGLISH
+  FRENCH
+  VARIOUS
+  BILINGUAL_INTERMEDIATE
+  BILINGUAL_ADVANCED
 }
 
 input PoolBelongsTo {
@@ -799,13 +856,15 @@ type Query {
   users: [User]!
   applicant(id: ID!): Applicant
   applicants: [Applicant]!
+  countApplicants(where: ApplicantFilterInput): Int!
   pool(id: ID!): Pool
+  poolAdvertisement(id: ID!): PoolAdvertisement
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
-  countPoolCandidates(where: PoolCandidateFilterInput): Int!
-  searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
+  countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
+  searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   cmoAsset(id: ID!): CmoAsset
@@ -824,7 +883,8 @@ type Query {
   genericJobTitle(id: ID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
   usersPaginated(
-    where: UserFilterAndOrderInput
+    where: UserFilterInput
+    orderBy: [OrderByClause!]
 
     """Limits number of fetched items. Maximum allowed value: 1000."""
     first: Int = 10
@@ -897,6 +957,12 @@ enum SalaryRange {
   _80_89K
   _90_99K
   _100K_PLUS
+}
+
+enum SecurityStatus {
+  RELIABILITY
+  SECRET
+  TOP_SECRET
 }
 
 """Information about pagination using a simple paginator."""
@@ -1195,7 +1261,7 @@ input UserBelongsTo {
   connect: ID
 }
 
-input UserFilterAndOrderInput {
+input UserFilterInput {
   poolCandidates: UserPoolFilterInput
   languageAbility: LanguageAbility
   expectedClassifications: [ClassificationFilterInput]
@@ -1208,7 +1274,10 @@ input UserFilterAndOrderInput {
   isProfileComplete: Boolean
   skills: [ID]
   isGovEmployee: Boolean
-  orderBy: String
+  telephone: String
+  email: String
+  name: String
+  generalSearch: String
 }
 
 """A paginated list of User items."""
@@ -1223,7 +1292,7 @@ type UserPaginator {
 input UserPoolFilterInput {
   pools: [ID!]!
   expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
-  statuses: [PoolCandidateStatus!]
+  statuses: [PoolCandidateStatus!] = []
 }
 
 type UserPublicProfile {

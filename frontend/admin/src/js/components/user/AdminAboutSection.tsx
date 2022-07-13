@@ -13,21 +13,30 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
   const intl = useIntl();
 
   return (
-    <div data-h2-flex-item="b(1of1) s(3of4)">
+    <div data-h2-flex-item="base(1of1) p-tablet(3of4)">
       <div
-        data-h2-background-color="b(light.dt-gray)"
-        data-h2-padding="b(x1)"
-        data-h2-radius="b(s)"
+        data-h2-background-color="base(light.dt-gray)"
+        data-h2-padding="base(x1)"
+        data-h2-radius="base(s)"
       >
-        {!!firstName && !!lastName && (
+        {(!!firstName || !!lastName) && (
           <p>
             {intl.formatMessage({
               defaultMessage: "Name:",
               description: "Name label and colon",
             })}{" "}
-            <span data-h2-font-weight="b(700)">
+            <span data-h2-font-weight="base(700)">
               {firstName} {lastName}
             </span>
+          </p>
+        )}
+        {!firstName && !lastName && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "No information has been provided.",
+              description:
+                "Message on Admin side when user not filled WorkPreferences section.",
+            })}
           </p>
         )}
       </div>

@@ -213,7 +213,7 @@
   ],
   "media": [
     {
-      "key": "b",
+      "key": "base",
       "query": null
     },
     {
@@ -221,16 +221,8 @@
       "query": "print"
     },
     {
-      "key": "s",
-      "query": "screen and (min-width: 48em)"
-    },
-    {
       "key": "p-tablet",
       "query": "screen and (min-width: 48em)"
-    },
-    {
-      "key": "m",
-      "query": "screen and (min-width: 64em)"
     },
     {
       "key": "l-tablet",
@@ -239,10 +231,6 @@
     {
       "key": "laptop",
       "query": "screen and (min-width: 80em)"
-    },
-    {
-      "key": "l",
-      "query": "screen and (min-width: 100em)"
     },
     {
       "key": "desktop",
@@ -313,13 +301,13 @@
     {
       "size": "100%",
       "line_height": "1.3",
-      "query_key": "b",
+      "query_key": "base",
       "type_scale": "1.2"
     },
     {
       "size": "112.5%",
       "line_height": "1.3",
-      "query_key": "l",
+      "query_key": "desktop",
       "type_scale": "1.2"
     }
   ]

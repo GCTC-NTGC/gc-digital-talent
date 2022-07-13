@@ -23,9 +23,9 @@ const LoggedOutPage: React.FC = () => {
   return (
     <>
       <div
-        data-h2-padding="b(x1, x.5)"
-        data-h2-color="b(dt-white)"
-        data-h2-text-align="b(center)"
+        data-h2-padding="base(x1, x.5)"
+        data-h2-color="base(dt-white)"
+        data-h2-text-align="base(center)"
         style={{
           background: `url(${imageUrl(
             TALENTSEARCH_APP_DIR,
@@ -36,7 +36,7 @@ const LoggedOutPage: React.FC = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 data-h2-margin="b(x2, 0)">
+        <h1 data-h2-margin="base(x2, 0)">
           {intl.formatMessage({
             defaultMessage: "See you next time!",
             description:
@@ -44,7 +44,7 @@ const LoggedOutPage: React.FC = () => {
           })}
         </h1>
       </div>
-      <div data-h2-container="b(center, s)" data-h2-margin="b(x3, 0)">
+      <div data-h2-container="base(center, s)" data-h2-margin="base(x3, 0)">
         <Alert
           type="success"
           icon={<BellIcon style={{ width: "1rem" }} />}
@@ -74,10 +74,10 @@ const LoggedOutPage: React.FC = () => {
           })}
         </p>
         <div
-          data-h2-flex-grid="b(normal, 0, x.5)"
+          data-h2-flex-grid="base(normal, 0, x.5)"
           style={{ margin: "0 -0.5rem" }}
         >
-          <div data-h2-flex-item="b(1of1) m(1of3)">
+          <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
             <TileLink href={talentPaths.home()} color="primary">
               {intl.formatMessage({
                 defaultMessage: "Return home",
@@ -85,7 +85,7 @@ const LoggedOutPage: React.FC = () => {
               })}
             </TileLink>
           </div>
-          <div data-h2-flex-item="b(1of1) m(1of3)">
+          <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
             <TileLink href={directIntakePaths.allPools()} color="primary">
               {intl.formatMessage({
                 defaultMessage: "View open pools",
@@ -93,7 +93,7 @@ const LoggedOutPage: React.FC = () => {
               })}
             </TileLink>
           </div>
-          <div data-h2-flex-item="b(1of1) m(1of3)">
+          <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
             <TileLink href="/talent-cloud/report" color="primary" external>
               {intl.formatMessage({
                 defaultMessage: "Talent Cloud report",
@@ -117,9 +117,9 @@ const LoggedOutPage: React.FC = () => {
         })}
         footer={
           <div
-            data-h2-display="b(flex)"
-            data-h2-align-items="b(center)"
-            data-h2-justify-content="b(flex-end)"
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(center)"
+            data-h2-justify-content="base(flex-end)"
           >
             <Link
               mode="outline"
@@ -133,7 +133,7 @@ const LoggedOutPage: React.FC = () => {
                 description: "Link text to cancel logging out.",
               })}
             </Link>
-            <span data-h2-margin="b(0, 0, 0, x.5)">
+            <span data-h2-margin="base(0, 0, 0, x.5)">
               <Button
                 mode="solid"
                 color="primary"
@@ -151,7 +151,7 @@ const LoggedOutPage: React.FC = () => {
           </div>
         }
       >
-        <p data-h2-font-size="b(h5, 1.3)">
+        <p data-h2-font-size="base(h5, 1.3)">
           {intl.formatMessage({
             defaultMessage: "Are you sure you would like to logout?",
             description:

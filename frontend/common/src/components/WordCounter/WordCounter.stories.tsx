@@ -19,14 +19,14 @@ const TemplateWordCounter: Story<WordCounterProps> = (args) => {
   return (
     <div style={{ width: "20rem" }}>
       <BasicForm onSubmit={action("submit")}>
-        <div data-h2-display="b(flex)" data-h2-flex-direction="b(column)">
+        <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
           <TextArea
             id="wordCounter"
             name="wordCounter"
             label="Word Counter"
             value={text}
           />
-          <WordCounter {...args} data-h2-align-self="b(flex-end)" />
+          <WordCounter {...args} data-h2-align-self="base(flex-end)" />
         </div>
         <Submit />
       </BasicForm>

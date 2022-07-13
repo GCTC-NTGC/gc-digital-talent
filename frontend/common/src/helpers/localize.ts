@@ -1,5 +1,6 @@
 import { createPath, parsePath, Path } from "history";
 import { IntlShape } from "react-intl";
+import type { LocalizedString, Maybe } from "../api/generated";
 
 export type Locales = "en" | "fr";
 
@@ -46,3 +47,21 @@ export function localizePath(
     hash: inputPath.hash,
   });
 }
+
+export const getLocalizedName = (
+  name: Maybe<LocalizedString>,
+  intl: IntlShape,
+): string => {
+  const locale = getLocale(intl);
+
+  const notAvailable = intl.formatMessage({
+    defaultMessage: "N/A",
+    description: "displayed when localized string not available",
+  });
+
+  if (!name) {
+    return notAvailable;
+  }
+
+  return name[locale] ?? notAvailable;
+};

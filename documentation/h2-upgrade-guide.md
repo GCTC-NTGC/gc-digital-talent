@@ -1,7 +1,9 @@
 # Hydrogen 1.1.20 => 2.0.0-beta upgrade guide
 
-## Get ahead of the game
-You can get started on migrating your PR early by updating `frontend\common\package.json` to install `@hydrogen-design-system/hydrogen.css@beta`
+`2.0.0` has been in the works for, well, months, so the migration is bumpy. If you'd feel more comfortable pairing with me, or even having me migrate your PR for you, feel free to message me on Slack.
+
+## When the time comes
+When it comes time to migrate your PR, you can start by updating `frontend\common\package.json` to install `@hydrogen-design-system/hydrogen.css@beta`
 
 ## New attributes
 You can choose to ignore these additions, but they might be nice for you to know about.
@@ -34,18 +36,30 @@ You can choose to ignore these additions, but they might be nice for you to know
   - the typography system has been rebuilt from the ground up to support granular control - this will also help alleviate some of the insanely large headings on smaller devices, because we can target and control font sizes, type scale, etc.
 
 ## Big changes
+
+### Parent attribute
 - Hydrogen now requires a `data-h2` element on the `<html>` or any parent element
   - this is because of specificity of selectors, and it also provides a consistent location to enable and disable toggle-based dark mode
   - this attribute has already been added to the Storybook UIs, as well as any app UI that I've migrated, but triple check you've included it if none of your styles are showing up
+
+### Dark mode and state syntax
 - dark mode!
   - you can now tack on `:dark` to any media query and the styles you apply inside of it will only show up for dark mode users
   - if/when we decide to move on dark mode, designs will be passed along that show what dark mode should look like, so no need to worry about guessing
   - it's important to note that media queries later in the cascade will overwrite these styles, so be sure to specify dark mode styles for each media query if necessary
+- states should now use the full word (e.g. `b:h()` => `base:hover()`)
+
+### Overhauled media queries
 - there was a bug with media queries that resulted in an overhaul to how they work
   - media queries can now be defined in the config in full, so this means we can target things like `print()`
-  - new queries have been added with more descriptive names to align with the new rules (the old ones are still there, but they are deprecated and should NOT be used)
-    - the only exception to this is the `b()` query, which is still fine
-  - for example, replace the old `m()` query with `p-tablet`, representing portrait orientation tablet-width devices
+  - new queries have been added with more descriptive names to align with the new rules
+    - `b()` => `base()`
+    - `s()` => `p-tablet()` for portrait tablet size devices
+    - `m()` => `l-tablet()` for landscape tablet size devices
+    - `l()` => `laptop()`
+    - `xl()` => `desktop()`
+
+### Color configurations and naming
 - I've consolidated the color configurations, but this means that the colors have been renamed for consistency and reuse
   - all colors now use generic functional names (e.g. `primary`, `secondary`, `black`, `white`, `gray`, etc.)
   - Digital Talent brand colors are now prefixed with `dt-`, e.g. `dt-primary`
@@ -53,6 +67,8 @@ You can choose to ignore these additions, but they might be nice for you to know
   - if you need to access a light or dark version of a particular color, you can now use the modifier syntax to do so
     - for example, `light-purple` would now be `primary.light`
     - this also means you can set your own modifiers in `hydrogen.config.json` if new color variations are added
+
+### Size values
 - when accessing Hydrogen "sizes" you will now need to use a multiplier value instead of t-shirt sizes
   - Conversions aren't 1 to 1, but you can try out these to start with
     - `xxs` => `x.125`
@@ -63,20 +79,33 @@ You can choose to ignore these additions, but they might be nice for you to know
     - `xl` => `x3`
     - `xxl` => `x4`
   - the neat thing about this new approach is that you can actually use any number or decimal value you want, you're no longer restricted to predefined numbers or letters
+
+### Margin and padding syntax
 - `margin` and `padding` syntax has been changed to match how their CSS syntax works
   - 1 value (e.g. `margin="b(30px)"`) will apply to all 4 sides
   - 2 values (e.g. `margin="b(10px, 20px)"`) will apply the first value to the top and bottom, and the second value to the right and left
   - 4 values (e.g. `margin="b(10px, 20px, 30px, 40px)"`) will apply the values in the CSS box order of top, right, bottom, left
   - you can use the new multiplier values here too
+
+### Flex grid syntax
 - `flex-grid` has been reworked so it's easier to understand
-  - the new syntax looks like this: `flex-grid="b(alignment, wrapper_padding, gutter, optional_row_gutter)"`
-  - `alignment` lets you use any normal flexbox value (e.g. `flex-start`, `stretch`, etc.)
-  - `wrapper_padding` will apply padding around the grid's 4 sides, but not to its children
-  - `gutter` (or `column_gutter` if `row_gutter` is specified) will tell the grid how much space to create between its children
-  - `optional_row_gutter` allows you to specify a unique value for the space between rows (this is helpful if you want a lot of space between columns, but want to keep rows close together)
+  - `flex-grid="b(alignment, expansion, grid-padding, gutter)"` => `flex-grid="base(alignment, wrapper_padding, gutter, optional_row_gutter)"`
+    - `alignment` lets you use any normal flexbox value (e.g. `flex-start`, `stretch`, etc.)
+    - `wrapper_padding` will apply padding around the grid's 4 sides, but not to its children
+    - `gutter` (or `column_gutter` if `row_gutter` is specified) will tell the grid how much space to create between its children
+    - `optional_row_gutter` allows you to specify a unique value for the space between rows (this is helpful if you want a lot of space between columns, but want to keep rows close together)
+
+### Border syntax
+- `border` has been reworked to follow more closely with its CSS syntax
+  - `border="b(color, width, style, color)"` => `border="base(sides, width, style, color)"`
 
 ## Smaller changes
+- `bg-color` => `background-color` (though the original syntax will still work for now)
+- `font-color` => `color` (same deal here)
 - headings and paragraphs no longer have a default margin on them, so no more pesky resetting them to 0
+- more elements have had their font family, sizes, and line heights reset for default consistency
+- updated snippets for both new syntax and new attributes
+- a whole slew of new console errors for when things go wrong
 
 # Josh's list of random things that are helpful to have on hand
 `docker-compose run -w /var/www/html maintenance bash`

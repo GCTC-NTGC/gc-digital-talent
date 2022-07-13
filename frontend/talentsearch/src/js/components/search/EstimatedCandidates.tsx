@@ -8,7 +8,7 @@ interface EstimatedCandidatesProps {
 }
 
 const weight = (msg: string) => (
-  <span data-h2-font-weight="b(800)" data-testid="candidateCount">
+  <span data-h2-font-weight="base(800)" data-testid="candidateCount">
     {msg}
   </span>
 );
@@ -19,24 +19,24 @@ const EstimatedCandidates: React.FunctionComponent<
   const intl = useIntl();
 
   return (
-    <div data-h2-height="b(100%)">
+    <div data-h2-height="base(100%)">
       <div
-        data-h2-position="b(sticky)"
+        data-h2-position="base(sticky)"
         data-h2-offset="p-tablet(x3, auto, auto, auto)">
         <div
-          data-h2-background-color="b(dt-white)"
-          data-h2-overflow="b(hidden, all)"
-          data-h2-radius="b(10px)"
-          data-h2-shadow="b(l)"
+          data-h2-background-color="base(dt-white)"
+          data-h2-overflow="base(hidden, all)"
+          data-h2-radius="base(10px)"
+          data-h2-shadow="base(l)"
         >
           <div
-            data-h2-background-color="b(dt-secondary)"
-            data-h2-padding="b(x1)"
+            data-h2-background-color="base(dt-secondary)"
+            data-h2-padding="base(x1)"
           >
             <p
-              data-h2-color="b(dt-white)"
-              data-h2-font-size="b(h5, 1.3)"
-              data-h2-font-weight="b(700)"
+              data-h2-color="base(dt-white)"
+              data-h2-font-size="base(h5, 1.3)"
+              data-h2-font-weight="base(700)"
             >
               {intl.formatMessage({
                 defaultMessage: "Estimated Candidates",
@@ -46,10 +46,10 @@ const EstimatedCandidates: React.FunctionComponent<
             </p>
           </div>
           <div
-            data-h2-padding="b(x1)"
+            data-h2-padding="base(x1)"
             aria-live="polite"
           >
-            <p data-h2-text-align="b(center)">
+            <p data-h2-text-align="base(center)">
               {updatePending ? (
                 <Spinner />
               ) : (

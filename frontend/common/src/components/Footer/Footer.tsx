@@ -43,16 +43,16 @@ const Footer: React.FunctionComponent<{
   return (
     <footer
       className="footer"
-      data-h2-border="b(top, 1px, solid, dt-gray)"
-      data-h2-padding="b(x2, 0)"
-      data-h2-background-color="b(lightest.dt-gray)"
+      data-h2-border="base(top, 1px, solid, dt-gray)"
+      data-h2-padding="base(x2, 0)"
+      data-h2-background-color="base(lightest.dt-gray)"
       style={{ marginTop: "auto" }}
     >
-      <div data-h2-container="b(center, large, x2)">
-        <div data-h2-flex-grid="b(center, 0, x3)">
+      <div data-h2-container="base(center, large, x2)">
+        <div data-h2-flex-grid="base(center, 0, x3)">
           <div
-            data-h2-flex-item="b(1of1) m(1of2)"
-            data-h2-text-align="b(center) m(left)"
+            data-h2-flex-item="base(1of1) l-tablet(1of2)"
+            data-h2-text-align="base(center) l-tablet(left)"
           >
             <nav>
               <ul
@@ -62,8 +62,8 @@ const Footer: React.FunctionComponent<{
                 {links.map(({ route, label }) => (
                   <li
                     key={label}
-                    data-h2-display="b(inline-block)"
-                    data-h2-margin="b(0, x1, 0, 0)"
+                    data-h2-display="base(inline-block)"
+                    data-h2-margin="base(0, x1, 0, 0)"
                   >
                     {/* These links must use real anchor links, not the history api, as they may direct to outside of this app. */}
                     <a href={route}>{label}</a>
@@ -72,9 +72,9 @@ const Footer: React.FunctionComponent<{
               </ul>
             </nav>
             <p
-              data-h2-font-size="b(caption)"
-              data-h2-color="b(dark.dt-gray)"
-              data-h2-margin="b(x1, 0, 0, 0)"
+              data-h2-font-size="base(caption)"
+              data-h2-color="base(dark.dt-gray)"
+              data-h2-margin="base(x1, 0, 0, 0)"
             >
               {intl.formatMessage(
                 {
@@ -91,8 +91,8 @@ const Footer: React.FunctionComponent<{
             </p>
           </div>
           <div
-            data-h2-flex-item="b(1of1) m(1of2)"
-            data-h2-text-align="b(center) m(right)"
+            data-h2-flex-item="base(1of1) l-tablet(1of2)"
+            data-h2-text-align="base(center) l-tablet(right)"
           >
             <a
               href={`https://www.canada.ca/${intl.locale}.html`}

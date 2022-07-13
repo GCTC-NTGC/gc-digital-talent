@@ -15,7 +15,7 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
 
   return (
     <div>
-      <h2 data-h2-font-size="b(h3, 1.3)">
+      <h2 data-h2-font-size="base(h3, 1.3)">
         {intl.formatMessage({
           defaultMessage: "1. Community Experience Details",
           description: "Title for Community Experience form",
@@ -29,11 +29,11 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
         })}
       </p>
       <div
-        data-h2-display="b(flex)"
-        data-h2-padding="b(x1, 0, 0, 0)"
-        data-h2-flex-direction="b(column) s(row)"
+        data-h2-display="base(flex)"
+        data-h2-padding="base(x1, 0, 0, 0)"
+        data-h2-flex-direction="base(column) p-tablet(row)"
       >
-        <div data-h2-padding="b(0) s(0, x2, 0, 0)">
+        <div data-h2-padding="base(0) p-tablet(0, x2, 0, 0)">
           <Input
             id="role"
             label={intl.formatMessage({
@@ -102,10 +102,10 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
             name="currentRole"
           />
           <div
-            data-h2-display="b(flex)"
-            data-h2-flex-direction="b(column) s(row)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column) p-tablet(row)"
           >
-            <div data-h2-padding="b(0) s(0, x.5, 0, 0)">
+            <div data-h2-padding="base(0) p-tablet(0, x.5, 0, 0)">
               <Input
                 id="startDate"
                 label={intl.formatMessage({

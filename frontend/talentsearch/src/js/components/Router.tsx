@@ -2,11 +2,12 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
-import Toast from "@common/components/Toast";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { AuthenticationContext } from "@common/components/Auth";
 import { Button } from "@common/components";
 import Dialog from "@common/components/Dialog";
+import { Helmet } from "react-helmet";
+import { getLocale } from "@common/helpers/localize";
 import PageContainer, { MenuLink } from "./PageContainer";
 import SearchPage from "./search/SearchPage";
 import {
@@ -327,7 +328,9 @@ export const Router: React.FC = () => {
             : []),
         ]}
       />
-      <Toast />
+      <Helmet>
+        <html lang={getLocale(intl)} />
+      </Helmet>
       {loggedIn && (
         <Dialog
           confirmation
@@ -343,9 +346,9 @@ export const Router: React.FC = () => {
           })}
           footer={
             <div
-              data-h2-display="b(flex)"
-              data-h2-align-items="b(center)"
-              data-h2-justify-content="b(flex-end)"
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(center)"
+              data-h2-justify-content="base(flex-end)"
             >
               <Button
                 mode="outline"
@@ -360,7 +363,7 @@ export const Router: React.FC = () => {
                   description: "Link text to cancel logging out.",
                 })}
               </Button>
-              <span data-h2-margin="b(left, s)">
+              <span data-h2-margin="base(left, s)">
                 <Button
                   mode="solid"
                   color="primary"
@@ -378,7 +381,7 @@ export const Router: React.FC = () => {
             </div>
           }
         >
-          <p data-h2-font-size="b(h5)">
+          <p data-h2-font-size="base(h5)">
             {intl.formatMessage({
               defaultMessage: "Are you sure you would like to logout?",
               description:
