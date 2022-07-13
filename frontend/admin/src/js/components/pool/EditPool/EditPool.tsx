@@ -25,6 +25,7 @@ import WorkTasksSection from "./WorkTasksSection";
 import OtherRequirementsSection from "./OtherRequirementsSection";
 import StatusSection from "./StatusSection";
 import EssentialSkillsSection from "./EssentialSkillsSection";
+import AssetSkillsSection from "./AssetSkillsSection";
 
 interface EditPoolFormProps {
   poolAdvertisement: PoolAdvertisement;
@@ -227,41 +228,17 @@ export const EditPoolForm = ({
             sectionMetadata={sectionMetadata.essentialSkills}
             onSave={onSave}
           />
-
-          {/* Asset skills section */}
-          <TableOfContents.Section id={sectionMetadata.assetSkills.id}>
-            <TableOfContents.Heading>
-              <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-                {sectionMetadata.assetSkills.title}
-              </h2>
-            </TableOfContents.Heading>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Select skills that will improve the chances of quality matches with managers. These can typically be learned on the job and are not necessary to be accepted into the pool.",
-                description:
-                  "Helper message for filling in the pool asset skills",
-              })}
-            </p>
-
-            <Button
-              onClick={() => onSave(poolAdvertisement)}
-              color="cta"
-              mode="solid"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Save asset skills",
-                description: "Text on a button to save the pool asset skills",
-              })}
-            </Button>
-          </TableOfContents.Section>
-
+          <AssetSkillsSection
+            poolAdvertisement={poolAdvertisement}
+            skills={skills}
+            sectionMetadata={sectionMetadata.assetSkills}
+            onSave={onSave}
+          />
           <OtherRequirementsSection
             poolAdvertisement={poolAdvertisement}
             sectionMetadata={sectionMetadata.otherRequirements}
             onSave={onSave}
           />
-
           <StatusSection
             poolAdvertisement={poolAdvertisement}
             sectionMetadata={sectionMetadata.status}
