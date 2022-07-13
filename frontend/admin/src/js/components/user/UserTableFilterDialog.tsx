@@ -119,7 +119,7 @@ const UserTableFilterDialog = ({
           <Item style={{ minWidth: 275 }}>
             <SelectFieldV2
               forceArrayFormValue
-              id="languages"
+              id="languageAbility"
               label={formatMessage({
                 defaultMessage: "Languages",
               })}
@@ -140,7 +140,7 @@ const UserTableFilterDialog = ({
           </Item>
           <Item grow>
             <MultiSelectFieldV2
-              id="workPreferences"
+              id="operationalRequirement"
               label={formatMessage({
                 defaultMessage: "Work Preferences",
               })}
@@ -149,7 +149,7 @@ const UserTableFilterDialog = ({
           </Item>
           <Item grow>
             <MultiSelectFieldV2
-              id="workLocations"
+              id="workRegion"
               label={formatMessage({
                 defaultMessage: "Work Locations",
               })}
@@ -161,7 +161,7 @@ const UserTableFilterDialog = ({
           {enableEducationType && (
             <Item grow>
               <MultiSelectFieldV2
-                id="educationTypes"
+                id="educationType"
                 label={formatMessage({
                   defaultMessage: "Education",
                 })}
@@ -172,7 +172,7 @@ const UserTableFilterDialog = ({
           <Item>
             <SelectFieldV2
               forceArrayFormValue
-              id="durationPreferences"
+              id="employmentDuration"
               label={formatMessage({
                 defaultMessage: "Duration Preferences",
               })}
@@ -181,7 +181,7 @@ const UserTableFilterDialog = ({
           </Item>
           <Item grow>
             <MultiSelectFieldV2
-              id="availability"
+              id="jobLookingStatus"
               label={formatMessage({
                 defaultMessage: "Availability",
               })}
