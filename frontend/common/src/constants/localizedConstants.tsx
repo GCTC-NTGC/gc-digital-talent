@@ -155,7 +155,7 @@ export const languageRequirements = defineMessages({
     description: "The language requirement is French only.",
   },
   [PoolAdvertisementLanguage.Various]: {
-    defaultMessage: "Various",
+    defaultMessage: "Various (English or French)",
     description: "The language requirement is various.",
   },
 });
@@ -737,7 +737,7 @@ export const getJobLookingStatusDescription = (
   getOrThrowError(
     JobLookingStatusDescription,
     jobLookingStatusDescriptionId,
-    `Invalid Job Looking  Status '${jobLookingStatusDescriptionId}'`,
+    `Invalid Job Looking Status '${jobLookingStatusDescriptionId}'`,
   );
 
 export const getProvinceOrTerritory = (
@@ -818,20 +818,20 @@ export const getAdvertisementStatus = (
   getOrThrowError(
     advertisementStatus,
     advertisementStatusId,
-    `Invalid  Advertisement Status '${advertisementStatusId}'`,
+    `Invalid Advertisement Status '${advertisementStatusId}'`,
   );
 
 export const securityClearances = defineMessages({
   [SecurityStatus.Reliability]: {
-    defaultMessage: "Reliability",
+    defaultMessage: "Reliability or higher",
     description: "Reliability security clearance",
   },
   [SecurityStatus.Secret]: {
-    defaultMessage: "Secret",
+    defaultMessage: "Secret or higher",
     description: "Secret security clearance",
   },
   [SecurityStatus.TopSecret]: {
-    defaultMessage: "Top Secret",
+    defaultMessage: "Top secret",
     description: "Top secret security clearance",
   },
 });
