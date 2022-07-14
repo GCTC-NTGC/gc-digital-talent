@@ -34,7 +34,6 @@ const InputLabel: React.FC<InputLabelProps> = ({
       data-h2-flex-wrap="b(wrap)"
       data-h2-align-items="b(center)"
       data-h2-justify-content="b(flex-start)"
-      data-h2-margin="b(bottom, xxs)"
     >
       <label
         data-h2-font-size="b(caption)"

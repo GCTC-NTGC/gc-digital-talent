@@ -10,7 +10,7 @@ export interface RadioGroupProps {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
   idPrefix: string;
   /** Holds text for the legend associated with the RadioGroup fieldset. */
-  legend: string;
+  legend?: string;
   /** The name of this form control.
    * The form's value at this key should be of type Array<string|number>. */
   name: string;
@@ -27,6 +27,8 @@ export interface RadioGroupProps {
   hideOptional?: boolean;
   /** If set to the value of an input element that element will start selected */
   defaultSelected?: string;
+  /** The number of columns to display options in */
+  columns?: number;
 }
 
 /**
@@ -43,6 +45,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   disabled,
   hideOptional,
   defaultSelected,
+  columns = 1,
 }) => {
   const {
     register,
@@ -62,31 +65,34 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
       disabled={disabled}
       hideOptional={hideOptional}
     >
-      {items.map(({ value, label }) => {
-        const id = `${idPrefix}-${value}`;
-        return (
-          <InputWrapper
-            key={id}
-            inputId={id}
-            label={label}
-            // Don't show Required tag, error or context on individual input, as its handled by Fieldset.
-            required={false}
-            hideOptional
-            data-h2-flex-direction="b(row)"
-            data-h2-align-items="b(center)"
-          >
-            <input
-              style={{ order: -1 }}
-              data-h2-margin="b(bottom-right, xxs)"
-              id={id}
-              {...register(name, rules)}
-              value={value}
-              type="radio"
-              defaultChecked={defaultSelected === value}
-            />
-          </InputWrapper>
-        );
-      })}
+      <div style={{ columns }}>
+        {items.map(({ value, label }) => {
+          const id = `${idPrefix}-${value}`;
+          return (
+            <InputWrapper
+              key={id}
+              inputId={id}
+              label={label}
+              // Don't show Required tag, error or context on individual input, as its handled by Fieldset.
+              required={false}
+              hideOptional
+              data-h2-flex-direction="b(row)"
+              data-h2-align-items="b(center)"
+              data-h2-padding="b(bottom, xxs)"
+            >
+              <input
+                style={{ order: -1 }}
+                data-h2-margin="b(right, xxs)"
+                id={id}
+                {...register(name, rules)}
+                value={value}
+                type="radio"
+                defaultChecked={defaultSelected === value}
+              />
+            </InputWrapper>
+          );
+        })}
+      </div>
     </Fieldset>
   );
 };
