@@ -49,8 +49,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
       <>
         <p data-h2-font-color="b(lightpurple)">{title}</p>
         <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
-        <p> {description} </p>
-        <p> {details} </p>
+        <p>{description}</p>
+        <p>{details}</p>
       </>
     );
   };

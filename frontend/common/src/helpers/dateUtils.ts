@@ -12,7 +12,7 @@ export function formattedDate(date: Scalars["Date"], locale: Locales) {
   const formatDate = formatter.format(new Date(date));
   const formattedMonth = formatDate.substring(0, 4).toUpperCase();
   const formattedYear = formatDate.substring(4, 10);
-  return `${formattedMonth}  ${formattedYear}`;
+  return `${formattedMonth} ${formattedYear}`;
 }
 
 export function getDateRange({
@@ -25,7 +25,7 @@ export function getDateRange({
   startDate: Maybe<Scalars["Date"]>;
   intl: IntlShape;
   locale: Locales;
-}): React.ReactNode {
+}) {
   if (!startDate) return null;
   const d1 = formattedDate(startDate, locale);
   if (!endDate)
