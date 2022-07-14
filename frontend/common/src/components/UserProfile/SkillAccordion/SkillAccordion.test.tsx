@@ -67,10 +67,8 @@ describe("SkillAccordion tests", () => {
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
     const detail = screen.getByTestId("detail");
-    const titleElement = screen.getByTitle("award");
     expect(context).not.toBeNull();
     expect(detail).not.toBeNull();
-    expect(titleElement.innerHTML.trim()).toEqual(experience.title);
   });
   test("It renders proper context and detail when a work experience is provided", () => {
     const experience = experienceGenerator.workExperiences()[0];
@@ -152,7 +150,7 @@ describe("SkillAccordion tests", () => {
 
   test("It renders proper context and detail when more than one experiences provided", () => {
     const experience1 = experienceGenerator.workExperiences()[0];
-    const experience2 = experienceGenerator.educationExperiences()[0];
+    const experience2 = experienceGenerator.educationExperiences(2)[1];
 
     testSkill.experiences = [experience1, experience2];
     renderSkillAccordion(testSkill);

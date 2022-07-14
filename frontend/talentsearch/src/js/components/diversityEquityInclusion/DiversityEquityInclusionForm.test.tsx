@@ -6,14 +6,13 @@ import { screen, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
 import { fakeUsers } from "@common/fakeData";
 import { act } from "react-dom/test-utils";
+import { axeTest, render } from "@common/helpers/testUtils";
 import {
   DiversityEquityInclusionForm,
   type DiversityEquityInclusionFormProps,
 } from "./DiversityEquityInclusionForm";
 
 import type { DiversityInclusionUpdateHandler } from "./types";
-
-import { axeTest, render } from "../../tests/testUtils";
 
 const mockUser = fakeUsers()[0];
 
