@@ -2,8 +2,9 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import React from "react";
+import { render } from "../../helpers/testUtils";
 import Dialog from "./Dialog";
 import type { DialogProps, Color } from "./Dialog";
 
