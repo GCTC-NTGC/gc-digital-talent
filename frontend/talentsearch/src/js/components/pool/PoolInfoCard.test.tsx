@@ -60,7 +60,7 @@ describe("PoolInfoCard", () => {
       },
     });
 
-    expect(card.getByText(/in 5 days/i)).toBeInTheDocument();
+    expect(card.getByText(/5 days/i)).toBeInTheDocument();
   });
 
   it("should render expired", () => {
