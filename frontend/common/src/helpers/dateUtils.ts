@@ -64,8 +64,12 @@ export const relativeExpiryDate = (
   const locale = strLocale === "fr" ? fr : undefined;
   const now = new Date();
   const diff = date.getTime() - now.getTime();
-  const time = format(date, `h:mm aaaa xxxxx`);
-  const day = format(date, `EEEE, d MMMM yyyy`);
+  const time = format(date, `h:mm aaaa xxxxx`, {
+    locale,
+  });
+  const day = format(date, `EEEE, d MMMM yyyy`, {
+    locale,
+  });
   const days = formatDistance(date, now, {
     locale,
     addSuffix: false,
