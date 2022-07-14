@@ -350,6 +350,8 @@ enum OperationalRequirement {
     WORK_WEEKENDS
     OVERTIME_SCHEDULED
     OVERTIME_SHORT_NOTICE
+    OVERTIME_OCCASIONAL
+    OVERTIME_REGULAR
 }
 
 enum SalaryRange {

@@ -57,7 +57,7 @@ stories.add("Update Pool Candidate Form", () => {
   const poolCandidate: PoolCandidate = {
     id: "1",
     acceptedOperationalRequirements: [
-      OperationalRequirement.OvertimeScheduled,
+      OperationalRequirement.OvertimeShortNotice,
       OperationalRequirement.ShiftWork,
     ],
     cmoAssets: [fakeCmoAssets()[0], fakeCmoAssets()[1]],

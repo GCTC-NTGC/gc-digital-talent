@@ -44,6 +44,7 @@ import LoggedOutPage from "./loggedOut/LoggedOutPage";
 import LoginPage from "./login/LoginPage";
 import { CreateAccount } from "./createAccount/CreateAccountPage";
 import { Role } from "../api/generated";
+import PoolAdvertisementPage from "./pool/PoolAdvertisementPage";
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -242,6 +243,15 @@ const directIntakeRoutes = (
       return {
         component: <PoolApplicationThanksPage id={poolId} />,
         authorizedRoles: [Role.Applicant],
+      };
+    },
+  },
+  {
+    path: directIntakePaths.poolAdvertisement(":id"),
+    action: (context) => {
+      const poolId = context.params.id as string;
+      return {
+        component: <PoolAdvertisementPage id={poolId} />,
       };
     },
   },

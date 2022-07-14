@@ -3,7 +3,6 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { errorMessages } from "@common/messages";
-import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
