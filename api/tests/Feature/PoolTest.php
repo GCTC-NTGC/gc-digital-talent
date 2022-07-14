@@ -104,4 +104,52 @@ class PoolTest extends TestCase
     ]);
   }
 
+  public function testPoolAdvertisementAccessorTime(): void
+  {
+    // test that expiry on day of functions as expected, that soon to expire can be applied to and just expired is longer open for application
+    date_default_timezone_set('UTC');
+    $expireInHour = date("Y-m-d H:i:s", strtotime('+1 hour'));
+    $expiredLastHour = date("Y-m-d H:i:s", strtotime('-1 hour'));
+
+    $pool1 = Pool::factory()->create([
+        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+        'is_published' => true,
+        'expiry_date' => $expireInHour,
+    ]);
+    $pool2 = Pool::factory()->create([
+        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+        'is_published' => true,
+        'expiry_date' => $expiredLastHour,
+    ]);
+
+    // Assert query with pool 1 will still be published
+    $this->graphQL(/** @lang Graphql */ '
+        query poolAdvertisement {
+            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
+                advertisementStatus
+            }
+        }
+    ')->assertJson([
+         "data" => [
+            "poolAdvertisement" => [
+               "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
+            ]
+        ]
+    ]);
+
+    // Assert query with pool 2 will return as expired
+    $this->graphQL(/** @lang Graphql */ '
+        query poolAdvertisement {
+            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
+                advertisementStatus
+            }
+        }
+    ')->assertJson([
+         "data" => [
+            "poolAdvertisement" => [
+               "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED,
+            ]
+        ]
+    ]);
+  }
 }
