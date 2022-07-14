@@ -5,7 +5,7 @@ import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { Scalars, Skill } from "@common/api/generated";
 import { fakeSkills } from "@common/fakeData";
-import { axeTest, render } from "../../../tests/testUtils";
+import { axeTest, render } from "@common/helpers/testUtils";
 import AddedSkills from ".";
 
 function renderContainer(

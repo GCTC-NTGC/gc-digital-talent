@@ -3,7 +3,7 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
-import { render } from "../../tests/testUtils";
+import { render } from "@common/helpers/testUtils";
 import PoolInfoCard from "./PoolInfoCard";
 import type { PoolInfoCardProps } from "./PoolInfoCard";
 
