@@ -6,5 +6,6 @@ export { default as MultiSelect } from "./MultiSelect";
 export { default as Radio } from "./Radio";
 export { default as RadioGroup } from "./RadioGroup";
 export { default as Select } from "./Select";
+export type { Option } from "./Select";
 export { default as Submit } from "./Submit";
 export { default as TextArea } from "./TextArea";
