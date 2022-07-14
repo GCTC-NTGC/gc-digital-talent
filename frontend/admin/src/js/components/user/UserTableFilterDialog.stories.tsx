@@ -11,6 +11,9 @@ export default {
   title: "Users/UserTableFilterDialog.Button",
   component: UserTableFilterDialog.Button,
   decorators: [OverlayOrDialogDecorator],
+  args: {
+    isOpenDefault: true,
+  },
   parameters: {
     apiResponses: {
       AllSkills: {
@@ -43,13 +46,9 @@ const Template: ComponentStory<typeof UserTableFilterDialog.Button> = (
 };
 
 export const Default = Template.bind({});
-Default.args = {
-  isOpenDefault: true,
-};
 
 export const RandomLatency = Template.bind({});
 RandomLatency.parameters = {
-  ...Default.args,
   apiResponsesConfig: {
     minTimeout: 2000,
     maxTimeout: 10000,
@@ -59,6 +58,5 @@ RandomLatency.parameters = {
 
 export const WithEducationSelect = Template.bind({});
 WithEducationSelect.args = {
-  ...Default.args,
   enableEducationType: true,
 };
