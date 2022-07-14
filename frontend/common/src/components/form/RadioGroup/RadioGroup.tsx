@@ -79,6 +79,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
               data-h2-flex-direction="b(row)"
               data-h2-align-items="b(center)"
               data-h2-padding="b(bottom, xxs)"
+              addBottomMargin={false}
             >
               <input
                 style={{ order: -1 }}
