@@ -1,12 +1,11 @@
 import { faker } from "@faker-js/faker";
-import { BIG_DATE, SMALL_DATE } from "@common/helpers/dateUtils";
+import { FAR_FUTURE_DATE, FAR_PAST_DATE } from "../helpers/dateUtils";
 import { toLocalizedString } from "../helpers/fake";
 import {
   AdvertisementStatus,
   Classification,
   PoolAdvertisement,
   PoolAdvertisementLanguage,
-  PoolStatus,
   SecurityStatus,
   Skill,
 } from "../api/generated";
@@ -36,7 +35,9 @@ const generatePoolAdvertisement = (
         max: 10,
       }),
     ),
-    expiryDate: faker.date.between(SMALL_DATE, BIG_DATE).toISOString(),
+    expiryDate: faker.date
+      .between(FAR_PAST_DATE, FAR_FUTURE_DATE)
+      .toISOString(),
     id: faker.datatype.uuid(),
     isPublished: faker.datatype.boolean(),
     keyTasks: toLocalizedString(faker.lorem.paragraphs()),

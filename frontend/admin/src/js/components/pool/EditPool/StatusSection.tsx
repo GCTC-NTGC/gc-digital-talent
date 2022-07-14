@@ -222,6 +222,7 @@ export const StatusSection = ({
             </Button>
           </>
         ) : undefined}
+
         {/* Archived status */}
         {poolAdvertisement.advertisementStatus ===
         AdvertisementStatus.Archived ? (

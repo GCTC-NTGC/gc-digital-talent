@@ -9,7 +9,7 @@ import {
 } from "@common/fakeData";
 
 import { AdvertisementStatus } from "@common/api/generated";
-import { BIG_DATE, SMALL_DATE } from "@common/helpers/dateUtils";
+import { FAR_FUTURE_DATE, FAR_PAST_DATE } from "@common/helpers/dateUtils";
 import { EditPoolForm, EditPoolFormProps } from "./EditPool";
 
 const classifications = fakeClassifications();
@@ -50,7 +50,7 @@ PublishedAdvertisement.args = {
     ...poolAdvertisement,
     isPublished: true,
     advertisementStatus: AdvertisementStatus.Published,
-    expiryDate: BIG_DATE.toISOString(),
+    expiryDate: FAR_FUTURE_DATE.toISOString(),
   },
 };
 
@@ -60,6 +60,6 @@ ExpiredAdvertisement.args = {
     ...poolAdvertisement,
     isPublished: true,
     advertisementStatus: AdvertisementStatus.Expired,
-    expiryDate: SMALL_DATE.toISOString(),
+    expiryDate: FAR_PAST_DATE.toISOString(),
   },
 };

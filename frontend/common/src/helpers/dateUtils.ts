@@ -109,5 +109,5 @@ export const relativeExpiryDate = (
     },
   );
 };
-export const BIG_DATE = new Date(2999, 12, 31);
-export const SMALL_DATE = new Date(1970, 1, 1);
+export const FAR_FUTURE_DATE = new Date(2999, 12, 31);
+export const FAR_PAST_DATE = new Date(1970, 1, 1);
