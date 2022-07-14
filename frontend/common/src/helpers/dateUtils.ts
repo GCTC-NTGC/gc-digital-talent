@@ -65,9 +65,10 @@ export const relativeExpiryDate = (
   const now = new Date();
   const diff = date.getTime() - now.getTime();
   const time = format(date, `h:mm aaaa xxxxx`);
+  const day = format(date, `EEEE, d MMMM yyyy`);
   const days = formatDistance(date, now, {
     locale,
-    addSuffix: true,
+    addSuffix: false,
   });
 
   if (diff < 0) {
@@ -99,13 +100,5 @@ export const relativeExpiryDate = (
     );
   }
 
-  return intl.formatMessage(
-    {
-      defaultMessage: "Closes {days}",
-      description: "Text displayed when expiry date is in X amount of days",
-    },
-    {
-      days,
-    },
-  );
+  return `${day} (${days})`;
 };
