@@ -250,15 +250,11 @@ type PoolAdvertisement {
     name: LocalizedString
     description: LocalizedString
     classifications: [Classification] @belongsToMany
-    assetCriteria: [CmoAsset] @belongsToMany
-    essentialCriteria: [CmoAsset] @belongsToMany
-    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     keyTasks: LocalizedString @rename(attribute: "key_tasks")
     yourImpact: LocalizedString @rename(attribute: "your_impact")
     advertisementLocation: LocalizedString @rename(attribute: "advertisement_location")
     securityClearance: SecurityStatus @rename(attribute: "security_clearance")
     advertisementLanguage: PoolAdvertisementLanguage @rename(attribute: "advertisement_language")
-    status: PoolStatus @rename(attribute: "pool_status")
     advertisementStatus: AdvertisementStatus @rename(attribute: "advertisement_status")
     essentialSkills: [Skill!] @belongsToMany
     nonessentialSkills: [Skill!] @belongsToMany
@@ -268,6 +264,7 @@ enum AdvertisementStatus {
     DRAFT
     PUBLISHED
     EXPIRED
+    ARCHIVED
 }
 
 enum PoolCandidateStatus {
