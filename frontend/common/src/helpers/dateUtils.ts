@@ -48,7 +48,7 @@ export function getDateRange({
       );
 }
 
-const DAY_IN_MILLISECONDS = 86400000;
+const DAY_IN_SECONDS = 86400;
 
 /**
  *
@@ -63,21 +63,27 @@ export const relativeExpiryDate = (
   const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
   const now = new Date();
-  const diff = date.getTime() - now.getTime();
-  const time = format(date, `h:mm aaaa xxxxx`);
+  const diff = date.getTime() / 1000 - now.getTime() / 1000;
+  const roundedDiff = Math.round(diff);
+  const time = format(date, `ppp`, {
+    locale,
+  });
+  const day = format(date, `EEEE, d MMMM yyyy`, {
+    locale,
+  });
   const days = formatDistance(date, now, {
     locale,
-    addSuffix: true,
+    addSuffix: false,
   });
 
-  if (diff < 0) {
+  if (roundedDiff < 0) {
     return intl.formatMessage({
       defaultMessage: "The deadline for submission has passed.",
       description: "Message displayed when a date has expired.",
     });
   }
 
-  if (diff < DAY_IN_MILLISECONDS) {
+  if (roundedDiff < DAY_IN_SECONDS) {
     return intl.formatMessage(
       {
         defaultMessage: "Closes today at {time}",
@@ -89,7 +95,7 @@ export const relativeExpiryDate = (
     );
   }
 
-  if (diff < DAY_IN_MILLISECONDS * 2 && diff > 0) {
+  if (roundedDiff < DAY_IN_SECONDS * 2) {
     return intl.formatMessage(
       {
         defaultMessage: "Closes tomorrow at {time}",
@@ -99,13 +105,5 @@ export const relativeExpiryDate = (
     );
   }
 
-  return intl.formatMessage(
-    {
-      defaultMessage: "Closes {days}",
-      description: "Text displayed when expiry date is in X amount of days",
-    },
-    {
-      days,
-    },
-  );
+  return `${day} (${days})`;
 };
