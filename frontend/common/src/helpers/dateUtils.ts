@@ -65,7 +65,7 @@ export const relativeExpiryDate = (
   const now = new Date();
   const diff = date.getTime() / 1000 - now.getTime() / 1000;
   const roundedDiff = Math.round(diff);
-  const time = format(date, `h:mm aaaa xxxxx`, {
+  const time = format(date, `ppp`, {
     locale,
   });
   const day = format(date, `EEEE, d MMMM yyyy`, {
