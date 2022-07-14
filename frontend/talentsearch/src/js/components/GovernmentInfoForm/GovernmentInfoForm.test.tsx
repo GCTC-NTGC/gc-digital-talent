@@ -15,7 +15,7 @@ import {
   fireEvent,
   waitFor,
   axeTest,
-} from "../../tests/testUtils";
+} from "@common/helpers/testUtils";
 import {
   GovInfoFormWithProfileWrapper as GovernmentInfoForm,
   GovInfoFormWithProfileWrapperProps as GovernmentInfoFormProps,

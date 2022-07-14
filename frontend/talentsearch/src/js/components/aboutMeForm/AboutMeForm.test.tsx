@@ -12,8 +12,8 @@ import {
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
 import { fakeUsers } from "@common/fakeData";
+import { axeTest } from "@common/helpers/testUtils";
 import { AboutMeForm, AboutMeFormProps } from "./AboutMeForm";
-import { axeTest } from "../../tests/testUtils";
 
 const mockUser = fakeUsers()[0];
 

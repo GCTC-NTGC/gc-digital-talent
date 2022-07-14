@@ -5,8 +5,8 @@
 import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { fakeSkills } from "@common/fakeData";
+import { axeTest, render } from "@common/helpers/testUtils";
 import { Skill } from "../../../api/generated";
-import { axeTest, render } from "../../../tests/testUtils";
 import SkillResults, { SkillBlock } from "./SkillResults";
 
 const skills = fakeSkills();

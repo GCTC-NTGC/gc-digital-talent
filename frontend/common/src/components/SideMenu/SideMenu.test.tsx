@@ -2,8 +2,9 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
 import React from "react";
+import { screen } from "@testing-library/react";
+import { render } from "../../helpers/testUtils";
 import SideMenu from "./SideMenu";
 import type { SideMenuProps } from "./SideMenu";
 import SideMenuItem from "./SideMenuItem";

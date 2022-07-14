@@ -4,6 +4,7 @@
 import "@testing-library/jest-dom";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import React from "react";
+import { axeTest, render } from "@common/helpers/testUtils";
 import {
   BilingualEvaluation,
   EvaluatedLanguageAbility,
@@ -11,7 +12,6 @@ import {
   UpdateUserAsUserInput,
 } from "../../api/generated";
 import { LanguageInformationForm } from "./LanguageInformationForm";
-import { axeTest, render } from "../../tests/testUtils";
 
 const mockUser = { id: "testUserId" };
 

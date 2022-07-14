@@ -3,14 +3,14 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
-import { GetMyStatusQuery } from "../../api/generated";
 import {
   render,
   screen,
   fireEvent,
   waitFor,
   axeTest,
-} from "../../tests/testUtils";
+} from "@common/helpers/testUtils";
+import { GetMyStatusQuery } from "../../api/generated";
 import { MyStatusForm, MyStatusFormProps } from "./MyStatusForm";
 import { MyStatusFormActive, MyStatusFormNull } from "./MyStatusForm.stories";
 
