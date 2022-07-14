@@ -25,10 +25,8 @@ const generatePoolAdvertisement = (
     advertisementStatus: faker.helpers.arrayElement(
       Object.values(AdvertisementStatus),
     ),
-    // assetCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
     classifications: [faker.helpers.arrayElement(classifications)],
     description: toLocalizedString(faker.lorem.sentence()),
-    // essentialCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
     essentialSkills: faker.helpers.arrayElements(
       skills,
       faker.datatype.number({
@@ -48,7 +46,6 @@ const generatePoolAdvertisement = (
         max: 10,
       }),
     ),
-    // operationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
     securityClearance: faker.helpers.arrayElement(
       Object.values(SecurityStatus),
     ),
