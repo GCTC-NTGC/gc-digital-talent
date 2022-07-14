@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { fakeSkills, fakeSkillFamilies } from "@common/fakeData";
+import { fakeSkills, fakeSkillFamilies } from "../../../fakeData";
 import SkillFamilyPicker, { SkillFamilyPickerProps } from "./SkillFamilyPicker";
 
 export default {
@@ -17,4 +17,4 @@ const TemplateSkillFamilyPicker: Story<SkillFamilyPickerProps> = (args) => {
   return <SkillFamilyPicker {...args} />;
 };
 
-export const SkillFamilyPickerStory = TemplateSkillFamilyPicker.bind({});
+export const SkillFamilyPickerRegular = TemplateSkillFamilyPicker.bind({});

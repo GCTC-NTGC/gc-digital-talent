@@ -61,6 +61,7 @@ const SkillFamilyPicker: React.FunctionComponent<SkillFamilyPickerProps> = ({
             idPrefix="skillFamily"
             name="skillFamily"
             hideOptional
+            columns={2}
             items={[
               {
                 value: "NULL_SELECTION",

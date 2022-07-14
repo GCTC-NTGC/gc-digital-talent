@@ -27,7 +27,7 @@ import StatusSection from "./StatusSection";
 import EssentialSkillsSection from "./EssentialSkillsSection";
 import AssetSkillsSection from "./AssetSkillsSection";
 
-interface EditPoolFormProps {
+export interface EditPoolFormProps {
   poolAdvertisement: PoolAdvertisement;
   classifications: Array<Classification>;
   skills: Array<Skill>;

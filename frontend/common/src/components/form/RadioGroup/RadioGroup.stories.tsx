@@ -77,3 +77,20 @@ RadioGroupOfElements.args = {
     },
   ],
 };
+
+export const LargeRadioGroup = TemplateRadioGroup.bind({});
+LargeRadioGroup.args = {
+  idPrefix: "radiogroup",
+  legend: "Which item do you want to check?",
+  name: "radiogroup",
+  items: [
+    { value: "one", label: "Box One" },
+    { value: "two", label: "Box Two" },
+    { value: "three", label: "Box Three" },
+    { value: "four", label: "Box Four" },
+    { value: "five", label: "Box Five" },
+    { value: "six", label: "Box Six" },
+    { value: "seven", label: "Box Seven" },
+  ],
+  columns: 2,
+};

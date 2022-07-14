@@ -23,9 +23,10 @@ export const ClosingDateSection = ({
 }: ClosingDateSectionProps): JSX.Element => {
   const intl = useIntl();
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
-    endDate: initialData.expiryDate,
-  });
+  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => {
+    const parsedDate = new Date(initialData.expiryDate);
+    return { endDate: parsedDate.toISOString().split("T")[0] };
+  };
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(poolAdvertisement),
