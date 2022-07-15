@@ -88,7 +88,6 @@ class Pool extends Model
     public function getAdvertisementStatusAttribute()
     {
         // given database is functioning in UTC, all backend should consistently enforce the same timezone
-        date_default_timezone_set('UTC');
         $isPublished = $this->is_published;
         $expiryDate = $this->expiry_date;
         $currentTime = date("Y-m-d H:i:s");
