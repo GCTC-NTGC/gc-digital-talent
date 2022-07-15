@@ -10,7 +10,7 @@ export interface RadioGroupProps {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
   idPrefix: string;
   /** Holds text for the legend associated with the RadioGroup fieldset. */
-  legend?: string;
+  legend: string;
   /** The name of this form control.
    * The form's value at this key should be of type Array<string|number>. */
   name: string;
@@ -29,6 +29,8 @@ export interface RadioGroupProps {
   defaultSelected?: string;
   /** The number of columns to display options in */
   columns?: number;
+  /** If true, the legend will be hidden */
+  hideLegend?: boolean;
 }
 
 /**
@@ -46,6 +48,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   hideOptional,
   defaultSelected,
   columns = 1,
+  hideLegend,
 }) => {
   const {
     register,
@@ -64,6 +67,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
       context={context}
       disabled={disabled}
       hideOptional={hideOptional}
+      hideLegend={hideLegend}
     >
       <div style={{ columns }}>
         {items.map(({ value, label }) => {

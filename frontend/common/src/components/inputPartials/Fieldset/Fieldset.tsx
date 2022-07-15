@@ -7,7 +7,7 @@ import InputError from "../InputError/InputError";
 
 export interface FieldsetProps {
   /** The text for the legend element. */
-  legend?: string;
+  legend: string;
   /** The name of this form control. */
   name?: string;
   /** Controls whether Required or Optional text appears above the fieldset. */
@@ -20,6 +20,8 @@ export interface FieldsetProps {
   disabled?: boolean;
   /** If true, and required is false, 'Optional' will not be shown above the fieldset. */
   hideOptional?: boolean;
+  /** If true, the legend will be hidden */
+  hideLegend?: boolean;
 }
 
 const Fieldset: React.FC<FieldsetProps> = ({
@@ -30,6 +32,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
   context,
   disabled,
   hideOptional,
+  hideLegend,
   children,
 }) => {
   const [contextIsActive, setContextIsActive] = useState(false);
@@ -52,14 +55,19 @@ const Fieldset: React.FC<FieldsetProps> = ({
         data-h2-justify-content="b(flex-start)"
         data-h2-margin="b(bottom, xxs)"
       >
-        <span
-          aria-hidden="true"
-          role="presentation"
-          data-h2-font-size="b(caption)"
-          data-h2-margin="b(right, xxs)"
-        >
-          {legend}
-        </span>
+        {
+          /** If hideLegend is true, legend will not be shown (but still exists in the legend tag above). */
+          !hideLegend && (
+            <span
+              aria-hidden="true"
+              role="presentation"
+              data-h2-font-size="b(caption)"
+              data-h2-margin="b(right, xxs)"
+            >
+              {legend}
+            </span>
+          )
+        }
         <div data-h2-display="b(flex)" data-h2-align-items="(center)">
           {
             /** If hideOptional is true, only show text if required is true. */

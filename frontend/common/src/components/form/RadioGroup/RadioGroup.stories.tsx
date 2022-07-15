@@ -93,4 +93,6 @@ LargeRadioGroup.args = {
     { value: "seven", label: "Box Seven" },
   ],
   columns: 2,
+  hideLegend: true,
+  hideOptional: true,
 };
