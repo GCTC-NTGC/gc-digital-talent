@@ -5,7 +5,7 @@ import React from "react";
  * @param text text to wrap.
  */
 export const strong = (text: React.ReactNode): React.ReactNode => (
-  <strong>{text}</strong>
+  <span data-h2-font-weight="b(800)">{text}</span>
 );
 
 /**
