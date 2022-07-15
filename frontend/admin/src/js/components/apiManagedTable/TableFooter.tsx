@@ -2,6 +2,8 @@ import { Button } from "@common/components";
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 import Pagination from "@common/components/Pagination";
+import Pending from "@common/components/Pending";
+import { CombinedError } from "urql";
 import { Spacer } from "../Table/tableComponents";
 import { PaginatorInfo } from "../../api/generated";
 
@@ -9,6 +11,10 @@ export interface TableFooterProps {
   paginatorInfo?: PaginatorInfo;
   onCurrentPageChange: (n: number) => void;
   onPageSizeChange: (n: number) => void;
+  handlePrint?: () => void;
+  disableActions?: boolean;
+  fetchingSelected?: boolean;
+  selectionError?: CombinedError;
 }
 
 const defaultPaginationInfo = {
@@ -24,6 +30,10 @@ function TableFooter({
   paginatorInfo = defaultPaginationInfo,
   onCurrentPageChange,
   onPageSizeChange,
+  handlePrint,
+  disableActions,
+  fetchingSelected = false,
+  selectionError,
 }: TableFooterProps): ReactElement {
   const intl = useIntl();
 
@@ -47,26 +57,37 @@ function TableFooter({
             description: "Label for action buttons in footer of admin table.",
           })}
         </p>
-        <Spacer>
-          <Button type="button" mode="solid" color="primary">
-            {intl.formatMessage({
-              defaultMessage: "Download XML",
-              description:
-                "Text label for button to download an xml file of items in a table.",
-            })}
-          </Button>
-        </Spacer>
-        <Spacer>
-          <Button type="button" mode="solid" color="primary">
-            {intl.formatMessage({
-              defaultMessage: "Download PDF",
-              description:
-                "Text label for button to download a pdf of items in a table.",
-            })}
-          </Button>
-        </Spacer>
+        <Pending fetching={fetchingSelected} error={selectionError} inline>
+          <Spacer>
+            <Button
+              type="button"
+              mode="solid"
+              color="primary"
+              disabled={disableActions}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Download XML",
+                description:
+                  "Text label for button to download an xml file of items in a table.",
+              })}
+            </Button>
+          </Spacer>
+          <Spacer>
+            <Button
+              type="button"
+              mode="solid"
+              color="primary"
+              disabled={disableActions}
+              onClick={handlePrint}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Print",
+                description: "Text label for button to print items in a table.",
+              })}
+            </Button>
+          </Spacer>
+        </Pending>
       </div>
-
       <Pagination
         currentPage={paginatorInfo.currentPage}
         onCurrentPageChange={onCurrentPageChange}
