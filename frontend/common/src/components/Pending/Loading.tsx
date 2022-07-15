@@ -21,11 +21,20 @@ export interface LoadingProps {
 const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
   const intl = useIntl();
 
+  const typeMap = {
+    inline: {
+      "data-h2-padding": "b(all, s)",
+      "data-h2-position": "b(relative)",
+    },
+    full: {
+      "data-h2-padding": undefined,
+      "data-h2-position": "b(fixed)",
+    },
+  };
+
   return (
     <div
-      {...{
-        "data-h2-position": inline ? "b(relative)" : "b(fixed)",
-      }}
+      {...typeMap[inline ? "inline" : "full"]}
       {...(live && {
         "aria-live": live,
       })}
@@ -33,7 +42,7 @@ const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
       data-h2-align-items="b(center)"
       data-h2-justify-content="b(center)"
       style={{
-        backgroundColor: `rgba(255,255,255,0.95)`,
+        backgroundColor: inline ? undefined : `rgba(255,255,255,0.95)`,
         bottom: 0,
         left: 0,
         right: 0,
