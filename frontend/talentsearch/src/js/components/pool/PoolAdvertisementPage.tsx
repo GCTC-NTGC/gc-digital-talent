@@ -347,17 +347,12 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   })}
                 </IconTitle>
                 <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "To be admitted into this process, you will need to submit sufficient information to verify your experience in <strong>all of these  skills (Need to have - Occupational)</strong> with your application.",
-                      description:
-                        "Explanation of a pools required occupational skills",
-                    },
-                    {
-                      strong,
-                    },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "To be admitted into this process, you will need to submit sufficient information to verify your experience in <strong>all of these  skills (Need to have - Occupational)</strong> with your application.",
+                    description:
+                      "Explanation of a pools required occupational skills",
+                  })}
                 </p>
                 {essentialSkills[SkillCategory.Technical]?.map((skill) => (
                   <Accordion title={skill.name[locale] || ""} key={skill.id}>

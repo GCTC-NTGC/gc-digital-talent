@@ -494,14 +494,12 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
       }
     >
       <p>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "You're about to <strong>remove the following user:</strong>",
-            description:
-              "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
-          }
-        )}
+        {intl.formatMessage({
+          defaultMessage:
+            "You're about to <strong>remove the following user:</strong>",
+          description:
+            "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
+        })}
       </p>
       <p>
         - {user.firstName} {user.lastName}

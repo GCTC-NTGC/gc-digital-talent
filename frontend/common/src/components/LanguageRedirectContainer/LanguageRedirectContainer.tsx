@@ -3,14 +3,7 @@ import { IntlProvider } from "react-intl";
 import { isLocale, Locales, localizePath } from "../../helpers/localize";
 import { redirect, useLocation } from "../../helpers/router";
 import useIntlLanguages from "../../hooks/useIntlMessages";
-import {
-  strong,
-  hidden,
-  heavyPrimary,
-  red,
-  primary,
-  gray,
-} from "../../helpers/format";
+import defaultRichTextElements from "../../helpers/format";
 
 const STORED_LOCALE = "stored_locale";
 
@@ -65,14 +58,7 @@ export const LanguageRedirectContainer: React.FC<
       locale={pathLocale}
       key={pathLocale}
       messages={compiledMessages}
-      defaultRichTextElements={{
-        strong,
-        hidden,
-        gray,
-        heavyPrimary,
-        primary,
-        red,
-      }}
+      defaultRichTextElements={defaultRichTextElements}
     >
       {children}
     </IntlProvider>

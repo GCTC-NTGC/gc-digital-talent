@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { enumToOptions } from "../../../helpers/formUtils";
 import { getGovEmployeeType } from "../../../constants/localizedConstants";
 import { getLocale } from "../../../helpers/localize";
-import { strong } from "../../../helpers/format";
 import { Applicant, GovEmployeeType } from "../../../api/generated";
 
 const GovernmentInformationSection: React.FunctionComponent<{

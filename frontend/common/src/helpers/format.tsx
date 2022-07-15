@@ -49,3 +49,12 @@ export const red = (text: React.ReactNode): React.ReactNode => (
 export const gray = (text: React.ReactNode): React.ReactNode => (
   <span data-h2-font-color="b([dark]gray)">{text}</span>
 );
+
+export default {
+  strong,
+  hidden,
+  heavyPrimary,
+  primary,
+  red,
+  gray,
+};

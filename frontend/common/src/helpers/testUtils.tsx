@@ -2,9 +2,14 @@ import React from "react";
 import { render, RenderOptions } from "@testing-library/react";
 import { axe } from "jest-axe";
 import IntlProvider from "react-intl/src/components/provider";
+import defaultRichTextElements from "./format";
 
 const Providers: React.FC = ({ children }) => {
-  return <IntlProvider locale="en">{children}</IntlProvider>;
+  return (
+    <IntlProvider locale="en" defaultRichTextElements={defaultRichTextElements}>
+      {children}
+    </IntlProvider>
+  );
 };
 
 const customRender = (
