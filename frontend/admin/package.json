@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/GCTC-NTGC/gc-digital-talent#readme",
   "engines": {
-    "node": "14.18.1",
+    "node": "16.16.0",
     "npm": ">=8.0.0"
   },
   "scripts": {

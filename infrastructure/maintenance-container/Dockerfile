@@ -8,15 +8,15 @@ RUN apt-get update \
   && apt-get install -y php7.4 php-mbstring php-xml php-pgsql php-zip php-curl
 
 # install node from official image
-COPY --from=node:14.18.1 /usr/local/lib/node_modules /usr/local/lib/node_modules
-COPY --from=node:14.18.1 /usr/local/bin/node /usr/local/bin/
+COPY --from=node:16.16.0 /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node:16.16.0 /usr/local/bin/node /usr/local/bin/
 RUN cd /usr/local/bin \
   && ln -s ../lib/node_modules/npm/bin/npm-cli.js npm \
   && ln -s ../lib/node_modules/npm/bin/npx-cli.js npx \
   && ln -s /usr/local/bin/node nodejs
 
 # bump npm version
-RUN npm install -g npm@8.7.0
+RUN npm install -g npm@8.11.0
 
 # install composer from official image
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
