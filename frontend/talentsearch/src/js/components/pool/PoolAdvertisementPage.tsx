@@ -23,7 +23,6 @@ import {
   CloudIcon,
 } from "@heroicons/react/outline";
 import Accordion from "@common/components/accordion";
-import { strong } from "@common/helpers/format";
 import {
   getLanguageRequirement,
   getSecurityClearance,
@@ -613,7 +612,6 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                     "<strong>Email</strong>: <accommodationEmail>fames@acanteipsum.ca</accommodationEmail>",
                 },
                 {
-                  strong,
                   accommodationEmail,
                 },
               )}
