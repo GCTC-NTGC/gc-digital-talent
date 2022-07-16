@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { SearchIcon } from "@heroicons/react/solid";
-import Select, { components, ControlProps } from "react-select";
+import Select, { components, ContainerProps } from "react-select";
 import type { GroupBase } from "react-select";
 import { InputGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
@@ -14,26 +14,34 @@ declare module "react-select/dist/declarations/src/Select" {
     IsMulti extends boolean,
     Group extends GroupBase<Option>,
   > {
-    icon: HeroIcon;
+    icon?: HeroIcon;
   }
 }
 
-const CustomControl = ({ selectProps, ...props }: ControlProps) => {
-  const { icon: Icon } = selectProps;
+const CustomContainer = ({ children, ...props }: ContainerProps) => {
+  const {
+    selectProps: { icon: Icon },
+  } = props;
   return (
-    <InputGroup>
-      <span className="input-group-text">
-        <Icon style={{ width: "1rem" }} />
-      </span>
-      <components.Control {...props} {...{ selectProps }} />
-    </InputGroup>
+    <components.SelectContainer {...props}>
+      {Icon ? (
+        <InputGroup>
+          <span className="input-group-text">
+            <Icon style={{ width: "1rem" }} />
+          </span>
+          {children}
+        </InputGroup>
+      ) : (
+        { children }
+      )}
+    </components.SelectContainer>
   );
 };
 
-interface ComponentProps {
+interface CustomSelectProps {
   icon: HeroIcon;
 }
-const Component = ({ icon }: ComponentProps) => {
+const CustomSelect = ({ icon }: CustomSelectProps) => {
   const customStyles = {
     control: (provided: any) => ({
       ...provided,
@@ -46,7 +54,7 @@ const Component = ({ icon }: ComponentProps) => {
       options={["foo", "bar", "baz"].map((val) => ({ label: val, value: val }))}
       icon={icon}
       components={{
-        Control: CustomControl,
+        SelectContainer: CustomContainer,
       }}
       styles={customStyles}
     />
@@ -54,15 +62,16 @@ const Component = ({ icon }: ComponentProps) => {
 };
 
 export default {
-  component: Component,
+  component: CustomSelect,
   title: "InputGroup",
-} as ComponentMeta<typeof Component>;
+} as ComponentMeta<typeof CustomSelect>;
 
-const Template: ComponentStory<typeof Component> = (args) => {
-  return <Component {...args} />;
+const Template: ComponentStory<typeof CustomSelect> = (args) => {
+  return <CustomSelect {...args} />;
 };
 
 export const Default = Template.bind({});
-Default.args = {
+export const WithIcon = Template.bind({});
+WithIcon.args = {
   icon: SearchIcon,
 };
