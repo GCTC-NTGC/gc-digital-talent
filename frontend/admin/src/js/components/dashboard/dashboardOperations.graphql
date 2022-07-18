@@ -29,5 +29,14 @@ query latestRequests {
         }
       }
     }
+    applicantFilter {
+      pools {
+        id
+        name {
+          en
+          fr
+        }
+      }
+    }
   }
 }

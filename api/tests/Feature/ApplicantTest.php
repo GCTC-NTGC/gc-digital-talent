@@ -65,30 +65,38 @@ class ApplicantTest extends TestCase
         ]);
 
         // Assert empty filter returns all
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => []
-        ])->assertJson([
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
             'data' => [
                 'countApplicants' => 7
             ]
         ]);
 
         // Assert pool1 filter returns only pool1
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 3
             ]
@@ -143,61 +151,73 @@ class ApplicantTest extends TestCase
         ]);
 
         // Assert query with only pools filter will return proper count
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ]
                 ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 5
             ]
         ]);
 
         // Assert query with false equity filter will return same as above
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']],
-                ],
-                'equity' => [
-                    'isWoman' => false,
-                    'hasDisability' => false,
-                    'isIndigenous' => false,
-                    'isVisibleMinority' => false,
-                ],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']],
+                    ],
+                    'equity' => [
+                        'isWoman' => false,
+                        'hasDisability' => false,
+                        'isIndigenous' => false,
+                        'isVisibleMinority' => false,
+                    ],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 5
             ]
         ]);
 
         // Assert query will OR filter the equity
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']],
-                ],
-                'equity' => [
-                    'isWoman' => true,
-                    'hasDisability' => true,
-                ],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']],
+                    ],
+                    'equity' => [
+                        'isWoman' => true,
+                        'hasDisability' => true,
+                    ],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 2
             ]
@@ -242,54 +262,66 @@ class ApplicantTest extends TestCase
         ]);
 
         // Assert query with english filter will return proper count, including the bilingual candidates
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 5
             ]
         ]);
 
         // Assert query with french filter will return proper count, including the bilingual candidates
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'languageAbility' => ApiEnums::LANGUAGE_ABILITY_FRENCH
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_FRENCH
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 6
             ]
         ]);
 
         // Assert query with bilingual filter will return proper count, only the bilingual candidates
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'languageAbility' => ApiEnums::LANGUAGE_ABILITY_BILINGUAL
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_BILINGUAL
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 4
             ]
@@ -322,15 +354,15 @@ class ApplicantTest extends TestCase
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'expected_salary' => ['_50_59K', '_70_79K'],
             ])
-                ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-                    $classificationLvl1 = Classification::factory()->create([
-                        'group' => 'ZZ',
-                        'level' => 1,
-                        'min_salary' => 50000,
-                        'max_salary' => 69000,
-                    ]);
-                    $candidate->expectedClassifications()->sync($classificationLvl1);
-                })->create();
+        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
+            $classificationLvl1 = Classification::factory()->create([
+                'group' => 'ZZ',
+                'level' => 1,
+                'min_salary' => 50000,
+                'max_salary' => 69000,
+            ]);
+            $candidate->expectedClassifications()->sync($classificationLvl1);
+        })->create();
 
         PoolCandidate::factory()->count(4)->sequence(fn () => [
             'pool_id' => $pool1->id,
@@ -340,9 +372,9 @@ class ApplicantTest extends TestCase
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'expected_salary' => ['_60_69K', '_80_89K'],
             ])
-                ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-                    $candidate->expectedClassifications()->delete();
-                })->create();
+        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
+            $candidate->expectedClassifications()->delete();
+        })->create();
 
         PoolCandidate::factory()->count(11)->sequence(fn () => [
             'pool_id' => $pool1->id,
@@ -352,40 +384,48 @@ class ApplicantTest extends TestCase
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'expected_salary' => ['_90_99K', '_100K_PLUS']
             ])
-                ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-                    $candidate->expectedClassifications()->delete();
-                })->create();
+        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
+            $candidate->expectedClassifications()->delete();
+        })->create();
 
         // Assert query with just pool filter
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 18
             ]
         ]);
 
         // Assert query to test classification-salary
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 6
             ]
@@ -420,36 +460,44 @@ class ApplicantTest extends TestCase
         ]);
 
         // Assert query with false filter
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'hasDiploma' => false,
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'hasDiploma' => false,
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 7
             ]
         ]);
 
         // Assert query with true diploma filter
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'hasDiploma' => true,
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'hasDiploma' => true,
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 4
             ]
@@ -484,36 +532,44 @@ class ApplicantTest extends TestCase
         ]);
 
         // Assert empty location
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'locationPreferences' => [],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'locationPreferences' => [],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 7
             ]
         ]);
 
         // Assert query with TELEWORK
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'locationPreferences' => ["TELEWORK"],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'locationPreferences' => ["TELEWORK"],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 4
             ]
@@ -548,36 +604,44 @@ class ApplicantTest extends TestCase
         ]);
 
         // Assert false for acceptTemporary
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'wouldAcceptTemporary' => false,
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'wouldAcceptTemporary' => false,
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 7
             ]
         ]);
 
         // Assert true for acceptTemporary
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'wouldAcceptTemporary' => true,
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'wouldAcceptTemporary' => true,
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 4
             ]
@@ -622,54 +686,66 @@ class ApplicantTest extends TestCase
         ]);
 
         // Assert empty operational requirements
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'operationalRequirements' => [],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'operationalRequirements' => [],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 7
             ]
         ]);
 
         // Assert one operational requirements
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'operationalRequirements' => ["SHIFT_WORK"],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'operationalRequirements' => ["SHIFT_WORK"],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 6
             ]
         ]);
 
         // Assert two operational requirements
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'operationalRequirements' => ["SHIFT_WORK", "TRAVEL"],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'operationalRequirements' => ["SHIFT_WORK", "TRAVEL"],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 4
             ]
@@ -737,89 +813,116 @@ class ApplicantTest extends TestCase
         ])->create();
 
         // Assert nothing for skills
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 7
             ]
         ]);
 
         // Assert empty skills array
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'skills' => [],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'skills' => [],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 7
             ]
         ]);
 
         // Assert one skill
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'skills' => [$skill1['id']],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'skills' => [
+                        ['id' => $skill1['id']],
+                    ]
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 6
             ]
         ]);
 
         // Assert two skills
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'skills' => [$skill1['id'], $skill2['id']],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'skills' => [
+                        ['id' => $skill1['id']],
+                        ['id' => $skill2['id']],
+                    ],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 4
             ]
         ]);
 
         // Assert unused skill
-        $this->graphQL(/** @lang Graphql */ '
+        $this->graphQL(
+            /** @lang Graphql */
+            '
             query countApplicants($where: ApplicantFilterInput) {
                 countApplicants (where: $where)
             }
-        ', [
-            'where' => [
-                'poolCandidates' => [
-                    'pools' => [$pool1['id']]
-                ],
-                'skills' => [$skill3['id']],
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'skills' => [
+                        ['id' => $skill3['id']],
+                    ],
+                ]
             ]
-        ])->assertJson([
+        )->assertJson([
             'data' => [
                 'countApplicants' => 0
             ]
