@@ -62,7 +62,7 @@
     "@types/jest": "^28.1.6",
     "@types/jest-axe": "^3.5.4",
     "@types/lodash": "^4.14.182",
-    "@types/node": "^18.0.3",
+    "@types/node": "^18.0.6",
     "@types/path-browserify": "^1.0.0",
     "@types/react": "^17.0.43",
     "@types/react-helmet": "^6.1.5",
