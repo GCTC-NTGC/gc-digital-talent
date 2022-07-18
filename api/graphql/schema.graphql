@@ -212,6 +212,7 @@ type Applicant {
     educationExperiences: [EducationExperience]
     personalExperiences: [PersonalExperience]
     workExperiences: [WorkExperience]
+
     expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
 
 }
@@ -433,6 +434,20 @@ type PoolCandidateFilter {
     pools: [Pool] @belongsToMany
 }
 
+# ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
+type ApplicantFilter {
+    id: ID!
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    equity: EquitySelections
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    expectedClassifications: [Classification] @belongsToMany(relation: "classifications")
+    skills: [Skill] @belongsToMany
+    pools: [Pool] @belongsToMany
+}
+
 type PoolCandidateSearchRequest {
     id: ID!
     fullName: String @rename(attribute: "full_name")
@@ -440,10 +455,11 @@ type PoolCandidateSearchRequest {
     department: Department @belongsTo
     jobTitle: String @rename(attribute: "job_title")
     additionalComments: String @rename(attribute: "additional_comments")
-    poolCandidateFilter: PoolCandidateFilter! @belongsTo
     requestedDate: DateTime @rename(attribute: "created_at")
     status: PoolCandidateSearchStatus
     adminNotes: String @rename(attribute: "admin_notes")
+    poolCandidateFilter: PoolCandidateFilter @belongsTo
+    applicantFilter: ApplicantFilter @belongsTo
 }
 
 enum SkillCategory {
@@ -602,25 +618,20 @@ input KeyFilterInput {
     key: KeyString!
 }
 
-input PoolFilterInput {
+input IdInput {
     id: ID!
 }
 
-enum CANDIDATE_EXPIRY_FILTER {
+enum CandidateExpiryFilter {
     ACTIVE
     EXPIRED
     ALL
 }
 
 input UserPoolFilterInput {
-    pools: [ID!]!
-    expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
-    statuses: [PoolCandidateStatus!] = []
-}
-input ApplicantPoolFilterInput {
-    pools: [ID]!
-    expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
-    statuses: [PoolCandidateStatus!] = [AVAILABLE]
+    poolId: ID!
+    expiryStatus: CandidateExpiryFilter = ACTIVE
+    statuses: [PoolCandidateStatus!]
 }
 
 input PoolCandidateFilterInput {
@@ -631,21 +642,14 @@ input PoolCandidateFilterInput {
     languageAbility: LanguageAbility @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
-    pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
+    pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
 }
 
 input UserFilterInput {
-    poolCandidates: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
-    languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
-    expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
-    operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
-    locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
-    equity: EquitySelectionsInput @builder(method: "App\\Models\\User@filterByEquity")
-    hasDiploma: Boolean @scope
-    wouldAcceptTemporary: Boolean @scope
+    applicantFilter: ApplicantFilterInput @spread
+    poolFilters: [UserPoolFilterInput] @builder(method: "App\\Models\\User@filterByPools")
     jobLookingStatus: [JobLookingStatus] @builder(method: "App\\Models\\User@filterByJobLookingStatus")
     isProfileComplete: Boolean @scope
-    skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
     isGovEmployee: Boolean @scope
     telephone: String @scope
     email: String @scope
@@ -654,16 +658,15 @@ input UserFilterInput {
 }
 
 input ApplicantFilterInput {
-    poolCandidates: ApplicantPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
-    jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES] @builder(method: "App\\Models\\User@filterByJobLookingStatus")
+    hasDiploma: Boolean @scope
+    equity: EquitySelectionsInput @builder(method: "App\\Models\\User@filterByEquity")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
-    expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
     locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
-    equity: EquitySelectionsInput @builder(method: "App\\Models\\User@filterByEquity")
-    hasDiploma: Boolean @scope
     wouldAcceptTemporary: Boolean @scope
-    skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
+    expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
+    skills: [IdInput] @pluck(key: "id") @builder(method: "App\\Models\\User@filterBySkills") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+    pools: [IdInput] @pluck(key: "id") @builder(method: "App\\Models\\User@filterByAvailableInPools") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
 }
 
 type Query {
@@ -674,7 +677,7 @@ type Query {
     applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
     applicants(includeIds: [ID]! @in(key: "id")): [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
     # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
-    countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
+    countApplicants(where: ApplicantFilterInput): Int! @count(model: "User", scopes: ["availableForOpportunities"])
     pool(id: ID! @eq): Pool @find
     poolAdvertisement(id: ID! @eq): PoolAdvertisement @find(model: "Pool")
     poolByKey(key: String! @eq): Pool @find
@@ -684,7 +687,7 @@ type Query {
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
     countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants") @count(model: "PoolCandidate" scopes: ["expiryFilter", "available"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
-    searchPoolCandidates(where: PoolCandidateFilterInput orderBy: [OrderByClause!] @orderBy, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]! @all(scopes: ["expiryFilter", "available"]) @orderBy(column: "created_at", direction: DESC) @guard @can(ability: "viewAny")
+    searchPoolCandidates(where: PoolCandidateFilterInput orderBy: [OrderByClause!] @orderBy, expiryStatus: CandidateExpiryFilter): [PoolCandidate]! @all(scopes: ["expiryFilter", "available"]) @orderBy(column: "created_at", direction: DESC) @guard @can(ability: "viewAny")
     classification(id: ID! @eq): Classification @find
     classifications: [Classification]! @all
     cmoAsset(id: ID! @eq): CmoAsset @find
@@ -693,6 +696,8 @@ type Query {
     departments: [Department]! @all
     poolCandidateFilter(id: ID! @eq): PoolCandidateFilter @find @guard @can(ability: "view", query: true)
     poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "viewAny")
+    applicantFilter(id: ID! @eq): ApplicantFilter @find @guard @can(ability: "view", query: true)
+    applicantFilters: [ApplicantFilter]! @all @guard @can(ability: "viewAny")
     poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
     poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
     latestPoolCandidateSearchRequests(limit: Int @limit): [PoolCandidateSearchRequest]! @all @orderBy(column: "created_at", direction: DESC) @guard @can(ability: "viewAny")
@@ -1034,13 +1039,30 @@ input PoolCandidateFilterBelongsTo {
     create: CreatePoolCandidateFilterInput!
 }
 
+input CreateApplicantFilterInput {
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    equity: EquitySelectionsInput @spread
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    expectedClassifications: ClassificationBelongsToMany @rename(attribute: "classifications")
+    skills: SkillBelongsToMany
+    pools: PoolBelongsToMany
+}
+
+input ApplicantFilterBelongsTo {
+    create: CreateApplicantFilterInput!
+}
+
 input CreatePoolCandidateSearchRequestInput {
     fullName: String! @rename(attribute: "full_name")
     email: Email!
     department: DepartmentBelongsTo!
     jobTitle: String! @rename(attribute: "job_title")
     additionalComments: String @rename(attribute: "additional_comments")
-    poolCandidateFilter: PoolCandidateFilterBelongsTo!
+    poolCandidateFilter: PoolCandidateFilterBelongsTo # TODO: remove this field when we've completed the transition from using poolCandidateCount to applicantCount
+    applicantFilter: ApplicantFilterBelongsTo # TODO: make this required when we've completed the transition from using poolCandidateCount to applicantCount
     # requestedDate will be set to current date in Eloquent model.
     # status will be set to PENDING in Eloquent model.
 }

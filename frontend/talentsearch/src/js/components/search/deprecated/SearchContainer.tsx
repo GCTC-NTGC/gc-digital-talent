@@ -3,6 +3,7 @@ import { notEmpty } from "@common/helpers/util";
 import { useIntl } from "react-intl";
 import pick from "lodash/pick";
 import { pushToStateThenNavigate } from "@common/helpers/router";
+import { unpackMaybes } from "@common/helpers/formUtils";
 import {
   Classification,
   CmoAsset,
@@ -12,9 +13,6 @@ import {
   PoolCandidateFilterInput,
   Pool,
   UserPublicProfile,
-  KeyFilterInput,
-  PoolFilterInput,
-  ClassificationFilterInput,
   Maybe,
 } from "../../../api/generated";
 import {
@@ -216,16 +214,14 @@ const candidateFilterToQueryArgs = (
   */
 
   // Apply pick to each element of an array.
-  const pickMap = (
-    list:
-      | Maybe<Maybe<PoolFilterInput>[]>
-      | Maybe<Maybe<KeyFilterInput>[]>
-      | Maybe<Maybe<ClassificationFilterInput>[]>
-      | null
-      | undefined,
-    keys: string | string[],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): any[] | undefined => list?.map((item) => pick(item, keys));
+  function pickMap<T, K extends keyof T>(
+    list: Maybe<Maybe<T>[]> | null | undefined,
+    keys: K | K[],
+  ): Pick<T, K>[] | undefined {
+    return unpackMaybes(list).map(
+      (item) => pick(item, keys) as Pick<T, K>, // I think this type coercion is safe? But I'm not sure why its not the default...
+    );
+  }
 
   if (filter !== null || undefined)
     return {

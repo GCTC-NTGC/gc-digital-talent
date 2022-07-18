@@ -20,7 +20,7 @@ import {
   PoolCandidateFilter,
   ApplicantFilterInput,
   WorkRegion,
-  ApplicantPoolFilterInput,
+  UserPoolFilterInput,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
 
@@ -45,7 +45,7 @@ export type FormValues = Pick<
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolId: string;
-  poolCandidates: ApplicantPoolFilterInput;
+  poolCandidates: UserPoolFilterInput;
 };
 
 type LocationState = {
@@ -96,9 +96,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
               ?.filter((id) => !!id)
               .map((id) => (id ? classificationMap.get(id) : undefined))
           : [],
-        poolCandidates: {
-          pools: [values.poolId],
-        },
+        pools: [{ id: values.poolId }],
         operationalRequirements: values.operationalRequirements
           ? unpackMaybes(values.operationalRequirements)
           : [],

@@ -4,16 +4,14 @@ import { useIntl } from "react-intl";
 import { pushToStateThenNavigate } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import pick from "lodash/pick";
+import { unpackMaybes } from "@common/helpers/formUtils";
 import {
   Classification,
-  ClassificationFilterInput,
   CmoAsset,
   CountApplicantsQueryVariables,
-  KeyFilterInput,
   Maybe,
   Pool,
   ApplicantFilterInput,
-  PoolFilterInput,
   useCountApplicantsQuery,
   useGetSearchFormDataQuery,
   UserPublicProfile,
@@ -36,31 +34,20 @@ const candidateFilterToQueryArgs = (
   */
 
   // Apply pick to each element of an array.
-  const pickMap = (
-    list:
-      | Maybe<Maybe<PoolFilterInput>[]>
-      | Maybe<Maybe<KeyFilterInput>[]>
-      | Maybe<Maybe<ClassificationFilterInput>[]>
-      | null
-      | undefined,
-    keys: string | string[],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): any[] | undefined => list?.map((item) => pick(item, keys));
-
-  // coercing type from maybe undefined to definitely not undefined
-  const poolCandidatesTypeChange = (
-    poolObject: ApplicantFilterInput | undefined,
-  ) => {
-    if (poolObject?.poolCandidates?.pools) {
-      return poolObject.poolCandidates.pools;
-    }
-    return [];
-  };
+  function pickMap<T, K extends keyof T>(
+    list: Maybe<Maybe<T>[]> | null | undefined,
+    keys: K | K[],
+  ): Pick<T, K>[] | undefined {
+    return unpackMaybes(list).map(
+      (item) => pick(item, keys) as Pick<T, K>, // I think this type coercion is safe? But I'm not sure why its not the default...
+    );
+  }
 
   if (filter !== null || undefined)
     return {
       where: {
         ...filter,
+        // TODO: does recreating the equity object serve any purpose?
         equity: {
           hasDisability: filter?.equity?.hasDisability,
           isIndigenous: filter?.equity?.isIndigenous,
@@ -70,9 +57,10 @@ const candidateFilterToQueryArgs = (
         expectedClassifications: filter?.expectedClassifications
           ? pickMap(filter.expectedClassifications, ["group", "level"])
           : [],
-        poolCandidates: {
-          pools: poolId ? [poolId] : poolCandidatesTypeChange(filter),
-        },
+        // TODO: pickMap the skills array as well?
+
+        // Override the filter's pool if one is provided separately.
+        pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
       },
     };
   return {};
@@ -223,8 +211,9 @@ const SearchContainerApi: React.FC = () => {
   const paths = useTalentSearchRoutes();
   const onSubmit = async () => {
     // pool ID is not in the form so it must be added manually
-    if (candidateFilter?.poolCandidates && pool)
-      candidateFilter.poolCandidates.pools = [pool.id];
+    if (candidateFilter && pool) {
+      candidateFilter.pools = [{ id: pool.id }];
+    }
 
     return pushToStateThenNavigate(paths.request(), {
       candidateFilter,
