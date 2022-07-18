@@ -44,7 +44,7 @@ export default function MockGraphqlDecorator(Story: StoryFn, context: StoryConte
     executeQuery: ({ query }) => {
       const operationName = getOperationName(query)
       const response = operationName && responseData[operationName]
-      const mergedConfig = merge(config, defaultConfig)
+      const mergedConfig = merge(defaultConfig, config)
 
       const operationResult = !!response
         ? pipe(
