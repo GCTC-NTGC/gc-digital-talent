@@ -2,6 +2,7 @@ enum AdvertisementStatus {
   DRAFT
   PUBLISHED
   EXPIRED
+  ARCHIVED
 }
 
 type Applicant {
@@ -717,15 +718,11 @@ type PoolAdvertisement {
   name: LocalizedString
   description: LocalizedString
   classifications: [Classification]
-  assetCriteria: [CmoAsset]
-  essentialCriteria: [CmoAsset]
-  operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
   advertisementLocation: LocalizedString
   securityClearance: SecurityStatus
   advertisementLanguage: PoolAdvertisementLanguage
-  status: PoolStatus
   advertisementStatus: AdvertisementStatus
   essentialSkills: [Skill!]
   nonessentialSkills: [Skill!]
