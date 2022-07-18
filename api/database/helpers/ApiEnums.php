@@ -65,7 +65,7 @@ class ApiEnums
     const CANDIDATE_EXPIRY_FILTER_EXPIRED = 'EXPIRED';
     const CANDIDATE_EXPIRY_FILTER_ALL = 'ALL';
     /**
-     * A collection of enums for CandiateExpiryStatus in factories and seeders
+     * A collection of enums for CandidateExpiryStatus in factories and seeders
      *
      * @return string[]
      */
