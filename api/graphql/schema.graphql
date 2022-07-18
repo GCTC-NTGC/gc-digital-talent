@@ -435,12 +435,6 @@ type PoolCandidateFilter {
     pools: [Pool] @belongsToMany
 }
 
-type ApplicantFilterPoolRecord {
-    pool: Pool!
-    expiryStatus: CandidateExpiryFilter @rename(attribute: "expiry_status")
-    statuses: [PoolCandidateStatus] @rename(attribute: "pool_candidate_statuses")
-}
-
 # ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
 type ApplicantFilter {
     id: ID!

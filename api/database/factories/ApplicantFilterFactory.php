@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\ApplicantFilter;
-use App\Models\ApplicantFilterPoolRecord;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Skill;
@@ -64,7 +63,7 @@ class ApplicantFilterFactory extends Factory
     }
 
     /**
-     * Create an ApplicantFilter where skills, classifications and ApplicantFilterPoolRecords have been added.
+     * Create an ApplicantFilter where skills, classifications and pools have been added.
      * NOTE: before using this method, you must have already generated skills, classifications and Pools
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
@@ -87,16 +86,6 @@ class ApplicantFilterFactory extends Factory
                 $this->faker->numberBetween($minCount, 1)
             )->get();
             $filter->pools()->saveMany($pools);
-            // $pools->each(function (Pool $pool) use ($filter, $sparse) {
-            //     $recordFactory = ApplicantFilterPoolRecord::factory();
-            //     if ($sparse) {
-            //         $recordFactory = $recordFactory->sparse();
-            //     }
-            //     $filter->applicantFilterPoolRecords()->save($recordFactory->make([
-            //         'pool_id' => $pool->id,
-            //         'applicant_filter_id' => $filter->id,
-            //     ]));
-            // });
         });
     }
 }

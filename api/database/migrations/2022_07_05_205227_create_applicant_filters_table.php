@@ -47,17 +47,14 @@ class CreateApplicantFiltersTable extends Migration
         });
         DB::statement('ALTER TABLE applicant_filter_skill ALTER COLUMN id SET DEFAULT gen_random_uuid();');
 
-        Schema::create('applicant_filter_pool_records', function (Blueprint $table) {
+        Schema::create('applicant_filter_pool', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
             $table->uuid('applicant_filter_id')->references('id')->on('applicant_filters')->nullable(false)->cascadeOnDelete();
             $table->uuid('pool_id')->references('id')->on('pools')->nullable(false);
-            $table->string('expiry_status')->nullable(true);
-            $table->jsonb('pool_candidate_statuses')->nullable(true);
-
             $table->unique(['applicant_filter_id', 'pool_id']);
         });
-        DB::statement('ALTER TABLE applicant_filter_pool_records ALTER COLUMN id SET DEFAULT gen_random_uuid();');
+        DB::statement('ALTER TABLE applicant_filter_pool ALTER COLUMN id SET DEFAULT gen_random_uuid();');
 
     }
 
@@ -71,6 +68,6 @@ class CreateApplicantFiltersTable extends Migration
         Schema::dropIfExists('applicant_filters');
         Schema::dropIfExists('applicant_filter_classification');
         Schema::dropIfExists('applicant_filter_skill');
-        Schema::dropIfExists('applicant_filter_pool_records');
+        Schema::dropIfExists('applicant_filter_pool');
     }
 }

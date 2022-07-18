@@ -215,7 +215,6 @@ class ApplicantFilterTest extends TestCase
         $this->assertEquals(0, $filter->classifications()->count());
         $this->assertEquals(0, $filter->skills()->count());
         $this->assertEquals(0, $filter->pools()->count());
-        $this->assertEquals(0, $filter->applicantFilterPoolRecords()->count());
 
         // Before we add relationships, we need to seed the related values
         $this->seed(ClassificationSeeder::class);
@@ -228,14 +227,6 @@ class ApplicantFilterTest extends TestCase
             $this->assertGreaterThan(0, $filter->classifications()->count());
             $this->assertGreaterThan(0, $filter->skills()->count());
             $this->assertGreaterThan(0, $filter->pools()->count());
-            $this->assertGreaterThan(0, $filter->applicantFilterPoolRecords()->count());
-        }
-
-        // Test that the pool and applicantFilterPoolRecord relationships use the same underlying data.
-        foreach ($filters as $filter) {
-            $poolIds = $filter->pools->pluck('id')->toArray();
-            $poolRecordPoolIds = $filter->applicantFilterPoolRecords->pluck('pool_id')->toArray();
-            $this->assertEqualsCanonicalizing($poolIds, $poolRecordPoolIds);
         }
     }
 
@@ -309,9 +300,9 @@ class ApplicantFilterTest extends TestCase
                         ],
                         'pools' => [
                             [
-                                'id' => $filters[0]->applicantFilterPoolRecords->first()->pool->id,
-                                'name' => $filters[0]->applicantFilterPoolRecords->first()->pool->name,
-                                'key' => $filters[0]->applicantFilterPoolRecords->first()->pool->key,
+                                'id' => $filters[0]->pools->first()->pool->id,
+                                'name' => $filters[0]->pools->first()->pool->name,
+                                'key' => $filters[0]->pools->first()->pool->key,
                             ],
                         ],
                     ],
