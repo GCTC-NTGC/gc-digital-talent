@@ -8,6 +8,7 @@ import React from "react";
 
 type HeroIcon = (props: React.ComponentProps<"svg">) => JSX.Element;
 
+// See: https://github.com/JedWatson/react-select/issues/4804#issuecomment-927223471
 declare module "react-select/dist/declarations/src/Select" {
   export interface Props<
     Option,
