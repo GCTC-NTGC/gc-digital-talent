@@ -7,11 +7,7 @@ interface EstimatedCandidatesProps {
   updatePending?: boolean;
 }
 
-const weight = (msg: string) => (
-  <span data-h2-font-weight="b(800)" data-testid="candidateCount">
-    {msg}
-  </span>
-);
+const testId = (msg: string) => <span data-testid="candidateCount">{msg}</span>;
 
 const EstimatedCandidates: React.FunctionComponent<
   EstimatedCandidatesProps
@@ -53,14 +49,14 @@ const EstimatedCandidates: React.FunctionComponent<
               {intl.formatMessage(
                 {
                   defaultMessage: `{candidateCount, plural,
-                      one {There is approximately <weight>{candidateCount}</weight> candidate right now who meets your criteria.}
-                      other {There are approximately <weight>{candidateCount}</weight> candidates right now who meet your criteria.}
+                      one {There is approximately <strong><testId>{candidateCount}</testId></strong> candidate right now who meets your criteria.}
+                      other {There are approximately <strong><testId>{candidateCount}</testId></strong> candidates right now who meet your criteria.}
                     }`,
                   description:
                     "Message for total estimated candidates box next to search form.",
                 },
                 {
-                  weight,
+                  testId,
                   candidateCount,
                 },
               )}
