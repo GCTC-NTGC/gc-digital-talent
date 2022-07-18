@@ -857,7 +857,7 @@ type Query {
   user(id: ID!): User
   users: [User]!
   applicant(id: ID!): Applicant
-  applicants: [Applicant]!
+  applicants(includeIds: [ID]!): [Applicant]!
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: ID!): Pool
   poolAdvertisement(id: ID!): PoolAdvertisement
