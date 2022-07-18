@@ -6,6 +6,7 @@ import {
   getEducationType,
   getJobLookingStatus,
   EmploymentDuration,
+  OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { notEmpty } from "@common/helpers/util";
@@ -58,12 +59,10 @@ export default function useFilterOptions(enableEducationType = false) {
         value: id,
         label: `${group}-${level}`,
       })),
-    operationalRequirement: enumToOptions(OperationalRequirement).map(
-      ({ value }) => ({
-        value,
-        label: intl.formatMessage(getOperationalRequirement(value, "short")),
-      }),
-    ),
+    operationalRequirement: OperationalRequirementV2.map((value) => ({
+      value,
+      label: intl.formatMessage(getOperationalRequirement(value, "short")),
+    })),
     workRegion: enumToOptions(WorkRegion).map(({ value }) => ({
       value,
       label: intl.formatMessage(getWorkRegion(value)),

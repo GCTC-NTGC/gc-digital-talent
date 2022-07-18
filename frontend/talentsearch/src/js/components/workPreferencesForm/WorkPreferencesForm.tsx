@@ -2,7 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { commonMessages, errorMessages } from "@common/messages";
 import { Checklist, RadioGroup } from "@common/components/form";
-import { getOperationalRequirement } from "@common/constants/localizedConstants";
+import {
+  getOperationalRequirement,
+  OperationalRequirementV2,
+} from "@common/constants/localizedConstants";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -13,7 +16,6 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import {
   GetWorkPreferencesQuery,
-  OperationalRequirement,
   UpdateUserAsUserInput,
   UpdateWorkPreferencesMutation,
   useGetWorkPreferencesQuery,
@@ -41,15 +43,6 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
 }) => {
   const intl = useIntl();
 
-  const operationalRequirementsSubsetV2 = [
-    OperationalRequirement.OvertimeOccasional,
-    OperationalRequirement.OvertimeRegular,
-    OperationalRequirement.ShiftWork,
-    OperationalRequirement.OnCall,
-    OperationalRequirement.Travel,
-    OperationalRequirement.TransportEquipment,
-    OperationalRequirement.DriversLicense,
-  ];
   const dataToFormValues = (
     data?: GetWorkPreferencesQuery | undefined,
   ): FormValues => {
@@ -164,7 +157,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                       "Legend for optional work preferences check list in work preferences form",
                   })}
                   name="acceptedOperationalRequirements"
-                  items={operationalRequirementsSubsetV2.map((value) => ({
+                  items={OperationalRequirementV2.map((value) => ({
                     value,
                     label: intl.formatMessage(
                       getOperationalRequirement(value, "candidateDescription"),

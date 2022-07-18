@@ -736,6 +736,23 @@ export const OperationalRequirementShort = defineMessages({
   },
 });
 
+export const OperationalRequirementV1 = [
+  OperationalRequirement.ShiftWork,
+  OperationalRequirement.WorkWeekends,
+  OperationalRequirement.OvertimeScheduled,
+  OperationalRequirement.OvertimeShortNotice,
+];
+
+export const OperationalRequirementV2 = [
+  OperationalRequirement.OvertimeOccasional,
+  OperationalRequirement.OvertimeRegular,
+  OperationalRequirement.ShiftWork,
+  OperationalRequirement.OnCall,
+  OperationalRequirement.Travel,
+  OperationalRequirement.TransportEquipment,
+  OperationalRequirement.DriversLicense,
+];
+
 export const getOperationalRequirement = (
   operationalRequirementId: string | number,
   format: "candidateDescription" | "full" | "short" = "full",
