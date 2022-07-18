@@ -35,10 +35,6 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
 }) => {
   const intl = useIntl();
 
-  function bold(msg: string) {
-    return <span data-h2-font-weight="b(700)">{msg}</span>;
-  }
-
   const isFormActive = initialData?.me?.isProfileComplete;
 
   const JobLookingStatusSortOrder = [
@@ -97,15 +93,11 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
             data-h2-bg-color="b([light]lightpurple[.1])"
           >
             <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "<bold>Why can’t I change my status?</bold>",
-                  description: "Message in My Status Form.",
-                },
-                {
-                  bold,
-                },
-              )}
+              {intl.formatMessage({
+                defaultMessage:
+                  "<strong>Why can’t I change my status?</strong>",
+                description: "Message in My Status Form.",
+              })}
             </p>
             <p>
               {intl.formatMessage({
@@ -136,9 +128,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               JobLookingStatusSortOrder,
             ).map(({ value }) => ({
               value,
-              label: intl.formatMessage(getJobLookingStatus(value), {
-                bold,
-              }),
+              label: intl.formatMessage(getJobLookingStatus(value)),
             }))}
           />
         </div>

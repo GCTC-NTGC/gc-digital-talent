@@ -5,8 +5,8 @@ import "@testing-library/jest-dom";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { fakeClassifications, fakeDepartments } from "@common/fakeData";
 import React from "react";
+import { axeTest, render } from "@common/helpers/testUtils";
 import { CreateAccountForm, CreateAccountFormProps } from "./CreateAccountPage";
-import { axeTest, render } from "../../tests/testUtils";
 
 const mockDepartments = fakeDepartments();
 const mockClassifications = fakeClassifications();

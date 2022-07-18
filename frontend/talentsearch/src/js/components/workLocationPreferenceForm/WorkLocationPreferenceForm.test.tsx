@@ -4,7 +4,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { fakeUsers } from "@common/fakeData";
-import { WorkLocationPreferenceQuery, WorkRegion } from "../../api/generated";
 import {
   render,
   screen,
@@ -12,7 +11,8 @@ import {
   act,
   waitFor,
   axeTest,
-} from "../../tests/testUtils";
+} from "@common/helpers/testUtils";
+import { WorkLocationPreferenceQuery, WorkRegion } from "../../api/generated";
 import {
   WorkLocationPreferenceForm,
   WorkLocationPreferenceFormProps,

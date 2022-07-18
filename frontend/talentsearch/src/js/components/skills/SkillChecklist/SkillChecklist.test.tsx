@@ -3,7 +3,7 @@
  */
 import React from "react";
 import { fakeSkillFamilies, fakeSkills } from "@common/fakeData";
-import { render, screen, fireEvent, axeTest } from "../../../tests/testUtils";
+import { render, screen, fireEvent, axeTest } from "@common/helpers/testUtils";
 import SkillChecklist from "./SkillChecklist";
 
 const testData = fakeSkillFamilies(5, fakeSkills(10));

@@ -1,10 +1,12 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Link, useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLanguage } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
+import printStyles from "@common/constants/printStyles";
+import { useReactToPrint } from "react-to-print";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   InputMaybe,
@@ -13,6 +15,7 @@ import {
   User,
   UserFilterInput,
   UserPaginator,
+  useSelectedUsersQuery,
 } from "../../api/generated";
 import BasicTable from "../apiManagedTable/BasicTable";
 import {
@@ -27,6 +30,7 @@ import {
 import { tableEditButtonAccessor } from "../Table";
 import TableFooter from "../apiManagedTable/TableFooter";
 import TableHeader from "../apiManagedTable/TableHeader";
+import UserProfileDocument from "./UserProfileDocument";
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
@@ -181,6 +185,26 @@ export const UserTable: React.FC = () => {
 
   const allColumnIds = columns.map((c) => c.id);
 
+  const selectedApplicantIds = selectedRows.map((user) => user.id);
+  const [
+    {
+      data: selectedUsersData,
+      fetching: selectedUsersFetching,
+      error: selectedUsersError,
+    },
+  ] = useSelectedUsersQuery({
+    variables: {
+      ids: selectedApplicantIds,
+    },
+  });
+
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    pageStyle: printStyles,
+    documentTitle: "Candidate Profiles",
+  });
+
   return (
     <div data-h2-margin="b(top-bottom, m)">
       <h2 id="user-table-heading" data-h2-visibility="b(invisible)">
@@ -253,6 +277,18 @@ export const UserTable: React.FC = () => {
         paginatorInfo={data?.usersPaginated?.paginatorInfo}
         onCurrentPageChange={setCurrentPage}
         onPageSizeChange={setPageSize}
+        onPrint={handlePrint}
+        fetchingSelected={selectedUsersFetching}
+        selectionError={selectedUsersError}
+        disableActions={
+          selectedUsersFetching ||
+          !!selectedUsersError ||
+          !selectedUsersData?.applicants.length
+        }
+      />
+      <UserProfileDocument
+        applicants={selectedUsersData?.applicants.filter(notEmpty) ?? []}
+        ref={componentRef}
       />
     </div>
   );

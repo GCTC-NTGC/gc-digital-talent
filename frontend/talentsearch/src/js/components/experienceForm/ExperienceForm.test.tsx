@@ -7,7 +7,7 @@ import React from "react";
 import { fakeSkills } from "@common/fakeData";
 import { act } from "react-dom/test-utils";
 import fakeExperiences from "@common/fakeData/fakeExperiences";
-import { axeTest, render } from "../../tests/testUtils";
+import { axeTest, render } from "@common/helpers/testUtils";
 import { ExperienceForm, ExperienceFormProps } from "./ExperienceForm";
 import type { ExperienceQueryData, ExperienceType } from "./types";
 

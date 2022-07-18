@@ -1,7 +1,7 @@
-import { Input } from "@common/components/form";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { Input } from "../../form";
 
 export interface SearchBarProps {
   handleSearch: (searchQuery: string) => Promise<void>;
@@ -11,7 +11,7 @@ interface FormValues {
   query: string;
 }
 
-const SearchBar: React.FunctionComponent<SearchBarProps> = ({
+export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
   handleSearch,
 }) => {
   const intl = useIntl();

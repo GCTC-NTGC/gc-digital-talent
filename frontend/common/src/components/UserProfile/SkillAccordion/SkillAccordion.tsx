@@ -27,10 +27,6 @@ import {
   isWorkExperience,
 } from "../../../types/ExperienceUtils";
 
-const purpleText = (chunks: string[]) => (
-  <span data-h2-font-color="b(lightpurple)">{...chunks}</span>
-);
-
 export interface SkillAccordionProps {
   skill: Skill;
 }
@@ -116,11 +112,10 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         <p>
           {intl.formatMessage(
             {
-              defaultMessage:
-                "<purpleText>{title}</purpleText> issued by {issuedBy}",
+              defaultMessage: "<primary>{title}</primary> issued by {issuedBy}",
               description: "The award title is issued by some group",
             },
-            { issuedBy, title, purpleText },
+            { issuedBy, title },
           )}
         </p>
         <p>
@@ -161,11 +156,10 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         <p>
           {intl.formatMessage(
             {
-              defaultMessage:
-                "<purpleText>{title}</purpleText> at {organization}",
+              defaultMessage: "<primary>{title}</primary> at {organization}",
               description: "Title at organization",
             },
-            { organization, title, purpleText },
+            { organization, title },
           )}
         </p>
         <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
@@ -201,10 +195,10 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         <p>
           {intl.formatMessage(
             {
-              defaultMessage: "<purpleText>{role}</purpleText> at {division}",
+              defaultMessage: "<primary>{role}</primary> at {division}",
               description: "Role at Team, Group or Division",
             },
-            { division, role, purpleText },
+            { division, role },
           )}
         </p>
         <p>{organization}</p>

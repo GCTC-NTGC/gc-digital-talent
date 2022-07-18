@@ -2,6 +2,7 @@ import "../src/css/hydrogen.css"
 import "../src/css/common.css"
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import frCompiled from "../src/lang/frCompiled.json";
+import defaultRichTextElements from "../src/helpers/format";
 import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
 
 export const parameters = {
@@ -24,6 +25,7 @@ setIntlConfig({
   locales: ["en", "fr"],
   defaultLocale: "en",
   getMessages: (locale) => messages[locale],
+  defaultRichTextElements
 })
 
 export const decorators = [
