@@ -50,8 +50,10 @@ export const Default = Template.bind({});
 export const RandomLatency = Template.bind({});
 RandomLatency.parameters = {
   apiResponsesConfig: {
-    minTimeout: 2000,
-    maxTimeout: 10000,
+    latency: {
+      min: 2000,
+      max: 10000,
+    },
   },
   chromatic: { disableSnapshot: true },
 };
