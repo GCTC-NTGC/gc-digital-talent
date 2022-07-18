@@ -79,12 +79,6 @@ input ApplicantFilterInput {
   pools: [IdInput]
 }
 
-type ApplicantFilterPoolRecord {
-  pool: Pool!
-  expiryStatus: CandidateExpiryFilter
-  statuses: [PoolCandidateStatus]
-}
-
 type AwardExperience implements Experience {
   id: ID!
   applicant: Applicant!

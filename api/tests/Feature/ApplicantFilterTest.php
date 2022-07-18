@@ -300,9 +300,9 @@ class ApplicantFilterTest extends TestCase
                         ],
                         'pools' => [
                             [
-                                'id' => $filters[0]->pools->first()->pool->id,
-                                'name' => $filters[0]->pools->first()->pool->name,
-                                'key' => $filters[0]->pools->first()->pool->key,
+                                'id' => $filters[0]->pools->first()->id,
+                                'name' => $filters[0]->pools->first()->name,
+                                'key' => $filters[0]->pools->first()->key,
                             ],
                         ],
                     ],
@@ -320,7 +320,6 @@ class ApplicantFilterTest extends TestCase
         $this->seed(DepartmentSeeder::class);
         $this->seed(ClassificationSeeder::class);
         $this->seed(SkillSeeder::class);
-        $pool = Pool::factory()->create();
 
         $filter = ApplicantFilter::factory()->withRelationships()->create();
 
