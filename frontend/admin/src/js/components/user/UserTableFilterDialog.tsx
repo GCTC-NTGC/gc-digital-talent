@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Dialog from "@common/components/Dialog";
 import { Button } from "@common/components";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { BasicForm } from "@common/components/form";
 import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
@@ -31,6 +31,7 @@ export type FormValues = {
 
 type FooterProps = Pick<UserTableFilterDialogProps, "enableEducationType">;
 const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
+  const { formatMessage } = useIntl();
   const { reset } = useFormContext();
   const { emptyFormValues } = useFilterOptions(enableEducationType);
   const handleClear = () => {
@@ -40,16 +41,16 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
   return (
     <div style={{ display: "flex", placeContent: "space-between" }}>
       <Button color="secondary" mode="outline" onClick={handleClear}>
-        <FormattedMessage
-          description="Clear button within the search filter dialog"
-          defaultMessage="Clear filters"
-        />
+        {formatMessage({
+          description: "Clear button within the search filter dialog",
+          defaultMessage: "Clear filters",
+        })}
       </Button>
       <Button type="submit" color="cta">
-        <FormattedMessage
-          description="Submit button within the search filter dialog"
-          defaultMessage="Show results"
-        />
+        {formatMessage({
+          description: "Submit button within the search filter dialog",
+          defaultMessage: "Show results",
+        })}
       </Button>
     </div>
   );
@@ -240,6 +241,7 @@ const UserTableFilterButton = ({
   isOpenDefault = false,
   ...rest
 }: UserTableFilterButtonProps) => {
+  const { formatMessage } = useIntl();
   const { emptyFormValues } = useFilterOptions();
   const [activeFilters, setActiveFilters] =
     useState<FormValues>(emptyFormValues);
@@ -265,10 +267,11 @@ const UserTableFilterButton = ({
       >
         <ButtonIcon icon={FilterIcon} />
         <span>
-          <FormattedMessage
-            defaultMessage="Filter"
-            description="Text label for button to open filter dialog on admin tables."
-          />
+          {formatMessage({
+            defaultMessage: "Filter",
+            description:
+              "Text label for button to open filter dialog on admin tables.",
+          })}
         </span>
       </Button>
       <UserTableFilterDialog
