@@ -215,7 +215,6 @@ export const UserProfileDocument = React.forwardRef<
                 </div>
               );
             })}
-          ;
         </div>
       </div>
     </div>
