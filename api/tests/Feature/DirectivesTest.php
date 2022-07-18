@@ -24,7 +24,6 @@ class DirectivesTest extends TestCase
     {
         // Mock up a resolver that returns the args we're interested in
         $this->mockResolver(function ($root, array $args) {
-            var_dump($args);
             return $args['t']['list'];
         });
 
