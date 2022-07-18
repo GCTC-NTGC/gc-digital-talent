@@ -8,6 +8,7 @@ import {
   EmploymentDuration,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
+import { notEmpty } from "@common/helpers/util";
 import mapValues from "lodash/mapValues";
 import { useIntl } from "react-intl";
 import useLocale from "../useLocale";
@@ -21,15 +22,6 @@ import {
   useGetClassificationsQuery,
   useGetPoolsQuery,
 } from "../../api/generated";
-
-// This is use way to remove null and undefined values from list types, which
-// makes working with them simpler (e.g. `arr.map( ... )`)
-// Source: https://stackoverflow.com/a/46700791
-function notNullOrUndefined<TValue>(
-  value: TValue | null | undefined,
-): value is TValue {
-  return value !== null && value !== undefined;
-}
 
 // TODO: Remove this toggle after data model settles.
 // See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
@@ -51,19 +43,17 @@ export default function useFilterOptions(enableEducationType = false) {
   };
 
   const optionsData = {
-    pools: poolsRes.data?.pools
-      .filter(notNullOrUndefined)
-      .map(({ id, name }) => ({
-        value: id,
-        // TODO: Must name and translations be optional in types?
-        label: name?.[locale] || "Error: name not loaded",
-      })),
+    pools: poolsRes.data?.pools.filter(notEmpty).map(({ id, name }) => ({
+      value: id,
+      // TODO: Must name and translations be optional in types?
+      label: name?.[locale] || "Error: name not loaded",
+    })),
     languageAbility: enumToOptions(LanguageAbility).map(({ value }) => ({
       value,
       label: intl.formatMessage(getLanguageAbility(value)),
     })),
     classifications: classificationsRes.data?.classifications
-      .filter(notNullOrUndefined)
+      .filter(notEmpty)
       .map(({ id, group, level }) => ({
         value: id,
         label: `${group}-${level}`,
@@ -95,13 +85,11 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getJobLookingStatus(value, "short")),
     })),
-    skills: skillsRes.data?.skills
-      .filter(notNullOrUndefined)
-      .map(({ id, name }) => ({
-        value: id,
-        // TODO: Must name and translations be optional in types?
-        label: name[locale] || "Error: name not loaded",
-      })),
+    skills: skillsRes.data?.skills.filter(notEmpty).map(({ id, name }) => ({
+      value: id,
+      // TODO: Must name and translations be optional in types?
+      label: name[locale] || "Error: name not loaded",
+    })),
     profileComplete: [yesOption],
     govEmployee: [yesOption],
   };
