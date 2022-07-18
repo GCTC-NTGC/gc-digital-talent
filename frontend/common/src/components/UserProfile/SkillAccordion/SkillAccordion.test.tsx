@@ -2,36 +2,21 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import React from "react";
-import {
-  createIntl,
-  createIntlCache,
-  IntlProvider,
-  MessageFormatElement,
-} from "react-intl";
+import { createIntl, createIntlCache } from "react-intl";
 import { fakeSkills } from "../../../fakeData";
 import { generators as experienceGenerator } from "../../../fakeData/fakeExperiences";
 
+import { render } from "../../../helpers/testUtils";
 import { getDateRange } from "../../../helpers/dateUtils";
 import { Skill } from "../../../api/generated";
 import SkillAccordion from "./SkillAccordion";
 
 const skills = fakeSkills();
-const renderWithReactIntl = (
-  component: React.ReactNode,
-  locale?: "en" | "fr",
-  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
-) => {
-  return render(
-    <IntlProvider locale={locale || "en"} messages={messages}>
-      {component}
-    </IntlProvider>,
-  );
-};
 const testSkill = skills[0];
 function renderSkillAccordion(skill: Skill) {
-  return renderWithReactIntl(<SkillAccordion skill={skill} />);
+  return render(<SkillAccordion skill={skill} />);
 }
 
 describe("SkillAccordion tests", () => {

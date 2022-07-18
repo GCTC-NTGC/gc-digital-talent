@@ -40,9 +40,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   handleWorkPreferences,
 }) => {
   const intl = useIntl();
-  function bold(msg: string) {
-    return <span data-h2-font-weight="b(700)">{msg}</span>;
-  }
+
   const operationalRequirementsSubsetV2 = [
     OperationalRequirement.OvertimeOccasional,
     OperationalRequirement.OvertimeRegular,
@@ -170,7 +168,6 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                     value,
                     label: intl.formatMessage(
                       getOperationalRequirementCandidateDescription(value),
-                      { bold },
                     ),
                   }))}
                 />

@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Link } from "@common/components";
-import { hidden } from "@common/helpers/format";
 
 export interface TableEditButtonProps {
   /** Id of the object in the table. */
@@ -27,7 +26,7 @@ function TableEditButton({
           defaultMessage: "Edit <hidden>{label}</hidden>",
           description: "Title displayed for the Edit column.",
         },
-        { label, hidden },
+        { label },
       )}
     </Link>
   );

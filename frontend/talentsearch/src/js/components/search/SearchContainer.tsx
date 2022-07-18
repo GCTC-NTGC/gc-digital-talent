@@ -90,11 +90,7 @@ export interface SearchContainerProps {
   onSubmit: () => Promise<void>;
 }
 
-const candidateCountMsg = (msg: string) => (
-  <span data-h2-font-color="b(lightpurple)" data-testid="candidateCount">
-    {msg}
-  </span>
-);
+const testId = (msg: string) => <span data-testid="candidateCount">{msg}</span>;
 
 export const SearchContainer: React.FC<SearchContainerProps> = ({
   classifications,
@@ -172,12 +168,12 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Results: <span>{candidateCount}</span> matching candidates",
+                  "Results: <primary><testId>{candidateCount}</testId></primary> matching candidates",
                 description:
                   "Heading for total matching candidates in results section of search page.",
               },
               {
-                span: candidateCountMsg,
+                testId,
                 candidateCount,
               },
             )}

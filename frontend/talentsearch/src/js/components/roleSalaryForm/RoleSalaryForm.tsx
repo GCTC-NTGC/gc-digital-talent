@@ -86,13 +86,10 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
     React.useState<boolean>(false);
 
   // intl styling functions section
-  // bolding, adding a link, and to add a button opening modals onto text
-  function bold(msg: string) {
-    return <span data-h2-font-weight="b(700)">{msg}</span>;
-  }
   function link(msg: string, url: string) {
     return <a href={url}>{msg}</a>;
   }
+
   function openModal(msg: string, setOpenStateFn: (state: boolean) => void) {
     return (
       <ModalButton
@@ -132,14 +129,11 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
         }}
       >
         <p data-h2-margin="b(bottom, l)">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "This platform is focused on hiring digital talent to work in positions classified as IT(Information Technology). Look at the following levels within the IT classification and <bold>select only</bold> the ones that represent the work you want to do.",
-              description: "Blurb describing the purpose of the form",
-            },
-            { bold },
-          )}
+          {intl.formatMessage({
+            defaultMessage:
+              "This platform is focused on hiring digital talent to work in positions classified as IT(Information Technology). Look at the following levels within the IT classification and <strong>select only</strong> the ones that represent the work you want to do.",
+            description: "Blurb describing the purpose of the form",
+          })}
         </p>
         <Checklist
           idPrefix="expectedGenericJobTitles"
