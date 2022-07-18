@@ -5,6 +5,7 @@ import {
   getOperationalRequirement,
   getEducationType,
   getJobLookingStatus,
+  EmploymentDuration,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import mapValues from "lodash/mapValues";
@@ -85,7 +86,8 @@ export default function useFilterOptions(enableEducationType = false) {
           })),
         }
       : {}),
-    employmentDuration: ["term", "indeterminate"].map((value) => ({
+    // Not really an enum, but works fine.
+    employmentDuration: enumToOptions(EmploymentDuration).map(({ value }) => ({
       value,
       label: intl.formatMessage(getEmploymentDuration(value, "short")),
     })),

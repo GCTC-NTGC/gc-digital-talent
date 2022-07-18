@@ -9,6 +9,7 @@ import {
   getOperationalRequirement,
   getWorkRegion,
   getEmploymentDuration,
+  EmploymentDuration,
 } from "@common/constants/localizedConstants";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
@@ -383,12 +384,12 @@ const SearchForm: React.FC<SearchFormProps> = ({
               },
               {
                 value: "true",
-                label: intl.formatMessage(getEmploymentDuration("term")),
+                label: intl.formatMessage(getEmploymentDuration(EmploymentDuration.Term)),
               },
               {
                 value: "nothing",
                 label: intl.formatMessage(
-                  getEmploymentDuration("indeterminate"),
+                  getEmploymentDuration(EmploymentDuration.Indeterminate),
                 ),
               },
             ]}

@@ -113,13 +113,17 @@ export const getEducationRequirement = (
     `Invalid Education Requirement '${educationRequirementId}'`,
   );
 
+export const EmploymentDuration = {
+  Term: "TERM",
+  Indeterminate: "INDETERMINATE",
+};
 export const employmentDurationShort = defineMessages({
-  term: {
+  [EmploymentDuration.Term]: {
     defaultMessage: "Term",
     description:
       "Duration of a non-permanent length (short-form for limited space)",
   },
-  indeterminate: {
+  [EmploymentDuration.Indeterminate]: {
     defaultMessage: "Indeterminate",
     description: "Duration that is permanent (short-form for limited space)",
   },
