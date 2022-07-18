@@ -4,12 +4,7 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import React from "react";
-import {
-  createIntl,
-  createIntlCache,
-  IntlProvider,
-  MessageFormatElement,
-} from "react-intl";
+import { createIntl, createIntlCache } from "react-intl";
 import { fakeSkills } from "../../../fakeData";
 import { generators as experienceGenerator } from "../../../fakeData/fakeExperiences";
 
