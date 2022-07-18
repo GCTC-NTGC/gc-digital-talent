@@ -1638,7 +1638,7 @@
     "description": "Instruction on what to do if user does not have a GC Key."
   },
   "Ba4Y8a": {
-    "defaultMessage": "{candidateCount, plural, one {Il y a actuellement environ <heavyPrimary><testId>{candidateCount}</testid></heavyPrimary> candidat qui répond à vos critères.} other {Il y a actuellement environ <heavyPrimary><testId>{candidateCount}</heavyPrimary></testId> candidats qui répondent à vos critères.} }",
+    "defaultMessage": "{candidateCount, plural, one {Il y a actuellement environ <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> candidat qui répond à vos critères.} other {Il y a actuellement environ <heavyPrimary><testId>{candidateCount}</heavyPrimary></testId> candidats qui répondent à vos critères.} }",
     "description": "Message for total estimated candidates box next to search form."
   },
   "t5G3Fz": {
