@@ -17,10 +17,6 @@ const RoleSalarySection: React.FunctionComponent<{
         </li>
       ))
     : null;
-  // styling a text bit with red colour within intl
-  function redText(msg: string) {
-    return <span data-h2-font-color="b(red)">{msg}</span>;
-  }
 
   const anyCriteriaSelected = !isEmpty(expectedClassificationArray);
 
@@ -53,17 +49,11 @@ const RoleSalarySection: React.FunctionComponent<{
             </p>
 
             <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "There are <redText>required</redText> fields missing.",
-                  description:
-                    "Message that there are required fields missing. Please ignore things in <> tags.",
-                },
-                {
-                  redText,
-                },
-              )}{" "}
+              {intl.formatMessage({
+                defaultMessage: "There are <red>required</red> fields missing.",
+                description:
+                  "Message that there are required fields missing. Please ignore things in <> tags.",
+              })}{" "}
               <a href={editPath}>
                 {intl.formatMessage({
                   defaultMessage: "Click here to get started.",

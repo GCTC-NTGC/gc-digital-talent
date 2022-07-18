@@ -155,10 +155,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       });
   };
 
-  function span(msg: string): JSX.Element {
-    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
-  }
-
   return (
     <section>
       <h2 data-h2-margin="b(top, none)">
@@ -297,12 +293,11 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Request for pool candidates: <span>{candidateCount, plural, zero {no candidates} one {1 candidate} other {{candidateCount} estimated candidates}}</span>",
+                  "Request for pool candidates: <primary>{candidateCount, plural, zero {no candidates} one {1 candidate} other {{candidateCount} estimated candidates}}</primary>",
                 description:
                   "Total estimated candidates message in summary of filters",
               },
               {
-                span,
                 candidateCount,
               },
             )}

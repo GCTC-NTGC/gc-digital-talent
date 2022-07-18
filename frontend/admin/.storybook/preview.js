@@ -4,6 +4,7 @@ import "../src/css/app.css"
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import AdminFrench from "../src/js/lang/frCompiled.json";
 import CommonFrench from "../../common/src/lang";
+import defaultRichTextElements from "../../common/src/helpers/format";
 import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
 
 // CSS files required for building with `MERGE_STORYBOOKS=true`.
@@ -30,6 +31,7 @@ setIntlConfig({
     locales: ["en", "fr"],
     defaultLocale: "en",
     getMessages: (locale) => messages[locale],
+    defaultRichTextElements
 })
 
 export const decorators = [

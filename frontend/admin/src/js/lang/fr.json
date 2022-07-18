@@ -3,10 +3,6 @@
     "defaultMessage": "Erreur : Échec de la mise à jour de l’actif du BGC",
     "description": "Message displayed to user after cmo asset fails to get updated."
   },
-  "/+IJwt": {
-    "defaultMessage": "Créer un utilisateur",
-    "description": "Heading displayed above the Create User form."
-  },
   "/Y7x+s": {
     "defaultMessage": "Créer un bassin",
     "description": "Heading displayed above the Create Pool form."
@@ -351,10 +347,6 @@
     "defaultMessage": "Créer un actif du BGC",
     "description": "Title displayed on the create a cmo asset form."
   },
-  "N67tO0": {
-    "defaultMessage": "Nom de famille",
-    "description": "Title displayed for the User table Last Name column."
-  },
   "NZyO8h": {
     "defaultMessage": "Autochtone",
     "description": "Title displayed for the Pool Candidates table Indigenous column."
@@ -434,10 +426,6 @@
   "Urq3fM": {
     "defaultMessage": "Responsable",
     "description": "Label displayed on the pool form owner field."
-  },
-  "VK2qKI": {
-    "defaultMessage": "Utilisateurs",
-    "description": "Heading displayed above the User Table component."
   },
   "VaCRxh": {
     "defaultMessage": "Femme",
@@ -682,10 +670,6 @@
     "defaultMessage": "Modifier",
     "description": "Title displayed for the single search request table edit column."
   },
-  "mbxksT": {
-    "defaultMessage": "Prénom",
-    "description": "Title displayed on the User table First Name column."
-  },
   "mf+QEY": {
     "defaultMessage": "Langue de préférence",
     "description": "Title displayed for the User table Preferred Language column."
@@ -741,10 +725,6 @@
   "qYH0du": {
     "defaultMessage": "Modifier",
     "description": "Title displayed for the User table Edit column."
-  },
-  "qodftq": {
-    "defaultMessage": "<span>{jobTitle}</span> à <span>{department}</span>",
-    "description": "Subtitle displayed above the single search request component."
   },
   "r2gD/4": {
     "defaultMessage": "Date de réception",
@@ -817,10 +797,6 @@
   "x3SuY9": {
     "defaultMessage": "Date d’expiration",
     "description": "Label displayed on the pool candidate form expiry date field."
-  },
-  "xAjes8": {
-    "defaultMessage": "Masquer/afficher les colonnes du tableau",
-    "description": "Label displayed on the Table Columns toggle."
   },
   "xIWdFW": {
     "defaultMessage": "Minorité visible",
@@ -1214,10 +1190,6 @@
     "defaultMessage": "Retirer du bassin",
     "description": "Confirmation button for removing candidate from pool dialog"
   },
-  "9KUJ50": {
-    "defaultMessage": "<purpleText>Inactif</purpleText> ‒ Ne souhaite pas être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please"
-  },
   "9NDM+k": {
     "defaultMessage": "Fixer une date d'expiration pour ce candidat dans ce bassin :",
     "description": "Third section of text on the add user to pool dialog"
@@ -1245,10 +1217,6 @@
   "BnSa6Y": {
     "defaultMessage": "Échec de la mise à jour du statut",
     "description": "Toast for failed status update on view-user page"
-  },
-  "BnjTOW": {
-    "defaultMessage": "<purpleText>Ouvert aux possibilités</purpleText> ‒ Ne cherche pas activement, mais souhaite toujours être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Open to opportunities' status, ignore things in <> tags please"
   },
   "Bvj3zI": {
     "defaultMessage": "Gérer les demandes",
@@ -1297,10 +1265,6 @@
   "EdUZaX": {
     "defaultMessage": "Candidats",
     "description": "Header for the View Candidates column of the Pools table"
-  },
-  "EiJAvo": {
-    "defaultMessage": "<purpleText>Actif</purpleText> ‒ Souhaite être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please"
   },
   "EnvwAC": {
     "defaultMessage": "Téléphone :",
@@ -1361,10 +1325,6 @@
   "K3LEpl": {
     "defaultMessage": "Choisir un bassin :",
     "description": "Second section of text on the add user to pool dialog"
-  },
-  "KU07aX": {
-    "defaultMessage": "Vous êtes sur le point de <boldText>retirer l'utilisateur suivant :</boldText>",
-    "description": "First section of text on the remove candidate from pool dialog, ignore things in <> tags please"
   },
   "KyMCYC": {
     "defaultMessage": "Retirer du bassin",
@@ -1684,5 +1644,25 @@
   "zDO6tt": {
     "defaultMessage": "Date d'expiration",
     "description": "title for change expiry date dialog on view-user page"
+  },
+  "0cEmmG": {
+    "defaultMessage": "Vous êtes sur le point de <strong>retirer l'utilisateur suivant :</strong>",
+    "description": "First section of text on the remove candidate from pool dialog, ignore things in <> tags please"
+  },
+  "ZLDt/c": {
+    "defaultMessage": "<strong>{jobTitle}</strong> à <strong>{department}</strong>",
+    "description": "Subtitle displayed above the single search request component."
+  },
+  "S0ghpc": {
+    "defaultMessage": "<heavyPrimary>Inactif</heavyPrimary> ‒ Ne souhaite pas être contacté pour des possibilités d'emploi",
+    "description": "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please"
+  },
+  "ye47Rz": {
+    "defaultMessage": "<heavyPrimary>Ouvert aux possibilités</heavyPrimary> ‒ Ne cherche pas activement, mais souhaite toujours être contacté pour des possibilités d'emploi",
+    "description": "Text in view user page saying they currently have the 'Open to opportunities' status, ignore things in <> tags please"
+  },
+  "SOZVtc": {
+    "defaultMessage": "<heavyPrimary>Actif</heavyPrimary> ‒ Souhaite être contacté pour des possibilités d'emploi",
+    "description": "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please"
   }
 }
