@@ -383,7 +383,9 @@ const SearchForm: React.FC<SearchFormProps> = ({
               },
               {
                 value: "true",
-                label: intl.formatMessage(getEmploymentDuration(EmploymentDuration.Term)),
+                label: intl.formatMessage(
+                  getEmploymentDuration(EmploymentDuration.Term),
+                ),
               },
               {
                 value: "nothing",
