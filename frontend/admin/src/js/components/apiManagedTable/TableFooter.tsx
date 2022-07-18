@@ -11,7 +11,7 @@ export interface TableFooterProps {
   paginatorInfo?: PaginatorInfo;
   onCurrentPageChange: (n: number) => void;
   onPageSizeChange: (n: number) => void;
-  handlePrint?: () => void;
+  onPrint?: () => void;
   disableActions?: boolean;
   fetchingSelected?: boolean;
   selectionError?: CombinedError;
@@ -30,7 +30,7 @@ function TableFooter({
   paginatorInfo = defaultPaginationInfo,
   onCurrentPageChange,
   onPageSizeChange,
-  handlePrint,
+  onPrint,
   disableActions,
   fetchingSelected = false,
   selectionError,
@@ -78,7 +78,7 @@ function TableFooter({
               mode="solid"
               color="primary"
               disabled={disableActions}
-              onClick={handlePrint}
+              onClick={onPrint}
             >
               {intl.formatMessage({
                 defaultMessage: "Print",

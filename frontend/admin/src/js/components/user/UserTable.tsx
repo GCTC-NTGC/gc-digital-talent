@@ -277,7 +277,7 @@ export const UserTable: React.FC = () => {
         paginatorInfo={data?.usersPaginated?.paginatorInfo}
         onCurrentPageChange={setCurrentPage}
         onPageSizeChange={setPageSize}
-        handlePrint={handlePrint}
+        onPrint={handlePrint}
         fetchingSelected={selectedUsersFetching}
         selectionError={selectedUsersError}
         disableActions={
