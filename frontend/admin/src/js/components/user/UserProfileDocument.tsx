@@ -74,6 +74,10 @@ export const UserProfileDocument = React.forwardRef<
       {/* a bunch of styling to tweak components for printing */}
       <style type="text/css" media="print">{`
         html{font-size:75%; padding: 16px;}
+        .page-wrapper {
+          padding-bottom: 2rem;
+          border-bottom: 2px dashed black;
+        }
         .heading-icon {
           flex-shrink: 0;
           height: 1.5rem;
@@ -103,7 +107,7 @@ export const UserProfileDocument = React.forwardRef<
           {applicants &&
             applicants.map((applicant) => {
               return (
-                <div key={applicant.id}>
+                <div key={applicant.id} className="page-wrapper">
                   <div className="page-section">
                     <HeadingWrapper>
                       <Heading icon={LightBulbIcon} style={{ flex: "1 1 0%" }}>
