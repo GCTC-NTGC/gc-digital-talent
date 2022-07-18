@@ -81,7 +81,7 @@ describe("Pagination tests", () => {
     const props = NoDots.args as PaginationProps;
     const handlePageChange = jest.fn();
     renderWithReactIntl(
-      <NoDots {...props} handlePageChange={handlePageChange} />,
+      <NoDots {...props} onCurrentPageChange={handlePageChange} />,
     );
     const leftArrowButton = screen.getByTestId("leftArrowButton");
     const rightArrowButton = screen.getByTestId("rightArrowButton");
@@ -98,7 +98,7 @@ describe("Pagination tests", () => {
       <NoDots
         {...props}
         currentPage={lastPage}
-        handlePageChange={handlePageChange}
+        onCurrentPageChange={handlePageChange}
       />,
     );
     const leftArrowButton = screen.getByTestId("leftArrowButton");
@@ -112,7 +112,7 @@ describe("Pagination tests", () => {
     const props = NoDots.args as PaginationProps;
     const handlePageChange = jest.fn();
     renderWithReactIntl(
-      <NoDots {...props} handlePageChange={handlePageChange} />,
+      <NoDots {...props} onCurrentPageChange={handlePageChange} />,
     );
     const pageThreeButton = screen.getByText("3");
     fireEvent.click(pageThreeButton);

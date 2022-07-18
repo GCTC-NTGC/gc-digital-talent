@@ -108,14 +108,18 @@ const ManagerInfo: React.FunctionComponent<{
                 description:
                   "Title for the pool block in the manager info section of the single search request view.",
               })}
-              content={poolCandidateFilter.pools?.map(
-                (pool) =>
-                  pool?.name?.[locale] ||
-                  intl.formatMessage({
-                    defaultMessage: "N/A",
-                    description: "Text shown when the filter was not selected",
-                  }),
-              )}
+              content={
+                // TODO: get pools from applicantFilter isntead of poolCandidateFilter if possible
+                poolCandidateFilter?.pools?.map(
+                  (pool) =>
+                    pool?.name?.[locale] ||
+                    intl.formatMessage({
+                      defaultMessage: "N/A",
+                      description:
+                        "Text shown when the filter was not selected",
+                    }),
+                )
+              }
             />
             <FilterBlock
               title={intl.formatMessage({
@@ -173,10 +177,11 @@ export const SingleSearchRequest: React.FunctionComponent<
   const intl = useIntl();
   const locale = getLocale(intl);
   const { additionalComments, poolCandidateFilter } = searchRequest;
+  // TODO: data filter data from applicantFilter instead of poolCandidateFilter if possible.
 
   const poolCandidateFilterInput: PoolCandidateFilterInput = {
     classifications: [
-      ...(poolCandidateFilter.classifications
+      ...(poolCandidateFilter?.classifications
         ? poolCandidateFilter.classifications
             .filter(notEmpty)
             .map(({ group, level }) => {
@@ -188,7 +193,7 @@ export const SingleSearchRequest: React.FunctionComponent<
         : []),
     ],
     cmoAssets: [
-      ...(poolCandidateFilter.cmoAssets
+      ...(poolCandidateFilter?.cmoAssets
         ? poolCandidateFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
             return {
               key,
@@ -196,9 +201,9 @@ export const SingleSearchRequest: React.FunctionComponent<
           })
         : []),
     ],
-    operationalRequirements: poolCandidateFilter.operationalRequirements,
+    operationalRequirements: poolCandidateFilter?.operationalRequirements,
     pools: [
-      ...(poolCandidateFilter.pools
+      ...(poolCandidateFilter?.pools
         ? poolCandidateFilter.pools.filter(notEmpty).map(({ id }) => {
             return {
               id,
@@ -206,32 +211,28 @@ export const SingleSearchRequest: React.FunctionComponent<
           })
         : []),
     ],
-    hasDiploma: poolCandidateFilter.hasDiploma,
+    hasDiploma: poolCandidateFilter?.hasDiploma,
     equity: {
-      hasDisability: poolCandidateFilter.equity?.hasDisability,
-      isIndigenous: poolCandidateFilter.equity?.isIndigenous,
-      isVisibleMinority: poolCandidateFilter.equity?.isVisibleMinority,
-      isWoman: poolCandidateFilter.equity?.isWoman,
+      hasDisability: poolCandidateFilter?.equity?.hasDisability,
+      isIndigenous: poolCandidateFilter?.equity?.isIndigenous,
+      isVisibleMinority: poolCandidateFilter?.equity?.isVisibleMinority,
+      isWoman: poolCandidateFilter?.equity?.isWoman,
     },
-    languageAbility: poolCandidateFilter.languageAbility || undefined,
-    workRegions: poolCandidateFilter.workRegions,
+    languageAbility: poolCandidateFilter?.languageAbility || undefined,
+    workRegions: poolCandidateFilter?.workRegions,
   };
 
-  function span(msg: string): JSX.Element {
-    return <span data-h2-font-weight="b(600)">{msg}</span>;
-  }
   return (
     <section>
       <p>
         {intl.formatMessage(
           {
             defaultMessage:
-              "<span>{jobTitle}</span> at <span>{department}</span>",
+              "<strong>{jobTitle}</strong> at <strong>{department}</strong>",
             description:
               "Subtitle displayed above the single search request component.",
           },
           {
-            span,
             jobTitle: searchRequest.jobTitle,
             department: searchRequest.department?.name[locale],
           },

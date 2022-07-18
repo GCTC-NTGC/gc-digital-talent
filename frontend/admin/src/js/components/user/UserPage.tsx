@@ -1,16 +1,16 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { UserGroupIcon } from "@heroicons/react/outline";
+import { UserIcon } from "@heroicons/react/outline";
 import PageHeader from "@common/components/PageHeader";
 
-import { UserTableApi } from "./UserTable";
+import UserTable from "./UserTable";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 export const UserPage: React.FC = () => {
   const intl = useIntl();
   return (
     <DashboardContentContainer>
-      <PageHeader icon={UserGroupIcon}>
+      <PageHeader icon={UserIcon}>
         {intl.formatMessage({
           defaultMessage: "Users",
           description: "Title for users page on the admin portal.",
@@ -24,7 +24,7 @@ export const UserPage: React.FC = () => {
             "Descriptive text about the list of users in the admin portal.",
         })}
       </p>
-      <UserTableApi />
+      <UserTable />
     </DashboardContentContainer>
   );
 };

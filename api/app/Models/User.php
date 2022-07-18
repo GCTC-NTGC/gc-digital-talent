@@ -141,31 +141,29 @@ class User extends Model implements Authenticatable
     public function getIsProfileCompleteAttribute(): bool
     {
         if (
-            is_null($this->attributes['first_name']) Or
-            is_null($this->attributes['last_name']) Or
-            is_null($this->attributes['email']) Or
-            is_null($this->attributes['telephone']) Or
-            is_null($this->attributes['preferred_lang']) Or
-            is_null($this->attributes['current_province']) Or
-            is_null($this->attributes['current_city']) Or
-            (
-                is_null($this->attributes['looking_for_english']) &&
+            is_null($this->attributes['first_name']) or
+            is_null($this->attributes['last_name']) or
+            is_null($this->attributes['email']) or
+            is_null($this->attributes['telephone']) or
+            is_null($this->attributes['preferred_lang']) or
+            is_null($this->attributes['current_province']) or
+            is_null($this->attributes['current_city']) or
+            (is_null($this->attributes['looking_for_english']) &&
                 is_null($this->attributes['looking_for_french']) &&
                 is_null($this->attributes['looking_for_bilingual'])
-            ) Or
-            is_null($this->attributes['is_gov_employee']) Or
-            is_null($this->attributes['location_preferences']) Or
-            empty($this->attributes['location_preferences']) Or
-            is_null($this->attributes['would_accept_temporary']) Or
+            ) or
+            is_null($this->attributes['is_gov_employee']) or
+            is_null($this->attributes['location_preferences']) or
+            empty($this->attributes['location_preferences']) or
+            is_null($this->attributes['would_accept_temporary']) or
             $this->expectedGenericJobTitles->isEmpty()
         ) {
             return false;
         } else {
             return true;
         }
-
     }
-    public function scopeIsProfileComplete(Builder $query, bool $isProfileComplete): Builder
+    public function scopeIsProfileComplete(Builder $query, ?bool $isProfileComplete): Builder
     {
         if ($isProfileComplete) {
             $query->whereNotNull('first_name');
@@ -189,7 +187,7 @@ class User extends Model implements Authenticatable
         return $query;
     }
 
-     /**
+    /**
      * Boot function for using with User Events
      *
      * @return void
@@ -200,39 +198,83 @@ class User extends Model implements Authenticatable
     }
 
     // Search filters
-    public function filterByPools(Builder $query, array $poolCandidates): Builder
+
+    /**
+     * Filters users by the Pools they are in.
+     *
+     * @param Builder $query
+     * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus and statuses fields.
+     * @return Builder
+     */
+    public function filterByPools(Builder $query, ?array $poolFilters): Builder
     {
-        if (empty($poolCandidates)) {
+        if (empty($poolFilters)) {
             return $query;
         }
 
         // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
-        $query->whereExists(function ($query) use ($poolCandidates) {
+        $query->whereExists(function ($query) use ($poolFilters) {
             $query->select('id')
-                  ->from('pool_candidates')
-                  ->whereColumn('pool_candidates.user_id', 'users.id')
-                  ->whereIn('pool_candidates.pool_id', $poolCandidates['pools'])
-                  ->where(function ($query) use ($poolCandidates) {
-                    if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
-                        $query->whereDate('expiry_date', '>=', date("Y-m-d"))
-                              ->orWhereNull('expiry_date');
-                    } else if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
-                        $query->whereDate('expiry_date', '<', date("Y-m-d"));
+                ->from('pool_candidates')
+                ->whereColumn('pool_candidates.user_id', 'users.id')
+                ->where(function ($query) use ($poolFilters) {
+                    $makePoolFilterClause = function ($filter) {
+                        return function ($query) use ($filter) {
+                            $query->where('pool_candidates.pool_id', $filter['poolId']);
+                            $query->where(function ($query) use ($filter) {
+                                if ($filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+                                    $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+                                    ->orWhereNull('expiry_date');
+                                } else if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+                                    $query->whereDate('expiry_date', '<', date("Y-m-d"));
+                                }
+                            });
+                            if (array_key_exists('statuses', $filter) && !empty($filter['statuses'])) {
+                                $query->whereIn('pool_candidates.pool_candidate_status', $filter['statuses']);
+                            }
+                            return $query;
+                        };
+                    };
+                    foreach($poolFilters as $index => $filter) {
+                        if ($index == 0) {
+                            $query->where($makePoolFilterClause($filter));
+                        } else {
+                            $query->orWhere($makePoolFilterClause($filter));
+                        }
                     }
-                  })
-                  ->where(function ($query) use ($poolCandidates) {
-                    if (!empty($poolCandidates['statuses'])) {
-                        $query->whereIn('pool_candidates.pool_candidate_status', $poolCandidates['statuses']);
-                    }
-                  });
+                    return $query;
+                });
         });
-
         return $query;
+    }
+    /**
+     * Return applicants with PoolCandidates in any of the given pools.
+     * Only consider pool candidates who still available,
+     * ie not expired and with the AVAILABLE status.
+     *
+     * @param Builder $query
+     * @param array $poolIds
+     * @return Builder
+     */
+    public function filterByAvailableInPools(Builder $query, ?array $poolIds): Builder
+    {
+        if (empty($poolIds)) {
+            return $query;
+        }
+        $poolFilters = [];
+        foreach ($poolIds as $index => $poolId) {
+            $poolFilters[$index] = [
+                'poolId' => $poolId,
+                'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+                'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE]
+            ];
+        }
+        return $this->filterByPools($query, $poolFilters);
     }
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         // If filtering for a specific language the query should return candidates of that language OR bilingual.
-        $query->where(function($query) use ($languageAbility) {
+        $query->where(function ($query) use ($languageAbility) {
             $query->where('language_ability', $languageAbility);
             if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
                 $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
@@ -248,14 +290,17 @@ class User extends Model implements Authenticatable
         }
 
         // OperationalRequirements act as an AND filter. The query should only return candidates willing to accept ALL of the requirements.
-            $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
+        $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
         return $query;
     }
     public function filterByLocationPreferences(Builder $query, array $locations): Builder
     {
+        if (empty($locations)) {
+            return $query;
+        }
         // LocationPreferences acts as an OR filter. The query should return candidates willing to work in ANY of the locations.
-        $query->where(function($query) use ($locations) {
-            foreach($locations as $index => $location) {
+        $query->where(function ($query) use ($locations) {
+            foreach ($locations as $index => $location) {
                 if ($index === 0) {
                     // First iteration must use where instead of orWhere
                     $query->whereJsonContains('location_preferences', $location);
@@ -266,11 +311,14 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public function filterByJobLookingStatus(Builder $query, array $statuses): Builder
+    public function filterByJobLookingStatus(Builder $query, ?array $statuses): Builder
     {
+        if (empty($statuses)) {
+            return $query;
+        }
         // JobLookingStatus acts as an OR filter. The query should return users with ANY of the statuses.
-        $query->where(function($query) use ($statuses) {
-            foreach($statuses as $index => $status) {
+        $query->where(function ($query) use ($statuses) {
+            foreach ($statuses as $index => $status) {
                 if ($index === 0) {
                     // First iteration must use where instead of orWhere
                     $query->where('job_looking_status', $status);
@@ -281,7 +329,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public function filterBySkills(Builder $query, array $skills): Builder
+    public function filterBySkills(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
@@ -290,39 +338,39 @@ class User extends Model implements Authenticatable
         // skills act as an AND filter. The query should only return candidates with ALL of the skills.
         $query->whereExists(function ($query) use ($skills) {
             $query->select(DB::raw('null'))
-            ->from(function ($query) {
-                $query->selectRaw('experiences.user_id, jsonb_agg(experience_skills.skill_id) as user_skills_grouped')
-                ->from('experience_skills')
-                ->joinSub(function ($query) {
-                    $query->select('award_experiences.id as experience_id', 'award_experiences.user_id')
-                    ->from('award_experiences')
-                    ->unionAll(function ($query) {
-                        $query->select('community_experiences.id as experience_id', 'community_experiences.user_id')
-                        ->from('community_experiences');
-                    })
-                    ->unionAll(function ($query) {
-                        $query->select('education_experiences.id as experience_id', 'education_experiences.user_id')
-                        ->from('education_experiences');
-                    })
-                    ->unionAll(function ($query) {
-                        $query->select('personal_experiences.id as experience_id', 'personal_experiences.user_id')
-                        ->from('personal_experiences');
-                    })
-                    ->unionAll(function ($query) {
-                        $query->select('work_experiences.id as experience_id', 'work_experiences.user_id')
-                        ->from('work_experiences');
-                    });
-                }, 'experiences', function ($join) {
-                    $join->on('experience_skills.experience_id', '=', 'experiences.experience_id');
-                })
-                ->groupBy('experiences.user_id');
-            }, "aggregate_experiences")
-            ->whereJsonContains('aggregate_experiences.user_skills_grouped', $skills)
-            ->whereColumn('aggregate_experiences.user_id', 'users.id');
+                ->from(function ($query) {
+                    $query->selectRaw('experiences.user_id, jsonb_agg(experience_skills.skill_id) as user_skills_grouped')
+                        ->from('experience_skills')
+                        ->joinSub(function ($query) {
+                            $query->select('award_experiences.id as experience_id', 'award_experiences.user_id')
+                                ->from('award_experiences')
+                                ->unionAll(function ($query) {
+                                    $query->select('community_experiences.id as experience_id', 'community_experiences.user_id')
+                                        ->from('community_experiences');
+                                })
+                                ->unionAll(function ($query) {
+                                    $query->select('education_experiences.id as experience_id', 'education_experiences.user_id')
+                                        ->from('education_experiences');
+                                })
+                                ->unionAll(function ($query) {
+                                    $query->select('personal_experiences.id as experience_id', 'personal_experiences.user_id')
+                                        ->from('personal_experiences');
+                                })
+                                ->unionAll(function ($query) {
+                                    $query->select('work_experiences.id as experience_id', 'work_experiences.user_id')
+                                        ->from('work_experiences');
+                                });
+                        }, 'experiences', function ($join) {
+                            $join->on('experience_skills.experience_id', '=', 'experiences.experience_id');
+                        })
+                        ->groupBy('experiences.user_id');
+                }, "aggregate_experiences")
+                ->whereJsonContains('aggregate_experiences.user_skills_grouped', $skills)
+                ->whereColumn('aggregate_experiences.user_id', 'users.id');
         });
         return $query;
     }
-    public function filterByClassifications(Builder $query, array $classifications): Builder
+    public function scopeClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -336,23 +384,56 @@ class User extends Model implements Authenticatable
                 foreach ($classifications as $index => $classification) {
                     if ($index === 0) {
                         // First iteration must use where instead of orWhere
-                        $query->where(function($query) use ($classification) {
+                        $query->where(function ($query) use ($classification) {
                             $query->where('group', $classification['group'])->where('level', $classification['level']);
                         });
                     } else {
-                        $query->orWhere(function($query) use ($classification) {
+                        $query->orWhere(function ($query) use ($classification) {
                             $query->where('group', $classification['group'])->where('level', $classification['level']);
                         });
                     }
                 }
             });
-
-            $this->orFilterByClassificationToSalary($query, $classifications);
+            $query->orWhere(function ($query) use ($classifications) {
+                $this->filterByClassificationToSalary($query, $classifications);
+            });
+            $query->orWhere(function ($query) use ($classifications) {
+                $this->filterByClassificationToGenericJobTitles($query, $classifications);
+            });
         });
 
         return $query;
     }
-    private function orFilterByClassificationToSalary(Builder $query, array $classifications): Builder
+    public function filterByClassificationToGenericJobTitles(Builder $query, ?array $classifications): Builder
+    {
+        // if no filters provided then return query unchanged
+        if (empty($classifications)) {
+            return $query;
+        }
+        // Classifications act as an OR filter. The query should return candidates with any of the classifications.
+        // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
+
+        // group these in a subquery to properly handle "OR" condition
+        $query->whereHas('expectedGenericJobTitles', function ($query) use ($classifications) {
+            $query->whereHas('classification', function ($query) use ($classifications) {
+                foreach ($classifications as $index => $classification) {
+                    if ($index === 0) {
+                        // First iteration must use where instead of orWhere
+                        $query->where(function ($query) use ($classification) {
+                            $query->where('group', $classification['group'])->where('level', $classification['level']);
+                        });
+                    } else {
+                        $query->orWhere(function ($query) use ($classification) {
+                            $query->where('group', $classification['group'])->where('level', $classification['level']);
+                        });
+                    }
+                }
+            });
+        });
+
+        return $query;
+    }
+    private function filterByClassificationToSalary(Builder $query, ?array $classifications): Builder
     {
         // When managers search for a classification, also return any users whose expected salary
         // ranges overlap with the min/max salaries of any of those classifications.
@@ -361,8 +442,9 @@ class User extends Model implements Authenticatable
 
         // This subquery only works for a non-zero number of filter classifications.
         // If passed zero classifications then return same query builder unchanged.
-        if(count($classifications) == 0)
+        if (empty($classifications)) {
             return $query;
+        }
 
         $parameters = [];
         $sql = <<<RAWSQL1
@@ -417,10 +499,10 @@ RAWSQL1;
 
 RAWSQL2;
 
-        return $query->orWhereRaw('EXISTS (' . $sql . ')', $parameters);
+        return $query->whereRaw('EXISTS (' . $sql . ')', $parameters);
     }
 
-    public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder
+    public function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
     {
         if ($hasDiploma) {
             $query->where('has_diploma', true);
@@ -436,7 +518,7 @@ RAWSQL2;
     }
 
 
-    public function filterByEquity(Builder $query, array $equity): Builder
+    public function filterByEquity(Builder $query, ?array $equity): Builder
     {
         if (empty($equity)) {
             return $query;
@@ -459,8 +541,8 @@ RAWSQL2;
         };
 
         // then return queries depending on above array count, special query syntax needed for multiple ORs to ensure proper SQL query formed
-        $query->where(function($query) use ($equityVars) {
-            foreach($equityVars as $index => $equityInstance) {
+        $query->where(function ($query) use ($equityVars) {
+            foreach ($equityVars as $index => $equityInstance) {
                 if ($index === 0) {
                     // First iteration must use where instead of orWhere, as seen in filterWorkRegions
                     $query->where($equityVars[$index], true);
@@ -475,11 +557,11 @@ RAWSQL2;
     public function filterByGeneralSearch(Builder $query, ?string $search): Builder
     {
         if ($search) {
-            $query->where(function($query) use ($search) {
+            $query->where(function ($query) use ($search) {
                 $query->where('first_name', "ilike", "%{$search}%")
-                      ->orWhere('last_name', "ilike", "%{$search}%")
-                      ->orWhere('email', "ilike", "%{$search}%")
-                      ->orWhere('telephone', "ilike", "%{$search}%");
+                    ->orWhere('last_name', "ilike", "%{$search}%")
+                    ->orWhere('email', "ilike", "%{$search}%")
+                    ->orWhere('telephone', "ilike", "%{$search}%");
             });
         }
         return $query;
@@ -489,8 +571,8 @@ RAWSQL2;
     {
         if ($name) {
             $splitName = explode(" ", $name);
-            $query->where(function($query) use ($splitName) {
-                foreach($splitName as $index => $value){
+            $query->where(function ($query) use ($splitName) {
+                foreach ($splitName as $index => $value) {
                     $query->where('first_name', "ilike", "%{$value}%")
                         ->orWhere('last_name', "ilike", "%{$value}%");
                 }
@@ -515,17 +597,23 @@ RAWSQL2;
         return $query;
     }
 
-    public function scopeIsGovEmployee(Builder $query, bool $isGovEmployee): Builder
+    public function scopeIsGovEmployee(Builder $query, ?bool $isGovEmployee): Builder
     {
         if ($isGovEmployee) {
             $query->where('is_gov_employee', true);
         }
         return $query;
     }
-    public function scopeOrder(Builder $query, ?array $args): Builder
+
+    /**
+     * Restrict the query to users who are either Actively Looking for or Open to opportunities.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeAvailableForOpportunities(Builder $query): Builder
     {
-        $orderBy = isset($args['where']['orderBy']) ? $args['where']['orderBy'] : 'id';
-        $query->orderBy($orderBy);
+        $query->whereIn('job_looking_status', [ApiEnums::USER_STATUS_ACTIVELY_LOOKING, ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES]);
         return $query;
     }
 }

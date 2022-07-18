@@ -49,4 +49,9 @@ class PoolCandidateSearchRequest extends Model
     {
         return $this->belongsTo(PoolCandidateFilter::class);
     }
+
+    public function applicantFilter(): BelongsTo
+    {
+        return $this->belongsTo(ApplicantFilter::class);
+    }
 }

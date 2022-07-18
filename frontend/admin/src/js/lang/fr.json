@@ -3,10 +3,6 @@
     "defaultMessage": "Erreur : Échec de la mise à jour de l’actif du BGC",
     "description": "Message displayed to user after cmo asset fails to get updated."
   },
-  "/+IJwt": {
-    "defaultMessage": "Créer un utilisateur",
-    "description": "Heading displayed above the Create User form."
-  },
   "/Y7x+s": {
     "defaultMessage": "Créer un bassin",
     "description": "Heading displayed above the Create Pool form."
@@ -62,10 +58,6 @@
   "33VQf6": {
     "defaultMessage": "Sélectionner un statut...",
     "description": "Placeholder displayed on the pool candidate form status field."
-  },
-  "3CIhwK": {
-    "defaultMessage": "Ministères",
-    "description": "Label displayed on the Departments menu item."
   },
   "3D/wxC": {
     "defaultMessage": "Création de la classification réussie!",
@@ -247,10 +239,6 @@
     "defaultMessage": "Mise à jour du bassin de candidats réussie!",
     "description": "Message displayed to user after pool candidate is updated successfully."
   },
-  "EUqcab": {
-    "defaultMessage": "Outils d’administration",
-    "description": "Label displayed on the Admin Tools menu item."
-  },
   "EfRVfk": {
     "defaultMessage": "Erreur : Échec de la création d’utilisateur",
     "description": "Message displayed to user after user fails to get created."
@@ -282,10 +270,6 @@
   "HAEmDX": {
     "defaultMessage": "Actifs du BGC",
     "description": "Heading displayed above the CMO Asset Table component."
-  },
-  "HETTLp": {
-    "defaultMessage": "Toutes les demandes",
-    "description": "Label displayed on the all requests menu item."
   },
   "HH7lQo": {
     "defaultMessage": "Erreur : Échec de la mise à jour du bassin de candidats",
@@ -363,10 +347,6 @@
     "defaultMessage": "Créer un actif du BGC",
     "description": "Title displayed on the create a cmo asset form."
   },
-  "N67tO0": {
-    "defaultMessage": "Nom de famille",
-    "description": "Title displayed for the User table Last Name column."
-  },
   "NZyO8h": {
     "defaultMessage": "Autochtone",
     "description": "Title displayed for the Pool Candidates table Indigenous column."
@@ -403,17 +383,9 @@
     "defaultMessage": "Exigences opérationnelles",
     "description": "Label displayed on the pool form operational requirements field."
   },
-  "SD2etQ": {
-    "defaultMessage": "Classifications",
-    "description": "Label displayed on the Classifications menu item."
-  },
   "Sb2fEr": {
     "defaultMessage": "Bassin {poolId} introuvable.",
     "description": "Message displayed for pool not found."
-  },
-  "SeyF9s": {
-    "defaultMessage": "Description du bassin",
-    "description": "Title displayed for the Pool table pool description column."
   },
   "SqZuQS": {
     "defaultMessage": "Créer un bassin de candidats",
@@ -454,10 +426,6 @@
   "Urq3fM": {
     "defaultMessage": "Responsable",
     "description": "Label displayed on the pool form owner field."
-  },
-  "VK2qKI": {
-    "defaultMessage": "Utilisateurs",
-    "description": "Heading displayed above the User Table component."
   },
   "VaCRxh": {
     "defaultMessage": "Femme",
@@ -590,10 +558,6 @@
     "defaultMessage": "Courriel du gouvernement",
     "description": "Title for the government email block in the manager info section of the single search request view."
   },
-  "d9Wipj": {
-    "defaultMessage": "Clé",
-    "description": "Title displayed for the Pool table key column."
-  },
   "dTJkNA": {
     "defaultMessage": "Langue de préférence",
     "description": "Title displayed on the Pool Candidates table Preferred Lang column."
@@ -667,7 +631,7 @@
     "description": "Title displayed on the search request table department column."
   },
   "i45Vxz": {
-    "defaultMessage": "Équité en matière emploi",
+    "defaultMessage": "Équité en matière d'emploi",
     "description": "Title displayed on the single search request table employment equity column."
   },
   "i9/L40": {
@@ -681,10 +645,6 @@
   "iDohso": {
     "defaultMessage": "Femme",
     "description": "Label displayed on the pool candidate form is woman field."
-  },
-  "inCoGo": {
-    "defaultMessage": "Bassin de candidats",
-    "description": "Label displayed on the Pool Candidates menu item."
   },
   "jJCDGc": {
     "defaultMessage": "Mise à jour de la classification réussie!",
@@ -709,10 +669,6 @@
   "lo2bSB": {
     "defaultMessage": "Modifier",
     "description": "Title displayed for the single search request table edit column."
-  },
-  "mbxksT": {
-    "defaultMessage": "Prénom",
-    "description": "Title displayed on the User table First Name column."
   },
   "mf+QEY": {
     "defaultMessage": "Langue de préférence",
@@ -769,10 +725,6 @@
   "qYH0du": {
     "defaultMessage": "Modifier",
     "description": "Title displayed for the User table Edit column."
-  },
-  "qodftq": {
-    "defaultMessage": "<span>{jobTitle}</span> à <span>{department}</span>",
-    "description": "Subtitle displayed above the single search request component."
   },
   "r2gD/4": {
     "defaultMessage": "Date de réception",
@@ -845,10 +797,6 @@
   "x3SuY9": {
     "defaultMessage": "Date d’expiration",
     "description": "Label displayed on the pool candidate form expiry date field."
-  },
-  "xAjes8": {
-    "defaultMessage": "Masquer/afficher les colonnes du tableau",
-    "description": "Label displayed on the Table Columns toggle."
   },
   "xIWdFW": {
     "defaultMessage": "Minorité visible",
@@ -970,17 +918,9 @@
     "defaultMessage": " Compétences",
     "description": "Label displayed on the skill family form skills field."
   },
-  "GHHNGa": {
-    "defaultMessage": "Êtes-vous certain(e) de vouloir vous déconnecter?",
-    "description": "Label displayed on the Logout confirmation dialog."
-  },
   "GQskY1": {
     "defaultMessage": "Mettre à jour une famille de compétences",
     "description": "Title displayed on the update a skillFamily form."
-  },
-  "HMUKcP": {
-    "defaultMessage": "Familles de compétences",
-    "description": "Label displayed on the Skill Families menu item."
   },
   "I7rxxQ": {
     "defaultMessage": "Mots-clés",
@@ -1146,10 +1086,6 @@
     "defaultMessage": "Sélectionner une catégorie...",
     "description": "Placeholder displayed on the skill family form category field."
   },
-  "t8osgc": {
-    "defaultMessage": "Compétences",
-    "description": "Label displayed on the Skills menu item."
-  },
   "w73KdO": {
     "defaultMessage": "Familles de compétences",
     "description": "Heading displayed above the Skill Family Table component."
@@ -1169,5 +1105,564 @@
   "0MYQ73": {
     "defaultMessage": "Numéro de processus",
     "description": "Label displayed on the pool candidate form process number field."
+  },
+  "/MBeNc": {
+    "defaultMessage": "Commencez à écrire vos notes ici…",
+    "description": "Placeholder text for a pool candidates notes field"
+  },
+  "/fv4O0": {
+    "defaultMessage": "Aucune information n'a été fournie.",
+    "description": "Message on Admin side when user not filled WorkPreferences section."
+  },
+  "/no0jA": {
+    "defaultMessage": "Profil du candidat",
+    "description": "Tabs title for the individual user profile."
+  },
+  "1pk/7X": {
+    "defaultMessage": "Informations linguistiques",
+    "description": "Title of the Language Information content section"
+  },
+  "3HJ51b": {
+    "defaultMessage": "Femme",
+    "description": "Text on view-user page that the user is a woman"
+  },
+  "3UkIDo": {
+    "defaultMessage": "Courriel :",
+    "description": "Display text for the email field on users"
+  },
+  "3fAkvM": {
+    "defaultMessage": "Bassins",
+    "description": "Breadcrumb title for the pools page link."
+  },
+  "4AubyK": {
+    "defaultMessage": "Notes",
+    "description": "Title of the 'Notes' section of the view-user page"
+  },
+  "4Irijj": {
+    "defaultMessage": "Ajouter l'utilisateur au bassin",
+    "description": "Button to add user to pool on the view-user page"
+  },
+  "4N6O+3": {
+    "defaultMessage": "Statut personnel",
+    "description": "Title of the 'Personal status' section of the view-user page"
+  },
+  "4Zl/mp": {
+    "defaultMessage": "Personne handicapée",
+    "description": "Text on view-user page that the user has a disability"
+  },
+  "4fOu5j": {
+    "defaultMessage": "Familles de compétences",
+    "description": "Label displayed on the skill families menu item."
+  },
+  "4xzq2Y": {
+    "defaultMessage": "(Nom manquant)",
+    "description": "Message for Missing names in profile"
+  },
+  "59EwWA": {
+    "defaultMessage": "Afficher la demande<hidden>{name}</hidden>",
+    "description": "Link text for the view action of the latests requests table on the admin portal dashboard."
+  },
+  "5LWGeI": {
+    "defaultMessage": "Courriel",
+    "description": "Title displayed on the latest requests table email column."
+  },
+  "61vOnW": {
+    "defaultMessage": "Date de réception",
+    "description": "Title displayed on the latest requests table for the date column."
+  },
+  "6EOrWk": {
+    "defaultMessage": "Accueil",
+    "description": "Title for homepage on the talent cloud admin portal."
+  },
+  "6rhyxk": {
+    "defaultMessage": "Déconnexion",
+    "description": "Link text to logout."
+  },
+  "7B+1RO": {
+    "defaultMessage": "Sur cette page, vous pouvez trouver une liste des bassins actifs avec quelques détails sur leur statut.",
+    "description": "Description of the content found on the admin portal dashboard page."
+  },
+  "8Y+eEc": {
+    "defaultMessage": "Vous êtes sur le point d'ajouter cet utilisateur à un autre bassin :",
+    "description": "First section of text on the add user to pool dialog"
+  },
+  "98PjUH": {
+    "defaultMessage": "Retirer du bassin",
+    "description": "Confirmation button for removing candidate from pool dialog"
+  },
+  "9NDM+k": {
+    "defaultMessage": "Fixer une date d'expiration pour ce candidat dans ce bassin :",
+    "description": "Third section of text on the add user to pool dialog"
+  },
+  "9mJuzm": {
+    "defaultMessage": "Ces notes sont partagées entre tous les gestionnaires de ce bassin, mais pas avec les candidats.",
+    "description": "Message about the behavior of notes on the view-user page"
+  },
+  "AauSuA": {
+    "defaultMessage": "S.O.",
+    "description": "Not available message."
+  },
+  "AhNR6n": {
+    "defaultMessage": "Annuler",
+    "description": "Link text to cancel logging out."
+  },
+  "AiOtNy": {
+    "defaultMessage": "Tâches principales (en anglais)",
+    "description": "Label displayed on the pool form key tasks (English) field."
+  },
+  "BYGKiT": {
+    "defaultMessage": "Équité en matière d'emploi",
+    "description": "Title of the 'Employment equity' section of the view-user page"
+  },
+  "BnSa6Y": {
+    "defaultMessage": "Échec de la mise à jour du statut",
+    "description": "Toast for failed status update on view-user page"
+  },
+  "Bvj3zI": {
+    "defaultMessage": "Gérer les demandes",
+    "description": "Text label for link to requests page on admin dashboard"
+  },
+  "C8Ltjj": {
+    "defaultMessage": "Retirer du bassin",
+    "description": "Button to remove a user from a pool - located in the table on view-user page"
+  },
+  "CSDdh/": {
+    "defaultMessage": "Notes",
+    "description": "Title for a pool candidates notes field"
+  },
+  "CTWpfa": {
+    "defaultMessage": "Ajouter à un bassin différent",
+    "description": "title for add to pool dialog on view-user page"
+  },
+  "Cbo1no": {
+    "defaultMessage": "Veuillez sélectionner une date",
+    "description": "Error displayed on the change candidate expiry date dialog if no date selected"
+  },
+  "CoUFQ5": {
+    "defaultMessage": "Notes mises à jour pour le candidat dans le {poolName}",
+    "description": "Toast notification for successful update of candidates notes in specified pool"
+  },
+  "Cx3s+E": {
+    "defaultMessage": "Mon statut",
+    "description": "Title of the my status content section"
+  },
+  "DAmLhV": {
+    "defaultMessage": "Nom :",
+    "description": "Name label and colon"
+  },
+  "DMdCkf": {
+    "defaultMessage": "Emplacement actuel :",
+    "description": "Display text for the current location field on users"
+  },
+  "DUK/pz": {
+    "defaultMessage": "Accueil",
+    "description": "Breadcrumb title for the home page link."
+  },
+  "EK90Iy": {
+    "defaultMessage": "Renseignements généraux",
+    "description": "Tabs title for the individual user general info."
+  },
+  "EdUZaX": {
+    "defaultMessage": "Candidats",
+    "description": "Header for the View Candidates column of the Pools table"
+  },
+  "EnvwAC": {
+    "defaultMessage": "Téléphone :",
+    "description": "Display text for the phone number field on users"
+  },
+  "Eui2Wf": {
+    "defaultMessage": "Mes compétences et mon expérience",
+    "description": "Title of the My skills and experience content section"
+  },
+  "F00OD4": {
+    "defaultMessage": "Statut du candidat",
+    "description": "Title of the 'Candidate status' section of the view-user page"
+  },
+  "F9R74z": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Title of the Work Location content section"
+  },
+  "FUxE8S": {
+    "defaultMessage": "À partir du bassin suivant :",
+    "description": "Second section of text on the change candidate status dialog"
+  },
+  "GZqEuI": {
+    "defaultMessage": "Échec de l'ajout de l'utilisateur",
+    "description": "Toast for failed add user to pool on view-user page"
+  },
+  "GhGkBV": {
+    "defaultMessage": "Candidats du bassin",
+    "description": "Tabs title for the individual pool candidates."
+  },
+  "HQOsq2": {
+    "defaultMessage": "Ministères",
+    "description": "Label displayed on the departments menu item."
+  },
+  "HgQThJ": {
+    "defaultMessage": "Gérer les bassins",
+    "description": "Text label for link to pools page on admin dashboard"
+  },
+  "Hiv/2m": {
+    "defaultMessage": "Déconnexion",
+    "description": "Title for the modal that appears when an authenticated user lands on /logged-out."
+  },
+  "HrXZ6X": {
+    "defaultMessage": "Autochtone",
+    "description": "Text on view-user page that the user is indigenous"
+  },
+  "HwPuG0": {
+    "defaultMessage": "Date d'expiration mise à jour avec succès",
+    "description": "Toast for successful expiry date update on view-user page"
+  },
+  "InHDUX": {
+    "defaultMessage": "Tâches principales (en français)",
+    "description": "Label displayed on the pool form key tasks (French) field."
+  },
+  "JjTGYe": {
+    "defaultMessage": "Vous êtes sur le point de modifier la date d'expiration pour cet utilisateur :",
+    "description": "First section of text on the change candidate expiry date dialog"
+  },
+  "K3LEpl": {
+    "defaultMessage": "Choisir un bassin :",
+    "description": "Second section of text on the add user to pool dialog"
+  },
+  "KyMCYC": {
+    "defaultMessage": "Retirer du bassin",
+    "description": "title for change expiry date dialog on view-user page"
+  },
+  "LGo8fw": {
+    "defaultMessage": "Bienvenue à Talent GC, veuillez vous connecter pour continuer.",
+    "description": "Instructional text for the talent cloud pool manager portal home page."
+  },
+  "O8U5Sz": {
+    "defaultMessage": "Utilisateur ajouté avec succès",
+    "description": "Toast for successful add user to pool on view-user page"
+  },
+  "PjK/4B": {
+    "defaultMessage": "N'a pas été identifié comme membre d'un groupe d'équité en matière d'emploi.",
+    "description": "Text on view-user page that the user isn't part of any employment equity groups"
+  },
+  "QjF2CL": {
+    "defaultMessage": "Menu Principal",
+    "description": "Label for the main menu on the pool manager admin portal."
+  },
+  "R+Zm3X": {
+    "defaultMessage": "Profil d'impression",
+    "description": "Text for button to print a user profile"
+  },
+  "SARjte": {
+    "defaultMessage": "Modifier le statut",
+    "description": "title for change status dialog on view-user page"
+  },
+  "SH/wd3": {
+    "defaultMessage": "Modifier le bassin",
+    "description": "Link text for button to edit a specific pool"
+  },
+  "STDYoR": {
+    "defaultMessage": "Date d'expiration",
+    "description": "Title of the 'Expiry date' column for the table on view-user page"
+  },
+  "Srs7a4": {
+    "defaultMessage": "Passer au contenu principal",
+    "description": "Assistive technology skip link"
+  },
+  "TZt+a5": {
+    "defaultMessage": "Ministère",
+    "description": "Title displayed on the latest requests table department column."
+  },
+  "TxEV7S": {
+    "defaultMessage": "Connexion",
+    "description": "Text label for the login link to the talent cloud admin portal."
+  },
+  "U5HvOH": {
+    "defaultMessage": "Gérer les utilisateurs",
+    "description": "Text label for link to users page on admin dashboard"
+  },
+  "UC+4MX": {
+    "defaultMessage": "Compétences",
+    "description": "Label displayed on the skills menu item."
+  },
+  "V89Ryn": {
+    "defaultMessage": "Préférences de travail",
+    "description": "Title of the Work Preferences content section"
+  },
+  "W58QTT": {
+    "defaultMessage": "Cet utilisateur n'est encore dans aucun bassin",
+    "description": "Message on view-user page that the user is not in any pools"
+  },
+  "WAO4vD": {
+    "defaultMessage": "Date d'expiration",
+    "description": "Label displayed on the date field of the change candidate expiry date dialog"
+  },
+  "X198m3": {
+    "defaultMessage": "Sélectionner un bassin…",
+    "description": "Placeholder displayed on the pool field of the add user to pool dialog."
+  },
+  "XtBhGo": {
+    "defaultMessage": "Détails sur le candidat",
+    "description": "Title for the page when viewing an individual user."
+  },
+  "YR/3EG": {
+    "defaultMessage": "Mesure",
+    "description": "Title displayed on the latest requests table for the action column."
+  },
+  "YtEDfa": {
+    "defaultMessage": "Accueil",
+    "description": "Breadcrumb title for the home link."
+  },
+  "ZDmkKD": {
+    "defaultMessage": "Tableau de bord",
+    "description": "Label displayed on the dashboard menu item."
+  },
+  "ZNne50": {
+    "defaultMessage": "Enregistrer les notes",
+    "description": "Button to save notes for a pool candidate on the view-user page"
+  },
+  "Zbk4zf": {
+    "defaultMessage": "Choisir un statut :",
+    "description": "Third section of text on the change candidate status dialog"
+  },
+  "Zx3BVC": {
+    "defaultMessage": "Êtes-vous sûr(e) que vous voulez vous déconnecter?",
+    "description": "Question displayed when authenticated user lands on /logged-out."
+  },
+  "aJVlIF": {
+    "defaultMessage": "Bassins",
+    "description": "Label displayed on the pools field of the add user to pool dialog"
+  },
+  "aYYb0w": {
+    "defaultMessage": "Afficher les candidats",
+    "description": "Text for a link to the Pool Candidates table"
+  },
+  "aa7B7S": {
+    "defaultMessage": "Information sur l'équité en matière d'emploi",
+    "description": "Title of the Employment Equity Information content section"
+  },
+  "bl7pCx": {
+    "defaultMessage": "Modifier le statut",
+    "description": "Button to change a users status in a pool - located in the table on view-user page"
+  },
+  "crzWxb": {
+    "defaultMessage": "Ouvrir le menu",
+    "description": "Text label for header button that opens side menu."
+  },
+  "dAxaVL": {
+    "defaultMessage": "Aucune donnée sur le candidat",
+    "description": "No candidate data was found"
+  },
+  "dizg6V": {
+    "defaultMessage": "Lien vers le profil de l'utilisateur",
+    "description": "Descriptive title for an anchor link"
+  },
+  "eMXL0K": {
+    "defaultMessage": "Utilisateurs",
+    "description": "Breadcrumb title for the all users table link."
+  },
+  "eaHqS2": {
+    "defaultMessage": "Veuillez sélectionner un statut",
+    "description": "Error displayed on the change candidate status dialog if no status selected"
+  },
+  "eickbr": {
+    "defaultMessage": "Minorité visible",
+    "description": "Text on view-user page that the user is part of a visible minority"
+  },
+  "fYHTnt": {
+    "defaultMessage": "Demandes les plus récentes",
+    "description": "Title for the latests requests table in the admin dashboard"
+  },
+  "fu4Fen": {
+    "defaultMessage": "Statut",
+    "description": "Label displayed on the pool form status field."
+  },
+  "gCbb9X": {
+    "defaultMessage": "Soumission",
+    "description": "Text on submit button when submitting"
+  },
+  "gKyog2": {
+    "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
+    "description": "Detailed message saying the page to view is not authorized."
+  },
+  "gZwKs8": {
+    "defaultMessage": "Détails sur le bassin",
+    "description": "Tabs title for the individual pool details."
+  },
+  "gk7uJQ": {
+    "defaultMessage": "Classifications",
+    "description": "Label displayed on the classifications menu item."
+  },
+  "gvomlw": {
+    "defaultMessage": "Changer la date",
+    "description": "Confirmation button for change expiry date dialog"
+  },
+  "hIaETV": {
+    "defaultMessage": "Statut du bassin",
+    "description": "Title of the 'Pool status' section of the view-user page"
+  },
+  "hSgcxP": {
+    "defaultMessage": "Statut",
+    "description": "Title displayed on the latest requests table status column."
+  },
+  "hlcd+5": {
+    "defaultMessage": "Résultats du tableau"
+  },
+  "iIJ/rI": {
+    "defaultMessage": "Nom du bassin",
+    "description": "Title displayed on the latest requests table for the pool column."
+  },
+  "icYqDt": {
+    "defaultMessage": "Bassin",
+    "description": "Title of the 'Pool' column for the table on view-user page"
+  },
+  "ioqFVF": {
+    "defaultMessage": "Statut",
+    "description": "Title displayed for the Pool table status column."
+  },
+  "iuve97": {
+    "defaultMessage": "Modifier le statut",
+    "description": "Confirmation button for change status dialog"
+  },
+  "jI4Mpn": {
+    "defaultMessage": "Échec de la récupération des données pour l'onglet.",
+    "description": "Message displayed for failed fetching data."
+  },
+  "jPLaDk": {
+    "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
+    "description": "Heading for the message saying the page to view is not authorized."
+  },
+  "jWNEdi": {
+    "defaultMessage": "Mesures",
+    "description": "Title of the 'Actions' column for the table on view-user page"
+  },
+  "k2FnXH": {
+    "defaultMessage": "Veuillez sélectionner une date d'expiration",
+    "description": "Error displayed on the add user to pool dialog if no date selected"
+  },
+  "kXAnJt": {
+    "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
+    "description": "Toast notification for failed update of candidates notes in specified pool"
+  },
+  "l1cou8": {
+    "defaultMessage": "Renseignements gouvernementaux",
+    "description": "Title of the Government Information content section"
+  },
+  "lIwJp4": {
+    "defaultMessage": "Bon retour, {name}",
+    "description": "Title for dashboard on the talent cloud admin portal."
+  },
+  "myqzYj": {
+    "defaultMessage": "Gestionnaire",
+    "description": "Title displayed on the latest requests table manager column."
+  },
+  "n+d6QE": {
+    "defaultMessage": "Fixer une date d'expiration pour ce candidat dans ce bassin :",
+    "description": "Second section of text on the change candidate expiry date dialog"
+  },
+  "n9YPWe": {
+    "defaultMessage": "Statut du bassin",
+    "description": "Label displayed on the status field of the change candidate status dialog"
+  },
+  "nYriNg": {
+    "defaultMessage": "Statut mis à jour avec succès",
+    "description": "Toast for successful status update on view-user page"
+  },
+  "nok2sR": {
+    "defaultMessage": "Nom :",
+    "description": "Display text for the name field on users"
+  },
+  "p+YRN1": {
+    "defaultMessage": "Vous êtes sur le point de modifier le statut de cet utilisateur :",
+    "description": "Première section du texte de la boîte de dialogue Modifier le statut du candidat"
+  },
+  "qSTIKZ": {
+    "defaultMessage": "Échec de la mise à jour de la date d'expiration",
+    "description": "Toast for failed expiry date update on view-user page"
+  },
+  "qr5RPo": {
+    "defaultMessage": "Sélectionnez un statut…",
+    "description": "Placeholder displayed on the pool form status field."
+  },
+  "sICXeM": {
+    "defaultMessage": "Date d'expiration",
+    "description": "Label displayed on the date field of the add user to pool dialog"
+  },
+  "sUx3ZS": {
+    "defaultMessage": "Statut",
+    "description": "Title of the 'Status' column for the table on view-user page"
+  },
+  "slTax4": {
+    "defaultMessage": "Langue préférée :",
+    "description": "Display text for the preferred language field on users"
+  },
+  "tiF/jI": {
+    "defaultMessage": "Annuler et revenir en arrière",
+    "description": "Close dialog button"
+  },
+  "tmbdSb": {
+    "defaultMessage": "Candidat retiré avec succès",
+    "description": "Toast for successful removal of candidate from pool on view-user page"
+  },
+  "u6GmEz": {
+    "defaultMessage": "Portail du gestionnaire de portail",
+    "description": "Title for the pool manager login link."
+  },
+  "uJSvlo": {
+    "defaultMessage": "Veuillez sélectionner un bassin",
+    "description": "Error displayed on the add user to pool dialog if no pool selected"
+  },
+  "uL7iBo": {
+    "defaultMessage": "Ajouter l'utilisateur à d'autres bassins",
+    "description": "Title of the 'Add user to pools' section of the view-user page"
+  },
+  "uMzeiF": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Title of the Role and salary expectations section"
+  },
+  "uOtDuW": {
+    "defaultMessage": "Échec de la mise à jour de la date d'expiration",
+    "description": "Toast for failed removal of candidate from pool on view-user page"
+  },
+  "usNShh": {
+    "defaultMessage": "Sélectionner un statut de bassin…",
+    "description": "Placeholder displayed on the status field of the change candidate status dialog."
+  },
+  "uutH18": {
+    "defaultMessage": "À propos",
+    "description": "Title of the 'About' section of the view-user page"
+  },
+  "vyJpp2": {
+    "defaultMessage": "À partir du bassin suivant :",
+    "description": "Second section of text on the remove candidate from pool dialog"
+  },
+  "yBmBnd": {
+    "defaultMessage": "Détails sur le bassin",
+    "description": "Title for the page when viewing an individual pool."
+  },
+  "yypk6/": {
+    "defaultMessage": "Ajouter au nouveau bassin",
+    "description": "Confirmation button for add to pool dialog"
+  },
+  "zDO6tt": {
+    "defaultMessage": "Date d'expiration",
+    "description": "title for change expiry date dialog on view-user page"
+  },
+  "0cEmmG": {
+    "defaultMessage": "Vous êtes sur le point de <strong>retirer l'utilisateur suivant :</strong>",
+    "description": "First section of text on the remove candidate from pool dialog, ignore things in <> tags please"
+  },
+  "ZLDt/c": {
+    "defaultMessage": "<strong>{jobTitle}</strong> à <strong>{department}</strong>",
+    "description": "Subtitle displayed above the single search request component."
+  },
+  "S0ghpc": {
+    "defaultMessage": "<heavyPrimary>Inactif</heavyPrimary> ‒ Ne souhaite pas être contacté pour des possibilités d'emploi",
+    "description": "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please"
+  },
+  "ye47Rz": {
+    "defaultMessage": "<heavyPrimary>Ouvert aux possibilités</heavyPrimary> ‒ Ne cherche pas activement, mais souhaite toujours être contacté pour des possibilités d'emploi",
+    "description": "Text in view user page saying they currently have the 'Open to opportunities' status, ignore things in <> tags please"
+  },
+  "SOZVtc": {
+    "defaultMessage": "<heavyPrimary>Actif</heavyPrimary> ‒ Souhaite être contacté pour des possibilités d'emploi",
+    "description": "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please"
   }
 }

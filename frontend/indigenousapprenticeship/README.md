@@ -1,6 +1,6 @@
 # Getting Started
 
-1. Run `npm install` to install dependencies. After the node packages are installed, run `npm rebuild node-sass` incase vendor folder isn't created. (Error: https://github.com/sass/node-sass/issues/1579).
+1. Run `npm install` to install dependencies.
 2. Copy .env.example to .env and configure your local environment. Make sure to set the API_URL to the GraphQL server's URL.
 3. In `frontend/common` run `npm run h2-build`.
 4. Run `npm run dev` which will bundle up our assets.

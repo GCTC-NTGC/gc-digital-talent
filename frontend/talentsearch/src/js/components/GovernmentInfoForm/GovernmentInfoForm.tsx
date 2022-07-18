@@ -4,12 +4,14 @@ import { useForm, FormProvider } from "react-hook-form";
 import { errorMessages } from "@common/messages";
 import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
-import { strong } from "@common/helpers/format";
 import { toast } from "react-toastify";
 import { empty, notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { getGovEmployeeType } from "@common/constants/localizedConstants";
-import { enumToOptions } from "@common/helpers/formUtils";
+import {
+  enumToOptions,
+  objectsToSortedOptions,
+} from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
 import {
   Classification,
@@ -151,7 +153,6 @@ export const GovernmentInfoForm: React.FunctionComponent<
   groupSelection,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
   // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
   const classGroupsWithDupes: { value: string; label: string }[] =
@@ -183,19 +184,6 @@ export const GovernmentInfoForm: React.FunctionComponent<
       };
     });
 
-  const departmentOptions: { value: string; label: string }[] = departments.map(
-    ({ id, name }) => ({
-      value: id,
-      label:
-        name[locale] ??
-        intl.formatMessage({
-          defaultMessage: "Error: department name not found.",
-          description:
-            "Error message when department name is not found on request page.",
-        }),
-    }),
-  );
-
   // render the actual form
   return (
     <div>
@@ -214,27 +202,21 @@ export const GovernmentInfoForm: React.FunctionComponent<
           items={[
             {
               value: "no",
-              label: intl.formatMessage(
-                {
-                  defaultMessage:
-                    "<strong>No</strong>, I am not a Government of Canada employee",
-                  description:
-                    "Label displayed for is not a government employee option",
-                },
-                { strong },
-              ),
+              label: intl.formatMessage({
+                defaultMessage:
+                  "<strong>No</strong>, I am not a Government of Canada employee",
+                description:
+                  "Label displayed for is not a government employee option",
+              }),
             },
             {
               value: "yes",
-              label: intl.formatMessage(
-                {
-                  defaultMessage:
-                    "<strong>Yes</strong>, I am a Government of Canada employee",
-                  description:
-                    "Label displayed for is a government employee option",
-                },
-                { strong },
-              ),
+              label: intl.formatMessage({
+                defaultMessage:
+                  "<strong>Yes</strong>, I am a Government of Canada employee",
+                description:
+                  "Label displayed for is a government employee option",
+              }),
             },
           ]}
         />
@@ -255,7 +237,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
                 description:
                   "Null selection for department select input in the request form.",
               })}
-              options={departmentOptions}
+              options={objectsToSortedOptions(departments, intl)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -275,9 +257,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
               }}
               items={enumToOptions(GovEmployeeType).map(({ value }) => ({
                 value,
-                label: intl.formatMessage(getGovEmployeeType(value), {
-                  strong,
-                }),
+                label: intl.formatMessage(getGovEmployeeType(value)),
               }))}
             />
           </div>
@@ -495,10 +475,11 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
           const message = intl.formatMessage(profileMessages.profileCompleted);
           if (!preProfileStatus && currentProfileStatus) {
             toast.success(message);
+            navigate(paths.profile());
           }
-          navigate(paths.profile());
-          toast.success(intl.formatMessage(profileMessages.userUpdated));
         }
+        navigate(paths.profile());
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));

@@ -286,7 +286,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             ) : (
               <LanguageInformationSection
                 applicant={applicant}
-                editPath={sections.workLocation?.editUrl}
+                editPath={sections.language?.editUrl}
               />
             )}
           </TableOfContents.Section>

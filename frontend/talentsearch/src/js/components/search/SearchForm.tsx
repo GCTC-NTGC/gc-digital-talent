@@ -19,7 +19,7 @@ import {
   Skill,
   ApplicantFilterInput,
   WorkRegion,
-  ApplicantPoolFilterInput,
+  UserPoolFilterInput,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
 import AddSkillsToFilter from "../skills/AddSkillsToFilter";
@@ -45,7 +45,7 @@ export type FormValues = Pick<
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolId: string;
-  poolCandidates: ApplicantPoolFilterInput;
+  poolCandidates: UserPoolFilterInput;
 };
 
 type LocationState = {
@@ -150,9 +150,10 @@ const SearchForm: React.FC<SearchFormProps> = ({
 
   const operationalRequirementsSubset = [
     OperationalRequirement.ShiftWork,
-    OperationalRequirement.WorkWeekends,
-    OperationalRequirement.OvertimeScheduled,
-    OperationalRequirement.OvertimeShortNotice,
+    OperationalRequirement.OnCall,
+    OperationalRequirement.Travel,
+    OperationalRequirement.TransportEquipment,
+    OperationalRequirement.DriversLicense,
   ];
 
   return (
@@ -203,7 +204,11 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <RadioGroup
             idPrefix="education_requirement"
-            legend="Education Requirement filter"
+            legend={intl.formatMessage({
+              defaultMessage: "Education Requirement filter",
+              description:
+                "Legend for the Education Requirement filter radio group",
+            })}
             name="educationRequirement"
             defaultSelected="no_diploma"
             items={[
@@ -245,9 +250,13 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <Checklist
             idPrefix="operationalRequirements"
-            legend="Conditions of employment"
+            legend={intl.formatMessage({
+              defaultMessage: "Conditions of employment",
+              description:
+                "Legend for the Conditions of Employment filter checklist",
+            })}
             name="operationalRequirements"
-            items={operationalRequirementsSubset.map((value) => ({
+            items={operationalRequirementsSubsetV2.map((value) => ({
               value,
               label: intl.formatMessage(getOperationalRequirement(value)),
             }))}
@@ -301,7 +310,11 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <RadioGroup
             idPrefix="languageAbility"
-            legend="Language"
+            legend={intl.formatMessage({
+              defaultMessage: "Language",
+              description:
+                "Legend for the Working Language Ability radio buttons",
+            })}
             name="languageAbility"
             defaultSelected={NullSelection}
             items={[
@@ -382,11 +395,14 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <Checklist
             idPrefix="employmentEquity"
-            legend="Conditions of employment"
+            legend={intl.formatMessage({
+              defaultMessage: "Employment equity groups",
+              description: "Legend for the employment equity checklist",
+            })}
             name="employmentEquity"
             context={intl.formatMessage({
               defaultMessage:
-                "Note: If you select more than one employment equity group, ALL candidates who have self-declared as being members of ANY of the selected EE groups will be referred. If you have more detailed EE requirements, let us know in the comment section of the submission form.",
+                "<strong>Note:</strong> If you select more than one employment equity group, ALL candidates who have self-declared as being members of ANY of the selected EE groups will be referred. If you have more detailed EE requirements, let us know in the comment section of the submission form.",
               description:
                 "Context for employment equity filter in search form.",
             })}

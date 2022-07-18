@@ -3,7 +3,6 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { errorMessages } from "@common/messages";
-import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
@@ -16,6 +15,7 @@ import {
 } from "@common/helpers/storageUtils";
 import { EquitySelections } from "@common/api/generated";
 import Pending from "@common/components/Pending";
+import { objectsToSortedOptions } from "@common/helpers/formUtils";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import {
   Department,
@@ -35,7 +35,6 @@ import {
 } from "../../api/generated";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
 
-type Option<V> = { value: V; label: string };
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
 type FormValues = {
   fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
@@ -82,7 +81,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useTalentSearchRoutes();
   const cacheKey = "ts-createRequest";
 
@@ -161,31 +159,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       });
   };
 
-  const departmentOptions: Option<string>[] = departments
-    .sort((a, b) => {
-      const aName: Maybe<string> = a.name[locale];
-      const bName: Maybe<string> = b.name[locale];
-      if (aName && bName) {
-        return aName.localeCompare(bName, locale);
-      }
-
-      return 0;
-    })
-    .map(({ id, name }) => ({
-      value: id,
-      label:
-        name[locale] ??
-        intl.formatMessage({
-          defaultMessage: "Error: department name not found.",
-          description:
-            "Error message when department name is not found on request page.",
-        }),
-    }));
-
-  function span(msg: string): JSX.Element {
-    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
-  }
-
   return (
     <section>
       <h2 data-h2-margin="b(top, none)">
@@ -241,7 +214,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Null selection for department select input in the request form.",
                   })}
-                  options={departmentOptions}
+                  options={objectsToSortedOptions(departments, intl)}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -327,12 +300,11 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Request for pool candidates: <span>{candidateCount, plural, zero {no candidates} one {1 candidate} other {{candidateCount} estimated candidates}}</span>",
+                  "Request for pool candidates: <primary>{candidateCount, plural, zero {no candidates} one {1 candidate} other {{candidateCount} estimated candidates}}</primary>",
                 description:
                   "Total estimated candidates message in summary of filters",
               },
               {
-                span,
                 candidateCount,
               },
             )}

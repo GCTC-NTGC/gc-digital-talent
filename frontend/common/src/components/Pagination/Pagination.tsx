@@ -27,9 +27,9 @@ export interface PaginationProps {
   /** Button mode type  */
   mode: "solid" | "outline" | "inline";
   /** Callback that changes to the page number value. */
-  handlePageChange: (pageNumber: number) => void;
+  onCurrentPageChange: (pageNumber: number) => void;
   /** Callback that changes max number of visible items on a single page */
-  handlePageSize: (pageSize: number) => void;
+  onPageSizeChange: (pageSize: number) => void;
 }
 
 const Pagination: React.FunctionComponent<PaginationProps> = ({
@@ -41,8 +41,8 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   ariaLabel,
   color,
   mode,
-  handlePageChange,
-  handlePageSize,
+  onCurrentPageChange,
+  onPageSizeChange,
   ...rest
 }) => {
   const intl = useIntl();
@@ -58,11 +58,11 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   const lessThanTwoItems = currentPage === 0 || paginationRange.length < 2;
 
   const nextPage = () => {
-    handlePageChange(currentPage + 1);
+    onCurrentPageChange(currentPage + 1);
   };
 
   const previousPage = () => {
-    handlePageChange(currentPage - 1);
+    onCurrentPageChange(currentPage - 1);
   };
 
   const lastPage = paginationRange[paginationRange.length - 1];
@@ -147,7 +147,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                     { pageNumber },
                   )}
                   aria-current={current}
-                  onClick={() => handlePageChange(Number(pageNumber))}
+                  onClick={() => onCurrentPageChange(Number(pageNumber))}
                   data-h2-margin="b(right-left, xxs)"
                   data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
                 >
@@ -183,7 +183,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
         </ul>
       </nav>
       <div data-h2-margin="b(bottom, s) s(right, s) s(bottom, none)">
-        <span>
+        <label>
           {intl.formatMessage({
             defaultMessage: "Go to page:",
             description: "Label for pagination input in admin table.",
@@ -193,21 +193,21 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
             value={currentPage}
             onChange={(e) => {
               const p = e.target.value ? Number(e.target.value) : 0;
-              handlePageChange(p);
+              onCurrentPageChange(p);
             }}
             disabled={lessThanTwoItems}
             min={1}
             max={totalPageCount}
             style={{ width: "65px" }}
           />
-        </span>
+        </label>
       </div>
       {pageSizes && (
         <select
           style={{ cursor: "pointer" }}
           value={pageSize}
           onChange={(e) => {
-            handlePageSize(Number(e.target.value));
+            onPageSizeChange(Number(e.target.value));
           }}
         >
           {pageSizes.map((numOfRows) => (

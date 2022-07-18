@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
-import Toast from "@common/components/Toast";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { AuthenticationContext } from "@common/components/Auth";
 import { Button } from "@common/components";
@@ -45,6 +44,7 @@ import LoggedOutPage from "./loggedOut/LoggedOutPage";
 import LoginPage from "./login/LoginPage";
 import { CreateAccount } from "./createAccount/CreateAccountPage";
 import { Role } from "../api/generated";
+import PoolAdvertisementPage from "./pool/PoolAdvertisementPage";
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -246,6 +246,15 @@ const directIntakeRoutes = (
       };
     },
   },
+  {
+    path: directIntakePaths.poolAdvertisement(":id"),
+    action: (context) => {
+      const poolId = context.params.id as string;
+      return {
+        component: <PoolAdvertisementPage id={poolId} />,
+      };
+    },
+  },
 ];
 
 export const Router: React.FC = () => {
@@ -332,7 +341,6 @@ export const Router: React.FC = () => {
       <Helmet>
         <html lang={getLocale(intl)} />
       </Helmet>
-      <Toast />
       {loggedIn && (
         <Dialog
           confirmation

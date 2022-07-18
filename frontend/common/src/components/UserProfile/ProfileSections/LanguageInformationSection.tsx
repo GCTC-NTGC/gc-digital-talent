@@ -3,11 +3,6 @@ import { useIntl } from "react-intl";
 import { Applicant, BilingualEvaluation } from "../../../api/generated";
 import { getLanguageProficiency } from "../../../constants/localizedConstants";
 
-// styling a text bit with red colour within intls
-function redText(msg: string) {
-  return <span data-h2-font-color="b(red)">{msg}</span>;
-}
-
 const LanguageInformationSection: React.FunctionComponent<{
   applicant: Pick<
     Applicant,
@@ -192,17 +187,11 @@ const LanguageInformationSection: React.FunctionComponent<{
               (!comprehensionLevel || !writtenLevel || !verbalLevel))))) && (
         <p>
           {editPath &&
-            intl.formatMessage(
-              {
-                defaultMessage:
-                  "There are <redText>required</redText> fields missing.",
-                description:
-                  "Message that there are required fields missing. Please ignore things in <> tags.",
-              },
-              {
-                redText,
-              },
-            )}{" "}
+            intl.formatMessage({
+              defaultMessage: "There are <red>required</red> fields missing.",
+              description:
+                "Message that there are required fields missing. Please ignore things in <> tags.",
+            })}{" "}
           {editPath && (
             <a href={editPath}>
               {intl.formatMessage({
@@ -212,13 +201,13 @@ const LanguageInformationSection: React.FunctionComponent<{
             </a>
           )}
           {!editPath && (
-            <p>
+            <>
               {intl.formatMessage({
                 defaultMessage: "No information has been provided.",
                 description:
                   "Message on Admin side when user not filled language section.",
               })}
-            </p>
+            </>
           )}
         </p>
       )}

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\GenericJobTitle;
 use App\Models\Classification;
+use Database\Helpers\ApiEnums;
 
 class GenericJobTitleSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class GenericJobTitleSeeder extends Seeder
     {
       $genericJobTitles = [
             [
-                'key' => 'TECHNICIAN_IT01',
+                'key' => ApiEnums::GENERIC_JOB_TITLE_KEY_TECHNICIAN_IT01,
                 'name' => [
                     'en' => 'Technician',
                     'fr' => 'Technicien'
@@ -28,7 +29,7 @@ class GenericJobTitleSeeder extends Seeder
                 ],
             ],
             [
-                'key' => 'ANALYST_IT02',
+                'key' => ApiEnums::GENERIC_JOB_TITLE_KEY_ANALYST_IT02,
                 'name' => [
                     'en' => 'Analyst',
                     'fr' => 'Analyste'
@@ -39,7 +40,7 @@ class GenericJobTitleSeeder extends Seeder
                 ],
             ],
             [
-                'key' => 'TEAM_LEADER_IT03',
+                'key' => ApiEnums::GENERIC_JOB_TITLE_KEY_TEAM_LEADER_IT03,
                 'name' => [
                     'en' => 'Team leader',
                     'fr' => 'Chef d’équipe
@@ -52,7 +53,7 @@ class GenericJobTitleSeeder extends Seeder
 
             ],
             [
-                'key' => 'TECHNICAL_ADVISOR_IT03',
+                'key' => ApiEnums::GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03,
                 'name' => [
                     'en' => 'Technical advisor',
                     'fr' => 'Conseiller technique'
@@ -63,7 +64,7 @@ class GenericJobTitleSeeder extends Seeder
                     ],
             ],
             [
-                'key' => 'SENIOR_ADVISOR_IT04',
+                'key' => ApiEnums::GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04,
                 'name' => [
                     'en' => 'Senior advisor',
                     'fr' => 'Conseiller principal'
@@ -75,7 +76,7 @@ class GenericJobTitleSeeder extends Seeder
 
             ],
             [
-                'key' => 'MANAGER_IT04',
+                'key' => ApiEnums::GENERIC_JOB_TITLE_KEY_MANAGER_IT04,
                 'name' => [
                     'en' => 'Manager',
                     'fr' => 'Gestionnaire'

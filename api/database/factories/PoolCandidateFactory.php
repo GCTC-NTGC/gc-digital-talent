@@ -27,7 +27,7 @@ class PoolCandidateFactory extends Factory
     public function definition()
     {
         return [
-            'cmo_identifier' => $this->faker->unique()->word(),
+            'cmo_identifier' => $this->faker->word(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
@@ -59,16 +59,28 @@ class PoolCandidateFactory extends Factory
                 ],
                 3
             ),
-            'pool_candidate_status' => $this->faker->randomElement([
-                'AVAILABLE',
-                'PLACED_INDETERMINATE',
-                'PLACED_TERM',
-                'NO_LONGER_INTERESTED',
-            ]),
+            'pool_candidate_status' => $this->faker->boolean() ?
+                                                            ApiEnums::CANDIDATE_STATUS_AVAILABLE :
+                                                            ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
             'user_id' => User::factory(),
             'pool_id' => Pool::factory(),
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'notes' => $this->faker->paragraphs(3, true),
         ];
+    }
+
+    /**
+     * Pool Candidates are available in search if they are not expired and have the AVAILABLE status.
+     *
+     * @return void
+     */
+    public function availableInSearch()
+    {
+        return $this->state(function () {
+            return [
+                'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+                'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
+            ];
+        });
     }
 }

@@ -34,6 +34,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   name,
   rules = {},
   type,
+  readOnly,
   errorPosition = "bottom",
   hideOptional,
   whitespaceTrim = true,
@@ -76,6 +77,10 @@ const Input: React.FunctionComponent<InputProps> = ({
           {...register(name, rules)}
           onBlur={whitespaceTrimmer}
           type={type}
+          {...(readOnly && {
+            "data-h2-bg-color": "b(lightgray)",
+          })}
+          readOnly={readOnly}
           aria-required={rules.required ? "true" : undefined}
           aria-invalid={error ? "true" : "false"}
           {...rest}

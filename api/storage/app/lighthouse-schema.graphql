@@ -1,3 +1,10 @@
+enum AdvertisementStatus {
+  DRAFT
+  PUBLISHED
+  EXPIRED
+  ARCHIVED
+}
+
 type Applicant {
   id: ID!
   firstName: String
@@ -44,23 +51,33 @@ type Applicant {
   expectedGenericJobTitles: [GenericJobTitle]
 }
 
-input ApplicantFilterInput {
-  poolCandidates: ApplicantPoolFilterInput
-  jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES]
+type ApplicantFilter {
+  id: ID!
+  hasDiploma: Boolean
+  equity: EquitySelections
   languageAbility: LanguageAbility
-  expectedClassifications: [ClassificationFilterInput]
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  equity: EquitySelectionsInput
-  hasDiploma: Boolean
   wouldAcceptTemporary: Boolean
-  skills: [ID]
+  expectedClassifications: [Classification]
+  skills: [Skill]
+  pools: [Pool]
 }
 
-input ApplicantPoolFilterInput {
-  pools: [ID]!
-  expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
-  statuses: [PoolCandidateStatus!] = [AVAILABLE]
+input ApplicantFilterBelongsTo {
+  create: CreateApplicantFilterInput!
+}
+
+input ApplicantFilterInput {
+  hasDiploma: Boolean
+  equity: EquitySelectionsInput
+  languageAbility: LanguageAbility
+  operationalRequirements: [OperationalRequirement]
+  locationPreferences: [WorkRegion]
+  wouldAcceptTemporary: Boolean
+  expectedClassifications: [ClassificationFilterInput]
+  skills: [IdInput]
+  pools: [IdInput]
 }
 
 type AwardExperience implements Experience {
@@ -113,7 +130,7 @@ enum BilingualEvaluation {
   NOT_COMPLETED
 }
 
-enum CANDIDATE_EXPIRY_FILTER {
+enum CandidateExpiryFilter {
   ACTIVE
   EXPIRED
   ALL
@@ -194,6 +211,18 @@ input ConnectOrCreateBelongsTo {
   create: CreateUserInput
 }
 
+input CreateApplicantFilterInput {
+  hasDiploma: Boolean
+  equity: EquitySelectionsInput
+  languageAbility: LanguageAbility
+  operationalRequirements: [OperationalRequirement]
+  locationPreferences: [WorkRegion]
+  wouldAcceptTemporary: Boolean
+  expectedClassifications: ClassificationBelongsToMany
+  skills: SkillBelongsToMany
+  pools: PoolBelongsToMany
+}
+
 input CreateClassificationInput {
   name: LocalizedStringInput
   group: String!
@@ -250,7 +279,8 @@ input CreatePoolCandidateSearchRequestInput {
   department: DepartmentBelongsTo!
   jobTitle: String!
   additionalComments: String
-  poolCandidateFilter: PoolCandidateFilterBelongsTo!
+  poolCandidateFilter: PoolCandidateFilterBelongsTo
+  applicantFilter: ApplicantFilterBelongsTo
 }
 
 input CreatePoolInput {
@@ -335,6 +365,11 @@ scalar Date
 A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
 """
 scalar DateTime
+
+"""
+A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sP`, e.g. `2020-04-20T13:53:12+02:00`.
+"""
+scalar DateTimeTz
 
 type Department {
   id: ID!
@@ -467,6 +502,10 @@ enum GovEmployeeType {
   INDETERMINATE
 }
 
+input IdInput {
+  id: ID!
+}
+
 enum JobLookingStatus {
   ACTIVELY_LOOKING
   OPEN_TO_OPPORTUNITIES
@@ -561,6 +600,8 @@ enum OperationalRequirement {
   WORK_WEEKENDS
   OVERTIME_SCHEDULED
   OVERTIME_SHORT_NOTICE
+  OVERTIME_OCCASIONAL
+  OVERTIME_REGULAR
 }
 
 """Allows ordering a list of records."""
@@ -697,6 +738,31 @@ type Pool {
   status: PoolStatus
 }
 
+type PoolAdvertisement {
+  id: ID!
+  expiryDate: DateTimeTz
+  isPublished: Boolean
+  name: LocalizedString
+  description: LocalizedString
+  classifications: [Classification]
+  keyTasks: LocalizedString
+  yourImpact: LocalizedString
+  advertisementLocation: LocalizedString
+  securityClearance: SecurityStatus
+  advertisementLanguage: PoolAdvertisementLanguage
+  advertisementStatus: AdvertisementStatus
+  essentialSkills: [Skill!]
+  nonessentialSkills: [Skill!]
+}
+
+enum PoolAdvertisementLanguage {
+  ENGLISH
+  FRENCH
+  VARIOUS
+  BILINGUAL_INTERMEDIATE
+  BILINGUAL_ADVANCED
+}
+
 input PoolBelongsTo {
   connect: ID!
 }
@@ -750,7 +816,7 @@ input PoolCandidateFilterInput {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
-  pools: [PoolFilterInput]
+  pools: [IdInput]
 }
 
 type PoolCandidateSearchRequest {
@@ -760,10 +826,11 @@ type PoolCandidateSearchRequest {
   department: Department
   jobTitle: String
   additionalComments: String
-  poolCandidateFilter: PoolCandidateFilter!
   requestedDate: DateTime
   status: PoolCandidateSearchStatus
   adminNotes: String
+  poolCandidateFilter: PoolCandidateFilter
+  applicantFilter: ApplicantFilter
 }
 
 enum PoolCandidateSearchStatus {
@@ -779,10 +846,6 @@ enum PoolCandidateStatus {
   UNAVAILABLE
   EXPIRED
   PLACED_CASUAL
-}
-
-input PoolFilterInput {
-  id: ID!
 }
 
 enum PoolStatus {
@@ -815,15 +878,16 @@ type Query {
   user(id: ID!): User
   users: [User]!
   applicant(id: ID!): Applicant
-  applicants: [Applicant]!
+  applicants(includeIds: [ID]!): [Applicant]!
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: ID!): Pool
+  poolAdvertisement(id: ID!): PoolAdvertisement
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
-  searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
+  searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   cmoAsset(id: ID!): CmoAsset
@@ -832,6 +896,8 @@ type Query {
   departments: [Department]!
   poolCandidateFilter(id: ID!): PoolCandidateFilter
   poolCandidateFilters: [PoolCandidateFilter]!
+  applicantFilter(id: ID!): ApplicantFilter
+  applicantFilters: [ApplicantFilter]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
   latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
@@ -842,7 +908,8 @@ type Query {
   genericJobTitle(id: ID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
   usersPaginated(
-    where: UserFilterAndOrderInput
+    where: UserFilterInput
+    orderBy: [OrderByClause!]
 
     """Limits number of fetched items. Maximum allowed value: 1000."""
     first: Int = 10
@@ -915,6 +982,12 @@ enum SalaryRange {
   _80_89K
   _90_99K
   _100K_PLUS
+}
+
+enum SecurityStatus {
+  RELIABILITY
+  SECRET
+  TOP_SECRET
 }
 
 """Information about pagination using a simple paginator."""
@@ -1213,24 +1286,16 @@ input UserBelongsTo {
   connect: ID
 }
 
-input UserFilterAndOrderInput {
-  poolCandidates: UserPoolFilterInput
-  languageAbility: LanguageAbility
-  expectedClassifications: [ClassificationFilterInput]
-  operationalRequirements: [OperationalRequirement]
-  locationPreferences: [WorkRegion]
-  equity: EquitySelectionsInput
-  hasDiploma: Boolean
-  wouldAcceptTemporary: Boolean
+input UserFilterInput {
+  applicantFilter: ApplicantFilterInput
+  poolFilters: [UserPoolFilterInput]
   jobLookingStatus: [JobLookingStatus]
   isProfileComplete: Boolean
-  skills: [ID]
   isGovEmployee: Boolean
   telephone: String
   email: String
   name: String
   generalSearch: String
-  orderBy: String
 }
 
 """A paginated list of User items."""
@@ -1243,9 +1308,9 @@ type UserPaginator {
 }
 
 input UserPoolFilterInput {
-  pools: [ID!]!
-  expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
-  statuses: [PoolCandidateStatus!] = []
+  poolId: ID!
+  expiryStatus: CandidateExpiryFilter = ACTIVE
+  statuses: [PoolCandidateStatus!]
 }
 
 type UserPublicProfile {

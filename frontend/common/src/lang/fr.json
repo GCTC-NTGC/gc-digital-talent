@@ -1,6 +1,6 @@
 {
   "+aowPB": {
-    "defaultMessage": "Équité en matière emploi",
+    "defaultMessage": "Équité en matière d'emploi",
     "description": "Title for employment equity section on summary of filters section"
   },
   "/fglL0": {
@@ -86,53 +86,25 @@
     "defaultMessage": "Erreur : Nom de la compétence introuvable",
     "description": "Error message when cmo asset name is not found on request page."
   },
-  "+6BCqp": {
-    "defaultMessage": "Consultez nos modalités.",
-    "description": "Title for the terms and conditions link in the Footer."
-  },
   "1J4e+j": {
     "defaultMessage": "Commentaires",
     "description": "Label for the feedback link in the Footer."
   },
-  "4Cif02": {
-    "defaultMessage": "Visiter canada.ca",
-    "description": "Title for the Canada logo in the Footer."
-  },
-  "MxuMT5": {
-    "defaultMessage": "Consulter notre politique de confidentialité.",
-    "description": "Title for the privacy link in the Footer."
-  },
   "VcOlXA": {
-    "defaultMessage": "Politique de confidentialité",
+    "defaultMessage": "Énoncé de confidentialité",
     "description": "Label for the privacy link in the Footer."
   },
   "ZE77nf": {
-    "defaultMessage": "canada.ca",
+    "defaultMessage": "Canada.ca",
     "description": "Label for the Canada link in the Footer."
   },
   "ZGpncy": {
-    "defaultMessage": "Modalités",
+    "defaultMessage": "Avis",
     "description": "Label for the terms and conditions link in the Footer."
-  },
-  "ZumF63": {
-    "defaultMessage": "Logo du Canada.",
-    "description": "Alt text for the Canada logo in the Footer."
-  },
-  "f3qFB3": {
-    "defaultMessage": "Visiter canada.ca.",
-    "description": "Title for the Canada logo in the Header."
-  },
-  "kTHMa+": {
-    "defaultMessage": "Logo du Canada.",
-    "description": "Alt text for the Canada logo in the Header."
   },
   "mZMdKM": {
     "defaultMessage": "Soumettre des commentaires au Nuage de talents du GC par courriel.",
     "description": "Title for the feedback link in the Footer."
-  },
-  "rTfqcy": {
-    "defaultMessage": "Visitez canada.ca.",
-    "description": "Title for the Canada link in the Footer."
   },
   "h3lIyO": {
     "defaultMessage": "Français",
@@ -348,7 +320,7 @@
     "description": "Displayed next to required form inputs."
   },
   "WUC9pX": {
-    "defaultMessage": "Champ facultatif",
+    "defaultMessage": "Facultatif",
     "description": "Displayed next to optional form inputs."
   },
   "5gS1sZ": {
@@ -371,37 +343,9 @@
     "defaultMessage": "Soumis",
     "description": "Default text for submitted button."
   },
-  "3HAFul": {
-    "defaultMessage": "Déplacements selon les besoins",
-    "description": "The operational requirement described as travel as required."
-  },
-  "8QkGEF": {
-    "defaultMessage": "Transport de matériel jusqu'à 20 kg",
-    "description": "The operational requirement described as transport equipment up to 20kg."
-  },
-  "Dk5E2+": {
-    "defaultMessage": "Garde 24/7",
-    "description": "The operational requirement described as 24/7 on-call."
-  },
-  "hCy99h": {
-    "defaultMessage": "Travailler des quarts de travail",
-    "description": "The operational requirement described as shift work."
-  },
-  "vhFe42": {
-    "defaultMessage": "Permis de conduire",
-    "description": "The operational requirement described as driver's license."
-  },
   "6I3OCB": {
     "defaultMessage": "Travailler les fins de semaine",
     "description": "The operational requirement described as work weekends."
-  },
-  "Bw9k0J": {
-    "defaultMessage": "Travailler des heures supplémentaires prévues",
-    "description": "The operational requirement described as scheduled overtime."
-  },
-  "eJCfxF": {
-    "defaultMessage": "Travailler des heures supplémentaires à court préavis",
-    "description": "The operational requirement described as short notice overtime."
   },
   "ACppq6": {
     "defaultMessage": "Placé Occasionnels",
@@ -414,5 +358,668 @@
   "cQnjsM": {
     "defaultMessage": "Non Disponible",
     "description": "The pool candidate's status is Unavailable."
+  },
+  "+O6J4u": {
+    "defaultMessage": "(Aucun sélectionné)",
+    "description": "Text shown when the filter was not selected"
+  },
+  "/+CmAn": {
+    "defaultMessage": "Modifier À propos de moi",
+    "description": "Text on link to update a users personal information."
+  },
+  "/fv4O0": {
+    "defaultMessage": "Aucune information n'a été fournie.",
+    "description": "Message on Admin side when user not filled WorkPreferences section."
+  },
+  "/xV8Hg": {
+    "defaultMessage": "N'accepte pas de demandes",
+    "description": "Pool Status described as not taking applications."
+  },
+  "0DzlCc": {
+    "defaultMessage": "Préférences de travail",
+    "description": "Title of the Work Preferences link section"
+  },
+  "1VFyrc": {
+    "defaultMessage": "Aucune information n'a été fournie.",
+    "description": "Message on Admin side when user not filled WorkLocation section."
+  },
+  "1X8RC4": {
+    "defaultMessage": "Ontario",
+    "description": "Ontario selection for province or territory input"
+  },
+  "1pk/7X": {
+    "defaultMessage": "Information linguistiques",
+    "description": "Title of the Language Information content section"
+  },
+  "2W9CMn": {
+    "defaultMessage": "Activer ou désactiver le contexte",
+    "description": "Label to toggle the context description of a field set."
+  },
+  "2YS4y3": {
+    "defaultMessage": "Niveau 3 : Conseiller technique",
+    "description": "The name of the Technical advisor role."
+  },
+  "2ohWuK": {
+    "defaultMessage": "Oui, évaluation en anglais terminée",
+    "description": "Completed an English language evaluation"
+  },
+  "3Nd6dv": {
+    "defaultMessage": "Sur cette page",
+    "description": "Title for  pages table of contents."
+  },
+  "4BpFoX": {
+    "defaultMessage": "{title} émis par {issuedBy}",
+    "description": "The award title is issued by some group"
+  },
+  "4CrCbD": {
+    "defaultMessage": "Communauté"
+  },
+  "4Xa7Pd": {
+    "defaultMessage": "Aucune information n'a été fournie",
+    "description": "Message on Admin side when user not filled Experience section."
+  },
+  "5APACq": {
+    "defaultMessage": "Modifier les renseignements gouvernementaux",
+    "description": "Text on link to update a users government information."
+  },
+  "5LQuV9": {
+    "defaultMessage": "Île-du-Prince-Édouard",
+    "description": "Prince Edward Island selection for province or territory input"
+  },
+  "5WOqlf": {
+    "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
+    "description": "Label preceding what groups the user identifies as part of, followed by a colon"
+  },
+  "5d0vbr": {
+    "defaultMessage": "<strong>Oui</strong>, >, je suis un employé du gouvernement du Canada.",
+    "description": "Message to state user is employed by government"
+  },
+  "5sX4lz": {
+    "defaultMessage": "À propos",
+    "description": "Title of the about content section"
+  },
+  "6RiVQA": {
+    "defaultMessage": "{role} au sein de la {division}",
+    "description": "Role at division"
+  },
+  "6eCvv1": {
+    "defaultMessage": "Postes bilingues (français et anglais)",
+    "description": "Bilingual Positions message"
+  },
+  "6fxO9t": {
+    "defaultMessage": "Terre-Neuve-et-Labrador",
+    "description": "Newfoundland and Labrador selection for province or territory input"
+  },
+  "8cRL8r": {
+    "defaultMessage": "Durée permanente",
+    "description": "Permanent duration only"
+  },
+  "95OYVk": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Title of the Role and salary expectations link section"
+  },
+  "9WxeNz": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Title of the Work Location link section"
+  },
+  "9pdtnR": {
+    "defaultMessage": "Vous n'êtes pas inscrit à titre d'employé actuel du gouvernement.",
+    "description": "Message indicating the user is not marked in the system as being federally employed currently"
+  },
+  "A2KwTw": {
+    "defaultMessage": "1 compétence",
+    "description": "Pluralization for one skill"
+  },
+  "AF8g2I": {
+    "defaultMessage": "Modifier la diversité, l'équité et l'inclusion",
+    "description": "Text on link to update a users employment equity."
+  },
+  "B9x0ZV": {
+    "defaultMessage": "Informations linguistiques ",
+    "description": "Title of the Language Information link section"
+  },
+  "CEzDTC": {
+    "defaultMessage": "Modifier le rôle et le salaire",
+    "description": "Text on link to update a users role and salary expectations."
+  },
+  "CPRJ61": {
+    "defaultMessage": "ID :",
+    "description": "The ID and colon"
+  },
+  "CUi1Ti": {
+    "defaultMessage": "Colombie-Britannique",
+    "description": "British Columbia selection for province or territory input"
+  },
+  "CWRRy1": {
+    "defaultMessage": "Accepte les demandes",
+    "description": "Pool Status described as taking applications."
+  },
+  "Cx3s+E": {
+    "defaultMessage": "Mon statut",
+    "description": "Title of the my status content section"
+  },
+  "D7Qb41": {
+    "defaultMessage": "Niveau de la langue seconde (compréhension, écrite, verbale) :",
+    "description": "Evaluation results for second language, results in that order followed by a colon"
+  },
+  "DAmLhV": {
+    "defaultMessage": "Nom :",
+    "description": "Name label and colon"
+  },
+  "DUuisY": {
+    "defaultMessage": "Oui, évaluation en français terminée",
+    "description": "Completed a French language evaluation"
+  },
+  "Eui2Wf": {
+    "defaultMessage": "Mes compétences et mon expérience",
+    "description": "Title of the My skills and experience content section"
+  },
+  "F9R74z": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Title of the Work Location content section"
+  },
+  "FF0ubO": {
+    "defaultMessage": "Modifier le lieu de travail",
+    "description": "Text on link to update a users work location."
+  },
+  "FTJdsa": {
+    "defaultMessage": "Chargement…",
+    "description": "Message to display when a page is loading."
+  },
+  "GcPFLS": {
+    "defaultMessage": "Travail"
+  },
+  "H4sbll": {
+    "defaultMessage": "À propos",
+    "description": "Title of the About link section"
+  },
+  "HalXgi": {
+    "defaultMessage": "Nouvelle-Écosse",
+    "description": "Nova Scotia selection for province or territory input"
+  },
+  "JerysR": {
+    "defaultMessage": "Par compétences",
+    "description": "Tab title for experiences sorted by skills in applicant profile."
+  },
+  "KFGBmb": {
+    "defaultMessage": "Octroyé à :",
+    "description": "The award was given to"
+  },
+  "MGqCaE": {
+    "defaultMessage": "Demandeur",
+    "description": "The name of the Applicant user role."
+  },
+  "MoWNS4": {
+    "defaultMessage": "Exemptions à l'emplacement :",
+    "description": "Location Exemptions label, followed by colon"
+  },
+  "MuyuAu": {
+    "defaultMessage": "Groupe et classification actuels :",
+    "description": "Field label before government employment group and level, followed by colon"
+  },
+  "N0hBAG": {
+    "defaultMessage": "Niveau 3 : Chef d'équipe",
+    "description": "The name of the Team leader Analyst role."
+  },
+  "NDx+B0": {
+    "defaultMessage": "Personnel"
+  },
+  "Nc4sjC": {
+    "defaultMessage": "Renseignements gouvernementaux",
+    "description": "Title of the Government Information link section"
+  },
+  "OocJKH": {
+    "defaultMessage": "Portée :",
+    "description": "The scope of the award given"
+  },
+  "OvJwG6": {
+    "defaultMessage": "Renseignements supplémentaires : {details}",
+    "description": "Additional information if provided"
+  },
+  "P/tHlt": {
+    "defaultMessage": "Par type",
+    "description": "Tab title for experiences sorted by type in applicant profile."
+  },
+  "P6PD/I": {
+    "defaultMessage": "Manitoba",
+    "description": "Manitoba selection for province or territory input"
+  },
+  "PJhCQn": {
+    "defaultMessage": "à {institution}",
+    "description": "Study at institution"
+  },
+  "QdXUwo": {
+    "defaultMessage": "Aller à la page :",
+    "description": "Label for pagination input in admin table."
+  },
+  "QjOom4": {
+    "defaultMessage": "Je ne suis pas identifié comme membre d'un groupe d'équité en matière d'emploi.",
+    "description": "Message on Admin side when user not filled DiversityEquityInclusion section."
+  },
+  "RE7o8x": {
+    "defaultMessage": "Je suis un(e) <strong>étudiant(e)</strong>",
+    "description": "Student selection for government employee type."
+  },
+  "RQTXLS": {
+    "defaultMessage": "Niveau 4 : conseiller principal",
+    "description": "The name of the Senior advisor role."
+  },
+  "SCCX7B": {
+    "defaultMessage": "Vous n'avez pas encore ajouté de renseignements ici.",
+    "description": "Message for when no data exists for the section"
+  },
+  "SEZweh": {
+    "defaultMessage": "Prix"
+  },
+  "SZZeHq": {
+    "defaultMessage": "Non",
+    "description": "No, did not completed a language evaluation"
+  },
+  "SvcqPG": {
+    "defaultMessage": "Alberta",
+    "description": "Alberta selection for province or territory input"
+  },
+  "TLgbZm": {
+    "defaultMessage": "Mon statut",
+    "description": "Title of the My Status section"
+  },
+  "TmCffZ": {
+    "defaultMessage": "Intéressé par :",
+    "description": "Interested in label and colon"
+  },
+  "U/Lv8i": {
+    "defaultMessage": "Expérience inconnue",
+    "description": "Title for unknown experiences"
+  },
+  "UrsGGK": {
+    "defaultMessage": "{areaOfStudy} à {institution}",
+    "description": "Study at institution"
+  },
+  "V89Ryn": {
+    "defaultMessage": "Préférences de travail",
+    "description": "Title of the Work Preferences content section"
+  },
+  "Vbw1ES": {
+    "defaultMessage": "Modifier les informations linguistiques",
+    "description": "Text on link to update a users language information."
+  },
+  "Vc9vE7": {
+    "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de :",
+    "description": "Label for what length of position user prefers, followed by colon"
+  },
+  "W1Kt8D": {
+    "defaultMessage": "Niveau 2 : Analyste",
+    "description": "The name of the Technician Analyst role."
+  },
+  "WPJrmN": {
+    "defaultMessage": "{wordsLeft, plural, one {mot au-dessus de la limite} other {mots au-dessus de la limite}}.",
+    "description": "Message for when user goes over word limit."
+  },
+  "XqFhIa": {
+    "defaultMessage": "Modifier les compétences et l'expérience",
+    "description": "Text on link to update a users skills and experiences."
+  },
+  "Xtu3HH": {
+    "defaultMessage": "Nouveau-Brunswick",
+    "description": "New Brunswick selection for province or territory input"
+  },
+  "YFPM7a": {
+    "defaultMessage": "J'ai un contrat <strong>occasionnel</strong>",
+    "description": "Casual selection for government employee type."
+  },
+  "YVLfw+": {
+    "defaultMessage": "Je suis un employé nommé pour une période <strong>indéterminée</strong>",
+    "description": "Indeterminate selection for government employee type."
+  },
+  "ZSAzrR": {
+    "defaultMessage": "Date d'expiration :",
+    "description": "The expiry date label and colon"
+  },
+  "Zm9Hnf": {
+    "defaultMessage": "Depuis : {d1}",
+    "description": "Since"
+  },
+  "azOv8A": {
+    "defaultMessage": "Téléphone :",
+    "description": "Phone label and colon"
+  },
+  "b5bUa0": {
+    "defaultMessage": "Lieu de travail :",
+    "description": "Work Location label, followed by colon"
+  },
+  "bEwwY/": {
+    "defaultMessage": "Langue de communication préférée :",
+    "description": "Preferred Language for communication purposes label and colon"
+  },
+  "cIHjFT": {
+    "defaultMessage": "Ministère : <strong>{department}</strong>",
+    "description": "Message to state what department user is in."
+  },
+  "dQseX7": {
+    "defaultMessage": "1 expérience",
+    "description": "Pluralization for one experience"
+  },
+  "e2R6fy": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Title of the Diversity, equity and inclusion link section"
+  },
+  "e2Rfn/": {
+    "defaultMessage": "J'aimerais être référé à des emplois aux niveaux suivants :",
+    "description": "Label for Role and salary expectations sections"
+  },
+  "eLXTfi": {
+    "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
+    "description": "Message indicating the user is not marked in the system as being federally employed currently"
+  },
+  "fFznH0": {
+    "defaultMessage": "Postes en anglais ou en français",
+    "description": "English or French Positions message"
+  },
+  "fNOekV": {
+    "defaultMessage": "Mes bassins d'embauche",
+    "description": "Title of the my hiring pools content section"
+  },
+  "fqIEKE": {
+    "defaultMessage": "Mes compétences et mon expérience",
+    "description": "Title of the My skills and experience link section"
+  },
+  "gWEfA9": {
+    "defaultMessage": "Vous n'avez pas encore été accepté dans un bassin d'embauche.",
+    "description": "Message for if user not part of any hiring pools"
+  },
+  "gpcHeU": {
+    "defaultMessage": "Canada.ca",
+    "description": "Alt text for the Canada logo link in the Header."
+  },
+  "gtLuDM": {
+    "defaultMessage": "Projet : {project}",
+    "description": "Project Name"
+  },
+  "ihYM2v": {
+    "defaultMessage": "Toute durée (à court terme, à long terme ou indéterminée)",
+    "description": "Duration of any length is good, specified three example lengths"
+  },
+  "inzzdo": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Title of the Diversity, equity and inclusion content section"
+  },
+  "j6WJBY": {
+    "defaultMessage": "{wordsLeft, plural, one {mot restant} other {mots restants}}.",
+    "description": "Message for when user goes over word limit."
+  },
+  "janplU": {
+    "defaultMessage": "Bilingue (français et anglais)",
+    "description": "The language ability is bilingual - both English and French."
+  },
+  "jhImZp": {
+    "defaultMessage": "Activer ou désactiver le contexte",
+    "description": "Label to toggle the context description of an input."
+  },
+  "jmP8ub": {
+    "defaultMessage": "Je m'intéresse à la mutation latérale ou au détachement.",
+    "description": "Message to state user is interested in lateral deployment or secondment"
+  },
+  "jtygmI": {
+    "defaultMessage": "Éducation"
+  },
+  "kP04tf": {
+    "defaultMessage": "Cliquez ici pour commencer.",
+    "description": "Message to click on the words to begin something"
+  },
+  "kjX7mF": {
+    "defaultMessage": "Aucune information n'a été fournie.",
+    "description": "Message on Admin side when user not filled RoleSalary section."
+  },
+  "l/MbFR": {
+    "defaultMessage": "Modifier mes bassins d'embauche",
+    "description": "Text on link to update a users hiring pools."
+  },
+  "l/jGX9": {
+    "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
+    "description": "Label for what conditions a user will accept, followed by a colon"
+  },
+  "l1cou8": {
+    "defaultMessage": "Renseignements gouvernementaux",
+    "description": "Title of the Government Information content section"
+  },
+  "l27ekQ": {
+    "defaultMessage": "{skillsLength} Compétences",
+    "description": "Pluralization for zero or multiple skills"
+  },
+  "m1eQrS": {
+    "defaultMessage": "Canada.ca",
+    "description": "Alt text for the Canada logo link in the Footer."
+  },
+  "mLwm2+": {
+    "defaultMessage": "Yukon",
+    "description": "Yukon selection for province or territory input"
+  },
+  "mMw73T": {
+    "defaultMessage": "Niveau 1 : Technicien",
+    "description": "The name of the Technician classification role."
+  },
+  "mtFK6A": {
+    "defaultMessage": "Courriel :",
+    "description": "Email label and colon"
+  },
+  "nu3Zyc": {
+    "defaultMessage": "Niveau 4 : Gestionnaire",
+    "description": "The name of the Senior advisor role."
+  },
+  "oC/GRF": {
+    "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
+    "description": "The skill is not attached to any experience"
+  },
+  "om3i0o": {
+    "defaultMessage": "Modifier mon statut",
+    "description": "Text on link to update a users status."
+  },
+  "omDlZN": {
+    "defaultMessage": "Thèse : {thesisTitle}",
+    "description": "Thesis, if applicable"
+  },
+  "p8Gi1k": {
+    "defaultMessage": "Modifier les préférences de travail",
+    "description": "Text on link to update a users work preferences."
+  },
+  "pbXAOp": {
+    "defaultMessage": "Afficher {numOfRows}",
+    "description": "Options for how many rows to show on admin table"
+  },
+  "phbDSx": {
+    "defaultMessage": "Modifier l'expérience",
+    "description": "Edit Experience button label"
+  },
+  "q3Gl23": {
+    "defaultMessage": "Niveau de la langue seconde :",
+    "description": "Estimated skill in second language, followed by a colon"
+  },
+  "qT9sS0": {
+    "defaultMessage": "Postes en français",
+    "description": "French Positions message"
+  },
+  "qfioSi": {
+    "defaultMessage": "J'ai un poste de durée <strong>déterminée</strong>.",
+    "description": "Term selection for government employee type."
+  },
+  "s1h7Mc": {
+    "defaultMessage": "Emplacement actuel :",
+    "description": "Current Location label and colon"
+  },
+  "shPV27": {
+    "defaultMessage": "A achevé une évaluation officielle du GC :",
+    "description": "Completed a government of canada abbreviation evaluation label and colon"
+  },
+  "spP+Tz": {
+    "defaultMessage": "Nunavut",
+    "description": "Nunavut selection for province or territory input"
+  },
+  "tXze8h": {
+    "defaultMessage": "Québec",
+    "description": "Quebec selection for province or territory input"
+  },
+  "ttj/2n": {
+    "defaultMessage": "Vous n'avez pas encore ajouté de renseignements ici.",
+    "description": "Message that the user hasn't filled out the section yet"
+  },
+  "uMzeiF": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Title of the Role and salary expectations section"
+  },
+  "ufSiRU": {
+    "defaultMessage": "Introuvable",
+    "description": "Title displayed when an item cannot be found."
+  },
+  "ugRTOW": {
+    "defaultMessage": "Aucune information n'a été fournie.",
+    "description": "Message on Admin side when user not filled GovernmentInformation section."
+  },
+  "vFMPHW": {
+    "defaultMessage": "Postes en anglais",
+    "description": "English Positions message"
+  },
+  "vV0SDz": {
+    "defaultMessage": "{title} à {organization}",
+    "description": "Title at organization"
+  },
+  "vpAafL": {
+    "defaultMessage": "Vous n'avez pas été identifié comme membre de groupes visés par l'équité en matière d'emploi.",
+    "description": "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please."
+  },
+  "w+L6oa": {
+    "defaultMessage": "Par date",
+    "description": "Tab title for experiences sorted by date in applicant profile."
+  },
+  "wTAdQe": {
+    "defaultMessage": "{role} à {organization}",
+    "description": "Role at organization"
+  },
+  "xNVsei": {
+    "defaultMessage": "{experienceLength} Expériences",
+    "description": "Pluralization for zero or multiple experiences"
+  },
+  "xUl9pz": {
+    "defaultMessage": "Mes bassins d'embauche",
+    "description": "Title of the My Hiring Pools section"
+  },
+  "xjtRjr": {
+    "defaultMessage": "Aucune information n'a été fournie.",
+    "description": "Message on Admin side when user not filled language section."
+  },
+  "yK/VlQ": {
+    "defaultMessage": "Saskatchewan",
+    "description": "Saskatchewan selection for province or territory input"
+  },
+  "z7UVe6": {
+    "defaultMessage": "Ce champ doit contenir moins de {value} mots.",
+    "description": "Error Message displayed on word counter when user passes the limit."
+  },
+  "zKjtAa": {
+    "defaultMessage": "Territoires du Nord-Ouest",
+    "description": "Northwest Territories selection for province or territory input"
+  },
+  "4pZrst": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à voyager au besoin.",
+    "description": "The operational requirement described as travel as required."
+  },
+  "Gc9PeN": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler par quarts.",
+    "description": "The operational requirement described as shift work."
+  },
+  "KzhnAz": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement).",
+    "description": "The operational requirement described as occasional overtime."
+  },
+  "QhRU19": {
+    "defaultMessage": "Doit posséder un permis de conduire valide ou une mobilité personnelle du degré normalement associé à la possession d'un permis de conduire valide.",
+    "description": "The operational requirement described as driver's license."
+  },
+  "XpK4rL": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à transporter, soulever et déposer de l'équipement pouvant peser jusqu'à 20 kg.",
+    "description": "The operational requirement described as transport equipment up to 20kg."
+  },
+  "vDrJp6": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler sur appel 24/7.",
+    "description": "The operational requirement described as 24/7 on-call."
+  },
+  "vvtqRv": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
+    "description": "The operational requirement described as regular overtime."
+  },
+  "/nMdQr": {
+    "defaultMessage": "<strong>Virtuel :</strong> Travailler de la maison, partout au Canada.",
+    "description": "The work region of Canada described as North."
+  },
+  "hjr9df": {
+    "defaultMessage": "… m'oblige à faire des <strong>heures supplémentaires sans préavis</strong>.",
+    "description": "The operational requirement described as overtime."
+  },
+  "kafTUN": {
+    "defaultMessage": "<strong>Inactif</strong> –Je ne veux pas être contacté pour trouver des possibilités d'emploi",
+    "description": "Job Looking Status described as Actively looking."
+  },
+  "oU4OmU": {
+    "defaultMessage": "<strong>Région de l'Ontario :</strong> à l'exclusion d'Ottawa.",
+    "description": "The work region of Canada described as Ontario."
+  },
+  "gmHam8": {
+    "defaultMessage": "… m'oblige à <strong>avoir un permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
+    "description": "The operational requirement described as driver's license."
+  },
+  "eYak7E": {
+    "defaultMessage": "<strong>Région de la capitale nationale :</strong> Ottawa (Ont.) et Gatineau (Qc).",
+    "description": "The work region of Canada described as National Capital."
+  },
+  "qLy7xu": {
+    "defaultMessage": "… nécessite que je fasse des <strong>heures supplémentaires planifiées</strong>.",
+    "description": "The operational requirement described as scheduled overtime."
+  },
+  "Gw2JKz": {
+    "defaultMessage": "<strong>Région du Québec :</strong> à l'exclusion de Gatineau.",
+    "description": "The work region of Canada described as Quebec."
+  },
+  "x5sy3j": {
+    "defaultMessage": "<strong>Région des Prairies :</strong> Manitoba, Saskatchewan, Alberta.",
+    "description": "The work region of Canada described as Prairie."
+  },
+  "tgt0og": {
+    "defaultMessage": "<strong>Région de la Colombie-Britannique</strong>",
+    "description": "The work region of Canada described as British Columbia."
+  },
+  "dLI4Nb": {
+    "defaultMessage": "… m'oblige à <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
+    "description": "The operational requirement described as transport equipment up to 20kg."
+  },
+  "ubXVBC": {
+    "defaultMessage": "<strong>Région de l'Atlantique :</strong> Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.",
+    "description": "The work region of Canada described as Atlantic."
+  },
+  "Crgpc2": {
+    "defaultMessage": "<strong>Actively looking</strong> – Mon profil est à jour, je veux être contacté pour trouver des possibilités d'emploi",
+    "description": "Job Looking Status described as Actively looking."
+  },
+  "7L6frW": {
+    "defaultMessage": "… a<strong> des quarts de travail sur appel 24 heures sur 24, 7 jours sur 7 </strong>.",
+    "description": "The operational requirement described as 24/7 on-call."
+  },
+  "MZwZ0y": {
+    "defaultMessage": "… m'oblige à <strong>voyager</strong>.",
+    "description": "The operational requirement described as travel as required."
+  },
+  "ZcvDAo": {
+    "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
+    "description": "Message that there are required fields missing. Please ignore things in <> tags."
+  },
+  "LuYmWd": {
+    "defaultMessage": "<strong>Ouvert aux possibilités </strong> – Je ne cherche pas activement, mais je veux être contacté pour trouver des possibilités d'emploi",
+    "description": "Job Looking Status described as Actively looking."
+  },
+  "/ndqmQ": {
+    "defaultMessage": "… a un <strong>travail par quart</strong>.",
+    "description": "The operational requirement described as shift work."
+  },
+  "fmSaPm": {
+    "defaultMessage": "… m'oblige à <strong>travailler les fins de semaine</strong>.",
+    "description": "The operational requirement described as work weekends."
   }
 }

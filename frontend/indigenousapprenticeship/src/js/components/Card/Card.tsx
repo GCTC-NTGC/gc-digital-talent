@@ -16,7 +16,7 @@ const Card: React.FC<CardProps> = ({ title, Icon, children }) => (
   >
     {Icon && <Icon className="card__icon" data-h2-width="b(25) m(50)" />}
     <Heading
-      as="h5"
+      as="h4"
       color="white"
       data-h2-display="b(flex)"
       data-h2-flex-direction="b(column)"

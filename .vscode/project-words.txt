@@ -5,6 +5,7 @@ Authenticatable
 BEHAVIOURAL
 colour
 colours
+combobox
 corejs
 darkgold
 darkgray
@@ -34,14 +35,17 @@ Nuwave
 pgsql
 Queueable
 recruitmentimit
+recruitments
 recrutementgiti
 resumé
 subquery
 TALENTSEARCH
 TELEWORK
 testid
+textbox
 toastify
 Unencrypted
 unlocalized
 urql
+viewports
 WCAG

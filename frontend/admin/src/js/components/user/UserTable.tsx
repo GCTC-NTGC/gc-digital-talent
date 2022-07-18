@@ -1,20 +1,38 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Link, useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLanguage } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
+import printStyles from "@common/constants/printStyles";
+import { useReactToPrint } from "react-to-print";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
-  AllUsersQuery,
+  InputMaybe,
   Language,
-  useAllUsersQuery,
+  useAllUsersPaginatedQuery,
   User,
+  UserFilterInput,
+  UserPaginator,
+  useSelectedUsersQuery,
 } from "../../api/generated";
-import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
+import BasicTable from "../apiManagedTable/BasicTable";
+import {
+  ColumnsOf,
+  SortingRule,
+  sortingRuleToOrderByClause,
+  IdType,
+  handleColumnHiddenChange,
+  rowSelectionColumn,
+  handleRowSelectedChange,
+} from "../apiManagedTable/basicTableHelpers";
+import { tableEditButtonAccessor } from "../Table";
+import TableFooter from "../apiManagedTable/TableFooter";
+import TableHeader from "../apiManagedTable/TableHeader";
+import UserProfileDocument from "./UserProfileDocument";
 
-type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
+type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
 const fullName = (u: User): string => `${u.firstName} ${u.lastName}`;
 
@@ -46,24 +64,82 @@ const profileLinkAccessor = (
   );
 };
 
-export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
-  users,
-  editUrlRoot,
-}) => {
+export const UserTable: React.FC = () => {
   const intl = useIntl();
   const paths = useAdminRoutes();
+  const { pathname } = useLocation();
+
+  const searchStateToFilterInput = (
+    val: string | undefined,
+    col: string | undefined,
+  ): InputMaybe<UserFilterInput> => {
+    if (!val) return undefined;
+
+    return {
+      generalSearch: val && !col ? val : undefined,
+      email: col === "email" ? val : undefined,
+      name: col === "name" ? val : undefined,
+      telephone: col === "phone" ? val : undefined,
+    };
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
+  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
+  const [selectedRows, setSelectedRows] = useState<User[]>([]);
+  const [searchState, setSearchState] = useState<{
+    term: string | undefined;
+    col: string | undefined;
+  }>();
+
+  useEffect(() => {
+    setSelectedRows([]);
+  }, [currentPage, pageSize, searchState, sortingRule]);
+
+  const [result] = useAllUsersPaginatedQuery({
+    variables: {
+      where: searchStateToFilterInput(searchState?.term, searchState?.col),
+      page: currentPage,
+      first: pageSize,
+      orderBy: sortingRuleToOrderByClause(sortingRule),
+    },
+  });
+
+  const { data, fetching, error } = result;
+
+  const filteredData: Array<Data> = useMemo(() => {
+    const users = data?.usersPaginated?.data ?? [];
+    return users.filter(notEmpty);
+  }, [data?.usersPaginated?.data]);
+
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
+      rowSelectionColumn(
+        intl,
+        selectedRows,
+        filteredData.length,
+        (user: Data) => `${user.firstName} ${user.lastName}`,
+        (event) =>
+          handleRowSelectedChange(
+            filteredData,
+            selectedRows,
+            setSelectedRows,
+            event,
+          ),
+      ),
       {
-        Header: intl.formatMessage({
+        label: intl.formatMessage({
           defaultMessage: "Candidate Name",
           description:
             "Title displayed on the User table Candidate Name column.",
         }),
         accessor: (user) => fullName(user),
+        id: "candidateName",
+        sortColumnName: "first_name",
       },
       {
-        Header: intl.formatMessage({
+        label: intl.formatMessage({
           defaultMessage: "Email",
           description: "Title displayed for the User table Email column.",
         }),
@@ -73,89 +149,149 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
             user.email ?? "email",
             intl,
           ),
+        id: "email",
+        sortColumnName: "email",
       },
       {
-        Header: intl.formatMessage({
+        label: intl.formatMessage({
           defaultMessage: "Telephone",
           description: "Title displayed for the User table Telephone column.",
         }),
-        accessor: "telephone",
+        accessor: (user) => user.telephone,
+        id: "telephone",
+        sortColumnName: "telephone",
       },
       {
-        Header: intl.formatMessage({
+        label: intl.formatMessage({
           defaultMessage: "Preferred Language",
           description:
             "Title displayed for the User table Preferred Language column.",
         }),
         accessor: (user) => languageAccessor(user.preferredLang, intl),
+        id: "preferredLanguage",
+        sortColumnName: "preferred_lang",
       },
       {
-        Header: intl.formatMessage({
+        label: intl.formatMessage({
           defaultMessage: "Edit",
           description: "Title displayed for the User table Edit column.",
         }),
-        accessor: (d) =>
-          tableEditButtonAccessor(d.id, editUrlRoot, fullName(d)), // callback extracted to separate function to stabilize memoized component
+        accessor: (d) => tableEditButtonAccessor(d.id, pathname, fullName(d)), // callback extracted to separate function to stabilize memoized component
+        id: "edit",
       },
     ],
-    [editUrlRoot, intl, paths],
+    [intl, selectedRows, setSelectedRows, filteredData, paths, pathname],
   );
 
-  const data = useMemo(() => users.filter(notEmpty), [users]);
+  const allColumnIds = columns.map((c) => c.id);
+
+  const selectedApplicantIds = selectedRows.map((user) => user.id);
+  const [
+    {
+      data: selectedUsersData,
+      fetching: selectedUsersFetching,
+      error: selectedUsersError,
+    },
+  ] = useSelectedUsersQuery({
+    variables: {
+      ids: selectedApplicantIds,
+    },
+  });
+
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    pageStyle: printStyles,
+    documentTitle: "Candidate Profiles",
+  });
 
   return (
-    <Table
-      data={data}
-      columns={columns}
-      title={intl.formatMessage({
-        defaultMessage: "All users",
-        description: "Title for the admin users table",
-      })}
-      searchBy={[
-        {
-          value: "name",
+    <div data-h2-margin="b(top-bottom, m)">
+      <h2 id="user-table-heading" data-h2-visibility="b(invisible)">
+        {intl.formatMessage({
+          defaultMessage: "All Users",
+          description: "Title for the admin users table",
+        })}
+      </h2>
+      <TableHeader
+        onSearchChange={(term: string | undefined, col: string | undefined) => {
+          setCurrentPage(1);
+          setSearchState({
+            term,
+            col,
+          });
+        }}
+        columns={columns}
+        addBtn={{
           label: intl.formatMessage({
-            defaultMessage: "Name",
+            defaultMessage: "New user",
             description:
-              "Text displayed in user table search form dropdown for name column",
+              "Text label for link to create new user on admin table",
           }),
-        },
-        {
-          value: "email",
-          label: intl.formatMessage({
-            defaultMessage: "Email",
-            description:
-              "Text displayed in user table search form dropdown for email column",
-          }),
-        },
-        {
-          value: "phone",
-          label: intl.formatMessage({
-            defaultMessage: "Phone number",
-            description:
-              "Text displayed in user table search form dropdown for phone number column",
-          }),
-        },
-      ]}
-      addBtn={{
-        label: intl.formatMessage({
-          defaultMessage: "New user",
-          description: "Text label for link to create new user on admin table",
-        }),
-        path: paths.userCreate(),
-      }}
-    />
+          path: paths.userCreate(),
+        }}
+        searchBy={[
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Name",
+              description: "Label for user table search dropdown (name).",
+            }),
+            value: "name",
+          },
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Email",
+              description: "Label for user table search dropdown (email).",
+            }),
+            value: "email",
+          },
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Phone",
+              description: "Label for user table search dropdown (phone).",
+            }),
+            value: "phone",
+          },
+        ]}
+        onColumnHiddenChange={(event) =>
+          handleColumnHiddenChange(
+            allColumnIds,
+            hiddenColumnIds,
+            setHiddenColumnIds,
+            event,
+          )
+        }
+        hiddenColumnIds={hiddenColumnIds}
+      />
+      <Pending fetching={fetching} error={error} inline>
+        <BasicTable
+          labelledBy="user-table-heading"
+          data={filteredData}
+          columns={columns}
+          onSortingRuleChange={setSortingRule}
+          sortingRule={sortingRule}
+          hiddenColumnIds={hiddenColumnIds}
+        />
+      </Pending>
+      <TableFooter
+        paginatorInfo={data?.usersPaginated?.paginatorInfo}
+        onCurrentPageChange={setCurrentPage}
+        onPageSizeChange={setPageSize}
+        onPrint={handlePrint}
+        fetchingSelected={selectedUsersFetching}
+        selectionError={selectedUsersError}
+        disableActions={
+          selectedUsersFetching ||
+          !!selectedUsersError ||
+          !selectedUsersData?.applicants.length
+        }
+      />
+      <UserProfileDocument
+        applicants={selectedUsersData?.applicants.filter(notEmpty) ?? []}
+        ref={componentRef}
+      />
+    </div>
   );
 };
 
-export const UserTableApi: React.FunctionComponent = () => {
-  const [result] = useAllUsersQuery();
-  const { data, fetching, error } = result;
-  const { pathname } = useLocation();
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      <UserTable users={data?.users ?? []} editUrlRoot={pathname} />
-    </Pending>
-  );
-};
+export default UserTable;

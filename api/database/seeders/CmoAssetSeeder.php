@@ -26,21 +26,21 @@ class CmoAssetSeeder extends Seeder
                 'key' => 'app_testing',
                 'name' => [
                     'en' => 'Application Testing / Quality Assurance',
-                    'fr' => 'Test d\'application / Assurance qualité'
+                    'fr' => 'Mise à l\'essai des applications / Assurance de la qualité'
                 ],
             ],
             [
                 'key' => 'cybersecurity',
                 'name' => [
                     'en' => 'Cybersecurity / Information Security / IT Security',
-                    'fr' => 'Cybersécurité / Sécurité de l\'information / Sécurité informatique'
+                    'fr' => 'Cybersécurité / Sécurité de l\'information / Sécurité de la TI'
                 ],
             ],
             [
                 'key' => 'data_science',
                 'name' => [
                     'en' => 'Data Science / Analysis',
-                    'fr' => 'Science des données / Analyse'
+                    'fr' => 'Science / analyse des données'
                 ],
             ],
             [
@@ -54,28 +54,28 @@ class CmoAssetSeeder extends Seeder
                 'key' => 'enterprise_architecture',
                 'name' => [
                     'en' => 'Enterprise Architecture (EA)',
-                    'fr' => 'Architecture d\'entreprise (EA)'
+                    'fr' => 'Architecture d\'entreprise (AE)'
                 ],
             ],
             [
                 'key' => 'information_management',
                 'name' => [
                     'en' => 'Information Management (IM)',
-                    'fr' => 'Gestion de l\'information (IM)'
+                    'fr' => 'Gestion de l\'information (GI)'
                 ],
             ],
             [
                 'key' => 'infrastructure_ops',
                 'name' => [
-                    'en' => 'Infrastructure/Operations',
-                    'fr' => 'Infrastructure/Opérations'
+                    'en' => 'Infrastructure / Operations',
+                    'fr' => 'Infrastructure / Opérations'
                 ],
             ],
             [
                 'key' => 'project_management',
                 'name' => [
                     'en' => 'IT Business Analyst / IT Project Management',
-                    'fr' => 'Analyste d\'affaires TI / Gestion de projets TI'
+                    'fr' => 'Analyste des activités de la TI / Gestion de projets de la TI'
                 ],
             ],
             [

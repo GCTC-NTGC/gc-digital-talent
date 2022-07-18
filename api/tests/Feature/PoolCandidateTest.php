@@ -6,17 +6,16 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
-
-// for setting expiry dates so tests don't fail due to expired candidates when they are not supposed to
-const FAR_FUTURE_DATE = '2050-01-01';
+use Database\Helpers\UuidHelpers;
 
 class PoolCandidateTest extends TestCase
 {
-  use \Illuminate\Foundation\Testing\RefreshDatabase;
+  use RefreshDatabase;
   use MakesGraphQLRequests;
   use ClearsSchemaCache;
 
@@ -33,7 +32,7 @@ class PoolCandidateTest extends TestCase
     Classification::factory()->count(3)->create();
     PoolCandidate::factory()->count(5)->create([
       'expected_salary' => [], // remove salaries to avoid accidental classification-to-salary matching
-      'expiry_date' => FAR_FUTURE_DATE, // ensure no candidates are expired for this test
+      'expiry_date' => config('constants.far_future_date'), // ensure no candidates are expired for this test
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE, // ensure availability doesn't effect test
     ]);
 
@@ -43,7 +42,7 @@ class PoolCandidateTest extends TestCase
       'level' => 1,
     ]);
     PoolCandidate::factory()->count(2)->create([
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
       ])->each(function($candidate) use ($classification) {
       $candidate->expectedClassifications()->save($classification);
@@ -98,13 +97,13 @@ class PoolCandidateTest extends TestCase
 
     // Create initial data.
     CmoAsset::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create(['expiry_date' => FAR_FUTURE_DATE, 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,]);
+    PoolCandidate::factory()->count(5)->create(['expiry_date' => config('constants.far_future_date'), 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,]);
 
     // Create new cmoAsset and attach to two new pool candidates.
     $cmoAsset = CmoAsset::factory()->create([
       'key' => 'new_cmo_asset'
     ]);
-    PoolCandidate::factory()->count(2)->create(['expiry_date' => FAR_FUTURE_DATE, 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,])->each(function($candidate) use ($cmoAsset) {
+    PoolCandidate::factory()->count(2)->create(['expiry_date' => config('constants.far_future_date'), 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,])->each(function($candidate) use ($cmoAsset) {
 
       $candidate->cmoAssets()->save($cmoAsset);
     });
@@ -158,7 +157,7 @@ class PoolCandidateTest extends TestCase
     // Create initial data.
     PoolCandidate::factory()->count(5)->create([
       'accepted_operational_requirements' => null,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE, // ensure no candidates are expired for this test
     ]);
     $operationalRequirement1 = 'OVERTIME_SCHEDULED';
@@ -168,14 +167,14 @@ class PoolCandidateTest extends TestCase
     // Create a few with a op_req 1
     PoolCandidate::factory()->count(2)->create([
       'accepted_operational_requirements' => [$operationalRequirement1],
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
 
     // Create a few with op_req 1 and 2
     PoolCandidate::factory()->count(2)->create([
       'accepted_operational_requirements' => [$operationalRequirement1, $operationalRequirement2],
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
 
@@ -259,11 +258,11 @@ class PoolCandidateTest extends TestCase
 
     // Create initial data.
     Pool::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create(['expiry_date' => FAR_FUTURE_DATE, 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,]);
+    PoolCandidate::factory()->count(5)->create(['expiry_date' => config('constants.far_future_date'), 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,]);
 
     // Create new pool and attach to two new pool candidates.
     $pool = Pool::factory()->create();
-    PoolCandidate::factory()->count(2)->create(['expiry_date' => FAR_FUTURE_DATE, 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,])->each(function($candidate) use ($pool) {
+    PoolCandidate::factory()->count(2)->create(['expiry_date' => config('constants.far_future_date'), 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,])->each(function($candidate) use ($pool) {
       $candidate->pool()->associate($pool);
       $candidate->save();
     });
@@ -317,7 +316,7 @@ class PoolCandidateTest extends TestCase
 
     // Create initial set of 5 candidates with no diploma.
     PoolCandidate::factory()->count(5)->create([
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'has_diploma' => false,
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
@@ -325,7 +324,7 @@ class PoolCandidateTest extends TestCase
     // Create two new pool candidates with a diploma.
     PoolCandidate::factory()->count(2)->create([
       'has_diploma' => true,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
 
@@ -382,7 +381,7 @@ class PoolCandidateTest extends TestCase
       'is_indigenous' => false,
       'is_visible_minority' => false,
       'is_woman' => false,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
 
@@ -392,7 +391,7 @@ class PoolCandidateTest extends TestCase
       'is_indigenous' => false,
       'is_visible_minority' => false,
       'is_woman' => false,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
@@ -400,7 +399,7 @@ class PoolCandidateTest extends TestCase
       'is_indigenous' => true,
       'is_visible_minority' => false,
       'is_woman' => false,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
@@ -408,7 +407,7 @@ class PoolCandidateTest extends TestCase
       'is_indigenous' => false,
       'is_visible_minority' => true,
       'is_woman' => false,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
@@ -416,7 +415,7 @@ class PoolCandidateTest extends TestCase
       'is_indigenous' => false,
       'is_visible_minority' => false,
       'is_woman' => true,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
 
@@ -647,24 +646,24 @@ class PoolCandidateTest extends TestCase
     // Create initial data.
     PoolCandidate::factory()->count(5)->create([
       'language_ability' => 'TEST',
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
 
     // Create new LanguageAbility and attach to 3 new pool candidates.
     PoolCandidate::factory()->create([
       'language_ability' => 'FRENCH',
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
       'language_ability' => 'ENGLISH',
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
       'language_ability' => 'BILINGUAL',
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
 
@@ -744,14 +743,14 @@ class PoolCandidateTest extends TestCase
     // Create 5 new pool candidates with a ONTARIO location preference.
     PoolCandidate::factory()->count(5)->create([
       'location_preferences' => ["ONTARIO"],
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
 
     // Create 2 new pool candidates with a TELEWORK location preference.
     PoolCandidate::factory()->count(2)->create([
       'location_preferences' => ["TELEWORK"],
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
 
@@ -805,13 +804,13 @@ class PoolCandidateTest extends TestCase
     // Create 3 pool candidates available status
     PoolCandidate::factory()->count(3)->create([
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
     ]);
 
     // Create 6 pool candidates with non-available statuses
     PoolCandidate::factory()->count(6)->create([
       'pool_candidate_status' => $nonAvailableStatuses[array_rand($nonAvailableStatuses)],
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
     ]);
 
     // Assert query will return appropriate candidate count, only AVAILABLE due to scoped filter
@@ -836,7 +835,7 @@ class PoolCandidateTest extends TestCase
     Classification::factory()->count(3)->create();
     PoolCandidate::factory()->count(5)->create([
       'expected_salary' => [],
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
 
@@ -851,7 +850,7 @@ class PoolCandidateTest extends TestCase
     // Attach new candidates that are in the expected salary range.
     $poolCandidate1 = PoolCandidate::factory()->create([
       'expected_salary' => ['_50_59K', '_70_79K'],
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $poolCandidate1->expectedClassifications()->delete();
@@ -860,7 +859,7 @@ class PoolCandidateTest extends TestCase
     // Attach new candidates that overlap the expected salary range.
     $poolCandidate2 = PoolCandidate::factory()->create([
       'expected_salary' => ['_60_69K', '_80_89K'],
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $poolCandidate2->expectedClassifications()->delete();
@@ -868,7 +867,7 @@ class PoolCandidateTest extends TestCase
     // Attach new candidates that are over the expected salary range.
     $poolCandidate3 = PoolCandidate::factory()->create([
       'expected_salary' => ['_90_99K', '_100K_PLUS'],
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $poolCandidate3->expectedClassifications()->delete();
@@ -938,7 +937,7 @@ class PoolCandidateTest extends TestCase
     $poolCandidate1 = PoolCandidate::factory()->create([
       'expected_salary' => [],
       'pool_id' => $myPool->id,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $poolCandidate1->expectedClassifications()->delete();
@@ -948,7 +947,7 @@ class PoolCandidateTest extends TestCase
     $poolCandidate2 = PoolCandidate::factory()->create([
       'expected_salary' => ['_60_69K'],
       'pool_id' => $myPool->id,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $poolCandidate2->expectedClassifications()->delete();
@@ -957,7 +956,7 @@ class PoolCandidateTest extends TestCase
     $poolCandidate3 = PoolCandidate::factory()->create([
       'expected_salary' => ['_90_99K', '_100K_PLUS'],
       'pool_id' => $myPool->id,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $poolCandidate3->expectedClassifications()->delete();
@@ -968,7 +967,7 @@ class PoolCandidateTest extends TestCase
     $poolCandidate1WrongPool = PoolCandidate::factory()->create([
       'expected_salary' => [],
       'pool_id' => $otherPool->id,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $poolCandidate1WrongPool->expectedClassifications()->delete();
@@ -978,7 +977,7 @@ class PoolCandidateTest extends TestCase
     $poolCandidate2WrongPool = PoolCandidate::factory()->create([
       'expected_salary' => ['_60_69K'],
       'pool_id' => $otherPool->id,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $poolCandidate2WrongPool->expectedClassifications()->delete();
@@ -987,7 +986,7 @@ class PoolCandidateTest extends TestCase
     $poolCandidate3WrongPool = PoolCandidate::factory()->create([
       'expected_salary' => ['_90_99K', '_100K_PLUS'],
       'pool_id' => $otherPool->id,
-      'expiry_date' => FAR_FUTURE_DATE,
+      'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $poolCandidate3WrongPool->expectedClassifications()->delete();
@@ -1050,22 +1049,41 @@ class PoolCandidateTest extends TestCase
     $newUser->save();
 
     // Create some expired users
-    $expiredCandidates = PoolCandidate::factory()->count(2)->create([
+    $expiredCandidates = PoolCandidate::factory()->count(2)
+    ->state(new Sequence(
+      ['id' => UuidHelpers::integerToUuid(1)],
+      ['id' => UuidHelpers::integerToUuid(2)],
+    ))
+    ->create([
       'expiry_date' => '2000-05-13',
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
 
     // Create some valid users
-    $futureCandidates = PoolCandidate::factory()->count(4)->create([
+    $futureCandidates = PoolCandidate::factory()->count(4)
+    ->state(new Sequence(
+      ['id' => UuidHelpers::integerToUuid(3)],
+      ['id' => UuidHelpers::integerToUuid(4)],
+      ['id' => UuidHelpers::integerToUuid(5)],
+      ['id' => UuidHelpers::integerToUuid(6)],
+    ))
+    ->create([
       'expiry_date' => '3000-05-13',
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $todayCandidate = PoolCandidate::factory()->create([
+      'id' => UuidHelpers::integerToUuid(7),
       'expiry_date' => date("Y-m-d"),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $futureCandidates->concat($todayCandidate);
-    $nullCandidates = PoolCandidate::factory()->count(3)->create([
+    $nullCandidates = PoolCandidate::factory()->count(3)
+    ->state(new Sequence(
+      ['id' => UuidHelpers::integerToUuid(8)],
+      ['id' => UuidHelpers::integerToUuid(9)],
+      ['id' => UuidHelpers::integerToUuid(10)],
+    ))
+    ->create([
       'expiry_date' => null,
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
@@ -1087,58 +1105,87 @@ class PoolCandidateTest extends TestCase
 
     // Assert searchPoolCandidates query with no parameters returns correct candidates
     $this->graphQL(/** @lang Graphql */ '
-      query searchPoolCandidates {
-        searchPoolCandidates {
+      query searchPoolCandidates($orderBy: [OrderByClause!]) {
+        searchPoolCandidates(orderBy: $orderBy) {
           id
         }
       }
-    ')->assertJson([
+    ', [
+      'orderBy' => [
+          [
+          'column' => 'id',
+          'order' => 'ASC'
+          ]
+      ]
+    ])->assertJson([
       'data' => [
         'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
       ]
     ]);
 
     // Assert searchPoolCandidates query with expiryStatus ACTIVE returns correct candidates
-    $activeStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
-    $this->graphQL(/** @lang Graphql */ "
-      query searchPoolCandidates {
-        searchPoolCandidates(expiryStatus: {$activeStatus}) {
+    $this->graphQL(/** @lang Graphql */ '
+      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CandidateExpiryFilter) {
+        searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
           id
         }
       }
-    ")->assertJson([
+    ', [
+      'orderBy' => [
+          [
+            'column' => 'id',
+            'order' => 'ASC'
+          ]
+      ],
+      'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE
+    ])->assertJson([
       'data' => [
         'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
       ]
     ]);
 
     // Assert searchPoolCandidates query with expiryStatus EXPIRED returns correct candidates
-    $expiredStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED;
-    $this->graphQL(/** @lang Graphql */ "
-      query searchPoolCandidates {
-        searchPoolCandidates(expiryStatus: {$expiredStatus}) {
+    $this->graphQL(/** @lang Graphql */ '
+      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CandidateExpiryFilter) {
+        searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
           id
         }
       }
-    ")->assertJson([
+    ', [
+      'orderBy' => [
+          [
+          'column' => 'id',
+          'order' => 'ASC'
+          ]
+      ],
+      'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED
+    ])->assertJson([
       'data' => [
         'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
       ]
     ]);
 
     // Assert searchPoolCandidates query with expiryStatus ALL returns correct candidates
-    $allStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL;
-    $this->graphQL(/** @lang Graphql */ "
-      query searchPoolCandidates {
-        searchPoolCandidates(expiryStatus: {$allStatus}) {
+    $this->graphQL(/** @lang Graphql */ '
+      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CandidateExpiryFilter) {
+        searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
           id
         }
       }
-    ")->assertJson([
+    ', [
+      'orderBy' => [
+          [
+          'column' => 'id',
+          'order' => 'ASC'
+          ]
+      ],
+      'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL
+    ])->assertJson([
       'data' => [
         'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
       ]
     ]);
   }
+
 }
 
