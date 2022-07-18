@@ -709,15 +709,25 @@ export const OperationalRequirementShort = defineMessages({
     description:
       "The operational requirement described as driver's license. (short-form for limited space)",
   },
-  [OperationalRequirement.OvertimeScheduled]: {
+  [OperationalRequirement.OvertimeRegular]: {
     defaultMessage: "Overtime (regular)",
     description:
       "The operational requirement described as regular overtime. (short-form for limited space)",
   },
-  [OperationalRequirement.OvertimeShortNotice]: {
+  [OperationalRequirement.OvertimeOccasional]: {
     defaultMessage: "Overtime (occasional)",
     description:
       "The operational requirement described as occasional overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage: "Overtime (scheduled)",
+    description:
+      "The operational requirement described as scheduled overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage: "Overtime (short notice)",
+    description:
+      "The operational requirement described as short notice overtime. (short-form for limited space)",
   },
   [OperationalRequirement.WorkWeekends]: {
     defaultMessage: "Weekends",
