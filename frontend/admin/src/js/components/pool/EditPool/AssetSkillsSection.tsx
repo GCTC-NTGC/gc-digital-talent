@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
 import TableOfContents from "@common/components/TableOfContents";
-import { PoolAdvertisement, Skill } from "@common/api/generated";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
+import { PoolAdvertisement, Skill } from "../../../api/generated";
 
 import { SectionMetadata } from "./EditPool";
 import AddSkillsToPool from "./AddSkillsToPool";

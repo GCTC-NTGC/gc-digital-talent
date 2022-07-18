@@ -1,9 +1,9 @@
 import * as React from "react";
 import TableOfContents from "@common/components/TableOfContents";
-import { PoolAdvertisement } from "@common/api/generated";
 import { useIntl } from "react-intl";
 import { Input, Submit } from "@common/components/form";
 import { FormProvider, useForm } from "react-hook-form";
+import { PoolAdvertisement } from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
 
 type FormValues = {

@@ -1,12 +1,12 @@
 import * as React from "react";
 import TableOfContents from "@common/components/TableOfContents";
-import { LocalizedString, PoolAdvertisement } from "@common/api/generated";
 import { useIntl } from "react-intl";
 import { Submit, TextArea } from "@common/components/form";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import WordCounter from "@common/components/WordCounter/WordCounter";
 import { countNumberOfWords } from "@common/helpers/formUtils";
 import { errorMessages } from "@common/messages";
+import { LocalizedString, PoolAdvertisement } from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
 
 type FormValues = {

@@ -1,17 +1,18 @@
 import * as React from "react";
 import TableOfContents from "@common/components/TableOfContents";
+import { useIntl } from "react-intl";
+import { notEmpty } from "@common/helpers/util";
+import { getLocalizedName } from "@common/helpers/localize";
+import { Input, Select, Submit } from "@common/components/form";
+import { Option } from "@common/components/form/Select";
+import { FormProvider, useForm } from "react-hook-form";
 import {
   Classification,
   LocalizedString,
   Maybe,
   PoolAdvertisement,
   Scalars,
-} from "@common/api/generated";
-import { useIntl } from "react-intl";
-import { notEmpty } from "@common/helpers/util";
-import { getLocalizedName } from "@common/helpers/localize";
-import { Input, Option, Select, Submit } from "@common/components/form";
-import { FormProvider, useForm } from "react-hook-form";
+} from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
 
 type FormValues = {

@@ -35,7 +35,7 @@ export interface EditPoolFormProps {
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: () => void;
+  onExtend: (submitData: unknown) => void;
   onArchive: () => void;
 }
 
@@ -290,7 +290,9 @@ export const EditPool = ({ poolId }: EditPoolProps) => {
             onPublish={() => console.warn("onPublish not yet implemented")}
             onDelete={() => console.warn("onDelete not yet implemented")}
             onClose={() => console.warn("onClose not yet implemented")}
-            onExtend={() => console.warn("onExtend not yet implemented")}
+            onExtend={(submitData: unknown) =>
+              console.warn("onExtend not yet implemented", submitData)
+            }
             onArchive={() => console.warn("onArchive not yet implemented")}
           />
         ) : (

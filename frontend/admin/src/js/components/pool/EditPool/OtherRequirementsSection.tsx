@@ -1,11 +1,5 @@
 import * as React from "react";
 import TableOfContents from "@common/components/TableOfContents";
-import {
-  LocalizedString,
-  PoolAdvertisement,
-  PoolAdvertisementLanguage,
-  SecurityStatus,
-} from "@common/api/generated";
 import { useIntl } from "react-intl";
 import { Input, RadioGroup, Select, Submit } from "@common/components/form";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
@@ -15,6 +9,12 @@ import {
   getLanguageRequirement,
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
+import {
+  LocalizedString,
+  PoolAdvertisement,
+  PoolAdvertisementLanguage,
+  SecurityStatus,
+} from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
 
 enum LocationOption {
