@@ -742,10 +742,6 @@
     "defaultMessage": "Modifier",
     "description": "Title displayed for the User table Edit column."
   },
-  "qodftq": {
-    "defaultMessage": "<span>{jobTitle}</span> à <span>{department}</span>",
-    "description": "Subtitle displayed above the single search request component."
-  },
   "r2gD/4": {
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the search request table requested date column."
@@ -1214,10 +1210,6 @@
     "defaultMessage": "Retirer du bassin",
     "description": "Confirmation button for removing candidate from pool dialog"
   },
-  "9KUJ50": {
-    "defaultMessage": "<purpleText>Inactif</purpleText> ‒ Ne souhaite pas être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please"
-  },
   "9NDM+k": {
     "defaultMessage": "Fixer une date d'expiration pour ce candidat dans ce bassin :",
     "description": "Third section of text on the add user to pool dialog"
@@ -1245,10 +1237,6 @@
   "BnSa6Y": {
     "defaultMessage": "Échec de la mise à jour du statut",
     "description": "Toast for failed status update on view-user page"
-  },
-  "BnjTOW": {
-    "defaultMessage": "<purpleText>Ouvert aux possibilités</purpleText> ‒ Ne cherche pas activement, mais souhaite toujours être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Open to opportunities' status, ignore things in <> tags please"
   },
   "Bvj3zI": {
     "defaultMessage": "Gérer les demandes",
@@ -1297,10 +1285,6 @@
   "EdUZaX": {
     "defaultMessage": "Candidats",
     "description": "Header for the View Candidates column of the Pools table"
-  },
-  "EiJAvo": {
-    "defaultMessage": "<purpleText>Actif</purpleText> ‒ Souhaite être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please"
   },
   "EnvwAC": {
     "defaultMessage": "Téléphone :",
@@ -1361,10 +1345,6 @@
   "K3LEpl": {
     "defaultMessage": "Choisir un bassin :",
     "description": "Second section of text on the add user to pool dialog"
-  },
-  "KU07aX": {
-    "defaultMessage": "Vous êtes sur le point de <boldText>retirer l'utilisateur suivant :</boldText>",
-    "description": "First section of text on the remove candidate from pool dialog, ignore things in <> tags please"
   },
   "KyMCYC": {
     "defaultMessage": "Retirer du bassin",
@@ -1684,5 +1664,25 @@
   "zDO6tt": {
     "defaultMessage": "Date d'expiration",
     "description": "title for change expiry date dialog on view-user page"
+  },
+  "0cEmmG": {
+    "defaultMessage": "Vous êtes sur le point de <strong>retirer l'utilisateur suivant :</strong>",
+    "description": "First section of text on the remove candidate from pool dialog, ignore things in <> tags please"
+  },
+  "ZLDt/c": {
+    "defaultMessage": "<strong>{jobTitle}</strong> à <strong>{department}</strong>",
+    "description": "Subtitle displayed above the single search request component."
+  },
+  "S0ghpc": {
+    "defaultMessage": "<heavyPrimary>Inactif</heavyPrimary> ‒ Ne souhaite pas être contacté pour des possibilités d'emploi",
+    "description": "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please"
+  },
+  "ye47Rz": {
+    "defaultMessage": "<heavyPrimary>Ouvert aux possibilités</heavyPrimary> ‒ Ne cherche pas activement, mais souhaite toujours être contacté pour des possibilités d'emploi",
+    "description": "Text in view user page saying they currently have the 'Open to opportunities' status, ignore things in <> tags please"
+  },
+  "SOZVtc": {
+    "defaultMessage": "<heavyPrimary>Actif</heavyPrimary> ‒ Souhaite être contacté pour des possibilités d'emploi",
+    "description": "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please"
   }
 }
