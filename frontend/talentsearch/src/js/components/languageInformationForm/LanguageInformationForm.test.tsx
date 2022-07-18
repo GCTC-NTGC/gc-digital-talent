@@ -4,6 +4,7 @@
 import "@testing-library/jest-dom";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import React from "react";
+import { axeTest, render } from "@common/helpers/testUtils";
 import {
   BilingualEvaluation,
   EvaluatedLanguageAbility,
@@ -11,7 +12,6 @@ import {
   UpdateUserAsUserInput,
 } from "../../api/generated";
 import { LanguageInformationForm } from "./LanguageInformationForm";
-import { render } from "../../tests/testUtils";
 
 const mockUser = { id: "testUserId" };
 
@@ -21,18 +21,24 @@ const renderLanguageInfoForm = ({
 }: {
   initialData: GetLanguageInformationQuery["me"];
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
-}) => (
-  <>
-    {render(
-      <LanguageInformationForm
-        initialData={initialData}
-        submitHandler={submitHandler}
-      />,
-    )}
-  </>
-);
+}) =>
+  render(
+    <LanguageInformationForm
+      initialData={initialData}
+      submitHandler={submitHandler}
+    />,
+  );
 
 describe("LanguageInformationForm tests", () => {
+  it("should have no accessibility errors", async () => {
+    const { container } = renderLanguageInfoForm({
+      initialData: mockUser,
+      submitHandler: jest.fn(),
+    });
+
+    await axeTest(container);
+  });
+
   test("Can't submit if no fields entered.", async () => {
     const mockSave = jest.fn();
     renderLanguageInfoForm({

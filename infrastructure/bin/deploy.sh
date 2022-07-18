@@ -16,9 +16,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 source ~/.bash_profile
-nvm install v14.18.1
+nvm install v16.16.0
 #nvm install-latest-npm
-npm install -g npm@8.7.0
+npm install -g npm@8.11.0
 
 ### API
 

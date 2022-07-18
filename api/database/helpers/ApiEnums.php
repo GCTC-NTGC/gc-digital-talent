@@ -20,10 +20,11 @@ class ApiEnums
             'DRIVERS_LICENSE',
             'WORK_WEEKENDS',
             'OVERTIME_SCHEDULED',
-            'OVERTIME_SHORT_NOTICE'
+            'OVERTIME_SHORT_NOTICE',
+            'OVERTIME_OCCASIONAL',
+            'OVERTIME_REGULAR',
         ];
     }
-
 
     const LANGUAGE_ABILITY_ENGLISH = 'ENGLISH';
     const LANGUAGE_ABILITY_FRENCH = 'FRENCH';

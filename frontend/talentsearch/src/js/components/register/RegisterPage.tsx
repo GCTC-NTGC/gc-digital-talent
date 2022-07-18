@@ -13,10 +13,6 @@ const keyRegistrationLink = (path: string, ...chunks: React.ReactNode[]) => (
   <a href={path}>{chunks}</a>
 );
 
-const boldText = (...chunks: React.ReactNode[]) => (
-  <span data-h2-font-weight="b(800)">{chunks}</span>
-);
-
 const RegisterPage: React.FC = () => {
   const intl = useIntl();
   const talentPaths = useTalentSearchRoutes();
@@ -67,13 +63,12 @@ const RegisterPage: React.FC = () => {
           {intl.formatMessage(
             {
               defaultMessage:
-                "<b>Don't have a GC Key account?</b> <a>Register for one.</a>",
+                "<strong>Don't have a GC Key account?</strong> <a>Register for one.</a>",
               description:
                 "Instruction on what to do if user does not have a GC Key.",
             },
             {
               a: (...chunks) => keyRegistrationLink(loginPath, chunks),
-              b: boldText,
             },
           )}
         </p>

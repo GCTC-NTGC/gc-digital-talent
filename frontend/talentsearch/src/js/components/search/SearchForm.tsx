@@ -12,7 +12,6 @@ import {
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { useLocation } from "@common/helpers/router";
-import { strong } from "@common/helpers/format";
 import {
   Classification,
   CmoAsset,
@@ -162,9 +161,9 @@ const SearchForm: React.FC<SearchFormProps> = ({
     [cmoAssets, locale, intl],
   );
 
-  const operationalRequirementsSubset = [
-    OperationalRequirement.OvertimeShortNotice,
-    OperationalRequirement.OvertimeScheduled,
+  const operationalRequirementsSubsetV2 = [
+    OperationalRequirement.OvertimeOccasional,
+    OperationalRequirement.OvertimeRegular,
     OperationalRequirement.ShiftWork,
     OperationalRequirement.OnCall,
     OperationalRequirement.Travel,
@@ -272,7 +271,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                 "Legend for the Conditions of Employment filter checklist",
             })}
             name="operationalRequirements"
-            items={operationalRequirementsSubset.map((value) => ({
+            items={operationalRequirementsSubsetV2.map((value) => ({
               value,
               label: intl.formatMessage(getOperationalRequirement(value)),
             }))}
@@ -416,17 +415,12 @@ const SearchForm: React.FC<SearchFormProps> = ({
               description: "Legend for the employment equity checklist",
             })}
             name="employmentEquity"
-            context={intl.formatMessage(
-              {
-                defaultMessage:
-                  "<bold>Note:</bold> If you select more than one employment equity group, ALL candidates who have self-declared as being members of ANY of the selected EE groups will be referred. If you have more detailed EE requirements, let us know in the comment section of the submission form.",
-                description:
-                  "Context for employment equity filter in search form.",
-              },
-              {
-                bold: strong,
-              },
-            )}
+            context={intl.formatMessage({
+              defaultMessage:
+                "<strong>Note:</strong> If you select more than one employment equity group, ALL candidates who have self-declared as being members of ANY of the selected EE groups will be referred. If you have more detailed EE requirements, let us know in the comment section of the submission form.",
+              description:
+                "Context for employment equity filter in search form.",
+            })}
             items={[
               {
                 value: "isIndigenous",

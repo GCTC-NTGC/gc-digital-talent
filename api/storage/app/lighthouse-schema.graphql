@@ -2,6 +2,7 @@ enum AdvertisementStatus {
   DRAFT
   PUBLISHED
   EXPIRED
+  ARCHIVED
 }
 
 type Applicant {
@@ -599,6 +600,8 @@ enum OperationalRequirement {
   WORK_WEEKENDS
   OVERTIME_SCHEDULED
   OVERTIME_SHORT_NOTICE
+  OVERTIME_OCCASIONAL
+  OVERTIME_REGULAR
 }
 
 """Allows ordering a list of records."""
@@ -742,15 +745,11 @@ type PoolAdvertisement {
   name: LocalizedString
   description: LocalizedString
   classifications: [Classification]
-  assetCriteria: [CmoAsset]
-  essentialCriteria: [CmoAsset]
-  operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
   advertisementLocation: LocalizedString
   securityClearance: SecurityStatus
   advertisementLanguage: PoolAdvertisementLanguage
-  status: PoolStatus
   advertisementStatus: AdvertisementStatus
   essentialSkills: [Skill!]
   nonessentialSkills: [Skill!]
@@ -879,7 +878,7 @@ type Query {
   user(id: ID!): User
   users: [User]!
   applicant(id: ID!): Applicant
-  applicants: [Applicant]!
+  applicants(includeIds: [ID]!): [Applicant]!
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: ID!): Pool
   poolAdvertisement(id: ID!): PoolAdvertisement

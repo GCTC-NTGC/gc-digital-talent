@@ -1,5 +1,11 @@
 import { flatMap, uniqBy } from "lodash";
-import { Experience, Skill, SkillFamily } from "../api/generated";
+import {
+  Experience,
+  Maybe,
+  Skill,
+  SkillCategory,
+  SkillFamily,
+} from "../api/generated";
 import { notEmpty } from "./util";
 
 /**
@@ -70,6 +76,29 @@ export function invertSkillExperienceTree(experiences: Experience[]): Skill[] {
     };
   });
   return skillsWithExperiences;
+}
+
+export function filterSkillsBy(
+  skills: Maybe<Array<Skill>>,
+  category: SkillCategory,
+) {
+  return skills
+    ?.filter((skill) => {
+      return skill.families?.some((family) => family.category === category);
+    })
+    .filter(notEmpty);
+}
+
+export function categorizeSkill(
+  skills: Maybe<Array<Skill>>,
+): Record<SkillCategory, Maybe<Array<Skill>>> {
+  return {
+    [SkillCategory.Technical]: filterSkillsBy(skills, SkillCategory.Technical),
+    [SkillCategory.Behavioural]: filterSkillsBy(
+      skills,
+      SkillCategory.Behavioural,
+    ),
+  };
 }
 
 export default { invertSkillSkillFamilyTree, invertSkillExperienceTree };

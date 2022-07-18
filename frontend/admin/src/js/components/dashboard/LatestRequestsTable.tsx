@@ -27,10 +27,6 @@ type Data = NonNullable<
   FromArray<LatestRequestsQuery["latestPoolCandidateSearchRequests"]>
 >;
 
-const hiddenText = (...chunks: string[]) => (
-  <span data-h2-visibility="b(invisible)">{chunks}</span>
-);
-
 const requestActionAccessor = (
   id: string,
   path: string,
@@ -46,7 +42,6 @@ const requestActionAccessor = (
       },
       {
         name: fullName,
-        hidden: hiddenText,
       },
     )}
   </a>

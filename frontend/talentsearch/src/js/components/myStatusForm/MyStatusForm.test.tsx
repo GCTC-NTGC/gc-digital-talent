@@ -3,8 +3,14 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  axeTest,
+} from "@common/helpers/testUtils";
 import { GetMyStatusQuery } from "../../api/generated";
-import { render, screen, fireEvent, waitFor } from "../../tests/testUtils";
 import { MyStatusForm, MyStatusFormProps } from "./MyStatusForm";
 import { MyStatusFormActive, MyStatusFormNull } from "./MyStatusForm.stories";
 
@@ -31,6 +37,15 @@ const mockEmptyData: GetMyStatusQuery | undefined = {
 };
 
 describe("MyStatusForm tests", () => {
+  it("should have no accessibility errors", async () => {
+    const { container } = renderMyStatusForm({
+      initialData: mockDataForCompleteForm,
+      handleMyStatus: jest.fn(),
+    });
+
+    await axeTest(container);
+  });
+
   test("Should render fields", () => {
     const onClick = jest.fn();
     renderMyStatusForm({

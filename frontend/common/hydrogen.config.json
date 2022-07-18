@@ -12,7 +12,8 @@
       "color": "#FFFFFF",
       "opacities": [
         "0",
-        ".1"
+        ".1",
+        ".25"
       ]
     },
     {
@@ -86,7 +87,9 @@
       "key": "lightpurple",
       "color": "#674C90",
       "opacities": [
-        ".1"
+        "0",
+        ".1",
+        ".25"
       ]
     },
     {

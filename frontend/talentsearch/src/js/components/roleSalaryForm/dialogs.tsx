@@ -24,10 +24,6 @@ export const CloseDialogButton: React.FC<CloseDialogButtonProps> = ({
   );
 };
 
-function bold(msg: string) {
-  return <span data-h2-font-weight="b(700)">{msg}</span>;
-}
-
 export const DialogLevelOne: React.FC<DialogLevelsProps> = ({
   isOpen,
   onDismiss,
@@ -163,15 +159,12 @@ export const DialogLevelThreeLead: React.FC<DialogLevelsProps> = ({
         })}
       </p>
       <p>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "<bold>Management Path</bold>: IT Team Leads (IT-03) are responsible for supervising work and project teams for IT services and operations in their field of expertise to support service delivery to clients and stakeholders. IT Team Leads are found in all work streams.",
-            description:
-              "IT-03 team lead path description, ignore things in <> tags please",
-          },
-          { bold },
-        )}
+        {intl.formatMessage({
+          defaultMessage:
+            "<strong>Management Path</strong>: IT Team Leads (IT-03) are responsible for supervising work and project teams for IT services and operations in their field of expertise to support service delivery to clients and stakeholders. IT Team Leads are found in all work streams.",
+          description:
+            "IT-03 team lead path description, ignore things in <> tags please",
+        })}
       </p>
     </Dialog>
   );
@@ -211,15 +204,12 @@ export const DialogLevelThreeAdvisor: React.FC<DialogLevelsProps> = ({
         })}
       </p>
       <p>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "<bold>Individual Contributor</bold>: IT Technical Advisors (IT-03) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery to clients and stakeholders. IT Technical Advisors are found in all work streams.",
-            description:
-              "IT-03 advisor description, ignore things in <> tags please",
-          },
-          { bold },
-        )}
+        {intl.formatMessage({
+          defaultMessage:
+            "<strong>Individual Contributor</strong>: IT Technical Advisors (IT-03) provide specialized technical advice, recommendations and support on solutions and services in their field of expertise in support of service delivery to clients and stakeholders. IT Technical Advisors are found in all work streams.",
+          description:
+            "IT-03 advisor description, ignore things in <> tags please",
+        })}
       </p>
     </Dialog>
   );
@@ -259,15 +249,12 @@ export const DialogLevelFourLead: React.FC<DialogLevelsProps> = ({
         })}
       </p>
       <p>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "<bold>Management Path</bold>: IT Managers (IT-04) are responsible for managing the development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams, for service delivery to clients and stakeholders. IT Managers are found in all work streams.",
-            description:
-              "IT-04 manager path description, ignore things in <> tags please",
-          },
-          { bold },
-        )}
+        {intl.formatMessage({
+          defaultMessage:
+            "<strong>Management Path</strong>: IT Managers (IT-04) are responsible for managing the development and delivery of IT services and/or operations through subordinate team leaders, technical advisors, and project teams, for service delivery to clients and stakeholders. IT Managers are found in all work streams.",
+          description:
+            "IT-04 manager path description, ignore things in <> tags please",
+        })}
       </p>
     </Dialog>
   );
@@ -307,15 +294,12 @@ export const DialogLevelFourAdvisor: React.FC<DialogLevelsProps> = ({
         })}
       </p>
       <p>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "<bold>Individual Contributor</bold>: IT Senior Advisors (IT-04) provide expert technical advice and strategic direction in their field of expertise in the provision of solutions and services to internal or external clients, and stakeholders. IT Senior Advisors are primarily found in six work streams:",
-            description:
-              "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please",
-          },
-          { bold },
-        )}
+        {intl.formatMessage({
+          defaultMessage:
+            "<strong>Individual Contributor</strong>: IT Senior Advisors (IT-04) provide expert technical advice and strategic direction in their field of expertise in the provision of solutions and services to internal or external clients, and stakeholders. IT Senior Advisors are primarily found in six work streams:",
+          description:
+            "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please",
+        })}
       </p>
       <ul>
         <li>

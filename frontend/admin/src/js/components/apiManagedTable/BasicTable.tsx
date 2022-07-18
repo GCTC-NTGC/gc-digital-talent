@@ -2,11 +2,15 @@ import { Button } from "@common/components";
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 import SortIcon from "../Table/SortIcon";
-import { Column, ColumnsOf, IdType, SortingRule } from "./basicTableHelpers";
+import {
+  Column,
+  ColumnsOf,
+  IdType,
+  RecordWithId,
+  SortingRule,
+} from "./basicTableHelpers";
 
-export interface BasicTableProps<
-  T extends Record<string, unknown> = Record<string, unknown>,
-> {
+export interface BasicTableProps<T extends RecordWithId = RecordWithId> {
   columns: ColumnsOf<T>;
   data: Array<T>;
   labelledBy?: string;
@@ -15,7 +19,7 @@ export interface BasicTableProps<
   hiddenColumnIds: Array<IdType<T>>;
 }
 
-function BasicTable<T extends Record<string, unknown>>({
+function BasicTable<T extends RecordWithId>({
   columns,
   data,
   labelledBy,
@@ -24,6 +28,7 @@ function BasicTable<T extends Record<string, unknown>>({
   hiddenColumnIds,
 }: BasicTableProps<T>): ReactElement {
   const intl = useIntl();
+
   // calculate a new sortingRule and emit it to parent
   const handleColumnSelect = (column: Column<T>): void => {
     // some columns are not sortable
@@ -65,6 +70,7 @@ function BasicTable<T extends Record<string, unknown>>({
 
     return {};
   };
+
   return (
     <div
       data-h2-overflow="b(all, auto)"
@@ -76,34 +82,52 @@ function BasicTable<T extends Record<string, unknown>>({
           <tr>
             {columns
               .filter((column) => !hiddenColumnIds.includes(column.id))
-              .map((column) => (
-                <th
-                  key={column.id}
-                  data-h2-bg-color="b(lightnavy)"
-                  data-h2-padding="b(right-left, m) b(top-bottom, s)"
-                  role="columnheader"
-                  {...calculateTableHeaderProps(column)}
-                >
-                  <Button
-                    data-h2-display="b(flex)"
-                    data-h2-align-items="b(center)"
-                    type="button"
-                    mode="tableHeader"
-                    color="secondary"
-                    disabled={!column.sortColumnName}
-                    title={intl.formatMessage({
-                      defaultMessage: "Toggle SortBy",
-                      description: "Title to toggle sorting order of a table",
-                    })}
-                    onClick={() => handleColumnSelect(column)}
+              .map((column) => {
+                const label = column.header ? column.header : column.label;
+                return (
+                  <th
+                    key={column.id}
+                    data-h2-bg-color="b(lightnavy)"
+                    data-h2-padding="b(all, s)"
+                    role="columnheader"
+                    {...calculateTableHeaderProps(column)}
                   >
-                    {column.label}
-                    {sortingRule?.column.id === column.id && (
-                      <SortIcon isSortedDesc={sortingRule.desc} />
+                    {column.sortColumnName ? (
+                      <Button
+                        data-h2-display="b(flex)"
+                        data-h2-align-items="b(center)"
+                        type="button"
+                        mode="tableHeader"
+                        color="secondary"
+                        disabled={
+                          !column.sortColumnName && column.id !== "selection"
+                        }
+                        title={intl.formatMessage({
+                          defaultMessage: "Toggle SortBy",
+                          description:
+                            "Title to toggle sorting order of a table",
+                        })}
+                        onClick={() => handleColumnSelect(column)}
+                      >
+                        {label}
+                        {sortingRule?.column.id === column.id && (
+                          <SortIcon isSortedDesc={sortingRule.desc} />
+                        )}
+                      </Button>
+                    ) : (
+                      <span
+                        data-h2-display="b(block)"
+                        data-h2-font-color="b(white)"
+                        data-h2-font-weight="b(800)"
+                        data-h2-text-align="b(left)"
+                        data-h2-font-size="b(caption)"
+                      >
+                        {label}
+                      </span>
                     )}
-                  </Button>
-                </th>
-              ))}
+                  </th>
+                );
+              })}
           </tr>
         </thead>
         <tbody>
