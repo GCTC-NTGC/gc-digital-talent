@@ -33,6 +33,11 @@ jobs:
       # Use buildkit to speed up docker command
       DOCKER_BUILDKIT: 1
     steps:
+
+      # See: https://github.com/satackey/action-docker-layer-caching/issues/139#issuecomment-1007316528
+      - name: reclaim space on runner
+        run: rm -rf /usr/local/android /usr/share/dotnet /usr/local/share/boost /opt/ghc
+
       - name: Checkout
         uses: actions/checkout@v2.3.4
 
@@ -48,7 +53,6 @@ jobs:
           key: docker-{hash}
           restore-keys: |
             docker-
-          skip-save: 'true'
 
       - name: Serve app via docker-compose
         # Need to include --build as we're caching layers.
