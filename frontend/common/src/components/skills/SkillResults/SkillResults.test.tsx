@@ -4,9 +4,10 @@
 
 import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
-import { fakeSkills } from "@common/fakeData";
-import { axeTest, render } from "@common/helpers/testUtils";
+import { fakeSkills } from "../../../fakeData";
 import { Skill } from "../../../api/generated";
+import { axeTest, render } from "../../../helpers/testUtils";
+
 import SkillResults, { SkillBlock } from "./SkillResults";
 
 const skills = fakeSkills();
@@ -17,10 +18,10 @@ function renderSkillResults(title: string) {
       addedSkills={[skills[0], skills[1]]}
       skills={skills}
       title={title}
-      handleAddSkill={async () => {
+      onAddSkill={async () => {
         /* do nothing */
       }}
-      handleRemoveSkill={async () => {
+      onRemoveSkill={async () => {
         /* do nothing */
       }}
     />,
@@ -30,21 +31,21 @@ function renderSkillResults(title: string) {
 function renderSkillBlock(
   isAdded: boolean,
   skill: Skill,
-  handleAddSkill?: () => Promise<void>,
-  handleRemoveSkill?: () => Promise<void>,
+  onAddSkill?: () => Promise<void>,
+  onRemoveSkill?: () => Promise<void>,
 ) {
   return render(
     <SkillBlock
       isAdded={isAdded}
       skill={skill}
-      handleAddSkill={
-        handleAddSkill ||
+      onAddSkill={
+        onAddSkill ||
         (async () => {
           /* do nothing */
         })
       }
-      handleRemoveSkill={
-        handleRemoveSkill ||
+      onRemoveSkill={
+        onRemoveSkill ||
         (async () => {
           /* do nothing */
         })
@@ -86,29 +87,29 @@ describe("Skill Results Tests", () => {
   test("should handle adding skill correctly", async () => {
     const isAdded = false;
     const skill = skills[0];
-    const handleAddSkill = jest.fn();
-    renderSkillBlock(isAdded, skill, handleAddSkill);
+    const onAddSkill = jest.fn();
+    renderSkillBlock(isAdded, skill, onAddSkill);
 
     const button = screen.getByText("Add skill");
     fireEvent.click(button); // Click add skill button
-    expect(handleAddSkill).toHaveBeenCalledTimes(1);
+    expect(onAddSkill).toHaveBeenCalledTimes(1);
   });
 
   test("should handle removing skill correctly", async () => {
     const isAdded = true;
     const skill = skills[0];
-    const handleRemoveSkill = jest.fn();
+    const onRemoveSkill = jest.fn();
     renderSkillBlock(
       isAdded,
       skill,
       async () => {
         /* do nothing */
       },
-      handleRemoveSkill,
+      onRemoveSkill,
     );
 
     const button = screen.getByText("Remove skill");
     fireEvent.click(button); // Click remove skill button
-    expect(handleRemoveSkill).toHaveBeenCalledTimes(1);
+    expect(onRemoveSkill).toHaveBeenCalledTimes(1);
   });
 });

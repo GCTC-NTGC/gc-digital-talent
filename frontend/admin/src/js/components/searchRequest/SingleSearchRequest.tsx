@@ -218,21 +218,17 @@ export const SingleSearchRequest: React.FunctionComponent<
     workRegions: poolCandidateFilter.workRegions,
   };
 
-  function span(msg: string): JSX.Element {
-    return <span data-h2-font-weight="b(600)">{msg}</span>;
-  }
   return (
     <section>
       <p>
         {intl.formatMessage(
           {
             defaultMessage:
-              "<span>{jobTitle}</span> at <span>{department}</span>",
+              "<strong>{jobTitle}</strong> at <strong>{department}</strong>",
             description:
               "Subtitle displayed above the single search request component.",
           },
           {
-            span,
             jobTitle: searchRequest.jobTitle,
             department: searchRequest.department?.name[locale],
           },

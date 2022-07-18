@@ -4,6 +4,10 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { Pool, UserPublicProfile } from "../../api/generated";
 
+const testId = (text: React.ReactNode) => (
+  <span data-testid="candidateCount">{text}</span>
+);
+
 export interface SearchPoolsProps {
   candidateCount: number;
   pool?: Pick<Pool, "name" | "description">;
@@ -20,17 +24,6 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  function bold(msg: string) {
-    return (
-      <span
-        data-h2-font-weight="b(700)"
-        data-h2-font-color="b(lightpurple)"
-        data-testid="candidateCount"
-      >
-        {msg}
-      </span>
-    );
-  }
   return (
     <>
       <div
@@ -47,12 +40,12 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
           {intl.formatMessage(
             {
               defaultMessage:
-                "There are <bold>{candidateCount}</bold> matching candidates in this pool",
+                "There are <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> matching candidates in this pool",
               description:
                 "Message for total estimated candidates box next to search form.",
             },
             {
-              bold,
+              testId,
               candidateCount,
             },
           )}

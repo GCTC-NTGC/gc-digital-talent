@@ -250,15 +250,11 @@ type PoolAdvertisement {
     name: LocalizedString
     description: LocalizedString
     classifications: [Classification] @belongsToMany
-    assetCriteria: [CmoAsset] @belongsToMany
-    essentialCriteria: [CmoAsset] @belongsToMany
-    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     keyTasks: LocalizedString @rename(attribute: "key_tasks")
     yourImpact: LocalizedString @rename(attribute: "your_impact")
     advertisementLocation: LocalizedString @rename(attribute: "advertisement_location")
     securityClearance: SecurityStatus @rename(attribute: "security_clearance")
     advertisementLanguage: PoolAdvertisementLanguage @rename(attribute: "advertisement_language")
-    status: PoolStatus @rename(attribute: "pool_status")
     advertisementStatus: AdvertisementStatus @rename(attribute: "advertisement_status")
     essentialSkills: [Skill!] @belongsToMany
     nonessentialSkills: [Skill!] @belongsToMany
@@ -268,6 +264,7 @@ enum AdvertisementStatus {
     DRAFT
     PUBLISHED
     EXPIRED
+    ARCHIVED
 }
 
 enum PoolCandidateStatus {
@@ -675,7 +672,7 @@ type Query {
     users: [User]! @all @guard @can(ability: "viewAny")
     usersPaginated(where: UserFilterInput orderBy: [OrderByClause!] @orderBy): [User]! @orderBy(column: "created_at", direction: DESC) @paginate(defaultCount: 10, maxCount: 1000 ) @guard @can(ability: "viewAny")
     applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
-    applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
+    applicants(includeIds: [ID]! @in(key: "id")): [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
     # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
     countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
     pool(id: ID! @eq): Pool @find

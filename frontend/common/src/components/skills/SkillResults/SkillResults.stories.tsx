@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { fakeSkills } from "@common/fakeData";
+import { fakeSkills } from "../../../fakeData";
 import SkillResults, { SkillResultsProps } from "./SkillResults";
 
 const skills = fakeSkills();
