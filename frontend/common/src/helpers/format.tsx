@@ -1,7 +1,14 @@
 import React from "react";
 
 /**
- * Wraps text in strong tags.
+ * Wraps text in span to increase font-weight
+ *
+ * Note: This does not use `<strong>` tags since
+ * those change the context of the text and how
+ * assistive technology interprets it.
+ *
+ * REF: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong#usage_notes
+ *
  * @param text text to wrap.
  */
 export const strong = (text: React.ReactNode): React.ReactNode => (
