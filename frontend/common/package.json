@@ -99,7 +99,7 @@
     "@types/react-select": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.5",
-    "eslint": "^8.19.0",
+    "eslint": "^8.20.0",
     "eslint-config-airbnb": "^19.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-formatjs": "^4.0.1",
