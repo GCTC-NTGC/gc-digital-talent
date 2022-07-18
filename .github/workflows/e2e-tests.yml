@@ -36,6 +36,11 @@ jobs:
       DOCKER_BUILDKIT: 1
       NPM_VERSION: '8.3.0'
     steps:
+
+      # See: https://github.com/satackey/action-docker-layer-caching/issues/139#issuecomment-1007316528
+      - name: reclaim space on runner
+        run: rm -rf /usr/local/android /usr/share/dotnet /usr/local/share/boost /opt/ghc
+
       - name: Checkout
         uses: actions/checkout@v3.0.2
 
