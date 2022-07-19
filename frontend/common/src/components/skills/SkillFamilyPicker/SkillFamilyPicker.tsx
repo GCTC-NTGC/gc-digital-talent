@@ -14,6 +14,7 @@ export interface SkillFamilyPickerProps {
   title: string;
   nullSelectionLabel: string;
   onSelectSkillFamily: (id?: SkillFamily["id"]) => void;
+  idPrefix?: string;
 }
 
 const NULL_SELECTION = "NULL_SELECTION";
@@ -23,6 +24,7 @@ const SkillFamilyPicker: React.FunctionComponent<SkillFamilyPickerProps> = ({
   title,
   nullSelectionLabel,
   onSelectSkillFamily,
+  idPrefix,
 }) => {
   const intl = useIntl();
 
@@ -58,7 +60,7 @@ const SkillFamilyPicker: React.FunctionComponent<SkillFamilyPickerProps> = ({
       <FormProvider {...methods}>
         <form onSubmit={undefined}>
           <RadioGroup
-            idPrefix="skillFamily"
+            idPrefix={idPrefix ?? "skillFamily"}
             name="skillFamily"
             legend={intl.formatMessage({
               defaultMessage: "Skill Families",

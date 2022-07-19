@@ -50,6 +50,7 @@ export const AssetSkillsSection = ({
         selectedSkills={selectedSkills}
         skills={skills}
         onChangeSelectedSkills={handleChangeSelectedSkills}
+        idPrefix="asset"
       />
       <Button onClick={() => onSave(selectedSkills)} color="cta" mode="solid">
         {intl.formatMessage({

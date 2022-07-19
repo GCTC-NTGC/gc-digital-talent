@@ -49,6 +49,7 @@ export const EssentialSkillsSection = ({
         selectedSkills={selectedSkills}
         skills={skills}
         onChangeSelectedSkills={handleChangeSelectedSkills}
+        idPrefix="essential"
       />
       <Button onClick={() => onSave(selectedSkills)} color="cta" mode="solid">
         {intl.formatMessage({

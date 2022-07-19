@@ -24,12 +24,14 @@ interface AddSkillsToPoolProps {
   selectedSkills: Array<Skill>;
   skills: Array<Skill>;
   onChangeSelectedSkills: (changedSelectedSkills: Array<Skill>) => void;
+  idPrefix?: string;
 }
 
 export const AddSkillsToPool = ({
   selectedSkills,
   skills,
   onChangeSelectedSkills,
+  idPrefix,
 }: AddSkillsToPoolProps): JSX.Element => {
   const intl = useIntl();
 
@@ -160,6 +162,7 @@ export const AddSkillsToPool = ({
                 setSelectedTechnicalSkillFamilyId(id);
                 technicalSkillsFamilySkillsPagination.setCurrentPage(1);
               }}
+              idPrefix={`${idPrefix}-technical`}
             />
             <SkillResults
               title={intl.formatMessage(
@@ -211,6 +214,7 @@ export const AddSkillsToPool = ({
                 setSelectedBehaviouralSkillFamilyId(id);
                 behaviouralSkillsFamilySkillsPagination.setCurrentPage(1);
               }}
+              idPrefix={`${idPrefix}-behavioural`}
             />
             <SkillResults
               title={intl.formatMessage(
