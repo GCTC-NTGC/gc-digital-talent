@@ -6,6 +6,7 @@ import { Button } from "@common/components";
 import { FormProvider, useForm } from "react-hook-form";
 import { Input } from "@common/components/form";
 import { errorMessages } from "@common/messages";
+import { currentDate } from "@common/helpers/formUtils";
 
 type FormValues = {
   endDate?: PoolAdvertisement["expiryDate"];
@@ -100,6 +101,10 @@ const ExtendDialog = ({
             name="endDate"
             rules={{
               required: intl.formatMessage(errorMessages.required),
+              min: {
+                value: currentDate(),
+                message: intl.formatMessage(errorMessages.futureDate),
+              },
             }}
           />
         </form>
