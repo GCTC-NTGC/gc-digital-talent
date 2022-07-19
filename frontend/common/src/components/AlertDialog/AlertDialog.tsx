@@ -4,9 +4,9 @@ import {
   AlertDialogOverlay,
 } from "@reach/alert-dialog";
 import type { AlertDialogProps as ReachAlertDialogProps } from "@reach/alert-dialog";
-import Actions from "./Actions";
-import Content from "./Content";
-import Heading from "./Heading";
+import AlertDialogActions from "./AlertDialogActions";
+import AlertDialogContent from "./AlertDialogContent";
+import AlertDialogHeading from "./AlertDialogHeading";
 
 export interface AlertDialogProps
   extends Pick<ReachAlertDialogProps, "leastDestructiveRef"> {
@@ -25,17 +25,17 @@ const AlertDialog = ({
 }: AlertDialogProps) =>
   isOpen ? (
     <AlertDialogOverlay leastDestructiveRef={leastDestructiveRef}>
-      <Content>
-        <Heading onDismiss={onDismiss}>{title}</Heading>
+      <AlertDialogContent>
+        <AlertDialogHeading onDismiss={onDismiss}>{title}</AlertDialogHeading>
         {children}
-      </Content>
+      </AlertDialogContent>
     </AlertDialogOverlay>
   ) : null;
 
-AlertDialog.Actions = Actions;
-AlertDialog.Content = Content;
+AlertDialog.Actions = AlertDialogActions;
+AlertDialog.Content = AlertDialogContent;
 AlertDialog.Description = AlertDialogDescription;
-AlertDialog.Heading = Heading;
+AlertDialog.Heading = AlertDialogHeading;
 AlertDialog.Overlay = AlertDialogOverlay;
 
 export default AlertDialog;

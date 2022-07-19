@@ -3,12 +3,15 @@ import { useIntl } from "react-intl";
 import { AlertDialogLabel } from "@reach/alert-dialog";
 import { XIcon } from "@heroicons/react/outline";
 
-export interface HeadingProps {
+export interface AlertDialogHeadingProps {
   children: React.ReactNode;
   onDismiss: () => void;
 }
 
-const Heading = ({ children, onDismiss }: HeadingProps) => {
+const AlertDialogHeading = ({
+  children,
+  onDismiss,
+}: AlertDialogHeadingProps) => {
   const intl = useIntl();
   return (
     <div
@@ -45,4 +48,4 @@ const Heading = ({ children, onDismiss }: HeadingProps) => {
   );
 };
 
-export default Heading;
+export default AlertDialogHeading;
