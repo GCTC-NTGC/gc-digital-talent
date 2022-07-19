@@ -3,7 +3,7 @@ import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Input, Submit } from "@common/components/form";
 import { FormProvider, useForm } from "react-hook-form";
-import { PoolAdvertisement } from "../../../api/generated";
+import { AdvertisementStatus, PoolAdvertisement } from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
 
 type FormValues = {
@@ -33,6 +33,10 @@ export const ClosingDateSection = ({
   });
   const { handleSubmit } = methods;
 
+  // disabled unless status is draft
+  const formDisabled =
+    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
@@ -53,19 +57,22 @@ export const ClosingDateSection = ({
                 })}
                 type="date"
                 name="endDate"
+                disabled={formDisabled}
               />
             </Spacer>
             <Spacer style={{ flex: 1 }} />
           </div>
 
-          <Submit
-            text={intl.formatMessage({
-              defaultMessage: "Save closing date",
-              description: "Text on a button to save the pool closing date",
-            })}
-            color="cta"
-            mode="solid"
-          />
+          {!formDisabled && (
+            <Submit
+              text={intl.formatMessage({
+                defaultMessage: "Save closing date",
+                description: "Text on a button to save the pool closing date",
+              })}
+              color="cta"
+              mode="solid"
+            />
+          )}
         </form>
       </FormProvider>
     </TableOfContents.Section>

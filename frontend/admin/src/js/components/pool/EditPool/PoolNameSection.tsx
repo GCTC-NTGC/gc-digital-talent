@@ -7,6 +7,7 @@ import { Input, Select, Submit } from "@common/components/form";
 import { Option } from "@common/components/form/Select";
 import { FormProvider, useForm } from "react-hook-form";
 import {
+  AdvertisementStatus,
   Classification,
   LocalizedString,
   Maybe,
@@ -65,6 +66,10 @@ export const PoolNameSection = ({
     }))
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
 
+  // disabled unless status is draft
+  const formDisabled =
+    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
@@ -93,13 +98,13 @@ export const PoolNameSection = ({
                 })}
                 name="classification"
                 options={classificationOptions}
+                disabled={formDisabled}
               />
             </Spacer>
             <Spacer style={{ flex: 1 }}>
               {/* TODO: Streams/Job Titles */}
             </Spacer>
           </div>
-
           <div data-h2-display="b(flex)">
             <Spacer style={{ flex: 1 }}>
               <Input
@@ -111,6 +116,7 @@ export const PoolNameSection = ({
                   description:
                     "Label for a pool advertisements specific English title",
                 })}
+                disabled={formDisabled}
               />
             </Spacer>
 
@@ -124,18 +130,21 @@ export const PoolNameSection = ({
                   description:
                     "Label for a pool advertisements specific French title",
                 })}
+                disabled={formDisabled}
               />
             </Spacer>
           </div>
 
-          <Submit
-            text={intl.formatMessage({
-              defaultMessage: "Save pool name",
-              description: "Text on a button to save the pool name",
-            })}
-            color="cta"
-            mode="solid"
-          />
+          {!formDisabled && (
+            <Submit
+              text={intl.formatMessage({
+                defaultMessage: "Save pool name",
+                description: "Text on a button to save the pool name",
+              })}
+              color="cta"
+              mode="solid"
+            />
+          )}
         </form>
       </FormProvider>
     </TableOfContents.Section>

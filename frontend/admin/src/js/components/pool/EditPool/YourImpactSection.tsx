@@ -6,7 +6,11 @@ import { FormProvider, useForm, useWatch } from "react-hook-form";
 import WordCounter from "@common/components/WordCounter/WordCounter";
 import { countNumberOfWords } from "@common/helpers/formUtils";
 import { errorMessages } from "@common/messages";
-import { LocalizedString, PoolAdvertisement } from "../../../api/generated";
+import {
+  AdvertisementStatus,
+  LocalizedString,
+  PoolAdvertisement,
+} from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
 
 type FormValues = {
@@ -47,6 +51,10 @@ export const YourImpactSection = ({
     control,
     name: "yourImpactFr",
   });
+
+  // disabled unless status is draft
+  const formDisabled =
+    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
@@ -90,13 +98,16 @@ export const YourImpactSection = ({
                   },
                 }}
                 rows={TEXT_AREA_ROWS}
+                disabled={formDisabled}
               >
-                <div data-h2-align-self="b(flex-end)">
-                  <WordCounter
-                    text={watchYourImpactEn ?? ""}
-                    wordLimit={TEXT_AREA_MAX_WORDS}
-                  />
-                </div>
+                {!formDisabled && (
+                  <div data-h2-align-self="b(flex-end)">
+                    <WordCounter
+                      text={watchYourImpactEn ?? ""}
+                      wordLimit={TEXT_AREA_MAX_WORDS}
+                    />
+                  </div>
+                )}
               </TextArea>
             </Spacer>
             <Spacer style={{ flex: 1 }}>
@@ -124,25 +135,30 @@ export const YourImpactSection = ({
                   },
                 }}
                 rows={TEXT_AREA_ROWS}
+                disabled={formDisabled}
               >
-                <div data-h2-align-self="b(flex-end)">
-                  <WordCounter
-                    text={watchYourImpactFr ?? ""}
-                    wordLimit={TEXT_AREA_MAX_WORDS}
-                  />
-                </div>
+                {!formDisabled && (
+                  <div data-h2-align-self="b(flex-end)">
+                    <WordCounter
+                      text={watchYourImpactFr ?? ""}
+                      wordLimit={TEXT_AREA_MAX_WORDS}
+                    />
+                  </div>
+                )}
               </TextArea>
             </Spacer>
           </div>
 
-          <Submit
-            text={intl.formatMessage({
-              defaultMessage: "Save introduction",
-              description: "Text on a button to save the pool introduction",
-            })}
-            color="cta"
-            mode="solid"
-          />
+          {!formDisabled && (
+            <Submit
+              text={intl.formatMessage({
+                defaultMessage: "Save introduction",
+                description: "Text on a button to save the pool introduction",
+              })}
+              color="cta"
+              mode="solid"
+            />
+          )}
         </form>
       </FormProvider>
     </TableOfContents.Section>

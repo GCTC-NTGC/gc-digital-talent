@@ -10,6 +10,7 @@ import {
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import {
+  AdvertisementStatus,
   LocalizedString,
   PoolAdvertisement,
   PoolAdvertisementLanguage,
@@ -64,6 +65,10 @@ export const OtherRequirementsSection = ({
     name: "locationOption",
   });
 
+  // disabled unless status is draft
+  const formDisabled =
+    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
@@ -101,6 +106,7 @@ export const OtherRequirementsSection = ({
                   value,
                   label: intl.formatMessage(getLanguageRequirement(value)),
                 }))}
+                disabled={formDisabled}
               />
             </Spacer>
             <Spacer style={{ flex: 1 }} />
@@ -123,6 +129,7 @@ export const OtherRequirementsSection = ({
                   value,
                   label: intl.formatMessage(getSecurityClearance(value)),
                 }))}
+                disabled={formDisabled}
               />
             </Spacer>
             <Spacer style={{ flex: 1 }} />
@@ -154,6 +161,7 @@ export const OtherRequirementsSection = ({
                     }),
                   },
                 ]}
+                disabled={formDisabled}
               />
             </Spacer>
             <Spacer style={{ flex: 1 }} />
@@ -171,6 +179,7 @@ export const OtherRequirementsSection = ({
                       description:
                         "Label for a pool advertisements specific English Location",
                     })}
+                    disabled={formDisabled}
                   />
                 </Spacer>
                 <Spacer style={{ flex: 1 }} />
@@ -186,21 +195,25 @@ export const OtherRequirementsSection = ({
                       description:
                         "Label for a pool advertisements specific French Location",
                     })}
+                    disabled={formDisabled}
                   />
                 </Spacer>
                 <Spacer style={{ flex: 1 }} />
               </div>
             </>
           ) : undefined}
-          <Submit
-            text={intl.formatMessage({
-              defaultMessage: "Save other requirements",
-              description:
-                "Text on a button to save the pool other requirements",
-            })}
-            color="cta"
-            mode="solid"
-          />
+
+          {!formDisabled && (
+            <Submit
+              text={intl.formatMessage({
+                defaultMessage: "Save other requirements",
+                description:
+                  "Text on a button to save the pool other requirements",
+              })}
+              color="cta"
+              mode="solid"
+            />
+          )}
         </form>
       </FormProvider>
     </TableOfContents.Section>

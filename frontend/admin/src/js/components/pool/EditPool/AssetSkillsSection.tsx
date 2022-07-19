@@ -3,7 +3,11 @@ import { useState } from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
-import { PoolAdvertisement, Skill } from "../../../api/generated";
+import {
+  AdvertisementStatus,
+  PoolAdvertisement,
+  Skill,
+} from "../../../api/generated";
 
 import { SectionMetadata } from "./EditPool";
 import AddSkillsToPool from "./AddSkillsToPool";
@@ -32,6 +36,10 @@ export const AssetSkillsSection = ({
   const handleChangeSelectedSkills = (changedSelectedSkills: Array<Skill>) =>
     setSelectedSkills(changedSelectedSkills);
 
+  // disabled unless status is draft
+  const formDisabled =
+    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
@@ -51,13 +59,17 @@ export const AssetSkillsSection = ({
         skills={skills}
         onChangeSelectedSkills={handleChangeSelectedSkills}
         idPrefix="asset"
+        disabled={formDisabled}
       />
-      <Button onClick={() => onSave(selectedSkills)} color="cta" mode="solid">
-        {intl.formatMessage({
-          defaultMessage: "Save asset skills",
-          description: "Text on a button to save the pool asset skills",
-        })}
-      </Button>
+
+      {!formDisabled && (
+        <Button onClick={() => onSave(selectedSkills)} color="cta" mode="solid">
+          {intl.formatMessage({
+            defaultMessage: "Save asset skills",
+            description: "Text on a button to save the pool asset skills",
+          })}
+        </Button>
+      )}
     </TableOfContents.Section>
   );
 };
