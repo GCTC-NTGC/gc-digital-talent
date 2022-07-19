@@ -91,7 +91,7 @@ const ExtendDialog = ({
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleExtend)}>
           <Input
-            id="endDate"
+            id="extendDialog-endDate"
             label={intl.formatMessage({
               defaultMessage: "End Date",
               description:

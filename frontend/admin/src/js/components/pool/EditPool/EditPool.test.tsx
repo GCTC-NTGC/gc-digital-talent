@@ -1,8 +1,9 @@
 /**
  * @jest-environment jsdom
  */
+import { currentDate } from "@common/helpers/formUtils";
 import "@testing-library/jest-dom";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
 import { EditPoolFormProps } from "./EditPool";
@@ -68,18 +69,24 @@ describe("Edit Pool tests", () => {
       onPublish: handleEvent,
     } as EditPoolFormProps;
 
+    // render story and click the button to open the modal
     await act(async () => {
       renderWithReactIntl(<DraftAdvertisement {...props} />);
-    });
-
-    await act(async () => {
       fireEvent.click(screen.getByRole("button", { name: /publish/i }));
     });
 
+    // find the modal
+    const dialog = screen.getByRole("dialog");
+
+    // interact with the modal
     await act(async () => {
-      fireEvent.click(screen.getByRole("button", { name: /publish pool/i }));
+      fireEvent.click(
+        within(dialog).getByRole("button", { name: /publish pool/i }),
+      );
     });
 
+    // modal is gone and event was fired
+    expect(dialog).not.toBeInTheDocument();
     expect(handleEvent).toHaveBeenCalledTimes(1);
   });
 
@@ -92,20 +99,24 @@ describe("Edit Pool tests", () => {
       onPublish: handleEvent,
     } as EditPoolFormProps;
 
+    // render story and click the button to open the modal
     await act(async () => {
       renderWithReactIntl(<DraftAdvertisement {...props} />);
-    });
-
-    // click the button to open the modal
-    await act(async () => {
       fireEvent.click(screen.getByRole("button", { name: /publish/i }));
     });
 
-    // click the action button in the modal
+    // find the modal
+    const dialog = screen.getByRole("dialog");
+
+    // interact with the modal
     await act(async () => {
-      fireEvent.click(screen.getByRole("button", { name: /publish pool/i }));
+      fireEvent.click(
+        within(dialog).getByRole("button", { name: /publish pool/i }),
+      );
     });
 
+    // modal is gone and event was fired
+    expect(dialog).not.toBeInTheDocument();
     expect(handleEvent).toHaveBeenCalledTimes(1);
   });
 
@@ -118,20 +129,22 @@ describe("Edit Pool tests", () => {
       onDelete: handleEvent,
     } as EditPoolFormProps;
 
+    // render story and click the button to open the modal
     await act(async () => {
       renderWithReactIntl(<DraftAdvertisement {...props} />);
-    });
-
-    // click the button to open the modal
-    await act(async () => {
       fireEvent.click(screen.getByRole("button", { name: /delete/i }));
     });
 
-    // click the action button in the modal
+    // find the modal
+    const dialog = screen.getByRole("dialog");
+
+    // interact with the modal
     await act(async () => {
-      fireEvent.click(screen.getByRole("button", { name: /delete/i }));
+      fireEvent.click(within(dialog).getByRole("button", { name: /delete/i }));
     });
 
+    // modal is gone and event was fired
+    expect(dialog).not.toBeInTheDocument();
     expect(handleEvent).toHaveBeenCalledTimes(1);
   });
 
@@ -164,18 +177,24 @@ describe("Edit Pool tests", () => {
       onClose: handleEvent,
     } as EditPoolFormProps;
 
+    // render story and click the button to open the modal
     await act(async () => {
       renderWithReactIntl(<PublishedAdvertisement {...props} />);
-    });
-
-    await act(async () => {
       fireEvent.click(screen.getByRole("button", { name: /close/i }));
     });
 
+    // find the modal
+    const dialog = screen.getByRole("dialog");
+
+    // interact with the modal
     await act(async () => {
-      fireEvent.click(screen.getByRole("button", { name: /close pool now/i }));
+      fireEvent.click(
+        within(dialog).getByRole("button", { name: /close pool now/i }),
+      );
     });
 
+    // modal is gone and event was fired
+    expect(dialog).not.toBeInTheDocument();
     expect(handleEvent).toHaveBeenCalledTimes(1);
   });
 
@@ -187,20 +206,24 @@ describe("Edit Pool tests", () => {
       onExtend: handleEvent,
     } as EditPoolFormProps;
 
+    // render story and click the button to open the modal
     await act(async () => {
       renderWithReactIntl(<PublishedAdvertisement {...props} />);
+      fireEvent.click(screen.getByRole("button", { name: /extend the date/i }));
     });
 
-    await act(async () => {
-      fireEvent.click(screen.getByRole("button", { name: /extend/i }));
-    });
+    // find the modal
+    const dialog = screen.getByRole("dialog");
 
+    // interact with the modal
     await act(async () => {
       fireEvent.click(
-        screen.getByRole("button", { name: /extend closing date/i }),
+        within(dialog).getByRole("button", { name: /extend closing date/i }),
       );
     });
 
+    // modal is gone and event was fired
+    expect(dialog).not.toBeInTheDocument();
     expect(handleEvent).toHaveBeenCalledTimes(1);
   });
 
@@ -233,20 +256,27 @@ describe("Edit Pool tests", () => {
       onExtend: handleEvent,
     } as EditPoolFormProps;
 
+    // render story and click the button to open the modal
     await act(async () => {
       renderWithReactIntl(<ExpiredAdvertisement {...props} />);
+      fireEvent.click(screen.getByRole("button", { name: /extend the date/i }));
     });
 
-    await act(async () => {
-      fireEvent.click(screen.getByRole("button", { name: /extend/i }));
-    });
+    // find the modal
+    const dialog = screen.getByRole("dialog");
 
+    // interact with the modal
     await act(async () => {
+      fireEvent.change(within(dialog).getByLabelText(/end date/i), {
+        target: { value: currentDate() },
+      });
       fireEvent.click(
-        screen.getByRole("button", { name: /extend closing date/i }),
+        within(dialog).getByRole("button", { name: /extend closing date/i }),
       );
     });
 
+    // modal is gone and event was fired
+    expect(dialog).not.toBeInTheDocument();
     expect(handleEvent).toHaveBeenCalledTimes(1);
   });
 

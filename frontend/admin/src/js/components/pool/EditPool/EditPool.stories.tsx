@@ -50,7 +50,7 @@ PublishedAdvertisement.args = {
     ...poolAdvertisement,
     isPublished: true,
     advertisementStatus: AdvertisementStatus.Published,
-    expiryDate: FAR_FUTURE_DATE.toISOString(),
+    expiryDate: FAR_FUTURE_DATE,
   },
 };
 
@@ -60,6 +60,6 @@ ExpiredAdvertisement.args = {
     ...poolAdvertisement,
     isPublished: true,
     advertisementStatus: AdvertisementStatus.Expired,
-    expiryDate: FAR_PAST_DATE.toISOString(),
+    expiryDate: FAR_PAST_DATE,
   },
 };
