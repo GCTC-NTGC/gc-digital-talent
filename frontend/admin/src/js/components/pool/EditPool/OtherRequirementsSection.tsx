@@ -84,13 +84,13 @@ export const OtherRequirementsSection = ({
           <div data-h2-display="b(flex)">
             <Spacer style={{ flex: 1 }}>
               <Select
-                id="LanguageRequirement"
+                id="languageRequirement"
                 label={intl.formatMessage({
                   defaultMessage: "Language requirement",
                   description:
                     "Label displayed on the edit pool form language requirement field.",
                 })}
-                name="LanguageRequirement"
+                name="languageRequirement"
                 options={enumToOptions(PoolAdvertisementLanguage, [
                   PoolAdvertisementLanguage.Various,
                   PoolAdvertisementLanguage.English,
@@ -108,13 +108,13 @@ export const OtherRequirementsSection = ({
           <div data-h2-display="b(flex)">
             <Spacer style={{ flex: 1 }}>
               <Select
-                id="SecurityRequirement"
+                id="securityRequirement"
                 label={intl.formatMessage({
                   defaultMessage: "Security requirement",
                   description:
                     "Label displayed on the edit pool form security requirement field.",
                 })}
-                name="SecurityRequirement"
+                name="securityRequirement"
                 options={enumToOptions(SecurityStatus, [
                   SecurityStatus.Reliability,
                   SecurityStatus.Secret,
