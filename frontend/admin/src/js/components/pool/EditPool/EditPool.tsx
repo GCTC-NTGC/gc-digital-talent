@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+// remove this eslint-disable when the action handlers are implemented
 import * as React from "react";
 import { useIntl } from "react-intl";
 import NotFound from "@common/components/NotFound";
