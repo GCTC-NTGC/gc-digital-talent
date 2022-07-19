@@ -19,7 +19,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
     ? acceptedOperationalRequirements.map((opRequirement) => (
         <li data-h2-font-weight="b(700)" key={opRequirement}>
           {opRequirement
-            ? getOperationalRequirement(opRequirement).defaultMessage
+            ? intl.formatMessage(getOperationalRequirement(opRequirement))
             : ""}
         </li>
       ))
