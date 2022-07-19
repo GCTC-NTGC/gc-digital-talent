@@ -15,7 +15,6 @@ import { useIntl } from "react-intl";
 import useLocale from "../useLocale";
 import {
   WorkRegion,
-  OperationalRequirement,
   EducationType,
   JobLookingStatus,
   LanguageAbility,

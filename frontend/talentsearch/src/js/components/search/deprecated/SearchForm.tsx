@@ -15,7 +15,6 @@ import { getOperationalRequirement } from "./localizedConstants";
 import {
   Classification,
   CmoAsset,
-  OperationalRequirement,
   WorkRegion,
   LanguageAbility,
   PoolCandidateFilter,

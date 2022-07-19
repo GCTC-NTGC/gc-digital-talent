@@ -19,7 +19,6 @@ import {
   Classification,
   CmoAsset,
   LanguageAbility,
-  OperationalRequirement,
   PoolCandidateFilter,
   ApplicantFilterInput,
   WorkRegion,
