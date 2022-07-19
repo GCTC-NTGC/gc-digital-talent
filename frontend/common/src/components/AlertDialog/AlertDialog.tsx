@@ -24,7 +24,10 @@ const AlertDialog = ({
   leastDestructiveRef,
 }: AlertDialogProps) =>
   isOpen ? (
-    <AlertDialogOverlay leastDestructiveRef={leastDestructiveRef}>
+    <AlertDialogOverlay
+      leastDestructiveRef={leastDestructiveRef}
+      onDismiss={onDismiss}
+    >
       <AlertDialogContent>
         <AlertDialogHeading onDismiss={onDismiss}>{title}</AlertDialogHeading>
         {children}
