@@ -60,14 +60,12 @@ describe("Edit Pool tests", () => {
     expect(handleSave).toHaveBeenCalledTimes(7);
   });
 
-  it("should have only publish and delete buttons that emit events when the status is draft", async () => {
-    const handlePublish = jest.fn();
-    const handleDelete = jest.fn();
+  it("should have a publish button that pops a modal and emits an event when the status is draft", async () => {
+    const handleEvent = jest.fn();
     const props = {
       ...EditPoolStory.args,
       ...DraftAdvertisement.args,
-      onPublish: handlePublish,
-      onDelete: handleDelete,
+      onPublish: handleEvent,
     } as EditPoolFormProps;
 
     await act(async () => {
@@ -76,11 +74,76 @@ describe("Edit Pool tests", () => {
 
     await act(async () => {
       fireEvent.click(screen.getByRole("button", { name: /publish/i }));
+    });
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button", { name: /publish pool/i }));
+    });
+
+    expect(handleEvent).toHaveBeenCalledTimes(1);
+  });
+
+  it("should have a delete button that pops a modal and emits an event when the status is draft", async () => {
+    const handleEvent = jest.fn();
+
+    const props = {
+      ...EditPoolStory.args,
+      ...DraftAdvertisement.args,
+      onPublish: handleEvent,
+    } as EditPoolFormProps;
+
+    await act(async () => {
+      renderWithReactIntl(<DraftAdvertisement {...props} />);
+    });
+
+    // click the button to open the modal
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button", { name: /publish/i }));
+    });
+
+    // click the action button in the modal
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button", { name: /publish pool/i }));
+    });
+
+    expect(handleEvent).toHaveBeenCalledTimes(1);
+  });
+
+  it("should have a delete button that pops a modal and emits an event when the status is draft", async () => {
+    const handleEvent = jest.fn();
+
+    const props = {
+      ...EditPoolStory.args,
+      ...DraftAdvertisement.args,
+      onDelete: handleEvent,
+    } as EditPoolFormProps;
+
+    await act(async () => {
+      renderWithReactIntl(<DraftAdvertisement {...props} />);
+    });
+
+    // click the button to open the modal
+    await act(async () => {
       fireEvent.click(screen.getByRole("button", { name: /delete/i }));
     });
 
-    expect(handlePublish).toHaveBeenCalledTimes(1);
-    expect(handleDelete).toHaveBeenCalledTimes(1);
+    // click the action button in the modal
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button", { name: /delete/i }));
+    });
+
+    expect(handleEvent).toHaveBeenCalledTimes(1);
+  });
+
+  it("should not have buttons for close, extend, archive when the status is draft", async () => {
+    const props = {
+      ...EditPoolStory.args,
+      ...DraftAdvertisement.args,
+    } as EditPoolFormProps;
+
+    await act(async () => {
+      renderWithReactIntl(<DraftAdvertisement {...props} />);
+    });
 
     expect(
       screen.queryByRole("button", { name: /close/i }),
@@ -93,47 +156,12 @@ describe("Edit Pool tests", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("should have only publish and delete buttons that emit events when the status is draft", async () => {
-    const handlePublish = jest.fn();
-    const handleDelete = jest.fn();
-    const props = {
-      ...EditPoolStory.args,
-      ...DraftAdvertisement.args,
-      onPublish: handlePublish,
-      onDelete: handleDelete,
-    } as EditPoolFormProps;
-
-    await act(async () => {
-      renderWithReactIntl(<DraftAdvertisement {...props} />);
-    });
-
-    await act(async () => {
-      fireEvent.click(screen.getByRole("button", { name: /publish/i }));
-      fireEvent.click(screen.getByRole("button", { name: /delete/i }));
-    });
-
-    expect(handlePublish).toHaveBeenCalledTimes(1);
-    expect(handleDelete).toHaveBeenCalledTimes(1);
-
-    expect(
-      screen.queryByRole("button", { name: /close/i }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("button", { name: /extend/i }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("button", { name: /archive/i }),
-    ).not.toBeInTheDocument();
-  });
-
-  it("should have only close and extend buttons that emit events when the status is published", async () => {
-    const handleClose = jest.fn();
-    const handleExtend = jest.fn();
+  it("should have a close button that pops a modal and emits an event when the status is published", async () => {
+    const handleEvent = jest.fn();
     const props = {
       ...EditPoolStory.args,
       ...PublishedAdvertisement.args,
-      onClose: handleClose,
-      onExtend: handleExtend,
+      onClose: handleEvent,
     } as EditPoolFormProps;
 
     await act(async () => {
@@ -142,11 +170,49 @@ describe("Edit Pool tests", () => {
 
     await act(async () => {
       fireEvent.click(screen.getByRole("button", { name: /close/i }));
+    });
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button", { name: /close pool now/i }));
+    });
+
+    expect(handleEvent).toHaveBeenCalledTimes(1);
+  });
+
+  it("should have an extend button that pops a modal and emits an event when the status is published", async () => {
+    const handleEvent = jest.fn();
+    const props = {
+      ...EditPoolStory.args,
+      ...PublishedAdvertisement.args,
+      onExtend: handleEvent,
+    } as EditPoolFormProps;
+
+    await act(async () => {
+      renderWithReactIntl(<PublishedAdvertisement {...props} />);
+    });
+
+    await act(async () => {
       fireEvent.click(screen.getByRole("button", { name: /extend/i }));
     });
 
-    expect(handleClose).toHaveBeenCalledTimes(1);
-    expect(handleExtend).toHaveBeenCalledTimes(1);
+    await act(async () => {
+      fireEvent.click(
+        screen.getByRole("button", { name: /extend closing date/i }),
+      );
+    });
+
+    expect(handleEvent).toHaveBeenCalledTimes(1);
+  });
+
+  it("should not have buttons for publish, delete, archive when the status is published", async () => {
+    const props = {
+      ...EditPoolStory.args,
+      ...PublishedAdvertisement.args,
+    } as EditPoolFormProps;
+
+    await act(async () => {
+      renderWithReactIntl(<PublishedAdvertisement {...props} />);
+    });
 
     expect(
       screen.queryByRole("button", { name: /publish/i }),
@@ -159,12 +225,12 @@ describe("Edit Pool tests", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("should have only extend that emit events and archive button is disabled when the status is expired", async () => {
-    const handleExtend = jest.fn();
+  it("should have an extend button that pops a modal and emits an event when the status is expired", async () => {
+    const handleEvent = jest.fn();
     const props = {
       ...EditPoolStory.args,
       ...ExpiredAdvertisement.args,
-      onExtend: handleExtend,
+      onExtend: handleEvent,
     } as EditPoolFormProps;
 
     await act(async () => {
@@ -175,8 +241,24 @@ describe("Edit Pool tests", () => {
       fireEvent.click(screen.getByRole("button", { name: /extend/i }));
     });
 
-    const archiveButton = screen.getByRole("button", { name: /archive/i });
-    expect(archiveButton).toBeDisabled();
+    await act(async () => {
+      fireEvent.click(
+        screen.getByRole("button", { name: /extend closing date/i }),
+      );
+    });
+
+    expect(handleEvent).toHaveBeenCalledTimes(1);
+  });
+
+  it("should not have buttons for publish, delete, close when the status is published", async () => {
+    const props = {
+      ...EditPoolStory.args,
+      ...ExpiredAdvertisement.args,
+    } as EditPoolFormProps;
+
+    await act(async () => {
+      renderWithReactIntl(<ExpiredAdvertisement {...props} />);
+    });
 
     expect(
       screen.queryByRole("button", { name: /publish/i }),
