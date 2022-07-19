@@ -658,6 +658,55 @@ export const getOperationalRequirement = (
     `Invalid Operational Requirement '${operationalRequirementId}'`,
   );
 
+export const operationalRequirementsV1 = defineMessages({
+  [OperationalRequirement.ShiftWork]: {
+    defaultMessage: "Shift work",
+    description: "The v1 operational requirement described as shift work.",
+  },
+  [OperationalRequirement.OnCall]: {
+    defaultMessage: "24/7 on-call",
+    description: "The v1 operational requirement described as 24/7 on-call.",
+  },
+  [OperationalRequirement.Travel]: {
+    defaultMessage: "Travel as required",
+    description:
+      "The v1 operational requirement described as travel as required.",
+  },
+  [OperationalRequirement.TransportEquipment]: {
+    defaultMessage: "Transport equipment up to 20kg",
+    description:
+      "The v1 operational requirement described as transport equipment up to 20kg.",
+  },
+  [OperationalRequirement.DriversLicense]: {
+    defaultMessage: "Driver's license",
+    description:
+      "The v1 operational requirement described as driver's license.",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "Work weekends",
+    description: "The v1 operational requirement described as work weekends.",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage: "Work scheduled overtime",
+    description:
+      "The v1 operational requirement described as scheduled overtime.",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage: "Work overtime on short notice",
+    description:
+      "The v1 operational requirement described as short notice overtime.",
+  },
+});
+
+export const getOperationalRequirementV1 = (
+  operationalRequirementId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    operationalRequirements,
+    operationalRequirementId,
+    `Invalid Operational Requirement '${operationalRequirementId}'`,
+  );
+
 export const provinceOrTerritory = defineMessages({
   [ProvinceOrTerritory.Alberta]: {
     defaultMessage: "Alberta",

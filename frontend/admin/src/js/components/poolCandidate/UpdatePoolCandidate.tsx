@@ -24,7 +24,7 @@ import {
   getLanguageAbility,
   getWorkRegion,
   getPoolCandidateStatus,
-  getOperationalRequirement,
+  getOperationalRequirementV1,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { User } from "@common/api/generated";
@@ -377,7 +377,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               })}
               options={operationalRequirementsSubsetV1.map((value) => ({
                 value,
-                label: intl.formatMessage(getOperationalRequirement(value)),
+                label: intl.formatMessage(getOperationalRequirementV1(value)),
               }))}
             />
             <MultiSelect

@@ -1021,5 +1021,159 @@
   "fmSaPm": {
     "defaultMessage": "… m'oblige à <strong>travailler les fins de semaine</strong>.",
     "description": "The operational requirement described as work weekends."
+  },
+  "0FRmtg": {
+    "defaultMessage": "Déplacements selon les besoins",
+    "description": "The v1 operational requirement described as travel as required."
+  },
+  "4gqKXp": {
+    "defaultMessage": "Travailler les fins de semaine",
+    "description": "The v1 operational requirement described as work weekends."
+  },
+  "86ybKt": {
+    "defaultMessage": "Travailler des heures supplémentaires prévues",
+    "description": "The v1 operational requirement described as scheduled overtime."
+  },
+  "Bjhr93": {
+    "defaultMessage": "Transport de matériel jusqu'à 20 kg",
+    "description": "The v1 operational requirement described as transport equipment up to 20kg."
+  },
+  "EXOS0V": {
+    "defaultMessage": "...requires me to <strong>work occasional overtime</strong>.",
+    "description": "The operational requirement described as occasional overtime."
+  },
+  "FRyIG2": {
+    "defaultMessage": "Vous devez saisir un terme de recherche avant d'appuyer sur la touche « Entrée »",
+    "description": "Error message displayed when the search term length is less then 2 characters."
+  },
+  "GqmxO8": {
+    "defaultMessage": "Closes tomorrow at {time}",
+    "description": "Text displayed when relative date is tomorrow."
+  },
+  "GzVxoB": {
+    "defaultMessage": "<strong>Virtual:</strong> Work from home, anywhere in Canada.",
+    "description": "The work region of Canada described as Telework."
+  },
+  "ItRgwA": {
+    "defaultMessage": "Retirer une compétence",
+    "description": "Button label to remove skill on skill result block."
+  },
+  "JY6WhU": {
+    "defaultMessage": "Rechercher une compétence précise...",
+    "description": "Label for the skills search bar."
+  },
+  "KNxIXF": {
+    "defaultMessage": "Travailler des quarts de travail",
+    "description": "The v1 operational requirement described as shift work."
+  },
+  "LzUgil": {
+    "defaultMessage": "Secret or higher",
+    "description": "Secret security clearance"
+  },
+  "O+MHnP": {
+    "defaultMessage": "Bilingual intermediate",
+    "description": "The language requirement is bilingual intermediate."
+  },
+  "OBQ8b9": {
+    "defaultMessage": "(opens in new tab)",
+    "description": "Text that appears in links that open in a new tab."
+  },
+  "OHem3h": {
+    "defaultMessage": "<primary>{role}</primary> at {division}",
+    "description": "Role at Team, Group or Division"
+  },
+  "PF4ya+": {
+    "defaultMessage": "p. ex. Python, JavaScript, etc.",
+    "description": "Placeholder for the skills search bar."
+  },
+  "PQ3bhH": {
+    "defaultMessage": "...requires me to <strong>work regular overtime</strong>.",
+    "description": "The operational requirement described as regular overtime."
+  },
+  "PzyMeM": {
+    "defaultMessage": "The deadline for submission has passed.",
+    "description": "Message displayed when a date has expired."
+  },
+  "RQGy+0": {
+    "defaultMessage": "Published",
+    "description": "Published pool advertisement status"
+  },
+  "RnSbKI": {
+    "defaultMessage": "Reliability or higher",
+    "description": "Reliability security clearance"
+  },
+  "UCGAzS": {
+    "defaultMessage": "N/A",
+    "description": "displayed when localized string not available"
+  },
+  "UPx6kk": {
+    "defaultMessage": "<primary>{title}</primary> at {organization}",
+    "description": "Title at organization"
+  },
+  "VDZ6zw": {
+    "defaultMessage": "Masquer la définition",
+    "description": "Text displayed when skill block is open."
+  },
+  "X9hYJS": {
+    "defaultMessage": "Close Menu"
+  },
+  "ZOQ9ih": {
+    "defaultMessage": "Ajouter une compétence",
+    "description": "Button label to add skill on skill result block."
+  },
+  "ZWR/F3": {
+    "defaultMessage": "French only",
+    "description": "The language requirement is French only."
+  },
+  "aT7vJg": {
+    "defaultMessage": "Travailler des heures supplémentaires à court préavis",
+    "description": "The v1 operational requirement described as short notice overtime."
+  },
+  "cK/hoN": {
+    "defaultMessage": "<primary>{title}</primary> issued by {issuedBy}",
+    "description": "The award title is issued by some group"
+  },
+  "g2X8Fx": {
+    "defaultMessage": "Close dialog",
+    "description": "Text for the button to close a modal dialog."
+  },
+  "gfzfP6": {
+    "defaultMessage": "Expired",
+    "description": "Expired pool advertisement status"
+  },
+  "jp+WTk": {
+    "defaultMessage": "Open Menu"
+  },
+  "jy7itR": {
+    "defaultMessage": "Closes today at {time}",
+    "description": "Text displayed when relative date is today."
+  },
+  "kKdcZT": {
+    "defaultMessage": "Bilingual advanced",
+    "description": "The language requirement is bilingual advanced."
+  },
+  "lDeaXK": {
+    "defaultMessage": "Availability, willingness and ability to work overtime (scheduled)",
+    "description": "The operational requirement described as scheduled overtime."
+  },
+  "rHexTV": {
+    "defaultMessage": "Permis de conduire",
+    "description": "The v1 operational requirement described as driver's license."
+  },
+  "vO/SlS": {
+    "defaultMessage": "Availability, willingness and ability to work overtime (short notice)",
+    "description": "The operational requirement described as short notice overtime."
+  },
+  "xsWXTn": {
+    "defaultMessage": "Garde 24/7",
+    "description": "The v1 operational requirement described as 24/7 on-call."
+  },
+  "yrLV+n": {
+    "defaultMessage": "Draft",
+    "description": "Draft pool advertisement status"
+  },
+  "ziaV/E": {
+    "defaultMessage": "Various (English or French)",
+    "description": "The language requirement is various."
   }
 }

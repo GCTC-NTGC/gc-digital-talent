@@ -7,8 +7,7 @@ import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
 import { debounce } from "debounce";
 import { useLocation } from "@common/helpers/router";
-import { getWorkRegion } from "@common/constants/localizedConstants";
-import { getOperationalRequirement } from "./localizedConstants";
+import { getWorkRegion, getOperationalRequirementV1 } from "@common/constants/localizedConstants";
 import {
   Classification,
   CmoAsset,
@@ -290,7 +289,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             name="operationalRequirements"
             items={operationalRequirementsSubsetV1.map((value) => ({
               value,
-              label: intl.formatMessage(getOperationalRequirement(value)),
+              label: intl.formatMessage(getOperationalRequirementV1(value)),
             }))}
           />
         </FilterBlock>
