@@ -1125,7 +1125,7 @@ class PoolCandidateTest extends TestCase
 
     // Assert searchPoolCandidates query with expiryStatus ACTIVE returns correct candidates
     $this->graphQL(/** @lang Graphql */ '
-      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CANDIDATE_EXPIRY_FILTER) {
+      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CandidateExpiryFilter) {
         searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
           id
         }
@@ -1146,7 +1146,7 @@ class PoolCandidateTest extends TestCase
 
     // Assert searchPoolCandidates query with expiryStatus EXPIRED returns correct candidates
     $this->graphQL(/** @lang Graphql */ '
-      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CANDIDATE_EXPIRY_FILTER) {
+      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CandidateExpiryFilter) {
         searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
           id
         }
@@ -1167,7 +1167,7 @@ class PoolCandidateTest extends TestCase
 
     // Assert searchPoolCandidates query with expiryStatus ALL returns correct candidates
     $this->graphQL(/** @lang Graphql */ '
-      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CANDIDATE_EXPIRY_FILTER) {
+      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CandidateExpiryFilter) {
         searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
           id
         }

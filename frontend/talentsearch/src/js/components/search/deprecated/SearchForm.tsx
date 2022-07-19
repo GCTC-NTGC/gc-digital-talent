@@ -8,10 +8,10 @@ import { getLanguageAbility } from "@common/constants";
 import { debounce } from "debounce";
 import { useLocation } from "@common/helpers/router";
 import {
-  getOperationalRequirement,
   getWorkRegion,
   OperationalRequirementV1,
 } from "@common/constants/localizedConstants";
+import { getOperationalRequirement } from "./localizedConstants";
 import {
   Classification,
   CmoAsset,

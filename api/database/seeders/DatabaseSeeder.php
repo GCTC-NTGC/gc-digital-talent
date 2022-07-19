@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ApplicantFilter;
 use App\Models\User;
 use App\Models\Pool;
 use App\Models\Classification;
@@ -40,18 +41,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CmoAssetSeeder::class);
         $this->call(DepartmentSeeder::class);
         $this->call(GenericJobTitleSeeder::class);
-
-        SkillFamily::factory()
-            ->count(10)
-            ->create();
-        Skill::factory()
-            ->count(40)
-            ->afterCreating(function ($model) {
-                $families = SkillFamily::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                $model->families()->sync($families);
-            })
-            ->create();
-
+        $this->call(SkillSeeder::class);
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
@@ -166,7 +156,14 @@ class DatabaseSeeder extends Seeder
                 })->create();
         });
 
-        PoolCandidateSearchRequest::factory()->count(10)->create();
+        // Create some SearchRequests with old filters, some with new.
+        PoolCandidateSearchRequest::factory()->count(5)->create([
+            'applicant_filter_id' => null
+        ]);
+        PoolCandidateSearchRequest::factory()->count(5)->create([
+            'pool_candidate_filter_id' => null,
+            'applicant_filter_id' => ApplicantFilter::factory()->sparse()->withRelationships(true)
+        ]);
     }
 
     // drop all rows from some tables so that the seeder can fill them fresh
