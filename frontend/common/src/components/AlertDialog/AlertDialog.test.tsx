@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, fireEvent } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import React from "react";
 import { render } from "../../helpers/testUtils";
 import AlertDialog from "./AlertDialog";
