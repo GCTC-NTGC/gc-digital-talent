@@ -5,7 +5,7 @@ import { RouterResult } from "@common/helpers/router";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { AuthenticationContext } from "@common/components/Auth";
 import { Button } from "@common/components";
-import Dialog from "@common/components/Dialog";
+import AlertDialog from "@common/components/AlertDialog";
 import { Helmet } from "react-helmet";
 import { getLocale } from "@common/helpers/localize";
 import PageContainer, { MenuLink } from "./PageContainer";
@@ -266,6 +266,7 @@ export const Router: React.FC = () => {
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
   const [isConfirmationOpen, setConfirmationOpen] =
     React.useState<boolean>(false);
+  const cancelLogoutRef = React.useRef(null);
 
   const menuItems = [
     <MenuLink
@@ -342,63 +343,57 @@ export const Router: React.FC = () => {
         <html lang={getLocale(intl)} />
       </Helmet>
       {loggedIn && (
-        <Dialog
-          confirmation
-          centered
+        <AlertDialog
           isOpen={isConfirmationOpen}
           onDismiss={() => {
             setConfirmationOpen(false);
           }}
+          leastDestructiveRef={cancelLogoutRef}
           title={intl.formatMessage({
             defaultMessage: "Logout",
             description:
-              "Title for the modal that appears when an authenticated user lands on /logged-out.",
+              "Title for the modal that appears when an authenticated user attempts to logout",
           })}
-          footer={
-            <div
-              data-h2-display="b(flex)"
-              data-h2-align-items="b(center)"
-              data-h2-justify-content="b(flex-end)"
-            >
-              <Button
-                mode="outline"
-                color="primary"
-                type="button"
-                onClick={() => {
-                  setConfirmationOpen(false);
-                }}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Cancel",
-                  description: "Link text to cancel logging out.",
-                })}
-              </Button>
-              <span data-h2-margin="b(left, s)">
-                <Button
-                  mode="solid"
-                  color="primary"
-                  type="button"
-                  onClick={() => {
-                    logout();
-                  }}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Logout",
-                    description: "Link text to logout.",
-                  })}
-                </Button>
-              </span>
-            </div>
-          }
         >
-          <p data-h2-font-size="b(h5)">
+          <AlertDialog.Description>
             {intl.formatMessage({
               defaultMessage: "Are you sure you would like to logout?",
               description:
-                "Question displayed when authenticated user lands on /logged-out.",
+                "Question displayed when authenticated user attempts to logout",
             })}
-          </p>
-        </Dialog>
+          </AlertDialog.Description>
+          <AlertDialog.Actions>
+            <Button
+              mode="outline"
+              color="primary"
+              type="button"
+              ref={cancelLogoutRef}
+              onClick={() => {
+                setConfirmationOpen(false);
+              }}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Cancel",
+                description: "Link text to cancel logging out.",
+              })}
+            </Button>
+            <span data-h2-margin="b(left, s)">
+              <Button
+                mode="solid"
+                color="primary"
+                type="button"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Logout",
+                  description: "Link text to logout.",
+                })}
+              </Button>
+            </span>
+          </AlertDialog.Actions>
+        </AlertDialog>
       )}
     </>
   );
