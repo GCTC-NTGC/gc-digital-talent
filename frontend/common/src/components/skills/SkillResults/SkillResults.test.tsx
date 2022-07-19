@@ -6,7 +6,7 @@ import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { fakeSkills } from "../../../fakeData";
 import { Skill } from "../../../api/generated";
-import { axeTest, render } from "../../../../tests/testUtils";
+import { axeTest, render } from "../../../helpers/testUtils";
 
 import SkillResults, { SkillBlock } from "./SkillResults";
 

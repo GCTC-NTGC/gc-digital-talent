@@ -3,7 +3,7 @@
  */
 import React from "react";
 import { fakeSkillFamilies, fakeSkills } from "../../../fakeData";
-import { render, screen, fireEvent } from "../../../../tests/testUtils";
+import { render, screen, fireEvent } from "../../../helpers/testUtils";
 import SkillFamilyPicker from "./SkillFamilyPicker";
 
 const testData = fakeSkillFamilies(5, fakeSkills(10));
