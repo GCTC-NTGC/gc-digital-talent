@@ -431,7 +431,7 @@
     "description": "Label preceding what groups the user identifies as part of, followed by a colon"
   },
   "5d0vbr": {
-    "defaultMessage": "<strong>Oui</strong>, >, je suis un employé du gouvernement du Canada.",
+    "defaultMessage": "<strong>Oui</strong>, je suis un employé du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
   },
   "5sX4lz": {
