@@ -62,7 +62,7 @@ const Template: Story<StoryArgs> = (args) => {
           leastDestructiveRef={leastDestructiveRef}
         >
           {description && (
-            <AlertDialog.Description> {description}</AlertDialog.Description>
+            <AlertDialog.Description>{description}</AlertDialog.Description>
           )}
           <AlertDialog.Actions>
             <Button
