@@ -27,6 +27,24 @@ values. Int can represent values between -(2^31) and 2^31 - 1.
 """
 scalar Int
 
+"""Allows ordering a list of records."""
+input OrderByClause {
+  """The column that is used for ordering."""
+  column: String!
+
+  """The direction that is used for ordering."""
+  order: SortOrder!
+}
+
+"""Directions for ordering a list of records."""
+enum SortOrder {
+  """Sort records in ascending order."""
+  ASC
+
+  """Sort records in descending order."""
+  DESC
+}
+
 """A paginated list of User items."""
 type UserPaginator {
   """Pagination information about the list of items."""
@@ -271,15 +289,6 @@ enum __DirectiveLocation {
   INPUT_FIELD_DEFINITION
 }
 
-"""Directions for ordering a list of records."""
-enum SortOrder {
-  """Sort records in ascending order."""
-  ASC
-
-  """Sort records in descending order."""
-  DESC
-}
-
 """
 Aggregate functions when ordering by a relation without specifying a column.
 """
@@ -306,15 +315,6 @@ enum OrderByRelationWithColumnAggregateFunction {
 
   """Amount of items."""
   COUNT
-}
-
-"""Allows ordering a list of records."""
-input OrderByClause {
-  """The column that is used for ordering."""
-  column: String!
-
-  """The direction that is used for ordering."""
-  order: SortOrder!
 }
 
 """Information about pagination using a simple paginator."""

@@ -19,6 +19,19 @@ directive @canAsParent(
   ability: String!
 ) repeatable on FIELD_DEFINITION
 
+# Directive class: App\GraphQL\Directives\PluckDirective
+"""
+Transforms an input field before resolving.
+If used on an array, this plucks a value from each object, returning a flattened array.
+If used on a single object, this returns the value at key.
+"""
+directive @pluck(
+    """
+    The key to pluck from each object.
+    """
+    key: String!
+) on INPUT_FIELD_DEFINITION
+
 # Directive class: Nuwave\Lighthouse\Testing\MockDirective
 """
 Allows you to easily hook up a resolver for an endpoint.
@@ -56,17 +69,12 @@ directive @can(
   ability: String!
 
   """
-  Query for specific model instances to check the policy against, using arguments
-  with directives that add constraints to the query builder, such as `@eq`.
+  Check the policy against the model instances returned by the field resolver.
+  Only use this if the field does not mutate data, it is run before checking.
 
-  Mutually exclusive with `find`.
+  Mutually exclusive with `query` and `find`.
   """
-  query: Boolean = false
-
-  """
-  Apply scopes to the underlying query.
-  """
-  scopes: [String!]
+  resolved: Boolean! = false
 
   """
   Specify the class name of the model to use.
@@ -77,7 +85,7 @@ directive @can(
   """
   Pass along the client given input data as arguments to `Gate::check`.
   """
-  injectArgs: Boolean = false
+  injectArgs: Boolean! = false
 
   """
   Statically defined arguments that are passed to `Gate::check`.
@@ -88,12 +96,25 @@ directive @can(
   args: CanArgs
 
   """
+  Query for specific model instances to check the policy against, using arguments
+  with directives that add constraints to the query builder, such as `@eq`.
+
+  Mutually exclusive with `resolved` and `find`.
+  """
+  query: Boolean! = false
+
+  """
+  Apply scopes to the underlying query.
+  """
+  scopes: [String!]
+
+  """
   If your policy checks against specific model instances, specify
   the name of the field argument that contains its primary key(s).
 
   You may pass the string in dot notation to use nested inputs.
 
-  Mutually exclusive with `search`.
+  Mutually exclusive with `resolved` and `query`.
   """
   find: String
 ) repeatable on FIELD_DEFINITION
@@ -136,6 +157,69 @@ directive @whereAuth(
   """
   guard: String
 ) on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Cache\CacheDirective
+"""
+Cache the result of a resolver.
+"""
+directive @cache(
+  """
+  Set the duration it takes for the cache to expire in seconds.
+  If not given, the result will be stored forever.
+  """
+  maxAge: Int
+
+  """
+  Limit access to cached data to the currently authenticated user.
+  When the field is accessible by guest users, this will not have
+  any effect, they will access a shared cache.
+  """
+  private: Boolean = false
+) on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Cache\CacheKeyDirective
+"""
+Specify the field to use as a key when creating a cache.
+"""
+directive @cacheKey on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Cache\ClearCacheDirective
+"""
+Clear a resolver cache by tags.
+"""
+directive @clearCache(
+  """
+  Name of the parent type of the field to clear.
+  """
+  type: String!
+
+  """
+  Source of the parent ID to clear.
+  """
+  idSource: ClearCacheIdSource
+
+  """
+  Name of the field to clear.
+  """
+  field: String
+) on FIELD_DEFINITION
+
+"""
+Options for the `id` argument on `@clearCache`.
+
+Exactly one of the fields must be given.
+"""
+input ClearCacheIdSource {
+  """
+  Path of an argument the client passes to the field `@clearCache` is applied to.
+  """
+  argument: String
+
+  """
+  Path of a field in the result returned from the field `@clearCache` is applied to.
+  """
+  field: String
+}
 
 # Directive class: Nuwave\Lighthouse\GlobalId\GlobalIdDirective
 """
@@ -1045,6 +1129,68 @@ directive @hasMany(
 Options for the `type` argument of `@hasMany`.
 """
 enum HasManyType {
+    """
+    Offset-based pagination, similar to the Laravel default.
+    """
+    PAGINATOR
+
+    """
+    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+    """
+    SIMPLE
+
+    """
+    Cursor-based pagination, compatible with the Relay specification.
+    """
+    CONNECTION
+}
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\HasManyThroughDirective
+"""
+Corresponds to [the Eloquent relationship HasManyThrough](https://laravel.com/docs/eloquent-relationships#has-many-through).
+"""
+directive @hasManyThrough(
+  """
+  Specify the relationship method name in the model class,
+  if it is named different from the field in the schema.
+  """
+  relation: String
+
+  """
+  Apply scopes to the underlying query.
+  """
+  scopes: [String!]
+
+  """
+  Allows to resolve the relation as a paginated list.
+  Allowed values: `paginator`, `connection`.
+  """
+  type: HasManyThroughType
+
+  """
+  Allow clients to query paginated lists without specifying the amount of items.
+  Overrules the `pagination.default_count` setting from `lighthouse.php`.
+  """
+  defaultCount: Int
+
+  """
+  Limit the maximum amount of items that clients can request from paginated lists.
+  Overrules the `pagination.max_count` setting from `lighthouse.php`.
+  """
+  maxCount: Int
+
+  """
+  Specify a custom type that implements the Edge interface
+  to extend edge object.
+  Only applies when using Relay style "connection" pagination.
+  """
+  edgeType: String
+) on FIELD_DEFINITION
+
+"""
+Options for the `type` argument of `@hasManyThrough`.
+"""
+enum HasManyThroughType {
     """
     Offset-based pagination, similar to the Laravel default.
     """
