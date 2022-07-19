@@ -4,8 +4,7 @@ import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { AuthenticationContext } from "@common/components/Auth";
-import { Button } from "@common/components";
-import AlertDialog from "@common/components/AlertDialog";
+import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { Helmet } from "react-helmet";
 import { getLocale } from "@common/helpers/localize";
 import PageContainer, { MenuLink } from "./PageContainer";
@@ -266,7 +265,6 @@ export const Router: React.FC = () => {
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
   const [isConfirmationOpen, setConfirmationOpen] =
     React.useState<boolean>(false);
-  const cancelLogoutRef = React.useRef(null);
 
   const menuItems = [
     <MenuLink
@@ -343,57 +341,11 @@ export const Router: React.FC = () => {
         <html lang={getLocale(intl)} />
       </Helmet>
       {loggedIn && (
-        <AlertDialog
+        <LogoutConfirmation
           isOpen={isConfirmationOpen}
-          leastDestructiveRef={cancelLogoutRef}
-          onDismiss={() => {
-            setConfirmationOpen(false);
-          }}
-          title={intl.formatMessage({
-            defaultMessage: "Logout",
-            description:
-              "Title for the modal that appears when an authenticated user attempts to logout",
-          })}
-        >
-          <AlertDialog.Description>
-            {intl.formatMessage({
-              defaultMessage: "Are you sure you would like to logout?",
-              description:
-                "Question displayed when authenticated user attempts to logout",
-            })}
-          </AlertDialog.Description>
-          <AlertDialog.Actions>
-            <Button
-              mode="outline"
-              color="primary"
-              type="button"
-              ref={cancelLogoutRef}
-              onClick={() => {
-                setConfirmationOpen(false);
-              }}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Cancel",
-                description: "Link text to cancel logging out.",
-              })}
-            </Button>
-            <span data-h2-margin="b(left, s)">
-              <Button
-                mode="solid"
-                color="primary"
-                type="button"
-                onClick={() => {
-                  logout();
-                }}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Logout",
-                  description: "Link text to logout.",
-                })}
-              </Button>
-            </span>
-          </AlertDialog.Actions>
-        </AlertDialog>
+          onDismiss={() => setConfirmationOpen(false)}
+          onLogout={() => logout()}
+        />
       )}
     </>
   );

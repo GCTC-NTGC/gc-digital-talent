@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
 import { useIntl } from "react-intl";
 import { LogoutIcon, LoginIcon } from "@heroicons/react/outline";
-import Dialog from "@common/components/Dialog";
+import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { SideMenuItem } from "@common/components/SideMenu";
 import { useLocation } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 
 import { AuthenticationContext } from "@common/components/Auth";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
-import { Button } from "@common/components";
 
 const LoginOrLogout = () => {
   const [isConfirmationOpen, setConfirmationOpen] =
@@ -50,63 +49,11 @@ const LoginOrLogout = () => {
             })}
       </SideMenuItem>
       {loggedIn && (
-        <Dialog
-          confirmation
-          centered
+        <LogoutConfirmation
           isOpen={isConfirmationOpen}
-          onDismiss={() => {
-            setConfirmationOpen(false);
-          }}
-          title={intl.formatMessage({
-            defaultMessage: "Logout",
-            description:
-              "Title for the modal that appears when an authenticated user lands on /logged-out.",
-          })}
-          footer={
-            <div
-              data-h2-display="b(flex)"
-              data-h2-align-items="b(center)"
-              data-h2-justify-content="b(flex-end)"
-            >
-              <Button
-                mode="outline"
-                color="primary"
-                type="button"
-                onClick={() => {
-                  setConfirmationOpen(false);
-                }}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Cancel",
-                  description: "Link text to cancel logging out.",
-                })}
-              </Button>
-              <span data-h2-margin="b(left, s)">
-                <Button
-                  mode="solid"
-                  color="primary"
-                  type="button"
-                  onClick={() => {
-                    logout();
-                  }}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Logout",
-                    description: "Link text to logout.",
-                  })}
-                </Button>
-              </span>
-            </div>
-          }
-        >
-          <p data-h2-font-size="b(h5)">
-            {intl.formatMessage({
-              defaultMessage: "Are you sure you would like to logout?",
-              description:
-                "Question displayed when authenticated user lands on /logged-out.",
-            })}
-          </p>
-        </Dialog>
+          onDismiss={() => setConfirmationOpen(false)}
+          onLogout={() => logout()}
+        />
       )}
     </>
   );
