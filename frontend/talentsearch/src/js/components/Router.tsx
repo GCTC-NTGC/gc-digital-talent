@@ -345,10 +345,10 @@ export const Router: React.FC = () => {
       {loggedIn && (
         <AlertDialog
           isOpen={isConfirmationOpen}
+          leastDestructiveRef={cancelLogoutRef}
           onDismiss={() => {
             setConfirmationOpen(false);
           }}
-          leastDestructiveRef={cancelLogoutRef}
           title={intl.formatMessage({
             defaultMessage: "Logout",
             description:
