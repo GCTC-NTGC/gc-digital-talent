@@ -25,6 +25,7 @@ import {
   getWorkRegion,
   getPoolCandidateStatus,
   getOperationalRequirement,
+  OperationalRequirementV1,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { User } from "@common/api/generated";
@@ -35,7 +36,6 @@ import {
   WorkRegion,
   SalaryRange,
   PoolCandidateStatus,
-  OperationalRequirement,
   CmoAsset,
   Classification,
   PoolCandidate,
@@ -165,13 +165,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
       label: `${group}-0${level}`,
     }),
   );
-
-  const operationalRequirementsSubsetV1 = [
-    OperationalRequirement.ShiftWork,
-    OperationalRequirement.WorkWeekends,
-    OperationalRequirement.OvertimeScheduled,
-    OperationalRequirement.OvertimeShortNotice,
-  ];
 
   return (
     <section>
@@ -375,7 +368,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form operational requirements field.",
               })}
-              options={operationalRequirementsSubsetV1.map((value) => ({
+              options={OperationalRequirementV1.map((value) => ({
                 value,
                 label: intl.formatMessage(getOperationalRequirement(value)),
               }))}

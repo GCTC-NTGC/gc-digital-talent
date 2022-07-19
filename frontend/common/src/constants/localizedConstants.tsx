@@ -586,6 +586,23 @@ export const OperationalRequirementCandidateDescription = defineMessages({
   },
 });
 
+export const OperationalRequirementV1 = [
+  OperationalRequirement.ShiftWork,
+  OperationalRequirement.WorkWeekends,
+  OperationalRequirement.OvertimeScheduled,
+  OperationalRequirement.OvertimeShortNotice,
+];
+
+export const OperationalRequirementV2 = [
+  OperationalRequirement.OvertimeOccasional,
+  OperationalRequirement.OvertimeRegular,
+  OperationalRequirement.ShiftWork,
+  OperationalRequirement.OnCall,
+  OperationalRequirement.Travel,
+  OperationalRequirement.TransportEquipment,
+  OperationalRequirement.DriversLicense,
+];
+
 export const getOperationalRequirementCandidateDescription = (
   operationalRequirementId: string | number,
 ): MessageDescriptor =>
