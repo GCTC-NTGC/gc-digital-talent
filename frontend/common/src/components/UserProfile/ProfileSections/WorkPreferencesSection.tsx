@@ -61,7 +61,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
       data-h2-radius="b(s)"
     >
       {wouldAcceptTemporary === null && (
-        <p>
+        <>
           <p>
             {intl.formatMessage({
               defaultMessage: "You haven't added any information here yet.",
@@ -79,7 +79,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
               description: "Message to click on the words to begin something",
             })}
           </a>
-        </p>
+        </>
       )}
 
       {wouldAcceptTemporary && (
