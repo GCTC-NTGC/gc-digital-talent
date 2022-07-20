@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * Class Pool
@@ -87,10 +88,9 @@ class Pool extends Model
     /* accessor to obtain Advertisement Status, depends on two variables regarding published and expiry */
     public function getAdvertisementStatusAttribute()
     {
-        date_default_timezone_set('America/Vancouver');
         $isPublished = $this->is_published;
         $expiryDate = $this->expiry_date;
-        $currentTime = date("Y-m-d H:i:s");
+        $currentTime = Carbon::now()->endOfDay();
         $isExpired = $currentTime > $expiryDate ? true : false;
 
         if(!$isPublished){
