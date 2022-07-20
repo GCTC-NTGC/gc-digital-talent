@@ -24,6 +24,7 @@ const TemplateCheckbox: Story<CheckboxProps> = (args) => {
 export const IndividualCheckbox = TemplateCheckbox.bind({});
 export const CheckboxWithBoundingBox = TemplateCheckbox.bind({});
 export const CheckboxElementLabel = TemplateCheckbox.bind({});
+export const LongTextCheckbox = TemplateCheckbox.bind({});
 
 IndividualCheckbox.args = {
   id: "hasDiploma",
@@ -43,4 +44,19 @@ CheckboxElementLabel.args = {
   id: "Red Selection",
   name: "Red Selection",
   label: <span data-h2-bg-color="b(red)">Red Selection</span>,
+};
+
+LongTextCheckbox.args = {
+  id: "iAgree",
+  name: "iAgree",
+  label:
+    "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
+  context: "This is a really long string.",
+  rules: { required: "This must be accepted to continue." },
+};
+
+LongTextCheckbox.parameters = {
+  viewport: {
+    defaultViewport: "mobile1",
+  },
 };
