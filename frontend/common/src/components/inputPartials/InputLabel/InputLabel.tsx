@@ -10,6 +10,7 @@ export interface InputLabelProps {
   contextIsVisible?: boolean;
   contextToggleHandler?: (contextIsActive: boolean) => void;
   hideOptional?: boolean;
+  addBottomMargin?: boolean;
 }
 
 const InputLabel: React.FC<InputLabelProps> = ({
@@ -21,6 +22,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
   },
   contextIsVisible = false,
   hideOptional = false,
+  addBottomMargin = true,
 }): React.ReactElement => {
   const [contextIsActive, setContextIsActive] = useState(false);
   const clickHandler = () => {
@@ -28,6 +30,15 @@ const InputLabel: React.FC<InputLabelProps> = ({
     setContextIsActive((currentState) => !currentState);
   };
   const intl = useIntl();
+
+  const dynamicProps = {
+    ...(addBottomMargin
+      ? {
+          "data-h2-margin": "base(0, 0, x.125, 0)",
+        }
+      : undefined),
+  };
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -35,6 +46,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
       data-h2-align-items="base(center)"
       data-h2-justify-content="base(flex-start)"
       data-h2-margin="base(0, 0, x.125, 0)"
+      {...dynamicProps}
     >
       <label
         data-h2-font-size="base(caption)"
@@ -49,6 +61,8 @@ const InputLabel: React.FC<InputLabelProps> = ({
           (required || !hideOptional) && (
             <span
               data-h2-font-size="base(caption)"
+              data-h2-display="base(inline-block)"
+              data-h2-margin="base(0, 0, 0, x.125)"
               {...(required
                 ? { "data-h2-color": "base(dt-error)" }
                 : { "data-h2-color": "base(dark.dt-gray)" })}

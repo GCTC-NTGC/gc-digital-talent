@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ApplicantFilter;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\Department;
 use App\Models\PoolCandidateFilter;
@@ -32,6 +33,7 @@ class PoolCandidateSearchRequestFactory extends Factory
         'status' => $this->faker->randomElement(['PENDING', 'DONE']),
         'admin_notes' => $this->faker->text(),
         'pool_candidate_filter_id' => PoolCandidateFilter::factory(),
+        'applicant_filter_id' => ApplicantFilter::factory(),
       ];
     }
 }

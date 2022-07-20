@@ -51,7 +51,10 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
             "Heading for helping user if no candidates matched the filters chosen.",
         })}
       </p>
-      <p data-h2-margin="base(x.125, 0, 0, 0)" data-h2-font-size="base(caption)">
+      <p
+        data-h2-margin="base(x.125, 0, 0, 0)"
+        data-h2-font-size="base(caption)"
+      >
         {intl.formatMessage(
           {
             defaultMessage:

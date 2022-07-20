@@ -78,7 +78,7 @@ const ButtonIcon: React.FC<{
   return (
     <Icon
       style={{ height: "1em", width: "1rem" }}
-      data-h2-margin="base(right, xs)"
+      data-h2-margin="base(0, x.5, 0, 0)"
     />
   );
 };
@@ -133,7 +133,7 @@ function Table<T extends Record<string, unknown>>({
           data-h2-padding="base(x.5)"
         >
           <div style={{ flexShrink: 0 }}>
-            {title && <span data-h2-font-weight="base(800)">{title}</span>}
+            {title && <span data-h2-font-weight="base(700)">{title}</span>}
           </div>
           <div
             style={{ flexShrink: 0 }}
@@ -177,7 +177,7 @@ function Table<T extends Record<string, unknown>>({
                         "Legend for the column toggle in admin tables.",
                     })}
                   >
-                    <div data-h2-margin="base(top-bottom, xxs)">
+                    <div data-h2-margin="base(x.125, 0)">
                       <IndeterminateCheckbox
                         {...(getToggleHideAllColumnsProps() as React.ComponentProps<
                           typeof IndeterminateCheckbox
@@ -185,10 +185,7 @@ function Table<T extends Record<string, unknown>>({
                       />
                     </div>
                     {allColumns.map((column) => (
-                      <div
-                        key={column.id}
-                        data-h2-margin="base(top-bottom, xxs)"
-                      >
+                      <div key={column.id} data-h2-margin="base(x.125, 0)">
                         <label htmlFor={column.Header?.toString()}>
                           <input
                             id={column.Header?.toString()}
@@ -327,7 +324,6 @@ function Table<T extends Record<string, unknown>>({
             ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
             color="black"
             mode="outline"
-            data-h2-margin="base(all, none)"
           />
         )}
       </div>

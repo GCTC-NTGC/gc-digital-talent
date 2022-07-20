@@ -37,7 +37,8 @@ const ManagerInfo: React.FunctionComponent<{
     <>
       <h2
         data-h2-margin="base(x2, 0, x.5, 0)"
-        data-h2-font-size="base(h4, 1.3)">
+        data-h2-font-size="base(h4, 1.3)"
+      >
         {intl.formatMessage({
           defaultMessage: "Manager Information",
           description:
@@ -55,7 +56,8 @@ const ManagerInfo: React.FunctionComponent<{
           >
             <div
               data-h2-padding="base(0, x1, 0, 0)"
-              data-h2-height="base(100%)">
+              data-h2-height="base(100%)"
+            >
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage: "Full Name",
@@ -80,7 +82,8 @@ const ManagerInfo: React.FunctionComponent<{
           >
             <div
               data-h2-padding="base(0, x1, 0, 0)"
-              data-h2-height="base(100%)">
+              data-h2-height="base(100%)"
+            >
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage: "Department",
@@ -105,22 +108,28 @@ const ManagerInfo: React.FunctionComponent<{
           >
             <div
               data-h2-padding="base(0, x1, 0, 0)"
-              data-h2-height="base(100%)">
+              data-h2-height="base(100%)"
+            >
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage: "Pool Requested",
                   description:
                     "Title for the pool block in the manager info section of the single search request view.",
                 })}
-                content={poolCandidateFilter.pools?.map(
-                  (pool) =>
-                    pool?.name?.[locale] ||
-                    intl.formatMessage({
-                      defaultMessage: "N/A",
-                      description: "Text shown when the filter was not selected",
-                    }),
-                )}
+                content={
+                  // TODO: get pools from applicantFilter isntead of poolCandidateFilter if possible
+                  poolCandidateFilter?.pools?.map(
+                    (pool) =>
+                      pool?.name?.[locale] ||
+                      intl.formatMessage({
+                        defaultMessage: "N/A",
+                        description:
+                          "Text shown when the filter was not selected",
+                      }),
+                  )
+                }
               />
+
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage: "Status",
@@ -139,11 +148,11 @@ const ManagerInfo: React.FunctionComponent<{
               />
             </div>
           </div>
-          <div
-            data-h2-flex-item="base(1of1) p-tablet(1of4)">
+          <div data-h2-flex-item="base(1of1) p-tablet(1of4)">
             <div
               data-h2-padding="base(0, x1, 0, 0)"
-              data-h2-height="base(100%)">
+              data-h2-height="base(100%)"
+            >
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage: "Date Requested",
@@ -178,10 +187,11 @@ export const SingleSearchRequest: React.FunctionComponent<
   const intl = useIntl();
   const locale = getLocale(intl);
   const { additionalComments, poolCandidateFilter } = searchRequest;
+  // TODO: data filter data from applicantFilter instead of poolCandidateFilter if possible.
 
   const poolCandidateFilterInput: PoolCandidateFilterInput = {
     classifications: [
-      ...(poolCandidateFilter.classifications
+      ...(poolCandidateFilter?.classifications
         ? poolCandidateFilter.classifications
             .filter(notEmpty)
             .map(({ group, level }) => {
@@ -193,7 +203,7 @@ export const SingleSearchRequest: React.FunctionComponent<
         : []),
     ],
     cmoAssets: [
-      ...(poolCandidateFilter.cmoAssets
+      ...(poolCandidateFilter?.cmoAssets
         ? poolCandidateFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
             return {
               key,
@@ -201,9 +211,9 @@ export const SingleSearchRequest: React.FunctionComponent<
           })
         : []),
     ],
-    operationalRequirements: poolCandidateFilter.operationalRequirements,
+    operationalRequirements: poolCandidateFilter?.operationalRequirements,
     pools: [
-      ...(poolCandidateFilter.pools
+      ...(poolCandidateFilter?.pools
         ? poolCandidateFilter.pools.filter(notEmpty).map(({ id }) => {
             return {
               id,
@@ -211,32 +221,28 @@ export const SingleSearchRequest: React.FunctionComponent<
           })
         : []),
     ],
-    hasDiploma: poolCandidateFilter.hasDiploma,
+    hasDiploma: poolCandidateFilter?.hasDiploma,
     equity: {
-      hasDisability: poolCandidateFilter.equity?.hasDisability,
-      isIndigenous: poolCandidateFilter.equity?.isIndigenous,
-      isVisibleMinority: poolCandidateFilter.equity?.isVisibleMinority,
-      isWoman: poolCandidateFilter.equity?.isWoman,
+      hasDisability: poolCandidateFilter?.equity?.hasDisability,
+      isIndigenous: poolCandidateFilter?.equity?.isIndigenous,
+      isVisibleMinority: poolCandidateFilter?.equity?.isVisibleMinority,
+      isWoman: poolCandidateFilter?.equity?.isWoman,
     },
-    languageAbility: poolCandidateFilter.languageAbility || undefined,
-    workRegions: poolCandidateFilter.workRegions,
+    languageAbility: poolCandidateFilter?.languageAbility || undefined,
+    workRegions: poolCandidateFilter?.workRegions,
   };
 
-  function span(msg: string): JSX.Element {
-    return <span data-h2-font-weight="base(600)">{msg}</span>;
-  }
   return (
     <section>
       <p>
         {intl.formatMessage(
           {
             defaultMessage:
-              "<span>{jobTitle}</span> at <span>{department}</span>",
+              "<strong>{jobTitle}</strong> at <strong>{department}</strong>",
             description:
               "Subtitle displayed above the single search request component.",
           },
           {
-            span,
             jobTitle: searchRequest.jobTitle,
             department: searchRequest.department?.name[locale],
           },
@@ -246,7 +252,8 @@ export const SingleSearchRequest: React.FunctionComponent<
       <div>
         <h2
           data-h2-margin="base(x2, 0, x.5, 0)"
-          data-h2-font-size="base(h4, 1.3)">
+          data-h2-font-size="base(h4, 1.3)"
+        >
           {intl.formatMessage({
             defaultMessage: "Request Information",
             description:
@@ -255,12 +262,14 @@ export const SingleSearchRequest: React.FunctionComponent<
         </h2>
         <div
           data-h2-padding="base(x1)"
-          data-h2-background-color="base(lightest.dt-gray)">
+          data-h2-background-color="base(lightest.dt-gray)"
+        >
           <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
           <div
             data-h2-padding="base(x1, 0, 0, 0)"
             data-h2-border="base(top, 1px, solid, dt-gray)"
-            data-h2-margin="base(x1, 0, 0, 0)">
+            data-h2-margin="base(x1, 0, 0, 0)"
+          >
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Additional Comments",
@@ -275,7 +284,8 @@ export const SingleSearchRequest: React.FunctionComponent<
       <div>
         <h2
           data-h2-margin="base(x2, 0, 0, 0)"
-          data-h2-font-size="base(h4, 1.3)">
+          data-h2-font-size="base(h4, 1.3)"
+        >
           {intl.formatMessage({
             defaultMessage: "Candidate Results",
             description:

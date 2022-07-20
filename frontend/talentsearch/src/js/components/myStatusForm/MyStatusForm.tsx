@@ -8,6 +8,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getJobLookingStatusDescription } from "@common/constants/localizedConstants";
 import { BasicForm, RadioGroup } from "@common/components/form";
 import Pending from "@common/components/Pending";
+import { stringify } from "querystring";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import {
   UpdateUserAsUserInput,
@@ -18,7 +19,6 @@ import {
   JobLookingStatus,
 } from "../../api/generated";
 import profileMessages from "../profile/profileMessages";
-import { stringify } from "querystring";
 
 export type FormValues = Pick<UpdateUserAsUserInput, "jobLookingStatus">;
 
@@ -35,10 +35,6 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
   handleMyStatus,
 }) => {
   const intl = useIntl();
-
-  function bold(msg: string) {
-    return <span data-h2-font-weight="base(700)">{msg}</span>;
-  }
 
   const isFormActive = initialData?.me?.isProfileComplete;
 
@@ -68,7 +64,9 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     }
   };
 
-  const disabledColor: Record<string, unknown> = !isFormActive ? {"data-h2-color": "base(dark.dt-gray)"} : {};
+  const disabledColor: Record<string, unknown> = !isFormActive
+    ? { "data-h2-color": "base(dark.dt-gray)" }
+    : {};
 
   return (
     <div>
@@ -95,15 +93,11 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
             data-h2-background-color="base(light.dt-primary.1)"
           >
             <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "<bold>Why can’t I change my status?</bold>",
-                  description: "Message in My Status Form.",
-                },
-                {
-                  bold,
-                },
-              )}
+              {intl.formatMessage({
+                defaultMessage:
+                  "<strong>Why can’t I change my status?</strong>",
+                description: "Message in My Status Form.",
+              })}
             </p>
             <p>
               {intl.formatMessage({
@@ -134,9 +128,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               JobLookingStatusSortOrder,
             ).map(({ value }) => ({
               value,
-              label: intl.formatMessage(getJobLookingStatusDescription(value), {
-                bold,
-              }),
+              label: intl.formatMessage(getJobLookingStatusDescription(value)),
             }))}
           />
         </div>

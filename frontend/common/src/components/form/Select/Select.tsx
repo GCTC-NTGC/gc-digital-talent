@@ -3,6 +3,12 @@ import { RegisterOptions, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 import { InputWrapper } from "../../inputPartials";
 
+export interface Option {
+  value: string | number;
+  label: string;
+  disabled?: boolean;
+}
+
 export interface SelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
   /** HTML id used to identify the element. */
@@ -12,7 +18,7 @@ export interface SelectProps
   /** A string specifying a name for the input control. */
   name: string;
   /** List of options for the select element. */
-  options: { value: string | number; label: string; disabled?: boolean }[];
+  options: Option[];
   /** Object set of validation rules to impose on input. */
   rules?: RegisterOptions;
   /** Optional context which user can view by toggling a button. */

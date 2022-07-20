@@ -17,8 +17,6 @@ import EquityOptions from "./EquityOptions";
 import type { DiversityInclusionUpdateHandler, EquityKeys } from "./types";
 import profileMessages from "../profile/profileMessages";
 
-const boldText = (...chunks: string[]) => <strong>{chunks}</strong>;
-
 export interface DiversityEquityInclusionFormProps {
   user: User;
   isMutating: boolean;
@@ -80,15 +78,12 @@ export const DiversityEquityInclusionForm: React.FC<
         data-h2-padding="base(x1)"
       >
         <p data-h2-margin="base(0, auto, auto, auto)">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "<b>This section is optional</b>. If you a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <b>Complete the form below if you meet both of these conditions</b>:",
-              description:
-                "Explanation that employment equity information is optional.",
-            },
-            { b: boldText },
-          )}
+          {intl.formatMessage({
+            defaultMessage:
+              "<strong>This section is optional</strong>. If you a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions</strong>:",
+            description:
+              "Explanation that employment equity information is optional.",
+          })}
         </p>
         <ul>
           <li>

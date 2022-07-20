@@ -1,6 +1,7 @@
 import "../../common/src/css/hydrogen.css";
 import "../src/css/app.css"
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
+import defaultRichTextElements from "../../common/src/helpers/format";
 import IndigenousApprenticeshipFrench from "../src/js/lang/frCompiled.json";
 import CommonFrench from "../../common/src/lang";
 
@@ -24,6 +25,7 @@ setIntlConfig({
     locales: ["en", "fr"],
     defaultLocale: "en",
     getMessages: (locale) => messages[locale],
+    defaultRichTextElements
 })
 
 export const decorators = [

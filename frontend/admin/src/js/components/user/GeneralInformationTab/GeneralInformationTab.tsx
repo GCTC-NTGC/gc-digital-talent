@@ -96,7 +96,10 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
     <>
       <table data-h2-text-align="base(center)">
         <thead>
-          <tr data-h2-background-color="base(dark.dt-gray)" data-h2-color="base(dt-white)">
+          <tr
+            data-h2-background-color="base(dark.dt-gray)"
+            data-h2-color="base(dt-white)"
+          >
             <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
               {intl.formatMessage({
                 defaultMessage: "Pool",
@@ -283,14 +286,6 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
 
   const [showAddToPoolDialog, setShowAddToPoolDialog] = React.useState(false);
 
-  const purpleText = (msg: string) => {
-    return (
-      <span data-h2-color="base(dt-primary)" data-h2-font-weight="base(800)">
-        {msg}
-      </span>
-    );
-  };
-
   return (
     <>
       <Heading level="h4">
@@ -306,41 +301,26 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
         data-h2-radius="base(s)"
       >
         {user.jobLookingStatus === JobLookingStatus.ActivelyLooking &&
-          intl.formatMessage(
-            {
-              defaultMessage:
-                "<purpleText>Active</purpleText> - Wants to be contacted for job opportunities",
-              description:
-                "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please",
-            },
-            {
-              purpleText,
-            },
-          )}
+          intl.formatMessage({
+            defaultMessage:
+              "<heavyPrimary>Active</heavyPrimary> - Wants to be contacted for job opportunities",
+            description:
+              "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please",
+          })}
         {user.jobLookingStatus === JobLookingStatus.OpenToOpportunities &&
-          intl.formatMessage(
-            {
-              defaultMessage:
-                "<purpleText>Open to opportunities</purpleText> - Not actively looking but still wants to be contacted for job opportunities",
-              description:
-                "Text in view user page saying they currently have the 'Open to opportunities' status, ignore things in <> tags please",
-            },
-            {
-              purpleText,
-            },
-          )}
+          intl.formatMessage({
+            defaultMessage:
+              "<heavyPrimary>Open to opportunities</heavyPrimary> - Not actively looking but still wants to be contacted for job opportunities",
+            description:
+              "Text in view user page saying they currently have the 'Open to opportunities' status, ignore things in <> tags please",
+          })}
         {user.jobLookingStatus === JobLookingStatus.Inactive &&
-          intl.formatMessage(
-            {
-              defaultMessage:
-                "<purpleText>Inactive</purpleText> - Does not want to be contacted for job opportunities",
-              description:
-                "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please",
-            },
-            {
-              purpleText,
-            },
-          )}
+          intl.formatMessage({
+            defaultMessage:
+              "<heavyPrimary>Inactive</heavyPrimary> - Does not want to be contacted for job opportunities",
+            description:
+              "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please",
+          })}
       </div>
       <h5>
         {intl.formatMessage({

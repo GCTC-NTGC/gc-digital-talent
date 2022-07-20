@@ -44,7 +44,10 @@ const LoggedOutPage: React.FC = () => {
           })}
         </h1>
       </div>
-      <div data-h2-container="base(center, s)" data-h2-margin="base(x3, 0)">
+      <di
+        data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
+        data-h2-margin="base(x3, 0)"
+      >
         <Alert
           type="success"
           icon={<BellIcon style={{ width: "1rem" }} />}

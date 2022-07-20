@@ -26,7 +26,7 @@ module.exports = {
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },
-  collectCoverage: true,
+  collectCoverage: false,
   coverageReporters: ["json", "html"],
   collectCoverageFrom: [
     "src/js/**/*.{js,jsx,ts,tsx}",
@@ -36,4 +36,6 @@ module.exports = {
 
   // Module file extensions for importing
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+
+  setupFilesAfterEnv: ["./src/js/tests/setup.ts"],
 };

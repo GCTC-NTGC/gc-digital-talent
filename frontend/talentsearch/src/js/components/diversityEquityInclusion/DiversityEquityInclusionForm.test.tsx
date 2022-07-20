@@ -6,6 +6,7 @@ import { screen, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
 import { fakeUsers } from "@common/fakeData";
 import { act } from "react-dom/test-utils";
+import { axeTest, render } from "@common/helpers/testUtils";
 import {
   DiversityEquityInclusionForm,
   type DiversityEquityInclusionFormProps,
@@ -13,27 +14,32 @@ import {
 
 import type { DiversityInclusionUpdateHandler } from "./types";
 
-import { render } from "../../tests/testUtils";
-
 const mockUser = fakeUsers()[0];
 
 const renderDiversityEquityInclusionForm = ({
   user,
   onUpdate,
   isMutating,
-}: DiversityEquityInclusionFormProps) => (
-  <>
-    {render(
-      <DiversityEquityInclusionForm
-        user={user}
-        onUpdate={onUpdate}
-        isMutating={isMutating}
-      />,
-    )}
-  </>
-);
+}: DiversityEquityInclusionFormProps) =>
+  render(
+    <DiversityEquityInclusionForm
+      user={user}
+      onUpdate={onUpdate}
+      isMutating={isMutating}
+    />,
+  );
 
 describe("DiversityEquityInclusionForm", () => {
+  it("should have no accessibility errors", async () => {
+    const { container } = renderDiversityEquityInclusionForm({
+      user: mockUser,
+      onUpdate: jest.fn(),
+      isMutating: false,
+    });
+
+    await axeTest(container);
+  });
+
   /**
    * Checks to see if the proper add/remove buttons
    * are rendered based on the users EE info.

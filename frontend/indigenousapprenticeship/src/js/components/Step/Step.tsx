@@ -15,7 +15,7 @@ const Step: React.FC<StepProps> = ({ position, title, children }) => (
     data-h2-padding="base(0, x2) l-tablet(0)"
   >
     <Heading
-      as="h5"
+      as="h4"
       color="white"
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"

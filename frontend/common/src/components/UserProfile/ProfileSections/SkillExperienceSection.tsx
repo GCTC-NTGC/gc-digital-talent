@@ -6,11 +6,6 @@ import ExperienceSection from "../ExperienceSection";
 
 import type { ExperiencePaths } from "../ExperienceAccordion/ExperienceAccordion";
 
-// styling a text bit with red colour within intls
-function redText(msg: string) {
-  return <span data-h2-color="base(dt-error)">{msg}</span>;
-}
-
 export type PathFunc = (path: void | string, id: void | string) => string;
 
 const SkillExperienceSection: React.FunctionComponent<{
@@ -51,17 +46,11 @@ const SkillExperienceSection: React.FunctionComponent<{
             })}
           </p>
           <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "There are <redText>required</redText> fields missing.",
-                description:
-                  "Message that there are required fields missing. Please ignore things in <> tags.",
-              },
-              {
-                redText,
-              },
-            )}{" "}
+            {intl.formatMessage({
+              defaultMessage: "There are <red>required</red> fields missing.",
+              description:
+                "Message that there are required fields missing. Please ignore things in <> tags.",
+            })}{" "}
             <a href={editPath}>
               {intl.formatMessage({
                 defaultMessage: "Click here to get started.",

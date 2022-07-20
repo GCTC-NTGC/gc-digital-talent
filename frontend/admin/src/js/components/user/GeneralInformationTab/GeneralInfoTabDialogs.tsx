@@ -236,13 +236,20 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
               })}
             </option>
             {enumToOptions(PoolCandidateStatus).map(({ value }) => (
-              <option data-h2-font-family="base(sans)" key={value} value={value}>
+              <option
+                data-h2-font-family="base(sans)"
+                key={value}
+                value={value}
+              >
                 {intl.formatMessage(getPoolCandidateStatus(value))}
               </option>
             ))}
           </select>
         </InputWrapper>
-        <div data-h2-display="base(block)" data-h2-margin="base(x.125, 0, 0, 0)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputError
             isVisible={showErrorMessage}
             error={intl.formatMessage({
@@ -395,7 +402,10 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
             onChange={(e) => setSelectedDate(e.target.value)}
           />
         </InputWrapper>
-        <div data-h2-display="base(block)" data-h2-margin="base(x.125, 0, 0, 0)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputError
             isVisible={showErrorMessage}
             error={intl.formatMessage({
@@ -461,10 +471,6 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
       });
   };
 
-  const boldText = (msg: string) => {
-    return <span data-h2-font-weight="base(bold)">{msg}</span>;
-  };
-
   return (
     <Dialog
       title={intl.formatMessage({
@@ -501,17 +507,12 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
       }
     >
       <p>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "You're about to <boldText>remove the following user:</boldText>",
-            description:
-              "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
-          },
-          {
-            boldText,
-          },
-        )}
+        {intl.formatMessage({
+          defaultMessage:
+            "You're about to <strong>remove the following user:</strong>",
+          description:
+            "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
+        })}
       </p>
       <p>
         - {user.firstName} {user.lastName}
@@ -708,7 +709,10 @@ export const AddToPoolDialog: React.FC<{
             })}
           </select>
         </InputWrapper>
-        <div data-h2-display="base(block)" data-h2-margin="base(x.125, 0, 0, 0)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputError
             isVisible={showPoolErrorMessage}
             error={intl.formatMessage({
@@ -747,7 +751,10 @@ export const AddToPoolDialog: React.FC<{
             onChange={(e) => setSelectedDate(e.target.value)}
           />
         </InputWrapper>
-        <div data-h2-display="base(block)" data-h2-margin="base(x.125, 0, 0, 0)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputError
             isVisible={showDateErrorMessage}
             error={intl.formatMessage({

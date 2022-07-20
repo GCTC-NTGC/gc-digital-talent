@@ -6,11 +6,6 @@ import { insertBetween } from "../../../helpers/util";
 
 import { Applicant } from "../../../api/generated";
 
-// styling a text bit with red colour within intls
-function redText(msg: string) {
-  return <span data-h2-color="base(dt-error)">{msg}</span>;
-}
-
 const WorkLocationSection: React.FunctionComponent<{
   applicant: Pick<Applicant, "locationPreferences" | "locationExemptions">;
   editPath?: string;
@@ -60,17 +55,11 @@ const WorkLocationSection: React.FunctionComponent<{
             })}
           </p>
           <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "There are <redText>required</redText> fields missing.",
-                description:
-                  "Message that there are required fields missing. Please ignore things in <> tags.",
-              },
-              {
-                redText,
-              },
-            )}{" "}
+            {intl.formatMessage({
+              defaultMessage: "There are <red>required</red> fields missing.",
+              description:
+                "Message that there are required fields missing. Please ignore things in <> tags.",
+            })}{" "}
             <a href={editPath}>
               {intl.formatMessage({
                 defaultMessage: "Click here to get started.",

@@ -3,6 +3,7 @@ import { notEmpty } from "@common/helpers/util";
 import { useIntl } from "react-intl";
 import pick from "lodash/pick";
 import { pushToStateThenNavigate } from "@common/helpers/router";
+import { unpackMaybes } from "@common/helpers/formUtils";
 import {
   Classification,
   CmoAsset,
@@ -12,9 +13,6 @@ import {
   PoolCandidateFilterInput,
   Pool,
   UserPublicProfile,
-  KeyFilterInput,
-  PoolFilterInput,
-  ClassificationFilterInput,
   Maybe,
 } from "../../../api/generated";
 import {
@@ -27,6 +25,10 @@ import SearchFilterAdvice from "../SearchFilterAdvice";
 import SearchPools from "../SearchPools";
 import Spinner from "../../Spinner";
 import { useTalentSearchRoutes } from "../../../talentSearchRoutes";
+
+const testId = (text: React.ReactNode) => (
+  <span data-testid="candidateCount">{text}</span>
+);
 
 export interface SearchContainerProps {
   classifications: Classification[];
@@ -60,14 +62,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   const cmoAssetFilterCount = candidateFilter?.cmoAssets?.length ?? 0;
   const operationalRequirementFilterCount =
     candidateFilter?.operationalRequirements?.length ?? 0;
-
-  function span(msg: string) {
-    return (
-      <span data-h2-color="base(dt-primary.light)" data-testid="candidateCount">
-        {msg}
-      </span>
-    );
-  }
 
   function a(msg: string) {
     return (
@@ -109,7 +103,10 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
               "Heading for helping user if no candidates matched the filters chosen.",
           })}
         </p>
-        <p data-h2-margin="base(top, xxs)" data-h2-font-size="base(caption)">
+        <p
+          data-h2-margin="base(x.125, 0, 0, 0)"
+          data-h2-font-size="base(caption)"
+        >
           {intl.formatMessage(
             {
               defaultMessage:
@@ -179,12 +176,12 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Results: <span>{candidateCount}</span> matching candidates",
+                  "Results: <primary><testId>{candidateCount}</testId></primary> matching candidates",
                 description:
                   "Heading for total matching candidates in results section of search page.",
               },
               {
-                span,
+                testId,
                 candidateCount,
               },
             )}
@@ -215,16 +212,14 @@ const candidateFilterToQueryArgs = (
   */
 
   // Apply pick to each element of an array.
-  const pickMap = (
-    list:
-      | Maybe<Maybe<PoolFilterInput>[]>
-      | Maybe<Maybe<KeyFilterInput>[]>
-      | Maybe<Maybe<ClassificationFilterInput>[]>
-      | null
-      | undefined,
-    keys: string | string[],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): any[] | undefined => list?.map((item) => pick(item, keys));
+  function pickMap<T, K extends keyof T>(
+    list: Maybe<Maybe<T>[]> | null | undefined,
+    keys: K | K[],
+  ): Pick<T, K>[] | undefined {
+    return unpackMaybes(list).map(
+      (item) => pick(item, keys) as Pick<T, K>, // I think this type coercion is safe? But I'm not sure why its not the default...
+    );
+  }
 
   if (filter !== null || undefined)
     return {

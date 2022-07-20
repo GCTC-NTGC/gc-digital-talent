@@ -19,11 +19,6 @@ interface AboutSectionProps {
   editPath?: string;
 }
 
-// styling a text bit with red colour within intl
-function redText(msg: string) {
-  return <span data-h2-color="base(dt-error)">{msg}</span>;
-}
-
 const AboutSection: React.FC<AboutSectionProps> = ({
   editPath,
   applicant: {
@@ -130,17 +125,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !currentCity ||
         !currentProvince) && (
         <p>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "There are <redText>required</redText> fields missing.",
-              description:
-                "Message that there are required fields missing. Please ignore things in <> tags.",
-            },
-            {
-              redText,
-            },
-          )}{" "}
+          {intl.formatMessage({
+            defaultMessage: "There are <red>required</red> fields missing.",
+            description:
+              "Message that there are required fields missing. Please ignore things in <> tags.",
+          })}{" "}
           <a href={editPath}>
             {intl.formatMessage({
               defaultMessage: "Click here to get started.",

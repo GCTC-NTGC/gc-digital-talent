@@ -76,7 +76,7 @@ const Input: React.FunctionComponent<InputProps> = ({
           onBlur={whitespaceTrimmer}
           type={type}
           {...(readOnly && {
-            "data-h2-bg-color": "base(dt-gray.light)",
+            "data-h2-background-color": "base(dt-gray.light)",
           })}
           readOnly={readOnly}
           aria-required={rules.required ? "true" : undefined}

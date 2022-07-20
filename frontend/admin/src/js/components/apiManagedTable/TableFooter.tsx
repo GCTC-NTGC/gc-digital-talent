@@ -2,6 +2,8 @@ import { Button } from "@common/components";
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 import Pagination from "@common/components/Pagination";
+import Pending from "@common/components/Pending";
+import { CombinedError } from "urql";
 import { Spacer } from "../Table/tableComponents";
 import { PaginatorInfo } from "../../api/generated";
 
@@ -9,6 +11,11 @@ export interface TableFooterProps {
   paginatorInfo?: PaginatorInfo;
   onCurrentPageChange: (n: number) => void;
   onPageSizeChange: (n: number) => void;
+  onPrint?: () => void;
+  hasSelection?: boolean;
+  disableActions?: boolean;
+  fetchingSelected?: boolean;
+  selectionError?: CombinedError;
 }
 
 const defaultPaginationInfo = {
@@ -24,6 +31,11 @@ function TableFooter({
   paginatorInfo = defaultPaginationInfo,
   onCurrentPageChange,
   onPageSizeChange,
+  onPrint,
+  disableActions,
+  hasSelection = false,
+  fetchingSelected = false,
+  selectionError,
 }: TableFooterProps): ReactElement {
   const intl = useIntl();
 
@@ -41,43 +53,57 @@ function TableFooter({
       <div data-h2-padding="base(x1, x.75)">
         <div data-h2-flex-grid="base(center, 0, x2, 0)">
           <div data-h2-flex-item="base(content)">
-            <div data-h2-flex-grid="base(center, 0, x1, 0)">
-              {/* <div data-h2-flex-item="base(content)">
-                <div
-                  data-h2-position="base(relative)"
-                  data-h2-padding="base(x.45)"
-                  data-h2-border="base(all, 1px, solid, dt-white)"
-                >
-                  <span
-                    data-h2-color="base(dt-white)"
-                    data-h2-font-weight="base(700)"
-                    data-h2-display="base(block)"
-                    data-h2-position="base(center)"
-                    data-h2-margin="base(1px, 0, 0, 0)"
+            {hasSelection && (
+              <div data-h2-flex-grid="base(center, 0, x1, 0)">
+                {/* <div data-h2-flex-item="base(content)">
+                  <div
+                    data-h2-position="base(relative)"
+                    data-h2-padding="base(x.45)"
+                    data-h2-border="base(all, 1px, solid, dt-white)"
                   >
-                    3
-                  </span>
-                </div>
-              </div> */}
-              <div data-h2-flex-item="base(content)">
-                <Button type="button" mode="inline" color="white">
-                  {intl.formatMessage({
-                    defaultMessage: "Download XML",
-                    description:
-                      "Text label for button to download an xml file of items in a table.",
-                  })}
-                </Button>
+                    <span
+                      data-h2-color="base(dt-white)"
+                      data-h2-font-weight="base(700)"
+                      data-h2-display="base(block)"
+                      data-h2-position="base(center)"
+                      data-h2-margin="base(1px, 0, 0, 0)"
+                    >
+                      3
+                    </span>
+                  </div>
+                </div> */}
+                <Pending
+                  fetching={fetchingSelected}
+                  error={selectionError}
+                  inline
+                >
+                  <div data-h2-flex-item="base(content)">
+                    <Button type="button" mode="inline" color="white" disabled>
+                      {intl.formatMessage({
+                        defaultMessage: "Download XML",
+                        description:
+                          "Text label for button to download an xml file of items in a table.",
+                      })}
+                    </Button>
+                  </div>
+                  <div data-h2-flex-item="base(content)">
+                    <Button
+                      type="button"
+                      mode="inline"
+                      color="white"
+                      disabled={disableActions}
+                      onClick={onPrint}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Print",
+                        description:
+                          "Text label for button to print items in a table.",
+                      })}
+                    </Button>
+                  </div>
+                </Pending>
               </div>
-              <div data-h2-flex-item="base(content)">
-                <Button type="button" mode="inline" color="white">
-                  {intl.formatMessage({
-                    defaultMessage: "Download PDF",
-                    description:
-                      "Text label for button to download a pdf of items in a table.",
-                  })}
-                </Button>
-              </div>
-            </div>
+            )}
           </div>
           <div data-h2-flex-item="base(fill)">
             <Pagination

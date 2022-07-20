@@ -40,10 +40,6 @@ export const WorkLocationPreferenceForm: React.FC<
 > = ({ initialData, handleWorkLocationPreference }) => {
   const intl = useIntl();
 
-  function bold(msg: string) {
-    return <span data-h2-font-weight="base(700)">{msg}</span>;
-  }
-
   const dataToFormValues = (
     data: WorkLocationPreferenceQuery | undefined,
   ): FormValues => ({
@@ -97,8 +93,14 @@ export const WorkLocationPreferenceForm: React.FC<
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
-              <div data-h2-padding="base(0, x2, 0, 0)" data-testid="workLocation">
+            <div
+              data-h2-flex-item="base(1of1)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
+              <div
+                data-h2-padding="base(0, x2, 0, 0)"
+                data-testid="workLocation"
+              >
                 <Checklist
                   idPrefix="work-location"
                   legend={intl.formatMessage({
@@ -109,9 +111,7 @@ export const WorkLocationPreferenceForm: React.FC<
                   name="locationPreferences"
                   items={enumToOptions(WorkRegion).map(({ value }) => ({
                     value,
-                    label: intl.formatMessage(getWorkRegionsDetailed(value), {
-                      bold,
-                    }),
+                    label: intl.formatMessage(getWorkRegionsDetailed(value)),
                   }))}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
@@ -119,7 +119,10 @@ export const WorkLocationPreferenceForm: React.FC<
                 />
               </div>
             </div>
-            <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
+            <div
+              data-h2-flex-item="base(1of1)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
               <div data-h2-padding="base(0, x2, 0, 0)">
                 <p>
                   {intl.formatMessage({
@@ -139,7 +142,10 @@ export const WorkLocationPreferenceForm: React.FC<
                 </p>
               </div>
             </div>
-            <div data-h2-flex-item="base(1of2)" data-h2-padding="base(x1, 0, 0, 0)">
+            <div
+              data-h2-flex-item="base(1of2)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
               <div data-h2-padding="base(0, x2, 0, 0)">
                 <TextArea
                   id="location-exemptions"

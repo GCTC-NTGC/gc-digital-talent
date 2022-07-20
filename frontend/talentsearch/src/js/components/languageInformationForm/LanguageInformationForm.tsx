@@ -110,12 +110,6 @@ export const LanguageInformationForm: React.FunctionComponent<{
     "bilingualEvaluation",
   ]);
 
-  const bold = (msg: string) => {
-    return <span data-h2-font-weight="base(700)">{msg}</span>;
-  };
-  const greyText = (msg: string) => {
-    return <span data-h2-color="base(dark.dt-gray)">{msg}</span>;
-  };
   const languageEvaluationPageLink = () => {
     return (
       <a
@@ -182,12 +176,11 @@ export const LanguageInformationForm: React.FunctionComponent<{
       label: intl.formatMessage(
         {
           defaultMessage:
-            "I am bilingual (En/Fr) and <bold>have</bold> completed an official <bold>ENGLISH</bold> <languageEvaluationPageLink></languageEvaluationPageLink>",
+            "I am bilingual (En/Fr) and <strong>have</strong> completed an official <strong>ENGLISH</strong> <languageEvaluationPageLink></languageEvaluationPageLink>",
           description:
             "Message for the completed english bilingual evaluation option",
         },
         {
-          bold,
           languageEvaluationPageLink,
         },
       ),
@@ -197,12 +190,11 @@ export const LanguageInformationForm: React.FunctionComponent<{
       label: intl.formatMessage(
         {
           defaultMessage:
-            "I am bilingual (En/Fr) and <bold>have</bold> completed an official <bold>FRENCH</bold> <languageEvaluationPageLink></languageEvaluationPageLink>",
+            "I am bilingual (En/Fr) and <strong>have</strong> completed an official <strong>FRENCH</strong> <languageEvaluationPageLink></languageEvaluationPageLink>",
           description:
             "Message for the completed french bilingual evaluation option",
         },
         {
-          bold,
           languageEvaluationPageLink,
         },
       ),
@@ -212,12 +204,11 @@ export const LanguageInformationForm: React.FunctionComponent<{
       label: intl.formatMessage(
         {
           defaultMessage:
-            "I am bilingual (En/Fr) and <bold>have NOT</bold> completed an official <languageEvaluationPageLink></languageEvaluationPageLink>",
+            "I am bilingual (En/Fr) and <strong>have NOT</strong> completed an official <languageEvaluationPageLink></languageEvaluationPageLink>",
           description:
             "Message for the haven't completed bilingual evaluation option",
         },
         {
-          bold,
           languageEvaluationPageLink,
         },
       ),
@@ -242,42 +233,26 @@ export const LanguageInformationForm: React.FunctionComponent<{
     [
       {
         value: EstimatedLanguageAbility.Beginner,
-        label: intl.formatMessage(
-          {
-            defaultMessage:
-              "Beginner <greyText>- I have basic reading, writing and verbal communication skills.</greyText>",
-            description: "Message for the beginner language ability option",
-          },
-          {
-            greyText,
-          },
-        ),
+        label: intl.formatMessage({
+          defaultMessage:
+            "Beginner <gray>- I have basic reading, writing and verbal communication skills.</gray>",
+          description: "Message for the beginner language ability option",
+        }),
       },
       {
         value: EstimatedLanguageAbility.Intermediate,
-        label: intl.formatMessage(
-          {
-            defaultMessage:
-              "Intermediate <greyText>- I have strong reading, writing and verbal communication skills.</greyText>",
-            description: "Message for the intermediate language ability option",
-          },
-          {
-            greyText,
-          },
-        ),
+        label: intl.formatMessage({
+          defaultMessage:
+            "Intermediate <gray>- I have strong reading, writing and verbal communication skills.</gray>",
+          description: "Message for the intermediate language ability option",
+        }),
       },
       {
         value: EstimatedLanguageAbility.Advanced,
-        label: intl.formatMessage(
-          {
-            defaultMessage:
-              "Advanced <greyText>- I am completely fluent.</greyText>",
-            description: "Message for the advanced language ability option",
-          },
-          {
-            greyText,
-          },
-        ),
+        label: intl.formatMessage({
+          defaultMessage: "Advanced <gray>- I am completely fluent.</gray>",
+          description: "Message for the advanced language ability option",
+        }),
       },
     ];
 

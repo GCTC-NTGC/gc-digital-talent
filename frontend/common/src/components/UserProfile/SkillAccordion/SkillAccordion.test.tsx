@@ -2,36 +2,21 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import React from "react";
-import {
-  createIntl,
-  createIntlCache,
-  IntlProvider,
-  MessageFormatElement,
-} from "react-intl";
+import { createIntl, createIntlCache } from "react-intl";
 import { fakeSkills } from "../../../fakeData";
 import { generators as experienceGenerator } from "../../../fakeData/fakeExperiences";
 
+import { render } from "../../../helpers/testUtils";
 import { getDateRange } from "../../../helpers/dateUtils";
 import { Skill } from "../../../api/generated";
 import SkillAccordion from "./SkillAccordion";
 
 const skills = fakeSkills();
-const renderWithReactIntl = (
-  component: React.ReactNode,
-  locale?: "en" | "fr",
-  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
-) => {
-  return render(
-    <IntlProvider locale={locale || "en"} messages={messages}>
-      {component}
-    </IntlProvider>,
-  );
-};
 const testSkill = skills[0];
 function renderSkillAccordion(skill: Skill) {
-  return renderWithReactIntl(<SkillAccordion skill={skill} />);
+  return render(<SkillAccordion skill={skill} />);
 }
 
 describe("SkillAccordion tests", () => {
@@ -67,10 +52,8 @@ describe("SkillAccordion tests", () => {
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
     const detail = screen.getByTestId("detail");
-    const titleElement = screen.getByTitle("award");
     expect(context).not.toBeNull();
     expect(detail).not.toBeNull();
-    expect(titleElement.innerHTML.trim()).toEqual(experience.title);
   });
   test("It renders proper context and detail when a work experience is provided", () => {
     const experience = experienceGenerator.workExperiences()[0];
@@ -152,7 +135,7 @@ describe("SkillAccordion tests", () => {
 
   test("It renders proper context and detail when more than one experiences provided", () => {
     const experience1 = experienceGenerator.workExperiences()[0];
-    const experience2 = experienceGenerator.educationExperiences()[0];
+    const experience2 = experienceGenerator.educationExperiences(2)[1];
 
     testSkill.experiences = [experience1, experience2];
     renderSkillAccordion(testSkill);

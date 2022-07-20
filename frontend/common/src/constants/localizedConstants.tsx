@@ -155,7 +155,7 @@ export const languageRequirements = defineMessages({
     description: "The language requirement is French only.",
   },
   [PoolAdvertisementLanguage.Various]: {
-    defaultMessage: "Various",
+    defaultMessage: "Various (English or French)",
     description: "The language requirement is various.",
   },
 });
@@ -206,39 +206,40 @@ export const workRegions = defineMessages({
 
 export const workRegionsDetailed = defineMessages({
   [WorkRegion.Telework]: {
-    defaultMessage: "<bold>Virtual:</bold> Work from home, anywhere in Canada.",
+    defaultMessage:
+      "<strong>Virtual:</strong> Work from home, anywhere in Canada.",
     description: "The work region of Canada described as Telework.",
   },
   [WorkRegion.NationalCapital]: {
     defaultMessage:
-      "<bold>National Capital Region:</bold> Ottawa, ON and Gatineau, QC.",
+      "<strong>National Capital Region:</strong> Ottawa, ON and Gatineau, QC.",
     description: "The work region of Canada described as National Capital.",
   },
   [WorkRegion.Atlantic]: {
     defaultMessage:
-      "<bold>Atlantic Region:</bold> New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island.",
+      "<strong>Atlantic Region:</strong> New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island.",
     description: "The work region of Canada described as Atlantic.",
   },
   [WorkRegion.Quebec]: {
-    defaultMessage: "<bold>Quebec Region:</bold> excluding Gatineau.",
+    defaultMessage: "<strong>Quebec Region:</strong> excluding Gatineau.",
     description: "The work region of Canada described as Quebec.",
   },
   [WorkRegion.Ontario]: {
-    defaultMessage: "<bold>Ontario Region:</bold> excluding Ottawa.",
+    defaultMessage: "<strong>Ontario Region:</strong> excluding Ottawa.",
     description: "The work region of Canada described as Ontario.",
   },
   [WorkRegion.Prairie]: {
     defaultMessage:
-      "<bold>Prairie Region:</bold> Manitoba, Saskatchewan, Alberta.",
+      "<strong>Prairie Region:</strong> Manitoba, Saskatchewan, Alberta.",
     description: "The work region of Canada described as Prairie.",
   },
   [WorkRegion.BritishColumbia]: {
-    defaultMessage: "<bold>British Columbia Region</bold>",
+    defaultMessage: "<strong>British Columbia Region</strong>",
     description: "The work region of Canada described as British Columbia.",
   },
   [WorkRegion.North]: {
     defaultMessage:
-      "<bold>North Region:</bold> Yukon, Northwest Territories and Nunavut.",
+      "<strong>North Region:</strong> Yukon, Northwest Territories and Nunavut.",
     description: "The work region of Canada described as North.",
   },
 });
@@ -537,40 +538,51 @@ export const getEducationType = (
 
 export const OperationalRequirementCandidateDescription = defineMessages({
   [OperationalRequirement.ShiftWork]: {
-    defaultMessage: "...has <bold>shift-work</bold>.",
+    defaultMessage: "...has <strong>shift-work</strong>.",
     description: "The operational requirement described as shift work.",
   },
   [OperationalRequirement.OnCall]: {
-    defaultMessage: "...has <bold>24/7 on call-shifts</bold>.",
+    defaultMessage: "...has <strong>24/7 on call-shifts</strong>.",
     description: "The operational requirement described as 24/7 on-call.",
   },
   [OperationalRequirement.Travel]: {
-    defaultMessage: "...requires me to <bold>travel</bold>.",
+    defaultMessage: "...requires me to <strong>travel</strong>.",
     description: "The operational requirement described as travel as required.",
   },
   [OperationalRequirement.TransportEquipment]: {
     defaultMessage:
-      "...requires me to <bold>transport, lift and set down equipment weighing up to 20kg</bold>.",
+      "...requires me to <strong>transport, lift and set down equipment weighing up to 20kg</strong>.",
     description:
       "The operational requirement described as transport equipment up to 20kg.",
   },
   [OperationalRequirement.DriversLicense]: {
     defaultMessage:
-      "...requires me to <bold>have a valid driver's license</bold> or personal mobility to the degree normally associated with the possession of a valid driver's license.",
+      "...requires me to <strong>have a valid driver's license</strong> or personal mobility to the degree normally associated with the possession of a valid driver's license.",
     description: "The operational requirement described as driver's license.",
   },
   [OperationalRequirement.WorkWeekends]: {
-    defaultMessage: "...requires me to <bold>work weekends</bold>.",
+    defaultMessage: "...requires me to <strong>work weekends</strong>.",
     description: "The operational requirement described as work weekends.",
   },
   [OperationalRequirement.OvertimeScheduled]: {
-    defaultMessage: "...requires me to <bold>work scheduled overtime</bold>.",
+    defaultMessage:
+      "...requires me to <strong>work scheduled overtime</strong>.",
     description: "The operational requirement described as scheduled overtime.",
   },
   [OperationalRequirement.OvertimeShortNotice]: {
     defaultMessage:
-      "...requires me to <bold>work overtime on short notice</bold>.",
+      "...requires me to <strong>work overtime on short notice</strong>.",
     description: "The operational requirement described as overtime.",
+  },
+  [OperationalRequirement.OvertimeOccasional]: {
+    defaultMessage:
+      "...requires me to <strong>work occasional overtime</strong>.",
+    description:
+      "The operational requirement described as occasional overtime.",
+  },
+  [OperationalRequirement.OvertimeRegular]: {
+    defaultMessage: "...requires me to <strong>work regular overtime</strong>.",
+    description: "The operational requirement described as regular overtime.",
   },
 });
 
@@ -609,12 +621,27 @@ export const operationalRequirements = defineMessages({
       "Must possess a valid driver's license or personal mobility to the degree normally associated with possession of a valid driver's license.",
     description: "The operational requirement described as driver's license.",
   },
-  [OperationalRequirement.OvertimeScheduled]: {
+  [OperationalRequirement.OvertimeRegular]: {
     defaultMessage:
       "Availability, willingness and ability to work overtime (Regularly).",
     description: "The operational requirement described as regular overtime.",
   },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage:
+      "Availability, willingness and ability to work overtime (scheduled)",
+    description: "The operational requirement described as scheduled overtime.",
+  },
   [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage:
+      "Availability, willingness and ability to work overtime (short notice)",
+    description:
+      "The operational requirement described as occasional overtime.",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "Work weekends",
+    description: "The operational requirement described as work weekends.",
+  },
+  [OperationalRequirement.OvertimeOccasional]: {
     defaultMessage:
       "Availability, willingness and ability to work overtime (Occasionally).",
     description:
@@ -696,17 +723,17 @@ export const provinceOrTerritory = defineMessages({
 export const JobLookingStatusDescription = defineMessages({
   [JobLookingStatus.ActivelyLooking]: {
     defaultMessage:
-      "<bold>Actively looking</bold> - My profile is up to date, I want to be contacted for job opportunities",
+      "<strong>Actively looking</strong> - My profile is up to date, I want to be contacted for job opportunities",
     description: "Job Looking Status described as Actively looking.",
   },
   [JobLookingStatus.OpenToOpportunities]: {
     defaultMessage:
-      "<bold>Open to opportunities </bold> - Not actively looking but I still want to be contacted for job opportunities",
+      "<strong>Open to opportunities </strong> - Not actively looking but I still want to be contacted for job opportunities",
     description: "Job Looking Status described as Actively looking.",
   },
   [JobLookingStatus.Inactive]: {
     defaultMessage:
-      "<bold>Inactive</bold> - I do not currently want to be contacted for job opportunities",
+      "<strong>Inactive</strong> - I do not currently want to be contacted for job opportunities",
     description: "Job Looking Status described as Actively looking.",
   },
 });
@@ -717,7 +744,7 @@ export const getJobLookingStatusDescription = (
   getOrThrowError(
     JobLookingStatusDescription,
     jobLookingStatusDescriptionId,
-    `Invalid Job Looking  Status '${jobLookingStatusDescriptionId}'`,
+    `Invalid Job Looking Status '${jobLookingStatusDescriptionId}'`,
   );
 
 export const getProvinceOrTerritory = (
@@ -798,20 +825,20 @@ export const getAdvertisementStatus = (
   getOrThrowError(
     advertisementStatus,
     advertisementStatusId,
-    `Invalid  Advertisement Status '${advertisementStatusId}'`,
+    `Invalid Advertisement Status '${advertisementStatusId}'`,
   );
 
 export const securityClearances = defineMessages({
   [SecurityStatus.Reliability]: {
-    defaultMessage: "Reliability",
+    defaultMessage: "Reliability or higher",
     description: "Reliability security clearance",
   },
   [SecurityStatus.Secret]: {
-    defaultMessage: "Secret",
+    defaultMessage: "Secret or higher",
     description: "Secret security clearance",
   },
   [SecurityStatus.TopSecret]: {
-    defaultMessage: "Top Secret",
+    defaultMessage: "Top secret",
     description: "Top secret security clearance",
   },
 });

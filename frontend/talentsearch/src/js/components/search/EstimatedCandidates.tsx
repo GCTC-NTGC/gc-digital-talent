@@ -7,11 +7,7 @@ interface EstimatedCandidatesProps {
   updatePending?: boolean;
 }
 
-const weight = (msg: string) => (
-  <span data-h2-font-weight="base(800)" data-testid="candidateCount">
-    {msg}
-  </span>
-);
+const testId = (msg: string) => <span data-testid="candidateCount">{msg}</span>;
 
 const EstimatedCandidates: React.FunctionComponent<
   EstimatedCandidatesProps
@@ -22,7 +18,8 @@ const EstimatedCandidates: React.FunctionComponent<
     <div data-h2-height="base(100%)">
       <div
         data-h2-position="base(sticky)"
-        data-h2-offset="p-tablet(x3, auto, auto, auto)">
+        data-h2-offset="p-tablet(x3, auto, auto, auto)"
+      >
         <div
           data-h2-background-color="base(dt-white)"
           data-h2-overflow="base(hidden, all)"
@@ -45,10 +42,7 @@ const EstimatedCandidates: React.FunctionComponent<
               })}
             </p>
           </div>
-          <div
-            data-h2-padding="base(x1)"
-            aria-live="polite"
-          >
+          <div data-h2-padding="base(x1)" aria-live="polite">
             <p data-h2-text-align="base(center)">
               {updatePending ? (
                 <Spinner />
@@ -57,14 +51,14 @@ const EstimatedCandidates: React.FunctionComponent<
                   {intl.formatMessage(
                     {
                       defaultMessage: `{candidateCount, plural,
-                          one {There is approximately <weight>{candidateCount}</weight> candidate right now who meets your criteria.}
-                          other {There are approximately <weight>{candidateCount}</weight> candidates right now who meet your criteria.}
-                        }`,
+                        one {There is approximately <strong><testId>{candidateCount}</testId></strong> candidate right now who meets your criteria.}
+                        other {There are approximately <strong><testId>{candidateCount}</testId></strong> candidates right now who meet your criteria.}
+                      }`,
                       description:
                         "Message for total estimated candidates box next to search form.",
                     },
                     {
-                      weight,
+                      testId,
                       candidateCount,
                     },
                   )}

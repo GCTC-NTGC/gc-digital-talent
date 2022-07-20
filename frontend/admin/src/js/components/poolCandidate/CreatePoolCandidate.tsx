@@ -341,6 +341,16 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
     }),
   );
 
+  const operationalRequirementsSubsetV2 = [
+    OperationalRequirement.OvertimeOccasional,
+    OperationalRequirement.OvertimeRegular,
+    OperationalRequirement.ShiftWork,
+    OperationalRequirement.OnCall,
+    OperationalRequirement.Travel,
+    OperationalRequirement.TransportEquipment,
+    OperationalRequirement.DriversLicense,
+  ];
+
   return (
     <section data-h2-container="base(left, s)">
       <h2
@@ -533,12 +543,10 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form operational requirements field.",
               })}
-              options={enumToOptions(OperationalRequirement).map(
-                ({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getOperationalRequirement(value)),
-                }),
-              )}
+              options={operationalRequirementsSubsetV2.map((value) => ({
+                value,
+                label: intl.formatMessage(getOperationalRequirement(value)),
+              }))}
             />
             <MultiSelect
               id="expectedSalary"

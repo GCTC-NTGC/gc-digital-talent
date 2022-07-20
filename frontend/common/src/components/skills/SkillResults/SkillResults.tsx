@@ -1,16 +1,16 @@
-import { Button } from "@common/components";
-import { getLocale } from "@common/helpers/localize";
 import React, { useState } from "react";
 import { CheckCircleIcon } from "@heroicons/react/solid";
 import { useIntl } from "react-intl";
+import { getLocale } from "../../../helpers/localize";
+import { Button } from "../..";
 import { Skill } from "../../../api/generated";
 
 export const SkillBlock: React.FunctionComponent<{
   skill: Skill;
   isAdded: boolean;
-  handleAddSkill: (id: string) => void;
-  handleRemoveSkill: (id: string) => void;
-}> = ({ skill, isAdded, handleAddSkill, handleRemoveSkill }) => {
+  onAddSkill: (id: string) => void;
+  onRemoveSkill: (id: string) => void;
+}> = ({ skill, isAdded, onAddSkill, onRemoveSkill }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { id, name, description } = skill;
@@ -61,9 +61,7 @@ export const SkillBlock: React.FunctionComponent<{
             color="primary"
             mode="inline"
             type="button"
-            onClick={
-              isAdded ? () => handleRemoveSkill(id) : () => handleAddSkill(id)
-            }
+            onClick={isAdded ? () => onRemoveSkill(id) : () => onAddSkill(id)}
           >
             {isAdded
               ? intl.formatMessage({
@@ -92,16 +90,16 @@ export interface SkillResultsProps {
   title: string;
   skills: Skill[];
   addedSkills: Skill[];
-  handleAddSkill: (id: string) => void;
-  handleRemoveSkill: (id: string) => void;
+  onAddSkill: (id: string) => void;
+  onRemoveSkill: (id: string) => void;
 }
 
-const SkillResults: React.FunctionComponent<SkillResultsProps> = ({
+export const SkillResults: React.FunctionComponent<SkillResultsProps> = ({
   title,
   skills,
   addedSkills,
-  handleAddSkill,
-  handleRemoveSkill,
+  onAddSkill,
+  onRemoveSkill,
 }) => {
   const addedIds = addedSkills.map((skill) => skill?.id);
   return (
@@ -115,8 +113,8 @@ const SkillResults: React.FunctionComponent<SkillResultsProps> = ({
             key={skill?.id}
             skill={skill}
             isAdded={isAdded}
-            handleAddSkill={handleAddSkill}
-            handleRemoveSkill={handleRemoveSkill}
+            onAddSkill={onAddSkill}
+            onRemoveSkill={onRemoveSkill}
           />
         );
       })}

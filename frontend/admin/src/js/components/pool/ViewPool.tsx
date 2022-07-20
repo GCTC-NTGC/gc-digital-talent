@@ -222,7 +222,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           </Spacer>
           <Spacer>
             <IconButton
-              data-h2-margin="base(bottom, xxs)"
+              data-h2-margin="base(0, 0, x.125, 0)"
               mode="outline"
               color="secondary"
               disabled={linkCopied}
@@ -249,7 +249,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           </Spacer>
           <Spacer>
             <IconLink
-              data-h2-margin="base(bottom, xxs)"
+              data-h2-margin="base(0, 0, x.125, 0)"
               mode="outline"
               color="secondary"
               type="button"
@@ -266,7 +266,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             </IconLink>
           </Spacer>
         </div>
-        <h2 data-h2-margin="base(top, l)" data-h2-font-size="base(h3)">
+        <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
           {intl.formatMessage({
             defaultMessage: "Details",
             description: "Sub title for admin view pool page",
@@ -376,7 +376,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         </div>
         <div data-h2-display="base(flex)">
           <Spacer style={{ flex: 1 }}>
-            <h2 data-h2-margin="base(top, l)" data-h2-font-size="base(h3)">
+            <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
               {intl.formatMessage({
                 defaultMessage: "Your Impact (English)",
                 description: "Title for English pool advertisement impact",
@@ -385,7 +385,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <p>{pool.yourImpact?.en || ""}</p>
           </Spacer>
           <Spacer style={{ flex: 1 }}>
-            <h2 data-h2-margin="base(top, l)" data-h2-font-size="base(h3)">
+            <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
               {intl.formatMessage({
                 defaultMessage: "Your Impact (French)",
                 description: "Title for French pool advertisement impact",
@@ -396,7 +396,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         </div>
         <div data-h2-display="base(flex)">
           <Spacer style={{ flex: 1 }}>
-            <h2 data-h2-margin="base(top, l)" data-h2-font-size="base(h3)">
+            <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
               {intl.formatMessage({
                 defaultMessage: "Your Work (English)",
                 description: "Title for English pool advertisement Work",
@@ -405,7 +405,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <p>{pool.keyTasks?.en || ""}</p>
           </Spacer>
           <Spacer style={{ flex: 1 }}>
-            <h2 data-h2-margin="base(top, l)" data-h2-font-size="base(h3)">
+            <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
               {intl.formatMessage({
                 defaultMessage: "Your Work (French)",
                 description: "Title for French pool advertisement Work",
@@ -414,7 +414,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <p>{pool.keyTasks?.fr || ""}</p>
           </Spacer>
         </div>
-        <h2 data-h2-margin="base(top, l)" data-h2-font-size="base(h3)">
+        <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
           {intl.formatMessage({
             defaultMessage: "Need to have skills",
             description: "Title required skills for a pool advertisement",
@@ -462,7 +462,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             </Chips>
           </>
         ) : null}
-        <h2 data-h2-margin="base(top, l)" data-h2-font-size="base(h3)">
+        <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
           {intl.formatMessage({
             defaultMessage: "Nice to have skills",
             description: "Title optional skills for a pool advertisement",
@@ -510,7 +510,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             </Chips>
           </>
         ) : null}
-        <h2 data-h2-margin="base(top, l)" data-h2-font-size="base(h3)">
+        <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
           {intl.formatMessage({
             defaultMessage: "Requirements",
             description: "Title for a pool advertisement requirements",
@@ -564,7 +564,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           </li>
         </ul>
       </FormProvider>
-      <p data-h2-margin="base(top, l)">
+      <p data-h2-margin="base(x2, 0, 0, 0)">
         <Link
           type="button"
           mode="solid"

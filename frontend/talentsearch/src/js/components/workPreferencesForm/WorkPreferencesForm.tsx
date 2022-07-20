@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { commonMessages, errorMessages } from "@common/messages";
 import { Checklist, RadioGroup } from "@common/components/form";
 import { getOperationalRequirementCandidateDescription } from "@common/constants/localizedConstants";
-import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -41,12 +40,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   handleWorkPreferences,
 }) => {
   const intl = useIntl();
-  function bold(msg: string) {
-    return <span data-h2-font-weight="base(700)">{msg}</span>;
-  }
-  const OperationalRequirementsSortOrder = [
-    OperationalRequirement.OvertimeShortNotice,
-    OperationalRequirement.OvertimeScheduled,
+
+  const operationalRequirementsSubsetV2 = [
+    OperationalRequirement.OvertimeOccasional,
+    OperationalRequirement.OvertimeRegular,
     OperationalRequirement.ShiftWork,
     OperationalRequirement.OnCall,
     OperationalRequirement.Travel,
@@ -119,7 +116,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
+            <div
+              data-h2-flex-item="base(1of1)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
               <div data-h2-padding="base(0, x2, 0, 0)">
                 <RadioGroup
                   idPrefix="required-work-preferences"
@@ -156,7 +156,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                 />
               </div>
             </div>
-            <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
+            <div
+              data-h2-flex-item="base(1of1)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
               <div data-h2-padding="base(0, x2, 0, 0)">
                 <Checklist
                   idPrefix="optional-work-preferences"
@@ -167,20 +170,19 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                       "Legend for optional work preferences check list in work preferences form",
                   })}
                   name="acceptedOperationalRequirements"
-                  items={enumToOptions(
-                    OperationalRequirement,
-                    OperationalRequirementsSortOrder,
-                  ).map(({ value }) => ({
+                  items={operationalRequirementsSubsetV2.map((value) => ({
                     value,
                     label: intl.formatMessage(
                       getOperationalRequirementCandidateDescription(value),
-                      { bold },
                     ),
                   }))}
                 />
               </div>
             </div>
-            <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
+            <div
+              data-h2-flex-item="base(1of1)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
               <div data-h2-padding="base(0, x2, 0, 0)">
                 <ProfileFormFooter mode="saveButton" />
               </div>

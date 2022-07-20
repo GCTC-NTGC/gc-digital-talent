@@ -4,10 +4,6 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/outline";
 
 import { Button } from "@common/components";
 
-const hiddenText = (...chunks: string[]) => (
-  <span data-h2-visibility="base(invisible)">{chunks}</span>
-);
-
 interface EquityOptionProps {
   isAdded: boolean;
   title: string;
@@ -29,7 +25,6 @@ const EquityOption: React.FC<EquityOptionProps> = ({
     },
     {
       title,
-      hidden: hiddenText,
     },
   );
 
@@ -41,7 +36,6 @@ const EquityOption: React.FC<EquityOptionProps> = ({
     },
     {
       title,
-      hidden: hiddenText,
     },
   );
 

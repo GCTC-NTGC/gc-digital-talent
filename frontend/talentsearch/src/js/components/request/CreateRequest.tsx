@@ -3,7 +3,6 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { errorMessages } from "@common/messages";
-import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
@@ -156,10 +155,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       });
   };
 
-  function span(msg: string): JSX.Element {
-    return <span data-h2-color="base(dt-primary)">{msg}</span>;
-  }
-
   return (
     <section>
       <h2 data-h2-margin="base(0, 0, x1, 0)">
@@ -284,16 +279,18 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             })}
           </h2>
           <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
-          <p data-h2-margin="base(x2, 0, x1, 0)" data-h2-font-weight="base(600)">
+          <p
+            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-weight="base(600)"
+          >
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Request for pool candidates: <span>{candidateCount, plural, zero {no candidates} one {1 candidate} other {{candidateCount} estimated candidates}}</span>",
+                  "Request for pool candidates: <primary>{candidateCount, plural, zero {no candidates} one {1 candidate} other {{candidateCount} estimated candidates}}</primary>",
                 description:
                   "Total estimated candidates message in summary of filters",
               },
               {
-                span,
                 candidateCount,
               },
             )}

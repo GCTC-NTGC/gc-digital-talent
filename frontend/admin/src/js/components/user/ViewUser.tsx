@@ -92,10 +92,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         data-h2-margin="base(x2, 0)"
       >
         {userName !== " " && (
-          <Heading
-            level="h2"
-            data-h2-margin="base(x.5, 0) l-tablet(0)"
-          >
+          <Heading level="h2" data-h2-margin="base(x.5, 0) l-tablet(0)">
             {userName}
           </Heading>
         )}

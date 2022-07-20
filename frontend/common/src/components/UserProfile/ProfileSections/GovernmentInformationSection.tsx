@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { enumToOptions } from "../../../helpers/formUtils";
 import { getGovEmployeeType } from "../../../constants/localizedConstants";
 import { getLocale } from "../../../helpers/localize";
-import { strong } from "../../../helpers/format";
 import { Applicant, GovEmployeeType } from "../../../api/generated";
 
 // styling a text bit with red colour within intls
@@ -38,15 +37,11 @@ const GovernmentInformationSection: React.FunctionComponent<{
         {applicant.isGovEmployee && (
           <>
             <li>
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "<strong>Yes</strong>, I am a Government of Canada employee.",
-                  description:
-                    "Message to state user is employed by government",
-                },
-                { strong },
-              )}
+              {intl.formatMessage({
+                defaultMessage:
+                  "<strong>Yes</strong>, I am a Government of Canada employee.",
+                description: "Message to state user is employed by government",
+              })}
             </li>
             {applicant.department && (
               <li>
@@ -55,15 +50,13 @@ const GovernmentInformationSection: React.FunctionComponent<{
                     defaultMessage: "Department: <strong>{department}</strong>",
                     description: "Message to state what department user is in.",
                   },
-                  { strong, department: applicant.department.name[locale] },
+                  { department: applicant.department.name[locale] },
                 )}
               </li>
             )}
             {applicant.govEmployeeType && (
               <li>
-                {intl.formatMessage(getGovEmployeeType(govEmployeeTypeId), {
-                  strong,
-                })}
+                {intl.formatMessage(getGovEmployeeType(govEmployeeTypeId))}
               </li>
             )}
             {applicant.interestedInLaterOrSecondment && (
@@ -102,17 +95,11 @@ const GovernmentInformationSection: React.FunctionComponent<{
               })}
             </p>
             <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "There are <redText>required</redText> fields missing.",
-                  description:
-                    "Message that there are required fields missing. Please ignore things in <> tags.",
-                },
-                {
-                  redText,
-                },
-              )}
+              {intl.formatMessage({
+                defaultMessage: "There are <red>required</red> fields missing.",
+                description:
+                  "Message that there are required fields missing. Please ignore things in <> tags.",
+              })}
               <a href={editPath}>
                 {intl.formatMessage({
                   defaultMessage: "Click here to get started.",

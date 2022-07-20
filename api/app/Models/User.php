@@ -163,7 +163,7 @@ class User extends Model implements Authenticatable
             return true;
         }
     }
-    public function scopeIsProfileComplete(Builder $query, bool $isProfileComplete): Builder
+    public function scopeIsProfileComplete(Builder $query, ?bool $isProfileComplete): Builder
     {
         if ($isProfileComplete) {
             $query->whereNotNull('first_name');
@@ -198,34 +198,78 @@ class User extends Model implements Authenticatable
     }
 
     // Search filters
-    public function filterByPools(Builder $query, array $poolCandidates): Builder
+
+    /**
+     * Filters users by the Pools they are in.
+     *
+     * @param Builder $query
+     * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus and statuses fields.
+     * @return Builder
+     */
+    public function filterByPools(Builder $query, ?array $poolFilters): Builder
     {
-        if (empty($poolCandidates)) {
+        if (empty($poolFilters)) {
             return $query;
         }
 
         // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
-        $query->whereExists(function ($query) use ($poolCandidates) {
+        $query->whereExists(function ($query) use ($poolFilters) {
             $query->select('id')
                 ->from('pool_candidates')
                 ->whereColumn('pool_candidates.user_id', 'users.id')
-                ->whereIn('pool_candidates.pool_id', $poolCandidates['pools'])
-                ->where(function ($query) use ($poolCandidates) {
-                    if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
-                        $query->whereDate('expiry_date', '>=', date("Y-m-d"))
-                            ->orWhereNull('expiry_date');
-                    } else if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
-                        $query->whereDate('expiry_date', '<', date("Y-m-d"));
+                ->where(function ($query) use ($poolFilters) {
+                    $makePoolFilterClause = function ($filter) {
+                        return function ($query) use ($filter) {
+                            $query->where('pool_candidates.pool_id', $filter['poolId']);
+                            $query->where(function ($query) use ($filter) {
+                                if ($filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+                                    $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+                                    ->orWhereNull('expiry_date');
+                                } else if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+                                    $query->whereDate('expiry_date', '<', date("Y-m-d"));
+                                }
+                            });
+                            if (array_key_exists('statuses', $filter) && !empty($filter['statuses'])) {
+                                $query->whereIn('pool_candidates.pool_candidate_status', $filter['statuses']);
+                            }
+                            return $query;
+                        };
+                    };
+                    foreach($poolFilters as $index => $filter) {
+                        if ($index == 0) {
+                            $query->where($makePoolFilterClause($filter));
+                        } else {
+                            $query->orWhere($makePoolFilterClause($filter));
+                        }
                     }
-                })
-                ->where(function ($query) use ($poolCandidates) {
-                    if (array_key_exists('statuses', $poolCandidates) && !empty($poolCandidates['statuses'])) {
-                        $query->whereIn('pool_candidates.pool_candidate_status', $poolCandidates['statuses']);
-                    }
+                    return $query;
                 });
         });
-
         return $query;
+    }
+    /**
+     * Return applicants with PoolCandidates in any of the given pools.
+     * Only consider pool candidates who still available,
+     * ie not expired and with the AVAILABLE status.
+     *
+     * @param Builder $query
+     * @param array $poolIds
+     * @return Builder
+     */
+    public function filterByAvailableInPools(Builder $query, ?array $poolIds): Builder
+    {
+        if (empty($poolIds)) {
+            return $query;
+        }
+        $poolFilters = [];
+        foreach ($poolIds as $index => $poolId) {
+            $poolFilters[$index] = [
+                'poolId' => $poolId,
+                'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+                'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE]
+            ];
+        }
+        return $this->filterByPools($query, $poolFilters);
     }
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
@@ -251,6 +295,9 @@ class User extends Model implements Authenticatable
     }
     public function filterByLocationPreferences(Builder $query, array $locations): Builder
     {
+        if (empty($locations)) {
+            return $query;
+        }
         // LocationPreferences acts as an OR filter. The query should return candidates willing to work in ANY of the locations.
         $query->where(function ($query) use ($locations) {
             foreach ($locations as $index => $location) {
@@ -264,8 +311,11 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public function filterByJobLookingStatus(Builder $query, array $statuses): Builder
+    public function filterByJobLookingStatus(Builder $query, ?array $statuses): Builder
     {
+        if (empty($statuses)) {
+            return $query;
+        }
         // JobLookingStatus acts as an OR filter. The query should return users with ANY of the statuses.
         $query->where(function ($query) use ($statuses) {
             foreach ($statuses as $index => $status) {
@@ -279,7 +329,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public function filterBySkills(Builder $query, array $skills): Builder
+    public function filterBySkills(Builder $query, ?array $skills): Builder
     {
         if (empty($skills)) {
             return $query;
@@ -320,7 +370,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public function scopeClassifications(Builder $query, array $classifications): Builder
+    public function scopeClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -354,7 +404,7 @@ class User extends Model implements Authenticatable
 
         return $query;
     }
-    public function filterByClassificationToGenericJobTitles(Builder $query, array $classifications): Builder
+    public function filterByClassificationToGenericJobTitles(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -383,7 +433,7 @@ class User extends Model implements Authenticatable
 
         return $query;
     }
-    private function filterByClassificationToSalary(Builder $query, array $classifications): Builder
+    private function filterByClassificationToSalary(Builder $query, ?array $classifications): Builder
     {
         // When managers search for a classification, also return any users whose expected salary
         // ranges overlap with the min/max salaries of any of those classifications.
@@ -392,8 +442,9 @@ class User extends Model implements Authenticatable
 
         // This subquery only works for a non-zero number of filter classifications.
         // If passed zero classifications then return same query builder unchanged.
-        if (count($classifications) == 0)
+        if (empty($classifications)) {
             return $query;
+        }
 
         $parameters = [];
         $sql = <<<RAWSQL1
@@ -451,7 +502,7 @@ RAWSQL2;
         return $query->whereRaw('EXISTS (' . $sql . ')', $parameters);
     }
 
-    public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder
+    public function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
     {
         if ($hasDiploma) {
             $query->where('has_diploma', true);
@@ -467,7 +518,7 @@ RAWSQL2;
     }
 
 
-    public function filterByEquity(Builder $query, array $equity): Builder
+    public function filterByEquity(Builder $query, ?array $equity): Builder
     {
         if (empty($equity)) {
             return $query;
@@ -546,11 +597,23 @@ RAWSQL2;
         return $query;
     }
 
-    public function scopeIsGovEmployee(Builder $query, bool $isGovEmployee): Builder
+    public function scopeIsGovEmployee(Builder $query, ?bool $isGovEmployee): Builder
     {
         if ($isGovEmployee) {
             $query->where('is_gov_employee', true);
         }
+        return $query;
+    }
+
+    /**
+     * Restrict the query to users who are either Actively Looking for or Open to opportunities.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeAvailableForOpportunities(Builder $query): Builder
+    {
+        $query->whereIn('job_looking_status', [ApiEnums::USER_STATUS_ACTIVELY_LOOKING, ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES]);
         return $query;
     }
 }
