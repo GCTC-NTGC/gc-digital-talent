@@ -50,7 +50,7 @@ const Template: Story<StoryArgs> = (args) => {
   };
 
   return (
-    <>
+    <div style={{ width: "100%", height: "100vh" }}>
       <Button color="primary" mode="solid" onClick={open}>
         Open Alert Dialog
       </Button>
@@ -81,7 +81,7 @@ const Template: Story<StoryArgs> = (args) => {
           </AlertDialog.Actions>
         </AlertDialog>
       )}
-    </>
+    </div>
   );
 };
 
