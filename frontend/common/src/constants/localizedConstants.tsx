@@ -536,7 +536,7 @@ export const getEducationType = (
     `Invalid educationType ${educationTypeId}`,
   );
 
-export const OperationalRequirementCandidateDescription = defineMessages({
+export const operationalRequirementLabelCandidateDescription = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "...has <strong>shift-work</strong>.",
     description: "The operational requirement described as shift work.",
@@ -603,16 +603,7 @@ export const OperationalRequirementV2 = [
   OperationalRequirement.DriversLicense,
 ];
 
-export const getOperationalRequirementCandidateDescription = (
-  operationalRequirementId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    OperationalRequirementCandidateDescription,
-    operationalRequirementId,
-    `Invalid Operational Requirement '${operationalRequirementId}'`,
-  );
-
-export const operationalRequirements = defineMessages({
+export const operationalRequirementLabelFull = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "Availability, willingness and ability to work shift-work.",
     description: "The operational requirement described as shift work.",
@@ -666,14 +657,75 @@ export const operationalRequirements = defineMessages({
   },
 });
 
+export const operationalRequirementLabelShort = defineMessages({
+  [OperationalRequirement.ShiftWork]: {
+    defaultMessage: "Shift-work",
+    description:
+      "The operational requirement described as shift work. (short-form for limited space)",
+  },
+  [OperationalRequirement.OnCall]: {
+    defaultMessage: "24/7 on-call",
+    description:
+      "The operational requirement described as 24/7 on-call. (short-form for limited space)",
+  },
+  [OperationalRequirement.Travel]: {
+    defaultMessage: "Travel",
+    description:
+      "The operational requirement described as travel as required. (short-form for limited space)",
+  },
+  [OperationalRequirement.TransportEquipment]: {
+    defaultMessage: "Transport & Lift (20kg)",
+    description:
+      "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)",
+  },
+  [OperationalRequirement.DriversLicense]: {
+    defaultMessage: "Driver's license",
+    description:
+      "The operational requirement described as driver's license. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeRegular]: {
+    defaultMessage: "Overtime (regular)",
+    description:
+      "The operational requirement described as regular overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeOccasional]: {
+    defaultMessage: "Overtime (occasional)",
+    description:
+      "The operational requirement described as occasional overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage: "Overtime (scheduled)",
+    description:
+      "The operational requirement described as scheduled overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage: "Overtime (short notice)",
+    description:
+      "The operational requirement described as short notice overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "Weekends",
+    description:
+      "The operational requirement described as work weekends. (short-form for limited space)",
+  },
+});
+
 export const getOperationalRequirement = (
   operationalRequirementId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    operationalRequirements,
+  format: "candidateDescription" | "full" | "short" = "full",
+): MessageDescriptor => {
+  const messageDictionary = {
+    candidateDescription: operationalRequirementLabelCandidateDescription,
+    full: operationalRequirementLabelFull,
+    short: operationalRequirementLabelShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[format],
     operationalRequirementId,
     `Invalid Operational Requirement '${operationalRequirementId}'`,
   );
+};
 
 export const provinceOrTerritory = defineMessages({
   [ProvinceOrTerritory.Alberta]: {

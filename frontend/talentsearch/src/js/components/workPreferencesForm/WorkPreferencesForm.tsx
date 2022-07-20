@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { commonMessages, errorMessages } from "@common/messages";
 import { Checklist, RadioGroup } from "@common/components/form";
 import {
-  getOperationalRequirementCandidateDescription,
+  getOperationalRequirement,
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import { navigate } from "@common/helpers/router";
@@ -160,7 +160,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                   items={OperationalRequirementV2.map((value) => ({
                     value,
                     label: intl.formatMessage(
-                      getOperationalRequirementCandidateDescription(value),
+                      getOperationalRequirement(value, "candidateDescription"),
                     ),
                   }))}
                 />

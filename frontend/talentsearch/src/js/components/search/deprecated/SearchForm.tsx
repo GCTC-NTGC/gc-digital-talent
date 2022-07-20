@@ -10,8 +10,8 @@ import { useLocation } from "@common/helpers/router";
 import {
   getWorkRegion,
   OperationalRequirementV1,
+  getOperationalRequirement,
 } from "@common/constants/localizedConstants";
-import { getOperationalRequirement } from "./localizedConstants";
 import {
   Classification,
   CmoAsset,
@@ -285,7 +285,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             name="operationalRequirements"
             items={OperationalRequirementV1.map((value) => ({
               value,
-              label: intl.formatMessage(getOperationalRequirement(value)),
+              label: intl.formatMessage(getOperationalRequirement(value, "short")),
             }))}
           />
         </FilterBlock>
