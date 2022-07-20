@@ -195,7 +195,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         }}
         {...rest}
       >
-        {children}
+        Download
       </button>
     );
   },
