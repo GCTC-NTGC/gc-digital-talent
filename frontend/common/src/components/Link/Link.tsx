@@ -22,7 +22,6 @@ const Link: React.FC<LinkProps> = ({
   disabled,
   mode = "solid",
   block = false,
-  external = false,
   type = "link",
   children,
   className,
@@ -50,14 +49,6 @@ const Link: React.FC<LinkProps> = ({
           }
         : {})}
       {...rest}
-      onClick={
-        !external
-          ? (event): void => {
-              event.preventDefault();
-              if (href) navigate(href);
-            }
-          : undefined
-      }
     >
       {children}
     </a>
