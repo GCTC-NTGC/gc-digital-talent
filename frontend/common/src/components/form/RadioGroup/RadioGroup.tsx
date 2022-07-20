@@ -82,10 +82,12 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
                 hideOptional
                 data-h2-flex-direction="b(row)"
                 data-h2-align-items="b(center)"
+                data-h2-padding="b(bottom, xxs)"
+                hideBottomMargin
               >
                 <input
                   style={{ order: -1 }}
-                  data-h2-margin="b(bottom-right, xxs)"
+                  data-h2-margin="b(right, xxs)"
                   id={id}
                   {...register(name, rules)}
                   value={value}
