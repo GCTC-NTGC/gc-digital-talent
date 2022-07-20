@@ -1163,6 +1163,30 @@ input GenericJobTitleBelongsToMany {
     sync: [ID!]
 }
 
+input CreatePoolAdvertisementInput {
+    key: KeyString!
+    classifications: ClassificationBelongsToMany!
+}
+
+input UpdatePoolAdvertisementInput {
+    # Pool name and classification
+    name: LocalizedStringInput
+    classifications: ClassificationBelongsToMany!
+    # Closing date
+    expiryDate: DateTimeTz @rename(attribute: "expiry_date")
+    # Your impact
+    yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
+    # Work Tasks
+    keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
+    # Essential skills and Asset skills
+    essentialSkills: SkillBelongsToMany
+    nonessentialSkills: SkillBelongsToMany
+    # Other requirements
+    advertisementLanguage: PoolAdvertisementLanguage @rename(attribute: "advertisement_language")
+    securityClearance: SecurityStatus @rename(attribute: "security_clearance")
+    advertisementLocation: LocalizedStringInput @rename(attribute: "advertisement_location")
+}
+
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
     updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
@@ -1204,4 +1228,17 @@ type Mutation {
     deleteCommunityExperience(id: ID!): CommunityExperience @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     deleteEducationExperience(id: ID!): EducationExperience @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     deleteAwardExperience(id: ID!): AwardExperience @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+
+    # PoolAdvertisement mutations
+    createPoolAdvertisement(userId: ID! @rename(attribute: "user_id"), poolAdvertisement: CreatePoolAdvertisementInput! @spread): PoolAdvertisement @create(model: "Pool") @guard @can(ability: "create", model: "Pool")
+
+    updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput! @spread): PoolAdvertisement @update(model: "Pool") @guard @can(ability: "update", find: "id", model: "Pool")
+
+    publishPoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput! @spread): PoolAdvertisement @guard @can(ability: "publish", find: "id", model: "Pool")
+
+    extendPoolAdvertisementClosingDate(id: ID!, newExpiryDate: DateTimeTz! @rename(attribute: "new_expiry_date")): PoolAdvertisement @guard @can(ability: "extendPoolAdvertisementClosingDate", find: "id", model: "Pool")
+
+    closePoolAdvertisement(id: ID!): PoolAdvertisement @guard @can(ability: "closePoolAdvertisement", find: "id", model: "Pool")
+
+    deletePoolAdvertisement(id: ID!): PoolAdvertisement @delete(model: "Pool", globalId: false) @guard @can(ability: "delete", find: "id", model: "Pool")
 }
