@@ -57,11 +57,11 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
   });
 
   return (
-    <div data-h2-display="base(flex)" data-h2-margin="base(left, s)">
+    <div data-h2-display="base(flex)">
       {showDropdown ? (
         <DropdownMenu>
           <MenuButton
-            color="black"
+            color="secondary"
             data-h2-radius="base(s, none, none, s)"
             style={{ flexShrink: 0, borderRightWidth: 0 }}
           >
@@ -96,10 +96,9 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
           description:
             "Placeholder displayed on the Global Filter form Search field.",
         })}
-        data-h2-border="base(all, 1px, solid, dt-black)"
+        data-h2-border="base(all, 1px, solid, dt-secondary)"
         data-h2-background-color="base(dt-white)"
         data-h2-padding="base(x.25, x.5)"
-        data-h2-font-size="base(copy)"
         {...(showDropdown
           ? {
               "data-h2-radius": "base(none, s, s, none)",

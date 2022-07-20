@@ -29,56 +29,73 @@ function TableFooter({
 
   return (
     <div
-      data-h2-align-items="base(center)"
-      data-h2-display="base(flex)"
-      data-h2-background-color="base(dt-gray.light)"
-      data-h2-justify-content="base(space-between)"
-      data-h2-radius="base(none, none, s, s)"
-      data-h2-padding="base(x.5)"
+      data-h2-background-color="base(dt-secondary.light)"
+      data-h2-radius="base(0px, 0px, s, s)"
     >
-      <div
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-margin="base(0, x.5, 0, 0)"
-      >
-        <p>
+      {/* <p>
           {intl.formatMessage({
             defaultMessage: "Selected actions:",
             description: "Label for action buttons in footer of admin table.",
           })}
-        </p>
-        <Spacer>
-          <Button type="button" mode="solid" color="primary">
-            {intl.formatMessage({
-              defaultMessage: "Download XML",
-              description:
-                "Text label for button to download an xml file of items in a table.",
-            })}
-          </Button>
-        </Spacer>
-        <Spacer>
-          <Button type="button" mode="solid" color="primary">
-            {intl.formatMessage({
-              defaultMessage: "Download PDF",
-              description:
-                "Text label for button to download a pdf of items in a table.",
-            })}
-          </Button>
-        </Spacer>
+        </p> */}
+      <div data-h2-padding="base(x1, x.75)">
+        <div data-h2-flex-grid="base(center, 0, x2, 0)">
+          <div data-h2-flex-item="base(content)">
+            <div data-h2-flex-grid="base(center, 0, x1, 0)">
+              {/* <div data-h2-flex-item="base(content)">
+                <div
+                  data-h2-position="base(relative)"
+                  data-h2-padding="base(x.45)"
+                  data-h2-border="base(all, 1px, solid, dt-white)"
+                >
+                  <span
+                    data-h2-color="base(dt-white)"
+                    data-h2-font-weight="base(700)"
+                    data-h2-display="base(block)"
+                    data-h2-position="base(center)"
+                    data-h2-margin="base(1px, 0, 0, 0)"
+                  >
+                    3
+                  </span>
+                </div>
+              </div> */}
+              <div data-h2-flex-item="base(content)">
+                <Button type="button" mode="inline" color="white">
+                  {intl.formatMessage({
+                    defaultMessage: "Download XML",
+                    description:
+                      "Text label for button to download an xml file of items in a table.",
+                  })}
+                </Button>
+              </div>
+              <div data-h2-flex-item="base(content)">
+                <Button type="button" mode="inline" color="white">
+                  {intl.formatMessage({
+                    defaultMessage: "Download PDF",
+                    description:
+                      "Text label for button to download a pdf of items in a table.",
+                  })}
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div data-h2-flex-item="base(fill)">
+            <Pagination
+              currentPage={paginatorInfo.currentPage}
+              onCurrentPageChange={onCurrentPageChange}
+              onPageSizeChange={onPageSizeChange}
+              pageSize={paginatorInfo.perPage}
+              pageSizes={[10, 20, 30, 40, 50]}
+              totalCount={paginatorInfo.total}
+              ariaLabel={intl.formatMessage({
+                defaultMessage: "Table results",
+              })}
+              color="white"
+              mode="outline"
+            />
+          </div>
+        </div>
       </div>
-
-      <Pagination
-        currentPage={paginatorInfo.currentPage}
-        onCurrentPageChange={onCurrentPageChange}
-        onPageSizeChange={onPageSizeChange}
-        pageSize={paginatorInfo.perPage}
-        pageSizes={[10, 20, 30, 40, 50]}
-        totalCount={paginatorInfo.total}
-        ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
-        color="black"
-        mode="outline"
-        data-h2-margin="base(0)"
-      />
     </div>
   );
 }

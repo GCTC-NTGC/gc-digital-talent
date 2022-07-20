@@ -11,7 +11,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, children, ...rest }) => {
   const Icon = icon || null;
 
   return (
-    <Heading level="h1" {...rest}>
+    <Heading level="h1" data-h2-padding="base(x2, 0, x1, 0)" {...rest}>
       {Icon && (
         <Icon
           className="page-header__icon"

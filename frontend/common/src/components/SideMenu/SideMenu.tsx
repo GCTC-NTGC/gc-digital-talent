@@ -55,9 +55,14 @@ const SideMenu: React.FC<SideMenuProps> = ({
         <RemoveScroll
           enabled={isSmallScreen && isOpen}
           data-h2-background-color="base(light.dt-secondary)"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
           data-h2-height="base(100%)"
         >
-          <div data-h2-margin="base(top-bottom, s)" className="side-menu__header">
+          <div
+            data-h2-margin="base(top-bottom, s)"
+            className="side-menu__header"
+          >
             <SideMenuItem as="button" onClick={handleToggle} icon={MenuIcon}>
               {isOpen
                 ? intl.formatMessage({
@@ -70,17 +75,10 @@ const SideMenu: React.FC<SideMenuProps> = ({
             {header}
           </div>
           <nav
-            data-h2-height="base(100%)"
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
             className="side-menu__content"
           >
-            <div className="side-menu__header">
-              <SideMenuItem as="button" onClick={handleToggle} icon={MenuIcon}>
-                {isOpen ? "Close" : "Open"} Menu
-              </SideMenuItem>
-              {header}
-            </div>
             <div
               data-h2-margin="base(x1, 0, 0, 0) l-tablet(x2, 0, 0, 0) desktop(x3, 0, 0, 0)"
               className="side-menu__content"

@@ -27,7 +27,8 @@ export const colorMap: Record<
   primary: {
     solid: {
       "data-h2-border": "base(all, 1px, solid, dt-primary)",
-      "data-h2-background-color": "base(dt-primary) base:hover(dark.dt-primary)",
+      "data-h2-background-color":
+        "base(dt-primary) base:hover(dark.dt-primary)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
@@ -44,28 +45,27 @@ export const colorMap: Record<
   },
   secondary: {
     solid: {
-      "data-h2-border": "base(all, 1px, solid, dt-secondary)",
-      "data-h2-background-color": "base(dt-secondary)",
+      "data-h2-border": "base(all, 1px, solid, dt-secondary.light)",
+      "data-h2-background-color": "base(dt-secondary.light)",
       "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "base(all, 1px, solid, dt-secondary)",
-      "data-h2-background-color": "base(dt-secondary.1)",
-      "data-h2-color": "base(dt-secondary)",
+      "data-h2-border": "base(all, 1px, solid, dt-secondary.light)",
+      "data-h2-background-color": "base(dt-secondary.light.1)",
+      "data-h2-color": "base(dt-secondary.light)",
     },
     inline: {
       "data-h2-border": "base(all, 1px, solid, transparent)",
       "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(dt-secondary)",
+      "data-h2-color": "base(dt-secondary.light)",
     },
     tableHeader: {
-      "data-h2-border": "base(all, 1px, solid, dt-secondary.light)",
-      "data-h2-background-color": "base(dt-secondary.light)",
+      "data-h2-border": "base(none)",
+      "data-h2-background-color": "base(transparent)",
       "data-h2-padding": "base(0)",
       "data-h2-color": "base(white)",
-      "data-h2-font-weight": "base(800)",
+      "data-h2-font-weight": "base(700)",
       "data-h2-text-align": "base(left)",
-      "data-h2-font-size": "base(caption)",
     },
   },
   cta: {
@@ -94,7 +94,7 @@ export const colorMap: Record<
     },
     outline: {
       "data-h2-border": "base(all, 1px, solid, dt-white)",
-      "data-h2-background-color": "base(transparent)",
+      "data-h2-background-color": "base(dt-white.1)",
       "data-h2-color": "base(dt-white)",
     },
     inline: {
@@ -174,6 +174,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
+    let underline = {};
+    if (mode === "inline") {
+      underline = { "data-h2-text-decoration": "base(underline)" };
+    }
+    let padding = { "data-h2-padding": "base(x.5, x1)" };
+    if (mode === "inline") {
+      padding = { "data-h2-padding": "base(0)" };
+    } else if (mode === "tableHeader") {
+      padding = { "data-h2-padding": "base(x.5, 0)" };
+    }
     return (
       <button
         ref={ref}
@@ -181,14 +191,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         // eslint-disable-next-line react/button-has-type
         type={type || "button"}
         disabled={disabled}
-        data-h2-radius="base(input)"
-        data-h2-padding="base(x.5, x1)"
+        data-h2-radius="base(s)"
         data-h2-font-size="base(copy)"
         data-h2-transition="base:hover(background, .2s, ease, 0s)"
         {...(block
           ? { "data-h2-display": "base(block)" }
           : { "data-h2-display": "base(inline-block)" })}
         {...colorMap[color][mode]}
+        {...padding}
+        {...underline}
         style={{
           opacity: disabled ? "0.6" : undefined,
           width: block ? "100%" : "auto",

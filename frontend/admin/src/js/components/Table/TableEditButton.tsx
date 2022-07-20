@@ -21,7 +21,7 @@ function TableEditButton({
   const intl = useIntl();
   const href = `${editUrlRoot}/${id}/edit`;
   return (
-    <Link href={href} type="button" mode="inline" color="primary">
+    <Link href={href} mode="inline" color="primary">
       {intl.formatMessage(
         {
           defaultMessage: "Edit <hidden>{label}</hidden>",

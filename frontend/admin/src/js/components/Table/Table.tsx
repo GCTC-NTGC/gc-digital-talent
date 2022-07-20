@@ -123,14 +123,13 @@ function Table<T extends Record<string, unknown>>({
   const intl = useIntl();
 
   return (
-    <div data-h2-margin="base(top-bottom, m)">
+    <div data-h2-margin="base(x1, 0)" data-h2-shadow="base(m)">
       {filter && (
         <div
           data-h2-align-items="base(center)"
           data-h2-display="base(flex)"
           data-h2-background-color="base(dt-gray.light)"
           data-h2-justify-content="base(space-between)"
-          data-h2-radius="base(s, s, none, none)"
           data-h2-padding="base(x.5)"
         >
           <div style={{ flexShrink: 0 }}>
@@ -223,11 +222,7 @@ function Table<T extends Record<string, unknown>>({
           </div>
         </div>
       )}
-      <div
-        data-h2-overflow="base(auto, all)"
-        style={{ maxWidth: "100%" }}
-        data-h2-shadow="base(m)"
-      >
+      <div data-h2-overflow="base(auto, all)" data-h2-max-width="base(100%)">
         <table
           aria-labelledby={labelledBy}
           data-h2-width="base(100%)"
@@ -289,7 +284,6 @@ function Table<T extends Record<string, unknown>>({
         data-h2-display="base(flex)"
         data-h2-background-color="base(dt-gray.light)"
         data-h2-justify-content="base(space-between)"
-        data-h2-radius="base(none, none, s, s)"
         data-h2-padding="base(x.5)"
       >
         <div

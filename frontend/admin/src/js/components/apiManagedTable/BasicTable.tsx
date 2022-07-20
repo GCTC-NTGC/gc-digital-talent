@@ -73,9 +73,10 @@ function BasicTable<T extends RecordWithId>({
 
   return (
     <div
+      data-h2-radius="base(s, s, 0px, 0px)"
+      data-h2-border="base(right-left, 1px, solid, dt-secondary)"
       data-h2-overflow="base(auto, all)"
       data-h2-max-width="base(100%)"
-      data-h2-shadow="base(s)"
     >
       <table aria-labelledby={labelledBy} data-h2-width="base(100%)">
         <thead>
@@ -118,9 +119,8 @@ function BasicTable<T extends RecordWithId>({
                       <span
                         data-h2-display="base(block)"
                         data-h2-color="base(dt-white)"
-                        data-h2-font-weight="base(800)"
+                        data-h2-font-weight="base(700)"
                         data-h2-text-align="base(left)"
-                        data-h2-font-size="base(caption)"
                       >
                         {label}
                       </span>
@@ -140,9 +140,8 @@ function BasicTable<T extends RecordWithId>({
                     return (
                       <td
                         key={column.id}
-                        data-h2-padding="base(x.5)"
+                        data-h2-padding="base(x.125, x.5)"
                         data-h2-text-align="base(left)"
-                        data-h2-font-size="base(caption)"
                       >
                         {column.accessor(datum)}
                       </td>
