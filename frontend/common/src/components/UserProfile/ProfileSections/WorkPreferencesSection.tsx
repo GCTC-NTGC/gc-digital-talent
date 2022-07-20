@@ -68,17 +68,19 @@ const WorkPreferencesSection: React.FunctionComponent<{
               description: "Message for when no data exists for the section",
             })}
           </p>
-          {intl.formatMessage({
-            defaultMessage: "There are <red>required</red> fields missing.",
-            description:
-              "Message that there are required fields missing. Please ignore things in <> tags.",
-          })}{" "}
-          <a href={editPath}>
+          <p>
             {intl.formatMessage({
-              defaultMessage: "Click here to get started.",
-              description: "Message to click on the words to begin something",
-            })}
-          </a>
+              defaultMessage: "There are <red>required</red> fields missing.",
+              description:
+                "Message that there are required fields missing. Please ignore things in <> tags.",
+            })}{" "}
+            <a href={editPath}>
+              {intl.formatMessage({
+                defaultMessage: "Click here to get started.",
+                description: "Message to click on the words to begin something",
+              })}
+            </a>
+          </p>
         </>
       )}
 
