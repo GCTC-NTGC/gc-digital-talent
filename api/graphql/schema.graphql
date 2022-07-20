@@ -1186,6 +1186,24 @@ input UpdatePoolAdvertisementInput {
     securityClearance: SecurityStatus @rename(attribute: "security_clearance")
     advertisementLocation: LocalizedStringInput @rename(attribute: "advertisement_location")
 }
+input PublishPoolAdvertisementInput {
+    # Pool name and classification
+    name: LocalizedStringInput!
+    classifications: ClassificationBelongsToMany!
+    # Closing date
+    expiryDate: DateTimeTz! @rename(attribute: "expiry_date")
+    # Your impact
+    yourImpact: LocalizedStringInput! @rename(attribute: "your_impact")
+    # Work Tasks
+    keyTasks: LocalizedStringInput! @rename(attribute: "key_tasks")
+    # Essential skills and Asset skills
+    essentialSkills: SkillBelongsToMany!
+    nonessentialSkills: SkillBelongsToMany!
+    # Other requirements
+    advertisementLanguage: PoolAdvertisementLanguage! @rename(attribute: "advertisement_language")
+    securityClearance: SecurityStatus! @rename(attribute: "security_clearance")
+    advertisementLocation: LocalizedStringInput! @rename(attribute: "advertisement_location")
+}
 
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
@@ -1234,7 +1252,7 @@ type Mutation {
 
     updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput! @spread): PoolAdvertisement @update(model: "Pool") @guard @can(ability: "update", find: "id", model: "Pool")
 
-    publishPoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput! @spread): PoolAdvertisement @guard @can(ability: "publish", find: "id", model: "Pool")
+    publishPoolAdvertisement(id: ID!, poolAdvertisement: PublishPoolAdvertisementInput! @spread): PoolAdvertisement @guard @can(ability: "publish", find: "id", model: "Pool")
 
     extendPoolAdvertisementClosingDate(id: ID!, newExpiryDate: DateTimeTz! @rename(attribute: "new_expiry_date")): PoolAdvertisement @guard @can(ability: "extendPoolAdvertisementClosingDate", find: "id", model: "Pool")
 
