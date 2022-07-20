@@ -183,7 +183,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
         </ul>
       </nav>
       <div data-h2-margin="b(bottom, s) s(right, s) s(bottom, none)">
-        <span>
+        <label>
           {intl.formatMessage({
             defaultMessage: "Go to page:",
             description: "Label for pagination input in admin table.",
@@ -200,7 +200,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
             max={totalPageCount}
             style={{ width: "65px" }}
           />
-        </span>
+        </label>
       </div>
       {pageSizes && (
         <select

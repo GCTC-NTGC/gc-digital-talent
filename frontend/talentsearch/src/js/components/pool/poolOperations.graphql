@@ -7,3 +7,93 @@ query getPool($id: ID!) {
     }
   }
 }
+
+query getPoolAdvertisement($id: ID!) {
+  me {
+    roles
+  }
+  poolAdvertisement(id: $id) {
+    id
+    name {
+      en
+      fr
+    }
+    classifications {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+      genericJobTitles {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      minSalary
+      maxSalary
+    }
+    expiryDate
+    advertisementStatus
+    advertisementLanguage
+    securityClearance
+    advertisementLocation {
+      en
+      fr
+    }
+    yourImpact {
+      en
+      fr
+    }
+    keyTasks {
+       en
+       fr
+    }
+        essentialSkills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      families {
+        id
+        key
+        description {
+          en
+          fr
+        }
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
+    nonessentialSkills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      families {
+        id
+        key
+        description {
+          en
+          fr
+        }
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
+  }
+}

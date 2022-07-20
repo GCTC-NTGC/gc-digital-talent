@@ -88,6 +88,7 @@ class Pool extends Model
     /* accessor to obtain Advertisement Status, depends on two variables regarding published and expiry */
     public function getAdvertisementStatusAttribute()
     {
+        // given database is functioning in UTC, all backend should consistently enforce the same timezone
         $isPublished = $this->is_published;
         $expiryDate = $this->expiry_date;
         $currentTime = Carbon::now()->endOfDay();

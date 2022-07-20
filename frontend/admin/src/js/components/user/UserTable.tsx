@@ -1,10 +1,12 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Link, useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLanguage } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
+import printStyles from "@common/constants/printStyles";
+import { useReactToPrint } from "react-to-print";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   InputMaybe,
@@ -13,6 +15,7 @@ import {
   User,
   UserFilterInput,
   UserPaginator,
+  useSelectedUsersQuery,
 } from "../../api/generated";
 import BasicTable from "../apiManagedTable/BasicTable";
 import {
@@ -21,10 +24,13 @@ import {
   sortingRuleToOrderByClause,
   IdType,
   handleColumnHiddenChange,
+  rowSelectionColumn,
+  handleRowSelectedChange,
 } from "../apiManagedTable/basicTableHelpers";
 import { tableEditButtonAccessor } from "../Table";
 import TableFooter from "../apiManagedTable/TableFooter";
 import TableHeader from "../apiManagedTable/TableHeader";
+import UserProfileDocument from "./UserProfileDocument";
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
@@ -62,8 +68,66 @@ export const UserTable: React.FC = () => {
   const intl = useIntl();
   const paths = useAdminRoutes();
   const { pathname } = useLocation();
+
+  const searchStateToFilterInput = (
+    val: string | undefined,
+    col: string | undefined,
+  ): InputMaybe<UserFilterInput> => {
+    if (!val) return undefined;
+
+    return {
+      generalSearch: val && !col ? val : undefined,
+      email: col === "email" ? val : undefined,
+      name: col === "name" ? val : undefined,
+      telephone: col === "phone" ? val : undefined,
+    };
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
+  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
+  const [selectedRows, setSelectedRows] = useState<User[]>([]);
+  const [searchState, setSearchState] = useState<{
+    term: string | undefined;
+    col: string | undefined;
+  }>();
+
+  useEffect(() => {
+    setSelectedRows([]);
+  }, [currentPage, pageSize, searchState, sortingRule]);
+
+  const [result] = useAllUsersPaginatedQuery({
+    variables: {
+      where: searchStateToFilterInput(searchState?.term, searchState?.col),
+      page: currentPage,
+      first: pageSize,
+      orderBy: sortingRuleToOrderByClause(sortingRule),
+    },
+  });
+
+  const { data, fetching, error } = result;
+
+  const filteredData: Array<Data> = useMemo(() => {
+    const users = data?.usersPaginated?.data ?? [];
+    return users.filter(notEmpty);
+  }, [data?.usersPaginated?.data]);
+
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
+      rowSelectionColumn(
+        intl,
+        selectedRows,
+        filteredData.length,
+        (user: Data) => `${user.firstName} ${user.lastName}`,
+        (event) =>
+          handleRowSelectedChange(
+            filteredData,
+            selectedRows,
+            setSelectedRows,
+            event,
+          ),
+      ),
       {
         label: intl.formatMessage({
           defaultMessage: "Candidate Name",
@@ -116,49 +180,30 @@ export const UserTable: React.FC = () => {
         id: "edit",
       },
     ],
-    [pathname, intl, paths],
+    [intl, selectedRows, setSelectedRows, filteredData, paths, pathname],
   );
 
-  const searchStateToFilterInput = (
-    val: string | undefined,
-    col: string | undefined,
-  ): InputMaybe<UserFilterInput> => {
-    if (!val) return undefined;
+  const allColumnIds = columns.map((c) => c.id);
 
-    return {
-      generalSearch: val && !col ? val : undefined,
-      email: col === "email" ? val : undefined,
-      name: col === "name" ? val : undefined,
-      telephone: col === "phone" ? val : undefined,
-    };
-  };
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
-  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
-  const [searchState, setSearchState] = useState<{
-    term: string | undefined;
-    col: string | undefined;
-  }>();
-
-  const [result] = useAllUsersPaginatedQuery({
+  const selectedApplicantIds = selectedRows.map((user) => user.id);
+  const [
+    {
+      data: selectedUsersData,
+      fetching: selectedUsersFetching,
+      error: selectedUsersError,
+    },
+  ] = useSelectedUsersQuery({
     variables: {
-      where: searchStateToFilterInput(searchState?.term, searchState?.col),
-      page: currentPage,
-      first: pageSize,
-      orderBy: sortingRuleToOrderByClause(sortingRule),
+      ids: selectedApplicantIds,
     },
   });
 
-  const { data, fetching, error } = result;
-
-  const filteredData: Array<Data> = useMemo(() => {
-    const users = data?.usersPaginated?.data ?? [];
-    return users.filter(notEmpty);
-  }, [data?.usersPaginated?.data]);
-
-  const allColumnIds = columns.map((c) => c.id);
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    pageStyle: printStyles,
+    documentTitle: "Candidate Profiles",
+  });
 
   return (
     <div data-h2-margin="b(top-bottom, m)">
@@ -232,6 +277,18 @@ export const UserTable: React.FC = () => {
         paginatorInfo={data?.usersPaginated?.paginatorInfo}
         onCurrentPageChange={setCurrentPage}
         onPageSizeChange={setPageSize}
+        onPrint={handlePrint}
+        fetchingSelected={selectedUsersFetching}
+        selectionError={selectedUsersError}
+        disableActions={
+          selectedUsersFetching ||
+          !!selectedUsersError ||
+          !selectedUsersData?.applicants.length
+        }
+      />
+      <UserProfileDocument
+        applicants={selectedUsersData?.applicants.filter(notEmpty) ?? []}
+        ref={componentRef}
       />
     </div>
   );

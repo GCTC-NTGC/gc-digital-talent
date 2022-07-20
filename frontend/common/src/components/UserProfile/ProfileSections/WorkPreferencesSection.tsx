@@ -4,11 +4,6 @@ import { isEmpty } from "lodash";
 import { getOperationalRequirement } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
-// styling a text bit with red colour within intls
-function redText(msg: string) {
-  return <span data-h2-font-color="b(red)">{msg}</span>;
-}
-
 const WorkPreferencesSection: React.FunctionComponent<{
   applicant: Pick<
     Applicant,
@@ -91,17 +86,11 @@ const WorkPreferencesSection: React.FunctionComponent<{
             })}
           </p>
           <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "There are <redText>required</redText> fields missing.",
-                description:
-                  "Message that there are required fields missing. Please ignore things in <> tags.",
-              },
-              {
-                redText,
-              },
-            )}{" "}
+            {intl.formatMessage({
+              defaultMessage: "There are <red>required</red> fields missing.",
+              description:
+                "Message that there are required fields missing. Please ignore things in <> tags.",
+            })}{" "}
             <a href={editPath}>
               {intl.formatMessage({
                 defaultMessage: "Click here to get started.",

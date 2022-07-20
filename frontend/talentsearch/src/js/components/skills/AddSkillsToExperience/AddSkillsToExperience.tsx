@@ -12,10 +12,10 @@ import {
 import { matchStringCaseDiacriticInsensitive } from "@common/helpers/formUtils";
 import Pagination, { usePaginationVars } from "@common/components/Pagination";
 import { invertSkillSkillFamilyTree } from "@common/helpers/skillUtils";
+import SearchBar from "@common/components/skills/SearchBar";
+import SkillResults from "@common/components/skills/SkillResults";
 import AddedSkills from "../AddedSkills";
-import SkillResults from "../SkillResults";
 import SkillChecklist from "../SkillChecklist";
-import SearchBar from "../SearchBar";
 
 export interface AddSkillsToExperienceProps {
   allSkills: Skill[];
@@ -139,8 +139,8 @@ const AddSkillsToExperience: React.FunctionComponent<
               )}
               skills={frequentSkillsPagination.currentTableData}
               addedSkills={addedSkills || []}
-              handleAddSkill={onAddSkill}
-              handleRemoveSkill={onRemoveSkill}
+              onAddSkill={onAddSkill}
+              onRemoveSkill={onRemoveSkill}
             />
             <Pagination
               ariaLabel={intl.formatMessage({
@@ -174,8 +174,8 @@ const AddSkillsToExperience: React.FunctionComponent<
               )}
               skills={mainstreamSkillsPagination.currentTableData}
               addedSkills={addedSkills || []}
-              handleAddSkill={onAddSkill}
-              handleRemoveSkill={onRemoveSkill}
+              onAddSkill={onAddSkill}
+              onRemoveSkill={onRemoveSkill}
             />
             <Pagination
               ariaLabel={intl.formatMessage({
@@ -206,8 +206,8 @@ const AddSkillsToExperience: React.FunctionComponent<
               )}
               skills={keywordSearchPagination.currentTableData}
               addedSkills={addedSkills || []}
-              handleAddSkill={onAddSkill}
-              handleRemoveSkill={onRemoveSkill}
+              onAddSkill={onAddSkill}
+              onRemoveSkill={onRemoveSkill}
             />
             <Pagination
               ariaLabel={intl.formatMessage({

@@ -49,7 +49,10 @@ export const UserProfilePrintButton: React.FunctionComponent<{
       >
         {children}
       </Button>
-      <UserProfileDocument applicant={userData.applicant} ref={componentRef} />
+      <UserProfileDocument
+        applicants={[userData.applicant]}
+        ref={componentRef}
+      />
     </>
   ) : (
     <p>

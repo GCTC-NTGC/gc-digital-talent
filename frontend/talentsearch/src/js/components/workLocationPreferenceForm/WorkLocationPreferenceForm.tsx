@@ -40,10 +40,6 @@ export const WorkLocationPreferenceForm: React.FC<
 > = ({ initialData, handleWorkLocationPreference }) => {
   const intl = useIntl();
 
-  function bold(msg: string) {
-    return <span data-h2-font-weight="b(700)">{msg}</span>;
-  }
-
   const dataToFormValues = (
     data: WorkLocationPreferenceQuery | undefined,
   ): FormValues => ({
@@ -109,9 +105,7 @@ export const WorkLocationPreferenceForm: React.FC<
                   name="locationPreferences"
                   items={enumToOptions(WorkRegion).map(({ value }) => ({
                     value,
-                    label: intl.formatMessage(getWorkRegionsDetailed(value), {
-                      bold,
-                    }),
+                    label: intl.formatMessage(getWorkRegionsDetailed(value)),
                   }))}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),

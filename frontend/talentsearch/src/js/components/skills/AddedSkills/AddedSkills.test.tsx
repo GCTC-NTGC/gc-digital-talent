@@ -5,7 +5,7 @@ import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { Scalars, Skill } from "@common/api/generated";
 import { fakeSkills } from "@common/fakeData";
-import { render } from "../../../tests/testUtils";
+import { axeTest, render } from "@common/helpers/testUtils";
 import AddedSkills from ".";
 
 function renderContainer(
@@ -18,6 +18,12 @@ function renderContainer(
 }
 
 describe("AddedSkills tests", () => {
+  it("should have no accessibility errors", async () => {
+    const { container } = renderContainer([], jest.fn());
+
+    await axeTest(container);
+  });
+
   test("If the skills collection is empty then the null message is displayed", () => {
     renderContainer([], jest.fn());
     const message = screen.getByText(

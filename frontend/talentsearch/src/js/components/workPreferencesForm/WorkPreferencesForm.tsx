@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { commonMessages, errorMessages } from "@common/messages";
 import { Checklist, RadioGroup } from "@common/components/form";
 import { getOperationalRequirementCandidateDescription } from "@common/constants/localizedConstants";
-import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -41,12 +40,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   handleWorkPreferences,
 }) => {
   const intl = useIntl();
-  function bold(msg: string) {
-    return <span data-h2-font-weight="b(700)">{msg}</span>;
-  }
-  const OperationalRequirementsSortOrder = [
-    OperationalRequirement.OvertimeShortNotice,
-    OperationalRequirement.OvertimeScheduled,
+
+  const operationalRequirementsSubsetV2 = [
+    OperationalRequirement.OvertimeOccasional,
+    OperationalRequirement.OvertimeRegular,
     OperationalRequirement.ShiftWork,
     OperationalRequirement.OnCall,
     OperationalRequirement.Travel,
@@ -167,14 +164,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                       "Legend for optional work preferences check list in work preferences form",
                   })}
                   name="acceptedOperationalRequirements"
-                  items={enumToOptions(
-                    OperationalRequirement,
-                    OperationalRequirementsSortOrder,
-                  ).map(({ value }) => ({
+                  items={operationalRequirementsSubsetV2.map((value) => ({
                     value,
                     label: intl.formatMessage(
                       getOperationalRequirementCandidateDescription(value),
-                      { bold },
                     ),
                   }))}
                 />
