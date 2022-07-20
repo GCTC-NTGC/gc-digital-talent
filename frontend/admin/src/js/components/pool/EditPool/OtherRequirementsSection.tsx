@@ -69,6 +69,18 @@ export const OtherRequirementsSection = ({
   const formDisabled =
     poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
 
+  const formValuesToSubmitData = (formValues: FormValues) => {
+    // when the location option is "Remote Optional" then specific locations are not used
+    if (formValues.locationOption === LocationOption.RemoteOptional) {
+      return {
+        ...formValues,
+        specificLocationEn: null,
+        specificLocationFr: null,
+      };
+    }
+    return formValues;
+  };
+
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
@@ -85,7 +97,11 @@ export const OtherRequirementsSection = ({
         })}
       </p>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSave)}>
+        <form
+          onSubmit={handleSubmit((formValues) =>
+            onSave(formValuesToSubmitData(formValues)),
+          )}
+        >
           <div data-h2-display="b(flex)">
             <Spacer style={{ flex: 1 }}>
               <Select
