@@ -51,7 +51,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           context={context}
           error={error}
           data-h2-flex-direction="b(row)"
-          data-h2-align-items="b(center)"
+          data-h2-align-items="b(flex-start)"
         >
           <input
             style={{ order: -1 }}
