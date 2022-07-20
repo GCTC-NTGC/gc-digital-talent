@@ -289,36 +289,6 @@ function Table<T extends Record<string, unknown>>({
         data-h2-radius="b(none, none, s, s)"
         data-h2-padding="b(all, s)"
       >
-        <div
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(center)"
-          data-h2-margin="b(right, s)"
-        >
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Selected actions:",
-              description: "Label for action buttons in footer of admin table.",
-            })}
-          </p>
-          <Spacer>
-            <Button type="button" mode="solid" color="primary">
-              {intl.formatMessage({
-                defaultMessage: "Download XML",
-                description:
-                  "Text label for button to download an xml file of items in a table.",
-              })}
-            </Button>
-          </Spacer>
-          <Spacer>
-            <Button type="button" mode="solid" color="primary">
-              {intl.formatMessage({
-                defaultMessage: "Download PDF",
-                description:
-                  "Text label for button to download a pdf of items in a table.",
-              })}
-            </Button>
-          </Spacer>
-        </div>
         {pagination && (
           <Pagination
             currentPage={pageIndex + 1}
