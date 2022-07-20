@@ -3,6 +3,7 @@ import { ToastContainer, Slide } from "react-toastify";
 import { XCircleIcon } from "@heroicons/react/solid";
 
 import "react-toastify/dist/ReactToastify.min.css";
+import "./toast.css";
 
 const contextClass = {
   success: "toast-success",
