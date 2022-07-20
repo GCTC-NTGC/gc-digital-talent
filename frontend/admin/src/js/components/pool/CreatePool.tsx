@@ -141,9 +141,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 
   return (
     <section data-h2-container="base(left, s)">
-      <h2
-        data-h2-font-weight="base(700)"
-        data-h2-margin="base(x2, 0, x1, 0)">
+      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create Pool",
           description: "Title displayed on the create a pool form.",

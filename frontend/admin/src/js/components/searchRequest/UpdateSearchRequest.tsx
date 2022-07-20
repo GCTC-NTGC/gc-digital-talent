@@ -91,7 +91,8 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
     <section>
       <h2
         data-h2-margin="base(x2, 0, x.5, 0)"
-        data-h2-font-size="base(h4, 1.3)">
+        data-h2-font-size="base(h4, 1.3)"
+      >
         {intl.formatMessage({
           defaultMessage: "Personal Notes",
           description:

@@ -50,7 +50,7 @@ function TableFooter({
             description: "Label for action buttons in footer of admin table.",
           })}
         </p> */}
-      <div data-h2-padding="base(x1, x.75)">
+      <div data-h2-padding="base(x1, x1)">
         <div data-h2-flex-grid="base(center, 0, x2, 0)">
           <div data-h2-flex-item="base(content)">
             {hasSelection && (

@@ -25,7 +25,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
 
   return (
     <DashboardContentContainer>
-      <PageHeader data-h2-margin="base(x2, 0, x1, 0)" icon={HomeIcon}>
+      <PageHeader data-h2-padding="base(x2, 0, x1, 0)" icon={HomeIcon}>
         {intl.formatMessage(
           {
             defaultMessage: "Welcome back, {name}",

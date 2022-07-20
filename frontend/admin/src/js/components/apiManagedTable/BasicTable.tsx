@@ -89,7 +89,7 @@ function BasicTable<T extends RecordWithId>({
                   <th
                     key={column.id}
                     data-h2-background-color="base(dt-secondary.light)"
-                    data-h2-padding="base(x.5)"
+                    data-h2-padding="base(x.5, x1)"
                     role="columnheader"
                     {...calculateTableHeaderProps(column)}
                   >
@@ -140,7 +140,7 @@ function BasicTable<T extends RecordWithId>({
                     return (
                       <td
                         key={column.id}
-                        data-h2-padding="base(x.125, x.5)"
+                        data-h2-padding="base(x.5, x1)"
                         data-h2-text-align="base(left)"
                       >
                         {column.accessor(datum)}

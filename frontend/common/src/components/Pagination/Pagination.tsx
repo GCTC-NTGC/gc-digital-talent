@@ -65,6 +65,13 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
     onCurrentPageChange(currentPage - 1);
   };
 
+  let font_color = {};
+  if (color === "black") {
+    font_color = { "data-h2-color": "base(dt-black)" };
+  } else if (color === "white") {
+    font_color = { "data-h2-color": "base(dt-white)" };
+  }
+
   const lastPage = paginationRange[paginationRange.length - 1];
   const isLeftArrowDisabled = currentPage === 1;
   const isRightArrowDisabled = currentPage === lastPage;
@@ -126,7 +133,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                         data-h2-margin="base(-x.5, 0, 0, 0)"
                         data-h2-font-size="base(h6, 1)"
                         data-h2-font-weight="base(700)"
-                        data-h2-color="base(dt-white)"
+                        {...font_color}
                       >
                         ...
                       </span>
@@ -205,10 +212,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
         <div data-h2-flex-item="base(content)">
           <div data-h2-flex-grid="base(center, 0, x2, 0)">
             <div data-h2-flex-item="base(content)">
-              <label
-                data-h2-font-size="base(copy)"
-                data-h2-color="base(dt-white)"
-              >
+              <label data-h2-font-size="base(copy)" {...font_color}>
                 {intl.formatMessage({
                   defaultMessage: "Go to page:",
                   description: "Label for pagination input in admin table.",

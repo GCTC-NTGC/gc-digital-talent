@@ -182,8 +182,8 @@ const SearchRequestFilters: React.FunctionComponent<
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 
   return (
-    <section data-h2-radius="base(s)" data-h2-background-color="base(dt-gray.light)">
-      <div data-h2-padding="base(x1, x1, 0, x1) p-tablet(x2, x2, x1, x2)">
+    <section data-h2-radius="base(s)">
+      <div>
         <div data-h2-flex-grid="base(flex-start, 0, 0, x1) p-tablet(flex-start, 0, x2, 0)">
           <div
             data-h2-flex-item="base(1of1) p-tablet(1of2)"

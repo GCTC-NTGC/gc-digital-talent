@@ -17,7 +17,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange }) => {
   const debouncedHandleChange = useAsyncDebounce(handleChange, 200);
 
   return (
-    <div data-h2-display="base(flex)" data-h2-margin="base(0, 0, 0, x.5)">
+    <div data-h2-display="base(flex)">
       <input
         name="search"
         id="tableSearch"
@@ -32,10 +32,10 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange }) => {
           description:
             "Placeholder displayed on the Global Filter form Search field.",
         })}
-        data-h2-border="base(all, 1px, solid, dt-black)"
-        data-h2-radius="base(s)"
+        data-h2-border="base(all, 1px, solid, dt-secondary)"
         data-h2-background-color="base(dt-white)"
-        data-h2-padding="base(x.25, x.5)"
+        data-h2-padding="base(x.5, x1)"
+        data-h2-radius="base(s)"
       />
     </div>
   );
