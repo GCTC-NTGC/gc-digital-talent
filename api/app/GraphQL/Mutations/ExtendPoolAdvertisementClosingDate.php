@@ -16,10 +16,11 @@ final class ExtendPoolAdvertisementClosingDate
     public function __invoke($_, array $args)
     {
         $poolAdvertisement = Pool::find($args['id']);
+        $oldExpiryDate = $poolAdvertisement->expiry_date;
         $newExpiryDate = $args['new_expiry_date'];
 
-        if ($poolAdvertisement->expiry_date < Carbon::now()->endOfDay() &&
-            $newExpiryDate < $poolAdvertisement->expiry_date) {
+        if ($newExpiryDate < Carbon::now()->endOfDay() ||
+            $newExpiryDate <= $oldExpiryDate) {
             throw FormattedError::setInternalErrorMessage("New expiry date must be in the future and greater than the old expiry date.");
         }
 
