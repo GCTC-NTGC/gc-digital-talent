@@ -68,12 +68,12 @@ class PoolPolicy
      */
     public function publish(User $user, Pool $pool)
     {
-        // Status must be DRAFT to be able to publish it.
+        // The status must be DRAFT to be able to publish it.
         if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
             return Response::deny("Pool Advertisement has already been published.");
         }
 
-        // Expiry date must be greater than today's date at the end of day.
+        // The expiry date must be greater than today's date at the end of day.
         if ($pool->expiry_date < Carbon::now()->endOfDay()) {
             return Response::deny("Expiry date must be a future date.");
         }
