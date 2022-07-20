@@ -143,7 +143,7 @@ describe('Auth flows (development)', () => {
         .should('exist').and('be.visible')
         .click().then(() => {
 
-          cy.findByRole('dialog', { name: 'Logout' }).as('logoutModal');
+          cy.findByRole('alertdialog', { name: 'Logout' }).as('logoutModal');
           cy.get('@logoutModal')
             .should('exist').and('be.visible')
             .findByRole('button', { name: 'Logout' }).as('logoutBtn');
