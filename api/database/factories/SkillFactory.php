@@ -27,7 +27,7 @@ class SkillFactory extends Factory
             'name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
             'key' => KeyStringHelpers::toKeyString($name),
             'description' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-            'keywords' => $this->faker->words($nb = 3, $asText = false)
+            'keywords' => ['en' => $this->faker->words($nb = 3, $asText = false), 'fr' => $this->faker->words($nb = 3, $asText = false)],
         ];
     }
 
