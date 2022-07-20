@@ -7,11 +7,11 @@ import {
   fakeUsers,
   fakePools,
 } from "@common/fakeData";
+import { OperationalRequirementV2 } from "@common/constants/localizedConstants";
 import {
   Classification,
   CmoAsset,
   CreatePoolInput,
-  OperationalRequirement,
   Pool,
   PoolStatus,
   UpdatePoolInput,
@@ -60,8 +60,8 @@ stories.add("Update Pool Form", () => {
     assetCriteria: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
     essentialCriteria: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
     operationalRequirements: [
-      OperationalRequirement.DriversLicense,
-      OperationalRequirement.OnCall,
+      OperationalRequirementV2[0],
+      OperationalRequirementV2[1],
     ],
     keyTasks: {
       en: "Pool Key Tasks",

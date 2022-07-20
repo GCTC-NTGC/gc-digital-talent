@@ -1,9 +1,9 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
+import { OperationalRequirementV2 } from "@common/constants/localizedConstants";
 import {
   GetWorkPreferencesQuery,
-  OperationalRequirement,
   UpdateUserAsUserInput,
 } from "../../api/generated";
 
@@ -15,7 +15,7 @@ const mockUser: GetWorkPreferencesQuery | undefined = {
     __typename: "User",
     id: "11",
     wouldAcceptTemporary: true,
-    acceptedOperationalRequirements: [OperationalRequirement.DriversLicense],
+    acceptedOperationalRequirements: [OperationalRequirementV2[0]],
   },
 };
 
