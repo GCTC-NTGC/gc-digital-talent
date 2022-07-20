@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "tsc": "tsc --project tsconfig.base.json --noEmit",
+    "storybook": "MERGE_STORYBOOKS=true npm run storybook --workspace=admin",
     "e2e": "npm run e2e:open",
     "e2e:open": "cypress open",
     "e2e:run": "npm run e2e:run:all",
