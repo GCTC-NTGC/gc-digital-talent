@@ -220,7 +220,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
   );
 };
 
-export const UpdateSkillFamily: React.FunctionComponent<{
+const UpdateSkillFamily: React.FunctionComponent<{
   skillFamilyId: string;
 }> = ({ skillFamilyId }) => {
   const intl = useIntl();

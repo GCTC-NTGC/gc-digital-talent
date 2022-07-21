@@ -460,7 +460,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   );
 };
 
-export const UpdatePoolCandidate: React.FunctionComponent<{
+const UpdatePoolCandidate: React.FunctionComponent<{
   poolCandidateId: string;
 }> = ({ poolCandidateId }) => {
   const intl = useIntl();
@@ -555,3 +555,5 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
     </DashboardContentContainer>
   );
 };
+
+export default UpdatePoolCandidate;

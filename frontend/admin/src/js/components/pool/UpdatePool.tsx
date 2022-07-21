@@ -362,7 +362,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
   );
 };
 
-export const UpdatePool: React.FunctionComponent<{
+const UpdatePool: React.FunctionComponent<{
   poolId: string;
 }> = ({ poolId }) => {
   const intl = useIntl();
@@ -430,3 +430,5 @@ export const UpdatePool: React.FunctionComponent<{
     </Pending>
   );
 };
+
+export default UpdatePool;

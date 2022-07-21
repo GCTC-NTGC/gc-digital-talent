@@ -1,45 +1,94 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
+import { Helmet } from "react-helmet";
+
 import { RouterResult } from "@common/helpers/router";
 import { AuthenticationContext } from "@common/components/Auth";
-import { Helmet } from "react-helmet";
 import { getLocale } from "@common/helpers/localize";
-import { useIntl } from "react-intl";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+
 import { AdminRoutes, useAdminRoutes } from "../adminRoutes";
-import { CreateClassification } from "./classification/CreateClassification";
-import { UpdateClassification } from "./classification/UpdateClassification";
-import CmoAssetPage from "./cmoAsset/CmoAssetPage";
-import { CreateCmoAsset } from "./cmoAsset/CreateCmoAsset";
-import { UpdateCmoAsset } from "./cmoAsset/UpdateCmoAsset";
-import { CreateUser } from "./user/CreateUser";
-import Dashboard from "./dashboard/Dashboard";
-import { CreatePoolCandidate } from "./poolCandidate/CreatePoolCandidate";
-import { UpdatePoolCandidate } from "./poolCandidate/UpdatePoolCandidate";
-import PoolCandidatePage from "./poolCandidate/PoolCandidatePage";
-import ClassificationPage from "./classification/ClassificationPage";
-import { UpdateUser } from "./user/UpdateUser";
-import UserPage from "./user/UserPage";
-import PoolPage from "./pool/PoolPage";
-import { CreatePool } from "./pool/CreatePool";
-import { UpdatePool } from "./pool/UpdatePool";
-import DeprecatedViewPool from "./pool/deprecated/ViewPool";
-import ViewPool from "./pool/ViewPool";
-import DepartmentPage from "./department/DepartmentPage";
-import { CreateDepartment } from "./department/CreateDepartment";
-import { UpdateDepartment } from "./department/UpdateDepartment";
-import SearchRequestPage from "./searchRequest/SearchRequestPage";
-import SingleSearchRequestPage from "./searchRequest/SingleSearchRequestPage";
-import SkillFamilyPage from "./skillFamily/SkillFamilyPage";
-import { CreateSkillFamily } from "./skillFamily/CreateSkillFamily";
-import { UpdateSkillFamily } from "./skillFamily/UpdateSkillFamily";
-import SkillPage from "./skill/SkillPage";
-import { CreateSkill } from "./skill/CreateSkill";
-import { UpdateSkill } from "./skill/UpdateSkill";
 import { Role } from "../api/generated";
-import DashboardPage from "./dashboard/DashboardPage";
-import ViewUser from "./user/ViewUser";
-import HomePage from "./home/HomePage";
+
+const HomePage = React.lazy(() => import("./home/HomePage"));
+const Dashboard = React.lazy(() => import("./dashboard/Dashboard"));
+const DashboardPage = React.lazy(() => import("./dashboard/DashboardPage"));
+
+/** Users */
+const UserPage = React.lazy(() => import("./user/UserPage"));
+const CreateUser = React.lazy(() => import("./user/CreateUser"));
+const UpdateUser = React.lazy(() => import("./user/UpdateUser"));
+const ViewUser = React.lazy(() => import("./user/ViewUser"));
+
+/** Classifications */
+const ClassificationPage = React.lazy(
+  () => import("./classification/ClassificationPage"),
+);
+const CreateClassification = React.lazy(
+  () => import("./classification/CreateClassification"),
+);
+const UpdateClassification = React.lazy(
+  () => import("./classification/UpdateClassification"),
+);
+
+/** CMO Assets */
+const CmoAssetPage = React.lazy(() => import("./cmoAsset/CmoAssetPage"));
+const CreateCmoAsset = React.lazy(() => import("./cmoAsset/CreateCmoAsset"));
+const UpdateCmoAsset = React.lazy(() => import("./cmoAsset/UpdateCmoAsset"));
+
+/** Pool Candidates */
+const PoolCandidatePage = React.lazy(
+  () => import("./poolCandidate/PoolCandidatePage"),
+);
+const CreatePoolCandidate = React.lazy(
+  () => import("./poolCandidate/CreatePoolCandidate"),
+);
+const UpdatePoolCandidate = React.lazy(
+  () => import("./poolCandidate/UpdatePoolCandidate"),
+);
+
+/** Pools */
+const PoolPage = React.lazy(() => import("./pool/PoolPage"));
+const CreatePool = React.lazy(() => import("./pool/CreatePool"));
+const UpdatePool = React.lazy(() => import("./pool/UpdatePool"));
+const ViewPool = React.lazy(() => import("./pool/ViewPool"));
+const DeprecatedViewPool = React.lazy(
+  () => import("./pool/deprecated/ViewPool"),
+);
+
+/** Departments */
+const DepartmentPage = React.lazy(() => import("./department/DepartmentPage"));
+const CreateDepartment = React.lazy(
+  () => import("./department/CreateDepartment"),
+);
+const UpdateDepartment = React.lazy(
+  () => import("./department/UpdateDepartment"),
+);
+
+/** Skill Families */
+const SkillFamilyPage = React.lazy(
+  () => import("./skillFamily/SkillFamilyPage"),
+);
+const CreateSkillFamily = React.lazy(
+  () => import("./skillFamily/CreateSkillFamily"),
+);
+const UpdateSkillFamily = React.lazy(
+  () => import("./skillFamily/UpdateSkillFamily"),
+);
+
+/** Skills */
+const SkillPage = React.lazy(() => import("./skill/SkillPage"));
+const CreateSkill = React.lazy(() => import("./skill/CreateSkill"));
+const UpdateSkill = React.lazy(() => import("./skill/UpdateSkill"));
+
+/** Search Requests */
+const SearchRequestPage = React.lazy(
+  () => import("./searchRequest/SearchRequestPage"),
+);
+const SingleSearchRequestPage = React.lazy(
+  () => import("./searchRequest/SingleSearchRequestPage"),
+);
 
 const ViewPoolPage = checkFeatureFlag("FEATURE_DIRECTINTAKE")
   ? ViewPool

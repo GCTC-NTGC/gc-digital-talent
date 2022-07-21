@@ -623,7 +623,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   );
 };
 
-export const CreatePoolCandidate: React.FunctionComponent<{
+const CreatePoolCandidate: React.FunctionComponent<{
   poolId: string;
 }> = ({ poolId }) => {
   const [lookupResult] = useGetCreatePoolCandidateDataQuery();
@@ -658,3 +658,5 @@ export const CreatePoolCandidate: React.FunctionComponent<{
     </Pending>
   );
 };
+
+export default CreatePoolCandidate;
