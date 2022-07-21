@@ -35,7 +35,7 @@
   "hydrogen-container": {
     "prefix": "data-h2-container",
     "body": [
-      "data-h2-container=\"${1:query}${2::mode}${3::state}(${4:alignment}, ${5:width})\""
+      "data-h2-container=\"${1:query}${2::mode}${3::state}(${4:alignment}, ${5:width}, ${6:padding})\""
     ]
   },
   "hydrogen-cursor": {
@@ -66,6 +66,12 @@
     "prefix": "data-h2-flex-grid",
     "body": [
       "data-h2-flex-grid=\"${1:query}${2::mode}${3::state}(${4:alignment}, ${5:grid-container-padding}, ${6:column-gutter}, ${7:row-gutter})\""
+    ]
+  },
+  "hydrogen-flex-grow": {
+    "prefix": "data-h2-flex-grow",
+    "body": [
+      "data-h2-flex-grow=\"${1:query}${2::mode}${3::state}(${4:grow})\""
     ]
   },
   "hydrogen-flex-item": {
@@ -155,6 +161,12 @@
       "data-h2-justify-content=\"${1:query}${2::mode}${3::state}(${4:justification})\""
     ]
   },
+  "hydrogen-justify-items": {
+    "prefix": "data-h2-justify-items",
+    "body": [
+      "data-h2-justify-items=\"${1:query}${2::mode}${3::state}(${4:justification})\""
+    ]
+  },
   "hydrogen-layer": {
     "prefix": "data-h2-layer",
     "body": [
@@ -198,13 +210,18 @@
     ]
   },
   "hydrogen-offset": {
-    "prefix": ["data-h2-offset","data-h2-location"],
+    "prefix": [
+      "data-h2-offset",
+      "data-h2-location"
+    ],
     "body": [
       "data-h2-offset=\"${1:query}${2::mode}${3::state}(${4:top}, ${5:right}, ${6:bottom}, ${7:left})\""
     ]
   },
   "hydrogen-opacity": {
-    "prefix": ["data-h2-opacity"],
+    "prefix": [
+      "data-h2-opacity"
+    ],
     "body": [
       "data-h2-opacity=\"${1:query}${2::mode}${3::state}(${4:opacity})\""
     ]
@@ -213,6 +230,12 @@
     "prefix": "data-h2-order",
     "body": [
       "data-h2-order=\"${1:query}${2::mode}${3::state}(${4:order})\""
+    ]
+  },
+  "hydrogen-outline": {
+    "prefix": "data-h2-outline",
+    "body": [
+      "data-h2-outline=\"${1:query}${2::mode}${3::state}(${4:outline})\""
     ]
   },
   "hydrogen-overflow": {

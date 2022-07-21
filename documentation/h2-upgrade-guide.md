@@ -116,7 +116,3 @@ You can choose to ignore these additions, but they might be nice for you to know
 - `height`, `width`, and other sizing attributes now require units (e.g. `100` => `100%`)
 - updated snippets for both new syntax and new attributes
 - a whole slew of new console errors for when things go wrong, and they now include the file to look in
-
-# Josh's list of random things that are helpful to have on hand
-`docker-compose run -w /var/www/html maintenance bash`
-
