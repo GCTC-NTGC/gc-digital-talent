@@ -1045,5 +1045,45 @@
   "ZOQ9ih": {
     "defaultMessage": "Ajouter une compétence",
     "description": "Button label to add skill on skill result block."
+  },
+  "OperationalRequirement.DriversLicense.short": {
+    "defaultMessage": "Permis de conduire",
+    "description": "The operational requirement described as driver's license. (short-form for limited space)"
+  },
+  "OperationalRequirement.OnCall.short": {
+    "defaultMessage": "Garde 24/7",
+    "description": "The operational requirement described as 24/7 on-call. (short-form for limited space)"
+  },
+  "OperationalRequirement.OvertimeOccasional.short": {
+    "defaultMessage": "Travailler occasionnellement des heures supplémentaires",
+    "description": "The operational requirement described as occasional overtime. (short-form for limited space)"
+  },
+  "OperationalRequirement.OvertimeRegular.short": {
+    "defaultMessage": "Travailler des heures supplémentaires régulièrement",
+    "description": "The operational requirement described as regular overtime. (short-form for limited space)"
+  },
+  "OperationalRequirement.OvertimeScheduled.short": {
+    "defaultMessage": "Travailler des heures supplémentaires prévues",
+    "description": "The operational requirement described as scheduled overtime. (short-form for limited space)"
+  },
+  "OperationalRequirement.OvertimeShortNotice.short": {
+    "defaultMessage": "Travailler des heures supplémentaires à court préavis",
+    "description": "The operational requirement described as short notice overtime. (short-form for limited space)"
+  },
+  "OperationalRequirement.ShiftWork.short": {
+    "defaultMessage": "Travailler des quarts de travail",
+    "description": "The operational requirement described as shift work. (short-form for limited space)"
+  },
+  "OperationalRequirement.TransportEquipment.short": {
+    "defaultMessage": "Transport de matériel jusqu'à 20 kg",
+    "description": "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)"
+  },
+  "OperationalRequirement.Travel.short": {
+    "defaultMessage": "Déplacements selon les besoins",
+    "description": "The operational requirement described as travel as required. (short-form for limited space)"
+  },
+  "OperationalRequirement.WorkWeekends.short": {
+    "defaultMessage": "Travailler les fins de semaine",
+    "description": "The operational requirement described as work weekends. (short-form for limited space)"
   }
 }
