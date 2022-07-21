@@ -1,5 +1,5 @@
 import React from "react";
-import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
+import StarIcon from "@heroicons/react/solid/StarIcon";
 import { useIntl } from "react-intl";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
@@ -69,7 +69,7 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
               { skillsLength: skills?.length },
             )
       }
-      Icon={BriefCaseIcon}
+      Icon={StarIcon}
       defaultOpen={defaultOpen}
     >
       <div data-h2-padding="b(left, l)">
