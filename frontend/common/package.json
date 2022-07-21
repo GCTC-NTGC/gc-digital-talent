@@ -46,6 +46,9 @@
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.32.2"
   },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@reach/alert-dialog": "^0.16.0",
