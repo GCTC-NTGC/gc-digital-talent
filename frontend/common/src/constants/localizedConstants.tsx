@@ -45,7 +45,7 @@ export const disabilityLocalized = {
   description: "Message for person with a disability",
 };
 
-export const languageProficiency = {
+export const languageProficiency = defineMessages({
   [EstimatedLanguageAbility.Beginner]: {
     defaultMessage: "Beginner",
     description: "Beginner, skill level",
@@ -58,7 +58,7 @@ export const languageProficiency = {
     defaultMessage: "Advanced",
     description: "Advanced, skill level",
   },
-};
+});
 
 export const getLanguageProficiency = (
   languageProf: string | number,

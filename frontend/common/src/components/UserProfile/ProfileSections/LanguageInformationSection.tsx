@@ -161,8 +161,9 @@ const LanguageInformationSection: React.FunctionComponent<{
             })}{" "}
             <span data-h2-font-weight="b(700)">
               {estimatedLanguageAbility
-                ? getLanguageProficiency(estimatedLanguageAbility)
-                    .defaultMessage
+                ? intl.formatMessage(
+                    getLanguageProficiency(estimatedLanguageAbility),
+                  )
                 : ""}
             </span>
           </p>
