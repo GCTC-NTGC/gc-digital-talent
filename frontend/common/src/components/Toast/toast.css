@@ -1,0 +1,25 @@
+.toast {
+  padding: 0.7rem 1rem 0.7rem 1rem;
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  border-radius: 0.2rem;
+}
+
+.toast:last-child {
+  margin-top: 1rem;
+}
+
+.toast-success {
+  background-color: #f9c160;
+  color: #072131;
+  font-size: large;
+  font-weight: 600;
+}
+
+.toast-error {
+  background-color: #ff0000;
+  color: #ffffff;
+  font-size: large;
+  font-weight: 600;
+}
