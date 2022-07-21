@@ -724,13 +724,13 @@ export const JobLookingStatusDescription = defineMessages({
   },
   [JobLookingStatus.OpenToOpportunities]: {
     defaultMessage:
-      "<strong>Open to opportunities </strong> - Not actively looking but I still want to be contacted for job opportunities",
-    description: "Job Looking Status described as Actively looking.",
+      "<strong>Open to opportunities</strong> - Not actively looking but I still want to be contacted for job opportunities",
+    description: "Job Looking Status described as Open to opportunities.",
   },
   [JobLookingStatus.Inactive]: {
     defaultMessage:
       "<strong>Inactive</strong> - I do not currently want to be contacted for job opportunities",
-    description: "Job Looking Status described as Actively looking.",
+    description: "Job Looking Status described as Inactive.",
   },
 });
 
