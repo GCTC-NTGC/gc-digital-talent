@@ -8,18 +8,21 @@ When it comes time to migrate your PR, you can start by updating `frontend\commo
 ## New attributes
 You can choose to ignore these additions, but they might be nice for you to know about.
 - `flex-basis`
+- `flex-grow`
 - `gap`
 - `grid-column`
 - `grid-row`
 - `grid-template-columns`
 - `grid-template-rows`
 - `height`
+- `justify-items`
 - `list-style`
 - `max-height`
 - `max-width`
 - `min-height`
 - `min-width`
 - `offset`
+- `outline`
 - `text-decoration`
 - `transition`
 
@@ -80,6 +83,12 @@ You can choose to ignore these additions, but they might be nice for you to know
     - `xxl` => `x4`
   - the neat thing about this new approach is that you can actually use any number or decimal value you want, you're no longer restricted to predefined numbers or letters
 
+### Container syntax
+- `container` has been reworked and now requires three options (`data-h2-container="base(alignment, max_width, right_left_padding)"`):
+  - `alignment` determines which side of the parent the container hugs
+  - `max_width` should be a configured `container` key - see the Hydrogen configuration file for options
+  - `right_left_padding` defaults to 0, but allows you to apply multipliers or CSS units to the padding of the container on the left and right (this is helpful for having containers that span the full width on mobile devices but require a bit of space away from the edges)
+
 ### Margin and padding syntax
 - `margin` and `padding` syntax has been changed to match how their CSS syntax works
   - 1 value (e.g. `margin="b(30px)"`) will apply to all 4 sides
@@ -104,8 +113,9 @@ You can choose to ignore these additions, but they might be nice for you to know
 - `font-color` => `color` (same deal here)
 - headings and paragraphs no longer have a default margin on them, so no more pesky resetting them to 0
 - more elements have had their font family, sizes, and line heights reset for default consistency
+- `height`, `width`, and other sizing attributes now require units (e.g. `100` => `100%`)
 - updated snippets for both new syntax and new attributes
-- a whole slew of new console errors for when things go wrong
+- a whole slew of new console errors for when things go wrong, and they now include the file to look in
 
 # Josh's list of random things that are helpful to have on hand
 `docker-compose run -w /var/www/html maintenance bash`
