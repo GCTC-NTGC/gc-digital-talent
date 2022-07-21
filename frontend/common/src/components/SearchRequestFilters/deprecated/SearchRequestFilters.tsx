@@ -2,7 +2,11 @@ import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { Maybe, PoolCandidateFilter } from "../../../api/generated";
+import {
+  ApplicantFilter,
+  Maybe,
+  PoolCandidateFilter,
+} from "../../../api/generated";
 import {
   getLanguageAbility,
   getOperationalRequirement,
@@ -87,11 +91,12 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 
 export interface SearchRequestFiltersProps {
   poolCandidateFilter: Maybe<PoolCandidateFilter>;
+  poolApplicantFilter: Maybe<ApplicantFilter>;
 }
 
 const SearchRequestFilters: React.FunctionComponent<
   SearchRequestFiltersProps
-> = ({ poolCandidateFilter }) => {
+> = ({ poolCandidateFilter, poolApplicantFilter }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -170,9 +175,9 @@ const SearchRequestFilters: React.FunctionComponent<
     : intl.formatMessage({
         defaultMessage: "Any language",
       });
-  const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
-    (cmoAsset) =>
-      cmoAsset?.name[locale] ||
+  const skills: string[] | undefined = poolApplicantFilter?.skills?.map(
+    (skill) =>
+      skill?.name[locale] ||
       intl.formatMessage({
         defaultMessage: "Error: skill name not found",
         description:

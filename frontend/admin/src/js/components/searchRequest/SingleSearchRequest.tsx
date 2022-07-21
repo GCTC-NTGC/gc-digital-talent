@@ -10,6 +10,7 @@ import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstan
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import {
+  ApplicantFilterInput,
   PoolCandidateFilterInput,
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,
@@ -30,6 +31,7 @@ const ManagerInfo: React.FunctionComponent<{
     status,
     requestedDate,
     poolCandidateFilter,
+    applicantFilter,
   } = searchRequest;
 
   return (
@@ -176,7 +178,8 @@ export const SingleSearchRequest: React.FunctionComponent<
 > = ({ searchRequest }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const { additionalComments, poolCandidateFilter } = searchRequest;
+  const { additionalComments, poolCandidateFilter, applicantFilter } =
+    searchRequest;
   // TODO: data filter data from applicantFilter instead of poolCandidateFilter if possible.
 
   const poolCandidateFilterInput: PoolCandidateFilterInput = {
@@ -247,7 +250,10 @@ export const SingleSearchRequest: React.FunctionComponent<
               "Heading for the request information section of the single search request view.",
           })}
         </h2>
-        <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
+        <SearchRequestFilters
+          poolCandidateFilter={poolCandidateFilter}
+          poolApplicantFilter={applicantFilter}
+        />
         <div
           data-h2-padding="s(top-bottom, s)"
           data-h2-margin="s(top-bottom, s)"

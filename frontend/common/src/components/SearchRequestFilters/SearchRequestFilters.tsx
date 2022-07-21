@@ -178,7 +178,9 @@ const SearchRequestFilters: React.FunctionComponent<
       });
   const skills: string[] | undefined = poolCandidateFilter?.skills?.map(
     (skillId) => {
-      const foundSkill = allSkills.find((skill) => skill.id === skillId);
+      const foundSkill = allSkills.find((skill) => {
+        return skill && skillId && skill.id === skillId.id;
+      });
 
       return (
         foundSkill?.name[locale] ||

@@ -94,6 +94,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   const formValuesToSubmitData = (
     values: FormValues,
   ): CreatePoolCandidateSearchRequestInput => {
+    console.log(values);
     return {
       fullName: values.fullName ?? "",
       email: values.email ?? "",
@@ -101,13 +102,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       additionalComments: values.additionalComments,
       poolCandidateFilter: {
         create: {
-          classifications: {
-            sync: poolCandidateFilter?.classifications
-              ? poolCandidateFilter?.classifications
-                  ?.filter(notEmpty)
-                  .map(({ id }) => id)
-              : [],
-          },
           cmoAssets: {
             sync: poolCandidateFilter?.cmoAssets
               ? poolCandidateFilter?.cmoAssets
@@ -129,6 +123,17 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           workRegions: poolCandidateFilter?.workRegions
             ? poolCandidateFilter?.workRegions
             : [],
+        },
+      },
+      applicantFilter: {
+        create: {
+          skills: {
+            sync: poolCandidateFilter?.skills
+              ? poolCandidateFilter?.skills
+                  ?.filter(notEmpty)
+                  .map(({ id }) => id)
+              : [],
+          },
         },
       },
       department: { connect: values.department ?? "" },

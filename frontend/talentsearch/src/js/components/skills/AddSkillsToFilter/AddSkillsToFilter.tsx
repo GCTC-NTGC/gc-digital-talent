@@ -5,15 +5,20 @@ import { Skill, SkillCategory, SkillFamily } from "@common/api/generated";
 import Pagination, { usePaginationVars } from "@common/components/Pagination";
 import { matchStringCaseDiacriticInsensitive } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
-import { Tab, TabSet } from "@common/components/tabs";
-import { invertSkillTree } from "@common/helpers/skillUtils";
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+} from "@common/components/Tabs";
+import { invertSkillSkillFamilyTree } from "@common/helpers/skillUtils";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { notEmpty } from "@common/helpers/util";
-import SkillResults from "../SkillResults";
+import SkillResults from "@common/components/skills/SkillResults";
+import SearchBar from "@common/components/skills/SearchBar";
 import SkillFamiliesRadioList from "../SkillFamiliesRadioList/SkillFamiliesRadioList";
 import AddedSkills from "../AddedSkills";
-import SearchBar from "../SearchBar";
 
 export interface AddSkillsToFilterProps {
   allSkills: Skill[];
@@ -151,14 +156,30 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
 
   // this function can be a bit heavy
   const technicalSkillFamilies = React.useMemo(
-    () => invertSkillTree(technicalSkills),
+    () => invertSkillSkillFamilyTree(technicalSkills),
     [technicalSkills],
   );
 
   const transferableSkillFamilies = React.useMemo(
-    () => invertSkillTree(transferableSkills),
+    () => invertSkillSkillFamilyTree(transferableSkills),
     [transferableSkills],
   );
+
+  const tabs = [
+    intl.formatMessage({
+      defaultMessage: "Technical skills",
+      description: "Button text for the technical skills tab on skills filter",
+    }),
+    intl.formatMessage({
+      defaultMessage: "Transferable skills",
+      description:
+        "Button text for the transferable skills tab on skills filter",
+    }),
+    intl.formatMessage({
+      defaultMessage: "By keyword",
+      description: "Button text for the search skills tab on skills filter",
+    }),
+  ];
 
   return (
     <>
@@ -194,139 +215,121 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
           description: "Subtitle for the skills filter on the search form.",
         })}
       </h4>
-      <TabSet>
-        <Tab
-          text={intl.formatMessage({
-            defaultMessage: "Technical skills",
-            description:
-              "Button text for the technical skills tab on skills filter",
-          })}
-        >
-          <SkillFamiliesRadioList
-            skillFamilies={technicalSkillFamilies}
-            callback={(checked) =>
-              handleSkillFamilyChange(checked, SkillCategory.Technical)
-            }
-          />
-          <SkillResults
-            title={intl.formatMessage(
-              {
-                defaultMessage: "Results ({skillCount})",
-                description: "A title for a skill list of results",
-              },
-              { skillCount: filteredTechnicalSkills.length },
-            )}
-            skills={technicalSkillsPagination.currentTableData}
-            addedSkills={addedSkills}
-            handleAddSkill={handleAddSkill}
-            handleRemoveSkill={handleRemoveSkill}
-          />
-          <Pagination
-            ariaLabel={intl.formatMessage({
-              defaultMessage: "Technical skills results",
-              description: "Title for technical skills pagination",
-            })}
-            color="primary"
-            mode="outline"
-            currentPage={technicalSkillsPagination.currentPage}
-            pageSize={resultsPaginationPageSize}
-            totalCount={filteredTechnicalSkills.length}
-            handlePageChange={(page: number) =>
-              technicalSkillsPagination.setCurrentPage(page)
-            }
-            handlePageSize={technicalSkillsPagination.setPageSize}
-          />
-        </Tab>
-        <Tab
-          text={intl.formatMessage({
-            defaultMessage: "Transferable skills",
-            description:
-              "Button text for the transferable skills tab on skills filter",
-          })}
-        >
-          <SkillFamiliesRadioList
-            skillFamilies={transferableSkillFamilies}
-            callback={(checked) =>
-              handleSkillFamilyChange(checked, SkillCategory.Behavioural)
-            }
-          />
-          <SkillResults
-            title={intl.formatMessage(
-              {
-                defaultMessage: "Results ({skillCount})",
-                description: "A title for a skill list of results",
-              },
-              { skillCount: filteredTransferableSkills.length },
-            )}
-            skills={transferableSkillsPagination.currentTableData}
-            addedSkills={addedSkills}
-            handleAddSkill={handleAddSkill}
-            handleRemoveSkill={handleRemoveSkill}
-          />
-          <Pagination
-            ariaLabel={intl.formatMessage({
-              defaultMessage: "Transferable skills results",
-              description: "Title for transferable skills pagination",
-            })}
-            color="primary"
-            mode="outline"
-            currentPage={transferableSkillsPagination.currentPage}
-            pageSize={resultsPaginationPageSize}
-            totalCount={filteredTransferableSkills.length}
-            handlePageChange={(page: number) =>
-              transferableSkillsPagination.setCurrentPage(page)
-            }
-            handlePageSize={transferableSkillsPagination.setPageSize}
-          />
-        </Tab>
-        <Tab
-          text={intl.formatMessage({
-            defaultMessage: "By keyword",
-            description:
-              "Button text for the search skills tab on skills filter",
-          })}
-        >
-          <SearchBar handleSearch={handleSearch} />
-          <SkillResults
-            title={intl.formatMessage(
-              {
-                defaultMessage: "Results ({skillCount})",
-                description: "A title for a list of results",
-              },
-              {
-                skillCount: searchSkills.length,
-              },
-            )}
-            skills={searchSkillsPagination.currentTableData}
-            addedSkills={addedSkills || []}
-            handleAddSkill={handleAddSkill}
-            handleRemoveSkill={handleRemoveSkill}
-          />
-          <Pagination
-            ariaLabel={intl.formatMessage({
-              defaultMessage: "keyword search skills results",
-            })}
-            color="primary"
-            mode="outline"
-            currentPage={searchSkillsPagination.currentPage}
-            pageSize={resultsPaginationPageSize}
-            totalCount={searchSkills.length}
-            handlePageChange={(page) =>
-              searchSkillsPagination.setCurrentPage(page)
-            }
-            handlePageSize={searchSkillsPagination.setPageSize}
-          />
-        </Tab>
-        <Tab
-          tabType="closer"
-          iconPosition="right"
-          iconOpen={<ChevronUpIcon style={{ width: "1.25rem" }} />}
-          textOpen="Close"
-          iconClosed={<ChevronDownIcon style={{ width: "1.25rem" }} />}
-          textClosed="Open"
-          placement="end"
-        />
-      </TabSet>
+      <Tabs>
+        <TabList>
+          {tabs.map((tab, index) => (
+            <Tab key={tab} index={index}>
+              {tab}
+            </Tab>
+          ))}
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <SkillFamiliesRadioList
+              skillFamilies={technicalSkillFamilies}
+              callback={(checked) =>
+                handleSkillFamilyChange(checked, SkillCategory.Technical)
+              }
+            />
+            <SkillResults
+              title={intl.formatMessage(
+                {
+                  defaultMessage: "Results ({skillCount})",
+                  description: "A title for a skill list of results",
+                },
+                { skillCount: filteredTechnicalSkills.length },
+              )}
+              skills={technicalSkillsPagination.currentTableData}
+              addedSkills={addedSkills}
+              onAddSkill={handleAddSkill}
+              onRemoveSkill={handleRemoveSkill}
+            />
+            <Pagination
+              ariaLabel={intl.formatMessage({
+                defaultMessage: "Technical skills results",
+                description: "Title for technical skills pagination",
+              })}
+              color="primary"
+              mode="outline"
+              currentPage={technicalSkillsPagination.currentPage}
+              pageSize={resultsPaginationPageSize}
+              totalCount={filteredTechnicalSkills.length}
+              onCurrentPageChange={(page: number) =>
+                technicalSkillsPagination.setCurrentPage(page)
+              }
+              onPageSizeChange={technicalSkillsPagination.setPageSize}
+            />
+          </TabPanel>
+          <TabPanel>
+            <SkillFamiliesRadioList
+              skillFamilies={transferableSkillFamilies}
+              callback={(checked) =>
+                handleSkillFamilyChange(checked, SkillCategory.Behavioural)
+              }
+            />
+            <SkillResults
+              title={intl.formatMessage(
+                {
+                  defaultMessage: "Results ({skillCount})",
+                  description: "A title for a skill list of results",
+                },
+                { skillCount: filteredTransferableSkills.length },
+              )}
+              skills={transferableSkillsPagination.currentTableData}
+              addedSkills={addedSkills}
+              onAddSkill={handleAddSkill}
+              onRemoveSkill={handleRemoveSkill}
+            />
+            <Pagination
+              ariaLabel={intl.formatMessage({
+                defaultMessage: "Transferable skills results",
+                description: "Title for transferable skills pagination",
+              })}
+              color="primary"
+              mode="outline"
+              currentPage={transferableSkillsPagination.currentPage}
+              pageSize={resultsPaginationPageSize}
+              totalCount={filteredTransferableSkills.length}
+              onCurrentPageChange={(page: number) =>
+                transferableSkillsPagination.setCurrentPage(page)
+              }
+              onPageSizeChange={transferableSkillsPagination.setPageSize}
+            />
+          </TabPanel>
+          <TabPanel>
+            <SearchBar handleSearch={handleSearch} />
+            <SkillResults
+              title={intl.formatMessage(
+                {
+                  defaultMessage: "Results ({skillCount})",
+                  description: "A title for a list of results",
+                },
+                {
+                  skillCount: searchSkills.length,
+                },
+              )}
+              skills={searchSkillsPagination.currentTableData}
+              addedSkills={addedSkills || []}
+              onAddSkill={handleAddSkill}
+              onRemoveSkill={handleRemoveSkill}
+            />
+            <Pagination
+              ariaLabel={intl.formatMessage({
+                defaultMessage: "keyword search skills results",
+              })}
+              color="primary"
+              mode="outline"
+              currentPage={searchSkillsPagination.currentPage}
+              pageSize={resultsPaginationPageSize}
+              totalCount={searchSkills.length}
+              onCurrentPageChange={(page) =>
+                searchSkillsPagination.setCurrentPage(page)
+              }
+              onPageSizeChange={searchSkillsPagination.setPageSize}
+            />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
       <AddedSkills
         skills={addedSkills}
         onRemoveSkill={handleRemoveSkill}

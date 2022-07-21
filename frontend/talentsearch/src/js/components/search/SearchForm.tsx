@@ -94,10 +94,13 @@ const SearchForm: React.FC<SearchFormProps> = ({
               ?.filter((id) => !!id)
               .map((id) => (id ? classificationMap.get(id) : undefined))
           : [],
-        poolCandidates: {
-          pools: [values.poolId],
-        },
-        skills: values.skills,
+        skills: values.skills
+          ? values.skills
+              .filter((id) => !!id)
+              .map((id) => ({
+                id,
+              }))
+          : [],
         operationalRequirements: values.operationalRequirements
           ? unpackMaybes(values.operationalRequirements)
           : [],
@@ -148,7 +151,9 @@ const SearchForm: React.FC<SearchFormProps> = ({
     [classifications],
   );
 
-  const operationalRequirementsSubset = [
+  const operationalRequirementsSubsetV2 = [
+    OperationalRequirement.OvertimeOccasional,
+    OperationalRequirement.OvertimeRegular,
     OperationalRequirement.ShiftWork,
     OperationalRequirement.OnCall,
     OperationalRequirement.Travel,
