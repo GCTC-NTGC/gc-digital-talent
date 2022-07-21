@@ -285,7 +285,9 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             name="operationalRequirements"
             items={OperationalRequirementV1.map((value) => ({
               value,
-              label: intl.formatMessage(getOperationalRequirement(value, "short")),
+              label: intl.formatMessage(
+                getOperationalRequirement(value, "short"),
+              ),
             }))}
           />
         </FilterBlock>
