@@ -17,6 +17,8 @@ describe("Admin Workflow Tests", () => {
      .clear()
      .type(name);
 
+     cy.wait("@gqlAllUsersPaginatedQuery");
+
     // wait for table to rerender
     cy.contains(expectedEmail)
       .should("exist")
