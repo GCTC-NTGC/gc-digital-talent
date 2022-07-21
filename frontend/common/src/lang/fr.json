@@ -1021,5 +1021,29 @@
   "fmSaPm": {
     "defaultMessage": "… m'oblige à <strong>travailler les fins de semaine</strong>.",
     "description": "The operational requirement described as work weekends."
+  },
+  "FRyIG2": {
+    "defaultMessage": "Vous devez saisir un terme de recherche avant d'appuyer sur la touche « Entrée »",
+    "description": "Error message displayed when the search term length is less then 2 characters."
+  },
+  "ItRgwA": {
+    "defaultMessage": "Retirer une compétence",
+    "description": "Button label to remove skill on skill result block."
+  },
+  "JY6WhU": {
+    "defaultMessage": "Rechercher une compétence précise...",
+    "description": "Label for the skills search bar."
+  },
+  "PF4ya+": {
+    "defaultMessage": "p. ex. Python, JavaScript, etc.",
+    "description": "Placeholder for the skills search bar."
+  },
+  "VDZ6zw": {
+    "defaultMessage": "Masquer la définition",
+    "description": "Text displayed when skill block is open."
+  },
+  "ZOQ9ih": {
+    "defaultMessage": "Ajouter une compétence",
+    "description": "Button label to add skill on skill result block."
   }
 }
