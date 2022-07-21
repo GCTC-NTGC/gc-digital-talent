@@ -93,7 +93,10 @@ query selectedUsers($ids: [ID]!) {
           en
           fr
         }
-        keywords
+        keywords {
+          en
+          fr
+        }
         experienceSkillRecord {
           details
         }

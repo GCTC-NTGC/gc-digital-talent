@@ -99,7 +99,10 @@ query getMe {
           en
           fr
         }
-        keywords
+        keywords {
+          en
+          fr
+        }
         experienceSkillRecord {
           details
         }
