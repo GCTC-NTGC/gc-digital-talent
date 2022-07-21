@@ -1,5 +1,6 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -52,15 +53,15 @@ module.exports = {
     // run some checks before compilation begins
     {
       apply: (compiler) => {
-          compiler.hooks.compile.tap("Preflight check", () => {
-            const authVariables = [
-              "OAUTH_URI", "OAUTH_TOKEN_URI", "OAUTH_ADMIN_CLIENT_ID", "OAUTH_ADMIN_CLIENT_SECRET"
-            ];
-            if(authVariables.some((v) => process.env.hasOwnProperty(v)))
-              throw 'OAUTH variables should be defined in the api project, not the admin project.  Compare the .env file to the .env.example for proper use.  https://github.com/GCTC-NTGC/gc-digital-talent/pull/2220';
-          });
+        compiler.hooks.compile.tap("Preflight check", () => {
+          const authVariables = [
+            "OAUTH_URI", "OAUTH_TOKEN_URI", "OAUTH_ADMIN_CLIENT_ID", "OAUTH_ADMIN_CLIENT_SECRET"
+          ];
+          if (authVariables.some((v) => process.env.hasOwnProperty(v)))
+            throw 'OAUTH variables should be defined in the api project, not the admin project.  Compare the .env file to the .env.example for proper use.  https://github.com/GCTC-NTGC/gc-digital-talent/pull/2220';
+        });
       },
-  },
+    },
   ],
   module: {
     rules: [
@@ -97,6 +98,12 @@ module.exports = {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
+    ],
+  },
+  optimization: {
+    minimizer: [
+      `...`, // Includes default minimizers
+      new CssMinimizerPlugin(),
     ],
   },
   resolve: {
