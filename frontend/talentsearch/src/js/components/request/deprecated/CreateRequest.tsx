@@ -315,7 +315,10 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               description: "Title of Summary of filters section",
             })}
           </h2>
-          <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
+          <SearchRequestFilters
+            poolCandidateFilter={poolCandidateFilter}
+            poolApplicantFilter={undefined}
+          />
           <p data-h2-font-weight="b(600)">
             {intl.formatMessage(
               {
