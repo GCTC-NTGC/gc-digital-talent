@@ -8,6 +8,7 @@ import fakeSearchRequests from "./fakeSearchRequests";
 import fakePoolCandidateFilters from "./fakePoolCandidateFilters";
 import fakeSkillFamilies from "./fakeSkillFamilies";
 import fakeSkills from "./fakeSkills";
+import fakePoolAdvertisements from "./fakePoolAdvertisements";
 
 export {
   fakeClassifications,
@@ -21,4 +22,5 @@ export {
   fakePoolCandidateFilters,
   fakeSkillFamilies,
   fakeSkills,
+  fakePoolAdvertisements,
 };
