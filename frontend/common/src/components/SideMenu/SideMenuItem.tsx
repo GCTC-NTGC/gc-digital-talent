@@ -1,5 +1,5 @@
-import sanitizeUrl from "@common/helpers/sanitizeUrl";
-import React, { MouseEventHandler, ReactType } from "react";
+import React, { MouseEventHandler } from "react";
+import sanitizeUrl from "../../helpers/sanitizeUrl";
 import useLinkClickHandler from "../Link/useLinkClickHandler";
 
 export interface SideMenuItemProps {
