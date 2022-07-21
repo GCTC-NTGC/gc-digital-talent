@@ -94,7 +94,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
             mode="outline"
             color="primary"
             type="button"
-            href={adminPaths.poolUpdate(pool.id)}
+            href={adminPaths.poolEdit(pool.id)}
           >
             {intl.formatMessage({
               defaultMessage: "Edit pool",

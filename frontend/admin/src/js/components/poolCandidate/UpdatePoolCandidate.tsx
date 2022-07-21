@@ -25,7 +25,7 @@ import {
   getWorkRegion,
   getPoolCandidateStatus,
   getOperationalRequirement,
-  OperationalRequirementV2,
+  OperationalRequirementV1,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { User } from "@common/api/generated";
@@ -368,7 +368,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form operational requirements field.",
               })}
-              options={OperationalRequirementV2.map((value) => ({
+              options={OperationalRequirementV1.map((value) => ({
                 value,
                 label: intl.formatMessage(getOperationalRequirement(value)),
               }))}

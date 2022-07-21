@@ -41,7 +41,7 @@
         "jsx-a11y"
     ],
     "rules": {
-        "formatjs/no-id": "error",
+        "formatjs/no-id": "off",
         "camelcase": "warn",
         "consistent-return": "warn",
         "import/no-extraneous-dependencies": "off",

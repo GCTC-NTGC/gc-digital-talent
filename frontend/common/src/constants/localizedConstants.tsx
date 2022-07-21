@@ -45,7 +45,7 @@ export const disabilityLocalized = {
   description: "Message for person with a disability",
 };
 
-export const languageProficiency = {
+export const languageProficiency = defineMessages({
   [EstimatedLanguageAbility.Beginner]: {
     defaultMessage: "Beginner",
     description: "Beginner, skill level",
@@ -58,7 +58,7 @@ export const languageProficiency = {
     defaultMessage: "Advanced",
     description: "Advanced, skill level",
   },
-};
+});
 
 export const getLanguageProficiency = (
   languageProf: string | number,
@@ -579,7 +579,7 @@ export const getEducationType = (
     `Invalid educationType ${educationTypeId}`,
   );
 
-export const OperationalRequirementCandidateDescription = defineMessages({
+export const operationalRequirementLabelCandidateDescription = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "...has <strong>shift-work</strong>.",
     description: "The operational requirement described as shift work.",
@@ -629,7 +629,7 @@ export const OperationalRequirementCandidateDescription = defineMessages({
   },
 });
 
-export const OperationalRequirementFull = defineMessages({
+export const operationalRequirementLabelFull = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "Availability, willingness and ability to work shift-work.",
     description: "The operational requirement described as shift work.",
@@ -683,54 +683,64 @@ export const OperationalRequirementFull = defineMessages({
   },
 });
 
-export const OperationalRequirementShort = defineMessages({
+export const operationalRequirementLabelShort = defineMessages({
   [OperationalRequirement.ShiftWork]: {
+    id: "OperationalRequirement.ShiftWork.short",
     defaultMessage: "Shift-work",
     description:
       "The operational requirement described as shift work. (short-form for limited space)",
   },
   [OperationalRequirement.OnCall]: {
+    id: "OperationalRequirement.OnCall.short",
     defaultMessage: "24/7 on-call",
     description:
       "The operational requirement described as 24/7 on-call. (short-form for limited space)",
   },
   [OperationalRequirement.Travel]: {
-    defaultMessage: "Travel",
+    id: "OperationalRequirement.Travel.short",
+    defaultMessage: "Travel as required",
     description:
       "The operational requirement described as travel as required. (short-form for limited space)",
   },
   [OperationalRequirement.TransportEquipment]: {
-    defaultMessage: "Transport & Lift (20kg)",
+    id: "OperationalRequirement.TransportEquipment.short",
+    defaultMessage: "Transport equipment up to 20kg",
     description:
       "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)",
   },
   [OperationalRequirement.DriversLicense]: {
+    id: "OperationalRequirement.DriversLicense.short",
     defaultMessage: "Driver's license",
     description:
       "The operational requirement described as driver's license. (short-form for limited space)",
   },
   [OperationalRequirement.OvertimeRegular]: {
+    id: "OperationalRequirement.OvertimeRegular.short",
     defaultMessage: "Overtime (regular)",
     description:
       "The operational requirement described as regular overtime. (short-form for limited space)",
   },
   [OperationalRequirement.OvertimeOccasional]: {
+    id: "OperationalRequirement.OvertimeOccasional.short",
     defaultMessage: "Overtime (occasional)",
     description:
       "The operational requirement described as occasional overtime. (short-form for limited space)",
   },
   [OperationalRequirement.OvertimeScheduled]: {
-    defaultMessage: "Overtime (scheduled)",
+    id: "OperationalRequirement.OvertimeScheduled.short",
+    defaultMessage: "Work scheduled overtime",
     description:
       "The operational requirement described as scheduled overtime. (short-form for limited space)",
   },
   [OperationalRequirement.OvertimeShortNotice]: {
-    defaultMessage: "Overtime (short notice)",
+    id: "OperationalRequirement.OvertimeShortNotice.short",
+    defaultMessage: "Work overtime on short notice",
     description:
       "The operational requirement described as short notice overtime. (short-form for limited space)",
   },
   [OperationalRequirement.WorkWeekends]: {
-    defaultMessage: "Weekends",
+    id: "OperationalRequirement.WorkWeekends.short",
+    defaultMessage: "Work weekends",
     description:
       "The operational requirement described as work weekends. (short-form for limited space)",
   },
@@ -758,9 +768,9 @@ export const getOperationalRequirement = (
   format: "candidateDescription" | "full" | "short" = "full",
 ): MessageDescriptor => {
   const messageDictionary = {
-    candidateDescription: OperationalRequirementCandidateDescription,
-    full: OperationalRequirementFull,
-    short: OperationalRequirementShort,
+    candidateDescription: operationalRequirementLabelCandidateDescription,
+    full: operationalRequirementLabelFull,
+    short: operationalRequirementLabelShort,
   };
 
   return getOrThrowError(
