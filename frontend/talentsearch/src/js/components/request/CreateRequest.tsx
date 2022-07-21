@@ -94,7 +94,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   const formValuesToSubmitData = (
     values: FormValues,
   ): CreatePoolCandidateSearchRequestInput => {
-    console.log(values);
     return {
       fullName: values.fullName ?? "",
       email: values.email ?? "",
