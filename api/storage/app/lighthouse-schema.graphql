@@ -309,7 +309,7 @@ input CreateSkillInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
-  keywords: SkillKeywords
+  keywords: SkillKeywordsInput
 }
 
 """When creating a User, name is required."""
@@ -1054,6 +1054,11 @@ type SkillKeywords {
   fr: [String!]
 }
 
+input SkillKeywordsInput {
+  en: [String!]
+  fr: [String!]
+}
+
 """Directions for ordering a list of records."""
 enum SortOrder {
   """Sort records in ascending order."""
@@ -1145,7 +1150,7 @@ input UpdateSkillInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
-  keywords: SkillKeywords
+  keywords: SkillKeywordsInput
 }
 
 """When updating a User, all fields are optional"""

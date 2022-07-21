@@ -495,7 +495,7 @@ type Skill {
     experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 
-type SkillKeywords{
+type SkillKeywords {
     en: [String!]
     fr: [String!]
 }
@@ -1098,19 +1098,25 @@ input UpdateSkillFamilyInput {
 input SkillFamilyBelongsToMany {
     sync: [ID!]
 }
+
+input SkillKeywordsInput {
+    en: [String!]
+    fr: [String!]
+}
+
 input CreateSkillInput {
     key: KeyString!
     name: LocalizedStringInput!
     description: LocalizedStringInput
     families: SkillFamilyBelongsToMany
-    keywords: SkillKeywords
+    keywords: SkillKeywordsInput
 }
 
 input UpdateSkillInput {
     name: LocalizedStringInput!
     description: LocalizedStringInput
     families: SkillFamilyBelongsToMany
-    keywords: SkillKeywords
+    keywords: SkillKeywordsInput
 }
 
 input WorkExperienceInput {
