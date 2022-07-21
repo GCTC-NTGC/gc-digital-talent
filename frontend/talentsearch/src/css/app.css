@@ -7,32 +7,6 @@ button:not(disabled) {
   cursor: pointer;
 }
 
-.toast {
-  padding: .7rem 1rem .7rem 1rem;
-  display: flex;
-  justify-content: stretch;
-  align-items: center;
-  border-radius: .2rem;
-}
-
-.toast:last-child {
-  margin-top: 1rem;
-}
-
-.toast-success {
-  background-color: #F9C160;
-  color: #072131;
-  font-size: large;
-  font-weight: 600;
-}
-
-.toast-error {
-  background-color: #FF0000;
-  color: #FFFFFF;
-  font-size: large;
-  font-weight: 600;
-}
-
 .lds-dual-ring {
   display: inline-block;
   /* width: 2rem; */
