@@ -1,4 +1,9 @@
-query AllUsersPaginated($where: UserFilterInput, $first: Int, $page: Int, $orderBy: [OrderByClause!]) {
+query AllUsersPaginated(
+  $where: UserFilterInput
+  $first: Int
+  $page: Int
+  $orderBy: [OrderByClause!]
+) {
   usersPaginated(where: $where, first: $first, page: $page, orderBy: $orderBy) {
     data {
       id
