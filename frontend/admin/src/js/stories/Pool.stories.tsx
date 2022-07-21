@@ -7,6 +7,7 @@ import {
   fakeUsers,
   fakePools,
 } from "@common/fakeData";
+import { OperationalRequirementV2 } from "@common/constants/localizedConstants";
 import {
   Classification,
   CmoAsset,
