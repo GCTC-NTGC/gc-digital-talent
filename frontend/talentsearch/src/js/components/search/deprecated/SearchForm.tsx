@@ -7,10 +7,8 @@ import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
 import { debounce } from "debounce";
 import { useLocation } from "@common/helpers/router";
-import {
-  getOperationalRequirement,
-  getWorkRegion,
-} from "@common/constants/localizedConstants";
+import { getWorkRegion } from "@common/constants/localizedConstants";
+import { getOperationalRequirement } from "./localizedConstants";
 import {
   Classification,
   CmoAsset,

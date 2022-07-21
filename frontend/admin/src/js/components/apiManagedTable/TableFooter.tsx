@@ -12,6 +12,7 @@ export interface TableFooterProps {
   onCurrentPageChange: (n: number) => void;
   onPageSizeChange: (n: number) => void;
   onPrint?: () => void;
+  hasSelection?: boolean;
   disableActions?: boolean;
   fetchingSelected?: boolean;
   selectionError?: CombinedError;
@@ -32,6 +33,7 @@ function TableFooter({
   onPageSizeChange,
   onPrint,
   disableActions,
+  hasSelection = false,
   fetchingSelected = false,
   selectionError,
 }: TableFooterProps): ReactElement {
@@ -46,48 +48,46 @@ function TableFooter({
       data-h2-radius="b(none, none, s, s)"
       data-h2-padding="b(all, s)"
     >
-      <div
-        data-h2-display="b(flex)"
-        data-h2-align-items="b(center)"
-        data-h2-margin="b(right, s)"
-      >
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Selected actions:",
-            description: "Label for action buttons in footer of admin table.",
-          })}
-        </p>
-        <Pending fetching={fetchingSelected} error={selectionError} inline>
-          <Spacer>
-            <Button
-              type="button"
-              mode="solid"
-              color="primary"
-              disabled={disableActions}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Download XML",
-                description:
-                  "Text label for button to download an xml file of items in a table.",
-              })}
-            </Button>
-          </Spacer>
-          <Spacer>
-            <Button
-              type="button"
-              mode="solid"
-              color="primary"
-              disabled={disableActions}
-              onClick={onPrint}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Print",
-                description: "Text label for button to print items in a table.",
-              })}
-            </Button>
-          </Spacer>
-        </Pending>
-      </div>
+      {hasSelection && (
+        <div
+          data-h2-display="b(flex)"
+          data-h2-align-items="b(center)"
+          data-h2-margin="b(right, s)"
+        >
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Selected actions:",
+              description: "Label for action buttons in footer of admin table.",
+            })}
+          </p>
+          <Pending fetching={fetchingSelected} error={selectionError} inline>
+            <Spacer>
+              <Button type="button" mode="solid" color="primary" disabled>
+                {intl.formatMessage({
+                  defaultMessage: "Download XML",
+                  description:
+                    "Text label for button to download an xml file of items in a table.",
+                })}
+              </Button>
+            </Spacer>
+            <Spacer>
+              <Button
+                type="button"
+                mode="solid"
+                color="primary"
+                disabled={disableActions}
+                onClick={onPrint}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Print",
+                  description:
+                    "Text label for button to print items in a table.",
+                })}
+              </Button>
+            </Spacer>
+          </Pending>
+        </div>
+      )}
       <Pagination
         currentPage={paginatorInfo.currentPage}
         onCurrentPageChange={onCurrentPageChange}

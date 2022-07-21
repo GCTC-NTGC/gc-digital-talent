@@ -48,7 +48,8 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
-    "@reach/dialog": "^0.17.0",
+    "@reach/alert-dialog": "^0.16.0",
+    "@reach/dialog": "^0.16.0",
     "@reach/menu-button": "^0.16.0",
     "@reach/tabs": "^0.16.0",
     "@testing-library/react-hooks": "^8.0.1",
@@ -84,6 +85,7 @@
     "@storybook/addon-actions": "*",
     "@storybook/addon-essentials": "*",
     "@storybook/addon-links": "*",
+    "@storybook/addon-viewport": "*",
     "@storybook/builder-webpack5": "*",
     "@storybook/manager-webpack5": "*",
     "@storybook/react": "^6.5.9",

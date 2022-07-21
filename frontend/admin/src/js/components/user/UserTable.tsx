@@ -278,6 +278,7 @@ export const UserTable: React.FC = () => {
         onCurrentPageChange={setCurrentPage}
         onPageSizeChange={setPageSize}
         onPrint={handlePrint}
+        hasSelection
         fetchingSelected={selectedUsersFetching}
         selectionError={selectedUsersError}
         disableActions={

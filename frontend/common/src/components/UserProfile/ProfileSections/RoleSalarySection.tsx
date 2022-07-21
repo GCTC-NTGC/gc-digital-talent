@@ -13,7 +13,7 @@ const RoleSalarySection: React.FunctionComponent<{
   const expectedClassificationArray = expectedGenericJobTitles
     ? expectedGenericJobTitles.map((es) => (
         <li data-h2-font-weight="b(700)" key={es?.key}>
-          {es ? getGenericJobTitles(es.key).defaultMessage : ""}
+          {es ? intl.formatMessage(getGenericJobTitles(es.key)) : ""}
         </li>
       ))
     : null;
