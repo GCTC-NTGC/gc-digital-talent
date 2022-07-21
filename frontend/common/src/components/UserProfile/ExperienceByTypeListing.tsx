@@ -96,7 +96,7 @@ const ExperienceByTypeListing: React.FunctionComponent<
 
   return (
     <>
-      {personalExperiences.length > 0 && (
+      {personalExperiences.length > 0 ? (
         <ExperienceByType
           title={intl.formatMessage({ defaultMessage: "Personal" })}
           icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
@@ -104,8 +104,8 @@ const ExperienceByTypeListing: React.FunctionComponent<
           defaultOpen={defaultOpen}
           experienceEditPaths={editPaths}
         />
-      )}
-      {communityExperiences.length > 0 && (
+      ) : null}
+      {communityExperiences.length > 0 ? (
         <ExperienceByType
           title={intl.formatMessage({ defaultMessage: "Community" })}
           icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
@@ -113,8 +113,8 @@ const ExperienceByTypeListing: React.FunctionComponent<
           defaultOpen={defaultOpen}
           experienceEditPaths={editPaths}
         />
-      )}
-      {workExperiences.length > 0 && (
+      ) : null}
+      {workExperiences.length > 0 ? (
         <ExperienceByType
           title={intl.formatMessage({ defaultMessage: "Work" })}
           icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
@@ -122,8 +122,8 @@ const ExperienceByTypeListing: React.FunctionComponent<
           defaultOpen={defaultOpen}
           experienceEditPaths={editPaths}
         />
-      )}
-      {educationExperiences.length > 0 && (
+      ) : null}
+      {educationExperiences.length > 0 ? (
         <ExperienceByType
           title={intl.formatMessage({ defaultMessage: "Education" })}
           icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
@@ -131,8 +131,8 @@ const ExperienceByTypeListing: React.FunctionComponent<
           defaultOpen={defaultOpen}
           experienceEditPaths={editPaths}
         />
-      )}
-      {awardExperiences.length > 0 && (
+      ) : null}
+      {awardExperiences.length > 0 ? (
         <ExperienceByType
           title={intl.formatMessage({ defaultMessage: "Award" })}
           icon={<StarIcon style={{ width: "1.5rem" }} />}
@@ -140,7 +140,7 @@ const ExperienceByTypeListing: React.FunctionComponent<
           defaultOpen={defaultOpen}
           experienceEditPaths={editPaths}
         />
-      )}
+      ) : null}
     </>
   );
 };
