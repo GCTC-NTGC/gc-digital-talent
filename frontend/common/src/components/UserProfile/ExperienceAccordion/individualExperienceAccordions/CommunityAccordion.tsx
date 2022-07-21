@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
+import UserGroupIcon from "@heroicons/react/solid/UserGroupIcon";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
 import { CommunityExperience } from "../../../../api/generated";
@@ -63,7 +63,7 @@ const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
               { skillsLength: skills?.length },
             )
       }
-      Icon={BriefCaseIcon}
+      Icon={UserGroupIcon}
       defaultOpen={defaultOpen}
     >
       {" "}

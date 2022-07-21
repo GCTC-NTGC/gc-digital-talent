@@ -51,10 +51,13 @@ const UpdatePoolCandidate = React.lazy(
 /** Pools */
 const PoolPage = React.lazy(() => import("./pool/PoolPage"));
 const CreatePool = React.lazy(() => import("./pool/CreatePool"));
-const UpdatePool = React.lazy(() => import("./pool/UpdatePool"));
+const EditPool = React.lazy(() => import("./pool/EditPool/EditPool"));
 const ViewPool = React.lazy(() => import("./pool/ViewPool"));
 const DeprecatedViewPool = React.lazy(
   () => import("./pool/deprecated/ViewPool"),
+);
+const DeprecatedUpdatePool = React.lazy(
+  () => import("./pool/deprecated/UpdatePool"),
 );
 
 /** Departments */
@@ -226,9 +229,14 @@ const routes = (
     }),
   },
   {
-    path: paths.poolUpdate(":id"),
+    path: paths.poolEdit(":id"),
     action: ({ params }) => ({
-      component: <UpdatePool poolId={params.id as string} />,
+      component: checkFeatureFlag("FEATURE_DIRECTINTAKE") ? (
+        <EditPool poolId={params.id as string} />
+      ) : (
+        /* deprecated */
+        <DeprecatedUpdatePool poolId={params.id as string} />
+      ),
       authorizedRoles: [Role.Admin],
     }),
   },
