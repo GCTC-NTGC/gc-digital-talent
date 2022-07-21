@@ -22,7 +22,7 @@ import {
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
-import { useAdminRoutes } from "../../adminRoutes";
+import { useAdminRoutes } from "../../../adminRoutes";
 import {
   Classification,
   CmoAsset,
@@ -33,8 +33,8 @@ import {
   useGetUpdatePoolDataQuery,
   User,
   useUpdatePoolMutation,
-} from "../../api/generated";
-import DashboardContentContainer from "../DashboardContentContainer";
+} from "../../../api/generated";
+import DashboardContentContainer from "../../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
@@ -420,3 +420,5 @@ export const UpdatePool: React.FunctionComponent<{
     </Pending>
   );
 };
+
+export default UpdatePool;

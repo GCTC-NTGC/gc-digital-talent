@@ -13,7 +13,7 @@ const WorkLocationSection: React.FunctionComponent<{
   const intl = useIntl();
   // generate array of location preferences localized and formatted with spaces/commas
   const regionPreferencesSquished = applicant.locationPreferences?.map(
-    (region) => (region ? getWorkRegion(region).defaultMessage : ""),
+    (region) => (region ? intl.formatMessage(getWorkRegion(region)) : ""),
   );
   const regionPreferences = regionPreferencesSquished
     ? insertBetween(", ", regionPreferencesSquished)
