@@ -13,36 +13,46 @@ const HomePage: React.FC = () => {
   const location = useLocation();
 
   return (
-    <div data-h2-padding="base(x1)">
-      <PageHeader icon={HomeIcon}>
-        {intl.formatMessage({
-          defaultMessage: "Home",
-          description: "Title for homepage on the talent cloud admin portal.",
-        })}
-      </PageHeader>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Welcome to GC Talent, please log in to continue.",
-          description:
-            "Instructional text for the talent cloud pool manager portal home page.",
-        })}
-      </p>
-      <div data-h2-width="base(100%) l-tablet(50%) desktop(25%)" data-h2-margin="base(x2, 0, 0, 0)">
-        <CardLink
-          external
-          href={apiRoutes.login(location.pathname, getLocale(intl))}
-          label={intl.formatMessage({
-            defaultMessage: "Login",
-            description:
-              "Text label for the login link to the talent cloud admin portal.",
-          })}
-          icon={LoginIcon}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Portal manager portal",
-            description: "Title for the pool manager login link.",
-          })}
-        </CardLink>
+    <div data-h2-background-color="base(dt-gray.15)">
+      <div data-h2-container="base(center, large, x2)">
+        <div data-h2-padding="base(0, 0, x3, 0)">
+          <PageHeader icon={HomeIcon}>
+            {intl.formatMessage({
+              defaultMessage: "Home",
+              description:
+                "Title for homepage on the talent cloud admin portal.",
+            })}
+          </PageHeader>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Welcome to GC Talent, please log in to continue.",
+              description:
+                "Instructional text for the talent cloud pool manager portal home page.",
+            })}
+          </p>
+          <div data-h2-margin="base(x2, 0, 0, 0)">
+            <div data-h2-flex-grid="base(top, 0, x2)">
+              <div data-h2-flex-item="base(1of3)">
+                <CardLink
+                  external
+                  href={apiRoutes.login(location.pathname, getLocale(intl))}
+                  label={intl.formatMessage({
+                    defaultMessage: "Login",
+                    description:
+                      "Text label for the login link to the talent cloud admin portal.",
+                  })}
+                  icon={LoginIcon}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Portal manager portal",
+                    description: "Title for the pool manager login link.",
+                  })}
+                </CardLink>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
