@@ -29,7 +29,7 @@ const Alert: React.FunctionComponent<AlertProps> = ({
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-radius="base(s)"
-      data-h2-padding="base(0, x.5)"
+      data-h2-padding="base(x1)"
       data-h2-margin="base(x1, 0)"
       {...typeMap[type]}
       {...rest}

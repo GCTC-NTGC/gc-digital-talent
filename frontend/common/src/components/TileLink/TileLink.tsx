@@ -45,12 +45,13 @@ const TileLink: React.FC<TileLinkProps> = ({
   <a
     href={href}
     title={title}
-    data-h2-background-color="base(dt-white) base:hover(light.dt-gray)"
+    data-h2-background-color="base(dt-white)"
     data-h2-display="base(flex)"
     data-h2-align-items="base(flex-end)"
-    data-h2-shadow="base(m)"
+    data-h2-shadow="base(m) base:hover(xl)"
     data-h2-padding="base(x.5)"
     data-h2-justify-content="base(space-between)"
+    data-h2-transition="base(box-shadow, .2s, ease, 0s)"
     {...colorMap[color]}
     {...rest}
     onClick={

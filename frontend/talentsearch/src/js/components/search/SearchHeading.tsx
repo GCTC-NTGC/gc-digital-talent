@@ -7,7 +7,7 @@ const SearchHeading: React.FunctionComponent = () => {
   const intl = useIntl();
   const paths = useTalentSearchRoutes();
   return (
-    <header>
+    <header data-h2-background-color="base(dt-gray.15)">
       <div
         data-h2-padding="base(x2.5, 0, x4, 0) p-tablet(x4, 0, x6, 0)"
         style={{
@@ -39,14 +39,14 @@ const SearchHeading: React.FunctionComponent = () => {
         <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
           <div
             data-h2-background-color="base(dt-white)"
-            data-h2-padding="base(x2) p-tablet(x2, x4)"
+            data-h2-padding="base(x1) p-tablet(x3)"
             data-h2-radius="base(s)"
+            data-h2-text-align="base(center)"
             data-h2-shadow="base(s)"
           >
             <h2
               data-h2-color="base(dt-black)"
               data-h2-margin="base(0, 0, x1, 0)"
-              data-h2-text-align="base(center) p-tablet(left)"
             >
               {intl.formatMessage({
                 defaultMessage: "About the Digital Talent Pool",

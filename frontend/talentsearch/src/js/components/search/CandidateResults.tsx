@@ -25,10 +25,11 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
 
   return candidateCount > 0 ? (
     <div
+      data-h2-background-color="base(dt-white)"
       data-h2-shadow="base(m)"
       data-h2-border="base(left, x1, solid, dt-secondary.light)"
-      data-h2-margin="base(x.5, 0, x1, 0)"
-      data-h2-flex-grid="base(center, 0, x3)"
+      data-h2-margin="base(x.5, 0, 0, 0)"
+      data-h2-radius="base(0, s, s, 0)"
     >
       <SearchPools
         candidateCount={candidateCount}
@@ -40,8 +41,8 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
   ) : (
     <div
       data-h2-shadow="base(m)"
-      data-h2-margin="base(x.5, 0, x1, 0)"
-      data-h2-padding="base(x.25, 0, x.25, x.5)"
+      data-h2-margin="base(x.5, 0, 0, 0)"
+      data-h2-padding="base(x1)"
       data-h2-border="base(left, x1, solid, dt-gray.dark)"
     >
       <p>

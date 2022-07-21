@@ -15,22 +15,25 @@ const EstimatedCandidates: React.FunctionComponent<
   const intl = useIntl();
 
   return (
-    <div data-h2-height="base(100%)">
+    <div data-h2-height="base(100%)" data-h2-position="base(relative)">
       <div
+        data-h2-padding="base(x3, 0, 0, 0)"
         data-h2-position="base(sticky)"
-        data-h2-offset="p-tablet(x3, auto, auto, auto)"
+        data-h2-offset="p-tablet(0, auto, auto, auto)"
       >
         <div
           data-h2-background-color="base(dt-white)"
           data-h2-overflow="base(hidden, all)"
-          data-h2-radius="base(10px)"
+          data-h2-radius="base(s)"
           data-h2-shadow="base(l)"
         >
           <div
             data-h2-background-color="base(dt-secondary)"
             data-h2-padding="base(x1)"
+            data-h2-radius="base(s, s, 0, 0)"
           >
             <p
+              data-h2-text-align="base(center)"
               data-h2-color="base(dt-white)"
               data-h2-font-size="base(h5, 1.3)"
               data-h2-font-weight="base(700)"
@@ -42,8 +45,13 @@ const EstimatedCandidates: React.FunctionComponent<
               })}
             </p>
           </div>
-          <div data-h2-padding="base(x1)" aria-live="polite">
-            <p data-h2-text-align="base(center)">
+          <div
+            data-h2-padding="base(x1)"
+            data-h2-radius="base(0, 0, s, s)"
+            aria-live="polite"
+            data-h2-text-align="base(center)"
+          >
+            <p>
               {updatePending ? (
                 <Spinner />
               ) : (
@@ -65,6 +73,17 @@ const EstimatedCandidates: React.FunctionComponent<
                 </>
               )}
             </p>
+            {/* TODO Hide this if results are zero, add translation strings */}
+            <a
+              href="#results"
+              title="View the pools that contain matching talent."
+              data-h2-color="base(dt-black) base:hover(dt-primary)"
+              data-h2-transition="base:hover(color, .2s, ease, 0s)"
+              data-h2-display="base(inline-block)"
+              data-h2-margin="base(x1, 0, 0, 0)"
+            >
+              View results
+            </a>
           </div>
         </div>
       </div>

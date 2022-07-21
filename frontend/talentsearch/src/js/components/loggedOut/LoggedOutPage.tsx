@@ -44,7 +44,7 @@ const LoggedOutPage: React.FC = () => {
           })}
         </h1>
       </div>
-      <di
+      <div
         data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
         data-h2-margin="base(x3, 0)"
       >
@@ -61,7 +61,7 @@ const LoggedOutPage: React.FC = () => {
             description: "Message displayed to a user after logging out.",
           })}
         />
-        <h2>
+        <h2 data-h2-margin="base(x3, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "Quick Links",
             description:
@@ -76,33 +76,35 @@ const LoggedOutPage: React.FC = () => {
               "Description of the links presented on the logged out page.",
           })}
         </p>
-        <div
-          data-h2-flex-grid="base(normal, 0, x.5)"
-          style={{ margin: "0 -0.5rem" }}
-        >
-          <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-            <TileLink href={talentPaths.home()} color="primary">
-              {intl.formatMessage({
-                defaultMessage: "Return home",
-                description: "Link text to return to the home page",
-              })}
-            </TileLink>
-          </div>
-          <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-            <TileLink href={directIntakePaths.allPools()} color="primary">
-              {intl.formatMessage({
-                defaultMessage: "View open pools",
-                description: "Link text to view all open pools",
-              })}
-            </TileLink>
-          </div>
-          <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-            <TileLink href="/talent-cloud/report" color="primary" external>
-              {intl.formatMessage({
-                defaultMessage: "Talent Cloud report",
-                description: "Link text to read the report on talent cloud",
-              })}
-            </TileLink>
+        <div data-h2-margin="base(x1, 0, 0, 0)">
+          <div
+            data-h2-flex-grid="base(normal, 0, x.5)"
+            style={{ margin: "0 -0.5rem" }}
+          >
+            <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
+              <TileLink href={talentPaths.home()} color="primary">
+                {intl.formatMessage({
+                  defaultMessage: "Return home",
+                  description: "Link text to return to the home page",
+                })}
+              </TileLink>
+            </div>
+            <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
+              <TileLink href={directIntakePaths.allPools()} color="primary">
+                {intl.formatMessage({
+                  defaultMessage: "View open pools",
+                  description: "Link text to view all open pools",
+                })}
+              </TileLink>
+            </div>
+            <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
+              <TileLink href="/talent-cloud/report" color="primary" external>
+                {intl.formatMessage({
+                  defaultMessage: "Talent Cloud report",
+                  description: "Link text to read the report on talent cloud",
+                })}
+              </TileLink>
+            </div>
           </div>
         </div>
       </div>

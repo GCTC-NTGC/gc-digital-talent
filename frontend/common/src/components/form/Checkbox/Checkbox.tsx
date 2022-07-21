@@ -54,8 +54,8 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           data-h2-align-items="base(center)"
         >
           <input
-            style={{ order: -1 }}
-            data-h2-margin="base(0, x.125, x.125, 0)"
+            data-h2-order="base(-1)"
+            data-h2-margin="base(0, x.25, 0, 0)"
             id={id}
             {...register(name, rules)}
             type="checkbox"
