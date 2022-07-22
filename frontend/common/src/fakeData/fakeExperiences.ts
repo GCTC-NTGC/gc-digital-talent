@@ -25,16 +25,17 @@ const sampleApp: Applicant = {
   id: faker.datatype.uuid(),
 };
 
+// skills in detail comes from `skills.experienceSkillRecords.details`
 const theSkillString1: LocalizedString = {
-  en: "The first Skill",
+  en: "The first Skill Name",
   fr: "La première Compétence",
 };
 const theSkillDescription1: LocalizedString = {
-  en: "The first Description",
+  en: "The first Skill Description",
   fr: "Le premier Descriptif",
 };
 const theExperienceSkillRecord: ExperienceSkillRecord = {
-  details: "The skills.experienceSkillRecords.details",
+  details: "The skill in detail",
 };
 const sampleSkill1: Skill = {
   id: faker.datatype.uuid(),
