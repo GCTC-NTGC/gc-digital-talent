@@ -3,11 +3,17 @@ import { useIntl } from "react-intl";
 
 const SearchFilterAdvice: React.FC<{
   classificationFilterCount: number;
+  cmoAssetFilterCount: number;
   operationalRequirementFilterCount: number;
-}> = ({ classificationFilterCount, operationalRequirementFilterCount }) => {
+}> = ({
+  classificationFilterCount,
+  cmoAssetFilterCount,
+  operationalRequirementFilterCount,
+}) => {
   const intl = useIntl();
   if (
     classificationFilterCount === 0 &&
+    cmoAssetFilterCount === 0 &&
     operationalRequirementFilterCount === 0
   ) {
     return null;
@@ -49,6 +55,25 @@ const SearchFilterAdvice: React.FC<{
                 "Conditions of Employment ({operationalRequirementFilterCount})",
             },
             { operationalRequirementFilterCount },
+          )}
+        </a>
+      ),
+    });
+  }
+  if (cmoAssetFilterCount > 0) {
+    recommendations.push({
+      key: "cmoAssets",
+      link: (
+        <a
+          href="#cmoAssetFilter"
+          data-h2-font-color="b(lightpurple)"
+          data-h2-font-weight="b(700)"
+        >
+          {intl.formatMessage(
+            {
+              defaultMessage: "Skills Filters ({cmoAssetFilterCount})",
+            },
+            { cmoAssetFilterCount },
           )}
         </a>
       ),

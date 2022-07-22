@@ -3,11 +3,12 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { errorMessages } from "@common/messages";
+import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
 import { navigate, pushToStateThenNavigate } from "@common/helpers/router";
-import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
+import SearchRequestFilters from "@common/components/SearchRequestFilters/deprecated/SearchRequestFilters";
 import {
   getFromSessionStorage,
   removeFromSessionStorage,
@@ -15,8 +16,7 @@ import {
 } from "@common/helpers/storageUtils";
 import { EquitySelections } from "@common/api/generated";
 import Pending from "@common/components/Pending";
-import { objectsToSortedOptions } from "@common/helpers/formUtils";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+import { useTalentSearchRoutes } from "../../../talentSearchRoutes";
 import {
   Department,
   PoolCandidateFilter,
@@ -30,11 +30,10 @@ import {
   Classification,
   OperationalRequirement,
   Pool,
-  Skill,
-  ApplicantFilterInput,
-} from "../../api/generated";
-import { FormValues as SearchFormValues } from "../search/SearchForm";
+} from "../../../api/generated";
+import { FormValues as SearchFormValues } from "../../search/SearchForm";
 
+type Option<V> = { value: V; label: string };
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
 type FormValues = {
   fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
@@ -61,8 +60,7 @@ type FormValues = {
 };
 export interface RequestFormProps {
   departments: Department[];
-  skills: Skill[];
-  poolCandidateFilter: Maybe<PoolCandidateFilter & ApplicantFilterInput>;
+  poolCandidateFilter: Maybe<PoolCandidateFilter>;
   candidateCount: Maybe<number>;
   searchFormInitialValues: Maybe<SearchFormValues>;
   handleCreatePoolCandidateSearchRequest: (
@@ -74,13 +72,13 @@ export interface RequestFormProps {
 
 export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   departments,
-  skills,
   poolCandidateFilter,
   candidateCount,
   searchFormInitialValues,
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useTalentSearchRoutes();
   const cacheKey = "ts-createRequest";
 
@@ -101,6 +99,13 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       additionalComments: values.additionalComments,
       poolCandidateFilter: {
         create: {
+          classifications: {
+            sync: poolCandidateFilter?.classifications
+              ? poolCandidateFilter?.classifications
+                  ?.filter(notEmpty)
+                  .map(({ id }) => id)
+              : [],
+          },
           cmoAssets: {
             sync: poolCandidateFilter?.cmoAssets
               ? poolCandidateFilter?.cmoAssets
@@ -122,17 +127,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           workRegions: poolCandidateFilter?.workRegions
             ? poolCandidateFilter?.workRegions
             : [],
-        },
-      },
-      applicantFilter: {
-        create: {
-          skills: {
-            sync: poolCandidateFilter?.skills
-              ? poolCandidateFilter?.skills
-                  ?.filter(notEmpty)
-                  .map(({ id }) => id)
-              : [],
-          },
         },
       },
       department: { connect: values.department ?? "" },
@@ -162,6 +156,31 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
         );
       });
   };
+
+  const departmentOptions: Option<string>[] = departments
+    .sort((a, b) => {
+      const aName: Maybe<string> = a.name[locale];
+      const bName: Maybe<string> = b.name[locale];
+      if (aName && bName) {
+        return aName.localeCompare(bName, locale);
+      }
+
+      return 0;
+    })
+    .map(({ id, name }) => ({
+      value: id,
+      label:
+        name[locale] ??
+        intl.formatMessage({
+          defaultMessage: "Error: department name not found.",
+          description:
+            "Error message when department name is not found on request page.",
+        }),
+    }));
+
+  function span(msg: string): JSX.Element {
+    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
+  }
 
   return (
     <section>
@@ -218,7 +237,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Null selection for department select input in the request form.",
                   })}
-                  options={objectsToSortedOptions(departments, intl)}
+                  options={departmentOptions}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -298,17 +317,18 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           </h2>
           <SearchRequestFilters
             poolCandidateFilter={poolCandidateFilter}
-            allSkills={skills}
+            poolApplicantFilter={undefined}
           />
           <p data-h2-font-weight="b(600)">
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Request for pool candidates: <primary>{candidateCount, plural, zero {no candidates} one {1 candidate} other {{candidateCount} estimated candidates}}</primary>",
+                  "Request for pool candidates: <span>{candidateCount, plural, zero {no candidates} one {1 candidate} other {{candidateCount} estimated candidates}}</span>",
                 description:
                   "Total estimated candidates message in summary of filters",
               },
               {
+                span,
                 candidateCount,
               },
             )}
@@ -357,7 +377,6 @@ export const CreateRequest: React.FunctionComponent<{
 
   const departments: Department[] =
     lookupData?.departments.filter(notEmpty) ?? [];
-  const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
 
   const [, executeMutation] = useCreatePoolCandidateSearchRequestMutation();
   const handleCreatePoolCandidateSearchRequest = (
@@ -374,7 +393,6 @@ export const CreateRequest: React.FunctionComponent<{
     <Pending fetching={fetching} error={error}>
       <RequestForm
         departments={departments}
-        skills={skills}
         poolCandidateFilter={poolCandidateFilter}
         candidateCount={candidateCount}
         searchFormInitialValues={searchFormInitialValues}

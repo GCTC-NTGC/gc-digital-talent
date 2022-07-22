@@ -46,4 +46,21 @@ query getSearchFormData($poolKey: String!) {
     }
     operationalRequirements
   }
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    families {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+    }
+  }
 }
