@@ -196,7 +196,7 @@ const LanguageInformationSection: React.FunctionComponent<{
               <a href={editPath}>
                 {intl.formatMessage({
                   defaultMessage: "Edit your language information options.",
-                  description: "Link text to edit language information.",
+                  description: "Link text to edit language information on profile.",
                 })}
               </a>
             </>
