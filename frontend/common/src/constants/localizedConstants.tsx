@@ -130,11 +130,11 @@ export const employmentDurationShort = defineMessages({
 });
 
 export const employmentDurationLong = defineMessages({
-  term: {
+  [EmploymentDuration.Term]: {
     defaultMessage: "Term duration (short term, long term)",
     description: "Duration of a non-permanent length",
   },
-  indeterminate: {
+  [EmploymentDuration.Indeterminate]: {
     defaultMessage: "Indeterminate duration (permanent)",
     description: "Duration that is permanent",
   },
