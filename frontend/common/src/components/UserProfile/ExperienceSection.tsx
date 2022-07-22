@@ -124,11 +124,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
   ];
 
   return (
-    <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(all, m)"
-      data-h2-radius="b(s)"
-    >
+    <>
       {isExperience && (
         <Tabs>
           <TabList>
@@ -140,19 +136,13 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
           </TabList>
           <TabPanels>
             <TabPanel>
-              <div
-                data-h2-radius="b(s)"
-                data-h2-bg-color="b(lightgray)"
-                data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
-              >
-                {sortedByDate.map((experience) => (
-                  <ExperienceAccordion
-                    key={experience.id}
-                    experience={experience}
-                    editPaths={experienceEditPaths}
-                  />
-                ))}
-              </div>
+              {sortedByDate.map((experience) => (
+                <ExperienceAccordion
+                  key={experience.id}
+                  experience={experience}
+                  editPaths={experienceEditPaths}
+                />
+              ))}
             </TabPanel>
             <TabPanel>
               <ExperienceByTypeListing
@@ -161,15 +151,9 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
               />
             </TabPanel>
             <TabPanel>
-              <div
-                data-h2-radius="b(s)"
-                data-h2-bg-color="b(lightgray)"
-                data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
-              >
-                {sortedBySkills.map((skill) => (
-                  <SkillAccordion key={skill.id} skill={skill} />
-                ))}
-              </div>
+              {sortedBySkills.map((skill) => (
+                <SkillAccordion key={skill.id} skill={skill} />
+              ))}
             </TabPanel>
           </TabPanels>
         </Tabs>
@@ -201,7 +185,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
           </p>
         </>
       )}
-    </div>
+    </>
   );
 };
 
