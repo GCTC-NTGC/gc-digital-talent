@@ -14,7 +14,7 @@ import {
   UserIcon,
   ViewGridIcon,
 } from "@heroicons/react/outline";
-import { navigate, useLocation } from "@common/helpers/router";
+import { useLocation } from "@common/helpers/router";
 import { AuthorizationContext } from "@common/components/Auth";
 import LoginOrLogout from "./LoginOrLogout";
 
