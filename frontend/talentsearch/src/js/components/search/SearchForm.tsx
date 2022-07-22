@@ -8,6 +8,7 @@ import { getLanguageAbility } from "@common/constants";
 import {
   getOperationalRequirement,
   getWorkRegion,
+  OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
@@ -16,7 +17,6 @@ import {
   Classification,
   CmoAsset,
   LanguageAbility,
-  OperationalRequirement,
   PoolCandidateFilter,
   ApplicantFilterInput,
   WorkRegion,
@@ -161,16 +161,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
     [cmoAssets, locale, intl],
   );
 
-  const operationalRequirementsSubsetV2 = [
-    OperationalRequirement.OvertimeOccasional,
-    OperationalRequirement.OvertimeRegular,
-    OperationalRequirement.ShiftWork,
-    OperationalRequirement.OnCall,
-    OperationalRequirement.Travel,
-    OperationalRequirement.TransportEquipment,
-    OperationalRequirement.DriversLicense,
-  ];
-
   return (
     <FormProvider {...methods}>
       <form>
@@ -271,7 +261,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                 "Legend for the Conditions of Employment filter checklist",
             })}
             name="operationalRequirements"
-            items={operationalRequirementsSubsetV2.map((value) => ({
+            items={OperationalRequirementV2.map((value) => ({
               value,
               label: intl.formatMessage(getOperationalRequirement(value)),
             }))}

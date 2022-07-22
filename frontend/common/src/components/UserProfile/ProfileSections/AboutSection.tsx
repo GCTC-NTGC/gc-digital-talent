@@ -83,7 +83,9 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                   "Preferred Language for communication purposes label and colon",
               })}{" "}
               <span data-h2-font-weight="b(700)">
-                {preferredLang ? getLanguage(preferredLang).defaultMessage : ""}
+                {preferredLang
+                  ? intl.formatMessage(getLanguage(preferredLang))
+                  : ""}
               </span>
             </p>
           )}
@@ -96,7 +98,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               <span data-h2-font-weight="b(700)">
                 {currentCity},{" "}
                 {currentProvince
-                  ? getProvinceOrTerritory(currentProvince).defaultMessage
+                  ? intl.formatMessage(getProvinceOrTerritory(currentProvince))
                   : ""}
               </span>
             </p>
