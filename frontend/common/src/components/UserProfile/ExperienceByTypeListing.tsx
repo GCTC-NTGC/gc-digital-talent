@@ -96,41 +96,51 @@ const ExperienceByTypeListing: React.FunctionComponent<
 
   return (
     <>
-      <ExperienceByType
-        title={intl.formatMessage({ defaultMessage: "Personal" })}
-        icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
-        experiences={personalExperiences}
-        defaultOpen={defaultOpen}
-        experienceEditPaths={editPaths}
-      />
-      <ExperienceByType
-        title={intl.formatMessage({ defaultMessage: "Community" })}
-        icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
-        experiences={communityExperiences}
-        defaultOpen={defaultOpen}
-        experienceEditPaths={editPaths}
-      />
-      <ExperienceByType
-        title={intl.formatMessage({ defaultMessage: "Work" })}
-        icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
-        experiences={workExperiences}
-        defaultOpen={defaultOpen}
-        experienceEditPaths={editPaths}
-      />
-      <ExperienceByType
-        title={intl.formatMessage({ defaultMessage: "Education" })}
-        icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
-        experiences={educationExperiences}
-        defaultOpen={defaultOpen}
-        experienceEditPaths={editPaths}
-      />
-      <ExperienceByType
-        title={intl.formatMessage({ defaultMessage: "Award" })}
-        icon={<StarIcon style={{ width: "1.5rem" }} />}
-        experiences={awardExperiences}
-        defaultOpen={defaultOpen}
-        experienceEditPaths={editPaths}
-      />
+      {personalExperiences.length > 0 ? (
+        <ExperienceByType
+          title={intl.formatMessage({ defaultMessage: "Personal" })}
+          icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
+          experiences={personalExperiences}
+          defaultOpen={defaultOpen}
+          experienceEditPaths={editPaths}
+        />
+      ) : null}
+      {communityExperiences.length > 0 ? (
+        <ExperienceByType
+          title={intl.formatMessage({ defaultMessage: "Community" })}
+          icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
+          experiences={communityExperiences}
+          defaultOpen={defaultOpen}
+          experienceEditPaths={editPaths}
+        />
+      ) : null}
+      {workExperiences.length > 0 ? (
+        <ExperienceByType
+          title={intl.formatMessage({ defaultMessage: "Work" })}
+          icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
+          experiences={workExperiences}
+          defaultOpen={defaultOpen}
+          experienceEditPaths={editPaths}
+        />
+      ) : null}
+      {educationExperiences.length > 0 ? (
+        <ExperienceByType
+          title={intl.formatMessage({ defaultMessage: "Education" })}
+          icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
+          experiences={educationExperiences}
+          defaultOpen={defaultOpen}
+          experienceEditPaths={editPaths}
+        />
+      ) : null}
+      {awardExperiences.length > 0 ? (
+        <ExperienceByType
+          title={intl.formatMessage({ defaultMessage: "Award" })}
+          icon={<StarIcon style={{ width: "1.5rem" }} />}
+          experiences={awardExperiences}
+          defaultOpen={defaultOpen}
+          experienceEditPaths={editPaths}
+        />
+      ) : null}
     </>
   );
 };
