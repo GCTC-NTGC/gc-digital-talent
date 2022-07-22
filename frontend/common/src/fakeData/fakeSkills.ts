@@ -11,8 +11,8 @@ const generateSkill = (skillFamilies: SkillFamily[]) => {
       fr: `FR ${name}`,
     },
     description: {
-      en: `EN ${faker.lorem.sentences()}`,
-      fr: `FR ${faker.lorem.sentences()}`,
+      en: `EN skill description ${faker.lorem.sentences()}`,
+      fr: `FR skill description ${faker.lorem.sentences()}`,
     },
     keywords: faker.lorem.words(3).split(" "),
     families: skillFamilies.length

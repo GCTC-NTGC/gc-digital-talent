@@ -40,6 +40,7 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
               {skill.name?.[locale]}
               <br />
               {skill.description?.[locale]}
+              {skill.experienceSkillRecord?.details}
             </p>
           </li>
         </ul>

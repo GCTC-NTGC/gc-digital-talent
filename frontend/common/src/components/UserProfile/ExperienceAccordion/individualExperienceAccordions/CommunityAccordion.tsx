@@ -34,6 +34,7 @@ const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
           <li>
             <p data-h2-font-color="b(lightpurple)">{skill.name?.[locale]}</p>
             <p>{skill.description?.[locale]}</p>
+            <p>{skill.experienceSkillRecord?.details}</p>
           </li>
         </ul>
       ))
