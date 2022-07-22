@@ -175,7 +175,7 @@ const SearchRequestFilters: React.FunctionComponent<
     : intl.formatMessage({
         defaultMessage: "Any language",
       });
-  const skills: string[] | undefined = poolApplicantFilter?.skills?.map(
+  const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
     (skill) =>
       skill?.name[locale] ||
       intl.formatMessage({
