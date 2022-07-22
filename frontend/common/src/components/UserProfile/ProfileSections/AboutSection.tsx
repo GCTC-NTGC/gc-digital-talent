@@ -134,7 +134,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           <a href={editPath}>
             {intl.formatMessage({
               defaultMessage: "Edit your about me options.",
-              description: "Link text to edit about me section of profile.",
+              description: "Link text to edit about me section on profile.",
             })}
           </a>
         </p>
