@@ -40,7 +40,7 @@ const SideMenuItem: React.FC<SideMenuItemProps> = ({
       data-h2-font-weight="b(300)"
       className={`side-menu__item${isActive ? ` side-menu__item--active` : ``}`}
       onClick={(e) => {
-        if (as === "a") {
+        if (as === "a" && !onClick) {
           clickHandler(e as React.MouseEvent<HTMLAnchorElement>);
         } else if (onClick) {
           onClick(e as React.MouseEvent<HTMLButtonElement>);
