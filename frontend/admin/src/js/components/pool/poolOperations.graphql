@@ -160,30 +160,6 @@ query getCreatePoolData {
     }
   }
 }
-query getUpdatePoolData($id: ID!) {
-  users {
-    id
-    email
-    firstName
-    lastName
-  }
-  classifications {
-    id
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-  pool(id: $id) {
-    ...pool
-  }
-}
 
 query getPools {
   pools {

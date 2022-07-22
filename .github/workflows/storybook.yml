@@ -13,7 +13,8 @@ on:
 
 jobs:
   deployment:
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    # Never run automatically on first trigger event, only on manual re-run.
+    if: ${{ github.run_attempt > 1 }}
     runs-on: ubuntu-latest
     env:
       NPM_VERSION: '8.3.0'
