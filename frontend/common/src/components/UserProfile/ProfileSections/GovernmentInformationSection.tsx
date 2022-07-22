@@ -93,7 +93,7 @@ const GovernmentInformationSection: React.FunctionComponent<{
               })}
             </p>
             <p>
-              {intl.formatMessage(requiredFieldsMissing)}
+              {intl.formatMessage(requiredFieldsMissing)}{" "}
               <a href={editPath}>
                 {intl.formatMessage({
                   defaultMessage: "Edit your government information options.",
