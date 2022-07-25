@@ -32,9 +32,16 @@ const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p data-h2-font-color="b(lightpurple)">{skill.name?.[locale]}</p>
-            <p>{skill.description?.[locale]}</p>
-            <p>{skill.experienceSkillRecord?.details}</p>
+            {skill.name[locale] && (
+              <p data-h2-font-color="b(lightpurple)">{skill.name[locale]}</p>
+            )}
+            {skill.description && skill.description[locale] && (
+              <p>{skill.description[locale]}</p>
+            )}
+            {skill.experienceSkillRecord &&
+              skill.experienceSkillRecord.details && (
+                <p>{skill.experienceSkillRecord.details}</p>
+              )}
           </li>
         </ul>
       ))
