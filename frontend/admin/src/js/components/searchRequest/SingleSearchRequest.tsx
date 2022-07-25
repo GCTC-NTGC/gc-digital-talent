@@ -1,8 +1,7 @@
 import { getLocale } from "@common/helpers/localize";
-import {
-  SearchRequestFilters,
+import SearchRequestFilters, {
   FilterBlock,
-} from "@common/components/SearchRequestFilters";
+} from "@common/components/SearchRequestFilters/deprecated/SearchRequestFilters";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { commonMessages } from "@common/messages";
@@ -177,7 +176,8 @@ export const SingleSearchRequest: React.FunctionComponent<
 > = ({ searchRequest }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const { additionalComments, poolCandidateFilter } = searchRequest;
+  const { additionalComments, poolCandidateFilter, applicantFilter } =
+    searchRequest;
   // TODO: data filter data from applicantFilter instead of poolCandidateFilter if possible.
 
   const poolCandidateFilterInput: PoolCandidateFilterInput = {
@@ -248,7 +248,10 @@ export const SingleSearchRequest: React.FunctionComponent<
               "Heading for the request information section of the single search request view.",
           })}
         </h2>
-        <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
+        <SearchRequestFilters
+          poolCandidateFilter={poolCandidateFilter}
+          poolApplicantFilter={applicantFilter}
+        />
         <div
           data-h2-padding="s(top-bottom, s)"
           data-h2-margin="s(top-bottom, s)"

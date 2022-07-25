@@ -18,14 +18,14 @@ import { errorMessages, commonMessages } from "@common/messages";
 import {
   getOperationalRequirement,
   getPoolStatus,
+  OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
-import { useAdminRoutes } from "../../adminRoutes";
+import { useAdminRoutes } from "../../../adminRoutes";
 import {
   Classification,
   CmoAsset,
-  OperationalRequirement,
   Pool,
   PoolStatus,
   UpdatePoolInput,
@@ -33,8 +33,8 @@ import {
   useGetUpdatePoolDataQuery,
   User,
   useUpdatePoolMutation,
-} from "../../api/generated";
-import DashboardContentContainer from "../DashboardContentContainer";
+} from "../../../api/generated";
+import DashboardContentContainer from "../../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
@@ -151,16 +151,6 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
       label: `${firstName} ${lastName}`,
     }),
   );
-
-  const operationalRequirementsSubsetV2 = [
-    OperationalRequirement.OvertimeOccasional,
-    OperationalRequirement.OvertimeRegular,
-    OperationalRequirement.ShiftWork,
-    OperationalRequirement.OnCall,
-    OperationalRequirement.Travel,
-    OperationalRequirement.TransportEquipment,
-    OperationalRequirement.DriversLicense,
-  ];
 
   return (
     <section>
@@ -308,7 +298,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form operational requirements field.",
               })}
-              options={operationalRequirementsSubsetV2.map((value) => ({
+              options={OperationalRequirementV2.map((value) => ({
                 value,
                 label: intl.formatMessage(getOperationalRequirement(value)),
               }))}
@@ -430,3 +420,5 @@ export const UpdatePool: React.FunctionComponent<{
     </Pending>
   );
 };
+
+export default UpdatePool;

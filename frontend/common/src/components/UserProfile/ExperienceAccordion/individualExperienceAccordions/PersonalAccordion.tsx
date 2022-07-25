@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
+import LightBulbIcon from "@heroicons/react/solid/LightBulbIcon";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
 import { getLocale } from "../../../../helpers/localize";
@@ -55,7 +55,7 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
               { skillsLength: skills?.length },
             )
       }
-      Icon={BriefCaseIcon}
+      Icon={LightBulbIcon}
       defaultOpen={defaultOpen}
     >
       <div data-h2-padding="b(left, l)">

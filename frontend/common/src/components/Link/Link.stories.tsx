@@ -3,6 +3,7 @@ import { Story, Meta } from "@storybook/react";
 import Link from "./Link";
 import ExternalLink, { ExternalLinkProps } from "./ExternalLink";
 import type { LinkProps } from "./Link";
+import { Color } from "../Button";
 
 export default {
   component: Link,
@@ -21,8 +22,19 @@ export default {
   },
 } as Meta;
 
+const colors: Array<Color> = [
+  "primary",
+  "secondary",
+  "cta",
+  "white",
+  "black",
+  "ia-primary",
+  "ia-secondary",
+];
+
 const TemplateLink: Story<LinkProps & { label: string }> = (args) => {
   const { label, ...rest } = args;
+
   return (
     <Link {...rest}>
       <span>{label}</span>
@@ -30,145 +42,62 @@ const TemplateLink: Story<LinkProps & { label: string }> = (args) => {
   );
 };
 
+const TemplateLinkColors: Story<LinkProps & { label: string }> = (args) => {
+  const { label, ...rest } = args;
+  return (
+    <>
+      {colors.map((color) => (
+        <p key={color}>
+          <Link color={color} {...rest}>
+            <span>{label}</span>
+          </Link>
+        </p>
+      ))}
+    </>
+  );
+};
+
 const TemplateExternalLink: Story<ExternalLinkProps & { label: string }> = (
   args,
 ) => {
   const { label, ...rest } = args;
-  return <ExternalLink {...rest}>{label}</ExternalLink>;
+  return (
+    <ExternalLink {...rest}>
+      <span>{label}</span>
+    </ExternalLink>
+  );
 };
 
 export const LinkDefault = TemplateLink.bind({});
-export const LinkButtonPrimary = TemplateLink.bind({});
-export const LinkButtonPrimaryBlock = TemplateLink.bind({});
-export const LinkButtonPrimaryOutline = TemplateLink.bind({});
-export const LinkButtonPrimaryInline = TemplateLink.bind({});
-export const LinkButtonSecondary = TemplateLink.bind({});
-export const LinkButtonSecondaryBlock = TemplateLink.bind({});
-export const LinkButtonSecondaryOutline = TemplateLink.bind({});
-export const LinkButtonSecondaryInline = TemplateLink.bind({});
-export const LinkButtonCTA = TemplateLink.bind({});
-export const LinkButtonCTABlock = TemplateLink.bind({});
-export const LinkButtonCTAOutline = TemplateLink.bind({});
-export const LinkButtonCTAInline = TemplateLink.bind({});
-export const LinkButtonWhite = TemplateLink.bind({});
-export const LinkButtonWhiteBlock = TemplateLink.bind({});
-export const LinkButtonWhiteOutline = TemplateLink.bind({});
-export const LinkButtonWhiteInline = TemplateLink.bind({});
+export const LinkButtonSolid = TemplateLinkColors.bind({});
+export const LinkButtonOutline = TemplateLinkColors.bind({});
+export const LinkButtonBlock = TemplateLinkColors.bind({});
+export const LinkButtonDisabled = TemplateLinkColors.bind({});
 
 LinkDefault.args = {
   type: "link",
 };
 
-LinkButtonPrimary.args = {
-  color: "primary",
+LinkButtonSolid.args = {
   type: "button",
   mode: "solid",
 };
 
-LinkButtonPrimaryBlock.args = {
-  color: "primary",
+LinkButtonOutline.args = {
+  type: "button",
+  mode: "outline",
+};
+
+LinkButtonBlock.args = {
   type: "button",
   mode: "solid",
   block: true,
 };
 
-LinkButtonPrimaryOutline.args = {
-  color: "primary",
-  type: "button",
-  mode: "outline",
-};
-
-LinkButtonPrimaryInline.args = {
-  color: "primary",
-  type: "button",
-  mode: "inline",
-};
-
-LinkButtonSecondary.args = {
-  color: "secondary",
+LinkButtonDisabled.args = {
   type: "button",
   mode: "solid",
-};
-
-LinkButtonSecondaryBlock.args = {
-  color: "secondary",
-  type: "button",
-  mode: "solid",
-  block: true,
-};
-
-LinkButtonSecondaryOutline.args = {
-  color: "secondary",
-  type: "button",
-  mode: "outline",
-};
-
-LinkButtonSecondaryInline.args = {
-  color: "secondary",
-  type: "button",
-  mode: "inline",
-};
-
-LinkButtonCTA.args = {
-  color: "cta",
-  type: "button",
-  mode: "solid",
-};
-
-LinkButtonCTABlock.args = {
-  color: "cta",
-  type: "button",
-  mode: "solid",
-  block: true,
-};
-
-LinkButtonCTAOutline.args = {
-  color: "cta",
-  type: "button",
-  mode: "outline",
-};
-
-LinkButtonWhiteInline.args = {
-  color: "white",
-  type: "button",
-  mode: "inline",
-};
-
-LinkButtonWhite.args = {
-  color: "white",
-  type: "button",
-  mode: "solid",
-};
-
-LinkButtonWhiteBlock.args = {
-  color: "white",
-  type: "button",
-  mode: "solid",
-  block: true,
-};
-
-LinkButtonWhiteOutline.args = {
-  color: "white",
-  type: "button",
-  mode: "outline",
-};
-
-LinkButtonWhiteInline.args = {
-  color: "white",
-  type: "button",
-  mode: "inline",
-};
-
-LinkButtonWhite.parameters = {
-  backgrounds: { default: "dark" },
-};
-
-LinkButtonWhiteOutline.parameters = {
-  backgrounds: { default: "dark" },
-};
-
-LinkButtonWhiteInline.parameters = {
-  backgrounds: { default: "dark" },
+  disabled: true,
 };
 
 export const ExternalLinkNewTab = TemplateExternalLink.bind({});

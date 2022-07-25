@@ -11,7 +11,7 @@ export interface InputWrapperProps {
   errorPosition?: "top" | "bottom";
   context?: string;
   hideOptional?: boolean;
-  addBottomMargin?: boolean;
+  hideBottomMargin?: boolean;
 }
 
 const InputWrapper: React.FC<InputWrapperProps> = ({
@@ -23,7 +23,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   context,
   hideOptional,
   children,
-  addBottomMargin = true,
+  hideBottomMargin,
   ...rest
 }) => {
   const [contextVisible, setContextVisible] = useState(false);
@@ -43,7 +43,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
             contextIsVisible={context !== undefined && context !== ""}
             contextToggleHandler={setContextVisible}
             hideOptional={hideOptional}
-            addBottomMargin={addBottomMargin}
+            hideBottomMargin={hideBottomMargin}
           />
         </div>
         {error && errorPosition === "top" && (

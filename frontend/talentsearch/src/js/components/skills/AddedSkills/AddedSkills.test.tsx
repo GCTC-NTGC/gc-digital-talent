@@ -26,10 +26,9 @@ describe("AddedSkills tests", () => {
 
   test("If the skills collection is empty then the null message is displayed", () => {
     renderContainer([], jest.fn());
-    const message = screen.getByText(
-      "There are no skills attached to this experience yet.",
-      { exact: false },
-    );
+    const message = screen.getByText("There are no skills selected yet.", {
+      exact: false,
+    });
     expect(message).toBeTruthy();
   });
   test("If the skills collection is not empty then the matching number of chips should be rendered", async () => {

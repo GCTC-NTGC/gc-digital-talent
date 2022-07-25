@@ -20,6 +20,17 @@ const ExternalLink: React.FC = (props) => (
   </svg>
 );
 
+const Spacer: React.FC = ({ children }) => (
+  <div
+    data-h2-display="b(flex)"
+    data-h2-flex-direction="b(column)"
+    data-h2-align-items="b(center)"
+    style={{ padding: "1rem" }}
+  >
+    {children}
+  </div>
+);
+
 export default {
   component: CardLink,
   title: "Components/Card Link",
@@ -40,19 +51,35 @@ export default {
   },
 } as Meta;
 
-const TemplateCardLink: Story = (args) => {
-  const { label, color, icon } = args;
+const Template: Story = (args) => {
+  const { label, icon } = args;
   return (
-    <CardLink label={label} href="#" color={color} icon={icon}>
-      Card Link
-    </CardLink>
+    <div
+      data-h2-display="b(flex)"
+      data-h2-justify-content="b(space-around)"
+      style={{ margin: "-1rem" }}
+    >
+      <Spacer>
+        <CardLink color="ts-primary" label={label} href="#" icon={icon}>
+          TS Primary
+        </CardLink>
+      </Spacer>
+      <Spacer>
+        <CardLink color="ia-primary" label={label} href="#" icon={icon}>
+          IA Primary
+        </CardLink>
+      </Spacer>
+      <Spacer>
+        <CardLink color="ia-secondary" label={label} href="#" icon={icon}>
+          IA Secondary
+        </CardLink>
+      </Spacer>
+    </div>
   );
 };
 
-export const BasicCardLink = TemplateCardLink.bind({});
-export const IconCardLink = TemplateCardLink.bind({});
-export const IAPrimaryCardLink = TemplateCardLink.bind({});
-export const IASecondaryCardLink = TemplateCardLink.bind({});
+export const BasicCardLink = Template.bind({});
+export const IconCardLink = Template.bind({});
 
 BasicCardLink.args = {
   label: "Basic Card Link",
@@ -61,14 +88,4 @@ BasicCardLink.args = {
 IconCardLink.args = {
   label: "Icon Card Link",
   icon: ExternalLink,
-};
-
-IAPrimaryCardLink.args = {
-  label: "IAP Primary Card Link",
-  color: "ia-primary",
-};
-
-IASecondaryCardLink.args = {
-  label: "IAP Secondary Card Link",
-  color: "ia-secondary",
 };

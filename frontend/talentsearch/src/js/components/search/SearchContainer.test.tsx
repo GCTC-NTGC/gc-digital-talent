@@ -4,14 +4,13 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import React from "react";
-import { fakeClassifications, fakeCmoAssets } from "@common/fakeData";
+import { fakeClassifications } from "@common/fakeData";
 
 import { axeTest, render } from "@common/helpers/testUtils";
 import { SearchContainer } from "./SearchContainer";
 import type { SearchContainerProps } from "./SearchContainer";
 
 const mockClassifications = fakeClassifications();
-const mockCmoAssets = fakeCmoAssets();
 
 type MockSearchContainerProps = Pick<SearchContainerProps, "candidateCount">;
 
@@ -23,7 +22,6 @@ const renderSearchContainer = ({
   return render(
     <SearchContainer
       classifications={mockClassifications}
-      cmoAssets={mockCmoAssets}
       candidateCount={candidateCount}
       onUpdateCandidateFilter={mockUpdate}
       onSubmit={mockSubmit}
