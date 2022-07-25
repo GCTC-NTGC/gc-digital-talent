@@ -87,6 +87,11 @@ module.exports = {
       },
     ],
   },
+  /**
+ * Optimizations only run in production
+ *
+ * Ref: https://webpack.js.org/configuration/optimization/
+ */
   optimization: {
     minimizer: [
       `...`, // Includes default minimizers
