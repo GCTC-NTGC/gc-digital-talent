@@ -25,25 +25,34 @@ import {
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
-export const womanLocalized = {
-  defaultMessage: "I identify as a woman",
-  description: "Message for woman",
-};
+export const employmentEquityStatements = defineMessages({
+  woman: {
+    defaultMessage: '"I identify as a woman"',
+    description: "Statement for when someone indicates they are a woman",
+  },
+  indigenous: {
+    defaultMessage: '"I am Indigenous"',
+    description: "Statement for when someone indicates they are indigenous",
+  },
+  minority: {
+    defaultMessage: '"I identify as a member of a visible minority"',
+    description:
+      "Statement for when someone indicates they are a visible minority",
+  },
+  disability: {
+    defaultMessage: '"I identify as a person with a disability"',
+    description: "Statement for when someone indicates they have a disability",
+  },
+});
 
-export const indigenousLocalized = {
-  defaultMessage: "I am indigenous",
-  description: "Message for indigenous",
-};
-
-export const minorityLocalized = {
-  defaultMessage: "I identify as a member of a visible minority group",
-  description: " Message for minority group",
-};
-
-export const disabilityLocalized = {
-  defaultMessage: "I identify as a person with a disability",
-  description: "Message for person with a disability",
-};
+export const getEmploymentEquityStatement = (
+  equityStatement: keyof typeof employmentEquityStatements,
+): MessageDescriptor =>
+  getOrThrowError(
+    employmentEquityStatements,
+    equityStatement,
+    `Invalid equity statement '${equityStatement}'`,
+  );
 
 export const languageProficiency = defineMessages({
   [EstimatedLanguageAbility.Beginner]: {
