@@ -10,7 +10,6 @@ import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstan
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import {
-  ApplicantFilterInput,
   PoolCandidateFilterInput,
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,
@@ -31,7 +30,6 @@ const ManagerInfo: React.FunctionComponent<{
     status,
     requestedDate,
     poolCandidateFilter,
-    applicantFilter,
   } = searchRequest;
 
   return (

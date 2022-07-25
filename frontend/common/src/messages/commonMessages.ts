@@ -21,6 +21,11 @@ const messages = defineMessages({
     defaultMessage: "Not found",
     description: "Title displayed when an item cannot be found.",
   },
+  requiredFieldsMissing: {
+    defaultMessage: "There are <red>required</red> fields missing.",
+    description:
+      "Message that there are required fields missing. Please ignore things in <> tags.",
+  },
 });
 
 export default messages;

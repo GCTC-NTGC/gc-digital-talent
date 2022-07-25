@@ -3,8 +3,8 @@ input,
 optgroup,
 select,
 textarea {
-	font-family: inherit;
-	font-size: 100%;
+  font-family: inherit;
+  font-size: 100%;
 }
 
 .reset-ul {
