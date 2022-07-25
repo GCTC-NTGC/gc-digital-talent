@@ -9,6 +9,8 @@ import {
   getLanguageAbility,
   employmentEquityStatements,
   getEmploymentEquityStatement,
+  employmentEquityGroups,
+  getEmploymentEquityGroup,
 } from "./localizedConstants";
 
 export {
@@ -22,4 +24,6 @@ export {
   getLanguageAbility,
   employmentEquityStatements,
   getEmploymentEquityStatement,
+  employmentEquityGroups,
+  getEmploymentEquityGroup,
 };

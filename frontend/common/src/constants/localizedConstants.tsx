@@ -25,6 +25,34 @@ import {
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
+export const employmentEquityGroups = defineMessages({
+  woman: {
+    defaultMessage: "Woman",
+    description: "Group for when someone indicates they are a woman",
+  },
+  indigenous: {
+    defaultMessage: "Indigenous Identity",
+    description: "Group for when someone indicates they are indigenous",
+  },
+  minority: {
+    defaultMessage: "Member of a visible minority",
+    description: "Group for when someone indicates they are a visible minority",
+  },
+  disability: {
+    defaultMessage: "Person with a disability",
+    description: "Group for when someone indicates they have a disability",
+  },
+});
+
+export const getEmploymentEquityGroup = (
+  equityGroup: keyof typeof employmentEquityGroups,
+): MessageDescriptor =>
+  getOrThrowError(
+    employmentEquityGroups,
+    equityGroup,
+    `Invalid equity group '${equityGroup}'`,
+  );
+
 export const employmentEquityStatements = defineMessages({
   woman: {
     defaultMessage: '"I identify as a woman"',
