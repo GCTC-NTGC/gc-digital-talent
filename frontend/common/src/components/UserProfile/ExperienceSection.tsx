@@ -178,8 +178,9 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
           <p>
             <a href={editPath}>
               {intl.formatMessage({
-                defaultMessage: "Click here to get started.",
-                description: "Message to click on the words to begin something",
+                defaultMessage: "Edit your experience options.",
+                description:
+                  "Link text to edit experience information on profile.",
               })}
             </a>
           </p>
