@@ -36,12 +36,9 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p>
-              {skill.name?.[locale]}
-              <br />
-              {skill.description?.[locale]}
-              {skill.experienceSkillRecord?.details}
-            </p>
+            <p>{skill.name?.[locale]}</p>
+            <p>{skill.description?.[locale]}</p>
+            <p>{skill.experienceSkillRecord?.details}</p>
           </li>
         </ul>
       ))
