@@ -157,12 +157,12 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
             </h3>
             {itemsAvailable || !hasItems ? (
               <div data-h2-display="b(flex)" data-h2-flex-direction="b(column)">
-                {!hasDisability && (
+                {!resolvedWoman && (
                   <EquityOption
-                    isAdded={false}
-                    onOpen={() => setDisabilityOpen(true)}
+                    isAdded={resolvedWoman}
+                    onOpen={() => setWomanOpen(true)}
                     title={intl.formatMessage(
-                      getEmploymentEquityGroup("disability"),
+                      getEmploymentEquityGroup("woman"),
                     )}
                   />
                 )}
@@ -184,12 +184,12 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                     )}
                   />
                 )}
-                {!resolvedWoman && (
+                {!hasDisability && (
                   <EquityOption
-                    isAdded={resolvedWoman}
-                    onOpen={() => setWomanOpen(true)}
+                    isAdded={false}
+                    onOpen={() => setDisabilityOpen(true)}
                     title={intl.formatMessage(
-                      getEmploymentEquityGroup("woman"),
+                      getEmploymentEquityGroup("disability"),
                     )}
                   />
                 )}

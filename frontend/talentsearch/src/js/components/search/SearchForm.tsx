@@ -404,6 +404,10 @@ const SearchForm: React.FC<SearchFormProps> = ({
             })}
             items={[
               {
+                value: "isWoman",
+                label: intl.formatMessage(getEmploymentEquityGroup("woman")),
+              },
+              {
                 value: "isIndigenous",
                 label: intl.formatMessage(
                   getEmploymentEquityGroup("indigenous"),
@@ -418,10 +422,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
                 label: intl.formatMessage(
                   getEmploymentEquityGroup("disability"),
                 ),
-              },
-              {
-                value: "isWoman",
-                label: intl.formatMessage(getEmploymentEquityGroup("woman")),
               },
             ]}
           />

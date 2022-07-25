@@ -392,6 +392,10 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             })}
             items={[
               {
+                value: "isWoman",
+                label: intl.formatMessage(getEmploymentEquityGroup("woman")),
+              },
+              {
                 value: "isIndigenous",
                 label: intl.formatMessage(
                   getEmploymentEquityGroup("indigenous"),
@@ -406,10 +410,6 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                 label: intl.formatMessage(
                   getEmploymentEquityGroup("disability"),
                 ),
-              },
-              {
-                value: "isWoman",
-                label: intl.formatMessage(getEmploymentEquityGroup("woman")),
               },
             ]}
           />
