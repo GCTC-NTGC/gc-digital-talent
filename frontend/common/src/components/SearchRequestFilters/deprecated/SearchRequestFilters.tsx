@@ -96,6 +96,8 @@ export interface SearchRequestFiltersProps {
 
 const SearchRequestFilters: React.FunctionComponent<
   SearchRequestFiltersProps
+  // Deprecated but needed
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 > = ({ poolCandidateFilter, poolApplicantFilter }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
