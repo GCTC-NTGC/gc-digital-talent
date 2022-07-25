@@ -11,6 +11,7 @@ import {
   fireEvent,
 } from "@testing-library/react";
 import { FormProvider, useForm } from "react-hook-form";
+import type { FieldValues, SubmitHandler } from "react-hook-form";
 import IntlProvider from "react-intl/src/components/provider";
 import SelectFieldV2 from "./SelectFieldV2";
 
@@ -19,14 +20,14 @@ const Providers = ({
   onSubmit,
 }: {
   children: React.ReactNode;
-  onSubmit: () => void;
+  onSubmit: SubmitHandler<FieldValues>;
 }) => {
   const methods = useForm();
 
   return (
     <IntlProvider locale="en">
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form onSubmit={methods.handleSubmit((data) => onSubmit(data))}>
           {children}
           <input type="submit" />
         </form>
@@ -96,7 +97,7 @@ describe("SelectFieldV2", () => {
   });
 
   it("should submit empty when no validation rules", async () => {
-    const mockSubmit = jest.fn((data) => Promise.resolve(data));
+    const mockSubmit = jest.fn();
     renderWithProviders(<SelectFieldV2 label="Foo Bar" options={[]} />, {
       wrapperProps: {
         onSubmit: mockSubmit,
@@ -110,7 +111,7 @@ describe("SelectFieldV2", () => {
   });
 
   it("should prevent submit and throw custom error message when required rule is provided", async () => {
-    const mockSubmit = jest.fn((data) => Promise.resolve(data));
+    const mockSubmit = jest.fn();
     renderWithProviders(
       <SelectFieldV2
         label="Foo Bar"
@@ -133,7 +134,7 @@ describe("SelectFieldV2", () => {
 
   // TODO: Add a default required error message.
   it("should prevent submit when required without message (but no default error message)", async () => {
-    const mockSubmit = jest.fn((data) => Promise.resolve(data));
+    const mockSubmit = jest.fn();
     renderWithProviders(
       <SelectFieldV2 label="Foo Bar" options={[]} rules={{ required: true }} />,
       {
@@ -238,5 +239,44 @@ describe("SelectFieldV2", () => {
       `.${CLASS_PREFIX}__menu-notice`,
     )?.textContent;
     expect(loadingText).toBe("Loading...");
+  });
+
+  it("should submit selected value as string by default", async () => {
+    const mockSubmit = jest.fn();
+    renderWithProviders(
+      <SelectFieldV2
+        label="Foo Bar"
+        options={[{ value: "BAZ", label: "Baz" }]}
+      />,
+      { wrapperProps: { onSubmit: mockSubmit } },
+    );
+    toggleMenuOpen(document.body);
+    selectFirstOption(document.body);
+
+    await act(async () => {
+      fireEvent.submit(screen.getByRole("button"));
+    });
+    expect(mockSubmit).toBeCalled();
+    expect(mockSubmit).toBeCalledWith({ fooBar: "BAZ" });
+  });
+
+  it("should submit a selected value as array when specified", async () => {
+    const mockSubmit = jest.fn();
+    renderWithProviders(
+      <SelectFieldV2
+        forceArrayFormValue
+        label="Foo Bar"
+        options={[{ value: "BAZ", label: "Baz" }]}
+      />,
+      { wrapperProps: { onSubmit: mockSubmit } },
+    );
+    toggleMenuOpen(document.body);
+    selectFirstOption(document.body);
+
+    await act(async () => {
+      fireEvent.submit(screen.getByRole("button"));
+    });
+    expect(mockSubmit).toBeCalled();
+    expect(mockSubmit).toBeCalledWith({ fooBar: Array("BAZ") });
   });
 });
