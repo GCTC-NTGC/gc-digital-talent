@@ -124,7 +124,11 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
   ];
 
   return (
-    <>
+    <div
+      data-h2-bg-color="b(lightgray)"
+      data-h2-padding="b(all, m)"
+      data-h2-radius="b(s)"
+    >
       {isExperience && (
         <Tabs>
           <TabList>
@@ -186,7 +190,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
           </p>
         </>
       )}
-    </>
+    </div>
   );
 };
 
