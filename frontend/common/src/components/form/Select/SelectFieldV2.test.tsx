@@ -9,23 +9,19 @@ import {
   RenderOptions,
   act,
   fireEvent,
-  waitFor,
-  logRoles,
-  getByRole,
 } from "@testing-library/react";
 import { FormProvider, useForm } from "react-hook-form";
 import IntlProvider from "react-intl/src/components/provider";
 import SelectFieldV2 from "./SelectFieldV2";
-import type { SelectFieldV2Props } from "./SelectFieldV2";
 
-const mockSubmit = jest.fn((data) => Promise.resolve(data));
-
-const Providers = ({ children }: { children: React.ReactNode }) => {
+const Providers = ({
+  children,
+  onSubmit,
+}: {
+  children: React.ReactNode;
+  onSubmit: () => void;
+}) => {
   const methods = useForm();
-  const onSubmit = async (data: any) => {
-    await mockSubmit(data);
-    methods.reset();
-  };
 
   return (
     <IntlProvider locale="en">
@@ -39,9 +35,8 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-// In SelectFieldV2, We hardcode the classNamePrefix prop into react-select's
-// Select component to making styling/testing simpler. The default random prefix
-// would make this harder.
+// In SelectFieldV2, we hardcode the classNamePrefix prop into react-select's
+// Select component to making styling/testing simpler.
 const CLASS_PREFIX = "react-select";
 
 // Source: https://github.com/JedWatson/react-select/blob/master/packages/react-select/src/__tests__/StateManaged.test.tsx
@@ -64,19 +59,21 @@ function clickClearIndicator(container: HTMLElement) {
   if (indicator) fireEvent.mouseDown(indicator, { button: 0 });
 }
 
+// Inspiration: https://github.com/testing-library/react-testing-library/issues/780#issuecomment-687525893
 const renderWithProviders = (
   ui: React.ReactElement,
-  options?: Omit<RenderOptions, "wrapper">,
-) => render(ui, { wrapper: Providers, ...options });
-
-const renderComponent = (props: SelectFieldV2Props) =>
-  renderWithProviders(<SelectFieldV2 {...props} />);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  options?: Omit<RenderOptions, "wrapper"> & { wrapperProps: any },
+) =>
+  render(ui, {
+    // Pass extra props to provider, e.g. mocked onSubmit.
+    wrapper: (props) => <Providers {...props} {...options?.wrapperProps} />,
+    ...options,
+  });
 
 describe("SelectFieldV2", () => {
-  it.only("should render with only label prop", () => {
-    renderComponent({
-      label: "Foo Bar",
-    });
+  it("should render with only label prop", () => {
+    renderWithProviders(<SelectFieldV2 label="Foo Bar" />);
     expect(
       screen.getByRole("combobox", { name: /foo bar/i }),
     ).toBeInTheDocument();
@@ -89,11 +86,8 @@ describe("SelectFieldV2", () => {
     ).toBe("fooBar");
   });
 
-  it.only("should write proper text in options menu when none provided", () => {
-    renderComponent({
-      label: "Foo Bar",
-      options: [],
-    });
+  it("should write proper text in options menu when none provided", () => {
+    renderWithProviders(<SelectFieldV2 label="Foo Bar" options={[]} />);
     toggleMenuOpen(document.body);
     const noticeText = document.querySelector(
       `.${CLASS_PREFIX}__menu-notice`,
@@ -102,9 +96,11 @@ describe("SelectFieldV2", () => {
   });
 
   it("should submit empty when no validation rules", async () => {
-    renderComponent({
-      label: "Foo Bar",
-      options: [],
+    const mockSubmit = jest.fn((data) => Promise.resolve(data));
+    renderWithProviders(<SelectFieldV2 label="Foo Bar" options={[]} />, {
+      wrapperProps: {
+        onSubmit: mockSubmit,
+      },
     });
 
     await act(async () => {
@@ -113,11 +109,20 @@ describe("SelectFieldV2", () => {
     expect(mockSubmit).toBeCalledTimes(1);
   });
 
-  it.only("should prevent submit and throw custom error message when required rule is provided", async () => {
-    renderComponent({
-      label: "Foo Bar",
-      rules: { required: "Required!" },
-    });
+  it("should prevent submit and throw custom error message when required rule is provided", async () => {
+    const mockSubmit = jest.fn((data) => Promise.resolve(data));
+    renderWithProviders(
+      <SelectFieldV2
+        label="Foo Bar"
+        options={[]}
+        rules={{ required: "Required!" }}
+      />,
+      {
+        wrapperProps: {
+          onSubmit: mockSubmit,
+        },
+      },
+    );
     await act(async () => {
       fireEvent.submit(screen.getByRole("button"));
     });
@@ -127,11 +132,16 @@ describe("SelectFieldV2", () => {
   });
 
   // TODO: Add a default required error message.
-  it.only("should prevent submit when required without message (but no default error message)", async () => {
-    renderComponent({
-      label: "Foo Bar",
-      rules: { required: true },
-    });
+  it("should prevent submit when required without message (but no default error message)", async () => {
+    const mockSubmit = jest.fn((data) => Promise.resolve(data));
+    renderWithProviders(
+      <SelectFieldV2 label="Foo Bar" options={[]} rules={{ required: true }} />,
+      {
+        wrapperProps: {
+          onSubmit: mockSubmit,
+        },
+      },
+    );
     await act(async () => {
       fireEvent.submit(screen.getByRole("button"));
     });
@@ -139,40 +149,60 @@ describe("SelectFieldV2", () => {
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
 
-  it.only("should show optional text when not required", () => {
-    renderComponent({
-      label: "Foo Bar",
-    });
+  it("should show optional text when not required", () => {
+    renderWithProviders(<SelectFieldV2 label="Foo Bar" />);
     expect(screen.getByText("(Optional)")).toBeInTheDocument();
   });
 
-  it.only("should be clearable when not required", () => {
-    renderComponent({
-      label: "Foo Bar",
-      options: [{ value: "BAZ", label: "Baz" }],
-    });
+  it("should be clearable when not required", () => {
+    renderWithProviders(
+      <SelectFieldV2
+        label="Foo Bar"
+        options={[{ value: "BAZ", label: "Baz" }]}
+      />,
+    );
+
+    // Nothing selected.
+    expect(
+      document.querySelector('input[type="hidden"]')?.getAttribute("value"),
+    ).toBe("");
+    expect(
+      document.querySelector(`.${CLASS_PREFIX}__clear-indicator`),
+    ).not.toBeInTheDocument();
+
+    // Do selection.
     toggleMenuOpen(document.body);
     selectFirstOption(document.body);
+
+    // Check selection.
     expect(
       document.querySelector('input[type="hidden"]')?.getAttribute("value"),
     ).toBe("BAZ");
+    expect(
+      document.querySelector(`.${CLASS_PREFIX}__clear-indicator`),
+    ).toBeInTheDocument();
+
+    // Clear selection.
     clickClearIndicator(document.body);
     expect(
       document.querySelector('input[type="hidden"]')?.getAttribute("value"),
     ).toBe("");
   });
 
-  it.skip("should not be clearable when required", () => {
-    const { container } = renderComponent({
-      label: "Foo Bar",
-      rules: { required: "Required!" },
-    });
+  it("should not be clearable when required", () => {
+    renderWithProviders(
+      <SelectFieldV2 label="Foo Bar" rules={{ required: "Required!" }} />,
+    );
+    toggleMenuOpen(document.body);
+    selectFirstOption(document.body);
+    const clearIndicator = document.querySelector(
+      `.${CLASS_PREFIX}__clear-indicator`,
+    );
+    expect(clearIndicator).not.toBeInTheDocument();
   });
 
   it("should have default placeholder when not specified", () => {
-    renderComponent({
-      label: "Foo Bar",
-    });
+    renderWithProviders(<SelectFieldV2 label="Foo Bar" />);
 
     const placeholderText = document.querySelector(
       `.${CLASS_PREFIX}__control`,
@@ -181,10 +211,9 @@ describe("SelectFieldV2", () => {
   });
 
   it("should have custom placeholder when specified", () => {
-    renderComponent({
-      label: "Foo Bar",
-      placeholder: "Select thing...",
-    });
+    renderWithProviders(
+      <SelectFieldV2 label="Foo Bar" placeholder="Select thing..." />,
+    );
 
     const placeholderText = document.querySelector(
       `.${CLASS_PREFIX}__control`,
@@ -193,10 +222,7 @@ describe("SelectFieldV2", () => {
   });
 
   it("should show loading indicator when isLoading", () => {
-    renderComponent({
-      label: "Foo Bar",
-      isLoading: true,
-    });
+    renderWithProviders(<SelectFieldV2 label="Foo Bar" isLoading />);
 
     const loadingIndicator = document.querySelector(
       `.${CLASS_PREFIX}__loading-indicator`,
@@ -205,10 +231,7 @@ describe("SelectFieldV2", () => {
   });
 
   it("should write proper text in options menu when isLoading", () => {
-    renderComponent({
-      label: "Foo Bar",
-      isLoading: true,
-    });
+    renderWithProviders(<SelectFieldV2 label="Foo Bar" isLoading />);
     toggleMenuOpen(document.body);
 
     const loadingText = document.querySelector(
