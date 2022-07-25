@@ -5,7 +5,7 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import Dialog from "@common/components/Dialog";
 import { Checkbox } from "@common/components/form";
 
-import { getEmploymentEquityStatement } from "@common/constants/localizedConstants";
+import { getEmploymentEquityStatement } from "@common/constants";
 import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";

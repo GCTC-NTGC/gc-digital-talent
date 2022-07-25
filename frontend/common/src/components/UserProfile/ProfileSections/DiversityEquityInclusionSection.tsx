@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { getEmploymentEquityStatement } from "../../../constants/localizedConstants";
+import { getEmploymentEquityStatement } from "../../../constants";
 import { Applicant } from "../../../api/generated";
 
 const DiversityEquityInclusionSection: React.FunctionComponent<{

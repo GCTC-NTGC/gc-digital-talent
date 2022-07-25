@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 import type { Maybe } from "@common/api/generated";
 
-import { getEmploymentEquityStatement } from "@common/constants/localizedConstants";
+import { getEmploymentEquityStatement } from "@common/constants";
 import profileMessages from "../profile/profileMessages";
 import Spinner from "../Spinner";
 import EquityOption from "./EquityOption";
