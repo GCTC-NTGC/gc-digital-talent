@@ -46,7 +46,7 @@ export const employmentEquityStatements = defineMessages({
 });
 
 export const getEmploymentEquityStatement = (
-  equityStatement: string,
+  equityStatement: keyof typeof employmentEquityStatements,
 ): MessageDescriptor =>
   getOrThrowError(
     employmentEquityStatements,
