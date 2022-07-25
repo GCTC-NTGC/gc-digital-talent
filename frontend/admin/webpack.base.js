@@ -101,7 +101,7 @@ module.exports = {
     ],
   },
   /**
-   * Optimizations only run in production
+   * Optimizations only run in production mode
    *
    * Ref: https://webpack.js.org/configuration/optimization/
    */
