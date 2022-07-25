@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 import type { Maybe } from "@common/api/generated";
 
+import { getEmploymentEquityStatement } from "@common/constants/localizedConstants";
 import profileMessages from "../profile/profileMessages";
 import Spinner from "../Spinner";
 import EquityOption from "./EquityOption";
@@ -89,50 +90,40 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
             </h3>
             {hasItems ? (
               <div data-h2-display="b(flex)" data-h2-flex-direction="b(column)">
-                {resolvedDisability && (
+                {resolvedWoman && (
                   <EquityOption
                     isAdded
-                    onOpen={() => setDisabilityOpen(true)}
-                    title={intl.formatMessage({
-                      defaultMessage:
-                        '"I Identify as a person with a disability"',
-                      description:
-                        "Title for when someone indicates they have a disability on their profile",
-                    })}
+                    onOpen={() => setWomanOpen(true)}
+                    title={intl.formatMessage(
+                      getEmploymentEquityStatement("woman"),
+                    )}
                   />
                 )}
                 {resolvedIndigenous && (
                   <EquityOption
                     isAdded
                     onOpen={() => setIndigenousOpen(true)}
-                    title={intl.formatMessage({
-                      defaultMessage: '"I am Indigenous"',
-                      description:
-                        "Title for when someone indicates they are indigenous on their profile",
-                    })}
+                    title={intl.formatMessage(
+                      getEmploymentEquityStatement("indigenous"),
+                    )}
                   />
                 )}
                 {resolvedMinority && (
                   <EquityOption
                     isAdded
                     onOpen={() => setVisibleMinorityOpen(true)}
-                    title={intl.formatMessage({
-                      defaultMessage:
-                        '"I Identify as a member of a visible minority"',
-                      description:
-                        "Title for when someone indicates they are a visible minority on their profile",
-                    })}
+                    title={intl.formatMessage(
+                      getEmploymentEquityStatement("minority"),
+                    )}
                   />
                 )}
-                {resolvedWoman && (
+                {resolvedDisability && (
                   <EquityOption
                     isAdded
-                    onOpen={() => setWomanOpen(true)}
-                    title={intl.formatMessage({
-                      defaultMessage: '"I Identify as a woman"',
-                      description:
-                        "Title for when someone indicates they are a woman on their profile",
-                    })}
+                    onOpen={() => setDisabilityOpen(true)}
+                    title={intl.formatMessage(
+                      getEmploymentEquityStatement("disability"),
+                    )}
                   />
                 )}
               </div>
