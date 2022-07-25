@@ -1,10 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { isEmpty } from "lodash";
-import {
-  getGenericJobTitles,
-  requiredFieldsMissing,
-} from "../../../constants/localizedConstants";
+import messages from "../../../messages/commonMessages";
+import { getGenericJobTitles } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
 const RoleSalarySection: React.FunctionComponent<{
@@ -51,7 +49,7 @@ const RoleSalarySection: React.FunctionComponent<{
               })}
             </p>
             <p>
-              {intl.formatMessage(requiredFieldsMissing)}{" "}
+              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
               <a href={editPath}>
                 {intl.formatMessage({
                   defaultMessage:

@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { requiredFieldsMissing } from "../../../constants/localizedConstants";
+import messages from "../../../messages/commonMessages";
 import { notEmpty } from "../../../helpers/util";
 import { Applicant } from "../../../api/generated";
 import ExperienceSection from "../ExperienceSection";
@@ -47,7 +47,7 @@ const SkillExperienceSection: React.FunctionComponent<{
             })}
           </p>
           <p>
-            {intl.formatMessage(requiredFieldsMissing)}{" "}
+            {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
             <a href={editPath}>
               {intl.formatMessage({
                 defaultMessage: "Edit your skill and experience options.",

@@ -1,10 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import {
-  getProvinceOrTerritory,
-  requiredFieldsMissing,
-} from "../../../constants/localizedConstants";
+import messages from "../../../messages/commonMessages";
+import { getProvinceOrTerritory } from "../../../constants/localizedConstants";
 import { getLanguage } from "../../../constants";
 import type { Applicant } from "../../../api/generated";
 
@@ -130,7 +128,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !currentCity ||
         !currentProvince) && (
         <p>
-          {intl.formatMessage(requiredFieldsMissing)}{" "}
+          {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
           <a href={editPath}>
             {intl.formatMessage({
               defaultMessage: "Edit your about me options.",

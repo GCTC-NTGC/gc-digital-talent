@@ -1,4 +1,4 @@
-import { defineMessage, defineMessages, MessageDescriptor } from "react-intl";
+import { defineMessages, MessageDescriptor } from "react-intl";
 import {
   Language,
   LanguageAbility,
@@ -44,12 +44,6 @@ export const disabilityLocalized = {
   defaultMessage: "I identify as a person with a disability",
   description: "Message for person with a disability",
 };
-
-export const requiredFieldsMissing = defineMessage({
-  defaultMessage: "There are <red>required</red> fields missing.",
-  description:
-    "Message that there are required fields missing. Please ignore things in <> tags.",
-});
 
 export const languageProficiency = defineMessages({
   [EstimatedLanguageAbility.Beginner]: {

@@ -1,10 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { isEmpty } from "lodash";
-import {
-  getWorkRegion,
-  requiredFieldsMissing,
-} from "../../../constants/localizedConstants";
+import messages from "../../../messages/commonMessages";
+import { getWorkRegion } from "../../../constants/localizedConstants";
 import { insertBetween } from "../../../helpers/util";
 
 import { Applicant } from "../../../api/generated";
@@ -58,7 +56,7 @@ const WorkLocationSection: React.FunctionComponent<{
             })}
           </p>
           <p>
-            {intl.formatMessage(requiredFieldsMissing)}{" "}
+            {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
             <a href={editPath}>
               {intl.formatMessage({
                 defaultMessage: "Edit your work location options.",

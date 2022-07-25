@@ -1,10 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { isEmpty } from "lodash";
-import {
-  getOperationalRequirement,
-  requiredFieldsMissing,
-} from "../../../constants/localizedConstants";
+import messages from "../../../messages/commonMessages";
+import { getOperationalRequirement } from "../../../constants/localizedConstants";
 import { Applicant, OperationalRequirement } from "../../../api/generated";
 
 const WorkPreferencesSection: React.FunctionComponent<{
@@ -72,7 +70,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
             })}
           </p>
           <p>
-            {intl.formatMessage(requiredFieldsMissing)}{" "}
+            {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
             <a href={editPath}>
               {intl.formatMessage({
                 defaultMessage: "Edit your work preference options.",

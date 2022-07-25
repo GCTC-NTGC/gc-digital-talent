@@ -1,10 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Applicant, BilingualEvaluation } from "../../../api/generated";
-import {
-  getLanguageProficiency,
-  requiredFieldsMissing,
-} from "../../../constants/localizedConstants";
+import messages from "../../../messages/commonMessages";
+import { getLanguageProficiency } from "../../../constants/localizedConstants";
 
 const LanguageInformationSection: React.FunctionComponent<{
   applicant: Pick<
@@ -192,7 +190,7 @@ const LanguageInformationSection: React.FunctionComponent<{
         <p>
           {editPath && (
             <>
-              {intl.formatMessage(requiredFieldsMissing)}{" "}
+              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
               <a href={editPath}>
                 {intl.formatMessage({
                   defaultMessage: "Edit your language information options.",
