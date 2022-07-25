@@ -3,6 +3,9 @@ import { Skill, SkillFamily } from "../api/generated";
 
 const generateSkill = (skillFamilies: SkillFamily[]) => {
   const name = faker.random.word();
+  const keywords = faker.lorem.words(3).split(" ");
+  const keywordsEN = keywords.map((skill) => `${skill} EN`);
+  const keywordsFR = keywords.map((skill) => `${skill} FR`);
   return {
     id: faker.datatype.uuid(),
     key: faker.helpers.slugify(name),
@@ -14,7 +17,10 @@ const generateSkill = (skillFamilies: SkillFamily[]) => {
       en: `EN skill description ${faker.lorem.sentences()}`,
       fr: `FR skill description ${faker.lorem.sentences()}`,
     },
-    keywords: faker.lorem.words(3).split(" "),
+    keywords: {
+      en: keywordsEN,
+      fr: keywordsFR,
+    },
     families: skillFamilies.length
       ? faker.helpers.arrayElements<SkillFamily>(skillFamilies)
       : ([] as SkillFamily[]),

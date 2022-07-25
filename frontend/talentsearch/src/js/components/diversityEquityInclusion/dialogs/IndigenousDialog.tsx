@@ -5,6 +5,7 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import Dialog from "@common/components/Dialog";
 import { Checkbox } from "@common/components/form";
 
+import { getEmploymentEquityStatement } from "@common/constants";
 import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
@@ -40,11 +41,7 @@ const IndigenousDialogFooter: React.FC<EquityDialogFooterProps> = ({
         <Checkbox
           id="isIndigenous"
           name="isIndigenous"
-          label={intl.formatMessage({
-            defaultMessage: "I am Indigenous.",
-            description:
-              "Label for the checkbox to identify as indigenous under employment equity",
-          })}
+          label={intl.formatMessage(getEmploymentEquityStatement("indigenous"))}
         />
         {children}
       </form>
