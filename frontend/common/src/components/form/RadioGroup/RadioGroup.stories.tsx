@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { MINIMAL_VIEWPORTS } from "@storybook/addon-viewport";
 import RadioGroup from ".";
 import type { RadioGroupProps } from ".";
 import Form from "../BasicForm";
@@ -9,6 +10,13 @@ import Submit from "../Submit";
 export default {
   component: RadioGroup,
   title: "Form/RadioGroup",
+  parameters: {
+    // 👇 The viewports object from the Essentials addon
+    viewport: {
+      // 👇 The viewports you want to use
+      viewports: MINIMAL_VIEWPORTS,
+    },
+  },
 } as Meta;
 
 const TemplateRadioGroup: Story<RadioGroupProps> = (args) => {
@@ -79,18 +87,23 @@ RadioGroupOfElements.args = {
 };
 
 export const LargeRadioGroup = TemplateRadioGroup.bind({});
+LargeRadioGroup.parameters = {
+  viewport: {
+    defaultViewport: "mobile1",
+  },
+};
 LargeRadioGroup.args = {
   idPrefix: "radiogroup",
   legend: "Which item do you want to check?",
   name: "radiogroup",
   items: [
-    { value: "one", label: "Box One" },
-    { value: "two", label: "Box Two" },
-    { value: "three", label: "Box Three" },
-    { value: "four", label: "Box Four" },
-    { value: "five", label: "Box Five" },
-    { value: "six", label: "Box Six" },
-    { value: "seven", label: "Box Seven" },
+    { value: "one", label: "This is the first item" },
+    { value: "two", label: "This is the second item" },
+    { value: "three", label: "This is the third item" },
+    { value: "four", label: "This is the fourth item" },
+    { value: "five", label: "This is the fifth item" },
+    { value: "six", label: "This is the sixth item" },
+    { value: "seven", label: "This is the seventh item" },
   ],
   columns: 2,
   hideLegend: true,

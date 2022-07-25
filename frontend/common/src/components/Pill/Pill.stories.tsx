@@ -25,70 +25,40 @@ export default {
   },
 } as Meta;
 
-const TemplatePill: Story<PillProps & { content: string }> = (args) => {
-  const { content, ...rest } = args;
-  return <Pill {...rest}>{content}</Pill>;
-};
+const colors: Array<"primary" | "secondary" | "neutral"> = [
+  "primary",
+  "secondary",
+  "neutral",
+];
 
-const TemplateMultiPill: Story<PillProps & { content: string }> = (args) => {
+const TemplatePill: Story<Omit<PillProps, "color"> & { content: string }> = (
+  args,
+) => {
   const { content, ...rest } = args;
   return (
     <>
-      <Pill {...rest}>{content}</Pill>
-      <Pill {...rest}>{content}</Pill>
-      <Pill {...rest}>{content}</Pill>
-      <Pill {...rest}>{content}</Pill>
-      <Pill {...rest}>{content}</Pill>
+      {colors.map((color) => (
+        <Pill key={color} color={color} {...rest}>
+          {content}
+        </Pill>
+      ))}
     </>
   );
 };
 
-export const PillPrimary = TemplatePill.bind({});
-export const PillPrimaryBlock = TemplatePill.bind({});
-export const PillPrimaryOutline = TemplatePill.bind({});
-export const PillSecondary = TemplatePill.bind({});
-export const PillSecondaryOutline = TemplatePill.bind({});
-export const PillNeutral = TemplatePill.bind({});
-export const PillNeutralOutline = TemplatePill.bind({});
-export const PillMulti = TemplateMultiPill.bind({});
+export const PillSolid = TemplatePill.bind({});
+export const PillBlock = TemplatePill.bind({});
+export const PillOutline = TemplatePill.bind({});
 
-PillPrimary.args = {
-  color: "primary",
+PillSolid.args = {
   mode: "solid",
 };
 
-PillPrimaryBlock.args = {
-  color: "primary",
+PillBlock.args = {
   mode: "solid",
   block: true,
 };
 
-PillPrimaryOutline.args = {
-  color: "primary",
+PillOutline.args = {
   mode: "outline",
-};
-
-PillSecondary.args = {
-  color: "secondary",
-  mode: "solid",
-};
-
-PillSecondaryOutline.args = {
-  color: "secondary",
-  mode: "outline",
-};
-
-PillNeutral.args = {
-  color: "neutral",
-  mode: "solid",
-};
-
-PillNeutralOutline.args = {
-  color: "neutral",
-  mode: "outline",
-};
-
-PillMulti.args = {
-  color: "primary",
-  mode: "solid",
 };

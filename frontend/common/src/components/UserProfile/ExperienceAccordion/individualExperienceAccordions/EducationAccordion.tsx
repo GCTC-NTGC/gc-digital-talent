@@ -1,5 +1,5 @@
 import React from "react";
-import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
+import BookOpenIcon from "@heroicons/react/solid/BookOpenIcon";
 import { useIntl } from "react-intl";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
@@ -68,7 +68,7 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
               { skillsLength: skills?.length },
             )
       }
-      Icon={BriefCaseIcon}
+      Icon={BookOpenIcon}
       defaultOpen={defaultOpen}
     >
       <div data-h2-padding="b(left, l)">

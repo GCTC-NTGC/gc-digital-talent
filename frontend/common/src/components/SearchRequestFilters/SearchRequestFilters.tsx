@@ -2,7 +2,12 @@ import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { Maybe, PoolCandidateFilter } from "../../api/generated";
+import {
+  ApplicantFilterInput,
+  Maybe,
+  PoolCandidateFilter,
+  Skill,
+} from "../../api/generated";
 import {
   getLanguageAbility,
   getOperationalRequirement,
@@ -86,12 +91,13 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 };
 
 export interface SearchRequestFiltersProps {
-  poolCandidateFilter: Maybe<PoolCandidateFilter>;
+  poolCandidateFilter: Maybe<PoolCandidateFilter & ApplicantFilterInput>;
+  allSkills: Skill[];
 }
 
 const SearchRequestFilters: React.FunctionComponent<
   SearchRequestFiltersProps
-> = ({ poolCandidateFilter }) => {
+> = ({ poolCandidateFilter, allSkills }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -170,14 +176,21 @@ const SearchRequestFilters: React.FunctionComponent<
     : intl.formatMessage({
         defaultMessage: "Any language",
       });
-  const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
-    (cmoAsset) =>
-      cmoAsset?.name[locale] ||
-      intl.formatMessage({
-        defaultMessage: "Error: skill name not found",
-        description:
-          "Error message when cmo asset name is not found on request page.",
-      }),
+  const skills: string[] | undefined = poolCandidateFilter?.skills?.map(
+    (skillId) => {
+      const foundSkill = allSkills.find((skill) => {
+        return skill && skillId && skill.id === skillId.id;
+      });
+
+      return (
+        foundSkill?.name[locale] ||
+        intl.formatMessage({
+          defaultMessage: "Error: skill name not found",
+          description:
+            "Error message when cmo asset name is not found on request page.",
+        })
+      );
+    },
   );
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 

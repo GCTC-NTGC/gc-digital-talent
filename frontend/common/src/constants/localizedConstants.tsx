@@ -536,7 +536,7 @@ export const getEducationType = (
     `Invalid educationType ${educationTypeId}`,
   );
 
-export const OperationalRequirementCandidateDescription = defineMessages({
+export const operationalRequirementLabelCandidateDescription = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "...has <strong>shift-work</strong>.",
     description: "The operational requirement described as shift work.",
@@ -586,16 +586,24 @@ export const OperationalRequirementCandidateDescription = defineMessages({
   },
 });
 
-export const getOperationalRequirementCandidateDescription = (
-  operationalRequirementId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    OperationalRequirementCandidateDescription,
-    operationalRequirementId,
-    `Invalid Operational Requirement '${operationalRequirementId}'`,
-  );
+export const OperationalRequirementV1 = [
+  OperationalRequirement.ShiftWork,
+  OperationalRequirement.WorkWeekends,
+  OperationalRequirement.OvertimeScheduled,
+  OperationalRequirement.OvertimeShortNotice,
+];
 
-export const operationalRequirements = defineMessages({
+export const OperationalRequirementV2 = [
+  OperationalRequirement.OvertimeOccasional,
+  OperationalRequirement.OvertimeRegular,
+  OperationalRequirement.ShiftWork,
+  OperationalRequirement.OnCall,
+  OperationalRequirement.Travel,
+  OperationalRequirement.TransportEquipment,
+  OperationalRequirement.DriversLicense,
+];
+
+export const operationalRequirementLabelFull = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "Availability, willingness and ability to work shift-work.",
     description: "The operational requirement described as shift work.",
@@ -649,14 +657,85 @@ export const operationalRequirements = defineMessages({
   },
 });
 
+export const operationalRequirementLabelShort = defineMessages({
+  [OperationalRequirement.ShiftWork]: {
+    id: "OperationalRequirement.ShiftWork.short",
+    defaultMessage: "Shift-work",
+    description:
+      "The operational requirement described as shift work. (short-form for limited space)",
+  },
+  [OperationalRequirement.OnCall]: {
+    id: "OperationalRequirement.OnCall.short",
+    defaultMessage: "24/7 on-call",
+    description:
+      "The operational requirement described as 24/7 on-call. (short-form for limited space)",
+  },
+  [OperationalRequirement.Travel]: {
+    id: "OperationalRequirement.Travel.short",
+    defaultMessage: "Travel as required",
+    description:
+      "The operational requirement described as travel as required. (short-form for limited space)",
+  },
+  [OperationalRequirement.TransportEquipment]: {
+    id: "OperationalRequirement.TransportEquipment.short",
+    defaultMessage: "Transport equipment up to 20kg",
+    description:
+      "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)",
+  },
+  [OperationalRequirement.DriversLicense]: {
+    id: "OperationalRequirement.DriversLicense.short",
+    defaultMessage: "Driver's license",
+    description:
+      "The operational requirement described as driver's license. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeRegular]: {
+    id: "OperationalRequirement.OvertimeRegular.short",
+    defaultMessage: "Overtime (regular)",
+    description:
+      "The operational requirement described as regular overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeOccasional]: {
+    id: "OperationalRequirement.OvertimeOccasional.short",
+    defaultMessage: "Overtime (occasional)",
+    description:
+      "The operational requirement described as occasional overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    id: "OperationalRequirement.OvertimeScheduled.short",
+    defaultMessage: "Work scheduled overtime",
+    description:
+      "The operational requirement described as scheduled overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    id: "OperationalRequirement.OvertimeShortNotice.short",
+    defaultMessage: "Work overtime on short notice",
+    description:
+      "The operational requirement described as short notice overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    id: "OperationalRequirement.WorkWeekends.short",
+    defaultMessage: "Work weekends",
+    description:
+      "The operational requirement described as work weekends. (short-form for limited space)",
+  },
+});
+
 export const getOperationalRequirement = (
   operationalRequirementId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    operationalRequirements,
+  format: "candidateDescription" | "full" | "short" = "full",
+): MessageDescriptor => {
+  const messageDictionary = {
+    candidateDescription: operationalRequirementLabelCandidateDescription,
+    full: operationalRequirementLabelFull,
+    short: operationalRequirementLabelShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[format],
     operationalRequirementId,
     `Invalid Operational Requirement '${operationalRequirementId}'`,
   );
+};
 
 export const provinceOrTerritory = defineMessages({
   [ProvinceOrTerritory.Alberta]: {
@@ -724,13 +803,13 @@ export const JobLookingStatusDescription = defineMessages({
   },
   [JobLookingStatus.OpenToOpportunities]: {
     defaultMessage:
-      "<strong>Open to opportunities </strong> - Not actively looking but I still want to be contacted for job opportunities",
-    description: "Job Looking Status described as Actively looking.",
+      "<strong>Open to opportunities</strong> - Not actively looking but I still want to be contacted for job opportunities",
+    description: "Job Looking Status described as Open to opportunities.",
   },
   [JobLookingStatus.Inactive]: {
     defaultMessage:
       "<strong>Inactive</strong> - I do not currently want to be contacted for job opportunities",
-    description: "Job Looking Status described as Actively looking.",
+    description: "Job Looking Status described as Inactive.",
   },
 });
 
