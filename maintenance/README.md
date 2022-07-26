@@ -45,18 +45,18 @@ Or refresh all of them in order:
 - `docker-compose run --rm maintenance bash refresh_all.sh`
 
 ## Working on UI
-For now, you'll want to have two terminal instances running: 
-- 1 for the webpack watch script
-- another for the Hydrogen watch script
+In order to compile and render UI for development, you have two options.
+- log into the local UI using the steps above
+- run Storybook to view individual components
 
-If you're working with Docker, you'll want to enter your Docker container and run the following from there using: `docker-compose run -w /var/www/html maintenance bash`
+### Logging into the UI
+- Navigate to the app you'd like to work on (e.g. `cd frontend/talentsearch`)
+- Run `npm run watch`
+- Allow the first compile to happen
+- Make some changes, watch it recompile, and refresh your page
 
-In the first terminal:
-1. Navigate to `frontend/app-i-want-to-work-on`
-2. run `npm run watch`
-
-In the second terminal:
-1. Navigate to `frontend/common`
-2. run `npx h2-watch`
-
-If you run into errors with the webpack script, try restarting Docker and/or rerunning the first two steps in "First-time setup"
+### Running Storybook
+- Navigate to the app you'd like to work on (e.g. `cd frontend/talentsearch`)
+- Run `npm run storybook`
+- Allow the first compile to happen
+- Make some changes, watch it recompile, and your Storybook page should automatically refresh
