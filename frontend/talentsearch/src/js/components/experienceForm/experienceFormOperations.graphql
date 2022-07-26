@@ -12,6 +12,10 @@ query getSkills {
       en
       fr
     }
+    keywords {
+      en
+      fr
+    }
     families {
       id
       key

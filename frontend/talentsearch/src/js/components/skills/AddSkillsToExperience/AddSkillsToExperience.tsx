@@ -73,12 +73,20 @@ const AddSkillsToExperience: React.FunctionComponent<
    */
   const handleSearch = (searchQuery: string): Promise<void> => {
     return new Promise<void>((resolve) => {
-      const matchedSkills = allSkills.filter((skill) =>
-        matchStringCaseDiacriticInsensitive(
-          searchQuery,
-          skill.name[locale] ?? "",
-        ),
-      );
+      const matchedSkills = allSkills.filter((skill) => {
+        if (
+          matchStringCaseDiacriticInsensitive(
+            searchQuery,
+            skill.name[locale] ?? "",
+          )
+        ) {
+          return true;
+        }
+
+        return skill.keywords?.[locale]?.some((keyword) => {
+          return matchStringCaseDiacriticInsensitive(searchQuery, keyword);
+        });
+      });
       setSearchFilteredSkills(matchedSkills);
       keywordSearchPagination.setCurrentPage(1); // just in case the new list of matched skills requires fewer pages
       resolve();
