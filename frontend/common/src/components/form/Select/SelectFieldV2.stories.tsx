@@ -14,7 +14,7 @@ export default {
       return (
         <BasicForm
           onSubmit={action("Submit Form")}
-          options={{ defaultValues: { departments: "" } }}
+          options={{ defaultValues: { department: "" } }}
         >
           <Story />
           <Submit />
