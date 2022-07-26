@@ -123,42 +123,45 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
     }),
   ];
 
-  return (
-    <>
-      {isExperience && (
-        <Tabs>
-          <TabList>
-            {tabs.map((tab, index) => (
-              <Tab key={tab} index={index}>
-                {tab}
-              </Tab>
-            ))}
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              {sortedByDate.map((experience) => (
-                <ExperienceAccordion
-                  key={experience.id}
-                  experience={experience}
-                  editPaths={experienceEditPaths}
-                />
-              ))}
-            </TabPanel>
-            <TabPanel>
-              <ExperienceByTypeListing
-                experiences={experiences}
-                editPaths={experienceEditPaths}
-              />
-            </TabPanel>
-            <TabPanel>
-              {sortedBySkills.map((skill) => (
-                <SkillAccordion key={skill.id} skill={skill} />
-              ))}
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      )}
-      {!isExperience && !editPath && (
+  return isExperience ? (
+    <Tabs>
+      <TabList>
+        {tabs.map((tab, index) => (
+          <Tab key={tab} index={index}>
+            {tab}
+          </Tab>
+        ))}
+      </TabList>
+      <TabPanels>
+        <TabPanel>
+          {sortedByDate.map((experience) => (
+            <ExperienceAccordion
+              key={experience.id}
+              experience={experience}
+              editPaths={experienceEditPaths}
+            />
+          ))}
+        </TabPanel>
+        <TabPanel>
+          <ExperienceByTypeListing
+            experiences={experiences}
+            editPaths={experienceEditPaths}
+          />
+        </TabPanel>
+        <TabPanel>
+          {sortedBySkills.map((skill) => (
+            <SkillAccordion key={skill.id} skill={skill} />
+          ))}
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
+  ) : (
+    <div
+      data-h2-bg-color="b(lightgray)"
+      data-h2-padding="b(all, m)"
+      data-h2-radius="b(s)"
+    >
+      {!editPath ? (
         <p>
           {intl.formatMessage({
             defaultMessage: "No information has been provided",
@@ -166,8 +169,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
               "Message on Admin side when user not filled Experience section.",
           })}
         </p>
-      )}
-      {!isExperience && editPath && (
+      ) : (
         <>
           <p>
             {intl.formatMessage({
@@ -186,7 +188,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
           </p>
         </>
       )}
-    </>
+    </div>
   );
 };
 

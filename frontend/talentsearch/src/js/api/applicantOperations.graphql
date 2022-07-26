@@ -76,6 +76,10 @@ query getApplicantExperiencesByType($id: ID!) {
       skills {
         id
         key
+        description {
+          en
+          fr
+        }
         name {
           en
           fr
