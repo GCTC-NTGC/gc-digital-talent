@@ -1089,5 +1089,9 @@
   "6rhyxk": {
     "defaultMessage": "Déconnexion",
     "description": "Link text to logout."
+  },
+  "BjRuMw": {
+    "defaultMessage": "Voir la définition",
+    "description": "Text displayed when skill block is open."
   }
 }
