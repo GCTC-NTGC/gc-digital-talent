@@ -73,8 +73,8 @@ const renderComponent = (props: SelectFieldV2Props) =>
   renderWithProviders(<SelectFieldV2 {...props} />);
 
 describe("SelectFieldV2", () => {
-  it("should render with only label prop", () => {
-    const { container } = renderComponent({
+  it.only("should render with only label prop", () => {
+    renderComponent({
       label: "Foo Bar",
     });
     expect(
@@ -82,81 +82,83 @@ describe("SelectFieldV2", () => {
     ).toBeInTheDocument();
     // Hidden input should exist.
     expect(
-      container.querySelector('input[type="hidden"]')?.getAttribute("value"),
+      document.querySelector('input[type="hidden"]')?.getAttribute("value"),
     ).toBe("");
     expect(
-      container.querySelector('input[type="hidden"]')?.getAttribute("name"),
+      document.querySelector('input[type="hidden"]')?.getAttribute("name"),
     ).toBe("fooBar");
   });
 
-  it("should write proper text in options menu when none provided", () => {
-    const { container } = renderComponent({
+  it.only("should write proper text in options menu when none provided", () => {
+    renderComponent({
       label: "Foo Bar",
       options: [],
     });
-    toggleMenuOpen(container);
-    const noticeText = container.querySelector(
+    toggleMenuOpen(document.body);
+    const noticeText = document.querySelector(
       `.${CLASS_PREFIX}__menu-notice`,
     )?.textContent;
     expect(noticeText).toBe("No options");
   });
 
-  it.skip("should submit empty when no rules", () => {
-    act(() => {
-      const { container } = renderComponent({
-        label: "Foo Bar",
-        options: [{ value: "BAZ", label: "Baz" }],
-      });
-      toggleMenuOpen(container);
-      selectFirstOption(container);
-    });
-
-    act(() => {
-      fireEvent.click(screen.getByRole("button"));
-    });
-    expect(mockSubmit).toBeCalled();
-  });
-
-  it.skip("should render a validation error when required", () => {
-    const { container } = renderComponent({
+  it("should submit empty when no validation rules", async () => {
+    renderComponent({
       label: "Foo Bar",
-      rules: { required: true },
+      options: [],
     });
-    getByRole(container, "combobox", { name: /foo bar/i }).focus();
-    getByRole(container, "combobox", { name: /foo bar/i }).blur();
-    logRoles(container);
-    // #TODO Submit or focus/unfocus.
-    // #TODO
+
+    await act(async () => {
+      fireEvent.submit(screen.getByRole("button"));
+    });
+    expect(mockSubmit).toBeCalledTimes(1);
   });
 
-  it.skip("should render a custom required validation message", async () => {
+  it.only("should prevent submit and throw custom error message when required rule is provided", async () => {
     renderComponent({
       label: "Foo Bar",
       rules: { required: "Required!" },
     });
-    fireEvent.submit(screen.getByRole("button"));
-    expect(await screen.getByRole("alert")).toBe("test");
+    await act(async () => {
+      fireEvent.submit(screen.getByRole("button"));
+    });
+    expect(mockSubmit).not.toBeCalled();
+    expect(screen.queryByRole("alert")).toBeInTheDocument();
+    expect(screen.getByRole("alert").textContent).toBe("Required!");
   });
 
-  it.skip("should show optional text when not required", () => {
-    const { container } = renderComponent({
+  // TODO: Add a default required error message.
+  it.only("should prevent submit when required without message (but no default error message)", async () => {
+    renderComponent({
+      label: "Foo Bar",
+      rules: { required: true },
+    });
+    await act(async () => {
+      fireEvent.submit(screen.getByRole("button"));
+    });
+    expect(mockSubmit).not.toBeCalled();
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
+  it.only("should show optional text when not required", () => {
+    renderComponent({
       label: "Foo Bar",
     });
+    expect(screen.getByText("(Optional)")).toBeInTheDocument();
   });
 
-  it("should be clearable when not required", () => {
-    const { container } = renderComponent({
+  it.only("should be clearable when not required", () => {
+    renderComponent({
       label: "Foo Bar",
       options: [{ value: "BAZ", label: "Baz" }],
     });
-    toggleMenuOpen(container);
-    selectFirstOption(container);
+    toggleMenuOpen(document.body);
+    selectFirstOption(document.body);
     expect(
-      container.querySelector('input[type="hidden"]')?.getAttribute("value"),
+      document.querySelector('input[type="hidden"]')?.getAttribute("value"),
     ).toBe("BAZ");
-    clickClearIndicator(container);
+    clickClearIndicator(document.body);
     expect(
-      container.querySelector('input[type="hidden"]')?.getAttribute("value"),
+      document.querySelector('input[type="hidden"]')?.getAttribute("value"),
     ).toBe("");
   });
 
@@ -168,48 +170,48 @@ describe("SelectFieldV2", () => {
   });
 
   it("should have default placeholder when not specified", () => {
-    const { container } = renderComponent({
+    renderComponent({
       label: "Foo Bar",
     });
 
-    const placeholderText = container.querySelector(
+    const placeholderText = document.querySelector(
       `.${CLASS_PREFIX}__control`,
     )?.textContent;
     expect(placeholderText).toBe("Select...");
   });
 
   it("should have custom placeholder when specified", () => {
-    const { container } = renderComponent({
+    renderComponent({
       label: "Foo Bar",
       placeholder: "Select thing...",
     });
 
-    const placeholderText = container.querySelector(
+    const placeholderText = document.querySelector(
       `.${CLASS_PREFIX}__control`,
     )?.textContent;
     expect(placeholderText).toBe("Select thing...");
   });
 
   it("should show loading indicator when isLoading", () => {
-    const { container } = renderComponent({
+    renderComponent({
       label: "Foo Bar",
       isLoading: true,
     });
 
-    const loadingIndicator = container.querySelector(
+    const loadingIndicator = document.querySelector(
       `.${CLASS_PREFIX}__loading-indicator`,
     );
     expect(loadingIndicator).toBeInTheDocument();
   });
 
   it("should write proper text in options menu when isLoading", () => {
-    const { container } = renderComponent({
+    renderComponent({
       label: "Foo Bar",
       isLoading: true,
     });
-    toggleMenuOpen(container);
+    toggleMenuOpen(document.body);
 
-    const loadingText = container.querySelector(
+    const loadingText = document.querySelector(
       `.${CLASS_PREFIX}__menu-notice`,
     )?.textContent;
     expect(loadingText).toBe("Loading...");
