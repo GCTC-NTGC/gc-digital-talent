@@ -164,6 +164,9 @@ const SelectFieldV2 = ({
                     LoadingMessage: LocalizedLoadingMessage,
                     NoOptionsMessage: LocalizedNoOptionsMessage,
                   }}
+                  // Adds predictable prefix, helpful for both theming and Jest testing.
+                  // E.g., `react-select__control` instead of `css-1s2u09g__control`.
+                  classNamePrefix="react-select"
                   {...field}
                   {...{ options, isMulti, isLoading }}
                   value={convertValueToOption(field.value)}
