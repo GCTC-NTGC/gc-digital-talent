@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Applicant, BilingualEvaluation } from "../../../api/generated";
+import messages from "../../../messages/commonMessages";
 import { getLanguageProficiency } from "../../../constants/localizedConstants";
 
 const LanguageInformationSection: React.FunctionComponent<{
@@ -188,8 +189,9 @@ const LanguageInformationSection: React.FunctionComponent<{
                 <br />
                 <span data-h2-font-weight="base(700)">
                   {estimatedLanguageAbility
-                    ? getLanguageProficiency(estimatedLanguageAbility)
-                        .defaultMessage
+                    ? intl.formatMessage(
+                        getLanguageProficiency(estimatedLanguageAbility),
+                      )
                     : ""}
                 </span>
               </p>
@@ -218,22 +220,17 @@ const LanguageInformationSection: React.FunctionComponent<{
                 (!comprehensionLevel || !writtenLevel || !verbalLevel))))) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {editPath &&
-                intl.formatMessage({
-                  defaultMessage:
-                    "There are <red>required</red> fields missing.",
-                  description:
-                    "Message that there are required fields missing. Please ignore things in <> tags.",
-                })}
-              <br />
               {editPath && (
-                <a href={editPath}>
-                  {intl.formatMessage({
-                    defaultMessage: "Click here to get started.",
-                    description:
-                      "Message to click on the words to begin something",
-                  })}
-                </a>
+                <>
+                  {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
+                  <a href={editPath}>
+                    {intl.formatMessage({
+                      defaultMessage: "Edit your language information options.",
+                      description:
+                        "Link text to edit language information on profile.",
+                    })}
+                  </a>
+                </>
               )}
               {!editPath && (
                 <>

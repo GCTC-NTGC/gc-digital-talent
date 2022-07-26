@@ -42,7 +42,7 @@ import DashboardContentContainer from "../DashboardContentContainer";
 type SpacerProps = React.HTMLProps<HTMLSpanElement>;
 
 const Spacer = ({ children, ...rest }: SpacerProps) => (
-  <span data-h2-margin="base(bottom-right, s)" {...rest}>
+  <span data-h2-margin="base(0, x.5, x.5, 0)" {...rest}>
     {children}
   </span>
 );
@@ -156,8 +156,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             mode="solid"
             color="secondary"
             type="button"
-            href="#"
-            disabled
+            href={adminPaths.poolEdit(pool.id)}
             icon={UserGroupIcon}
           >
             {intl.formatMessage({
@@ -188,7 +187,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             mode="solid"
             color="secondary"
             type="button"
-            href={adminPaths.poolUpdate(pool.id)}
+            href={adminPaths.poolEdit(pool.id)}
             icon={CogIcon}
           >
             {intl.formatMessage({
@@ -199,14 +198,14 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         </Spacer>
       </div>
       <FormProvider {...form}>
-        <h2 data-h2-margin="base(top, l)" data-h2-font-size="base(h3)">
+        <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3, 1)">
           {intl.formatMessage({
             defaultMessage: "View pool advertisement",
             description: "Sub title for admin view pool page",
           })}
         </h2>
         <div data-h2-display="base(flex)" data-h2-align-items="base(flex-end)">
-          <Spacer data-h2-width="base(25)">
+          <Spacer data-h2-width="base(25%)">
             <Input
               readOnly
               value={pool.id}

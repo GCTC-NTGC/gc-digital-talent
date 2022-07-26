@@ -118,12 +118,12 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
         return pools?.map(
           (pool, index) =>
             pool && (
-              <>
-                <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
+              <React.Fragment key={pool.id}>
+                <a href={paths.poolCandidateTable(pool.id)}>
                   {pool.name?.[locale]}
                 </a>
                 {index > 0 && ", "}
-              </>
+              </React.Fragment>
             ),
         );
       },

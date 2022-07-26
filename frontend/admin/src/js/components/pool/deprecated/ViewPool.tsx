@@ -84,7 +84,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
         {pool.name && (
           <h2
             data-h2-margin="base(x.5, 0) p-tablet(0)"
-            data-h2-font-weight="base(800)"
+            data-h2-font-weight="base(700)"
           >
             {poolName}
           </h2>
@@ -94,7 +94,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
             mode="outline"
             color="primary"
             type="button"
-            href={adminPaths.poolUpdate(pool.id)}
+            href={adminPaths.poolEdit(pool.id)}
           >
             {intl.formatMessage({
               defaultMessage: "Edit pool",

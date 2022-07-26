@@ -59,10 +59,7 @@ const SideMenu: React.FC<SideMenuProps> = ({
           data-h2-flex-direction="base(column)"
           data-h2-height="base(100%)"
         >
-          <div
-            data-h2-margin="base(top-bottom, s)"
-            className="side-menu__header"
-          >
+          <div data-h2-margin="base(x.5, 0)" className="side-menu__header">
             <SideMenuItem as="button" onClick={handleToggle} icon={MenuIcon}>
               {isOpen
                 ? intl.formatMessage({

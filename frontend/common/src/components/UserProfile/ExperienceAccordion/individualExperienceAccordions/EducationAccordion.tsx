@@ -1,5 +1,5 @@
 import React from "react";
-import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
+import BookOpenIcon from "@heroicons/react/solid/BookOpenIcon";
 import { useIntl } from "react-intl";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
@@ -37,8 +37,16 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p data-h2-color="base(dt-primary)">{skill.name?.[locale]}</p>
-            <p>{skill.description?.[locale]}</p>
+            {skill.name[locale] && (
+              <p data-h2-color="base(dt-primary)">{skill.name[locale]}</p>
+            )}
+            {skill.description && skill.description[locale] && (
+              <p>{skill.description[locale]}</p>
+            )}
+            {skill.experienceSkillRecord &&
+              skill.experienceSkillRecord.details && (
+                <p>{skill.experienceSkillRecord.details}</p>
+              )}
           </li>
         </ul>
       ))
@@ -68,7 +76,7 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
               { skillsLength: skills?.length },
             )
       }
-      Icon={BriefCaseIcon}
+      Icon={BookOpenIcon}
       defaultOpen={defaultOpen}
     >
       <div data-h2-padding="base(0, 0, 0, x2)">

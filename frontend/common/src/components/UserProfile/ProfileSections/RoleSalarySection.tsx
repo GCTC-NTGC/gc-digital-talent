@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { isEmpty } from "lodash";
+import messages from "../../../messages/commonMessages";
 import { getGenericJobTitles } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
@@ -13,7 +14,7 @@ const RoleSalarySection: React.FunctionComponent<{
   const expectedClassificationArray = expectedGenericJobTitles
     ? expectedGenericJobTitles.map((es) => (
         <li data-h2-font-weight="base(700)" key={es?.key}>
-          {es ? getGenericJobTitles(es.key).defaultMessage : ""}
+          {es ? intl.formatMessage(getGenericJobTitles(es.key)) : ""}
         </li>
       ))
     : null;
@@ -57,17 +58,13 @@ const RoleSalarySection: React.FunctionComponent<{
           {!anyCriteriaSelected && editPath && (
             <div data-h2-flex-item="base(1of1)">
               <p data-h2-color="base(dt-gray.dark)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "There are <red>required</red> fields missing.",
-                  description:
-                    "Message that there are required fields missing. Please ignore things in <> tags.",
-                })}{" "}
+                {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
                 <a href={editPath}>
                   {intl.formatMessage({
-                    defaultMessage: "Click here to get started.",
+                    defaultMessage:
+                      "Edit your role and salary expectation options.",
                     description:
-                      "Message to click on the words to begin something",
+                      "Link text to edit role and salary expectations on profile.",
                   })}
                 </a>
               </p>

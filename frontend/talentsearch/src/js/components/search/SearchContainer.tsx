@@ -7,12 +7,11 @@ import pick from "lodash/pick";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import {
   Classification,
-  ClassificationFilterInput,
-  CmoAsset,
   CountApplicantsQueryVariables,
   Maybe,
   Pool,
   ApplicantFilterInput,
+  Skill,
   useCountApplicantsQuery,
   useGetSearchFormDataQuery,
   UserPublicProfile,
@@ -69,9 +68,9 @@ const candidateFilterToQueryArgs = (
 
 export interface SearchContainerProps {
   classifications: Classification[];
-  cmoAssets: CmoAsset[];
   pool?: Pick<Pool, "name" | "description">;
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
+  skills?: Skill[];
   candidateCount: number;
   updatePending?: boolean;
   candidateFilter?: ApplicantFilterInput | undefined;
@@ -83,9 +82,9 @@ const testId = (msg: string) => <span data-testid="candidateCount">{msg}</span>;
 
 export const SearchContainer: React.FC<SearchContainerProps> = ({
   classifications,
-  cmoAssets,
   pool,
   poolOwner,
+  skills,
   candidateCount,
   updatePending,
   candidateFilter,
@@ -96,7 +95,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 
   const classificationFilterCount =
     candidateFilter?.expectedClassifications?.length ?? 0;
-  const cmoAssetFilterCount = 0; // TODO REMOVE WHEN REPLACING CMO ASSETS
   const operationalRequirementFilterCount =
     candidateFilter?.operationalRequirements?.length ?? 0;
 
@@ -131,7 +129,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             </div>
             <SearchForm
               classifications={classifications}
-              cmoAssets={cmoAssets}
+              skills={skills}
               onUpdateCandidateFilter={onUpdateCandidateFilter}
             />
           </div>
@@ -176,7 +174,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           </h3>
           <SearchFilterAdvice
             classificationFilterCount={classificationFilterCount}
-            cmoAssetFilterCount={cmoAssetFilterCount}
             operationalRequirementFilterCount={
               operationalRequirementFilterCount
             }
@@ -204,6 +201,7 @@ const SearchContainerApi: React.FC = () => {
     variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
   });
   const pool = data?.poolByKey;
+  const skills = data?.skills;
 
   const [candidateFilter, setCandidateFilter] = React.useState<
     ApplicantFilterInput | undefined
@@ -233,8 +231,8 @@ const SearchContainerApi: React.FC = () => {
   return (
     <SearchContainer
       classifications={pool?.classifications?.filter(notEmpty) ?? []}
-      cmoAssets={pool?.assetCriteria?.filter(notEmpty) ?? []}
       pool={pool ?? undefined}
+      skills={skills as Skill[]}
       poolOwner={pool?.owner ?? undefined}
       candidateFilter={candidateFilter}
       candidateCount={candidateCount}

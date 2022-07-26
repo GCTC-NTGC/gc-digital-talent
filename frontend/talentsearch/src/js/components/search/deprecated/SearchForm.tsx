@@ -7,12 +7,15 @@ import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
 import { debounce } from "debounce";
 import { useLocation } from "@common/helpers/router";
-import { getWorkRegion } from "@common/constants/localizedConstants";
-import { getOperationalRequirement } from "./localizedConstants";
+import {
+  getWorkRegion,
+  OperationalRequirementV1,
+  getOperationalRequirement,
+  getEmploymentEquityGroup,
+} from "@common/constants/localizedConstants";
 import {
   Classification,
   CmoAsset,
-  OperationalRequirement,
   WorkRegion,
   LanguageAbility,
   PoolCandidateFilter,
@@ -181,13 +184,6 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     [cmoAssets, locale, intl],
   );
 
-  const operationalRequirementsSubsetV1 = [
-    OperationalRequirement.ShiftWork,
-    OperationalRequirement.WorkWeekends,
-    OperationalRequirement.OvertimeScheduled,
-    OperationalRequirement.OvertimeShortNotice,
-  ];
-
   return (
     <FormProvider {...methods}>
       <form>
@@ -288,9 +284,11 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                 "Legend for the Conditions of Employment filter checklist",
             })}
             name="operationalRequirements"
-            items={operationalRequirementsSubsetV1.map((value) => ({
+            items={OperationalRequirementV1.map((value) => ({
               value,
-              label: intl.formatMessage(getOperationalRequirement(value)),
+              label: intl.formatMessage(
+                getOperationalRequirement(value, "short"),
+              ),
             }))}
           />
         </FilterBlock>
@@ -394,36 +392,24 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             })}
             items={[
               {
+                value: "isWoman",
+                label: intl.formatMessage(getEmploymentEquityGroup("woman")),
+              },
+              {
                 value: "isIndigenous",
-                label: intl.formatMessage({
-                  defaultMessage: "Indigenous",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
+                label: intl.formatMessage(
+                  getEmploymentEquityGroup("indigenous"),
+                ),
               },
               {
                 value: "isVisibleMinority",
-                label: intl.formatMessage({
-                  defaultMessage: "Member of a visible minority group",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
+                label: intl.formatMessage(getEmploymentEquityGroup("minority")),
               },
               {
                 value: "hasDisability",
-                label: intl.formatMessage({
-                  defaultMessage: "Person with a disability",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
-              },
-              {
-                value: "isWoman",
-                label: intl.formatMessage({
-                  defaultMessage: "Woman",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
+                label: intl.formatMessage(
+                  getEmploymentEquityGroup("disability"),
+                ),
               },
             ]}
           />

@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import messages from "../../../messages/commonMessages";
 import { getProvinceOrTerritory } from "../../../constants/localizedConstants";
 import { getLanguage } from "../../../constants";
 import type { Applicant } from "../../../api/generated";
@@ -87,7 +88,9 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               })}
               <br />
               <span data-h2-font-weight="base(700)">
-                {preferredLang ? getLanguage(preferredLang).defaultMessage : ""}
+                {preferredLang
+                  ? intl.formatMessage(getLanguage(preferredLang))
+                  : ""}
               </span>
             </p>
           </div>
@@ -103,7 +106,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               <span data-h2-font-weight="base(700)">
                 {currentCity},{" "}
                 {currentProvince
-                  ? getProvinceOrTerritory(currentProvince).defaultMessage
+                  ? intl.formatMessage(getProvinceOrTerritory(currentProvince))
                   : ""}
               </span>
             </p>
@@ -139,16 +142,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {intl.formatMessage({
-                defaultMessage: "There are <red>required</red> fields missing.",
-                description:
-                  "Message that there are required fields missing. Please ignore things in <> tags.",
-              })}{" "}
+              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
               <a href={editPath}>
                 {intl.formatMessage({
-                  defaultMessage: "Click here to get started.",
-                  description:
-                    "Message to click on the words to begin something",
+                  defaultMessage: "Edit your about me options.",
+                  description: "Link text to edit about me section on profile.",
                 })}
               </a>
             </p>

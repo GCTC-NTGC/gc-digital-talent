@@ -7,6 +7,14 @@ query getPoolCandidateSearchRequestData {
       fr
     }
   }
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
 }
 
 mutation createPoolCandidateSearchRequest(

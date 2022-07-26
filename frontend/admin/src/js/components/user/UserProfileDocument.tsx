@@ -44,7 +44,7 @@ const Heading: React.FC<HeadingProps & HTMLAttributes<HTMLHeadingElement>> = ({
   return (
     <El
       data-h2-display="base(flex)"
-      data-h2-font-weight="base(800)"
+      data-h2-font-weight="base(700)"
       data-h2-align-items="base(center)"
       data-h2-margin="base(0, 0, x1, 0)"
       data-h2-justify-content="base(start)"

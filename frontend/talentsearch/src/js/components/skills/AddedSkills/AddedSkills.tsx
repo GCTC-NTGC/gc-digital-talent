@@ -8,6 +8,7 @@ import { notEmpty } from "@common/helpers/util";
 export interface AddedSkillsProps {
   skills: Skill[];
   onRemoveSkill: (id: Scalars["ID"]) => void;
+  showHighAlert?: boolean;
 }
 
 const strong = (child: HTMLElement) => <strong>{child}</strong>;
@@ -15,6 +16,7 @@ const strong = (child: HTMLElement) => <strong>{child}</strong>;
 const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
   skills,
   onRemoveSkill,
+  showHighAlert = true,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -25,9 +27,8 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
     <>
       <h3 data-h2-font-size="base(h5, 1.3)">
         {intl.formatMessage({
-          defaultMessage: "Skills attached to this experience",
-          description:
-            "Section header for a list of skills attached to this experience",
+          defaultMessage: "Selected skills",
+          description: "Section header for a list of skills selected",
         })}
       </h3>
       {notEmpty(filteredSkills) ? (
@@ -38,7 +39,7 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
               <Chip
                 key={skill?.id}
                 label={skill?.name?.[locale] ?? "Missing Name"}
-                color="neutral"
+                color="primary"
                 mode="outline"
                 onDismiss={handleDismiss}
               />
@@ -47,17 +48,17 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
         </Chips>
       ) : null}
       {filteredSkills.length === 0 && (
-        <i>
+        <p data-h2-font-style="base(italic)">
           {intl.formatMessage({
             defaultMessage:
-              "There are no skills attached to this experience yet. You can add some using the links below.",
+              "There are no skills selected yet. You can add some using the provided links.",
             description:
               "Invitation to add skills when there aren't any added yet.",
           })}
-        </i>
+        </p>
       )}
 
-      {filteredSkills.length >= 6 && (
+      {showHighAlert && filteredSkills.length >= 6 && (
         <div
           data-h2-border="base(all, 1px, solid, dt-accent)"
           data-h2-background-color="base(dt-accent.1)"
@@ -66,8 +67,8 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
           data-h2-color="base(darker.dt-accent)"
           role="alert"
         >
-          <i>
-            <div>
+          <div data-h2-font-style="base(italic)">
+            <p>
               <strong>
                 {intl.formatMessage({
                   defaultMessage: "That's a lot of skills!",
@@ -75,8 +76,8 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
                     "Title of alert when there are many skills added.",
                 })}
               </strong>
-            </div>
-            <div>
+            </p>
+            <p>
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -88,8 +89,8 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
                   strong,
                 },
               )}
-            </div>
-          </i>
+            </p>
+          </div>
         </div>
       )}
     </>

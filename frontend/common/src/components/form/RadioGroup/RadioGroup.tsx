@@ -73,27 +73,28 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
         {items.map(({ value, label }) => {
           const id = `${idPrefix}-${value}`;
           return (
-            <InputWrapper
-              key={id}
-              inputId={id}
-              label={label}
-              label_size="copy"
-              // Don't show Required tag, error or context on individual input, as its handled by Fieldset.
-              required={false}
-              hideOptional
-              data-h2-flex-direction="base(row)"
-              data-h2-margin="base(x.25, 0, 0, 0)"
-            >
-              <input
-                data-h2-order="base(-1)"
-                data-h2-margin="base(3px, x.5, 0, 0)"
-                id={id}
-                {...register(name, rules)}
-                value={value}
-                type="radio"
-                defaultChecked={defaultSelected === value}
-              />
-            </InputWrapper>
+            <div key={id}>
+              <InputWrapper
+                inputId={id}
+                label={label}
+                label_size="copy"
+                // Don't show Required tag, error or context on individual input, as its handled by Fieldset.
+                required={false}
+                hideOptional
+                data-h2-flex-direction="base(row)"
+                data-h2-margin="base(x.25, 0, 0, 0)"
+              >
+                <input
+                  data-h2-order="base(-1)"
+                  data-h2-margin="base(3px, x.5, 0, 0)"
+                  id={id}
+                  {...register(name, rules)}
+                  value={value}
+                  type="radio"
+                  defaultChecked={defaultSelected === value}
+                />
+              </InputWrapper>
+            </div>
           );
         })}
       </div>

@@ -243,7 +243,10 @@ export const GovernmentInfoForm: React.FunctionComponent<
               }}
             />
           </div>
-          <div data-h2-padding="base(0, 0, x.5, 0)" data-h2-flex-item="base(1of3)">
+          <div
+            data-h2-padding="base(0, 0, x.5, 0)"
+            data-h2-flex-item="base(1of3)"
+          >
             <RadioGroup
               idPrefix="govEmployeeType"
               legend={intl.formatMessage({
@@ -288,7 +291,11 @@ export const GovernmentInfoForm: React.FunctionComponent<
               })}
               name="lateralDeployBool"
               boundingBox
-              boundingBoxLabel="Lateral Deployment"
+              boundingBoxLabel={intl.formatMessage({
+                defaultMessage: "Lateral Deployment",
+                description:
+                  "Label displayed on lateral/secondment bounding box",
+              })}
             />
           </div>
         )}
@@ -305,12 +312,18 @@ export const GovernmentInfoForm: React.FunctionComponent<
             })}
           </p>
         )}
-      <div data-h2-display="base(flex)" data-h2-flex-direction="base(column) p-tablet(row)">
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) p-tablet(row)"
+      >
         {govEmployee === "yes" &&
           (govEmployeeStatus === GovEmployeeType.Term ||
             govEmployeeStatus === GovEmployeeType.Indeterminate ||
             govEmployeeStatus === GovEmployeeType.Casual) && (
-            <div data-h2-padding="p-tablet(0, x2, 0, 0)" style={{ width: "100%" }}>
+            <div
+              data-h2-padding="p-tablet(0, x2, 0, 0)"
+              data-h2-width="base(100%)"
+            >
               <Select
                 id="currentClassificationGroup"
                 label={intl.formatMessage({

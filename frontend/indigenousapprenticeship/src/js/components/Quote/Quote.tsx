@@ -24,7 +24,10 @@ const Quote: React.FC<QuoteProps> = ({ content, author }) => (
         {content}
         <CloseQuote data-h2-position="base(absolute)" />
       </p>
-      <figcaption data-h2-font-size="base(h5, 1.3) l-tablet(h4, 1.3)" data-h2-font-weight="base(800)">
+      <figcaption
+        data-h2-font-size="base(h5, 1.3) l-tablet(h4, 1.3)"
+        data-h2-font-weight="base(700)"
+      >
         —{author}
       </figcaption>
     </blockquote>

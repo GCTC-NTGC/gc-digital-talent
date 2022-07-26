@@ -49,7 +49,7 @@ const Card = ({
         className="card__header"
         data-h2-display="base(block)"
         data-h2-font-size="base(h5, 1) laptop(h4, 1)"
-        data-h2-padding="base(all, s)"
+        data-h2-padding="base(x.5)"
         data-h2-margin="base(0)"
         data-h2-radius="base(s, s, 0, 0)"
         {...colorMap[color]}

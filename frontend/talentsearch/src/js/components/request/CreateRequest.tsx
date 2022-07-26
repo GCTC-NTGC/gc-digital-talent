@@ -30,6 +30,8 @@ import {
   Classification,
   OperationalRequirement,
   Pool,
+  Skill,
+  ApplicantFilterInput,
 } from "../../api/generated";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
 
@@ -59,7 +61,8 @@ type FormValues = {
 };
 export interface RequestFormProps {
   departments: Department[];
-  poolCandidateFilter: Maybe<PoolCandidateFilter>;
+  skills: Skill[];
+  poolCandidateFilter: Maybe<PoolCandidateFilter & ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues: Maybe<SearchFormValues>;
   handleCreatePoolCandidateSearchRequest: (
@@ -71,6 +74,7 @@ export interface RequestFormProps {
 
 export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   departments,
+  skills,
   poolCandidateFilter,
   candidateCount,
   searchFormInitialValues,
@@ -97,13 +101,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       additionalComments: values.additionalComments,
       poolCandidateFilter: {
         create: {
-          classifications: {
-            sync: poolCandidateFilter?.classifications
-              ? poolCandidateFilter?.classifications
-                  ?.filter(notEmpty)
-                  .map(({ id }) => id)
-              : [],
-          },
           cmoAssets: {
             sync: poolCandidateFilter?.cmoAssets
               ? poolCandidateFilter?.cmoAssets
@@ -125,6 +122,17 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           workRegions: poolCandidateFilter?.workRegions
             ? poolCandidateFilter?.workRegions
             : [],
+        },
+      },
+      applicantFilter: {
+        create: {
+          skills: {
+            sync: poolCandidateFilter?.skills
+              ? poolCandidateFilter?.skills
+                  ?.filter(notEmpty)
+                  .map(({ id }) => id)
+              : [],
+          },
         },
       },
       department: { connect: values.department ?? "" },
@@ -278,7 +286,10 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               description: "Title of Summary of filters section",
             })}
           </h2>
-          <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
+          <SearchRequestFilters
+            poolCandidateFilter={poolCandidateFilter}
+            allSkills={skills}
+          />
           <p
             data-h2-margin="base(x2, 0, x1, 0)"
             data-h2-font-weight="base(600)"
@@ -348,6 +359,7 @@ export const CreateRequest: React.FunctionComponent<{
 
   const departments: Department[] =
     lookupData?.departments.filter(notEmpty) ?? [];
+  const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
 
   const [, executeMutation] = useCreatePoolCandidateSearchRequestMutation();
   const handleCreatePoolCandidateSearchRequest = (
@@ -364,6 +376,7 @@ export const CreateRequest: React.FunctionComponent<{
     <Pending fetching={fetching} error={error}>
       <RequestForm
         departments={departments}
+        skills={skills}
         poolCandidateFilter={poolCandidateFilter}
         candidateCount={candidateCount}
         searchFormInitialValues={searchFormInitialValues}

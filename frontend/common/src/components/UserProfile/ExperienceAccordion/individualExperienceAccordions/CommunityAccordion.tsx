@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
+import UserGroupIcon from "@heroicons/react/solid/UserGroupIcon";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
 import { CommunityExperience } from "../../../../api/generated";
@@ -32,8 +32,16 @@ const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p data-h2-color="base(dt-primary)">{skill.name?.[locale]}</p>
-            <p>{skill.description?.[locale]}</p>
+            {skill.name[locale] && (
+              <p data-h2-color="base(dt-primary)">{skill.name[locale]}</p>
+            )}
+            {skill.description && skill.description[locale] && (
+              <p>{skill.description[locale]}</p>
+            )}
+            {skill.experienceSkillRecord &&
+              skill.experienceSkillRecord.details && (
+                <p>{skill.experienceSkillRecord.details}</p>
+              )}
           </li>
         </ul>
       ))
@@ -63,7 +71,7 @@ const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
               { skillsLength: skills?.length },
             )
       }
-      Icon={BriefCaseIcon}
+      Icon={UserGroupIcon}
       defaultOpen={defaultOpen}
     >
       {" "}

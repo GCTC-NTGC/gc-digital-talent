@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
+import LightBulbIcon from "@heroicons/react/solid/LightBulbIcon";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
 import { getLocale } from "../../../../helpers/localize";
@@ -30,8 +30,16 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p data-h2-color="base(dt-primary)">{skill.name?.[locale]}</p>
-            <p>{skill.description?.[locale]}</p>
+            {skill.name[locale] && (
+              <p data-h2-color="base(dt-primary)">{skill.name[locale]}</p>
+            )}
+            {skill.description && skill.description[locale] && (
+              <p>{skill.description[locale]}</p>
+            )}
+            {skill.experienceSkillRecord &&
+              skill.experienceSkillRecord.details && (
+                <p>{skill.experienceSkillRecord.details}</p>
+              )}
           </li>
         </ul>
       ))
@@ -55,7 +63,7 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
               { skillsLength: skills?.length },
             )
       }
-      Icon={BriefCaseIcon}
+      Icon={LightBulbIcon}
       defaultOpen={defaultOpen}
     >
       <div data-h2-padding="base(0, 0, 0, x2)">

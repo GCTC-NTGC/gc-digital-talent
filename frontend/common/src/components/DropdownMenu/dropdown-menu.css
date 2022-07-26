@@ -1,4 +1,5 @@
-[data-reach-menu-list], [data-reach-menu-items] {
+[data-reach-menu-list],
+[data-reach-menu-items] {
   padding: 0.5rem 0;
 }
 
@@ -7,5 +8,5 @@
 }
 
 [data-reach-menu-item][data-selected] {
-  background-color: #674C90;
+  background-color: #674c90;
 }

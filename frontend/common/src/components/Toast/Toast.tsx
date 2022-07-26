@@ -3,6 +3,7 @@ import { ToastContainer, Slide } from "react-toastify";
 import { XCircleIcon } from "@heroicons/react/solid";
 
 import "react-toastify/dist/ReactToastify.min.css";
+import "./toast.css";
 
 const contextClass = {
   success: "toast-success",
@@ -17,7 +18,12 @@ const CloseButton = ({
   closeToast,
 }: {
   closeToast: React.MouseEventHandler;
-}) => <XCircleIcon style={{ width: "1rem" }} onClick={closeToast} />;
+}) => (
+  <XCircleIcon
+    style={{ flexShrink: 0, height: "1rem", width: "1rem" }}
+    onClick={closeToast}
+  />
+);
 
 const Toast: React.FunctionComponent = () => (
   <ToastContainer
@@ -33,7 +39,9 @@ const Toast: React.FunctionComponent = () => (
     pauseOnHover
     role="alert"
     toastClassName={(classOptions) =>
-      `${contextClass[classOptions?.type || "default"]} toast`
+      `${contextClass[classOptions?.type || "default"]} toast ${
+        classOptions?.defaultClassName
+      }`
     }
     style={{ width: "400px" }}
     closeButton={CloseButton}

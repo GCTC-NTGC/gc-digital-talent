@@ -32,8 +32,16 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p data-h2-color="base(dt-primary)">{skill.name?.[locale]}</p>
-            <p>{skill.description?.[locale]}</p>
+            {skill.name[locale] && (
+              <p data-h2-color="base(dt-primary)">{skill.name[locale]}</p>
+            )}
+            {skill.description && skill.description[locale] && (
+              <p>{skill.description[locale]}</p>
+            )}
+            {skill.experienceSkillRecord &&
+              skill.experienceSkillRecord.details && (
+                <p>{skill.experienceSkillRecord.details}</p>
+              )}
           </li>
         </ul>
       ))

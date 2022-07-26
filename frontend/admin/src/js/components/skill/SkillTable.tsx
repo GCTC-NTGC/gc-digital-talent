@@ -46,9 +46,16 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
           defaultMessage: "Keywords",
           description: "Title displayed for the skill table Keywords column.",
         }),
+        // keywords[locale] throws type problems
         accessor: (skill) => {
-          if (skill.keywords && skill.keywords.length > 0)
-            return skill.keywords.join(", ");
+          if (locale === "en") {
+            if (skill.keywords && skill.keywords.en)
+              return skill.keywords.en.join(", ");
+          }
+          if (locale === "fr") {
+            if (skill.keywords && skill.keywords.fr)
+              return skill.keywords.fr.join(", ");
+          }
           return "";
         },
       },

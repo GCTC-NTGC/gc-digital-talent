@@ -8,7 +8,11 @@ import Content from "./Content";
 import "@reach/dialog/styles.css";
 import "./dialog.css";
 
-export type Color = "ts-primary" | "ia-primary" | "ia-secondary";
+export type Color =
+  | "ts-primary"
+  | "ts-secondary"
+  | "ia-primary"
+  | "ia-secondary";
 
 export interface DialogProps {
   isOpen: boolean;
@@ -24,6 +28,10 @@ export interface DialogProps {
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
     "data-h2-background-color": "base(dt-linear)",
+    "data-h2-color": "base(dt-white)",
+  },
+  "ts-secondary": {
+    "data-h2-background-color": "base(dt-secondary.light)",
     "data-h2-color": "base(dt-white)",
   },
   "ia-primary": {

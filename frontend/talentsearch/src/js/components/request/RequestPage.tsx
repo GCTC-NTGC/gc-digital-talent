@@ -1,13 +1,15 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
-import { PoolCandidateFilter } from "../../api/generated";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { ApplicantFilterInput, PoolCandidateFilter } from "../../api/generated";
 import { CreateRequest } from "./CreateRequest";
+import { CreateRequest as OldCreateRequest } from "./deprecated/CreateRequest";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
 
 type LocationState = {
   some: {
-    candidateFilter: PoolCandidateFilter;
+    candidateFilter: PoolCandidateFilter & ApplicantFilterInput;
     initialValues: SearchFormValues;
     candidateCount: number;
   };
@@ -20,6 +22,10 @@ const RequestPage: React.FunctionComponent = () => {
   const poolCandidateFilter = state ? state.some.candidateFilter : null;
   const initialValues = state ? state.some.initialValues : null;
   const candidateCount = state ? state.some.candidateCount : null;
+
+  const CreateRequestForm = checkFeatureFlag("FEATURE_APPLICANTSEARCH")
+    ? CreateRequest
+    : OldCreateRequest;
 
   return (
     <section
@@ -45,25 +51,11 @@ const RequestPage: React.FunctionComponent = () => {
         data-h2-margin="base(x3, 0, 0, 0) p-tablet(x6, 0, 0, 0)"
         data-h2-position="base(relative)"
       >
-        <div
-          data-h2-position="base(relative)"
-          data-h2-offset="base(-x2, auto, auto, auto) p-tablet(-x4, auto, auto, auto)"
-        >
-          <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
-            <div
-              data-h2-radius="base(s)"
-              data-h2-shadow="base(xl)"
-              data-h2-padding="base(x1) p-tablet(x2)"
-              data-h2-background-color="base(dt-white)"
-            >
-              <CreateRequest
-                poolCandidateFilter={poolCandidateFilter}
-                searchFormInitialValues={initialValues}
-                candidateCount={candidateCount}
-              />
-            </div>
-          </div>
-        </div>
+        <CreateRequestForm
+          poolCandidateFilter={poolCandidateFilter}
+          searchFormInitialValues={initialValues}
+          candidateCount={candidateCount}
+        />
       </div>
     </section>
   );

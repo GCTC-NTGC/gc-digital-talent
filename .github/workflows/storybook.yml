@@ -13,7 +13,8 @@ on:
 
 jobs:
   deployment:
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    # Never run automatically on first trigger event, only on manual re-run.
+    if: ${{ github.run_attempt > 1 }}
     runs-on: ubuntu-latest
     env:
       NPM_VERSION: '8.3.0'
@@ -23,7 +24,7 @@ jobs:
           # Chromatic requires full git history.
           fetch-depth: 0
 
-      - uses: actions/setup-node@v2.5.1
+      - uses: actions/setup-node@v3
         with:
           node-version-file: 'frontend/.nvmrc'
           cache: npm

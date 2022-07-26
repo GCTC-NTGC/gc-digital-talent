@@ -11,7 +11,7 @@ export interface InputLabelProps {
   contextIsVisible?: boolean;
   contextToggleHandler?: (contextIsActive: boolean) => void;
   hideOptional?: boolean;
-  addBottomMargin?: boolean;
+  hideBottomMargin?: boolean;
 }
 
 const InputLabel: React.FC<InputLabelProps> = ({
@@ -24,7 +24,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
   },
   contextIsVisible = false,
   hideOptional = false,
-  addBottomMargin = true,
+  hideBottomMargin = false,
 }): React.ReactElement => {
   const [contextIsActive, setContextIsActive] = useState(false);
   const clickHandler = () => {
@@ -33,26 +33,19 @@ const InputLabel: React.FC<InputLabelProps> = ({
   };
   const intl = useIntl();
 
-  const dynamicProps = {
-    ...(addBottomMargin
-      ? {
-          "data-h2-margin": "base(0, 0, x.125, 0)",
-        }
-      : undefined),
-  };
-
   return (
     <div
       data-h2-display="base(flex)"
       data-h2-flex-wrap="base(wrap)"
       data-h2-align-items="base(center)"
       data-h2-justify-content="base(flex-start)"
-      data-h2-margin="base(0, 0, x.125, 0)"
-      {...dynamicProps}
+      {...(!hideBottomMargin && {
+        "data-h2-margin": "base(0, 0, x.125, 0)",
+      })}
     >
       <label
         {...label_size}
-        data-h2-margin="base(right, xxs)"
+        data-h2-margin="base(0, x.125, 0, 0)"
         htmlFor={inputId}
       >
         {label}

@@ -5,6 +5,10 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import Dialog from "@common/components/Dialog";
 import { Checkbox } from "@common/components/form";
 
+import {
+  getEmploymentEquityGroup,
+  getEmploymentEquityStatement,
+} from "@common/constants";
 import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
@@ -40,11 +44,7 @@ const DisabilityDialogFooter: React.FC<EquityDialogFooterProps> = ({
         <Checkbox
           id="hasDisability"
           name="hasDisability"
-          label={intl.formatMessage({
-            defaultMessage: "I identify as a person with a disability.",
-            description:
-              "Label for the checkbox to identify as a person with a disability under employment equity",
-          })}
+          label={intl.formatMessage(getEmploymentEquityStatement("disability"))}
         />
         {children}
       </form>
@@ -65,11 +65,7 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
       isOpen={isOpen}
       onDismiss={onDismiss}
       color="ts-primary"
-      title={intl.formatMessage({
-        defaultMessage: "Persons with disabilities ",
-        description:
-          "Title for equity dialog to add/remove having a disability category to profile",
-      })}
+      title={intl.formatMessage(getEmploymentEquityGroup("disability"))}
       footer={
         <DisabilityDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogActions onDismiss={onDismiss} />

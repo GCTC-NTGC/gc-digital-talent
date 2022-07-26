@@ -133,7 +133,10 @@ export const CreateAccountForm: React.FunctionComponent<
               })}
             </p>
             <div>
-              <div data-h2-display="base(flex)" data-h2-margin="base(0, 0, x1, 0)">
+              <div
+                data-h2-display="base(flex)"
+                data-h2-margin="base(0, 0, x1, 0)"
+              >
                 <div style={{ flex: 1 }} data-h2-padding="base(0, x1, 0, 0)">
                   <Input
                     id="firstName"
@@ -154,7 +157,7 @@ export const CreateAccountForm: React.FunctionComponent<
                     }}
                   />
                 </div>
-                <div style={{ flex: 1 }} data-h2-padding="base(left, m)">
+                <div style={{ flex: 1 }} data-h2-padding="base(0, 0, 0, x1)">
                   <Input
                     id="lastName"
                     name="lastName"

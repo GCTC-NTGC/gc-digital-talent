@@ -5,8 +5,8 @@ import { SubmitHandler } from "react-hook-form";
 import { BasicForm, TextArea } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
-import Dialog from "@common/components/Dialog";
 import { Button } from "@common/components";
+import AlertDialog from "@common/components/AlertDialog";
 
 import { TrashIcon } from "@heroicons/react/solid";
 
@@ -69,6 +69,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   edit,
 }) => {
   const [isDialogOpen, setDialogOpen] = React.useState<boolean>(false);
+  const cancelDeleteRef = React.useRef(null);
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
@@ -82,32 +83,6 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
     const data = formValuesToSubmitData(experienceType, formValues);
     await onUpdateExperience(data);
   };
-  const deleteButton = (
-    <Button
-      type="submit"
-      mode="solid"
-      color="primary"
-      onClick={deleteExperience}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Delete",
-        description: "Delete confirmation",
-      })}
-    </Button>
-  );
-  const exitDialogButton = (
-    <Button
-      type="button"
-      mode="outline"
-      color="secondary"
-      onClick={() => setDialogOpen(false)}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Cancel",
-        description: "Cancel confirmation",
-      })}
-    </Button>
-  );
 
   return (
     <ProfileFormWrapper
@@ -203,29 +178,51 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           link={paths.skillsAndExperiences()}
         />
       </BasicForm>
-      <Dialog
+      <AlertDialog
+        isOpen={isDialogOpen}
+        onDismiss={() => setDialogOpen(false)}
+        leastDestructiveRef={cancelDeleteRef}
         title={intl.formatMessage({
           defaultMessage: "Are you sure?",
           description: "Delete confirmation",
         })}
-        isOpen={isDialogOpen}
-        onDismiss={() => setDialogOpen(false)}
-        footer={
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(space-between)"
-          >
-            {exitDialogButton}
-            {deleteButton}
-          </div>
-        }
       >
-        {intl.formatMessage({
-          defaultMessage:
-            "You are about to delete an experience from your profile. You will lose all information attached to it. Are you sure you want to delete this experience?",
-          description: "Warning prior to experience deletion",
-        })}
-      </Dialog>
+        <AlertDialog.Description>
+          {intl.formatMessage({
+            defaultMessage:
+              "Are you sure you would like to delete this experience from your profile? This action cannot be undone.",
+            description:
+              "Question displayed when a user attempts to delete an experience from their profile",
+          })}
+        </AlertDialog.Description>
+        <AlertDialog.Actions>
+          <Button
+            type="button"
+            mode="outline"
+            color="secondary"
+            ref={cancelDeleteRef}
+            onClick={() => setDialogOpen(false)}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Cancel",
+              description: "Cancel confirmation",
+            })}
+          </Button>
+          <span data-h2-margin="base(0, 0, 0, x.125)">
+            <Button
+              type="submit"
+              mode="solid"
+              color="primary"
+              onClick={deleteExperience}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Delete",
+                description: "Delete confirmation",
+              })}
+            </Button>
+          </span>
+        </AlertDialog.Actions>
+      </AlertDialog>
     </ProfileFormWrapper>
   );
 };

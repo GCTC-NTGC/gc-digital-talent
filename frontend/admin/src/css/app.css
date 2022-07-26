@@ -33,29 +33,3 @@
 [data-h2] .dashboard {
     flex-grow: 1;
 }
-
-[data-h2] .toast {
-    padding: .7rem 1rem .7rem 1rem;
-    display: flex;
-    justify-content: stretch;
-    align-items: center;
-    border-radius: .2rem;
-}
-
-[data-h2] .toast:last-child {
-    margin-top: 1rem;
-}
-
-[data-h2] .toast-success {
-    background-color: #F9C160;
-    color: #072131;
-    font-size: large;
-    font-weight: 600;
-}
-
-[data-h2] .toast-error {
-    background-color: #FF0000;
-    color: #FFFFFF;
-    font-size: large;
-    font-weight: 600;
-}

@@ -4,6 +4,10 @@ import { toast } from "react-toastify";
 
 import type { Maybe } from "@common/api/generated";
 
+import {
+  getEmploymentEquityGroup,
+  getEmploymentEquityStatement,
+} from "@common/constants";
 import profileMessages from "../profile/profileMessages";
 import Spinner from "../Spinner";
 import EquityOption from "./EquityOption";
@@ -88,51 +92,44 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
               })}
             </h3>
             {hasItems ? (
-              <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
-                {resolvedDisability && (
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+              >
+                {resolvedWoman && (
                   <EquityOption
                     isAdded
-                    onOpen={() => setDisabilityOpen(true)}
-                    title={intl.formatMessage({
-                      defaultMessage:
-                        '"I Identify as a person with a disability"',
-                      description:
-                        "Title for when someone indicates they have a disability on their profile",
-                    })}
+                    onOpen={() => setWomanOpen(true)}
+                    title={intl.formatMessage(
+                      getEmploymentEquityStatement("woman"),
+                    )}
                   />
                 )}
                 {resolvedIndigenous && (
                   <EquityOption
                     isAdded
                     onOpen={() => setIndigenousOpen(true)}
-                    title={intl.formatMessage({
-                      defaultMessage: '"I am Indigenous"',
-                      description:
-                        "Title for when someone indicates they are indigenous on their profile",
-                    })}
+                    title={intl.formatMessage(
+                      getEmploymentEquityStatement("indigenous"),
+                    )}
                   />
                 )}
                 {resolvedMinority && (
                   <EquityOption
                     isAdded
                     onOpen={() => setVisibleMinorityOpen(true)}
-                    title={intl.formatMessage({
-                      defaultMessage:
-                        '"I Identify as a member of a visible minority"',
-                      description:
-                        "Title for when someone indicates they are a visible minority on their profile",
-                    })}
+                    title={intl.formatMessage(
+                      getEmploymentEquityStatement("minority"),
+                    )}
                   />
                 )}
-                {resolvedWoman && (
+                {resolvedDisability && (
                   <EquityOption
                     isAdded
-                    onOpen={() => setWomanOpen(true)}
-                    title={intl.formatMessage({
-                      defaultMessage: '"I Identify as a woman"',
-                      description:
-                        "Title for when someone indicates they are a woman on their profile",
-                    })}
+                    onOpen={() => setDisabilityOpen(true)}
+                    title={intl.formatMessage(
+                      getEmploymentEquityStatement("disability"),
+                    )}
                   />
                 )}
               </div>
@@ -162,49 +159,44 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
               })}
             </h3>
             {itemsAvailable || !hasItems ? (
-              <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
-                {!hasDisability && (
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+              >
+                {!resolvedWoman && (
                   <EquityOption
-                    isAdded={false}
-                    onOpen={() => setDisabilityOpen(true)}
-                    title={intl.formatMessage({
-                      defaultMessage: "Persons with disabilities",
-                      description:
-                        "Title for button to learn more information about disabled equity definition",
-                    })}
+                    isAdded={resolvedWoman}
+                    onOpen={() => setWomanOpen(true)}
+                    title={intl.formatMessage(
+                      getEmploymentEquityGroup("woman"),
+                    )}
                   />
                 )}
                 {!resolvedIndigenous && (
                   <EquityOption
                     isAdded={false}
                     onOpen={() => setIndigenousOpen(true)}
-                    title={intl.formatMessage({
-                      defaultMessage: "Indigenous Identity",
-                      description:
-                        "Title for button to learn more information about indigenous equity definition",
-                    })}
+                    title={intl.formatMessage(
+                      getEmploymentEquityGroup("indigenous"),
+                    )}
                   />
                 )}
                 {!resolvedMinority && (
                   <EquityOption
                     isAdded={false}
                     onOpen={() => setVisibleMinorityOpen(true)}
-                    title={intl.formatMessage({
-                      defaultMessage: "Member of visible minorities",
-                      description:
-                        "Title for button to learn more information about visible minority equity definition",
-                    })}
+                    title={intl.formatMessage(
+                      getEmploymentEquityGroup("minority"),
+                    )}
                   />
                 )}
-                {!resolvedWoman && (
+                {!hasDisability && (
                   <EquityOption
-                    isAdded={resolvedWoman}
-                    onOpen={() => setWomanOpen(true)}
-                    title={intl.formatMessage({
-                      defaultMessage: "Women",
-                      description:
-                        "Title for button to learn more information about women equity definition",
-                    })}
+                    isAdded={false}
+                    onOpen={() => setDisabilityOpen(true)}
+                    title={intl.formatMessage(
+                      getEmploymentEquityGroup("disability"),
+                    )}
                   />
                 )}
               </div>

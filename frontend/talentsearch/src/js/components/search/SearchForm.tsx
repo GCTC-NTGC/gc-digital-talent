@@ -6,23 +6,24 @@ import debounce from "lodash/debounce";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
 import { getLanguageAbility } from "@common/constants";
 import {
+  getEmploymentEquityGroup,
   getOperationalRequirement,
   getWorkRegion,
+  OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
-import { getLocale } from "@common/helpers/localize";
 import { useLocation } from "@common/helpers/router";
 import {
   Classification,
-  CmoAsset,
   LanguageAbility,
-  OperationalRequirement,
   PoolCandidateFilter,
+  Skill,
   ApplicantFilterInput,
   WorkRegion,
   UserPoolFilterInput,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
+import AddSkillsToFilter from "../skills/AddSkillsToFilter";
 
 const NullSelection = "NULL_SELECTION";
 
@@ -41,7 +42,7 @@ export type FormValues = Pick<
   languageAbility: LanguageAbility | typeof NullSelection;
   employmentDuration: string | typeof NullSelection;
   classifications: string[] | undefined;
-  cmoAssets: string[] | undefined; // TODO REMOVE WHEN REPLACING CMOASSETS
+  skills: string[] | undefined;
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolId: string;
@@ -56,24 +57,22 @@ type LocationState = {
 
 export interface SearchFormProps {
   classifications: Classification[];
-  cmoAssets: CmoAsset[];
+  skills?: Skill[];
   onUpdateCandidateFilter: (filter: ApplicantFilterInput) => void;
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({
   classifications,
-  cmoAssets,
+  skills,
   onUpdateCandidateFilter,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const location = useLocation();
 
   const classificationMap = React.useMemo(
     () => mapIdToValue(classifications),
     [classifications],
   );
-  const assetMap = React.useMemo(() => mapIdToValue(cmoAssets), [cmoAssets]);
 
   // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
   const state = location.state as LocationState;
@@ -96,7 +95,13 @@ const SearchForm: React.FC<SearchFormProps> = ({
               ?.filter((id) => !!id)
               .map((id) => (id ? classificationMap.get(id) : undefined))
           : [],
-        pools: [{ id: values.poolId }],
+        skills: values.skills
+          ? values.skills
+              .filter((id) => !!id)
+              .map((id) => ({
+                id,
+              }))
+          : [],
         operationalRequirements: values.operationalRequirements
           ? unpackMaybes(values.operationalRequirements)
           : [],
@@ -136,7 +141,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, classificationMap, assetMap, onUpdateCandidateFilter]);
+  }, [watch, classificationMap, onUpdateCandidateFilter]);
 
   const classificationOptions: Option<string>[] = React.useMemo(
     () =>
@@ -146,30 +151,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
       })),
     [classifications],
   );
-
-  const cmoAssetOptions: Option<string>[] = React.useMemo(
-    () =>
-      cmoAssets.map(({ id, name }) => ({
-        value: id,
-        label:
-          name[locale] ??
-          intl.formatMessage({
-            defaultMessage: "Error: name not loaded",
-            description: "Error message for cmo asset filer on search form.",
-          }),
-      })),
-    [cmoAssets, locale, intl],
-  );
-
-  const operationalRequirementsSubsetV2 = [
-    OperationalRequirement.OvertimeOccasional,
-    OperationalRequirement.OvertimeRegular,
-    OperationalRequirement.ShiftWork,
-    OperationalRequirement.OnCall,
-    OperationalRequirement.Travel,
-    OperationalRequirement.TransportEquipment,
-    OperationalRequirement.DriversLicense,
-  ];
 
   return (
     <FormProvider {...methods}>
@@ -271,7 +252,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                 "Legend for the Conditions of Employment filter checklist",
             })}
             name="operationalRequirements"
-            items={operationalRequirementsSubsetV2.map((value) => ({
+            items={OperationalRequirementV2.map((value) => ({
               value,
               label: intl.formatMessage(getOperationalRequirement(value)),
             }))}
@@ -423,64 +404,29 @@ const SearchForm: React.FC<SearchFormProps> = ({
             })}
             items={[
               {
+                value: "isWoman",
+                label: intl.formatMessage(getEmploymentEquityGroup("woman")),
+              },
+              {
                 value: "isIndigenous",
-                label: intl.formatMessage({
-                  defaultMessage: "Indigenous",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
+                label: intl.formatMessage(
+                  getEmploymentEquityGroup("indigenous"),
+                ),
               },
               {
                 value: "isVisibleMinority",
-                label: intl.formatMessage({
-                  defaultMessage: "Member of a visible minority group",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
+                label: intl.formatMessage(getEmploymentEquityGroup("minority")),
               },
               {
                 value: "hasDisability",
-                label: intl.formatMessage({
-                  defaultMessage: "Person with a disability",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
-              },
-              {
-                value: "isWoman",
-                label: intl.formatMessage({
-                  defaultMessage: "Woman",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
+                label: intl.formatMessage(
+                  getEmploymentEquityGroup("disability"),
+                ),
               },
             ]}
           />
         </FilterBlock>
-        <FilterBlock
-          id="cmoAssetFilter"
-          title={intl.formatMessage({
-            defaultMessage: "Skill filters",
-            description:
-              "Heading for skill filters section of the search form.",
-          })}
-          text={intl.formatMessage({
-            defaultMessage:
-              "All applicants in this pool have been assessed for several soft skills.",
-            description:
-              "Message describing the skill filter in the search form.",
-          })}
-        >
-          <Checklist
-            idPrefix="cmoAssets"
-            legend={intl.formatMessage({
-              defaultMessage: "Skills organized by stream",
-              description: "Legend for Skills filter checklist",
-            })}
-            name="cmoAssets"
-            items={cmoAssetOptions}
-          />
-        </FilterBlock>
+        <AddSkillsToFilter allSkills={skills ?? []} />
       </form>
     </FormProvider>
   );

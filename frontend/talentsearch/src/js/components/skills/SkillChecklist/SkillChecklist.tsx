@@ -94,7 +94,7 @@ const Category: React.FunctionComponent<CategoryProps> = ({
 
   return (
     <div data-h2-flex-item="p-tablet(1of2)">
-      <p data-h2-font-weight="base(800)" data-h2-display="base(flex)">
+      <p data-h2-font-weight="base(700)" data-h2-display="base(flex)">
         &nbsp;
         {image}
         &nbsp;&nbsp;{title}
@@ -142,10 +142,7 @@ const SkillChecklist: React.FunctionComponent<SkillChecklistProps> = ({
   };
 
   return (
-    <div
-      data-h2-flex-grid="base(normal, 0, x1)"
-      data-testid="skillChecklist"
-    >
+    <div data-h2-flex-grid="base(normal, 0, x1)" data-testid="skillChecklist">
       {Object.keys(skillCategories).map((category) => {
         return (
           <Category

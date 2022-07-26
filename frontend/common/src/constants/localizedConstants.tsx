@@ -25,27 +25,64 @@ import {
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
-export const womanLocalized = {
-  defaultMessage: "I identify as a woman",
-  description: "Message for woman",
-};
+export const employmentEquityGroups = defineMessages({
+  woman: {
+    defaultMessage: "Woman",
+    description: "Group for when someone indicates they are a woman",
+  },
+  indigenous: {
+    defaultMessage: "Indigenous Identity",
+    description: "Group for when someone indicates they are indigenous",
+  },
+  minority: {
+    defaultMessage: "Member of a visible minority",
+    description: "Group for when someone indicates they are a visible minority",
+  },
+  disability: {
+    defaultMessage: "Person with a disability",
+    description: "Group for when someone indicates they have a disability",
+  },
+});
 
-export const indigenousLocalized = {
-  defaultMessage: "I am indigenous",
-  description: "Message for indigenous",
-};
+export const getEmploymentEquityGroup = (
+  equityGroup: keyof typeof employmentEquityGroups,
+): MessageDescriptor =>
+  getOrThrowError(
+    employmentEquityGroups,
+    equityGroup,
+    `Invalid equity group '${equityGroup}'`,
+  );
 
-export const minorityLocalized = {
-  defaultMessage: "I identify as a member of a visible minority group",
-  description: " Message for minority group",
-};
+export const employmentEquityStatements = defineMessages({
+  woman: {
+    defaultMessage: '"I identify as a woman"',
+    description: "Statement for when someone indicates they are a woman",
+  },
+  indigenous: {
+    defaultMessage: '"I am Indigenous"',
+    description: "Statement for when someone indicates they are indigenous",
+  },
+  minority: {
+    defaultMessage: '"I identify as a member of a visible minority"',
+    description:
+      "Statement for when someone indicates they are a visible minority",
+  },
+  disability: {
+    defaultMessage: '"I identify as a person with a disability"',
+    description: "Statement for when someone indicates they have a disability",
+  },
+});
 
-export const disabilityLocalized = {
-  defaultMessage: "I identify as a person with a disability",
-  description: "Message for person with a disability",
-};
+export const getEmploymentEquityStatement = (
+  equityStatement: keyof typeof employmentEquityStatements,
+): MessageDescriptor =>
+  getOrThrowError(
+    employmentEquityStatements,
+    equityStatement,
+    `Invalid equity statement '${equityStatement}'`,
+  );
 
-export const languageProficiency = {
+export const languageProficiency = defineMessages({
   [EstimatedLanguageAbility.Beginner]: {
     defaultMessage: "Beginner",
     description: "Beginner, skill level",
@@ -58,7 +95,7 @@ export const languageProficiency = {
     defaultMessage: "Advanced",
     description: "Advanced, skill level",
   },
-};
+});
 
 export const getLanguageProficiency = (
   languageProf: string | number,
@@ -536,7 +573,7 @@ export const getEducationType = (
     `Invalid educationType ${educationTypeId}`,
   );
 
-export const OperationalRequirementCandidateDescription = defineMessages({
+export const operationalRequirementLabelCandidateDescription = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "...has <strong>shift-work</strong>.",
     description: "The operational requirement described as shift work.",
@@ -586,16 +623,24 @@ export const OperationalRequirementCandidateDescription = defineMessages({
   },
 });
 
-export const getOperationalRequirementCandidateDescription = (
-  operationalRequirementId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    OperationalRequirementCandidateDescription,
-    operationalRequirementId,
-    `Invalid Operational Requirement '${operationalRequirementId}'`,
-  );
+export const OperationalRequirementV1 = [
+  OperationalRequirement.ShiftWork,
+  OperationalRequirement.WorkWeekends,
+  OperationalRequirement.OvertimeScheduled,
+  OperationalRequirement.OvertimeShortNotice,
+];
 
-export const operationalRequirements = defineMessages({
+export const OperationalRequirementV2 = [
+  OperationalRequirement.OvertimeOccasional,
+  OperationalRequirement.OvertimeRegular,
+  OperationalRequirement.ShiftWork,
+  OperationalRequirement.OnCall,
+  OperationalRequirement.Travel,
+  OperationalRequirement.TransportEquipment,
+  OperationalRequirement.DriversLicense,
+];
+
+export const operationalRequirementLabelFull = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "Availability, willingness and ability to work shift-work.",
     description: "The operational requirement described as shift work.",
@@ -653,14 +698,85 @@ export const operationalRequirements = defineMessages({
   },
 });
 
+export const operationalRequirementLabelShort = defineMessages({
+  [OperationalRequirement.ShiftWork]: {
+    id: "OperationalRequirement.ShiftWork.short",
+    defaultMessage: "Shift-work",
+    description:
+      "The operational requirement described as shift work. (short-form for limited space)",
+  },
+  [OperationalRequirement.OnCall]: {
+    id: "OperationalRequirement.OnCall.short",
+    defaultMessage: "24/7 on-call",
+    description:
+      "The operational requirement described as 24/7 on-call. (short-form for limited space)",
+  },
+  [OperationalRequirement.Travel]: {
+    id: "OperationalRequirement.Travel.short",
+    defaultMessage: "Travel as required",
+    description:
+      "The operational requirement described as travel as required. (short-form for limited space)",
+  },
+  [OperationalRequirement.TransportEquipment]: {
+    id: "OperationalRequirement.TransportEquipment.short",
+    defaultMessage: "Transport equipment up to 20kg",
+    description:
+      "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)",
+  },
+  [OperationalRequirement.DriversLicense]: {
+    id: "OperationalRequirement.DriversLicense.short",
+    defaultMessage: "Driver's license",
+    description:
+      "The operational requirement described as driver's license. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeRegular]: {
+    id: "OperationalRequirement.OvertimeRegular.short",
+    defaultMessage: "Overtime (regular)",
+    description:
+      "The operational requirement described as regular overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeOccasional]: {
+    id: "OperationalRequirement.OvertimeOccasional.short",
+    defaultMessage: "Overtime (occasional)",
+    description:
+      "The operational requirement described as occasional overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    id: "OperationalRequirement.OvertimeScheduled.short",
+    defaultMessage: "Work scheduled overtime",
+    description:
+      "The operational requirement described as scheduled overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    id: "OperationalRequirement.OvertimeShortNotice.short",
+    defaultMessage: "Work overtime on short notice",
+    description:
+      "The operational requirement described as short notice overtime. (short-form for limited space)",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    id: "OperationalRequirement.WorkWeekends.short",
+    defaultMessage: "Work weekends",
+    description:
+      "The operational requirement described as work weekends. (short-form for limited space)",
+  },
+});
+
 export const getOperationalRequirement = (
   operationalRequirementId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    operationalRequirements,
+  format: "candidateDescription" | "full" | "short" = "full",
+): MessageDescriptor => {
+  const messageDictionary = {
+    candidateDescription: operationalRequirementLabelCandidateDescription,
+    full: operationalRequirementLabelFull,
+    short: operationalRequirementLabelShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[format],
     operationalRequirementId,
     `Invalid Operational Requirement '${operationalRequirementId}'`,
   );
+};
 
 export const provinceOrTerritory = defineMessages({
   [ProvinceOrTerritory.Alberta]: {
@@ -728,13 +844,13 @@ export const JobLookingStatusDescription = defineMessages({
   },
   [JobLookingStatus.OpenToOpportunities]: {
     defaultMessage:
-      "<strong>Open to opportunities </strong> - Not actively looking but I still want to be contacted for job opportunities",
-    description: "Job Looking Status described as Actively looking.",
+      "<strong>Open to opportunities</strong> - Not actively looking but I still want to be contacted for job opportunities",
+    description: "Job Looking Status described as Open to opportunities.",
   },
   [JobLookingStatus.Inactive]: {
     defaultMessage:
       "<strong>Inactive</strong> - I do not currently want to be contacted for job opportunities",
-    description: "Job Looking Status described as Actively looking.",
+    description: "Job Looking Status described as Inactive.",
   },
 });
 

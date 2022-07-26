@@ -70,6 +70,11 @@ You can choose to ignore these additions, but they might be nice for you to know
   - if you need to access a light or dark version of a particular color, you can now use the modifier syntax to do so
     - for example, `light-purple` would now be `primary.light`
     - this also means you can set your own modifiers in `hydrogen.config.json` if new color variations are added
+- Attributes to check for:
+  - bg-color / background-color
+  - border
+  - font color / color
+  - overlay
 
 ### Size values
 - when accessing Hydrogen "sizes" you will now need to use a multiplier value instead of t-shirt sizes
