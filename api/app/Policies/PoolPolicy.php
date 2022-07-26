@@ -82,7 +82,7 @@ class PoolPolicy
     }
 
     /**
-     * Determine whether the user can extend the pool advertisement's expiry date.
+     * Determine whether the user can change the pool's expiry date.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Pool  $pool
