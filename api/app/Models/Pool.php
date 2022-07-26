@@ -101,7 +101,7 @@ class Pool extends Model
         // given database is functioning in UTC, all backend should consistently enforce the same timezone
         $isPublished = $this->is_published;
         $expiryDate = $this->expiry_date;
-        $currentTime = Carbon::now()->endOfDay();
+        $currentTime = date("Y-m-d H:i:s");
         $isExpired = $currentTime > $expiryDate ? true : false;
 
         if(!$isPublished){
