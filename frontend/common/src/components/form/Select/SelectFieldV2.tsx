@@ -6,6 +6,7 @@ import { InputWrapper } from "../../inputPartials";
 
 export type Option = { value: string | number; label: string };
 
+// TODO: Eventually extend react-select's Select Props, so that anything extra is passed through.
 export interface SelectFieldV2Props {
   /** Optional HTML id used to identify the element. Default: camelCase of `label`. */
   id?: string;
@@ -25,6 +26,7 @@ export interface SelectFieldV2Props {
   isMulti?: boolean;
   /** Whether to force all form values into array, even single Select. */
   forceArrayFormValue?: boolean;
+  isLoading?: boolean;
 }
 
 // User-defined type guard for react-select's readonly Options.
@@ -43,6 +45,7 @@ const SelectFieldV2 = ({
   placeholder,
   isMulti = false,
   forceArrayFormValue = false,
+  isLoading = false,
 }: SelectFieldV2Props): JSX.Element => {
   // Defaults from minimal attributes.
   id ??= camelCase(label); // eslint-disable-line no-param-reassign
@@ -99,7 +102,7 @@ const SelectFieldV2 = ({
                 <ReactSelect
                   isClearable={isMulti || !isRequired}
                   {...field}
-                  {...{ placeholder, options, isMulti }}
+                  {...{ placeholder, options, isMulti, isLoading }}
                   value={convertValueToOption(field.value)}
                   // This only affects react-hook-form state, not internal react-select state.
                   onChange={convertSingleOrMultiOptionsToValues}
