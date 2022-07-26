@@ -1081,5 +1081,13 @@
   "s3FrzP": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user attempts to logout"
+  },
+  "ivKwx0": {
+    "defaultMessage": "Déconnexion",
+    "description": "Title for the modal that appears when an authenticated user attempts to logout"
+  },
+  "6rhyxk": {
+    "defaultMessage": "Déconnexion",
+    "description": "Link text to logout."
   }
 }
