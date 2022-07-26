@@ -33,67 +33,103 @@ const GovernmentInformationSection: React.FunctionComponent<{
       data-h2-padding="base(x1)"
       data-h2-radius="base(s)"
     >
-      <ul data-h2-padding="base(0, 0, 0, x.5)">
-        {applicant.isGovEmployee && (
-          <>
-            <li>
-              {intl.formatMessage({
-                defaultMessage:
-                  "<strong>Yes</strong>, I am a Government of Canada employee.",
-                description: "Message to state user is employed by government",
-              })}
-            </li>
-            {applicant.department && (
-              <li>
-                {intl.formatMessage(
-                  {
-                    defaultMessage: "Department: <strong>{department}</strong>",
-                    description: "Message to state what department user is in.",
-                  },
-                  { department: applicant.department.name[locale] },
-                )}
-              </li>
-            )}
-            {applicant.govEmployeeType && (
-              <li>
-                {intl.formatMessage(getGovEmployeeType(govEmployeeTypeId))}
-              </li>
-            )}
-            {applicant.interestedInLaterOrSecondment && (
-              <li>
+      {applicant.isGovEmployee && (
+        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {/* // TODO add translation for label */}
+              Employee status:
+              <br />
+              <span data-h2-font-weight="base(700)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "I am interested in lateral deployment or secondment.",
+                    "<strong>Yes</strong>, I am a Government of Canada employee.",
                   description:
-                    "Message to state user is interested in lateral deployment or secondment",
+                    "Message to state user is employed by government",
                 })}
-              </li>
-            )}
-            {!!applicant.currentClassification?.group &&
-              !!applicant.currentClassification?.level && (
-                <li>
-                  {" "}
+              </span>
+            </p>
+          </div>
+          {applicant.department && (
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {/* // TODO add translation for label */}
+                Department:
+                <br />
+                <span data-h2-font-weight="base(700)">
+                  {/* // TODO remove department from INTL message */}
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "Department: <strong>{department}</strong>",
+                      description:
+                        "Message to state what department user is in.",
+                    },
+                    { department: applicant.department.name[locale] },
+                  )}
+                </span>
+              </p>
+            </div>
+          )}
+          {applicant.govEmployeeType && (
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {/* // TODO add translation for label */}
+                Employment type:
+                <br />
+                <span data-h2-font-weight="base(700)">
+                  {intl.formatMessage(getGovEmployeeType(govEmployeeTypeId))}
+                </span>
+              </p>
+            </div>
+          )}
+          {applicant.interestedInLaterOrSecondment && (
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {/* // TODO add translation for label */}
+                Deployment preferences:
+                <br />
+                <span data-h2-font-weight="base(700)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "I am interested in lateral deployment or secondment.",
+                    description:
+                      "Message to state user is interested in lateral deployment or secondment",
+                  })}
+                </span>
+              </p>
+            </div>
+          )}
+          {!!applicant.currentClassification?.group &&
+            !!applicant.currentClassification?.level && (
+              <div data-h2-flex-item="base(1of1)">
+                <p>
                   {intl.formatMessage({
                     defaultMessage: "Current group and classification:",
                     description:
                       "Field label before government employment group and level, followed by colon",
-                  })}{" "}
+                  })}
+                  <br />
                   <span data-h2-font-weight="base(700)">
                     {applicant.currentClassification?.group}-
                     {applicant.currentClassification?.level}
                   </span>
-                </li>
-              )}
-          </>
-        )}
-        {applicant.isGovEmployee === null && editPath && (
-          <>
+                </p>
+              </div>
+            )}
+        </div>
+      )}
+      {applicant.isGovEmployee === null && editPath && (
+        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+          <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
                 defaultMessage: "You haven't added any information here yet.",
                 description: "Message for when no data exists for the section",
               })}
             </p>
+          </div>
+          <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
                 defaultMessage: "There are <red>required</red> fields missing.",
@@ -108,37 +144,50 @@ const GovernmentInformationSection: React.FunctionComponent<{
                 })}
               </a>
             </p>
-          </>
-        )}
-        {applicant.isGovEmployee === null && !editPath && (
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "No information has been provided.",
-              description:
-                "Message on Admin side when user not filled GovernmentInformation section.",
-            })}
-          </p>
-        )}
-        {applicant.isGovEmployee === false && editPath && (
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "You are not entered as a current government employee.",
-              description:
-                "Message indicating the user is not marked in the system as being federally employed currently",
-            })}
-          </p>
-        )}
-        {applicant.isGovEmployee === false && !editPath && (
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "I am not a current government employee.",
-              description:
-                "Message indicating the user is not marked in the system as being federally employed currently",
-            })}
-          </p>
-        )}
-      </ul>
+          </div>
+        </div>
+      )}
+
+      {applicant.isGovEmployee === null && !editPath && (
+        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "No information has been provided.",
+                description:
+                  "Message on Admin side when user not filled GovernmentInformation section.",
+              })}
+            </p>
+          </div>
+        </div>
+      )}
+      {applicant.isGovEmployee === false && editPath && (
+        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "You are not entered as a current government employee.",
+                description:
+                  "Message indicating the user is not marked in the system as being federally employed currently",
+              })}
+            </p>
+          </div>
+        </div>
+      )}
+      {applicant.isGovEmployee === false && !editPath && (
+        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "I am not a current government employee.",
+                description:
+                  "Message indicating the user is not marked in the system as being federally employed currently",
+              })}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

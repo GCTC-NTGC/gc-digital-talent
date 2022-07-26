@@ -5,17 +5,35 @@ const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
 require('dotenv').config({ path: './.env' });
+var shell = require("shelljs");
 
 module.exports = {
   entry: {
     app: [
       "./src/js/pageContainer.tsx",
       "../common/src/css/hydrogen.css",
+      "../common/src/css/hydrogen.vars.css",
       "../common/src/css/common.css",
       "./src/css/app.css",
     ],
   },
+  watchOptions: {
+    ignored: ['/node_modules/', '**/hydrogen.css', '**/hydrogen.vars.css', '**/hydrogen-logs/' ]
+  },
   plugins: [
+
+    //
+    // =========================================================================
+    // Run Hydrogen on Webpack's compile hook
+    // Note that it's necessary to cd back into the common folder first, so should our workspaces layout change, this path will need to be updated.
+    {
+      apply: (compiler) => {
+        compiler.hooks.beforeCompile.tap("Run Hydrogen", () => {
+          shell.exec('(cd ../common;node node_modules/@hydrogen-design-system/hydrogen.css/bin/build.js)');
+        });
+      },
+    },
+
     // process and copy CSS files
     new MiniCssExtractPlugin({ filename: "[name].css?id=[contenthash]" }),
 

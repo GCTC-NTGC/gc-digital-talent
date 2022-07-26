@@ -38,61 +38,68 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       data-h2-padding="base(x1)"
       data-h2-radius="base(s)"
     >
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="p-tablet(row) base(column)"
-        data-h2-justify-content="base(space-between)"
-      >
-        <div>
-          {(!!firstName || !!lastName) && (
+      <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+        {(!!firstName || !!lastName) && (
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
               {intl.formatMessage({
                 defaultMessage: "Name:",
                 description: "Name label and colon",
-              })}{" "}
+              })}
+              <br />
               <span data-h2-font-weight="base(700)">
                 {firstName} {lastName}
               </span>
             </p>
-          )}
-          {!!email && (
+          </div>
+        )}
+        {!!email && (
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
               {intl.formatMessage({
                 defaultMessage: "Email:",
                 description: "Email label and colon",
-              })}{" "}
+              })}
+              <br />
               <span data-h2-font-weight="base(700)">{email}</span>
             </p>
-          )}
-          {!!telephone && (
+          </div>
+        )}
+        {!!telephone && (
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
               {intl.formatMessage({
                 defaultMessage: "Phone:",
                 description: "Phone label and colon",
-              })}{" "}
+              })}
+              <br />
               <span data-h2-font-weight="base(700)">{telephone}</span>
             </p>
-          )}
-        </div>
-        <div>
-          {!!preferredLang && (
+          </div>
+        )}
+        {!!preferredLang && (
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
               {intl.formatMessage({
                 defaultMessage: "Preferred Communication Language:",
                 description:
                   "Preferred Language for communication purposes label and colon",
-              })}{" "}
+              })}
+              <br />
               <span data-h2-font-weight="base(700)">
                 {preferredLang ? getLanguage(preferredLang).defaultMessage : ""}
               </span>
             </p>
-          )}
-          {!!currentCity && !!currentProvince && (
+          </div>
+        )}
+        {!!currentCity && !!currentProvince && (
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
               {intl.formatMessage({
                 defaultMessage: "Current Location:",
                 description: "Current Location label and colon",
-              })}{" "}
+              })}
+              <br />
               <span data-h2-font-weight="base(700)">
                 {currentCity},{" "}
                 {currentProvince
@@ -100,8 +107,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                   : ""}
               </span>
             </p>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       {!firstName &&
         !lastName &&
@@ -110,12 +117,17 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !preferredLang &&
         !currentCity &&
         !currentProvince && (
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "You haven't added any information here yet.",
-              description: "Message for when no data exists for the section",
-            })}
-          </p>
+          <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+            <div data-h2-flex-item="base(1of1)">
+              <p data-h2-color="base(dt-gray.dark)">
+                {intl.formatMessage({
+                  defaultMessage: "You haven't added any information here yet.",
+                  description:
+                    "Message for when no data exists for the section",
+                })}
+              </p>
+            </div>
+          </div>
         )}
       {(!firstName ||
         !lastName ||
@@ -124,19 +136,24 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !preferredLang ||
         !currentCity ||
         !currentProvince) && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "There are <red>required</red> fields missing.",
-            description:
-              "Message that there are required fields missing. Please ignore things in <> tags.",
-          })}{" "}
-          <a href={editPath}>
-            {intl.formatMessage({
-              defaultMessage: "Click here to get started.",
-              description: "Message to click on the words to begin something",
-            })}
-          </a>
-        </p>
+        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "There are <red>required</red> fields missing.",
+                description:
+                  "Message that there are required fields missing. Please ignore things in <> tags.",
+              })}{" "}
+              <a href={editPath}>
+                {intl.formatMessage({
+                  defaultMessage: "Click here to get started.",
+                  description:
+                    "Message to click on the words to begin something",
+                })}
+              </a>
+            </p>
+          </div>
+        </div>
       )}
     </div>
   );

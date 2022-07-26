@@ -68,7 +68,16 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 data-h2-margin="base(x2, 0)">{userName}</h1>
+        <h1
+          data-h2-margin="base(x2, 0)"
+          data-h2-font-weight="base(700)"
+          style={{
+            letterSpacing: "-2px",
+            textShadow: "0 3px 3px rgba(10, 10, 10, .3)",
+          }}
+        >
+          {userName}
+        </h1>
       </div>
 
       <UserProfile

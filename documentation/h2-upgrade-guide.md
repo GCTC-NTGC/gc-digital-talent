@@ -106,7 +106,7 @@ You can choose to ignore these additions, but they might be nice for you to know
 
 ### Border syntax
 - `border` has been reworked to follow more closely with its CSS syntax
-  - `border="b(color, width, style, color)"` => `border="base(sides, width, style, color)"`
+  - `border="b(color, side, style, size)"` => `border="base(sides, width, style, color)"`
 
 ## Smaller changes
 - `bg-color` => `background-color` (though the original syntax will still work for now)

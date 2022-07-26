@@ -11,7 +11,7 @@ const CancelButton: React.FunctionComponent<{ link?: string }> = ({ link }) => {
     <Link
       href={link || profilePaths.home()}
       color="secondary"
-      mode="outline"
+      mode="inline"
       data-h2-display="p-tablet(inline-flex)"
       data-h2-width="base(auto)"
       data-h2-align-items="base(center)"

@@ -54,10 +54,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
   return (
     <section>
       {breadcrumbs}
-      <div
-        data-h2-margin="base(auto, 0) p-tablet(auto, x4)"
-        data-h2-width="base(100%) p-tablet(75%)"
-      >
+      <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
         <div data-h2-margin="base(x2, auto)">
           <CancelButton link={cancelLink} />
         </div>

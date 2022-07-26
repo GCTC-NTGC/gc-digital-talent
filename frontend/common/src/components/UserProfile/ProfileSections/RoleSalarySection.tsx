@@ -27,54 +27,64 @@ const RoleSalarySection: React.FunctionComponent<{
         data-h2-padding="base(x1)"
         data-h2-radius="base(s)"
       >
-        {anyCriteriaSelected && (
-          <>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "I would like to be referred for jobs at the following levels:",
-                description: "Label for Role and salary expectations sections",
-              })}
-            </p>
-            <ul data-h2-padding="base(0, 0, 0, x2)">
-              {expectedClassificationArray}
-            </ul>
-          </>
-        )}
-        {!anyCriteriaSelected && editPath && (
-          <>
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "You haven't added any information here yet.",
-                description: "Message for when no data exists for the section",
-              })}
-            </p>
-
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "There are <red>required</red> fields missing.",
-                description:
-                  "Message that there are required fields missing. Please ignore things in <> tags.",
-              })}{" "}
-              <a href={editPath}>
+        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+          {anyCriteriaSelected && (
+            <div data-h2-flex-item="base(1of1)">
+              <p>
                 {intl.formatMessage({
-                  defaultMessage: "Click here to get started.",
+                  defaultMessage:
+                    "I would like to be referred for jobs at the following levels:",
                   description:
-                    "Message to click on the words to begin something",
+                    "Label for Role and salary expectations sections",
                 })}
-              </a>
-            </p>
-          </>
-        )}
-        {!anyCriteriaSelected && !editPath && (
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "No information has been provided.",
-              description:
-                "Message on Admin side when user not filled RoleSalary section.",
-            })}
-          </p>
-        )}
+              </p>
+              <ul data-h2-padding="base(0, 0, 0, x2)">
+                {expectedClassificationArray}
+              </ul>
+            </div>
+          )}
+          {!anyCriteriaSelected && editPath && (
+            <div data-h2-flex-item="base(1of1)">
+              <p data-h2-color="base(dt-gray.dark)">
+                {intl.formatMessage({
+                  defaultMessage: "You haven't added any information here yet.",
+                  description:
+                    "Message for when no data exists for the section",
+                })}
+              </p>
+            </div>
+          )}
+          {!anyCriteriaSelected && editPath && (
+            <div data-h2-flex-item="base(1of1)">
+              <p data-h2-color="base(dt-gray.dark)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "There are <red>required</red> fields missing.",
+                  description:
+                    "Message that there are required fields missing. Please ignore things in <> tags.",
+                })}{" "}
+                <a href={editPath}>
+                  {intl.formatMessage({
+                    defaultMessage: "Click here to get started.",
+                    description:
+                      "Message to click on the words to begin something",
+                  })}
+                </a>
+              </p>
+            </div>
+          )}
+          {!anyCriteriaSelected && !editPath && (
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "No information has been provided.",
+                  description:
+                    "Message on Admin side when user not filled RoleSalary section.",
+                })}
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

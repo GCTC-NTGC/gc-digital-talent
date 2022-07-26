@@ -53,11 +53,17 @@ export interface UserProfileProps {
 
 const HeadingWrapper: React.FC<{ show: boolean }> = ({ children, show }) => {
   if (!show && children) {
-    return <div>{children}</div>;
+    return (
+      <div data-h2-padding="base(x3, 0, x1, 0)">
+        <div data-h2-flex-grid="base(center, 0, x2, x1)">{children}</div>
+      </div>
+    );
   }
 
   return (
-    <div style={{ display: "flex", alignItems: "baseline" }}>{children}</div>
+    <div data-h2-padding="base(x3, 0, x1, 0)">
+      <div data-h2-flex-grid="base(center, 0, x2, x1)">{children}</div>
+    </div>
   );
 };
 
@@ -161,26 +167,32 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("myStatus") && (
           <TableOfContents.Section id="status-section">
             <HeadingWrapper show={!!sections.myStatus?.editUrl}>
-              <TableOfContents.Heading
-                as="h3"
-                icon={LightBulbIcon}
-                style={{ flex: "1 1 0%" }}
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "My Status",
-                  description: "Title of the my status content section",
-                })}
-              </TableOfContents.Heading>
-              {sections.myStatus?.editUrl && (
-                <Link
-                  href={sections.myStatus.editUrl}
-                  data-h2-color="base(dt-primary)"
-                >
+                <TableOfContents.Heading as="h3" icon={LightBulbIcon}>
                   {intl.formatMessage({
-                    defaultMessage: "Edit My Status",
-                    description: "Text on link to update a users status.",
+                    defaultMessage: "My Status",
+                    description: "Title of the my status content section",
                   })}
-                </Link>
+                </TableOfContents.Heading>
+              </div>
+              {sections.myStatus?.editUrl && (
+                <div
+                  data-h2-flex-item="base(1of1) p-tablet(content)"
+                  data-h2-text-align="base(center) p-tablet(right)"
+                >
+                  <Link
+                    href={sections.myStatus.editUrl}
+                    data-h2-color="base(dt-primary)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Edit My Status",
+                      description: "Text on link to update a users status.",
+                    })}
+                  </Link>
+                </div>
               )}
             </HeadingWrapper>
             {sections.myStatus?.override ? sections.myStatus.override : null}
@@ -189,26 +201,33 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("hiringPools") && (
           <TableOfContents.Section id="pools-section">
             <HeadingWrapper show={!!sections.hiringPools?.editUrl}>
-              <TableOfContents.Heading
-                as="h3"
-                icon={UserGroupIcon}
-                style={{ flex: "1 1 0%" }}
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "My hiring pools",
-                  description: "Title of the my hiring pools content section",
-                })}
-              </TableOfContents.Heading>
-              {sections.hiringPools?.editUrl && (
-                <Link
-                  href={sections.hiringPools.editUrl}
-                  data-h2-color="base(dt-primary)"
-                >
+                <TableOfContents.Heading as="h3" icon={UserGroupIcon}>
                   {intl.formatMessage({
-                    defaultMessage: "Edit My Hiring Pools",
-                    description: "Text on link to update a users hiring pools.",
+                    defaultMessage: "My hiring pools",
+                    description: "Title of the my hiring pools content section",
                   })}
-                </Link>
+                </TableOfContents.Heading>
+              </div>
+              {sections.hiringPools?.editUrl && (
+                <div
+                  data-h2-flex-item="base(1of1) p-tablet(content)"
+                  data-h2-text-align="base(center) p-tablet(right)"
+                >
+                  <Link
+                    href={sections.hiringPools.editUrl}
+                    data-h2-color="base(dt-primary)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Edit My Hiring Pools",
+                      description:
+                        "Text on link to update a users hiring pools.",
+                    })}
+                  </Link>
+                </div>
               )}
             </HeadingWrapper>
             {sections.hiringPools?.override ? (
@@ -221,27 +240,33 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("about") && (
           <TableOfContents.Section id="about-section">
             <HeadingWrapper show={!!sections.about?.editUrl}>
-              <TableOfContents.Heading
-                as="h3"
-                icon={UserIcon}
-                style={{ flex: "1 1 0%" }}
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "About",
-                  description: "Title of the about content section",
-                })}
-              </TableOfContents.Heading>
-              {sections.about?.editUrl && (
-                <Link
-                  href={sections.about.editUrl}
-                  data-h2-color="base(dt-primary)"
-                >
+                <TableOfContents.Heading as="h3" icon={UserIcon}>
                   {intl.formatMessage({
-                    defaultMessage: "Edit About Me",
-                    description:
-                      "Text on link to update a users personal information.",
+                    defaultMessage: "About",
+                    description: "Title of the about content section",
                   })}
-                </Link>
+                </TableOfContents.Heading>
+              </div>
+              {sections.about?.editUrl && (
+                <div
+                  data-h2-flex-item="base(1of1) p-tablet(content)"
+                  data-h2-text-align="base(center) p-tablet(right)"
+                >
+                  <Link
+                    href={sections.about.editUrl}
+                    data-h2-color="base(dt-primary)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Edit About Me",
+                      description:
+                        "Text on link to update a users personal information.",
+                    })}
+                  </Link>
+                </div>
               )}
             </HeadingWrapper>
             {sections.about?.override ? (
@@ -257,28 +282,34 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("language") && (
           <TableOfContents.Section id="language-section">
             <HeadingWrapper show={!!sections.language?.editUrl}>
-              <TableOfContents.Heading
-                as="h3"
-                icon={ChatAlt2Icon}
-                style={{ flex: "1 1 0%" }}
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "Language Information",
-                  description:
-                    "Title of the Language Information content section",
-                })}
-              </TableOfContents.Heading>
-              {sections.language?.editUrl && (
-                <Link
-                  href={sections.language.editUrl}
-                  data-h2-color="base(dt-primary)"
-                >
+                <TableOfContents.Heading as="h3" icon={ChatAlt2Icon}>
                   {intl.formatMessage({
-                    defaultMessage: "Edit Language Information",
+                    defaultMessage: "Language Information",
                     description:
-                      "Text on link to update a users language information.",
+                      "Title of the Language Information content section",
                   })}
-                </Link>
+                </TableOfContents.Heading>
+              </div>
+              {sections.language?.editUrl && (
+                <div
+                  data-h2-flex-item="base(1of1) p-tablet(content)"
+                  data-h2-text-align="base(center) p-tablet(right)"
+                >
+                  <Link
+                    href={sections.language.editUrl}
+                    data-h2-color="base(dt-primary)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Edit Language Information",
+                      description:
+                        "Text on link to update a users language information.",
+                    })}
+                  </Link>
+                </div>
               )}
             </HeadingWrapper>
             {sections.language?.override ? (
@@ -294,28 +325,34 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("government") && (
           <TableOfContents.Section id="government-section">
             <HeadingWrapper show={!!sections.government?.editUrl}>
-              <TableOfContents.Heading
-                as="h3"
-                icon={LibraryIcon}
-                style={{ flex: "1 1 0%" }}
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "Government Information",
-                  description:
-                    "Title of the Government Information content section",
-                })}
-              </TableOfContents.Heading>
-              {sections.government?.editUrl && (
-                <Link
-                  href={sections.government.editUrl}
-                  data-h2-color="base(dt-primary)"
-                >
+                <TableOfContents.Heading as="h3" icon={LibraryIcon}>
                   {intl.formatMessage({
-                    defaultMessage: "Edit Government Information",
+                    defaultMessage: "Government Information",
                     description:
-                      "Text on link to update a users government information.",
+                      "Title of the Government Information content section",
                   })}
-                </Link>
+                </TableOfContents.Heading>
+              </div>
+              {sections.government?.editUrl && (
+                <div
+                  data-h2-flex-item="base(1of1) p-tablet(content)"
+                  data-h2-text-align="base(center) p-tablet(right)"
+                >
+                  <Link
+                    href={sections.government.editUrl}
+                    data-h2-color="base(dt-primary)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Edit Government Information",
+                      description:
+                        "Text on link to update a users government information.",
+                    })}
+                  </Link>
+                </div>
               )}
             </HeadingWrapper>
             {sections.government?.override ? (
@@ -331,27 +368,33 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("workLocation") && (
           <TableOfContents.Section id="work-location-section">
             <HeadingWrapper show={!!sections.workLocation?.editUrl}>
-              <TableOfContents.Heading
-                as="h3"
-                icon={LocationMarkerIcon}
-                style={{ flex: "1 1 0%" }}
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "Work Location",
-                  description: "Title of the Work Location content section",
-                })}
-              </TableOfContents.Heading>
-              {sections.workLocation?.editUrl && (
-                <Link
-                  href={sections.workLocation.editUrl}
-                  data-h2-color="base(dt-primary)"
-                >
+                <TableOfContents.Heading as="h3" icon={LocationMarkerIcon}>
                   {intl.formatMessage({
-                    defaultMessage: "Edit Work Location",
-                    description:
-                      "Text on link to update a users work location.",
+                    defaultMessage: "Work Location",
+                    description: "Title of the Work Location content section",
                   })}
-                </Link>
+                </TableOfContents.Heading>
+              </div>
+              {sections.workLocation?.editUrl && (
+                <div
+                  data-h2-flex-item="base(1of1) p-tablet(content)"
+                  data-h2-text-align="base(center) p-tablet(right)"
+                >
+                  <Link
+                    href={sections.workLocation.editUrl}
+                    data-h2-color="base(dt-primary)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Edit Work Location",
+                      description:
+                        "Text on link to update a users work location.",
+                    })}
+                  </Link>
+                </div>
               )}
             </HeadingWrapper>
             {sections.workLocation?.override ? (
@@ -367,27 +410,34 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("workPreferences") && (
           <TableOfContents.Section id="work-preferences-section">
             <HeadingWrapper show={!!sections.workPreferences?.editUrl}>
-              <TableOfContents.Heading
-                as="h3"
-                icon={ThumbUpIcon}
-                style={{ flex: "1 1 0%" }}
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "Work Preferences",
-                  description: "Title of the Work Preferences content section",
-                })}
-              </TableOfContents.Heading>
-              {sections.workPreferences?.editUrl && (
-                <Link
-                  href={sections.workPreferences.editUrl}
-                  data-h2-color="base(dt-primary)"
-                >
+                <TableOfContents.Heading as="h3" icon={ThumbUpIcon}>
                   {intl.formatMessage({
-                    defaultMessage: "Edit Work Preferences",
+                    defaultMessage: "Work Preferences",
                     description:
-                      "Text on link to update a users work preferences.",
+                      "Title of the Work Preferences content section",
                   })}
-                </Link>
+                </TableOfContents.Heading>
+              </div>
+              {sections.workPreferences?.editUrl && (
+                <div
+                  data-h2-flex-item="base(1of1) p-tablet(content)"
+                  data-h2-text-align="base(center) p-tablet(right)"
+                >
+                  <Link
+                    href={sections.workPreferences.editUrl}
+                    data-h2-color="base(dt-primary)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Edit Work Preferences",
+                      description:
+                        "Text on link to update a users work preferences.",
+                    })}
+                  </Link>
+                </div>
               )}
             </HeadingWrapper>
             {sections.workPreferences?.override ? (
@@ -403,28 +453,34 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("employmentEquity") && (
           <TableOfContents.Section id="diversity-equity-inclusion-section">
             <HeadingWrapper show={!!sections.employmentEquity?.editUrl}>
-              <TableOfContents.Heading
-                as="h3"
-                icon={UserCircleIcon}
-                style={{ flex: "1 1 0%" }}
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "Diversity, equity and inclusion",
-                  description:
-                    "Title of the Diversity, equity and inclusion content section",
-                })}
-              </TableOfContents.Heading>
-              {sections.employmentEquity?.editUrl && (
-                <Link
-                  href={sections.employmentEquity.editUrl}
-                  data-h2-color="base(dt-primary)"
-                >
+                <TableOfContents.Heading as="h3" icon={UserCircleIcon}>
                   {intl.formatMessage({
-                    defaultMessage: "Edit Diversity, Equity and Inclusion",
+                    defaultMessage: "Diversity, equity and inclusion",
                     description:
-                      "Text on link to update a users employment equity.",
+                      "Title of the Diversity, equity and inclusion content section",
                   })}
-                </Link>
+                </TableOfContents.Heading>
+              </div>
+              {sections.employmentEquity?.editUrl && (
+                <div
+                  data-h2-flex-item="base(1of1) p-tablet(content)"
+                  data-h2-text-align="base(center) p-tablet(right)"
+                >
+                  <Link
+                    href={sections.employmentEquity.editUrl}
+                    data-h2-color="base(dt-primary)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Edit Diversity, Equity and Inclusion",
+                      description:
+                        "Text on link to update a users employment equity.",
+                    })}
+                  </Link>
+                </div>
               )}
             </HeadingWrapper>
             {sections.employmentEquity?.override ? (
@@ -440,28 +496,34 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("roleSalary") && (
           <TableOfContents.Section id="role-and-salary-section">
             <HeadingWrapper show={!!sections.roleSalary?.editUrl}>
-              <TableOfContents.Heading
-                as="h3"
-                icon={CurrencyDollarIcon}
-                style={{ flex: "1 1 0%" }}
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "Role and salary expectations",
-                  description:
-                    "Title of the Role and salary expectations section",
-                })}
-              </TableOfContents.Heading>
-              {sections.roleSalary?.editUrl && (
-                <Link
-                  href={sections.roleSalary.editUrl}
-                  data-h2-color="base(dt-primary)"
-                >
+                <TableOfContents.Heading as="h3" icon={CurrencyDollarIcon}>
                   {intl.formatMessage({
-                    defaultMessage: "Edit Role and Salary",
+                    defaultMessage: "Role and salary expectations",
                     description:
-                      "Text on link to update a users role and salary expectations.",
+                      "Title of the Role and salary expectations section",
                   })}
-                </Link>
+                </TableOfContents.Heading>
+              </div>
+              {sections.roleSalary?.editUrl && (
+                <div
+                  data-h2-flex-item="base(1of1) p-tablet(content)"
+                  data-h2-text-align="base(center) p-tablet(right)"
+                >
+                  <Link
+                    href={sections.roleSalary.editUrl}
+                    data-h2-color="base(dt-primary)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Edit Role and Salary",
+                      description:
+                        "Text on link to update a users role and salary expectations.",
+                    })}
+                  </Link>
+                </div>
               )}
             </HeadingWrapper>
             {sections.roleSalary?.override ? (
@@ -477,28 +539,34 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("skillsExperience") && (
           <TableOfContents.Section id="skills-and-experience-section">
             <HeadingWrapper show={!!sections.skillsExperience?.editUrl}>
-              <TableOfContents.Heading
-                as="h3"
-                icon={LightningBoltIcon}
-                style={{ flex: "1 1 0%" }}
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "My skills and experience",
-                  description:
-                    "Title of the My skills and experience content section",
-                })}
-              </TableOfContents.Heading>
-              {sections.skillsExperience?.editUrl && (
-                <Link
-                  href={sections.skillsExperience.editUrl}
-                  data-h2-color="base(dt-primary)"
-                >
+                <TableOfContents.Heading as="h3" icon={LightningBoltIcon}>
                   {intl.formatMessage({
-                    defaultMessage: "Edit Skills and Experience",
+                    defaultMessage: "My skills and experience",
                     description:
-                      "Text on link to update a users skills and experiences.",
+                      "Title of the My skills and experience content section",
                   })}
-                </Link>
+                </TableOfContents.Heading>
+              </div>
+              {sections.skillsExperience?.editUrl && (
+                <div
+                  data-h2-flex-item="base(1of1) p-tablet(content)"
+                  data-h2-text-align="base(center) p-tablet(right)"
+                >
+                  <Link
+                    href={sections.skillsExperience.editUrl}
+                    data-h2-color="base(dt-primary)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Edit Skills and Experience",
+                      description:
+                        "Text on link to update a users skills and experiences.",
+                    })}
+                  </Link>
+                </div>
               )}
             </HeadingWrapper>
             {sections.skillsExperience?.override ? (

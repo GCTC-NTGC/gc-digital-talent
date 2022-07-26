@@ -25,7 +25,10 @@ const SearchHeading: React.FunctionComponent = () => {
             data-h2-text-align="base(center)"
             data-h2-color="base(dt-white)"
             data-h2-font-weight="base(700)"
-            style={{ letterSpacing: "-2px" }}
+            style={{
+              letterSpacing: "-2px",
+              textShadow: "0 3px 3px rgba(10, 10, 10, .3)",
+            }}
           >
             {intl.formatMessage({
               defaultMessage: "Search the Digital Talent Pool",
