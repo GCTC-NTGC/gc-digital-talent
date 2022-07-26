@@ -1186,7 +1186,7 @@ input GenericJobTitleBelongsToMany {
 
 input CreatePoolAdvertisementInput {
     key: KeyString!
-    classifications: ClassificationBelongsToMany!
+    classifications: ClassificationBelongsToMany
 }
 
 input UpdatePoolAdvertisementInput {
