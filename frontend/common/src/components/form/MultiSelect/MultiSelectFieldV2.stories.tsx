@@ -16,7 +16,8 @@ export default {
           onSubmit={action("Submit Form")}
           options={{ defaultValues: { departments: [] } }}
         >
-          <Story />
+          { /* See: https://github.com/storybookjs/storybook/issues/12596#issuecomment-723440097 */ }
+          {Story() /* Can't use <Story /> for inline decorator. */ }
           <Submit />
         </BasicForm>
       );
