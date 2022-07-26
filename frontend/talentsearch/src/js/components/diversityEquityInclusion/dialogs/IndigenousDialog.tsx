@@ -5,7 +5,10 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import Dialog from "@common/components/Dialog";
 import { Checkbox } from "@common/components/form";
 
-import { getEmploymentEquityStatement } from "@common/constants";
+import {
+  getEmploymentEquityGroup,
+  getEmploymentEquityStatement,
+} from "@common/constants";
 import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
@@ -62,11 +65,7 @@ const IndigenousDialog: React.FC<EquityDialogProps> = ({
       isOpen={isOpen}
       onDismiss={onDismiss}
       color="ts-primary"
-      title={intl.formatMessage({
-        defaultMessage: "Indigenous peoples",
-        description:
-          "Title for equity dialog to add/remove indigenous category to profile",
-      })}
+      title={intl.formatMessage(getEmploymentEquityGroup("indigenous"))}
       footer={
         <IndigenousDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogActions onDismiss={onDismiss} />
