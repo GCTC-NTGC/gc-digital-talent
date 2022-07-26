@@ -3,7 +3,7 @@ import { Meta, Story } from "@storybook/react";
 import { fakeUsers } from "@common/fakeData";
 import fakeExperiences from "@common/fakeData/fakeExperiences";
 import { JobLookingStatus } from "@common/api/generated";
-import { ProfilePage, ProfileForm } from "./ProfilePage";
+import ProfilePage, { ProfileForm } from "./ProfilePage";
 import { User } from "../../../api/generated";
 
 const fakeUserData = fakeUsers(1)[0];
