@@ -88,7 +88,7 @@ class PoolPolicy
      * @param  \App\Models\Pool  $pool
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function extendPoolAdvertisementClosingDate(User $user)
+    public function changePoolExpiryDate(User $user)
     {
         return $user->isAdmin();
     }
