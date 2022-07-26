@@ -1,11 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  disabilityLocalized,
-  indigenousLocalized,
-  minorityLocalized,
-  womanLocalized,
-} from "../../../constants/localizedConstants";
+import { getEmploymentEquityStatement } from "../../../constants";
 import { Applicant } from "../../../api/generated";
 
 const DiversityEquityInclusionSection: React.FunctionComponent<{
@@ -40,8 +35,10 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
           <p>
             <a href={editPath}>
               {intl.formatMessage({
-                defaultMessage: "Click here to get started.",
-                description: "Message to click on the words to begin something",
+                defaultMessage:
+                  "Edit your diversity, equity and inclusion options.",
+                description:
+                  "Link text to edit diversity, equity and inclusion information on profile.",
               })}
             </a>
           </p>
@@ -67,15 +64,25 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
             })}{" "}
           </p>{" "}
           <ul data-h2-padding="b(left, l)">
+            {isWoman && (
+              <li>
+                {intl.formatMessage(getEmploymentEquityStatement("woman"))}
+              </li>
+            )}
             {isIndigenous && (
-              <li>&quot;{indigenousLocalized.defaultMessage}&quot;</li>
-            )}{" "}
+              <li>
+                {intl.formatMessage(getEmploymentEquityStatement("indigenous"))}
+              </li>
+            )}
             {isVisibleMinority && (
-              <li>&quot;{minorityLocalized.defaultMessage}&quot;</li>
-            )}{" "}
-            {isWoman && <li>&quot;{womanLocalized.defaultMessage}&quot;</li>}{" "}
+              <li>
+                {intl.formatMessage(getEmploymentEquityStatement("minority"))}
+              </li>
+            )}
             {hasDisability && (
-              <li>&quot;{disabilityLocalized.defaultMessage}&quot;</li>
+              <li>
+                {intl.formatMessage(getEmploymentEquityStatement("disability"))}
+              </li>
             )}
           </ul>
         </div>

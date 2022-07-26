@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { enumToOptions } from "../../../helpers/formUtils";
+import messages from "../../../messages/commonMessages";
 import { getGovEmployeeType } from "../../../constants/localizedConstants";
 import { getLocale } from "../../../helpers/localize";
 import { Applicant, GovEmployeeType } from "../../../api/generated";
@@ -90,16 +91,12 @@ const GovernmentInformationSection: React.FunctionComponent<{
               })}
             </p>
             <p>
-              {intl.formatMessage({
-                defaultMessage: "There are <red>required</red> fields missing.",
-                description:
-                  "Message that there are required fields missing. Please ignore things in <> tags.",
-              })}
+              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
               <a href={editPath}>
                 {intl.formatMessage({
-                  defaultMessage: "Click here to get started.",
+                  defaultMessage: "Edit your government information options.",
                   description:
-                    "Message to click on the words to begin something",
+                    "Link text to edit government information on profile.",
                 })}
               </a>
             </p>

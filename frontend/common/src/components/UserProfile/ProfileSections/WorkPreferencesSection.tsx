@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { isEmpty } from "lodash";
+import messages from "../../../messages/commonMessages";
 import { getOperationalRequirement } from "../../../constants/localizedConstants";
 import { Applicant, OperationalRequirement } from "../../../api/generated";
 
@@ -69,15 +70,11 @@ const WorkPreferencesSection: React.FunctionComponent<{
             })}
           </p>
           <p>
-            {intl.formatMessage({
-              defaultMessage: "There are <red>required</red> fields missing.",
-              description:
-                "Message that there are required fields missing. Please ignore things in <> tags.",
-            })}{" "}
+            {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
             <a href={editPath}>
               {intl.formatMessage({
-                defaultMessage: "Click here to get started.",
-                description: "Message to click on the words to begin something",
+                defaultMessage: "Edit your work preference options.",
+                description: "Link text to edit work preferences on profile",
               })}
             </a>
           </p>

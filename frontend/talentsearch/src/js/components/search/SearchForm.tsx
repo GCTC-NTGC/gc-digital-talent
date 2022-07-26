@@ -6,6 +6,7 @@ import debounce from "lodash/debounce";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
 import { getLanguageAbility } from "@common/constants";
 import {
+  getEmploymentEquityGroup,
   getOperationalRequirement,
   getWorkRegion,
   OperationalRequirementV2,
@@ -403,36 +404,24 @@ const SearchForm: React.FC<SearchFormProps> = ({
             })}
             items={[
               {
+                value: "isWoman",
+                label: intl.formatMessage(getEmploymentEquityGroup("woman")),
+              },
+              {
                 value: "isIndigenous",
-                label: intl.formatMessage({
-                  defaultMessage: "Indigenous",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
+                label: intl.formatMessage(
+                  getEmploymentEquityGroup("indigenous"),
+                ),
               },
               {
                 value: "isVisibleMinority",
-                label: intl.formatMessage({
-                  defaultMessage: "Member of a visible minority group",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
+                label: intl.formatMessage(getEmploymentEquityGroup("minority")),
               },
               {
                 value: "hasDisability",
-                label: intl.formatMessage({
-                  defaultMessage: "Person with a disability",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
-              },
-              {
-                value: "isWoman",
-                label: intl.formatMessage({
-                  defaultMessage: "Woman",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
+                label: intl.formatMessage(
+                  getEmploymentEquityGroup("disability"),
+                ),
               },
             ]}
           />

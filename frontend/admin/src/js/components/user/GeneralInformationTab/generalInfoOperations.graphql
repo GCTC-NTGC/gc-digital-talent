@@ -23,7 +23,7 @@ query GetGeneralInfo($id: ID!) {
           en
           fr
         }
-			}
+      }
       status
       expiryDate
       notes

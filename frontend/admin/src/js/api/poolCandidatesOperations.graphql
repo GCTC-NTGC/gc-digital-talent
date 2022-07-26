@@ -234,8 +234,8 @@ mutation updatePoolCandidate(
   }
 }
 
-mutation deletePoolCandidate ($id:ID!) {
-  deletePoolCandidate (id: $id) {
+mutation deletePoolCandidate($id: ID!) {
+  deletePoolCandidate(id: $id) {
     id
   }
 }
@@ -305,7 +305,10 @@ query getCandidateProfile($id: ID!) {
             en
             fr
           }
-          keywords
+          keywords {
+            en
+            fr
+          }
           experienceSkillRecord {
             details
           }
@@ -422,7 +425,10 @@ query getUserProfile($id: ID!) {
           en
           fr
         }
-        keywords
+        keywords {
+          en
+          fr
+        }
         experienceSkillRecord {
           details
         }

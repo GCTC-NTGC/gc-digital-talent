@@ -314,7 +314,7 @@ input CreateSkillInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
-  keywords: [String!]
+  keywords: SkillKeywordsInput
 }
 
 """When creating a User, name is required."""
@@ -1040,7 +1040,7 @@ type Skill {
   key: KeyString!
   name: LocalizedString!
   description: LocalizedString
-  keywords: [String!]
+  keywords: SkillKeywords
   families: [SkillFamily!]
   experiences: [Experience!]
   awardExperiences: [AwardExperience!]
@@ -1071,6 +1071,16 @@ type SkillFamily {
 
 input SkillFamilyBelongsToMany {
   sync: [ID!]
+}
+
+type SkillKeywords {
+  en: [String!]
+  fr: [String!]
+}
+
+input SkillKeywordsInput {
+  en: [String!]
+  fr: [String!]
 }
 
 """Directions for ordering a list of records."""
@@ -1177,7 +1187,7 @@ input UpdateSkillInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
-  keywords: [String!]
+  keywords: SkillKeywordsInput
 }
 
 """When updating a User, all fields are optional"""
