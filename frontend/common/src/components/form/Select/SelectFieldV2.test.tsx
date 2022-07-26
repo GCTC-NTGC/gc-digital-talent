@@ -18,11 +18,13 @@ import SelectFieldV2 from "./SelectFieldV2";
 const Providers = ({
   children,
   onSubmit,
+  defaultValues,
 }: {
   children: React.ReactNode;
   onSubmit: SubmitHandler<FieldValues>;
+  defaultValues: FieldValues;
 }) => {
-  const methods = useForm();
+  const methods = useForm({ defaultValues });
 
   return (
     <IntlProvider locale="en">
@@ -97,7 +99,7 @@ describe("SelectFieldV2", () => {
     expect(noticeText).toBe("No options");
   });
 
-  it("should submit empty when no validation rules", async () => {
+  it("should submit undefined when no selection (no validation rules)", async () => {
     const mockSubmit = jest.fn();
     renderWithProviders(<SelectFieldV2 label="Foo Bar" options={[]} />, {
       wrapperProps: {
@@ -110,6 +112,24 @@ describe("SelectFieldV2", () => {
     });
     expect(mockSubmit).toBeCalledTimes(1);
     expect(mockSubmit).toBeCalledWith({ fooBar: undefined });
+  });
+
+  it("should submit default when set and no selection (no validation rules)", async () => {
+    const mockSubmit = jest.fn();
+    renderWithProviders(<SelectFieldV2 label="Foo Bar" options={[]} />, {
+      wrapperProps: {
+        onSubmit: mockSubmit,
+        defaultValues: {
+          fooBar: "",
+        },
+      },
+    });
+
+    await act(async () => {
+      fireEvent.submit(screen.getByRole("button"));
+    });
+    expect(mockSubmit).toBeCalledTimes(1);
+    expect(mockSubmit).toBeCalledWith({ fooBar: "" });
   });
 
   it("should prevent submit and throw custom error message when required rule is provided", async () => {
