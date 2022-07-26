@@ -1,7 +1,10 @@
 import React from "react";
-import { Controller, RegisterOptions, useFormContext } from "react-hook-form";
-import ReactSelect, { Options, PropsValue } from "react-select";
+import { Controller, useFormContext } from "react-hook-form";
+import type { RegisterOptions } from "react-hook-form";
+import ReactSelect, { components } from "react-select";
+import type { NoticeProps, PropsValue, GroupBase, Options } from "react-select";
 import camelCase from "lodash/camelCase";
+import { useIntl } from "react-intl";
 import { InputWrapper } from "../../inputPartials";
 
 export type Option = { value: string | number; label: string };
@@ -35,6 +38,48 @@ function isArray<T>(arg: unknown): arg is readonly T[] {
   return Array.isArray(arg);
 }
 
+// See: https://github.com/JedWatson/react-select/blob/master/packages/react-select/src/components/Menu.tsx#L497-L503
+const LocalizedLoadingMessage = <
+  Option_,
+  IsMulti extends boolean,
+  Group extends GroupBase<Option_>,
+>(
+  props: NoticeProps<Option_, IsMulti, Group>,
+) => {
+  const { formatMessage } = useIntl();
+
+  return (
+    <components.LoadingMessage {...props}>
+      {formatMessage({
+        defaultMessage: "Loading...",
+        description:
+          "Message shown in options dropdown when Select field is loading options.",
+      })}
+    </components.LoadingMessage>
+  );
+};
+
+// See: https://github.com/JedWatson/react-select/blob/master/packages/react-select/src/components/Menu.tsx##L469-L475
+const LocalizedNoOptionsMessage = <
+  Option_,
+  IsMulti extends boolean,
+  Group extends GroupBase<Option_>,
+>(
+  props: NoticeProps<Option_, IsMulti, Group>,
+) => {
+  const { formatMessage } = useIntl();
+
+  return (
+    <components.NoOptionsMessage {...props}>
+      {formatMessage({
+        defaultMessage: "No options",
+        description:
+          "Message shown in options dropdown when Select field has no options.",
+      })}
+    </components.NoOptionsMessage>
+  );
+};
+
 const SelectFieldV2 = ({
   id,
   context,
@@ -47,6 +92,14 @@ const SelectFieldV2 = ({
   forceArrayFormValue = false,
   isLoading = false,
 }: SelectFieldV2Props): JSX.Element => {
+  const { formatMessage } = useIntl();
+
+  const defaultPlaceholder = formatMessage({
+    defaultMessage: "Select...",
+    description:
+      "Default placeholder shown when Select field has nothing actively selected.",
+  });
+
   // Defaults from minimal attributes.
   id ??= camelCase(label); // eslint-disable-line no-param-reassign
   name ??= id; // eslint-disable-line no-param-reassign
@@ -98,12 +151,21 @@ const SelectFieldV2 = ({
                     : field.onChange(singleOrMulti?.value || null);
                 /* eslint-enable no-nested-ternary, prettier/prettier */
 
+              // For WCAG-compliant contrasts.
+              const accessibleTextStyle = {
+                color: "#646464",
+              };
+
               return (
                 <ReactSelect
                   isClearable={isMulti || !isRequired}
+                  placeholder={placeholder || defaultPlaceholder}
+                  components={{
+                    LoadingMessage: LocalizedLoadingMessage,
+                    NoOptionsMessage: LocalizedNoOptionsMessage,
+                  }}
                   {...field}
-                  // TODO: Make default placeholder text locale-aware.
-                  {...{ placeholder, options, isMulti, isLoading }}
+                  {...{ options, isMulti, isLoading }}
                   value={convertValueToOption(field.value)}
                   // This only affects react-hook-form state, not internal react-select state.
                   onChange={convertSingleOrMultiOptionsToValues}
@@ -112,7 +174,19 @@ const SelectFieldV2 = ({
                   styles={{
                     placeholder: (provided) => ({
                       ...provided,
-                      color: `#646464`,
+                      ...accessibleTextStyle,
+                    }),
+                    loadingMessage: (provided) => ({
+                      ...provided,
+                      ...accessibleTextStyle,
+                    }),
+                    noOptionsMessage: (provided) => ({
+                      ...provided,
+                      ...accessibleTextStyle,
+                    }),
+                    loadingIndicator: (provided) => ({
+                      ...provided,
+                      ...accessibleTextStyle,
                     }),
                   }}
                 />
