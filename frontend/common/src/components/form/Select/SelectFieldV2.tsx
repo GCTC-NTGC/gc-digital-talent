@@ -15,7 +15,7 @@ export interface SelectFieldV2Props {
   /** A string specifying a name for the input control. */
   name: string;
   /** List of options for the select element. */
-  options: Options<Option>;
+  options?: Options<Option>;
   /** Object set of validation rules to impose on input. */
   rules?: RegisterOptions;
   /** Default message shown on select input. */
@@ -35,7 +35,7 @@ const SelectFieldV2 = ({
   context,
   label,
   name,
-  options,
+  options = [],
   rules,
   placeholder,
   isMulti = false,
