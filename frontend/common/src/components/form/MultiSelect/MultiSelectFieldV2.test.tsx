@@ -18,11 +18,13 @@ import MultiSelectFieldV2 from "./MultiSelectFieldV2";
 const Providers = ({
   children,
   onSubmit,
+  defaultValues,
 }: {
   children: React.ReactNode;
   onSubmit: SubmitHandler<FieldValues>;
+  defaultValues: FieldValues;
 }) => {
-  const methods = useForm();
+  const methods = useForm({ defaultValues });
 
   return (
     <IntlProvider locale="en">
@@ -81,7 +83,7 @@ describe("MultiSelectFieldV2", () => {
     ).toBeNull();
   });
 
-  it("should submit empty when no validation rules", async () => {
+  it("should submit undefine when no default (no validation rules)", async () => {
     const mockSubmit = jest.fn();
     renderWithProviders(<MultiSelectFieldV2 label="Foo Bar" options={[]} />, {
       wrapperProps: {
@@ -109,6 +111,9 @@ describe("MultiSelectFieldV2", () => {
       {
         wrapperProps: {
           onSubmit: mockSubmit,
+          defaultValues: {
+            fooBar: [],
+          },
         },
       },
     );
@@ -117,7 +122,7 @@ describe("MultiSelectFieldV2", () => {
       fireEvent.submit(screen.getByRole("button"));
     });
     expect(mockSubmit).toBeCalledTimes(1);
-    expect(mockSubmit).toHaveBeenLastCalledWith({ fooBar: undefined });
+    expect(mockSubmit).toHaveBeenLastCalledWith({ fooBar: [] });
 
     // Select first option.
     toggleMenuOpen(document.body);
