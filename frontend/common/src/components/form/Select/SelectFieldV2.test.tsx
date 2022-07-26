@@ -73,18 +73,19 @@ const renderWithProviders = (
   });
 
 describe("SelectFieldV2", () => {
-  it("should render with only label prop", () => {
+  it("should render properly with only label prop", () => {
     renderWithProviders(<SelectFieldV2 label="Foo Bar" />);
     expect(
       screen.getByRole("combobox", { name: /foo bar/i }),
     ).toBeInTheDocument();
     // Hidden input should exist.
-    expect(
-      document.querySelector('input[type="hidden"]')?.getAttribute("value"),
-    ).toBe("");
+    expect(document.querySelectorAll('input[type="hidden"]')).toHaveLength(1);
     expect(
       document.querySelector('input[type="hidden"]')?.getAttribute("name"),
     ).toBe("fooBar");
+    expect(
+      document.querySelector('input[type="hidden"]')?.getAttribute("value"),
+    ).toBe("");
   });
 
   it("should write proper text in options menu when none provided", () => {
@@ -108,6 +109,7 @@ describe("SelectFieldV2", () => {
       fireEvent.submit(screen.getByRole("button"));
     });
     expect(mockSubmit).toBeCalledTimes(1);
+    expect(mockSubmit).toBeCalledWith({ fooBar: undefined });
   });
 
   it("should prevent submit and throw custom error message when required rule is provided", async () => {
@@ -150,9 +152,16 @@ describe("SelectFieldV2", () => {
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
 
-  it("should show optional text when not required", () => {
+  it("should show 'optional' text when not required", () => {
     renderWithProviders(<SelectFieldV2 label="Foo Bar" />);
     expect(screen.getByText("(Optional)")).toBeInTheDocument();
+  });
+
+  it("should show 'required' text when required", () => {
+    renderWithProviders(
+      <SelectFieldV2 label="Foo Bar" rules={{ required: true }} />,
+    );
+    expect(screen.getByText("(Required)")).toBeInTheDocument();
   });
 
   it("should be clearable when not required", () => {
