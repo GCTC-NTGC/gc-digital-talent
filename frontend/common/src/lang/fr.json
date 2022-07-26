@@ -1077,5 +1077,9 @@
   "CnB8IO": {
     "defaultMessage": "À propos de moi",
     "description": "Title of the about content section"
+  },
+  "BjRuMw": {
+    "defaultMessage": "Voir la définition",
+    "description": "Text displayed when skill block is open."
   }
 }
