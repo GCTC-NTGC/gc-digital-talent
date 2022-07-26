@@ -15,7 +15,7 @@ final class ClosePoolAdvertisement
     public function __invoke($_, array $args)
     {
         $poolAdvertisement = Pool::find($args['id']);
-        $poolAdvertisement->update(['expiry_date' => Carbon::now()->endOfDay()]);
+        $poolAdvertisement->update(['expiry_date' => Carbon::now()]);
         return $poolAdvertisement;
     }
 }
