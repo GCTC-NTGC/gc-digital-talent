@@ -93,7 +93,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("about") && (
           <TableOfContents.AnchorLink id="about-section">
             {intl.formatMessage({
-              defaultMessage: "About",
+              defaultMessage: "About Me",
               description: "Title of the About link section",
             })}
           </TableOfContents.AnchorLink>
@@ -227,7 +227,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                 style={{ flex: "1 1 0%" }}
               >
                 {intl.formatMessage({
-                  defaultMessage: "About",
+                  defaultMessage: "About Me",
                   description: "Title of the about content section",
                 })}
               </TableOfContents.Heading>

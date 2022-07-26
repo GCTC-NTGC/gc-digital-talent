@@ -434,10 +434,6 @@
     "defaultMessage": "<strong>Oui</strong>, je suis un employé du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
   },
-  "5sX4lz": {
-    "defaultMessage": "À propos",
-    "description": "Title of the about content section"
-  },
   "6RiVQA": {
     "defaultMessage": "{role} au sein de la {division}",
     "description": "Role at division"
@@ -528,10 +524,6 @@
   },
   "GcPFLS": {
     "defaultMessage": "Travail"
-  },
-  "H4sbll": {
-    "defaultMessage": "À propos",
-    "description": "Title of the About link section"
   },
   "HalXgi": {
     "defaultMessage": "Nouvelle-Écosse",
@@ -761,10 +753,6 @@
   },
   "jtygmI": {
     "defaultMessage": "Éducation"
-  },
-  "kP04tf": {
-    "defaultMessage": "Cliquez ici pour commencer.",
-    "description": "Message to click on the words to begin something"
   },
   "kjX7mF": {
     "defaultMessage": "Aucune information n'a été fournie.",
@@ -1081,5 +1069,13 @@
   "OperationalRequirement.WorkWeekends.short": {
     "defaultMessage": "Travailler les fins de semaine",
     "description": "The operational requirement described as work weekends. (short-form for limited space)"
+  },
+  "4sJvia": {
+    "defaultMessage": "À propos de moi",
+    "description": "Title of the About link section"
+  },
+  "CnB8IO": {
+    "defaultMessage": "À propos de moi",
+    "description": "Title of the about content section"
   }
 }
