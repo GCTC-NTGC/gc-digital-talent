@@ -1207,7 +1207,7 @@ input UpdatePoolAdvertisementInput {
     securityClearance: SecurityStatus @rename(attribute: "security_clearance")
     advertisementLocation: LocalizedStringInput @rename(attribute: "advertisement_location")
 }
-input PublishPoolAdvertisementInput {
+input PublishPoolAdvertisementInput @validator {
     # Pool name and classification
     name: LocalizedStringInput!
     classifications: ClassificationBelongsToMany!
