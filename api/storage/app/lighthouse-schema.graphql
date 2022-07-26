@@ -244,7 +244,7 @@ input CreateDepartmentInput {
 
 input CreatePoolAdvertisementInput {
   key: KeyString!
-  classifications: ClassificationBelongsToMany!
+  classifications: ClassificationBelongsToMany
 }
 
 input CreatePoolCandidateAsAdminInput {
@@ -596,7 +596,7 @@ type Mutation {
   createPoolAdvertisement(userId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
   updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
   publishPoolAdvertisement(id: ID!, poolAdvertisement: PublishPoolAdvertisementInput!): PoolAdvertisement
-  extendPoolAdvertisementClosingDate(id: ID!, newExpiryDate: DateTimeTz!): PoolAdvertisement
+  changePoolExpiryDate(id: ID!, newExpiryDate: DateTimeTz!): PoolAdvertisement
   closePoolAdvertisement(id: ID!): PoolAdvertisement
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
 }
@@ -1120,7 +1120,7 @@ input UpdateExperienceSkills {
 
 input UpdatePoolAdvertisementInput {
   name: LocalizedStringInput
-  classifications: ClassificationBelongsToMany!
+  classifications: ClassificationBelongsToMany
   expiryDate: DateTimeTz
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput

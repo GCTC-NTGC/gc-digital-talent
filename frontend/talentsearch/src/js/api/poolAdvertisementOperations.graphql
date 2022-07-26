@@ -25,11 +25,11 @@ mutation publishPoolAdvertisement(
   }
 }
 
-mutation extendPoolAdvertisementClosingDate(
+mutation changePoolExpiryDate(
   $id: ID!
   $newExpiryDate: DateTimeTz!
 ) {
-  extendPoolAdvertisementClosingDate(id: $id, newExpiryDate: $newExpiryDate) {
+  changePoolExpiryDate(id: $id, newExpiryDate: $newExpiryDate) {
     expiryDate
   }
 }
