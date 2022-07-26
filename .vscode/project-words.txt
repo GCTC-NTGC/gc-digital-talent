@@ -1,6 +1,7 @@
 alertdialog
 Analyser
 APPLICANTPROFILE
+APPLICANTSEARCH
 Authenticatable
 BEHAVIOURAL
 colour

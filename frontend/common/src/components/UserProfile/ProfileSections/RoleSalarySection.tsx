@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { isEmpty } from "lodash";
+import messages from "../../../messages/commonMessages";
 import { getGenericJobTitles } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
@@ -47,18 +48,14 @@ const RoleSalarySection: React.FunctionComponent<{
                 description: "Message for when no data exists for the section",
               })}
             </p>
-
             <p>
-              {intl.formatMessage({
-                defaultMessage: "There are <red>required</red> fields missing.",
-                description:
-                  "Message that there are required fields missing. Please ignore things in <> tags.",
-              })}{" "}
+              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
               <a href={editPath}>
                 {intl.formatMessage({
-                  defaultMessage: "Click here to get started.",
+                  defaultMessage:
+                    "Edit your role and salary expectation options.",
                   description:
-                    "Message to click on the words to begin something",
+                    "Link text to edit role and salary expectations on profile.",
                 })}
               </a>
             </p>

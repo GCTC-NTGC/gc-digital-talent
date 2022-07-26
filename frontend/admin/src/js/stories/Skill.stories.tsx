@@ -40,7 +40,10 @@ stories.add("Update Skill Form", () => {
       en: "Skill Description",
       fr: "Skill Description FR",
     },
-    keywords: ["one", "one two", "other words"],
+    keywords: {
+      en: ["one EN", "one two EN", "other words EN"],
+      fr: ["one FR", "one two FR", "other words FR"],
+    },
     families: [skillFamilies[0], skillFamilies[1]],
   };
 

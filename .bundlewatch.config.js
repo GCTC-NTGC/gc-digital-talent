@@ -11,11 +11,11 @@ module.exports = {
   files: [
     {
       path: "frontend/talentsearch/dist/app.js",
-      maxSize: "295 kB",
+      maxSize: "300 kB",
     },
     {
       path: "frontend/admin/dist/app.js",
-      maxSize: "320 kB",
+      maxSize: "325 kB",
     },
     {
       path: "frontend/indigenousapprenticeship/dist/app.js",

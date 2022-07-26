@@ -8,12 +8,12 @@ import {
   fakePools,
   fakePoolCandidates,
 } from "@common/fakeData";
+import { OperationalRequirementV1 } from "@common/constants/localizedConstants";
 import PoolCandidatesTable from "../components/poolCandidate/PoolCandidatesTable";
 import {
   CreatePoolCandidateAsAdminInput,
   User,
   Classification,
-  OperationalRequirement,
   Pool,
   CmoAsset,
   UpdatePoolCandidateAsAdminInput,
@@ -57,8 +57,8 @@ stories.add("Update Pool Candidate Form", () => {
   const poolCandidate: PoolCandidate = {
     id: "1",
     acceptedOperationalRequirements: [
-      OperationalRequirement.OvertimeShortNotice,
-      OperationalRequirement.ShiftWork,
+      OperationalRequirementV1[0],
+      OperationalRequirementV1[1],
     ],
     cmoAssets: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
     cmoIdentifier: "cmo1",

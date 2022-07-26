@@ -50,10 +50,10 @@ query getPoolAdvertisement($id: ID!) {
       fr
     }
     keyTasks {
-       en
-       fr
+      en
+      fr
     }
-        essentialSkills {
+    essentialSkills {
       id
       key
       name {

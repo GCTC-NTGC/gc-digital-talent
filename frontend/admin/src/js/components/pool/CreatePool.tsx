@@ -18,6 +18,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import {
   getOperationalRequirement,
   getPoolStatus,
+  OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -26,7 +27,6 @@ import {
   CmoAsset,
   CreatePoolInput,
   CreatePoolMutation,
-  OperationalRequirement,
   Pool,
   useCreatePoolMutation,
   useGetCreatePoolDataQuery,
@@ -128,16 +128,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
       label: `${firstName} ${lastName}`,
     }),
   );
-
-  const operationalRequirementsSubsetV2 = [
-    OperationalRequirement.OvertimeOccasional,
-    OperationalRequirement.OvertimeRegular,
-    OperationalRequirement.ShiftWork,
-    OperationalRequirement.OnCall,
-    OperationalRequirement.Travel,
-    OperationalRequirement.TransportEquipment,
-    OperationalRequirement.DriversLicense,
-  ];
 
   return (
     <section>
@@ -310,7 +300,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form operational requirements field.",
               })}
-              options={operationalRequirementsSubsetV2.map((value) => ({
+              options={OperationalRequirementV2.map((value) => ({
                 value,
                 label: intl.formatMessage(getOperationalRequirement(value)),
               }))}

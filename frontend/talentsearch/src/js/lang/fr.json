@@ -324,10 +324,6 @@
     "defaultMessage": "Groupe/Organisation/Collectivité",
     "description": "Label displayed on Community Experience form for organization input"
   },
-  "BjRuMw": {
-    "defaultMessage": "Voir la définition",
-    "description": "Text displayed when skill block is open."
-  },
   "DyaaHi": {
     "defaultMessage": "Portée du prix",
     "description": "Label displayed on Award form for award scope input"
@@ -343,18 +339,6 @@
   "EfR7Rv": {
     "defaultMessage": "Écrire le nom du groupe ici...",
     "description": "Placeholder displayed on the Community Experience form for organization input"
-  },
-  "FRyIG2": {
-    "defaultMessage": "Vous devez saisir un terme de recherche avant d’appuyer sur la touche « Entrée »",
-    "description": "Error message displayed when the search term length is less then 2 characters."
-  },
-  "ItRgwA": {
-    "defaultMessage": "Retirer une compétence",
-    "description": "Button label to remove skill on skill result block."
-  },
-  "JY6WhU": {
-    "defaultMessage": "Rechercher une compétence précise...",
-    "description": "Label for the skills search bar."
   },
   "N87bC7": {
     "defaultMessage": "Titre de la thèse",
@@ -379,10 +363,6 @@
   "Os+BwT": {
     "defaultMessage": "Décrire les détails de l’expérience ici...",
     "description": "Placeholder for experience description input"
-  },
-  "PF4ya+": {
-    "defaultMessage": "p. ex. Python, JavaScript, etc.",
-    "description": "Placeholder for the skills search bar."
   },
   "Q18B0y": {
     "defaultMessage": "Écrire le titre ici...",
@@ -416,10 +396,6 @@
     "defaultMessage": "Écrire le domaine d’étude ici...",
     "description": "Placeholder for area of study input"
   },
-  "VDZ6zw": {
-    "defaultMessage": "Masquer la définition",
-    "description": "Text displayed when skill block is open."
-  },
   "W7LpsW": {
     "defaultMessage": "1. Détails des études",
     "description": "Title for Education Details Form"
@@ -435,10 +411,6 @@
   "YJdsMY": {
     "defaultMessage": "Organisation ou institution émettrice",
     "description": "Label displayed on award form for issuing organization input"
-  },
-  "ZOQ9ih": {
-    "defaultMessage": "Ajouter une compétence",
-    "description": "Button label to add skill on skill result block."
   },
   "a6c/ce": {
     "defaultMessage": "Avez-vous été reconnu pour vous être surpassé? Il existe de nombreuses façons d’être reconnu, les prix en sont une parmi d’autres.",
@@ -1592,38 +1564,6 @@
   "m3qn9l": {
     "defaultMessage": "Groupes visés par l’équité en matière d’emploi",
     "description": "Legend for the employment equity checklist"
-  },
-  "3HAFul": {
-    "defaultMessage": "Déplacements selon les besoins",
-    "description": "The operational requirement described as travel as required."
-  },
-  "6I3OCB": {
-    "defaultMessage": "Travailler les fins de semaine",
-    "description": "The operational requirement described as work weekends."
-  },
-  "8QkGEF": {
-    "defaultMessage": "Transport de matériel jusqu'à 20 kg",
-    "description": "The operational requirement described as transport equipment up to 20kg."
-  },
-  "Bw9k0J": {
-    "defaultMessage": "Travailler des heures supplémentaires prévues",
-    "description": "The operational requirement described as scheduled overtime."
-  },
-  "Dk5E2+": {
-    "defaultMessage": "Garde 24/7",
-    "description": "The operational requirement described as 24/7 on-call."
-  },
-  "eJCfxF": {
-    "defaultMessage": "Travailler des heures supplémentaires à court préavis",
-    "description": "The operational requirement described as short notice overtime."
-  },
-  "hCy99h": {
-    "defaultMessage": "Travailler des quarts de travail",
-    "description": "The operational requirement described as shift work."
-  },
-  "vhFe42": {
-    "defaultMessage": "Permis de conduire",
-    "description": "The operational requirement described as driver's license."
   },
   "1xRst5": {
     "defaultMessage": "Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères",

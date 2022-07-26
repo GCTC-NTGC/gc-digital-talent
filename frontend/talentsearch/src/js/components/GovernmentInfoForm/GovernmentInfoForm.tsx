@@ -288,7 +288,11 @@ export const GovernmentInfoForm: React.FunctionComponent<
               })}
               name="lateralDeployBool"
               boundingBox
-              boundingBoxLabel="Lateral Deployment"
+              boundingBoxLabel={intl.formatMessage({
+                defaultMessage: "Lateral Deployment",
+                description:
+                  "Label displayed on lateral/secondment bounding box",
+              })}
             />
           </div>
         )}
