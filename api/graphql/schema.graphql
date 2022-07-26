@@ -1192,9 +1192,9 @@ input CreatePoolAdvertisementInput {
 input UpdatePoolAdvertisementInput {
     # Pool name and classification
     name: LocalizedStringInput
-    classifications: ClassificationBelongsToMany!
+    classifications: ClassificationBelongsToMany
     # Closing date
-    expiryDate: DateTimeTz @rename(attribute: "expiry_date")
+    expiryDate: DateTimeTz @rename(attribute: "expiry_date") @rules(apply: ["after:today"])
     # Your impact
     yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
     # Work Tasks
