@@ -1,8 +1,8 @@
 import React from "react";
-import { navigate } from "../../helpers/router";
 import sanitizeUrl from "../../helpers/sanitizeUrl";
 import type { Color } from "../Button";
 import { colorMap } from "../Button/Button";
+import useLinkClickHandler from "./useLinkClickHandler";
 
 export interface LinkProps extends React.HTMLProps<HTMLAnchorElement> {
   /** The style colour of the link */
@@ -22,18 +22,21 @@ const Link: React.FC<LinkProps> = ({
   disabled,
   mode = "solid",
   block = false,
-  external = false,
   type = "link",
   children,
   className,
   ...rest
 }): React.ReactElement => {
   const url = sanitizeUrl(href);
+  const clickHandler = useLinkClickHandler({
+    to: url || "#",
+  });
   return (
     <a
       href={url}
       title={title}
       className={`${type === "button" && `button `}${className}`}
+      onClick={clickHandler}
       {...(type === "button"
         ? {
             "data-h2-radius": "b(s)",
@@ -50,14 +53,6 @@ const Link: React.FC<LinkProps> = ({
           }
         : {})}
       {...rest}
-      onClick={
-        !external
-          ? (event): void => {
-              event.preventDefault();
-              if (href) navigate(href);
-            }
-          : undefined
-      }
     >
       {children}
     </a>

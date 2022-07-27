@@ -109,7 +109,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   );
 };
 
-export const ProfilePage: React.FunctionComponent = () => {
+const ProfilePage: React.FunctionComponent = () => {
   const intl = useIntl();
   const [result] = useGetMeQuery();
   const { data, fetching, error } = result;
@@ -137,3 +137,5 @@ export const ProfilePage: React.FunctionComponent = () => {
     </Pending>
   );
 };
+
+export default ProfilePage;

@@ -1,5 +1,6 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -84,6 +85,17 @@ module.exports = {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
+    ],
+  },
+  /**
+ * Optimizations only run in production mode
+ *
+ * Ref: https://webpack.js.org/configuration/optimization/
+ */
+  optimization: {
+    minimizer: [
+      `...`, // Includes default minimizers
+      new CssMinimizerPlugin(),
     ],
   },
   resolve: {

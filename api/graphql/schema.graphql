@@ -1066,8 +1066,8 @@ input CreatePoolCandidateSearchRequestInput {
     department: DepartmentBelongsTo!
     jobTitle: String! @rename(attribute: "job_title")
     additionalComments: String @rename(attribute: "additional_comments")
-    poolCandidateFilter: PoolCandidateFilterBelongsTo # TODO: remove this field when we've completed the transition from using poolCandidateCount to applicantCount
-    applicantFilter: ApplicantFilterBelongsTo # TODO: make this required when we've completed the transition from using poolCandidateCount to applicantCount
+    poolCandidateFilter: PoolCandidateFilterBelongsTo @rules(apply: ["required_without:applicantFilter"]) # TODO: remove this field when we've completed the transition from using poolCandidateCount to applicantCount
+    applicantFilter: ApplicantFilterBelongsTo  @rules(apply: ["required_without:poolCandidateFilter"]) # TODO: make this required when we've completed the transition from using poolCandidateCount to applicantCount
     # requestedDate will be set to current date in Eloquent model.
     # status will be set to PENDING in Eloquent model.
 }

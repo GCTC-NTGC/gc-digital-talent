@@ -51,7 +51,7 @@ describe("Talentsearch Profile Page", () => {
       cy.visit('/en/talent/profile')
       cy.contains("My Status");
       cy.contains("My hiring pools");
-      cy.contains("About");
+      cy.contains("About Me");
       cy.contains("Language Information");
       cy.contains("Government Information");
       cy.contains("Work Location");

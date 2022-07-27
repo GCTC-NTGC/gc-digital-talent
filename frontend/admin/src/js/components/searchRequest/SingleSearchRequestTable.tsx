@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
-import { Button, Pill } from "@common/components";
+import { Link, Pill } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
-import { navigate } from "@common/helpers/router";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import { getOperationalRequirement } from "@common/constants/localizedConstants";
@@ -26,21 +25,17 @@ const TableEditButton: React.FC<{
   const intl = useIntl();
   const paths = useAdminRoutes();
   return (
-    <Button
+    <Link
+      type="button"
       color="primary"
       mode="inline"
-      onClick={(event) => {
-        event.preventDefault();
-        navigate(
-          paths.poolCandidateUpdate(poolId || "", poolCandidateId || ""),
-        ); // TODO: Where should the user be taken if this value is empty?
-      }}
+      href={paths.poolCandidateUpdate(poolId || "", poolCandidateId || "")}
     >
       {intl.formatMessage({
         defaultMessage: "Edit",
         description: "Title displayed for the Edit column.",
       })}
-    </Button>
+    </Link>
   );
 };
 
