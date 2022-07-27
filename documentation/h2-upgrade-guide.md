@@ -2,9 +2,6 @@
 
 `2.0.0` has been in the works for, well, months, so the migration is bumpy. If you'd feel more comfortable pairing with me, or even having me migrate your PR for you, feel free to message me on Slack.
 
-## When the time comes
-When it comes time to migrate your PR, you can start by updating `frontend/common/package.json` to install `@hydrogen-design-system/hydrogen.css@beta`
-
 ## New attributes
 You can choose to ignore these additions, but they might be nice for you to know about.
 - `flex-basis`
