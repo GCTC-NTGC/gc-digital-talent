@@ -1,6 +1,5 @@
 import { ChevronDoubleRightIcon } from "@heroicons/react/solid";
 import React from "react";
-import { navigate } from "../../helpers/router";
 import type { Color } from "../Button";
 import sanitizeUrl from "../../helpers/sanitizeUrl";
 import useLinkClickHandler from "../Link/useLinkClickHandler";
@@ -41,7 +40,6 @@ const TileLink: React.FC<TileLinkProps> = ({
   title,
   color,
   children,
-  external = false,
   ...rest
 }): React.ReactElement => {
   const url = sanitizeUrl(href);

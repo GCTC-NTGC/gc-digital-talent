@@ -35,7 +35,6 @@ const CardLink: React.FC<CardLinkProps> = ({
   color = "ts-primary",
   icon,
   label,
-  external = false,
   children,
   ...rest
 }) => {

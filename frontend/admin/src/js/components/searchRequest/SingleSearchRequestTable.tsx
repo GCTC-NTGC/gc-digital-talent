@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
-import { Button, Link, Pill } from "@common/components";
+import { Link, Pill } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
-import { navigate } from "@common/helpers/router";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import { getOperationalRequirement } from "@common/constants/localizedConstants";
