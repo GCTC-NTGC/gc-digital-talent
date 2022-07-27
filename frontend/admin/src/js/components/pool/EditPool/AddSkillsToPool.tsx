@@ -10,13 +10,15 @@ import {
   Tabs,
 } from "@common/components/Tabs";
 import SkillFamilyPicker from "@common/components/skills/SkillFamilyPicker/SkillFamilyPicker";
-import { invertSkillSkillFamilyTree } from "@common/helpers/skillUtils";
+import {
+  filterSkillsByNameOrKeywords,
+  invertSkillSkillFamilyTree,
+} from "@common/helpers/skillUtils";
 import { SkillResults } from "@common/components/skills/SkillResults/SkillResults";
 import { SearchBar } from "@common/components/skills/SearchBar/SearchBar";
 import Pagination, { usePaginationVars } from "@common/components/Pagination";
 import Chip, { Chips } from "@common/components/Chip";
 import { getLocalizedName } from "@common/helpers/localize";
-import { matchStringCaseDiacriticInsensitive } from "@common/helpers/formUtils";
 
 const paginationPageSize = 5;
 
@@ -79,12 +81,7 @@ export const AddSkillsToPool = ({
       );
   const searchFilteredSkills = searchQuery
     ? // we have a search query to check
-      skills.filter((skill) =>
-        matchStringCaseDiacriticInsensitive(
-          searchQuery,
-          getLocalizedName(skill.name, intl),
-        ),
-      )
+      filterSkillsByNameOrKeywords(skills, searchQuery, intl)
     : // no search query -> match all skills
       skills;
 

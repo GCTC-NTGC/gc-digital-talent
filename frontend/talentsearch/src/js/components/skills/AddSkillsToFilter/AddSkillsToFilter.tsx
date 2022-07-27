@@ -3,8 +3,6 @@ import { useIntl } from "react-intl";
 
 import { Skill, SkillCategory, SkillFamily } from "@common/api/generated";
 import Pagination, { usePaginationVars } from "@common/components/Pagination";
-import { matchStringCaseDiacriticInsensitive } from "@common/helpers/formUtils";
-import { getLocale } from "@common/helpers/localize";
 import {
   Tabs,
   TabList,
@@ -12,7 +10,10 @@ import {
   TabPanels,
   TabPanel,
 } from "@common/components/Tabs";
-import { invertSkillSkillFamilyTree } from "@common/helpers/skillUtils";
+import {
+  filterSkillsByNameOrKeywords,
+  invertSkillSkillFamilyTree,
+} from "@common/helpers/skillUtils";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { notEmpty } from "@common/helpers/util";
 import SkillResults from "@common/components/skills/SkillResults";
@@ -26,7 +27,6 @@ export interface AddSkillsToFilterProps {
 
 const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const { control, watch } = useFormContext();
   const watchedSkills = watch("skills");
   const { append, remove } = useFieldArray({
@@ -142,11 +142,10 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
    */
   const handleSearch = (searchQuery: string): Promise<void> => {
     return new Promise<void>((resolve) => {
-      const matchedSkills = allSkills.filter((skill) =>
-        matchStringCaseDiacriticInsensitive(
-          searchQuery,
-          skill.name[locale] ?? "",
-        ),
+      const matchedSkills = filterSkillsByNameOrKeywords(
+        allSkills,
+        searchQuery,
+        intl,
       );
       setSearchSkills(matchedSkills);
       searchSkillsPagination.setCurrentPage(1); // just in case the new list of matched skills requires fewer pages

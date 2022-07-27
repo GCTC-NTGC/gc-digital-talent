@@ -1,4 +1,5 @@
 import { flatMap, uniqBy } from "lodash";
+import { IntlShape } from "react-intl";
 import {
   Experience,
   Maybe,
@@ -6,6 +7,8 @@ import {
   SkillCategory,
   SkillFamily,
 } from "../api/generated";
+import { matchStringCaseDiacriticInsensitive } from "./formUtils";
+import { getLocale } from "./localize";
 import { notEmpty } from "./util";
 
 /**
@@ -78,7 +81,7 @@ export function invertSkillExperienceTree(experiences: Experience[]): Skill[] {
   return skillsWithExperiences;
 }
 
-export function filterSkillsBy(
+export function filterSkillsByCategory(
   skills: Maybe<Array<Skill>>,
   category: SkillCategory,
 ) {
@@ -93,12 +96,38 @@ export function categorizeSkill(
   skills: Maybe<Array<Skill>>,
 ): Record<SkillCategory, Maybe<Array<Skill>>> {
   return {
-    [SkillCategory.Technical]: filterSkillsBy(skills, SkillCategory.Technical),
-    [SkillCategory.Behavioural]: filterSkillsBy(
+    [SkillCategory.Technical]: filterSkillsByCategory(
+      skills,
+      SkillCategory.Technical,
+    ),
+    [SkillCategory.Behavioural]: filterSkillsByCategory(
       skills,
       SkillCategory.Behavioural,
     ),
   };
+}
+
+export function filterSkillsByNameOrKeywords(
+  skills: Array<Skill>,
+  searchQuery: string,
+  intl: IntlShape,
+) {
+  const locale = getLocale(intl);
+
+  const matchedSkills = skills
+    .filter((skill) => {
+      return (
+        matchStringCaseDiacriticInsensitive(
+          searchQuery,
+          skill.name[locale] ?? "",
+        ) ||
+        skill.keywords?.[locale]?.some((keyword) => {
+          return matchStringCaseDiacriticInsensitive(searchQuery, keyword);
+        })
+      );
+    })
+    .filter(notEmpty);
+  return matchedSkills;
 }
 
 export default { invertSkillSkillFamilyTree, invertSkillExperienceTree };

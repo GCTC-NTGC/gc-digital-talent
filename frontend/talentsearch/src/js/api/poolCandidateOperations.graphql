@@ -53,6 +53,10 @@ query getSearchFormData($poolKey: String!) {
       en
       fr
     }
+    keywords {
+      en
+      fr
+    }
     families {
       id
       key
