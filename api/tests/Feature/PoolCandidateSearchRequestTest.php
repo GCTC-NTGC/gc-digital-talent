@@ -10,18 +10,10 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
 
-class PoolCandidateSearchRequestTest extends TestCase
-{
+class PoolCandidateSearchRequestTest extends TestCase {
     use RefreshDatabase;
     use MakesGraphQLRequests;
     use ClearsSchemaCache;
-
-    /**
-     * Run a specific seeder before each test.
-     *
-     * @var string
-     */
-    protected $seeder = DepartmentSeeder::class;
 
     /**
      * Default required fields
@@ -70,7 +62,7 @@ class PoolCandidateSearchRequestTest extends TestCase
             [
                 'input' => $this->getInput($input)
             ]
-        );
+            );
     }
 
     /**
@@ -80,6 +72,7 @@ class PoolCandidateSearchRequestTest extends TestCase
      */
     public function testMutationCreateFailsWithNoFilter()
     {
+        $this->seed(DepartmentSeeder::class);
 
         $this->runCreateMutation([
             'department' => [
@@ -89,6 +82,7 @@ class PoolCandidateSearchRequestTest extends TestCase
             'poolCandidateSearchRequest.poolCandidateFilter',
             'poolCandidateSearchRequest.applicantFilter'
         ]);
+
     }
 
     /**
@@ -99,6 +93,7 @@ class PoolCandidateSearchRequestTest extends TestCase
      */
     public function testMutationCreatePassesWithApplicantFilter()
     {
+        $this->seed(DepartmentSeeder::class);
 
         $this->runCreateMutation([
             'department' => [
@@ -112,6 +107,7 @@ class PoolCandidateSearchRequestTest extends TestCase
         ])->assertJson(function (AssertableJson $json) {
             $json->has('data.createPoolCandidateSearchRequest.id');
         });
+
     }
 
     /**
@@ -122,6 +118,7 @@ class PoolCandidateSearchRequestTest extends TestCase
      */
     public function testMutationCreatePassesWithPoolCandidateFilter()
     {
+        $this->seed(DepartmentSeeder::class);
 
         $this->runCreateMutation([
             'department' => [
