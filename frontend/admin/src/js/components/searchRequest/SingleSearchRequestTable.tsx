@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
-import { Button, Pill } from "@common/components";
+import { Button, Link, Pill } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { FromArray } from "@common/types/utilityTypes";
@@ -26,21 +26,17 @@ const TableEditButton: React.FC<{
   const intl = useIntl();
   const paths = useAdminRoutes();
   return (
-    <Button
+    <Link
+      type="button"
       color="primary"
       mode="inline"
-      onClick={(event) => {
-        event.preventDefault();
-        navigate(
-          paths.poolCandidateUpdate(poolId || "", poolCandidateId || ""),
-        ); // TODO: Where should the user be taken if this value is empty?
-      }}
+      href={paths.poolCandidateUpdate(poolId || "", poolCandidateId || "")}
     >
       {intl.formatMessage({
         defaultMessage: "Edit",
         description: "Title displayed for the Edit column.",
       })}
-    </Button>
+    </Link>
   );
 };
 
