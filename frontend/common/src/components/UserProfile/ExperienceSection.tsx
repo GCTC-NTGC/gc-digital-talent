@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "../Tabs";
-import "../Tabs/tabs.css"; // Work around tree shaking
 import { invertSkillExperienceTree } from "../../helpers/skillUtils";
 import ExperienceAccordion, {
   ExperiencePaths,

@@ -1,6 +1,9 @@
 import React from "react";
 import { Tab as ReachTab, useTabsContext, type TabProps } from "@reach/tabs";
 
+import "@reach/tabs/styles.css";
+import "./tabs.css";
+
 const Tab = (props: TabProps) => {
   const { index, children } = props;
   const { selectedIndex } = useTabsContext();
