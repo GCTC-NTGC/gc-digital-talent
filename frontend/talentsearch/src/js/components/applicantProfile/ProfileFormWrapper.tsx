@@ -55,11 +55,11 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
     <section>
       {breadcrumbs}
       <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
-        <div data-h2-margin="base(x2, auto)">
+        <div data-h2-margin="base(x2, 0, 0, -x1)">
           <CancelButton link={cancelLink} />
         </div>
         <h1
-          data-h2-margin="base(0)"
+          data-h2-margin="base(x2, 0, x1, 0)"
           data-h2-font-size="base(h2, 1.3)"
           data-h2-font-weight="base(200)"
         >

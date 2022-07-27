@@ -34,7 +34,7 @@ const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
     }
   };
   return (
-    <div data-h2-margin="base(x2, auto)" data-h2-display="base(flex)">
+    <div data-h2-margin="base(x2, 0, x3, 0)" data-h2-display="base(flex)">
       {children}
       {bottomButtons()}
     </div>

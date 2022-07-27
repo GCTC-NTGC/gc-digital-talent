@@ -2,6 +2,7 @@ const path = require("path");
 const TsTransformer = require("@formatjs/ts-transformer");
 const transform = TsTransformer.transform;
 var shell = require("shelljs");
+const fs = require("fs");
 // This uses ts-loader to inject generated ids into react-intl messages.
 const reactIntlTransformRule = {
   test: /\.tsx?$/,
@@ -55,22 +56,33 @@ module.exports = {
 
     //
     // =========================================================================
-    // Run Hydrogen on Webpack's compile hook
-    //
-    // -------------------------------------------------------------------------
-    // Modify the ignored files list to include Hydrogen
-    config.watchOptions.ignored = ['**/node_modules/', '**/hydrogen.css', '**/hydrogen.vars.css', '**/hydrogen-logs/' ];
-    //
-    // -------------------------------------------------------------------------
-    // Execute the node script on the compile hook
-    // Note that it's necessary to cd back into the common folder first, so should our workspaces layout change, this path will need to be updated.
+    // Run Hydrogen on Webpack's compiler hooks
+    // Note that this version is unique from the other workspaces because we're already inside the common folder
     config.plugins.push(
       {
         apply: (compiler) => {
-          compiler.hooks.beforeCompile.tap("Run Hydrogen", () => {
-            shell.echo('');
+          //
+          // -------------------------------------------------------------------
+          // Build Hydrogen
+          // Run on the environment hook to catch the initial compile and non-watch compiles
+          compiler.hooks.environment.tap('environment', () => {
             shell.exec('node node_modules/@hydrogen-design-system/hydrogen.css/bin/build.js');
-          });
+          })
+          //
+          // -------------------------------------------------------------------
+          // Build Hydrogen and manipulate it's modified time
+          // Run on the invalid hook so that the file time is updated before the next compile
+          compiler.hooks.invalid.tap('invalid', (fileName, changeTime) => {
+            shell.exec('node node_modules/@hydrogen-design-system/hydrogen.css/bin/build.js');
+            var f = path.resolve('src/css/hydrogen.css')
+            var now = Date.now() / 1000
+            var then = now - 100
+            fs.utimes(f, then, then, function (err) { if (err) throw err })
+            var s = path.resolve('src/css/hydrogen.vars.css')
+            var now = Date.now() / 1000
+            var then = now - 100
+            fs.utimes(s, then, then, function (err) { if (err) throw err })
+          })
         },
       }
     )

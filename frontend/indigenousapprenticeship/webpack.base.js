@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
 require('dotenv').config({ path: './.env' });
 var shell = require("shelljs");
+const fs = require("fs");
 
 module.exports = {
   entry: {
@@ -16,20 +17,36 @@ module.exports = {
       "./src/css/app.css",
     ],
   },
-  watchOptions: {
-    ignored: ['/node_modules/', '**/hydrogen.css', '**/hydrogen.vars.css', '**/hydrogen-logs/' ]
-  },
   plugins: [
 
     //
     // =========================================================================
-    // Run Hydrogen on Webpack's compile hook
-    // Note that it's necessary to cd back into the common folder first, so should our workspaces layout change, this path will need to be updated.
+    // Run Hydrogen on Webpack's compiler hooks
+    // Note that it's necessary in both instances to cd up and into the common folder
     {
       apply: (compiler) => {
-        compiler.hooks.beforeCompile.tap("Run Hydrogen", () => {
+        //
+        // ---------------------------------------------------------------------
+        // Build Hydrogen
+        // Run on the environment hook to catch the initial compile and non-watch compiles
+        compiler.hooks.environment.tap('environment', () => {
           shell.exec('(cd ../common;node node_modules/@hydrogen-design-system/hydrogen.css/bin/build.js)');
-        });
+        })
+        //
+        // ---------------------------------------------------------------------
+        // Build Hydrogen and manipulate it's modified time
+        // Run on the invalid hook so that the file time is updated before the next compile
+        compiler.hooks.invalid.tap('invalid', (fileName, changeTime) => {
+          shell.exec('(cd ../common;node node_modules/@hydrogen-design-system/hydrogen.css/bin/build.js)');
+          var f = path.resolve('../common/src/css/hydrogen.css')
+          var now = Date.now() / 1000
+          var then = now - 100
+          fs.utimes(f, then, then, function (err) { if (err) throw err })
+          var s = path.resolve('../common/src/css/hydrogen.vars.css')
+          var now = Date.now() / 1000
+          var then = now - 100
+          fs.utimes(s, then, then, function (err) { if (err) throw err })
+        })
       },
     },
 

@@ -260,15 +260,14 @@ export const SingleSearchRequest: React.FunctionComponent<
               "Heading for the request information section of the single search request view.",
           })}
         </h2>
-        <SearchRequestFilters
-          poolCandidateFilter={poolCandidateFilter}
-          poolApplicantFilter={applicantFilter}
-        />
         <div
           data-h2-padding="base(x1)"
           data-h2-background-color="base(lightest.dt-gray)"
         >
-          <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
+          <SearchRequestFilters
+            poolCandidateFilter={poolCandidateFilter}
+            poolApplicantFilter={applicantFilter}
+          />
           <div
             data-h2-padding="base(x1, 0, 0, 0)"
             data-h2-border="base(top, 1px, solid, dt-gray)"
