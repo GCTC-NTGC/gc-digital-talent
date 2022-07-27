@@ -4,6 +4,9 @@ import {
   AlertDialogOverlay,
 } from "@reach/alert-dialog";
 import type { AlertDialogProps as ReachAlertDialogProps } from "@reach/alert-dialog";
+
+import "@reach/dialog/styles.css";
+
 import AlertDialogActions from "./AlertDialogActions";
 import AlertDialogContent from "./AlertDialogContent";
 import AlertDialogHeading from "./AlertDialogHeading";
