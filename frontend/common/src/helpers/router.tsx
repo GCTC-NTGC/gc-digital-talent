@@ -5,12 +5,14 @@ import fromPairs from "lodash/fromPairs";
 import toPairs from "lodash/toPairs";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
+import useLinkClickHandler from "../components/Link/useLinkClickHandler";
 import { AuthenticationContext } from "../components/Auth";
 import { Role } from "../api/generated";
 import { AuthorizationContext } from "../components/Auth/AuthorizationContainer";
 import { useApiRoutes } from "../hooks/useApiRoutes";
 import { getLocale } from "./localize";
 import { empty } from "./util";
+import sanitizeUrl from "./sanitizeUrl";
 
 export const HISTORY = createBrowserHistory();
 
