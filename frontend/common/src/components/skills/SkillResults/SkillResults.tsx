@@ -17,30 +17,37 @@ export const SkillBlock: React.FunctionComponent<{
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div
-      data-h2-border="base(top, 1px, solid, light.dt-gray)"
-      data-h2-padding="base(x.5, 0)"
-    >
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(row)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-align-items="base(center)"
-      >
-        {isAdded ? (
-          <span
-            data-h2-color="base(dt-primary)"
-            data-h2-font-weight="base(700)"
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(flex-start)"
-          >
-            <CheckCircleIcon style={{ width: "1.125rem" }} />
-            <span data-h2-padding="base(0, 0, 0, x.125)">{name[locale]}</span>
-          </span>
-        ) : (
-          <span>{name[locale]}</span>
-        )}
-        <div>
+    <div data-h2-padding="base(0, 0, x.25, 0)">
+      <div data-h2-flex-grid="base(flex-start, 0, x1, 0)">
+        <div data-h2-flex-item="base(1of2)">
+          {isAdded ? (
+            <span
+              data-h2-color="base(dt-primary)"
+              data-h2-position="base(relative)"
+              data-h2-font-weight="base(700)"
+            >
+              <CheckCircleIcon
+                data-h2-width="base(x.75)"
+                data-h2-position="base(absolute)"
+                data-h2-offset="base(1px, auto, auto, 0)"
+              />
+              <span
+                data-h2-display="base(block)"
+                data-h2-padding="base(0, 0, 0, x1)"
+              >
+                {name[locale]}
+              </span>
+            </span>
+          ) : (
+            <span
+              data-h2-display="base(block)"
+              data-h2-margin="base(0, 0, 0, x1)"
+            >
+              {name[locale]}
+            </span>
+          )}
+        </div>
+        <div data-h2-flex-item="base(1of4)" data-h2-text-align="base(right)">
           <Button
             color="primary"
             mode="inline"
@@ -57,6 +64,8 @@ export const SkillBlock: React.FunctionComponent<{
                   description: "Text displayed when skill block is open.",
                 })}
           </Button>
+        </div>
+        <div data-h2-flex-item="base(1of4)" data-h2-text-align="base(right)">
           <Button
             color="primary"
             mode="inline"
@@ -76,12 +85,24 @@ export const SkillBlock: React.FunctionComponent<{
                 })}
           </Button>
         </div>
+        {isOpen && (
+          <div data-h2-flex-item="base(1of1)">
+            <div
+              data-h2-padding="base(x.75)"
+              data-h2-border="base(all, 1px, solid, dt-primary)"
+              data-h2-color="base(dt-primary)"
+              data-h2-background-color="base(dt-primary.15)"
+              data-h2-margin="base(x.25, 0, x.25, x1)"
+              data-h2-radius="base(s)"
+            >
+              <p data-h2-font-size="base(caption)">
+                This is sample description text so Josh can see what's up.
+              </p>
+              <p data-h2-font-size="base(caption)">{description?.[locale]}</p>
+            </div>
+          </div>
+        )}
       </div>
-      {isOpen && (
-        <div>
-          <p>{description?.[locale]}</p>
-        </div>
-      )}
     </div>
   );
 };
@@ -103,8 +124,16 @@ export const SkillResults: React.FunctionComponent<SkillResultsProps> = ({
 }) => {
   const addedIds = addedSkills.map((skill) => skill?.id);
   return (
-    <section>
-      <h4>{title}</h4>
+    <section data-h2-margin="base(0, 0, x1, 0)">
+      <h4
+        data-h2-font-size="base(copy, 1)"
+        data-h2-border="base(top, 1px, solid, dt-gray)"
+        data-h2-font-weight="base(700)"
+        data-h2-padding="base(x1.5, 0, 0, 0)"
+        data-h2-margin="base(x1.5, 0, x.65, 0)"
+      >
+        Skill {title}
+      </h4>
       {skills.map((skill) => {
         // Check if the poolCandidate has added the skill already.
         const isAdded = addedIds.includes(skill?.id);

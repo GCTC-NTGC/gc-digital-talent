@@ -184,9 +184,9 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
   return (
     <>
       <h3
-        data-h2-font-size="base(h4)"
+        data-h2-font-size="base(h6, 1)"
         data-h2-font-weight="base(700)"
-        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-margin="base(x3, 0, x1, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Skills as filters",
@@ -201,7 +201,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
             "Describing how to use the skill filters on search page, paragraph one.",
         })}
       </p>
-      <p>
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             " Why are there a limited number of skills? It’s important that applicants and managers are pulling from the same list of skills in order to create matches.",
@@ -209,12 +209,12 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
             "Describing how to use the skill filters on search page, paragraph two.",
         })}
       </p>
-      <h4>
+      {/* <h4>
         {intl.formatMessage({
           defaultMessage: "Find and select skills",
           description: "Subtitle for the skills filter on the search form.",
         })}
-      </h4>
+      </h4> */}
       <Tabs>
         <TabList>
           {tabs.map((tab, index) => (
@@ -297,7 +297,16 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
             />
           </TabPanel>
           <TabPanel>
-            <SearchBar handleSearch={handleSearch} />
+            <h4
+              data-h2-font-size="base(copy, 1)"
+              data-h2-font-weight="base(700)"
+              data-h2-margin="base(0, 0, x.5, 0)"
+            >
+              Filter by
+            </h4>
+            <div data-h2-margin="base(-x1, 0, 0, 0)">
+              <SearchBar handleSearch={handleSearch} />
+            </div>
             <SkillResults
               title={intl.formatMessage(
                 {

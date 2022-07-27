@@ -26,7 +26,7 @@ const AlertDialogHeading = ({
         className="alert-dialog-close"
         data-h2-padding="base(x.5)"
         data-h2-position="base(absolute)"
-        data-h2-location="base(top-right, s)"
+        data-h2-offset="base(x.5, x.5, auto, auto)"
         data-h2-color="base(dt-black)"
       >
         <span data-h2-visibility="base(invisible)">

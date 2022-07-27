@@ -19,13 +19,8 @@ const Family: React.FC<FamilyProps> = ({ family, checked, callback }) => {
   const checkedStyle = { "data-h2-font-weight": "base(700)" };
 
   return (
-    <div
-      {...(checked ? checkedStyle : uncheckedStyle)}
-      data-h2-padding="base(x.125)"
-      data-h2-font-size="base(caption)"
-      key={family.key}
-    >
-      <label>
+    <div key={family.key}>
+      <label data-h2-font-size="base(copy)">
         <input
           type="radio"
           checked={checked}
@@ -57,9 +52,18 @@ const SkillFamiliesRadioList: React.FC<SkillFamiliesRadioListProps> = ({
   };
 
   return (
-    <div data-h2-flex-grid="base(normal, expanded, flush, xs)">
+    <div data-h2-flex-grid="base(flex-start, 0, x.25)">
+      <div data-h2-flex-item="base(1of1)">
+        <h4
+          data-h2-font-size="base(copy, 1)"
+          data-h2-font-weight="base(700)"
+          data-h2-margin="base(0, 0, x.5, 0)"
+        >
+          Filter by
+        </h4>
+      </div>
       {skillFamilies.map((family) => (
-        <div data-h2-flex-item="p-tablet(1of2)" key={family.key}>
+        <div data-h2-flex-item="base(1of1)" key={family.key}>
           <Family
             family={family}
             checked={!!(selected && selected.id === family.id)}

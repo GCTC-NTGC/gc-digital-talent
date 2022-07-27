@@ -8,38 +8,40 @@ const Tab = (props: TabProps) => {
 
   return (
     <ReachTab
-      data-h2-shadow="base(xs)"
-      data-h2-text-align="base(center)"
-      data-h2-flex-direction="base(column)"
-      data-h2-align-items="base(stretch)"
+      data-h2-padding="base(x.5, x1)"
+      data-h2-margin="base(0, x.5, 0, 0)"
+      data-h2-position="base(relative)"
+      data-h2-offset="base(1px, auto, auto, auto)"
+      data-h2-radius="base(s, s, 0, 0)"
       {...(isSelected
         ? {
             "data-h2-background-color": "base(dt-white)",
+            "data-h2-border":
+              "base(right-left, 1px, solid, dt-gray) base(top, x.5, solid, dt-primary) base(bottom, 1px, solid, dt-white)",
           }
         : {
-            "data-h2-background-color": "base(dt-gray.light)",
+            "data-h2-background-color": "base(dt-white)",
+            "data-h2-border": "base(all, 1px, solid, dt-gray)",
           })}
       {...props}
     >
       <span
-        {...(isSelected
-          ? {
-              "data-h2-background-color": "base(dt-primary.light)",
-            }
-          : {
-              "data-h2-background-color": "base(dt-gray.light)",
-            })}
+      // {...(isSelected
+      //   ? {
+      //       "data-h2-background-color": "base(dt-primary.light)",
+      //     }
+      //   : {
+      //       "data-h2-background-color": "base(dt-gray.light)",
+      //     })}
       />
       <span
-        data-h2-font-size="base(h6)"
-        {...(isSelected
-          ? {
-              "data-h2-background-color": "base(dt-white)",
-              "data-h2-color": "base(dt-primary.light)",
-            }
-          : {
-              "data-h2-background-color": "base(dt-gray.light)",
-            })}
+      // {...(isSelected
+      //   ? {
+      //       "data-h2-color": "base(dt-primary.light)",
+      //     }
+      //   : {
+      //       "data-h2-background-color": "base(dt-gray.light)",
+      //     })}
       >
         {children}
       </span>

@@ -25,12 +25,16 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
 
   return (
     <>
-      <h3 data-h2-font-size="base(h5, 1.3)">
+      <h4
+        data-h2-font-size="base(copy, 1)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x2, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "Selected skills",
           description: "Section header for a list of skills selected",
         })}
-      </h3>
+      </h4>
       {notEmpty(filteredSkills) ? (
         <Chips>
           {filteredSkills.map((skill) => {
