@@ -1423,7 +1423,7 @@
     "description": "Third section of text on the change candidate status dialog"
   },
   "Zx3BVC": {
-    "defaultMessage": "Êtes-vous sûr(e) que vous voulez vous déconnecter?",
+    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user lands on /logged-out."
   },
   "aJVlIF": {
