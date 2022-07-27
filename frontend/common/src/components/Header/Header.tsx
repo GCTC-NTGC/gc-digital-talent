@@ -1,11 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import Link from "../Link";
 import {
   getLocale,
   localizePath,
   oppositeLocale,
 } from "../../helpers/localize";
-import { imageUrl, Link, useLocation } from "../../helpers/router";
+import { imageUrl, useLocation } from "../../helpers/router";
 
 export interface HeaderProps {
   baseUrl: string;
