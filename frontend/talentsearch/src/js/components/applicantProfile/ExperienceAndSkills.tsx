@@ -60,7 +60,7 @@ export interface ExperienceAndSkillsProps {
   experiences?: Experience[];
 }
 
-const ExperienceAndSkills: React.FunctionComponent<
+export const ExperienceAndSkills: React.FunctionComponent<
   ExperienceAndSkillsProps
 > = ({ experiences }) => {
   const intl = useIntl();
@@ -206,8 +206,6 @@ const ExperienceAndSkills: React.FunctionComponent<
   );
 };
 
-export default ExperienceAndSkills;
-
 export const ExperienceAndSkillsApi: React.FunctionComponent<{
   applicantId: string;
 }> = ({ applicantId }) => {
@@ -237,7 +235,8 @@ export const ExperienceAndSkillsApi: React.FunctionComponent<{
     </Pending>
   );
 };
-export const ExperienceAndSkillsRouterApi: React.FunctionComponent = () => {
+
+const ExperienceAndSkillsRouterApi: React.FunctionComponent = () => {
   const intl = useIntl();
   const [result] = useGetMeQuery();
   const { data, fetching, error } = result;
@@ -254,3 +253,5 @@ export const ExperienceAndSkillsRouterApi: React.FunctionComponent = () => {
     </Pending>
   );
 };
+
+export default ExperienceAndSkillsRouterApi;

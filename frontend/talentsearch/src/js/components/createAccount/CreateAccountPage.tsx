@@ -262,7 +262,7 @@ export const CreateAccountForm: React.FunctionComponent<
   );
 };
 
-export const CreateAccount: React.FunctionComponent = () => {
+const CreateAccount: React.FunctionComponent = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = talentSearchRoutes(locale);
@@ -330,3 +330,5 @@ export const CreateAccount: React.FunctionComponent = () => {
     </Pending>
   );
 };
+
+export default CreateAccount;

@@ -122,7 +122,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
   );
 };
 
-export const UpdateCmoAsset: React.FunctionComponent<{
+const UpdateCmoAsset: React.FunctionComponent<{
   cmoAssetId: string;
 }> = ({ cmoAssetId }) => {
   const intl = useIntl();
@@ -173,3 +173,5 @@ export const UpdateCmoAsset: React.FunctionComponent<{
     </Pending>
   );
 };
+
+export default UpdateCmoAsset;

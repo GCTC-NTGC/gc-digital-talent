@@ -211,7 +211,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   );
 };
 
-export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
+const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
   userId,
 }) => {
   const intl = useIntl();

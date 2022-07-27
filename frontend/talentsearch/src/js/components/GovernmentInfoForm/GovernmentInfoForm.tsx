@@ -439,7 +439,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
 };
 
 // outer, containing component
-export const GovInfoFormContainer: React.FunctionComponent = () => {
+const GovInfoFormContainer: React.FunctionComponent = () => {
   // needed bits for react-intl, form submits functions, and routing post submission
   const intl = useIntl();
 

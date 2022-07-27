@@ -354,7 +354,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   );
 };
 
-export const CreatePool: React.FunctionComponent = () => {
+const CreatePool: React.FunctionComponent = () => {
   const [lookupResult] = useGetCreatePoolDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =
@@ -384,3 +384,5 @@ export const CreatePool: React.FunctionComponent = () => {
     </Pending>
   );
 };
+
+export default CreatePool;

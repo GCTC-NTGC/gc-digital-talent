@@ -125,7 +125,7 @@ export const UpdateDepartmentForm: React.FunctionComponent<
   );
 };
 
-export const UpdateDepartment: React.FunctionComponent<{
+const UpdateDepartment: React.FunctionComponent<{
   departmentId: string;
 }> = ({ departmentId }) => {
   const intl = useIntl();
@@ -171,3 +171,5 @@ export const UpdateDepartment: React.FunctionComponent<{
     </Pending>
   );
 };
+
+export default UpdateDepartment;

@@ -28,7 +28,7 @@ jobs:
           cache-dependency-path: 'frontend/package-lock.json'
 
       - name: Upgrade npm
-        run: npm install --global npm@${{ env.NPM_VERSION }}
+        run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
       - name: "Install dependencies: common"
         working-directory: frontend

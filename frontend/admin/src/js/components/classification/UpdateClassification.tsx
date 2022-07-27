@@ -194,7 +194,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
   );
 };
 
-export const UpdateClassification: React.FunctionComponent<{
+const UpdateClassification: React.FunctionComponent<{
   classificationId: string;
 }> = ({ classificationId }) => {
   const intl = useIntl();
@@ -251,3 +251,5 @@ export const UpdateClassification: React.FunctionComponent<{
     </Pending>
   );
 };
+
+export default UpdateClassification;

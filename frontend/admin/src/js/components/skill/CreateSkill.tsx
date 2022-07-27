@@ -254,7 +254,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
   );
 };
 
-export const CreateSkill: React.FunctionComponent = () => {
+const CreateSkill: React.FunctionComponent = () => {
   const [lookupResult] = useAllSkillFamiliesQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const families = lookupData?.skillFamilies.filter(notEmpty) ?? [];
@@ -279,3 +279,5 @@ export const CreateSkill: React.FunctionComponent = () => {
     </Pending>
   );
 };
+
+export default CreateSkill;

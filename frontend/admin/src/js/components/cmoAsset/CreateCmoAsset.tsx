@@ -143,7 +143,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
   );
 };
 
-export const CreateCmoAsset: React.FunctionComponent = () => {
+const CreateCmoAsset: React.FunctionComponent = () => {
   const [, executeMutation] = useCreateCmoAssetMutation();
   const handleCreateCmoAsset = (data: CreateCmoAssetInput) =>
     executeMutation({ cmoAsset: data }).then((result) => {
@@ -159,3 +159,5 @@ export const CreateCmoAsset: React.FunctionComponent = () => {
     </DashboardContentContainer>
   );
 };
+
+export default CreateCmoAsset;

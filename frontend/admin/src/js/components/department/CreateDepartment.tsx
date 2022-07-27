@@ -113,7 +113,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
   );
 };
 
-export const CreateDepartment: React.FunctionComponent = () => {
+const CreateDepartment: React.FunctionComponent = () => {
   const [, executeMutation] = useCreateDepartmentMutation();
   const handleCreateDepartment = (data: CreateDepartmentInput) =>
     executeMutation({ department: data }).then((result) => {
@@ -129,3 +129,5 @@ export const CreateDepartment: React.FunctionComponent = () => {
     </DashboardContentContainer>
   );
 };
+
+export default CreateDepartment;
