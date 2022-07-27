@@ -75,11 +75,6 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
     };
   };
 
-  console.log({
-    initialData,
-    initialValues: dataToFormValues(initialData),
-  });
-
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialData),
   });
