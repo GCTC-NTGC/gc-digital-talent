@@ -1,4 +1,6 @@
 import React, { MouseEventHandler } from "react";
+import sanitizeUrl from "../../helpers/sanitizeUrl";
+import useLinkClickHandler from "../Link/useLinkClickHandler";
 
 export interface SideMenuItemProps {
   as?: "a" | "button";
@@ -19,6 +21,10 @@ const SideMenuItem: React.FC<SideMenuItemProps> = ({
 }) => {
   const El = as;
   const Icon = icon || null;
+  const url = sanitizeUrl(href);
+  const clickHandler = useLinkClickHandler({
+    to: url || "#",
+  });
 
   return (
     <El
@@ -32,7 +38,13 @@ const SideMenuItem: React.FC<SideMenuItemProps> = ({
       data-h2-border="base(bottom, 1px, solid, dt-white.1)"
       data-h2-color="base(dt-white)"
       className={`side-menu__item${isActive ? ` side-menu__item--active` : ``}`}
-      onClick={onClick}
+      onClick={(e) => {
+        if (as === "a" && !onClick) {
+          clickHandler(e as React.MouseEvent<HTMLAnchorElement>);
+        } else if (onClick) {
+          onClick(e as React.MouseEvent<HTMLButtonElement>);
+        }
+      }}
       {...(as === "a" ? { href } : { type: "button" })}
     >
       {Icon ? (
