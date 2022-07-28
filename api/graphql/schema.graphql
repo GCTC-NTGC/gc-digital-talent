@@ -1284,7 +1284,7 @@ type Mutation {
 
     updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput! @spread): PoolAdvertisement @update(model: "Pool") @guard @can(ability: "update", find: "id", model: "Pool")
 
-    publishPoolAdvertisement(id: ID!, poolAdvertisement: PublishPoolAdvertisementInput! @spread): PoolAdvertisement @guard @can(ability: "publish", find: "id", model: "Pool")
+    publishPoolAdvertisement(id: ID!): PoolAdvertisement @guard @can(ability: "publish", find: "id", model: "Pool")
 
     changePoolExpiryDate(id: ID!, newExpiryDate: DateTimeTz! @rename(attribute: "new_expiry_date") @rules(apply: ["after:today"])): PoolAdvertisement @guard @can(ability: "changePoolExpiryDate", find: "id", model: "Pool")
 

@@ -74,7 +74,7 @@ class PoolPolicy
         }
 
         // The expiry date must be greater than today's date at the end of day.
-        if ($pool->expiry_date < Carbon::now()->endOfDay()) {
+        if ($pool->expiry_date && $pool->expiry_date < Carbon::now()->endOfDay()) {
             return Response::deny("Expiry date must be a future date.");
         }
 
