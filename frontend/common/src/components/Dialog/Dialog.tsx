@@ -38,13 +38,13 @@ type HeaderProps = Pick<
   "title" | "subtitle" | "onDismiss" | "confirmation" | "color"
 >;
 
-const Header: React.FC<HeaderProps> = ({
+const Header = ({
   title,
   subtitle,
   onDismiss,
   confirmation = false,
   color = "ia-primary",
-}) => {
+}: HeaderProps) => {
   const intl = useIntl();
   return (
     <div
@@ -112,7 +112,11 @@ const Header: React.FC<HeaderProps> = ({
   );
 };
 
-const Footer: React.FC = ({ children }) => (
+interface FooterProps {
+  children: DialogProps["footer"];
+}
+
+const Footer = ({ children }: FooterProps) => (
   <div
     className="dialog__footer"
     data-h2-margin="b(top, m)"
@@ -132,9 +136,10 @@ export interface DialogProps {
   confirmation?: boolean;
   footer?: React.ReactNode;
   centered?: boolean;
+  children: React.ReactNode;
 }
 
-const Dialog: React.FC<DialogProps> = ({
+const Dialog = ({
   title,
   subtitle,
   onDismiss,
@@ -144,7 +149,7 @@ const Dialog: React.FC<DialogProps> = ({
   centered = false,
   footer,
   children,
-}) => {
+}: DialogProps) => {
   return (
     <Overlay {...{ isOpen, onDismiss }} data-h2-font-family="b(sans)">
       <Content
@@ -159,4 +164,6 @@ const Dialog: React.FC<DialogProps> = ({
   );
 };
 
+Dialog.Header = Header;
+Dialog.Footer = Footer;
 export default Dialog;
