@@ -303,7 +303,7 @@ describe("SelectFieldV2", () => {
     await act(async () => {
       fireEvent.submit(screen.getByRole("button"));
     });
-    expect(mockSubmit).toBeCalled();
+    expect(mockSubmit).toBeCalledTimes(1);
     expect(mockSubmit).toBeCalledWith({ fooBar: "BAZ" });
   });
 
@@ -323,7 +323,7 @@ describe("SelectFieldV2", () => {
     await act(async () => {
       fireEvent.submit(screen.getByRole("button"));
     });
-    expect(mockSubmit).toBeCalled();
+    expect(mockSubmit).toBeCalledTimes(1);
     expect(mockSubmit).toBeCalledWith({ fooBar: Array("BAZ") });
   });
 });
