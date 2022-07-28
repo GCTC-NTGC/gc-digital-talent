@@ -158,7 +158,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         style={{ flexGrow: "2" }}
       >
         {links.map(({ title, href, icon }) => (
-          <div data-h2-flex-item="b(1of5)" key={title}>
+          <div data-h2-flex-item="b(1of1) s(1of5)" key={title}>
             <IconLink
               href={href}
               type="button"
@@ -166,7 +166,15 @@ export const ExperienceAndSkills: React.FunctionComponent<
               icon={icon}
               block
             >
-              {title}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "<hidden>Add new </hidden>{title}<hidden> experience</hidden>",
+                  description:
+                    "Link text for adding a new experience of a specific type.",
+                },
+                { title },
+              )}
             </IconLink>
           </div>
         ))}
@@ -180,7 +188,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
           <p data-h2-font-style="b(italic)">
             {intl.formatMessage({
               defaultMessage:
-                "There are no experiences on your profile yet. You can add some using the links above.",
+                "There are no experiences on your profile yet. You can add some using the preceding buttons.",
               description:
                 "Message to user when no experiences have been attached to profile.",
             })}
