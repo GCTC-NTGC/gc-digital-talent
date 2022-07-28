@@ -89,7 +89,10 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
 
   return (
     <section>
-      <h2 data-h2-font-size="b(h4)">
+      <h2
+        data-h2-margin="base(x2, 0, x.5, 0)"
+        data-h2-font-size="base(h4, 1.3)"
+      >
         {intl.formatMessage({
           defaultMessage: "Personal Notes",
           description:
@@ -100,9 +103,9 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(handleStatusChangeToDone)}>
             <div
-              data-h2-border="s(lightgray, bottom, solid, s)"
-              data-h2-margin="b(bottom, m)"
-              data-h2-padding="b(bottom, m)"
+              data-h2-border="base(bottom, 1px, solid, dt-gray)"
+              data-h2-margin="base(0, 0, x1, 0)"
+              data-h2-padding="base(0, 0, x1, 0)"
             >
               <TextArea
                 id="adminNotes"
@@ -114,10 +117,10 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
                 })}
                 rows={8}
               />
-              <div data-h2-text-align="b(right)">
+              <div data-h2-text-align="base(right)">
                 <Button
                   color="primary"
-                  mode="solid"
+                  mode="outline"
                   onClick={() => {
                     handleSaveNotes(getValues());
                   }}
@@ -130,14 +133,14 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
                 </Button>
               </div>
             </div>
-            <div data-h2-margin="b(bottom, m)">
+            <div data-h2-margin="base(0, 0, x1, 0)">
               <Button
                 color="primary"
                 mode="outline"
                 onClick={() => {
                   navigate(paths.searchRequestTable());
                 }}
-                data-h2-margin="b(top, m) b(right, m)"
+                data-h2-margin="base(x1, x1, 0, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Back to All Requests",

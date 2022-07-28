@@ -33,7 +33,12 @@ const requestActionAccessor = (
   intl: IntlShape,
   fullName?: string | null,
 ) => (
-  <a key={id} href={path} data-h2-display="b(block)" data-h2-width="b(100)">
+  <a
+    key={id}
+    href={path}
+    data-h2-display="base(block)"
+    data-h2-width="base(100%)"
+  >
     {intl.formatMessage(
       {
         defaultMessage: "View request<hidden>{name}</hidden>",
@@ -172,10 +177,10 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
       <Heading
         id="latest-requests-heading"
         level="h2"
-        data-h2-margin="b(top-bottom, m)"
+        data-h2-margin="base(x3, 0, x1, 0)"
       >
         {intl.formatMessage({
-          defaultMessage: "Latests requests",
+          defaultMessage: "Latest requests",
           description:
             "Title for the latests requests table in the admin dashboard",
         })}

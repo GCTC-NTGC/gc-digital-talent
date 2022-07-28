@@ -73,11 +73,11 @@ export const DiversityEquityInclusionForm: React.FC<
         })}
       </p>
       <div
-        data-h2-bg-color="b(lightgray)"
-        data-h2-radius="b(s)"
-        data-h2-padding="b(all, m)"
+        data-h2-background-color="base(light.dt-gray)"
+        data-h2-radius="base(s)"
+        data-h2-padding="base(x1)"
       >
-        <p data-h2-margin="b(top, none)">
+        <p data-h2-margin="base(0, auto, auto, auto)">
           {intl.formatMessage({
             defaultMessage:
               "<strong>This section is optional</strong>. If you a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions</strong>:",

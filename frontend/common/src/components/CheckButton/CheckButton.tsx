@@ -6,21 +6,22 @@ import "./check-button.css";
 
 const borderMap = {
   black: {
-    "data-h2-border": "b(black, all, solid, s)",
+    "data-h2-border": "base(all, 1px, solid, dt-black)",
   },
   white: {
-    "data-h2-border": "b(lightgray, all, solid, s)",
+    "data-h2-border": "base(all, 1px, solid, dt-gray.light)",
   },
 };
 
 const colorMap = {
   black: {
-    "data-h2-font-color": "b(black)",
-    "data-h2-bg-color": "b(lightpurple[0]) b:h(lightpurple[.25])",
+    "data-h2-color": "base(dt-black)",
+    "data-h2-background-color":
+      "base(transparent) base:hover(dt-primary.light.25)",
   },
   white: {
-    "data-h2-font-color": "b(lightgray)",
-    "data-h2-bg-color": "b(white[0]) b:h(white[.25])",
+    "data-h2-color": "base(dt-gray.light)",
+    "data-h2-background-color": "base(transparent) base:hover(dt-white.25)",
   },
 };
 
@@ -57,12 +58,12 @@ const CheckButton = ({
       className="check-button"
       type="button"
       onClick={handleClick}
-      data-h2-padding="b(all, xs)"
-      data-h2-radius="b(s)"
-      data-h2-display="b(inline-flex)"
+      data-h2-padding="base(x.25)"
+      data-h2-radius="base(s)"
+      data-h2-display="base(inline-flex)"
       {...colorMap[color]}
     >
-      <span data-h2-visibility="b(invisible)">
+      <span data-h2-visibility="base(invisible)">
         {checked
           ? intl.formatMessage(
               {
@@ -81,10 +82,10 @@ const CheckButton = ({
       </span>
       <span
         className="check-button__inner"
-        data-h2-padding="b(all, xxs)"
+        data-h2-padding="base(x.125)"
         {...borderMap[color]}
       >
-        <Icon className="check-button__icon" data-h2-display="b(block)" />
+        <Icon className="check-button__icon" data-h2-display="base(block)" />
       </span>
     </button>
   );

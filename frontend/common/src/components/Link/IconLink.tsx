@@ -10,14 +10,15 @@ const IconLink: React.FC<IconLinkProps> = ({ icon, children, ...rest }) => {
   const Icon = icon || null;
   return (
     <Link {...rest}>
-      <span data-h2-display="b(flex)" data-h2-align-items="b(center)">
+      <span>
         {Icon && (
           <Icon
-            data-h2-margin="b(right, xs)"
-            style={{ height: "1rem", width: "1rem" }}
+            data-h2-margin="base(-2px, x.5, 0, 0)"
+            data-h2-width="base(x1)"
+            data-h2-vertical-align="base(middle)"
           />
         )}
-        <span>{children}</span>
+        <span data-h2-text-decoration="base(underline)">{children}</span>
       </span>
     </Link>
   );

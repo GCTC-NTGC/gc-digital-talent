@@ -157,9 +157,9 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
     </Tabs>
   ) : (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(all, m)"
-      data-h2-radius="b(s)"
+      data-h2-background-color="base(dt-gray.light)"
+      data-h2-padding="base(x1)"
+      data-h2-radius="base(s)"
     >
       {!editPath ? (
         <p>

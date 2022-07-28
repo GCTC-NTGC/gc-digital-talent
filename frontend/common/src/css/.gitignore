@@ -1,3 +1,9 @@
 hydrogen.css
+hydrogen.vars.css
+/hydrogen-logs
 /hydrogen
+hydrogen.logs.attributes.json
+hydrogen.logs.media.json
+hydrogen.logs.values.json
+hydrogen.raw.css
 !.gitignore

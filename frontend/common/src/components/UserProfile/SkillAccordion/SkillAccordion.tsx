@@ -27,6 +27,10 @@ import {
   isWorkExperience,
 } from "../../../types/ExperienceUtils";
 
+const purpleText = (chunks: string[]) => (
+  <span data-h2-color="base(dt-primary)">{...chunks}</span>
+);
+
 export interface SkillAccordionProps {
   skill: Skill;
 }
@@ -43,7 +47,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     const { title, description, startDate, endDate, details } = experience;
     return (
       <>
-        <p data-h2-font-color="b(lightpurple)">{title}</p>
+        <p data-h2-color="base(dt-primary)">{title}</p>
         <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
         <p> {description} </p>
         <p>{skill.experienceSkillRecord?.details}</p>
@@ -67,7 +71,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <div>
         <p>
-          <span data-h2-font-color="b(lightpurple)"> {areaOfStudy} </span>
+          <span data-h2-color="base(dt-primary)"> {areaOfStudy} </span>
           {intl.formatMessage(
             {
               defaultMessage: " at {institution}",
@@ -80,8 +84,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {" "}
           {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
           <span
-            data-h2-font-color="b(lightpurple)"
-            data-h2-font-style="b(italic)"
+            data-h2-color="base(dt-primary)"
+            data-h2-font-style="base(italic)"
           >
             {" "}
             {status ? intl.formatMessage(getEducationStatus(status)) : ""}{" "}
@@ -281,10 +285,10 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             )
       }
     >
-      <div data-h2-padding="b(left, l)" data-testid="detail">
+      <div data-h2-padding="base(0, 0, 0, x2)" data-testid="detail">
         {renderDetail()}
       </div>
-      <div data-h2-padding="b(left, l)" />
+      <div data-h2-padding="base(0, 0, 0, x2)" />
     </Accordion>
   );
 };

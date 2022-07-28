@@ -17,7 +17,7 @@ const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
       case "bothButtons":
         return (
           <>
-            <span data-h2-padding="b(right, xs)">
+            <span data-h2-padding="base(0, x.25, 0, 0)">
               <CancelButton link={link} />
             </span>
             <span>
@@ -34,7 +34,7 @@ const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
     }
   };
   return (
-    <div data-h2-margin="b(top-bottom, l)" data-h2-display="b(flex)">
+    <div data-h2-margin="base(x2, 0, x3, 0)" data-h2-display="base(flex)">
       {children}
       {bottomButtons()}
     </div>

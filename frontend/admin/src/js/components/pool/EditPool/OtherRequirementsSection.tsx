@@ -84,7 +84,7 @@ export const OtherRequirementsSection = ({
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+        <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(p)">
           {sectionMetadata.title}
         </h2>
       </TableOfContents.Heading>
@@ -102,7 +102,7 @@ export const OtherRequirementsSection = ({
             onSave(formValuesToSubmitData(formValues)),
           )}
         >
-          <div data-h2-display="b(flex)">
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <Select
                 id="languageRequirement"
@@ -127,7 +127,7 @@ export const OtherRequirementsSection = ({
             </Spacer>
             <Spacer style={{ flex: 1 }} />
           </div>
-          <div data-h2-display="b(flex)">
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <Select
                 id="securityRequirement"
@@ -150,7 +150,7 @@ export const OtherRequirementsSection = ({
             </Spacer>
             <Spacer style={{ flex: 1 }} />
           </div>
-          <div data-h2-display="b(flex)">
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <RadioGroup
                 idPrefix="locationOption"
@@ -184,7 +184,7 @@ export const OtherRequirementsSection = ({
           </div>
           {locationOption === LocationOption.SpecificLocation ? (
             <>
-              <div data-h2-display="b(flex)">
+              <div data-h2-display="base(flex)">
                 <Spacer style={{ flex: 1 }}>
                   <Input
                     id="specificLocationEn"
@@ -200,7 +200,7 @@ export const OtherRequirementsSection = ({
                 </Spacer>
                 <Spacer style={{ flex: 1 }} />
               </div>
-              <div data-h2-display="b(flex)">
+              <div data-h2-display="base(flex)">
                 <Spacer style={{ flex: 1 }}>
                   <Input
                     id="specificLocationFr"

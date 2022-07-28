@@ -66,14 +66,14 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   };
 
   return (
-    <section>
-      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+    <section data-h2-container="base(left, s)">
+      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create User",
           description: "Title displayed on the create a user form.",
         })}
       </h2>
-      <div data-h2-container="b(center, s)">
+      <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input

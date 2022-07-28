@@ -42,7 +42,7 @@ import DashboardContentContainer from "../DashboardContentContainer";
 type SpacerProps = React.HTMLProps<HTMLSpanElement>;
 
 const Spacer = ({ children, ...rest }: SpacerProps) => (
-  <span data-h2-margin="b(bottom-right, s)" {...rest}>
+  <span data-h2-margin="base(0, x.5, x.5, 0)" {...rest}>
     {children}
   </span>
 );
@@ -147,9 +147,9 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
       <PageHeader icon={ViewGridIcon}>{poolName}</PageHeader>
       <Breadcrumbs links={links} />
       <div
-        data-h2-display="b(flex)"
-        data-h2-flex-wrap="b(wrap)"
-        data-h2-margin="b(top-bottom, m)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-margin="base(x2, 0)"
       >
         <Spacer>
           <IconLink
@@ -198,14 +198,14 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         </Spacer>
       </div>
       <FormProvider {...form}>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+        <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3, 1)">
           {intl.formatMessage({
             defaultMessage: "View pool advertisement",
             description: "Sub title for admin view pool page",
           })}
         </h2>
-        <div data-h2-display="b(flex)" data-h2-align-items="b(flex-end)">
-          <Spacer data-h2-width="b(25)">
+        <div data-h2-display="base(flex)" data-h2-align-items="base(flex-end)">
+          <Spacer data-h2-width="base(25%)">
             <Input
               readOnly
               value={pool.id}
@@ -221,7 +221,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           </Spacer>
           <Spacer>
             <IconButton
-              data-h2-margin="b(bottom, xxs)"
+              data-h2-margin="base(0, 0, x.125, 0)"
               mode="outline"
               color="secondary"
               disabled={linkCopied}
@@ -248,7 +248,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           </Spacer>
           <Spacer>
             <IconLink
-              data-h2-margin="b(bottom, xxs)"
+              data-h2-margin="base(0, 0, x.125, 0)"
               mode="outline"
               color="secondary"
               type="button"
@@ -265,7 +265,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             </IconLink>
           </Spacer>
         </div>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+        <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
           {intl.formatMessage({
             defaultMessage: "Details",
             description: "Sub title for admin view pool page",
@@ -273,7 +273,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         </h2>
         {classification ? (
           <>
-            <div data-h2-display="b(flex)">
+            <div data-h2-display="base(flex)">
               <Spacer>
                 <Input
                   id="targetClassification"
@@ -305,7 +305,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 />
               </Spacer>
             </div>
-            <div data-h2-display="b(flex)">
+            <div data-h2-display="base(flex)">
               <Spacer style={{ flex: 1 }}>
                 <Input
                   id="specificTitleEn"
@@ -339,7 +339,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             </div>
           </>
         ) : null}
-        <div data-h2-display="b(flex)">
+        <div data-h2-display="base(flex)">
           <Spacer>
             <Input
               id="expiryDate"
@@ -373,9 +373,9 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             />
           </Spacer>
         </div>
-        <div data-h2-display="b(flex)">
+        <div data-h2-display="base(flex)">
           <Spacer style={{ flex: 1 }}>
-            <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+            <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
               {intl.formatMessage({
                 defaultMessage: "Your Impact (English)",
                 description: "Title for English pool advertisement impact",
@@ -384,7 +384,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <p>{pool.yourImpact?.en || ""}</p>
           </Spacer>
           <Spacer style={{ flex: 1 }}>
-            <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+            <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
               {intl.formatMessage({
                 defaultMessage: "Your Impact (French)",
                 description: "Title for French pool advertisement impact",
@@ -393,9 +393,9 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <p>{pool.yourImpact?.fr || ""}</p>
           </Spacer>
         </div>
-        <div data-h2-display="b(flex)">
+        <div data-h2-display="base(flex)">
           <Spacer style={{ flex: 1 }}>
-            <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+            <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
               {intl.formatMessage({
                 defaultMessage: "Your Work (English)",
                 description: "Title for English pool advertisement Work",
@@ -404,7 +404,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <p>{pool.keyTasks?.en || ""}</p>
           </Spacer>
           <Spacer style={{ flex: 1 }}>
-            <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+            <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
               {intl.formatMessage({
                 defaultMessage: "Your Work (French)",
                 description: "Title for French pool advertisement Work",
@@ -413,7 +413,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <p>{pool.keyTasks?.fr || ""}</p>
           </Spacer>
         </div>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+        <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
           {intl.formatMessage({
             defaultMessage: "Need to have skills",
             description: "Title required skills for a pool advertisement",
@@ -421,7 +421,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         </h2>
         {essentialOccupationalSkills?.length ? (
           <>
-            <h3 data-h2-font-size="b(h4)">
+            <h3 data-h2-font-size="base(h4)">
               {intl.formatMessage({
                 defaultMessage: "Occupational",
                 description:
@@ -442,7 +442,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         ) : null}
         {essentialTransferableSkills?.length ? (
           <>
-            <h3 data-h2-font-size="b(h4)">
+            <h3 data-h2-font-size="base(h4)">
               {intl.formatMessage({
                 defaultMessage: "Transferable",
                 description:
@@ -461,7 +461,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             </Chips>
           </>
         ) : null}
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+        <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
           {intl.formatMessage({
             defaultMessage: "Nice to have skills",
             description: "Title optional skills for a pool advertisement",
@@ -469,7 +469,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         </h2>
         {nonEssentialOccupationalSkills?.length ? (
           <>
-            <h3 data-h2-font-size="b(h4)">
+            <h3 data-h2-font-size="base(h4)">
               {intl.formatMessage({
                 defaultMessage: "Occupational",
                 description:
@@ -490,7 +490,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         ) : null}
         {nonEssentialTransferableSkills?.length ? (
           <>
-            <h3 data-h2-font-size="b(h4)">
+            <h3 data-h2-font-size="base(h4)">
               {intl.formatMessage({
                 defaultMessage: "Transferable",
                 description:
@@ -509,7 +509,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             </Chips>
           </>
         ) : null}
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(h3)">
+        <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
           {intl.formatMessage({
             defaultMessage: "Requirements",
             description: "Title for a pool advertisement requirements",
@@ -563,7 +563,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           </li>
         </ul>
       </FormProvider>
-      <p data-h2-margin="b(top, l)">
+      <p data-h2-margin="base(x2, 0, 0, 0)">
         <Link
           type="button"
           mode="solid"

@@ -35,7 +35,7 @@ const CloseDialogButton: React.FC<CloseDialogButtonProps> = ({ close }) => {
   const intl = useIntl();
   return (
     <Button type="button" mode="outline" color="secondary" onClick={close}>
-      <span data-h2-font-style="b(underline)">
+      <span data-h2-font-style="base(underline)">
         {intl.formatMessage({
           defaultMessage: "Cancel and go back",
           description: "Close dialog button",
@@ -67,18 +67,21 @@ const ConfirmDialogButton: React.FC<ConfirmDialogButtonProps> = ({
       color="secondary"
       disabled={disabled}
       onClick={onConfirm}
-      data-h2-display="b(flex)"
-      data-h2-align-items="b(center)"
+      data-h2-display="base(flex)"
+      data-h2-align-items="base(center)"
     >
       {Icon ? (
         <>
           <Icon style={{ width: "1.5rem" }} />
-          <span data-h2-padding="b(left, xs)" data-h2-font-style="b(underline)">
+          <span
+            data-h2-padding="base(0, 0, 0, x.25)"
+            data-h2-font-style="base(underline)"
+          >
             {title}
           </span>
         </>
       ) : (
-        <span data-h2-font-style="b(underline)">{title}</span>
+        <span data-h2-font-style="base(underline)">{title}</span>
       )}
     </Button>
   );
@@ -159,8 +162,8 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
       onDismiss={resetAndClose}
       footer={
         <div
-          data-h2-display="b(flex)"
-          data-h2-justify-content="b(space-between))"
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(space-between)"
         >
           <CloseDialogButton close={resetAndClose} />
           <ConfirmDialogButton
@@ -206,7 +209,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
             "Third section of text on the change candidate status dialog",
         })}
       </p>
-      <div data-h2-margin="b(bottom, xxs)">
+      <div data-h2-margin="base(0, 0, x.125, 0)">
         <InputWrapper
           inputId="status"
           label={intl.formatMessage({
@@ -217,10 +220,10 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
           required
         >
           <select
-            data-h2-radius="b(s)"
-            data-h2-padding="b(all, xs)"
-            data-h2-font-size="b(normal)"
-            data-h2-width="b(100)"
+            data-h2-radius="base(s)"
+            data-h2-padding="base(x.25)"
+            data-h2-font-size="base(copy)"
+            data-h2-width="base(100%)"
             id="status"
             defaultValue=""
             onChange={(e) => setSelectedStatus(e.target.value)}
@@ -233,13 +236,20 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
               })}
             </option>
             {enumToOptions(PoolCandidateStatus).map(({ value }) => (
-              <option data-h2-font-family="b(sans)" key={value} value={value}>
+              <option
+                data-h2-font-family="base(sans)"
+                key={value}
+                value={value}
+              >
                 {intl.formatMessage(getPoolCandidateStatus(value))}
               </option>
             ))}
           </select>
         </InputWrapper>
-        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputError
             isVisible={showErrorMessage}
             error={intl.formatMessage({
@@ -330,8 +340,8 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
       onDismiss={resetAndClose}
       footer={
         <div
-          data-h2-display="b(flex)"
-          data-h2-justify-content="b(space-between))"
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(space-between)"
         >
           <CloseDialogButton close={resetAndClose} />
           <ConfirmDialogButton
@@ -371,7 +381,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
             "Second section of text on the change candidate expiry date dialog",
         })}
       </p>
-      <div data-h2-margin="b(bottom, xxs)">
+      <div data-h2-margin="base(0, 0, x.125, 0)">
         <InputWrapper
           inputId="date"
           label={intl.formatMessage({
@@ -382,17 +392,20 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
           required
         >
           <input
-            data-h2-radius="b(s)"
-            data-h2-padding="b(all, xs)"
-            data-h2-width="b(100)"
-            data-h2-font-size="b(normal)"
-            data-h2-font-family="b(sans)"
+            data-h2-radius="base(s)"
+            data-h2-padding="base(x.25)"
+            data-h2-width="base(100%)"
+            data-h2-font-size="base(copy)"
+            data-h2-font-family="base(sans)"
             id="date"
             type="date"
             onChange={(e) => setSelectedDate(e.target.value)}
           />
         </InputWrapper>
-        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputError
             isVisible={showErrorMessage}
             error={intl.formatMessage({
@@ -469,8 +482,8 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
       onDismiss={onDismiss}
       footer={
         <div
-          data-h2-display="b(flex)"
-          data-h2-justify-content="b(space-between))"
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(space-between)"
         >
           <CloseDialogButton close={onDismiss} />
           <ConfirmDialogButton
@@ -614,8 +627,8 @@ export const AddToPoolDialog: React.FC<{
       onDismiss={resetAndClose}
       footer={
         <div
-          data-h2-display="b(flex)"
-          data-h2-justify-content="b(space-between))"
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(space-between)"
         >
           <CloseDialogButton close={resetAndClose} />
           <ConfirmDialogButton
@@ -651,7 +664,7 @@ export const AddToPoolDialog: React.FC<{
           description: "Second section of text on the add user to pool dialog",
         })}
       </p>
-      <div data-h2-margin="b(bottom, xxs)">
+      <div data-h2-margin="base(0, 0, x.125, 0)">
         <InputWrapper
           inputId="pool"
           label={intl.formatMessage({
@@ -662,10 +675,10 @@ export const AddToPoolDialog: React.FC<{
           required
         >
           <select
-            data-h2-radius="b(s)"
-            data-h2-padding="b(all, xs)"
-            data-h2-font-size="b(normal)"
-            data-h2-width="b(100)"
+            data-h2-radius="base(s)"
+            data-h2-padding="base(x.25)"
+            data-h2-font-size="base(copy)"
+            data-h2-width="base(100%)"
             id="pool"
             defaultValue=""
             onChange={(e) => setSelectedPool(e.target.value)}
@@ -686,7 +699,7 @@ export const AddToPoolDialog: React.FC<{
               }
               return (
                 <option
-                  data-h2-font-family="b(sans)"
+                  data-h2-font-family="base(sans)"
                   key={pool?.id}
                   value={pool?.id}
                 >
@@ -696,7 +709,10 @@ export const AddToPoolDialog: React.FC<{
             })}
           </select>
         </InputWrapper>
-        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputError
             isVisible={showPoolErrorMessage}
             error={intl.formatMessage({
@@ -713,7 +729,7 @@ export const AddToPoolDialog: React.FC<{
           description: "Third section of text on the add user to pool dialog",
         })}
       </p>
-      <div data-h2-margin="b(bottom, xxs)">
+      <div data-h2-margin="base(0, 0, x.125, 0)">
         <InputWrapper
           inputId="date"
           label={intl.formatMessage({
@@ -724,18 +740,21 @@ export const AddToPoolDialog: React.FC<{
           required
         >
           <input
-            data-h2-radius="b(s)"
-            data-h2-padding="b(all, xs)"
-            data-h2-width="b(100)"
-            data-h2-font-size="b(normal)"
-            data-h2-font-family="b(sans)"
-            data-h2-border="b(darkgray, all, solid, s)"
+            data-h2-radius="base(s)"
+            data-h2-padding="base(x.25)"
+            data-h2-width="base(100%)"
+            data-h2-font-size="base(copy)"
+            data-h2-font-family="base(sans)"
+            data-h2-border="base(all, 1px, solid, dark.dt-gray)"
             id="date"
             type="date"
             onChange={(e) => setSelectedDate(e.target.value)}
           />
         </InputWrapper>
-        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputError
             isVisible={showDateErrorMessage}
             error={intl.formatMessage({

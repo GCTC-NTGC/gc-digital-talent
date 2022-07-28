@@ -86,20 +86,17 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
       <PageHeader icon={UserCircleIcon}>{pageTitle}</PageHeader>
       <Breadcrumbs links={links} />
       <div
-        data-h2-align-items="b(center)"
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column) m(row)"
-        data-h2-margin="b(top-bottom, l)"
+        data-h2-align-items="base(center)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-margin="base(x2, 0)"
       >
         {userName !== " " && (
-          <Heading
-            level="h2"
-            data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
-          >
+          <Heading level="h2" data-h2-margin="base(x.5, 0) l-tablet(0)">
             {userName}
           </Heading>
         )}
-        <div data-h2-margin="m(left, auto)">
+        <div data-h2-margin="l-tablet(0)">
           <UserProfilePrintButton userId={user.id}>
             <span>
               <PrinterIcon style={{ width: "1rem" }} />{" "}

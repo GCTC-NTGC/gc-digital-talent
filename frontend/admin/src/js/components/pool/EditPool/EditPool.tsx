@@ -49,7 +49,7 @@ export interface SectionMetadata {
 type SpacerProps = React.HTMLProps<HTMLSpanElement>;
 
 export const Spacer = ({ children, ...rest }: SpacerProps) => (
-  <span data-h2-margin="b(bottom-right, s)" {...rest}>
+  <span data-h2-margin="base(0, x.5, x.5, 0)" {...rest}>
     {children}
   </span>
 );
@@ -173,8 +173,8 @@ export const EditPoolForm = ({
       <Breadcrumbs links={links} />
       <TableOfContents.Wrapper>
         <TableOfContents.Navigation
-          data-h2-bg-color="b(lightgray)"
-          data-h2-radius="b(s)"
+          data-h2-background-color="base(dt-gray.light)"
+          data-h2-radius="base(s)"
         >
           <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
             {sectionMetadata.poolName.title}

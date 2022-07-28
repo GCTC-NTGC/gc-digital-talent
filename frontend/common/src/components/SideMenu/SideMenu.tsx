@@ -45,35 +45,24 @@ const SideMenu: React.FC<SideMenuProps> = ({
   };
 
   return !isSmallScreen || isOpen ? (
-    <FocusLock
-      autoFocus
-      returnFocus
-      disabled={!isSmallScreen}
-      className={`side-menu${isOpen ? ` side-menu--open` : ``}`}
-    >
-      <RemoveScroll
-        enabled={isSmallScreen && isOpen}
-        data-h2-padding="b(all, xs)"
-        data-h2-overflow="b(y, auto)"
-        data-h2-bg-color="b(lightnavy)"
-        data-h2-shadow="m(m)"
-        data-h2-position="b(fixed)"
-        data-h2-width="b(100)"
+    <div data-h2-flex-item="base(content)">
+      <FocusLock
+        autoFocus
+        returnFocus
+        disabled={!isSmallScreen}
+        className={`side-menu${isOpen ? ` side-menu--open` : ``}`}
       >
-        <nav
-          /**
-           * Ignore `no-noninteractive-element-interactions` since
-           * this is captured to close the element
-           */
-          onKeyDown={handleKeyDown}
-          aria-label={label}
-          className="side-menu__inner"
-          data-h2-display="b(flex)"
-          data-h2-flex-direction="b(column)"
-          data-h2-align-items="b(stretch)"
-          data-h2-justify-content="b(space-between)"
+        <RemoveScroll
+          enabled={isSmallScreen && isOpen}
+          data-h2-background-color="base(light.dt-secondary)"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-height="base(100%)"
         >
-          <div data-h2-margin="(top-bottom, s)" className="side-menu__header">
+          <div
+            data-h2-margin="base(0, 0, x.5, 0)"
+            className="side-menu__header"
+          >
             <SideMenuItem as="button" onClick={handleToggle} icon={MenuIcon}>
               {isOpen
                 ? intl.formatMessage({
@@ -85,20 +74,22 @@ const SideMenu: React.FC<SideMenuProps> = ({
             </SideMenuItem>
             {header}
           </div>
-          <div
-            data-h2-margin="b(top, m) m(top, l) l(top, xl)"
+          <nav
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
             className="side-menu__content"
           >
-            {children}
-          </div>
-          {footer && (
-            <div data-h2-margin="(top-bottom, s)" className="side-menu__footer">
-              {footer}
+            <div
+              data-h2-margin="base(x1, 0, 0, 0) l-tablet(x2, 0, 0, 0) desktop(x3, 0, 0, 0)"
+              className="side-menu__content"
+            >
+              {children}
             </div>
-          )}
-        </nav>
-      </RemoveScroll>
-    </FocusLock>
+            {footer && <div className="side-menu__footer">{footer}</div>}
+          </nav>
+        </RemoveScroll>
+      </FocusLock>
+    </div>
   ) : null;
 };
 

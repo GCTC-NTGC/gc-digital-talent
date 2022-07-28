@@ -85,7 +85,13 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
 
   const data = useMemo(() => skills.filter(notEmpty), [skills]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <div data-h2-padding="base(0, 0, x3, 0)">
+      <div data-h2-container="base(center, large, x2)">
+        <Table data={data} columns={columns} />
+      </div>
+    </div>
+  );
 };
 
 export const SkillTableApi: React.FunctionComponent = () => {

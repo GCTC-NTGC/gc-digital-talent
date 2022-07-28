@@ -37,7 +37,7 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
         <ul key={index}>
           <li>
             {skill.name[locale] && (
-              <p data-h2-font-color="b(lightpurple)">{skill.name[locale]}</p>
+              <p data-h2-color="base(dt-primary.light)">{skill.name[locale]}</p>
             )}
             {skill.description && skill.description[locale] && (
               <p>{skill.description[locale]}</p>
@@ -77,7 +77,7 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
       Icon={StarIcon}
       defaultOpen={defaultOpen}
     >
-      <div data-h2-padding="b(left, l)">
+      <div data-h2-padding="base(0, 0, 0, x2)">
         <p>
           {intl.formatMessage(
             {
@@ -105,8 +105,8 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
         </p>
       </div>
       <hr />
-      <div data-h2-padding="b(left, l)">{skillsList}</div>
-      <div data-h2-padding="b(left, l)">
+      <div data-h2-padding="base(0, 0, 0, x2)">{skillsList}</div>
+      <div data-h2-padding="base(0, 0, 0, x2)">
         <p>
           {intl.formatMessage(
             {
@@ -118,7 +118,7 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
         </p>
       </div>
       {editUrl && (
-        <div data-h2-padding="b(left, l)">
+        <div data-h2-padding="base(0, 0, 0, x2)">
           <Link href={editUrl} color="primary" mode="outline" type="button">
             {intl.formatMessage({
               defaultMessage: "Edit Experience",

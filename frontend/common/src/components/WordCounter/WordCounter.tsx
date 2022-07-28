@@ -23,11 +23,11 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
       aria-valuenow={numOfWords}
       aria-valuemin={minWords}
       aria-valuemax={wordLimit}
-      data-h2-font-size="b(caption)"
+      data-h2-font-size="base(caption)"
       {...rest}
     >
       {wordsLeft < 0 ? (
-        <span data-h2-font-color="b(red)">
+        <span data-h2-color="base(dt-error)">
           {Math.abs(wordsLeft)}{" "}
           {intl.formatMessage(
             {
@@ -39,7 +39,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
           )}
         </span>
       ) : (
-        <span data-h2-font-color="b(darkgray)">
+        <span data-h2-color="base(dt-gray)">
           {wordsLeft}{" "}
           {intl.formatMessage(
             {

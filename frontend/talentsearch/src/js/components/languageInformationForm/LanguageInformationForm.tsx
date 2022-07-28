@@ -281,10 +281,10 @@ export const LanguageInformationForm: React.FunctionComponent<{
             },
           ]}
         >
-          <div data-h2-padding="b(bottom, l)">
+          <div data-h2-padding="base(0, 0, x2, 0)">
             <div
-              data-h2-width="b(100) xs(75) m(50)"
-              data-h2-padding="b(top-bottom, s)"
+              data-h2-width="base(100%) p-tablet(75%) l-tablet(50%)"
+              data-h2-padding="base(x.5, 0)"
             >
               <Checklist
                 idPrefix="considered-position-languages"
@@ -303,7 +303,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
             </div>
             {consideredLanguages.includes("lookingForBilingual") && (
               <>
-                <div data-h2-padding="b(top, s)">
+                <div data-h2-padding="base(x.5, 0, 0, 0)">
                   <RadioGroup
                     idPrefix="bilingualEvaluation"
                     legend={intl.formatMessage({
@@ -319,7 +319,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                   />
                 </div>
                 {bilingualEvaluation !== BilingualEvaluation.NotCompleted ? (
-                  <div data-h2-padding="b(top, s)">
+                  <div data-h2-padding="base(x.5, 0, 0, 0)">
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
@@ -328,8 +328,8 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           "Text requesting language levels given from bilingual evaluation in language information form",
                       })}
                     </p>
-                    <div data-h2-flex-grid="b(normal, contained, flush, m)">
-                      <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
+                    <div data-h2-flex-grid="base(normal, 0, x1)">
+                      <div data-h2-flex-item="base(1of1) p-tablet(1of3) desktop(1of4)">
                         <Select
                           id="comprehensionLevel"
                           name="comprehensionLevel"
@@ -351,7 +351,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           options={EvaluatedAbilityItems}
                         />
                       </div>
-                      <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
+                      <div data-h2-flex-item="base(1of1) p-tablet(1of3) desktop(1of4)">
                         <Select
                           id="writtenLevel"
                           name="writtenLevel"
@@ -373,7 +373,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           options={EvaluatedAbilityItems}
                         />
                       </div>
-                      <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
+                      <div data-h2-flex-item="base(1of1) p-tablet(1of3) desktop(1of4)">
                         <Select
                           id="verbalLevel"
                           name="verbalLevel"
@@ -398,8 +398,8 @@ export const LanguageInformationForm: React.FunctionComponent<{
                     </div>
                   </div>
                 ) : (
-                  <div data-h2-padding="b(top, s)">
-                    <p data-h2-padding="b(bottom, s)">
+                  <div data-h2-padding="base(x.5, 0, 0, 0)">
+                    <p data-h2-padding="base(0, 0, x.5, 0)">
                       {intl.formatMessage(
                         {
                           defaultMessage:

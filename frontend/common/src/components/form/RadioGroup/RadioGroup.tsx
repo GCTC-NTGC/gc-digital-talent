@@ -73,21 +73,20 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
         {items.map(({ value, label }) => {
           const id = `${idPrefix}-${value}`;
           return (
-            <div style={{ breakInside: "avoid" }} key={id}>
+            <div key={id}>
               <InputWrapper
                 inputId={id}
                 label={label}
+                label_size="copy"
                 // Don't show Required tag, error or context on individual input, as its handled by Fieldset.
                 required={false}
                 hideOptional
-                data-h2-flex-direction="b(row)"
-                data-h2-align-items="b(center)"
-                data-h2-padding="b(bottom, xxs)"
-                hideBottomMargin
+                data-h2-flex-direction="base(row)"
+                data-h2-margin="base(x.25, 0, 0, 0)"
               >
                 <input
-                  style={{ order: -1 }}
-                  data-h2-margin="b(right, xxs)"
+                  data-h2-order="base(-1)"
+                  data-h2-margin="base(3px, x.5, 0, 0)"
                   id={id}
                   {...register(name, rules)}
                   value={value}

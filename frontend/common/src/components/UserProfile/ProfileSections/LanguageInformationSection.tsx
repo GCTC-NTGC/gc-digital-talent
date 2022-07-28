@@ -33,184 +33,218 @@ const LanguageInformationSection: React.FunctionComponent<{
 
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(all, m)"
-      data-h2-radius="b(s)"
+      data-h2-background-color="base(light.dt-gray)"
+      data-h2-padding="base(x1)"
+      data-h2-radius="base(s)"
     >
-      {lookingForEnglish && !lookingForFrench && !lookingForBilingual && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Interested in:",
-            description: "Interested in label and colon",
-          })}{" "}
-          <span data-h2-font-weight="b(700)">
-            {intl.formatMessage({
-              defaultMessage: "English positions",
-              description: "English Positions message",
-            })}
-          </span>
-        </p>
-      )}
-      {!lookingForEnglish && lookingForFrench && !lookingForBilingual && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Interested in:",
-            description: "Interested in label and colon",
-          })}{" "}
-          <span data-h2-font-weight="b(700)">
-            {intl.formatMessage({
-              defaultMessage: "French positions",
-              description: "French Positions message",
-            })}
-          </span>
-        </p>
-      )}
-      {lookingForEnglish && lookingForFrench && !lookingForBilingual && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Interested in:",
-            description: "Interested in label and colon",
-          })}{" "}
-          <span data-h2-font-weight="b(700)">
-            {intl.formatMessage({
-              defaultMessage: "English or French positions",
-              description: "English or French Positions message",
-            })}
-          </span>
-        </p>
-      )}
-      {lookingForBilingual && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Interested in:",
-            description: "Interested in label and colon",
-          })}{" "}
-          <span data-h2-font-weight="b(700)">
-            {intl.formatMessage({
-              defaultMessage: "Bilingual positions (English and French)",
-              description: "Bilingual Positions message",
-            })}
-          </span>
-        </p>
-      )}
-      {bilingualEvaluation === BilingualEvaluation.CompletedEnglish && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Completed an official GoC evaluation:",
-            description:
-              "Completed a government of canada abbreviation evaluation label and colon",
-          })}{" "}
-          <span data-h2-font-weight="b(700)">
-            {intl.formatMessage({
-              defaultMessage: "Yes, completed English evaluation",
-              description: "Completed an English language evaluation",
-            })}
-          </span>
-        </p>
-      )}
-      {bilingualEvaluation === BilingualEvaluation.CompletedFrench && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Completed an official GoC evaluation:",
-            description:
-              "Completed a government of canada abbreviation evaluation label and colon",
-          })}{" "}
-          <span data-h2-font-weight="b(700)">
-            {intl.formatMessage({
-              defaultMessage: "Yes, completed French evaluation",
-              description: "Completed a French language evaluation",
-            })}
-          </span>
-        </p>
-      )}
-      {bilingualEvaluation === BilingualEvaluation.NotCompleted && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Completed an official GoC evaluation:",
-            description:
-              "Completed a government of canada abbreviation evaluation label and colon",
-          })}{" "}
-          <span data-h2-font-weight="b(700)">
-            {intl.formatMessage({
-              defaultMessage: "No",
-              description: "No, did not completed a language evaluation",
-            })}
-          </span>
-        </p>
-      )}
-      {(bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
-        bilingualEvaluation === BilingualEvaluation.CompletedFrench) && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "Second language level (Comprehension, Written, Verbal):",
-            description:
-              "Evaluation results for second language, results in that order followed by a colon",
-          })}{" "}
-          <span data-h2-font-weight="b(700)">
-            {comprehensionLevel}, {writtenLevel}, {verbalLevel}
-          </span>
-        </p>
-      )}
-      {bilingualEvaluation === BilingualEvaluation.NotCompleted &&
-        !!estimatedLanguageAbility && (
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Second language level:",
-              description:
-                "Estimated skill in second language, followed by a colon",
-            })}{" "}
-            <span data-h2-font-weight="b(700)">
-              {estimatedLanguageAbility
-                ? intl.formatMessage(
-                    getLanguageProficiency(estimatedLanguageAbility),
-                  )
-                : ""}
-            </span>
-          </p>
-        )}
-      {!lookingForEnglish &&
-        !lookingForFrench &&
-        !lookingForBilingual &&
-        !bilingualEvaluation &&
-        editPath && (
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "You haven't added any information here yet.",
-              description: "Message for when no data exists for the section",
-            })}
-          </p>
-        )}
-      {((!lookingForEnglish && !lookingForFrench && !lookingForBilingual) ||
-        (lookingForBilingual &&
-          (!bilingualEvaluation ||
-            ((bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
-              bilingualEvaluation === BilingualEvaluation.CompletedFrench) &&
-              (!comprehensionLevel || !writtenLevel || !verbalLevel))))) && (
-        <p>
-          {editPath && (
-            <>
-              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
-              <a href={editPath}>
-                {intl.formatMessage({
-                  defaultMessage: "Edit your language information options.",
-                  description:
-                    "Link text to edit language information on profile.",
-                })}
-              </a>
-            </>
-          )}
-          {!editPath && (
-            <>
+      <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+        {lookingForEnglish && !lookingForFrench && !lookingForBilingual && (
+          <div data-h2-flex-item="base(1of1)">
+            <p>
               {intl.formatMessage({
-                defaultMessage: "No information has been provided.",
-                description:
-                  "Message on Admin side when user not filled language section.",
+                defaultMessage: "Interested in:",
+                description: "Interested in label and colon",
               })}
-            </>
+              <br />
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "English positions",
+                  description: "English Positions message",
+                })}
+              </span>
+            </p>
+          </div>
+        )}
+        {!lookingForEnglish && lookingForFrench && !lookingForBilingual && (
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Interested in:",
+                description: "Interested in label and colon",
+              })}
+              <br />
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "French positions",
+                  description: "French Positions message",
+                })}
+              </span>
+            </p>
+          </div>
+        )}
+        {lookingForEnglish && lookingForFrench && !lookingForBilingual && (
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Interested in:",
+                description: "Interested in label and colon",
+              })}
+              <br />
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "English or French positions",
+                  description: "English or French Positions message",
+                })}
+              </span>
+            </p>
+          </div>
+        )}
+        {lookingForBilingual && (
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Interested in:",
+                description: "Interested in label and colon",
+              })}
+              <br />
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Bilingual positions (English and French)",
+                  description: "Bilingual Positions message",
+                })}
+              </span>
+            </p>
+          </div>
+        )}
+        {bilingualEvaluation === BilingualEvaluation.CompletedEnglish && (
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Completed an official GoC evaluation:",
+                description:
+                  "Completed a government of canada abbreviation evaluation label and colon",
+              })}
+              <br />
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Yes, completed English evaluation",
+                  description: "Completed an English language evaluation",
+                })}
+              </span>
+            </p>
+          </div>
+        )}
+        {bilingualEvaluation === BilingualEvaluation.CompletedFrench && (
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Completed an official GoC evaluation:",
+                description:
+                  "Completed a government of canada abbreviation evaluation label and colon",
+              })}
+              <br />
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Yes, completed French evaluation",
+                  description: "Completed a French language evaluation",
+                })}
+              </span>
+            </p>
+          </div>
+        )}
+        {bilingualEvaluation === BilingualEvaluation.NotCompleted && (
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Completed an official GoC evaluation:",
+                description:
+                  "Completed a government of canada abbreviation evaluation label and colon",
+              })}
+              <br />
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "No",
+                  description: "No, did not completed a language evaluation",
+                })}
+              </span>
+            </p>
+          </div>
+        )}
+        {(bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
+          bilingualEvaluation === BilingualEvaluation.CompletedFrench) && (
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Second language level (Comprehension, Written, Verbal):",
+                description:
+                  "Evaluation results for second language, results in that order followed by a colon",
+              })}
+              <br />
+              <span data-h2-font-weight="base(700)">
+                {comprehensionLevel}, {writtenLevel}, {verbalLevel}
+              </span>
+            </p>
+          </div>
+        )}
+        {bilingualEvaluation === BilingualEvaluation.NotCompleted &&
+          !!estimatedLanguageAbility && (
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "Second language level:",
+                  description:
+                    "Estimated skill in second language, followed by a colon",
+                })}
+                <br />
+                <span data-h2-font-weight="base(700)">
+                  {estimatedLanguageAbility
+                    ? intl.formatMessage(
+                        getLanguageProficiency(estimatedLanguageAbility),
+                      )
+                    : ""}
+                </span>
+              </p>
+            </div>
           )}
-        </p>
-      )}
+        {!lookingForEnglish &&
+          !lookingForFrench &&
+          !lookingForBilingual &&
+          !bilingualEvaluation &&
+          editPath && (
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "You haven't added any information here yet.",
+                  description:
+                    "Message for when no data exists for the section",
+                })}
+              </p>
+            </div>
+          )}
+        {((!lookingForEnglish && !lookingForFrench && !lookingForBilingual) ||
+          (lookingForBilingual &&
+            (!bilingualEvaluation ||
+              ((bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
+                bilingualEvaluation === BilingualEvaluation.CompletedFrench) &&
+                (!comprehensionLevel || !writtenLevel || !verbalLevel))))) && (
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {editPath && (
+                <>
+                  {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
+                  <a href={editPath}>
+                    {intl.formatMessage({
+                      defaultMessage: "Edit your language information options.",
+                      description:
+                        "Link text to edit language information on profile.",
+                    })}
+                  </a>
+                </>
+              )}
+              {!editPath && (
+                <>
+                  {intl.formatMessage({
+                    defaultMessage: "No information has been provided.",
+                    description:
+                      "Message on Admin side when user not filled language section.",
+                  })}
+                </>
+              )}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

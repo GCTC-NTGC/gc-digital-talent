@@ -73,11 +73,12 @@ function BasicTable<T extends RecordWithId>({
 
   return (
     <div
-      data-h2-overflow="b(all, auto)"
-      style={{ maxWidth: "100%" }}
-      data-h2-shadow="b(s)"
+      data-h2-radius="base(s, s, 0px, 0px)"
+      data-h2-border="base(right-left, 1px, solid, dt-secondary)"
+      data-h2-overflow="base(auto, all)"
+      data-h2-max-width="base(100%)"
     >
-      <table aria-labelledby={labelledBy} data-h2-width="b(100)">
+      <table aria-labelledby={labelledBy} data-h2-width="base(100%)">
         <thead>
           <tr>
             {columns
@@ -87,15 +88,15 @@ function BasicTable<T extends RecordWithId>({
                 return (
                   <th
                     key={column.id}
-                    data-h2-bg-color="b(lightnavy)"
-                    data-h2-padding="b(all, s)"
+                    data-h2-background-color="base(dt-secondary.light)"
+                    data-h2-padding="base(x.5, x1)"
                     role="columnheader"
                     {...calculateTableHeaderProps(column)}
                   >
                     {column.sortColumnName ? (
                       <Button
-                        data-h2-display="b(flex)"
-                        data-h2-align-items="b(center)"
+                        data-h2-display="base(flex)"
+                        data-h2-align-items="base(center)"
                         type="button"
                         mode="tableHeader"
                         color="secondary"
@@ -116,11 +117,10 @@ function BasicTable<T extends RecordWithId>({
                       </Button>
                     ) : (
                       <span
-                        data-h2-display="b(block)"
-                        data-h2-font-color="b(white)"
-                        data-h2-font-weight="b(800)"
-                        data-h2-text-align="b(left)"
-                        data-h2-font-size="b(caption)"
+                        data-h2-display="base(block)"
+                        data-h2-color="base(dt-white)"
+                        data-h2-font-weight="base(700)"
+                        data-h2-text-align="base(left)"
                       >
                         {label}
                       </span>
@@ -140,9 +140,8 @@ function BasicTable<T extends RecordWithId>({
                     return (
                       <td
                         key={column.id}
-                        data-h2-padding="b(all, s)"
-                        data-h2-text-align="b(left)"
-                        data-h2-font-size="b(caption)"
+                        data-h2-padding="base(x.5, x1)"
+                        data-h2-text-align="base(left)"
                       >
                         {column.accessor(datum)}
                       </td>

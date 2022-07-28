@@ -56,11 +56,11 @@ const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
     <Button
       color="black"
       mode="inline"
-      data-h2-padding="b(all, none)"
-      data-h2-font-size="b(caption)"
+      data-h2-padding="base(0)"
+      data-h2-font-size="base(caption)"
       onClick={click}
     >
-      <span data-h2-font-style="b(underline)">{children}</span>
+      <span data-h2-font-style="base(underline)">{children}</span>
     </Button>
   );
 };
@@ -128,7 +128,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           defaultValues: initialFormValues,
         }}
       >
-        <p data-h2-margin="b(bottom, l)">
+        <p data-h2-margin="base(0, 0, x2, 0)">
           {intl.formatMessage({
             defaultMessage:
               "This platform is focused on hiring digital talent to work in positions classified as IT(Information Technology). Look at the following levels within the IT classification and <strong>select only</strong> the ones that represent the work you want to do.",
@@ -240,11 +240,11 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           ]}
         />
         <div
-          data-h2-bg-color="b(lightgray)"
-          data-h2-margin="b(top, m)"
-          data-h2-radius="b(s)"
+          data-h2-background-color="base(light.dt-gray)"
+          data-h2-margin="base(x1, 0, 0, 0)"
+          data-h2-radius="base(s)"
         >
-          <p data-h2-padding="b(top-bottom, m) b(left, s)">
+          <p data-h2-padding="base(x1, 0, x1, x.5)">
             <span>
               <InformationCircleIcon style={{ width: "0.9rem" }} />{" "}
               {intl.formatMessage(

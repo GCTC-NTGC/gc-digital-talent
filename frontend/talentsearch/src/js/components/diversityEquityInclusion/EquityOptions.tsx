@@ -77,14 +77,14 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
 
   return (
     <>
-      <div data-h2-position="b(relative)" data-h2-margin="b(bottom, l)">
+      <div data-h2-position="base(relative)" data-h2-margin="base(0, 0, x2, 0)">
         <div
           style={{ zIndex: 1 }}
-          data-h2-position="b(relative)"
-          data-h2-flex-grid="m(normal, contained, flush, m)"
+          data-h2-position="base(relative)"
+          data-h2-flex-grid="l-tablet(normal, 0, x1)"
         >
-          <div data-h2-flex-item="m(1of2)">
-            <h3 data-h2-font-size="b(h4)">
+          <div data-h2-flex-item="l-tablet(1of2)">
+            <h3 data-h2-font-size="base(h4, 1.3)">
               {intl.formatMessage({
                 defaultMessage: "My employment equity information:",
                 description:
@@ -92,7 +92,10 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
               })}
             </h3>
             {hasItems ? (
-              <div data-h2-display="b(flex)" data-h2-flex-direction="b(column)">
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+              >
                 {resolvedWoman && (
                   <EquityOption
                     isAdded
@@ -132,11 +135,11 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
               </div>
             ) : (
               <div
-                data-h2-bg-color="b(lightgray)"
-                data-h2-radius="b(s)"
-                data-h2-padding="b(all, m)"
+                data-h2-background-color="base(light.dt-gray)"
+                data-h2-radius="base(s)"
+                data-h2-padding="base(x1)"
               >
-                <p data-h2-margin="b(top-bottom, none)">
+                <p data-h2-margin="base(0)">
                   {intl.formatMessage({
                     defaultMessage:
                       "You have not added any employment equity options to your profile.",
@@ -147,8 +150,8 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
               </div>
             )}
           </div>
-          <div data-h2-flex-item="m(1of2)">
-            <h3 data-h2-font-size="b(h4)">
+          <div data-h2-flex-item="l-tablet(1of2)">
+            <h3 data-h2-font-size="base(h4, 1.3)">
               {intl.formatMessage({
                 defaultMessage: "Employment equity options:",
                 description:
@@ -156,7 +159,10 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
               })}
             </h3>
             {itemsAvailable || !hasItems ? (
-              <div data-h2-display="b(flex)" data-h2-flex-direction="b(column)">
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+              >
                 {!resolvedWoman && (
                   <EquityOption
                     isAdded={resolvedWoman}
@@ -196,11 +202,11 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
               </div>
             ) : (
               <div
-                data-h2-bg-color="b(lightgray)"
-                data-h2-radius="b(s)"
-                data-h2-padding="b(all, m)"
+                data-h2-background-color="base(light.dt-gray)"
+                data-h2-radius="base(s)"
+                data-h2-padding="base(x1)"
               >
-                <p data-h2-margin="b(top-bottom, none)">
+                <p data-h2-margin="base(0)">
                   {intl.formatMessage({
                     defaultMessage:
                       "There are no available employment equity options.",
@@ -214,11 +220,11 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
         </div>
         {isDisabled && (
           <div
-            data-h2-position="b(absolute)"
-            data-h2-bg-color="b(white)"
-            data-h2-display="b(flex)"
-            data-h2-align-items="b(center)"
-            data-h2-justify-content="b(center)"
+            data-h2-position="base(absolute)"
+            data-h2-background-color="base(dt-white)"
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(center)"
+            data-h2-justify-content="base(center)"
             style={{
               bottom: 0,
               left: 0,

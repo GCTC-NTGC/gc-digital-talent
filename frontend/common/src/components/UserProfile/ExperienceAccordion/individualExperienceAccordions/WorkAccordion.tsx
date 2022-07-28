@@ -33,7 +33,7 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
         <ul key={index}>
           <li>
             {skill.name[locale] && (
-              <p data-h2-font-color="b(lightpurple)">{skill.name[locale]}</p>
+              <p data-h2-color="base(dt-primary)">{skill.name[locale]}</p>
             )}
             {skill.description && skill.description[locale] && (
               <p>{skill.description[locale]}</p>
@@ -74,7 +74,7 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
       Icon={BriefCaseIcon}
       defaultOpen={defaultOpen}
     >
-      <div data-h2-padding="b(left, l)">
+      <div data-h2-padding="base(0, 0, 0, x2)">
         <p>
           {intl.formatMessage(
             {
@@ -87,8 +87,8 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
         <p>{organization}</p>
       </div>
       <hr />
-      <div data-h2-padding="b(left, l)">{skillsList}</div>
-      <div data-h2-padding="b(left, l)">
+      <div data-h2-padding="base(0, 0, 0, x2)">{skillsList}</div>
+      <div data-h2-padding="base(0, 0, 0, x2)">
         <p>
           {intl.formatMessage(
             {
@@ -100,7 +100,7 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
         </p>
       </div>
       {editUrl && (
-        <div data-h2-padding="b(left, l)">
+        <div data-h2-padding="base(0, 0, 0, x2)">
           <Link href={editUrl} color="primary" mode="outline" type="button">
             {intl.formatMessage({
               defaultMessage: "Edit Experience",

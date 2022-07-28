@@ -43,7 +43,7 @@ CheckboxWithBoundingBox.args = {
 CheckboxElementLabel.args = {
   id: "Red Selection",
   name: "Red Selection",
-  label: <span data-h2-bg-color="b(red)">Red Selection</span>,
+  label: <span data-h2-background-color="base(dt-error)">Red Selection</span>,
 };
 
 LongTextCheckbox.args = {

@@ -49,7 +49,7 @@ const LogoutConfirmation = ({
             description: "Link text to cancel logging out.",
           })}
         </Button>
-        <span data-h2-margin="b(left, s)">
+        <span data-h2-margin="base(0, 0, 0, x.5)">
           <Button mode="solid" color="primary" type="button" onClick={onLogout}>
             {intl.formatMessage({
               defaultMessage: "Logout",

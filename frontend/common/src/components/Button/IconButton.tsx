@@ -11,11 +11,11 @@ const IconButton: React.FC<IconButtonProps> = ({ icon, children, ...rest }) => {
   const Icon = icon || null;
   return (
     <Button {...rest}>
-      <span data-h2-display="b(flex)" data-h2-align-items="b(center)">
+      <span data-h2-display="base(flex)" data-h2-align-items="base(center)">
         {Icon && (
           <Icon
-            data-h2-margin="b(right, xs)"
-            style={{ height: "1rem", width: "1rem" }}
+            data-h2-margin="base(0, x.25, 0, 0)"
+            data-h2-width="base(1rem)"
           />
         )}
         <span>{children}</span>

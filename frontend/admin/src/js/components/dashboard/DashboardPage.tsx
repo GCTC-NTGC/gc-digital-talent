@@ -25,7 +25,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
 
   return (
     <DashboardContentContainer>
-      <PageHeader icon={HomeIcon}>
+      <PageHeader data-h2-padding="base(x2, 0, x1, 0)" icon={HomeIcon}>
         {intl.formatMessage(
           {
             defaultMessage: "Welcome back, {name}",
@@ -51,11 +51,11 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
         })}
       </p>
       <div
-        data-h2-display="b(flex)"
-        data-h2-flex-wrap="b(wrap)"
-        data-h2-margin="b(top-bottom, m)"
+        data-h2-display="base(flex)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-margin="base(x2, 0, 0, 0)"
       >
-        <span data-h2-margin="b(bottom-right, s)">
+        <span data-h2-margin="base(0, x.5, x.5, 0)">
           <IconLink
             mode="solid"
             color="secondary"
@@ -70,7 +70,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
             })}
           </IconLink>
         </span>
-        <span data-h2-margin="b(bottom-right, s)">
+        <span data-h2-margin="base(0, x.5, x.5, 0)">
           <IconLink
             mode="solid"
             color="secondary"
@@ -85,7 +85,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
             })}
           </IconLink>
         </span>
-        <span data-h2-margin="b(bottom-right, s)">
+        <span data-h2-margin="base(0, x.5, x.5, 0)">
           <IconLink
             mode="solid"
             color="secondary"

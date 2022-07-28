@@ -35,24 +35,30 @@ const ExperienceByType: React.FunctionComponent<{
 }) => {
   return (
     <div>
-      <div data-h2-display="b(flex)" data-h2-margin="b(top-bottom, m)">
+      <div data-h2-display="base(flex)" data-h2-margin="base(x1, auto)">
         {icon}
         <p
-          data-h2-font-size="b(h4)"
-          data-h2-margin="b(all, none)"
-          data-h2-padding="b(left, s)"
+          data-h2-font-size="base(h4)"
+          data-h2-margin="base(0)"
+          data-h2-padding="base(0, 0, 0, x.5)"
         >
           {title}
         </p>
       </div>
-      {experiences.map((experience) => (
-        <ExperienceAccordion
-          key={experience.id}
-          experience={experience}
-          editPaths={experienceEditPaths}
-          defaultOpen={defaultOpen}
-        />
-      ))}
+      <div
+        data-h2-radius="base(s)"
+        data-h2-background-color="base(light.dt-gray)"
+        data-h2-padding="base(x.125, x.25)"
+      >
+        {experiences.map((experience) => (
+          <ExperienceAccordion
+            key={experience.id}
+            experience={experience}
+            editPaths={experienceEditPaths}
+            defaultOpen={defaultOpen}
+          />
+        ))}
+      </div>
     </div>
   );
 };

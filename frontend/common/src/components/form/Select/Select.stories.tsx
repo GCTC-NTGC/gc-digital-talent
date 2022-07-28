@@ -82,7 +82,7 @@ SelectRequiredWithErrorAndContext.args = {
 
 export const SelectLabelElement = TemplateSelect.bind({});
 SelectLabelElement.args = {
-  label: <span data-h2-font-weight="b(700)">Bold Label</span>,
+  label: <span data-h2-font-weight="base(700)">Bold Label</span>,
   name: "LabelElement",
   options: [
     { value: 1, label: "CRA" },

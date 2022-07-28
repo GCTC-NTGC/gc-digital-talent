@@ -54,6 +54,6 @@ BasicTextArea.args = {
 BasicTextElementLabel.args = {
   id: "element",
   context: "Additional context about this field.",
-  label: <span data-h2-font-weight="b(700)">Bolded question</span>,
+  label: <span data-h2-font-weight="base(700)">Bolded question</span>,
   name: "element",
 };

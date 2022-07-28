@@ -60,10 +60,10 @@ const ModalTableButton: React.FC<ModalTableButtonProps> = ({
     <Button
       color="black"
       mode="inline"
-      data-h2-padding="b(all, none)"
+      data-h2-padding="base(0)"
       onClick={click}
     >
-      <span data-h2-font-style="b(underline)">{children}</span>
+      <span data-h2-font-style="base(underline)">{children}</span>
     </Button>
   );
 };
@@ -80,9 +80,9 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
   if (isEmpty(user.poolCandidates)) {
     return (
       <div
-        data-h2-bg-color="b(lightgray)"
-        data-h2-padding="b(all, s)"
-        data-h2-radius="b(s)"
+        data-h2-background-color="base(light.dt-gray)"
+        data-h2-padding="base(x.5)"
+        data-h2-radius="base(s)"
       >
         {intl.formatMessage({
           defaultMessage: "This user is not in any pools yet",
@@ -94,31 +94,34 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
   }
   return (
     <>
-      <table data-h2-text-align="b(center)">
+      <table data-h2-text-align="base(center)">
         <thead>
-          <tr data-h2-bg-color="b(darkgray)" data-h2-font-color="b(white)">
-            <th data-h2-padding="b(top-bottom, xs)" data-h2-width="b(25)">
+          <tr
+            data-h2-background-color="base(dark.dt-gray)"
+            data-h2-color="base(dt-white)"
+          >
+            <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
               {intl.formatMessage({
                 defaultMessage: "Pool",
                 description:
                   "Title of the 'Pool' column for the table on view-user page",
               })}
             </th>
-            <th data-h2-padding="b(top-bottom, xs)" data-h2-width="b(25)">
+            <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
               {intl.formatMessage({
                 defaultMessage: "Status",
                 description:
                   "Title of the 'Status' column for the table on view-user page",
               })}
             </th>
-            <th data-h2-padding="b(top-bottom, xs)" data-h2-width="b(25)">
+            <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
               {intl.formatMessage({
                 defaultMessage: "Expiry date",
                 description:
                   "Title of the 'Expiry date' column for the table on view-user page",
               })}
             </th>
-            <th data-h2-padding="b(top-bottom, xs)" data-h2-width="b(25)">
+            <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
               {intl.formatMessage({
                 defaultMessage: "Actions",
                 description:
@@ -133,14 +136,14 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
               return (
                 <tr key={candidate.id}>
                   <td
-                    data-h2-bg-color="b(lightgray)"
-                    data-h2-padding="b(top-bottom, xs)"
+                    data-h2-background-color="base(light.dt-gray)"
+                    data-h2-padding="base(x.25, 0)"
                   >
                     {candidate.pool?.name?.[locale]}
                   </td>
                   <td
-                    data-h2-bg-color="b(lightgray)"
-                    data-h2-padding="b(top-bottom, xs)"
+                    data-h2-background-color="base(light.dt-gray)"
+                    data-h2-padding="base(x.25, 0)"
                   >
                     {intl.formatMessage(
                       getPoolCandidateStatus(candidate.status as string),
@@ -159,9 +162,9 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                     </ModalTableButton>
                   </td>
                   <td
-                    data-h2-font-style="b(underline)"
-                    data-h2-bg-color="b(lightgray)"
-                    data-h2-padding="b(top-bottom, xs)"
+                    data-h2-font-style="base(underline)"
+                    data-h2-background-color="base(light.dt-gray)"
+                    data-h2-padding="base(x.25, 0)"
                   >
                     <ModalTableButton
                       click={() => {
@@ -172,10 +175,10 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                     </ModalTableButton>
                   </td>
                   <td
-                    data-h2-font-style="b(underline)"
-                    data-h2-bg-color="b(lightgray)"
-                    data-h2-font-color="b(darkgray)"
-                    data-h2-padding="b(top-bottom, xs)"
+                    data-h2-font-style="base(underline)"
+                    data-h2-background-color="base(light.dt-gray)"
+                    data-h2-color="base(dark.dt-gray)"
+                    data-h2-padding="base(x.25, 0)"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Remove from pool",
@@ -209,53 +212,53 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
 
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(right-left, m) b(top-bottom, s)"
-      data-h2-flex-grid="b(normal, expanded, flush, xs)"
-      data-h2-radius="b(s)"
+      data-h2-background-color="base(light.dt-gray)"
+      data-h2-padding="base(x.5, x1)"
+      data-h2-flex-grid="base(normal, 0, x.25)"
+      data-h2-radius="base(s)"
     >
-      <span data-h2-flex-item="b(1of3) l(1of6)">
+      <span data-h2-flex-item="base(1of3) desktop(1of6)">
         {intl.formatMessage({
           defaultMessage: "Name:",
           description: "Display text for the name field on users",
         })}
       </span>
-      <div data-h2-flex-item="b(2of3) l(1of3)">
+      <div data-h2-flex-item="base(2of3) desktop(1of3)">
         {user.firstName} {user.lastName}
       </div>
 
-      <span data-h2-flex-item="b(1of3) l(1of6)">
+      <span data-h2-flex-item="base(1of3) desktop(1of6)">
         {intl.formatMessage({
           defaultMessage: "Preferred Language:",
           description: "Display text for the preferred language field on users",
         })}
       </span>
-      <div data-h2-flex-item="b(2of3) l(1of3)">
+      <div data-h2-flex-item="base(2of3) desktop(1of3)">
         {user.preferredLang
           ? intl.formatMessage(getLanguage(user.preferredLang as string))
           : ""}
       </div>
 
-      <span data-h2-flex-item="b(1of3) l(1of6)">
+      <span data-h2-flex-item="base(1of3) desktop(1of6)">
         {intl.formatMessage({
           defaultMessage: "Email:",
           description: "Display text for the email field on users",
         })}
       </span>
       <div
-        data-h2-flex-item="b(2of3) l(1of3)"
-        data-h2-font-style="b(underline)"
+        data-h2-flex-item="base(2of3) desktop(1of3)"
+        data-h2-font-style="base(underline)"
       >
         {user.email}
       </div>
 
-      <span data-h2-flex-item="b(1of3) l(1of6)">
+      <span data-h2-flex-item="base(1of3) desktop(1of6)">
         {intl.formatMessage({
           defaultMessage: "Current Location:",
           description: "Display text for the current location field on users",
         })}
       </span>
-      <div data-h2-flex-item="b(2of3) l(1of3)">
+      <div data-h2-flex-item="base(2of3) desktop(1of3)">
         {user.currentCity},{" "}
         {user.currentProvince
           ? intl.formatMessage(
@@ -264,13 +267,13 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
           : ""}
       </div>
 
-      <span data-h2-flex-item="b(1of3) l(1of6)">
+      <span data-h2-flex-item="base(1of3) desktop(1of6)">
         {intl.formatMessage({
           defaultMessage: "Phone:",
           description: "Display text for the phone number field on users",
         })}
       </span>
-      <div data-h2-flex-item="b(2of3) l(1of3)">{user.telephone}</div>
+      <div data-h2-flex-item="base(2of3) desktop(1of3)">{user.telephone}</div>
     </div>
   );
 };
@@ -293,9 +296,9 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
         })}
       </Heading>
       <div
-        data-h2-bg-color="b(lightgray)"
-        data-h2-padding="b(all, s)"
-        data-h2-radius="b(s)"
+        data-h2-background-color="base(light.dt-gray)"
+        data-h2-padding="base(x.5)"
+        data-h2-radius="base(s)"
       >
         {user.jobLookingStatus === JobLookingStatus.ActivelyLooking &&
           intl.formatMessage({
@@ -341,7 +344,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
           setShowAddToPoolDialog(true);
         }}
       >
-        <span data-h2-font-style="b(underline)">
+        <span data-h2-font-style="base(underline)">
           {intl.formatMessage({
             defaultMessage: "Add user to pool",
             description: "Button to add user to pool on the view-user page",
@@ -427,9 +430,9 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
       </p>
       {isEmpty(user.poolCandidates) ? (
         <div
-          data-h2-bg-color="b(lightgray)"
-          data-h2-padding="b(all, s)"
-          data-h2-radius="b(s)"
+          data-h2-background-color="base(light.dt-gray)"
+          data-h2-padding="base(x.5)"
+          data-h2-radius="base(s)"
         >
           {intl.formatMessage({
             defaultMessage: "This user is not in any pools yet",
@@ -442,7 +445,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
           {user?.poolCandidates?.map((candidate) => {
             if (candidate) {
               return (
-                <div data-h2-padding="b(bottom, s)" key={candidate.id}>
+                <div data-h2-padding="base(0, 0, x.5, 0)" key={candidate.id}>
                   <TextArea
                     id={candidate.id}
                     name={candidate.id}
@@ -464,7 +467,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
             return null;
           })}
           <Button type="submit" mode="solid" color="secondary">
-            <span data-h2-font-style="b(underline)">
+            <span data-h2-font-style="base(underline)">
               {intl.formatMessage({
                 defaultMessage: "Save notes",
                 description:
@@ -483,9 +486,9 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
 
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(right-left, s) b(top-bottom, xxs)"
-      data-h2-radius="b(s)"
+      data-h2-background-color="base(light.dt-gray)"
+      data-h2-padding="base(x.125, x.5)"
+      data-h2-radius="base(s)"
     >
       {!user.isIndigenous &&
         !user.hasDisability &&
@@ -498,7 +501,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
             "Text on view-user page that the user isn't part of any employment equity groups",
         })}
       {user.isIndigenous && (
-        <div data-h2-padding="b(top-bottom, xxs)">
+        <div data-h2-padding="base(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
           {"  "}
           {intl.formatMessage({
@@ -508,7 +511,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
         </div>
       )}
       {user.hasDisability && (
-        <div data-h2-padding="b(top-bottom, xxs)">
+        <div data-h2-padding="base(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
           {"  "}
           {intl.formatMessage({
@@ -519,7 +522,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
         </div>
       )}
       {user.isVisibleMinority && (
-        <div data-h2-padding="b(top-bottom, xxs)">
+        <div data-h2-padding="base(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
           {"  "}
           {intl.formatMessage({
@@ -530,7 +533,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
         </div>
       )}
       {user.isWoman && (
-        <div data-h2-padding="b(top-bottom, xxs)">
+        <div data-h2-padding="base(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
           {"  "}
           {intl.formatMessage({

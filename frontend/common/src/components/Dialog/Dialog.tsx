@@ -27,20 +27,20 @@ export interface DialogProps {
 
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
-    "data-h2-bg-color": "b(linear-70[lightpurple][lightnavy])",
-    "data-h2-font-color": "b(white)",
+    "data-h2-background-color": "base(dt-linear)",
+    "data-h2-color": "base(dt-white)",
   },
   "ts-secondary": {
-    "data-h2-bg-color": "b(lightnavy)",
-    "data-h2-font-color": "b(white)",
+    "data-h2-background-color": "base(dt-secondary.light)",
+    "data-h2-color": "base(dt-white)",
   },
   "ia-primary": {
-    "data-h2-bg-color": "b(linear-90[ia-lightpurple][ia-darkpurple])",
-    "data-h2-font-color": "b(white)",
+    "data-h2-background-color": "base(ia-linear-secondary)",
+    "data-h2-color": "base(ia-white)",
   },
   "ia-secondary": {
-    "data-h2-bg-color": "b(linear-90[ia-pink][ia-darkpink])",
-    "data-h2-font-color": "b(white)",
+    "data-h2-background-color": "base(ia-linear-primary)",
+    "data-h2-color": "base(ia-white)",
   },
 };
 
@@ -60,7 +60,7 @@ const Dialog: React.FC<DialogProps> = ({
     <Overlay
       isOpen={isOpen}
       onDismiss={onDismiss}
-      data-h2-font-family="b(sans)"
+      data-h2-font-family="base(sans)"
     >
       <Content
         aria-labelledby="dialog-title"
@@ -70,31 +70,31 @@ const Dialog: React.FC<DialogProps> = ({
           className={`dialog__header ${
             confirmation ? `dialog__header--confirmation` : null
           }`}
-          data-h2-radius="b(s, s, none, none)"
-          data-h2-padding="b(all, m)"
-          data-h2-position="b(relative)"
+          data-h2-radius="base(s, s, none, none)"
+          data-h2-padding="base(x1)"
+          data-h2-position="base(relative)"
           {...(!confirmation
             ? { ...colorMap[color] }
             : {
-                "data-h2-bg-color": "b(white)",
+                "data-h2-background-color": "base(dt-white)",
               })}
         >
           <button
             type="button"
             onClick={onDismiss}
             className="dialog-close"
-            data-h2-padding="b(all, xs)"
-            data-h2-position="b(absolute)"
-            data-h2-location="b(top-right, s)"
+            data-h2-padding="base(x.5)"
+            data-h2-position="base(absolute)"
+            data-h2-offset="base(x.5, x.5, auto, auto)"
             {...(confirmation
               ? {
-                  "data-h2-font-color": "b(black)",
+                  "data-h2-color": "base(dt-black)",
                 }
               : {
-                  "data-h2-font-color": "b(white)",
+                  "data-h2-color": "base(dt-white)",
                 })}
           >
-            <span data-h2-visibility="b(invisible)">
+            <span data-h2-visibility="base(invisible)">
               {intl.formatMessage({
                 defaultMessage: "Close dialog",
                 description: "Text for the button to close a modal dialog.",
@@ -104,22 +104,22 @@ const Dialog: React.FC<DialogProps> = ({
           </button>
           <div
             className="dialog__title dialog__title--standard"
-            data-h2-position="b(relative)"
+            data-h2-position="base(relative)"
           >
             <h1
               id="dialog-title"
-              data-h2-font-weight="b(700)"
-              data-h2-font-size="b(h3)"
-              data-h2-margin="b(all, none)"
+              data-h2-font-weight="base(700)"
+              data-h2-font-size="base(h3, 1.3)"
+              data-h2-margin="base(0)"
             >
               {title}
             </h1>
             {subtitle && (
               <p
-                data-h2-margin="b(top, xs) b(bottom, none)"
+                data-h2-margin="base(x.25, 0, 0, 0)"
                 {...(confirmation
                   ? {
-                      "data-h2-font-color": "b(lightpurple)",
+                      "data-h2-color": "base(dt-primary)",
                     }
                   : null)}
               >
@@ -132,9 +132,9 @@ const Dialog: React.FC<DialogProps> = ({
         {footer ? (
           <div
             className="dialog__footer"
-            data-h2-margin="b(top, m)"
-            data-h2-padding="b(top, m)"
-            data-h2-border="b(darkgray, top, solid, s)"
+            data-h2-margin="base(x1, 0, 0, 0)"
+            data-h2-padding="base(x1, 0, 0, 0)"
+            data-h2-border="base(top, 1px, solid, dark.dt-gray)"
           >
             {footer}
           </div>

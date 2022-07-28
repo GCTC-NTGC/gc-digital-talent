@@ -86,7 +86,7 @@ export const ElementLabelText = TemplateInput.bind({});
 ElementLabelText.args = {
   type: "text",
   id: "firstName",
-  label: <span data-h2-font-weight="b(700)">First name</span>,
+  label: <span data-h2-font-weight="base(700)">First name</span>,
   name: "firstNameElement",
   rules: {
     required: "This field is required",

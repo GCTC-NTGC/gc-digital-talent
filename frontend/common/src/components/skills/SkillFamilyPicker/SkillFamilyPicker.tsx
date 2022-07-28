@@ -51,12 +51,12 @@ const SkillFamilyPicker: React.FunctionComponent<SkillFamilyPickerProps> = ({
 
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(all, xs)"
-      data-h2-radius="b(s)"
+      data-h2-background-color="base(dt-gray.light)"
+      data-h2-padding="base(x.25)"
+      data-h2-radius="base(s)"
       role="radiogroup"
     >
-      <p data-h2-font-weight="b(800)">{title}</p>
+      <p data-h2-font-weight="base(700)">{title}</p>
       <FormProvider {...methods}>
         <form onSubmit={undefined}>
           <RadioGroup
