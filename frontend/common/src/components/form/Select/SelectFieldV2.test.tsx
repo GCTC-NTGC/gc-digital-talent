@@ -83,11 +83,29 @@ describe("SelectFieldV2", () => {
     // Hidden input should exist.
     expect(document.querySelectorAll('input[type="hidden"]')).toHaveLength(1);
     expect(
-      document.querySelector('input[type="hidden"]')?.getAttribute("name"),
-    ).toBe("fooBar");
-    expect(
       document.querySelector('input[type="hidden"]')?.getAttribute("value"),
     ).toBe("");
+  });
+
+  it("should auto-populate `name` prop from `label` when `id` missing", () => {
+    renderWithProviders(<SelectFieldV2 label="Foo Bar" />);
+    expect(
+      document.querySelector('input[type="hidden"]')?.getAttribute("name"),
+    ).toBe("fooBar");
+  });
+
+  it("should auto-populate `name` prop from `id` when missing", () => {
+    renderWithProviders(<SelectFieldV2 label="Foo Bar" id="foo" />);
+    expect(
+      document.querySelector('input[type="hidden"]')?.getAttribute("name"),
+    ).toBe("foo");
+  });
+
+  it("should use `name` when `id` and `label` also provided", () => {
+    renderWithProviders(<SelectFieldV2 label="Foo Bar" id="foo" name="bar" />);
+    expect(
+      document.querySelector('input[type="hidden"]')?.getAttribute("name"),
+    ).toBe("bar");
   });
 
   it("should write proper text in options menu when none provided", () => {
