@@ -79,6 +79,25 @@ const LocalizedNoOptionsMessage = <
     </components.NoOptionsMessage>
   );
 };
+/**
+ * One-off hook to add default messages to validation rule object.
+ *
+ * @param rules initial rule object
+ * @returns modified rule object
+ */
+export const useRulesWithDefaultMessages = (rules: RegisterOptions = {}) => {
+  const { formatMessage } = useIntl();
+  const rulesWithDefaults = { ...rules };
+
+  if (rules.required === true) {
+    rulesWithDefaults.required = formatMessage({
+      defaultMessage: "This field is required.",
+      description: "The default validation message when a field is required",
+    });
+  }
+
+  return rulesWithDefaults;
+};
 
 const SelectFieldV2 = ({
   id,
@@ -106,10 +125,12 @@ const SelectFieldV2 = ({
 
   const {
     formState: { errors },
+    // TODO: Set explicit TFieldValues. Defaults to Record<string, any>
   } = useFormContext();
 
   const error = errors[name]?.message;
   const isRequired = !!rules?.required;
+  const rulesWithDefaults = useRulesWithDefaultMessages(rules);
 
   return (
     <div data-h2-margin="b(bottom, xxs)">
@@ -120,7 +141,8 @@ const SelectFieldV2 = ({
       >
         <div style={{ width: "100%" }}>
           <Controller
-            {...{ name, rules }}
+            {...{ name }}
+            rules={rulesWithDefaults}
             render={({ field }) => {
               /** Converts our react-hook-form state to Option or Option[]
                * format that react-select understands. */
