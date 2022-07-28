@@ -339,8 +339,8 @@ class User extends Model implements Authenticatable
         $query->whereExists(function ($query) use ($skills) {
             $query->select(DB::raw('null'))
                 ->from(function ($query) {
-                    $query->selectRaw('experiences.user_id, jsonb_agg(experience_skills.skill_id) as user_skills_grouped')
-                        ->from('experience_skills')
+                    $query->selectRaw('experiences.user_id, jsonb_agg(experience_skill.skill_id) as user_skills_grouped')
+                        ->from('experience_skill')
                         ->joinSub(function ($query) {
                             $query->select('award_experiences.id as experience_id', 'award_experiences.user_id')
                                 ->from('award_experiences')
@@ -361,7 +361,7 @@ class User extends Model implements Authenticatable
                                         ->from('work_experiences');
                                 });
                         }, 'experiences', function ($join) {
-                            $join->on('experience_skills.experience_id', '=', 'experiences.experience_id');
+                            $join->on('experience_skill.experience_id', '=', 'experiences.experience_id');
                         })
                         ->groupBy('experiences.user_id');
                 }, "aggregate_experiences")

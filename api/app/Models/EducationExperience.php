@@ -49,7 +49,7 @@ class EducationExperience extends Model
 
     public function skills(): MorphToMany
     {
-        return $this->morphToMany(Skill::class, 'experience', 'experience_skills')
+        return $this->morphToMany(Skill::class, 'experience', 'experience_skill')
             ->withTimestamps()
             ->withPivot('details')
             ->as('experience_skill_pivot');
