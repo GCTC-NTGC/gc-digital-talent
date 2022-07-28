@@ -14,17 +14,6 @@ export type Color =
   | "ia-primary"
   | "ia-secondary";
 
-export interface DialogProps {
-  isOpen: boolean;
-  color?: Color;
-  onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
-  title: string;
-  subtitle?: string;
-  confirmation?: boolean;
-  footer?: React.ReactNode;
-  centered?: boolean;
-}
-
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
     "data-h2-bg-color": "b(linear-70[lightpurple][lightnavy])",
@@ -44,6 +33,107 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
 };
 
+type HeaderProps = Pick<
+  DialogProps,
+  "title" | "subtitle" | "onDismiss" | "confirmation" | "color"
+>;
+
+const Header: React.FC<HeaderProps> = ({
+  title,
+  subtitle,
+  onDismiss,
+  confirmation = false,
+  color = "ia-primary",
+}) => {
+  const intl = useIntl();
+  return (
+    <div
+      className={`dialog__header ${
+        confirmation ? `dialog__header--confirmation` : null
+      }`}
+      data-h2-radius="b(s, s, none, none)"
+      data-h2-padding="b(all, m)"
+      data-h2-position="b(relative)"
+      {...(!confirmation
+        ? { ...colorMap[color] }
+        : {
+            "data-h2-bg-color": "b(white)",
+          })}
+    >
+      <button
+        type="button"
+        onClick={onDismiss}
+        className="dialog-close"
+        data-h2-padding="b(all, xs)"
+        data-h2-position="b(absolute)"
+        data-h2-location="b(top-right, s)"
+        {...(confirmation
+          ? {
+              "data-h2-font-color": "b(black)",
+            }
+          : {
+              "data-h2-font-color": "b(white)",
+            })}
+      >
+        <span data-h2-visibility="b(invisible)">
+          {intl.formatMessage({
+            defaultMessage: "Close dialog",
+            description: "Text for the button to close a modal dialog.",
+          })}
+        </span>
+        <XIcon className="dialog-close__icon" />
+      </button>
+      <div
+        className="dialog__title dialog__title--standard"
+        data-h2-position="b(relative)"
+      >
+        <h1
+          id="dialog-title"
+          data-h2-font-weight="b(700)"
+          data-h2-font-size="b(h3)"
+          data-h2-margin="b(all, none)"
+        >
+          {title}
+        </h1>
+        {subtitle && (
+          <p
+            data-h2-margin="b(top, xs) b(bottom, none)"
+            {...(confirmation
+              ? {
+                  "data-h2-font-color": "b(lightpurple)",
+                }
+              : null)}
+          >
+            {subtitle}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const Footer: React.FC = ({ children }) => (
+  <div
+    className="dialog__footer"
+    data-h2-margin="b(top, m)"
+    data-h2-padding="b(top, m)"
+    data-h2-border="b(darkgray, top, solid, s)"
+  >
+    {children}
+  </div>
+);
+
+export interface DialogProps {
+  isOpen: boolean;
+  color?: Color;
+  onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
+  title: string;
+  subtitle?: string;
+  confirmation?: boolean;
+  footer?: React.ReactNode;
+  centered?: boolean;
+}
+
 const Dialog: React.FC<DialogProps> = ({
   title,
   subtitle,
@@ -55,90 +145,15 @@ const Dialog: React.FC<DialogProps> = ({
   footer,
   children,
 }) => {
-  const intl = useIntl();
   return (
-    <Overlay
-      isOpen={isOpen}
-      onDismiss={onDismiss}
-      data-h2-font-family="b(sans)"
-    >
+    <Overlay {...{ isOpen, onDismiss }} data-h2-font-family="b(sans)">
       <Content
         aria-labelledby="dialog-title"
         className={centered ? `dialog--centered` : undefined}
       >
-        <div
-          className={`dialog__header ${
-            confirmation ? `dialog__header--confirmation` : null
-          }`}
-          data-h2-radius="b(s, s, none, none)"
-          data-h2-padding="b(all, m)"
-          data-h2-position="b(relative)"
-          {...(!confirmation
-            ? { ...colorMap[color] }
-            : {
-                "data-h2-bg-color": "b(white)",
-              })}
-        >
-          <button
-            type="button"
-            onClick={onDismiss}
-            className="dialog-close"
-            data-h2-padding="b(all, xs)"
-            data-h2-position="b(absolute)"
-            data-h2-location="b(top-right, s)"
-            {...(confirmation
-              ? {
-                  "data-h2-font-color": "b(black)",
-                }
-              : {
-                  "data-h2-font-color": "b(white)",
-                })}
-          >
-            <span data-h2-visibility="b(invisible)">
-              {intl.formatMessage({
-                defaultMessage: "Close dialog",
-                description: "Text for the button to close a modal dialog.",
-              })}
-            </span>
-            <XIcon className="dialog-close__icon" />
-          </button>
-          <div
-            className="dialog__title dialog__title--standard"
-            data-h2-position="b(relative)"
-          >
-            <h1
-              id="dialog-title"
-              data-h2-font-weight="b(700)"
-              data-h2-font-size="b(h3)"
-              data-h2-margin="b(all, none)"
-            >
-              {title}
-            </h1>
-            {subtitle && (
-              <p
-                data-h2-margin="b(top, xs) b(bottom, none)"
-                {...(confirmation
-                  ? {
-                      "data-h2-font-color": "b(lightpurple)",
-                    }
-                  : null)}
-              >
-                {subtitle}
-              </p>
-            )}
-          </div>
-        </div>
+        <Header {...{ title, subtitle, onDismiss, confirmation, color }} />
         <div className="dialog__content">{children}</div>
-        {footer ? (
-          <div
-            className="dialog__footer"
-            data-h2-margin="b(top, m)"
-            data-h2-padding="b(top, m)"
-            data-h2-border="b(darkgray, top, solid, s)"
-          >
-            {footer}
-          </div>
-        ) : null}
+        {footer ? <Footer>{footer}</Footer> : null}
       </Content>
     </Overlay>
   );
