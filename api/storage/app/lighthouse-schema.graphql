@@ -595,7 +595,7 @@ type Mutation {
   deleteAwardExperience(id: ID!): AwardExperience
   createPoolAdvertisement(userId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
   updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
-  publishPoolAdvertisement(id: ID!, poolAdvertisement: PublishPoolAdvertisementInput!): PoolAdvertisement
+  publishPoolAdvertisement(id: ID!): PoolAdvertisement
   changePoolExpiryDate(id: ID!, newExpiryDate: DateTimeTz!): PoolAdvertisement
   closePoolAdvertisement(id: ID!): PoolAdvertisement
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
@@ -882,19 +882,6 @@ enum ProvinceOrTerritory {
   YUKON
   NORTHWEST_TERRITORIES
   NUNAVUT
-}
-
-input PublishPoolAdvertisementInput {
-  name: LocalizedStringInput!
-  classifications: ClassificationBelongsToMany!
-  expiryDate: DateTimeTz!
-  yourImpact: LocalizedStringInput!
-  keyTasks: LocalizedStringInput!
-  essentialSkills: SkillBelongsToMany!
-  nonessentialSkills: SkillBelongsToMany!
-  advertisementLanguage: PoolAdvertisementLanguage!
-  securityClearance: SecurityStatus!
-  advertisementLocation: LocalizedStringInput!
 }
 
 type Query {

@@ -23,7 +23,7 @@ final class PublishPoolAdvertisement
         $poolValidation = new PublishPoolAdvertisementValidator;
         $validator = Validator::make($poolAdvertisement->toArray(), $poolValidation->rules()); // First validate pool advertisement before updating.
         if ($validator->fails()) {
-            throw ValidationException($validator)
+            throw new ValidationException($validator);
         }
         $poolAdvertisement->update(['is_published' => true]);
         return $poolAdvertisement;

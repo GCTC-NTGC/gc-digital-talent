@@ -1218,24 +1218,6 @@ input UpdatePoolAdvertisementInput {
     securityClearance: SecurityStatus @rename(attribute: "security_clearance")
     advertisementLocation: LocalizedStringInput @rename(attribute: "advertisement_location")
 }
-input PublishPoolAdvertisementInput @validator {
-    # Pool name and classification
-    name: LocalizedStringInput!
-    classifications: ClassificationBelongsToMany!
-    # Closing date
-    expiryDate: DateTimeTz! @rename(attribute: "expiry_date")
-    # Your impact
-    yourImpact: LocalizedStringInput! @rename(attribute: "your_impact")
-    # Work Tasks
-    keyTasks: LocalizedStringInput! @rename(attribute: "key_tasks")
-    # Essential skills and Asset skills
-    essentialSkills: SkillBelongsToMany!
-    nonessentialSkills: SkillBelongsToMany!
-    # Other requirements
-    advertisementLanguage: PoolAdvertisementLanguage! @rename(attribute: "advertisement_language")
-    securityClearance: SecurityStatus! @rename(attribute: "security_clearance")
-    advertisementLocation: LocalizedStringInput! @rename(attribute: "advertisement_location")
-}
 
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")

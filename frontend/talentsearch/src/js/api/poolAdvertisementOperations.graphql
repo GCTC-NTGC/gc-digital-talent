@@ -16,11 +16,8 @@ mutation updatePoolAdvertisement(
   }
 }
 
-mutation publishPoolAdvertisement(
-  $id: ID!
-  $poolAdvertisement: PublishPoolAdvertisementInput!
-) {
-  publishPoolAdvertisement(id: $id, poolAdvertisement: $poolAdvertisement) {
+mutation publishPoolAdvertisement($id: ID!) {
+  publishPoolAdvertisement(id: $id) {
     isPublished
   }
 }
