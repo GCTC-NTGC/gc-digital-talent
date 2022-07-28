@@ -434,10 +434,6 @@
     "defaultMessage": "<strong>Oui</strong>, je suis un employé du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
   },
-  "5sX4lz": {
-    "defaultMessage": "À propos",
-    "description": "Title of the about content section"
-  },
   "6RiVQA": {
     "defaultMessage": "{role} au sein de la {division}",
     "description": "Role at division"
@@ -528,10 +524,6 @@
   },
   "GcPFLS": {
     "defaultMessage": "Travail"
-  },
-  "H4sbll": {
-    "defaultMessage": "À propos",
-    "description": "Title of the About link section"
   },
   "HalXgi": {
     "defaultMessage": "Nouvelle-Écosse",
@@ -762,10 +754,6 @@
   "jtygmI": {
     "defaultMessage": "Éducation"
   },
-  "kP04tf": {
-    "defaultMessage": "Cliquez ici pour commencer.",
-    "description": "Message to click on the words to begin something"
-  },
   "kjX7mF": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled RoleSalary section."
@@ -954,10 +942,6 @@
     "defaultMessage": "… m'oblige à faire des <strong>heures supplémentaires sans préavis</strong>.",
     "description": "The operational requirement described as overtime."
   },
-  "kafTUN": {
-    "defaultMessage": "<strong>Inactif</strong> –Je ne veux pas être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Actively looking."
-  },
   "oU4OmU": {
     "defaultMessage": "<strong>Région de l'Ontario :</strong> à l'exclusion d'Ottawa.",
     "description": "The work region of Canada described as Ontario."
@@ -994,10 +978,6 @@
     "defaultMessage": "<strong>Région de l'Atlantique :</strong> Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.",
     "description": "The work region of Canada described as Atlantic."
   },
-  "Crgpc2": {
-    "defaultMessage": "<strong>Actively looking</strong> – Mon profil est à jour, je veux être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Actively looking."
-  },
   "7L6frW": {
     "defaultMessage": "… a<strong> des quarts de travail sur appel 24 heures sur 24, 7 jours sur 7 </strong>.",
     "description": "The operational requirement described as 24/7 on-call."
@@ -1010,10 +990,6 @@
     "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
     "description": "Message that there are required fields missing. Please ignore things in <> tags."
   },
-  "LuYmWd": {
-    "defaultMessage": "<strong>Ouvert aux possibilités </strong> – Je ne cherche pas activement, mais je veux être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Actively looking."
-  },
   "/ndqmQ": {
     "defaultMessage": "… a un <strong>travail par quart</strong>.",
     "description": "The operational requirement described as shift work."
@@ -1021,6 +997,14 @@
   "fmSaPm": {
     "defaultMessage": "… m'oblige à <strong>travailler les fins de semaine</strong>.",
     "description": "The operational requirement described as work weekends."
+  },
+  "TR0Kxz": {
+    "defaultMessage": "<strong>Ouvert aux possibilités</strong> – Je ne cherche pas activement, mais je veux être contacté pour trouver des possibilités d'emploi",
+    "description": "Job Looking Status described as Open to opportunities."
+  },
+  "nrWEuL": {
+    "defaultMessage": "<strong>Inactif</strong> – Je ne veux pas être contacté pour trouver des possibilités d'emploi",
+    "description": "Job Looking Status described as Inactive."
   },
   "FRyIG2": {
     "defaultMessage": "Vous devez saisir un terme de recherche avant d'appuyer sur la touche « Entrée »",
@@ -1085,5 +1069,29 @@
   "OperationalRequirement.WorkWeekends.short": {
     "defaultMessage": "Travailler les fins de semaine",
     "description": "The operational requirement described as work weekends. (short-form for limited space)"
+  },
+  "4sJvia": {
+    "defaultMessage": "À propos de moi",
+    "description": "Title of the About link section"
+  },
+  "CnB8IO": {
+    "defaultMessage": "À propos de moi",
+    "description": "Title of the about content section"
+  },
+  "s3FrzP": {
+    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
+    "description": "Question displayed when authenticated user attempts to logout"
+  },
+  "ivKwx0": {
+    "defaultMessage": "Déconnexion",
+    "description": "Title for the modal that appears when an authenticated user attempts to logout"
+  },
+  "6rhyxk": {
+    "defaultMessage": "Déconnexion",
+    "description": "Link text to logout."
+  },
+  "BjRuMw": {
+    "defaultMessage": "Voir la définition",
+    "description": "Text displayed when skill block is open."
   }
 }

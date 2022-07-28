@@ -188,7 +188,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   );
 };
 
-export const CreateUser: React.FunctionComponent = () => {
+const CreateUser: React.FunctionComponent = () => {
   const [, executeMutation] = useCreateUserMutation();
   const handleCreateUser = (data: CreateUserInput) =>
     executeMutation({ user: data }).then((result) => {
@@ -204,3 +204,5 @@ export const CreateUser: React.FunctionComponent = () => {
     </DashboardContentContainer>
   );
 };
+
+export default CreateUser;

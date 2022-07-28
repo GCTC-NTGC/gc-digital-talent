@@ -33,7 +33,10 @@ type FormValues = Pick<Skill, "description"> & {
     en: string;
     fr: string;
   };
-  keywords: string;
+  keywords: {
+    en: string;
+    fr: string;
+  };
   families: string[] | undefined;
 };
 interface CreateSkillFormProps {
@@ -58,10 +61,16 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
 
   const formValuesToSubmitData = (values: FormValues): CreateSkillInput => ({
     ...values,
-    keywords: values.keywords
-      .split(",")
-      .map((key) => key.trim())
-      .filter((key) => key !== ""),
+    keywords: {
+      en: values.keywords.en
+        .split(",")
+        .map((key) => key.trim())
+        .filter((key) => key !== ""),
+      fr: values.keywords.fr
+        .split(",")
+        .map((key) => key.trim())
+        .filter((key) => key !== ""),
+    },
     families: {
       sync: values.families,
     },
@@ -185,12 +194,31 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
               }}
             />
             <Input
-              id="keywords"
-              name="keywords"
+              id="keywords_en"
+              name="keywords.en"
               label={intl.formatMessage({
-                defaultMessage: "Keywords",
+                defaultMessage: "Keywords (English)",
                 description:
-                  "Label displayed on the skill form keywords field.",
+                  "Label displayed on the skill form keywords field in English.",
+              })}
+              context={intl.formatMessage({
+                defaultMessage:
+                  "This field accepts a list of comma separated keywords associated with the skill.",
+                description:
+                  "Additional context describing the purpose of the skills 'keyword' field.",
+              })}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="keywords_fr"
+              name="keywords.fr"
+              label={intl.formatMessage({
+                defaultMessage: "Keywords (French)",
+                description:
+                  "Label displayed on the skill form keywords field in French.",
               })}
               context={intl.formatMessage({
                 defaultMessage:
@@ -226,7 +254,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
   );
 };
 
-export const CreateSkill: React.FunctionComponent = () => {
+const CreateSkill: React.FunctionComponent = () => {
   const [lookupResult] = useAllSkillFamiliesQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const families = lookupData?.skillFamilies.filter(notEmpty) ?? [];
@@ -251,3 +279,5 @@ export const CreateSkill: React.FunctionComponent = () => {
     </Pending>
   );
 };
+
+export default CreateSkill;

@@ -288,7 +288,11 @@ export const GovernmentInfoForm: React.FunctionComponent<
               })}
               name="lateralDeployBool"
               boundingBox
-              boundingBoxLabel="Lateral Deployment"
+              boundingBoxLabel={intl.formatMessage({
+                defaultMessage: "Lateral Deployment",
+                description:
+                  "Label displayed on lateral/secondment bounding box",
+              })}
             />
           </div>
         )}
@@ -426,7 +430,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
 };
 
 // outer, containing component
-export const GovInfoFormContainer: React.FunctionComponent = () => {
+const GovInfoFormContainer: React.FunctionComponent = () => {
   // needed bits for react-intl, form submits functions, and routing post submission
   const intl = useIntl();
 

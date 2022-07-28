@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { uniqueId } from "lodash";
+import uniqueId from "lodash/uniqueId";
 import React from "react";
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
@@ -14,9 +14,10 @@ export default {
       return (
         <BasicForm
           onSubmit={action("Submit Form")}
-          options={{ defaultValues: { departments: "" } }}
+          options={{ defaultValues: { departments: [] } }}
         >
-          <Story />
+          {/* See: https://github.com/storybookjs/storybook/issues/12596#issuecomment-723440097 */}
+          {Story() /* Can't use <Story /> for inline decorator. */}
           <Submit />
         </BasicForm>
       );

@@ -7,6 +7,10 @@ import {
   getEducationRequirement,
   languageAbilities,
   getLanguageAbility,
+  employmentEquityStatements,
+  getEmploymentEquityStatement,
+  employmentEquityGroups,
+  getEmploymentEquityGroup,
 } from "./localizedConstants";
 
 export {
@@ -18,4 +22,8 @@ export {
   getEducationRequirement,
   languageAbilities,
   getLanguageAbility,
+  employmentEquityStatements,
+  getEmploymentEquityStatement,
+  employmentEquityGroups,
+  getEmploymentEquityGroup,
 };

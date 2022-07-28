@@ -1,11 +1,11 @@
 query getGovInfoFormLookupData {
   departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
+    id
+    departmentNumber
+    name {
+      en
+      fr
+    }
   }
   classifications {
     id

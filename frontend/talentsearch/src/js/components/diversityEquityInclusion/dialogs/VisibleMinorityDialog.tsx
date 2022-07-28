@@ -5,6 +5,10 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import Dialog from "@common/components/Dialog";
 import { Checkbox } from "@common/components/form";
 
+import {
+  getEmploymentEquityGroup,
+  getEmploymentEquityStatement,
+} from "@common/constants";
 import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
@@ -40,12 +44,7 @@ const VisibleMinorityDialogFooter: React.FC<EquityDialogFooterProps> = ({
         <Checkbox
           id="isVisibleMinority"
           name="isVisibleMinority"
-          label={intl.formatMessage({
-            defaultMessage:
-              "I identify as part of one or more visible minority groups.",
-            description:
-              "Label for the checkbox to identify as a visible minority under employment equity",
-          })}
+          label={intl.formatMessage(getEmploymentEquityStatement("minority"))}
         />
         {children}
       </form>
@@ -66,11 +65,7 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
       isOpen={isOpen}
       onDismiss={onDismiss}
       color="ts-primary"
-      title={intl.formatMessage({
-        defaultMessage: "Members of visible minorities",
-        description:
-          "Title for equity dialog to add/remove visible minority category to profile",
-      })}
+      title={intl.formatMessage(getEmploymentEquityGroup("minority"))}
       footer={
         <VisibleMinorityDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogActions onDismiss={onDismiss} />

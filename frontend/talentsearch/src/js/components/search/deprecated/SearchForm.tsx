@@ -11,6 +11,7 @@ import {
   getWorkRegion,
   OperationalRequirementV1,
   getOperationalRequirement,
+  getEmploymentEquityGroup,
 } from "@common/constants/localizedConstants";
 import {
   Classification,
@@ -391,36 +392,24 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             })}
             items={[
               {
+                value: "isWoman",
+                label: intl.formatMessage(getEmploymentEquityGroup("woman")),
+              },
+              {
                 value: "isIndigenous",
-                label: intl.formatMessage({
-                  defaultMessage: "Indigenous",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
+                label: intl.formatMessage(
+                  getEmploymentEquityGroup("indigenous"),
+                ),
               },
               {
                 value: "isVisibleMinority",
-                label: intl.formatMessage({
-                  defaultMessage: "Member of a visible minority group",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
+                label: intl.formatMessage(getEmploymentEquityGroup("minority")),
               },
               {
                 value: "hasDisability",
-                label: intl.formatMessage({
-                  defaultMessage: "Person with a disability",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
-              },
-              {
-                value: "isWoman",
-                label: intl.formatMessage({
-                  defaultMessage: "Woman",
-                  description:
-                    "Checklist option for employment equity filter in search form.",
-                }),
+                label: intl.formatMessage(
+                  getEmploymentEquityGroup("disability"),
+                ),
               },
             ]}
           />

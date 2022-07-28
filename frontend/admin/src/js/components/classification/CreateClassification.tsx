@@ -180,7 +180,7 @@ export const CreateClassificationForm: React.FunctionComponent<
   );
 };
 
-export const CreateClassification: React.FunctionComponent = () => {
+const CreateClassification: React.FunctionComponent = () => {
   const [, executeMutation] = useCreateClassificationMutation();
   const handleCreateClassification = (data: CreateClassificationInput) =>
     executeMutation({ classification: data }).then((result) => {
@@ -198,3 +198,5 @@ export const CreateClassification: React.FunctionComponent = () => {
     </DashboardContentContainer>
   );
 };
+
+export default CreateClassification;

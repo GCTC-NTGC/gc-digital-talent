@@ -26,8 +26,11 @@ import DashboardContentContainer from "../DashboardContentContainer";
 type Option<V> = { value: V; label: string };
 
 type FormValues = Pick<Skill, "name" | "description"> & {
-  keywords: string;
   families: string[];
+  keywords: {
+    en: string;
+    fr: string;
+  };
 };
 
 interface UpdateSkillFormProps {
@@ -53,16 +56,25 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
 
   const dataToFormValues = (data: Skill): FormValues => ({
     ...data,
-    keywords: data.keywords?.join(", ") || "",
+    keywords: {
+      en: data.keywords?.en?.join(", ") || "",
+      fr: data.keywords?.fr?.join(", ") || "",
+    },
     families: unpackIds(data?.families),
   });
 
   const formValuesToSubmitData = (values: FormValues): UpdateSkillInput => ({
     ...values,
-    keywords: values.keywords
-      .split(",")
-      .map((key) => key.trim())
-      .filter((key) => key !== ""),
+    keywords: {
+      en: values.keywords.en
+        .split(",")
+        .map((key) => key.trim())
+        .filter((key) => key !== ""),
+      fr: values.keywords.fr
+        .split(",")
+        .map((key) => key.trim())
+        .filter((key) => key !== ""),
+    },
     families: {
       sync: values.families,
     },
@@ -173,12 +185,31 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
               }}
             />
             <Input
-              id="keywords"
-              name="keywords"
+              id="keywords_en"
+              name="keywords.en"
               label={intl.formatMessage({
-                defaultMessage: "Keywords",
+                defaultMessage: "Keywords (English)",
                 description:
-                  "Label displayed on the skill form keywords field.",
+                  "Label displayed on the skill form keywords field in English.",
+              })}
+              context={intl.formatMessage({
+                defaultMessage:
+                  "This field accepts a list of comma separated keywords associated with the skill.",
+                description:
+                  "Additional context describing the purpose of the skills 'keyword' field.",
+              })}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="keywords_fr"
+              name="keywords.fr"
+              label={intl.formatMessage({
+                defaultMessage: "Keywords (French)",
+                description:
+                  "Label displayed on the skill form keywords field in French.",
               })}
               context={intl.formatMessage({
                 defaultMessage:
