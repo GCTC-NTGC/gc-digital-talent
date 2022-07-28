@@ -7,13 +7,13 @@ import {
   screen,
   render,
   RenderOptions,
-  act,
   fireEvent,
 } from "@testing-library/react";
-import { FormProvider, useForm } from "react-hook-form";
+import { renderHook, act } from "@testing-library/react-hooks";
+import { FormProvider, useForm, RegisterOptions } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
 import IntlProvider from "react-intl/src/components/provider";
-import SelectFieldV2 from "./SelectFieldV2";
+import SelectFieldV2, { useRulesWithDefaultMessages } from "./SelectFieldV2";
 
 const Providers = ({
   children,
@@ -73,6 +73,40 @@ const renderWithProviders = (
     wrapper: (props) => <Providers {...props} {...options?.wrapperProps} />,
     ...options,
   });
+
+describe("useRulesWithDefaultMessages", () => {
+  // See: https://kentcdodds.com/blog/how-to-test-custom-react-hooks
+  function processRules(rules: RegisterOptions) {
+    const wrapper = ({ children }: { children: React.ReactElement }) => (
+      <IntlProvider locale="en">{children}</IntlProvider>
+    );
+    const { result } = renderHook(() => useRulesWithDefaultMessages(rules), {
+      wrapper,
+    });
+
+    return result;
+  }
+
+  it("return rules unmodified when `required` not specified", () => {
+    const newRules = processRules({});
+    expect(newRules.current.required).toBeUndefined();
+  });
+
+  it("return rules unmodified when `required` is false", () => {
+    const newRules = processRules({ required: false });
+    expect(newRules.current.required).toBe(false);
+  });
+
+  it("return default message when `required` is true", () => {
+    const newRules = processRules({ required: true });
+    expect(newRules.current.required).toBe("This field is required.");
+  });
+
+  it("return custom message when `required` is string", () => {
+    const newRules = processRules({ required: "Required!" });
+    expect(newRules.current.required).toBe("Required!");
+  });
+});
 
 describe("SelectFieldV2", () => {
   it("should render properly with only label prop", () => {
@@ -150,7 +184,7 @@ describe("SelectFieldV2", () => {
     expect(mockSubmit).toBeCalledWith({ fooBar: "" });
   });
 
-  it("should prevent submit and throw custom error message when required rule is provided", async () => {
+  it("should prevent submit when required and throw custom error message", async () => {
     const mockSubmit = jest.fn();
     renderWithProviders(
       <SelectFieldV2
@@ -172,8 +206,7 @@ describe("SelectFieldV2", () => {
     expect(screen.getByRole("alert").textContent).toBe("Required!");
   });
 
-  // TODO: Add a default required error message.
-  it("should prevent submit when required without message (but no default error message)", async () => {
+  it("should prevent submit when required and throw default error message", async () => {
     const mockSubmit = jest.fn();
     renderWithProviders(
       <SelectFieldV2 label="Foo Bar" options={[]} rules={{ required: true }} />,
@@ -187,7 +220,10 @@ describe("SelectFieldV2", () => {
       fireEvent.submit(screen.getByRole("button"));
     });
     expect(mockSubmit).not.toBeCalled();
-    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    expect(screen.queryByRole("alert")).toBeInTheDocument();
+    expect(screen.getByRole("alert").textContent).toBe(
+      "This field is required.",
+    );
   });
 
   it("should show 'optional' text when not required", () => {
