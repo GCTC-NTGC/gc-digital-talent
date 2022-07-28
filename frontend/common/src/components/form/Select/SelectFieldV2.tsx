@@ -80,7 +80,7 @@ const LocalizedNoOptionsMessage = <
   );
 };
 /**
- * One-off hook to add default messages to validation rule object.
+ * One-off hook to add default messages to validation rule object in place of booleans.
  *
  * @param rules initial rule object
  * @returns modified rule object
@@ -130,6 +130,9 @@ const SelectFieldV2 = ({
 
   const error = errors[name]?.message;
   const isRequired = !!rules?.required;
+  // react-hook-form has no way to set default messages when `{ required: true }`,
+  // so that's handled here. (It's a hook because it uses react-intl hook.)
+  // See: https://github.com/react-hook-form/react-hook-form/issues/458
   const rulesWithDefaults = useRulesWithDefaultMessages(rules);
 
   return (
