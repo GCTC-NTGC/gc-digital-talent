@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import {
   Input,
-  MultiSelect,
+  MultiSelectField,
   Select,
   Submit,
   TextArea,
@@ -230,7 +230,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelect
+            <MultiSelectField
               id="classifications"
               label={intl.formatMessage({
                 defaultMessage: "Classifications",
@@ -242,13 +242,12 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form classifications field.",
               })}
-              name="classifications"
               options={classificationOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelect
+            <MultiSelectField
               id="assetCriteria"
               label={intl.formatMessage({
                 defaultMessage: "Asset Criteria",
@@ -260,13 +259,12 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form asset criteria field.",
               })}
-              name="assetCriteria"
               options={cmoAssetOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelect
+            <MultiSelectField
               id="essentialCriteria"
               label={intl.formatMessage({
                 defaultMessage: "Essential Criteria",
@@ -278,15 +276,13 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form essential criteria field.",
               })}
-              name="essentialCriteria"
               options={cmoAssetOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelect
+            <MultiSelectField
               id="operationalRequirements"
-              name="operationalRequirements"
               label={intl.formatMessage({
                 defaultMessage: "Operational Requirements",
                 description:

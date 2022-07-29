@@ -1,20 +1,24 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import uniqueId from "lodash/uniqueId";
 import React from "react";
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
-import MultiSelectFieldV2 from "./MultiSelectFieldV2";
+import MultiSelectField from "./MultiSelectField";
 
 export default {
-  component: MultiSelectFieldV2,
-  title: "Form/MultiSelectFieldV2",
+  component: MultiSelectField,
+  title: "Form/MultiSelectField",
   decorators: [
-    (Story) => {
+    (Story, context) => {
       return (
         <BasicForm
           onSubmit={action("Submit Form")}
-          options={{ defaultValues: { departments: [] } }}
+          options={{
+            defaultValues: {
+              // Sets default value based on logic for how `name` attribute inherits inside component.
+              [context.args.name || context.args.id]: [],
+            },
+          }}
         >
           {/* See: https://github.com/storybookjs/storybook/issues/12596#issuecomment-723440097 */}
           {Story() /* Can't use <Story /> for inline decorator. */}
@@ -23,22 +27,40 @@ export default {
       );
     },
   ],
-} as ComponentMeta<typeof MultiSelectFieldV2>;
+} as ComponentMeta<typeof MultiSelectField>;
 
-const Template: ComponentStory<typeof MultiSelectFieldV2> = (args) => {
-  return <MultiSelectFieldV2 {...args} />;
+const Template: ComponentStory<typeof MultiSelectField> = (args) => {
+  return <MultiSelectField {...args} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  id: uniqueId(),
+  id: "departments",
   label: "Departments",
-  name: "departments",
   options: [
-    { value: 1, label: "CRA" },
-    { value: 2, label: "TBS" },
-    { value: 3, label: "DND" },
+    { value: "cra", label: "CRA" },
+    { value: "tbs", label: "TBS" },
+    { value: "dnd", label: "DND" },
   ],
+};
+
+export const NameAttrOverride = Template.bind({});
+NameAttrOverride.args = {
+  ...Default.args,
+  name: "departmentsField",
+};
+
+export const NoOptions = Template.bind({});
+NoOptions.args = {
+  ...Default.args,
+  options: [],
+};
+
+export const NoOptionsAndLoading = Template.bind({});
+NoOptionsAndLoading.args = {
+  ...Default.args,
+  options: [],
+  isLoading: true,
 };
 
 export const Required = Template.bind({});

@@ -2,7 +2,12 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Input, MultiSelect, Select, Submit } from "@common/components/form";
+import {
+  Input,
+  MultiSelectField,
+  Select,
+  Submit,
+} from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
@@ -157,9 +162,8 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
                   "Additional context describing the purpose of the users's 'subject' field.",
               })}
             />
-            <MultiSelect
+            <MultiSelectField
               id="roles"
-              name="roles"
               label={intl.formatMessage({
                 defaultMessage: "Roles",
                 description: "Label displayed on the user form roles field.",

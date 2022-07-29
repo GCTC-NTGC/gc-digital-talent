@@ -7,7 +7,7 @@ import {
   Submit,
   Select,
   Input,
-  MultiSelect,
+  MultiSelectField,
   Checkbox,
 } from "@common/components/form";
 import { notEmpty } from "@common/helpers/util";
@@ -336,9 +336,8 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelect
+            <MultiSelectField
               id="locationPreferences"
-              name="locationPreferences"
               label={intl.formatMessage({
                 defaultMessage: "Location Preferences",
                 description:
@@ -354,9 +353,8 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 label: intl.formatMessage(getWorkRegion(value)),
               }))}
             />
-            <MultiSelect
+            <MultiSelectField
               id="acceptedOperationalRequirements"
-              name="acceptedOperationalRequirements"
               label={intl.formatMessage({
                 defaultMessage: "Operational Requirements",
                 description:
@@ -373,14 +371,13 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 label: intl.formatMessage(getOperationalRequirement(value)),
               }))}
             />
-            <MultiSelect
+            <MultiSelectField
               id="expectedSalary"
               label={intl.formatMessage({
                 defaultMessage: "Expected Salary",
                 description:
                   "Label displayed on the pool candidate form expected salary field.",
               })}
-              name="expectedSalary"
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more expected salaries...",
                 description:
@@ -391,7 +388,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 label: getSalaryRange(value),
               }))}
             />
-            <MultiSelect
+            <MultiSelectField
               id="expectedClassifications"
               label={intl.formatMessage({
                 defaultMessage: "Expected Classifications",
@@ -403,10 +400,9 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form expected classifications field.",
               })}
-              name="expectedClassifications"
               options={classificationOptions}
             />
-            <MultiSelect
+            <MultiSelectField
               id="cmoAssets"
               label={intl.formatMessage({
                 defaultMessage: "CMO Assets",
@@ -418,7 +414,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form cmo assets field.",
               })}
-              name="cmoAssets"
               options={cmoAssetOptions}
             />
             <Select

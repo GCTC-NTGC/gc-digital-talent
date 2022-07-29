@@ -1,7 +1,11 @@
 import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
+import {
+  Checklist,
+  MultiSelectField,
+  RadioGroup,
+} from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
@@ -201,7 +205,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
               "Message describing the classification filter of the search form.",
           })}
         >
-          <MultiSelect
+          <MultiSelectField
             id="classifications"
             label={intl.formatMessage({
               defaultMessage: "Classification filter",
@@ -212,7 +216,6 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
               description:
                 "Placeholder for classification filter in search form.",
             })}
-            name="classifications"
             options={classificationOptions}
           />
         </FilterBlock>
@@ -306,9 +309,8 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
               "Message describing the work location filter in the search form.",
           })}
         >
-          <MultiSelect
+          <MultiSelectField
             id="workRegions"
-            name="workRegions"
             label={intl.formatMessage({
               defaultMessage: "Region",
               description: "Label for work location filter in search form.",
