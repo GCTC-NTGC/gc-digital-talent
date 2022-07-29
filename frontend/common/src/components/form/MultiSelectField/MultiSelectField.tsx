@@ -3,14 +3,14 @@ import SelectFieldV2, {
   type SelectFieldV2Props,
 } from "../Select/SelectFieldV2";
 
-export type MultiSelectFieldV2Props = Omit<
+export type MultiSelectFieldProps = Omit<
   SelectFieldV2Props,
   "isMulti" | "forceArrayFormValue"
 >;
 
-const MultiSelectFieldV2 = (props: MultiSelectFieldV2Props) => (
+const MultiSelectField = (props: MultiSelectFieldProps) => (
   <SelectFieldV2 isMulti {...props} />
 );
 
-export default MultiSelectFieldV2;
+export default MultiSelectField;
 export type { Option } from "../Select/SelectFieldV2";

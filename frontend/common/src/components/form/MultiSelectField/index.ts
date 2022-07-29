@@ -1,8 +1,8 @@
-import MultiSelect from "./MultiSelectFieldV2";
+import MultiSelect from "./MultiSelectField";
 import type {
-  MultiSelectFieldV2Props as MultiSelectProps,
+  MultiSelectFieldProps as MultiSelectProps,
   Option,
-} from "./MultiSelectFieldV2";
+} from "./MultiSelectField";
 
 export default MultiSelect;
 export type { MultiSelectProps, Option };
