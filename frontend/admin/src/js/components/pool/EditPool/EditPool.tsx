@@ -11,14 +11,12 @@ import { HomeIcon, ViewGridIcon } from "@heroicons/react/outline";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import TableOfContents from "@common/components/TableOfContents";
 import { notEmpty } from "@common/helpers/util";
-import { toast } from "react-toastify";
 import {
   PoolAdvertisement,
   Scalars,
   Classification,
   useGetEditPoolDataQuery,
   Skill,
-  useUpdatePoolAdvertisementMutation,
 } from "../../../api/generated";
 import DashboardContentContainer from "../../DashboardContentContainer";
 import { useAdminRoutes } from "../../../adminRoutes";
@@ -33,7 +31,7 @@ import WorkTasksSection, { type WorkTasksSubmitData } from "./WorkTasksSection";
 import OtherRequirementsSection, {
   type OtherRequirementsSubmitData,
 } from "./OtherRequirementsSection";
-import StatusSection from "./StatusSection";
+import StatusSection, { type ExtendSubmitData } from "./StatusSection";
 import EssentialSkillsSection, {
   type EssentialSkillsSubmitData,
 } from "./EssentialSkillsSection";
@@ -41,11 +39,13 @@ import AssetSkillsSection, {
   type AssetSkillsSubmitData,
 } from "./AssetSkillsSection";
 import EditPoolContext from "./EditPoolContext";
+import useMutations from "./useMutations";
 
 export type PoolSubmitData =
   | AssetSkillsSubmitData
   | ClosingDateSubmitData
   | EssentialSkillsSubmitData
+  | ExtendSubmitData
   | OtherRequirementsSubmitData
   | PoolNameSubmitData
   | WorkTasksSubmitData
@@ -59,7 +59,7 @@ export interface EditPoolFormProps {
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: (submitData: unknown) => void;
+  onExtend: (submitData: ExtendSubmitData) => void;
   onArchive: () => void;
 }
 
@@ -301,37 +301,11 @@ export const EditPool = ({ poolId }: EditPoolProps) => {
     variables: { poolId },
   });
 
-  const [{ fetching: updateFetching }, executeUpdateMutation] =
-    useUpdatePoolAdvertisementMutation();
-
-  const handleSave = (input: PoolSubmitData) => {
-    executeUpdateMutation({ id: poolId, poolAdvertisement: input })
-      .then((result) => {
-        if (result.data?.updatePoolAdvertisement) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Pool updated successfully!",
-              description: "Message displayed to user after pool is updated",
-            }),
-          );
-        }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating pool failed",
-            description:
-              "Message displayed to user after pool fails to get updated.",
-          }),
-        );
-      });
-  };
+  const { isFetching, mutations } = useMutations();
 
   const ctx = React.useMemo(() => {
-    return {
-      isSubmitting: updateFetching,
-    };
-  }, [updateFetching]);
+    return { isSubmitting: isFetching };
+  }, [isFetching]);
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -342,13 +316,11 @@ export const EditPool = ({ poolId }: EditPoolProps) => {
               poolAdvertisement={data.poolAdvertisement}
               classifications={data.classifications.filter(notEmpty)}
               skills={data.skills.filter(notEmpty)}
-              onSave={handleSave}
-              onPublish={() => console.warn("onPublish not yet implemented")}
-              onDelete={() => console.warn("onDelete not yet implemented")}
-              onClose={() => console.warn("onClose not yet implemented")}
-              onExtend={(submitData: unknown) =>
-                console.warn("onExtend not yet implemented", submitData)
-              }
+              onSave={(saveData) => mutations.update(poolId, saveData)}
+              onPublish={() => mutations.publish(poolId)}
+              onDelete={() => mutations.delete(poolId)}
+              onClose={() => mutations.close(poolId)}
+              onExtend={(extendData) => mutations.update(poolId, extendData)}
               onArchive={() => console.warn("onArchive not yet implemented")}
             />
           </EditPoolContext.Provider>

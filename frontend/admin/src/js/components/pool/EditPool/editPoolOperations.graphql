@@ -132,3 +132,20 @@ mutation updatePoolAdvertisement($id: ID!, $poolAdvertisement: UpdatePoolAdverti
     id
   }
 }
+
+mutation publishPoolAdvertisement($id: ID!) {
+  publishPoolAdvertisement(id: $id) {
+    isPublished
+  }
+}
+mutation closePoolAdvertisement($id: ID!) {
+  closePoolAdvertisement(id: $id) {
+    expiryDate
+  }
+}
+
+mutation deletePoolAdvertisement($id: ID!) {
+  deletePoolAdvertisement(id: $id) {
+    id
+  }
+}
