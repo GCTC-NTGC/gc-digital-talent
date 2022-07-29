@@ -15,9 +15,13 @@ name: Snyk
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - frontend/**
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "main" ]
+    paths:
+      - frontend/**
   schedule:
     - cron: '16 10 * * 6'
 
