@@ -13,3 +13,4 @@ const MultiSelectFieldV2 = (props: MultiSelectFieldV2Props) => (
 );
 
 export default MultiSelectFieldV2;
+export type { Option } from "../Select/SelectFieldV2";
