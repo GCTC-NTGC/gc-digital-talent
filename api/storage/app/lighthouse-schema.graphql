@@ -242,6 +242,11 @@ input CreateDepartmentInput {
   name: LocalizedStringInput
 }
 
+input CreatePoolAdvertisementInput {
+  key: KeyString!
+  classifications: ClassificationBelongsToMany
+}
+
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: ConnectOrCreateBelongsTo!
@@ -588,6 +593,12 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
+  createPoolAdvertisement(userId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
+  updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
+  publishPoolAdvertisement(id: ID!): PoolAdvertisement
+  changePoolExpiryDate(id: ID!, newExpiryDate: DateTimeTz!): PoolAdvertisement
+  closePoolAdvertisement(id: ID!): PoolAdvertisement
+  deletePoolAdvertisement(id: ID!): PoolAdvertisement
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -1102,6 +1113,19 @@ input UpdateDepartmentInput {
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!]
   sync: [ConnectExperienceSkills!]
+}
+
+input UpdatePoolAdvertisementInput {
+  name: LocalizedStringInput
+  classifications: ClassificationBelongsToMany
+  expiryDate: DateTimeTz
+  yourImpact: LocalizedStringInput
+  keyTasks: LocalizedStringInput
+  essentialSkills: SkillBelongsToMany
+  nonessentialSkills: SkillBelongsToMany
+  advertisementLanguage: PoolAdvertisementLanguage
+  securityClearance: SecurityStatus
+  advertisementLocation: LocalizedStringInput
 }
 
 input UpdatePoolCandidateAsAdminInput {

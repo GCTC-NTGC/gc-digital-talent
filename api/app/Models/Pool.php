@@ -53,6 +53,16 @@ class Pool extends Model
         'expiry_date' => 'datetime',
     ];
 
+    /**
+     * The attributes that can be filled using mass-assignment.
+     *
+     * @var array
+    */
+    protected $fillable = [
+        'is_published',
+        'expiry_date'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
