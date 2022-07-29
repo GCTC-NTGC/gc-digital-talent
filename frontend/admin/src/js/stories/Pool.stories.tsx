@@ -25,6 +25,7 @@ stories.add("Pool Table", () => <PoolTable pools={poolData} editUrlRoot="#" />);
 
 stories.add("Create Pool Form", () => (
   <CreatePoolForm
+    genericJobTitles={[]}
     classifications={fakeClassifications() as Classification[]}
     cmoAssets={fakeCmoAssets() as CmoAsset[]}
     users={fakeUsers() as User[]}

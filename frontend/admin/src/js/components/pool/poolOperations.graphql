@@ -198,3 +198,32 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
     operationalRequirements
   }
 }
+
+ query getGenericJobTitles {
+  genericJobTitles {
+    name {
+      en
+      fr
+    }
+    key
+    classification {
+      name {
+        en
+        fr
+      }
+      group
+      level
+      id
+    }
+    id
+  }
+ }
+
+mutation createPoolAdvertisement($userId: ID!, $poolAdvertisement: CreatePoolAdvertisementInput!) {
+  createPoolAdvertisement(userId: $userId, poolAdvertisement: $poolAdvertisement) {
+    name {
+      en
+      fr
+    }
+  }
+}

@@ -18,9 +18,20 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import {
   getOperationalRequirement,
   getPoolStatus,
+  GenericJobTitles,
+  GenericJobTitlesSorted,
+  getGenericJobTitles,
+  getGenericJobTitlesWithClassification,
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
+import PageHeader from "@common/components/PageHeader/PageHeader";
+import Breadcrumbs, {
+  BreadcrumbsProps,
+} from "@common/components/Breadcrumbs/Breadcrumbs";
+import { ViewGridIcon } from "@heroicons/react/outline";
+import { ViewGridIcon as SolidGridIcon } from "@heroicons/react/solid";
+import Link from "@common/components/Link/Link";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
@@ -30,8 +41,10 @@ import {
   Pool,
   useCreatePoolMutation,
   useGetCreatePoolDataQuery,
+  useGetGenericJobTitlesQuery,
   User,
   PoolStatus,
+  GenericJobTitle,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
@@ -59,6 +72,7 @@ interface CreatePoolFormProps {
   handleCreatePool: (
     data: CreatePoolInput,
   ) => Promise<CreatePoolMutation["createPool"]>;
+  genericJobTitles: GenericJobTitle[];
 }
 
 export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
@@ -66,6 +80,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   cmoAssets,
   users,
   handleCreatePool,
+  genericJobTitles,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -129,226 +144,148 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     }),
   );
 
+  const links = [
+    {
+      title: intl.formatMessage({
+        defaultMessage: "My Pools",
+        description: "Breadcrumb title for the pools page link.",
+      }),
+      href: paths.poolTable(),
+      icon: <SolidGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
+    },
+    {
+      title: intl.formatMessage({
+        defaultMessage: `New Pool`,
+        description: "New pool breadcrumb text",
+      }),
+    },
+  ] as BreadcrumbsProps["links"];
+
   return (
     <section>
-      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+      <PageHeader icon={ViewGridIcon}>
         {intl.formatMessage({
-          defaultMessage: "Create Pool",
-          description: "Title displayed on the create a pool form.",
+          defaultMessage: "Create New Pool",
+          description: "Header for page to create pool advertisements",
         })}
-      </h2>
-      <div data-h2-container="b(center, s)">
+      </PageHeader>
+      <Breadcrumbs links={links} />
+      <div
+        data-h2-container="b(left, s)"
+        data-h2-bg-color="b(lightgray)"
+        data-h2-padding="b(all, xs)"
+        data-h2-margin="b(top, l)"
+        data-h2-radius="b(s)"
+      >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Select
-              id="owner"
-              label={intl.formatMessage({
-                defaultMessage: "Owner",
-                description: "Label displayed on the pool form owner field.",
+            <h3 data-h2-margin="b(top-bottom, xs)">
+              {intl.formatMessage({
+                defaultMessage: "Start blank job poster",
+                description: "Form header to create new pool",
               })}
-              name="owner"
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select an owner...",
-                description:
-                  "Placeholder displayed on the pool form owner field.",
+            </h3>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Create a new job poster from scratch",
+                description: "Form blurb describing create pool form",
               })}
-              options={userOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_en"
-              name="name.en"
-              label={intl.formatMessage({
-                defaultMessage: "Name (English)",
-                description:
-                  "Label displayed on the pool form name (English) field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Name (French)",
-                description:
-                  "Label displayed on the pool form name (French) field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
+            </p>
+            <div
+              data-h2-display="b(flex)"
+              data-h2-flex-direction="b(column) s(row)"
+            >
+              <div data-h2-padding="s(right, xs)">
+                <Select
+                  id="classification"
+                  label={intl.formatMessage({
+                    defaultMessage: "Starting group and level",
+                    description:
+                      "Label displayed on the pool form classification field.",
+                  })}
+                  name="classification"
+                  nullSelection={intl.formatMessage({
+                    defaultMessage: "Select a classification...",
+                    description:
+                      "Placeholder displayed on the pool form classification field.",
+                  })}
+                  options={GenericJobTitlesSorted.map((value) => ({
+                    value,
+                    label: intl.formatMessage(
+                      getGenericJobTitlesWithClassification(value),
+                    ),
+                  }))}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
+              </div>
+              <div>
+                <Select
+                  id="stream"
+                  label={intl.formatMessage({
+                    defaultMessage: "Streams",
+                    description:
+                      "Label displayed on the pool form streams field.",
+                  })}
+                  name="stream"
+                  nullSelection={intl.formatMessage({
+                    defaultMessage: "Select a stream...",
+                    description:
+                      "Placeholder displayed on the pool form stream field.",
+                  })}
+                  options={GenericJobTitlesSorted.map((value) => ({
+                    value,
+                    label: intl.formatMessage(
+                      getGenericJobTitlesWithClassification(value),
+                    ),
+                  }))}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
+              </div>
+            </div>
             <Input
               id="key"
               name="key"
               label={intl.formatMessage({
                 defaultMessage: "Key",
-                description: "Label displayed on the 'key' input field.",
-              })}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "The 'key' is a string that uniquely identifies a Pool. It should be based on the Pool's English name, and it should be concise. A good example would be \"digital_careers\". It may be used in the code to refer to this particular Pool, so it cannot be changed later.",
-                description:
-                  "Additional context describing the purpose of the Pool's 'key' field.",
+                description: "Label displayed on the pool form name key field.",
               })}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
-                pattern: {
-                  value: keyStringRegex,
-                  message: intl.formatMessage({
-                    defaultMessage:
-                      "Please use only lowercase letters and underscores.",
-                  }),
-                },
               }}
-            />
-            <TextArea
-              id="description_en"
-              name="description.en"
-              label={intl.formatMessage({
-                defaultMessage: "Description (English)",
-                description:
-                  "Label displayed on the pool form description (English) field.",
-              })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <TextArea
-              id="description_fr"
-              name="description.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Description (French)",
-                description:
-                  "Label displayed on the pool form description (French) field.",
-              })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <MultiSelect
-              id="classifications"
-              label={intl.formatMessage({
-                defaultMessage: "Classifications",
-                description:
-                  "Label displayed on the pool form classifications field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more classifications...",
-                description:
-                  "Placeholder displayed on the pool form classifications field.",
-              })}
-              name="classifications"
-              options={classificationOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <MultiSelect
-              id="assetCriteria"
-              label={intl.formatMessage({
-                defaultMessage: "Asset Criteria",
-                description:
-                  "Label displayed on the pool form asset criteria field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more asset...",
-                description:
-                  "Placeholder displayed on the pool form asset criteria field.",
-              })}
-              name="assetCriteria"
-              options={cmoAssetOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <MultiSelect
-              id="essentialCriteria"
-              label={intl.formatMessage({
-                defaultMessage: "Essential Criteria",
-                description:
-                  "Label displayed on the pool form essential criteria field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more essential...",
-                description:
-                  "Placeholder displayed on the pool form essential criteria field.",
-              })}
-              name="essentialCriteria"
-              options={cmoAssetOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <MultiSelect
-              id="operationalRequirements"
-              name="operationalRequirements"
-              label={intl.formatMessage({
-                defaultMessage: "Operational Requirements",
-                description:
-                  "Label displayed on the pool form operational requirements field.",
-              })}
-              placeholder={intl.formatMessage({
+              context={intl.formatMessage({
                 defaultMessage:
-                  "Select one or more operational requirements...",
-                description:
-                  "Placeholder displayed on the pool form operational requirements field.",
-              })}
-              options={OperationalRequirementV2.map((value) => ({
-                value,
-                label: intl.formatMessage(getOperationalRequirement(value)),
-              }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <TextArea
-              id="keyTasks_en"
-              name="keyTasks.en"
-              label={intl.formatMessage({
-                defaultMessage: "Key Tasks (English)",
-                description:
-                  "Label displayed on the pool form key tasks (English) field.",
+                  "The 'key' is a string that uniquely identifies a Pool. It's auto-generated based on the pool's group and job title.",
+                description: "Context displayed on the pool form key field.",
               })}
             />
-            <TextArea
-              id="keyTasks_fr"
-              name="keyTasks.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Key Tasks (French)",
+            <Submit
+              text={intl.formatMessage({
+                defaultMessage: "Create new pool",
                 description:
-                  "Label displayed on the pool form key tasks (French) field.",
+                  "Label displayed on submit button for new pool form.",
               })}
             />
-            <Select
-              id="status"
-              label={intl.formatMessage({
-                defaultMessage: "Status",
-                description: "Label displayed on the pool form status field.",
-              })}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a status...",
-                description:
-                  "Placeholder displayed on the pool form status field.",
-              })}
-              name="status"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              options={enumToOptions(PoolStatus).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getPoolStatus(value)),
-              }))}
-            />
-            <Submit />
           </form>
         </FormProvider>
+      </div>
+
+      <div data-h2-margin="b(top, l)">
+        <Link
+          type="button"
+          href={paths.poolTable()}
+          mode="outline"
+          color="primary"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Cancel and go back",
+            description: "Label displayed on cancel button for new pool form.",
+          })}
+        </Link>
       </div>
     </section>
   );
@@ -356,11 +293,15 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 
 const CreatePool: React.FunctionComponent = () => {
   const [lookupResult] = useGetCreatePoolDataQuery();
+  const [genericJobTitlesQuery] = useGetGenericJobTitlesQuery();
+  const { data: lookupdata2 } = genericJobTitlesQuery;
   const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
   const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
   const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
+  const genericJobTitles: GenericJobTitle[] | [] =
+    lookupdata2?.genericJobTitles.filter(notEmpty) ?? [];
 
   const [, executeMutation] = useCreatePoolMutation();
   const handleCreatePool = (data: CreatePoolInput) =>
@@ -379,6 +320,7 @@ const CreatePool: React.FunctionComponent = () => {
           cmoAssets={cmoAssets}
           users={users}
           handleCreatePool={handleCreatePool}
+          genericJobTitles={genericJobTitles}
         />
       </DashboardContentContainer>
     </Pending>
