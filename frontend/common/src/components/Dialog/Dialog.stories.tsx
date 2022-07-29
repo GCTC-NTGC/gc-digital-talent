@@ -47,6 +47,8 @@ export const ConfirmationType = TemplateDialog.bind({});
 export const ConfirmationTypeWithSubtitle = TemplateDialog.bind({});
 export const WithFooter = TemplateDialog.bind({});
 export const WithForm = TemplateDialog.bind({});
+export const ColorPrimary = TemplateDialog.bind({});
+export const ColorSecondary = TemplateDialog.bind({});
 export const ColorIAPrimary = TemplateDialog.bind({});
 export const ColorIASecondary = TemplateDialog.bind({});
 
@@ -83,6 +85,22 @@ ConfirmationTypeWithSubtitle.args = {
   title: "Confirmation Dialog",
   subtitle: "Dialog Subtitle",
   confirmation: true,
+  children:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
+};
+
+ColorPrimary.args = {
+  title: "Primary Dialog",
+  subtitle: "Dialog Subtitle",
+  color: "ts-primary",
+  children:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
+};
+
+ColorSecondary.args = {
+  title: "Secondary Dialog",
+  subtitle: "Dialog Subtitle",
+  color: "ts-secondary",
   children:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
 };
