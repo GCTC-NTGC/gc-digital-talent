@@ -2,28 +2,11 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
-import {
-  Input,
-  MultiSelect,
-  Select,
-  Submit,
-  TextArea,
-} from "@common/components/form";
-import { getLocale } from "@common/helpers/localize";
-import { notEmpty } from "@common/helpers/util";
+import { Input, Select, Submit } from "@common/components/form";
+import { unpackMaybes } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
-import { keyStringRegex } from "@common/constants/regularExpressions";
-import { enumToOptions } from "@common/helpers/formUtils";
-import {
-  getOperationalRequirement,
-  getPoolStatus,
-  GenericJobTitles,
-  GenericJobTitlesSorted,
-  getGenericJobTitles,
-  getGenericJobTitlesWithClassification,
-  OperationalRequirementV2,
-} from "@common/constants/localizedConstants";
+import { getGenericJobTitlesWithClassification } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import PageHeader from "@common/components/PageHeader/PageHeader";
 import Breadcrumbs, {
@@ -34,85 +17,67 @@ import { ViewGridIcon as SolidGridIcon } from "@heroicons/react/solid";
 import Link from "@common/components/Link/Link";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
-  Classification,
-  CmoAsset,
-  CreatePoolInput,
-  CreatePoolMutation,
-  Pool,
-  useCreatePoolMutation,
-  useGetCreatePoolDataQuery,
-  useGetGenericJobTitlesQuery,
-  User,
-  PoolStatus,
-  GenericJobTitle,
+  CreatePoolAdvertisementInput,
+  useCreatePoolAdvertisementMutation,
+  CreatePoolAdvertisementMutation,
+  useGetMePoolCreationQuery,
+  GenericJobTitleKey,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
-type FormValues = Pick<
-  Pool,
-  "description" | "operationalRequirements" | "keyTasks" | "status"
-> & {
+type FormValues = {
   key: string;
-  name: {
-    en: string;
-    fr: string;
-  };
-  assetCriteria: string[] | undefined;
-  classifications: string[] | undefined;
-  essentialCriteria: string[] | undefined;
-  owner: string;
+  classification: string[] | undefined;
+  stream: string[] | undefined;
 };
 
 interface CreatePoolFormProps {
-  classifications: Classification[];
-  cmoAssets: CmoAsset[];
-  users: User[];
+  userId: string;
+  genericJobTitles: {
+    key: GenericJobTitleKey;
+    id: string;
+    classificationId: string;
+  }[];
   handleCreatePool: (
-    data: CreatePoolInput,
-  ) => Promise<CreatePoolMutation["createPool"]>;
-  genericJobTitles: GenericJobTitle[];
+    userId: string,
+    data: CreatePoolAdvertisementInput,
+  ) => Promise<CreatePoolAdvertisementMutation["createPoolAdvertisement"]>;
 }
 
 export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
-  classifications,
-  cmoAssets,
-  users,
-  handleCreatePool,
+  userId,
   genericJobTitles,
+  handleCreatePool,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
-  const formValuesToSubmitData = (values: FormValues): CreatePoolInput => ({
-    ...values,
-    assetCriteria: {
-      sync: values.assetCriteria,
-    },
+  // submission section, and navigate to edit the created pool
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): CreatePoolAdvertisementInput => ({
     classifications: {
-      sync: values.classifications,
+      sync: values.classification,
     },
-    essentialCriteria: {
-      sync: values.essentialCriteria,
-    },
-    owner: { connect: values.owner },
+    key: values.key,
   });
-
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleCreatePool(formValuesToSubmitData(data))
-      .then(() => {
-        navigate(paths.poolTable());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Pool created successfully!",
-            description:
-              "Message displayed to user after pool is created successfully.",
-          }),
-        );
+    await handleCreatePool(userId, formValuesToSubmitData(data))
+      .then((result) => {
+        if (result) {
+          navigate(paths.poolEdit(result.id));
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Pool created successfully!",
+              description:
+                "Message displayed to user after pool is created successfully.",
+            }),
+          );
+        }
       })
       .catch(() => {
         toast.error(
@@ -124,25 +89,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         );
       });
   };
-
-  const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
-    value: id,
-    label: name[locale] ?? "Error: name not loaded",
-  }));
-
-  const classificationOptions: Option<string>[] = classifications.map(
-    ({ id, group, level }) => ({
-      value: id,
-      label: `${group}-0${level}`,
-    }),
-  );
-
-  const userOptions: Option<string>[] = users.map(
-    ({ id, firstName, lastName }) => ({
-      value: id,
-      label: `${firstName} ${lastName}`,
-    }),
-  );
 
   const links = [
     {
@@ -160,6 +106,17 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
       }),
     },
   ] as BreadcrumbsProps["links"];
+
+  // create the options for the select input, and ensure classification Ids are attached to each option
+  // take care not to try and attach generic job title Id instead, wrong Id throws confusing sql errors
+  const jobTitleOptions: Option<string>[] = genericJobTitles.map(
+    ({ key, classificationId }) => ({
+      value: classificationId,
+      label:
+        intl.formatMessage(getGenericJobTitlesWithClassification(key)) ??
+        "Error: name not loaded",
+    }),
+  );
 
   return (
     <section>
@@ -209,18 +166,14 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                     description:
                       "Placeholder displayed on the pool form classification field.",
                   })}
-                  options={GenericJobTitlesSorted.map((value) => ({
-                    value,
-                    label: intl.formatMessage(
-                      getGenericJobTitlesWithClassification(value),
-                    ),
-                  }))}
+                  options={jobTitleOptions}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
                 />
               </div>
               <div>
+                {/* TODO AS JOB STREAMS DO NOT EXIST YET */}
                 <Select
                   id="stream"
                   label={intl.formatMessage({
@@ -234,12 +187,12 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                     description:
                       "Placeholder displayed on the pool form stream field.",
                   })}
-                  options={GenericJobTitlesSorted.map((value) => ({
-                    value,
-                    label: intl.formatMessage(
-                      getGenericJobTitlesWithClassification(value),
-                    ),
-                  }))}
+                  options={[
+                    {
+                      value: "TODO",
+                      label: "TODO",
+                    },
+                  ]}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -292,22 +245,41 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 };
 
 const CreatePool: React.FunctionComponent = () => {
-  const [lookupResult] = useGetCreatePoolDataQuery();
-  const [genericJobTitlesQuery] = useGetGenericJobTitlesQuery();
-  const { data: lookupdata2 } = genericJobTitlesQuery;
+  const [lookupResult] = useGetMePoolCreationQuery();
   const { data: lookupData, fetching, error } = lookupResult;
-  const classifications: Classification[] | [] =
-    lookupData?.classifications.filter(notEmpty) ?? [];
-  const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
-  const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
-  const genericJobTitles: GenericJobTitle[] | [] =
-    lookupdata2?.genericJobTitles.filter(notEmpty) ?? [];
 
-  const [, executeMutation] = useCreatePoolMutation();
-  const handleCreatePool = (data: CreatePoolInput) =>
-    executeMutation({ pool: data }).then((result) => {
-      if (result.data?.createPool) {
-        return result.data?.createPool;
+  // current user -> type change to only string
+  const userIdQueryUntyped = lookupData?.me?.id;
+  const restrictUserType = (user: string | undefined): string => {
+    if (user) {
+      return user;
+    }
+    return "";
+  };
+  const userIdQuery = restrictUserType(userIdQueryUntyped);
+
+  // get rid of all those annoying Maybes, make sure classifications isn't a maybe either
+  const jobTitlesData = unpackMaybes(lookupData?.genericJobTitles);
+  const jobTitlesMapped = jobTitlesData
+    ? jobTitlesData.map((jobTitle) => {
+        return {
+          key: jobTitle.key,
+          id: jobTitle.id,
+          classificationId: jobTitle.classification
+            ? jobTitle.classification.id
+            : "",
+        };
+      })
+    : [];
+
+  const [, executeMutation] = useCreatePoolAdvertisementMutation();
+  const handleCreatePool = (
+    userId: string,
+    data: CreatePoolAdvertisementInput,
+  ) =>
+    executeMutation({ userId, poolAdvertisement: data }).then((result) => {
+      if (result.data?.createPoolAdvertisement) {
+        return result.data?.createPoolAdvertisement;
       }
       return Promise.reject(result.error);
     });
@@ -316,11 +288,9 @@ const CreatePool: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       <DashboardContentContainer>
         <CreatePoolForm
-          classifications={classifications}
-          cmoAssets={cmoAssets}
-          users={users}
+          userId={userIdQuery}
+          genericJobTitles={jobTitlesMapped}
           handleCreatePool={handleCreatePool}
-          genericJobTitles={genericJobTitles}
         />
       </DashboardContentContainer>
     </Pending>
