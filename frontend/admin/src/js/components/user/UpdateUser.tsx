@@ -3,7 +3,12 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import { toast } from "react-toastify";
-import { Select, Submit, Input, MultiSelectField } from "@common/components/form";
+import {
+  Select,
+  Submit,
+  Input,
+  MultiSelectField,
+} from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
@@ -182,7 +187,6 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
             />
             <MultiSelectField
               id="roles"
-              name="roles"
               label={intl.formatMessage({
                 defaultMessage: "Roles",
                 description: "Label displayed on the user form roles field.",

@@ -210,7 +210,6 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
             />
             <MultiSelectField
               id="skills"
-              name="skills"
               label={intl.formatMessage({
                 defaultMessage: "Skills",
                 description:

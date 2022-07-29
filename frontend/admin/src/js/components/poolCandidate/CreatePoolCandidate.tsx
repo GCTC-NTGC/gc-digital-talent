@@ -501,7 +501,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
             />
             <MultiSelectField
               id="locationPreferences"
-              name="locationPreferences"
               label={intl.formatMessage({
                 defaultMessage: "Location Preferences",
                 description:
@@ -519,7 +518,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
             />
             <MultiSelectField
               id="acceptedOperationalRequirements"
-              name="acceptedOperationalRequirements"
               label={intl.formatMessage({
                 defaultMessage: "Operational Requirements",
                 description:
@@ -543,7 +541,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Label displayed on the pool candidate form expected salary field.",
               })}
-              name="expectedSalary"
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more expected salaries...",
                 description:
@@ -581,7 +578,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form cmo assets field.",
               })}
-              name="cmoAssets"
               options={cmoAssetOptions}
             />
             <Select

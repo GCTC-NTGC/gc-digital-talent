@@ -184,7 +184,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
               description:
                 "Placeholder for classification filter in search form.",
             })}
-            name="classifications"
             options={classificationOptions}
           />
         </FilterBlock>
@@ -278,7 +277,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <MultiSelectField
             id="workRegions"
-            name="workRegions"
             label={intl.formatMessage({
               defaultMessage: "Region",
               description: "Label for work location filter in search form.",

@@ -244,7 +244,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form classifications field.",
               })}
-              name="classifications"
               options={classificationOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -262,7 +261,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form asset criteria field.",
               })}
-              name="assetCriteria"
               options={cmoAssetOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -280,7 +278,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form essential criteria field.",
               })}
-              name="essentialCriteria"
               options={cmoAssetOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -288,7 +285,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
             />
             <MultiSelectField
               id="operationalRequirements"
-              name="operationalRequirements"
               label={intl.formatMessage({
                 defaultMessage: "Operational Requirements",
                 description:

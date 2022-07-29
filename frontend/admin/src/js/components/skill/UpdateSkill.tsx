@@ -4,7 +4,12 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
 import { toast } from "react-toastify";
-import { Submit, Input, MultiSelectField, TextArea } from "@common/components/form";
+import {
+  Submit,
+  Input,
+  MultiSelectField,
+  TextArea,
+} from "@common/components/form";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
@@ -224,7 +229,6 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
             />
             <MultiSelectField
               id="families"
-              name="families"
               label={intl.formatMessage({
                 defaultMessage: "Families",
                 description:

@@ -164,7 +164,6 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             />
             <MultiSelectField
               id="roles"
-              name="roles"
               label={intl.formatMessage({
                 defaultMessage: "Roles",
                 description: "Label displayed on the user form roles field.",
