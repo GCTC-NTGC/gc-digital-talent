@@ -33,6 +33,7 @@ export const colorMap: Record<Color, Record<string, string>> = {
 const CardLink: React.FC<CardLinkProps> = ({
   href,
   color = "ts-primary",
+  external,
   icon,
   label,
   children,
@@ -46,7 +47,11 @@ const CardLink: React.FC<CardLinkProps> = ({
   return (
     <a
       href={href}
-      onClick={clickHandler}
+      {...(!external
+        ? {
+            onClick: clickHandler,
+          }
+        : null)}
       className="card-link"
       data-h2-display="b(inline-block)"
       data-h2-radius="b(s)"
