@@ -1,5 +1,8 @@
 import React from "react";
+import type { SyntheticEvent } from "react";
 import { Story, Meta } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
+import type { HandlerFunction } from "@storybook/addon-actions";
 import DialogComponent from "./Dialog";
 
 import Button from "../Button";
@@ -77,6 +80,7 @@ export const DialogLongContent = TemplateDialog.bind({});
 export const ConfirmationDialog = TemplateDialog.bind({});
 export const ConfirmationDialogWithSubtitle = TemplateDialog.bind({});
 export const DialogWithFooter = TemplateDialog.bind({});
+export const DialogWithForm = TemplateDialog.bind({});
 export const IAPrimaryDialog = TemplateDialog.bind({});
 export const IASecondaryDialog = TemplateDialog.bind({});
 
@@ -139,8 +143,30 @@ DialogWithFooter.args = {
   content:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
   footer: (
-    <Button color="primary" mode="outline">
+    <Button color="primary" mode="outline" onClick={action("Perform action")}>
       Footer Button
     </Button>
+  ),
+};
+
+// Prevents Storybook iframe from refreshing.
+// See: https://github.com/storybookjs/storybook/issues/128#issuecomment-743974520
+const withPreventDefault =
+  (handler: HandlerFunction) => (e: SyntheticEvent) => {
+    e.preventDefault();
+    return handler(e);
+  };
+
+DialogWithForm.args = {
+  title: "Dialog with Form",
+  content: (
+    <form onSubmit={withPreventDefault(action("Submit form"))}>
+      <input />
+      <DialogComponent.Footer>
+        <Button type="submit" color="primary" mode="solid">
+          Submit Form
+        </Button>
+      </DialogComponent.Footer>
+    </form>
   ),
 };
