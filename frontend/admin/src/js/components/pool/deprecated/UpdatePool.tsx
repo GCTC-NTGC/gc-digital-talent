@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import {
   Input,
-  MultiSelect,
+  MultiSelectField,
   Select,
   Submit,
   TextArea,
@@ -230,7 +230,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelect
+            <MultiSelectField
               id="classifications"
               label={intl.formatMessage({
                 defaultMessage: "Classifications",
@@ -248,7 +248,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelect
+            <MultiSelectField
               id="assetCriteria"
               label={intl.formatMessage({
                 defaultMessage: "Asset Criteria",
@@ -266,7 +266,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelect
+            <MultiSelectField
               id="essentialCriteria"
               label={intl.formatMessage({
                 defaultMessage: "Essential Criteria",
@@ -284,7 +284,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelect
+            <MultiSelectField
               id="operationalRequirements"
               name="operationalRequirements"
               label={intl.formatMessage({

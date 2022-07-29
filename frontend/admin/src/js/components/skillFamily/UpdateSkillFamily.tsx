@@ -8,7 +8,7 @@ import {
   Select,
   Submit,
   Input,
-  MultiSelect,
+  MultiSelectField,
   TextArea,
 } from "@common/components/form";
 import { notEmpty } from "@common/helpers/util";
@@ -197,7 +197,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
                 label: intl.formatMessage(getSkillCategory(value)),
               }))}
             />
-            <MultiSelect
+            <MultiSelectField
               id="skills"
               name="skills"
               label={intl.formatMessage({

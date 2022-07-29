@@ -3,7 +3,11 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 
-import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
+import {
+  Checklist,
+  MultiSelectField,
+  RadioGroup,
+} from "@common/components/form";
 import { getLanguageAbility } from "@common/constants";
 import {
   getEmploymentEquityGroup,
@@ -169,7 +173,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
               "Message describing the classification filter of the search form.",
           })}
         >
-          <MultiSelect
+          <MultiSelectField
             id="classifications"
             label={intl.formatMessage({
               defaultMessage: "Classification filter",
@@ -272,7 +276,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
               "Message describing the work location filter in the search form.",
           })}
         >
-          <MultiSelect
+          <MultiSelectField
             id="workRegions"
             name="workRegions"
             label={intl.formatMessage({

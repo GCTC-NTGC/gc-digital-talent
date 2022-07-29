@@ -8,7 +8,7 @@ import {
   Select,
   TextArea,
   Submit,
-  MultiSelect,
+  MultiSelectField,
 } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
@@ -208,7 +208,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
                 label: intl.formatMessage(getSkillCategory(value)),
               }))}
             />
-            <MultiSelect
+            <MultiSelectField
               id="skills"
               name="skills"
               label={intl.formatMessage({

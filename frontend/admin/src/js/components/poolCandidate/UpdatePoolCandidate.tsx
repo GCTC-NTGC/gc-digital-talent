@@ -7,7 +7,7 @@ import {
   Submit,
   Select,
   Input,
-  MultiSelect,
+  MultiSelectField,
   Checkbox,
 } from "@common/components/form";
 import { notEmpty } from "@common/helpers/util";
@@ -336,7 +336,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelect
+            <MultiSelectField
               id="locationPreferences"
               name="locationPreferences"
               label={intl.formatMessage({
@@ -354,7 +354,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 label: intl.formatMessage(getWorkRegion(value)),
               }))}
             />
-            <MultiSelect
+            <MultiSelectField
               id="acceptedOperationalRequirements"
               name="acceptedOperationalRequirements"
               label={intl.formatMessage({
@@ -373,7 +373,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 label: intl.formatMessage(getOperationalRequirement(value)),
               }))}
             />
-            <MultiSelect
+            <MultiSelectField
               id="expectedSalary"
               label={intl.formatMessage({
                 defaultMessage: "Expected Salary",
@@ -391,7 +391,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 label: getSalaryRange(value),
               }))}
             />
-            <MultiSelect
+            <MultiSelectField
               id="expectedClassifications"
               label={intl.formatMessage({
                 defaultMessage: "Expected Classifications",
@@ -406,7 +406,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               name="expectedClassifications"
               options={classificationOptions}
             />
-            <MultiSelect
+            <MultiSelectField
               id="cmoAssets"
               label={intl.formatMessage({
                 defaultMessage: "CMO Assets",

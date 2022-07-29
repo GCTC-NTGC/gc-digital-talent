@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import { toast } from "react-toastify";
-import { Select, Submit, Input, MultiSelect } from "@common/components/form";
+import { Select, Submit, Input, MultiSelectField } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
@@ -180,7 +180,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
                   "Additional context describing the purpose of the users's 'subject' field.",
               })}
             />
-            <MultiSelect
+            <MultiSelectField
               id="roles"
               name="roles"
               label={intl.formatMessage({
