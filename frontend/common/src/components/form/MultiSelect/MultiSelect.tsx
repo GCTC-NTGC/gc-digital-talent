@@ -1,7 +1,6 @@
-import React, { useMemo } from "react";
-import { Controller, RegisterOptions, useFormContext } from "react-hook-form";
-import ReactSelect from "react-select";
-import { InputWrapper } from "../../inputPartials";
+import React from "react";
+import { RegisterOptions } from "react-hook-form";
+import MultiSelectFieldV2 from "./MultiSelectFieldV2";
 
 export type Option = { value: string | number; label: string };
 
@@ -31,56 +30,10 @@ const MultiSelect = ({
   rules,
   placeholder,
 }: MultiSelectProps): JSX.Element => {
-  const {
-    formState: { errors },
-  } = useFormContext();
-
-  const error = errors[name]?.message;
-  const isRequired = !!rules?.required;
-  const optionMap = useMemo(() => {
-    const map = new Map();
-    options.forEach((option) => {
-      map.set(option.value, option.label);
-    });
-    return map;
-  }, [options]);
-  const valueToOption = (v: string | number) => ({
-    value: v,
-    label: optionMap.get(v) ?? String(v),
-  });
   return (
-    <div data-h2-margin="b(bottom, xxs)">
-      <InputWrapper
-        {...{ label, context, error }}
-        inputId={id}
-        required={isRequired}
-      >
-        <div style={{ width: "100%" }}>
-          <Controller
-            {...{ name, rules }}
-            aria-required={isRequired}
-            render={({ field }) => (
-              <ReactSelect
-                isMulti
-                {...field}
-                {...{ placeholder, options }}
-                value={field.value ? field.value.map(valueToOption) : []}
-                onChange={
-                  (x) => field.onChange(x ? x.map((option) => option.value) : x) // If x is null or undefined, return it to form
-                }
-                aria-label={label}
-                styles={{
-                  placeholder: (provided) => ({
-                    ...provided,
-                    color: `#646464`,
-                  }),
-                }}
-              />
-            )}
-          />
-        </div>
-      </InputWrapper>
-    </div>
+    <MultiSelectFieldV2
+      {...{ id, context, label, name, options, rules, placeholder }}
+    />
   );
 };
 
