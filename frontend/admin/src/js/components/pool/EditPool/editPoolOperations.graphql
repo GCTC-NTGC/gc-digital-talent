@@ -126,3 +126,9 @@ query getEditPoolData($poolId: ID!) {
     }
   }
 }
+
+mutation updatePoolAdvertisement($id: ID!, $poolAdvertisement: UpdatePoolAdvertisementInput!) {
+  updatePoolAdvertisement(id: $id, poolAdvertisement: $poolAdvertisement) {
+    id
+  }
+}

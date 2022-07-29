@@ -10,18 +10,25 @@ import {
   AdvertisementStatus,
   LocalizedString,
   PoolAdvertisement,
+  UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
+import { useEditPoolContext } from "./EditPoolContext";
 
 type FormValues = {
   yourImpactEn?: LocalizedString["en"];
   yourImpactFr?: LocalizedString["fr"];
 };
 
+export type YourImpactSubmitData = Pick<
+  UpdatePoolAdvertisementInput,
+  "yourImpact"
+>;
+
 interface YourImpactSectionProps {
   poolAdvertisement: PoolAdvertisement;
   sectionMetadata: SectionMetadata;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: YourImpactSubmitData) => void;
 }
 
 const TEXT_AREA_MAX_WORDS = 200;
@@ -33,6 +40,7 @@ export const YourImpactSection = ({
   onSave,
 }: YourImpactSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     yourImpactEn: initialData.yourImpact?.en ?? "",
@@ -51,6 +59,15 @@ export const YourImpactSection = ({
     control,
     name: "yourImpactFr",
   });
+
+  const handleSave = (formValues: FormValues) => {
+    onSave({
+      yourImpact: {
+        en: formValues.yourImpactEn,
+        fr: formValues.yourImpactFr,
+      },
+    });
+  };
 
   // disabled unless status is draft
   const formDisabled =
@@ -71,7 +88,7 @@ export const YourImpactSection = ({
         })}
       </p>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSave)}>
+        <form onSubmit={handleSubmit(handleSave)}>
           <div data-h2-display="b(flex)">
             <Spacer style={{ flex: 1 }}>
               <TextArea
@@ -157,6 +174,7 @@ export const YourImpactSection = ({
               })}
               color="cta"
               mode="solid"
+              isSubmitting={isSubmitting}
             />
           )}
         </form>

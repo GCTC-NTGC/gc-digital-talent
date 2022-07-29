@@ -3,17 +3,27 @@ import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Input, Submit } from "@common/components/form";
 import { FormProvider, useForm } from "react-hook-form";
-import { AdvertisementStatus, PoolAdvertisement } from "../../../api/generated";
+import { strToDateTimeTz } from "@common/helpers/dateUtils";
+import {
+  AdvertisementStatus,
+  PoolAdvertisement,
+  UpdatePoolAdvertisementInput,
+} from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
+import { useEditPoolContext } from "./EditPoolContext";
 
 type FormValues = {
   endDate?: PoolAdvertisement["expiryDate"];
 };
 
+export type ClosingDateSubmitData = Pick<
+  UpdatePoolAdvertisementInput,
+  "expiryDate"
+>;
 interface ClosingDateSectionProps {
   poolAdvertisement: PoolAdvertisement;
   sectionMetadata: SectionMetadata;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: ClosingDateSubmitData) => void;
 }
 
 export const ClosingDateSection = ({
@@ -22,6 +32,7 @@ export const ClosingDateSection = ({
   onSave,
 }: ClosingDateSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => {
     const parsedDate = new Date(initialData.expiryDate);
@@ -32,6 +43,12 @@ export const ClosingDateSection = ({
     defaultValues: dataToFormValues(poolAdvertisement),
   });
   const { handleSubmit } = methods;
+
+  const handleSave = (formValues: FormValues) => {
+    onSave({
+      expiryDate: strToDateTimeTz(formValues.endDate),
+    });
+  };
 
   // disabled unless status is draft
   const formDisabled =
@@ -45,7 +62,7 @@ export const ClosingDateSection = ({
         </h2>
       </TableOfContents.Heading>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSave)}>
+        <form onSubmit={handleSubmit(handleSave)}>
           <div data-h2-display="b(flex)">
             <Spacer style={{ flex: 1 }}>
               <Input
@@ -71,6 +88,7 @@ export const ClosingDateSection = ({
               })}
               color="cta"
               mode="solid"
+              isSubmitting={isSubmitting}
             />
           )}
         </form>

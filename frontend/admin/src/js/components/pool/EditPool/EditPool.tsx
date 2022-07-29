@@ -11,29 +11,51 @@ import { HomeIcon, ViewGridIcon } from "@heroicons/react/outline";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import TableOfContents from "@common/components/TableOfContents";
 import { notEmpty } from "@common/helpers/util";
+import { toast } from "react-toastify";
 import {
   PoolAdvertisement,
   Scalars,
   Classification,
   useGetEditPoolDataQuery,
   Skill,
+  useUpdatePoolAdvertisementMutation,
 } from "../../../api/generated";
 import DashboardContentContainer from "../../DashboardContentContainer";
 import { useAdminRoutes } from "../../../adminRoutes";
-import PoolNameSection from "./PoolNameSection";
-import ClosingDateSection from "./ClosingDateSection";
-import YourImpactSection from "./YourImpactSection";
-import WorkTasksSection from "./WorkTasksSection";
-import OtherRequirementsSection from "./OtherRequirementsSection";
+import PoolNameSection, { type PoolNameSubmitData } from "./PoolNameSection";
+import ClosingDateSection, {
+  type ClosingDateSubmitData,
+} from "./ClosingDateSection";
+import YourImpactSection, {
+  type YourImpactSubmitData,
+} from "./YourImpactSection";
+import WorkTasksSection, { type WorkTasksSubmitData } from "./WorkTasksSection";
+import OtherRequirementsSection, {
+  type OtherRequirementsSubmitData,
+} from "./OtherRequirementsSection";
 import StatusSection from "./StatusSection";
-import EssentialSkillsSection from "./EssentialSkillsSection";
-import AssetSkillsSection from "./AssetSkillsSection";
+import EssentialSkillsSection, {
+  type EssentialSkillsSubmitData,
+} from "./EssentialSkillsSection";
+import AssetSkillsSection, {
+  type AssetSkillsSubmitData,
+} from "./AssetSkillsSection";
+import EditPoolContext from "./EditPoolContext";
+
+export type PoolSubmitData =
+  | AssetSkillsSubmitData
+  | ClosingDateSubmitData
+  | EssentialSkillsSubmitData
+  | OtherRequirementsSubmitData
+  | PoolNameSubmitData
+  | WorkTasksSubmitData
+  | YourImpactSubmitData;
 
 export interface EditPoolFormProps {
   poolAdvertisement: PoolAdvertisement;
   classifications: Array<Classification>;
   skills: Array<Skill>;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: PoolSubmitData) => void;
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
@@ -278,25 +300,58 @@ export const EditPool = ({ poolId }: EditPoolProps) => {
   const [{ data, fetching, error }] = useGetEditPoolDataQuery({
     variables: { poolId },
   });
+
+  const [{ fetching: updateFetching }, executeUpdateMutation] =
+    useUpdatePoolAdvertisementMutation();
+
+  const handleSave = (input: PoolSubmitData) => {
+    executeUpdateMutation({ id: poolId, poolAdvertisement: input })
+      .then((result) => {
+        if (result.data?.updatePoolAdvertisement) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Pool updated successfully!",
+              description: "Message displayed to user after pool is updated",
+            }),
+          );
+        }
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating pool failed",
+            description:
+              "Message displayed to user after pool fails to get updated.",
+          }),
+        );
+      });
+  };
+
+  const ctx = React.useMemo(() => {
+    return {
+      isSubmitting: updateFetching,
+    };
+  }, [updateFetching]);
+
   return (
     <Pending fetching={fetching} error={error}>
       <DashboardContentContainer>
         {data?.poolAdvertisement ? (
-          <EditPoolForm
-            poolAdvertisement={data.poolAdvertisement}
-            classifications={data.classifications.filter(notEmpty)}
-            skills={data.skills.filter(notEmpty)}
-            onSave={(submitData: unknown) =>
-              console.warn("onSave not yet implemented", submitData)
-            }
-            onPublish={() => console.warn("onPublish not yet implemented")}
-            onDelete={() => console.warn("onDelete not yet implemented")}
-            onClose={() => console.warn("onClose not yet implemented")}
-            onExtend={(submitData: unknown) =>
-              console.warn("onExtend not yet implemented", submitData)
-            }
-            onArchive={() => console.warn("onArchive not yet implemented")}
-          />
+          <EditPoolContext.Provider value={ctx}>
+            <EditPoolForm
+              poolAdvertisement={data.poolAdvertisement}
+              classifications={data.classifications.filter(notEmpty)}
+              skills={data.skills.filter(notEmpty)}
+              onSave={handleSave}
+              onPublish={() => console.warn("onPublish not yet implemented")}
+              onDelete={() => console.warn("onDelete not yet implemented")}
+              onClose={() => console.warn("onClose not yet implemented")}
+              onExtend={(submitData: unknown) =>
+                console.warn("onExtend not yet implemented", submitData)
+              }
+              onArchive={() => console.warn("onArchive not yet implemented")}
+            />
+          </EditPoolContext.Provider>
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}
