@@ -3,7 +3,8 @@ import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import React, { ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
-import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
+import { PlusIcon, TableIcon } from "@heroicons/react/outline";
+import { SubmitHandler } from "react-hook-form";
 import SearchForm from "./SearchForm";
 import {
   ButtonIcon,
@@ -16,6 +17,8 @@ import type {
   IdType,
   SearchColumn,
 } from "./basicTableHelpers";
+import UserTableFilterDialog from "../user/UserTableFilterDialog";
+import type { FormValues } from "../user/UserTableFilterDialog";
 
 export interface TableHeaderProps<T extends Record<string, unknown>> {
   onSearchChange: (
@@ -47,6 +50,9 @@ function TableHeader<T extends Record<string, unknown>>({
   const intl = useIntl();
 
   const [showList, setShowList] = useState(false);
+  const handleFilterSubmit: SubmitHandler<FormValues> = () => {
+    // do nothing.
+  };
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -70,22 +76,7 @@ function TableHeader<T extends Record<string, unknown>>({
           >
             <SearchForm onChange={onSearchChange} searchBy={searchBy} />
             <Spacer>
-              <Button
-                mode="outline"
-                color="black"
-                type="button"
-                data-h2-display="b(inline-flex)"
-                data-h2-align-items="b(center)"
-              >
-                <ButtonIcon icon={FilterIcon} />
-                <span>
-                  {intl.formatMessage({
-                    defaultMessage: "Filters",
-                    description:
-                      "Text label for button to open filter dialog on admin tables.",
-                  })}
-                </span>
-              </Button>
+              <UserTableFilterDialog.Button onSubmit={handleFilterSubmit} />
             </Spacer>
             <Spacer>
               <div data-h2-position="b(relative)">
