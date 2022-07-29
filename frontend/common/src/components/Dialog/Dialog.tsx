@@ -112,9 +112,9 @@ const Header = ({
   );
 };
 
-interface FooterProps {
+type FooterProps = {
   children: DialogProps["footer"];
-}
+};
 
 const Footer = ({ children }: FooterProps) => (
   <div
