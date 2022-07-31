@@ -5,6 +5,7 @@ import ReactSelect, { components } from "react-select";
 import type { NoticeProps, PropsValue, GroupBase, Options } from "react-select";
 import camelCase from "lodash/camelCase";
 import { useIntl } from "react-intl";
+import { errorMessages } from "../../../messages";
 import { InputWrapper } from "../../inputPartials";
 
 export type Option = { value: string | number; label: string };
@@ -89,12 +90,8 @@ export const useRulesWithDefaultMessages = (rules: RegisterOptions = {}) => {
   const { formatMessage } = useIntl();
   const rulesWithDefaults = { ...rules };
 
-  if (rules.required === true) {
-    rulesWithDefaults.required = formatMessage({
-      defaultMessage: "This field is required.",
-      description: "The default validation message when a field is required",
-    });
-  }
+  if (rules.required === true)
+    rulesWithDefaults.required = formatMessage(errorMessages.required);
 
   return rulesWithDefaults;
 };
