@@ -4,8 +4,6 @@ namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Validators\Mutation\PublishPoolAdvertisementValidator;
 use App\Models\Pool;
-use ErrorException;
-use GraphQL\Error\FormattedError;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
