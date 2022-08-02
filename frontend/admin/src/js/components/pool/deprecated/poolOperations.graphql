@@ -22,3 +22,61 @@ query getUpdatePoolData($id: ID!) {
     ...pool
   }
 }
+
+query getCreatePoolData {
+  users {
+    id
+    email
+    firstName
+    lastName
+  }
+  classifications {
+    id
+    group
+    level
+  }
+  cmoAssets {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+}
+
+mutation createPool($pool: CreatePoolInput!) {
+  createPool(pool: $pool) {
+    owner {
+      id
+    }
+    name {
+      en
+      fr
+    }
+    key
+    description {
+      en
+      fr
+    }
+    keyTasks {
+      en
+      fr
+    }
+    status
+    classifications {
+      id
+      group
+      level
+    }
+    assetCriteria {
+      id
+      key
+    }
+    essentialCriteria {
+      id
+      key
+    }
+    operationalRequirements
+  }
+}

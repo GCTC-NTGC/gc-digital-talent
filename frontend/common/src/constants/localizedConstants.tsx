@@ -429,6 +429,48 @@ export const getGenericJobTitles = (
     `Invalid role '${GenericJobTitleId}'`,
   );
 
+export const GenericJobTitlesWithClassification = defineMessages({
+  [GenericJobTitleKey.TechnicianIt01]: {
+    defaultMessage: "IT-01 (Technician)",
+    description:
+      "The name of the Technician classification with group and level.",
+  },
+  [GenericJobTitleKey.AnalystIt02]: {
+    defaultMessage: "IT-02 (Analyst)",
+    description:
+      "The name of the Technician Analyst classification with group and level.",
+  },
+  [GenericJobTitleKey.TeamLeaderIt03]: {
+    defaultMessage: "IT-03 (Team leader)",
+    description:
+      "The name of the Team leader Analyst classification with group and level.",
+  },
+  [GenericJobTitleKey.TechnicalAdvisorIt03]: {
+    defaultMessage: "IT-03 (Technical advisor)",
+    description:
+      "The name of the Technical advisor classification with group and level.",
+  },
+  [GenericJobTitleKey.SeniorAdvisorIt04]: {
+    defaultMessage: "IT-04 (Senior advisor)",
+    description:
+      "The name of the Senior advisor classification with group and level.",
+  },
+  [GenericJobTitleKey.ManagerIt04]: {
+    defaultMessage: "IT-04 (Manager)",
+    description:
+      "The name of the Senior advisor classification with group and level.",
+  },
+});
+
+export const getGenericJobTitlesWithClassification = (
+  GenericJobTitleWithClassificationId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    GenericJobTitlesWithClassification,
+    GenericJobTitleWithClassificationId,
+    `Invalid role '${GenericJobTitleWithClassificationId}'`,
+  );
+
 export const awardedToMessages = defineMessages({
   [AwardedTo.Me]: {
     defaultMessage: "Me",
@@ -638,6 +680,15 @@ export const OperationalRequirementV2 = [
   OperationalRequirement.Travel,
   OperationalRequirement.TransportEquipment,
   OperationalRequirement.DriversLicense,
+];
+
+export const GenericJobTitlesSorted = [
+  GenericJobTitleKey.TechnicianIt01,
+  GenericJobTitleKey.AnalystIt02,
+  GenericJobTitleKey.TechnicalAdvisorIt03,
+  GenericJobTitleKey.TeamLeaderIt03,
+  GenericJobTitleKey.SeniorAdvisorIt04,
+  GenericJobTitleKey.ManagerIt04,
 ];
 
 export const operationalRequirementLabelFull = defineMessages({

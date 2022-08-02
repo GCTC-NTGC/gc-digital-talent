@@ -60,6 +60,9 @@ const DeprecatedViewPool = React.lazy(
 const DeprecatedUpdatePool = React.lazy(
   () => import("./pool/deprecated/UpdatePool"),
 );
+const DeprecatedCreatePool = React.lazy(
+  () => import("./pool/deprecated/CreatePool"),
+);
 
 /** Departments */
 const DepartmentPage = React.lazy(() => import("./department/DepartmentPage"));
@@ -225,7 +228,12 @@ const routes = (
   {
     path: paths.poolCreate(),
     action: () => ({
-      component: <CreatePool />,
+      component: checkFeatureFlag("FEATURE_DIRECTINTAKE") ? (
+        <CreatePool />
+      ) : (
+        /* deprecated */
+        <DeprecatedCreatePool />
+      ),
       authorizedRoles: [Role.Admin],
     }),
   },
