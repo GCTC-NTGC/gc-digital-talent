@@ -2,8 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { commonMessages, errorMessages } from "@common/messages";
 import { Checklist, RadioGroup } from "@common/components/form";
-import { getOperationalRequirementCandidateDescription } from "@common/constants/localizedConstants";
-import { enumToOptions } from "@common/helpers/formUtils";
+import {
+  getOperationalRequirement,
+  OperationalRequirementV2,
+} from "@common/constants/localizedConstants";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -14,7 +16,6 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import {
   GetWorkPreferencesQuery,
-  OperationalRequirement,
   UpdateUserAsUserInput,
   UpdateWorkPreferencesMutation,
   useGetWorkPreferencesQuery,
@@ -26,7 +27,7 @@ export type FormValues = Pick<
   UpdateUserAsUserInput,
   "acceptedOperationalRequirements"
 > & {
-  wouldAcceptTemporary: string;
+  wouldAcceptTemporary?: string;
 };
 export interface WorkPreferencesFormProps {
   initialData: GetWorkPreferencesQuery | undefined;
@@ -41,18 +42,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   handleWorkPreferences,
 }) => {
   const intl = useIntl();
-  function bold(msg: string) {
-    return <span data-h2-font-weight="b(700)">{msg}</span>;
-  }
-  const OperationalRequirementsSortOrder = [
-    OperationalRequirement.OvertimeShortNotice,
-    OperationalRequirement.OvertimeScheduled,
-    OperationalRequirement.ShiftWork,
-    OperationalRequirement.OnCall,
-    OperationalRequirement.Travel,
-    OperationalRequirement.TransportEquipment,
-    OperationalRequirement.DriversLicense,
-  ];
+
   const dataToFormValues = (
     data?: GetWorkPreferencesQuery | undefined,
   ): FormValues => {
@@ -61,7 +51,9 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
     };
 
     return {
-      wouldAcceptTemporary: boolToString(data?.me?.wouldAcceptTemporary),
+      wouldAcceptTemporary: data?.me?.wouldAcceptTemporary
+        ? boolToString(data?.me?.wouldAcceptTemporary)
+        : undefined,
       acceptedOperationalRequirements:
         data?.me?.acceptedOperationalRequirements,
     };
@@ -69,7 +61,9 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const formValuesToSubmitData = (
     values: FormValues,
   ): UpdateUserAsUserInput => {
-    const stringToBool = (stringVal: string): boolean | null | undefined => {
+    const stringToBool = (
+      stringVal: string | undefined,
+    ): boolean | null | undefined => {
       if (stringVal === "true") {
         return true;
       }
@@ -167,14 +161,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                       "Legend for optional work preferences check list in work preferences form",
                   })}
                   name="acceptedOperationalRequirements"
-                  items={enumToOptions(
-                    OperationalRequirement,
-                    OperationalRequirementsSortOrder,
-                  ).map(({ value }) => ({
+                  items={OperationalRequirementV2.map((value) => ({
                     value,
                     label: intl.formatMessage(
-                      getOperationalRequirementCandidateDescription(value),
-                      { bold },
+                      getOperationalRequirement(value, "candidateDescription"),
                     ),
                   }))}
                 />

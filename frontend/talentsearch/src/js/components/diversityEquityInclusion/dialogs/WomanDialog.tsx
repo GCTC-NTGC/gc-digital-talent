@@ -5,6 +5,10 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import Dialog from "@common/components/Dialog";
 import { Checkbox } from "@common/components/form";
 
+import {
+  getEmploymentEquityGroup,
+  getEmploymentEquityStatement,
+} from "@common/constants";
 import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
@@ -40,11 +44,7 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
         <Checkbox
           id="isWoman"
           name="isWoman"
-          label={intl.formatMessage({
-            defaultMessage: "I identify as a woman.",
-            description:
-              "Label for the checkbox to identify as a woman under employment equity",
-          })}
+          label={intl.formatMessage(getEmploymentEquityStatement("woman"))}
         />
         {children}
       </form>
@@ -65,11 +65,7 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
       isOpen={isOpen}
       onDismiss={onDismiss}
       color="ts-primary"
-      title={intl.formatMessage({
-        defaultMessage: "Women (She/Her)",
-        description:
-          "Title for equity dialog to add/remove women category to profile",
-      })}
+      title={intl.formatMessage(getEmploymentEquityGroup("woman"))}
       footer={
         <WomanDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogActions onDismiss={onDismiss} />
@@ -84,7 +80,13 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
           description: "Definition of accepted ways to identify as a women",
         })}
       </p>
-      <Definition url="https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1" />
+      <Definition
+        url={
+          intl.locale === "en"
+            ? "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
+            : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
+        }
+      />
     </Dialog>
   );
 };

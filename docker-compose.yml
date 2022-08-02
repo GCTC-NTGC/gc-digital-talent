@@ -95,8 +95,6 @@ services:
       # - we set interactiveLogin:true, for easy selection of any test user
       #   (for which subject/sub will be something like `admin@test.com`).
       JSON_CONFIG_PATH: /app/conf/mock-oauth2-server.json
-    volumes:
-      - ./infrastructure/conf:/app/conf
       # Uncomment for direct access without proxy.
       # We override default port 8080 sincer already used by adminer container.
       #SERVER_PORT: 8081

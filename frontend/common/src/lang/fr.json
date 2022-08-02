@@ -343,37 +343,9 @@
     "defaultMessage": "Soumis",
     "description": "Default text for submitted button."
   },
-  "3HAFul": {
-    "defaultMessage": "Déplacements selon les besoins",
-    "description": "The operational requirement described as travel as required."
-  },
-  "8QkGEF": {
-    "defaultMessage": "Transport de matériel jusqu'à 20 kg",
-    "description": "The operational requirement described as transport equipment up to 20kg."
-  },
-  "Dk5E2+": {
-    "defaultMessage": "Garde 24/7",
-    "description": "The operational requirement described as 24/7 on-call."
-  },
-  "hCy99h": {
-    "defaultMessage": "Travailler des quarts de travail",
-    "description": "The operational requirement described as shift work."
-  },
-  "vhFe42": {
-    "defaultMessage": "Permis de conduire",
-    "description": "The operational requirement described as driver's license."
-  },
   "6I3OCB": {
     "defaultMessage": "Travailler les fins de semaine",
     "description": "The operational requirement described as work weekends."
-  },
-  "Bw9k0J": {
-    "defaultMessage": "Travailler des heures supplémentaires prévues",
-    "description": "The operational requirement described as scheduled overtime."
-  },
-  "eJCfxF": {
-    "defaultMessage": "Travailler des heures supplémentaires à court préavis",
-    "description": "The operational requirement described as short notice overtime."
   },
   "ACppq6": {
     "defaultMessage": "Placé Occasionnels",
@@ -399,10 +371,6 @@
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled WorkPreferences section."
   },
-  "/ofQtT": {
-    "defaultMessage": "<bold>Virtuel :</bold> Travailler de la maison, partout au Canada.",
-    "description": "The work region of Canada described as Telework."
-  },
   "/xV8Hg": {
     "defaultMessage": "N'accepte pas de demandes",
     "description": "Pool Status described as not taking applications."
@@ -423,10 +391,6 @@
     "defaultMessage": "Information linguistiques",
     "description": "Title of the Language Information content section"
   },
-  "2TivtC": {
-    "defaultMessage": "… m'oblige à faire des <bold>heures supplémentaires sans préavis</bold>.",
-    "description": "The operational requirement described as overtime."
-  },
   "2W9CMn": {
     "defaultMessage": "Activer ou désactiver le contexte",
     "description": "Label to toggle the context description of a field set."
@@ -438,10 +402,6 @@
   "2ohWuK": {
     "defaultMessage": "Oui, évaluation en anglais terminée",
     "description": "Completed an English language evaluation"
-  },
-  "31KB6o": {
-    "defaultMessage": "<bold>Inactif</bold> –Je ne veux pas être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Actively looking."
   },
   "3Nd6dv": {
     "defaultMessage": "Sur cette page",
@@ -471,12 +431,8 @@
     "description": "Label preceding what groups the user identifies as part of, followed by a colon"
   },
   "5d0vbr": {
-    "defaultMessage": "<strong>Oui</strong>, >, je suis un employé du gouvernement du Canada.",
+    "defaultMessage": "<strong>Oui</strong>, je suis un employé du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
-  },
-  "5sX4lz": {
-    "defaultMessage": "À propos",
-    "description": "Title of the about content section"
   },
   "6RiVQA": {
     "defaultMessage": "{role} au sein de la {division}",
@@ -550,17 +506,9 @@
     "defaultMessage": "Oui, évaluation en français terminée",
     "description": "Completed a French language evaluation"
   },
-  "DXfTue": {
-    "defaultMessage": "<bold>Région de l'Ontario :</bold> à l'exclusion d'Ottawa.",
-    "description": "The work region of Canada described as Ontario."
-  },
   "Eui2Wf": {
     "defaultMessage": "Mes compétences et mon expérience",
     "description": "Title of the My skills and experience content section"
-  },
-  "F8Usz3": {
-    "defaultMessage": "… m'oblige à <bold>avoir un permis de conduire valide</bold> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
-    "description": "The operational requirement described as driver's license."
   },
   "F9R74z": {
     "defaultMessage": "Lieu de travail",
@@ -577,10 +525,6 @@
   "GcPFLS": {
     "defaultMessage": "Travail"
   },
-  "H4sbll": {
-    "defaultMessage": "À propos",
-    "description": "Title of the About link section"
-  },
   "HalXgi": {
     "defaultMessage": "Nouvelle-Écosse",
     "description": "Nova Scotia selection for province or territory input"
@@ -592,14 +536,6 @@
   "KFGBmb": {
     "defaultMessage": "Octroyé à :",
     "description": "The award was given to"
-  },
-  "KQRnlf": {
-    "defaultMessage": "<bold>Région de la capitale nationale :</bold> Ottawa (Ont.) et Gatineau (Qc).",
-    "description": "The work region of Canada described as National Capital."
-  },
-  "KSKuno": {
-    "defaultMessage": "… nécessite que je fasse des <bold>heures supplémentaires planifiées</bold>.",
-    "description": "The operational requirement described as scheduled overtime."
   },
   "MGqCaE": {
     "defaultMessage": "Demandeur",
@@ -627,10 +563,6 @@
   "OocJKH": {
     "defaultMessage": "Portée :",
     "description": "The scope of the award given"
-  },
-  "OtC4iR": {
-    "defaultMessage": "<bold>Région du Québec :</bold> à l'exclusion de Gatineau.",
-    "description": "The work region of Canada described as Quebec."
   },
   "OvJwG6": {
     "defaultMessage": "Renseignements supplémentaires : {details}",
@@ -679,10 +611,6 @@
     "defaultMessage": "Alberta",
     "description": "Alberta selection for province or territory input"
   },
-  "TFJotp": {
-    "defaultMessage": "à {organization}",
-    "description": "Title at organization"
-  },
   "TLgbZm": {
     "defaultMessage": "Mon statut",
     "description": "Title of the My Status section"
@@ -694,10 +622,6 @@
   "U/Lv8i": {
     "defaultMessage": "Expérience inconnue",
     "description": "Title for unknown experiences"
-  },
-  "UKESJt": {
-    "defaultMessage": "au sein de la {division}",
-    "description": "Role at Team, Group or Division"
   },
   "UrsGGK": {
     "defaultMessage": "{areaOfStudy} à {institution}",
@@ -723,14 +647,6 @@
     "defaultMessage": "{wordsLeft, plural, one {mot au-dessus de la limite} other {mots au-dessus de la limite}}.",
     "description": "Message for when user goes over word limit."
   },
-  "Xh6xay": {
-    "defaultMessage": "<bold>bold>Région des Prairies :</bold> Manitoba, Saskatchewan, Alberta.",
-    "description": "The work region of Canada described as Prairie."
-  },
-  "XlMyYd": {
-    "defaultMessage": "<bold>Région de la Colombie-Britannique</bold>",
-    "description": "The work region of Canada described as British Columbia."
-  },
   "XqFhIa": {
     "defaultMessage": "Modifier les compétences et l'expérience",
     "description": "Text on link to update a users skills and experiences."
@@ -739,10 +655,6 @@
     "defaultMessage": "Nouveau-Brunswick",
     "description": "New Brunswick selection for province or territory input"
   },
-  "Y4XNke": {
-    "defaultMessage": "… m'oblige à <bold>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</bold>.",
-    "description": "The operational requirement described as transport equipment up to 20kg."
-  },
   "YFPM7a": {
     "defaultMessage": "J'ai un contrat <strong>occasionnel</strong>",
     "description": "Casual selection for government employee type."
@@ -750,10 +662,6 @@
   "YVLfw+": {
     "defaultMessage": "Je suis un employé nommé pour une période <strong>indéterminée</strong>",
     "description": "Indeterminate selection for government employee type."
-  },
-  "Yjw26m": {
-    "defaultMessage": "<bold>Région de l'Atlantique :</bold> Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.",
-    "description": "The work region of Canada described as Atlantic."
   },
   "ZSAzrR": {
     "defaultMessage": "Date d'expiration :",
@@ -783,10 +691,6 @@
     "defaultMessage": "1 expérience",
     "description": "Pluralization for one experience"
   },
-  "dX+VGL": {
-    "defaultMessage": "<bold>Actively looking</bold> – Mon profil est à jour, je veux être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Actively looking."
-  },
   "e2R6fy": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Title of the Diversity, equity and inclusion link section"
@@ -798,10 +702,6 @@
   "eLXTfi": {
     "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
-  },
-  "eZGBaZ": {
-    "defaultMessage": "émis par {issuedBy}",
-    "description": "The award title is issued by some group"
   },
   "fFznH0": {
     "defaultMessage": "Postes en anglais ou en français",
@@ -839,12 +739,8 @@
     "defaultMessage": "{wordsLeft, plural, one {mot restant} other {mots restants}}.",
     "description": "Message for when user goes over word limit."
   },
-  "jZYGJF": {
-    "defaultMessage": "… a<bold> des quarts de travail sur appel 24 heures sur 24, 7 jours sur 7 </bold>.",
-    "description": "The operational requirement described as 24/7 on-call."
-  },
   "janplU": {
-    "defaultMessage": "Bilingues (français et anglais)",
+    "defaultMessage": "Bilingue (français et anglais)",
     "description": "The language ability is bilingual - both English and French."
   },
   "jhImZp": {
@@ -857,10 +753,6 @@
   },
   "jtygmI": {
     "defaultMessage": "Éducation"
-  },
-  "kP04tf": {
-    "defaultMessage": "Cliquez ici pour commencer.",
-    "description": "Message to click on the words to begin something"
   },
   "kjX7mF": {
     "defaultMessage": "Aucune information n'a été fournie.",
@@ -882,14 +774,6 @@
     "defaultMessage": "{skillsLength} Compétences",
     "description": "Pluralization for zero or multiple skills"
   },
-  "lMMbU5": {
-    "defaultMessage": "… m'oblige à <bold>voyager</bold>.",
-    "description": "The operational requirement described as travel as required."
-  },
-  "lVub5W": {
-    "defaultMessage": "Il manque des champs <redText>obligatoires</redText>.",
-    "description": "Message that there are required fields missing. Please ignore things in <> tags."
-  },
   "m1eQrS": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Footer."
@@ -902,25 +786,13 @@
     "defaultMessage": "Niveau 1 : Technicien",
     "description": "The name of the Technician classification role."
   },
-  "mR63+z": {
-    "defaultMessage": "<bold>Ouvert aux possibilités </bold> – Je ne cherche pas activement, mais je veux être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Actively looking."
-  },
   "mtFK6A": {
     "defaultMessage": "Courriel :",
     "description": "Email label and colon"
   },
-  "nlZHmY": {
-    "defaultMessage": "… a un <bold>travail par quart</bold>.",
-    "description": "The operational requirement described as shift work."
-  },
   "nu3Zyc": {
     "defaultMessage": "Niveau 4 : Gestionnaire",
     "description": "The name of the Senior advisor role."
-  },
-  "o5ibpx": {
-    "defaultMessage": "<bold>Région du Nord :</bold> Yukon, Territoires du Nord-Ouest et Nunavut.",
-    "description": "The work region of Canada described as North."
   },
   "oC/GRF": {
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
@@ -938,10 +810,6 @@
     "defaultMessage": "Modifier les préférences de travail",
     "description": "Text on link to update a users work preferences."
   },
-  "pXDHYb": {
-    "defaultMessage": "Voir l'expérience :",
-    "description": "Tabs title for the users experience list in applicant profile."
-  },
   "pbXAOp": {
     "defaultMessage": "Afficher {numOfRows}",
     "description": "Options for how many rows to show on admin table"
@@ -957,10 +825,6 @@
   "qT9sS0": {
     "defaultMessage": "Postes en français",
     "description": "French Positions message"
-  },
-  "qU+PcI": {
-    "defaultMessage": "… m'oblige à <bold>travailler les fins de semaine</bold>.",
-    "description": "The operational requirement described as work weekends."
   },
   "qfioSi": {
     "defaultMessage": "J'ai un poste de durée <strong>déterminée</strong>.",
@@ -1041,5 +905,193 @@
   "zKjtAa": {
     "defaultMessage": "Territoires du Nord-Ouest",
     "description": "Northwest Territories selection for province or territory input"
+  },
+  "4pZrst": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à voyager au besoin.",
+    "description": "The operational requirement described as travel as required."
+  },
+  "Gc9PeN": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler par quarts.",
+    "description": "The operational requirement described as shift work."
+  },
+  "KzhnAz": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement).",
+    "description": "The operational requirement described as occasional overtime."
+  },
+  "QhRU19": {
+    "defaultMessage": "Doit posséder un permis de conduire valide ou une mobilité personnelle du degré normalement associé à la possession d'un permis de conduire valide.",
+    "description": "The operational requirement described as driver's license."
+  },
+  "XpK4rL": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à transporter, soulever et déposer de l'équipement pouvant peser jusqu'à 20 kg.",
+    "description": "The operational requirement described as transport equipment up to 20kg."
+  },
+  "vDrJp6": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler sur appel 24/7.",
+    "description": "The operational requirement described as 24/7 on-call."
+  },
+  "vvtqRv": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
+    "description": "The operational requirement described as regular overtime."
+  },
+  "/nMdQr": {
+    "defaultMessage": "<strong>Virtuel :</strong> Travailler de la maison, partout au Canada.",
+    "description": "The work region of Canada described as North."
+  },
+  "hjr9df": {
+    "defaultMessage": "… m'oblige à faire des <strong>heures supplémentaires sans préavis</strong>.",
+    "description": "The operational requirement described as overtime."
+  },
+  "oU4OmU": {
+    "defaultMessage": "<strong>Région de l'Ontario :</strong> à l'exclusion d'Ottawa.",
+    "description": "The work region of Canada described as Ontario."
+  },
+  "gmHam8": {
+    "defaultMessage": "… m'oblige à <strong>avoir un permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
+    "description": "The operational requirement described as driver's license."
+  },
+  "eYak7E": {
+    "defaultMessage": "<strong>Région de la capitale nationale :</strong> Ottawa (Ont.) et Gatineau (Qc).",
+    "description": "The work region of Canada described as National Capital."
+  },
+  "qLy7xu": {
+    "defaultMessage": "… nécessite que je fasse des <strong>heures supplémentaires planifiées</strong>.",
+    "description": "The operational requirement described as scheduled overtime."
+  },
+  "Gw2JKz": {
+    "defaultMessage": "<strong>Région du Québec :</strong> à l'exclusion de Gatineau.",
+    "description": "The work region of Canada described as Quebec."
+  },
+  "x5sy3j": {
+    "defaultMessage": "<strong>Région des Prairies :</strong> Manitoba, Saskatchewan, Alberta.",
+    "description": "The work region of Canada described as Prairie."
+  },
+  "tgt0og": {
+    "defaultMessage": "<strong>Région de la Colombie-Britannique</strong>",
+    "description": "The work region of Canada described as British Columbia."
+  },
+  "dLI4Nb": {
+    "defaultMessage": "… m'oblige à <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
+    "description": "The operational requirement described as transport equipment up to 20kg."
+  },
+  "ubXVBC": {
+    "defaultMessage": "<strong>Région de l'Atlantique :</strong> Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.",
+    "description": "The work region of Canada described as Atlantic."
+  },
+  "7L6frW": {
+    "defaultMessage": "… a<strong> des quarts de travail sur appel 24 heures sur 24, 7 jours sur 7 </strong>.",
+    "description": "The operational requirement described as 24/7 on-call."
+  },
+  "MZwZ0y": {
+    "defaultMessage": "… m'oblige à <strong>voyager</strong>.",
+    "description": "The operational requirement described as travel as required."
+  },
+  "ZcvDAo": {
+    "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
+    "description": "Message that there are required fields missing. Please ignore things in <> tags."
+  },
+  "/ndqmQ": {
+    "defaultMessage": "… a un <strong>travail par quart</strong>.",
+    "description": "The operational requirement described as shift work."
+  },
+  "fmSaPm": {
+    "defaultMessage": "… m'oblige à <strong>travailler les fins de semaine</strong>.",
+    "description": "The operational requirement described as work weekends."
+  },
+  "TR0Kxz": {
+    "defaultMessage": "<strong>Ouvert aux possibilités</strong> – Je ne cherche pas activement, mais je veux être contacté pour trouver des possibilités d'emploi",
+    "description": "Job Looking Status described as Open to opportunities."
+  },
+  "nrWEuL": {
+    "defaultMessage": "<strong>Inactif</strong> – Je ne veux pas être contacté pour trouver des possibilités d'emploi",
+    "description": "Job Looking Status described as Inactive."
+  },
+  "FRyIG2": {
+    "defaultMessage": "Vous devez saisir un terme de recherche avant d'appuyer sur la touche « Entrée »",
+    "description": "Error message displayed when the search term length is less then 2 characters."
+  },
+  "ItRgwA": {
+    "defaultMessage": "Retirer une compétence",
+    "description": "Button label to remove skill on skill result block."
+  },
+  "JY6WhU": {
+    "defaultMessage": "Rechercher une compétence précise...",
+    "description": "Label for the skills search bar."
+  },
+  "PF4ya+": {
+    "defaultMessage": "p. ex. Python, JavaScript, etc.",
+    "description": "Placeholder for the skills search bar."
+  },
+  "VDZ6zw": {
+    "defaultMessage": "Masquer la définition",
+    "description": "Text displayed when skill block is open."
+  },
+  "ZOQ9ih": {
+    "defaultMessage": "Ajouter une compétence",
+    "description": "Button label to add skill on skill result block."
+  },
+  "OperationalRequirement.DriversLicense.short": {
+    "defaultMessage": "Permis de conduire",
+    "description": "The operational requirement described as driver's license. (short-form for limited space)"
+  },
+  "OperationalRequirement.OnCall.short": {
+    "defaultMessage": "Garde 24/7",
+    "description": "The operational requirement described as 24/7 on-call. (short-form for limited space)"
+  },
+  "OperationalRequirement.OvertimeOccasional.short": {
+    "defaultMessage": "Travailler occasionnellement des heures supplémentaires",
+    "description": "The operational requirement described as occasional overtime. (short-form for limited space)"
+  },
+  "OperationalRequirement.OvertimeRegular.short": {
+    "defaultMessage": "Travailler des heures supplémentaires régulièrement",
+    "description": "The operational requirement described as regular overtime. (short-form for limited space)"
+  },
+  "OperationalRequirement.OvertimeScheduled.short": {
+    "defaultMessage": "Travailler des heures supplémentaires prévues",
+    "description": "The operational requirement described as scheduled overtime. (short-form for limited space)"
+  },
+  "OperationalRequirement.OvertimeShortNotice.short": {
+    "defaultMessage": "Travailler des heures supplémentaires à court préavis",
+    "description": "The operational requirement described as short notice overtime. (short-form for limited space)"
+  },
+  "OperationalRequirement.ShiftWork.short": {
+    "defaultMessage": "Travailler des quarts de travail",
+    "description": "The operational requirement described as shift work. (short-form for limited space)"
+  },
+  "OperationalRequirement.TransportEquipment.short": {
+    "defaultMessage": "Transport de matériel jusqu'à 20 kg",
+    "description": "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)"
+  },
+  "OperationalRequirement.Travel.short": {
+    "defaultMessage": "Déplacements selon les besoins",
+    "description": "The operational requirement described as travel as required. (short-form for limited space)"
+  },
+  "OperationalRequirement.WorkWeekends.short": {
+    "defaultMessage": "Travailler les fins de semaine",
+    "description": "The operational requirement described as work weekends. (short-form for limited space)"
+  },
+  "4sJvia": {
+    "defaultMessage": "À propos de moi",
+    "description": "Title of the About link section"
+  },
+  "CnB8IO": {
+    "defaultMessage": "À propos de moi",
+    "description": "Title of the about content section"
+  },
+  "s3FrzP": {
+    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
+    "description": "Question displayed when authenticated user attempts to logout"
+  },
+  "ivKwx0": {
+    "defaultMessage": "Déconnexion",
+    "description": "Title for the modal that appears when an authenticated user attempts to logout"
+  },
+  "6rhyxk": {
+    "defaultMessage": "Déconnexion",
+    "description": "Link text to logout."
+  },
+  "BjRuMw": {
+    "defaultMessage": "Voir la définition",
+    "description": "Text displayed when skill block is open."
   }
 }

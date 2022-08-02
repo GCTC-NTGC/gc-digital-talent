@@ -51,7 +51,7 @@ To import code from this folder in another Javascript package in a sibling folde
 ### Done!
 Now you can import common code into your TypeScript files by prefixing the import statement with "@common", and everything (linting, introspection, and building) should work correctly. Some examples:
 
-`import { Link } from "@common/helpers/router";`
+`import { useLocation } from "@common/helpers/router";`
 
 `import Table from "@common/components/Table";`
 

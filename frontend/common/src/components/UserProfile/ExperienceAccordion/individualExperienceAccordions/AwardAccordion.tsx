@@ -1,5 +1,5 @@
 import React from "react";
-import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
+import StarIcon from "@heroicons/react/solid/StarIcon";
 import { useIntl } from "react-intl";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
@@ -36,11 +36,16 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p>
-              {skill.name?.[locale]}
-              <br />
-              {skill.description?.[locale]}
-            </p>
+            {skill.name[locale] && (
+              <p data-h2-font-color="b(lightpurple)">{skill.name[locale]}</p>
+            )}
+            {skill.description && skill.description[locale] && (
+              <p>{skill.description[locale]}</p>
+            )}
+            {skill.experienceSkillRecord &&
+              skill.experienceSkillRecord.details && (
+                <p>{skill.experienceSkillRecord.details}</p>
+              )}
           </li>
         </ul>
       ))
@@ -69,7 +74,7 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
               { skillsLength: skills?.length },
             )
       }
-      Icon={BriefCaseIcon}
+      Icon={StarIcon}
       defaultOpen={defaultOpen}
     >
       <div data-h2-padding="b(left, l)">

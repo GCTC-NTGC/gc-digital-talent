@@ -52,6 +52,17 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
   requestedDate
   status
   adminNotes
+  applicantFilter {
+    id
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
 }
 query getPoolCandidateSearchRequests {
   poolCandidateSearchRequests {

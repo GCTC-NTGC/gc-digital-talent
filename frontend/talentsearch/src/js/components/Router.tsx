@@ -4,12 +4,10 @@ import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { AuthenticationContext } from "@common/components/Auth";
-import { Button } from "@common/components";
-import Dialog from "@common/components/Dialog";
+import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { Helmet } from "react-helmet";
 import { getLocale } from "@common/helpers/localize";
 import PageContainer, { MenuLink } from "./PageContainer";
-import SearchPage from "./search/SearchPage";
 import {
   useTalentSearchRoutes,
   TalentSearchRoutes,
@@ -23,27 +21,65 @@ import {
   DirectIntakeRoutes,
   useDirectIntakeRoutes,
 } from "../directIntakeRoutes";
-import RequestPage from "./request/RequestPage";
-import WorkLocationPreferenceApi from "./workLocationPreferenceForm/WorkLocationPreferenceForm";
-import { ProfilePage } from "./profile/ProfilePage/ProfilePage";
-import ExperienceFormContainer from "./experienceForm/ExperienceForm";
 import { ExperienceType } from "./experienceForm/types";
-import WorkPreferencesApi from "./workPreferencesForm/WorkPreferencesForm";
-import { GovInfoFormContainer } from "./GovernmentInfoForm/GovernmentInfoForm";
-import LanguageInformationFormContainer from "./languageInformationForm/LanguageInformationForm";
-import AboutMeFormContainer from "./aboutMeForm/AboutMeForm";
-import DiversityEquityInclusionFormApi from "./diversityEquityInclusion/DiversityEquityInclusionForm";
-import { ExperienceAndSkillsRouterApi } from "./applicantProfile/ExperienceAndSkills";
-import RoleSalaryFormContainer from "./roleSalaryForm/RoleSalaryForm";
-import BrowsePoolsPage from "./browse/BrowsePoolsPage";
-import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
-import PoolApplyPage from "./pool/PoolApplyPage";
-import PoolApplicationThanksPage from "./pool/PoolApplicationThanksPage";
-import RegisterPage from "./register/RegisterPage";
-import LoggedOutPage from "./loggedOut/LoggedOutPage";
-import LoginPage from "./login/LoginPage";
-import { CreateAccount } from "./createAccount/CreateAccountPage";
 import { Role } from "../api/generated";
+
+/** Search */
+const SearchPage = React.lazy(() => import("./search/SearchPage"));
+const RequestPage = React.lazy(() => import("./request/RequestPage"));
+
+/** Auth */
+const RegisterPage = React.lazy(() => import("./register/RegisterPage"));
+const LoggedOutPage = React.lazy(() => import("./loggedOut/LoggedOutPage"));
+const LoginPage = React.lazy(() => import("./login/LoginPage"));
+
+/** Profile */
+const CreateAccount = React.lazy(
+  () => import("./createAccount/CreateAccountPage"),
+);
+const ProfilePage = React.lazy(
+  () => import("./profile/ProfilePage/ProfilePage"),
+);
+const GovInfoFormContainer = React.lazy(
+  () => import("./GovernmentInfoForm/GovernmentInfoForm"),
+);
+const LanguageInformationFormContainer = React.lazy(
+  () => import("./languageInformationForm/LanguageInformationForm"),
+);
+const WorkLocationPreferenceApi = React.lazy(
+  () => import("./workLocationPreferenceForm/WorkLocationPreferenceForm"),
+);
+const RoleSalaryFormContainer = React.lazy(
+  () => import("./roleSalaryForm/RoleSalaryForm"),
+);
+const ExperienceFormContainer = React.lazy(
+  () => import("./experienceForm/ExperienceForm"),
+);
+const WorkPreferencesApi = React.lazy(
+  () => import("./workPreferencesForm/WorkPreferencesForm"),
+);
+const AboutMeFormContainer = React.lazy(
+  () => import("./aboutMeForm/AboutMeForm"),
+);
+const DiversityEquityInclusionFormApi = React.lazy(
+  () => import("./diversityEquityInclusion/DiversityEquityInclusionForm"),
+);
+const ExperienceAndSkillsRouterApi = React.lazy(
+  () => import("./applicantProfile/ExperienceAndSkills"),
+);
+
+/** Direct Intake */
+const BrowsePoolsPage = React.lazy(() => import("./browse/BrowsePoolsPage"));
+const BrowseIndividualPoolApi = React.lazy(
+  () => import("./browse/BrowseIndividualPool"),
+);
+const PoolApplyPage = React.lazy(() => import("./pool/PoolApplyPage"));
+const PoolApplicationThanksPage = React.lazy(
+  () => import("./pool/PoolApplicationThanksPage"),
+);
+const PoolAdvertisementPage = React.lazy(
+  () => import("./pool/PoolAdvertisementPage"),
+);
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -245,6 +281,15 @@ const directIntakeRoutes = (
       };
     },
   },
+  {
+    path: directIntakePaths.poolAdvertisement(":id"),
+    action: (context) => {
+      const poolId = context.params.id as string;
+      return {
+        component: <PoolAdvertisementPage id={poolId} />,
+      };
+    },
+  },
 ];
 
 export const Router: React.FC = () => {
@@ -332,63 +377,11 @@ export const Router: React.FC = () => {
         <html lang={getLocale(intl)} />
       </Helmet>
       {loggedIn && (
-        <Dialog
-          confirmation
-          centered
+        <LogoutConfirmation
           isOpen={isConfirmationOpen}
-          onDismiss={() => {
-            setConfirmationOpen(false);
-          }}
-          title={intl.formatMessage({
-            defaultMessage: "Logout",
-            description:
-              "Title for the modal that appears when an authenticated user lands on /logged-out.",
-          })}
-          footer={
-            <div
-              data-h2-display="b(flex)"
-              data-h2-align-items="b(center)"
-              data-h2-justify-content="b(flex-end)"
-            >
-              <Button
-                mode="outline"
-                color="primary"
-                type="button"
-                onClick={() => {
-                  setConfirmationOpen(false);
-                }}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Cancel",
-                  description: "Link text to cancel logging out.",
-                })}
-              </Button>
-              <span data-h2-margin="b(left, s)">
-                <Button
-                  mode="solid"
-                  color="primary"
-                  type="button"
-                  onClick={() => {
-                    logout();
-                  }}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Logout",
-                    description: "Link text to logout.",
-                  })}
-                </Button>
-              </span>
-            </div>
-          }
-        >
-          <p data-h2-font-size="b(h5)">
-            {intl.formatMessage({
-              defaultMessage: "Are you sure you would like to logout?",
-              description:
-                "Question displayed when authenticated user lands on /logged-out.",
-            })}
-          </p>
-        </Dialog>
+          onDismiss={() => setConfirmationOpen(false)}
+          onLogout={() => logout()}
+        />
       )}
     </>
   );

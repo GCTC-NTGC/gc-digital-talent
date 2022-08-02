@@ -1,5 +1,8 @@
+alertdialog
 Analyser
 APPLICANTPROFILE
+APPLICANTSEARCH
+Assertable
 Authenticatable
 BEHAVIOURAL
 colour
@@ -34,6 +37,7 @@ Nuwave
 pgsql
 Queueable
 recruitmentimit
+recruitments
 recrutementgiti
 resumé
 subquery

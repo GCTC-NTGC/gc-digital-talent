@@ -1,4 +1,6 @@
-import { Maybe } from "../api/generated";
+import { IntlShape } from "react-intl";
+import { LocalizedString, Maybe, Scalars } from "../api/generated";
+import { getLocale } from "./localize";
 import { getId, notEmpty } from "./util";
 
 /**
@@ -118,4 +120,39 @@ export const countNumberOfWords = (text: string): number => {
     return text.replace(/\s+/g, " ").trim().split(" ").length;
   }
   return 0;
+};
+
+/**
+ * Maps a list of objects to sorted options
+ * @param objects An array of objects with an id and name property
+ * @param intl The current intl of the page
+ * @returns An array of sorted options
+ */
+export const objectsToSortedOptions = (
+  objects: {
+    id: Scalars["ID"];
+    name: LocalizedString;
+  }[],
+  intl: IntlShape,
+): { value: string; label: string }[] => {
+  const locale = getLocale(intl);
+  return objects
+    .sort((a, b) => {
+      const aName: Maybe<string> = a.name[locale];
+      const bName: Maybe<string> = b.name[locale];
+      if (aName && bName) {
+        return aName.localeCompare(bName, locale);
+      }
+
+      return 0;
+    })
+    .map(({ id, name }) => ({
+      value: id,
+      label:
+        name[locale] ??
+        intl.formatMessage({
+          defaultMessage: "Error: name not found.",
+          description: "Error message when name is not found on listed item.",
+        }),
+    }));
 };

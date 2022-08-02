@@ -11,10 +11,12 @@ on:
     # Generating bundlesize for mainline allows comparison of PR runs against baseline via bundlewatch hosted service.
     branches: ["main"]
     paths:
+      - .bundlewatch.config.js
       - .github/workflows/bundlewatch.yml
       - frontend/**
   pull_request:
     paths:
+      - .bundlewatch.config.js
       - .github/workflows/bundlewatch.yml
       - frontend/**
 
@@ -34,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2.4.0
 
-      - uses: actions/setup-node@v2.5.1
+      - uses: actions/setup-node@v3
         with:
           node-version-file: 'frontend/.nvmrc'
           cache: npm
@@ -42,7 +44,7 @@ jobs:
             frontend/package-lock.json
 
       - name: Upgrade to latest npm
-        run: npm install --global npm@${{ env.NPM_VERSION }}
+        run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
       - name: "Install dependencies: workspace"
         working-directory: frontend

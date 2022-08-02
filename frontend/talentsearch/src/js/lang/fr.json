@@ -130,10 +130,6 @@
     "defaultMessage": "Sélectionnez un ministère...",
     "description": "Null selection for department select input in the request form."
   },
-  "WbDLlc": {
-    "defaultMessage": "Erreur : Nom du ministère introuvable.",
-    "description": "Error message when department name is not found on request page."
-  },
   "XSxaGk": {
     "defaultMessage": "Ce bassin est ouvert à la plupart des ministères et organismes. Les candidats dans le bassin sont à la fois des professionnels en début de carrière et des professionnels chevronnés ayant plusieurs années d’expérience de travail. Il s’agit d’un bassin de recrutement continu, ce qui signifie que de nouveaux candidats sont ajoutés chaque semaine.",
     "description": "Content displayed in the About area of the hero section of the Search page."
@@ -222,14 +218,6 @@
     "defaultMessage": "Développeur...",
     "description": "Placeholder for job title input in the request form."
   },
-  "1D83X4": {
-    "defaultMessage": "Résultats : <span>{candidateCount}</span> candidats correspondants à vos critères",
-    "description": "Heading for total matching candidates in results section of search page."
-  },
-  "5IfAK9": {
-    "defaultMessage": "Demande de candidats du bassin : <span>{candidateCount, plural, zero {aucun candidat} one {1 candidat} other {{candidateCount} candidats estimés}}</span>",
-    "description": "Total estimated candidates message in summary of filters"
-  },
   "GJ95sc": {
     "defaultMessage": "Autochtone",
     "description": "Checklist option for employment equity filter in search form."
@@ -239,10 +227,6 @@
   },
   "ky585k": {
     "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount}),"
-  },
-  "nEU8Bk": {
-    "defaultMessage": "Il y a <bold>{candidateCount}</bold> candidats qui répondent à vos critères dans ce bassin",
-    "description": "Message for total estimated candidates box next to search form."
   },
   "zDzzb/": {
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres",
@@ -340,10 +324,6 @@
     "defaultMessage": "Groupe/Organisation/Collectivité",
     "description": "Label displayed on Community Experience form for organization input"
   },
-  "BjRuMw": {
-    "defaultMessage": "Voir la définition",
-    "description": "Text displayed when skill block is open."
-  },
   "DyaaHi": {
     "defaultMessage": "Portée du prix",
     "description": "Label displayed on Award form for award scope input"
@@ -359,18 +339,6 @@
   "EfR7Rv": {
     "defaultMessage": "Écrire le nom du groupe ici...",
     "description": "Placeholder displayed on the Community Experience form for organization input"
-  },
-  "FRyIG2": {
-    "defaultMessage": "Vous devez saisir un terme de recherche avant d’appuyer sur la touche « Entrée »",
-    "description": "Error message displayed when the search term length is less then 2 characters."
-  },
-  "ItRgwA": {
-    "defaultMessage": "Retirer une compétence",
-    "description": "Button label to remove skill on skill result block."
-  },
-  "JY6WhU": {
-    "defaultMessage": "Rechercher une compétence précise...",
-    "description": "Label for the skills search bar."
   },
   "N87bC7": {
     "defaultMessage": "Titre de la thèse",
@@ -395,10 +363,6 @@
   "Os+BwT": {
     "defaultMessage": "Décrire les détails de l’expérience ici...",
     "description": "Placeholder for experience description input"
-  },
-  "PF4ya+": {
-    "defaultMessage": "p. ex. Python, JavaScript, etc.",
-    "description": "Placeholder for the skills search bar."
   },
   "Q18B0y": {
     "defaultMessage": "Écrire le titre ici...",
@@ -432,10 +396,6 @@
     "defaultMessage": "Écrire le domaine d’étude ici...",
     "description": "Placeholder for area of study input"
   },
-  "VDZ6zw": {
-    "defaultMessage": "Masquer la définition",
-    "description": "Text displayed when skill block is open."
-  },
   "W7LpsW": {
     "defaultMessage": "1. Détails des études",
     "description": "Title for Education Details Form"
@@ -451,10 +411,6 @@
   "YJdsMY": {
     "defaultMessage": "Organisation ou institution émettrice",
     "description": "Label displayed on award form for issuing organization input"
-  },
-  "ZOQ9ih": {
-    "defaultMessage": "Ajouter une compétence",
-    "description": "Button label to add skill on skill result block."
   },
   "a6c/ce": {
     "defaultMessage": "Avez-vous été reconnu pour vous être surpassé? Il existe de nombreuses façons d’être reconnu, les prix en sont une parmi d’autres.",
@@ -565,7 +521,7 @@
     "description": "Message in My Status Form."
   },
   "/AJCvK": {
-    "defaultMessage": "Ajouter<hidden>{title} </hidden>au profil",
+    "defaultMessage": "Ajouter <hidden>{title} </hidden>au profil",
     "description": "Text label for button to add employment equity category to profile."
   },
   "/DCykA": {
@@ -575,10 +531,6 @@
   "/K1/1n": {
     "defaultMessage": "Groupe de classifications actuel ",
     "description": "Label displayed on classification group input"
-  },
-  "/K6DRU": {
-    "defaultMessage": "Je suis bilingue (En/Fr) et <bold>j'ai</bold> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <bold>FRANÇAIS</bold>",
-    "description": "Message for the completed french bilingual evaluation option"
   },
   "/Qysld": {
     "defaultMessage": "Les données ici seront utilisées pour vous faire correspondre aux emplois prioritaires.",
@@ -604,17 +556,9 @@
     "defaultMessage": "Bienvenue à Talent numérique",
     "description": "Title for the create account page for applicant profiles."
   },
-  "0yHGnL": {
-    "defaultMessage": "Avancé <greyText>– Je suis parfaitement bilingue.</greyText>",
-    "description": "Message for the advanced language ability option"
-  },
   "1CuGS6": {
     "defaultMessage": "Indiquez s'il y a une ville que vous souhaitez exclure d'une région.",
     "description": "Explanation text for Location exemptions field in work location preference form"
-  },
-  "1X8uf7": {
-    "defaultMessage": "Je suis bilingue (En/Fr) et <bold>je n'ai PAS</bold> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle",
-    "description": "Message for the haven't completed bilingual evaluation option"
   },
   "1Yqt8K": {
     "defaultMessage": "Vous êtes sur le point de supprimer une expérience de votre profil. Vous perdrez tous les renseignements qui y sont rattachés. Voulez-vous vraiment supprimer cette expérience?",
@@ -668,10 +612,6 @@
     "defaultMessage": "Erreur : utilisateur introuvable",
     "description": "Message displayed to user if user is not found"
   },
-  "4gU976": {
-    "defaultMessage": "<bold>Cheminement en gestion</bold> : Chefs d'équipe de la TI (TI-03) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la TI dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la TI se trouvent dans tous les volets de travail.",
-    "description": "IT-03 team lead path description, ignore things in <> tags please"
-  },
   "4xzq2Y": {
     "defaultMessage": "(Nom manquant)",
     "description": "Message for Missing names in profile"
@@ -695,10 +635,6 @@
   "6LTC0y": {
     "defaultMessage": "Gestion de la base de données de la TI",
     "description": "work stream example"
-  },
-  "6St+Jm": {
-    "defaultMessage": "<bold>Contributeur individuel</bold> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants. Les conseillers principaux en TI se retrouvent principalement dans six volets de travail :",
-    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
   },
   "6UCzgs": {
     "defaultMessage": "N'oubliez pas que, pour vous reconnecter, vous devez utiliser votre nom d'utilisateur et votre mot de passe de la CléGC. Nous espérons vous voir bientôt!",
@@ -947,10 +883,6 @@
     "defaultMessage": "À quel courriel souhaitez-vous être contacté(e)?",
     "description": "Label displayed for the email field in create account form."
   },
-  "Mg4cD2": {
-    "defaultMessage": "Débutant <greyText>– J'ai des compétences de base en lecture, écriture et communication verbale.</greyText>",
-    "description": "Message pour l'option d'aptitude linguistique débutant"
-  },
   "MtONBT": {
     "defaultMessage": "Travaillez-vous actuellement pour le gouvernement du Canada?",
     "description": "Employee Status in Government Info Form"
@@ -980,7 +912,7 @@
     "description": "Label displayed on Personal Experience form for current experience bounded box"
   },
   "OQ+K+X": {
-    "defaultMessage": "Retirer<hidden>{title} </hidden>du profil",
+    "defaultMessage": "Retirer <hidden>{title} </hidden>du profil",
     "description": "Text label for button to remove employment equity category from profile."
   },
   "OT0QP3": {
@@ -1147,10 +1079,6 @@
     "defaultMessage": "Identité autochtone",
     "description": "Title for button to learn more information about indigenous equity definition"
   },
-  "XoLxsc": {
-    "defaultMessage": "Je suis bilingue (En/Fr) et <bold>j'ai</bold> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officiale en <bold>ANGLAIS</bold>",
-    "description": "Message for the completed english bilingual evaluation option"
-  },
   "Y+d/yO": {
     "defaultMessage": "Résultats fréquents des compétences"
   },
@@ -1169,10 +1097,6 @@
   "Yhd/hk": {
     "defaultMessage": "Aucune expérience trouvée.",
     "description": "Message displayed when no experience is found for experience form."
-  },
-  "YiRUHR": {
-    "defaultMessage": "<bold>Cheminement en gestion</bold> : les gestionnaires de la TI (TI-04) sont responsables de la gestion du développement et de la prestation des services et des activités de TI par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la TI se trouvent dans tous les volets de travail.",
-    "description": "IT-04 manager path description, ignore things in <> tags please"
   },
   "YyHN1i": {
     "defaultMessage": "Toute langue (anglais ou français)",
@@ -1225,10 +1149,6 @@
   "c/Qp8R": {
     "defaultMessage": "Préférence pour le lieu de travail",
     "description": "Display Text for the current page in Work Location Preference Form Page"
-  },
-  "c2hEkz": {
-    "defaultMessage": "<b>Vous n'avez pas de compte de CléGC?</b> <a>Inscrivez-vous.</a>",
-    "description": "Instruction on what to do if user does not have a GC Key."
   },
   "c3CV4P": {
     "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
@@ -1329,17 +1249,9 @@
     "defaultMessage": "Tous les champs obligatoires sont remplis. Vous pouvez maintenant modifier votre statut.",
     "description": "Message displayed to user when user profile completed."
   },
-  "hafgad": {
-    "defaultMessage": "{candidateCount, plural, one {Il y a actuellement environ <weight>{candidateCount}</weight> candidat qui répond à vos critères.} other {Il y a actuellement environ <weight>{candidateCount}</weight> candidats qui répondent à vos critères.} }",
-    "description": "Message for total estimated candidates box next to search form."
-  },
   "hizC89": {
     "defaultMessage": "Niveau 3 : Chef d'équipe (88 000 $ à 110 000 $). <openModal>En savoir plus sur TI-03</openModal>",
     "description": "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please"
-  },
-  "hqfTBB": {
-    "defaultMessage": "Intermédiaire <greyText>– J'ai des compétences robustes en lecture, écriture et communication verbale.</greyText>",
-    "description": "Message for the intermediate language ability option"
   },
   "i5xxbe": {
     "defaultMessage": "Courriel",
@@ -1449,10 +1361,6 @@
     "defaultMessage": "Architecture intégrée de la TI ",
     "description": "work stream example"
   },
-  "ocv0Z5": {
-    "defaultMessage": "Cette plateforme met l'accent sur l'embauche de talents numériques pour travailler dans des postes classifiés comme TI (technologie de l'information). Examinez les niveaux suivants dans la classification TI et <bold>sélectionnez uniquement</bold> ceux qui représentent le travail que vous voulez faire.",
-    "description": "Blurb describing the purpose of the form"
-  },
   "omBOZT": {
     "defaultMessage": "Mon expérience et mes compétences",
     "description": "Title for the experience profile form"
@@ -1464,10 +1372,6 @@
   "pGTTrp": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Display Text for Diversity, equity and inclusion Page"
-  },
-  "pQnXH9": {
-    "defaultMessage": "<b>Cette section est facultative</b>. Si vous êtes membre d'un ou de plusieurs de ces groupes d'équité en matière d'emploi et que vous ne souhaitez pas vous identifier sur cette plateforme, il n'y a aucune obligation de le faire. <b>Remplissez le formulaire ci-dessous si vous remplissez ces deux conditions</b> :",
-    "description": "Explanation that employment equity information is optional."
   },
   "pYGf4h": {
     "defaultMessage": "2. Compétences affichées pendant cette expérience",
@@ -1484,10 +1388,6 @@
   "qSxmx0": {
     "defaultMessage": "Fermer",
     "description": "Close Confirmations"
-  },
-  "qvzCzB": {
-    "defaultMessage": "<bold>Pourquoi ne puis-je pas modifier mon statut?</bold>",
-    "description": "Message in My Status Form."
   },
   "r4PFx0": {
     "defaultMessage": "Province ou territoire actuel",
@@ -1577,10 +1477,6 @@
     "defaultMessage": "Recherche…",
     "description": "Message to display when a search is in progress."
   },
-  "wFQlTB": {
-    "defaultMessage": "<bold>Contributeur individuel</bold> : Les conseillers techniques en TI (TI-03) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en TI se trouvent dans tous les volets de travail.",
-    "description": "IT-03 advisor description, ignore things in <> tags please"
-  },
   "wKIVFc": {
     "defaultMessage": "Certains emplois exigent que vous travailliez des heures inhabituelles ou que vous accomplissiez des tâches qui sont un peu en dehors de la normale. Veuillez indiquer les exigences spéciales avec lesquelles vous êtes à l'aise.",
     "description": "Description text for Profile Form wrapper  in Work Preferences Form"
@@ -1653,14 +1549,6 @@
     "defaultMessage": "Les personnes ayant une déficience, y compris une déficience physique, intellectuelle, cognitive, mentale ou sensorielle, un trouble d'apprentissage ou de la communication ou une limitation fonctionnelle, de nature permanente, temporaire ou épisodique, manifeste ou non et dont l'interaction avec un obstacle nuit à la participation pleine et égale d'une personne dans la société.",
     "description": "Definition of accepted ways to identify as person with a disability."
   },
-  "jrpXvX": {
-    "defaultMessage": "<bold>Remarque :</bold> Si vous sélectionnez plus d'un groupe visé par l'équité en matière d'emploi, TOUS les candidats qui se sont déclarés membres de N'IMPORTE LEQUEL des groupes visés par l'équité en matière d'emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l'équité en matière d'emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
-    "description": "Context for employment equity filter in search form."
-  },
-  "ps2IK6": {
-    "defaultMessage": "Conditions d'emploi",
-    "description": "Legend for the Conditions of employment checklist"
-  },
   "sdUnnh": {
     "defaultMessage": "Je m'identifie comme faisant partie d'un ou de plusieurs groupes de minorités visibles.",
     "description": "Label for the checkbox to identify as a visible minority under employment equity"
@@ -1668,5 +1556,85 @@
   "z44LTK": {
     "defaultMessage": "Tel que défini par <link>Statistique Canada</link>.",
     "description": "Link to Statistics Canada's employment equity definitions"
+  },
+  "sk9CeW": {
+    "defaultMessage": "Langue",
+    "description": "Legend for the Working Language Ability radio buttons"
+  },
+  "m3qn9l": {
+    "defaultMessage": "Groupes visés par l’équité en matière d’emploi",
+    "description": "Legend for the employment equity checklist"
+  },
+  "1xRst5": {
+    "defaultMessage": "Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères",
+    "description": "Heading for total matching candidates in results section of search page."
+  },
+  "pt1KHb": {
+    "defaultMessage": "Demande de candidats du bassin : <primary>{candidateCount, plural, zero {aucun candidat} one {1 candidat} other {{candidateCount} candidats estimés}}</primary>",
+    "description": "Total estimated candidates message in summary of filters"
+  },
+  "thdckE": {
+    "defaultMessage": "Il y a <strong>{candidateCount}</strong> candidats qui répondent à vos critères dans ce bassin",
+    "description": "Message for total estimated candidates box next to search form."
+  },
+  "pak8ye": {
+    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>FRANÇAIS</strong>",
+    "description": "Message for the completed french bilingual evaluation option"
+  },
+  "paLFgh": {
+    "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
+    "description": "Message for the advanced language ability option"
+  },
+  "FfEyFv": {
+    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>je n'ai PAS</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle",
+    "description": "Message for the haven't completed bilingual evaluation option"
+  },
+  "+bC9lc": {
+    "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la TI (TI-03) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la TI dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la TI se trouvent dans tous les volets de travail.",
+    "description": "IT-03 team lead path description, ignore things in <> tags please"
+  },
+  "58BEeZ": {
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants. Les conseillers principaux en TI se retrouvent principalement dans six volets de travail :",
+    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
+  },
+  "ljnSYf": {
+    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officiale en <strong>ANGLAIS</strong>",
+    "description": "Message for the completed english bilingual evaluation option"
+  },
+  "m21EOJ": {
+    "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la TI (TI-04) sont responsables de la gestion du développement et de la prestation des services et des activités de TI par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la TI se trouvent dans tous les volets de travail.",
+    "description": "IT-04 manager path description, ignore things in <> tags please"
+  },
+  "ofOoFQ": {
+    "defaultMessage": "<strong>Vous n'avez pas de compte de CléGC?</strong> <a>Inscrivez-vous.</a>",
+    "description": "Instruction on what to do if user does not have a GC Key."
+  },
+  "Ba4Y8a": {
+    "defaultMessage": "{candidateCount, plural, one {Il y a actuellement environ <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> candidat qui répond à vos critères.} other {Il y a actuellement environ <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> candidats qui répondent à vos critères.} }",
+    "description": "Message for total estimated candidates box next to search form."
+  },
+  "t5G3Fz": {
+    "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",
+    "description": "Message for the intermediate language ability option"
+  },
+  "n7UXz5": {
+    "defaultMessage": "Cette plateforme met l'accent sur l'embauche de talents numériques pour travailler dans des postes classifiés comme TI (technologie de l'information). Examinez les niveaux suivants dans la classification TI et <strong>sélectionnez uniquement</strong> ceux qui représentent le travail que vous voulez faire.",
+    "description": "Blurb describing the purpose of the form"
+  },
+  "v7eRed": {
+    "defaultMessage": "<strong>Cette section est facultative</strong>. Si vous êtes membre d'un ou de plusieurs de ces groupes d'équité en matière d'emploi et que vous ne souhaitez pas vous identifier sur cette plateforme, il n'y a aucune obligation de le faire. <strong>Remplissez le formulaire ci-dessous si vous remplissez ces deux conditions</strong> :",
+    "description": "Explanation that employment equity information is optional."
+  },
+  "3quMA8": {
+    "defaultMessage": "<strong>Pourquoi ne puis-je pas modifier mon statut?</strong>",
+    "description": "Message in My Status Form."
+  },
+  "u+9mg1": {
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers techniques en TI (TI-03) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en TI se trouvent dans tous les volets de travail.",
+    "description": "IT-03 advisor description, ignore things in <> tags please"
+  },
+  "GIPciq": {
+    "defaultMessage": "<strong>Remarque :</strong> Si vous sélectionnez plus d'un groupe visé par l'équité en matière d'emploi, TOUS les candidats qui se sont déclarés membres de N'IMPORTE LEQUEL des groupes visés par l'équité en matière d'emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l'équité en matière d'emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
+    "description": "Context for employment equity filter in search form."
   }
 }

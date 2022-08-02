@@ -25,6 +25,7 @@ import {
   getWorkRegion,
   getPoolCandidateStatus,
   getOperationalRequirement,
+  OperationalRequirementV1,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { User } from "@common/api/generated";
@@ -35,7 +36,6 @@ import {
   WorkRegion,
   SalaryRange,
   PoolCandidateStatus,
-  OperationalRequirement,
   CmoAsset,
   Classification,
   PoolCandidate,
@@ -368,12 +368,10 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form operational requirements field.",
               })}
-              options={enumToOptions(OperationalRequirement).map(
-                ({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getOperationalRequirement(value)),
-                }),
-              )}
+              options={OperationalRequirementV1.map((value) => ({
+                value,
+                label: intl.formatMessage(getOperationalRequirement(value)),
+              }))}
             />
             <MultiSelect
               id="expectedSalary"
@@ -452,7 +450,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   );
 };
 
-export const UpdatePoolCandidate: React.FunctionComponent<{
+const UpdatePoolCandidate: React.FunctionComponent<{
   poolCandidateId: string;
 }> = ({ poolCandidateId }) => {
   const intl = useIntl();
@@ -547,3 +545,5 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
     </DashboardContentContainer>
   );
 };
+
+export default UpdatePoolCandidate;

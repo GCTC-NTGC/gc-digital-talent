@@ -1,15 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import messages from "../../../messages/commonMessages";
 import { notEmpty } from "../../../helpers/util";
 import { Applicant } from "../../../api/generated";
 import ExperienceSection from "../ExperienceSection";
 
 import type { ExperiencePaths } from "../ExperienceAccordion/ExperienceAccordion";
-
-// styling a text bit with red colour within intls
-function redText(msg: string) {
-  return <span data-h2-font-color="b(red)">{msg}</span>;
-}
 
 export type PathFunc = (path: void | string, id: void | string) => string;
 
@@ -51,21 +47,12 @@ const SkillExperienceSection: React.FunctionComponent<{
             })}
           </p>
           <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "There are <redText>required</redText> fields missing.",
-                description:
-                  "Message that there are required fields missing. Please ignore things in <> tags.",
-              },
-              {
-                redText,
-              },
-            )}{" "}
+            {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
             <a href={editPath}>
               {intl.formatMessage({
-                defaultMessage: "Click here to get started.",
-                description: "Message to click on the words to begin something",
+                defaultMessage: "Edit your skill and experience options.",
+                description:
+                  "Link text for editing skills and experiences on profile.",
               })}
             </a>
           </p>

@@ -2,9 +2,16 @@
 
 namespace Database\Factories;
 
+use App\Models\AwardExperience;
 use App\Models\User;
 use App\Models\Classification;
+use App\Models\CommunityExperience;
 use App\Models\Department;
+use App\Models\EducationExperience;
+use App\Models\GenericJobTitle;
+use App\Models\PersonalExperience;
+use App\Models\Skill;
+use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
 
@@ -128,5 +135,64 @@ class UserFactory extends Factory
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
         ];
+    }
+
+    public function activelyLooking()
+    {
+        return $this->state(function () {
+            return [
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+            ];
+        });
+    }
+
+    /**
+     * GenericJobTitleSeeder must have already been run.
+     */
+    public function withExpectedGenericJobTitles()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->expectedGenericJobTitles()->saveMany(
+                GenericJobTitle::inRandomOrder()->take(3)->get()
+            );
+        });
+    }
+
+    public function withExperiences($count = 10)
+    {
+        $types = [
+            AwardExperience::factory(),
+            CommunityExperience::factory(),
+            EducationExperience::factory(),
+            PersonalExperience::factory(),
+            WorkExperience::factory(),
+        ];
+        return $this->afterCreating(function (User $user) use ($types, $count) {
+            for($i = 0; $i < $count; $i++) {
+                $type = $this->faker->randomElement($types);
+                $type->create([
+                    'user_id' => $user->id,
+                ]);
+            }
+        });
+    }
+
+    /**
+     * Skills must have already been generated.
+     */
+    public function withSkills($count = 10)
+    {
+        return $this->afterCreating(function (User $user) use ($count) {
+            // If user has no experiences yet, create one.
+            if (!$user->experiences->count()) {
+                WorkExperience::factory()->create(['user_id' => $user->id]);
+                $user->refresh();
+            }
+            // Tale $count random skills and assign each to a random experience of this user.
+            foreach(Skill::inRandomOrder()->take($count)->get() as $skill) {
+                $experience = $this->faker->randomElement($user->experiences);
+                $experience->skills()->save($skill);
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -86,6 +87,17 @@ module.exports = {
       },
     ],
   },
+  /**
+ * Optimizations only run in production mode
+ *
+ * Ref: https://webpack.js.org/configuration/optimization/
+ */
+  optimization: {
+    minimizer: [
+      `...`, // Includes default minimizers
+      new CssMinimizerPlugin(),
+    ],
+  },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
@@ -94,8 +106,9 @@ module.exports = {
     },
   },
   output: {
-    publicPath: "/talent", // final path for routing
+    publicPath: "/talent/", // final path for routing
     filename: "[name].js?id=[contenthash]", // file hashing for cache busting
+    chunkFilename: "[name].js?id=[contenthash]", // file hashing for cache busting
     path: path.resolve(__dirname, "dist"), // output folder
     clean: true, // delete existing files on recompile
   },

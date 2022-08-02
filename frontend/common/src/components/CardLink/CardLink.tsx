@@ -1,5 +1,6 @@
 import React from "react";
-import { navigate } from "../../helpers/router";
+import useLinkClickHandler from "../Link/useLinkClickHandler";
+import sanitizeUrl from "../../helpers/sanitizeUrl";
 
 import "./cardLink.css";
 
@@ -32,24 +33,25 @@ export const colorMap: Record<Color, Record<string, string>> = {
 const CardLink: React.FC<CardLinkProps> = ({
   href,
   color = "ts-primary",
+  external,
   icon,
   label,
-  external = false,
   children,
   ...rest
 }) => {
   const Icon = icon || null;
+  const url = sanitizeUrl(href);
+  const clickHandler = useLinkClickHandler({
+    to: url || "#",
+  });
   return (
     <a
       href={href}
-      onClick={
-        !external
-          ? (event): void => {
-              event.preventDefault();
-              if (href) navigate(href);
-            }
-          : undefined
-      }
+      {...(!external
+        ? {
+            onClick: clickHandler,
+          }
+        : null)}
       className="card-link"
       data-h2-display="b(inline-block)"
       data-h2-radius="b(s)"

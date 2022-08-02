@@ -1,12 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Applicant, BilingualEvaluation } from "../../../api/generated";
+import messages from "../../../messages/commonMessages";
 import { getLanguageProficiency } from "../../../constants/localizedConstants";
-
-// styling a text bit with red colour within intls
-function redText(msg: string) {
-  return <span data-h2-font-color="b(red)">{msg}</span>;
-}
 
 const LanguageInformationSection: React.FunctionComponent<{
   applicant: Pick<
@@ -166,8 +162,9 @@ const LanguageInformationSection: React.FunctionComponent<{
             })}{" "}
             <span data-h2-font-weight="b(700)">
               {estimatedLanguageAbility
-                ? getLanguageProficiency(estimatedLanguageAbility)
-                    .defaultMessage
+                ? intl.formatMessage(
+                    getLanguageProficiency(estimatedLanguageAbility),
+                  )
                 : ""}
             </span>
           </p>
@@ -191,34 +188,26 @@ const LanguageInformationSection: React.FunctionComponent<{
               bilingualEvaluation === BilingualEvaluation.CompletedFrench) &&
               (!comprehensionLevel || !writtenLevel || !verbalLevel))))) && (
         <p>
-          {editPath &&
-            intl.formatMessage(
-              {
-                defaultMessage:
-                  "There are <redText>required</redText> fields missing.",
-                description:
-                  "Message that there are required fields missing. Please ignore things in <> tags.",
-              },
-              {
-                redText,
-              },
-            )}{" "}
           {editPath && (
-            <a href={editPath}>
-              {intl.formatMessage({
-                defaultMessage: "Click here to get started.",
-                description: "Message to click on the words to begin something",
-              })}
-            </a>
+            <>
+              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
+              <a href={editPath}>
+                {intl.formatMessage({
+                  defaultMessage: "Edit your language information options.",
+                  description:
+                    "Link text to edit language information on profile.",
+                })}
+              </a>
+            </>
           )}
           {!editPath && (
-            <p>
+            <>
               {intl.formatMessage({
                 defaultMessage: "No information has been provided.",
                 description:
                   "Message on Admin side when user not filled language section.",
               })}
-            </p>
+            </>
           )}
         </p>
       )}

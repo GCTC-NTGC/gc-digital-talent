@@ -1,5 +1,6 @@
 import { createPath, parsePath, Path } from "history";
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
+import type { LocalizedString, Maybe } from "../api/generated";
 
 export type Locales = "en" | "fr";
 
@@ -46,3 +47,59 @@ export function localizePath(
     hash: inputPath.hash,
   });
 }
+
+export const getLocalizedName = (
+  name: Maybe<LocalizedString>,
+  intl: IntlShape,
+): string => {
+  const locale = getLocale(intl);
+
+  const notAvailable = intl.formatMessage({
+    defaultMessage: "N/A",
+    description: "displayed when localized string not available",
+  });
+
+  if (!name) {
+    return notAvailable;
+  }
+
+  return name[locale] ?? notAvailable;
+};
+
+export const localizeCurrency = (
+  value: number,
+  locale: string,
+  currency = "CAD",
+) => {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency,
+    currencyDisplay: "narrowSymbol",
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
+  }).format(value);
+};
+
+export const localizeSalaryRange = (
+  min: Maybe<number>,
+  max: Maybe<number>,
+  locale: string,
+  currency = "USD",
+) => {
+  let salaryRange;
+  if (min || max) {
+    if (min && max) {
+      salaryRange = `${localizeCurrency(
+        min,
+        locale,
+        currency,
+      )} - ${localizeCurrency(max, locale, currency)}`;
+    } else if (min) {
+      salaryRange = localizeCurrency(min, locale, currency);
+    } else if (max) {
+      salaryRange = localizeCurrency(max, locale, currency);
+    }
+  }
+
+  return salaryRange;
+};

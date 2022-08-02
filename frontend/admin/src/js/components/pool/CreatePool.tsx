@@ -18,6 +18,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import {
   getOperationalRequirement,
   getPoolStatus,
+  OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -26,7 +27,6 @@ import {
   CmoAsset,
   CreatePoolInput,
   CreatePoolMutation,
-  OperationalRequirement,
   Pool,
   useCreatePoolMutation,
   useGetCreatePoolDataQuery,
@@ -300,12 +300,10 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form operational requirements field.",
               })}
-              options={enumToOptions(OperationalRequirement).map(
-                ({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getOperationalRequirement(value)),
-                }),
-              )}
+              options={OperationalRequirementV2.map((value) => ({
+                value,
+                label: intl.formatMessage(getOperationalRequirement(value)),
+              }))}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -356,7 +354,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   );
 };
 
-export const CreatePool: React.FunctionComponent = () => {
+const CreatePool: React.FunctionComponent = () => {
   const [lookupResult] = useGetCreatePoolDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =
@@ -386,3 +384,5 @@ export const CreatePool: React.FunctionComponent = () => {
     </Pending>
   );
 };
+
+export default CreatePool;

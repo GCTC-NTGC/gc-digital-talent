@@ -6,6 +6,7 @@ import { screen, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
 import { fakeUsers } from "@common/fakeData";
 import { act } from "react-dom/test-utils";
+import { axeTest, render } from "@common/helpers/testUtils";
 import {
   DiversityEquityInclusionForm,
   type DiversityEquityInclusionFormProps,
@@ -13,27 +14,32 @@ import {
 
 import type { DiversityInclusionUpdateHandler } from "./types";
 
-import { render } from "../../tests/testUtils";
-
 const mockUser = fakeUsers()[0];
 
 const renderDiversityEquityInclusionForm = ({
   user,
   onUpdate,
   isMutating,
-}: DiversityEquityInclusionFormProps) => (
-  <>
-    {render(
-      <DiversityEquityInclusionForm
-        user={user}
-        onUpdate={onUpdate}
-        isMutating={isMutating}
-      />,
-    )}
-  </>
-);
+}: DiversityEquityInclusionFormProps) =>
+  render(
+    <DiversityEquityInclusionForm
+      user={user}
+      onUpdate={onUpdate}
+      isMutating={isMutating}
+    />,
+  );
 
 describe("DiversityEquityInclusionForm", () => {
+  it("should have no accessibility errors", async () => {
+    const { container } = renderDiversityEquityInclusionForm({
+      user: mockUser,
+      onUpdate: jest.fn(),
+      isMutating: false,
+    });
+
+    await axeTest(container);
+  });
+
   /**
    * Checks to see if the proper add/remove buttons
    * are rendered based on the users EE info.
@@ -47,10 +53,10 @@ describe("DiversityEquityInclusionForm", () => {
     });
 
     const addDisability = screen.queryByRole("button", {
-      name: /add persons with disabilities to profile/i,
+      name: /add person with a disability to profile/i,
     });
     const removeDisability = screen.queryByRole("button", {
-      name: /remove "I Identify as a person with a disability" from profile/i,
+      name: /remove "I identify as a person with a disability" from profile/i,
     });
 
     if (mockUser.hasDisability) {
@@ -77,10 +83,10 @@ describe("DiversityEquityInclusionForm", () => {
     }
 
     const addVisibleMinority = screen.queryByRole("button", {
-      name: /add Member of visible minorities to profile/i,
+      name: /add member of a visible minority to profile/i,
     });
     const removeVisibleMinority = screen.queryByRole("button", {
-      name: /remove "I Identify as a member of a visible minority" from profile/i,
+      name: /remove "I identify as a member of a visible minority" from profile/i,
     });
 
     if (mockUser.isVisibleMinority) {
@@ -92,7 +98,7 @@ describe("DiversityEquityInclusionForm", () => {
     }
 
     const addWoman = screen.queryByRole("button", {
-      name: /add Women to profile/i,
+      name: /add woman to profile/i,
     });
     const removeWoman = screen.queryByRole("button", {
       name: /remove "i identify as a woman" from profile/i,
@@ -119,13 +125,13 @@ describe("DiversityEquityInclusionForm", () => {
     });
 
     const addWoman = await screen.findByRole("button", {
-      name: /add Women to profile/i,
+      name: /add Woman to profile/i,
     });
 
     fireEvent.click(addWoman);
 
     expect(
-      await screen.queryByRole("dialog", { name: /women/i }),
+      await screen.queryByRole("dialog", { name: /woman/i }),
     ).toBeInTheDocument();
   });
 
@@ -141,7 +147,7 @@ describe("DiversityEquityInclusionForm", () => {
     });
 
     const addWoman = await screen.findByRole("button", {
-      name: /add Women to profile/i,
+      name: /add Woman to profile/i,
     });
 
     act(() => {

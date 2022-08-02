@@ -1,13 +1,15 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
-import { PoolCandidateFilter } from "../../api/generated";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { ApplicantFilterInput, PoolCandidateFilter } from "../../api/generated";
 import { CreateRequest } from "./CreateRequest";
+import { CreateRequest as OldCreateRequest } from "./deprecated/CreateRequest";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
 
 type LocationState = {
   some: {
-    candidateFilter: PoolCandidateFilter;
+    candidateFilter: PoolCandidateFilter & ApplicantFilterInput;
     initialValues: SearchFormValues;
     candidateCount: number;
   };
@@ -20,6 +22,10 @@ const RequestPage: React.FunctionComponent = () => {
   const poolCandidateFilter = state ? state.some.candidateFilter : null;
   const initialValues = state ? state.some.initialValues : null;
   const candidateCount = state ? state.some.candidateCount : null;
+
+  const CreateRequestForm = checkFeatureFlag("FEATURE_APPLICANTSEARCH")
+    ? CreateRequest
+    : OldCreateRequest;
 
   return (
     <section
@@ -52,7 +58,7 @@ const RequestPage: React.FunctionComponent = () => {
         data-h2-align-items="b(center)"
         style={{ minHeight: "70rem" }}
       >
-        <CreateRequest
+        <CreateRequestForm
           poolCandidateFilter={poolCandidateFilter}
           searchFormInitialValues={initialValues}
           candidateCount={candidateCount}

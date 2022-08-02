@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { isEmpty } from "lodash";
+import messages from "../../../messages/commonMessages";
 import { getGenericJobTitles } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
@@ -13,14 +14,10 @@ const RoleSalarySection: React.FunctionComponent<{
   const expectedClassificationArray = expectedGenericJobTitles
     ? expectedGenericJobTitles.map((es) => (
         <li data-h2-font-weight="b(700)" key={es?.key}>
-          {es ? getGenericJobTitles(es.key).defaultMessage : ""}
+          {es ? intl.formatMessage(getGenericJobTitles(es.key)) : ""}
         </li>
       ))
     : null;
-  // styling a text bit with red colour within intl
-  function redText(msg: string) {
-    return <span data-h2-font-color="b(red)">{msg}</span>;
-  }
 
   const anyCriteriaSelected = !isEmpty(expectedClassificationArray);
 
@@ -51,24 +48,14 @@ const RoleSalarySection: React.FunctionComponent<{
                 description: "Message for when no data exists for the section",
               })}
             </p>
-
             <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "There are <redText>required</redText> fields missing.",
-                  description:
-                    "Message that there are required fields missing. Please ignore things in <> tags.",
-                },
-                {
-                  redText,
-                },
-              )}{" "}
+              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
               <a href={editPath}>
                 {intl.formatMessage({
-                  defaultMessage: "Click here to get started.",
+                  defaultMessage:
+                    "Edit your role and salary expectation options.",
                   description:
-                    "Message to click on the words to begin something",
+                    "Link text to edit role and salary expectations on profile.",
                 })}
               </a>
             </p>

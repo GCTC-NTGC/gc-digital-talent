@@ -10,6 +10,7 @@ export interface InputLabelProps {
   contextIsVisible?: boolean;
   contextToggleHandler?: (contextIsActive: boolean) => void;
   hideOptional?: boolean;
+  hideBottomMargin?: boolean;
 }
 
 const InputLabel: React.FC<InputLabelProps> = ({
@@ -21,6 +22,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
   },
   contextIsVisible = false,
   hideOptional = false,
+  hideBottomMargin = false,
 }): React.ReactElement => {
   const [contextIsActive, setContextIsActive] = useState(false);
   const clickHandler = () => {
@@ -28,13 +30,16 @@ const InputLabel: React.FC<InputLabelProps> = ({
     setContextIsActive((currentState) => !currentState);
   };
   const intl = useIntl();
+
   return (
     <div
       data-h2-display="b(flex)"
       data-h2-flex-wrap="b(wrap)"
       data-h2-align-items="b(center)"
       data-h2-justify-content="b(flex-start)"
-      data-h2-margin="b(bottom, xxs)"
+      {...(!hideBottomMargin && {
+        "data-h2-margin": "b(bottom, xxs)",
+      })}
     >
       <label
         data-h2-font-size="b(caption)"

@@ -27,6 +27,7 @@ import {
   getWorkRegion,
   getPoolCandidateStatus,
   getOperationalRequirement,
+  OperationalRequirementV1,
 } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
@@ -39,7 +40,6 @@ import {
   SalaryRange,
   PoolCandidateStatus,
   User,
-  OperationalRequirement,
   CmoAsset,
   Classification,
   useCreatePoolCandidateMutation,
@@ -531,12 +531,10 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form operational requirements field.",
               })}
-              options={enumToOptions(OperationalRequirement).map(
-                ({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getOperationalRequirement(value)),
-                }),
-              )}
+              options={OperationalRequirementV1.map((value) => ({
+                value,
+                label: intl.formatMessage(getOperationalRequirement(value)),
+              }))}
             />
             <MultiSelect
               id="expectedSalary"
@@ -615,7 +613,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   );
 };
 
-export const CreatePoolCandidate: React.FunctionComponent<{
+const CreatePoolCandidate: React.FunctionComponent<{
   poolId: string;
 }> = ({ poolId }) => {
   const [lookupResult] = useGetCreatePoolCandidateDataQuery();
@@ -650,3 +648,5 @@ export const CreatePoolCandidate: React.FunctionComponent<{
     </Pending>
   );
 };
+
+export default CreatePoolCandidate;

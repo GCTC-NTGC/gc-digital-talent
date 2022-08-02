@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { XIcon } from "@heroicons/react/outline";
 
 import Overlay from "./Overlay";
@@ -7,7 +8,11 @@ import Content from "./Content";
 import "@reach/dialog/styles.css";
 import "./dialog.css";
 
-export type Color = "ts-primary" | "ia-primary" | "ia-secondary";
+export type Color =
+  | "ts-primary"
+  | "ts-secondary"
+  | "ia-primary"
+  | "ia-secondary";
 
 export interface DialogProps {
   isOpen: boolean;
@@ -23,6 +28,10 @@ export interface DialogProps {
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
     "data-h2-bg-color": "b(linear-70[lightpurple][lightnavy])",
+    "data-h2-font-color": "b(white)",
+  },
+  "ts-secondary": {
+    "data-h2-bg-color": "b(lightnavy)",
     "data-h2-font-color": "b(white)",
   },
   "ia-primary": {
@@ -46,6 +55,7 @@ const Dialog: React.FC<DialogProps> = ({
   footer,
   children,
 }) => {
+  const intl = useIntl();
   return (
     <Overlay
       isOpen={isOpen}
@@ -84,7 +94,12 @@ const Dialog: React.FC<DialogProps> = ({
                   "data-h2-font-color": "b(white)",
                 })}
           >
-            <span data-h2-visibility="b(invisible)">Close dialog</span>
+            <span data-h2-visibility="b(invisible)">
+              {intl.formatMessage({
+                defaultMessage: "Close dialog",
+                description: "Text for the button to close a modal dialog.",
+              })}
+            </span>
             <XIcon className="dialog-close__icon" />
           </button>
           <div

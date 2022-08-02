@@ -1,15 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { isEmpty } from "lodash";
+import messages from "../../../messages/commonMessages";
 import { getWorkRegion } from "../../../constants/localizedConstants";
 import { insertBetween } from "../../../helpers/util";
 
 import { Applicant } from "../../../api/generated";
-
-// styling a text bit with red colour within intls
-function redText(msg: string) {
-  return <span data-h2-font-color="b(red)">{msg}</span>;
-}
 
 const WorkLocationSection: React.FunctionComponent<{
   applicant: Pick<Applicant, "locationPreferences" | "locationExemptions">;
@@ -18,7 +14,7 @@ const WorkLocationSection: React.FunctionComponent<{
   const intl = useIntl();
   // generate array of location preferences localized and formatted with spaces/commas
   const regionPreferencesSquished = applicant.locationPreferences?.map(
-    (region) => (region ? getWorkRegion(region).defaultMessage : ""),
+    (region) => (region ? intl.formatMessage(getWorkRegion(region)) : ""),
   );
   const regionPreferences = regionPreferencesSquished
     ? insertBetween(", ", regionPreferencesSquished)
@@ -60,21 +56,11 @@ const WorkLocationSection: React.FunctionComponent<{
             })}
           </p>
           <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "There are <redText>required</redText> fields missing.",
-                description:
-                  "Message that there are required fields missing. Please ignore things in <> tags.",
-              },
-              {
-                redText,
-              },
-            )}{" "}
+            {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
             <a href={editPath}>
               {intl.formatMessage({
-                defaultMessage: "Click here to get started.",
-                description: "Message to click on the words to begin something",
+                defaultMessage: "Edit your work location options.",
+                description: "Link text to edit work location on profile",
               })}
             </a>
           </p>

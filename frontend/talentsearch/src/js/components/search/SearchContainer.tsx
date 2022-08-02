@@ -4,16 +4,14 @@ import { useIntl } from "react-intl";
 import { pushToStateThenNavigate } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import pick from "lodash/pick";
+import { unpackMaybes } from "@common/helpers/formUtils";
 import {
   Classification,
-  ClassificationFilterInput,
-  CmoAsset,
   CountApplicantsQueryVariables,
-  KeyFilterInput,
   Maybe,
   Pool,
   ApplicantFilterInput,
-  PoolFilterInput,
+  Skill,
   useCountApplicantsQuery,
   useGetSearchFormDataQuery,
   UserPublicProfile,
@@ -36,31 +34,20 @@ const candidateFilterToQueryArgs = (
   */
 
   // Apply pick to each element of an array.
-  const pickMap = (
-    list:
-      | Maybe<Maybe<PoolFilterInput>[]>
-      | Maybe<Maybe<KeyFilterInput>[]>
-      | Maybe<Maybe<ClassificationFilterInput>[]>
-      | null
-      | undefined,
-    keys: string | string[],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): any[] | undefined => list?.map((item) => pick(item, keys));
-
-  // coercing type from maybe undefined to definitely not undefined
-  const poolCandidatesTypeChange = (
-    poolObject: ApplicantFilterInput | undefined,
-  ) => {
-    if (poolObject?.poolCandidates?.pools) {
-      return poolObject.poolCandidates.pools;
-    }
-    return [];
-  };
+  function pickMap<T, K extends keyof T>(
+    list: Maybe<Maybe<T>[]> | null | undefined,
+    keys: K | K[],
+  ): Pick<T, K>[] | undefined {
+    return unpackMaybes(list).map(
+      (item) => pick(item, keys) as Pick<T, K>, // I think this type coercion is safe? But I'm not sure why its not the default...
+    );
+  }
 
   if (filter !== null || undefined)
     return {
       where: {
         ...filter,
+        // TODO: does recreating the equity object serve any purpose?
         equity: {
           hasDisability: filter?.equity?.hasDisability,
           isIndigenous: filter?.equity?.isIndigenous,
@@ -70,9 +57,10 @@ const candidateFilterToQueryArgs = (
         expectedClassifications: filter?.expectedClassifications
           ? pickMap(filter.expectedClassifications, ["group", "level"])
           : [],
-        poolCandidates: {
-          pools: poolId ? [poolId] : poolCandidatesTypeChange(filter),
-        },
+        // TODO: pickMap the skills array as well?
+
+        // Override the filter's pool if one is provided separately.
+        pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
       },
     };
   return {};
@@ -80,9 +68,9 @@ const candidateFilterToQueryArgs = (
 
 export interface SearchContainerProps {
   classifications: Classification[];
-  cmoAssets: CmoAsset[];
   pool?: Pick<Pool, "name" | "description">;
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
+  skills?: Skill[];
   candidateCount: number;
   updatePending?: boolean;
   candidateFilter?: ApplicantFilterInput | undefined;
@@ -90,17 +78,13 @@ export interface SearchContainerProps {
   onSubmit: () => Promise<void>;
 }
 
-const candidateCountMsg = (msg: string) => (
-  <span data-h2-font-color="b(lightpurple)" data-testid="candidateCount">
-    {msg}
-  </span>
-);
+const testId = (msg: string) => <span data-testid="candidateCount">{msg}</span>;
 
 export const SearchContainer: React.FC<SearchContainerProps> = ({
   classifications,
-  cmoAssets,
   pool,
   poolOwner,
+  skills,
   candidateCount,
   updatePending,
   candidateFilter,
@@ -111,7 +95,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 
   const classificationFilterCount =
     candidateFilter?.expectedClassifications?.length ?? 0;
-  const cmoAssetFilterCount = 0; // TODO REMOVE WHEN REPLACING CMO ASSETS
   const operationalRequirementFilterCount =
     candidateFilter?.operationalRequirements?.length ?? 0;
 
@@ -146,7 +129,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           </div>
           <SearchForm
             classifications={classifications}
-            cmoAssets={cmoAssets}
+            skills={skills}
             onUpdateCandidateFilter={onUpdateCandidateFilter}
           />
         </div>
@@ -172,19 +155,18 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Results: <span>{candidateCount}</span> matching candidates",
+                  "Results: <primary><testId>{candidateCount}</testId></primary> matching candidates",
                 description:
                   "Heading for total matching candidates in results section of search page.",
               },
               {
-                span: candidateCountMsg,
+                testId,
                 candidateCount,
               },
             )}
           </h3>
           <SearchFilterAdvice
             classificationFilterCount={classificationFilterCount}
-            cmoAssetFilterCount={cmoAssetFilterCount}
             operationalRequirementFilterCount={
               operationalRequirementFilterCount
             }
@@ -212,6 +194,7 @@ const SearchContainerApi: React.FC = () => {
     variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
   });
   const pool = data?.poolByKey;
+  const skills = data?.skills;
 
   const [candidateFilter, setCandidateFilter] = React.useState<
     ApplicantFilterInput | undefined
@@ -227,8 +210,9 @@ const SearchContainerApi: React.FC = () => {
   const paths = useTalentSearchRoutes();
   const onSubmit = async () => {
     // pool ID is not in the form so it must be added manually
-    if (candidateFilter?.poolCandidates && pool)
-      candidateFilter.poolCandidates.pools = [pool.id];
+    if (candidateFilter && pool) {
+      candidateFilter.pools = [{ id: pool.id }];
+    }
 
     return pushToStateThenNavigate(paths.request(), {
       candidateFilter,
@@ -240,8 +224,8 @@ const SearchContainerApi: React.FC = () => {
   return (
     <SearchContainer
       classifications={pool?.classifications?.filter(notEmpty) ?? []}
-      cmoAssets={pool?.assetCriteria?.filter(notEmpty) ?? []}
       pool={pool ?? undefined}
+      skills={skills as Skill[]}
       poolOwner={pool?.owner ?? undefined}
       candidateFilter={candidateFilter}
       candidateCount={candidateCount}
