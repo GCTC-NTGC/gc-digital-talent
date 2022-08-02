@@ -158,6 +158,8 @@ class User extends Model implements Authenticatable
             is_null($this->attributes['location_preferences']) or
             empty($this->attributes['location_preferences']) or
             is_null($this->attributes['would_accept_temporary']) or
+            is_null($this->attributes['citizenship']) or
+            is_null($this->attributes['veteran']) or
             $this->expectedGenericJobTitles->isEmpty()
         ) {
             return false;
@@ -185,6 +187,8 @@ class User extends Model implements Authenticatable
             $query->whereJsonLength('location_preferences', '>', 0);
             $query->whereNotNull('would_accept_temporary');
             $query->has('expectedGenericJobTitles');
+            $query->whereNotNull('citizenship');
+            $query->whereNotNull('veteran');
         }
         return $query;
     }
