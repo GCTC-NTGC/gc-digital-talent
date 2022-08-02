@@ -51,6 +51,8 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/browse(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
+    RewriteRule ^(en|fr)/create-account(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
     # Send register requests to talentsearch dist folder (with or without public/ path prefix).
     RewriteRule ^register-info/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
     RewriteRule ^register-info(/(.*))?$ frontend/talentsearch/dist/$2 [L]
