@@ -30,7 +30,6 @@ type Option<V> = { value: V; label: string };
 type FormValues = {
   key: string;
   classification: string[] | undefined;
-  stream: string[] | undefined;
 };
 
 interface CreatePoolFormProps {
@@ -148,57 +147,25 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 description: "Form blurb describing create pool form",
               })}
             </p>
-            <div
-              data-h2-display="b(flex)"
-              data-h2-flex-direction="b(column) s(row)"
-            >
-              <div data-h2-padding="s(right, xs)">
-                <Select
-                  id="classification"
-                  label={intl.formatMessage({
-                    defaultMessage: "Starting group and level",
-                    description:
-                      "Label displayed on the pool form classification field.",
-                  })}
-                  name="classification"
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a classification...",
-                    description:
-                      "Placeholder displayed on the pool form classification field.",
-                  })}
-                  options={jobTitleOptions}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
-              <div>
-                {/* TODO AS JOB STREAMS DO NOT EXIST YET */}
-                <Select
-                  id="stream"
-                  label={intl.formatMessage({
-                    defaultMessage: "Streams",
-                    description:
-                      "Label displayed on the pool form streams field.",
-                  })}
-                  name="stream"
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a stream...",
-                    description:
-                      "Placeholder displayed on the pool form stream field.",
-                  })}
-                  options={[
-                    {
-                      value: "TODO",
-                      label: "TODO",
-                    },
-                  ]}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
-            </div>
+            <Select
+              // data-h2-padding="b(right, l)"
+              id="classification"
+              label={intl.formatMessage({
+                defaultMessage: "Starting group and level",
+                description:
+                  "Label displayed on the pool form classification field.",
+              })}
+              name="classification"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a classification...",
+                description:
+                  "Placeholder displayed on the pool form classification field.",
+              })}
+              options={jobTitleOptions}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
             <Input
               id="key"
               name="key"
