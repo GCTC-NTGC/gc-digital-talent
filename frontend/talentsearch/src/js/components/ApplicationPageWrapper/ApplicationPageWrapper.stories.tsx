@@ -97,3 +97,19 @@ BasicApplicationPageWrapper.args = {
     ],
   },
 };
+
+export const NoNavigationApplicationPageWrapper = Template.bind({});
+NoNavigationApplicationPageWrapper.args = {
+  title: "Basic Application Page Wrapper",
+  subtitle: "Subtitle for Page Wrapper",
+  closingDate: new Date(new Date(TODAY).setMonth(TODAY.getMonth() + 1)),
+  crumbs: [{ title: "Pool Name" }, { title: "About Me" }],
+};
+
+export const ExpiredApplicationPageWrapper = Template.bind({});
+ExpiredApplicationPageWrapper.args = {
+  title: "Basic Application Page Wrapper",
+  subtitle: "Subtitle for Page Wrapper",
+  closingDate: new Date(new Date(TODAY).setMonth(TODAY.getMonth() - 1)),
+  crumbs: [{ title: "Pool Name" }, { title: "About Me" }],
+};
