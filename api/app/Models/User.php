@@ -40,6 +40,8 @@ use Illuminate\Support\Facades\DB;
  * @property string $interested_in_later_or_secondment
  * @property string $department
  * @property string $current_classification
+ * @property string $citizenship
+ * @property string $veteran
  * @property boolean $is_woman
  * @property boolean $has_disability
  * @property boolean $is_indigenous
