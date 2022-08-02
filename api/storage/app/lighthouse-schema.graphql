@@ -14,6 +14,8 @@ type Applicant {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenStatus
+  veteran: VeteranStatus
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
@@ -136,6 +138,12 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+enum CitizenStatus {
+  CITIZEN
+  PERMANENT_RESIDENT
+  OTHER
+}
+
 type Classification {
   id: ID!
   name: LocalizedString
@@ -221,6 +229,8 @@ input CreateApplicantFilterInput {
   expectedClassifications: ClassificationBelongsToMany
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
+  citizenship: CitizenStatus
+  veteran: VeteranStatus
 }
 
 input CreateClassificationInput {
@@ -328,6 +338,8 @@ input CreateUserInput {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenStatus
+  veteran: VeteranStatus
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1188,6 +1200,8 @@ input UpdateUserAsAdminInput {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenStatus
+  veteran: VeteranStatus
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1231,6 +1245,8 @@ input UpdateUserAsUserInput {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenStatus
+  veteran: VeteranStatus
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1277,6 +1293,8 @@ type User {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenStatus
+  veteran: VeteranStatus
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1352,6 +1370,11 @@ type UserPublicProfile {
   email: Email
   firstName: String
   lastName: String
+}
+
+enum VeteranStatus {
+  VETERAN
+  NOT_VETERAN
 }
 
 """Dynamic WHERE conditions for queries."""

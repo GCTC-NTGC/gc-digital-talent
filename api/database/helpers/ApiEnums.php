@@ -251,4 +251,31 @@ class ApiEnums
         ];
     }
 
+    /**
+     * Citizenship
+     */
+    const CITIZENSHIP_CITIZEN = 'CITIZEN';
+    const CITIZENSHIP_PR = 'PERMANENT_RESIDENT';
+    const CITIZENSHIP_OTHER = 'OTHER';
+    public static function citizenshipArray() : array
+    {
+        return [
+            self::CITIZENSHIP_CITIZEN,
+            self::CITIZENSHIP_PR,
+            self::CITIZENSHIP_OTHER,
+        ];
+    }
+
+     /**
+      * Veteran
+      */
+    const VETERAN_IS = 'VETERAN';
+    const VETERAN_IS_NOT = 'NOT_VETERAN';
+    public static function veteranArray() : array
+    {
+        return [
+            self::VETERAN_IS,
+            self::VETERAN_IS_NOT,
+        ];
+    }
 }

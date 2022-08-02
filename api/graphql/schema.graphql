@@ -46,6 +46,8 @@ type User {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
+    citizenship: CitizenStatus
+    veteran: VeteranStatus
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -156,6 +158,17 @@ enum GovEmployeeType {
     INDETERMINATE
 }
 
+enum CitizenStatus {
+    CITIZEN
+    PERMANENT_RESIDENT
+    OTHER
+}
+
+enum VeteranStatus {
+    VETERAN
+    NOT_VETERAN
+}
+
 type Applicant {
     id: ID!
 
@@ -167,6 +180,8 @@ type Applicant {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
+    citizenship: CitizenStatus
+    veteran: VeteranStatus
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
@@ -735,6 +750,8 @@ input CreateUserInput {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
+    citizenship: CitizenStatus
+    veteran: VeteranStatus
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -794,6 +811,8 @@ input UpdateUserAsAdminInput {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
+    citizenship: CitizenStatus
+    veteran: VeteranStatus
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -849,6 +868,8 @@ input UpdateUserAsUserInput {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
+    citizenship: CitizenStatus
+    veteran: VeteranStatus
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -1054,6 +1075,8 @@ input CreateApplicantFilterInput {
     expectedClassifications: ClassificationBelongsToMany @rename(attribute: "classifications")
     skills: SkillBelongsToMany
     pools: PoolBelongsToMany
+    citizenship: CitizenStatus
+    veteran: VeteranStatus
 }
 
 input ApplicantFilterBelongsTo {
