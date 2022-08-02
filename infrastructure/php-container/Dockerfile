@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.1-rc-cli-buster
 # FROM php:8.0-apache
 
 # Install pdo_pgsql extension
