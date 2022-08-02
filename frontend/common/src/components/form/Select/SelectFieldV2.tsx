@@ -5,6 +5,7 @@ import ReactSelect, { components } from "react-select";
 import type { NoticeProps, PropsValue, GroupBase, Options } from "react-select";
 import camelCase from "lodash/camelCase";
 import { useIntl } from "react-intl";
+import ReactDOMServer from "react-dom/server";
 import { errorMessages } from "../../../messages";
 import { InputWrapper } from "../../inputPartials";
 
@@ -86,12 +87,17 @@ const LocalizedNoOptionsMessage = <
  * @param rules initial rule object
  * @returns modified rule object
  */
-export const useRulesWithDefaultMessages = (rules: RegisterOptions = {}) => {
+export const useRulesWithDefaultMessages = (
+  fieldLabel: string,
+  rules: RegisterOptions = {},
+) => {
   const { formatMessage } = useIntl();
   const rulesWithDefaults = { ...rules };
 
   if (rules.required === true)
-    rulesWithDefaults.required = formatMessage(errorMessages.required);
+    rulesWithDefaults.required = formatMessage(errorMessages.required, {
+      fieldLabel,
+    });
 
   return rulesWithDefaults;
 };
@@ -130,7 +136,7 @@ const SelectFieldV2 = ({
   // react-hook-form has no way to set default messages when `{ required: true }`,
   // so that's handled here. (It's a hook because it uses react-intl hook.)
   // See: https://github.com/react-hook-form/react-hook-form/issues/458
-  const rulesWithDefaults = useRulesWithDefaultMessages(rules);
+  const rulesWithDefaults = useRulesWithDefaultMessages(label, rules);
 
   return (
     <div data-h2-margin="b(bottom, xxs)">

@@ -76,34 +76,41 @@ const renderWithProviders = (
 
 describe("useRulesWithDefaultMessages", () => {
   // See: https://kentcdodds.com/blog/how-to-test-custom-react-hooks
-  function processRules(rules: RegisterOptions) {
+  function renderHookWithProviders(fieldLabel: string, rules: RegisterOptions) {
     const wrapper = ({ children }: { children: React.ReactElement }) => (
       <IntlProvider locale="en">{children}</IntlProvider>
     );
-    const { result } = renderHook(() => useRulesWithDefaultMessages(rules), {
-      wrapper,
-    });
+    const { result } = renderHook(
+      () => useRulesWithDefaultMessages(fieldLabel, rules),
+      {
+        wrapper,
+      },
+    );
 
     return result;
   }
 
   it("return rules unmodified when `required` not specified", () => {
-    const newRules = processRules({});
+    const newRules = renderHookWithProviders("Some Field", {});
     expect(newRules.current.required).toBeUndefined();
   });
 
   it("return rules unmodified when `required` is false", () => {
-    const newRules = processRules({ required: false });
+    const newRules = renderHookWithProviders("Some Field", { required: false });
     expect(newRules.current.required).toBe(false);
   });
 
   it("return default message when `required` is true", () => {
-    const newRules = processRules({ required: true });
-    expect(newRules.current.required).toBe("This field is required.");
+    const newRules = renderHookWithProviders("Some Field", { required: true });
+    expect(newRules.current.required).toBe(
+      "Some Field: This field is required.",
+    );
   });
 
   it("return custom message when `required` is string", () => {
-    const newRules = processRules({ required: "Required!" });
+    const newRules = renderHookWithProviders("Some Field", {
+      required: "Required!",
+    });
     expect(newRules.current.required).toBe("Required!");
   });
 });
@@ -222,7 +229,7 @@ describe("SelectFieldV2", () => {
     expect(mockSubmit).not.toBeCalled();
     expect(screen.queryByRole("alert")).toBeInTheDocument();
     expect(screen.getByRole("alert").textContent).toBe(
-      "This field is required.",
+      "Foo Bar: This field is required.",
     );
   });
 
