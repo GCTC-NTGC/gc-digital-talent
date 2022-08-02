@@ -1,3 +1,4 @@
+# Source: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/automating-dependabot-with-github-actions#label-a-pull-request
 name: Dependabot auto-label
 on: pull_request
 
