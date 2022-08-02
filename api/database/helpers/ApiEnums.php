@@ -265,17 +265,4 @@ class ApiEnums
             self::CITIZENSHIP_OTHER,
         ];
     }
-
-     /**
-      * Veteran
-      */
-    const VETERAN_IS = 'VETERAN';
-    const VETERAN_IS_NOT = 'NOT_VETERAN';
-    public static function veteranArray() : array
-    {
-        return [
-            self::VETERAN_IS,
-            self::VETERAN_IS_NOT,
-        ];
-    }
 }

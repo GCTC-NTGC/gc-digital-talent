@@ -47,7 +47,7 @@ type User {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenStatus
-    veteran: VeteranStatus
+    veteran: Boolean
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -164,11 +164,6 @@ enum CitizenStatus {
     OTHER
 }
 
-enum VeteranStatus {
-    VETERAN
-    NOT_VETERAN
-}
-
 type Applicant {
     id: ID!
 
@@ -181,7 +176,7 @@ type Applicant {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenStatus
-    veteran: VeteranStatus
+    veteran: Boolean
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
@@ -751,7 +746,7 @@ input CreateUserInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenStatus
-    veteran: VeteranStatus
+    veteran: Boolean
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -812,7 +807,7 @@ input UpdateUserAsAdminInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenStatus
-    veteran: VeteranStatus
+    veteran: Boolean
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -869,7 +864,7 @@ input UpdateUserAsUserInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenStatus
-    veteran: VeteranStatus
+    veteran: Boolean
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -1076,7 +1071,7 @@ input CreateApplicantFilterInput {
     skills: SkillBelongsToMany
     pools: PoolBelongsToMany
     citizenship: CitizenStatus
-    veteran: VeteranStatus
+    veteran: Boolean
 }
 
 input ApplicantFilterBelongsTo {

@@ -15,7 +15,7 @@ class AddCitizenVeteranFields extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('citizenship')->nullable();
-            $table->string('veteran')->nullable();
+            $table->boolean('veteran')->nullable();
         });
     }
 
