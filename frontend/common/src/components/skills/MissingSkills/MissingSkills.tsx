@@ -44,7 +44,8 @@ const MissingSkills = ({
             {intl.formatMessage({
               defaultMessage:
                 'The following "Need to have" <red>required</red> skills are missing from your profile:',
-              description: "Text",
+              description:
+                "Text that appears when a user is missing required skills on their profile",
             })}
           </p>
           <Chips>
@@ -65,7 +66,8 @@ const MissingSkills = ({
             {intl.formatMessage({
               defaultMessage:
                 'Other "Nice to have" skills you may want to consider adding to your profile:',
-              description: "Text",
+              description:
+                "Text that appears when a user is missing optional skills on their profile",
             })}
           </p>
           <Chips>
