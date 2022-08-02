@@ -15,7 +15,7 @@ type Applicant {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenStatus
-  veteran: VeteranStatus
+  veteran: Boolean
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
@@ -230,7 +230,7 @@ input CreateApplicantFilterInput {
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
   citizenship: CitizenStatus
-  veteran: VeteranStatus
+  veteran: Boolean
 }
 
 input CreateClassificationInput {
@@ -339,7 +339,7 @@ input CreateUserInput {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenStatus
-  veteran: VeteranStatus
+  veteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1201,7 +1201,7 @@ input UpdateUserAsAdminInput {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenStatus
-  veteran: VeteranStatus
+  veteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1246,7 +1246,7 @@ input UpdateUserAsUserInput {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenStatus
-  veteran: VeteranStatus
+  veteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1294,7 +1294,7 @@ type User {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenStatus
-  veteran: VeteranStatus
+  veteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1370,11 +1370,6 @@ type UserPublicProfile {
   email: Email
   firstName: String
   lastName: String
-}
-
-enum VeteranStatus {
-  VETERAN
-  NOT_VETERAN
 }
 
 """Dynamic WHERE conditions for queries."""
