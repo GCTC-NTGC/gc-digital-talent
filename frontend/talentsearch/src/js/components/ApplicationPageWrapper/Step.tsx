@@ -10,9 +10,9 @@ export interface StepProps {
 const Step = ({ path, label, disabled }: StepProps) => (
   <Link
     href={path}
-    mode="solid"
+    mode={disabled ? "solid" : "outline"}
     type="button"
-    color="primary"
+    color="black"
     disabled={disabled}
   >
     {label}
