@@ -1,6 +1,8 @@
 # Source: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/automating-dependabot-with-github-actions#label-a-pull-request
 name: Dependabot auto-label
-on: pull_request
+# Can't use `pull_request` due to GITHUB_TOKEN and security
+# See: https://github.com/dependabot/dependabot-core/issues/3253#issuecomment-852541544
+on: pull_request_target
 
 permissions:
   pull-requests: write
