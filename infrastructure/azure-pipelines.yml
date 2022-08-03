@@ -17,6 +17,9 @@ jobs:
   pool:
     vmImage: ubuntu-18.04
   steps:
+  - checkout: self
+    clean: true
+
   - script: ./bin/set_php_versions.sh ${{ variables.phpVersion }}
     workingDirectory: $(System.DefaultWorkingDirectory)/infrastucture
     displayName: 'PHP version'
