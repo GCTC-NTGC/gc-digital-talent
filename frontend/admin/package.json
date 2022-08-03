@@ -55,6 +55,7 @@
     "@storybook/addon-actions": "*",
     "@storybook/addon-essentials": "*",
     "@storybook/addon-links": "*",
+    "@storybook/addon-viewport": "*",
     "@storybook/builder-webpack5": "*",
     "@storybook/manager-webpack5": "*",
     "@storybook/react": "^6.5.9",

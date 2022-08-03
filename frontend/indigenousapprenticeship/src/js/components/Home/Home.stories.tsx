@@ -1,6 +1,8 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { IntlProvider } from "react-intl";
+import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+import { widthOf } from "@common/helpers/storybookUtils";
 import * as IAPFrench from "../../lang/frCompiled.json";
 import Home from "./Home";
 
@@ -25,8 +27,8 @@ const TemplateFrenchHome: Story = () => {
 };
 
 const VIEWPORTS = [
-  375, // Modern iPhone
-  1366, // Most common viewport size that falls within chromatic range
+  widthOf(INITIAL_VIEWPORTS.iphonex), // Modern iPhone
+  widthOf(INITIAL_VIEWPORTS.ipad12p), // Most common viewport size that falls within chromatic range
 ];
 
 export const EnglishHomeStory = TemplateEnglishHome.bind({});
