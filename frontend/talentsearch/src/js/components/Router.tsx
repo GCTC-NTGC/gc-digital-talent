@@ -85,13 +85,6 @@ const talentRoutes = (
   talentPaths: TalentSearchRoutes,
 ): Routes<RouterResult> => [
   {
-    path: talentPaths.home(),
-    action: () => ({
-      component: <div />,
-      redirect: talentPaths.search(),
-    }),
-  },
-  {
     path: talentPaths.search(),
     action: () => ({
       component: <SearchPage />,

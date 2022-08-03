@@ -37,6 +37,13 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
+    # Send search requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^search/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^search(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized search requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/search(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
     # Send logged-out requests to talentsearch dist folder (with or without public/ path prefix).
     RewriteRule ^logged-out/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
     RewriteRule ^logged-out(/(.*))?$ frontend/talentsearch/dist/$2 [L]
