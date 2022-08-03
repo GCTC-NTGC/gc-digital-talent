@@ -3,7 +3,7 @@ import Link from "@common/components/Link";
 
 export interface StepProps {
   path: string;
-  label: string;
+  label: React.ReactNode;
   disabled?: boolean;
 }
 
