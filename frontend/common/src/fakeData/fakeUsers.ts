@@ -23,7 +23,7 @@ import {
   GovEmployeeType,
   Applicant,
   Department,
-  CitizenStatus,
+  CitizenshipStatus,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakeCmoAssets from "./fakeCmoAssets";
@@ -61,12 +61,12 @@ const generateUser = (
       Object.values(ProvinceOrTerritory),
     ),
     currentCity: faker.address.city(),
-    citizenship: faker.helpers.arrayElement<CitizenStatus>([
-      CitizenStatus.Citizen,
-      CitizenStatus.PermanentResident,
-      CitizenStatus.Other,
+    citizenship: faker.helpers.arrayElement<CitizenshipStatus>([
+      CitizenshipStatus.Citizen,
+      CitizenshipStatus.PermanentResident,
+      CitizenshipStatus.Other,
     ]),
-    veteran: faker.datatype.boolean(),
+    isVeteran: faker.datatype.boolean(),
 
     // Language
     languageAbility: faker.helpers.arrayElement<LanguageAbility>(
