@@ -1,7 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
-import { fakePools } from "@common/fakeData";
+import { fakePools, fakeClassifications } from "@common/fakeData";
 import {
   CreatePoolAdvertisementInput,
   GenericJobTitleKey,
@@ -47,11 +47,14 @@ const storyGenericJobTitles = [
   },
 ];
 
+const classifications = fakeClassifications();
+
 stories.add("Pool Table", () => <PoolTable pools={poolData} editUrlRoot="#" />);
 
 stories.add("Create Pool Form", () => (
   <CreatePoolForm
     genericJobTitles={storyGenericJobTitles}
+    classificationsArray={classifications}
     userId=""
     handleCreatePool={async (
       userId: string,

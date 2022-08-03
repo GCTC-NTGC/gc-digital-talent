@@ -15,6 +15,7 @@ import Breadcrumbs, {
 import { ViewGridIcon } from "@heroicons/react/outline";
 import { ViewGridIcon as SolidGridIcon } from "@heroicons/react/solid";
 import Link from "@common/components/Link/Link";
+import { getLocalizedName } from "@common/helpers/localize";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreatePoolAdvertisementInput,
@@ -22,6 +23,7 @@ import {
   CreatePoolAdvertisementMutation,
   useGetMePoolCreationQuery,
   GenericJobTitleKey,
+  Classification,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
@@ -41,6 +43,7 @@ interface GenericJobTitle {
 interface CreatePoolFormProps {
   userId: string;
   genericJobTitles: GenericJobTitle[];
+  classificationsArray: Classification[];
   handleCreatePool: (
     userId: string,
     data: CreatePoolAdvertisementInput,
@@ -50,6 +53,7 @@ interface CreatePoolFormProps {
 export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   userId,
   genericJobTitles,
+  classificationsArray,
   handleCreatePool,
 }) => {
   const intl = useIntl();
@@ -108,8 +112,13 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     },
   ] as BreadcrumbsProps["links"];
 
+  // NOTICE NOTICE NOTICE NOTICE NOTICE
+  // how the CreatePool will function, in example, Generic Job Classifications vs regular Classifications is undecided so code segments are left in despite being unused
+  // TODO RESOLVE THIS
+
   // create the options for the select input, and ensure classification Ids are attached to each option
   // take care not to try and attach generic job title Id instead, wrong Id throws confusing sql errors
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const jobTitleOptions: Option<string>[] = genericJobTitles.map(
     ({ key, classificationId }) => ({
       value: classificationId,
@@ -118,6 +127,14 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         "Error: name not loaded",
     }),
   );
+
+  // recycled from EditPool
+  const classificationOptions: Option<string>[] = classificationsArray
+    .map(({ id, group, level, name }) => ({
+      value: id,
+      label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
+    }))
+    .sort((a, b) => (a.label >= b.label ? 1 : -1));
 
   return (
     <section>
@@ -163,7 +180,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form classification field.",
               })}
-              options={jobTitleOptions}
+              options={classificationOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -242,6 +259,9 @@ const CreatePool: React.FunctionComponent = () => {
       })
     : [];
 
+  // fetched all classifications
+  const classificationsData = unpackMaybes(lookupData?.classifications);
+
   const [, executeMutation] = useCreatePoolAdvertisementMutation();
   const handleCreatePool = (
     userId: string,
@@ -260,6 +280,7 @@ const CreatePool: React.FunctionComponent = () => {
         <CreatePoolForm
           userId={userIdQuery}
           genericJobTitles={jobTitlesMapped}
+          classificationsArray={classificationsData}
           handleCreatePool={handleCreatePool}
         />
       </DashboardContentContainer>

@@ -237,4 +237,13 @@ query getMePoolCreation {
     }
     id
   }
+  classifications {
+    name {
+      en
+      fr
+    }
+    level
+    group
+    id
+  }
 }
