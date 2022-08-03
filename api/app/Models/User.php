@@ -41,7 +41,7 @@ use Illuminate\Support\Facades\DB;
  * @property string $department
  * @property string $current_classification
  * @property string $citizenship
- * @property boolean $veteran
+ * @property boolean $is_veteran
  * @property boolean $is_woman
  * @property boolean $has_disability
  * @property boolean $is_indigenous
@@ -159,7 +159,7 @@ class User extends Model implements Authenticatable
             empty($this->attributes['location_preferences']) or
             is_null($this->attributes['would_accept_temporary']) or
             is_null($this->attributes['citizenship']) or
-            is_null($this->attributes['veteran']) or
+            is_null($this->attributes['is_veteran']) or
             $this->expectedGenericJobTitles->isEmpty()
         ) {
             return false;
@@ -188,7 +188,7 @@ class User extends Model implements Authenticatable
             $query->whereNotNull('would_accept_temporary');
             $query->has('expectedGenericJobTitles');
             $query->whereNotNull('citizenship');
-            $query->whereNotNull('veteran');
+            $query->whereNotNull('is_veteran');
         }
         return $query;
     }

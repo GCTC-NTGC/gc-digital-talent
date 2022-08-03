@@ -15,7 +15,7 @@ class AddCitizenVeteranFields extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('citizenship')->nullable();
-            $table->boolean('veteran')->nullable();
+            $table->boolean('is_veteran')->nullable();
         });
     }
 
@@ -29,7 +29,7 @@ class AddCitizenVeteranFields extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn([
                 'citizenship',
-                'veteran',
+                'is_veteran',
             ]);
         });
     }

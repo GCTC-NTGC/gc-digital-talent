@@ -47,7 +47,7 @@ type User {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenStatus
-    veteran: Boolean
+    isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -176,7 +176,7 @@ type Applicant {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenStatus
-    veteran: Boolean
+    isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
@@ -746,7 +746,7 @@ input CreateUserInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenStatus
-    veteran: Boolean
+    isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -807,7 +807,7 @@ input UpdateUserAsAdminInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenStatus
-    veteran: Boolean
+    isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -864,7 +864,7 @@ input UpdateUserAsUserInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenStatus
-    veteran: Boolean
+    isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -1071,7 +1071,7 @@ input CreateApplicantFilterInput {
     skills: SkillBelongsToMany
     pools: PoolBelongsToMany
     citizenship: CitizenStatus
-    veteran: Boolean
+    isVeteran: Boolean @rename(attribute: "is_veteran")
 }
 
 input ApplicantFilterBelongsTo {
