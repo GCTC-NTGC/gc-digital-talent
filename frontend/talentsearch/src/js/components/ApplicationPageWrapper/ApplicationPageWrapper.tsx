@@ -117,7 +117,7 @@ const ApplicationPageWrapper = ({
                     "Label for a pool advertisements closing date on the application",
                 })}
                 <br />
-                {relativeExpiryDate(closingDate, intl)}
+                {relativeExpiryDate(new Date(closingDate), intl)}
               </p>
             </div>
           </div>
