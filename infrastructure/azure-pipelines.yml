@@ -41,7 +41,7 @@ jobs:
     displayName: 'Archive Files'
     inputs:
       rootFolderOrFile: $(System.DefaultWorkingDirectory)
-      includeRootFolder: true
+      includeRootFolder: false
       archiveFile: '$(Build.ArtifactStagingDirectory)/Application_$(Build.BuildId).zip'
 
   - task: PublishBuildArtifacts@1
