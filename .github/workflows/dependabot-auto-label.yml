@@ -23,4 +23,5 @@ jobs:
         if: ${{ startsWith(steps.metadata.outputs.dependency-type, 'direct:') }}
         run: gh pr edit "$PR_URL" --add-label "dependencies-priority"
         env:
-          PR_URL: ${{github.event.pull_request.html_url}}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}"
