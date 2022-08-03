@@ -1,3 +1,5 @@
+# This htaccess file is used when deployed to the dev, uat, and production servers
+
 # Don't automatically add slash (with 301 redirect) if path matches a directory
 DirectorySlash off
 
@@ -9,9 +11,6 @@ DirectorySlash off
     RewriteCond %{REQUEST_URI} !/public/$
     RewriteCond %{REQUEST_URI} !/dist/$
     RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
-
-    # For configuration of local development proxy at "/oxauth", see site
-    # config at "mock-auth-proxy.apache-site.conf"
 
     # Rewrite api requests
     RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
@@ -71,9 +70,6 @@ DirectorySlash off
     # Indigenous Apprenticeship routes
     RewriteRule ^indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$2 [L]
     RewriteRule ^(en|fr)/indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$3 [L]
-
-    # PHP Info page for debugging
-    RewriteRule ^phpinfo.php$ phpinfo.php [L]
 
     # Send all other requests to /tc-report
     RewriteRule ^(.*)/?$ tc-report/$1 [L]
