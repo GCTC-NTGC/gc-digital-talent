@@ -22,15 +22,15 @@ jobs:
     vmImage: ubuntu-18.04
   steps:
   - script: ./bin/set_php_versions.sh $(phpVersion)
-    workingDirectory: $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/infrastucture
+    workingDirectory: $(System.DefaultWorkingDirectory)/infrastucture
     displayName: 'PHP version'
 
   - script: cp infrastructure/conf/deploy.htaccess .htaccess
-    workingDirectory: $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)
+    workingDirectory: $(System.DefaultWorkingDirectory)
     displayName: 'Write-out htaccess'
 
-  - script: ./bin/deploy.sh $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)
-    workingDirectory: $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/infrastucture
+  - script: ./bin/deploy.sh $(System.DefaultWorkingDirectory)
+    workingDirectory: $(System.DefaultWorkingDirectory)/infrastucture
     displayName: Dependencies
     env:
       API_URI: /graphql
