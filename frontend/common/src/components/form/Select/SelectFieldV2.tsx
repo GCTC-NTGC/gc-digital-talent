@@ -84,6 +84,7 @@ const LocalizedNoOptionsMessage = <
 /**
  * One-off hook to add default messages to validation rule object in place of booleans.
  *
+ * @param fieldLabel label to pass to default messages for accessibility purposes
  * @param rules initial rule object
  * @returns modified rule object
  */
