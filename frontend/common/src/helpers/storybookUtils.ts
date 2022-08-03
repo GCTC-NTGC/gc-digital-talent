@@ -2,6 +2,7 @@ import {
   Viewport,
   ViewportStyles,
   Styles,
+  // eslint-disable-next-line import/no-unresolved
 } from "@storybook/addon-viewport/dist/ts3.9/models/Viewport";
 
 // type guard for ViewportStyles
