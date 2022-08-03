@@ -29,16 +29,18 @@ type Option<V> = { value: V; label: string };
 
 type FormValues = {
   key: string;
-  classification: string[] | undefined;
+  classification: string[];
 };
+
+interface GenericJobTitle {
+  key: GenericJobTitleKey;
+  id: string;
+  classificationId: string;
+}
 
 interface CreatePoolFormProps {
   userId: string;
-  genericJobTitles: {
-    key: GenericJobTitleKey;
-    id: string;
-    classificationId: string;
-  }[];
+  genericJobTitles: GenericJobTitle[];
   handleCreatePool: (
     userId: string,
     data: CreatePoolAdvertisementInput,
@@ -184,6 +186,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               })}
             />
             <Submit
+              color="cta"
               text={intl.formatMessage({
                 defaultMessage: "Create new pool",
                 description:
