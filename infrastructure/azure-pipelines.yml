@@ -21,16 +21,13 @@ jobs:
     clean: true
     fetchDepth: 1
 
-  - script: ./bin/set_php_versions.sh ${{ variables.phpVersion }}
-    workingDirectory: $(System.DefaultWorkingDirectory)/infrastucture
+  - script: infrastructure/bin/set_php_versions.sh ${{ variables.phpVersion }}
     displayName: 'PHP version'
 
   - script: cp infrastructure/conf/deploy.htaccess .htaccess
-    workingDirectory: $(System.DefaultWorkingDirectory)
     displayName: 'Write-out htaccess'
 
-  - script: ./bin/deploy.sh $(System.DefaultWorkingDirectory)
-    workingDirectory: $(System.DefaultWorkingDirectory)/infrastucture
+  - script: infrastructure/bin/deploy.sh .
     displayName: Dependencies
     env:
       API_URI: /graphql
@@ -41,10 +38,10 @@ jobs:
       CYPRESS_INSTALL_BINARY: 0
 
   - task: ArchiveFiles@2
-    displayName: 'Archive $(System.DefaultWorkingDirectory)'
+    displayName: 'Archive Files'
     inputs:
-      rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-      includeRootFolder: false
+      rootFolderOrFile: .
+      includeRootFolder: true
       archiveFile: '$(Build.ArtifactStagingDirectory)/Application_$(Build.BuildId).zip'
 
   - task: PublishBuildArtifacts@1
