@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 # Errors will fail out
-set -e
+set -o errexit
+# Don't mask errors in piped commands
+set -o pipefail
+# Fail if using undefined variables
+set -o nounset
 
 if [ -z "$1" ]; then
     echo "Must past abs path as argument."
