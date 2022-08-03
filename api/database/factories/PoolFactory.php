@@ -49,7 +49,7 @@ class PoolFactory extends Factory
     {
         return $this->afterCreating(function (Pool $pool) {
             $assets = CmoAsset::inRandomOrder()->limit(4)->get();
-            $classifications = Classification::inRandomOrder()->limit(5)->get();
+            $classifications = Classification::inRandomOrder()->limit(1)->get();
             $skills = Skill::inRandomOrder()->limit(10)->get();
             $pool->essentialCriteria()->saveMany($assets->slice(0,2));
             $pool->assetCriteria()->saveMany($assets->slice(2,2));

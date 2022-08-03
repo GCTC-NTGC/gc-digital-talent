@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
                     $user->save();
 
                     $user->expectedClassifications()->sync(
-                        $faker->randomElements($pool->classifications()->pluck('classifications.id')->toArray(), 3)
+                        $pool->classifications()->pluck('classifications.id')->toArray()
                     );
                 } else {
                     // non-government users have no current classification or expected classifications but have salary

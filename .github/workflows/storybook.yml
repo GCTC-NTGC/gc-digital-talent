@@ -13,8 +13,9 @@ on:
 
 jobs:
   deployment:
-    # Never run automatically on first trigger event, only on manual re-run.
-    if: ${{ github.run_attempt > 1 }}
+    # 1. Always run for commits on main branch, and for any other commits...
+    # 2. Never run automatically on first trigger event, only on manual re-run.
+    if: ${{ github.ref_name == 'main' || github.run_attempt > 1 }}
     runs-on: ubuntu-latest
     env:
       NPM_VERSION: '8.3.0'
