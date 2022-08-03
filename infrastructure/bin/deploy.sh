@@ -56,6 +56,13 @@ npm run codegen
 npm run intl-compile
 npm run production
 
+### Indigenous Apprenticeship
+
+cd $ROOT_DIR/frontend/indigenousapprenticeship
+npm run codegen
+npm run intl-compile
+npm run production
+
 ### Cleanup /frontend npm dependencies
 
 cd $ROOT_DIR/frontend

@@ -33,8 +33,21 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
+    # Send browse requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^browse/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^browse(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    # Send localized browse requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/browse(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
+    # Indigenous Apprenticeship french vanity url
+    RewriteRule ^apprenti-autochtonne-ti(/(.*))?$  %{ENV:APP_URL}/fr/indigenous-it-apprentice$1 [L,R=301]
+
+    # Indigenous Apprenticeship routes
+    RewriteRule ^indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$2 [L]
+    RewriteRule ^(en|fr)/indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$3 [L]
+
     # PHP Info page for debugging
-    RewriteRule ^phpinfo.php$ phpinfo.php [L]
+    #RewriteRule ^phpinfo.php$ phpinfo.php [L]
 
     # Send all other requests to /tc-report
     RewriteRule ^(.*)/?$ tc-report/$1 [L]
