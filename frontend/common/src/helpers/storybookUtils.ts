@@ -1,18 +1,12 @@
-/* eslint-disable import/prefer-default-export */
-// this is a util file that could have many exports
 import {
   Viewport,
   ViewportStyles,
-} from "@storybook/addon-viewport/dist/ts3.9/models";
+  Styles,
+} from "@storybook/addon-viewport/dist/ts3.9/models/Viewport";
 
 // type guard for ViewportStyles
-function isViewportStyles(
-  viewportStyles:
-    | ViewportStyles
-    | ((s: ViewportStyles) => ViewportStyles)
-    | null,
-): viewportStyles is ViewportStyles {
-  return (viewportStyles as ViewportStyles) !== undefined;
+function isViewportStyles(styles: Styles): styles is ViewportStyles {
+  return (styles as ViewportStyles) !== undefined;
 }
 
 function styleStringToPixelNumber(s: string): number {
@@ -26,6 +20,15 @@ export const widthOf = (viewport: Viewport): number => {
   if (isViewportStyles(viewport.styles)) {
     const viewportStyles = viewport.styles as ViewportStyles;
     return styleStringToPixelNumber(viewportStyles.width);
+  }
+
+  throw new Error("Can't handle styles which is not a viewport");
+};
+
+export const heightOf = (viewport: Viewport): number => {
+  if (isViewportStyles(viewport.styles)) {
+    const viewportStyles = viewport.styles as ViewportStyles;
+    return styleStringToPixelNumber(viewportStyles.height);
   }
 
   throw new Error("Can't handle styles which is not a viewport");
