@@ -19,6 +19,7 @@ jobs:
   steps:
   - checkout: self
     clean: true
+    fetchDepth: 1
 
   - script: ./bin/set_php_versions.sh ${{ variables.phpVersion }}
     workingDirectory: $(System.DefaultWorkingDirectory)/infrastucture
