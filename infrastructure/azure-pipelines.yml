@@ -27,7 +27,7 @@ jobs:
   - script: cp infrastructure/conf/deploy.htaccess .htaccess
     displayName: 'Write-out htaccess'
 
-  - script: infrastructure/bin/deploy.sh ~
+  - script: infrastructure/bin/deploy.sh $(System.DefaultWorkingDirectory)
     displayName: Dependencies
     env:
       API_URI: /graphql
@@ -40,7 +40,7 @@ jobs:
   - task: ArchiveFiles@2
     displayName: 'Archive Files'
     inputs:
-      rootFolderOrFile: .
+      rootFolderOrFile: $(System.DefaultWorkingDirectory)
       includeRootFolder: true
       archiveFile: '$(Build.ArtifactStagingDirectory)/Application_$(Build.BuildId).zip'
 
