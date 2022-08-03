@@ -27,7 +27,7 @@ jobs:
   - script: cp infrastructure/conf/deploy.htaccess .htaccess
     displayName: 'Write-out htaccess'
 
-  - script: infrastructure/bin/deploy.sh .
+  - script: infrastructure/bin/deploy.sh ~
     displayName: Dependencies
     env:
       API_URI: /graphql
