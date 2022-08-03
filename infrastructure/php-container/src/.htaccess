@@ -1,3 +1,5 @@
+# This file is mounted in the php docker container for local testing.  Any changes to this file that need to be deployed to the servers (dev, UAT, prod) should be manually made in infrastructure/conf/deploy.htaccess also.
+
 # Don't automatically add slash (with 301 redirect) if path matches a directory
 DirectorySlash off
 
