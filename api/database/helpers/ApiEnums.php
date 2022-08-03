@@ -257,7 +257,7 @@ class ApiEnums
     const CITIZENSHIP_CITIZEN = 'CITIZEN';
     const CITIZENSHIP_PR = 'PERMANENT_RESIDENT';
     const CITIZENSHIP_OTHER = 'OTHER';
-    public static function citizenshipArray() : array
+    public static function citizenshipStatuses() : array
     {
         return [
             self::CITIZENSHIP_CITIZEN,

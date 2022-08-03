@@ -46,7 +46,7 @@ type User {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
-    citizenship: CitizenStatus
+    citizenship: CitizenshipStatus
     isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Language
@@ -158,7 +158,7 @@ enum GovEmployeeType {
     INDETERMINATE
 }
 
-enum CitizenStatus {
+enum CitizenshipStatus {
     CITIZEN
     PERMANENT_RESIDENT
     OTHER
@@ -175,7 +175,7 @@ type Applicant {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
-    citizenship: CitizenStatus
+    citizenship: CitizenshipStatus
     isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Gov info
@@ -745,7 +745,7 @@ input CreateUserInput {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
-    citizenship: CitizenStatus
+    citizenship: CitizenshipStatus
     isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Language
@@ -806,7 +806,7 @@ input UpdateUserAsAdminInput {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
-    citizenship: CitizenStatus
+    citizenship: CitizenshipStatus
     isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Language
@@ -863,7 +863,7 @@ input UpdateUserAsUserInput {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
-    citizenship: CitizenStatus
+    citizenship: CitizenshipStatus
     isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Language
@@ -1070,7 +1070,7 @@ input CreateApplicantFilterInput {
     expectedClassifications: ClassificationBelongsToMany @rename(attribute: "classifications")
     skills: SkillBelongsToMany
     pools: PoolBelongsToMany
-    citizenship: CitizenStatus
+    citizenship: CitizenshipStatus
     isVeteran: Boolean @rename(attribute: "is_veteran")
 }
 

@@ -14,7 +14,7 @@ type Applicant {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
-  citizenship: CitizenStatus
+  citizenship: CitizenshipStatus
   isVeteran: Boolean
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
@@ -138,7 +138,7 @@ enum CandidateExpiryFilter {
   ALL
 }
 
-enum CitizenStatus {
+enum CitizenshipStatus {
   CITIZEN
   PERMANENT_RESIDENT
   OTHER
@@ -229,7 +229,7 @@ input CreateApplicantFilterInput {
   expectedClassifications: ClassificationBelongsToMany
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
-  citizenship: CitizenStatus
+  citizenship: CitizenshipStatus
   isVeteran: Boolean
 }
 
@@ -338,7 +338,7 @@ input CreateUserInput {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
-  citizenship: CitizenStatus
+  citizenship: CitizenshipStatus
   isVeteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
@@ -1200,7 +1200,7 @@ input UpdateUserAsAdminInput {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
-  citizenship: CitizenStatus
+  citizenship: CitizenshipStatus
   isVeteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
@@ -1245,7 +1245,7 @@ input UpdateUserAsUserInput {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
-  citizenship: CitizenStatus
+  citizenship: CitizenshipStatus
   isVeteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
@@ -1293,7 +1293,7 @@ type User {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
-  citizenship: CitizenStatus
+  citizenship: CitizenshipStatus
   isVeteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
