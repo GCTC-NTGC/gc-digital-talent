@@ -15,7 +15,7 @@ set -o errexit
 set -o pipefail
 # Fail if using undefined variables
 set -o nounset
-cp $(System.DefaultWorkingDirectory)/infrastructure/deploy-htaccess $(System.DefaultWorkingDirectory)/.htaccess
+cp $(System.DefaultWorkingDirectory)/infrastructure/conf/deploy.htaccess $(System.DefaultWorkingDirectory)/.htaccess
 
 ### Dependencies
 
