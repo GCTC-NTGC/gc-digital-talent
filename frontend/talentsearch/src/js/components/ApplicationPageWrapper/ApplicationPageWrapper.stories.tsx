@@ -1,9 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import ApplicationPageWrapper, {
-  type ApplicationPageWrapperProps,
-} from "./ApplicationPageWrapper";
+import ApplicationPageWrapper from "./ApplicationPageWrapper";
 
 type ApplicationPageWrapperComponent = typeof ApplicationPageWrapper;
 
