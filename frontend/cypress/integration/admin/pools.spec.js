@@ -12,6 +12,15 @@ describe("Pools", () => {
     cy.url().should("contain", "/admin/pools");
   }
 
+  /**
+   * Wait for update mutation
+   * Check for success toast
+   */
+  const expectUpdate = () => {
+    cy.wait("@gqlupdatePoolAdvertisementMutation");
+    cy.expectToast(/pool updated successfully/i);
+  }
+
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "getEditPoolData");
@@ -22,7 +31,7 @@ describe("Pools", () => {
     loginAndGoToPoolsPage();
   });
 
-  it("should update classification", () => {
+  it("should update the pool", () => {
     // Navigate to edit page of draft
     cy.findByRole("link", { name: /edit indigenous apprenticeship program/i }).click();
     cy.wait("@gqlgetEditPoolDataQuery");
@@ -42,11 +51,15 @@ describe("Pools", () => {
 
     // Submit the form
     cy.findByRole("button", { name: /save pool name/i }).click();
-    cy.wait("@gqlupdatePoolAdvertisementMutation");
+    expectUpdate();
 
+    // Update expiry date to some arbitrary date in the future
+    cy.findByLabelText(/end date/i)
+      .clear()
+      .type("2030-01-01")
 
-    // Check for toast
-    cy.expectToast(/pool updated successfully/i);
+    cy.findByRole("button", { name: /save closing date/i }).click();
+    expectUpdate();
 
   });
 });
