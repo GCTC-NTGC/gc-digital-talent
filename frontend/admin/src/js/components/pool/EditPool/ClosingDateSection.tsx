@@ -3,6 +3,7 @@ import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Input, Submit } from "@common/components/form";
 import { FormProvider, useForm } from "react-hook-form";
+import { useDeepCompareEffect } from "@common/hooks/useDeepCompareEffect";
 import { strToDateTimeTz } from "@common/helpers/dateUtils";
 import {
   AdvertisementStatus,
@@ -39,10 +40,15 @@ export const ClosingDateSection = ({
     return { endDate: parsedDate.toISOString().split("T")[0] };
   };
 
+  const suppliedValues = dataToFormValues(poolAdvertisement);
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(poolAdvertisement),
+    defaultValues: suppliedValues,
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset } = methods;
+
+  useDeepCompareEffect(() => {
+    reset(suppliedValues);
+  }, [suppliedValues, reset]);
 
   const handleSave = (formValues: FormValues) => {
     onSave({
