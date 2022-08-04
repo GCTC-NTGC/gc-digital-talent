@@ -17,7 +17,9 @@ describe("Pools", () => {
    * Check for success toast
    */
   const expectUpdate = () => {
-    cy.wait("@gqlupdatePoolAdvertisementMutation");
+    cy.wait("@gqlupdatePoolAdvertisementMutation")
+      .its('response.body.data.updatePoolAdvertisement')
+      .should('have.property', 'id');
     cy.expectToast(/pool updated successfully/i);
   }
 
