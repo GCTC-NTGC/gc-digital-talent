@@ -164,6 +164,8 @@ const Dialog = ({
   );
 };
 
+Dialog.Overlay = Overlay;
+Dialog.Content = Content;
 Dialog.Header = Header;
 Dialog.Footer = Footer;
 export default Dialog;
