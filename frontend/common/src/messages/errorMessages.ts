@@ -2,7 +2,13 @@ import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
   required: {
-    defaultMessage: "This field is required.",
+    // These errors must be passed to react-hook-form as error messages, and it only expects strings.
+    // However, when we use rich text elements like `<hidden>`, formatMessage will return ReactNode.
+    // For this reason, we can't use rich text elements in these error messages, only simple values.
+    //
+    // This was the case despite indications that feeding it ReactNode as a message should work:
+    // https://github.com/react-hook-form/react-hook-form/discussions/8401#discussioncomment-2819633
+    defaultMessage: "{fieldLabel}: This field is required.",
     description:
       "Error message that this field must filled for the form to be valid.",
   },

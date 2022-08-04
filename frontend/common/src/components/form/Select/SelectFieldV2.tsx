@@ -5,6 +5,8 @@ import ReactSelect, { components } from "react-select";
 import type { NoticeProps, PropsValue, GroupBase, Options } from "react-select";
 import camelCase from "lodash/camelCase";
 import { useIntl } from "react-intl";
+import ReactDOMServer from "react-dom/server";
+import { errorMessages } from "../../../messages";
 import { InputWrapper } from "../../inputPartials";
 
 export type Option = { value: string | number; label: string };
@@ -79,6 +81,27 @@ const LocalizedNoOptionsMessage = <
     </components.NoOptionsMessage>
   );
 };
+/**
+ * One-off hook to add default messages to validation rule object in place of booleans.
+ *
+ * @param fieldLabel label to pass to default messages for accessibility purposes
+ * @param rules initial rule object
+ * @returns modified rule object
+ */
+export const useRulesWithDefaultMessages = (
+  fieldLabel: string,
+  rules: RegisterOptions = {},
+) => {
+  const { formatMessage } = useIntl();
+  const rulesWithDefaults = { ...rules };
+
+  if (rules.required === true)
+    rulesWithDefaults.required = formatMessage(errorMessages.required, {
+      fieldLabel,
+    });
+
+  return rulesWithDefaults;
+};
 
 const SelectFieldV2 = ({
   id,
@@ -106,10 +129,15 @@ const SelectFieldV2 = ({
 
   const {
     formState: { errors },
+    // TODO: Set explicit TFieldValues. Defaults to Record<string, any>
   } = useFormContext();
 
   const error = errors[name]?.message;
   const isRequired = !!rules?.required;
+  // react-hook-form has no way to set default messages when `{ required: true }`,
+  // so that's handled here. (It's a hook because it uses react-intl hook.)
+  // See: https://github.com/react-hook-form/react-hook-form/issues/458
+  const rulesWithDefaults = useRulesWithDefaultMessages(label, rules);
 
   return (
     <div data-h2-margin="b(bottom, xxs)">
@@ -120,7 +148,8 @@ const SelectFieldV2 = ({
       >
         <div style={{ width: "100%" }}>
           <Controller
-            {...{ name, rules }}
+            {...{ name }}
+            rules={rulesWithDefaults}
             render={({ field }) => {
               /** Converts our react-hook-form state to Option or Option[]
                * format that react-select understands. */
