@@ -25,8 +25,8 @@ import {
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-import talentSearchRoutes from "../../talentSearchRoutes";
 import profileMessages from "../profile/profileMessages";
+import applicantProfileRoutes from "../../applicantProfileRoutes";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
@@ -366,12 +366,13 @@ export interface GovInfoFormWithProfileWrapperProps {
   departments: Department[];
   classifications: Classification[];
   initialData: GetGovInfoFormLookupDataQuery["me"] | undefined;
+  userId: string;
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
 export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
   GovInfoFormWithProfileWrapperProps
-> = ({ departments, classifications, initialData, submitHandler }) => {
+> = ({ departments, classifications, initialData, userId, submitHandler }) => {
   const intl = useIntl();
 
   const defaultValues = dataToFormValues(initialData);
@@ -412,6 +413,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
           }),
         },
       ]}
+      userId={userId}
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -422,7 +424,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
             govEmployeeStatus={govEmployeeStatus}
             groupSelection={groupSelection}
           />
-          <ProfileFormFooter mode="saveButton" />
+          <ProfileFormFooter userId={userId} mode="saveButton" />
         </form>
       </FormProvider>
     </ProfileFormWrapper>
@@ -430,12 +432,14 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
 };
 
 // outer, containing component
-const GovInfoFormContainer: React.FunctionComponent = () => {
+const GovInfoFormContainer: React.FunctionComponent<{ meId: string }> = ({
+  meId,
+}) => {
   // needed bits for react-intl, form submits functions, and routing post submission
   const intl = useIntl();
 
   const locale = getLocale(intl);
-  const paths = talentSearchRoutes(locale);
+  const paths = applicantProfileRoutes(locale);
 
   // Fetch departments and classifications from graphQL to pass into component to render and pull "Me" at the same time
   const [lookUpResult] = useGetGovInfoFormLookupDataQuery();
@@ -446,7 +450,6 @@ const GovInfoFormContainer: React.FunctionComponent = () => {
   const classifications: Classification[] | [] =
     data?.classifications.filter(notEmpty) ?? [];
   const meInfo = data?.me;
-  const meId = meInfo?.id;
 
   // submitting the form component values back out to graphQL, after smoothing form-values to appropriate type, then return to /profile
   const [, executeMutation] = useUpdateGovAsUserMutation();
@@ -479,10 +482,10 @@ const GovInfoFormContainer: React.FunctionComponent = () => {
           const message = intl.formatMessage(profileMessages.profileCompleted);
           if (!preProfileStatus && currentProfileStatus) {
             toast.success(message);
-            navigate(paths.profile());
+            navigate(paths.home(meId));
           }
         }
-        navigate(paths.profile());
+        navigate(paths.home(meId));
         toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {
@@ -496,6 +499,7 @@ const GovInfoFormContainer: React.FunctionComponent = () => {
         departments={departments}
         classifications={classifications}
         initialData={meInfo}
+        userId={meId}
         submitHandler={onSubmit}
       />
     </Pending>

@@ -17,7 +17,7 @@ const LoginPage: React.FC = () => {
   const intl = useIntl();
   const paths = useApiRoutes();
   const talentPaths = useTalentSearchRoutes();
-  const loginPath = paths.login(talentPaths.profile(), getLocale(intl));
+  const loginPath = paths.login(talentPaths.home(), getLocale(intl));
 
   return (
     <>

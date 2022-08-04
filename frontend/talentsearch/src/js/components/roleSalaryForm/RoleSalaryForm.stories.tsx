@@ -10,9 +10,10 @@ export default {
 } as Meta;
 
 const TemplateRoleSalaryForm: Story = (args) => {
-  const { initialFormValues, handleSubmit } = args;
+  const { userId, initialFormValues, handleSubmit } = args;
   return (
     <RoleSalaryForm
+      userId={userId}
       initialFormValues={initialFormValues}
       handleSubmit={handleSubmit}
     />
@@ -22,6 +23,7 @@ export const formEmpty = TemplateRoleSalaryForm.bind({});
 export const formSomeSelected = TemplateRoleSalaryForm.bind({});
 
 formEmpty.args = {
+  userId: "user-id",
   initialFormValues: { expectedGenericJobTitles: [] },
   handleSubmit: action("handleSubmit"),
 };

@@ -2,40 +2,46 @@ import { getLocale } from "@common/helpers/localize";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
 import { ExperienceType } from "./components/experienceForm/types";
-import { APPLICANTPROFILE_APP_DIR } from "./talentSearchConstants";
 
 export type ApplicantProfileRoutes = ReturnType<typeof applicantProfileRoutes>;
 
 const applicantProfileRoutes = (lang: string) => {
-  const home = (): string => path.join("/", lang, APPLICANTPROFILE_APP_DIR); // leading slash in case empty base url
+  const home = (userId: string): string =>
+    path.join("/", lang, "users", userId, "profile"); // leading slash in case empty base url
   return {
     home,
     createAccount: (): string => path.join("/", lang, "create-account"),
-    profilePage: (): string => path.join(home(), "profile"),
-    aboutMe: (): string => path.join(home(), "about-me"),
-    languageInformation: (): string =>
-      path.join(home(), "language-information"),
-    governmentInformation: (): string =>
-      path.join(home(), "government-information"),
-    roleSalary: (): string => path.join(home(), "role-salary"),
-    workLocation: (): string => path.join(home(), "work-location"),
-    workPreferences: (): string => path.join(home(), "work-preferences"),
-    diversityEquityInclusion: (): string =>
-      path.join(home(), "diversity-and-inclusion"),
-    skillsAndExperiences: (): string =>
-      path.join(home(), "skills-and-experiences"),
-    createAward: (): string =>
-      path.join(home(), "skills-and-experiences", "award", "create"),
-    createCommunity: (): string =>
-      path.join(home(), "skills-and-experiences", "community", "create"),
-    createEducation: (): string =>
-      path.join(home(), "skills-and-experiences", "education", "create"),
-    createPersonal: (): string =>
-      path.join(home(), "skills-and-experiences", "personal", "create"),
-    createWork: (): string =>
-      path.join(home(), "skills-and-experiences", "work", "create"),
-    editExperience: (type: ExperienceType, id: string) =>
-      path.join(home(), "skills-and-experiences", type, id, "edit"),
+    aboutMe: (userId: string): string =>
+      path.join(home(userId), "about-me", "edit"),
+    languageInformation: (userId: string): string =>
+      path.join(home(userId), "language-info", "edit"),
+    governmentInformation: (userId: string): string =>
+      path.join(home(userId), "government-info", "edit"),
+    roleSalary: (userId: string): string =>
+      path.join(home(userId), "role-salary-expectations", "edit"),
+    workLocation: (userId: string): string =>
+      path.join(home(userId), "work-location", "edit"),
+    workPreferences: (userId: string): string =>
+      path.join(home(userId), "work-preferences", "edit"),
+    diversityEquityInclusion: (userId: string): string =>
+      path.join(home(userId), "employment-equity", "edit"),
+    skillsAndExperiences: (userId: string): string =>
+      path.join(home(userId), "experiences"),
+    createAward: (userId: string): string =>
+      path.join(home(userId), "experiences", "awards", "create"),
+    createCommunity: (userId: string): string =>
+      path.join(home(userId), "experiences", "community", "create"),
+    createEducation: (userId: string): string =>
+      path.join(home(userId), "experiences", "education", "create"),
+    createPersonal: (userId: string): string =>
+      path.join(home(userId), "experiences", "personal", "create"),
+    createWork: (userId: string): string =>
+      path.join(home(userId), "experiences", "work", "create"),
+    editExperience: (
+      userId: string,
+      type: ExperienceType,
+      experienceId: string,
+    ) => path.join(home(userId), "experiences", type, experienceId, "edit"),
   };
 };
 

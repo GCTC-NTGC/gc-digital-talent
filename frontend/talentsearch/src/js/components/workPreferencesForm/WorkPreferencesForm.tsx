@@ -15,10 +15,10 @@ import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import {
-  GetWorkPreferencesQuery,
   UpdateUserAsUserInput,
   UpdateWorkPreferencesMutation,
   useGetWorkPreferencesQuery,
+  User,
   useUpdateWorkPreferencesMutation,
 } from "../../api/generated";
 import profileMessages from "../profile/profileMessages";
@@ -30,7 +30,7 @@ export type FormValues = Pick<
   wouldAcceptTemporary?: string;
 };
 export interface WorkPreferencesFormProps {
-  initialData: GetWorkPreferencesQuery | undefined;
+  initialData: User;
   handleWorkPreferences: (
     id: string,
     data: UpdateUserAsUserInput,
@@ -43,19 +43,16 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
 }) => {
   const intl = useIntl();
 
-  const dataToFormValues = (
-    data?: GetWorkPreferencesQuery | undefined,
-  ): FormValues => {
+  const dataToFormValues = (data: User): FormValues => {
     const boolToString = (boolVal: boolean | null | undefined): string => {
       return boolVal ? "true" : "false";
     };
 
     return {
-      wouldAcceptTemporary: data?.me?.wouldAcceptTemporary
-        ? boolToString(data?.me?.wouldAcceptTemporary)
+      wouldAcceptTemporary: data.wouldAcceptTemporary
+        ? boolToString(data.wouldAcceptTemporary)
         : undefined,
-      acceptedOperationalRequirements:
-        data?.me?.acceptedOperationalRequirements,
+      acceptedOperationalRequirements: data.acceptedOperationalRequirements,
     };
   };
   const formValuesToSubmitData = (
@@ -81,11 +78,8 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    if (initialData?.me) {
-      await handleWorkPreferences(
-        initialData.me?.id,
-        formValuesToSubmitData(data),
-      );
+    if (initialData) {
+      await handleWorkPreferences(initialData.id, formValuesToSubmitData(data));
     }
   };
 
@@ -109,6 +103,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
           }),
         },
       ]}
+      userId={initialData.id}
     >
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -172,7 +167,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             </div>
             <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
               <div data-h2-padding="b(right, l)">
-                <ProfileFormFooter mode="saveButton" />
+                <ProfileFormFooter userId={initialData.id} mode="saveButton" />
               </div>
             </div>
           </div>
@@ -205,7 +200,7 @@ export const WorkPreferencesApi: React.FunctionComponent = () => {
           }
         }
       }
-      navigate(paths.home());
+      navigate(paths.home(id));
       toast.success(intl.formatMessage(profileMessages.userUpdated));
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
@@ -221,7 +216,7 @@ export const WorkPreferencesApi: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {initialData?.me ? (
         <WorkPreferencesForm
-          initialData={initialData}
+          initialData={initialData.me}
           handleWorkPreferences={handleWorkPreferences}
         />
       ) : (

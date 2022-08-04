@@ -58,25 +58,29 @@ export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
   return e2EndDate - e1EndDate;
 };
 export interface ExperienceAndSkillsProps {
+  applicantId: string;
   experiences?: Experience[];
 }
 
 export const ExperienceAndSkills: React.FunctionComponent<
   ExperienceAndSkillsProps
-> = ({ experiences }) => {
+> = ({ applicantId, experiences }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
   const experienceEditPaths = {
-    awardUrl: (id: string) => paths.editExperience("award", id),
-    communityUrl: (id: string) => paths.editExperience("community", id),
-    educationUrl: (id: string) => paths.editExperience("education", id),
-    personalUrl: (id: string) => paths.editExperience("personal", id),
-    workUrl: (id: string) => paths.editExperience("work", id),
+    awardUrl: (id: string) => paths.editExperience(applicantId, "award", id),
+    communityUrl: (id: string) =>
+      paths.editExperience(applicantId, "community", id),
+    educationUrl: (id: string) =>
+      paths.editExperience(applicantId, "education", id),
+    personalUrl: (id: string) =>
+      paths.editExperience(applicantId, "personal", id),
+    workUrl: (id: string) => paths.editExperience(applicantId, "work", id),
   };
 
   const links = [
     {
-      href: paths.createPersonal(),
+      href: paths.createPersonal(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Personal",
         description: "Title for personal experience form button.",
@@ -84,7 +88,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: LightBulbIcon,
     },
     {
-      href: paths.createCommunity(),
+      href: paths.createCommunity(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Community",
         description: "Title for community experience form button.",
@@ -92,7 +96,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: UserGroupIcon,
     },
     {
-      href: paths.createWork(),
+      href: paths.createWork(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Work",
         description: "Title for work experience form button.",
@@ -100,7 +104,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: BriefcaseIcon,
     },
     {
-      href: paths.createEducation(),
+      href: paths.createEducation(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Education",
         description: "Title for education experience form button.",
@@ -108,7 +112,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: BookOpenIcon,
     },
     {
-      href: paths.createAward(),
+      href: paths.createAward(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Award",
         description: "Title for award experience form button.",
@@ -139,6 +143,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         description:
           "Heading for experience and skills page in applicant profile.",
       })}
+      userId={applicantId}
     >
       <p
         data-h2-font-style="b(reset)"
@@ -201,7 +206,11 @@ export const ExperienceAndSkills: React.FunctionComponent<
         />
       )}
 
-      <ProfileFormFooter mode="cancelButton" />
+      <ProfileFormFooter
+        userId={applicantId}
+        mode="cancelButton"
+        link={paths.home(applicantId)}
+      />
     </ProfileFormWrapper>
   );
 };
@@ -217,6 +226,7 @@ export const ExperienceAndSkillsApi: React.FunctionComponent<{
     <Pending fetching={fetching} error={error}>
       {applicantData?.applicant ? (
         <ExperienceAndSkills
+          applicantId={applicantId}
           experiences={applicantData.applicant.experiences?.filter(notEmpty)}
         />
       ) : (
@@ -236,6 +246,7 @@ export const ExperienceAndSkillsApi: React.FunctionComponent<{
   );
 };
 
+// This should probably be removed now
 const ExperienceAndSkillsRouterApi: React.FunctionComponent = () => {
   const intl = useIntl();
   const [result] = useGetMeQuery();

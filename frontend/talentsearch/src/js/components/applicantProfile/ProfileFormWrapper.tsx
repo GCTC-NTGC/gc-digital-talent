@@ -12,14 +12,16 @@ export interface ProfileFormWrapperProps {
   description: string;
   title: string;
   cancelLink?: string;
+  userId: string;
 }
 
 const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
   crumbs,
   description,
   title,
-  children,
   cancelLink,
+  userId,
+  children,
 }) => {
   const intl = useIntl();
   const profilePath = useApplicantProfileRoutes();
@@ -29,7 +31,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         defaultMessage: "My Profile",
         description: "Breadcrumb from applicant profile wrapper.",
       }),
-      href: profilePath.home(),
+      href: profilePath.home(userId),
       icon: <UserIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     ...crumbs,
@@ -59,7 +61,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         data-h2-width="b(100) s(75)"
       >
         <div data-h2-margin="b(top-bottom, l)">
-          <CancelButton link={cancelLink} />
+          <CancelButton userId={userId} link={cancelLink} />
         </div>
         <h1
           data-h2-margin="b(all, none)"

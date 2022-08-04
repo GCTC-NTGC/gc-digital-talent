@@ -30,6 +30,7 @@ const renderGovInfoForm = ({
   initialData,
   departments,
   classifications,
+  userId,
   submitHandler,
 }: GovernmentInfoFormProps) => {
   return render(
@@ -37,6 +38,7 @@ const renderGovInfoForm = ({
       initialData={initialData}
       departments={departments}
       classifications={classifications}
+      userId={userId}
       submitHandler={submitHandler}
     />,
   );
@@ -49,6 +51,7 @@ describe("GovernmentInfoForm", () => {
         initialData: mockUser,
         departments: mockDepartments,
         classifications: mockClassifications,
+        userId: mockUser.id,
         submitHandler: mockSave,
       });
 
@@ -62,6 +65,7 @@ describe("GovernmentInfoForm", () => {
         initialData: mockUser,
         departments: mockDepartments,
         classifications: mockClassifications,
+        userId: mockUser.id,
         submitHandler: mockSave,
       });
     });
@@ -122,6 +126,7 @@ describe("GovernmentInfoForm", () => {
         initialData: mockUser,
         departments: mockDepartments,
         classifications: mockClassifications,
+        userId: mockUser.id,
         submitHandler: mockSave,
       });
     });

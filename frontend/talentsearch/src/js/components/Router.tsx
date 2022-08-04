@@ -129,58 +129,69 @@ const profileRoutes = (
     }),
   },
   {
-    path: profilePaths.home(),
+    path: profilePaths.home(":userId"),
     action: () => ({
       component: <ProfilePage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
-    path: profilePaths.governmentInformation(),
-    action: () => ({
-      component: <GovInfoFormContainer />,
-      authorizedRoles: [Role.Applicant],
-    }),
+    path: profilePaths.governmentInformation(":userId"),
+    action: (context) => {
+      const userId = context.params.userId as string;
+      return {
+        component: <GovInfoFormContainer meId={userId} />,
+        authorizedRoles: [Role.Applicant],
+      };
+    },
   },
   {
-    path: profilePaths.languageInformation(),
+    path: profilePaths.languageInformation(":userId"),
     action: () => ({
       component: <LanguageInformationFormContainer />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
-    path: profilePaths.workLocation(),
+    path: profilePaths.workLocation(":userId"),
     action: () => ({
       component: <WorkLocationPreferenceApi />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
-    path: profilePaths.roleSalary(),
+    path: profilePaths.roleSalary(":userId"),
     action: () => ({
       component: <RoleSalaryFormContainer />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
-    path: `${profilePaths.skillsAndExperiences()}/:type/create`,
+    path: `${profilePaths.skillsAndExperiences(":userId")}/:type/create`,
     action: (context) => {
+      const userId = context.params.userId as string;
       const experienceType = context.params.type as ExperienceType;
       return {
-        component: <ExperienceFormContainer experienceType={experienceType} />,
+        component: (
+          <ExperienceFormContainer
+            userId={userId}
+            experienceType={experienceType}
+          />
+        ),
         authorizedRoles: [Role.Applicant],
       };
     },
   },
   {
-    path: `${profilePaths.skillsAndExperiences()}/:type/:id/edit`,
+    path: `${profilePaths.skillsAndExperiences(":userId")}/:type/:id/edit`,
     action: (context) => {
+      const userId = context.params.userId as string;
       const experienceType = context.params.type as ExperienceType;
       const experienceId = context.params.id as string;
       return {
         component: (
           <ExperienceFormContainer
+            userId={userId}
             experienceType={experienceType}
             experienceId={experienceId}
             edit
@@ -191,37 +202,30 @@ const profileRoutes = (
     },
   },
   {
-    path: profilePaths.workPreferences(),
+    path: profilePaths.workPreferences(":userId"),
     action: () => ({
       component: <WorkPreferencesApi />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
-    path: profilePaths.aboutMe(),
+    path: profilePaths.aboutMe(":userId"),
     action: () => ({
       component: <AboutMeFormContainer />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
-    path: profilePaths.diversityEquityInclusion(),
+    path: profilePaths.diversityEquityInclusion(":userId"),
     action: () => ({
       component: <DiversityEquityInclusionFormApi />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
-    path: profilePaths.skillsAndExperiences(),
+    path: profilePaths.skillsAndExperiences(":userId"),
     action: () => ({
       component: <ExperienceAndSkillsRouterApi />,
-      authorizedRoles: [Role.Applicant],
-    }),
-  },
-  {
-    path: profilePaths.profilePage(),
-    action: () => ({
-      component: <ProfilePage />,
       authorizedRoles: [Role.Applicant],
     }),
   },

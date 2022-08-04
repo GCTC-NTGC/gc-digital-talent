@@ -4,12 +4,15 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
-const CancelButton: React.FunctionComponent<{ link?: string }> = ({ link }) => {
+const CancelButton: React.FunctionComponent<{
+  userId: string;
+  link?: string;
+}> = ({ userId, link }) => {
   const intl = useIntl();
   const profilePaths = useApplicantProfileRoutes();
   return (
     <Link
-      href={link || profilePaths.home()}
+      href={link || profilePaths.home(userId)}
       color="secondary"
       mode="outline"
       data-h2-display="s(inline-flex)"

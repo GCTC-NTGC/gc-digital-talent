@@ -108,7 +108,7 @@ const LoggedOutPage: React.FC = () => {
         centered
         isOpen={loggedIn}
         onDismiss={() => {
-          navigate(talentPaths.profile());
+          navigate(talentPaths.home());
         }}
         title={intl.formatMessage({
           defaultMessage: "Logout",

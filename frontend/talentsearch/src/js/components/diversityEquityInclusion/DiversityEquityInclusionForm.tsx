@@ -56,6 +56,7 @@ export const DiversityEquityInclusionForm: React.FC<
           }),
         },
       ]}
+      userId={user.id}
     >
       <p>
         {intl.formatMessage({
