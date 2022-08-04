@@ -813,6 +813,7 @@ type PoolCandidate {
   cmoAssets: [CmoAsset]
   status: PoolCandidateStatus
   notes: String
+  isArchived: Boolean
 }
 
 type PoolCandidateFilter {

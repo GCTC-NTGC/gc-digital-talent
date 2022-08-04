@@ -327,6 +327,7 @@ type PoolCandidate {
 
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
     notes: String
+    isArchived: Boolean @rename(attribute: "is_archived")
 }
 
 enum LanguageAbility {

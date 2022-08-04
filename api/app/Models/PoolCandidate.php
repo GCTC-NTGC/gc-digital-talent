@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property boolean $is_indigenous
  * @property boolean $is_visible_minority
  * @property boolean $has_diploma
+ * @property boolean $is_archived
  * @property string $language_ability
  * @property array $location_preferences
  * @property array $expected_salary
