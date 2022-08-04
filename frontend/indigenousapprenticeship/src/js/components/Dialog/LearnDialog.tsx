@@ -23,7 +23,6 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
           "Learn More About the Government of Canada IT Apprenticeship Program for Indigenous Peoples",
         description: "Heading for the Learn more dialog",
       })}
-      footer={Close}
     >
       <Heading
         as="h3"
@@ -242,6 +241,7 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
           description: "Learn more dialog question twelve paragraph one",
         })}
       </p>
+      <Dialog.Footer>{Close}</Dialog.Footer>
     </Dialog>
   );
 };

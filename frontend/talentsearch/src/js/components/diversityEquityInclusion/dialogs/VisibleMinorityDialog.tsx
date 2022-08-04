@@ -66,11 +66,6 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
       onDismiss={onDismiss}
       color="ts-primary"
       title={intl.formatMessage(getEmploymentEquityGroup("minority"))}
-      footer={
-        <VisibleMinorityDialogFooter isAdded={isAdded} onSave={onSave}>
-          <DialogActions onDismiss={onDismiss} />
-        </VisibleMinorityDialogFooter>
-      }
     >
       <UnderReview />
       <p>
@@ -88,6 +83,11 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
             : "https://www23.statcan.gc.ca/imdb/p3Var_f.pl?Function=DEC&Id=45152"
         }
       />
+      <Dialog.Footer>
+        <VisibleMinorityDialogFooter isAdded={isAdded} onSave={onSave}>
+          <DialogActions onDismiss={onDismiss} />
+        </VisibleMinorityDialogFooter>
+      </Dialog.Footer>
     </Dialog>
   );
 };

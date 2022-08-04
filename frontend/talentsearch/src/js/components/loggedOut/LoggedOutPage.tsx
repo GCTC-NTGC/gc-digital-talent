@@ -115,7 +115,15 @@ const LoggedOutPage: React.FC = () => {
           description:
             "Title for the modal that appears when an authenticated user lands on /logged-out.",
         })}
-        footer={
+      >
+        <p data-h2-font-size="b(h5)">
+          {intl.formatMessage({
+            defaultMessage: "Are you sure you would like to logout?",
+            description:
+              "Question displayed when authenticated user lands on /logged-out.",
+          })}
+        </p>
+        <Dialog.Footer>
           <div
             data-h2-display="b(flex)"
             data-h2-align-items="b(center)"
@@ -149,15 +157,7 @@ const LoggedOutPage: React.FC = () => {
               </Button>
             </span>
           </div>
-        }
-      >
-        <p data-h2-font-size="b(h5)">
-          {intl.formatMessage({
-            defaultMessage: "Are you sure you would like to logout?",
-            description:
-              "Question displayed when authenticated user lands on /logged-out.",
-          })}
-        </p>
+        </Dialog.Footer>
       </Dialog>
     </>
   );

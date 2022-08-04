@@ -66,11 +66,6 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
       onDismiss={onDismiss}
       color="ts-primary"
       title={intl.formatMessage(getEmploymentEquityGroup("disability"))}
-      footer={
-        <DisabilityDialogFooter isAdded={isAdded} onSave={onSave}>
-          <DialogActions onDismiss={onDismiss} />
-        </DisabilityDialogFooter>
-      }
     >
       <UnderReview />
       <p>
@@ -88,6 +83,11 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
             : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1"
         }
       />
+      <Dialog.Footer>
+        <DisabilityDialogFooter isAdded={isAdded} onSave={onSave}>
+          <DialogActions onDismiss={onDismiss} />
+        </DisabilityDialogFooter>
+      </Dialog.Footer>
     </Dialog>
   );
 };

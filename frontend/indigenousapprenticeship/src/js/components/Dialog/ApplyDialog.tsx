@@ -32,7 +32,6 @@ const ApplyDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
         defaultMessage: "Apply Now",
         description: "Heading for the apply now dialog",
       })}
-      footer={Close}
     >
       <p>
         {intl.formatMessage(
@@ -60,6 +59,7 @@ const ApplyDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
           description: "Third paragraph for apply now dialog",
         })}
       </p>
+      <Dialog.Footer>{Close}</Dialog.Footer>
     </Dialog>
   );
 };

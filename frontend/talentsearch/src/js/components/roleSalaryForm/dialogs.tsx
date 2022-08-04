@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import Dialog from "@common/components/Dialog";
 import Button from "@common/components/Button";
+import Footer from "@common/components/Footer";
 
 export interface DialogLevelsProps {
   isOpen: boolean;
@@ -39,16 +40,6 @@ export const DialogLevelOne: React.FC<DialogLevelsProps> = ({
       color="ts-primary"
       isOpen={isOpen}
       onDismiss={onDismiss}
-      footer={
-        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
-          <CloseDialogButton close={onDismiss}>
-            {intl.formatMessage({
-              defaultMessage: "Close",
-              description: "Close Confirmations",
-            })}
-          </CloseDialogButton>
-        </div>
-      }
     >
       <p>
         {intl.formatMessage({
@@ -84,6 +75,16 @@ export const DialogLevelOne: React.FC<DialogLevelsProps> = ({
           })}
         </li>
       </ul>
+      <Dialog.Footer>
+        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
+          <CloseDialogButton close={onDismiss}>
+            {intl.formatMessage({
+              defaultMessage: "Close",
+              description: "Close Confirmations",
+            })}
+          </CloseDialogButton>
+        </div>
+      </Dialog.Footer>
     </Dialog>
   );
 };
@@ -103,16 +104,6 @@ export const DialogLevelTwo: React.FC<DialogLevelsProps> = ({
       color="ts-primary"
       isOpen={isOpen}
       onDismiss={onDismiss}
-      footer={
-        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
-          <CloseDialogButton close={onDismiss}>
-            {intl.formatMessage({
-              defaultMessage: "Close",
-              description: "Close Confirmations",
-            })}
-          </CloseDialogButton>
-        </div>
-      }
     >
       <p>
         {intl.formatMessage({
@@ -121,6 +112,16 @@ export const DialogLevelTwo: React.FC<DialogLevelsProps> = ({
           description: "blurb describing IT-02",
         })}
       </p>
+      <Dialog.Footer>
+        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
+          <CloseDialogButton close={onDismiss}>
+            {intl.formatMessage({
+              defaultMessage: "Close",
+              description: "Close Confirmations",
+            })}
+          </CloseDialogButton>
+        </div>
+      </Dialog.Footer>
     </Dialog>
   );
 };
@@ -140,16 +141,6 @@ export const DialogLevelThreeLead: React.FC<DialogLevelsProps> = ({
       color="ts-primary"
       isOpen={isOpen}
       onDismiss={onDismiss}
-      footer={
-        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
-          <CloseDialogButton close={onDismiss}>
-            {intl.formatMessage({
-              defaultMessage: "Close",
-              description: "Close Confirmations",
-            })}
-          </CloseDialogButton>
-        </div>
-      }
     >
       <p>
         {intl.formatMessage({
@@ -166,6 +157,16 @@ export const DialogLevelThreeLead: React.FC<DialogLevelsProps> = ({
             "IT-03 team lead path description, ignore things in <> tags please",
         })}
       </p>
+      <Dialog.Footer>
+        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
+          <CloseDialogButton close={onDismiss}>
+            {intl.formatMessage({
+              defaultMessage: "Close",
+              description: "Close Confirmations",
+            })}
+          </CloseDialogButton>
+        </div>
+      </Dialog.Footer>
     </Dialog>
   );
 };
@@ -185,16 +186,6 @@ export const DialogLevelThreeAdvisor: React.FC<DialogLevelsProps> = ({
       color="ts-primary"
       isOpen={isOpen}
       onDismiss={onDismiss}
-      footer={
-        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
-          <CloseDialogButton close={onDismiss}>
-            {intl.formatMessage({
-              defaultMessage: "Close",
-              description: "Close Confirmations",
-            })}
-          </CloseDialogButton>
-        </div>
-      }
     >
       <p>
         {intl.formatMessage({
@@ -211,6 +202,16 @@ export const DialogLevelThreeAdvisor: React.FC<DialogLevelsProps> = ({
             "IT-03 advisor description, ignore things in <> tags please",
         })}
       </p>
+      <Footer.Dialog>
+        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
+          <CloseDialogButton close={onDismiss}>
+            {intl.formatMessage({
+              defaultMessage: "Close",
+              description: "Close Confirmations",
+            })}
+          </CloseDialogButton>
+        </div>
+      </Footer.Dialog>
     </Dialog>
   );
 };
@@ -230,16 +231,6 @@ export const DialogLevelFourLead: React.FC<DialogLevelsProps> = ({
       color="ts-primary"
       isOpen={isOpen}
       onDismiss={onDismiss}
-      footer={
-        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
-          <CloseDialogButton close={onDismiss}>
-            {intl.formatMessage({
-              defaultMessage: "Close",
-              description: "Close Confirmations",
-            })}
-          </CloseDialogButton>
-        </div>
-      }
     >
       <p>
         {intl.formatMessage({
@@ -256,6 +247,16 @@ export const DialogLevelFourLead: React.FC<DialogLevelsProps> = ({
             "IT-04 manager path description, ignore things in <> tags please",
         })}
       </p>
+      <Dialog.Footer>
+        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
+          <CloseDialogButton close={onDismiss}>
+            {intl.formatMessage({
+              defaultMessage: "Close",
+              description: "Close Confirmations",
+            })}
+          </CloseDialogButton>
+        </div>
+      </Dialog.Footer>
     </Dialog>
   );
 };
@@ -275,16 +276,6 @@ export const DialogLevelFourAdvisor: React.FC<DialogLevelsProps> = ({
       color="ts-primary"
       isOpen={isOpen}
       onDismiss={onDismiss}
-      footer={
-        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
-          <CloseDialogButton close={onDismiss}>
-            {intl.formatMessage({
-              defaultMessage: "Close",
-              description: "Close Confirmations",
-            })}
-          </CloseDialogButton>
-        </div>
-      }
     >
       <p>
         {intl.formatMessage({
@@ -339,6 +330,16 @@ export const DialogLevelFourAdvisor: React.FC<DialogLevelsProps> = ({
           })}
         </li>
       </ul>
+      <Dialog.Footer>
+        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
+          <CloseDialogButton close={onDismiss}>
+            {intl.formatMessage({
+              defaultMessage: "Close",
+              description: "Close Confirmations",
+            })}
+          </CloseDialogButton>
+        </div>
+      </Dialog.Footer>
     </Dialog>
   );
 };
