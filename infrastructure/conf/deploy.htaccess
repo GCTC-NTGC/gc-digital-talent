@@ -71,6 +71,9 @@ DirectorySlash off
     RewriteRule ^indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$2 [L]
     RewriteRule ^(en|fr)/indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$3 [L]
 
+    # PHP Info page for debugging
+    #RewriteRule ^phpinfo.php$ phpinfo.php [L]
+
     # Send all other requests to /tc-report
     RewriteRule ^(.*)/?$ tc-report/$1 [L]
 </IfModule>
