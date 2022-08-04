@@ -1,3 +1,5 @@
+# This htaccess file is used when deployed to the dev, UAT, and production servers
+
 # Don't automatically add slash (with 301 redirect) if path matches a directory
 DirectorySlash off
 
@@ -16,6 +18,7 @@ DirectorySlash off
 
     # Send api login request to api
     RewriteRule ^login$ api/public/login [L]
+    RewriteRule ^register$ api/public/register [L]
     RewriteRule ^auth-callback$ api/public/auth-callback [L]
     RewriteRule ^refresh$ api/public/refresh [L]
 
@@ -33,21 +36,55 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
-    # PHP Info page for debugging
-    RewriteRule ^phpinfo.php$ phpinfo.php [L]
+    # Send logged-out requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^logged-out/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^logged-out(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized talent requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/logged-out(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
+    # Send browse requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^browse/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^browse(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized talent requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/browse(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
+    # Send register requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^register-info/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^register-info(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized talent requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/register-info(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
+    # Send login-info requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^login-info/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^login-info(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized talent requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/login-info(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
+    # Indigenous Apprenticeship french vanity url
+    RewriteRule ^apprenti-autochtonne-ti(/(.*))?$  %{ENV:APP_URL}/fr/indigenous-it-apprentice$1 [L,R=301]
+
+    # Indigenous Apprenticeship routes
+    RewriteRule ^indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$2 [L]
+    RewriteRule ^(en|fr)/indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$3 [L]
 
     # Send all other requests to /tc-report
     RewriteRule ^(.*)/?$ tc-report/$1 [L]
 </IfModule>
 
-# Security headers
-Header add X-Content-Type-Options nosniff
-Header add X-XSS-Protection "1; mode=block"
-Header add  Strict-Transport-Security "max-age=31536000; includeSubdomains;"
-Header add Cache-Control "max-age=31536000"
-Header add Pragma no-cache
+<IfModule mod_headers.c>
+  # Security headers
+  Header add X-Content-Type-Options nosniff
+  Header add X-XSS-Protection "1; mode=block"
+  Header add  Strict-Transport-Security "max-age=31536000; includeSubdomains;"
+  Header add Cache-Control "max-age=31536000"
+  Header add Pragma no-cache
 
-# Policy headers
-Header add Referrer-Policy "no-referrer-when-downgrade"
-#Header add Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com https://www.googletagmanager.com https://tagmanager.google.com https://code.jquery.com https://cdn.datatables.net https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://html2canvas.hertzen.com https://stackpath.bootstrapcdn.com; img-src 'self' data: https://www.google-analytics.com https://ssl.gstatic.com https://www.gstatic.com https://www.gravatar.com https://images.unsplash.com; style-src 'self' 'unsafe-inline' https://tagmanager.google.com https://fonts.googleapis.com https://code.ionicframework.com https://cdn.datatables.net https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://tagmanager.google.com https://code.ionicframework.com https://stackpath.bootstrapcdn.com; frame-src 'self'; object-src 'self'; connect-src 'self' https://api.github.com https://www.google-analytics.com;"
-Header add Feature-Policy "geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; fullscreen 'self'; payment 'none';"
+  # Policy headers
+  Header add Referrer-Policy "no-referrer-when-downgrade"
+  #Header add Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com https://www.googletagmanager.com https://tagmanager.google.com https://code.jquery.com https://cdn.datatables.net https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://html2canvas.hertzen.com https://stackpath.bootstrapcdn.com; img-src 'self' data: https://www.google-analytics.com https://ssl.gstatic.com https://www.gstatic.com https://www.gravatar.com https://images.unsplash.com; style-src 'self' 'unsafe-inline' https://tagmanager.google.com https://fonts.googleapis.com https://code.ionicframework.com https://cdn.datatables.net https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://tagmanager.google.com https://code.ionicframework.com https://stackpath.bootstrapcdn.com; frame-src 'self'; object-src 'self'; connect-src 'self' https://api.github.com https://www.google-analytics.com;"
+  Header add Feature-Policy "geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; fullscreen 'self'; payment 'none';"
+</IfModule>
