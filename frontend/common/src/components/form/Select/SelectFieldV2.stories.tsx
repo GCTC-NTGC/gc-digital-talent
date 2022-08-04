@@ -50,12 +50,12 @@ Required.args = {
 export const RequiredWithCustomMessage = Template.bind({});
 RequiredWithCustomMessage.args = {
   ...Default.args,
-  rules: { required: "This must be accepted to continue." },
+  rules: { required: "You must enter a department to continue." },
 };
 
 export const RequiredWithContextInfo = Template.bind({});
 RequiredWithContextInfo.args = {
   ...Default.args,
   rules: { required: true },
-  context: "We collect the above data for account purposes.",
+  context: "We collect department data for account purposes.",
 };
