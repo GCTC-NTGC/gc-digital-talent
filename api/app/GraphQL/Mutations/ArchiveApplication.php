@@ -16,7 +16,7 @@ final class ArchiveApplication
     public function __invoke($_, array $args)
     {
         // grab the specific application, validate to ensure the status of the application is EXPIRED (more statuses can be added later)
-        $application = PoolCandidate::find($args['id'])->load(['pool_candidate_status']);;
+        $application = PoolCandidate::find($args['id']);
         $archivalValidator = new ArchiveApplicationValidator;
         $validator = Validator::make($application->toArray(), $archivalValidator->rules(), $archivalValidator->messages());
         if ($validator->fails()) {

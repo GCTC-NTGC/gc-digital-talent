@@ -53,6 +53,15 @@ class PoolCandidate extends Model
         'accepted_operational_requirements' => 'array',
     ];
 
+    /**
+     * The attributes that can be filled using mass-assignment.
+     *
+     * @var array
+    */
+    protected $fillable = [
+        'is_archived',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
