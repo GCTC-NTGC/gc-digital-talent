@@ -12,6 +12,7 @@ describe("Pools", () => {
     cy.url().should("contain", "/admin/pools");
   }
 
+
   /**
    * Wait for update mutation
    * Check for success toast
@@ -21,20 +22,29 @@ describe("Pools", () => {
     cy.expectToast(/pool updated successfully/i);
   }
 
+  const navigateToIAP = () => {
+    cy.findByRole("link", { name: /edit indigenous apprenticeship program/i }).click();
+    cy.wait("@gqlgetEditPoolDataQuery");
+  }
+
+  const navigateToCMO = () => {
+    cy.findByRole("link", { name: /edit cmo digital careers/i }).click();
+    cy.wait("@gqlgetEditPoolDataQuery");
+  }
+
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "getEditPoolData");
       aliasMutation(req, "updatePoolAdvertisement");
-      aliasMutation(req, "PublishPool");
+      aliasMutation(req, "publishPoolAdvertisement");
+      aliasMutation(res, "closePoolAdvertisement");
     });
 
     loginAndGoToPoolsPage();
   });
 
   it("should update the pool", () => {
-    // Navigate to edit page of draft
-    cy.findByRole("link", { name: /edit indigenous apprenticeship program/i }).click();
-    cy.wait("@gqlgetEditPoolDataQuery");
+    navigateToIAP();
 
     // Ensure we got to the correct page
     cy.findByRole("heading", { name: /edit pool advertisement/i })
@@ -61,5 +71,34 @@ describe("Pools", () => {
     cy.findByRole("button", { name: /save closing date/i }).click();
     expectUpdate();
 
+  });
+
+  // it("should publish the pool", () => {
+  //    navigateToIAP();
+
+  //   cy.findByRole("button", {name: /publish/i}).click();
+  //   cy.wait("@gqlupdatePoolAdvertisementMutation");
+  //   cy.expectToast(/pool updated successfully/i);
+  // });
+
+  it("should close and reopen the pool", () => {
+    navigateToCMO();
+
+    // Ensure we got to the correct page
+    cy.findByRole("heading", { name: /edit pool advertisement/i })
+      .should("exist")
+      .and("be.visible");
+
+    cy.findByRole("button", { name: /close/i });
+
+    cy.findByRole("dialog", { name: /close manually/i })
+      .should("exist")
+      .and("be.visible")
+      .within(() => {
+        cy.findByRole("button", { name: /close pool now/i }).click();
+
+        cy.wait("@gqlclosePoolAdvertisementMutation");
+        cy.expectToast(/pool closed successfully/i);
+      });
   });
 });
