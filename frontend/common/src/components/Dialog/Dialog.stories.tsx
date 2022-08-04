@@ -3,6 +3,7 @@ import type { SyntheticEvent } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import type { HandlerFunction } from "@storybook/addon-actions";
+import Dialog from "@reach/dialog";
 import DialogComponent from "./Dialog";
 import OverlayOrDialogDecorator from "../../../.storybook/decorators/OverlayOrDialogDecorator";
 
@@ -15,8 +16,6 @@ export default {
   argTypes: {
     // Disabled because controlled and overridden anyhow.
     isOpen: { control: { disable: true } },
-    // Disabled because React.ReactNode are complex objects for which editing will cause crash.
-    footer: { control: { disable: true } },
     children: { control: { disable: true } },
   },
 } as ComponentMeta<typeof DialogComponent>;
@@ -126,12 +125,23 @@ ColorIASecondary.args = {
 WithFooter.args = {
   title: "Confirmation Dialog",
   subtitle: "Dialog Subtitle",
-  children:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
-  footer: (
-    <Button color="primary" mode="outline" onClick={action("Perform action")}>
-      Footer Button
-    </Button>
+  children: (
+    <>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur
+        leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor
+        pellentesque rhoncus.
+      </p>
+      <DialogComponent.Footer>
+        <Button
+          color="primary"
+          mode="outline"
+          onClick={action("Perform action")}
+        >
+          Footer Button
+        </Button>
+      </DialogComponent.Footer>
+    </>
   ),
 };
 

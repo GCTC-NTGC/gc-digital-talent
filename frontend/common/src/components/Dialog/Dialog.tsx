@@ -113,7 +113,7 @@ const Header = ({
 };
 
 type FooterProps = {
-  children: DialogProps["footer"];
+  children: React.ReactNode;
 };
 
 const Footer = ({ children }: FooterProps) => (
@@ -134,7 +134,6 @@ export interface DialogProps {
   title: string;
   subtitle?: string;
   confirmation?: boolean;
-  footer?: React.ReactNode;
   centered?: boolean;
   children: React.ReactNode;
 }
@@ -147,7 +146,6 @@ const Dialog = ({
   color = "ia-primary",
   confirmation = false,
   centered = false,
-  footer,
   children,
 }: DialogProps) => {
   return (
@@ -158,7 +156,6 @@ const Dialog = ({
       >
         <Header {...{ title, subtitle, onDismiss, confirmation, color }} />
         <div className="dialog__content">{children}</div>
-        {footer ? <Footer>{footer}</Footer> : null}
       </Content>
     </Overlay>
   );
