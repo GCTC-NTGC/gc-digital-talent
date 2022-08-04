@@ -12,7 +12,7 @@ variables:
   phpVersion: '7.4'
 
 jobs:
-- job: Job_1
+- job: build_artifact
   displayName: Build artifact
   pool:
     vmImage: ubuntu-18.04
