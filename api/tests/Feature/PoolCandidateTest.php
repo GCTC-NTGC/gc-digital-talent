@@ -1187,5 +1187,84 @@ class PoolCandidateTest extends TestCase
     ]);
   }
 
-}
+  public function testArchivingApplication(): void
+  {
+    // array of statuses that should fail the test
+    $statusesThatShouldFail = [
+      ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+      ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+      ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE,
+      ApiEnums::CANDIDATE_STATUS_NO_LONGER_INTERESTED,
+      ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
+      ApiEnums::CANDIDATE_STATUS_UNAVAILABLE
+    ];
 
+    // Create pool candidates
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'
+    ]);
+    // to be extra careful, this will ensure over multiple runs that each random status that should fail, fails
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[array_rand($statusesThatShouldFail)],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+    ]);
+
+    // Assert that policy makes the mutation successfully fail
+    $this->graphQL(/** @lang Graphql */ '
+      mutation archivalTest($id: ID!) {
+        archiveApplication(id: $id) {
+          id
+          isArchived
+        }
+      }
+    ', [
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+    ])->assertJson([
+      'errors' => [[
+        'message' => 'Unauthenticated.',
+      ]]
+    ]);
+
+    // Create admin user we run tests as
+    $newUser = new User;
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->save();
+
+    // Assert expired object can be archived
+    $this->graphQL(/** @lang Graphql */ '
+      mutation archivalTest($id: ID!) {
+        archiveApplication(id: $id) {
+          id
+          isArchived
+        }
+      }
+    ', [
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+    ])->assertJson([
+      'data' => [
+        'archiveApplication' => [
+          'isArchived' => true
+        ]
+      ]
+    ]);
+
+    // Assert un-expired object cannot be archived
+    $this->graphQL(/** @lang Graphql */ '
+      mutation archivalTest($id: ID!) {
+        archiveApplication(id: $id) {
+          id
+          isArchived
+        }
+      }
+    ', [
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+    ])->assertJson([
+      'errors' => [[
+        'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+    ]);
+  }
+}
