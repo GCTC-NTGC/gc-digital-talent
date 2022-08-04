@@ -91,4 +91,16 @@ class PoolCandidatePolicy
     {
         return false;
     }
+
+    /**
+     * Determine whether the user can archive an application
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\PoolCandidate  $poolCandidate
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function archiveApplication(User $user, PoolCandidate $poolCandidate)
+    {
+        return $user->isAdmin() || $user->id === $poolCandidate->user_id;
+    }
 }

@@ -1292,4 +1292,6 @@ type Mutation {
     closePoolAdvertisement(id: ID!): PoolAdvertisement @guard @can(ability: "closePoolAdvertisement", find: "id", model: "Pool")
 
     deletePoolAdvertisement(id: ID!): PoolAdvertisement @delete(model: "Pool", globalId: false) @guard @can(ability: "delete", find: "id", model: "Pool")
+
+    archiveApplication(id:ID!): PoolCandidate @guard @can(ability: "archiveApplication", find: "id")
 }
