@@ -195,7 +195,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
               "Question displayed when a user attempts to delete an experience from their profile",
           })}
         </AlertDialog.Description>
-        <AlertDialog.Actions>
+        <AlertDialog.Footer>
           <Button
             type="button"
             mode="outline"
@@ -221,7 +221,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
               })}
             </Button>
           </span>
-        </AlertDialog.Actions>
+        </AlertDialog.Footer>
       </AlertDialog>
     </ProfileFormWrapper>
   );

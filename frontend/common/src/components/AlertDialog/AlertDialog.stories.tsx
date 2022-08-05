@@ -66,7 +66,7 @@ const Template: Story<StoryArgs> = (args) => {
           {description && (
             <AlertDialog.Description>{description}</AlertDialog.Description>
           )}
-          <AlertDialog.Actions>
+          <AlertDialog.Footer>
             <Button
               mode="outline"
               color="black"
@@ -80,7 +80,7 @@ const Template: Story<StoryArgs> = (args) => {
                 Confirm
               </Button>
             </div>
-          </AlertDialog.Actions>
+          </AlertDialog.Footer>
         </AlertDialog>
       )}
     </div>
