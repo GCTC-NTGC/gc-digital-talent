@@ -39,7 +39,6 @@ jobs:
       - name: Run Snyk to check configuration files for security issues
         # Snyk can be used to break the build when it detects security issues.
         # In this case we want to upload the issues to GitHub Code Scanning
-        continue-on-error: true
         uses: snyk/actions/node@master
         env:
           # In order to use the Snyk Action you will need to have a Snyk API token.
