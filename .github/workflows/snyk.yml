@@ -41,10 +41,7 @@ jobs:
         # In this case we want to upload the issues to GitHub Code Scanning
         uses: snyk/actions/node@master
         env:
-          # In order to use the Snyk Action you will need to have a Snyk API token.
-          # More details in https://github.com/snyk/actions#getting-your-snyk-token
-          # or you can signup for free at https://snyk.io/login
-          SNYK_TOKEN: 227a758a-3ae5-4f31-a3fd-64ed1127f06e
+          SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
         with:
           args: --severity-threshold=high
           command: test
