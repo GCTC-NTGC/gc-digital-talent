@@ -138,11 +138,9 @@ Cypress.Commands.add('logout', () => {
 
 // Check if a toast is displayed
 Cypress.Commands.add('expectToast', (text) => {
-  cy.findAllByRole("alert")
-    .each(item => {
-      cy.wrap(item)
-        .parent()
-        .findByText(text)
-        .should("exist");
-    });
+  cy.get(text);
+  cy.findAllByRole("alert").then(alerts => {
+    const latestAlert = alerts[alerts.length - 1];
+    cy.wrap(latestAlert).contains(text);
+  });
 })

@@ -59,7 +59,7 @@ describe("Pools", () => {
     // Set a key for pool
     cy.findByRole("textbox", { name: /key/i })
       .clear()
-      .type("test1");
+      .type(`test${Cypress._.uniqueId(Date.now().toString())}${Math.floor(Math.random() * 999)}`);
 
     // Submit form
     cy.findByRole("button", { name: /create new pool/i })
