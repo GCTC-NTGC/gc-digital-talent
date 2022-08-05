@@ -43,7 +43,7 @@ const adminRoutes = (lang: string) => {
     userView: (id: string): string => path.join(home(), "users", id),
 
     searchRequestTable: (): string => path.join(home(), "talent-requests"),
-    searchRequestUpdate: (id: string): string =>
+    searchRequestView: (id: string): string =>
       path.join(home(), "talent-requests", id),
 
     classificationTable: (): string =>

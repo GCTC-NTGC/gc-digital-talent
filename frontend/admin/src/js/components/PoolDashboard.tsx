@@ -319,7 +319,7 @@ const routes = (
     }),
   },
   {
-    path: paths.searchRequestUpdate(":id"),
+    path: paths.searchRequestView(":id"),
     action: ({ params }) => ({
       component: (
         <SingleSearchRequestPage searchRequestId={params.id as string} />
