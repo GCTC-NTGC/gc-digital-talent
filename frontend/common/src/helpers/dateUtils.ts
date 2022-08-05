@@ -1,5 +1,5 @@
 import type { IntlShape } from "react-intl";
-import { format, formatDistance } from "date-fns";
+import { format, formatDistance, formatISO, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import { Maybe, Scalars } from "../api/generated";
 import { getLocale, Locales } from "./localize";
@@ -109,3 +109,9 @@ export const relativeExpiryDate = (
 };
 export const FAR_FUTURE_DATE = "2999-12-31";
 export const FAR_PAST_DATE = "2000-01-01";
+
+export const strToDateTimeTz = (value: string) => {
+  const parsed = parseISO(value);
+
+  return formatISO(parsed);
+};
