@@ -138,9 +138,5 @@ Cypress.Commands.add('logout', () => {
 
 // Check if a toast is displayed
 Cypress.Commands.add('expectToast', (text) => {
-  cy.get(text);
-  cy.findAllByRole("alert").then(alerts => {
-    const latestAlert = alerts[alerts.length - 1];
-    cy.wrap(latestAlert).contains(text);
-  });
+  cy.contains("[role='alert']", text);
 })
