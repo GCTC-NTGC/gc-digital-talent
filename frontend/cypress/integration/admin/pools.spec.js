@@ -20,7 +20,6 @@ describe("Pools", () => {
     cy.wait("@gqlupdatePoolAdvertisementMutation")
       .its('response.body.data.updatePoolAdvertisement')
       .should('have.property', 'id');
-    cy.expectToast(/pool updated successfully/i);
   }
 
   beforeEach(() => {
@@ -92,6 +91,7 @@ describe("Pools", () => {
     // Submit the form
     cy.findByRole("button", { name: /save pool name/i }).click();
     expectUpdate();
+    cy.expectToast(/pool updated successfully/i);
 
     // Update expiry date to some arbitrary date in the future
     cy.findByLabelText(/end date/i)
@@ -100,6 +100,7 @@ describe("Pools", () => {
 
     cy.findByRole("button", { name: /save closing date/i }).click();
     expectUpdate();
+    cy.expectToast(/pool updated successfully/i);
 
     const langRequirement = "Bilingual intermediate"
     cy.findByRole("combobox", { name: /language requirement/i })
@@ -119,6 +120,7 @@ describe("Pools", () => {
 
     cy.findByRole("button", { name: /save other requirements/i }).click();
     expectUpdate();
+    cy.expectToast(/pool updated successfully/i);
   });
 
   /**
