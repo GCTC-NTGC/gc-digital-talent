@@ -42,8 +42,8 @@ final class PublishPoolAdvertisementValidator extends Validator
             // Other requirements
             'advertisement_language' => [ 'required', Rule::in(ApiEnums::poolAdvertisementLanguages()) ],
             'security_clearance' => [ 'required', Rule::in(ApiEnums::poolAdvertisementSecurity()) ],
-            'advertisement_location.en' => [ 'required_with:advertisement_location.fr', 'string' ],
-            'advertisement_location.fr' => [ 'required_with:advertisement_location.en', 'string' ],
+            'advertisement_location.en' => [ 'sometimes', 'required_with:advertisement_location.fr', 'string|min:2' ],
+            'advertisement_location.fr' => [ 'sometimes', 'required_with:advertisement_location.en', 'string|min:2' ],
         ];
     }
 
