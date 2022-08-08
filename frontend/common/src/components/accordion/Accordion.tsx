@@ -30,10 +30,9 @@ const Accordion: React.FC<AccordionProps> = ({
   return (
     <div
       data-h2-margin="base(x.25, 0, 0, 0)"
-      data-h2-shadow="base(m)"
+      data-h2-shadow="base(l)"
       data-h2-radius="base(0px, s, s, 0px)"
       data-h2-overflow="base(hidden, all)"
-      data-h2-border="base(left, .5rem, solid, light.dt-primary)"
       className="accordion"
       {...rest}
     >
@@ -41,17 +40,19 @@ const Accordion: React.FC<AccordionProps> = ({
         type="button"
         data-h2-text-align="base(left)"
         data-h2-background-color="base(dt-white)"
-        data-h2-padding="base(x.5, x1, x.5, x.5)"
+        data-h2-padding="base(x1, x1, x1, x.5)"
         data-h2-width="base(100%)"
         onClick={() => handleOpen()}
         {...(isOpen && children
-          ? { "data-h2-border": "base(left, .5rem, solid, light.dt-primary)" }
-          : { "data-h2-border": "base(left, .5rem, solid, dark.dt-primary)" })}
+          ? {
+              "data-h2-border":
+                "base(top-bottom, 0px, solid, transparent) base(right, 0px, solid, transparent) base(left, x.5, solid, light.dt-primary)",
+            }
+          : {
+              "data-h2-border":
+                "base(top-bottom, 0px, solid, transparent) base(right, 0px, solid, transparent) base(left, x.5, solid, dark.dt-primary)",
+            })}
         style={{
-          borderTop: "none",
-          borderRight: "none",
-          borderBottom: "none",
-          borderLeft: simple ? "none" : "",
           cursor: "pointer",
         }}
         aria-expanded={isOpen}
@@ -59,57 +60,75 @@ const Accordion: React.FC<AccordionProps> = ({
       >
         <div
           data-h2-flex-grid="base(center, 0, x.5)"
-          data-h2-flex-wrap="base(nowrap)"
           className="accordion-header-wrapper"
         >
-          <span>
+          <div data-h2-flex-item="base(content)">
             {isOpen ? (
-              <ChevronDownIcon style={{ width: "1.5rem" }} />
+              <ChevronDownIcon data-h2-width="base(x1.5)" />
             ) : (
-              <ChevronRightIcon style={{ width: "1.5rem" }} />
+              <ChevronRightIcon data-h2-width="base(x1.5)" />
             )}
-          </span>
-          <div data-h2-flex-item="base(fill)" data-h2-text-align="base(left)">
-            <p
-              data-h2-margin="base(0)"
-              data-h2-font-size="base(h5, 1.3)"
-              data-h2-color="base(dt-black)"
-            >
-              {title}
-            </p>
-
-            <p data-h2-margin="base(x.5, 0, 0, 0)">{subtitle}</p>
           </div>
-          <div
-            data-h2-flex-item="base(content)"
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(center)"
-            data-h2-flex-direction="base(row)"
-            style={{ flexShrink: 0 }}
-            className="accordion-header-context"
-          >
-            <p data-h2-font-size="base(copy)">{context}</p>
-            {!simple && (
-              <span className="icon" data-h2-margin="base(0, 0, 0, x.25)">
-                {Icon && <Icon style={{ width: "1.5rem", height: "1.5rem" }} />}
-              </span>
-            )}
+          <div data-h2-flex-item="base(fill)" data-h2-text-align="base(left)">
+            <div data-h2-flex-grid="base(center, 0, x.5)">
+              <div data-h2-flex-item="base(1of1) p-tablet(fill)">
+                <p
+                  data-h2-font-size="base(h6, 1)"
+                  data-h2-font-weight="base(700)"
+                >
+                  {title}
+                </p>
+                {subtitle ? (
+                  <p data-h2-margin="base(x.25, 0, 0, 0)">{subtitle}</p>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(content)">
+                <div
+                  data-h2-flex-item="base(content)"
+                  data-h2-display="base(flex)"
+                  data-h2-align-items="base(center)"
+                  data-h2-flex-direction="base(row)"
+                  style={{ flexShrink: 0 }}
+                  className="accordion-header-context"
+                >
+                  <p data-h2-font-size="base(copy)">{context}</p>
+                  {!simple && (
+                    <span className="icon" data-h2-margin="base(0, 0, 0, x1)">
+                      {Icon && (
+                        <Icon
+                          data-h2-width="base(x1.2)"
+                          data-h2-margin="base(x.125, 0, 0, 0)"
+                        />
+                      )}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </button>
       <div
         {...(!simple &&
           (isOpen
-            ? { "data-h2-border": "base(left, .5rem, solid, light.dt-primary)" }
-            : { "data-h2-border": "base(left, .5rem, solid, dark.dt-primary)" }))}
+            ? { "data-h2-border": "base(left, x.5, solid, light.dt-primary)" }
+            : { "data-h2-border": "base(left, x.5, solid, dark.dt-primary)" }))}
         id="content"
         data-h2-background-color="base(dt-white)"
       >
         <div
-          data-h2-padding="base(0, x2, x1, x2)"
+          data-h2-padding="base(0, x1, x1, x2.5)"
           style={{ display: isOpen ? "block" : "none" }}
         >
-          <hr data-h2-margin="base(0, auto, x1, x2)" />
+          <hr
+            data-h2-background-color="base(dt-gray)"
+            data-h2-height="base(1px)"
+            data-h2-width="base(100%)"
+            data-h2-border="base(none)"
+            data-h2-margin="base(0, 0, x1, 0)"
+          />
           {children}
         </div>
       </div>

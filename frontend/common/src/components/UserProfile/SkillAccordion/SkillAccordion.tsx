@@ -48,7 +48,9 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <>
         <p data-h2-color="base(dt-primary)">{title}</p>
-        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
+        <p data-h2-margin="base(0, 0, x.5, 0)">
+          {getDateRange({ endDate, startDate, intl, locale })}
+        </p>
         <p> {description} </p>
         <p>{skill.experienceSkillRecord?.details}</p>
         <p> {details} </p>
@@ -80,19 +82,19 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             { institution },
           )}
         </p>
+        <p data-h2-margin="base(0, 0, x.5, 0)">
+          {getDateRange({ endDate, startDate, intl, locale })}
+        </p>
         <p>
-          {" "}
           {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
           <span
             data-h2-color="base(dt-primary)"
             data-h2-font-style="base(italic)"
           >
-            {" "}
             {status ? intl.formatMessage(getEducationStatus(status)) : ""}{" "}
           </span>
         </p>
         <p>
-          {" "}
           {thesisTitle
             ? intl.formatMessage(
                 {
@@ -101,9 +103,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
                 },
                 { thesisTitle },
               )
-            : ""}{" "}
+            : ""}
         </p>
-        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
         <p> {details} </p>
         <p>{skill.experienceSkillRecord?.details}</p>
       </div>
@@ -124,23 +125,25 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             { issuedBy, title },
           )}
         </p>
+        <p data-h2-margin="base(0, 0, x.5, 0)">
+          {awardedDate && formattedDate(awardedDate, locale)}
+        </p>
         <p>
           {intl.formatMessage({
             defaultMessage: "Awarded to : ",
             description: "The award was given to",
-          })}{" "}
+          })}
           {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
         </p>
         <p>
           {intl.formatMessage({
             defaultMessage: "Scope : ",
             description: "The scope of the award given",
-          })}{" "}
+          })}
           {awardedScope
             ? intl.formatMessage(getAwardedScope(awardedScope))
             : ""}
         </p>
-        <p> {awardedDate && formattedDate(awardedDate, locale)}</p>
         <p>{skill.experienceSkillRecord?.details}</p>
         <p>
           {intl.formatMessage(
@@ -169,27 +172,27 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             { organization, title },
           )}
         </p>
-        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
+        <p data-h2-margin="base(0, 0, x.5, 0)">
+          {getDateRange({ endDate, startDate, intl, locale })}
+        </p>
         <p>
-          {" "}
           {intl.formatMessage(
             {
               defaultMessage: "Project: {project}",
               description: "Project Name",
             },
             { project },
-          )}{" "}
+          )}
         </p>
         <p>{skill.experienceSkillRecord?.details}</p>
         <p>
-          {" "}
           {intl.formatMessage(
             {
               defaultMessage: "Additional information: {details}",
               description: "Additional information if provided",
             },
             { details },
-          )}{" "}
+          )}
         </p>
       </>
     );
@@ -209,8 +212,10 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             { division, role },
           )}
         </p>
+        <p data-h2-margin="base(0, 0, x.5, 0)">
+          {getDateRange({ endDate, startDate, intl, locale })}
+        </p>
         <p>{organization}</p>
-        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
         <p>{skill.experienceSkillRecord?.details}</p>
         <p>
           {intl.formatMessage(
@@ -227,8 +232,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   const renderWithExperience = () => {
     return experiences?.map((experience) => {
       return (
-        <ul key={experience?.id}>
-          <li>
+        <ul data-h2-padding="base(0, 0, 0, x1)" key={experience?.id}>
+          <li data-h2-margin="base(x1, 0, 0, 0)">
             {isPersonalExperience(experience!)
               ? getPersonalExperience(experience)
               : ""}
@@ -261,9 +266,15 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
 
   function renderDetail() {
     if (experiences != null && experiences.length > 0) {
-      return renderWithExperience();
+      return (
+        <>
+          <p data-h2-font-weight="base(700)">
+            This skill has the following related experiences:
+          </p>
+          {renderWithExperience()}
+        </>
+      );
     }
-
     return renderNoExperience();
   }
   return (
@@ -285,10 +296,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             )
       }
     >
-      <div data-h2-padding="base(0, 0, 0, x2)" data-testid="detail">
-        {renderDetail()}
-      </div>
-      <div data-h2-padding="base(0, 0, 0, x2)" />
+      <div data-testid="detail">{renderDetail()}</div>
     </Accordion>
   );
 };

@@ -34,13 +34,21 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
   const skillsList = skills
     ? skills.map((skill, index) => (
         // eslint-disable-next-line react/no-array-index-key
-        <ul key={index}>
+        <ul data-h2-padding="base(0, 0, 0, x1)" key={index}>
           <li>
             {skill.name[locale] && (
-              <p data-h2-color="base(dt-primary.light)">{skill.name[locale]}</p>
+              <p
+                data-h2-color="base(dt-primary)"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x1, 0, x.25, 0)"
+              >
+                {skill.name[locale]}
+              </p>
             )}
             {skill.description && skill.description[locale] && (
-              <p>{skill.description[locale]}</p>
+              <p data-h2-margin="base(0, 0, x.25, 0)">
+                {skill.description[locale]}
+              </p>
             )}
             {skill.experienceSkillRecord &&
               skill.experienceSkillRecord.details && (
@@ -77,48 +85,66 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
       Icon={StarIcon}
       defaultOpen={defaultOpen}
     >
-      <div data-h2-padding="base(0, 0, 0, x2)">
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "{title} issued by {issuedBy}",
-              description: "The award title is issued by some group",
-            },
-            { title, issuedBy },
-          )}
-        </p>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Awarded to : ",
-            description: "The award was given to",
-          })}{" "}
-          {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
-        </p>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Scope : ",
-            description: "The scope of the award given",
-          })}{" "}
-          {awardedScope
-            ? intl.formatMessage(getAwardedScope(awardedScope))
-            : ""}
-        </p>
-      </div>
-      <hr />
-      <div data-h2-padding="base(0, 0, 0, x2)">{skillsList}</div>
-      <div data-h2-padding="base(0, 0, 0, x2)">
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "Additional information: {details}",
-              description: "Additional information if provided",
-            },
-            { details },
-          )}
-        </p>
-      </div>
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "{title} issued by {issuedBy}",
+            description: "The award title is issued by some group",
+          },
+          { title, issuedBy },
+        )}
+      </p>
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Awarded to : ",
+          description: "The award was given to",
+        })}{" "}
+        {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
+      </p>
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Scope : ",
+          description: "The scope of the award given",
+        })}{" "}
+        {awardedScope ? intl.formatMessage(getAwardedScope(awardedScope)) : ""}
+      </p>
+      <hr
+        data-h2-background-color="base(dt-gray)"
+        data-h2-height="base(1px)"
+        data-h2-width="base(100%)"
+        data-h2-border="base(none)"
+        data-h2-margin="base(x1, 0)"
+      />
+      {skillsList?.length > 0 ? (
+        skillsList
+      ) : (
+        <p>No skills have been linked to this experience yet.</p>
+      )}
+      <hr
+        data-h2-background-color="base(dt-gray)"
+        data-h2-height="base(1px)"
+        data-h2-width="base(100%)"
+        data-h2-border="base(none)"
+        data-h2-margin="base(x1, 0)"
+      />
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "Additional information: {details}",
+            description: "Additional information if provided",
+          },
+          { details },
+        )}
+      </p>
       {editUrl && (
-        <div data-h2-padding="base(0, 0, 0, x2)">
+        <div>
+          <hr
+            data-h2-background-color="base(dt-gray)"
+            data-h2-height="base(1px)"
+            data-h2-width="base(100%)"
+            data-h2-border="base(none)"
+            data-h2-margin="base(x1, 0)"
+          />
           <Link href={editUrl} color="primary" mode="outline" type="button">
             {intl.formatMessage({
               defaultMessage: "Edit Experience",
