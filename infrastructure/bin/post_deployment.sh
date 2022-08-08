@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
+# This script is run after the deployment is complete to help set up the environment in the app service.
+# It sends a message to a slack webook URI.
 
-# This script is run after the deployment is complete to help set up the environment in the app service
+ROOT_DIR=$1
+SLACK_WEBHOOK_URI=$2
+SOURCE_NAME=$3
 
-# This token appearing in the logs is expected to trigger an alert in the analytics when detected.
-# In the Azure release pipeline it is not possible to trigger a pipeline failure post-deployment. (as far as we know?)
-FAILURE_LOG_TOKEN="POST_DEPLOYMENT_FAILURE"
-
-if [ -z "$1" ]; then
-    echo "Must past abs path as argument."
+if [ -z "$ROOT_DIR" ]; then
+    echo "Must past abs path as first argument."
     exit 1
 fi
 
-ROOT_DIR=$1
+# First block is the header
+BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": \"Post-deployment script was run - $SOURCE_NAME\" } }"
+
 cd $ROOT_DIR/api
 
 # Unfortunately, no useful exit codes from artisan :-(
@@ -21,23 +23,30 @@ OCCURRENCES_WORD_MIGRATING=$(printf '%s' "$MIGRATION_STDOUT" | grep -o 'Migratin
 OCCURRENCES_WORD_MIGRATED=$(printf '%s' "$MIGRATION_STDOUT" | grep -o 'Migrated:' | wc -l)
 
 if echo "$MIGRATION_STDOUT"| grep -q 'Exception' ; then
-    echo "$FAILURE_LOG_TOKEN Database migration probably failed with exception."
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Database migration probably *failed* with an exception.\" } }"
 elif [ "$MIGRATION_STDOUT" == 'Nothing to migrate.' ] ; then
-    echo "Database migration successful with 'nothing to migrate message'."
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Database migration *successful* with the _nothing to migrate_ message.\" } }"
 elif [ "$OCCURRENCES_WORD_MIGRATING" == "$OCCURRENCES_WORD_MIGRATED" ] ; then
-    echo "Databse migration appeared successful for $OCCURRENCES_WORD_MIGRATING migrations"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Databse migration appeared *successful* for $OCCURRENCES_WORD_MIGRATING migrations.\" } }"
 else
-    echo "$FAILURE_LOG_TOKEN Database migration unknown status"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Database migration *unknown* status.\" } }"
 fi
 
 if mkdir --parents /tmp/bootstrap/cache ; then
-    echo "Cache directory creation successful"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Cache directory creation *successful*.\" } }"
 else
-    echo "$FAILURE_LOG_TOKEN Cache directory creation failed"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Cache directory creation *failed*.\" } }"
 fi
 
 if chown www-data:www-data /tmp/bootstrap/cache ; then
-    echo "Cache directory chown successful"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Cache directory chown *successful*.\" } }"
 else
-    echo "$FAILURE_LOG_TOKEN Cache directory chown failed"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Cache directory chown *failed*.\" } }"
+fi
+
+if [ -z "$SLACK_WEBHOOK_URI" ]; then
+    echo "No Slack webhook URI provided.  Dumping blocks."
+    echo "$BLOCKS"
+else
+    curl -X POST -H "Content-type: application/json" --data "{\"blocks\": [$BLOCKS]}" "$SLACK_WEBHOOK_URI"
 fi
