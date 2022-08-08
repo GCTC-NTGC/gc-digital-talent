@@ -24,7 +24,7 @@ final class ArchiveApplication
             throw new ValidationException($validator->errors()->first(), $validator);
         }
         $dateNow = Carbon::now();
-        $application->update(['archived_date' => $dateNow]);
+        $application->update(['archived_at' => $dateNow]);
         return $application;
     }
 }

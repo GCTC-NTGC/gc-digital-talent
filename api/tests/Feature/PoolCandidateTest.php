@@ -1214,7 +1214,7 @@ class PoolCandidateTest extends TestCase
     PoolCandidate::factory()->create([
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
-      'archived_date' =>config('constants.past_date')
+      'archived_at' =>config('constants.past_date')
     ]);
 
     // Assert that policy makes the mutation successfully fail
@@ -1222,7 +1222,7 @@ class PoolCandidateTest extends TestCase
       mutation archivalTest($id: ID!) {
         archiveApplication(id: $id) {
           id
-          archivedDate
+          archivedAt
         }
       }
     ', [
@@ -1246,7 +1246,7 @@ class PoolCandidateTest extends TestCase
     $this->graphQL(/** @lang Graphql */ '
       mutation archivalTest($id: ID!) {
         archiveApplication(id: $id) {
-          archivedDate
+          archivedAt
         }
       }
     ', [
@@ -1254,7 +1254,7 @@ class PoolCandidateTest extends TestCase
     ])->assertJson(fn (AssertableJson $json) =>
       $json->has('data', fn ($json) =>
         $json->has('archiveApplication', fn ($json) =>
-          $json->whereType('archivedDate', 'string')
+          $json->whereType('archivedAt', 'string')
         )
       )
     );
@@ -1263,7 +1263,7 @@ class PoolCandidateTest extends TestCase
     $this->graphQL(/** @lang Graphql */ '
       mutation archivalTest($id: ID!) {
         archiveApplication(id: $id) {
-          archivedDate
+          archivedAt
         }
       }
     ', [
@@ -1278,7 +1278,7 @@ class PoolCandidateTest extends TestCase
     $this->graphQL(/** @lang Graphql */ '
       mutation archivalTest($id: ID!) {
         archiveApplication(id: $id) {
-          archivedDate
+          archivedAt
         }
       }
     ', [
