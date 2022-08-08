@@ -7,6 +7,7 @@ import { AuthenticationContext } from "@common/components/Auth";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { Helmet } from "react-helmet";
 import { getLocale } from "@common/helpers/localize";
+import Pending from "@common/components/Pending";
 import PageContainer, { MenuLink } from "./PageContainer";
 import {
   useTalentSearchRoutes,
@@ -22,7 +23,7 @@ import {
   useDirectIntakeRoutes,
 } from "../directIntakeRoutes";
 import { ExperienceType } from "./experienceForm/types";
-import { Role } from "../api/generated";
+import { Role, useGetAboutMeQuery } from "../api/generated";
 
 /** Search */
 const SearchPage = React.lazy(() => import("./search/SearchPage"));
@@ -121,11 +122,19 @@ const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
 
 const profileRoutes = (
   profilePaths: ApplicantProfileRoutes,
+  myUserId: string,
 ): Routes<RouterResult> => [
   {
     path: profilePaths.createAccount(),
     action: () => ({
       component: <CreateAccount />,
+    }),
+  },
+  {
+    path: profilePaths.myProfile(),
+    action: () => ({
+      component: <div />,
+      redirect: profilePaths.home(myUserId),
     }),
   },
   {
@@ -299,6 +308,9 @@ export const Router: React.FC = () => {
   const [isConfirmationOpen, setConfirmationOpen] =
     React.useState<boolean>(false);
 
+  const [result] = useGetAboutMeQuery();
+  const { data, fetching, error } = result;
+
   const menuItems = [
     <MenuLink
       key="search"
@@ -355,7 +367,7 @@ export const Router: React.FC = () => {
   }
 
   return (
-    <>
+    <Pending fetching={fetching} error={error}>
       <PageContainer
         menuItems={menuItems}
         authLinks={authLinks}
@@ -363,7 +375,7 @@ export const Router: React.FC = () => {
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),
           ...(checkFeatureFlag("FEATURE_APPLICANTPROFILE")
-            ? profileRoutes(profilePaths)
+            ? profileRoutes(profilePaths, data?.me?.id || "")
             : []),
           ...(checkFeatureFlag("FEATURE_DIRECTINTAKE")
             ? directIntakeRoutes(directIntakePaths)
@@ -380,7 +392,7 @@ export const Router: React.FC = () => {
           onLogout={() => logout()}
         />
       )}
-    </>
+    </Pending>
   );
 };
 
