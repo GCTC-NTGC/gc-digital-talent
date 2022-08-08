@@ -9,6 +9,7 @@ import {
   getLanguageRequirement,
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
+import { notEmpty } from "@common/helpers/util";
 import {
   AdvertisementStatus,
   LocalizedString,
@@ -82,22 +83,36 @@ export const OtherRequirementsSection = ({
     if (formValues.locationOption === LocationOption.RemoteOptional) {
       return {
         ...formValues,
-        specificLocationEn: null,
-        specificLocationFr: null,
+        specificLocationEn: undefined,
+        specificLocationFr: undefined,
       };
     }
     return formValues;
   };
 
+  const locationOptionToSubmitData = (
+    value: LocalizedString,
+  ): LocalizedString | undefined => {
+    if (
+      (!notEmpty(value.en) && !notEmpty(value.fr)) ||
+      (!!value.en?.length && !!value.fr?.length)
+    ) {
+      return undefined;
+    }
+
+    return value;
+  };
+
   const handleSave = (formValues: FormValues) => {
     onSave({
       advertisementLanguage: formValues.languageRequirement,
-      advertisementLocation: formValues.locationOption
-        ? {
-            en: formValues.specificLocationEn,
-            fr: formValues.specificLocationFr,
-          }
-        : null,
+      advertisementLocation:
+        formValues.locationOption !== LocationOption.RemoteOptional
+          ? locationOptionToSubmitData({
+              en: formValues.specificLocationEn,
+              fr: formValues.specificLocationFr,
+            })
+          : undefined,
       securityClearance: formValues.securityRequirement,
     });
   };
