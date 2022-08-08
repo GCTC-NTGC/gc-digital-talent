@@ -1290,4 +1290,3 @@ class PoolCandidateTest extends TestCase
     ]);
   }
 }
-// php artisan test --filter PoolCandidateTest
