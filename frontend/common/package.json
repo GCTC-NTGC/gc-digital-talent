@@ -75,7 +75,7 @@
     "urql": "^2.2.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.9",
+    "@babel/core": "^7.18.10",
     "@faker-js/faker": "^7.3.0",
     "@formatjs/cli": "^5.0.6",
     "@formatjs/ts-transformer": "^3.9.9",
