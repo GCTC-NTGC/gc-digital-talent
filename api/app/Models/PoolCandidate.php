@@ -48,7 +48,7 @@ class PoolCandidate extends Model
 
     protected $casts = [
         'expiry_date' => 'date',
-        'archived_date' => 'date',
+        'archived_date' => 'datetime',
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
