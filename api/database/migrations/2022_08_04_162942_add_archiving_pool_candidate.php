@@ -14,7 +14,7 @@ class AddArchivingPoolCandidate extends Migration
     public function up()
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->boolean('is_archived')->nullable();
+            $table->timestamptz('archived_date')->nullable();
         });
     }
 
@@ -27,7 +27,7 @@ class AddArchivingPoolCandidate extends Migration
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
             $table->dropColumn([
-                'is_archived',
+                'archived_date',
             ]);
         });
     }

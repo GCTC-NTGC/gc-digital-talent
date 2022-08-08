@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property boolean $is_indigenous
  * @property boolean $is_visible_minority
  * @property boolean $has_diploma
- * @property boolean $is_archived
+ * @property Illuminate\Support\Carbon $archived_date
  * @property string $language_ability
  * @property array $location_preferences
  * @property array $expected_salary
@@ -48,6 +48,7 @@ class PoolCandidate extends Model
 
     protected $casts = [
         'expiry_date' => 'date',
+        'archived_date' => 'date',
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
@@ -59,7 +60,7 @@ class PoolCandidate extends Model
      * @var array
     */
     protected $fillable = [
-        'is_archived',
+        'archived_date',
     ];
 
     public function user(): BelongsTo

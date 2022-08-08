@@ -1209,13 +1209,19 @@ class PoolCandidateTest extends TestCase
       'pool_candidate_status' => $statusesThatShouldFail[array_rand($statusesThatShouldFail)],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
     ]);
+    // this one is archived
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
+      'archived_date' =>config('constants.past_date')
+    ]);
 
     // Assert that policy makes the mutation successfully fail
     $this->graphQL(/** @lang Graphql */ '
       mutation archivalTest($id: ID!) {
         archiveApplication(id: $id) {
           id
-          isArchived
+          archivedDate
         }
       }
     ', [
@@ -1237,8 +1243,7 @@ class PoolCandidateTest extends TestCase
     $this->graphQL(/** @lang Graphql */ '
       mutation archivalTest($id: ID!) {
         archiveApplication(id: $id) {
-          id
-          isArchived
+          archivedDate
         }
       }
     ', [
@@ -1246,7 +1251,7 @@ class PoolCandidateTest extends TestCase
     ])->assertJson([
       'data' => [
         'archiveApplication' => [
-          'isArchived' => true
+          'archivedDate' => '2022-08-08T00:00:00+00:00'
         ]
       ]
     ]);
@@ -1255,8 +1260,7 @@ class PoolCandidateTest extends TestCase
     $this->graphQL(/** @lang Graphql */ '
       mutation archivalTest($id: ID!) {
         archiveApplication(id: $id) {
-          id
-          isArchived
+          archivedDate
         }
       }
     ', [
@@ -1264,6 +1268,21 @@ class PoolCandidateTest extends TestCase
     ])->assertJson([
       'errors' => [[
         'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+    ]);
+
+    // Assert already archived object cannot be re-archived
+    $this->graphQL(/** @lang Graphql */ '
+      mutation archivalTest($id: ID!) {
+        archiveApplication(id: $id) {
+          archivedDate
+        }
+      }
+    ', [
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
+    ])->assertJson([
+      'errors' => [[
+        'message' => 'already archived',
       ]]
     ]);
   }

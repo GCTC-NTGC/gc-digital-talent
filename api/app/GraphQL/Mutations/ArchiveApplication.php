@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 use App\Models\PoolCandidate;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use App\GraphQL\Validators\Mutation\ArchiveApplicationValidator;
@@ -22,7 +23,8 @@ final class ArchiveApplication
         if ($validator->fails()) {
             throw new ValidationException($validator->errors()->first(), $validator);
         }
-        $application->update(['is_archived' => true]);
+        $dateNow = Carbon::now();
+        $application->update(['archived_date' => $dateNow]);
         return $application;
     }
 }

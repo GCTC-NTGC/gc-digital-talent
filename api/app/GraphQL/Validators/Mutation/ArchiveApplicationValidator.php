@@ -18,6 +18,7 @@ final class ArchiveApplicationValidator extends Validator
             // application status check
             // TODO, UPDATE WITH "REJECTED" STATUS ONCE IT IS ADDED IN
             'pool_candidate_status' => [ Rule::in([ApiEnums::CANDIDATE_STATUS_EXPIRED]) ],
+            'archived_date' => ['prohibited', 'nullable'],
         ];
     }
 
@@ -25,6 +26,7 @@ final class ArchiveApplicationValidator extends Validator
     {
         return  [
             'in' => ':attribute does not contain a valid value.',
+            'archived_date.prohibited' => 'already archived',
         ];
     }
 }
