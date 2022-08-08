@@ -7,6 +7,7 @@ use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
@@ -1240,6 +1241,8 @@ class PoolCandidateTest extends TestCase
     $newUser->save();
 
     // Assert expired object can be archived
+    // Successful archiving returns type string in multiple HAS statements, failed returns NULL
+    // given date is dynamically set with Carbon::now(), it will never return the same value, so must test that a non-null string is set
     $this->graphQL(/** @lang Graphql */ '
       mutation archivalTest($id: ID!) {
         archiveApplication(id: $id) {
@@ -1248,13 +1251,13 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    ])->assertJson([
-      'data' => [
-        'archiveApplication' => [
-          'archivedDate' => '2022-08-08T00:00:00+00:00'
-        ]
-      ]
-    ]);
+    ])->assertJson(fn (AssertableJson $json) =>
+      $json->has('data', fn ($json) =>
+        $json->has('archiveApplication', fn ($json) =>
+          $json->whereType('archivedDate', 'string')
+        )
+      )
+    );
 
     // Assert un-expired object cannot be archived
     $this->graphQL(/** @lang Graphql */ '
@@ -1287,3 +1290,4 @@ class PoolCandidateTest extends TestCase
     ]);
   }
 }
+// php artisan test --filter PoolCandidateTest
