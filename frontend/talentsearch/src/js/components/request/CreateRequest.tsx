@@ -125,8 +125,15 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             sync: applicantFilter?.expectedClassifications
               ? applicantFilter.expectedClassifications
                   .filter(notEmpty)
-                  .map(({ group, level }) => {
-                    group, level;
+                  .map((expectedClassification) => {
+                    const cl = classifications.find((classification) => {
+                      return (
+                        classification.group ===
+                          expectedClassification?.group &&
+                        classification.level === expectedClassification.level
+                      );
+                    });
+                    return cl?.id ?? "";
                   })
               : [],
           },
