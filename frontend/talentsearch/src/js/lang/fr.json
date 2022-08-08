@@ -223,10 +223,10 @@
     "description": "Checklist option for employment equity filter in search form."
   },
   "LRysDa": {
-    "defaultMessage": "Filtres de classification ({classificationFilterCount}),"
+    "defaultMessage": "Filtres de classification ({classificationFilterCount})"
   },
   "ky585k": {
-    "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount}),"
+    "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount})"
   },
   "zDzzb/": {
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres",
