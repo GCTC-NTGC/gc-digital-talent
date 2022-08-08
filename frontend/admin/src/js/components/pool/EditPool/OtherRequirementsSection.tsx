@@ -15,8 +15,10 @@ import {
   PoolAdvertisement,
   PoolAdvertisementLanguage,
   SecurityStatus,
+  UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
+import { useEditPoolContext } from "./EditPoolContext";
 
 enum LocationOption {
   RemoteOptional = "REMOTE_OPTIONAL",
@@ -31,10 +33,15 @@ type FormValues = {
   specificLocationFr?: LocalizedString["fr"];
 };
 
+export type OtherRequirementsSubmitData = Pick<
+  UpdatePoolAdvertisementInput,
+  "advertisementLanguage" | "advertisementLocation" | "securityClearance"
+>;
+
 interface OtherRequirementsSectionProps {
   poolAdvertisement: PoolAdvertisement;
   sectionMetadata: SectionMetadata;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: OtherRequirementsSubmitData) => void;
 }
 
 export const OtherRequirementsSection = ({
@@ -43,6 +50,7 @@ export const OtherRequirementsSection = ({
   onSave,
 }: OtherRequirementsSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     languageRequirement: initialData.advertisementLanguage,
@@ -81,6 +89,19 @@ export const OtherRequirementsSection = ({
     return formValues;
   };
 
+  const handleSave = (formValues: FormValues) => {
+    onSave({
+      advertisementLanguage: formValues.languageRequirement,
+      advertisementLocation: formValues.locationOption
+        ? {
+            en: formValues.specificLocationEn,
+            fr: formValues.specificLocationFr,
+          }
+        : null,
+      securityClearance: formValues.securityRequirement,
+    });
+  };
+
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
@@ -99,7 +120,7 @@ export const OtherRequirementsSection = ({
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit((formValues) =>
-            onSave(formValuesToSubmitData(formValues)),
+            handleSave(formValuesToSubmitData(formValues)),
           )}
         >
           <div data-h2-display="b(flex)">
@@ -228,6 +249,7 @@ export const OtherRequirementsSection = ({
               })}
               color="cta"
               mode="solid"
+              isSubmitting={isSubmitting}
             />
           )}
         </form>

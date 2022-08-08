@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-set -e
+# Errors will fail out
+set -o errexit
+# Don't mask errors in piped commands
+set -o pipefail
+# Fail if using undefined variables
+set -o nounset
 
 # Assign PHP version from arg if supplied. Runs default PHP bin without.
 PHP_VERSION=$1
