@@ -67,7 +67,7 @@
     "@types/path-browserify": "^1.0.0",
     "@types/react-helmet": "^6.1.5",
     "@types/react-table": "^7.7.12",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
     "babel-loader": "^8.2.5",
     "copy-webpack-plugin": "^11.0.0",
