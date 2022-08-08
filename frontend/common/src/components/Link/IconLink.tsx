@@ -6,11 +6,24 @@ export interface IconLinkProps extends LinkProps {
   icon?: React.FC<{ className?: string; style?: Record<string, string> }>;
 }
 
-const IconLink: React.FC<IconLinkProps> = ({ icon, children, ...rest }) => {
+const IconLink: React.FC<IconLinkProps> = ({
+  icon,
+  children,
+  block,
+  ...rest
+}) => {
   const Icon = icon || null;
   return (
-    <Link {...rest}>
-      <span>
+    <Link block={block} {...rest}>
+      <span
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(center)"
+        {...(block
+          ? {
+              "data-h2-justify-content": "base(center)",
+            }
+          : null)}
+      >
         {Icon && (
           <Icon
             data-h2-margin="base(-2px, x.5, 0, 0)"

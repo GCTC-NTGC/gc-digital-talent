@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
 import { Scalars, Skill, SkillFamily } from "@common/api/generated";
 import {
   Tabs,
@@ -9,9 +8,11 @@ import {
   TabPanels,
   TabPanel,
 } from "@common/components/Tabs";
-import { matchStringCaseDiacriticInsensitive } from "@common/helpers/formUtils";
 import Pagination, { usePaginationVars } from "@common/components/Pagination";
-import { invertSkillSkillFamilyTree } from "@common/helpers/skillUtils";
+import {
+  filterSkillsByNameOrKeywords,
+  invertSkillSkillFamilyTree,
+} from "@common/helpers/skillUtils";
 import SearchBar from "@common/components/skills/SearchBar";
 import SkillResults from "@common/components/skills/SkillResults";
 import AddedSkills from "../AddedSkills";
@@ -29,7 +30,6 @@ const AddSkillsToExperience: React.FunctionComponent<
   AddSkillsToExperienceProps
 > = ({ allSkills, frequentSkills, addedSkills, onRemoveSkill, onAddSkill }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   const [familyFilteredSkills, setFamilyFilteredSkills] = useState<Skill[]>([]);
   const [searchFilteredSkills, setSearchFilteredSkills] = useState<Skill[]>([]);
@@ -73,11 +73,10 @@ const AddSkillsToExperience: React.FunctionComponent<
    */
   const handleSearch = (searchQuery: string): Promise<void> => {
     return new Promise<void>((resolve) => {
-      const matchedSkills = allSkills.filter((skill) =>
-        matchStringCaseDiacriticInsensitive(
-          searchQuery,
-          skill.name[locale] ?? "",
-        ),
+      const matchedSkills = filterSkillsByNameOrKeywords(
+        allSkills,
+        searchQuery,
+        intl,
       );
       setSearchFilteredSkills(matchedSkills);
       keywordSearchPagination.setCurrentPage(1); // just in case the new list of matched skills requires fewer pages

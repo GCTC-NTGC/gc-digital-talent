@@ -13,6 +13,7 @@ import { commonMessages } from "@common/messages";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { IconLink } from "@common/components/Link";
 import {
   AwardExperience,
   CommunityExperience,
@@ -80,7 +81,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         defaultMessage: "Personal",
         description: "Title for personal experience form button.",
       }),
-      icon: <LightBulbIcon style={{ width: "1.5rem" }} />,
+      icon: LightBulbIcon,
     },
     {
       href: paths.createCommunity(),
@@ -88,7 +89,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         defaultMessage: "Community",
         description: "Title for community experience form button.",
       }),
-      icon: <UserGroupIcon style={{ width: "1.5rem" }} />,
+      icon: UserGroupIcon,
     },
     {
       href: paths.createWork(),
@@ -96,7 +97,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         defaultMessage: "Work",
         description: "Title for work experience form button.",
       }),
-      icon: <BriefcaseIcon style={{ width: "1.5rem" }} />,
+      icon: BriefcaseIcon,
     },
     {
       href: paths.createEducation(),
@@ -104,7 +105,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         defaultMessage: "Education",
         description: "Title for education experience form button.",
       }),
-      icon: <BookOpenIcon style={{ width: "1.5rem" }} />,
+      icon: BookOpenIcon,
     },
     {
       href: paths.createAward(),
@@ -112,7 +113,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         defaultMessage: "Award",
         description: "Title for award experience form button.",
       }),
-      icon: <StarIcon style={{ width: "1.5rem" }} />,
+      icon: StarIcon,
     },
   ];
 
@@ -139,6 +140,18 @@ export const ExperienceAndSkills: React.FunctionComponent<
           "Heading for experience and skills page in applicant profile.",
       })}
     >
+      <p
+        data-h2-font-style="base(reset)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(0, 0, x.125, 0)"
+        data-h2-text-transform="base(uppercase)"
+      >
+        {intl.formatMessage({
+          defaultMessage: "Add new experience:",
+          description:
+            "Message to user when no experiences have been attached to profile",
+        })}
+      </p>
       <div
         data-h2-display="base(flex)"
         data-h2-align-items="base(center)"
@@ -166,17 +179,24 @@ export const ExperienceAndSkills: React.FunctionComponent<
           style={{ flexGrow: "2" }}
         >
           {links.map(({ title, href, icon }) => (
-            <a
-              key={title}
+            <IconLink
               href={href}
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-              data-h2-margin="base(x.25, auto) l-tablet(0, auto)"
+              type="button"
+              color="primary"
+              icon={icon}
+              block
             >
-              {icon}
-              <span data-h2-padding="base(0, x.25, 0, x.125)">{title}</span>
-            </a>
-          ))}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "<hidden>Add new </hidden>{title}<hidden> experience</hidden>",
+                  description:
+                    "Link text for adding a new experience of a specific type.",
+                },
+                { title },
+              )}
+            </IconLink>
+        ))}
         </div>
       </div>
       {!experiences || experiences?.length === 0 ? (
@@ -188,7 +208,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
           <p data-h2-font-style="base(italic)">
             {intl.formatMessage({
               defaultMessage:
-                "There are no experiences on your profile yet. You can add some using the links above.",
+                "There are no experiences on your profile yet. You can add some using the preceding buttons.",
               description:
                 "Message to user when no experiences have been attached to profile.",
             })}

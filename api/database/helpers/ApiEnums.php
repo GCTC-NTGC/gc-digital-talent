@@ -251,4 +251,18 @@ class ApiEnums
         ];
     }
 
+    /**
+     * Citizenship
+     */
+    const CITIZENSHIP_CITIZEN = 'CITIZEN';
+    const CITIZENSHIP_PR = 'PERMANENT_RESIDENT';
+    const CITIZENSHIP_OTHER = 'OTHER';
+    public static function citizenshipStatuses() : array
+    {
+        return [
+            self::CITIZENSHIP_CITIZEN,
+            self::CITIZENSHIP_PR,
+            self::CITIZENSHIP_OTHER,
+        ];
+    }
 }

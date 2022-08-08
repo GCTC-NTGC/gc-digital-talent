@@ -169,7 +169,6 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                       <span
                         data-h2-position="base(center)"
                         data-h2-display="base(block)"
-                        data-h2-margin="base(2px, 0, 0, 0)"
                         data-h2-height="base(x1)"
                       >
                         {pageNumber}

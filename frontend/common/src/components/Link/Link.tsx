@@ -20,6 +20,7 @@ const Link: React.FC<LinkProps> = ({
   title,
   color,
   disabled,
+  external,
   mode = "solid",
   block = false,
   type = "link",
@@ -36,7 +37,11 @@ const Link: React.FC<LinkProps> = ({
       href={url}
       title={title}
       className={`${type === "button" && `button `}${className}`}
-      onClick={clickHandler}
+      {...(!external
+        ? {
+            onClick: clickHandler,
+          }
+        : null)}
       {...(type === "button"
         ? {
             "data-h2-radius": "base(s)",

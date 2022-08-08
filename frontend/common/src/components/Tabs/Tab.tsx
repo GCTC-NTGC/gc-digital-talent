@@ -1,6 +1,9 @@
 import React from "react";
 import { Tab as ReachTab, useTabsContext, type TabProps } from "@reach/tabs";
 
+import "@reach/tabs/styles.css";
+import "./tabs.css";
+
 const Tab = (props: TabProps) => {
   const { index, children } = props;
   const { selectedIndex } = useTabsContext();
@@ -21,28 +24,11 @@ const Tab = (props: TabProps) => {
           }
         : {
             "data-h2-background-color": "base(dt-white)",
-            "data-h2-border": "base(all, 1px, solid, dt-gray)",
+            "data-h2-border": "base(all, 1px, solid, dt-gray) base(top, x.5, solid, dt-gray)",
           })}
       {...props}
     >
-      <span
-      // {...(isSelected
-      //   ? {
-      //       "data-h2-background-color": "base(dt-primary.light)",
-      //     }
-      //   : {
-      //       "data-h2-background-color": "base(dt-gray.light)",
-      //     })}
-      />
-      <span
-      // {...(isSelected
-      //   ? {
-      //       "data-h2-color": "base(dt-primary.light)",
-      //     }
-      //   : {
-      //       "data-h2-background-color": "base(dt-gray.light)",
-      //     })}
-      >
+      <span>
         {children}
       </span>
     </ReachTab>

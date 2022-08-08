@@ -2,9 +2,6 @@
 node_modules
 frontend/*/package-lock.json
 
-# TODO: Remove once all feature branches with auth dir are complete.
-auth/
-
 # Cypress artifacts
 frontend/cypress/screenshots
 frontend/cypress/videos

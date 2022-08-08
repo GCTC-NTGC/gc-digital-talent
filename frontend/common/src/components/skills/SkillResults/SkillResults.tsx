@@ -24,6 +24,7 @@ export const SkillBlock: React.FunctionComponent<{
             <span
               data-h2-color="base(dt-primary)"
               data-h2-position="base(relative)"
+              data-h2-display="base(block)"
               data-h2-font-weight="base(700)"
             >
               <CheckCircleIcon
@@ -47,7 +48,7 @@ export const SkillBlock: React.FunctionComponent<{
             </span>
           )}
         </div>
-        <div data-h2-flex-item="base(1of4)" data-h2-text-align="base(right)">
+        <div data-h2-flex-item="base(1of4)" data-h2-text-align="base(center)">
           <Button
             color="primary"
             mode="inline"
@@ -65,7 +66,7 @@ export const SkillBlock: React.FunctionComponent<{
                 })}
           </Button>
         </div>
-        <div data-h2-flex-item="base(1of4)" data-h2-text-align="base(right)">
+        <div data-h2-flex-item="base(1of4)" data-h2-text-align="base(center)">
           <Button
             color="primary"
             mode="inline"
@@ -95,9 +96,6 @@ export const SkillBlock: React.FunctionComponent<{
               data-h2-margin="base(x.25, 0, x.25, x1)"
               data-h2-radius="base(s)"
             >
-              <p data-h2-font-size="base(caption)">
-                This is sample description text so Josh can see what's up.
-              </p>
               <p data-h2-font-size="base(caption)">{description?.[locale]}</p>
             </div>
           </div>

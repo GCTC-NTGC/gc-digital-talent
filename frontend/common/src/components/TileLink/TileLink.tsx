@@ -39,6 +39,7 @@ const TileLink: React.FC<TileLinkProps> = ({
   href,
   title,
   color,
+  external,
   children,
   ...rest
 }): React.ReactElement => {
@@ -59,7 +60,11 @@ const TileLink: React.FC<TileLinkProps> = ({
       data-h2-transition="base(box-shadow, .2s, ease, 0s)"
       {...colorMap[color]}
       {...rest}
-      onClick={clickHandler}
+      {...(!external
+        ? {
+            onClick: clickHandler,
+          }
+        : null)}
     >
       <span
         data-h2-display="base(block)"

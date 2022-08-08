@@ -54,13 +54,15 @@ const Chip: React.FC<ChipProps> = ({
       color={color}
       mode={mode}
       role="listitem"
-      data-h2-padding="base(x.125, x.25)"
+      data-h2-padding="base(x.25, x.5)"
     >
       {label}
       {onDismiss && (
         <XCircleIcon
-          style={{ width: "1.25rem", cursor: "pointer" }}
-          data-h2-margin="base(0, 0, 0, x.125)"
+          data-h2-cursor="base(pointer)"
+          data-h2-width="base(x.5)"
+          data-h2-margin="base(0, 0, 0, x.25)"
+          data-h2-vertical-align="base(middle)"
           {...colorMap[color][mode]}
           role="button"
           onClick={onDismiss}

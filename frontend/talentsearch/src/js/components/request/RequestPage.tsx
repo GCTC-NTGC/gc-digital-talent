@@ -51,11 +51,22 @@ const RequestPage: React.FunctionComponent = () => {
         data-h2-margin="base(x3, 0, 0, 0) p-tablet(x6, 0, 0, 0)"
         data-h2-position="base(relative)"
       >
-        <CreateRequestForm
-          poolCandidateFilter={poolCandidateFilter}
-          searchFormInitialValues={initialValues}
-          candidateCount={candidateCount}
-        />
+        <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)" data-h2-position="base(relative)">
+          <div
+            data-h2-background-color="base(dt-white)"
+            data-h2-radius="base(s)"
+            data-h2-shadow="base(m)"
+            data-h2-padding="base(x1) p-tablet(x2)"
+            data-h2-position="base(relative)"
+            data-h2-offset="base(-x2, auto, auto, auto) p-tablet(-x4, auto, auto, auto)"
+          >
+            <CreateRequestForm
+              poolCandidateFilter={poolCandidateFilter}
+              searchFormInitialValues={initialValues}
+              candidateCount={candidateCount}
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

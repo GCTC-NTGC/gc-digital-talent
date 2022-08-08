@@ -5,14 +5,12 @@ import fromPairs from "lodash/fromPairs";
 import toPairs from "lodash/toPairs";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
-import useLinkClickHandler from "../components/Link/useLinkClickHandler";
 import { AuthenticationContext } from "../components/Auth";
 import { Role } from "../api/generated";
 import { AuthorizationContext } from "../components/Auth/AuthorizationContainer";
 import { useApiRoutes } from "../hooks/useApiRoutes";
 import { getLocale } from "./localize";
 import { empty } from "./util";
-import sanitizeUrl from "./sanitizeUrl";
 
 export const HISTORY = createBrowserHistory();
 
@@ -232,25 +230,6 @@ export function queryParametersToSearchString(
     .join("&");
   return queryString ? `?${queryString}` : "";
 }
-
-type LinkProps = React.HTMLProps<HTMLAnchorElement>;
-
-export const Link: React.FC<LinkProps> = ({
-  href,
-  title,
-  children,
-  ...props
-}): React.ReactElement => {
-  const url = sanitizeUrl(href);
-  const clickHandler = useLinkClickHandler({
-    to: url || "#",
-  });
-  return (
-    <a href={href} title={title} {...props} onClick={clickHandler}>
-      {children}
-    </a>
-  );
-};
 
 export const ScrollToTop: React.FC<{ children: React.ReactElement }> = ({
   children,
