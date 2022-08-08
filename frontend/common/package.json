@@ -108,7 +108,7 @@
     "eslint": "^8.20.0",
     "eslint-config-airbnb": "^19.0.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-formatjs": "^4.0.2",
+    "eslint-plugin-formatjs": "^4.1.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-node": "^11.1.0",
