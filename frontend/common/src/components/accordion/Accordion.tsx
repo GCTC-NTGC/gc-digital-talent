@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/solid";
+import uniqueId from "lodash/uniqueId";
 
 export interface AccordionProps {
   title: string;
@@ -22,6 +23,12 @@ const Accordion: React.FC<AccordionProps> = ({
   ...rest
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const id = uniqueId();
+  const IDS = {
+    accordion: `accordion-${id}`,
+    trigger: `trigger-${id}`,
+    content: `content-${id}`,
+  };
 
   const handleOpen = () => {
     setIsOpen((prev: boolean | undefined) => !prev);
@@ -35,6 +42,7 @@ const Accordion: React.FC<AccordionProps> = ({
       data-h2-overflow="b(all, hidden)"
       data-h2-border="b([light]primary, left, solid, m)"
       className="accordion"
+      id={IDS.accordion}
       {...rest}
     >
       <button
@@ -54,6 +62,8 @@ const Accordion: React.FC<AccordionProps> = ({
           borderLeft: simple ? "none" : "",
           cursor: "pointer",
         }}
+        id={IDS.trigger}
+        aria-controls={IDS.content}
         aria-expanded={isOpen}
         className="accordion-header"
       >
@@ -102,7 +112,9 @@ const Accordion: React.FC<AccordionProps> = ({
           (isOpen
             ? { "data-h2-border": "b(lightpurple, left, solid, m)" }
             : { "data-h2-border": "b(darkpurple, left, solid, m)" }))}
-        id="content"
+        id={IDS.content}
+        role="region"
+        aria-labelledby={IDS.trigger}
         data-h2-bg-color="b(white)"
       >
         <div
