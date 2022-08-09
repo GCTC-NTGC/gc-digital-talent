@@ -430,7 +430,9 @@ const SearchRequestFilters: React.FunctionComponent<
       );
     },
   );
+
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
+
   return (
     <section data-h2-flex-grid="b(top, contained, flush, xs)">
       <div
@@ -467,6 +469,14 @@ const SearchRequestFilters: React.FunctionComponent<
             content={educationLevel}
           />
         </div>
+        <FilterBlock
+          title={intl.formatMessage({
+            defaultMessage: "Type of opportunity",
+            description:
+              "Title for type of opportunity section on summary of filters section",
+          })}
+          content={typeOfOpportunity}
+        />
       </div>
       <div
         data-h2-flex-item="b(1of1) s(1of2)"
