@@ -1,3 +1,6 @@
 {
-  "note": "Workaround. Bundlewatch CLI needs package.json in root."
+  "note": "Workaround. Bundlewatch CLI needs package.json in root.",
+  "dependencies": {
+    "pdf-image": "^2.0.0"
+  }
 }
