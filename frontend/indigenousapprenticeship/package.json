@@ -69,7 +69,7 @@
     "@types/react": "^17.0.43",
     "@types/react-helmet": "^6.1.5",
     "@types/react-table": "^7.7.12",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "babel-loader": "^8.2.5",
     "babel-plugin-formatjs": "^10.3.25",
