@@ -54,16 +54,36 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
   adminNotes
   applicantFilter {
     id
-    pools {
+    hasDiploma
+    equity {
+      hasDisability
+      isIndigenous
+      isVisibleMinority
+      isWoman
+    }
+    languageAbility
+    operationalRequirements
+    locationPreferences
+    wouldAcceptTemporary
+    expectedClassifications {
       id
       name {
         en
         fr
       }
+      group
+      level
     }
     skills {
       id
       key
+      name {
+        en
+        fr
+      }
+    }
+    pools {
+      id
       name {
         en
         fr

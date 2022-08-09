@@ -29,7 +29,13 @@ const ManagerInfo: React.FunctionComponent<{
     status,
     requestedDate,
     poolCandidateFilter,
+    applicantFilter,
   } = searchRequest;
+
+  const nonApplicableMessage = intl.formatMessage({
+    defaultMessage: "N/A",
+    description: "Text shown when the filter was not selected",
+  });
 
   return (
     <>
@@ -108,16 +114,13 @@ const ManagerInfo: React.FunctionComponent<{
                   "Title for the pool block in the manager info section of the single search request view.",
               })}
               content={
-                // TODO: get pools from applicantFilter instead of poolCandidateFilter if possible
-                poolCandidateFilter?.pools?.map(
-                  (pool) =>
-                    pool?.name?.[locale] ||
-                    intl.formatMessage({
-                      defaultMessage: "N/A",
-                      description:
-                        "Text shown when the filter was not selected",
-                    }),
-                )
+                applicantFilter
+                  ? applicantFilter?.pools?.map(
+                      (pool) => pool?.name?.[locale] || nonApplicableMessage,
+                    )
+                  : poolCandidateFilter?.pools?.map(
+                      (pool) => pool?.name?.[locale] || nonApplicableMessage,
+                    )
               }
             />
             <FilterBlock
