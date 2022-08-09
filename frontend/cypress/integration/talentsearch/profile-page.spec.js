@@ -7,14 +7,8 @@ describe("Talentsearch Profile Page", () => {
   context('Anonymous visitor', () => {
     it('redirects restricted pages to login', () => {
       [
-        '/en/talent/profile/',
-        '/en/talent/profile/about-me',
-        '/en/talent/profile/language-information',
-        '/en/talent/profile/government-information',
-        '/en/talent/profile/work-location',
-        '/en/talent/profile/work-preferences',
-        '/en/talent/profile/diversity-and-inclusion',
-        '/en/talent/profile/skills-and-experiences',
+        '/en/users/me',
+        '/en/users/test-applicant/profile',
       ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
         onAuthLoginPage()
@@ -28,14 +22,16 @@ describe("Talentsearch Profile Page", () => {
 
     it('displays not authorized', () => {
       [
-        '/en/talent/profile/',
-        '/en/talent/profile/about-me',
-        '/en/talent/profile/language-information',
-        '/en/talent/profile/government-information',
-        '/en/talent/profile/work-location',
-        '/en/talent/profile/work-preferences',
-        '/en/talent/profile/diversity-and-inclusion',
-        '/en/talent/profile/skills-and-experiences',
+        '/en/users/me',
+        '/en/users/test-no-role/profile',
+        '/en/users/test-no-role/profile/about-me/edit',
+        '/en/users/test-no-role/profile/language-info/edit',
+        '/en/users/test-no-role/profile/government-info/edit',
+        '/en/users/test-no-role/profile/role-salary-expectations/edit',
+        '/en/users/test-no-role/profile/work-location/edit',
+        '/en/users/test-no-role/profile/work-preferences/edit',
+        '/en/users/test-no-role/profile/employment-equity/edit',
+        '/en/users/test-no-role/profile/experiences',
       ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
         cy.contains('not authorized');
@@ -48,7 +44,18 @@ describe("Talentsearch Profile Page", () => {
     beforeEach(() => cy.login('applicant'))
 
     it("loads page successfully", () => {
-      cy.visit('/en/talent/profile')
+      cy.visit('/en/users/test-applicant/profile')
+      cy.contains("My Status");
+      cy.contains("My hiring pools");
+      cy.contains("About Me");
+      cy.contains("Language Information");
+      cy.contains("Government Information");
+      cy.contains("Work Location");
+      cy.contains("Work Preferences");
+      cy.contains("Diversity, equity and inclusion");
+      cy.contains("My skills and experience");
+
+      cy.visit('/en/users/me')
       cy.contains("My Status");
       cy.contains("My hiring pools");
       cy.contains("About Me");

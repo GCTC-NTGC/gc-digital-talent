@@ -8,7 +8,7 @@ describe("Talent Search Workflow Tests", () => {
       aliasMutation(req, "createPoolCandidateSearchRequest");
     });
 
-    cy.visit("/en/talent/search");
+    cy.visit("/en/search");
   });
 
   const searchReturnsGreaterThanZeroApplicants = () => {
