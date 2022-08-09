@@ -611,6 +611,7 @@ type Mutation {
   changePoolExpiryDate(id: ID!, newExpiryDate: DateTimeTz!): PoolAdvertisement
   closePoolAdvertisement(id: ID!): PoolAdvertisement
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
+  archiveApplication(id: ID!): PoolCandidate
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -813,6 +814,7 @@ type PoolCandidate {
   cmoAssets: [CmoAsset]
   status: PoolCandidateStatus
   notes: String
+  archivedAt: DateTime
 }
 
 type PoolCandidateFilter {
