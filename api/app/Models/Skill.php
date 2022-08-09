@@ -47,7 +47,7 @@ class Skill extends Model
         return $this->morphedByMany(
             AwardExperience::class,
             'experience',
-            'experience_skills'
+            'experience_skill'
         )
         ->withTimestamps()
         ->withPivot('details')
@@ -58,7 +58,7 @@ class Skill extends Model
         return $this->morphedByMany(
             CommunityExperience::class,
             'experience',
-            'experience_skills'
+            'experience_skill'
         )
         ->withTimestamps()
         ->withPivot('details')
@@ -69,7 +69,7 @@ class Skill extends Model
         return $this->morphedByMany(
             EducationExperience::class,
             'experience',
-            'experience_skills'
+            'experience_skill'
         )
         ->withTimestamps()
         ->withPivot('details')
@@ -80,7 +80,7 @@ class Skill extends Model
         return $this->morphedByMany(
             PersonalExperience::class,
             'experience',
-            'experience_skills'
+            'experience_skill'
         )
         ->withTimestamps()
         ->withPivot('details')
@@ -91,7 +91,7 @@ class Skill extends Model
         return $this->morphedByMany(
             WorkExperience::class,
             'experience',
-            'experience_skills'
+            'experience_skill'
         )
         ->withTimestamps()
         ->withPivot('details')

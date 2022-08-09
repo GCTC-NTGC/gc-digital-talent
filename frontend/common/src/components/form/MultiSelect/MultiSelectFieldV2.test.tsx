@@ -76,9 +76,6 @@ describe("MultiSelectFieldV2", () => {
     // Hidden input should exist.
     expect(document.querySelectorAll('input[type="hidden"]')).toHaveLength(1);
     expect(
-      document.querySelector('input[type="hidden"]')?.getAttribute("name"),
-    ).toBe("fooBar");
-    expect(
       document.querySelector('input[type="hidden"]')?.getAttribute("value"),
     ).toBeNull();
   });
