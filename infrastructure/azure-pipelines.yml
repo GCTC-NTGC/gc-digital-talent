@@ -3,6 +3,11 @@ trigger:
   branches:
     include:
     - main
+  paths:
+    exclude:
+    - documentation
+    - maintenance
+pr: none
 resources:
   repositories:
   - repository: self
