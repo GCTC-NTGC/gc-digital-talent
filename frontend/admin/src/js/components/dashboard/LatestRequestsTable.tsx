@@ -62,7 +62,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
         tableViewItemButtonAccessor(
           paths.searchRequestView(id),
           "request",
-          fullName || "",
+          fullName || undefined,
         ),
     },
     {

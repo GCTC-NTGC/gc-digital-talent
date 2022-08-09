@@ -41,7 +41,7 @@ DirectorySlash off
     RewriteRule ^users/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
     RewriteRule ^users(/(.*))?$ frontend/talentsearch/dist/$2 [L]
 
-    # Send localized search requests also to talentsearch dist folder;
+    # Send localized user requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/users(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
     # Send search requests to talentsearch dist folder (with or without public/ path prefix).
