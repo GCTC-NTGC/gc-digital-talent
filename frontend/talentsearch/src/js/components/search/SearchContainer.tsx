@@ -179,6 +179,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
               pool={pool}
               poolOwner={poolOwner}
               handleSubmit={onSubmit}
+              classificationFilterCount={classificationFilterCount}
             />
           ) : (
             <Spinner />

@@ -4,7 +4,9 @@ import { useIntl } from "react-intl";
 import { TALENTSEARCH_RECRUITMENT_EMAIL } from "../../talentSearchConstants";
 import SearchPools, { type SearchPoolsProps } from "./SearchPools";
 
-type CandidateResultsProps = SearchPoolsProps;
+type CandidateResultsProps = SearchPoolsProps & {
+  classificationFilterCount: number;
+};
 
 const mailLink = (msg: string) => (
   <a
@@ -20,6 +22,7 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
   pool,
   poolOwner,
   handleSubmit,
+  classificationFilterCount,
 }) => {
   const intl = useIntl();
 
@@ -35,6 +38,7 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
         pool={pool}
         poolOwner={poolOwner}
         handleSubmit={handleSubmit}
+        classificationFilterCount={classificationFilterCount}
       />
     </div>
   ) : (

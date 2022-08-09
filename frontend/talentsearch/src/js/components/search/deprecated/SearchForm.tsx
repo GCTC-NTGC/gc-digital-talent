@@ -13,6 +13,7 @@ import {
   getOperationalRequirement,
   getEmploymentEquityGroup,
 } from "@common/constants/localizedConstants";
+import errorMessages from "@common/messages/errorMessages";
 import {
   Classification,
   CmoAsset,
@@ -214,6 +215,9 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             })}
             name="classifications"
             options={classificationOptions}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
           />
         </FilterBlock>
         <FilterBlock

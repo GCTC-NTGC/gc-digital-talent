@@ -13,6 +13,7 @@ import {
 } from "@common/constants/localizedConstants";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { useLocation } from "@common/helpers/router";
+import errorMessages from "@common/messages/errorMessages";
 import {
   Classification,
   LanguageAbility,
@@ -182,6 +183,9 @@ const SearchForm: React.FC<SearchFormProps> = ({
             })}
             name="classifications"
             options={classificationOptions}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
           />
         </FilterBlock>
         <FilterBlock

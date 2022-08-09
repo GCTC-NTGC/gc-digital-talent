@@ -87,6 +87,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           pool={pool}
           poolOwner={poolOwner}
           handleSubmit={handleSubmit}
+          classificationFilterCount={classificationFilterCount}
         />
       </div>
     ) : (
