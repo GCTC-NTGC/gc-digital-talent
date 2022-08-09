@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from "../Tabs";
 import { invertSkillExperienceTree } from "../../helpers/skillUtils";
 import ExperienceAccordion, {
   ExperiencePaths,
 } from "./ExperienceAccordion/ExperienceAccordion";
 import SkillAccordion from "./SkillAccordion/SkillAccordion";
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "../Tabs";
 import { getLocale } from "../../helpers/localize";
 import {
   compareByDate,

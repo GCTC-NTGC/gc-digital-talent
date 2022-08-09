@@ -14,6 +14,8 @@ type Applicant {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenshipStatus
+  isVeteran: Boolean
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
@@ -136,6 +138,12 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+enum CitizenshipStatus {
+  CITIZEN
+  PERMANENT_RESIDENT
+  OTHER
+}
+
 type Classification {
   id: ID!
   name: LocalizedString
@@ -221,6 +229,8 @@ input CreateApplicantFilterInput {
   expectedClassifications: ClassificationBelongsToMany
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
+  citizenship: CitizenshipStatus
+  isVeteran: Boolean
 }
 
 input CreateClassificationInput {
@@ -240,6 +250,11 @@ input CreateCmoAssetInput {
 input CreateDepartmentInput {
   departmentNumber: Int!
   name: LocalizedStringInput
+}
+
+input CreatePoolAdvertisementInput {
+  key: KeyString!
+  classifications: ClassificationBelongsToMany
 }
 
 input CreatePoolCandidateAsAdminInput {
@@ -323,6 +338,8 @@ input CreateUserInput {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenshipStatus
+  isVeteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -588,6 +605,12 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
+  createPoolAdvertisement(userId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
+  updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
+  publishPoolAdvertisement(id: ID!): PoolAdvertisement
+  changePoolExpiryDate(id: ID!, newExpiryDate: DateTimeTz!): PoolAdvertisement
+  closePoolAdvertisement(id: ID!): PoolAdvertisement
+  deletePoolAdvertisement(id: ID!): PoolAdvertisement
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -1104,6 +1127,19 @@ input UpdateExperienceSkills {
   sync: [ConnectExperienceSkills!]
 }
 
+input UpdatePoolAdvertisementInput {
+  name: LocalizedStringInput
+  classifications: ClassificationBelongsToMany
+  expiryDate: DateTimeTz
+  yourImpact: LocalizedStringInput
+  keyTasks: LocalizedStringInput
+  essentialSkills: SkillBelongsToMany
+  nonessentialSkills: SkillBelongsToMany
+  advertisementLanguage: PoolAdvertisementLanguage
+  securityClearance: SecurityStatus
+  advertisementLocation: LocalizedStringInput
+}
+
 input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID
   expiryDate: Date
@@ -1164,6 +1200,8 @@ input UpdateUserAsAdminInput {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenshipStatus
+  isVeteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1207,6 +1245,8 @@ input UpdateUserAsUserInput {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenshipStatus
+  isVeteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1253,6 +1293,8 @@ type User {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenshipStatus
+  isVeteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean

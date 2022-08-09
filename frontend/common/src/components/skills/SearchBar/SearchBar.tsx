@@ -18,8 +18,7 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
   const methods = useForm<FormValues>({
     defaultValues: { query: "" },
   });
-  const { handleSubmit, setValue, watch, setError } = methods;
-  const watchSearch = watch("query");
+  const { handleSubmit, setValue } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleSearch(data.query);
@@ -46,24 +45,9 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
               if (e.target.value.length >= 2) handleSubmit(onSubmit)();
             }}
             onKeyPress={(e) => {
-              // If user tries to enter invalid string then setError on keypress
-              if (e.key === "Enter" && watchSearch.length < 2) {
+              // Prevent enter key from submitting form
+              if (e.key === "Enter") {
                 e.preventDefault();
-                setError(
-                  "query",
-                  {
-                    type: "minLength",
-                    message: intl.formatMessage({
-                      defaultMessage:
-                        "You must enter a search term before pressing enter",
-                      description:
-                        "Error message displayed when the search term length is less then 2 characters.",
-                    }),
-                  },
-                  { shouldFocus: true },
-                );
-              } else {
-                onSubmit({ query: watchSearch });
               }
             }}
             errorPosition="top"

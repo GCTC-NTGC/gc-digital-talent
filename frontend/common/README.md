@@ -51,7 +51,7 @@ To import code from this folder in another Javascript package in a sibling folde
 ### Done!
 Now you can import common code into your TypeScript files by prefixing the import statement with "@common", and everything (linting, introspection, and building) should work correctly. Some examples:
 
-`import { Link } from "@common/helpers/router";`
+`import { useLocation } from "@common/helpers/router";`
 
 `import Table from "@common/components/Table";`
 
@@ -67,24 +67,4 @@ Unfortunately, I do not know a good way around the "no-extraneous-dependencies" 
 
 ## Translation Utility script
 
-This project contains a script (`src/tooling/checkIntl.js`) to help manage your react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli).
-
-### Directions
-The checkIntl script can be run with different flags and options. For more details on how individual options work, see the checkIntl file itself. In practice, it is easiest to save the commands, with options included, as **package.json** scripts.
-
-Note: each project using react-intl (e.g. admin, common, talentsearch, etc.) requires its own set of commands, and must be managed separately.
-
-For example, to ensure translations in the admin project are up to date:
-1. Run `npm run intl-extract` in the project you are managing (in this case, /admin).
-2. Run `npm run check-intl-admin` (from the /common folder). This generates a **untranslated.json** file in the admin project's lang folder.
-3. Send **untranslated.json** for translation, asking them to only translate the "defaultMessage" fields.
-4. Save the translated version which comes back as **newTranslations.json** in the same lang folder.
-5. Run `npm run check-intl-admin-merge` (again from the /common folder).
-6. If you see any warnings about untranslated entries which simply match in English and French, add the key to the array in **whitelist.json** and repeat step 4.
-7. Run `npm run intl-compile` in the /admin folder.
-
-### On source control
-Only **fr.json** and **whitelist.json** need to be checked into source control. The other files created during this process are generated as needed or only used to communicate with translators, should be added to .gitignore, and may be deleted after use.
-
-
-
+This project contains a script (`src/tooling/checkIntl.js`) to help manage your react-intl translations files. For more information refer to the [translation documentation](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/documentation/translation.md).

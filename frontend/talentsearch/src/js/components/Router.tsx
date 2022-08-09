@@ -8,7 +8,6 @@ import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { Helmet } from "react-helmet";
 import { getLocale } from "@common/helpers/localize";
 import PageContainer, { MenuLink } from "./PageContainer";
-import SearchPage from "./search/SearchPage";
 import {
   useTalentSearchRoutes,
   TalentSearchRoutes,
@@ -22,28 +21,65 @@ import {
   DirectIntakeRoutes,
   useDirectIntakeRoutes,
 } from "../directIntakeRoutes";
-import RequestPage from "./request/RequestPage";
-import WorkLocationPreferenceApi from "./workLocationPreferenceForm/WorkLocationPreferenceForm";
-import { ProfilePage } from "./profile/ProfilePage/ProfilePage";
-import ExperienceFormContainer from "./experienceForm/ExperienceForm";
 import { ExperienceType } from "./experienceForm/types";
-import WorkPreferencesApi from "./workPreferencesForm/WorkPreferencesForm";
-import { GovInfoFormContainer } from "./GovernmentInfoForm/GovernmentInfoForm";
-import LanguageInformationFormContainer from "./languageInformationForm/LanguageInformationForm";
-import AboutMeFormContainer from "./aboutMeForm/AboutMeForm";
-import DiversityEquityInclusionFormApi from "./diversityEquityInclusion/DiversityEquityInclusionForm";
-import { ExperienceAndSkillsRouterApi } from "./applicantProfile/ExperienceAndSkills";
-import RoleSalaryFormContainer from "./roleSalaryForm/RoleSalaryForm";
-import BrowsePoolsPage from "./browse/BrowsePoolsPage";
-import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
-import PoolApplyPage from "./pool/PoolApplyPage";
-import PoolApplicationThanksPage from "./pool/PoolApplicationThanksPage";
-import RegisterPage from "./register/RegisterPage";
-import LoggedOutPage from "./loggedOut/LoggedOutPage";
-import LoginPage from "./login/LoginPage";
-import { CreateAccount } from "./createAccount/CreateAccountPage";
 import { Role } from "../api/generated";
-import PoolAdvertisementPage from "./pool/PoolAdvertisementPage";
+
+/** Search */
+const SearchPage = React.lazy(() => import("./search/SearchPage"));
+const RequestPage = React.lazy(() => import("./request/RequestPage"));
+
+/** Auth */
+const RegisterPage = React.lazy(() => import("./register/RegisterPage"));
+const LoggedOutPage = React.lazy(() => import("./loggedOut/LoggedOutPage"));
+const LoginPage = React.lazy(() => import("./login/LoginPage"));
+
+/** Profile */
+const CreateAccount = React.lazy(
+  () => import("./createAccount/CreateAccountPage"),
+);
+const ProfilePage = React.lazy(
+  () => import("./profile/ProfilePage/ProfilePage"),
+);
+const GovInfoFormContainer = React.lazy(
+  () => import("./GovernmentInfoForm/GovernmentInfoForm"),
+);
+const LanguageInformationFormContainer = React.lazy(
+  () => import("./languageInformationForm/LanguageInformationForm"),
+);
+const WorkLocationPreferenceApi = React.lazy(
+  () => import("./workLocationPreferenceForm/WorkLocationPreferenceForm"),
+);
+const RoleSalaryFormContainer = React.lazy(
+  () => import("./roleSalaryForm/RoleSalaryForm"),
+);
+const ExperienceFormContainer = React.lazy(
+  () => import("./experienceForm/ExperienceForm"),
+);
+const WorkPreferencesApi = React.lazy(
+  () => import("./workPreferencesForm/WorkPreferencesForm"),
+);
+const AboutMeFormContainer = React.lazy(
+  () => import("./aboutMeForm/AboutMeForm"),
+);
+const DiversityEquityInclusionFormApi = React.lazy(
+  () => import("./diversityEquityInclusion/DiversityEquityInclusionForm"),
+);
+const ExperienceAndSkillsRouterApi = React.lazy(
+  () => import("./applicantProfile/ExperienceAndSkills"),
+);
+
+/** Direct Intake */
+const BrowsePoolsPage = React.lazy(() => import("./browse/BrowsePoolsPage"));
+const BrowseIndividualPoolApi = React.lazy(
+  () => import("./browse/BrowseIndividualPool"),
+);
+const PoolApplyPage = React.lazy(() => import("./pool/PoolApplyPage"));
+const PoolApplicationThanksPage = React.lazy(
+  () => import("./pool/PoolApplicationThanksPage"),
+);
+const PoolAdvertisementPage = React.lazy(
+  () => import("./pool/PoolAdvertisementPage"),
+);
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,

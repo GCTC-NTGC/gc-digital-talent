@@ -1,7 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import fakeExperiences from "@common/fakeData/fakeExperiences";
-import ExperienceAndSkills, {
+import {
+  ExperienceAndSkills,
   ExperienceAndSkillsProps,
 } from "./ExperienceAndSkills";
 

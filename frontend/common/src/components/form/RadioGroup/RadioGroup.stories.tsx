@@ -1,7 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { MINIMAL_VIEWPORTS } from "@storybook/addon-viewport";
 import RadioGroup from ".";
 import type { RadioGroupProps } from ".";
 import Form from "../BasicForm";
@@ -10,13 +9,6 @@ import Submit from "../Submit";
 export default {
   component: RadioGroup,
   title: "Form/RadioGroup",
-  parameters: {
-    // 👇 The viewports object from the Essentials addon
-    viewport: {
-      // 👇 The viewports you want to use
-      viewports: MINIMAL_VIEWPORTS,
-    },
-  },
 } as Meta;
 
 const TemplateRadioGroup: Story<RadioGroupProps> = (args) => {
@@ -89,7 +81,7 @@ RadioGroupOfElements.args = {
 export const LargeRadioGroup = TemplateRadioGroup.bind({});
 LargeRadioGroup.parameters = {
   viewport: {
-    defaultViewport: "mobile1",
+    defaultViewport: "iphone6p",
   },
 };
 LargeRadioGroup.args = {

@@ -27,7 +27,7 @@ const Pending = ({
     return <ErrorMessage error={error} />;
   }
 
-  return children as React.ReactElement;
+  return <React.Suspense fallback={<Loading />}>{children}</React.Suspense>;
 };
 
 export default Pending;

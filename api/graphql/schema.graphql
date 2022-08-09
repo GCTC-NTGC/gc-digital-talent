@@ -46,6 +46,8 @@ type User {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
+    citizenship: CitizenshipStatus
+    isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -156,6 +158,12 @@ enum GovEmployeeType {
     INDETERMINATE
 }
 
+enum CitizenshipStatus {
+    CITIZEN
+    PERMANENT_RESIDENT
+    OTHER
+}
+
 type Applicant {
     id: ID!
 
@@ -167,6 +175,8 @@ type Applicant {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
+    citizenship: CitizenshipStatus
+    isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
@@ -735,6 +745,8 @@ input CreateUserInput {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
+    citizenship: CitizenshipStatus
+    isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -794,6 +806,8 @@ input UpdateUserAsAdminInput {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
+    citizenship: CitizenshipStatus
+    isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -849,6 +863,8 @@ input UpdateUserAsUserInput {
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
+    citizenship: CitizenshipStatus
+    isVeteran: Boolean @rename(attribute: "is_veteran")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -1054,6 +1070,8 @@ input CreateApplicantFilterInput {
     expectedClassifications: ClassificationBelongsToMany @rename(attribute: "classifications")
     skills: SkillBelongsToMany
     pools: PoolBelongsToMany
+    citizenship: CitizenshipStatus
+    isVeteran: Boolean @rename(attribute: "is_veteran")
 }
 
 input ApplicantFilterBelongsTo {
@@ -1066,8 +1084,8 @@ input CreatePoolCandidateSearchRequestInput {
     department: DepartmentBelongsTo!
     jobTitle: String! @rename(attribute: "job_title")
     additionalComments: String @rename(attribute: "additional_comments")
-    poolCandidateFilter: PoolCandidateFilterBelongsTo # TODO: remove this field when we've completed the transition from using poolCandidateCount to applicantCount
-    applicantFilter: ApplicantFilterBelongsTo # TODO: make this required when we've completed the transition from using poolCandidateCount to applicantCount
+    poolCandidateFilter: PoolCandidateFilterBelongsTo @rules(apply: ["required_without:applicantFilter"]) # TODO: remove this field when we've completed the transition from using poolCandidateCount to applicantCount
+    applicantFilter: ApplicantFilterBelongsTo  @rules(apply: ["required_without:poolCandidateFilter"]) # TODO: make this required when we've completed the transition from using poolCandidateCount to applicantCount
     # requestedDate will be set to current date in Eloquent model.
     # status will be set to PENDING in Eloquent model.
 }
@@ -1195,6 +1213,30 @@ input GenericJobTitleBelongsToMany {
     sync: [ID!]
 }
 
+input CreatePoolAdvertisementInput {
+    key: KeyString!
+    classifications: ClassificationBelongsToMany
+}
+
+input UpdatePoolAdvertisementInput {
+    # Pool name and classification
+    name: LocalizedStringInput
+    classifications: ClassificationBelongsToMany
+    # Closing date
+    expiryDate: DateTimeTz @rename(attribute: "expiry_date") @rules(apply: ["after:today"])
+    # Your impact
+    yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
+    # Work Tasks
+    keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
+    # Essential skills and Asset skills
+    essentialSkills: SkillBelongsToMany
+    nonessentialSkills: SkillBelongsToMany
+    # Other requirements
+    advertisementLanguage: PoolAdvertisementLanguage @rename(attribute: "advertisement_language")
+    securityClearance: SecurityStatus @rename(attribute: "security_clearance")
+    advertisementLocation: LocalizedStringInput @rename(attribute: "advertisement_location")
+}
+
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
     updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
@@ -1236,4 +1278,17 @@ type Mutation {
     deleteCommunityExperience(id: ID!): CommunityExperience @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     deleteEducationExperience(id: ID!): EducationExperience @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     deleteAwardExperience(id: ID!): AwardExperience @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+
+    # PoolAdvertisement mutations
+    createPoolAdvertisement(userId: ID! @rename(attribute: "user_id"), poolAdvertisement: CreatePoolAdvertisementInput! @spread): PoolAdvertisement @create(model: "Pool") @guard @can(ability: "create", model: "Pool")
+
+    updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput! @spread): PoolAdvertisement @update(model: "Pool") @guard @can(ability: "update", find: "id", model: "Pool")
+
+    publishPoolAdvertisement(id: ID!): PoolAdvertisement @guard @can(ability: "publish", find: "id", model: "Pool")
+
+    changePoolExpiryDate(id: ID!, newExpiryDate: DateTimeTz! @rename(attribute: "new_expiry_date") @rules(apply: ["after:today"])): PoolAdvertisement @guard @can(ability: "changePoolExpiryDate", find: "id", model: "Pool")
+
+    closePoolAdvertisement(id: ID!): PoolAdvertisement @guard @can(ability: "closePoolAdvertisement", find: "id", model: "Pool")
+
+    deletePoolAdvertisement(id: ID!): PoolAdvertisement @delete(model: "Pool", globalId: false) @guard @can(ability: "delete", find: "id", model: "Pool")
 }

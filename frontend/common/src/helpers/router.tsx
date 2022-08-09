@@ -231,29 +231,6 @@ export function queryParametersToSearchString(
   return queryString ? `?${queryString}` : "";
 }
 
-type LinkProps = React.HTMLProps<HTMLAnchorElement>;
-
-export const Link: React.FC<LinkProps> = ({
-  href,
-  title,
-  children,
-  ...props
-}): React.ReactElement => (
-  <a
-    href={href}
-    title={title}
-    {...props}
-    onClick={(event): void => {
-      event.preventDefault();
-      if (href) {
-        navigate(href);
-      }
-    }}
-  >
-    {children}
-  </a>
-);
-
 export const ScrollToTop: React.FC<{ children: React.ReactElement }> = ({
   children,
 }): React.ReactElement => {

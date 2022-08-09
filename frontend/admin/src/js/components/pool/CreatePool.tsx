@@ -2,102 +2,87 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
-import {
-  Input,
-  MultiSelect,
-  Select,
-  Submit,
-  TextArea,
-} from "@common/components/form";
-import { getLocale } from "@common/helpers/localize";
-import { notEmpty } from "@common/helpers/util";
+import { Input, Select, Submit } from "@common/components/form";
+import { unpackMaybes } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
-import { keyStringRegex } from "@common/constants/regularExpressions";
-import { enumToOptions } from "@common/helpers/formUtils";
-import {
-  getOperationalRequirement,
-  getPoolStatus,
-  OperationalRequirementV2,
-} from "@common/constants/localizedConstants";
+import { getGenericJobTitlesWithClassification } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
+import PageHeader from "@common/components/PageHeader/PageHeader";
+import Breadcrumbs, {
+  BreadcrumbsProps,
+} from "@common/components/Breadcrumbs/Breadcrumbs";
+import { ViewGridIcon } from "@heroicons/react/outline";
+import { ViewGridIcon as SolidGridIcon } from "@heroicons/react/solid";
+import Link from "@common/components/Link/Link";
+import { getLocalizedName } from "@common/helpers/localize";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
+  CreatePoolAdvertisementInput,
+  useCreatePoolAdvertisementMutation,
+  CreatePoolAdvertisementMutation,
+  useGetMePoolCreationQuery,
+  GenericJobTitleKey,
   Classification,
-  CmoAsset,
-  CreatePoolInput,
-  CreatePoolMutation,
-  Pool,
-  useCreatePoolMutation,
-  useGetCreatePoolDataQuery,
-  User,
-  PoolStatus,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
-type FormValues = Pick<
-  Pool,
-  "description" | "operationalRequirements" | "keyTasks" | "status"
-> & {
+type FormValues = {
   key: string;
-  name: {
-    en: string;
-    fr: string;
-  };
-  assetCriteria: string[] | undefined;
-  classifications: string[] | undefined;
-  essentialCriteria: string[] | undefined;
-  owner: string;
+  classification: string[];
 };
 
+interface GenericJobTitle {
+  key: GenericJobTitleKey;
+  id: string;
+  classificationId: string;
+}
+
 interface CreatePoolFormProps {
-  classifications: Classification[];
-  cmoAssets: CmoAsset[];
-  users: User[];
+  userId: string;
+  genericJobTitles: GenericJobTitle[];
+  classificationsArray: Classification[];
   handleCreatePool: (
-    data: CreatePoolInput,
-  ) => Promise<CreatePoolMutation["createPool"]>;
+    userId: string,
+    data: CreatePoolAdvertisementInput,
+  ) => Promise<CreatePoolAdvertisementMutation["createPoolAdvertisement"]>;
 }
 
 export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
-  classifications,
-  cmoAssets,
-  users,
+  userId,
+  genericJobTitles,
+  classificationsArray,
   handleCreatePool,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
-  const formValuesToSubmitData = (values: FormValues): CreatePoolInput => ({
-    ...values,
-    assetCriteria: {
-      sync: values.assetCriteria,
-    },
+  // submission section, and navigate to edit the created pool
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): CreatePoolAdvertisementInput => ({
     classifications: {
-      sync: values.classifications,
+      sync: values.classification,
     },
-    essentialCriteria: {
-      sync: values.essentialCriteria,
-    },
-    owner: { connect: values.owner },
+    key: values.key,
   });
-
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleCreatePool(formValuesToSubmitData(data))
-      .then(() => {
-        navigate(paths.poolTable());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Pool created successfully!",
-            description:
-              "Message displayed to user after pool is created successfully.",
-          }),
-        );
+    await handleCreatePool(userId, formValuesToSubmitData(data))
+      .then((result) => {
+        if (result) {
+          navigate(paths.poolEdit(result.id));
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Pool created successfully!",
+              description:
+                "Message displayed to user after pool is created successfully.",
+            }),
+          );
+        }
       })
       .catch(() => {
         toast.error(
@@ -110,75 +95,92 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
       });
   };
 
-  const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
-    value: id,
-    label: name[locale] ?? "Error: name not loaded",
-  }));
+  const links = [
+    {
+      title: intl.formatMessage({
+        defaultMessage: "My Pools",
+        description: "Breadcrumb title for the pools page link.",
+      }),
+      href: paths.poolTable(),
+      icon: <SolidGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
+    },
+    {
+      title: intl.formatMessage({
+        defaultMessage: `New Pool`,
+        description: "New pool breadcrumb text",
+      }),
+    },
+  ] as BreadcrumbsProps["links"];
 
-  const classificationOptions: Option<string>[] = classifications.map(
-    ({ id, group, level }) => ({
-      value: id,
-      label: `${group}-0${level}`,
+  // NOTICE NOTICE NOTICE NOTICE NOTICE
+  // how the CreatePool will function, in example, Generic Job Classifications vs regular Classifications is undecided so code segments are left in despite being unused
+  // TODO RESOLVE THIS
+
+  // create the options for the select input, and ensure classification Ids are attached to each option
+  // take care not to try and attach generic job title Id instead, wrong Id throws confusing sql errors
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const jobTitleOptions: Option<string>[] = genericJobTitles.map(
+    ({ key, classificationId }) => ({
+      value: classificationId,
+      label:
+        intl.formatMessage(getGenericJobTitlesWithClassification(key)) ??
+        "Error: name not loaded",
     }),
   );
 
-  const userOptions: Option<string>[] = users.map(
-    ({ id, firstName, lastName }) => ({
+  // recycled from EditPool
+  const classificationOptions: Option<string>[] = classificationsArray
+    .map(({ id, group, level, name }) => ({
       value: id,
-      label: `${firstName} ${lastName}`,
-    }),
-  );
+      label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
+    }))
+    .sort((a, b) => (a.label >= b.label ? 1 : -1));
 
   return (
     <section>
-      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+      <PageHeader icon={ViewGridIcon}>
         {intl.formatMessage({
-          defaultMessage: "Create Pool",
-          description: "Title displayed on the create a pool form.",
+          defaultMessage: "Create New Pool",
+          description: "Header for page to create pool advertisements",
         })}
-      </h2>
-      <div data-h2-container="b(center, s)">
+      </PageHeader>
+      <Breadcrumbs links={links} />
+      <div
+        data-h2-container="b(left, s)"
+        data-h2-bg-color="b(lightgray)"
+        data-h2-padding="b(all, xs)"
+        data-h2-margin="b(top, l)"
+        data-h2-radius="b(s)"
+      >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <h3 data-h2-margin="b(top-bottom, xs)">
+              {intl.formatMessage({
+                defaultMessage: "Start blank job poster",
+                description: "Form header to create new pool",
+              })}
+            </h3>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Create a new job poster from scratch",
+                description: "Form blurb describing create pool form",
+              })}
+            </p>
             <Select
-              id="owner"
+              // data-h2-padding="b(right, l)"
+              id="classification"
               label={intl.formatMessage({
-                defaultMessage: "Owner",
-                description: "Label displayed on the pool form owner field.",
+                defaultMessage: "Starting group and level",
+                description:
+                  "Label displayed on the pool form classification field.",
               })}
-              name="owner"
+              name="classification"
               nullSelection={intl.formatMessage({
-                defaultMessage: "Select an owner...",
+                defaultMessage: "Select a classification...",
                 description:
-                  "Placeholder displayed on the pool form owner field.",
+                  "Placeholder displayed on the pool form classification field.",
               })}
-              options={userOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_en"
-              name="name.en"
-              label={intl.formatMessage({
-                defaultMessage: "Name (English)",
-                description:
-                  "Label displayed on the pool form name (English) field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Name (French)",
-                description:
-                  "Label displayed on the pool form name (French) field.",
-              })}
-              type="text"
+              options={classificationOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -188,185 +190,86 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               name="key"
               label={intl.formatMessage({
                 defaultMessage: "Key",
-                description: "Label displayed on the 'key' input field.",
-              })}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "The 'key' is a string that uniquely identifies a Pool. It should be based on the Pool's English name, and it should be concise. A good example would be \"digital_careers\". It may be used in the code to refer to this particular Pool, so it cannot be changed later.",
-                description:
-                  "Additional context describing the purpose of the Pool's 'key' field.",
+                description: "Label displayed on the pool form name key field.",
               })}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
-                pattern: {
-                  value: keyStringRegex,
-                  message: intl.formatMessage({
-                    defaultMessage:
-                      "Please use only lowercase letters and underscores.",
-                  }),
-                },
               }}
-            />
-            <TextArea
-              id="description_en"
-              name="description.en"
-              label={intl.formatMessage({
-                defaultMessage: "Description (English)",
-                description:
-                  "Label displayed on the pool form description (English) field.",
-              })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <TextArea
-              id="description_fr"
-              name="description.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Description (French)",
-                description:
-                  "Label displayed on the pool form description (French) field.",
-              })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <MultiSelect
-              id="classifications"
-              label={intl.formatMessage({
-                defaultMessage: "Classifications",
-                description:
-                  "Label displayed on the pool form classifications field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more classifications...",
-                description:
-                  "Placeholder displayed on the pool form classifications field.",
-              })}
-              name="classifications"
-              options={classificationOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <MultiSelect
-              id="assetCriteria"
-              label={intl.formatMessage({
-                defaultMessage: "Asset Criteria",
-                description:
-                  "Label displayed on the pool form asset criteria field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more asset...",
-                description:
-                  "Placeholder displayed on the pool form asset criteria field.",
-              })}
-              name="assetCriteria"
-              options={cmoAssetOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <MultiSelect
-              id="essentialCriteria"
-              label={intl.formatMessage({
-                defaultMessage: "Essential Criteria",
-                description:
-                  "Label displayed on the pool form essential criteria field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more essential...",
-                description:
-                  "Placeholder displayed on the pool form essential criteria field.",
-              })}
-              name="essentialCriteria"
-              options={cmoAssetOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <MultiSelect
-              id="operationalRequirements"
-              name="operationalRequirements"
-              label={intl.formatMessage({
-                defaultMessage: "Operational Requirements",
-                description:
-                  "Label displayed on the pool form operational requirements field.",
-              })}
-              placeholder={intl.formatMessage({
+              context={intl.formatMessage({
                 defaultMessage:
-                  "Select one or more operational requirements...",
-                description:
-                  "Placeholder displayed on the pool form operational requirements field.",
-              })}
-              options={OperationalRequirementV2.map((value) => ({
-                value,
-                label: intl.formatMessage(getOperationalRequirement(value)),
-              }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <TextArea
-              id="keyTasks_en"
-              name="keyTasks.en"
-              label={intl.formatMessage({
-                defaultMessage: "Key Tasks (English)",
-                description:
-                  "Label displayed on the pool form key tasks (English) field.",
+                  "The 'key' is a string that uniquely identifies a Pool. It's auto-generated based on the pool's group and job title.",
+                description: "Context displayed on the pool form key field.",
               })}
             />
-            <TextArea
-              id="keyTasks_fr"
-              name="keyTasks.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Key Tasks (French)",
+            <Submit
+              color="cta"
+              text={intl.formatMessage({
+                defaultMessage: "Create new pool",
                 description:
-                  "Label displayed on the pool form key tasks (French) field.",
+                  "Label displayed on submit button for new pool form.",
               })}
             />
-            <Select
-              id="status"
-              label={intl.formatMessage({
-                defaultMessage: "Status",
-                description: "Label displayed on the pool form status field.",
-              })}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a status...",
-                description:
-                  "Placeholder displayed on the pool form status field.",
-              })}
-              name="status"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              options={enumToOptions(PoolStatus).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getPoolStatus(value)),
-              }))}
-            />
-            <Submit />
           </form>
         </FormProvider>
+      </div>
+
+      <div data-h2-margin="b(top, l)">
+        <Link
+          type="button"
+          href={paths.poolTable()}
+          mode="outline"
+          color="primary"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Cancel and go back",
+            description: "Label displayed on cancel button for new pool form.",
+          })}
+        </Link>
       </div>
     </section>
   );
 };
 
-export const CreatePool: React.FunctionComponent = () => {
-  const [lookupResult] = useGetCreatePoolDataQuery();
+const CreatePool: React.FunctionComponent = () => {
+  const [lookupResult] = useGetMePoolCreationQuery();
   const { data: lookupData, fetching, error } = lookupResult;
-  const classifications: Classification[] | [] =
-    lookupData?.classifications.filter(notEmpty) ?? [];
-  const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
-  const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
 
-  const [, executeMutation] = useCreatePoolMutation();
-  const handleCreatePool = (data: CreatePoolInput) =>
-    executeMutation({ pool: data }).then((result) => {
-      if (result.data?.createPool) {
-        return result.data?.createPool;
+  // current user -> type change to only string
+  const userIdQueryUntyped = lookupData?.me?.id;
+  const restrictUserType = (user: string | undefined): string => {
+    if (user) {
+      return user;
+    }
+    return "";
+  };
+  const userIdQuery = restrictUserType(userIdQueryUntyped);
+
+  // get rid of all those annoying Maybes, make sure classifications isn't a maybe either
+  const jobTitlesData = unpackMaybes(lookupData?.genericJobTitles);
+  const jobTitlesMapped = jobTitlesData
+    ? jobTitlesData.map((jobTitle) => {
+        return {
+          key: jobTitle.key,
+          id: jobTitle.id,
+          classificationId: jobTitle.classification
+            ? jobTitle.classification.id
+            : "",
+        };
+      })
+    : [];
+
+  // fetched all classifications
+  const classificationsData = unpackMaybes(lookupData?.classifications);
+
+  const [, executeMutation] = useCreatePoolAdvertisementMutation();
+  const handleCreatePool = (
+    userId: string,
+    data: CreatePoolAdvertisementInput,
+  ) =>
+    executeMutation({ userId, poolAdvertisement: data }).then((result) => {
+      if (result.data?.createPoolAdvertisement) {
+        return result.data?.createPoolAdvertisement;
       }
       return Promise.reject(result.error);
     });
@@ -375,12 +278,14 @@ export const CreatePool: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       <DashboardContentContainer>
         <CreatePoolForm
-          classifications={classifications}
-          cmoAssets={cmoAssets}
-          users={users}
+          userId={userIdQuery}
+          genericJobTitles={jobTitlesMapped}
+          classificationsArray={classificationsData}
           handleCreatePool={handleCreatePool}
         />
       </DashboardContentContainer>
     </Pending>
   );
 };
+
+export default CreatePool;
