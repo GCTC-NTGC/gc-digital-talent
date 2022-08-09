@@ -263,6 +263,7 @@ type PoolAdvertisement {
     classifications: [Classification] @belongsToMany
     keyTasks: LocalizedString @rename(attribute: "key_tasks")
     yourImpact: LocalizedString @rename(attribute: "your_impact")
+    isRemote: Boolean @rename(attribute: "is_remote")
     advertisementLocation: LocalizedString @rename(attribute: "advertisement_location")
     securityClearance: SecurityStatus @rename(attribute: "security_clearance")
     advertisementLanguage: PoolAdvertisementLanguage @rename(attribute: "advertisement_language")
@@ -1235,6 +1236,7 @@ input UpdatePoolAdvertisementInput {
     advertisementLanguage: PoolAdvertisementLanguage @rename(attribute: "advertisement_language")
     securityClearance: SecurityStatus @rename(attribute: "security_clearance")
     advertisementLocation: LocalizedStringInput @rename(attribute: "advertisement_location")
+    isRemote: Boolean @rename(attribute: "is_remote")
 }
 
 type Mutation {

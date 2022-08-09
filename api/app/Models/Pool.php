@@ -60,6 +60,7 @@ class Pool extends Model
     */
     protected $fillable = [
         'is_published',
+        'is_remote',
         'expiry_date'
     ];
 
