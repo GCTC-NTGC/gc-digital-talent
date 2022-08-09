@@ -36,7 +36,10 @@ type FormValues = {
 
 export type OtherRequirementsSubmitData = Pick<
   UpdatePoolAdvertisementInput,
-  "advertisementLanguage" | "advertisementLocation" | "securityClearance"
+  | "advertisementLanguage"
+  | "advertisementLocation"
+  | "securityClearance"
+  | "isRemote"
 >;
 
 interface OtherRequirementsSectionProps {
@@ -56,11 +59,9 @@ export const OtherRequirementsSection = ({
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     languageRequirement: initialData.advertisementLanguage,
     securityRequirement: initialData.securityClearance,
-    locationOption:
-      isEmpty(initialData.advertisementLocation?.en) &&
-      isEmpty(initialData.advertisementLocation?.fr)
-        ? LocationOption.RemoteOptional
-        : LocationOption.SpecificLocation,
+    locationOption: initialData.isRemote
+      ? LocationOption.RemoteOptional
+      : LocationOption.SpecificLocation,
     specificLocationEn: initialData.advertisementLocation?.en,
     specificLocationFr: initialData.advertisementLocation?.fr,
   });
@@ -90,29 +91,17 @@ export const OtherRequirementsSection = ({
     return formValues;
   };
 
-  const locationOptionToSubmitData = (
-    value: LocalizedString,
-  ): LocalizedString | undefined => {
-    if (
-      (!notEmpty(value.en) && !notEmpty(value.fr)) ||
-      (!!value.en?.length && !!value.fr?.length)
-    ) {
-      return undefined;
-    }
-
-    return value;
-  };
-
   const handleSave = (formValues: FormValues) => {
     onSave({
       advertisementLanguage: formValues.languageRequirement,
       advertisementLocation:
         formValues.locationOption !== LocationOption.RemoteOptional
-          ? locationOptionToSubmitData({
+          ? {
               en: formValues.specificLocationEn,
               fr: formValues.specificLocationFr,
-            })
+            }
           : undefined,
+      isRemote: formValues.locationOption === LocationOption.RemoteOptional,
       securityClearance: formValues.securityRequirement,
     });
   };

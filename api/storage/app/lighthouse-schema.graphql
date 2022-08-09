@@ -770,6 +770,7 @@ type PoolAdvertisement {
   classifications: [Classification]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
+  isRemote: Boolean
   advertisementLocation: LocalizedString
   securityClearance: SecurityStatus
   advertisementLanguage: PoolAdvertisementLanguage
@@ -1138,6 +1139,7 @@ input UpdatePoolAdvertisementInput {
   advertisementLanguage: PoolAdvertisementLanguage
   securityClearance: SecurityStatus
   advertisementLocation: LocalizedStringInput
+  isRemote: Boolean
 }
 
 input UpdatePoolCandidateAsAdminInput {
