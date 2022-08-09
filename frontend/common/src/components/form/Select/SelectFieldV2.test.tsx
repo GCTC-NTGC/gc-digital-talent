@@ -102,9 +102,10 @@ describe("useRulesWithDefaultMessages", () => {
 
   it("return default message when `required` is true", () => {
     const newRules = renderHookWithProviders("Some Field", { required: true });
-    expect(newRules.current.required).toBe(
-      "Some Field: This field is required.",
-    );
+    expect(newRules.current.required).toBe("This field is required.");
+    // expect(newRules.current.required).toBe(
+    //   "Some Field: This field is required.",
+    // );
   });
 
   it("return custom message when `required` is string", () => {
