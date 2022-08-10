@@ -6,8 +6,9 @@ import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { AuthenticationContext } from "@common/components/Auth";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { Helmet } from "react-helmet";
-import { getLocale } from "@common/helpers/localize";
+import { getLocale, Locales } from "@common/helpers/localize";
 import Pending from "@common/components/Pending";
+import { ApiRoutes, useApiRoutes } from "@common/hooks/useApiRoutes";
 import PageContainer, { MenuLink } from "./PageContainer";
 import {
   useTalentSearchRoutes,
@@ -122,7 +123,9 @@ const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
 
 const profileRoutes = (
   profilePaths: ApplicantProfileRoutes,
-  myUserId: string,
+  apiRoutes: ApiRoutes,
+  locale: Locales,
+  myUserId?: string,
 ): Routes<RouterResult> => [
   {
     path: profilePaths.createAccount(),
@@ -134,7 +137,8 @@ const profileRoutes = (
     path: profilePaths.myProfile(),
     action: () => ({
       component: <div />,
-      redirect: profilePaths.home(myUserId),
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.home(myUserId) : null,
     }),
   },
   {
@@ -300,6 +304,8 @@ const directIntakeRoutes = (
 
 export const Router: React.FC = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const apiRoutes = useApiRoutes();
   const authPaths = useAuthRoutes();
   const talentPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
@@ -375,7 +381,7 @@ export const Router: React.FC = () => {
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),
           ...(checkFeatureFlag("FEATURE_APPLICANTPROFILE")
-            ? profileRoutes(profilePaths, data?.me?.id || "")
+            ? profileRoutes(profilePaths, apiRoutes, locale, data?.me?.id)
             : []),
           ...(checkFeatureFlag("FEATURE_DIRECTINTAKE")
             ? directIntakeRoutes(directIntakePaths)
@@ -383,7 +389,7 @@ export const Router: React.FC = () => {
         ]}
       />
       <Helmet>
-        <html lang={getLocale(intl)} />
+        <html lang={locale} />
       </Helmet>
       {loggedIn && (
         <LogoutConfirmation
