@@ -13,7 +13,6 @@ export interface SearchPoolsProps {
   pool?: Pick<Pool, "name" | "description">;
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName">;
   handleSubmit: () => Promise<void>;
-  classificationFilterCount: number;
 }
 
 const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
@@ -21,11 +20,9 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
   pool,
   poolOwner,
   handleSubmit,
-  classificationFilterCount,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const isClassificationsFilterEmpty = classificationFilterCount === 0;
 
   return (
     <>
@@ -72,39 +69,15 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
       <div
         data-h2-flex-item="b(1of1) m(1of2)"
         data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column)"
+        data-h2-justify-content="b(center) m(flex-end)"
       >
-        {isClassificationsFilterEmpty && (
-          <div
-            data-h2-display="b(flex)"
-            data-h2-justify-content="b(center)"
-            data-h2-flex-item="b(1of1) m(1of2)"
-          >
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "Please fill filters marked required",
-                description: "Blurb stating required filters were untouched",
-              })}
-            </p>
-          </div>
-        )}
-        <div
-          data-h2-display="b(flex)"
-          data-h2-justify-content="b(center)"
-          data-h2-flex-item="b(1of1) m(1of2)"
-        >
-          <Button
-            color="cta"
-            mode="solid"
-            onClick={handleSubmit}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Request Candidates",
-              description:
-                "Button link message on search page that takes user to the request form.",
-            })}
-          </Button>
-        </div>
+        <Button color="cta" mode="solid" onClick={handleSubmit}>
+          {intl.formatMessage({
+            defaultMessage: "Request Candidates",
+            description:
+              "Button link message on search page that takes user to the request form.",
+          })}
+        </Button>
       </div>
     </>
   );

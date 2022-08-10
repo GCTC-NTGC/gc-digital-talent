@@ -74,7 +74,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     );
   }
 
-  const searchRef = useRef<SearchFormRef>();
+  const searchRef = useRef<SearchFormRef>(null);
 
   const tryHandleSubmit = async () => {
     if (classificationFilterCount === 0) {
@@ -98,7 +98,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           pool={pool}
           poolOwner={poolOwner}
           handleSubmit={tryHandleSubmit}
-          classificationFilterCount={classificationFilterCount}
         />
       </div>
     ) : (
