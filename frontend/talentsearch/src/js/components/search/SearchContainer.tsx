@@ -102,7 +102,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 
   const tryHandleSubmit = async () => {
     if (classificationFilterCount === 0) {
-      // Vallidate all fields, and focus on the first one that is invalid.
+      // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
     } else {
       onSubmit();
