@@ -8,7 +8,7 @@ const messages = defineMessages({
     //
     // This was the case despite indications that feeding it ReactNode as a message should work:
     // https://github.com/react-hook-form/react-hook-form/discussions/8401#discussioncomment-2819633
-    defaultMessage: "{fieldLabel}: This field is required.",
+    defaultMessage: "This field is required.",
     description:
       "Error message that this field must filled for the form to be valid.",
   },

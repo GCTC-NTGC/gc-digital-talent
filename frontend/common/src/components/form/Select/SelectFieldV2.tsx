@@ -5,7 +5,6 @@ import ReactSelect, { components } from "react-select";
 import type { NoticeProps, PropsValue, GroupBase, Options } from "react-select";
 import camelCase from "lodash/camelCase";
 import { useIntl } from "react-intl";
-import ReactDOMServer from "react-dom/server";
 import { errorMessages } from "../../../messages";
 import { InputWrapper } from "../../inputPartials";
 
