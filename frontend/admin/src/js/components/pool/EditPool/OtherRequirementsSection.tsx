@@ -4,12 +4,10 @@ import { useIntl } from "react-intl";
 import { Input, RadioGroup, Select, Submit } from "@common/components/form";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";
-import isEmpty from "lodash/isEmpty";
 import {
   getLanguageRequirement,
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
-import { notEmpty } from "@common/helpers/util";
 import {
   AdvertisementStatus,
   LocalizedString,
