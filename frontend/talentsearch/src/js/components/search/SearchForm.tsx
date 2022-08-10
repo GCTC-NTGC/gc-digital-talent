@@ -17,7 +17,6 @@ import errorMessages from "@common/messages/errorMessages";
 import {
   Classification,
   LanguageAbility,
-  PoolCandidateFilter,
   Skill,
   ApplicantFilterInput,
   WorkRegion,
@@ -37,8 +36,8 @@ function mapIdToValue<T extends { id: string }>(objects: T[]): Map<string, T> {
 
 type Option<V> = { value: V; label: string };
 export type FormValues = Pick<
-  PoolCandidateFilter,
-  "workRegions" | "operationalRequirements"
+  ApplicantFilterInput,
+  "locationPreferences" | "operationalRequirements"
 > & {
   languageAbility: LanguageAbility | typeof NullSelection;
   employmentDuration: string | typeof NullSelection;
@@ -59,7 +58,7 @@ type LocationState = {
 export interface SearchFormProps {
   classifications: Classification[];
   skills?: Skill[];
-  onUpdateCandidateFilter: (filter: ApplicantFilterInput) => void;
+  onUpdateApplicantFilter: (filter: ApplicantFilterInput) => void;
 }
 
 export interface SearchFormRef {
@@ -67,7 +66,7 @@ export interface SearchFormRef {
 }
 
 const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
-  ({ classifications, skills, onUpdateCandidateFilter }, ref) => {
+  ({ classifications, skills, onUpdateApplicantFilter }, ref) => {
     const intl = useIntl();
     const location = useLocation();
 
@@ -94,8 +93,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     );
 
     React.useEffect(() => {
-      onUpdateCandidateFilter(initialValues);
-    }, [initialValues, onUpdateCandidateFilter]);
+      onUpdateApplicantFilter(initialValues);
+    }, [initialValues, onUpdateApplicantFilter]);
 
     React.useEffect(() => {
       const formValuesToData = (values: FormValues): ApplicantFilterInput => {
@@ -135,13 +134,13 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             : {}), // Ensure null in FormValues is converted to undefined
           wouldAcceptTemporary:
             values.employmentDuration === "true" ? true : null,
-          locationPreferences: values.workRegions || [],
+          locationPreferences: values.locationPreferences || [],
         };
       };
 
       const debounceUpdate = debounce((values: ApplicantFilterInput) => {
-        if (onUpdateCandidateFilter) {
-          onUpdateCandidateFilter(values);
+        if (onUpdateApplicantFilter) {
+          onUpdateApplicantFilter(values);
         }
       }, 200);
 
@@ -151,7 +150,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       });
 
       return () => subscription.unsubscribe();
-    }, [watch, classificationMap, onUpdateCandidateFilter]);
+    }, [watch, classificationMap, onUpdateApplicantFilter]);
 
     const classificationOptions: Option<string>[] = React.useMemo(
       () =>
@@ -272,7 +271,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             />
           </FilterBlock>
           <FilterBlock
-            id="workLocationFilter"
+            id="locationPreferencesFilter"
             title={intl.formatMessage({
               defaultMessage: "Work location",
               description:
@@ -286,8 +285,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             })}
           >
             <MultiSelect
-              id="workRegions"
-              name="workRegions"
+              id="locationPreferences"
+              name="locationPreferences"
               label={intl.formatMessage({
                 defaultMessage: "Region",
                 description: "Label for work location filter in search form.",
