@@ -42,6 +42,7 @@ final class PublishPoolAdvertisementValidator extends Validator
             // Other requirements
             'advertisement_language' => ['required', Rule::in(ApiEnums::poolAdvertisementLanguages())],
             'security_clearance' => ['required', Rule::in(ApiEnums::poolAdvertisementSecurity())],
+            'is_remote' => ['required', 'boolean'],
             'advertisement_location.en' => ['required_if:is_remote,false', 'required_with:advertisement_location.fr', 'string'],
             'advertisement_location.fr' => ['required_if:is_remote,false', 'required_with:advertisement_location.en', 'string'],
         ];

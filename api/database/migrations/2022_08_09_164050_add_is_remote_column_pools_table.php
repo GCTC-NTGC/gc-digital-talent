@@ -14,7 +14,7 @@ class AddIsRemoteColumnPoolsTable extends Migration
     public function up()
     {
         Schema::table('pools', function (Blueprint $table) {
-            $table->boolean('is_remote')->default(false)->after('advertisement_location');
+            $table->boolean('is_remote')->nullable()->after('advertisement_location');
         });
     }
 
