@@ -2,11 +2,12 @@ import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { fakeUsers } from "@common/fakeData";
-import type { UpdateUserAsUserInput } from "../../api/generated";
+import type { InputMaybe, UpdateUserAsUserInput } from "../../api/generated";
 import {
   DiversityEquityInclusionForm,
   type DiversityEquityInclusionFormProps,
 } from "./DiversityEquityInclusionForm";
+import { EquityKeys } from "./types";
 
 const userData = fakeUsers();
 
@@ -27,21 +28,46 @@ export default {
 
 const TemplateDiversityEquityInclusionForm: Story<
   DiversityEquityInclusionFormProps
-> = ({ user, isMutating }) => (
-  <DiversityEquityInclusionForm
-    user={user}
-    isMutating={isMutating}
-    onUpdate={async (_: string, data: UpdateUserAsUserInput) => {
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(data);
-        }, 1000);
-      });
-      action("Update Diversity, Equity, Inclusion Information")(data);
-      return null;
-    }}
-  />
-);
+> = ({ user, isMutating }) => {
+  const [mockUser, setMockUser] = React.useState(user);
+
+  const dataToUpdateUser = (key: EquityKeys, value: InputMaybe<boolean>) => {
+    return typeof value !== "undefined"
+      ? {
+          [key]: value,
+        }
+      : {};
+  };
+
+  const handleUpdate = (data: UpdateUserAsUserInput) => {
+    const { isWoman, isIndigenous, isVisibleMinority, hasDisability } = data;
+
+    const newUser = {
+      ...dataToUpdateUser("isWoman", isWoman),
+      ...dataToUpdateUser("isIndigenous", isIndigenous),
+      ...dataToUpdateUser("isVisibleMinority", isVisibleMinority),
+      ...dataToUpdateUser("hasDisability", hasDisability),
+    };
+    action("Setting mock user")(newUser);
+
+    setMockUser({
+      ...mockUser,
+      ...newUser,
+    });
+  };
+
+  return (
+    <DiversityEquityInclusionForm
+      user={mockUser}
+      isMutating={isMutating}
+      onUpdate={async (_: string, data: UpdateUserAsUserInput) => {
+        handleUpdate(data);
+        action("Update Diversity, Equity, Inclusion Information")(data);
+        return null;
+      }}
+    />
+  );
+};
 
 export const IndividualDiversityEquityInclusionForm =
   TemplateDiversityEquityInclusionForm.bind({});
