@@ -172,21 +172,23 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
     __typename: "ApplicantFilter",
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
-    expectedClassifications: applicantFilter?.expectedClassifications?.map(
-      (expectedClassification) => {
-        return classifications.find((classification) => {
-          return (
-            classification.group === expectedClassification?.group &&
-            classification.level === expectedClassification.level
-          );
+    expectedClassifications:
+      applicantFilter?.expectedClassifications?.map(
+        (expectedClassification) => {
+          return classifications.find((classification) => {
+            return (
+              classification.group === expectedClassification?.group &&
+              classification.level === expectedClassification.level
+            );
+          });
+        },
+      ) ?? [],
+    skills:
+      applicantFilter?.skills?.map((skillId) => {
+        return skills.find((skill) => {
+          return skill && skillId && skill.id === skillId.id;
         });
-      },
-    ),
-    skills: applicantFilter?.skills?.map((skillId) => {
-      return skills.find((skill) => {
-        return skill && skillId && skill.id === skillId.id;
-      });
-    }),
+      }) ?? [],
   };
 
   return (
