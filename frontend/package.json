@@ -22,5 +22,8 @@
     "cypress-multi-reporters": "^1.6.1",
     "cypress-terminal-report": "^3.5.2",
     "prettier": "^2.6.2"
+  },
+  "dependencies": {
+    "nodepdf": "^1.3.2"
   }
 }
