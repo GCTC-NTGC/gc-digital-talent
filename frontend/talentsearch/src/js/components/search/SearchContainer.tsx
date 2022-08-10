@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 
 import { pushToStateThenNavigate } from "@common/helpers/router";
@@ -20,7 +20,7 @@ import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import Spinner from "../Spinner";
 import CandidateResults from "./CandidateResults";
-import SearchForm from "./SearchForm";
+import SearchForm, { SearchFormRef } from "./SearchForm";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import { DIGITAL_CAREERS_POOL_KEY } from "../../talentSearchConstants";
 
@@ -98,6 +98,17 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   const operationalRequirementFilterCount =
     candidateFilter?.operationalRequirements?.length ?? 0;
 
+  const searchRef = useRef<SearchFormRef>();
+
+  const tryHandleSubmit = async () => {
+    if (classificationFilterCount === 0) {
+      // Vallidate all fields, and focus on the first one that is invalid.
+      searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
+    } else {
+      onSubmit();
+    }
+  };
+
   return (
     <>
       <div
@@ -131,6 +142,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             classifications={classifications}
             skills={skills}
             onUpdateCandidateFilter={onUpdateCandidateFilter}
+            ref={searchRef}
           />
         </div>
         <div
@@ -178,7 +190,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
               candidateCount={candidateCount}
               pool={pool}
               poolOwner={poolOwner}
-              handleSubmit={onSubmit}
+              handleSubmit={tryHandleSubmit}
               classificationFilterCount={classificationFilterCount}
             />
           ) : (

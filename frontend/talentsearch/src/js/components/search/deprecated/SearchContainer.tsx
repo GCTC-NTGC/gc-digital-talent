@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { notEmpty } from "@common/helpers/util";
 import { useIntl } from "react-intl";
 import pick from "lodash/pick";
@@ -20,7 +20,7 @@ import {
   TALENTSEARCH_RECRUITMENT_EMAIL,
 } from "../../../talentSearchConstants";
 import EstimatedCandidates from "../EstimatedCandidates";
-import { FormValues, SearchForm } from "./SearchForm";
+import { FormValues, SearchForm, SearchFormRef } from "./SearchForm";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import SearchPools from "../SearchPools";
 import Spinner from "../../Spinner";
@@ -74,6 +74,17 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     );
   }
 
+  const searchRef = useRef<SearchFormRef>();
+
+  const tryHandleSubmit = async () => {
+    if (classificationFilterCount === 0) {
+      // Vallidate all fields, and focus on the first one that is invalid.
+      searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
+    } else {
+      handleSubmit();
+    }
+  };
+
   function candidateResults() {
     return candidateCount > 0 ? (
       <div
@@ -86,7 +97,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           candidateCount={candidateCount}
           pool={pool}
           poolOwner={poolOwner}
-          handleSubmit={handleSubmit}
+          handleSubmit={tryHandleSubmit}
           classificationFilterCount={classificationFilterCount}
         />
       </div>
@@ -155,6 +166,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             cmoAssets={cmoAssets}
             updateCandidateFilter={updateCandidateFilter}
             updateInitialValues={updateInitialValues}
+            ref={searchRef}
           />
         </div>
         <div

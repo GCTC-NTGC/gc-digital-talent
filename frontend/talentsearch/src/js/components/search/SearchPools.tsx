@@ -97,7 +97,6 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
             color="cta"
             mode="solid"
             onClick={handleSubmit}
-            disabled={isClassificationsFilterEmpty}
           >
             {intl.formatMessage({
               defaultMessage: "Request Candidates",
