@@ -6,12 +6,15 @@
  * The sjs filetype lets apache know that this file should be parsed for SSI directives.
  */
 
+// catch the placeholder string that Apache uses to indicate that the variable is missing
+const filterEmpty = (value) => value != "(none)" ? value : undefined;
+
 const data = new Map([
-    ["OAUTH_POST_LOGOUT_REDIRECT", "<!--#echo var="OAUTH_POST_LOGOUT_REDIRECT" -->"],
-    ["OAUTH_LOGOUT_URI", "<!--#echo var="OAUTH_LOGOUT_URI" -->"],
-    ["FEATURE_APPLICANTPROFILE", "<!--#echo var="FEATURE_APPLICANTPROFILE" -->"],
-    ["FEATURE_DIRECTINTAKE", "<!--#echo var="FEATURE_DIRECTINTAKE" -->"],
-    ["FEATURE_APPLICANTSEARCH", "<!--#echo var="FEATURE_APPLICANTSEARCH" -->"],
+    ["OAUTH_POST_LOGOUT_REDIRECT", filterEmpty("<!--#echo var="OAUTH_POST_LOGOUT_REDIRECT" -->")],
+    ["OAUTH_LOGOUT_URI", filterEmpty("<!--#echo var="OAUTH_LOGOUT_URI" -->")],
+    ["FEATURE_APPLICANTPROFILE", filterEmpty("<!--#echo var="FEATURE_APPLICANTPROFILE" -->")],
+    ["FEATURE_DIRECTINTAKE", filterEmpty("<!--#echo var="FEATURE_DIRECTINTAKE" -->")],
+    ["FEATURE_APPLICANTSEARCH", filterEmpty("<!--#echo var="FEATURE_APPLICANTSEARCH" -->")],
 ]);
 
 window.__SERVER_CONFIG__ = data;
