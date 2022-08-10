@@ -82,8 +82,8 @@ export const OtherRequirementsSection = ({
     if (formValues.locationOption === LocationOption.RemoteOptional) {
       return {
         ...formValues,
-        specificLocationEn: undefined,
-        specificLocationFr: undefined,
+        specificLocationEn: null,
+        specificLocationFr: null,
       };
     }
     return formValues;
@@ -98,7 +98,7 @@ export const OtherRequirementsSection = ({
               en: formValues.specificLocationEn,
               fr: formValues.specificLocationFr,
             }
-          : undefined,
+          : null,
       isRemote: formValues.locationOption === LocationOption.RemoteOptional,
       securityClearance: formValues.securityRequirement,
     });
