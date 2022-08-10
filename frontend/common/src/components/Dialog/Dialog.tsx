@@ -134,7 +134,7 @@ const Dialog: React.FC<DialogProps> = ({
             className="dialog__footer"
             data-h2-margin="base(x1, 0, 0, 0)"
             data-h2-padding="base(x1, 0, 0, 0)"
-            data-h2-border="base(top, 1px, solid, dark.dt-gray)"
+            data-h2-border="base(top, 1px, solid, dt-gray)"
           >
             {footer}
           </div>

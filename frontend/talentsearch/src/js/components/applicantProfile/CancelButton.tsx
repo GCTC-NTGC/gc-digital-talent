@@ -15,6 +15,7 @@ const CancelButton: React.FunctionComponent<{ link?: string }> = ({ link }) => {
       data-h2-display="p-tablet(inline-flex)"
       data-h2-width="base(auto)"
       data-h2-align-items="base(center)"
+      data-h2-padding="base(0)"
       type="button"
     >
       <ArrowCircleLeftIcon style={{ width: "1rem" }} />

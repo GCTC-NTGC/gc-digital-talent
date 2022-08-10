@@ -41,11 +41,13 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
     <FormProvider {...methods}>
       <AddToProfile />
       <form onSubmit={handleSubmit(submitHandler)}>
-        <Checkbox
-          id="isWoman"
-          name="isWoman"
-          label={intl.formatMessage(getEmploymentEquityStatement("woman"))}
-        />
+        <div data-h2-margin="base(0, 0, x1, 0)">
+          <Checkbox
+            id="isWoman"
+            name="isWoman"
+            label={intl.formatMessage(getEmploymentEquityStatement("woman"))}
+          />
+        </div>
         {children}
       </form>
     </FormProvider>
@@ -73,7 +75,7 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
       }
     >
       <UnderReview />
-      <p>
+      <p data-h2-margin="base(0, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "This category includes persons whose reported gender is female. It includes cisgender (cis) and transgender (trans) women.",

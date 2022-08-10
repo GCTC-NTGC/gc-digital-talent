@@ -57,7 +57,7 @@ export const DiversityEquityInclusionForm: React.FC<
         },
       ]}
     >
-      <p>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "While the language around these categories is in need of updating, the Government of Canada will sometimes use these categories in hiring to make sure that it is meeting the aims of employment equity.",
@@ -65,7 +65,7 @@ export const DiversityEquityInclusionForm: React.FC<
             "Description of how the Government of Canada uses employment equity categories in hiring.",
         })}
       </p>
-      <p>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             'These four groups are "women, Aboriginal peoples, persons with disabilities, and members of visible minorities."',
@@ -74,10 +74,11 @@ export const DiversityEquityInclusionForm: React.FC<
       </p>
       <div
         data-h2-background-color="base(light.dt-gray)"
+        data-h2-margin="base(x2, 0, 0, 0)"
         data-h2-radius="base(s)"
         data-h2-padding="base(x1)"
       >
-        <p data-h2-margin="base(0, auto, auto, auto)">
+        <p data-h2-margin="base(0, 0, x.5, 0)">
           {intl.formatMessage({
             defaultMessage:
               "<strong>This section is optional</strong>. If you a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions</strong>:",
@@ -104,7 +105,7 @@ export const DiversityEquityInclusionForm: React.FC<
           </li>
         </ul>
       </div>
-      <h2>
+      <h2 data-h2-font-size="base(h5, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "How will this data be used?",
           description:

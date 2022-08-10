@@ -77,20 +77,19 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
 
   return (
     <>
-      <div data-h2-position="base(relative)" data-h2-margin="base(0, 0, x2, 0)">
+      <div data-h2-position="base(relative)" data-h2-margin="base(x2, 0, 0, 0)">
         <div
-          style={{ zIndex: 1 }}
-          data-h2-position="base(relative)"
-          data-h2-flex-grid="l-tablet(normal, 0, x1)"
+          data-h2-layer="base(1, relative)"
+          data-h2-flex-grid="l-tablet(normal, 0, x3)"
         >
           <div data-h2-flex-item="l-tablet(1of2)">
-            <h3 data-h2-font-size="base(h4, 1.3)">
+            <h2 data-h2-font-size="base(h4, 1)" data-h2-margin="base(0, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage: "My employment equity information:",
                 description:
                   "Heading for employment equity categories added to user profile.",
               })}
-            </h3>
+            </h2>
             {hasItems ? (
               <div
                 data-h2-display="base(flex)"
@@ -151,13 +150,13 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
             )}
           </div>
           <div data-h2-flex-item="l-tablet(1of2)">
-            <h3 data-h2-font-size="base(h4, 1.3)">
+            <h2 data-h2-font-size="base(h4, 1)" data-h2-margin="base(0, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage: "Employment equity options:",
                 description:
                   "Heading for employment equity categories available to be added to user profile.",
               })}
-            </h3>
+            </h2>
             {itemsAvailable || !hasItems ? (
               <div
                 data-h2-display="base(flex)"
