@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { Input, RadioGroup, Select, Submit } from "@common/components/form";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";
-import isEmpty from "lodash/isEmpty";
 import {
   getLanguageRequirement,
   getSecurityClearance,
@@ -35,7 +34,10 @@ type FormValues = {
 
 export type OtherRequirementsSubmitData = Pick<
   UpdatePoolAdvertisementInput,
-  "advertisementLanguage" | "advertisementLocation" | "securityClearance"
+  | "advertisementLanguage"
+  | "advertisementLocation"
+  | "securityClearance"
+  | "isRemote"
 >;
 
 interface OtherRequirementsSectionProps {
@@ -55,11 +57,9 @@ export const OtherRequirementsSection = ({
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     languageRequirement: initialData.advertisementLanguage,
     securityRequirement: initialData.securityClearance,
-    locationOption:
-      isEmpty(initialData.advertisementLocation?.en) &&
-      isEmpty(initialData.advertisementLocation?.fr)
-        ? LocationOption.RemoteOptional
-        : LocationOption.SpecificLocation,
+    locationOption: initialData.isRemote
+      ? LocationOption.RemoteOptional
+      : LocationOption.SpecificLocation,
     specificLocationEn: initialData.advertisementLocation?.en,
     specificLocationFr: initialData.advertisementLocation?.fr,
   });
@@ -92,12 +92,14 @@ export const OtherRequirementsSection = ({
   const handleSave = (formValues: FormValues) => {
     onSave({
       advertisementLanguage: formValues.languageRequirement,
-      advertisementLocation: formValues.locationOption
-        ? {
-            en: formValues.specificLocationEn,
-            fr: formValues.specificLocationFr,
-          }
-        : null,
+      advertisementLocation:
+        formValues.locationOption !== LocationOption.RemoteOptional
+          ? {
+              en: formValues.specificLocationEn,
+              fr: formValues.specificLocationFr,
+            }
+          : null,
+      isRemote: formValues.locationOption === LocationOption.RemoteOptional,
       securityClearance: formValues.securityRequirement,
     });
   };
