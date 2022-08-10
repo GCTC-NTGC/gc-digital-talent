@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { useIntl } from "react-intl";
+import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
@@ -13,6 +13,7 @@ import {
   getOperationalRequirement,
   getEmploymentEquityGroup,
 } from "@common/constants/localizedConstants";
+import { getOrThrowError } from "@common/helpers/util";
 import {
   Classification,
   CmoAsset,
@@ -161,13 +162,43 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     return () => subscription.unsubscribe();
   }, [watch, classificationMap, assetMap, updateCandidateFilter]);
 
-  const classificationOptions: Option<string>[] = useMemo(
+  const classificationLabels = defineMessages({
+    IT01: {
+      defaultMessage: "IT-01: Technician ($60,000 to $78,000)",
+      description: "IT-01 classification label including titles and salaries",
+    },
+    IT02: {
+      defaultMessage: "IT-02: Analyst ($75,000 to $91,000)",
+      description: "IT-02 classification label including titles and salaries",
+    },
+    IT03: {
+      defaultMessage:
+        "IT-03: Technical Advisor or Team Leader ($88,000 to $110,000)",
+      description: "IT-03 classification label including titles and salaries",
+    },
+    IT04: {
+      defaultMessage: "IT-04: Senior Advisor or Manager ($101,000 to $126,000)",
+      description: "IT-04 classification label including titles and salaries",
+    },
+  });
+
+  const getClassificationLabel = React.useCallback(
+    (classificationLabelKey: string): MessageDescriptor =>
+      getOrThrowError(
+        classificationLabels,
+        classificationLabelKey,
+        `Invalid key '${classificationLabelKey}'`,
+      ),
+    [classificationLabels],
+  );
+
+  const classificationOptions: Option<string>[] = React.useMemo(
     () =>
       classifications.map(({ id, group, level }) => ({
         value: id,
-        label: `${group}-0${level}`,
+        label: intl.formatMessage(getClassificationLabel(`${group}0${level}`)),
       })),
-    [classifications],
+    [classifications, getClassificationLabel, intl],
   );
 
   const cmoAssetOptions: Option<string>[] = useMemo(
