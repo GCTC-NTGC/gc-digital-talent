@@ -1,4 +1,3 @@
-# TO DO: Update to /logged-out once ready
 OAUTH_POST_LOGOUT_REDIRECT="http://localhost:8000/logged-out"
 
 # Mock auth endpoint
