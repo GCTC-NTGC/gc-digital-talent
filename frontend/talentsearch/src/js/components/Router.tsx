@@ -6,9 +6,8 @@ import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { AuthenticationContext } from "@common/components/Auth";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { Helmet } from "react-helmet";
-import { getLocale, Locales } from "@common/helpers/localize";
+import { getLocale } from "@common/helpers/localize";
 import Pending from "@common/components/Pending";
-import { ApiRoutes, useApiRoutes } from "@common/hooks/useApiRoutes";
 import PageContainer, { MenuLink } from "./PageContainer";
 import {
   useTalentSearchRoutes,
@@ -98,6 +97,13 @@ const talentRoutes = (
       component: <RequestPage />,
     }),
   },
+  {
+    path: `${talentPaths.home()}/search`,
+    action: () => ({
+      component: <div />,
+      redirect: talentPaths.search(),
+    }),
+  },
 ];
 
 const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
@@ -123,8 +129,6 @@ const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
 
 const profileRoutes = (
   profilePaths: ApplicantProfileRoutes,
-  apiRoutes: ApiRoutes,
-  locale: Locales,
   myUserId?: string,
 ): Routes<RouterResult> => [
   {
@@ -242,6 +246,135 @@ const profileRoutes = (
       authorizedRoles: [Role.Applicant],
     }),
   },
+
+  // Old routes
+  {
+    path: `${profilePaths.myProfile()}/create-account`,
+    action: () => ({
+      component: <div />,
+      redirect: profilePaths.createAccount(),
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/about-me`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.aboutMe(myUserId) : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/language-information`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.languageInformation(myUserId) : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/government-information`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.governmentInformation(myUserId) : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/role-salary`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.roleSalary(myUserId) : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/work-location`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.workLocation(myUserId) : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/work-preferences`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.workPreferences(myUserId) : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/diversity-and-inclusion`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId
+        ? profilePaths.diversityEquityInclusion(myUserId)
+        : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/skills-and-experiences`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.skillsAndExperiences(myUserId) : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/skills-and-experiences/award/create`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.createAward(myUserId) : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/skills-and-experiences/community/create`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.createCommunity(myUserId) : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/skills-and-experiences/education/create`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.createEducation(myUserId) : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/skills-and-experiences/personal/create`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.createPersonal(myUserId) : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/skills-and-experiences/work`,
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.createWork(myUserId) : null,
+    }),
+  },
+  {
+    path: `${profilePaths.myProfile()}/skills-and-experiences/:type/:id/edit`,
+    action: (context) => {
+      const experienceType = context.params.type as ExperienceType;
+      const experienceId = context.params.id as string;
+      return {
+        component: <div />,
+        authorizedRoles: [Role.Applicant],
+        redirect: myUserId
+          ? profilePaths.editExperience(myUserId, experienceType, experienceId)
+          : null,
+      };
+    },
+  },
 ];
 
 const directIntakeRoutes = (
@@ -305,7 +438,6 @@ const directIntakeRoutes = (
 export const Router: React.FC = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const apiRoutes = useApiRoutes();
   const authPaths = useAuthRoutes();
   const talentPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
@@ -381,7 +513,7 @@ export const Router: React.FC = () => {
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),
           ...(checkFeatureFlag("FEATURE_APPLICANTPROFILE")
-            ? profileRoutes(profilePaths, apiRoutes, locale, data?.me?.id)
+            ? profileRoutes(profilePaths, data?.me?.id)
             : []),
           ...(checkFeatureFlag("FEATURE_DIRECTINTAKE")
             ? directIntakeRoutes(directIntakePaths)

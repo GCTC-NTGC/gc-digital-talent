@@ -9,8 +9,8 @@ const talentSearchRoutes = (lang: string) => {
   const home = (): string => path.join("/", lang, TALENTSEARCH_APP_DIR); // leading slash in case empty base url
   return {
     home,
-    search: (): string => path.join(home()),
-    request: (): string => path.join(home(), "request"),
+    search: (): string => path.join("/", lang, "search"),
+    request: (): string => path.join("/", lang, "search", "request"),
   };
 };
 
