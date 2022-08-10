@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 # Errors will fail out
-set -e
+set -o errexit
+# Don't mask errors in piped commands
+set -o pipefail
+# Fail if using undefined variables
+set -o nounset
 
 if [ -z "$1" ]; then
     echo "Must past abs path as argument."
@@ -52,6 +56,13 @@ npm run production
 ### Admin
 
 cd $ROOT_DIR/frontend/admin
+npm run codegen
+npm run intl-compile
+npm run production
+
+### Indigenous Apprenticeship
+
+cd $ROOT_DIR/frontend/indigenousapprenticeship
 npm run codegen
 npm run intl-compile
 npm run production

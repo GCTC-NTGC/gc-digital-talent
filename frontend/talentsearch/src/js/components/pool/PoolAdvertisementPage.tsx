@@ -557,19 +557,30 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   },
                 )}
               </li>
-              {poolAdvertisement.advertisementLocation && (
+              {poolAdvertisement.isRemote ? (
                 <li>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Location: {location}",
-                      description:
-                        "Pool advertisement location requirement, English",
-                    },
-                    {
-                      location: poolAdvertisement.advertisementLocation[locale],
-                    },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage: "Location: Remote",
+                    description:
+                      "Pool advertisement location requirement, Remote option",
+                  })}
                 </li>
+              ) : (
+                poolAdvertisement.advertisementLocation && (
+                  <li>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage: "Location: {location}",
+                        description:
+                          "Pool advertisement location requirement, English",
+                      },
+                      {
+                        location:
+                          poolAdvertisement.advertisementLocation[locale],
+                      },
+                    )}
+                  </li>
+                )
               )}
             </ul>
           </TableOfContents.Section>

@@ -78,6 +78,7 @@ query getEditPoolData($poolId: ID!) {
         category
       }
     }
+    isRemote
     advertisementLocation {
       en
       fr
@@ -124,5 +125,28 @@ query getEditPoolData($poolId: ID!) {
         fr
       }
     }
+  }
+}
+
+mutation updatePoolAdvertisement($id: ID!, $poolAdvertisement: UpdatePoolAdvertisementInput!) {
+  updatePoolAdvertisement(id: $id, poolAdvertisement: $poolAdvertisement) {
+    id
+  }
+}
+
+mutation publishPoolAdvertisement($id: ID!) {
+  publishPoolAdvertisement(id: $id) {
+    isPublished
+  }
+}
+mutation closePoolAdvertisement($id: ID!) {
+  closePoolAdvertisement(id: $id) {
+    expiryDate
+  }
+}
+
+mutation deletePoolAdvertisement($id: ID!) {
+  deletePoolAdvertisement(id: $id) {
+    id
   }
 }

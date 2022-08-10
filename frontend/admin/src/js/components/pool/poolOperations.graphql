@@ -132,29 +132,8 @@ query getPoolAdvertisement($id: ID!) {
         category
       }
     }
+    isRemote
     advertisementLocation {
-      en
-      fr
-    }
-  }
-}
-
-query getCreatePoolData {
-  users {
-    id
-    email
-    firstName
-    lastName
-  }
-  classifications {
-    id
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
       en
       fr
     }
@@ -182,42 +161,6 @@ query getPools {
       level
     }
     status
-  }
-}
-
-mutation createPool($pool: CreatePoolInput!) {
-  createPool(pool: $pool) {
-    owner {
-      id
-    }
-    name {
-      en
-      fr
-    }
-    key
-    description {
-      en
-      fr
-    }
-    keyTasks {
-      en
-      fr
-    }
-    status
-    classifications {
-      id
-      group
-      level
-    }
-    assetCriteria {
-      id
-      key
-    }
-    essentialCriteria {
-      id
-      key
-    }
-    operationalRequirements
   }
 }
 
@@ -254,5 +197,54 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
       key
     }
     operationalRequirements
+  }
+}
+
+mutation createPoolAdvertisement(
+  $userId: ID!
+  $poolAdvertisement: CreatePoolAdvertisementInput!
+) {
+  createPoolAdvertisement(
+    userId: $userId
+    poolAdvertisement: $poolAdvertisement
+  ) {
+    id
+    name {
+      en
+      fr
+    }
+  }
+}
+
+query getMePoolCreation {
+  me {
+    roles
+    id
+  }
+  genericJobTitles {
+    name {
+      en
+      fr
+    }
+    key
+    classification {
+      name {
+        en
+        fr
+      }
+      group
+      level
+      id
+    }
+    id
+  }
+  classifications {
+    name {
+      en
+      fr
+    }
+    level
+    group
+    id
   }
 }

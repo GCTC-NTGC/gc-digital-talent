@@ -13,8 +13,10 @@ import {
   Maybe,
   PoolAdvertisement,
   Scalars,
+  UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
+import { useEditPoolContext } from "./EditPoolContext";
 
 type FormValues = {
   classification?: Classification["id"];
@@ -22,11 +24,16 @@ type FormValues = {
   specificTitleFr?: LocalizedString["fr"];
 };
 
+export type PoolNameSubmitData = Pick<
+  UpdatePoolAdvertisementInput,
+  "classifications" | "name"
+>;
+
 interface PoolNameSectionProps {
   poolAdvertisement: PoolAdvertisement;
   classifications: Array<Maybe<Classification>>;
   sectionMetadata: SectionMetadata;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: PoolNameSubmitData) => void;
 }
 
 const firstId = (
@@ -46,6 +53,7 @@ export const PoolNameSection = ({
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     classification: firstId(initialData.classifications), // behavior is undefined when there is more than one
@@ -57,6 +65,20 @@ export const PoolNameSection = ({
     defaultValues: dataToFormValues(poolAdvertisement),
   });
   const { handleSubmit } = methods;
+
+  const handleSave = (formValues: FormValues) => {
+    const data = {
+      classifications: {
+        sync: formValues.classification ? [formValues.classification] : [],
+      },
+      name: {
+        en: formValues.specificTitleEn,
+        fr: formValues.specificTitleFr,
+      },
+    };
+
+    onSave(data);
+  };
 
   const classificationOptions: Option[] = classifications
     .filter(notEmpty)
@@ -86,7 +108,7 @@ export const PoolNameSection = ({
         })}
       </p>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSave)}>
+        <form onSubmit={handleSubmit(handleSave)}>
           <div data-h2-display="b(flex)">
             <Spacer style={{ flex: 1 }}>
               <Select
@@ -143,6 +165,7 @@ export const PoolNameSection = ({
               })}
               color="cta"
               mode="solid"
+              isSubmitting={isSubmitting}
             />
           )}
         </form>

@@ -19,18 +19,17 @@ import { objectsToSortedOptions } from "@common/helpers/formUtils";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import {
   Department,
-  PoolCandidateFilter,
   CreatePoolCandidateSearchRequestInput,
   useGetPoolCandidateSearchRequestDataQuery,
   useCreatePoolCandidateSearchRequestMutation,
   CreatePoolCandidateSearchRequestMutation,
   Maybe,
   DepartmentBelongsTo,
-  CmoAsset,
   Classification,
   OperationalRequirement,
   Pool,
   Skill,
+  ApplicantFilter,
   ApplicantFilterInput,
 } from "../../api/generated";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
@@ -41,28 +40,29 @@ type FormValues = {
   email?: CreatePoolCandidateSearchRequestInput["email"];
   jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
-  poolCandidateFilter?: {
-    classifications?: {
+  applicantFilter?: {
+    expectedClassifications?: {
       sync?: Array<Maybe<Classification["id"]>>;
     };
-    cmoAssets?: {
-      sync?: Array<Maybe<CmoAsset["id"]>>;
+    skills?: {
+      sync?: Array<Maybe<Skill["id"]>>;
     };
-    hasDiploma?: PoolCandidateFilter["hasDiploma"];
+    hasDiploma?: ApplicantFilterInput["hasDiploma"];
     equity?: EquitySelections;
-    languageAbility?: PoolCandidateFilter["languageAbility"];
+    languageAbility?: ApplicantFilter["languageAbility"];
     operationalRequirements?: Array<Maybe<OperationalRequirement>>;
     pools?: {
       sync?: Array<Maybe<Pool["id"]>>;
     };
-    workRegions?: PoolCandidateFilter["workRegions"];
+    locationPreferences?: ApplicantFilterInput["locationPreferences"];
   };
   department?: DepartmentBelongsTo["connect"];
 };
 export interface RequestFormProps {
   departments: Department[];
   skills: Skill[];
-  poolCandidateFilter: Maybe<PoolCandidateFilter & ApplicantFilterInput>;
+  classifications: Classification[];
+  applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues: Maybe<SearchFormValues>;
   handleCreatePoolCandidateSearchRequest: (
@@ -75,7 +75,8 @@ export interface RequestFormProps {
 export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   departments,
   skills,
-  poolCandidateFilter,
+  classifications,
+  applicantFilter,
   candidateCount,
   searchFormInitialValues,
   handleCreatePoolCandidateSearchRequest,
@@ -99,38 +100,41 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       email: values.email ?? "",
       jobTitle: values.jobTitle ?? "",
       additionalComments: values.additionalComments,
-      poolCandidateFilter: {
-        create: {
-          cmoAssets: {
-            sync: poolCandidateFilter?.cmoAssets
-              ? poolCandidateFilter?.cmoAssets
-                  ?.filter(notEmpty)
-                  .map(({ id }) => id)
-              : [],
-          },
-          hasDiploma: poolCandidateFilter?.hasDiploma
-            ? poolCandidateFilter?.hasDiploma
-            : false,
-          equity: poolCandidateFilter?.equity,
-          languageAbility: poolCandidateFilter?.languageAbility,
-          operationalRequirements: poolCandidateFilter?.operationalRequirements,
-          pools: {
-            sync: poolCandidateFilter?.pools
-              ? poolCandidateFilter?.pools?.filter(notEmpty).map(({ id }) => id)
-              : [],
-          },
-          workRegions: poolCandidateFilter?.workRegions
-            ? poolCandidateFilter?.workRegions
-            : [],
-        },
-      },
       applicantFilter: {
         create: {
+          hasDiploma: applicantFilter?.hasDiploma
+            ? applicantFilter?.hasDiploma
+            : false,
+          equity: applicantFilter?.equity,
+          languageAbility: applicantFilter?.languageAbility,
+          operationalRequirements: applicantFilter?.operationalRequirements,
+          pools: {
+            sync: applicantFilter?.pools
+              ? applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id)
+              : [],
+          },
+          locationPreferences: applicantFilter?.locationPreferences
+            ? applicantFilter?.locationPreferences
+            : [],
           skills: {
-            sync: poolCandidateFilter?.skills
-              ? poolCandidateFilter?.skills
-                  ?.filter(notEmpty)
-                  .map(({ id }) => id)
+            sync: applicantFilter?.skills
+              ? applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id)
+              : [],
+          },
+          expectedClassifications: {
+            sync: applicantFilter?.expectedClassifications
+              ? applicantFilter.expectedClassifications
+                  .filter(notEmpty)
+                  .map((expectedClassification) => {
+                    const cl = classifications.find((classification) => {
+                      return (
+                        classification.group ===
+                          expectedClassification?.group &&
+                        classification.level === expectedClassification.level
+                      );
+                    });
+                    return cl?.id ?? "";
+                  })
               : [],
           },
         },
@@ -161,6 +165,28 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           }),
         );
       });
+  };
+
+  // The applicantFilter from the location state needs to be changed from ApplicantFilterInput to the type ApplicantFilter for the SearchRequestFilters visual component.
+  const applicantFilterInputToType: ApplicantFilter = {
+    __typename: "ApplicantFilter",
+    id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
+    ...applicantFilter,
+    expectedClassifications: applicantFilter?.expectedClassifications?.map(
+      (expectedClassification) => {
+        return classifications.find((classification) => {
+          return (
+            classification.group === expectedClassification?.group &&
+            classification.level === expectedClassification.level
+          );
+        });
+      },
+    ),
+    skills: applicantFilter?.skills?.map((skillId) => {
+      return skills.find((skill) => {
+        return skill && skillId && skill.id === skillId.id;
+      });
+    }),
   };
 
   return (
@@ -296,10 +322,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               description: "Title of Summary of filters section",
             })}
           </h2>
-          <SearchRequestFilters
-            poolCandidateFilter={poolCandidateFilter}
-            allSkills={skills}
-          />
+          <SearchRequestFilters filters={applicantFilterInputToType} />
           <p data-h2-font-weight="b(600)">
             {intl.formatMessage(
               {
@@ -348,13 +371,15 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
 };
 
 export const CreateRequest: React.FunctionComponent<{
-  poolCandidateFilter: Maybe<PoolCandidateFilter>;
+  applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues: Maybe<SearchFormValues>;
-}> = ({ poolCandidateFilter, candidateCount, searchFormInitialValues }) => {
+}> = ({ applicantFilter, candidateCount, searchFormInitialValues }) => {
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
 
+  const classifications: Classification[] =
+    lookupData?.classifications.filter(notEmpty) ?? [];
   const departments: Department[] =
     lookupData?.departments.filter(notEmpty) ?? [];
   const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
@@ -373,9 +398,10 @@ export const CreateRequest: React.FunctionComponent<{
   return (
     <Pending fetching={fetching} error={error}>
       <RequestForm
+        classifications={classifications}
         departments={departments}
         skills={skills}
-        poolCandidateFilter={poolCandidateFilter}
+        applicantFilter={applicantFilter}
         candidateCount={candidateCount}
         searchFormInitialValues={searchFormInitialValues}
         handleCreatePoolCandidateSearchRequest={

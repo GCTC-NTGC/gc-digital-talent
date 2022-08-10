@@ -15,7 +15,9 @@ import PublishDialog from "./PublishDialog";
 import CloseDialog from "./CloseDialog";
 import DeleteDialog from "./DeleteDialog";
 import ArchiveDialog from "./ArchiveDialog";
-import ExtendDialog from "./ExtendDialog";
+import ExtendDialog, { type ExtendSubmitData } from "./ExtendDialog";
+
+export type { ExtendSubmitData };
 
 interface StatusSectionProps {
   poolAdvertisement: PoolAdvertisement;
@@ -23,7 +25,7 @@ interface StatusSectionProps {
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: (submitData: unknown) => void;
+  onExtend: (submitData: ExtendSubmitData) => void;
   onArchive: () => void;
 }
 

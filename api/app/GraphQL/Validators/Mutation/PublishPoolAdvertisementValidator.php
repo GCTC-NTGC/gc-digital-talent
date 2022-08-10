@@ -19,38 +19,45 @@ final class PublishPoolAdvertisementValidator extends Validator
         $endOfDay = Carbon::now()->endOfDay();
         return [
             // Pool name and classification
-            'name.en' => [ 'string' ],
-            'name.fr' => [ 'string' ],
-            'classifications' => [ 'required', 'array', 'size:1' ],
-            'classifications.*.id' => [ 'required', 'uuid', 'exists:classifications,id' ],
+            'name.en' => ['string'],
+            'name.fr' => ['string'],
+            'classifications' => ['required', 'array', 'size:1'],
+            'classifications.*.id' => ['required', 'uuid', 'exists:classifications,id'],
 
             // Closing date (Note: Form should return unzoned datetime.)
-            'expiry_date' => [ 'required', /*'date_format:Y-m-d H:i:s',*/ 'after:'.$endOfDay ], // TODO: Fix date_format validation
+            'expiry_date' => ['required', /*'date_format:Y-m-d H:i:s',*/ 'after:' . $endOfDay], // TODO: Fix date_format validation
 
             // Your Impact and Work tasks
-            'your_impact.en' => [ 'required', 'string' ],
-            'your_impact.fr' => [ 'required', 'string' ],
-            'key_tasks.en' => [ 'required', 'string' ],
-            'key_tasks.fr' => [ 'required', 'string' ],
+            'your_impact.en' => ['required', 'string'],
+            'your_impact.fr' => ['required', 'string'],
+            'key_tasks.en' => ['required', 'string'],
+            'key_tasks.fr' => ['required', 'string'],
 
             // Essential skills and Asset skills
-            'essential_skills' => [ 'required', 'array', 'min:1' ],
-            'essential_skills.*.id' => [ 'required', 'uuid', 'exists:skills,id' ],
-            'nonessential_skills' => [ 'array' ],
-            'nonessential_skills.*.id' => [ 'uuid', 'exists:skills,id' ],
+            'essential_skills' => ['required', 'array', 'min:1'],
+            'essential_skills.*.id' => ['required', 'uuid', 'exists:skills,id'],
+            'nonessential_skills' => ['array'],
+            'nonessential_skills.*.id' => ['uuid', 'exists:skills,id'],
 
             // Other requirements
-            'advertisement_language' => [ 'required', Rule::in(ApiEnums::poolAdvertisementLanguages()) ],
-            'security_clearance' => [ 'required', Rule::in(ApiEnums::poolAdvertisementSecurity()) ],
-            'advertisement_location.en' => [ 'required_with:advertisement_location.fr', 'string' ],
-            'advertisement_location.fr' => [ 'required_with:advertisement_location.en', 'string' ],
+            'advertisement_language' => ['required', Rule::in(ApiEnums::poolAdvertisementLanguages())],
+            'security_clearance' => ['required', Rule::in(ApiEnums::poolAdvertisementSecurity())],
+            'is_remote' => ['required', 'boolean'],
+            'advertisement_location.en' => ['required_if:is_remote,false', 'required_with:advertisement_location.fr', 'string'],
+            'advertisement_location.fr' => ['required_if:is_remote,false', 'required_with:advertisement_location.en', 'string'],
         ];
     }
 
     public function messages(): array
     {
-        return [
-            'your_impact.en.required' => 'Your Impact" field is required.',
+        return  [
+            'required' => ':attribute is required.',
+            'exists' => ':attribute does not exist.',
+            'expiry_date.after' => 'Expiry Date must be after today.',
+            'advertisement_location.*.required_if' => 'You must enter advertisement_location if advertisement is not remote.',
+            'advertisement_location.*.required_with' => 'You must enter both french and english fields for the advertisement_location',
+            'in' => ':attribute does not contain a valid value.',
+            'essential_skills.required' => 'You must have at least 1 one essential skill.'
         ];
     }
 }

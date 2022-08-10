@@ -9,6 +9,7 @@ export interface SubmitProps {
   isSubmittingText?: string | React.ReactNode;
   color?: "primary" | "secondary" | "cta" | "white";
   mode?: "solid" | "outline" | "inline";
+  isSubmitting?: boolean;
 }
 
 const Submit: React.FunctionComponent<SubmitProps> = ({
@@ -17,6 +18,7 @@ const Submit: React.FunctionComponent<SubmitProps> = ({
   isSubmittingText,
   color,
   mode,
+  isSubmitting: overrideSubmitting,
   ...rest
 }) => {
   const intl = useIntl();
@@ -46,7 +48,7 @@ const Submit: React.FunctionComponent<SubmitProps> = ({
       color={color || "primary"}
       mode={mode || "solid"}
       type="submit"
-      disabled={isSubmitting}
+      disabled={isSubmitting || overrideSubmitting}
       {...rest}
     >
       {currentText}

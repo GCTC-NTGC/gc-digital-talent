@@ -14,6 +14,8 @@ type Applicant {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenshipStatus
+  isVeteran: Boolean
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
@@ -136,6 +138,12 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+enum CitizenshipStatus {
+  CITIZEN
+  PERMANENT_RESIDENT
+  OTHER
+}
+
 type Classification {
   id: ID!
   name: LocalizedString
@@ -221,6 +229,8 @@ input CreateApplicantFilterInput {
   expectedClassifications: ClassificationBelongsToMany
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
+  citizenship: CitizenshipStatus
+  isVeteran: Boolean
 }
 
 input CreateClassificationInput {
@@ -328,6 +338,8 @@ input CreateUserInput {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenshipStatus
+  isVeteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -599,6 +611,7 @@ type Mutation {
   changePoolExpiryDate(id: ID!, newExpiryDate: DateTimeTz!): PoolAdvertisement
   closePoolAdvertisement(id: ID!): PoolAdvertisement
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
+  archiveApplication(id: ID!): PoolCandidate
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -758,6 +771,7 @@ type PoolAdvertisement {
   classifications: [Classification]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
+  isRemote: Boolean
   advertisementLocation: LocalizedString
   securityClearance: SecurityStatus
   advertisementLanguage: PoolAdvertisementLanguage
@@ -801,6 +815,7 @@ type PoolCandidate {
   cmoAssets: [CmoAsset]
   status: PoolCandidateStatus
   notes: String
+  archivedAt: DateTime
 }
 
 type PoolCandidateFilter {
@@ -1126,6 +1141,7 @@ input UpdatePoolAdvertisementInput {
   advertisementLanguage: PoolAdvertisementLanguage
   securityClearance: SecurityStatus
   advertisementLocation: LocalizedStringInput
+  isRemote: Boolean
 }
 
 input UpdatePoolCandidateAsAdminInput {
@@ -1188,6 +1204,8 @@ input UpdateUserAsAdminInput {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenshipStatus
+  isVeteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1231,6 +1249,8 @@ input UpdateUserAsUserInput {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenshipStatus
+  isVeteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1277,6 +1297,8 @@ type User {
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  citizenship: CitizenshipStatus
+  isVeteran: Boolean
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean

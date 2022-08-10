@@ -1722,6 +1722,10 @@ class UserTest extends TestCase
             'looking_for_french' => null,
             'looking_for_bilingual' => null,
         ]);
+        User::factory()->count(1)->create([
+            'citizenship' => null,
+            'is_veteran' => null,
+        ]);
 
         // Create some complete users.
         User::factory()->count(3)
@@ -1760,7 +1764,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 13
+                        'total' => 14
                     ]
                 ]
             ]
@@ -1814,7 +1818,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 13
+                        'total' => 14
                     ]
                 ]
             ]
