@@ -17,7 +17,7 @@ import Chip, { Chips } from "../Chip";
 
 export interface FilterBlockProps {
   title: string;
-  content: Maybe<string> | Maybe<string[]>;
+  content?: Maybe<string> | Maybe<string[]>;
 }
 
 const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
@@ -46,27 +46,16 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 
   return (
     <div data-h2-padding="b(bottom, s)">
-      {children ? (
-        <>
-          <p
-            data-h2-display="b(block)"
-            data-h2-padding="b(right, xxs)"
-            data-h2-font-weight="b(600)"
-          >
-            {title}
-          </p>
-          {children}
-        </>
-      ) : (
-        <>
-          <div data-h2-visibility="b(visible) s(hidden)">
-            <p
-              data-h2-display="b(inline)"
-              data-h2-padding="b(right, xxs)"
-              data-h2-font-weight="b(600)"
-            >
-              {title}:
-            </p>
+      <div data-h2-visibility="b(visible) s(hidden)">
+        <p
+          data-h2-display="b(inline)"
+          data-h2-padding="b(right, xxs)"
+          data-h2-font-weight="b(600)"
+        >
+          {title}:
+        </p>
+        {content && (
+          <span>
             {content instanceof Array && content.length > 0 ? (
               <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
                 {content.map((text): string => text).join(", ")}
@@ -82,16 +71,21 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
                     })}
               </p>
             )}
-          </div>
-          <div data-h2-visibility="b(hidden) s(visible)">
-            <p
-              data-h2-display="b(block)"
-              data-h2-padding="b(right, xxs)"
-              data-h2-font-weight="b(600)"
-            >
-              {title}
-            </p>
-            {content instanceof Array && content.length > 0 ? (
+          </span>
+        )}
+        {children && children}
+      </div>
+      <div data-h2-visibility="b(hidden) s(visible)">
+        <p
+          data-h2-display="b(block)"
+          data-h2-padding="b(right, xxs)"
+          data-h2-font-weight="b(600)"
+        >
+          {title}
+        </p>
+        {content && (
+          <span>
+            {content && content instanceof Array && content.length > 0 ? (
               <ul data-h2-font-color="b(black)">
                 {content.map((text) => (
                   <li key={uniqueId()}>{text}</li>
@@ -100,9 +94,10 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
             ) : (
               emptyArrayOutput(content)
             )}
-          </div>
-        </>
-      )}
+          </span>
+        )}
+        {children && children}
+      </div>
     </div>
   );
 };
@@ -229,32 +224,20 @@ const ApplicantFilters: React.FC<{
               },
               { numOfSkills: skills?.length || 0 },
             )}
-            content=""
           >
-            {skills && skills?.length > 0 ? (
-              <Chips>
-                {skills &&
-                  skills.map((skillName) => {
-                    return (
-                      <Chip
-                        key={skillName}
-                        label={skillName}
-                        color="primary"
-                        mode="outline"
-                      />
-                    );
-                  })}
-              </Chips>
-            ) : (
-              <ul data-h2-font-color="b(black)">
-                <li>
-                  {intl.formatMessage({
-                    defaultMessage: "(None selected)",
-                    description: "Text shown when the filter was not selected",
-                  })}
-                </li>
-              </ul>
-            )}
+            <Chips>
+              {skills &&
+                skills.map((skillName) => {
+                  return (
+                    <Chip
+                      key={skillName}
+                      label={skillName}
+                      color="primary"
+                      mode="outline"
+                    />
+                  );
+                })}
+            </Chips>
           </FilterBlock>
           <FilterBlock
             title={intl.formatMessage({
