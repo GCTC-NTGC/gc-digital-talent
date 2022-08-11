@@ -6,26 +6,34 @@ import OpenQuote from "../Svg/OpenQuote";
 import type { Quote as QuoteProps } from "../../hooks/useQuote";
 
 const Quote: React.FC<QuoteProps> = ({ content, author }) => (
-  <figure data-h2-padding="base(x4, 0)">
+  <figure data-h2-padding="base(x3, 0)">
     <blockquote
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-align-items="base(flex-start)"
       data-h2-position="base(relative)"
       data-h2-color="base(ia-white)"
     >
+      <div data-h2-text-align="base(left)">
+        <OpenQuote
+          data-h2-display="base(inline-block)"
+          data-h2-width="base(x3)"
+        />
+      </div>
       <p
-        data-h2-font-size="base(h2, 1.3) desktop(h1, 1.3)"
-        data-h2-font-weight="base(900)"
-        data-h2-padding="base(x3)"
+        data-h2-font-size="base(h1, 1.1)"
+        data-h2-font-weight="base(800)"
         data-h2-position="base(relative)"
+        data-h2-padding="base(0, x6)"
       >
-        <OpenQuote data-h2-position="base(absolute)" />
         {content}
-        <CloseQuote data-h2-position="base(absolute)" />
       </p>
+      <div data-h2-text-align="base(right)">
+        <CloseQuote
+          data-h2-display="base(inline-block)"
+          data-h2-width="base(x3)"
+        />
+      </div>
       <figcaption
-        data-h2-font-size="base(h5, 1.3) l-tablet(h4, 1.3)"
+        data-h2-margin="base(x2, x6, 0, x6)"
+        data-h2-font-size="base(h4, 1)"
         data-h2-font-weight="base(700)"
       >
         —{author}

@@ -109,6 +109,7 @@
 --h2-container-l: 80rem;
 --h2-container-large: 80rem;
 --h2-container-full: none;
+--h2-container-iap-home: 70rem;
 /* Font families */
 --h2-font-family-sans: 'Open Sans', sans-serif;
 --h2-font-family-serif: serif;
@@ -141,6 +142,7 @@
 --h2-radius-m: 50rem;
 --h2-radius-l: 100%;
 --h2-radius-input: 4px;
+--h2-radius-iap-home-card: 20px;
 /* Shadows */
 --h2-shadow-s: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2);
 --h2-shadow-m: 0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2);
