@@ -22,6 +22,7 @@ import {
   AdvertisementStatus,
   PoolAdvertisementLanguage,
   SecurityStatus,
+  CitizenshipStatus,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -131,6 +132,31 @@ export const languages = defineMessages({
 
 export const getLanguage = (languageId: string | number): MessageDescriptor =>
   getOrThrowError(languages, languageId, `Invalid Language '${languageId}'`);
+
+export const citizenshipStatuses = defineMessages({
+  [CitizenshipStatus.Citizen]: {
+    defaultMessage: "I am a Canadian citizen",
+    description: "declaring one to be a Canadian citizen",
+  },
+  [CitizenshipStatus.PermanentResident]: {
+    defaultMessage: "I am a permanent resident of Canada",
+    description: "declaring one to be a permanent resident",
+  },
+  [CitizenshipStatus.Other]: {
+    defaultMessage: "Other",
+    description:
+      "declaring self to be neither a citizen or permanent resident of Canada",
+  },
+});
+
+export const getCitizenshipStatuses = (
+  citizenshipId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    citizenshipStatuses,
+    citizenshipId,
+    `Invalid Language '${citizenshipId}'`,
+  );
 
 export const educationRequirements = defineMessages({
   hasDiploma: {
