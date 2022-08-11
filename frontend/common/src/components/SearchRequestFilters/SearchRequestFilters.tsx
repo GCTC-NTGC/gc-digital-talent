@@ -54,7 +54,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
         >
           {title}:
         </p>
-        {content && (
+        {content !== undefined && (
           <span>
             {content instanceof Array && content.length > 0 ? (
               <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
@@ -83,9 +83,9 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
         >
           {title}
         </p>
-        {content && (
+        {content !== undefined && (
           <span>
-            {content && content instanceof Array && content.length > 0 ? (
+            {content instanceof Array && content.length > 0 ? (
               <ul data-h2-font-color="b(black)">
                 {content.map((text) => (
                   <li key={uniqueId()}>{text}</li>
@@ -226,7 +226,7 @@ const ApplicantFilters: React.FC<{
             )}
           >
             <Chips>
-              {skills &&
+              {skills && skills.length > 0 ? (
                 skills.map((skillName) => {
                   return (
                     <Chip
@@ -236,7 +236,18 @@ const ApplicantFilters: React.FC<{
                       mode="outline"
                     />
                   );
-                })}
+                })
+              ) : (
+                <ul data-h2-font-color="b(black)">
+                  <li>
+                    {intl.formatMessage({
+                      defaultMessage: "(None selected)",
+                      description:
+                        "Text shown when the filter was not selected",
+                    })}
+                  </li>
+                </ul>
+              )}
             </Chips>
           </FilterBlock>
           <FilterBlock
