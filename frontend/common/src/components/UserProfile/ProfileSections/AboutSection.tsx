@@ -114,8 +114,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           {isVeteran !== null && (
             <p>
               {intl.formatMessage({
-                defaultMessage: "Veteran:",
-                description: "Veteran label",
+                defaultMessage: "Member of CAF:",
+                description: "Veteran/member label",
               })}{" "}
               <span data-h2-font-weight="b(700)">
                 {isVeteran
