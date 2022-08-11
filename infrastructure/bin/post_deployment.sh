@@ -25,7 +25,7 @@ BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": 
 cd $ROOT_DIR/api
 
 # Unfortunately, no useful exit codes from artisan :-(
-MIGRATION_STDOUT=$(php artisan migrate --no-interaction --force)
+MIGRATION_STDOUT=$(php artisan migrate --no-interaction --force --no-ansi)
 # https://unix.stackexchange.com/a/649781
 OCCURRENCES_WORD_MIGRATING=$(printf '%s' "$MIGRATION_STDOUT" | grep -o 'Migrating:' | wc -l)
 OCCURRENCES_WORD_MIGRATED=$(printf '%s' "$MIGRATION_STDOUT" | grep -o 'Migrated:' | wc -l)
@@ -40,8 +40,11 @@ else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Database migration *unknown* status. $MENTION\" } }"
 fi
 
-# Include the stdout from the migration as its own block
-BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\":\"$TRIPLE_BACK_TICK $MIGRATION_STDOUT $TRIPLE_BACK_TICK\" } }"
+
+
+# Include the stdout from the migration as its own block, cleaned to make Slack happy
+CLEANED_STDOUT=${MIGRATION_STDOUT//[^a-zA-Z0-9_ $'\n']/}
+BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\":\"$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK\" } }"
 
 if mkdir --parents /tmp/bootstrap/cache ; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Cache directory creation *successful*.\" } }"
