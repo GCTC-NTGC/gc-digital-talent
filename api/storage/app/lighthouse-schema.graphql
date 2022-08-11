@@ -816,6 +816,7 @@ type PoolCandidate {
   status: PoolCandidateStatus
   notes: String
   archivedAt: DateTime
+  submittedAt: DateTime
 }
 
 type PoolCandidateFilter {

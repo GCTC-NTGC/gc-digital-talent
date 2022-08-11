@@ -329,6 +329,7 @@ type PoolCandidate {
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
     notes: String
     archivedAt: DateTime @rename(attribute: "archived_at")
+    submittedAt: DateTime @rename(attribute: "submitted_at")
 }
 
 enum LanguageAbility {
