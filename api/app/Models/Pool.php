@@ -51,6 +51,7 @@ class Pool extends Model
         'advertisement_location' => 'array',
         'your_impact' => 'array',
         'expiry_date' => 'datetime',
+        'is_remote' => 'boolean'
     ];
 
     /**
@@ -60,6 +61,7 @@ class Pool extends Model
     */
     protected $fillable = [
         'is_published',
+        'is_remote',
         'expiry_date'
     ];
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 
 import { pushToStateThenNavigate } from "@common/helpers/router";
@@ -20,15 +20,15 @@ import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import Spinner from "../Spinner";
 import CandidateResults from "./CandidateResults";
-import SearchForm from "./SearchForm";
+import SearchForm, { SearchFormRef } from "./SearchForm";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import { DIGITAL_CAREERS_POOL_KEY } from "../../talentSearchConstants";
 
-const candidateFilterToQueryArgs = (
-  filter: ApplicantFilterInput | undefined,
-  poolId: string | undefined,
+const applicantFilterToQueryArgs = (
+  filter?: ApplicantFilterInput,
+  poolId?: string,
 ): CountApplicantsQueryVariables => {
-  /* We must pick only the fields belonging to PoolCandidateFilterInput, because its possible
+  /* We must pick only the fields belonging to ApplicantFilterInput, because its possible
      the data object contains other props at runtime, and this will cause the
      graphql operation to fail.
   */
@@ -73,8 +73,8 @@ export interface SearchContainerProps {
   skills?: Skill[];
   candidateCount: number;
   updatePending?: boolean;
-  candidateFilter?: ApplicantFilterInput | undefined;
-  onUpdateCandidateFilter: (candidateFilter: ApplicantFilterInput) => void;
+  applicantFilter?: ApplicantFilterInput;
+  onUpdateApplicantFilter: (applicantFilter: ApplicantFilterInput) => void;
   onSubmit: () => Promise<void>;
 }
 
@@ -87,16 +87,27 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   skills,
   candidateCount,
   updatePending,
-  candidateFilter,
-  onUpdateCandidateFilter,
+  applicantFilter,
+  onUpdateApplicantFilter,
   onSubmit,
 }) => {
   const intl = useIntl();
 
   const classificationFilterCount =
-    candidateFilter?.expectedClassifications?.length ?? 0;
+    applicantFilter?.expectedClassifications?.length ?? 0;
   const operationalRequirementFilterCount =
-    candidateFilter?.operationalRequirements?.length ?? 0;
+    applicantFilter?.operationalRequirements?.length ?? 0;
+
+  const searchRef = useRef<SearchFormRef>(null);
+
+  const tryHandleSubmit = async () => {
+    if (classificationFilterCount === 0) {
+      // Validate all fields, and focus on the first one that is invalid.
+      searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
+    } else {
+      onSubmit();
+    }
+  };
 
   return (
     <>
@@ -130,7 +141,8 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           <SearchForm
             classifications={classifications}
             skills={skills}
-            onUpdateCandidateFilter={onUpdateCandidateFilter}
+            onUpdateApplicantFilter={onUpdateApplicantFilter}
+            ref={searchRef}
           />
         </div>
         <div
@@ -178,7 +190,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
               candidateCount={candidateCount}
               pool={pool}
               poolOwner={poolOwner}
-              handleSubmit={onSubmit}
+              handleSubmit={tryHandleSubmit}
             />
           ) : (
             <Spinner />
@@ -196,13 +208,13 @@ const SearchContainerApi: React.FC = () => {
   const pool = data?.poolByKey;
   const skills = data?.skills;
 
-  const [candidateFilter, setCandidateFilter] = React.useState<
+  const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
   >(undefined);
 
   const [{ data: countData, fetching: countFetching }] =
     useCountApplicantsQuery({
-      variables: candidateFilterToQueryArgs(candidateFilter, pool?.id),
+      variables: applicantFilterToQueryArgs(applicantFilter, pool?.id),
     });
 
   const candidateCount = countData?.countApplicants ?? 0;
@@ -210,12 +222,12 @@ const SearchContainerApi: React.FC = () => {
   const paths = useTalentSearchRoutes();
   const onSubmit = async () => {
     // pool ID is not in the form so it must be added manually
-    if (candidateFilter && pool) {
-      candidateFilter.pools = [{ id: pool.id }];
+    if (applicantFilter && pool) {
+      applicantFilter.pools = [{ id: pool.id }];
     }
 
     return pushToStateThenNavigate(paths.request(), {
-      candidateFilter,
+      applicantFilter,
       candidateCount,
       initialValues: null,
     });
@@ -227,10 +239,10 @@ const SearchContainerApi: React.FC = () => {
       pool={pool ?? undefined}
       skills={skills as Skill[]}
       poolOwner={pool?.owner ?? undefined}
-      candidateFilter={candidateFilter}
+      applicantFilter={applicantFilter}
       candidateCount={candidateCount}
       updatePending={countFetching}
-      onUpdateCandidateFilter={setCandidateFilter}
+      onUpdateApplicantFilter={setApplicantFilter}
       onSubmit={onSubmit}
     />
   );
