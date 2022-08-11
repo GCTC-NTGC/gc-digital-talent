@@ -736,13 +736,13 @@ input PoolsHasMany {
 When creating a User, name is required.
 """
 input CreateUserInput {
-    sub: String @rules(apply: ["unique:users,sub"])
+    sub: String @rules(apply: ["sometimes","unique:users,sub"])
     roles: [Role] = []
 
     # Personal info
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
-    email: Email @rules(apply: ["unique:users,email"])
+    email: Email @rules(apply: ["sometimes","unique:users,email"])
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
