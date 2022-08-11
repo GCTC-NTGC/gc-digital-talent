@@ -7,7 +7,7 @@ describe("Talentsearch Profile Page", () => {
   context('Anonymous visitor', () => {
     it('redirects restricted pages to login', () => {
       [
-        '/en/users/me',
+        '/en/talent/profile',
         '/en/users/test-applicant/profile',
       ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
@@ -22,7 +22,7 @@ describe("Talentsearch Profile Page", () => {
 
     it('displays not authorized', () => {
       [
-        '/en/users/me',
+        '/en/talent/profile',
         '/en/users/test-no-role/profile',
         '/en/users/test-no-role/profile/about-me/edit',
         '/en/users/test-no-role/profile/language-info/edit',
@@ -55,7 +55,7 @@ describe("Talentsearch Profile Page", () => {
       cy.contains("Diversity, equity and inclusion");
       cy.contains("My skills and experience");
 
-      cy.visit('/en/users/me')
+      cy.visit('/en/talent/profile')
       cy.contains("My Status");
       cy.contains("My hiring pools");
       cy.contains("About Me");
