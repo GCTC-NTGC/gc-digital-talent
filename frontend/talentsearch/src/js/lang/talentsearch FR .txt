@@ -1,4 +1,3 @@
-
 {
   "+cy2GO": {
     "defaultMessage": "Trouvez des candidats ayant les bonnes compétences pour le poste. Utilisez les onglets suivants pour trouver les compétences nécessaires à l'emploi et sélectionnez-les pour les utiliser comme filtres pour trouver les candidats correspondants.",
@@ -188,7 +187,7 @@
     "description": "Pool advertisement language requirement"
   },
   "gpuTAV": {
-    "defaultMessage": "Que signifie {classification}{titre générique}?",
+    "defaultMessage": "Que signifie {classification}{genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
   },
   "hEhmBF": {
