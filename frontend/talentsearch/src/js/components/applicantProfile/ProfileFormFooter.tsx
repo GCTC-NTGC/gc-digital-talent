@@ -1,10 +1,10 @@
 import * as React from "react";
-import CancelButton from "./CancelButton";
+import CancelButton, { type CancelButtonProps } from "./CancelButton";
 import SaveButton from "./SaveButton";
 
 export interface ProfileFormFooterProps {
   mode: "cancelButton" | "saveButton" | "bothButtons";
-  link?: string;
+  link?: CancelButtonProps;
 }
 
 const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
@@ -18,7 +18,7 @@ const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
         return (
           <>
             <span data-h2-padding="b(right, xs)">
-              <CancelButton link={link} />
+              <CancelButton {...link} />
             </span>
             <span>
               <SaveButton />

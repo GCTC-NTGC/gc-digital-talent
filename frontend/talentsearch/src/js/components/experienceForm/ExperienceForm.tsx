@@ -118,7 +118,9 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
               }),
         },
       ]}
-      cancelLink={paths.skillsAndExperiences()}
+      cancelLink={{
+        href: paths.skillsAndExperiences(),
+      }}
     >
       <BasicForm
         onSubmit={handleSubmit}
@@ -175,7 +177,9 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         )}
         <ProfileFormFooter
           mode="bothButtons"
-          link={paths.skillsAndExperiences()}
+          link={{
+            href: paths.skillsAndExperiences(),
+          }}
         />
       </BasicForm>
       <AlertDialog
