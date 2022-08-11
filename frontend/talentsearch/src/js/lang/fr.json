@@ -1666,7 +1666,7 @@
     "description": "Opening sentence asking if accommodations are needed"
   },
   "5IfAK9": {
-    "defaultMessage": "Demande de candidats pour le bassin : <span>{candidatCount, pluriel, zéro {aucun candidat} un {1 candidat} autre {{candidatCount} candidats estimés}}</span>",
+    "defaultMessage": "Demande de candidats pour le bassin : <span>{candidateCount, plural, zero {aucun candidat} one {1 candidat} other {{candidateCount} candidats estimés}}</span>",
     "description": "Total estimated candidates message in summary of filters"
   },
   "6OJhwM": {

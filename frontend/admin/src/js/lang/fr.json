@@ -2148,7 +2148,7 @@
     "description": "Title optional skills for a pool advertisement"
   },
   "l0IDWf": {
-    "defaultMessage": "Résultats ({compteur de compétences})",
+    "defaultMessage": "Résultats ({skillCount})",
     "description": "A title for a skill list of results"
   },
   "lb7SoP": {
@@ -2160,7 +2160,7 @@
     "description": "Label displayed on the edit pool form language requirement field."
   },
   "nr62lc": {
-    "defaultMessage": "Résultats ({compteur de compétences})",
+    "defaultMessage": "Résultats ({skillCount})",
     "description": "A title for a list of results"
   },
   "pD2NXF": {
