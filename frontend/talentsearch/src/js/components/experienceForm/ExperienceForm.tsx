@@ -133,7 +133,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         {experienceType === "personal" && <PersonalExperienceForm />}
         {experienceType === "work" && <WorkExperienceForm />}
         <ExperienceSkills skills={skills} />
-        <h2 data-h2-font-size="base(h3, 1.3)">
+        <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "4. Additional information for this experience",
             description: "Title for addition information on Experience form",

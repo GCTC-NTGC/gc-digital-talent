@@ -15,7 +15,7 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
 
   return (
     <div>
-      <h2 data-h2-font-size="base(h3, 1.3)">
+      <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "1. Community Experience Details",
           description: "Title for Community Experience form",
@@ -28,127 +28,132 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
           description: "Description blurb for Community Experience form",
         })}
       </p>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-padding="base(x1, 0, 0, 0)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-      >
-        <div data-h2-padding="base(0) p-tablet(0, x2, 0, 0)">
-          <Input
-            id="role"
-            label={intl.formatMessage({
-              defaultMessage: "My Role / Job Title",
-              description:
-                "Label displayed on Community Experience form for role input",
-            })}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write title here...",
-              description:
-                "Placeholder displayed on the Community Experience form for role input",
-            })}
-            name="role"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-
-          <Input
-            id="organization"
-            label={intl.formatMessage({
-              defaultMessage: "Group / Organization / Community",
-              description:
-                "Label displayed on Community Experience form for organization input",
-            })}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write group name here...",
-              description:
-                "Placeholder displayed on the Community Experience form for organization input",
-            })}
-            name="organization"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-
-          <Input
-            id="project"
-            label={intl.formatMessage({
-              defaultMessage: "Project / Product",
-              description:
-                "Label displayed on Community Experience form for project input",
-            })}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write project name here...",
-              description:
-                "Placeholder displayed on the Community Experience form for project input",
-            })}
-            name="project"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-        </div>
-        <div>
-          <Checkbox
-            boundingBox
-            boundingBoxLabel={intl.formatMessage({
-              defaultMessage: "Current Role",
-              description:
-                "Label displayed on Community Experience form for current role bounded box",
-            })}
-            id="currentRole"
-            label={intl.formatMessage({
-              defaultMessage: "I am currently active in this role",
-              description:
-                "Label displayed on Community Experience form for current role input",
-            })}
-            name="currentRole"
-          />
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-          >
-            <div data-h2-padding="base(0) p-tablet(0, x.5, 0, 0)">
-              <Input
-                id="startDate"
-                label={intl.formatMessage({
-                  defaultMessage: "Start Date",
+      <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">
+        <div data-h2-flex-grid="base(flex-start, 0, x2, 0)">
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <Input
+              id="role"
+              label={intl.formatMessage({
+                defaultMessage: "My Role / Job Title",
+                description:
+                  "Label displayed on Community Experience form for role input",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Write title here...",
+                description:
+                  "Placeholder displayed on the Community Experience form for role input",
+              })}
+              name="role"
+              type="text"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <div data-h2-margin="base(x1, 0, x.875, 0)">
+              <Checkbox
+                boundingBox
+                boundingBoxLabel={intl.formatMessage({
+                  defaultMessage: "Current Role",
                   description:
-                    "Label displayed on Community Experience form for start date input",
+                    "Label displayed on Community Experience form for current role bounded box",
                 })}
-                name="startDate"
-                type="date"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
+                id="currentRole"
+                label={intl.formatMessage({
+                  defaultMessage: "I am currently active in this role",
+                  description:
+                    "Label displayed on Community Experience form for current role input",
+                })}
+                name="currentRole"
               />
             </div>
-            <div>
-              {/* conditionally render the endDate based off the state attached to the checkbox input */}
-              {!isCurrent && (
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <Input
+              id="organization"
+              label={intl.formatMessage({
+                defaultMessage: "Group / Organization / Community",
+                description:
+                  "Label displayed on Community Experience form for organization input",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Write group name here...",
+                description:
+                  "Placeholder displayed on the Community Experience form for organization input",
+              })}
+              name="organization"
+              type="text"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <div data-h2-flex-grid="base(flex-start, 0, x2, 0)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
-                  id="endDate"
+                  id="startDate"
                   label={intl.formatMessage({
-                    defaultMessage: "End Date",
+                    defaultMessage: "Start Date",
                     description:
-                      "Label displayed on Community Experience form for end date input",
+                      "Label displayed on Community Experience form for start date input",
                   })}
-                  name="endDate"
+                  name="startDate"
                   type="date"
-                  rules={
-                    isCurrent
-                      ? {}
-                      : {
-                          required: intl.formatMessage(errorMessages.required),
-                          min: {
-                            value: startDate,
-                            message: intl.formatMessage(
-                              errorMessages.mustBeGreater,
-                              {
-                                value: startDate,
-                              },
-                            ),
-                          },
-                        }
-                  }
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
-              )}
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                {/* conditionally render the endDate based off the state attached to the checkbox input */}
+                {!isCurrent && (
+                  <Input
+                    id="endDate"
+                    label={intl.formatMessage({
+                      defaultMessage: "End Date",
+                      description:
+                        "Label displayed on Community Experience form for end date input",
+                    })}
+                    name="endDate"
+                    type="date"
+                    rules={
+                      isCurrent
+                        ? {}
+                        : {
+                            required: intl.formatMessage(
+                              errorMessages.required,
+                            ),
+                            min: {
+                              value: startDate,
+                              message: intl.formatMessage(
+                                errorMessages.mustBeGreater,
+                                {
+                                  value: startDate,
+                                },
+                              ),
+                            },
+                          }
+                    }
+                  />
+                )}
+              </div>
             </div>
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <Input
+              id="project"
+              label={intl.formatMessage({
+                defaultMessage: "Project / Product",
+                description:
+                  "Label displayed on Community Experience form for project input",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Write project name here...",
+                description:
+                  "Placeholder displayed on the Community Experience form for project input",
+              })}
+              name="project"
+              type="text"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
           </div>
         </div>
       </div>

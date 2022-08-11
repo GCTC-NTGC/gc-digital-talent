@@ -140,63 +140,49 @@ export const ExperienceAndSkills: React.FunctionComponent<
           "Heading for experience and skills page in applicant profile.",
       })}
     >
-      <p
-        data-h2-font-style="base(reset)"
-        data-h2-font-weight="base(700)"
-        data-h2-margin="base(0, 0, x.125, 0)"
-        data-h2-text-transform="base(uppercase)"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Add new experience:",
-          description:
-            "Message to user when no experiences have been attached to profile",
-        })}
-      </p>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-      >
-        <p
-          data-h2-font-style="base(reset)"
-          data-h2-font-weight="base(700)"
-          style={{ textTransform: "uppercase" }}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Add new experience:",
-            description:
-              "Message to user when no experiences have been attached to profile",
-          })}
-        </p>
-        <div
-          data-h2-margin="base(auto, auto, x1, auto) p-tablet(x1, auto, auto, x1)"
-          data-h2-padding="base(x1)"
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column) p-tablet(row)"
-          data-h2-justify-content="base(center) l-tablet(space-between)"
-          data-h2-radius="base(s)"
-          data-h2-background-color="base(light.dt-gray)"
-          style={{ flexGrow: "2" }}
-        >
-          {links.map(({ title, href, icon }) => (
-            <IconLink
-              href={href}
-              type="button"
-              color="primary"
-              icon={icon}
-              block
+      <div data-h2-margin="base(x2, 0)">
+        <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(center, 0, x1)">
+          <div data-h2-flex-item="base(1of1) p-tablet(content)">
+            <p
+              data-h2-font-style="base(reset)"
+              data-h2-font-weight="base(700)"
+              data-h2-text-transform="base(uppercase)"
             >
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "<hidden>Add new </hidden>{title}<hidden> experience</hidden>",
-                  description:
-                    "Link text for adding a new experience of a specific type.",
-                },
-                { title },
-              )}
-            </IconLink>
-        ))}
+              {intl.formatMessage({
+                defaultMessage: "Add new experience:",
+                description:
+                  "Message to user when no experiences have been attached to profile",
+              })}
+            </p>
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(fill)">
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column) p-tablet(row)"
+              data-h2-justify-content="base(center) l-tablet(space-between)"
+              style={{ flexGrow: "2" }}
+            >
+              {links.map(({ title, href, icon }) => (
+                <IconLink
+                  href={href}
+                  type="button"
+                  color="primary"
+                  icon={icon}
+                  block
+                >
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "<hidden>Add new </hidden>{title}<hidden> experience</hidden>",
+                      description:
+                        "Link text for adding a new experience of a specific type.",
+                    },
+                    { title },
+                  )}
+                </IconLink>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       {!experiences || experiences?.length === 0 ? (

@@ -31,8 +31,8 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
   const MAX_WORDS = 160;
 
   return (
-    <section data-h2-margin="base(0, 0, x2, 0)">
-      <h2 data-h2-font-size="base(h3, 1.3)">
+    <section>
+      <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "3. Skills in detail",
           description:
@@ -48,7 +48,8 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
         })}
       </p>
       <ul
-        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-margin="base(x.5, 0, x1, 0)"
+        data-h2-padding="base(0, 0, 0, x1)"
         data-h2-color="base(dark.dt-gray)"
         data-h2-font-style="base(italic)"
       >
@@ -86,7 +87,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
         </li>
       </ul>
       <div
-        data-h2-padding="base(x1)"
+        data-h2-padding="base(x1, x1, 1px, x1)"
         data-h2-background-color="base(light.dt-gray)"
         data-h2-radius="base(s)"
       >
@@ -103,7 +104,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                 <Button
                   color="secondary"
                   mode="inline"
-                  data-h2-padding="base(x.5, 0)"
+                  data-h2-padding="base(0)"
                   data-h2-font-style="base(underline)"
                   data-h2-display="base(flex)"
                   data-h2-align-items="base(center)"
@@ -124,7 +125,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                   </span>
                 </Button>
               </div>
-              <div>
+              <div data-h2-margin="base(-x.5, 0, 0, 0)">
                 <input
                   type="hidden"
                   {...register(`skills.${index}.skillId` as const, {
@@ -170,7 +171,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
             </React.Fragment>
           ))
         ) : (
-          <p data-h2-font-style="base(italic)">
+          <p data-h2-font-style="base(italic)" data-h2-padding="base(0, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "There are no skills attached to this experience yet. You can add some on the step above.",

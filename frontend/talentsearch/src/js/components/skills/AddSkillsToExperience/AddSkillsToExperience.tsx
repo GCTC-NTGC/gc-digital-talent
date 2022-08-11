@@ -108,7 +108,7 @@ const AddSkillsToExperience: React.FunctionComponent<
   return (
     <>
       <AddedSkills skills={addedSkills || []} onRemoveSkill={onRemoveSkill} />
-      <hr />
+      <hr data-h2-background-color="base(dt-gray)" data-h2-height="base(1px)" data-h2-width="base(100%)" data-h2-border="base(none)" data-h2-margin="base(x1, 0)"/>
       <h4>
         {intl.formatMessage({
           defaultMessage: "Add Skills",

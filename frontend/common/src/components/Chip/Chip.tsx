@@ -60,7 +60,7 @@ const Chip: React.FC<ChipProps> = ({
       {onDismiss && (
         <XCircleIcon
           data-h2-cursor="base(pointer)"
-          data-h2-width="base(x.5)"
+          data-h2-width="base(1rem)"
           data-h2-margin="base(0, 0, 0, x.25)"
           data-h2-vertical-align="base(middle)"
           {...colorMap[color][mode]}

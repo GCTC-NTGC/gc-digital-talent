@@ -53,6 +53,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
         error={error}
       >
         <select
+          data-h2-background-color="base(dt-white)"
           data-h2-padding="base(x.25, x.5)"
           data-h2-radius="base(input)"
           data-h2-border="base(all, 1px, solid, dt-gray)"

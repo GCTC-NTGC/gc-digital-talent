@@ -55,6 +55,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
           /** If hideOptional is true, only show text if required is true. */
           (required || !hideOptional) && (
             <span
+              data-h2-font-size="base(caption)"
               data-h2-display="base(inline-block)"
               data-h2-margin="base(0, 0, 0, x.125)"
               {...(required

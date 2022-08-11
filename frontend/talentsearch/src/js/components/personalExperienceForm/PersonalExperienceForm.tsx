@@ -15,7 +15,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
 
   return (
     <div>
-      <h2 data-h2-font-size="base(h3, 1.3)">
+      <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "1. Personal Experience Details",
           description: "Title for Personal Experience Details form",
@@ -28,7 +28,6 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
           description: "Description blurb for Personal Experience Details form",
         })}
       </p>
-
       <div>
         <Input
           id="experienceTitle"
@@ -60,24 +59,25 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
           name="experienceDescription"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
-
-        <Checkbox
-          boundingBox
-          boundingBoxLabel={intl.formatMessage({
-            defaultMessage: "Disclaimer",
-            description:
-              "Label displayed on Personal Experience form for disclaimer bounded box",
-          })}
-          id="disclaimer"
-          label={intl.formatMessage({
-            defaultMessage:
-              "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
-            description:
-              "Label displayed on Personal Experience form for disclaimer checkbox",
-          })}
-          name="disclaimer"
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-        />
+        <div data-h2-margin="base(0, 0, x1, 0)">
+          <Checkbox
+            boundingBox
+            boundingBoxLabel={intl.formatMessage({
+              defaultMessage: "Disclaimer",
+              description:
+                "Label displayed on Personal Experience form for disclaimer bounded box",
+            })}
+            id="disclaimer"
+            label={intl.formatMessage({
+              defaultMessage:
+                "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
+              description:
+                "Label displayed on Personal Experience form for disclaimer checkbox",
+            })}
+            name="disclaimer"
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+          />
+        </div>
 
         <Checkbox
           boundingBox

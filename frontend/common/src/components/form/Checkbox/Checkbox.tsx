@@ -74,9 +74,9 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           error={error}
         >
           <div
-            data-h2-border="base(all, 1px, solid, dark.dt-gray)"
-            data-h2-radius="base(s)"
-            data-h2-padding="base(x.125, x.5)"
+            data-h2-border="base(all, 1px, solid, dt-gray)"
+            data-h2-radius="base(input)"
+            data-h2-padding="base(x.25, x.5)"
             data-h2-display="base(flex)"
             data-h2-align-items="base(center)"
             style={{ width: "100%" }}
@@ -91,7 +91,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
               />
               <span
                 data-h2-margin="base(0, 0, 0, x.25)"
-                data-h2-font-size="base(caption)"
+                data-h2-font-size="base(copy)"
               >
                 {label}
               </span>

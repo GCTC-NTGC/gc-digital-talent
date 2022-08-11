@@ -16,14 +16,20 @@ const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
     switch (mode) {
       case "bothButtons":
         return (
-          <>
-            <span data-h2-padding="base(0, x.25, 0, 0)">
+          <div data-h2-display="base(flex)" data-h2-align-items="base(center)">
+            <span
+              data-h2-display="base(inline-block)"
+              data-h2-margin="base(0, x1, 0, 0)"
+            >
               <CancelButton link={link} />
             </span>
-            <span>
+            <span
+              data-h2-display="base(inline-block)"
+              data-h2-margin="base(0, x1, 0, 0)"
+            >
               <SaveButton />
             </span>
-          </>
+          </div>
         );
       case "cancelButton":
         return <CancelButton />;
