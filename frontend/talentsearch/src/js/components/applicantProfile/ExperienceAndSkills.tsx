@@ -139,6 +139,12 @@ export const ExperienceAndSkills: React.FunctionComponent<
         description:
           "Heading for experience and skills page in applicant profile.",
       })}
+      cancelLink={{
+        children: intl.formatMessage({
+          defaultMessage: "Go back to my profile",
+          description: "Link text for button to return to user profile",
+        }),
+      }}
     >
       <p
         data-h2-font-style="b(reset)"
