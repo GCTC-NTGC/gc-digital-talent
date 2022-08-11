@@ -1142,10 +1142,6 @@
     "defaultMessage": "Débutant",
     "description": "Beginner, skill level"
   },
-  "CeOXYP": {
-    "defaultMessage": "Je <strong>n'envisagerais pas</strong> d'accepter un emploi qui :",
-    "description": "would not accept job line before a list, ignore things in <> please"
-  },
   "EXOS0V": {
     "defaultMessage": "...m'oblige à <strong>faire des heures supplémentaires occasionnelles</strong>.",
     "description": "The operational requirement described as occasional overtime."
@@ -1355,5 +1351,9 @@
   "ziaV/E": {
     "defaultMessage": "Divers (anglais ou français)",
     "description": "The language requirement is various."
+  },
+  "GThNuu": {
+    "defaultMessage": "Je <strong>n'envisagerais pas</strong> d'accepter un emploi qui :",
+    "description": "would not accept job line before a list, ignore things in <> please"
   }
 }
