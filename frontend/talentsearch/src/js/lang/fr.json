@@ -1636,5 +1636,13 @@
   "GIPciq": {
     "defaultMessage": "<strong>Remarque :</strong> Si vous sélectionnez plus d'un groupe visé par l'équité en matière d'emploi, TOUS les candidats qui se sont déclarés membres de N'IMPORTE LEQUEL des groupes visés par l'équité en matière d'emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l'équité en matière d'emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
     "description": "Context for employment equity filter in search form."
+  },
+  "5lBIzg": {
+    "defaultMessage": "Mon profile",
+    "description": "Label displayed on the applicant profile menu item."
+  },
+  "ioghLh": {
+    "defaultMessage": "Mes applications",
+    "description": "Label displayed on the users pool applications menu item."
   }
 }
