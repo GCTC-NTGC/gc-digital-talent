@@ -7,19 +7,31 @@ import {
 } from "@heroicons/react/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { EducationExperience } from "@common/api/generated";
+import { EducationExperience, Scalars } from "@common/api/generated";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { IconLink } from "@common/components/Link";
+import { notEmpty } from "@common/helpers/util";
+import { flatten } from "lodash";
+import MissingSkills from "@common/components/skills/MissingSkills";
 import {
   AwardExperience,
   CommunityExperience,
   Experience,
   PersonalExperience,
+  Skill,
   WorkExperience,
 } from "../../api/generated";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
+
+type MergedExperiences = Array<
+  | AwardExperience
+  | CommunityExperience
+  | EducationExperience
+  | PersonalExperience
+  | WorkExperience
+>;
 
 export type ExperienceForDate =
   | (AwardExperience & { startDate: string; endDate: string })
@@ -50,13 +62,30 @@ export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
   // Items with end date should be sorted by most recent end date at top.
   return e2EndDate - e1EndDate;
 };
+
+const flattenExperienceSkills = (experiences: MergedExperiences): Skill[] => {
+  const skillSkills = experiences
+    .map((experience) => {
+      const { skills } = experience;
+      return skills?.filter(notEmpty);
+    })
+    .filter(notEmpty);
+
+  return flatten(skillSkills);
+};
+
 export interface ExperienceAndSkillsProps {
   experiences?: Experience[];
+  applicationId?: Scalars["ID"];
+  missingSkills?: {
+    requiredSkills: Skill[];
+    optionalSkills: Skill[];
+  };
 }
 
 export const ExperienceAndSkills: React.FunctionComponent<
   ExperienceAndSkillsProps
-> = ({ experiences }) => {
+> = ({ experiences, missingSkills, applicationId }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
   const experienceEditPaths = {
@@ -109,6 +138,8 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: StarIcon,
     },
   ];
+
+  const hasExperiences = notEmpty(experiences);
 
   return (
     <ProfileFormWrapper
@@ -172,7 +203,18 @@ export const ExperienceAndSkills: React.FunctionComponent<
           </div>
         ))}
       </div>
-      {!experiences || experiences?.length === 0 ? (
+      {missingSkills && (
+        <div data-h2-margin="b(top-bottom, s)">
+          <MissingSkills
+            addedSkills={
+              hasExperiences ? flattenExperienceSkills(experiences) : []
+            }
+            requiredSkills={missingSkills.requiredSkills}
+            optionalSkills={missingSkills.optionalSkills}
+          />
+        </div>
+      )}
+      {!hasExperiences ? (
         <div
           data-h2-radius="b(s)"
           data-h2-bg-color="b(lightgray)"
