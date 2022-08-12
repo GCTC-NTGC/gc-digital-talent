@@ -163,7 +163,7 @@ export const EditPoolForm = ({
   };
 
   return (
-    <DashboardContentContainer>
+    <div>
       <PageHeader icon={ViewGridIcon}>
         {intl.formatMessage({
           defaultMessage: "Edit pool advertisement",
@@ -265,7 +265,7 @@ export const EditPoolForm = ({
             "Text on a link to navigate back to the pool dashboard page",
         })}
       </Link>
-    </DashboardContentContainer>
+    </div>
   );
 };
 

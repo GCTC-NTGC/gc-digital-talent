@@ -288,7 +288,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
 
   return (
     <>
-      <Heading level="h4">
+      <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Personal status",
           description:
@@ -322,7 +322,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
               "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please",
           })}
       </div>
-      <h5>
+      <h5 data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Pool status",
           description:
@@ -330,7 +330,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
         })}
       </h5>
       <PoolStatusTable user={user} />
-      <h5>
+      <h5 data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Add user to other pools",
           description:
@@ -430,6 +430,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
       </p>
       {isEmpty(user.poolCandidates) ? (
         <div
+          data-h2-margin="base(x1, 0)"
           data-h2-background-color="base(light.dt-gray)"
           data-h2-padding="base(x.5)"
           data-h2-radius="base(s)"
@@ -605,7 +606,11 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
       <TableOfContents.Content>
         {items.map((item) => (
           <TableOfContents.Section key={item.id} id={item.id}>
-            <TableOfContents.Heading icon={item.titleIcon} as="h3">
+            <TableOfContents.Heading
+              icon={item.titleIcon}
+              as="h3"
+              data-h2-margin="base(x3, 0, x1, 0)"
+            >
               {item.title}
             </TableOfContents.Heading>
             {item.content}

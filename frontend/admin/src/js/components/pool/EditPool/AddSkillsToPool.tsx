@@ -287,7 +287,7 @@ export const AddSkillsToPool = ({
           </TabPanels>
         </Tabs>
       )}
-      <p>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage(
           {
             defaultMessage: "Selected essential skills ({skillCount})",
@@ -298,21 +298,23 @@ export const AddSkillsToPool = ({
           },
         )}
       </p>
-      <Chips>
-        {selectedSkills.map((skill) => {
-          return (
-            <Chip
-              key={skill.id}
-              label={getLocalizedName(skill.name, intl)}
-              color="primary"
-              mode="outline"
-              onDismiss={
-                !disabled ? () => handleRemoveSkill(skill.id) : undefined
-              }
-            />
-          );
-        })}
-      </Chips>
+      <div data-h2-margin="base(x1, 0)">
+        <Chips>
+          {selectedSkills.map((skill) => {
+            return (
+              <Chip
+                key={skill.id}
+                label={getLocalizedName(skill.name, intl)}
+                color="primary"
+                mode="outline"
+                onDismiss={
+                  !disabled ? () => handleRemoveSkill(skill.id) : undefined
+                }
+              />
+            );
+          })}
+        </Chips>
+      </div>
     </>
   );
 };

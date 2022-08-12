@@ -45,14 +45,14 @@ const ApplyDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
           },
         )}
       </p>
-      <p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage:
             "We want to let you know that in the meantime, updates are being made on this site that will allow Indigenous peoples who are interested in joining the IT Apprenticeship Program to apply online.",
           description: "Second paragraph for apply now dialog",
         })}
       </p>
-      <p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage:
             "Thank you for your interest in this Program. We look forward to hearing from you!",

@@ -39,7 +39,7 @@ export const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-color": "base(ia-white)",
   },
   "ia-secondary": {
-    "data-h2-background-color": "base(ia-linear-primary)",
+    "data-h2-background-color": "base(ia-secondary)",
     "data-h2-color": "base(ia-white)",
   },
 };
@@ -109,7 +109,7 @@ const Dialog: React.FC<DialogProps> = ({
             <h1
               id="dialog-title"
               data-h2-font-weight="base(700)"
-              data-h2-font-size="base(h3, 1.3)"
+              data-h2-font-size="base(h3, 1.1)"
               data-h2-margin="base(0)"
             >
               {title}

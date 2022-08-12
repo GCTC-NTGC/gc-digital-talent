@@ -27,7 +27,7 @@ const RequirementDialog: React.FC<BasicDialogProps> = ({
       })}
       footer={Close}
     >
-      <ul>
+      <ul data-h2-padding="base(0, 0, 0, x1)">
         <li>
           {intl.formatMessage({
             defaultMessage:
