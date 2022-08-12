@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import useFeatureFlags from "@common/hooks/useFeatureFlags";
 import { AuthenticationContext } from "@common/components/Auth";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { Helmet } from "react-helmet";
@@ -298,6 +298,7 @@ export const Router: React.FC = () => {
   const talentPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
   const directIntakePaths = useDirectIntakeRoutes();
+  const featureFlags = useFeatureFlags();
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
   const [isConfirmationOpen, setConfirmationOpen] =
     React.useState<boolean>(false);
@@ -320,6 +321,46 @@ export const Router: React.FC = () => {
       })}
     />,
   ];
+
+  if (featureFlags.directIntake) {
+    menuItems.push(
+      <MenuLink
+        key="browseOpportunities"
+        href={directIntakePaths.allPools()}
+        text={intl.formatMessage({
+          defaultMessage: "Browse opportunities",
+          description: "Label displayed on the browse pools menu item.",
+        })}
+      />,
+    );
+
+    if (loggedIn) {
+      menuItems.push(
+        <MenuLink
+          key="myApplications"
+          href="#" /** TO DO: Replaced with application path when ready */
+          text={intl.formatMessage({
+            defaultMessage: "My applications",
+            description:
+              "Label displayed on the users pool applications menu item.",
+          })}
+        />,
+      );
+    }
+  }
+
+  if (featureFlags.applicantProfile && loggedIn) {
+    menuItems.push(
+      <MenuLink
+        key="myProfile"
+        href={talentPaths.profile()}
+        text={intl.formatMessage({
+          defaultMessage: "My profile",
+          description: "Label displayed on the applicant profile menu item.",
+        })}
+      />,
+    );
+  }
 
   let authLinks = [
     <MenuLink
@@ -365,10 +406,8 @@ export const Router: React.FC = () => {
         contentRoutes={[
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),
-          ...(checkFeatureFlag("FEATURE_APPLICANTPROFILE")
-            ? profileRoutes(profilePaths)
-            : []),
-          ...(checkFeatureFlag("FEATURE_DIRECTINTAKE")
+          ...(featureFlags.applicantProfile ? profileRoutes(profilePaths) : []),
+          ...(featureFlags.directIntake
             ? directIntakeRoutes(directIntakePaths)
             : []),
         ]}
