@@ -9,12 +9,12 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, Icon, children }) => (
   <div data-h2-text-align="base(center)">
-    {Icon && <Icon className="card__icon" data-h2-width="base(x5)" />}
+    {Icon && <Icon data-h2-width="base(x4)" />}
     <Heading
       as="h4"
       color="white"
       data-h2-font-size="base(h3, 1)"
-      data-h2-margin="base(0, 0, x1, 0)"
+      data-h2-margin="base(x1, 0, x1, 0)"
     >
       {title}
     </Heading>

@@ -119,7 +119,7 @@ const Home: React.FunctionComponent = () => {
                       data-h2-opacity="base(10%)"
                       data-h2-position="base(absolute)"
                       data-h2-offset="base(-x1.5, -x1, auto, auto)"
-                    ></div>
+                    />
                     <div
                       data-h2-radius="base(100rem)"
                       data-h2-height="base(x15)"
@@ -128,23 +128,20 @@ const Home: React.FunctionComponent = () => {
                       data-h2-opacity="base(10%)"
                       data-h2-position="base(absolute)"
                       data-h2-offset="base(auto, auto, -x3, -x5.5)"
-                    ></div>
+                    />
                     <div
                       data-h2-height="base(100%)"
                       data-h2-width="base(100%)"
                       data-h2-position="base(relative)"
                       style={{
-                        backgroundImage:
-                          "url('" +
-                          imageUrl(
-                            INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                            "indigenous-woman-smiling.jpg",
-                          ) +
-                          "')",
+                        backgroundImage: `url('${imageUrl(
+                          INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                          "indigenous-woman-smiling.jpg",
+                        )}')`,
                         backgroundPosition: "center",
                         backgroundSize: "cover",
                       }}
-                    ></div>
+                    />
                     <img
                       src={imageUrl(
                         INDIGENOUSAPPRENTICESHIP_APP_DIR,
@@ -233,17 +230,14 @@ const Home: React.FunctionComponent = () => {
                     data-h2-width="base(100%)"
                     data-h2-position="base(relative)"
                     style={{
-                      backgroundImage:
-                        "url('" +
-                        imageUrl(
-                          INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                          "man-on-computer.jpg",
-                        ) +
-                        "')",
+                      backgroundImage: `url('${imageUrl(
+                        INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                        "man-on-computer.jpg",
+                      )}')`,
                       backgroundPosition: "center",
                       backgroundSize: "cover",
                     }}
-                  ></div>
+                  />
                   <img
                     src={imageUrl(
                       INDIGENOUSAPPRENTICESHIP_APP_DIR,
@@ -323,24 +317,21 @@ const Home: React.FunctionComponent = () => {
                     data-h2-position="base(absolute)"
                     data-h2-width="base(120%)"
                     data-h2-color="base(ia-secondary)"
-                    data-h2-offset="base(-8.333%, auto, auto, -8.333%)"
+                    data-h2-offset="base(-3rem, auto, auto, -3rem)"
                   />
                   <div
                     data-h2-height="base(100%)"
                     data-h2-width="base(100%)"
                     data-h2-position="base(relative)"
                     style={{
-                      backgroundImage:
-                        "url('" +
-                        imageUrl(
-                          INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                          "applicant.jpg",
-                        ) +
-                        "')",
+                      backgroundImage: `url('${imageUrl(
+                        INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                        "applicant.jpg",
+                      )}')`,
                       backgroundPosition: "center",
                       backgroundSize: "cover",
                     }}
-                  ></div>
+                  />
                 </div>
               </div>
               <div
@@ -460,7 +451,7 @@ const Home: React.FunctionComponent = () => {
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                   }}
-                ></div>
+                />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
                 <div
@@ -518,8 +509,33 @@ const Home: React.FunctionComponent = () => {
       <div
         data-h2-background-color="base(ia-secondary)"
         data-h2-padding="base(0, 0, x4, 0)"
+        data-h2-position="base(relative)"
       >
-        <div data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)">
+        <div
+          data-h2-height="base(100%)"
+          data-h2-width="base(100%)"
+          data-h2-position="base(absolute)"
+          data-h2-offset="base(0, auto, auto, 0)"
+          data-h2-overflow="base(hidden, all)"
+        >
+          <RadiatingCircles
+            className=""
+            data-h2-color="base(ia-primary)"
+            data-h2-position="base(absolute)"
+            data-h2-offset="base(x10, auto, auto, -10%)"
+            data-h2-width="base(50%)"
+          />
+          <ThickCircle
+            className=""
+            data-h2-position="base(absolute)"
+            data-h2-offset="base(auto, -10%, x35, auto)"
+            data-h2-width="base(35%)"
+          />
+        </div>
+        <div
+          data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)"
+          data-h2-position="base(relative)"
+        >
           <div
             data-h2-text-align="base(center)"
             data-h2-margin="base(0, 0, x3, 0)"
@@ -730,96 +746,65 @@ const Home: React.FunctionComponent = () => {
             </div>
           </div>
           <div data-h2-padding="base(x4, 0)">
-            <div data-h2-background-color="base(ia-secondary.light)">
-              <div data-h2-flex-grid="base(stretch, x3, 0)">
-                <div data-h2-flex-item="base(1of1) p-tablet(1of2)" data-h2-color="base(ia-white)">
-                  <Heading
-                    color="white"
-                    light
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "About the Indigenous Talent Portal",
-                      description: "Talent Portal information heading",
-                    })}
-                  </Heading>
-                  <p data-h2-margin="base(x1, 0, 0, 0)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "The Indigenous Talent Portal was built for the Indigenous community, by the Indigenous community.",
-                      description: "Talent portal information sentence 1",
-                    })}
-                  </p>
-                  <p data-h2-margin="base(x1, 0, 0, 0)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "It is a platform designed to host employment opportunities for Indigenous peoples in a way that recognizes and showcases their unique talents, ideas, skills and passion.",
-                      description: "Talent portal information sentence 2",
-                    })}
-                  </p>
-                </div>
-                <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* Old */}
-      <div data-h2-margin="base(x20, 0, 0, 0)">
-        <div
-          className="portal-panel"
-          data-h2-background-color="base(ia-secondary)"
-          data-h2-color="base(ia-white)"
-          data-h2-position="base(relative)"
-          data-h2-padding="base(0, 0, x3, 0)"
-        >
-          <div
-            className="portal-panel__inner"
-            data-h2-container="base(center, m)"
-            data-h2-position="base(relative)"
-          >
-            <div
-              className="talent-portal-wrapper"
-              data-h2-position="base(relative)"
-              data-h2-margin="l-tablet(x4, 0, 0, 0)"
-            >
+            <div data-h2-position="base(relative)">
               <div
-                className="talent-portal-card"
-                data-h2-position="base(relative)"
-                data-h2-margin="l-tablet(x2, 0)"
-                data-h2-background-color="base(light.ia-secondary)"
-                data-h2-color="base(ia-white)"
-                style={{
-                  backgroundImage: `url(${imageUrl(
-                    INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                    "icon-watermark.svg",
-                  )})`,
-                }}
+                data-h2-position="base(absolute)"
+                data-h2-width="base(75%)"
+                data-h2-offset="base(auto, auto, -3rem, -3rem)"
+                style={{ transform: "rotate(180deg) scaleX(-1)" }}
               >
-                <div data-h2-display="l-tablet(flex)">
+                <Triangle
+                  className=""
+                  data-h2-width="base(100%)"
+                  data-h2-color="base(light.ia-secondary)"
+                />
+              </div>
+              <div
+                data-h2-background-color="base(ia-secondary.light)"
+                data-h2-padding="base(x5, x3)"
+                data-h2-position="base(relative)"
+              >
+                <div
+                  data-h2-height="base(100%)"
+                  data-h2-width="base(100%)"
+                  data-h2-position="base(absolute)"
+                  data-h2-offset="base(0, 0, auto, auto)"
+                  data-h2-overflow="base(hidden, all)"
+                >
+                  <img
+                    src={imageUrl(
+                      INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                      "icon-watermark.svg",
+                    )}
+                    alt=""
+                    data-h2-position="base(absolute)"
+                    data-h2-offset="base(auto, -x4, -x7, auto)"
+                    data-h2-width="base(x35)"
+                    data-h2-opacity="base(40%)"
+                  />
+                </div>
+                <div
+                  data-h2-flex-grid="base(stretch, 0, 0)"
+                  data-h2-position="base(relative)"
+                >
                   <div
-                    className="talent-portal-card__content"
-                    data-h2-padding="base(x2)"
+                    data-h2-flex-item="base(1of1) p-tablet(1of2)"
+                    data-h2-color="base(ia-white)"
                   >
-                    <Heading
-                      color="white"
-                      light
-                      data-h2-margin="base(x.125, 0, 0, 0)"
-                    >
+                    <Heading color="white" light>
                       {intl.formatMessage({
                         defaultMessage: "About the Indigenous Talent Portal",
                         description: "Talent Portal information heading",
                       })}
                     </Heading>
-                    <p>
+                    <p data-h2-margin="base(x1, 0, 0, 0)">
                       {intl.formatMessage({
                         defaultMessage:
                           "The Indigenous Talent Portal was built for the Indigenous community, by the Indigenous community.",
                         description: "Talent portal information sentence 1",
                       })}
                     </p>
-                    <p>
+                    <p data-h2-margin="base(x1, 0, 0, 0)">
                       {intl.formatMessage({
                         defaultMessage:
                           "It is a platform designed to host employment opportunities for Indigenous peoples in a way that recognizes and showcases their unique talents, ideas, skills and passion.",
@@ -827,36 +812,27 @@ const Home: React.FunctionComponent = () => {
                       })}
                     </p>
                   </div>
-                  <img
-                    className="talent-portal-card__image"
-                    src={imageUrl(
-                      INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                      "indigenous-woman.png",
-                    )}
-                    alt=""
-                  />
+                  <div
+                    data-h2-flex-item="base(1of1) p-tablet(1of2)"
+                    data-h2-position="base(relative)"
+                  >
+                    <img
+                      data-h2-position="base(absolute)"
+                      data-h2-offset="base(auto, -x3, -x5, auto)"
+                      src={imageUrl(
+                        INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                        "indigenous-woman.png",
+                      )}
+                      alt=""
+                    />
+                  </div>
                 </div>
               </div>
-              <Triangle
-                className="talent-portal__triangle"
-                data-h2-position="base(absolute)"
-                data-h2-width="base(75%)"
-                data-h2-color="base(light.ia-secondary)"
-              />
             </div>
           </div>
-          {/* <RadiatingCircles
-            className="portal-panel__bg-item portal-panel__circles"
-            data-h2-color="base(ia-primary)"
-            data-h2-position="base(absolute)"
-            data-h2-width="base(50%)"
-          />
-          <ThickCircle
-            className="portal-panel__bg-item portal-panel__thick-circle"
-            data-h2-position="base(absolute)"
-          /> */}
         </div>
       </div>
+      {/* Dialogs and alerts */}
       <ApplyDialog
         isOpen={isApplyDialogOpen}
         onDismiss={() => setApplyDialogOpen(false)}
