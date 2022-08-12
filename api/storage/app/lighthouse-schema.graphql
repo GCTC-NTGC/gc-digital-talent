@@ -612,6 +612,7 @@ type Mutation {
   closePoolAdvertisement(id: ID!): PoolAdvertisement
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
   archiveApplication(id: ID!): PoolCandidate
+  createApplication(userId: ID!, poolId: ID!): PoolCandidate
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -817,6 +818,7 @@ type PoolCandidate {
   status: PoolCandidateStatus
   notes: String
   archivedAt: DateTime
+  submittedAt: DateTime
 }
 
 type PoolCandidateFilter {
