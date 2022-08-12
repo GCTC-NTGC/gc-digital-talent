@@ -1,7 +1,8 @@
+import { getCitizenshipStatusesAdmin } from "@common/constants/localizedConstants";
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Applicant, CitizenshipStatus } from "../../api/generated";
+import { Applicant } from "../../api/generated";
 
 interface AdminAboutSectionProps {
   applicant: Pick<
@@ -70,21 +71,7 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
               description: "Citizenship label",
             })}{" "}
             <span data-h2-font-weight="b(700)">
-              {citizenship === CitizenshipStatus.Citizen &&
-                intl.formatMessage({
-                  defaultMessage: "Canadian Citizen",
-                  description: "Canadian Citizen status",
-                })}
-              {citizenship === CitizenshipStatus.PermanentResident &&
-                intl.formatMessage({
-                  defaultMessage: "Permanent Resident",
-                  description: "permanent resident status",
-                })}
-              {citizenship === CitizenshipStatus.Other &&
-                intl.formatMessage({
-                  defaultMessage: "Other",
-                  description: "other citizenship status",
-                })}
+              {intl.formatMessage(getCitizenshipStatusesAdmin(citizenship))}
             </span>
           </p>
         ) : (

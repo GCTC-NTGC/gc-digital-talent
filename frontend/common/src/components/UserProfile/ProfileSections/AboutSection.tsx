@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import messages from "../../../messages/commonMessages";
 import {
   getProvinceOrTerritory,
-  getCitizenshipStatuses,
+  getCitizenshipStatusesProfile,
 } from "../../../constants/localizedConstants";
 import { getLanguage } from "../../../constants";
 import type { Applicant } from "../../../api/generated";
@@ -137,7 +137,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 description: "Citizenship status label",
               })}{" "}
               <span data-h2-font-weight="b(700)">
-                {intl.formatMessage(getCitizenshipStatuses(citizenship))}
+                {intl.formatMessage(getCitizenshipStatusesProfile(citizenship))}
               </span>
             </p>
           ) : (

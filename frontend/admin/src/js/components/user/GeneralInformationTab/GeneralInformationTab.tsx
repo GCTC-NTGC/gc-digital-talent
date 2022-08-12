@@ -9,6 +9,7 @@ import {
   CheckIcon,
 } from "@heroicons/react/outline";
 import {
+  getCitizenshipStatusesAdmin,
   getLanguage,
   getPoolCandidateStatus,
   getProvinceOrTerritory,
@@ -36,7 +37,6 @@ import {
   Pool,
   useUpdatePoolCandidateMutation,
   UpdatePoolCandidateAsAdminInput,
-  CitizenshipStatus,
 } from "../../../api/generated";
 
 interface BasicSectionProps {
@@ -280,16 +280,15 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
         })}
       </span>
       <div data-h2-flex-item="b(2of3) l(1of3)">
-        {user.isVeteran === true &&
-          intl.formatMessage({
-            defaultMessage: "Is a veteran or member",
-            description: "user is a veteran or member",
-          })}
-        {user.isVeteran === false &&
-          intl.formatMessage({
-            defaultMessage: "Is not a veteran or member",
-            description: "user is not a veteran or member",
-          })}
+        {user.isVeteran
+          ? intl.formatMessage({
+              defaultMessage: "Is a veteran or member",
+              description: "user is a veteran or member",
+            })
+          : intl.formatMessage({
+              defaultMessage: "Is not a veteran or member",
+              description: "user is not a veteran or member",
+            })}
       </div>
 
       <span data-h2-flex-item="b(1of3) l(1of6)">
@@ -299,21 +298,9 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
         })}
       </span>
       <div data-h2-flex-item="b(2of3) l(1of3)">
-        {user.citizenship === CitizenshipStatus.Citizen &&
-          intl.formatMessage({
-            defaultMessage: "Canadian Citizen",
-            description: "Canadian Citizen status",
-          })}
-        {user.citizenship === CitizenshipStatus.PermanentResident &&
-          intl.formatMessage({
-            defaultMessage: "Permanent Resident",
-            description: "Permanent Resident status",
-          })}
-        {user.citizenship === CitizenshipStatus.Other &&
-          intl.formatMessage({
-            defaultMessage: "Other",
-            description: "Other status",
-          })}
+        {user.citizenship
+          ? intl.formatMessage(getCitizenshipStatusesAdmin(user.citizenship))
+          : ""}
       </div>
     </div>
   );

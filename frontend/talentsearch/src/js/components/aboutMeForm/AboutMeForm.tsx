@@ -15,7 +15,7 @@ import { navigate } from "@common/helpers/router";
 import {
   getProvinceOrTerritory,
   getLanguage,
-  getCitizenshipStatuses,
+  getCitizenshipStatusesProfile,
 } from "@common/constants/localizedConstants";
 import { SubmitHandler } from "react-hook-form";
 import Pending from "@common/components/Pending";
@@ -253,7 +253,9 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               rules={{ required: intl.formatMessage(errorMessages.required) }}
               items={citizenshipStatusesOrdered.map((status) => ({
                 value: status,
-                label: intl.formatMessage(getCitizenshipStatuses(status)),
+                label: intl.formatMessage(
+                  getCitizenshipStatusesProfile(status),
+                ),
               }))}
               context={intl.formatMessage({
                 defaultMessage:

@@ -133,7 +133,7 @@ export const languages = defineMessages({
 export const getLanguage = (languageId: string | number): MessageDescriptor =>
   getOrThrowError(languages, languageId, `Invalid Language '${languageId}'`);
 
-export const citizenshipStatuses = defineMessages({
+export const citizenshipStatusesProfile = defineMessages({
   [CitizenshipStatus.Citizen]: {
     defaultMessage: "I am a Canadian citizen",
     description: "declaring one to be a Canadian citizen",
@@ -145,15 +145,39 @@ export const citizenshipStatuses = defineMessages({
   [CitizenshipStatus.Other]: {
     defaultMessage: "Other",
     description:
-      "declaring self to be neither a citizen or permanent resident of Canada",
+      "declaring one to be neither a citizen or permanent resident of Canada",
   },
 });
 
-export const getCitizenshipStatuses = (
+export const getCitizenshipStatusesProfile = (
   citizenshipId: string | number,
 ): MessageDescriptor =>
   getOrThrowError(
-    citizenshipStatuses,
+    citizenshipStatusesProfile,
+    citizenshipId,
+    `Invalid Language '${citizenshipId}'`,
+  );
+
+export const citizenshipStatusesAdmin = defineMessages({
+  [CitizenshipStatus.Citizen]: {
+    defaultMessage: "Canadian Citizen",
+    description: "user is a Canadian citizen",
+  },
+  [CitizenshipStatus.PermanentResident]: {
+    defaultMessage: "Permanent Resident",
+    description: "user is a permanent resident",
+  },
+  [CitizenshipStatus.Other]: {
+    defaultMessage: "Other",
+    description: "user is neither a citizen or permanent resident of Canada",
+  },
+});
+
+export const getCitizenshipStatusesAdmin = (
+  citizenshipId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    citizenshipStatusesAdmin,
     citizenshipId,
     `Invalid Language '${citizenshipId}'`,
   );
