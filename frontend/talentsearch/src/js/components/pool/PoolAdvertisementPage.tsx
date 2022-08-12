@@ -78,10 +78,12 @@ const IconTitle = ({ children, icon }: IconTitleProps) => {
   );
 };
 
+const recruitmentEmailAddress = "recruitmentimit-recrutementgiti@tbs-sct.gc.ca";
+
 // NOTE: Not entirely sure why this is failing?
-const accommodationEmail = (chunks: string[]) => (
+const anchorTag = (chunks: string[]) => (
   // eslint-disable-next-line jsx-a11y/anchor-has-content
-  <a href="mailto:fames@acanteipsum.ca">{...chunks}</a>
+  <a href={`mailto:${recruitmentEmailAddress}`}>{...chunks}</a>
 );
 
 interface PoolAdvertisementProps {
@@ -615,10 +617,11 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "<strong>Email</strong>: <accommodationEmail>fames@acanteipsum.ca</accommodationEmail>",
+                    "<strong>Email</strong>: <anchorTag>{emailAddress}</anchorTag>",
                 },
                 {
-                  accommodationEmail,
+                  anchorTag,
+                  emailAddress: recruitmentEmailAddress,
                 },
               )}
             </p>
@@ -646,6 +649,8 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 ? intl.formatMessage({
                     defaultMessage:
                       "If this process looks like the right fit for you apply now!",
+                    description:
+                      "Message displayed when the pool advertisement can be applied to.",
                   })
                 : intl.formatMessage({
                     defaultMessage: "The deadline for submission has passed.",
