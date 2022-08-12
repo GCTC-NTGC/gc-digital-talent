@@ -287,6 +287,8 @@ enum PoolCandidateStatus {
     UNAVAILABLE
     EXPIRED
     PLACED_CASUAL
+    DRAFT
+    DRAFT_EXPIRED
 }
 
 enum SecurityStatus{
