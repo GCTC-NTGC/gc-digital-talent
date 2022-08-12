@@ -1644,5 +1644,9 @@
   "ioghLh": {
     "defaultMessage": "Mes applications",
     "description": "Label displayed on the users pool applications menu item."
+  },
+  "SXvOXV": {
+    "defaultMessage": "Possibilités de navigation",
+    "description": "Label displayed on the browse pools menu item."
   }
 }
