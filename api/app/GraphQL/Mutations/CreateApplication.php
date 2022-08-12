@@ -13,14 +13,10 @@ final class CreateApplication
     public function __invoke($_, array $args)
     {
         // attempt to find existing application, if found return that otherwise create new application
-        $application = PoolCandidate::where('user_id', $args['userId'])->where('pool_id', $args['poolId'])->first();
-        if($application) {
-            return $application;
-        }
-        $newApplication = new PoolCandidate;
-        $newApplication->user_id = $args['userId'];
-        $newApplication->pool_id = $args['poolId'];
-        $newApplication->save();
-        return $newApplication;
+        $application = PoolCandidate::firstOrCreate([
+            'user_id' => $args['userId'],
+            'pool_id' => $args['poolId']
+          ]);
+        return $application;
     }
 }

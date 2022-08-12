@@ -64,6 +64,8 @@ class PoolCandidate extends Model
     protected $fillable = [
         'archived_at',
         'submitted_at',
+        'user_id',
+        'pool_id',
     ];
 
     public function user(): BelongsTo
