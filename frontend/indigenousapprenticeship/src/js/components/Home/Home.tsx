@@ -40,21 +40,39 @@ const Home: React.FunctionComponent = () => {
   const quote = useQuote();
 
   return (
-    <>
+    <div data-h2-overflow="base(hidden, x)">
       {/* Hero */}
-      <div data-h2-width="base(100%)" data-h2-position="base(relative)">
+      <div
+        data-h2-width="base(100%)"
+        data-h2-position="base(relative)"
+        data-h2-display="base(flex) p-tablet(block)"
+        data-h2-flex-direction="base(column)"
+      >
+        <div
+          data-h2-background-color="base(ia-primary-dark-to-transparent)"
+          data-h2-height="base(x2)"
+          data-h2-order="base(2)"
+          data-h2-display="base(block) p-tablet(none)"
+          data-h2-layer="base(2, relative)"
+          data-h2-width="base(100%)"
+        />
         <img
           data-h2-display="base(block)"
-          data-h2-position="base(relative)"
+          data-h2-layer="base(1, relative)"
+          data-h2-margin="base(-x2, 0, 0, 0) p-tablet(0)"
           data-h2-width="base(100%)"
+          data-h2-order="base(2) p-tablet(1)"
           src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "hero.jpg")}
           alt=""
         />
         <div
-          data-h2-position="base(absolute)"
-          data-h2-offset="base(x3, auto, auto, 50%)"
-          data-h2-width="base(40vw)"
-          style={{ transform: "translate(-50%, 0)" }}
+          className="hero-logo"
+          data-h2-background-color="base(ia-primary.hero) p-tablet(transparent)"
+          data-h2-padding="base(x1.2, x2, x1, x2) p-tablet(0)"
+          data-h2-layer="base(1, relative) p-tablet(1, absolute)"
+          data-h2-order="base(1) p-tablet(2)"
+          data-h2-offset="p-tablet(5%, auto, auto, 50%)"
+          data-h2-width="base(100%) p-tablet(40vw)"
         >
           <img
             data-h2-width="base(100%)"
@@ -71,10 +89,13 @@ const Home: React.FunctionComponent = () => {
           />
         </div>
         <div
-          data-h2-position="base(absolute)"
-          data-h2-offset="base(auto, auto, x16, 50%)"
+          className="hero-cta"
+          data-h2-padding="base(x1, x2)"
+          data-h2-position="base(relative) p-tablet(absolute)"
+          data-h2-layer="base(1, relative) p-tablet(1, absolute)"
+          data-h2-offset="p-tablet(auto, auto, 20%, 50%)"
           data-h2-min-width="base(x12)"
-          style={{ transform: "translate(-50%, 0)" }}
+          data-h2-order="base(3)"
         >
           <Button
             color="ia-primary"
@@ -90,25 +111,25 @@ const Home: React.FunctionComponent = () => {
         </div>
       </div>
       {/* About section */}
-      <div>
+      <div data-h2-layer="base(1, relative)">
         <div
-          data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)"
+          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
           data-h2-position="base(relative)"
         >
           <div
             data-h2-position="base(relative)"
-            data-h2-offset="base(-x4, auto, auto, auto)"
+            data-h2-offset="p-tablet(-x3, auto, auto, auto) l-tablet(-x4, auto, auto, auto)"
           >
             <div
-              data-h2-padding="base(x3)"
+              data-h2-padding="p-tablet(x2) l-tablet(x3)"
               data-h2-background-color="base(ia-white)"
               data-h2-radius="base(iap-home-card)"
             >
-              <div data-h2-flex-grid="base(stretch, 0, x3, x1)">
+              <div data-h2-flex-grid="base(stretch, 0, x3, x1) p-tablet(stretch, 0, x2, x1) l-tablet(stretch, 0, x3, x1)">
                 <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
                   <div
-                    data-h2-height="base(100%)"
-                    data-h2-width="base(100%)"
+                    data-h2-height="p-tablet(100%)"
+                    data-h2-width="p-tablet(100%)"
                     data-h2-position="base(relative)"
                   >
                     <div
@@ -130,8 +151,9 @@ const Home: React.FunctionComponent = () => {
                       data-h2-offset="base(auto, auto, -x3, -x5.5)"
                     />
                     <div
-                      data-h2-height="base(100%)"
-                      data-h2-width="base(100%)"
+                      data-h2-min-height="base(60vh) p-tablet(initial)"
+                      data-h2-height="p-tablet(100%)"
+                      data-h2-width="p-tablet(100%)"
                       data-h2-position="base(relative)"
                       style={{
                         backgroundImage: `url('${imageUrl(
@@ -161,7 +183,8 @@ const Home: React.FunctionComponent = () => {
                 <div data-h2-flex-item="base(1of1) p-tablet(4of7)">
                   <Heading
                     data-h2-font-size="base(h3, 1)"
-                    data-h2-margin="base(x1, 0, x2, 0)"
+                    data-h2-margin="base(x6, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
+                    data-h2-text-align="base(center) p-tablet(left)"
                   >
                     {intl.formatMessage({
                       defaultMessage: "About the Program",
@@ -204,18 +227,18 @@ const Home: React.FunctionComponent = () => {
       {/* Learn section */}
       <div>
         <div
-          data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)"
+          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
           data-h2-position="base(relative)"
         >
-          <div data-h2-padding="base(x3)">
-            <div data-h2-flex-grid="base(stretch, 0, x3, x1)">
+          <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
+            <div data-h2-flex-grid="base(stretch, 0, x3, x1) p-tablet(stretch, 0, x2, x1) l-tablet(stretch, 0, x3, x1)">
               <div
                 data-h2-flex-item="base(1of1) p-tablet(3of7)"
                 data-h2-order="p-tablet(2)"
               >
                 <div
-                  data-h2-height="base(100%)"
-                  data-h2-width="base(100%)"
+                  data-h2-height="p-tablet(100%)"
+                  data-h2-width="p-tablet(100%)"
                   data-h2-position="base(relative)"
                 >
                   <RadiatingCircles
@@ -226,8 +249,9 @@ const Home: React.FunctionComponent = () => {
                     data-h2-opacity="base(20%)"
                   />
                   <div
-                    data-h2-height="base(100%)"
-                    data-h2-width="base(100%)"
+                    data-h2-min-height="base(60vh) p-tablet(initial)"
+                    data-h2-height="p-tablet(100%)"
+                    data-h2-width="p-tablet(100%)"
                     data-h2-position="base(relative)"
                     style={{
                       backgroundImage: `url('${imageUrl(
@@ -246,7 +270,7 @@ const Home: React.FunctionComponent = () => {
                     alt=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(140%)"
-                    data-h2-offset="base(auto, -x8, -x9, auto)"
+                    data-h2-offset="base(auto, -x4, -x5, auto) l-tablet(auto, -x8, -x9, auto)"
                   />
                 </div>
               </div>
@@ -256,7 +280,8 @@ const Home: React.FunctionComponent = () => {
               >
                 <Heading
                   data-h2-font-size="base(h3, 1)"
-                  data-h2-margin="base(x1, 0, x2, 0)"
+                  data-h2-margin="base(x4, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
+                  data-h2-text-align="base(center) p-tablet(left)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "What will I learn in this apprenticeship?",
@@ -301,15 +326,15 @@ const Home: React.FunctionComponent = () => {
       {/* Who section */}
       <div data-h2-layer="base(2, relative)" data-h2-margin="base(x2, 0, 0, 0)">
         <div
-          data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)"
+          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
           data-h2-position="base(relative)"
         >
-          <div data-h2-padding="base(x3)">
-            <div data-h2-flex-grid="base(stretch, 0, x3, x1)">
+          <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
+            <div data-h2-flex-grid="base(stretch, 0, x3, x1) p-tablet(stretch, 0, x2, x1) l-tablet(stretch, 0, x3, x1)">
               <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
                 <div
-                  data-h2-height="base(100%)"
-                  data-h2-width="base(100%)"
+                  data-h2-height="p-tablet(100%)"
+                  data-h2-width="p-tablet(100%)"
                   data-h2-position="base(relative)"
                 >
                   <Triangle
@@ -317,11 +342,12 @@ const Home: React.FunctionComponent = () => {
                     data-h2-position="base(absolute)"
                     data-h2-width="base(120%)"
                     data-h2-color="base(ia-secondary)"
-                    data-h2-offset="base(-3rem, auto, auto, -3rem)"
+                    data-h2-offset="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
                   />
                   <div
-                    data-h2-height="base(100%)"
-                    data-h2-width="base(100%)"
+                    data-h2-min-height="base(60vh) p-tablet(initial)"
+                    data-h2-height="p-tablet(100%)"
+                    data-h2-width="p-tablet(100%)"
                     data-h2-position="base(relative)"
                     style={{
                       backgroundImage: `url('${imageUrl(
@@ -332,6 +358,14 @@ const Home: React.FunctionComponent = () => {
                       backgroundSize: "cover",
                     }}
                   />
+                  <img
+                    src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
+                    alt=""
+                    data-h2-display="base(block) p-tablet(none)"
+                    data-h2-position="base(absolute)"
+                    data-h2-width="base(x20)"
+                    data-h2-offset="base(auto, -30%, -10%, auto)"
+                  />
                 </div>
               </div>
               <div
@@ -340,7 +374,8 @@ const Home: React.FunctionComponent = () => {
               >
                 <Heading
                   data-h2-font-size="base(h3, 1)"
-                  data-h2-margin="base(x1, 0, x2, 0)"
+                  data-h2-margin="base(x2, 0) p-tablet(x1, 0, x2, 0)"
+                  data-h2-text-align="base(center) p-tablet(left)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Who is the program for?",
@@ -366,14 +401,15 @@ const Home: React.FunctionComponent = () => {
                 <img
                   src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
                   alt=""
+                  data-h2-display="base(none) p-tablet(block)"
                   data-h2-position="base(absolute)"
                   data-h2-width="base(x20)"
-                  data-h2-offset="base(auto, -30%, auto, auto)"
+                  data-h2-offset="base(auto, -40%, auto, auto) l-tablet(auto, -30%, auto, auto)"
                 />
                 <div
                   data-h2-margin="base(x2, 0, x1, 0)"
                   data-h2-min-width="base(5rem)"
-                  data-h2-width="base(50%)"
+                  data-h2-width="p-tablet(50%)"
                   data-h2-position="base(relative)"
                 >
                   <Button
@@ -397,18 +433,18 @@ const Home: React.FunctionComponent = () => {
       {/* Testimonial section */}
       <div
         data-h2-layer="base(1, relative)"
-        data-h2-margin="base(x2, 0, 0, 0)"
-        data-h2-padding="base(x5, 0)"
+        data-h2-margin="p-tablet(x2, 0, 0, 0)"
+        data-h2-padding="base(x3, 0, x2, 0) l-tablet(x5, 0)"
         style={{
           backgroundImage: `url(${imageUrl(
             INDIGENOUSAPPRENTICESHIP_APP_DIR,
             "quote-bg.jpg",
           )})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "right 10% center",
         }}
       >
-        <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
+        <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
           <Heading
             light
             data-h2-color="base(ia-white)"
@@ -424,7 +460,7 @@ const Home: React.FunctionComponent = () => {
       </div>
       {/* Application call to action section */}
       <div
-        data-h2-padding="base(x6, 0, x9, 0)"
+        data-h2-padding="base(x2, 0, x5, 0) p-tablet(x3, 0, x6, 0) l-tablet(x6, 0, x9, 0)"
         style={{
           backgroundImage: `url(${imageUrl(
             INDIGENOUSAPPRENTICESHIP_APP_DIR,
@@ -440,9 +476,9 @@ const Home: React.FunctionComponent = () => {
               data-h2-shadow="base(l)"
               data-h2-flex-grid="base(stretch, 0, 0)"
             >
-              <div data-h2-flex-item="base(1of1) p-tablet(4of7)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of3) l-tablet(1of2) desktop(4of7)">
                 <div
-                  data-h2-height="base(100%)"
+                  data-h2-height="base(40vh) p-tablet(100%)"
                   style={{
                     backgroundImage: `url(${imageUrl(
                       INDIGENOUSAPPRENTICESHIP_APP_DIR,
@@ -453,11 +489,12 @@ const Home: React.FunctionComponent = () => {
                   }}
                 />
               </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
+              <div data-h2-flex-item="base(1of1) p-tablet(2of3) l-tablet(1of2) desktop(3of7)">
                 <div
                   data-h2-height="base(100%)"
                   data-h2-background-color="base(ia-secondary.light)"
-                  data-h2-padding="base(x3)"
+                  data-h2-padding="base(x2) p-tablet(x3)"
+                  data-h2-text-align="base(center) p-tablet(left)"
                 >
                   <Heading
                     light
@@ -508,7 +545,7 @@ const Home: React.FunctionComponent = () => {
       {/* Coming soon section */}
       <div
         data-h2-background-color="base(ia-secondary)"
-        data-h2-padding="base(0, 0, x4, 0)"
+        data-h2-padding="base(0) p-tablet(0, 0, x1, 0) l-tablet(0, 0, x4, 0)"
         data-h2-position="base(relative)"
       >
         <div
@@ -548,7 +585,11 @@ const Home: React.FunctionComponent = () => {
                 })}
               </Heading>
             </Banner>
-            <Heading light color="white" data-h2-margin="base(x3, 0)">
+            <Heading
+              light
+              color="white"
+              data-h2-margin="base(0, 0, x3, 0) p-tablet(x3, 0)"
+            >
               {intl.formatMessage({
                 defaultMessage:
                   "IT Apprenticeship Program for Indigenous Peoples + The Indigenous Talent Portal",
@@ -676,7 +717,7 @@ const Home: React.FunctionComponent = () => {
             </p>
           </div>
           <div data-h2-flex-grid="base(flex-start, 0, x3, x2)">
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of4)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
               <Card
                 Icon={People}
                 title={intl.formatMessage({
@@ -693,7 +734,7 @@ const Home: React.FunctionComponent = () => {
                 </p>
               </Card>
             </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of4)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
               <Card
                 Icon={TrendingUp}
                 title={intl.formatMessage({
@@ -710,7 +751,7 @@ const Home: React.FunctionComponent = () => {
                 </p>
               </Card>
             </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of4)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
               <Card
                 Icon={BarChart}
                 title={intl.formatMessage({
@@ -727,7 +768,7 @@ const Home: React.FunctionComponent = () => {
                 </p>
               </Card>
             </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of4)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
               <Card
                 Icon={Calendar}
                 title={intl.formatMessage({
@@ -750,7 +791,7 @@ const Home: React.FunctionComponent = () => {
               <div
                 data-h2-position="base(absolute)"
                 data-h2-width="base(75%)"
-                data-h2-offset="base(auto, auto, -3rem, -3rem)"
+                data-h2-offset="base(auto, auto, -2rem, -2rem) p-tablet(auto, auto, -3rem, -3rem)"
                 style={{ transform: "rotate(180deg) scaleX(-1)" }}
               >
                 <Triangle
@@ -761,8 +802,9 @@ const Home: React.FunctionComponent = () => {
               </div>
               <div
                 data-h2-background-color="base(ia-secondary.light)"
-                data-h2-padding="base(x5, x3)"
+                data-h2-padding="base(x2, x2, 0, x2) p-tablet(x3, x2) l-tablet(x5, x3)"
                 data-h2-position="base(relative)"
+                data-h2-text-align="base(center) p-tablet(left)"
               >
                 <div
                   data-h2-height="base(100%)"
@@ -778,17 +820,18 @@ const Home: React.FunctionComponent = () => {
                     )}
                     alt=""
                     data-h2-position="base(absolute)"
-                    data-h2-offset="base(auto, -x4, -x7, auto)"
-                    data-h2-width="base(x35)"
+                    data-h2-offset="base(auto, -x2, -x5, auto) p-tablet(auto, -x4, -x7, auto)"
+                    data-h2-width="base(120%) p-tablet(x25) desktop(x35)"
+                    data-h2-max-width="base(initial)"
                     data-h2-opacity="base(40%)"
                   />
                 </div>
                 <div
-                  data-h2-flex-grid="base(stretch, 0, 0)"
+                  data-h2-flex-grid="base(stretch, 0, x2) p-tablet(stretch, 0, 0)"
                   data-h2-position="base(relative)"
                 >
                   <div
-                    data-h2-flex-item="base(1of1) p-tablet(1of2)"
+                    data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(3of5) desktop(1of2)"
                     data-h2-color="base(ia-white)"
                   >
                     <Heading color="white" light>
@@ -813,12 +856,13 @@ const Home: React.FunctionComponent = () => {
                     </p>
                   </div>
                   <div
-                    data-h2-flex-item="base(1of1) p-tablet(1of2)"
+                    data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(2of5) desktop(1of2)"
                     data-h2-position="base(relative)"
                   >
                     <img
-                      data-h2-position="base(absolute)"
-                      data-h2-offset="base(auto, -x3, -x5, auto)"
+                      data-h2-display="base(block)"
+                      data-h2-position="p-tablet(absolute)"
+                      data-h2-offset="p-tablet(auto, -x2, -x3, auto) l-tablet(auto, -x3, -x5, auto)"
                       src={imageUrl(
                         INDIGENOUSAPPRENTICESHIP_APP_DIR,
                         "indigenous-woman.png",
@@ -845,7 +889,7 @@ const Home: React.FunctionComponent = () => {
         isOpen={isRequirementDialogOpen}
         onDismiss={() => setRequirementDialogOpen(false)}
       />
-    </>
+    </div>
   );
 };
 

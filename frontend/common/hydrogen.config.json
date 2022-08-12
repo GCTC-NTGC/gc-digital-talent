@@ -123,6 +123,10 @@
         {
           "key": "dark",
           "color": "#781443"
+        },
+        {
+          "key": "hero",
+          "color": "rgb(71, 6, 46)"
         }
       ]
     },
@@ -213,6 +217,16 @@
       "key": "ia-linear-secondary",
       "gradient": "linear-gradient(#C01E5A, #781443)",
       "fallback": "#C01E5A"
+    },
+    {
+      "key": "ia-secondary-to-transparent",
+      "gradient": "linear-gradient(RGB(39, 47, 107), RGB(39, 47, 107, 0))",
+      "fallback": "transparent"
+    },
+    {
+      "key": "ia-primary-dark-to-transparent",
+      "gradient": "linear-gradient(rgb(71, 6, 46), rgba(71, 6, 46, 0))",
+      "fallback": "transparent"
     }
   ],
   "media": [
@@ -230,7 +244,7 @@
     },
     {
       "key": "l-tablet",
-      "query": "screen and (min-width: 73em)"
+      "query": "screen and (min-width: 67.5em)"
     },
     {
       "key": "laptop",

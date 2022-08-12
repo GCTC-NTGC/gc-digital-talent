@@ -87,6 +87,7 @@
 --h2-color-ia-primary-dark: #781443;
 --h2-color-ia-primary-darker: rgb(104, 7, 43);
 --h2-color-ia-primary-darkest: rgb(52, 4, 21);
+--h2-color-ia-primary-hero: rgb(71, 6, 46);
 --h2-color-ia-secondary: #272F6B;
 --h2-color-ia-secondary-light: #4D5194;
 --h2-color-ia-secondary-lighter: rgb(144, 148, 184);
@@ -137,6 +138,8 @@
 --h2-gradient-dt-linear: linear-gradient(#674C90, #1D2C4C);
 --h2-gradient-ia-linear-primary: linear-gradient(#272F6B, #0F1037);
 --h2-gradient-ia-linear-secondary: linear-gradient(#C01E5A, #781443);
+--h2-gradient-ia-secondary-to-transparent: linear-gradient(RGB(39, 47, 107), RGB(39, 47, 107, 0));
+--h2-gradient-ia-primary-dark-to-transparent: linear-gradient(rgb(71, 6, 46), rgba(71, 6, 46, 0));
 /* Radius */
 --h2-radius-s: 10px;
 --h2-radius-m: 50rem;
