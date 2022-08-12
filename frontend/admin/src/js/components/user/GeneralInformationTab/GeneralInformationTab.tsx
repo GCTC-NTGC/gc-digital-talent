@@ -9,6 +9,7 @@ import {
   CheckIcon,
 } from "@heroicons/react/outline";
 import {
+  getCitizenshipStatusesAdmin,
   getLanguage,
   getPoolCandidateStatus,
   getProvinceOrTerritory,
@@ -271,6 +272,37 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
         })}
       </span>
       <div data-h2-flex-item="b(2of3) l(1of3)">{user.telephone}</div>
+
+      <span data-h2-flex-item="b(1of3) l(1of6)">
+        {intl.formatMessage({
+          defaultMessage: "Member of CAF:",
+          description: "label for CAF status",
+        })}
+      </span>
+      <div data-h2-flex-item="b(2of3) l(1of3)">
+        {user.isVeteran === true &&
+          intl.formatMessage({
+            defaultMessage: "Is a veteran or member",
+            description: "user is a veteran or member",
+          })}
+        {user.isVeteran === false &&
+          intl.formatMessage({
+            defaultMessage: "Is not a veteran or member",
+            description: "user is not a veteran or member",
+          })}
+      </div>
+
+      <span data-h2-flex-item="b(1of3) l(1of6)">
+        {intl.formatMessage({
+          defaultMessage: "Citizenship:",
+          description: "label for citizenship status",
+        })}
+      </span>
+      <div data-h2-flex-item="b(2of3) l(1of3)">
+        {user.citizenship
+          ? intl.formatMessage(getCitizenshipStatusesAdmin(user.citizenship))
+          : ""}
+      </div>
     </div>
   );
 };
