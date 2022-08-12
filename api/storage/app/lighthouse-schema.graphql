@@ -818,6 +818,7 @@ type PoolCandidate {
   notes: String
   archivedAt: DateTime
   submittedAt: DateTime
+  signature: String
 }
 
 type PoolCandidateFilter {

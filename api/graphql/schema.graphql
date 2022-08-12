@@ -332,6 +332,7 @@ type PoolCandidate {
     notes: String
     archivedAt: DateTime @rename(attribute: "archived_at")
     submittedAt: DateTime @rename(attribute: "submitted_at")
+    signature: String
 }
 
 enum LanguageAbility {
