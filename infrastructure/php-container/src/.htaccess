@@ -67,6 +67,7 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/browse(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
+    # Send localized create account requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/create-account(/(.*))?$ frontend/talentsearch/dist/$2 [L]
 
     # Send register requests to talentsearch dist folder (with or without public/ path prefix).
@@ -88,9 +89,7 @@ DirectorySlash off
 
     # Indigenous Apprenticeship routes
     RewriteRule ^indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$2 [L]
-    RewriteRule ^apprenti-autochtonne-ti(/(.*))?$ frontend/indigenousapprenticeship/dist/$2 [L]
     RewriteRule ^(en|fr)/indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$3 [L]
-    RewriteRule ^(en|fr)/apprenti-autochtonne-ti(/(.*))?$ frontend/indigenousapprenticeship/dist/$2 [L]
 
     # PHP Info page for debugging
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
