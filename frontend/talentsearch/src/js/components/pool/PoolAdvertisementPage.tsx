@@ -28,11 +28,11 @@ import {
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
+import commonMessages from "@common/messages/commonMessages";
 import { Role, useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import commonMessages from "../commonMessages";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
 
@@ -618,6 +618,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 {
                   defaultMessage:
                     "<strong>Email</strong>: <anchorTag>{emailAddress}</anchorTag>",
+                  description: "An email address to contact for help",
                 },
                 {
                   anchorTag,

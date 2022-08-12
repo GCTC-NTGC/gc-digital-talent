@@ -1749,9 +1749,6 @@
     "defaultMessage": "Basculer vers filtrer par",
     "description": "Title to toggle sorting order of a table"
   },
-  "6l1+3n": {
-    "defaultMessage": "résultats des compétences, recherche par mot-clé"
-  },
   "7N+tQw": {
     "defaultMessage": "Mes bassins",
     "description": "Breadcrumb title for the pools page link."
@@ -2052,9 +2049,6 @@
     "defaultMessage": "Cela mettra votre bassin à la disposition des candidats pour qu'ils puissent soumettre des candidatures",
     "description": "Second paragraph for publish pool dialog"
   },
-  "fOCbBa": {
-    "defaultMessage": "Résultats des compétences générales"
-  },
   "fOl4Ez": {
     "defaultMessage": "Mots-clés (français)",
     "description": "Label displayed on the skill form keywords field in French."
@@ -2258,5 +2252,13 @@
   "yYDzYE": {
     "defaultMessage": "Fermez le bassin maintenant",
     "description": "Button to close the pool in the close pool dialog"
+  },
+  "s4DN3G": {
+    "defaultMessage": "Résultats des compétences générales",
+    "description": "Accessibility label for a result set of skills, filtered to mainstream skills"
+  },
+  "wziEOM": {
+    "defaultMessage": "résultats des compétences, recherche par mot-clé",
+    "description": "Accessibility label for a result set of skills, searched by keyword"
   }
 }

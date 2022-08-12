@@ -1673,9 +1673,6 @@
     "defaultMessage": "Trouver et sélectionner les compétences",
     "description": "Subtitle for the skills filter on the search form."
   },
-  "7GXovm": {
-    "defaultMessage": "<strong>Courriel</strong> : <accommodationEmail>fames@acanteipsum.ca</accommodationEmail>"
-  },
   "7o+Vzu": {
     "defaultMessage": "Expérience combinée",
     "description": "Title for pool applicant experience requirements"
@@ -1904,9 +1901,6 @@
     "defaultMessage": "Par mot-clé",
     "description": "Button text for the search skills tab on skills filter"
   },
-  "wuC7Tj": {
-    "defaultMessage": "Si ce processus semble vous convenir, postulez dès maintenant!"
-  },
   "yu4yB8": {
     "defaultMessage": "Pour renforcer votre candidature, prenez en compte ces compétences que de nombreux responsables d'embauche recherchent",
     "description": "Explanation of a pools optional transferrable skills"
@@ -1914,5 +1908,21 @@
   "zeC2K0": {
     "defaultMessage": "Compétences professionnelles",
     "description": "Title for occupational skills on a pool advertisement"
+  },
+  "SuqyvD": {
+    "defaultMessage": "Si ce processus semble vous convenir, postulez dès maintenant!",
+    "description": "Message displayed when the pool advertisement can be applied to."
+  },
+  "Wnw+oz": {
+    "defaultMessage": "<strong>Courriel</strong> : <anchorTag>{emailAddress}</anchorTag>",
+    "description": "An email address to contact for help"
+  },
+  "s4DN3G": {
+    "defaultMessage": "Résultats des compétences générales",
+    "description": "Accessibility label for a result set of skills, filtered to mainstream skills"
+  },
+  "wziEOM": {
+    "defaultMessage": "résultats des compétences, recherche par mot-clé",
+    "description": "Accessibility label for a result set of skills, searched by keyword"
   }
 }

@@ -1242,9 +1242,6 @@
     "defaultMessage": "<primary>{titre}</primary> à {organization}",
     "description": "Title at organization"
   },
-  "X9hYJS": {
-    "defaultMessage": "Fermer le menu"
-  },
   "ZWR/F3": {
     "defaultMessage": "Français seulement",
     "description": "The language requirement is French only."
@@ -1284,9 +1281,6 @@
   "hDupu9": {
     "defaultMessage": "Modifiez vos options de compétences et d'expérience.",
     "description": "Link text for editing skills and experiences on profile."
-  },
-  "jp+WTk": {
-    "defaultMessage": "Ouvrir le menu"
   },
   "ju5h1m": {
     "defaultMessage": "Avancé",
@@ -1355,5 +1349,13 @@
   "GThNuu": {
     "defaultMessage": "Je <strong>n'envisagerais pas</strong> d'accepter un emploi qui :",
     "description": "would not accept job line before a list, ignore things in <> please"
+  },
+  "+ZPD1J": {
+    "defaultMessage": "Fermer le menu",
+    "description": "Text label for button that closes side menu."
+  },
+  "KMSWLW": {
+    "defaultMessage": "Ouvrir le menu",
+    "description": "Text label for button that opens side menu."
   }
 }
