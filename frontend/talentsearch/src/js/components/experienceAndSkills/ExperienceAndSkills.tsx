@@ -13,6 +13,7 @@ import { IconLink } from "@common/components/Link";
 import { notEmpty } from "@common/helpers/util";
 import { flatten } from "lodash";
 import MissingSkills from "@common/components/skills/MissingSkills";
+import { commonMessages } from "@common/messages";
 import {
   AwardExperience,
   CommunityExperience,
