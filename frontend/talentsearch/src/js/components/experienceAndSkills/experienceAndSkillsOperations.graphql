@@ -1,0 +1,120 @@
+fragment experience on Experience {
+  id
+  details
+  applicant {
+    ...applicant
+  }
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    experienceSkillRecord {
+      details
+    }
+  }
+  ... on AwardExperience {
+    title
+    issuedBy
+    awardedDate
+    awardedTo
+    awardedScope
+  }
+  ... on CommunityExperience {
+    title
+    organization
+    project
+    startDate
+    endDate
+  }
+  ... on EducationExperience {
+    institution
+    areaOfStudy
+    thesisTitle
+    startDate
+    endDate
+    type
+    status
+  }
+  ... on PersonalExperience {
+    title
+    description
+    startDate
+    endDate
+  }
+  ... on WorkExperience {
+    role
+    organization
+    division
+    startDate
+    endDate
+  }
+}
+
+fragment applicantExperiences on Applicant {
+  id
+  experiences {
+    ...experience
+  }
+}
+
+fragment poolAdvertisementSkills on Skill {
+  id
+  key
+  name {
+    en
+    fr
+  }
+  families {
+    id
+    key
+    description {
+      en
+      fr
+    }
+    name {
+      en
+      fr
+    }
+    category
+  }
+}
+
+query getAllApplicantExperiences($id: ID!) {
+  applicant(id: $id) {
+    ...applicantExperiences
+  }
+}
+
+query getAllApplicantExperiencesAndPoolSkills(
+  $applicantId: ID!
+  $poolAdvertisementId: ID!
+) {
+  applicant(id: $applicantId) {
+    ...applicantExperiences
+  }
+  poolAdvertisement(id: $poolAdvertisementId) {
+    essentialSkills {
+      ...poolAdvertisementSkills
+    }
+    nonessentialSkills {
+      ...poolAdvertisementSkills
+    }
+  }
+}
+
+query GetApplicationPoolSkills($id: ID!) {
+  poolCandidate(id: $id) {
+    poolAdvertisement {
+      id
+      essentialSkills {
+        ...poolAdvertisementSkills
+      }
+      nonessentialSkills {
+        ...poolAdvertisementSkills
+      }
+    }
+  }
+}
