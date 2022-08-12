@@ -138,14 +138,6 @@ const profileRoutes = (
     }),
   },
   {
-    path: profilePaths.myProfile(),
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.home(myUserId) : null,
-    }),
-  },
-  {
     path: profilePaths.home(":userId"),
     action: () => ({
       component: <ProfilePage />,
@@ -247,7 +239,15 @@ const profileRoutes = (
     }),
   },
 
-  // Old routes
+  // Old routes - these redirect to the current route for the page
+  {
+    path: profilePaths.myProfile(),
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.home(myUserId) : undefined,
+    }),
+  },
   {
     path: `${profilePaths.myProfile()}/create-account`,
     action: () => ({
@@ -260,7 +260,7 @@ const profileRoutes = (
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.aboutMe(myUserId) : null,
+      redirect: myUserId ? profilePaths.aboutMe(myUserId) : undefined,
     }),
   },
   {
@@ -268,7 +268,9 @@ const profileRoutes = (
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.languageInformation(myUserId) : null,
+      redirect: myUserId
+        ? profilePaths.languageInformation(myUserId)
+        : undefined,
     }),
   },
   {
@@ -276,7 +278,9 @@ const profileRoutes = (
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.governmentInformation(myUserId) : null,
+      redirect: myUserId
+        ? profilePaths.governmentInformation(myUserId)
+        : undefined,
     }),
   },
   {
@@ -284,7 +288,7 @@ const profileRoutes = (
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.roleSalary(myUserId) : null,
+      redirect: myUserId ? profilePaths.roleSalary(myUserId) : undefined,
     }),
   },
   {
@@ -292,7 +296,7 @@ const profileRoutes = (
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.workLocation(myUserId) : null,
+      redirect: myUserId ? profilePaths.workLocation(myUserId) : undefined,
     }),
   },
   {
@@ -300,7 +304,7 @@ const profileRoutes = (
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.workPreferences(myUserId) : null,
+      redirect: myUserId ? profilePaths.workPreferences(myUserId) : undefined,
     }),
   },
   {
@@ -310,7 +314,7 @@ const profileRoutes = (
       authorizedRoles: [Role.Applicant],
       redirect: myUserId
         ? profilePaths.diversityEquityInclusion(myUserId)
-        : null,
+        : undefined,
     }),
   },
   {
@@ -318,7 +322,9 @@ const profileRoutes = (
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.skillsAndExperiences(myUserId) : null,
+      redirect: myUserId
+        ? profilePaths.skillsAndExperiences(myUserId)
+        : undefined,
     }),
   },
   {
@@ -326,7 +332,7 @@ const profileRoutes = (
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.createAward(myUserId) : null,
+      redirect: myUserId ? profilePaths.createAward(myUserId) : undefined,
     }),
   },
   {
@@ -334,7 +340,7 @@ const profileRoutes = (
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.createCommunity(myUserId) : null,
+      redirect: myUserId ? profilePaths.createCommunity(myUserId) : undefined,
     }),
   },
   {
@@ -342,7 +348,7 @@ const profileRoutes = (
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.createEducation(myUserId) : null,
+      redirect: myUserId ? profilePaths.createEducation(myUserId) : undefined,
     }),
   },
   {
@@ -350,7 +356,7 @@ const profileRoutes = (
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.createPersonal(myUserId) : null,
+      redirect: myUserId ? profilePaths.createPersonal(myUserId) : undefined,
     }),
   },
   {
@@ -358,7 +364,7 @@ const profileRoutes = (
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.createWork(myUserId) : null,
+      redirect: myUserId ? profilePaths.createWork(myUserId) : undefined,
     }),
   },
   {
@@ -371,7 +377,7 @@ const profileRoutes = (
         authorizedRoles: [Role.Applicant],
         redirect: myUserId
           ? profilePaths.editExperience(myUserId, experienceType, experienceId)
-          : null,
+          : undefined,
       };
     },
   },
