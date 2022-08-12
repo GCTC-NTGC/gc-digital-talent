@@ -14,7 +14,7 @@ class SubmittedAtFieldAddedApplication extends Migration
     public function up()
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->timestamp('submitted_at')->nullable();
+            $table->timestamp('submitted_at')->nullable()->default(null);
         });
     }
 
