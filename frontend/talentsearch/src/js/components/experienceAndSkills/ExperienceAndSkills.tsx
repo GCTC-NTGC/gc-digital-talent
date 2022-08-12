@@ -7,12 +7,8 @@ import {
 } from "@heroicons/react/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { notEmpty } from "@common/helpers/util";
 import { EducationExperience } from "@common/api/generated";
-import { commonMessages } from "@common/messages";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
 import { IconLink } from "@common/components/Link";
 import {
   AwardExperience,
@@ -20,13 +16,10 @@ import {
   Experience,
   PersonalExperience,
   WorkExperience,
-  useGetAllApplicantExperiencesQuery,
-  useGetMeQuery,
 } from "../../api/generated";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
-import ProfileFormFooter from "./ProfileFormFooter";
-import ProfileFormWrapper from "./ProfileFormWrapper";
-import profileMessages from "../profile/profileMessages";
+import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
+import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 
 export type ExperienceForDate =
   | (AwardExperience & { startDate: string; endDate: string })
@@ -206,52 +199,4 @@ export const ExperienceAndSkills: React.FunctionComponent<
   );
 };
 
-export const ExperienceAndSkillsApi: React.FunctionComponent<{
-  applicantId: string;
-}> = ({ applicantId }) => {
-  const intl = useIntl();
-  const [{ data: applicantData, fetching, error }] =
-    useGetAllApplicantExperiencesQuery({ variables: { id: applicantId } });
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {applicantData?.applicant ? (
-        <ExperienceAndSkills
-          experiences={applicantData.applicant.experiences?.filter(notEmpty)}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage: "User {applicantId} not found.",
-                description: "Message displayed for user not found.",
-              },
-              { applicantId },
-            )}
-          </p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-const ExperienceAndSkillsRouterApi: React.FunctionComponent = () => {
-  const intl = useIntl();
-  const [result] = useGetMeQuery();
-  const { data, fetching, error } = result;
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {data?.me ? (
-        <ExperienceAndSkillsApi applicantId={data.me.id} />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-export default ExperienceAndSkillsRouterApi;
+export default ExperienceAndSkills;
