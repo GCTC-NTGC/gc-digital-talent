@@ -10,8 +10,7 @@ import { useIntl } from "react-intl";
 import { EducationExperience, Scalars } from "@common/api/generated";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { IconLink } from "@common/components/Link";
-import { notEmpty } from "@common/helpers/util";
-import { flatten } from "lodash";
+import { notEmpty, flatten } from "@common/helpers/util";
 import MissingSkills from "@common/components/skills/MissingSkills";
 import { commonMessages } from "@common/messages";
 import {
