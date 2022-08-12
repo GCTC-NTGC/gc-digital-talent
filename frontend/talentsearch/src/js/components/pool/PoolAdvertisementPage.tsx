@@ -32,7 +32,9 @@ import commonMessages from "@common/messages/commonMessages";
 import { Role, useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
-import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
+import TALENTSEARCH_APP_DIR, {
+  TALENTSEARCH_RECRUITMENT_EMAIL,
+} from "../../talentSearchConstants";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
 
@@ -78,12 +80,10 @@ const IconTitle = ({ children, icon }: IconTitleProps) => {
   );
 };
 
-const recruitmentEmailAddress = "recruitmentimit-recrutementgiti@tbs-sct.gc.ca";
-
 // NOTE: Not entirely sure why this is failing?
 const anchorTag = (chunks: string[]) => (
   // eslint-disable-next-line jsx-a11y/anchor-has-content
-  <a href={`mailto:${recruitmentEmailAddress}`}>{...chunks}</a>
+  <a href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>{...chunks}</a>
 );
 
 interface PoolAdvertisementProps {
@@ -622,7 +622,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 },
                 {
                   anchorTag,
-                  emailAddress: recruitmentEmailAddress,
+                  emailAddress: TALENTSEARCH_RECRUITMENT_EMAIL,
                 },
               )}
             </p>
