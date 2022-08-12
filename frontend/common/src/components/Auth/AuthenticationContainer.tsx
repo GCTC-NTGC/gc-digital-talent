@@ -10,7 +10,7 @@ const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
 const ID_TOKEN = "id_token";
 
-interface AuthenticationState {
+export interface AuthenticationState {
   loggedIn: boolean;
   accessToken: string | null;
   refreshToken: string | null;
