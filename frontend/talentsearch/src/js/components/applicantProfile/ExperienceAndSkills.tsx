@@ -140,10 +140,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
           "Heading for experience and skills page in applicant profile.",
       })}
       cancelLink={{
-        children: intl.formatMessage({
-          defaultMessage: "Go back to my profile",
-          description: "Link text for button to return to user profile",
-        }),
+        children: intl.formatMessage(commonMessages.backToProfile),
       }}
     >
       <p
@@ -206,8 +203,12 @@ export const ExperienceAndSkills: React.FunctionComponent<
           experienceEditPaths={experienceEditPaths}
         />
       )}
-
-      <ProfileFormFooter mode="cancelButton" />
+      <ProfileFormFooter
+        mode="cancelButton"
+        cancelLink={{
+          children: intl.formatMessage(commonMessages.backToProfile),
+        }}
+      />
     </ProfileFormWrapper>
   );
 };

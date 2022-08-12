@@ -57,10 +57,7 @@ export const DiversityEquityInclusionForm: React.FC<
         },
       ]}
       cancelLink={{
-        children: intl.formatMessage({
-          defaultMessage: "Go back to my profile",
-          description: "Link text for button to return to user profile",
-        }),
+        children: intl.formatMessage(commonMessages.backToProfile),
       }}
     >
       <p>

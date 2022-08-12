@@ -177,7 +177,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         )}
         <ProfileFormFooter
           mode="bothButtons"
-          link={{
+          cancelLink={{
             href: paths.skillsAndExperiences(),
           }}
         />
