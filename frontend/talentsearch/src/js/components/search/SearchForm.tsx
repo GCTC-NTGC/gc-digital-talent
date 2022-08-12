@@ -66,6 +66,35 @@ export interface SearchFormRef {
   triggerValidation: UseFormTrigger<FormValues>;
 }
 
+const classificationLabels = defineMessages({
+  IT01: {
+    defaultMessage: "IT-01: Technician ($60,000 to $78,000)",
+    description: "IT-01 classification label including titles and salaries",
+  },
+  IT02: {
+    defaultMessage: "IT-02: Analyst ($75,000 to $91,000)",
+    description: "IT-02 classification label including titles and salaries",
+  },
+  IT03: {
+    defaultMessage:
+      "IT-03: Technical Advisor or Team Leader ($88,000 to $110,000)",
+    description: "IT-03 classification label including titles and salaries",
+  },
+  IT04: {
+    defaultMessage: "IT-04: Senior Advisor or Manager ($101,000 to $126,000)",
+    description: "IT-04 classification label including titles and salaries",
+  },
+});
+
+const getClassificationLabel = (
+  classificationLabelKey: string,
+): MessageDescriptor =>
+  getOrThrowError(
+    classificationLabels,
+    classificationLabelKey,
+    `Invalid key '${classificationLabelKey}'`,
+  );
+
 const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
   ({ classifications, skills, onUpdateApplicantFilter }, ref) => {
     const intl = useIntl();
@@ -153,37 +182,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       return () => subscription.unsubscribe();
     }, [watch, classificationMap, onUpdateApplicantFilter]);
 
-    const classificationLabels = defineMessages({
-      IT01: {
-        defaultMessage: "IT-01: Technician ($60,000 to $78,000)",
-        description: "IT-01 classification label including titles and salaries",
-      },
-      IT02: {
-        defaultMessage: "IT-02: Analyst ($75,000 to $91,000)",
-        description: "IT-02 classification label including titles and salaries",
-      },
-      IT03: {
-        defaultMessage:
-          "IT-03: Technical Advisor or Team Leader ($88,000 to $110,000)",
-        description: "IT-03 classification label including titles and salaries",
-      },
-      IT04: {
-        defaultMessage:
-          "IT-04: Senior Advisor or Manager ($101,000 to $126,000)",
-        description: "IT-04 classification label including titles and salaries",
-      },
-    });
-
-    const getClassificationLabel = React.useCallback(
-      (classificationLabelKey: string): MessageDescriptor =>
-        getOrThrowError(
-          classificationLabels,
-          classificationLabelKey,
-          `Invalid key '${classificationLabelKey}'`,
-        ),
-      [classificationLabels],
-    );
-
     const classificationOptions: Option<string>[] = React.useMemo(
       () =>
         classifications.map(({ id, group, level }) => ({
@@ -192,7 +190,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             getClassificationLabel(`${group}0${level}`),
           ),
         })),
-      [classifications, getClassificationLabel, intl],
+      [classifications, intl],
     );
 
     return (
