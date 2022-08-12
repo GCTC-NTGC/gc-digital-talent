@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,6 +20,78 @@ class PoolApplicationTest extends TestCase
   {
     parent::setUp();
     $this->bootClearsSchemaCache();
+  }
+
+  public function testApplicationCreation(): void
+  {
+    // the user applying
+    // default, the test is run by Admin, auth_default_user in phpunit.xml
+    $newUser = new User;
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->id= 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
+    $newUser->save();
+
+    Pool::factory()->create([
+      'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+    ]);
+
+    // Assert creating a pool application succeeds
+    $this->graphQL(/** @lang Graphql */ '
+      mutation createApplication {
+        createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
+          user {
+            id
+          }
+          pool {
+            id
+          }
+        }
+      }
+    ')->assertJson([
+      'data' => [
+        'createApplication' => [
+          'user' => [
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+          ],
+          'pool' => [
+            'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+          ]
+        ]
+      ]
+    ]);
+
+    // rerun the query above, it should successfully return the same result
+    $this->graphQL(/** @lang Graphql */ '
+      mutation createApplication {
+        createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
+          user {
+            id
+          }
+          pool {
+            id
+          }
+        }
+      }
+    ')->assertJson([
+      'data' => [
+        'createApplication' => [
+          'user' => [
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+          ],
+          'pool' => [
+            'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+          ]
+        ]
+      ]
+    ]);
+
+    // despite running the query twice, only one PoolCandidate entry should exist
+    // assert count of applications is equal to 1
+    $applicationCollection = PoolCandidate::all();
+    $applicationCollectionCount = count($applicationCollection);
+    $this->assertEquals(1, $applicationCollectionCount);
   }
 
   public function testArchivingApplication(): void

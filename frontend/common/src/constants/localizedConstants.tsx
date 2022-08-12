@@ -22,6 +22,7 @@ import {
   AdvertisementStatus,
   PoolAdvertisementLanguage,
   SecurityStatus,
+  CitizenshipStatus,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -131,6 +132,55 @@ export const languages = defineMessages({
 
 export const getLanguage = (languageId: string | number): MessageDescriptor =>
   getOrThrowError(languages, languageId, `Invalid Language '${languageId}'`);
+
+export const citizenshipStatusesProfile = defineMessages({
+  [CitizenshipStatus.Citizen]: {
+    defaultMessage: "I am a Canadian citizen",
+    description: "declaring one to be a Canadian citizen",
+  },
+  [CitizenshipStatus.PermanentResident]: {
+    defaultMessage: "I am a permanent resident of Canada",
+    description: "declaring one to be a permanent resident",
+  },
+  [CitizenshipStatus.Other]: {
+    defaultMessage: "Other",
+    description:
+      "declaring one to be neither a citizen or permanent resident of Canada",
+  },
+});
+
+export const getCitizenshipStatusesProfile = (
+  citizenshipId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    citizenshipStatusesProfile,
+    citizenshipId,
+    `Invalid Language '${citizenshipId}'`,
+  );
+
+export const citizenshipStatusesAdmin = defineMessages({
+  [CitizenshipStatus.Citizen]: {
+    defaultMessage: "Canadian Citizen",
+    description: "user is a Canadian citizen",
+  },
+  [CitizenshipStatus.PermanentResident]: {
+    defaultMessage: "Permanent Resident",
+    description: "user is a permanent resident",
+  },
+  [CitizenshipStatus.Other]: {
+    defaultMessage: "Other",
+    description: "user is neither a citizen or permanent resident of Canada",
+  },
+});
+
+export const getCitizenshipStatusesAdmin = (
+  citizenshipId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    citizenshipStatusesAdmin,
+    citizenshipId,
+    `Invalid Language '${citizenshipId}'`,
+  );
 
 export const educationRequirements = defineMessages({
   hasDiploma: {
