@@ -143,7 +143,9 @@ export const ExperienceAndSkills: React.FunctionComponent<
         description:
           "Heading for experience and skills page in applicant profile.",
       })}
-      userId={applicantId}
+      cancelLink={{
+        children: intl.formatMessage(commonMessages.backToProfile),
+      }}
     >
       <p
         data-h2-font-style="b(reset)"
@@ -205,11 +207,11 @@ export const ExperienceAndSkills: React.FunctionComponent<
           experienceEditPaths={experienceEditPaths}
         />
       )}
-
       <ProfileFormFooter
-        userId={applicantId}
         mode="cancelButton"
-        link={paths.home(applicantId)}
+        cancelLink={{
+          children: intl.formatMessage(commonMessages.backToProfile),
+        }}
       />
     </ProfileFormWrapper>
   );

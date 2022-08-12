@@ -366,13 +366,12 @@ export interface GovInfoFormWithProfileWrapperProps {
   departments: Department[];
   classifications: Classification[];
   initialData: GetGovInfoFormLookupDataQuery["me"] | undefined;
-  userId: string;
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
 export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
   GovInfoFormWithProfileWrapperProps
-> = ({ departments, classifications, initialData, userId, submitHandler }) => {
+> = ({ departments, classifications, initialData, submitHandler }) => {
   const intl = useIntl();
 
   const defaultValues = dataToFormValues(initialData);
@@ -413,7 +412,6 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
           }),
         },
       ]}
-      userId={userId}
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -424,7 +422,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
             govEmployeeStatus={govEmployeeStatus}
             groupSelection={groupSelection}
           />
-          <ProfileFormFooter userId={userId} mode="saveButton" />
+          <ProfileFormFooter mode="saveButton" />
         </form>
       </FormProvider>
     </ProfileFormWrapper>
@@ -499,7 +497,6 @@ const GovInfoFormContainer: React.FunctionComponent<{ meId: string }> = ({
         departments={departments}
         classifications={classifications}
         initialData={meInfo}
-        userId={meId}
         submitHandler={onSubmit}
       />
     </Pending>

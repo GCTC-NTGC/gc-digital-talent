@@ -4,15 +4,14 @@ import { UserIcon } from "@heroicons/react/solid";
 import { useIntl } from "react-intl";
 import { imageUrl } from "@common/helpers/router";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import CancelButton from "./CancelButton";
+import CancelButton, { type CancelButtonProps } from "./CancelButton";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 export interface ProfileFormWrapperProps {
   crumbs: BreadcrumbsProps["links"];
   description: string;
   title: string;
-  cancelLink?: string;
-  userId: string;
+  cancelLink?: CancelButtonProps;
 }
 
 const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
@@ -20,7 +19,6 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
   description,
   title,
   cancelLink,
-  userId,
   children,
 }) => {
   const intl = useIntl();
@@ -31,7 +29,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         defaultMessage: "My Profile",
         description: "Breadcrumb from applicant profile wrapper.",
       }),
-      href: profilePath.home(userId),
+      href: profilePath.myProfile(),
       icon: <UserIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     ...crumbs,
@@ -61,7 +59,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         data-h2-width="b(100) s(75)"
       >
         <div data-h2-margin="b(top-bottom, l)">
-          <CancelButton userId={userId} link={cancelLink} />
+          <CancelButton {...cancelLink} />
         </div>
         <h1
           data-h2-margin="b(all, none)"

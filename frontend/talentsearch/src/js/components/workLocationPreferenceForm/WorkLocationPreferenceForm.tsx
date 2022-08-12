@@ -85,7 +85,6 @@ export const WorkLocationPreferenceForm: React.FC<
           }),
         },
       ]}
-      userId={initialData.id}
     >
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -141,7 +140,7 @@ export const WorkLocationPreferenceForm: React.FC<
               </div>
             </div>
           </div>
-          <ProfileFormFooter userId={initialData.id} mode="saveButton" />
+          <ProfileFormFooter mode="saveButton" />
         </form>
       </FormProvider>
     </ProfileFormWrapper>

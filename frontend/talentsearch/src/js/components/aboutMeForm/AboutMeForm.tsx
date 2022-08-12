@@ -104,7 +104,6 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           }),
         },
       ]}
-      userId={initialUser.id}
     >
       <BasicForm
         onSubmit={handleSubmit}
@@ -256,7 +255,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
             />
           </div>
         </div>
-        <ProfileFormFooter userId={initialUser.id} mode="saveButton" />
+        <ProfileFormFooter mode="saveButton" />
       </BasicForm>
     </ProfileFormWrapper>
   );

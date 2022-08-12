@@ -24,7 +24,6 @@ const TemplateGovInfoForm: Story = (args) => (
     departments={fakeDepartments()}
     classifications={fakeClassifications()}
     initialData={args.initialData}
-    userId={args.initialData.id}
     submitHandler={async (...data) => {
       action("Submit")(data);
     }}

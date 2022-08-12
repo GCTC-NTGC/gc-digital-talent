@@ -4,15 +4,17 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
-const CancelButton: React.FunctionComponent<{
-  userId: string;
-  link?: string;
-}> = ({ userId, link }) => {
+export interface CancelButtonProps {
+  href?: string;
+  children?: React.ReactNode;
+}
+
+const CancelButton = ({ href, children }: CancelButtonProps) => {
   const intl = useIntl();
   const profilePaths = useApplicantProfileRoutes();
   return (
     <Link
-      href={link || profilePaths.home(userId)}
+      href={href || profilePaths.myProfile()}
       color="secondary"
       mode="outline"
       data-h2-display="s(inline-flex)"
@@ -22,10 +24,11 @@ const CancelButton: React.FunctionComponent<{
     >
       <ArrowCircleLeftIcon style={{ width: "1rem" }} />
       <span data-h2-margin="b(left, xxs)">
-        {intl.formatMessage({
-          defaultMessage: "Cancel and go back",
-          description: "Label for cancel button on profile form.",
-        })}
+        {children ||
+          intl.formatMessage({
+            defaultMessage: "Cancel and go back",
+            description: "Label for cancel button on profile form.",
+          })}
       </span>
     </Link>
   );

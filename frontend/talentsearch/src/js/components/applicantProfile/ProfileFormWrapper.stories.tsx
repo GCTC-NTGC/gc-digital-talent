@@ -18,7 +18,7 @@ export default {
 const TemplateProfileFormWrapper: Story<
   ProfileFormWrapperProps & ProfileFormFooterProps
 > = (args) => {
-  const { mode, userId } = args;
+  const { mode } = args;
   return (
     <ProfileFormWrapper {...args}>
       <BasicForm
@@ -33,7 +33,7 @@ const TemplateProfileFormWrapper: Story<
         <Input id="email" label="Email" type="email" name="email" />
         <Input id="firstName" label="First Name" type="text" name="firstName" />
         <Input id="lastName" label="Last Name" type="text" name="lastName" />
-        <ProfileFormFooter userId={userId} mode={mode} />
+        <ProfileFormFooter mode={mode} />
       </BasicForm>
     </ProfileFormWrapper>
   );

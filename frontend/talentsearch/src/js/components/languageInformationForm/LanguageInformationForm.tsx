@@ -280,7 +280,6 @@ export const LanguageInformationForm: React.FunctionComponent<{
               }),
             },
           ]}
-          userId={initialData.id}
         >
           <div data-h2-padding="b(bottom, l)">
             <div
@@ -428,7 +427,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
               </>
             )}
           </div>
-          <ProfileFormFooter userId={initialData.id} mode="saveButton" />
+          <ProfileFormFooter mode="saveButton" />
         </ProfileFormWrapper>
       </form>
     </FormProvider>

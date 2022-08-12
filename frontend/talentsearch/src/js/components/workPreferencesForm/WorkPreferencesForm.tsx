@@ -103,7 +103,6 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
           }),
         },
       ]}
-      userId={initialData.id}
     >
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -167,7 +166,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             </div>
             <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
               <div data-h2-padding="b(right, l)">
-                <ProfileFormFooter userId={initialData.id} mode="saveButton" />
+                <ProfileFormFooter mode="saveButton" />
               </div>
             </div>
           </div>

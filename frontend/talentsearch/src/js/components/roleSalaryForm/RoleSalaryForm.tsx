@@ -42,7 +42,6 @@ export type RoleSalaryUpdateHandler = (
 ) => void; // replace with Promise<void> when filling API in TODO
 
 export interface RoleSalaryFormProps {
-  userId: string;
   initialFormValues: FormValues;
   handleSubmit: SubmitHandler<FormValues>;
 }
@@ -67,7 +66,6 @@ const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
 };
 
 export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
-  userId,
   initialFormValues,
   handleSubmit,
 }) => {
@@ -123,7 +121,6 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           }),
         },
       ]}
-      userId={userId}
     >
       <BasicForm
         onSubmit={handleSubmit}
@@ -269,7 +266,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
             </span>
           </p>
         </div>
-        <ProfileFormFooter userId={userId} mode="saveButton" />
+        <ProfileFormFooter mode="saveButton" />
       </BasicForm>
 
       <DialogLevelOne
@@ -366,7 +363,6 @@ const RoleSalaryFormContainer: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {initialData?.me ? (
         <RoleSalaryForm
-          userId={initialData.me.id}
           initialFormValues={dataToFormValues(initialData)}
           handleSubmit={async (formValues) => {
             const userId = initialData?.me?.id;

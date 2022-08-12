@@ -1,18 +1,16 @@
 import * as React from "react";
-import CancelButton from "./CancelButton";
+import CancelButton, { type CancelButtonProps } from "./CancelButton";
 import SaveButton from "./SaveButton";
 
 export interface ProfileFormFooterProps {
   mode: "cancelButton" | "saveButton" | "bothButtons";
-  userId: string;
-  link?: string;
+  cancelLink?: CancelButtonProps;
 }
 
 const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
   mode,
-  userId,
-  link,
   children,
+  cancelLink,
 }) => {
   const bottomButtons = () => {
     switch (mode) {
@@ -20,7 +18,7 @@ const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
         return (
           <>
             <span data-h2-padding="b(right, xs)">
-              <CancelButton userId={userId} link={link} />
+              <CancelButton {...cancelLink} />
             </span>
             <span>
               <SaveButton />
@@ -28,7 +26,7 @@ const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
           </>
         );
       case "cancelButton":
-        return <CancelButton userId={userId} />;
+        return <CancelButton {...cancelLink} />;
       case "saveButton":
         return <SaveButton />;
       default:
