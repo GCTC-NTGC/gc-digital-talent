@@ -11,7 +11,11 @@ import {
 import { commonMessages, errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
-import { navigate } from "@common/helpers/router";
+import {
+  navigate,
+  parseUrlQueryParameters,
+  useLocation,
+} from "@common/helpers/router";
 import {
   getProvinceOrTerritory,
   getLanguage,
@@ -27,6 +31,8 @@ import {
   useGetAboutMeQuery,
   UpdateUserAsUserMutation,
   Exact,
+  useGetApplicationQuery,
+  PoolCandidate,
 } from "../../api/generated";
 import type { User, UpdateUserAsUserInput } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
@@ -51,16 +57,20 @@ export type AboutMeUpdateHandler = (
 
 export interface AboutMeFormProps {
   initialUser: User;
+  application?: PoolCandidate;
   onUpdateAboutMe: AboutMeUpdateHandler;
 }
 
 export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   initialUser,
+  application,
   onUpdateAboutMe,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
+
+  console.log(application);
 
   const initialDataToFormValues = (data?: User | null): FormValues => ({
     preferredLang: data?.preferredLang,
@@ -323,8 +333,62 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   );
 };
 
-const AboutMeFormContainer: React.FunctionComponent = () => {
+interface AboutMeApiProps {
+  applicationId: string;
+  initialUser: User;
+  onUpdateAboutMe: AboutMeUpdateHandler;
+}
+
+const AboutMeApi: React.FunctionComponent<AboutMeApiProps> = ({
+  applicationId,
+  initialUser,
+  onUpdateAboutMe,
+}) => {
+  const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
+  const { data, fetching, error } = result;
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.poolCandidate ? (
+        <AboutMeForm
+          initialUser={initialUser}
+          application={data.poolCandidate}
+          onUpdateAboutMe={onUpdateAboutMe}
+        />
+      ) : (
+        <AboutMeForm
+          initialUser={initialUser}
+          onUpdateAboutMe={onUpdateAboutMe}
+        />
+      )}
+    </Pending>
+  );
+};
+
+interface ApiOrContentProps {
+  applicationId?: string;
+  initialUser: User;
+  onUpdateAboutMe: AboutMeUpdateHandler;
+}
+const ApiOrContent = ({
+  applicationId,
+  initialUser,
+  onUpdateAboutMe,
+}: ApiOrContentProps) =>
+  applicationId ? (
+    <AboutMeApi
+      applicationId={applicationId}
+      initialUser={initialUser}
+      onUpdateAboutMe={onUpdateAboutMe}
+    />
+  ) : (
+    <AboutMeForm initialUser={initialUser} onUpdateAboutMe={onUpdateAboutMe} />
+  );
+
+const AboutMePage: React.FunctionComponent = () => {
   const intl = useIntl();
+  const location = useLocation();
+  const queryParams = parseUrlQueryParameters(location);
 
   const [result] = useGetAboutMeQuery();
   const { data, fetching, error } = result;
@@ -358,7 +422,11 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <AboutMeForm initialUser={data.me} onUpdateAboutMe={handleUpdateUser} />
+        <ApiOrContent
+          applicationId={queryParams.application}
+          initialUser={data.me}
+          onUpdateAboutMe={handleUpdateUser}
+        />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
@@ -368,4 +436,4 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
   );
 };
 
-export default AboutMeFormContainer;
+export default AboutMePage;
