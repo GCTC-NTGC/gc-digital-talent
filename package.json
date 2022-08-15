@@ -1,6 +1,3 @@
 {
-  "note": "Workaround. Bundlewatch CLI needs package.json in root.",
-  "dependencies": {
-    "applicationinsights": "^2.3.4"
-  }
+  "note": "Workaround. Bundlewatch CLI needs package.json in root."
 }
