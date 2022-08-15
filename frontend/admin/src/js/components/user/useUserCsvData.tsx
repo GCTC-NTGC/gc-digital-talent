@@ -11,7 +11,6 @@ import {
   getOperationalRequirement,
   getWorkRegion,
 } from "@common/constants/localizedConstants";
-import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { Applicant, Maybe } from "../../api/generated";
 
