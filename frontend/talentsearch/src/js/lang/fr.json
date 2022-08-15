@@ -1598,7 +1598,7 @@
     "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
   },
   "ljnSYf": {
-    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officiale en <strong>ANGLAIS</strong>",
+    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>",
     "description": "Message for the completed english bilingual evaluation option"
   },
   "m21EOJ": {
@@ -1858,7 +1858,7 @@
     "description": "Label for pool advertisement salary range"
   },
   "m5hjaz": {
-    "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occasions précises dans le domaine du développement d'applications.",
+    "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occations précises dans le domaine du développement d'applications.",
     "description": "Description of pool recruitment, paragraph two"
   },
   "mNWpoy": {
