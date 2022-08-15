@@ -2,7 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Applicant, BilingualEvaluation } from "../../../api/generated";
 import messages from "../../../messages/commonMessages";
-import { getLanguageProficiency } from "../../../constants/localizedConstants";
+import {
+  getBilingualEvaluation,
+  getLanguageProficiency,
+} from "../../../constants/localizedConstants";
 
 const LanguageInformationSection: React.FunctionComponent<{
   applicant: Pick<
@@ -93,51 +96,18 @@ const LanguageInformationSection: React.FunctionComponent<{
           </span>
         </p>
       )}
-      {bilingualEvaluation === BilingualEvaluation.CompletedEnglish && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Completed an official GoC evaluation:",
-            description:
-              "Completed a government of canada abbreviation evaluation label and colon",
-          })}{" "}
-          <span data-h2-font-weight="b(700)">
-            {intl.formatMessage({
-              defaultMessage: "Yes, completed English evaluation",
-              description: "Completed an English language evaluation",
-            })}
-          </span>
-        </p>
-      )}
-      {bilingualEvaluation === BilingualEvaluation.CompletedFrench && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Completed an official GoC evaluation:",
-            description:
-              "Completed a government of canada abbreviation evaluation label and colon",
-          })}{" "}
-          <span data-h2-font-weight="b(700)">
-            {intl.formatMessage({
-              defaultMessage: "Yes, completed French evaluation",
-              description: "Completed a French language evaluation",
-            })}
-          </span>
-        </p>
-      )}
-      {bilingualEvaluation === BilingualEvaluation.NotCompleted && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Completed an official GoC evaluation:",
-            description:
-              "Completed a government of canada abbreviation evaluation label and colon",
-          })}{" "}
-          <span data-h2-font-weight="b(700)">
-            {intl.formatMessage({
-              defaultMessage: "No",
-              description: "No, did not completed a language evaluation",
-            })}
-          </span>
-        </p>
-      )}
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Completed an official GoC evaluation:",
+          description:
+            "Completed a government of canada abbreviation evaluation label and colon",
+        })}{" "}
+        <span data-h2-font-weight="b(700)">
+          {bilingualEvaluation
+            ? intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))
+            : ""}
+        </span>
+      </p>
       {(bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
         bilingualEvaluation === BilingualEvaluation.CompletedFrench) && (
         <p>

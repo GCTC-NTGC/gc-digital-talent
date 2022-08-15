@@ -1,17 +1,20 @@
-import { Button } from "@common/components";
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 import Pagination from "@common/components/Pagination";
 import Pending from "@common/components/Pending";
+import { Button } from "@common/components";
+import { DownloadCsv, type DownloadCsvProps } from "@common/components/Link";
 import { CombinedError } from "urql";
 import { Spacer } from "../Table/tableComponents";
 import { PaginatorInfo } from "../../api/generated";
 
+type Csv = Pick<DownloadCsvProps, "headers" | "data" | "fileName">;
 export interface TableFooterProps {
   paginatorInfo?: PaginatorInfo;
   onCurrentPageChange: (n: number) => void;
   onPageSizeChange: (n: number) => void;
   onPrint?: () => void;
+  csv?: Csv;
   hasSelection?: boolean;
   disableActions?: boolean;
   fetchingSelected?: boolean;
@@ -32,6 +35,7 @@ function TableFooter({
   onCurrentPageChange,
   onPageSizeChange,
   onPrint,
+  csv,
   disableActions,
   hasSelection = false,
   fetchingSelected = false,
@@ -61,20 +65,24 @@ function TableFooter({
             })}
           </p>
           <Pending fetching={fetchingSelected} error={selectionError} inline>
-            <Spacer>
-              <Button
-                type="button"
-                mode="solid"
-                color="primary"
-                disabled={disableActions}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Download CSV",
-                  description:
-                    "Text label for button to download an csv file of items in a table.",
-                })}
-              </Button>
-            </Spacer>
+            {csv && (
+              <Spacer>
+                <DownloadCsv
+                  type="button"
+                  mode="solid"
+                  color="primary"
+                  disabled={disableActions}
+                  {...csv}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Download CSV",
+                    description:
+                      "Text label for button to download an csv file of items in a table.",
+                  })}
+                </DownloadCsv>
+              </Spacer>
+            )}
+
             <Spacer>
               <Button
                 type="button"

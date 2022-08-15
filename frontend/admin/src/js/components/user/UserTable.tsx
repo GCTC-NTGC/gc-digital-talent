@@ -32,6 +32,7 @@ import { tableEditButtonAccessor } from "../Table";
 import TableFooter from "../apiManagedTable/TableFooter";
 import TableHeader from "../apiManagedTable/TableHeader";
 import UserProfileDocument from "./UserProfileDocument";
+import useUserCsvData from "./useUserCsvData";
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
@@ -205,6 +206,11 @@ export const UserTable: React.FC = () => {
     pageStyle: printStyles,
     documentTitle: "Candidate Profiles",
   });
+  const selectedApplicants =
+    selectedUsersData?.applicants.filter(notEmpty) ?? [];
+
+  const csv = useUserCsvData(selectedApplicants);
+  const today = new Date();
 
   return (
     <div data-h2-margin="b(top-bottom, m)">
@@ -279,6 +285,18 @@ export const UserTable: React.FC = () => {
         onCurrentPageChange={setCurrentPage}
         onPageSizeChange={setPageSize}
         onPrint={handlePrint}
+        csv={{
+          ...csv,
+          fileName: intl.formatMessage(
+            {
+              defaultMessage: "users_{date}.csv",
+              description: "Filename for user CSV file download",
+            },
+            {
+              date: new Date().toISOString(),
+            },
+          ),
+        }}
         hasSelection
         fetchingSelected={selectedUsersFetching}
         selectionError={selectedUsersError}
@@ -288,10 +306,7 @@ export const UserTable: React.FC = () => {
           !selectedUsersData?.applicants.length
         }
       />
-      <UserProfileDocument
-        applicants={selectedUsersData?.applicants.filter(notEmpty) ?? []}
-        ref={componentRef}
-      />
+      <UserProfileDocument applicants={selectedApplicants} ref={componentRef} />
     </div>
   );
 };

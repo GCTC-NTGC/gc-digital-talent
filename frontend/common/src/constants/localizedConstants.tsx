@@ -23,6 +23,7 @@ import {
   PoolAdvertisementLanguage,
   SecurityStatus,
   CitizenshipStatus,
+  BilingualEvaluation,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -1063,4 +1064,28 @@ export const getSecurityClearance = (
     securityClearances,
     securityClearanceId,
     `Invalid  Advertisement Status '${securityClearanceId}'`,
+  );
+
+export const bilingualEvaluations = defineMessages({
+  [BilingualEvaluation.CompletedEnglish]: {
+    defaultMessage: "Yes, completed English evaluation",
+    description: "Completed an English language evaluation",
+  },
+  [BilingualEvaluation.CompletedFrench]: {
+    defaultMessage: "Yes, completed French evaluation",
+    description: "Completed a French language evaluation",
+  },
+  [BilingualEvaluation.NotCompleted]: {
+    defaultMessage: "No",
+    description: "No, did not completed a language evaluation",
+  },
+});
+
+export const getBilingualEvaluation = (
+  bilingualEvaluationId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    bilingualEvaluations,
+    bilingualEvaluationId,
+    `Invalid Language Ability '${bilingualEvaluationId}'`,
   );
