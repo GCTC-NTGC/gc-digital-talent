@@ -1,20 +1,76 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
-
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
-
+import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
 import { parseUrlQueryParameters, useLocation } from "@common/helpers/router";
+
 import {
+  Experience,
   useGetAllApplicantExperiencesQuery,
   useGetApplicationPoolSkillsQuery,
 } from "../../api/generated";
 import profileMessages from "../profile/profileMessages";
 import { ExperienceAndSkills } from "./ExperienceAndSkills";
+
+interface ExperienceAndSkillsApiProps {
+  applicationId: string;
+  experiences: Experience[];
+}
+
+const ExperienceAndSkillsApi = ({
+  applicationId,
+  experiences,
+}: ExperienceAndSkillsApiProps) => {
+  const intl = useIntl();
+  const [{ data, fetching, error }] = useGetApplicationPoolSkillsQuery({
+    variables: { id: applicationId },
+  });
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.poolCandidate?.poolAdvertisement ? (
+        <ExperienceAndSkills
+          missingSkills={{
+            requiredSkills:
+              data?.poolCandidate?.poolAdvertisement?.essentialSkills || [],
+            optionalSkills:
+              data?.poolCandidate?.poolAdvertisement?.nonessentialSkills || [],
+          }}
+          experiences={experiences}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Application not found.",
+              description:
+                "Text displayed when a users application does not exist.",
+            })}
+          </p>
+        </NotFound>
+      )}
+    </Pending>
+  );
+};
+
+interface ApiOrContentProps {
+  applicationId?: string;
+  experiences: Experience[];
+}
+
+const ApiOrContent = ({ applicationId, experiences }: ApiOrContentProps) =>
+  applicationId ? (
+    <ExperienceAndSkillsApi
+      applicationId={applicationId}
+      experiences={experiences}
+    />
+  ) : (
+    <ExperienceAndSkills experiences={experiences} />
+  );
 
 const ExperienceAndSkillsPage = () => {
   const intl = useIntl();
@@ -24,31 +80,15 @@ const ExperienceAndSkillsPage = () => {
   const [{ data, fetching, error }] = useGetAllApplicantExperiencesQuery({
     variables: { id: loggedInUser?.id || "" },
   });
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-    },
-  ] = useGetApplicationPoolSkillsQuery({
-    variables: { id: queryParams.application || "" },
-  });
+
+  const experiences = data?.applicant?.experiences?.filter(notEmpty);
+
   return (
-    <Pending fetching={fetching || applicationFetching} error={error}>
+    <Pending fetching={fetching} error={error}>
       {data?.applicant ? (
-        <ExperienceAndSkills
-          {...(applicationData &&
-            !applicationError && {
-              missingSkills: {
-                requiredSkills:
-                  applicationData?.poolCandidate?.poolAdvertisement
-                    ?.essentialSkills || [],
-                optionalSkills:
-                  applicationData?.poolCandidate?.poolAdvertisement
-                    ?.nonessentialSkills || [],
-              },
-            })}
-          experiences={data.applicant.experiences?.filter(notEmpty)}
+        <ApiOrContent
+          applicationId={queryParams.application || undefined}
+          experiences={experiences || []}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
