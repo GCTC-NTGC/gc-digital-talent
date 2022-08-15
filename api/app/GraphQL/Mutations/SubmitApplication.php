@@ -31,7 +31,7 @@ final class SubmitApplication
         }
 
         // grab the user that the application belongs to
-        // then get the completeness method off the user model and do a throw validation without its own validator
+        // then get the completeness method off the user model and do a throw validation
         $user = $application->user;
         $isUserComplete = $user->getIsProfileCompleteAttribute();
         if (!$isUserComplete) {
@@ -94,7 +94,6 @@ final class SubmitApplication
         foreach ($poolEssentialSkills as $skillId) {
             $isSkillInApplication = in_array($skillId, $candidateAllSkills);
             if (!$isSkillInApplication){
-                var_dump($skillId);
                 throw ValidationException::withMessages(['a required pool skill is missing from application']);
             }
         }

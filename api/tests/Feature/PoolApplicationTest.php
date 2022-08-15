@@ -395,7 +395,6 @@ class PoolApplicationTest extends TestCase
     // create a pool, attach one essential skill to it
     $newPool = Pool::factory()->create();
     $newPool->essentialSkills()->sync([Skill::all()->first()->id]);
-    var_dump($newPool->essentialSkills()->pluck('pools_essential_skills.skill_id')->toArray());
 
     // create complete user
     $newUser = User::factory()->create();
@@ -438,7 +437,6 @@ class PoolApplicationTest extends TestCase
       'user_id' => $newUser->id,
     ]);
     $secondExperience->skills()->sync($newPool->essentialSkills()->pluck('pools_essential_skills.skill_id')->toArray());
-    var_dump($secondExperience->skills->pluck('id')->toArray());
 
     // assert user can now submit application as the essential skill is present
     $this->graphQL(/** @lang Graphql */ '
@@ -459,4 +457,3 @@ class PoolApplicationTest extends TestCase
     );
   }
 }
-// php artisan test --filter PoolApplicationTest
