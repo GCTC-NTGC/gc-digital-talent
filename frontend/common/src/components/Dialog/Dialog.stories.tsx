@@ -3,14 +3,13 @@ import type { SyntheticEvent } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import type { HandlerFunction } from "@storybook/addon-actions";
-import Dialog from "@reach/dialog";
-import DialogComponent from "./Dialog";
+import Dialog from "./Dialog";
 import OverlayOrDialogDecorator from "../../../.storybook/decorators/OverlayOrDialogDecorator";
 
 import Button from "../Button";
 
 export default {
-  component: DialogComponent,
+  component: Dialog,
   title: "Components/Dialog",
   decorators: [OverlayOrDialogDecorator],
   argTypes: {
@@ -18,9 +17,9 @@ export default {
     isOpen: { control: { disable: true } },
     children: { control: { disable: true } },
   },
-} as ComponentMeta<typeof DialogComponent>;
+} as ComponentMeta<typeof Dialog>;
 
-const TemplateDialog: ComponentStory<typeof DialogComponent> = (args) => {
+const TemplateDialog: ComponentStory<typeof Dialog> = (args) => {
   const [isOpen, setOpen] = React.useState<boolean>(true);
 
   const handleDismiss = () => {
@@ -36,7 +35,7 @@ const TemplateDialog: ComponentStory<typeof DialogComponent> = (args) => {
       <Button color="primary" mode="solid" onClick={handleOpen}>
         Open Dialog
       </Button>
-      <DialogComponent {...args} {...{ isOpen }} onDismiss={handleDismiss} />
+      <Dialog {...args} {...{ isOpen }} onDismiss={handleDismiss} />
     </>
   );
 };
@@ -132,7 +131,7 @@ WithFooter.args = {
         leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor
         pellentesque rhoncus.
       </p>
-      <DialogComponent.Footer>
+      <Dialog.Footer>
         <Button
           color="primary"
           mode="outline"
@@ -140,7 +139,7 @@ WithFooter.args = {
         >
           Footer Button
         </Button>
-      </DialogComponent.Footer>
+      </Dialog.Footer>
     </>
   ),
 };
@@ -158,11 +157,11 @@ WithForm.args = {
   children: (
     <form onSubmit={withPreventDefault(action("Submit form"))}>
       <input />
-      <DialogComponent.Footer>
+      <Dialog.Footer>
         <Button type="submit" color="primary" mode="solid">
           Submit Form
         </Button>
-      </DialogComponent.Footer>
+      </Dialog.Footer>
     </form>
   ),
 };
