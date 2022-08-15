@@ -202,7 +202,7 @@ export const DialogLevelThreeAdvisor: React.FC<DialogLevelsProps> = ({
             "IT-03 advisor description, ignore things in <> tags please",
         })}
       </p>
-      <Footer.Dialog>
+      <Dialog.Footer>
         <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
           <CloseDialogButton close={onDismiss}>
             {intl.formatMessage({
@@ -211,7 +211,7 @@ export const DialogLevelThreeAdvisor: React.FC<DialogLevelsProps> = ({
             })}
           </CloseDialogButton>
         </div>
-      </Footer.Dialog>
+      </Dialog.Footer>
     </Dialog>
   );
 };
