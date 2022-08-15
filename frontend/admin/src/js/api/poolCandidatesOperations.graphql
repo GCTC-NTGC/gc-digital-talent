@@ -360,6 +360,8 @@ query getUserProfile($id: ID!) {
     firstName
     lastName
     telephone
+    citizenship
+    isVeteran
     preferredLang
     lookingForEnglish
     lookingForFrench

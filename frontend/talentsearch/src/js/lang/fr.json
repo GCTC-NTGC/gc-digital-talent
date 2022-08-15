@@ -1924,5 +1924,21 @@
   "wziEOM": {
     "defaultMessage": "résultats des compétences, recherche par mot-clé",
     "description": "Accessibility label for a result set of skills, searched by keyword"
+  },
+  "5YzNJj": {
+    "defaultMessage": "IT-04: Conseiller principal ou Manager Gestionnaire (101 000 $ à 126 000 $)",
+    "description": "IT-04 classification label including titles and salaries"
+  },
+  "Aa8SIB": {
+    "defaultMessage": "IT-03: Conseiller technique ou Chef d'équipe (88 000 $ à 110 000 $)",
+    "description": "IT-03 classification label including titles and salaries"
+  },
+  "UN2Ncr": {
+    "defaultMessage": "IT-02: Analyste (75 000 $ à 91 000 $)",
+    "description": "IT-02 classification label including titles and salaries"
+  },
+  "ZuyuPO": {
+    "defaultMessage": "IT-01: Technicien(ne) (60 000 $ à 78 000 $)",
+    "description": "IT-01 classification label including titles and salaries"
   }
 }
