@@ -8,6 +8,8 @@ query getAboutMe {
     firstName
     lastName
     email
+    isVeteran
+    citizenship
     isProfileComplete
   }
 }
@@ -22,5 +24,7 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     lastName
     email
     isProfileComplete
+    isVeteran
+    citizenship
   }
 }
