@@ -33,7 +33,9 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
 };
 
-type FooterProps = { children: DialogProps["footer"] };
+interface FooterProps {
+  children: React.ReactNode;
+}
 const Footer = ({ children }: FooterProps) => (
   <div
     className="dialog__footer"
