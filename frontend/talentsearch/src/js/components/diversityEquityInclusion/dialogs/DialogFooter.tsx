@@ -3,11 +3,11 @@ import { useIntl } from "react-intl";
 import { SaveIcon } from "@heroicons/react/solid";
 import { Button } from "@common/components";
 
-interface DialogActionsProps {
+interface DialogFooterProps {
   onDismiss: () => void;
 }
 
-const DialogActions: React.FC<DialogActionsProps> = ({ onDismiss }) => {
+const DialogFooter: React.FC<DialogFooterProps> = ({ onDismiss }) => {
   const intl = useIntl();
   return (
     <div
@@ -46,4 +46,4 @@ const DialogActions: React.FC<DialogActionsProps> = ({ onDismiss }) => {
   );
 };
 
-export default DialogActions;
+export default DialogFooter;

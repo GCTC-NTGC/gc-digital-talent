@@ -56,9 +56,9 @@ const ArchiveDialog = ({
         defaultMessage: "Archive",
         description: "Heading for the archive pool dialog",
       })}
-      footer={Footer}
     >
       {/* todo */}
+      <Dialog.Footer>{Footer}</Dialog.Footer>
     </Dialog>
   );
 };

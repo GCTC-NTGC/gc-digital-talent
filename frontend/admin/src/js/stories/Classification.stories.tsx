@@ -36,10 +36,10 @@ stories.add("Update Classification Form", () => {
   const initialClassification: Classification = {
     id: "1",
     name: {
-      en: "Computer Systems",
-      fr: "Computer Systems FR",
+      en: "Information Technology",
+      fr: "Technologie de l'information",
     },
-    group: "CS",
+    group: "IT",
     level: 1,
     minSalary: 50000,
     maxSalary: 100000,

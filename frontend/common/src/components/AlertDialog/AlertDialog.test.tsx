@@ -33,11 +33,11 @@ const TestingAlertDialog = ({ children, isOpen, ...rest }: TestProps) => {
       {...rest}
     >
       <AlertDialog.Description>{children}</AlertDialog.Description>
-      <AlertDialog.Actions>
+      <AlertDialog.Footer>
         <button type="button" ref={ref}>
           Cancel
         </button>
-      </AlertDialog.Actions>
+      </AlertDialog.Footer>
     </AlertDialog>
   );
 };
