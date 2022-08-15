@@ -12,7 +12,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { notEmpty } from "@common/helpers/util";
 import mapValues from "lodash/mapValues";
 import { useIntl } from "react-intl";
-import useLocale from "../useLocale";
+import useLocale from "@common/hooks/useLocale";
 import {
   WorkRegion,
   EducationType,
