@@ -1598,7 +1598,7 @@
     "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
   },
   "ljnSYf": {
-    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officiale en <strong>ANGLAIS</strong>",
+    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>",
     "description": "Message for the completed english bilingual evaluation option"
   },
   "m21EOJ": {
@@ -1636,5 +1636,309 @@
   "GIPciq": {
     "defaultMessage": "<strong>Remarque :</strong> Si vous sélectionnez plus d'un groupe visé par l'équité en matière d'emploi, TOUS les candidats qui se sont déclarés membres de N'IMPORTE LEQUEL des groupes visés par l'équité en matière d'emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l'équité en matière d'emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
     "description": "Context for employment equity filter in search form."
+  },
+  "+cy2GO": {
+    "defaultMessage": "Trouvez des candidats ayant les bonnes compétences pour le poste. Utilisez les onglets suivants pour trouver les compétences nécessaires à l'emploi et sélectionnez-les pour les utiliser comme filtres pour trouver les candidats correspondants.",
+    "description": "Describing how to use the skill filters on search page, paragraph one."
+  },
+  "+pWIcS": {
+    "defaultMessage": "Compétences techniques",
+    "description": "Button text for the technical skills tab on skills filter"
+  },
+  "/Gu4zR": {
+    "defaultMessage": "Expérience postsecondaire de deux ans",
+    "description": "Title for pool applicant education requirements"
+  },
+  "0FjYi+": {
+    "defaultMessage": "Pour être admis dans ce processus, vous devrez faire preuve de capacités dans ces compétences au cours du processus d'évaluation",
+    "description": "Explanation of a pools required transferrable skills"
+  },
+  "0I8W8B": {
+    "defaultMessage": "Compétences transférables",
+    "description": "Title for transferrable skills on a pool advertisement"
+  },
+  "18dDgn": {
+    "defaultMessage": "À propos de ce processus",
+    "description": "Title for the about section of a pool advertisement"
+  },
+  "2K8q04": {
+    "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions sur ce processus?",
+    "description": "Opening sentence asking if accommodations are needed"
+  },
+  "5IfAK9": {
+    "defaultMessage": "Demande de candidats pour le bassin : <span>{candidateCount, plural, zero {aucun candidat} one {1 candidat} other {{candidateCount} candidats estimés}}</span>",
+    "description": "Total estimated candidates message in summary of filters"
+  },
+  "6OJhwM": {
+    "defaultMessage": "Trouver et sélectionner les compétences",
+    "description": "Subtitle for the skills filter on the search form."
+  },
+  "7o+Vzu": {
+    "defaultMessage": "Expérience combinée",
+    "description": "Title for pool applicant experience requirements"
+  },
+  "8fQWTc": {
+    "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
+    "description": "No preference for employment duration - will accept any"
+  },
+  "AYlTUF": {
+    "defaultMessage": "Il n'y a pas encore de compétences sélectionnées. Vous pouvez en ajouter en utilisant les liens fournis",
+    "description": "Invitation to add skills when there aren't any added yet."
+  },
+  "C6YPk3": {
+    "defaultMessage": "Postulez maintenant",
+    "description": "Title for the apply button section of a pool advertisement"
+  },
+  "DDwQg5": {
+    "defaultMessage": "Sur le fondement de cette définition, je veux ajouter ce qui suit à mon profil :",
+    "description": "Text that appears before employment equity form options."
+  },
+  "DydUje": {
+    "defaultMessage": "Éducation formelle",
+    "description": "pool experience requirement, formal education"
+  },
+  "GIN69n": {
+    "defaultMessage": "Date de clôture :",
+    "description": "Label for a pool advertisements closing date on the application"
+  },
+  "GNvz2K": {
+    "defaultMessage": "Autre expérience liée au domaine",
+    "description": "pool experience requirement, other"
+  },
+  "GR1ZQH": {
+    "defaultMessage": "Résultats des compétences transférables",
+    "description": "Title for transferable skills pagination"
+  },
+  "GYk6Nz": {
+    "defaultMessage": "Autorisation de sécurité : {securityClearance}",
+    "description": "Pool advertisement security clearance requirement"
+  },
+  "HYm817": {
+    "defaultMessage": "Emplacement : {location}",
+    "description": "Pool advertisement location requirement, English"
+  },
+  "IF1xj8": {
+    "defaultMessage": "La préférence sera donnée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
+    "description": "First hiring policy for pool advertisement"
+  },
+  "IhXvCe": {
+    "defaultMessage": "Êtes-vous certain de vouloir supprimer cette expérience de votre profil? Cette action ne peut être annulée.",
+    "description": "Question displayed when a user attempts to delete an experience from their profile"
+  },
+  "JnhEcG": {
+    "defaultMessage": "Veuillez communiquer avec le bureau de gestion de la communauté numérique si vous avez besoin de mesures d'adaptation au cours de ce processus de candidature",
+    "description": "Description of what to do when accommodations are needed"
+  },
+  "Kl5OX1": {
+    "defaultMessage": "Votre impact",
+    "description": "Title for a pool advertisements impact section."
+  },
+  "NSuNSA": {
+    "defaultMessage": "Possibilités de navigation",
+    "description": "Breadcrumb title for the browse pools page."
+  },
+  "PBnlYi": {
+    "defaultMessage": "Possibilités de navigation",
+    "description": "Breadcrumb from applicant profile wrapper."
+  },
+  "QJQS42": {
+    "defaultMessage": "Pourquoi y a-t-il un nombre limité de compétences? Il est important que les candidats et les gestionnaires puisent dans la même liste de compétences afin de créer des correspondances.",
+    "description": "Describing how to use the skill filters on search page, paragraph two."
+  },
+  "S9BRBL": {
+    "defaultMessage": "Durée du terme (court terme, long terme)",
+    "description": "Duration of a non-permanent length"
+  },
+  "STLaIq": {
+    "defaultMessage": "Utile",
+    "description": "Title for the optional skills section of a pool advertisement"
+  },
+  "Sb95gs": {
+    "defaultMessage": "Compétences transférables",
+    "description": "Button text for the transferable skills tab on skills filter"
+  },
+  "U+ApNl": {
+    "defaultMessage": "La date limite des candidatures est passée.",
+    "description": "Message displayed when the pool advertisement has expired."
+  },
+  "VwVtqr": {
+    "defaultMessage": "Durée de l'emploi",
+    "description": "Heading for employment duration section of the search form."
+  },
+  "W2YIEA": {
+    "defaultMessage": "Postulez pour ce processus",
+    "description": "Link text to apply for a pool advertisement"
+  },
+  "W6dFND": {
+    "defaultMessage": "Contact et mesures d’adaptation",
+    "description": "Title for contact information on pool advertisement"
+  },
+  "WbDLlc": {
+    "defaultMessage": "Erreur : nom de ministère non trouvé.",
+    "description": "Error message when department name is not found on request page."
+  },
+  "WkX8Ge": {
+    "defaultMessage": "Requis",
+    "description": "Title for the required skills section of a pool advertisement"
+  },
+  "XiUgMy": {
+    "defaultMessage": "<hidden>Ajouter une nouvelle </hidden>{title}<hidden> expérience</hidden>",
+    "description": "Link text for adding a new experience of a specific type."
+  },
+  "XzUzZz": {
+    "defaultMessage": "Il n'y a pas encore d'expériences sur votre profil. Vous pouvez en ajouter en utilisant les boutons précédents.",
+    "description": "Message to user when no experiences have been attached to profile."
+  },
+  "YlWJ/N": {
+    "defaultMessage": "Formation non conventionnelle",
+    "description": "pool experience requirement, non-conventional training"
+  },
+  "ZuFBx5": {
+    "defaultMessage": "Débutant <gray>- Je possède des compétences de base en lecture, écriture et communication verbale.</gray>",
+    "description": "Message for the beginner language ability option"
+  },
+  "asP33b": {
+    "defaultMessage": "Que sont les recrutements en bassin?",
+    "description": "Title for according describing pool recruitment's"
+  },
+  "bDk3RM": {
+    "defaultMessage": "Déploiement latéral",
+    "description": "Label displayed on lateral/secondment bounding box"
+  },
+  "cHJFcW": {
+    "defaultMessage": "Autres exigences",
+    "description": "Title for other pool requirements"
+  },
+  "dcV5qH": {
+    "defaultMessage": "La <actLink>Loi sur l'équité en matière d'emploi</actLink> est actuellement <reviewLink>en cours de révision</reviewLink>.",
+    "description": "Text that appears in Employment equity dialogs explaining the act is under review."
+  },
+  "f/JJR5": {
+    "defaultMessage": "Résultats des compétences techniques",
+    "description": "Title for technical skills pagination"
+  },
+  "fvJnoC": {
+    "defaultMessage": "Exigence linguistique : {languageRequirement}",
+    "description": "Pool advertisement language requirement"
+  },
+  "gpuTAV": {
+    "defaultMessage": "Que signifie {classification}{genericTitle}?",
+    "description": "Title for description of a pool advertisements classification group/level"
+  },
+  "hEhmBF": {
+    "defaultMessage": "Les compétences comme filtres",
+    "description": "Title for the skill filters on search page."
+  },
+  "iN2H6J": {
+    "defaultMessage": "La durée sélectionnée sera comparée à celle choisie par les candidats dans leur dossier de candidature. Ne modifiez cette option que si l'offre d'emploi a une durée déterminée.",
+    "description": "Message describing the employment duration filter in the search form."
+  },
+  "iP8EMf": {
+    "defaultMessage": "Exigences",
+    "description": "Title for the requirements section of a pool advertisement"
+  },
+  "isfAkZ": {
+    "defaultMessage": "Politiques d'embauche",
+    "description": "Title for hiring information on pool advertisement"
+  },
+  "kH4Jsf": {
+    "defaultMessage": "Lorsque vous postulez à ce processus, vous ne postulez pas pour un poste en particulier. Ce processus a pour but de créer et de maintenir un répertoire pour doter divers postes de même niveau dans différents ministères et organismes du gouvernement du Canada.",
+    "description": "Description of pool recruitment, paragraph one"
+  },
+  "l7Hif/": {
+    "defaultMessage": "Compétences sélectionnées",
+    "description": "Section header for a list of skills selected"
+  },
+  "l9AK3C": {
+    "defaultMessage": "ou",
+    "description": "that appears between different experience requirements for a pool applicant"
+  },
+  "ls7b2p": {
+    "defaultMessage": "Plage de salaire :",
+    "description": "Label for pool advertisement salary range"
+  },
+  "m5hjaz": {
+    "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occations précises dans le domaine du développement d'applications.",
+    "description": "Description of pool recruitment, paragraph two"
+  },
+  "mNWpoy": {
+    "defaultMessage": "Détails supplémentaires",
+    "description": "Title for the details section of a pool advertisement"
+  },
+  "mbtf3h": {
+    "defaultMessage": "Pour être admis dans ce processus, vous devrez soumettre des suffisamment d’informations pour vérifier votre expérience dans <strong>toutes ces compétences (Exigences - Professionnelles)</strong> avec votre candidature",
+    "description": "Explanation of a pools required occupational skills"
+  },
+  "ojN4Si": {
+    "defaultMessage": "Date de clôture :",
+    "description": "Label for pool advertisement closing date"
+  },
+  "owzveI": {
+    "defaultMessage": "Expérience et formation",
+    "description": "Title for experience and education pool requirements"
+  },
+  "qNL/Rp": {
+    "defaultMessage": "Apprentissage pendant l'emploi",
+    "description": "pool experience requirement, on job learning"
+  },
+  "r9FSaq": {
+    "defaultMessage": "Réussite de deux ans d'études postsecondaires en informatique, en technologie de l'information, en gestion de l'information ou dans une autre spécialité pertinente pour ce poste",
+    "description": "post secondary education experience for pool advertisement"
+  },
+  "rYodJu": {
+    "defaultMessage": "Durée indéterminée (permanente)",
+    "description": "Duration that is permanent"
+  },
+  "s60QyR": {
+    "defaultMessage": "2 ans ou plus d'expérience combinée dans un domaine connexe, y compris l'un des éléments suivants :",
+    "description": "lead in to list of experience required for a pool applicant"
+  },
+  "uv2lY0": {
+    "defaultMessage": "Votre travail",
+    "description": "Title for a pool advertisements key tasks section."
+  },
+  "vmyStM": {
+    "defaultMessage": "Par mot-clé",
+    "description": "Button text for the search skills tab on skills filter"
+  },
+  "yu4yB8": {
+    "defaultMessage": "Pour renforcer votre candidature, prenez en compte ces compétences que de nombreux responsables d'embauche recherchent",
+    "description": "Explanation of a pools optional transferrable skills"
+  },
+  "zeC2K0": {
+    "defaultMessage": "Compétences professionnelles",
+    "description": "Title for occupational skills on a pool advertisement"
+  },
+  "SuqyvD": {
+    "defaultMessage": "Si ce processus semble vous convenir, postulez dès maintenant!",
+    "description": "Message displayed when the pool advertisement can be applied to."
+  },
+  "Wnw+oz": {
+    "defaultMessage": "<strong>Courriel</strong> : <anchorTag>{emailAddress}</anchorTag>",
+    "description": "An email address to contact for help"
+  },
+  "s4DN3G": {
+    "defaultMessage": "Résultats des compétences générales",
+    "description": "Accessibility label for a result set of skills, filtered to mainstream skills"
+  },
+  "wziEOM": {
+    "defaultMessage": "résultats des compétences, recherche par mot-clé",
+    "description": "Accessibility label for a result set of skills, searched by keyword"
+  },
+  "5YzNJj": {
+    "defaultMessage": "IT-04: Conseiller principal ou Manager Gestionnaire (101 000 $ à 126 000 $)",
+    "description": "IT-04 classification label including titles and salaries"
+  },
+  "Aa8SIB": {
+    "defaultMessage": "IT-03: Conseiller technique ou Chef d'équipe (88 000 $ à 110 000 $)",
+    "description": "IT-03 classification label including titles and salaries"
+  },
+  "UN2Ncr": {
+    "defaultMessage": "IT-02: Analyste (75 000 $ à 91 000 $)",
+    "description": "IT-02 classification label including titles and salaries"
+  },
+  "ZuyuPO": {
+    "defaultMessage": "IT-01: Technicien(ne) (60 000 $ à 78 000 $)",
+    "description": "IT-01 classification label including titles and salaries"
   }
 }

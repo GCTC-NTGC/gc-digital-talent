@@ -60,7 +60,7 @@ export const formValuesToSubmitData = (
     classifications,
   );
   // various IF statements are to clean up cases where user toggles the conditionally rendered stuff before submitting
-  // IE, picks term position and CS-01, then picks not a government employee before submitting, the conditionally rendered stuff still exists and can get submitted
+  // IE, picks term position and IT-01, then picks not a government employee before submitting, the conditionally rendered stuff still exists and can get submitted
   if (values.govEmployeeYesNo === "no") {
     return {
       isGovEmployee: false,

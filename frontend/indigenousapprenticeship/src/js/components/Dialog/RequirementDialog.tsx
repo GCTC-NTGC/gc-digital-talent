@@ -25,7 +25,6 @@ const RequirementDialog: React.FC<BasicDialogProps> = ({
         defaultMessage: "Applicants must meet the following requirements:",
         description: "Heading for the applicant requirements dialog",
       })}
-      footer={Close}
     >
       <ul>
         <li>
@@ -69,6 +68,7 @@ const RequirementDialog: React.FC<BasicDialogProps> = ({
           })}
         </li>
       </ul>
+      <Dialog.Footer>{Close}</Dialog.Footer>
     </Dialog>
   );
 };

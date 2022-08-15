@@ -1093,5 +1093,269 @@
   "BjRuMw": {
     "defaultMessage": "Voir la définition",
     "description": "Text displayed when skill block is open."
+  },
+  "+6TuVe": {
+    "defaultMessage": "Désélectionner {label}",
+    "description": "Text to uncheck checkbox button"
+  },
+  "/SBJ7g": {
+    "defaultMessage": "Sélectionnez {label}",
+    "description": "Text to check checkbox button"
+  },
+  "2Ka1oj": {
+    "defaultMessage": "Très secret",
+    "description": "Top secret security clearance"
+  },
+  "3pox8N": {
+    "defaultMessage": "Modifiez vos options d'informations gouvernementales.",
+    "description": "Link text to edit government information on profile."
+  },
+  "55rtyE": {
+    "defaultMessage": "IT-03 (Conseiller technique)",
+    "description": "The name of the Technical advisor classification with group and level."
+  },
+  "5owc3a": {
+    "defaultMessage": "Anglais seulement",
+    "description": "The language requirement is English only."
+  },
+  "62+Jkh": {
+    "defaultMessage": "Erreur : nom non trouvé.",
+    "description": "Error message when name is not found on listed item."
+  },
+  "6FX40U": {
+    "defaultMessage": "Membre d'une minorité visible",
+    "description": "Group for when someone indicates they are a visible minority"
+  },
+  "8sfFGc": {
+    "defaultMessage": "IT-02 (analyste)",
+    "description": "The name of the Technician Analyst classification with group and level."
+  },
+  "AhNR6n": {
+    "defaultMessage": "Annuler",
+    "description": "Link text to cancel logging out."
+  },
+  "BPiMTY": {
+    "defaultMessage": "Modifiez les options de votre rôle et de vos attentes salariales",
+    "description": "Link text to edit role and salary expectations on profile."
+  },
+  "C7cFDV": {
+    "defaultMessage": "Débutant",
+    "description": "Beginner, skill level"
+  },
+  "EXOS0V": {
+    "defaultMessage": "...m'oblige à <strong>faire des heures supplémentaires occasionnelles</strong>.",
+    "description": "The operational requirement described as occasional overtime."
+  },
+  "F3/88e": {
+    "defaultMessage": "Modifier les options de votre lieu de travail.",
+    "description": "Link text to edit work location on profile"
+  },
+  "GqmxO8": {
+    "defaultMessage": "Clôture demain à {time}",
+    "description": "Text displayed when relative date is tomorrow."
+  },
+  "GuMTqQ": {
+    "defaultMessage": "Familles de compétences",
+    "description": "Radio group legend for a list of skill families"
+  },
+  "GzVxoB": {
+    "defaultMessage": "<strong>Virtuel : </strong>Travaillez de chez vous, partout au Canada.",
+    "description": "The work region of Canada described as Telework."
+  },
+  "IW/eej": {
+    "defaultMessage": "\"Je m’identifie comme une femme\"",
+    "description": "Statement for when someone indicates they are a woman"
+  },
+  "IfCvm5": {
+    "defaultMessage": "{fieldLabel}: Ce champ est obligatoire",
+    "description": "Error message that this field must filled for the form to be valid."
+  },
+  "L9AGk7": {
+    "defaultMessage": "Modifiez vos options à propos de moi.",
+    "description": "Link text to edit about me section on profile."
+  },
+  "LuYmWd": {
+    "defaultMessage": "<strong>Recherche active</strong> - Mon profil est à jour, je souhaite être contacté pour des occasions d'emploi",
+    "description": "Job Looking Status described as Actively looking."
+  },
+  "LzUgil": {
+    "defaultMessage": "Secret ou plus élevée",
+    "description": "Secret security clearance"
+  },
+  "MLP6tt": {
+    "defaultMessage": "Je m'identifie comme une personne handicapée",
+    "description": "Statement for when someone indicates they have a disability"
+  },
+  "O+MHnP": {
+    "defaultMessage": "Bilingue intermédiaire",
+    "description": "The language requirement is bilingual intermediate."
+  },
+  "OBQ8b9": {
+    "defaultMessage": "(s'ouvre dans un nouvel onglet)",
+    "description": "Text that appears in links that open in a new tab."
+  },
+  "OHem3h": {
+    "defaultMessage": "<primary>{role}</primary> à {division}",
+    "description": "Role at Team, Group or Division"
+  },
+  "PQ3bhH": {
+    "defaultMessage": "...m'oblige à <strong>faire des heures supplémentaires régulièrement</strong>.",
+    "description": "The operational requirement described as regular overtime."
+  },
+  "PzyMeM": {
+    "defaultMessage": "La date limite des candidatures est passée.",
+    "description": "Message displayed when a date has expired."
+  },
+  "QZpZQh": {
+    "defaultMessage": "Personne handicapée",
+    "description": "Group for when someone indicates they have a disability"
+  },
+  "RBHmM6": {
+    "defaultMessage": "Autres compétences \"utiles à avoir\" que vous pourriez envisager d'ajouter à votre profil :",
+    "description": "Text that appears when a user is missing optional skills on their profile"
+  },
+  "RQGy+0": {
+    "defaultMessage": "Publiée",
+    "description": "Published pool advertisement status"
+  },
+  "RggAL8": {
+    "defaultMessage": "Modifiez vos options concernant la diversité, l’équité et l’inclusion",
+    "description": "Link text to edit diversity, equity and inclusion information on profile."
+  },
+  "RnSbKI": {
+    "defaultMessage": "Fiabilité ou plus élevée",
+    "description": "Reliability security clearance"
+  },
+  "S9lNLG": {
+    "defaultMessage": "Modifiez vos options d'informations linguistiques",
+    "description": "Link text to edit language information on profile."
+  },
+  "TO/Q6I": {
+    "defaultMessage": "Femme",
+    "description": "Group for when someone indicates they are a woman"
+  },
+  "UCGAzS": {
+    "defaultMessage": "S.O.",
+    "description": "displayed when localized string not available"
+  },
+  "UPx6kk": {
+    "defaultMessage": "<primary>{titre}</primary> à {organization}",
+    "description": "Title at organization"
+  },
+  "ZWR/F3": {
+    "defaultMessage": "Français seulement",
+    "description": "The language requirement is French only."
+  },
+  "b02Azd": {
+    "defaultMessage": "IT-04 (gestionnaire)",
+    "description": "The name of the Senior advisor classification with group and level."
+  },
+  "bOch3v": {
+    "defaultMessage": "Les compétences suivantes \"exigence\" <red>required</red> sont manquantes dans votre profil :",
+    "description": "Text that appears when a user is missing required skills on their profile"
+  },
+  "c39xT8": {
+    "defaultMessage": "Modifier les options de votre expérience.",
+    "description": "Link text to edit experience information on profile."
+  },
+  "cK/hoN": {
+    "defaultMessage": "<primary>{title}</primary> délivré par {issuedBy}",
+    "description": "The award title is issued by some group"
+  },
+  "eFCDP4": {
+    "defaultMessage": "Modifiez vos options de préférences de travail.",
+    "description": "Link text to edit work preferences on profile"
+  },
+  "g2X8Fx": {
+    "defaultMessage": "Fermer la fenêtre de dialogue",
+    "description": "Text for the button to close a modal dialog."
+  },
+  "gfzfP6": {
+    "defaultMessage": "Expirée",
+    "description": "Expired pool advertisement status"
+  },
+  "gz2VrQ": {
+    "defaultMessage": "Intermédiaire",
+    "description": "Intermediate, skill level"
+  },
+  "hDupu9": {
+    "defaultMessage": "Modifiez vos options de compétences et d'expérience.",
+    "description": "Link text for editing skills and experiences on profile."
+  },
+  "ju5h1m": {
+    "defaultMessage": "Avancé",
+    "description": "Advanced, skill level"
+  },
+  "jy7itR": {
+    "defaultMessage": "Clôture aujourd'hui à {time}",
+    "description": "Text displayed when relative date is today."
+  },
+  "kKdcZT": {
+    "defaultMessage": "Bilingue avancé",
+    "description": "The language requirement is bilingual advanced."
+  },
+  "lDeaXK": {
+    "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
+    "description": "The operational requirement described as scheduled overtime."
+  },
+  "lsFH+y": {
+    "defaultMessage": "Pas d'options",
+    "description": "Message shown in options dropdown when Select field has no options."
+  },
+  "mFKg18": {
+    "defaultMessage": "Identité autochtone",
+    "description": "Group for when someone indicates they are indigenous"
+  },
+  "o5J75O": {
+    "defaultMessage": "IT-04 (conseiller principal)",
+    "description": "The name of the Senior advisor classification with group and level."
+  },
+  "rQwIDB": {
+    "defaultMessage": "Sélectionner...",
+    "description": "Default placeholder shown when Select field has nothing actively selected."
+  },
+  "s4y1nI": {
+    "defaultMessage": "\"Je m'identifie comme membre d'une minorité visible\"",
+    "description": "Statement for when someone indicates they are a visible minority"
+  },
+  "vO/SlS": {
+    "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (dernière minute)",
+    "description": "The operational requirement described as short notice overtime."
+  },
+  "wFZLxf": {
+    "defaultMessage": "IT-03 (chef d'équipe)",
+    "description": "The name of the Team leader Analyst classification with group and level."
+  },
+  "wtImjn": {
+    "defaultMessage": "\"Je suis autochtone\"",
+    "description": "Statement for when someone indicates they are indigenous"
+  },
+  "ylHC90": {
+    "defaultMessage": "Chargement...",
+    "description": "Message shown in options dropdown when Select field is loading options."
+  },
+  "yrLV+n": {
+    "defaultMessage": "Ébauche",
+    "description": "Draft pool advertisement status"
+  },
+  "zVm0jL": {
+    "defaultMessage": "IT-01 (technicien)",
+    "description": "The name of the Technician classification with group and level."
+  },
+  "ziaV/E": {
+    "defaultMessage": "Divers (anglais ou français)",
+    "description": "The language requirement is various."
+  },
+  "GThNuu": {
+    "defaultMessage": "Je <strong>n'envisagerais pas</strong> d'accepter un emploi qui :",
+    "description": "would not accept job line before a list, ignore things in <> please"
+  },
+  "+ZPD1J": {
+    "defaultMessage": "Fermer le menu",
+    "description": "Text label for button that closes side menu."
+  },
+  "KMSWLW": {
+    "defaultMessage": "Ouvrir le menu",
+    "description": "Text label for button that opens side menu."
   }
 }
