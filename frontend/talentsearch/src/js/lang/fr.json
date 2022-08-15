@@ -223,13 +223,13 @@
     "description": "Checklist option for employment equity filter in search form."
   },
   "LRysDa": {
-    "defaultMessage": "Filtres de classification ({classificationFilterCount}),"
+    "defaultMessage": "Filtres de classification ({classificationFilterCount})"
   },
   "ky585k": {
-    "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount}),"
+    "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount})"
   },
   "zDzzb/": {
-    "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres",
+    "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres : ",
     "description": "Heading for total matching candidates in results section of search page."
   },
   "/quEXs": {
@@ -1636,5 +1636,21 @@
   "GIPciq": {
     "defaultMessage": "<strong>Remarque :</strong> Si vous sélectionnez plus d'un groupe visé par l'équité en matière d'emploi, TOUS les candidats qui se sont déclarés membres de N'IMPORTE LEQUEL des groupes visés par l'équité en matière d'emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l'équité en matière d'emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
     "description": "Context for employment equity filter in search form."
+  },
+  "5YzNJj": {
+    "defaultMessage": "IT-04: Conseiller principal ou Manager Gestionnaire (101 000 $ à 126 000 $)",
+    "description": "IT-04 classification label including titles and salaries"
+  },
+  "Aa8SIB": {
+    "defaultMessage": "IT-03: Conseiller technique ou Chef d'équipe (88 000 $ à 110 000 $)",
+    "description": "IT-03 classification label including titles and salaries"
+  },
+  "UN2Ncr": {
+    "defaultMessage": "IT-02: Analyste (75 000 $ à 91 000 $)",
+    "description": "IT-02 classification label including titles and salaries"
+  },
+  "ZuyuPO": {
+    "defaultMessage": "IT-01: Technicien(ne) (60 000 $ à 78 000 $)",
+    "description": "IT-01 classification label including titles and salaries"
   }
 }

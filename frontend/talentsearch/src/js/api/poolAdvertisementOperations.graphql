@@ -1,0 +1,44 @@
+mutation createPoolAdvertisement(
+  $userId: ID!
+  $poolAdvertisement: CreatePoolAdvertisementInput!
+) {
+  createPoolAdvertisement(userId: $userId, poolAdvertisement: $poolAdvertisement) {
+    id
+  }
+}
+
+mutation updatePoolAdvertisement(
+  $id: ID!
+  $poolAdvertisement: UpdatePoolAdvertisementInput!
+) {
+  updatePoolAdvertisement(id: $id, poolAdvertisement: $poolAdvertisement) {
+    id
+  }
+}
+
+mutation publishPoolAdvertisement($id: ID!) {
+  publishPoolAdvertisement(id: $id) {
+    isPublished
+  }
+}
+
+mutation changePoolExpiryDate(
+  $id: ID!
+  $newExpiryDate: DateTimeTz!
+) {
+  changePoolExpiryDate(id: $id, newExpiryDate: $newExpiryDate) {
+    expiryDate
+  }
+}
+
+mutation closePoolAdvertisement($id: ID!) {
+  closePoolAdvertisement(id: $id) {
+    expiryDate
+  }
+}
+
+mutation deletePoolAdvertisement($id: ID!) {
+  deletePoolAdvertisement(id: $id) {
+    id
+  }
+}

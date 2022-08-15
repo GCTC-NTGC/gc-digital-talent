@@ -539,28 +539,42 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               },
             )}
           </li>
-          <li>
-            {intl.formatMessage(
-              {
-                defaultMessage: "Location (English): {locationEn}",
-                description: "Pool advertisement location requirement, English",
-              },
-              {
-                locationEn: pool.advertisementLocation?.en ?? "",
-              },
-            )}
-          </li>
-          <li>
-            {intl.formatMessage(
-              {
-                defaultMessage: "Location (French): {locationFr}",
-                description: "Pool advertisement location requirement, French",
-              },
-              {
-                locationFr: pool.advertisementLocation?.fr ?? "",
-              },
-            )}
-          </li>
+          {pool.isRemote ? (
+            <li>
+              {intl.formatMessage({
+                defaultMessage: "Location: Remote optional",
+                description:
+                  "Label for a pool advertisement that has remote option.",
+              })}
+            </li>
+          ) : (
+            <>
+              <li>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Location (English): {locationEn}",
+                    description:
+                      "Pool advertisement location requirement, English",
+                  },
+                  {
+                    locationEn: pool.advertisementLocation?.en ?? "",
+                  },
+                )}
+              </li>
+              <li>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Location (French): {locationFr}",
+                    description:
+                      "Pool advertisement location requirement, French",
+                  },
+                  {
+                    locationFr: pool.advertisementLocation?.fr ?? "",
+                  },
+                )}
+              </li>
+            </>
+          )}
         </ul>
       </FormProvider>
       <p data-h2-margin="b(top, l)">

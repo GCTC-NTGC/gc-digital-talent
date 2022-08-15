@@ -51,6 +51,18 @@ class Pool extends Model
         'advertisement_location' => 'array',
         'your_impact' => 'array',
         'expiry_date' => 'datetime',
+        'is_remote' => 'boolean'
+    ];
+
+    /**
+     * The attributes that can be filled using mass-assignment.
+     *
+     * @var array
+    */
+    protected $fillable = [
+        'is_published',
+        'is_remote',
+        'expiry_date'
     ];
 
     public function user(): BelongsTo

@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         User::factory([
             'roles' => [ApiEnums::ROLE_APPLICANT]
         ])
-            ->count(120)
+            ->count(150)
             ->afterCreating(function (User $user) use ($faker) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);
@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
                     $user->save();
 
                     $user->expectedClassifications()->sync(
-                        $faker->randomElements($pool->classifications()->pluck('classifications.id')->toArray(), 3)
+                        $pool->classifications()->pluck('classifications.id')->toArray()
                     );
                 } else {
                     // non-government users have no current classification or expected classifications but have salary
