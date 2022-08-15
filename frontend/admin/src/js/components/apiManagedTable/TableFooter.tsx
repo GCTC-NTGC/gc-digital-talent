@@ -62,11 +62,16 @@ function TableFooter({
           </p>
           <Pending fetching={fetchingSelected} error={selectionError} inline>
             <Spacer>
-              <Button type="button" mode="solid" color="primary" disabled>
+              <Button
+                type="button"
+                mode="solid"
+                color="primary"
+                disabled={disableActions}
+              >
                 {intl.formatMessage({
-                  defaultMessage: "Download XML",
+                  defaultMessage: "Download CSV",
                   description:
-                    "Text label for button to download an xml file of items in a table.",
+                    "Text label for button to download an csv file of items in a table.",
                 })}
               </Button>
             </Spacer>
