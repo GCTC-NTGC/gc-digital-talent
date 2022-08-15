@@ -19,6 +19,11 @@ import {
   Operation,
   makeOperation,
 } from "urql";
+import { GraphQLErrorExtensions } from "graphql";
+import { toast } from "react-toastify";
+import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
+import { formatMessage } from "@formatjs/intl";
+import { IntlShape, useIntl } from "react-intl";
 import { AuthenticationContext } from "../Auth";
 
 // generate nonce somewhere here?
@@ -81,10 +86,71 @@ const willAuthError = ({ authState }: { authState: AuthState | null }) => {
   return false;
 };
 
+// this is what the validation error extension looks like from our GraphQL server
+type ValidationExtension = {
+  validation: { [key: string]: [string] };
+  category: string;
+};
+
+// type guard to ensure the error extension looks like our ValidationExtension type
+function isValidationExtension(
+  extension: GraphQLErrorExtensions,
+): extension is ValidationExtension {
+  return (
+    (extension as ValidationExtension) !== undefined &&
+    extension.category === "validation"
+  );
+}
+
+// Accepts a CombinedError object, finds the validation error messages, and toasts them
+const toastValidationErrors = (
+  combinedError: CombinedError,
+  intl: IntlShape,
+) => {
+  const validationErrorMessages = combinedError.graphQLErrors
+    .filter((graphQLError) => isValidationExtension(graphQLError.extensions))
+    .flatMap((graphQLError) => {
+      const validationExtension =
+        graphQLError.extensions as ValidationExtension;
+      return Object.keys(validationExtension.validation).map(
+        // one key per validation rule like "user.sub" or "user.email"
+        (key) => validationExtension.validation[key],
+      );
+    })
+    // Each rule has an array for possibly multiple error messages
+    .flatMap((messageArrays) => messageArrays);
+
+  const localizedMessages = validationErrorMessages.map((errorMessage) => {
+    const localizedMessageDescriptor = tryFindMessageDescriptor(errorMessage);
+    if (localizedMessageDescriptor) {
+      return intl.formatMessage(localizedMessageDescriptor);
+    }
+
+    return errorMessage;
+  });
+
+  // if more than 1, arrange in a list
+  if (localizedMessages.length > 1) {
+    toast.error(
+      <ul>
+        {localizedMessages.map((message) => (
+          <li key={message}>{message}</li>
+        ))}
+      </ul>,
+    );
+  }
+
+  // if just 1, show by itself
+  if (localizedMessages.length === 1) {
+    toast.error(localizedMessages[0]);
+  }
+};
+
 const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
+  const intl = useIntl();
   const authContext = useContext(AuthenticationContext);
   // Create a mutable object to hold the auth state
   const authRef = useRef(authContext);
@@ -152,6 +218,8 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
           errorExchange({
             onError: (error: CombinedError) => {
               // toast.error(error.message);
+              toastValidationErrors(error, intl);
+
               // eslint-disable-next-line no-console
               console.error(error);
             },
@@ -168,7 +236,7 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
         ],
       })
     );
-  }, [client, getAuth]);
+  }, [client, getAuth, intl]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
