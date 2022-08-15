@@ -26,7 +26,7 @@ import {
   formValuesToSubmitData,
   GovernmentInfoForm,
 } from "../GovernmentInfoForm/GovernmentInfoForm";
-import talentSearchRoutes from "../../talentSearchRoutes";
+import applicantProfileRoutes from "../../applicantProfileRoutes";
 
 type FormValues = Pick<
   UpdateUserAsUserInput,
@@ -262,7 +262,7 @@ export const CreateAccountForm: React.FunctionComponent<
 const CreateAccount: React.FunctionComponent = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = talentSearchRoutes(locale);
+  const paths = applicantProfileRoutes(locale);
 
   const [lookUpResult] = useGetCreateAccountFormDataQuery();
   const { data: lookupData, fetching, error } = lookUpResult;
@@ -297,7 +297,7 @@ const CreateAccount: React.FunctionComponent = () => {
     }
     await handleCreateAccount(meId, data)
       .then(() => {
-        navigate(paths.profile());
+        navigate(paths.home(meId));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Account successfully created.",

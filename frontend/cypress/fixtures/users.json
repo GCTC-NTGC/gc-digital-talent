@@ -1,23 +1,27 @@
 {
   "admin": {
+    "id": "test-admin",
     "first": "Test Admin",
     "last": "Test Admin",
     "email": "admin@test.com",
     "password": "Test123!"
   },
   "applicant": {
+    "id": "test-applicant",
     "first": "Test Applicant",
     "last": "Test Applicant",
     "email": "applicant@test.com",
     "password": "testpassword"
   },
   "noroles": {
+    "id": "test-no-roles",
     "first": "Test NoRoles",
     "last": "Test NoRoles",
     "email": "noroles@test.com",
     "password": "testpassword"
   },
   "noemail": {
+    "id": "test-no-email",
     "first": "Test NoEmail",
     "last": "Test NoEmail",
     "email": null,
