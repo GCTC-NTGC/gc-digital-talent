@@ -14,13 +14,13 @@ describe("Admin Workflow Tests", () => {
 
   const searchForUser = (name, expectedEmail) => {
     cy.findByRole("textbox", { name: /search/i })
-     .clear()
-     .type(name);
+      .clear()
+      .type(name);
 
-     cy.wait("@gqlAllUsersPaginatedQuery");
+    cy.wait("@gqlAllUsersPaginatedQuery");
 
     // wait for table to rerender
-    cy.contains(expectedEmail)
+    cy.contains(expectedEmail, { timeout: 10000 })
       .should("exist")
       .and("be.visible");
   };
@@ -93,6 +93,7 @@ describe("Admin Workflow Tests", () => {
 
     cy.expectToast(/User updated successfully/i);
 
+    cy.wait("@gqlAllUsersPaginatedQuery");
     searchForUser("Applicant", "applicant@test.com");
 
     // check that the expected new phone number shows

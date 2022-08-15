@@ -14,18 +14,6 @@ export type Color =
   | "ia-primary"
   | "ia-secondary";
 
-export interface DialogProps {
-  isOpen: boolean;
-  color?: Color;
-  onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
-  title: string;
-  subtitle?: string;
-  confirmation?: boolean;
-  footer?: React.ReactNode;
-  centered?: boolean;
-  children: React.ReactNode;
-}
-
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
     "data-h2-bg-color": "b(linear-70[lightpurple][lightnavy])",
@@ -59,14 +47,15 @@ const Footer = ({ children }: FooterProps) => (
 
 type HeaderProps = Pick<
   DialogProps,
-  "confirmation" | "color" | "onDismiss" | "title" | "subtitle"
+  "title" | "subtitle" | "onDismiss" | "confirmation" | "color"
 >;
+
 const Header = ({
-  confirmation,
-  color = "ia-primary",
-  onDismiss,
   title,
   subtitle,
+  onDismiss,
+  confirmation = false,
+  color = "ia-primary",
 }: HeaderProps) => {
   const intl = useIntl();
   return (
@@ -135,6 +124,17 @@ const Header = ({
   );
 };
 
+export interface DialogProps {
+  isOpen: boolean;
+  color?: Color;
+  onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
+  title: string;
+  subtitle?: string;
+  confirmation?: boolean;
+  centered?: boolean;
+  children: React.ReactNode;
+}
+
 const Dialog = ({
   title,
   subtitle,
@@ -143,7 +143,6 @@ const Dialog = ({
   color = "ia-primary",
   confirmation = false,
   centered = false,
-  footer,
   children,
 }: DialogProps) => {
   return (
@@ -152,16 +151,15 @@ const Dialog = ({
         aria-labelledby="dialog-title"
         className={centered ? `dialog--centered` : undefined}
       >
-        <Header {...{ confirmation, color, title, subtitle, onDismiss }} />
-        <div className="dialog__content">
-          {children}
-          {footer && <Footer>{footer}</Footer>}
-        </div>
+        <Header {...{ title, subtitle, onDismiss, confirmation, color }} />
+        <div className="dialog__content">{children}</div>
       </Content>
     </Overlay>
   );
 };
 
+Dialog.Overlay = Overlay;
+Dialog.Content = Content;
 Dialog.Header = Header;
 Dialog.Footer = Footer;
 export default Dialog;

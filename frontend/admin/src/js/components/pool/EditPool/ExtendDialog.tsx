@@ -7,16 +7,20 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Input } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
+import { strToDateTimeTz } from "@common/helpers/dateUtils";
+import { type UpdatePoolAdvertisementInput } from "../../../api/generated";
 
 type FormValues = {
   endDate?: PoolAdvertisement["expiryDate"];
 };
 
+export type ExtendSubmitData = Pick<UpdatePoolAdvertisementInput, "expiryDate">;
+
 type ExtendDialogProps = {
   isOpen: boolean;
   onDismiss: () => void;
   expiryDate: NonNullable<PoolAdvertisement["expiryDate"]>;
-  onExtend: (submitData: unknown) => void;
+  onExtend: (submitData: ExtendSubmitData) => void;
 };
 
 const ExtendDialog = ({
@@ -29,7 +33,9 @@ const ExtendDialog = ({
 
   const handleExtend = useCallback(
     (formValues: FormValues) => {
-      onExtend(formValues);
+      onExtend({
+        expiryDate: strToDateTimeTz(formValues.endDate),
+      });
       onDismiss();
     },
     [onDismiss, onExtend],
@@ -80,7 +86,6 @@ const ExtendDialog = ({
         defaultMessage: "Extend Closing Date",
         description: "Heading for the extend pool closing date dialog",
       })}
-      footer={Footer}
     >
       <p>
         {intl.formatMessage({
@@ -109,6 +114,7 @@ const ExtendDialog = ({
           />
         </form>
       </FormProvider>
+      <Dialog.Footer>{Footer}</Dialog.Footer>
     </Dialog>
   );
 };
