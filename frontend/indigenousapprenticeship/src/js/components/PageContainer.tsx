@@ -1,4 +1,5 @@
 import React, { ReactElement, useRef } from "react";
+import appInsights from "applicationinsights";
 import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
@@ -13,7 +14,10 @@ import {
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import NotAuthorized from "@common/components/NotAuthorized";
-import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../indigenousApprenticeshipConstants";
+import {
+  INDIGENOUSAPPRENTICESHIP_APP_DIR,
+  AZURE_ANALYTICS_CONNECTION_STRING,
+} from "../indigenousApprenticeshipConstants";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 
@@ -92,6 +96,8 @@ export const PageContainer: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const intl = useIntl();
+  appInsights.setup(AZURE_ANALYTICS_CONNECTION_STRING);
+  appInsights.start();
   // stabilize components that will not change during life of app, avoid render loops in router
   const notFoundComponent = useRef(<IndigenousApprenticeshipNotFound />);
   const notAuthorizedComponent = useRef(

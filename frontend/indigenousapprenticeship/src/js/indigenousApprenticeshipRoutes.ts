@@ -1,7 +1,7 @@
 import { getLocale } from "@common/helpers/localize";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
-import INDIGENOUSAPPRENTICESHIP_APP_DIR from "./indigenousApprenticeshipConstants";
+import { INDIGENOUSAPPRENTICESHIP_APP_DIR } from "./indigenousApprenticeshipConstants";
 
 export type IndigenousApprenticeshipRoutes = ReturnType<
   typeof indigenousApprenticeshipRoutes
