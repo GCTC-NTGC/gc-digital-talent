@@ -33,20 +33,6 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
 };
 
-interface FooterProps {
-  children: React.ReactNode;
-}
-const Footer = ({ children }: FooterProps) => (
-  <div
-    className="dialog__footer"
-    data-h2-margin="b(top, m)"
-    data-h2-padding="b(top, m)"
-    data-h2-border="b(darkgray, top, solid, s)"
-  >
-    {children}
-  </div>
-);
-
 type HeaderProps = Pick<
   DialogProps,
   "title" | "subtitle" | "onDismiss" | "confirmation" | "color"
@@ -125,6 +111,20 @@ const Header = ({
     </div>
   );
 };
+
+interface FooterProps {
+  children: React.ReactNode;
+}
+const Footer = ({ children }: FooterProps) => (
+  <div
+    className="dialog__footer"
+    data-h2-margin="b(top, m)"
+    data-h2-padding="b(top, m)"
+    data-h2-border="b(darkgray, top, solid, s)"
+  >
+    {children}
+  </div>
+);
 
 export interface DialogProps {
   isOpen: boolean;
