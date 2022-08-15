@@ -210,7 +210,6 @@ export const UserTable: React.FC = () => {
     selectedUsersData?.applicants.filter(notEmpty) ?? [];
 
   const csv = useUserCsvData(selectedApplicants);
-  const today = new Date();
 
   return (
     <div data-h2-margin="b(top-bottom, m)">
