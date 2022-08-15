@@ -4,17 +4,17 @@ import { defineMessages, MessageDescriptor } from "react-intl";
 // Ideally, this could be automatically extracted from the schema but for now we do it manually.
 
 export const messages: { [key: string]: MessageDescriptor } = defineMessages({
-  key1: {
+  "unique:users,sub": {
     defaultMessage: "This user identifier (sub) is already in use",
     description:
       "Error message that the given user identifier is already in use.",
   },
-  key2: {
+  "unique:users,email": {
     defaultMessage: "This email address is already in use",
     description:
       "Error message that the given email address is already in use.",
   },
-  key3: {
+  "unique:skill_families,key": {
     defaultMessage: "This skill family key string is already in use",
     description:
       "Error message that the given skill family key is already in use.",
