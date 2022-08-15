@@ -13,7 +13,7 @@ import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
-import DialogActions from "./DialogActions";
+import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
 
 interface FormValues {
@@ -84,7 +84,7 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
       />
       <Dialog.Footer>
         <WomanDialogFooter isAdded={isAdded} onSave={onSave}>
-          <DialogActions onDismiss={onDismiss} />
+          <DialogFooter onDismiss={onDismiss} />
         </WomanDialogFooter>
       </Dialog.Footer>
     </Dialog>

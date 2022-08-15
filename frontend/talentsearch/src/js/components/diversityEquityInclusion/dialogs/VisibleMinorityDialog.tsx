@@ -13,7 +13,7 @@ import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
-import DialogActions from "./DialogActions";
+import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
 
 interface FormValues {
@@ -85,7 +85,7 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
       />
       <Dialog.Footer>
         <VisibleMinorityDialogFooter isAdded={isAdded} onSave={onSave}>
-          <DialogActions onDismiss={onDismiss} />
+          <DialogFooter onDismiss={onDismiss} />
         </VisibleMinorityDialogFooter>
       </Dialog.Footer>
     </Dialog>
