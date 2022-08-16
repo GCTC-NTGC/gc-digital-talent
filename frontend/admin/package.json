@@ -1,7 +1,7 @@
 {
   "name": "admin",
   "version": "1.3.2",
-  "description": "Client side service using Lumen and ReactJS.",
+  "description": "Client side service using webpack and ReactJS.",
   "main": "index.js",
   "directories": {
     "test": "tests"
