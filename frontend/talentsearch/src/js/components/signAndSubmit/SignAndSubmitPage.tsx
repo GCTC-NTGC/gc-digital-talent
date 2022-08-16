@@ -65,12 +65,12 @@ const Signature: React.FC<{ isNotComplete: boolean }> = ({ isNotComplete }) => {
     intl.formatMessage({
       defaultMessage: `"I understand that I am part of a community who trusts each
         other"`,
-      description: "Important info list item on sign and submit page.",
+      description: "Signature list item on sign and submit page.",
     }),
     intl.formatMessage({
       defaultMessage: `"I promise that the information Ive provided is
         true"`,
-      description: "Important info list item on sign and submit page.",
+      description: "Signature list item on sign and submit page.",
     }),
   ];
   return (
@@ -80,7 +80,14 @@ const Signature: React.FC<{ isNotComplete: boolean }> = ({ isNotComplete }) => {
           // TODO: ADD SUBMIT APPLICATION MUTATION HERE
         })}
       >
-        <p>You made it! By signing your name below you confirm that:</p>
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "You made it! By signing your name below you confirm that:",
+            description:
+              "Confirmation message before signature form on sign and submit page.",
+          })}
+        </p>
         <ul>
           {confirmations.map((item) => (
             <li key={uniqueId()} data-h2-margin="b(bottom, m)">
