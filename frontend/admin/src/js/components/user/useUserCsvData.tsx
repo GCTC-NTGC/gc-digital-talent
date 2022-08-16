@@ -12,7 +12,8 @@ import {
   getWorkRegion,
 } from "@common/constants/localizedConstants";
 import { getLocale } from "@common/helpers/localize";
-import { Applicant, Maybe } from "../../api/generated";
+import { enumToOptions } from "@common/helpers/formUtils";
+import { Applicant, GovEmployeeType, type Maybe } from "../../api/generated";
 
 const useUserCsvData = (applicants: Applicant[]) => {
   const intl = useIntl();
@@ -197,6 +198,13 @@ const useUserCsvData = (applicants: Applicant[]) => {
   ];
 
   const data: DownloadCsvProps["data"] = React.useMemo(() => {
+    /**
+     * Converts a possible boolean
+     * to yes or no string
+     *
+     * @param value Maybe<boolean>
+     * @returns React.ReactNode  "yes" or "no"
+     */
     const yesOrNo = (value: Maybe<boolean>) => {
       if (empty(value)) {
         return "";
@@ -212,10 +220,26 @@ const useUserCsvData = (applicants: Applicant[]) => {
           });
     };
 
+    /**
+     * Converts a possible array to
+     * a comma separated list
+     *
+     * @param value string[] | undefined    Array of items to convert
+     * @returns string                      Comma separated list or empty
+     */
     const listOrEmptyString = (value: string[] | undefined) => {
       return value ? insertBetween(", ", value).join("") : "";
     };
 
+    /**
+     *  Converts the applicants language preferences
+     *  to a string
+     *
+     * @param english   Maybe<boolean>      If looking for English positions
+     * @param french    Maybe<boolean>      If looking for French positions
+     * @param bilingual   Maybe<boolean>    If looking for Bilingual positions
+     * @returns
+     */
     const getLookingForLanguage = (
       english: Maybe<boolean>,
       french: Maybe<boolean>,
@@ -253,6 +277,31 @@ const useUserCsvData = (applicants: Applicant[]) => {
       return "";
     };
 
+    /**
+     * Converts possible Employee Type
+     * to a string
+     *
+     * @param type  Applicant["govEmployeeType"]
+     * @returns string The employee type
+     */
+    const employeeTypeToString = (type: Applicant["govEmployeeType"]) => {
+      const govEmployeeTypeId =
+        enumToOptions(GovEmployeeType).find(
+          (govEmployeeType) => govEmployeeType.value === type,
+        )?.value || null;
+
+      return govEmployeeTypeId
+        ? intl.formatMessage(getGovEmployeeType(govEmployeeTypeId))
+        : "";
+    };
+
+    /**
+     * Converts a possible location preference
+     * to a string
+     *
+     * @param preference  Applicant["locationPreferences"]
+     * @returns string
+     */
     const getLocationPreference = (
       preference: Applicant["locationPreferences"],
     ) => {
@@ -264,6 +313,13 @@ const useUserCsvData = (applicants: Applicant[]) => {
       return listOrEmptyString(squishedPreference);
     };
 
+    /**
+     * Converts possible array of operational requirements
+     * to a comma separated list or empty string
+     *
+     * @param requirements  Applicant["acceptedOperationalRequirements"]
+     * @returns string
+     */
     const getOperationalRequirements = (
       requirements: Applicant["acceptedOperationalRequirements"],
     ) => {
@@ -276,6 +332,13 @@ const useUserCsvData = (applicants: Applicant[]) => {
       return listOrEmptyString(accepted);
     };
 
+    /**
+     * Converts a possible array of generic job titles
+     * to a comma separated list or empty string
+     *
+     * @param genericTitles Maybe<Maybe<GenericJobTitle>[]>
+     * @returns string
+     */
     const getExpectedClassifications = (
       genericTitles: Applicant["expectedGenericJobTitles"],
     ) => {
@@ -290,6 +353,14 @@ const useUserCsvData = (applicants: Applicant[]) => {
       return listOrEmptyString(expected);
     };
 
+    /**
+     * Converts a possible array of experiences to
+     * a flattened comma separated list of skills
+     * or an empty string
+     *
+     * @param experiences Maybe<Maybe<Experience>[]>
+     * @returns string
+     */
     const flattenExperiencesToSkills = (
       experiences: Applicant["experiences"],
     ) => {
@@ -359,7 +430,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
         isGovEmployee: yesOrNo(isGovEmployee),
         department: department?.name[locale] || "",
         govEmployeeType: govEmployeeType
-          ? intl.formatMessage(getGovEmployeeType(govEmployeeType))
+          ? employeeTypeToString(govEmployeeType)
           : "",
         interestedInLaterOrSecondment: yesOrNo(interestedInLaterOrSecondment),
         currentClassification: currentClassification
