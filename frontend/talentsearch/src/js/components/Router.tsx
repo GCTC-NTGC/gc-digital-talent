@@ -13,7 +13,7 @@ import {
   useTalentSearchRoutes,
   TalentSearchRoutes,
 } from "../talentSearchRoutes";
-import applicantProfileRoutes, {
+import {
   ApplicantProfileRoutes,
   useApplicantProfileRoutes,
 } from "../applicantProfileRoutes";
