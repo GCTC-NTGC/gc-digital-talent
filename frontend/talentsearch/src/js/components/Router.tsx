@@ -13,7 +13,7 @@ import {
   useTalentSearchRoutes,
   TalentSearchRoutes,
 } from "../talentSearchRoutes";
-import {
+import applicantProfileRoutes, {
   ApplicantProfileRoutes,
   useApplicantProfileRoutes,
 } from "../applicantProfileRoutes";
@@ -87,6 +87,12 @@ const talentRoutes = (
 ): Routes<RouterResult> => [
   {
     path: talentPaths.search(),
+    action: () => ({
+      component: <SearchPage />,
+    }),
+  },
+  {
+    path: talentPaths.request(),
     action: () => ({
       component: <RequestPage />,
     }),
@@ -503,11 +509,11 @@ export const Router: React.FC = () => {
     }
   }
 
-  if (featureFlags.applicantProfile && loggedIn) {
+  if (featureFlags.applicantProfile && loggedIn && data?.me?.id) {
     menuItems.push(
       <MenuLink
         key="myProfile"
-        href={talentPaths.profile()}
+        href={profilePaths.home(data?.me?.id)}
         text={intl.formatMessage({
           defaultMessage: "My profile",
           description: "Label displayed on the applicant profile menu item.",
@@ -560,10 +566,8 @@ export const Router: React.FC = () => {
         contentRoutes={[
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),
-          ...(checkFeatureFlag("FEATURE_APPLICANTPROFILE")
-            ? profileRoutes(profilePaths, data?.me?.id)
-            : []),
-          ...(checkFeatureFlag("FEATURE_DIRECTINTAKE")
+          ...(featureFlags.applicantProfile ? profileRoutes(profilePaths) : []),
+          ...(featureFlags.directIntake
             ? directIntakeRoutes(directIntakePaths)
             : []),
         ]}
