@@ -18,12 +18,12 @@ const poolCandidateFilter: PoolCandidateFilter = {
   classifications: [
     {
       id: "90689420-553d-4a3b-999a-fb94b1baaa69",
-      group: "CS",
+      group: "IT",
       level: 4,
     },
     {
       id: "bcfa88b3-ed22-4879-8642-e7dd003e91b4",
-      group: "CS",
+      group: "IT",
       level: 5,
     },
     {

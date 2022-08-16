@@ -329,6 +329,7 @@ type PoolCandidate {
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
     notes: String
     archivedAt: DateTime @rename(attribute: "archived_at")
+    submittedAt: DateTime @rename(attribute: "submitted_at")
 }
 
 enum LanguageAbility {
@@ -1291,4 +1292,5 @@ type Mutation {
     deletePoolAdvertisement(id: ID!): PoolAdvertisement @delete(model: "Pool", globalId: false) @guard @can(ability: "delete", find: "id", model: "Pool")
 
     archiveApplication(id:ID!): PoolCandidate @guard @can(ability: "archiveApplication", find: "id")
+    createApplication(userId:ID!, poolId:ID!): PoolCandidate
 }

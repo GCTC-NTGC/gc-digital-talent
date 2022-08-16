@@ -60,7 +60,6 @@ const CloseDialog = ({
         defaultMessage: "Close Manually",
         description: "Heading for the close pool dialog",
       })}
-      footer={Footer}
     >
       <p>
         {intl.formatMessage({
@@ -98,6 +97,7 @@ const CloseDialog = ({
           description: "Third paragraph for Close pool dialog",
         })}
       </p>
+      <Dialog.Footer>{Footer}</Dialog.Footer>
     </Dialog>
   );
 };
