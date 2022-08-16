@@ -1,6 +1,7 @@
 import { authExchange } from "@urql/exchange-auth";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import React, {
+  ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -21,9 +22,8 @@ import {
 } from "urql";
 import { GraphQLErrorExtensions } from "graphql";
 import { toast } from "react-toastify";
-import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
-import { formatMessage } from "@formatjs/intl";
 import { IntlShape, useIntl } from "react-intl";
+import { tryFindMessageDescriptor } from "../../messages/apiMessages";
 import { AuthenticationContext } from "../Auth";
 
 // generate nonce somewhere here?
@@ -102,12 +102,9 @@ function isValidationExtension(
   );
 }
 
-// Accepts a CombinedError object, finds the validation error messages, and toasts them
-const toastValidationErrors = (
-  combinedError: CombinedError,
-  intl: IntlShape,
-) => {
-  const validationErrorMessages = combinedError.graphQLErrors
+// Accepts a CombinedError object and finds the validation error messages
+const extractValidationErrorMessages = (combinedError: CombinedError) =>
+  combinedError.graphQLErrors
     .filter((graphQLError) => isValidationExtension(graphQLError.extensions))
     .flatMap((graphQLError) => {
       const validationExtension =
@@ -120,30 +117,37 @@ const toastValidationErrors = (
     // Each rule has an array for possibly multiple error messages
     .flatMap((messageArrays) => messageArrays);
 
-  const localizedMessages = validationErrorMessages.map((errorMessage) => {
+// Accepts a list of error messages, localizes them, and returns a formatted ReactNode for toasting
+const buildValidationErrorMessageNode = (
+  errorMessages: Array<string>,
+  intl: IntlShape,
+): ReactNode => {
+  const localizedMessages = errorMessages.map((errorMessage) => {
     const localizedMessageDescriptor = tryFindMessageDescriptor(errorMessage);
     if (localizedMessageDescriptor) {
       return intl.formatMessage(localizedMessageDescriptor);
     }
-
     return errorMessage;
   });
 
-  // if more than 1, arrange in a list
+  // if more than 1, toast a list
   if (localizedMessages.length > 1) {
-    toast.error(
+    return (
       <ul>
         {localizedMessages.map((message) => (
           <li key={message}>{message}</li>
         ))}
-      </ul>,
+      </ul>
     );
   }
 
-  // if just 1, show by itself
+  // if just 1, toast by itself
   if (localizedMessages.length === 1) {
-    toast.error(localizedMessages[0]);
+    return <span>localizedMessages[0]</span>;
   }
+
+  // no messages, no returned node
+  return null;
 };
 
 const ClientProvider: React.FC<{ client?: Client }> = ({
@@ -210,7 +214,7 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
         url: apiUri,
         exchanges: [
           /**
-           * Commented out to stop urlq errors being displayed in toasts
+           * Commented out to stop urql errors being displayed in toasts
            *
            * TODO: Confirm errors are being logged on the server
            * before removing console.error
@@ -218,7 +222,13 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
           errorExchange({
             onError: (error: CombinedError) => {
               // toast.error(error.message);
-              toastValidationErrors(error, intl);
+
+              const validationErrorMessages =
+                extractValidationErrorMessages(error);
+              const validationErrorMessageNode =
+                buildValidationErrorMessageNode(validationErrorMessages, intl);
+              if (validationErrorMessageNode)
+                toast.error(validationErrorMessageNode);
 
               // eslint-disable-next-line no-console
               console.error(error);
@@ -246,4 +256,5 @@ export default ClientProvider;
 // https://stackoverflow.com/questions/54116070/how-can-i-unit-test-non-exported-functions
 export const exportedForTesting = {
   willAuthError,
+  extractValidationErrorMessages,
 };
