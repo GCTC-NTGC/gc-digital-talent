@@ -11,7 +11,7 @@ import {
   ClipboardCheckIcon,
   UserIcon,
 } from "@heroicons/react/solid";
-import { uniqueId } from "lodash";
+import uniqueId from "lodash/uniqueId";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
