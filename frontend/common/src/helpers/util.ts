@@ -114,3 +114,7 @@ export const emptyToUndefined = (s: InputMaybe<string>): string | undefined =>
 export function flatten<T>(arr: T[][]): T[] {
   return ([] as T[]).concat(...arr);
 }
+
+export function uniqueItems<T>(arr: T[]): T[] {
+  return Array.from(new Set(arr));
+}

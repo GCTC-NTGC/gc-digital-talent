@@ -1,7 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import type { DownloadCsvProps } from "@common/components/Link";
-import { empty, flatten, insertBetween, notEmpty } from "@common/helpers/util";
+import {
+  empty,
+  flatten,
+  insertBetween,
+  notEmpty,
+  uniqueItems,
+} from "@common/helpers/util";
 import {
   getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
@@ -374,7 +380,9 @@ const useUserCsvData = (applicants: Applicant[]) => {
         })
         .filter(notEmpty);
 
-      return listOrEmptyString(skills ? flatten(skills) : undefined);
+      const flattenedSkills = skills ? uniqueItems(flatten(skills)) : undefined;
+
+      return listOrEmptyString(flattenedSkills);
     };
 
     const flattenedApplicants: DownloadCsvProps["data"] = applicants.map(
