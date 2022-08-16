@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import type { DownloadCsvProps } from "@common/components/Link";
-import { empty, insertBetween, notEmpty } from "@common/helpers/util";
+import { empty, flatten, insertBetween, notEmpty } from "@common/helpers/util";
 import {
   getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
@@ -290,6 +290,22 @@ const useUserCsvData = (applicants: Applicant[]) => {
       return listOrEmptyString(expected);
     };
 
+    const flattenExperiencesToSkills = (
+      experiences: Applicant["experiences"],
+    ) => {
+      const skills = experiences
+        ?.map((experience) => {
+          return experience?.skills
+            ?.map((skill) => {
+              return skill.name[locale] || undefined;
+            })
+            .filter(notEmpty);
+        })
+        .filter(notEmpty);
+
+      return listOrEmptyString(skills ? flatten(skills) : undefined);
+    };
+
     const flattenedApplicants: DownloadCsvProps["data"] = applicants.map(
       ({
         firstName,
@@ -318,6 +334,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
         isVisibleMinority,
         hasDisability,
         expectedGenericJobTitles,
+        experiences,
       }) => ({
         firstName: firstName || "",
         lastName: lastName || "",
@@ -361,7 +378,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
         expectedClassification: getExpectedClassifications(
           expectedGenericJobTitles,
         ),
-        skills: "", // TO DO: Flatten the experiences to a list of skills
+        skills: flattenExperiencesToSkills(experiences),
       }),
     );
 
