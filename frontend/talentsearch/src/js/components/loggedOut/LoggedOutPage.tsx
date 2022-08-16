@@ -12,6 +12,7 @@ import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
+import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();
@@ -19,6 +20,7 @@ const LoggedOutPage: React.FC = () => {
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
   const directIntakePaths = useDirectIntakeRoutes();
   const talentPaths = useTalentSearchRoutes();
+  const profilePaths = useApplicantProfileRoutes();
 
   return (
     <>
@@ -94,7 +96,11 @@ const LoggedOutPage: React.FC = () => {
             </TileLink>
           </div>
           <div data-h2-flex-item="b(1of1) m(1of3)">
-            <TileLink href="/talent-cloud/report" color="primary" external>
+            <TileLink
+              href={`/${locale}/talent-cloud/report`}
+              color="primary"
+              external
+            >
               {intl.formatMessage({
                 defaultMessage: "Talent Cloud report",
                 description: "Link text to read the report on talent cloud",
@@ -108,7 +114,7 @@ const LoggedOutPage: React.FC = () => {
         centered
         isOpen={loggedIn}
         onDismiss={() => {
-          navigate(talentPaths.profile());
+          navigate(profilePaths.myProfile());
         }}
         title={intl.formatMessage({
           defaultMessage: "Logout",
@@ -133,7 +139,7 @@ const LoggedOutPage: React.FC = () => {
               mode="outline"
               color="primary"
               type="button"
-              href={`/${locale}`}
+              href={profilePaths.myProfile()}
               external
             >
               {intl.formatMessage({

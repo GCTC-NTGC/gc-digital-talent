@@ -18,8 +18,8 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
   crumbs,
   description,
   title,
-  children,
   cancelLink,
+  children,
 }) => {
   const intl = useIntl();
   const profilePath = useApplicantProfileRoutes();
@@ -29,7 +29,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         defaultMessage: "My Profile",
         description: "Breadcrumb from applicant profile wrapper.",
       }),
-      href: profilePath.home(),
+      href: profilePath.myProfile(),
       icon: <UserIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     ...crumbs,

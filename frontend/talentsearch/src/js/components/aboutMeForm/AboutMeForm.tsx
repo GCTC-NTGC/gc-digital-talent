@@ -50,7 +50,7 @@ export type AboutMeUpdateHandler = (
 ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
 
 export interface AboutMeFormProps {
-  initialUser: User | null;
+  initialUser: User;
   onUpdateAboutMe: AboutMeUpdateHandler;
 }
 
@@ -79,14 +79,9 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    if (!initialUser?.id) {
-      toast.error(intl.formatMessage(profileMessages.userNotFound));
-      return;
-    }
-
     await onUpdateAboutMe(initialUser.id, formValuesToSubmitData(formValues))
       .then(() => {
-        navigate(paths.home());
+        navigate(paths.home(initialUser.id));
         toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {

@@ -11,10 +11,7 @@ import { SingleSearchRequest } from "../components/searchRequest/SingleSearchReq
 const stories = storiesOf("Search Requests", module);
 
 stories.add("Search Request Table", () => (
-  <SearchRequestTable
-    poolCandidateSearchRequests={fakeSearchRequests()}
-    editUrlRoot="#"
-  />
+  <SearchRequestTable poolCandidateSearchRequests={fakeSearchRequests()} />
 ));
 
 stories.add("Single Search Request Table", () => (
