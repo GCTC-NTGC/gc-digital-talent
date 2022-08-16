@@ -104,13 +104,6 @@ const talentRoutes = (
       redirect: talentPaths.search(),
     }),
   },
-  {
-    path: `${talentPaths.home()}/search`,
-    action: () => ({
-      component: <div />,
-      redirect: talentPaths.search(),
-    }),
-  },
 ];
 
 const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
