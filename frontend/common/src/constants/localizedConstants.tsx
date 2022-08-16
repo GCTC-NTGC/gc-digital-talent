@@ -1018,6 +1018,34 @@ export const getGovEmployeeType = (
     `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
   );
 
+export const simpleGovEmployeeType = defineMessages({
+  [GovEmployeeType.Student]: {
+    defaultMessage: "Student",
+    description: "Simple student selection for government employee type.",
+  },
+  [GovEmployeeType.Casual]: {
+    defaultMessage: "Casual",
+    description: "Simple Casual selection for government employee type.",
+  },
+  [GovEmployeeType.Term]: {
+    defaultMessage: "Term",
+    description: "Simple term selection for government employee type.",
+  },
+  [GovEmployeeType.Indeterminate]: {
+    defaultMessage: "Indeterminate",
+    description: "Simple indeterminate selection for government employee type.",
+  },
+});
+
+export const getSimpleGovEmployeeType = (
+  govEmployeeTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    simpleGovEmployeeType,
+    govEmployeeTypeId,
+    `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
+  );
+
 export const advertisementStatus = defineMessages({
   [AdvertisementStatus.Draft]: {
     defaultMessage: "Draft",

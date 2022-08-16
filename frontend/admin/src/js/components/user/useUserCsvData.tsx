@@ -12,9 +12,9 @@ import {
   getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
   getGenericJobTitles,
-  getGovEmployeeType,
   getLanguageProficiency,
   getOperationalRequirement,
+  getSimpleGovEmployeeType,
   getWorkRegion,
 } from "@common/constants/localizedConstants";
 import { getLocale } from "@common/helpers/localize";
@@ -297,7 +297,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
         )?.value || null;
 
       return govEmployeeTypeId
-        ? intl.formatMessage(getGovEmployeeType(govEmployeeTypeId))
+        ? intl.formatMessage(getSimpleGovEmployeeType(govEmployeeTypeId))
         : "";
     };
 
