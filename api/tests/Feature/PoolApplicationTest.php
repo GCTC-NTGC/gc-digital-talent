@@ -385,6 +385,79 @@ class PoolApplicationTest extends TestCase
     ]);
   }
 
+  public function testApplicationSubmitSignature(): void
+  {
+    // re-make complete user, attach pool candidate
+    $this->seed(ClassificationSeeder::class);
+    $this->seed(GenericJobTitleSeeder::class);
+
+    $newUser = User::factory()->create();
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
+    $newUser->save();
+
+    $newPool = Pool::factory()->create([]);
+    $newPool->essentialSkills()->sync([]);
+
+    $newPoolCandidate = PoolCandidate::factory()->create([
+      'user_id' => $newUser->id,
+      'pool_id' => $newPool->id,
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+    ]);
+
+    // assert empty signature submission errors
+    $this->graphQL(/** @lang Graphql */ '
+      mutation submitTest($id: ID!, $sig: String!) {
+        submitApplication(applicationId: $id, signature: $sig) {
+          submittedAt
+        }
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      'sig' => '',
+      ])->assertJson([
+        'errors' => [[
+          'message' => 'The given data was invalid.',
+        ]]
+    ]);
+
+    // assert null signature submission errors
+    $this->graphQL(/** @lang Graphql */ '
+      mutation submitTest($id: ID!, $sig: String!) {
+        submitApplication(applicationId: $id, signature: $sig) {
+          submittedAt
+        }
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      'sig' => null,
+      ])->assertJson([
+        'errors' => [[
+          'message' => 'Variable "$sig" of non-null type "String!" must not be null.',
+        ]]
+    ]);
+
+    // assert query above re-submitted with a filled signature field this time succeeds
+    $this->graphQL(/** @lang Graphql */ '
+      mutation submitTest($id: ID!, $sig: String!) {
+        submitApplication(applicationId: $id, signature: $sig) {
+          submittedAt
+        }
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      'sig' => 'SIGNATURE',
+      ])->assertJson(fn (AssertableJson $json) =>
+      $json->has('data', fn ($json) =>
+        $json->has('submitApplication', fn ($json) =>
+          $json->whereType('submittedAt', 'string')
+        )
+      )
+    );
+  }
+
   public function testApplicationSubmitSkills(): void
   {
     // need some generic job titles for a complete profile

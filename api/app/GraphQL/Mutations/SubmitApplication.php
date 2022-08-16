@@ -98,9 +98,14 @@ final class SubmitApplication
             }
         }
 
+        // grab signature out of argument then validate signature field is non-null and not-empty
+        $signature = $args['signature'];
+        if ($signature == null || strlen($signature) == 0) {
+            throw ValidationException::withMessages(['signature field must be filled']);
+        }
+
         // all validation has successfully completed above, execute the core function of this resolver
         $dateNow = Carbon::now();
-        $signature = $args['signature'];
         $application->update([
             'submitted_at' => $dateNow,
             'signature' => $signature,
