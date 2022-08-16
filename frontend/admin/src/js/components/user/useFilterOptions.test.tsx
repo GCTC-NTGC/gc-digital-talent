@@ -7,6 +7,8 @@ import "@testing-library/jest-dom";
 import { IntlProvider } from "react-intl";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
+import { waitFor } from "@testing-library/react";
+import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
 import useFilterOptions from "./useFilterOptions";
 
 describe("useFilterOptions", () => {
@@ -102,28 +104,52 @@ describe("useFilterOptions", () => {
       // expect(mockClient.executeQuery).toBeCalledTimes(3);
     });
 
-    // TODO: Figure out how to get responseData working. (zero for testing)
-    it.skip("generates appropriate number of options after response: classifications", () => {
+    it("generates appropriate number of options after response: classifications", async () => {
       const result = renderHookWithProviders({
-        responseData: { data: { classifications: [] } },
+        responseData: {
+          data: {
+            pools: [],
+            skills: [],
+            classifications: fakeClassifications(),
+          },
+        },
       });
-      expect(result.current.optionsData.classifications).toHaveLength(0);
+      await waitFor(() =>
+        expect(result.current.optionsData.classifications).not.toBeUndefined(),
+      );
+      expect(result.current.optionsData.classifications).toHaveLength(4);
     });
 
-    // TODO: Figure out how to get responseData working. (zero for testing)
-    it.skip("generates appropriate number of options after response: pools", () => {
+    it("generates appropriate number of options after response: pools", async () => {
       const result = renderHookWithProviders({
-        responseData: { data: { pools: [] } },
+        responseData: {
+          data: {
+            pools: fakePools(),
+            skills: [],
+            classifications: [],
+          },
+        },
       });
-      expect(result.current.optionsData.pools).toHaveLength(0);
+      await waitFor(() =>
+        expect(result.current.optionsData.pools).not.toBeUndefined(),
+      );
+      expect(result.current.optionsData.pools).toHaveLength(2);
     });
 
-    // TODO: Figure out how to get responseData working. (zero for testing)
-    it.skip("generates appropriate number of options after response: skills", () => {
+    it("generates appropriate number of options after response: skills", async () => {
       const result = renderHookWithProviders({
-        responseData: { data: { skills: [] } },
+        responseData: {
+          data: {
+            pools: [],
+            skills: fakeSkills(10),
+            classifications: [],
+          },
+        },
       });
-      expect(result.current.optionsData.skills).toHaveLength(0);
+      await waitFor(() =>
+        expect(result.current.optionsData.skills).not.toBeUndefined(),
+      );
+      expect(result.current.optionsData.skills).toHaveLength(10);
     });
   });
 });
