@@ -446,6 +446,13 @@ const directIntakeRoutes = (
       };
     },
   },
+  {
+    path: directIntakePaths.applications(":userId"),
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+    }),
+  },
 ];
 
 export const Router: React.FC = () => {
@@ -494,11 +501,11 @@ export const Router: React.FC = () => {
       />,
     );
 
-    if (loggedIn) {
+    if (featureFlags.directIntake && loggedIn && data?.me?.id) {
       menuItems.push(
         <MenuLink
           key="myApplications"
-          href="#" /** TO DO: Replaced with application path when ready */
+          href={directIntakePaths.applications(data.me.id)}
           text={intl.formatMessage({
             defaultMessage: "My applications",
             description:
@@ -513,7 +520,7 @@ export const Router: React.FC = () => {
     menuItems.push(
       <MenuLink
         key="myProfile"
-        href={profilePaths.home(data?.me?.id)}
+        href={profilePaths.home(data.me.id)}
         text={intl.formatMessage({
           defaultMessage: "My profile",
           description: "Label displayed on the applicant profile menu item.",
