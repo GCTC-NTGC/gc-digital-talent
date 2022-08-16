@@ -53,7 +53,7 @@ const ImportantInfo = () => {
   );
 };
 
-const Signature: React.FC<{ isNotComplete: boolean }> = ({ isNotComplete }) => {
+const Signature = ({ isNotComplete }: { isNotComplete: boolean }) => {
   const intl = useIntl();
   const methods = useForm<{ signature: string }>();
   const confirmations = [
@@ -154,11 +154,11 @@ export interface SignAndSubmitFormProps {
   isNotComplete: boolean;
 }
 
-export const SignAndSubmitForm: React.FC<SignAndSubmitFormProps> = ({
+export const SignAndSubmitForm = ({
   closingDate,
   jobTitle,
   isNotComplete,
-}) => {
+}: SignAndSubmitFormProps) => {
   const intl = useIntl();
   const paths = useDirectIntakeRoutes();
 
