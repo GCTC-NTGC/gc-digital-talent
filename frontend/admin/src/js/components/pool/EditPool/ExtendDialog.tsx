@@ -86,7 +86,6 @@ const ExtendDialog = ({
         defaultMessage: "Extend Closing Date",
         description: "Heading for the extend pool closing date dialog",
       })}
-      footer={Footer}
     >
       <p>
         {intl.formatMessage({
@@ -115,6 +114,7 @@ const ExtendDialog = ({
           />
         </form>
       </FormProvider>
+      <Dialog.Footer>{Footer}</Dialog.Footer>
     </Dialog>
   );
 };

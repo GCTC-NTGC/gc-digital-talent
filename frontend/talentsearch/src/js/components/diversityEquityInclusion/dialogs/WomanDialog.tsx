@@ -13,7 +13,7 @@ import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
-import DialogActions from "./DialogActions";
+import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
 
 interface FormValues {
@@ -66,11 +66,6 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
       onDismiss={onDismiss}
       color="ts-primary"
       title={intl.formatMessage(getEmploymentEquityGroup("woman"))}
-      footer={
-        <WomanDialogFooter isAdded={isAdded} onSave={onSave}>
-          <DialogActions onDismiss={onDismiss} />
-        </WomanDialogFooter>
-      }
     >
       <UnderReview />
       <p>
@@ -87,6 +82,11 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
             : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
         }
       />
+      <Dialog.Footer>
+        <WomanDialogFooter isAdded={isAdded} onSave={onSave}>
+          <DialogFooter onDismiss={onDismiss} />
+        </WomanDialogFooter>
+      </Dialog.Footer>
     </Dialog>
   );
 };
