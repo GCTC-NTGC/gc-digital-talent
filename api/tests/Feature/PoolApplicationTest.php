@@ -331,7 +331,7 @@ class PoolApplicationTest extends TestCase
     // assert incomplete user cannot submit application
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationID: $id, signature: $sig) {
+        submitApplication(applicationId: $id, signature: $sig) {
           submittedAt
           signature
         }
@@ -353,7 +353,7 @@ class PoolApplicationTest extends TestCase
     // mimicking testArchivingApplication() where the returned value is always dynamic therefore must test returned structure and type
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationID: $id, signature: $sig) {
+        submitApplication(applicationId: $id, signature: $sig) {
           submittedAt
         }
       }
@@ -371,7 +371,7 @@ class PoolApplicationTest extends TestCase
     // assert user cannot re-submit application
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationID: $id, signature: $sig) {
+        submitApplication(applicationId: $id, signature: $sig) {
           submittedAt
         }
       }
@@ -418,7 +418,7 @@ class PoolApplicationTest extends TestCase
     // assert user cannot submit application with missing essential skills
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationID: $id, signature: $sig) {
+        submitApplication(applicationId: $id, signature: $sig) {
           submittedAt
           signature
         }
@@ -441,7 +441,7 @@ class PoolApplicationTest extends TestCase
     // assert user can now submit application as the essential skill is present
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationID: $id, signature: $sig) {
+        submitApplication(applicationId: $id, signature: $sig) {
           submittedAt
         }
       }

@@ -23,7 +23,7 @@ final class SubmitApplication
     {
         // grab the specific application
         // submit to validator the PoolCandidate model
-        $application = PoolCandidate::find($args['applicationID']);
+        $application = PoolCandidate::find($args['applicationId']);
         $submitValidator = new SubmitApplicationValidator;
         $validator = Validator::make($application->toArray(), $submitValidator->rules(), $submitValidator->messages());
         if ($validator->fails()) {

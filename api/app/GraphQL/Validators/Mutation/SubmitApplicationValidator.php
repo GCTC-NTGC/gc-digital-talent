@@ -1,8 +1,6 @@
 <?php
 
 namespace App\GraphQL\Validators\Mutation;
-use Database\Helpers\ApiEnums;
-use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class SubmitApplicationValidator extends Validator
