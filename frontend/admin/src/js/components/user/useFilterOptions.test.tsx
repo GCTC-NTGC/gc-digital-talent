@@ -21,6 +21,7 @@ describe("useFilterOptions", () => {
     msDelay?: number;
     responseData?: object;
   }) {
+    // Source: https://formidable.com/open-source/urql/docs/advanced/testing/
     const mockClient = {
       executeQuery: jest.fn(() =>
         pipe(fromValue(responseData), delay(msDelay)),
