@@ -1,18 +1,18 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
-import { SignAndSubmitForm, SignAndSubmitFormProps } from "./SignAndSubmitPage";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { SignAndSubmitForm } from "./SignAndSubmitPage";
 
 export default {
   component: SignAndSubmitForm,
   title: "Sign and Submit page",
   args: {
-    closingDate: Date.now() + 1,
+    closingDate: new Date(Date.now() + 1),
     jobTitle: "Application Developer - React (IT-01)",
     isNotComplete: false,
   },
-} as Meta;
+} as ComponentMeta<typeof SignAndSubmitForm>;
 
-const Template: Story<SignAndSubmitFormProps> = (args) => {
+const Template: ComponentStory<typeof SignAndSubmitForm> = (args) => {
   return <SignAndSubmitForm {...args} />;
 };
 
