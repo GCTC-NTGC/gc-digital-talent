@@ -573,7 +573,9 @@ export const Router: React.FC = () => {
         contentRoutes={[
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),
-          ...(featureFlags.applicantProfile ? profileRoutes(profilePaths) : []),
+          ...(featureFlags.applicantProfile
+            ? profileRoutes(profilePaths, data?.me?.id)
+            : []),
           ...(featureFlags.directIntake
             ? directIntakeRoutes(directIntakePaths)
             : []),
