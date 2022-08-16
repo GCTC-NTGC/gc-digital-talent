@@ -66,6 +66,7 @@ describe("useFilterOptions", () => {
   describe("rawGraphqlResults", () => {
     it("shows as fetching before response arrives", () => {
       const result = renderHookWithProviders({ msDelay: 100 });
+      expect(Object.keys(result.current.rawGraphqlResults)).toHaveLength(3);
       expect(result.current.rawGraphqlResults.pools.fetching).toBe(true);
       expect(result.current.rawGraphqlResults.classifications.fetching).toBe(
         true,
@@ -77,6 +78,10 @@ describe("useFilterOptions", () => {
   describe("simple fields", () => {
     it("returns static optionsData of appropriate length for non-async fields", () => {
       const result = renderHookWithProviders({});
+      const [countSimple, countAsync] = [7, 3];
+      const countTotal = countSimple + countAsync;
+      expect(Object.keys(result.current.optionsData)).toHaveLength(countTotal);
+
       expect(result.current.optionsData.employmentDuration).toHaveLength(2);
       expect(result.current.optionsData.jobLookingStatus).toHaveLength(3);
       expect(result.current.optionsData.languageAbility).toHaveLength(3);
@@ -99,6 +104,7 @@ describe("useFilterOptions", () => {
     });
 
     it.skip("performs 3 API client queries", () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const result = renderHookWithProviders({});
       // TODO: Refactor to access function mock and check if Urql client is being called appropriately.
       // expect(mockClient.executeQuery).toBeCalledTimes(3);
