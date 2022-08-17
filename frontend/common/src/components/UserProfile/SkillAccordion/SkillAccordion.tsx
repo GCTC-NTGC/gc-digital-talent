@@ -192,7 +192,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   };
 
   const getWorkExperience = (experience: WorkExperience) => {
-    const { startDate, endDate, role, organization, details } = experience;
+    const { startDate, endDate, role, division, organization, details } =
+      experience;
     return (
       <>
         <p>
@@ -205,7 +206,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             { organization, role },
           )}
         </p>
-        <p>{organization}</p>
+        <p>{division}</p>
         <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
         <p>{skill.experienceSkillRecord?.details}</p>
         <p>
