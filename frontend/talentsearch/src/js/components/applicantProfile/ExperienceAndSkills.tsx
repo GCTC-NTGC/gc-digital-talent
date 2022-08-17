@@ -171,6 +171,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
             >
               {links.map(({ title, href, icon }) => (
                 <IconLink
+                  key={title}
                   href={href}
                   type="button"
                   color="primary"
