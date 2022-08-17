@@ -232,7 +232,7 @@ const UserTableFilterDialog = ({
   );
 };
 
-type UserTableFilterButtonProps = Pick<
+export type UserTableFilterButtonProps = Pick<
   UserTableFilterDialogProps,
   "onSubmit" | "enableEducationType"
 > & { isOpenDefault?: boolean };

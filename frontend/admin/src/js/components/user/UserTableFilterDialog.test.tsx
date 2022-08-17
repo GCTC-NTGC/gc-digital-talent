@@ -8,7 +8,7 @@ import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { IntlProvider } from "react-intl";
 import UserTableFilterDialog from "./UserTableFilterDialog";
-// import type { UserTableFilterButtonProps } from "./UserTableFilterDialog";
+import type { UserTableFilterButtonProps } from "./UserTableFilterDialog";
 
 const mockClient = {
   executeQuery: () => fromValue([]),
@@ -38,9 +38,9 @@ const Providers = ({ children }: ProvidersProps) => (
 
 const mockSubmit = jest.fn();
 
-function renderButton(props: any) {
+function renderButton(props: Partial<UserTableFilterButtonProps>) {
   return render(
-    <UserTableFilterDialog.Button onSubmit={mockSubmit} {...props} />,
+    <UserTableFilterDialog.Button {...props} onSubmit={mockSubmit} />,
     {
       wrapper: Providers,
     },
