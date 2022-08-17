@@ -59,8 +59,8 @@ const ExperienceFormContainer = React.lazy(
 const WorkPreferencesApi = React.lazy(
   () => import("./workPreferencesForm/WorkPreferencesForm"),
 );
-const AboutMeFormContainer = React.lazy(
-  () => import("./aboutMeForm/AboutMeForm"),
+const AboutMeFormPage = React.lazy(
+  () => import("./aboutMeForm/AboutMeFormPage"),
 );
 const DiversityEquityInclusionFormApi = React.lazy(
   () => import("./diversityEquityInclusion/DiversityEquityInclusionForm"),
@@ -220,7 +220,7 @@ const profileRoutes = (
   {
     path: profilePaths.aboutMe(":userId"),
     action: () => ({
-      component: <AboutMeFormContainer />,
+      component: <AboutMeFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
