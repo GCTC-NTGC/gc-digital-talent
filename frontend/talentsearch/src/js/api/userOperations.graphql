@@ -23,7 +23,6 @@ query getMe {
     estimatedLanguageAbility
     isGovEmployee
     govEmployeeType
-    interestedInLaterOrSecondment
     department {
       id
       departmentNumber

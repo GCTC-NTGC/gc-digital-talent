@@ -9,11 +9,7 @@ import { Applicant, GovEmployeeType } from "../../../api/generated";
 const GovernmentInformationSection: React.FunctionComponent<{
   applicant: Pick<
     Applicant,
-    | "isGovEmployee"
-    | "govEmployeeType"
-    | "interestedInLaterOrSecondment"
-    | "department"
-    | "currentClassification"
+    "isGovEmployee" | "govEmployeeType" | "department" | "currentClassification"
   >;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
@@ -53,16 +49,6 @@ const GovernmentInformationSection: React.FunctionComponent<{
             {applicant.govEmployeeType && (
               <li>
                 {intl.formatMessage(getGovEmployeeType(govEmployeeTypeId))}
-              </li>
-            )}
-            {applicant.interestedInLaterOrSecondment && (
-              <li>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "I am interested in lateral deployment or secondment.",
-                  description:
-                    "Message to state user is interested in lateral deployment or secondment",
-                })}
               </li>
             )}
             {!!applicant.currentClassification?.group &&
