@@ -8,7 +8,7 @@ import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import Card from "@common/components/Card";
 import { Link } from "@common/components";
-import { getLocale, getLocalizedName } from "@common/helpers/localize";
+import { getLocale } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 
 import { AdvertisementStatus, SkillCategory } from "@common/api/generated";
@@ -37,6 +37,7 @@ import TALENTSEARCH_APP_DIR, {
 } from "../../talentSearchConstants";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
+import getFullPoolAdvertisementTitle from "./getFullPoolAdvertisementTitle";
 
 interface ApplyButtonProps {
   disabled: boolean;
@@ -101,13 +102,8 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
   const genericTitle = classification?.genericJobTitles?.length
     ? classification.genericJobTitles[0]
     : null;
-  const localizedClassificationName = getLocalizedName(
-    classification?.name,
-    intl,
-  );
-  const localizedTitle = getLocalizedName(genericTitle?.name, intl);
   const classificationSuffix = `${classification?.group}-0${classification?.level}`;
-  const fullTitle = `${localizedClassificationName} ${localizedTitle} (${classificationSuffix})`;
+  const fullTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
   const canApply =
     poolAdvertisement.advertisementStatus &&
     poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;

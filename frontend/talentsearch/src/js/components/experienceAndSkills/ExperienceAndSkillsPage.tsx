@@ -11,7 +11,7 @@ import { useQueryParams } from "@common/helpers/router";
 import {
   Experience,
   useGetAllApplicantExperiencesQuery,
-  useGetApplicationPoolSkillsQuery,
+  useGetApplicationDetailsQuery,
 } from "../../api/generated";
 import profileMessages from "../profile/profileMessages";
 import { ExperienceAndSkills } from "./ExperienceAndSkills";
@@ -27,15 +27,15 @@ const ExperienceAndSkillsApi = ({
 }: ExperienceAndSkillsApiProps) => {
   const intl = useIntl();
   const { application } = useQueryParams();
-  const [{ data, fetching, error }] = useGetApplicationPoolSkillsQuery({
+  const [{ data, fetching, error }] = useGetApplicationDetailsQuery({
     variables: { id: application },
   });
-
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate?.poolAdvertisement ? (
         <ExperienceAndSkills
           applicantId={applicantId}
+          poolAdvertisement={data.poolCandidate.poolAdvertisement}
           missingSkills={{
             requiredSkills:
               data?.poolCandidate?.poolAdvertisement?.essentialSkills || [],

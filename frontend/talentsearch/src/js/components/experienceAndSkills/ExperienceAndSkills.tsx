@@ -4,6 +4,7 @@ import {
   LightBulbIcon,
   StarIcon,
   UserGroupIcon,
+  UserIcon,
 } from "@heroicons/react/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
@@ -14,11 +15,13 @@ import { notEmpty, flatten } from "@common/helpers/util";
 import MissingSkills from "@common/components/skills/MissingSkills";
 import { commonMessages } from "@common/messages";
 import { useQueryParams } from "@common/helpers/router";
+import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import {
   AwardExperience,
   CommunityExperience,
   Experience,
   PersonalExperience,
+  PoolAdvertisement,
   Skill,
   WorkExperience,
 } from "../../api/generated";
@@ -26,6 +29,8 @@ import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import { ExperienceType } from "../experienceForm/types";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
+import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
 type MergedExperiences = Array<
   | AwardExperience
@@ -79,6 +84,7 @@ const flattenExperienceSkills = (experiences: MergedExperiences): Skill[] => {
 export interface ExperienceAndSkillsProps {
   applicantId: string;
   experiences?: Experience[];
+  poolAdvertisement?: PoolAdvertisement;
   missingSkills?: {
     requiredSkills: Skill[];
     optionalSkills: Skill[];
@@ -87,9 +93,10 @@ export interface ExperienceAndSkillsProps {
 
 export const ExperienceAndSkills: React.FunctionComponent<
   ExperienceAndSkillsProps
-> = ({ experiences, missingSkills, applicantId }) => {
+> = ({ experiences, missingSkills, applicantId, poolAdvertisement }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
+  const directIntakePaths = useDirectIntakeRoutes();
   const { application } = useQueryParams();
   const applicationParam = application ? `?application=${application}` : ``;
 
@@ -150,17 +157,43 @@ export const ExperienceAndSkills: React.FunctionComponent<
 
   const hasExperiences = notEmpty(experiences);
 
+  let crumbs = [
+    {
+      title: intl.formatMessage({
+        defaultMessage: "Experience and Skills",
+        description:
+          "Breadcrumb for experience and skills page in applicant profile.",
+      }),
+    },
+  ] as BreadcrumbsProps["links"];
+
+  if (poolAdvertisement) {
+    const advertisementTitle = getFullPoolAdvertisementTitle(
+      intl,
+      poolAdvertisement,
+    );
+
+    crumbs = [
+      {
+        title: intl.formatMessage({
+          defaultMessage: "My Applications",
+          description: "Link text for breadcrumb to user applications page.",
+        }),
+        href: directIntakePaths.applications(applicantId),
+        icon: <UserIcon style={{ width: "1rem", marginRight: "5px" }} />,
+      },
+      {
+        title: advertisementTitle,
+        href: "/#",
+      },
+      ...crumbs,
+    ];
+  }
+
   return (
     <ProfileFormWrapper
-      crumbs={[
-        {
-          title: intl.formatMessage({
-            defaultMessage: "Experience and Skills",
-            description:
-              "Breadcrumb for experience and skills page in applicant profile.",
-          }),
-        },
-      ]}
+      prefixBreadcrumbs={!poolAdvertisement}
+      crumbs={crumbs}
       description={intl.formatMessage({
         defaultMessage:
           "Here is where you can add experiences and skills to your profile. This could be anything from helping community members troubleshoot their computers to full-time employment at an IT organization.",
