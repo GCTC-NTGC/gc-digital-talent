@@ -10,12 +10,12 @@
     "../*/src/views/*.html"
   ],
   "input": [
-    "../common/src/components",
-    "../admin/src/js",
-    "../talentsearch/src/js",
-    "../indigenousapprenticeship/src/js"
+    "common/src/components",
+    "admin/src/js",
+    "talentsearch/src/js",
+    "indigenousapprenticeship/src/js"
   ],
-  "output": "src/css",
+  "output": "common/src/css",
   "variables": true,
   "reset_styles": true,
   "dark_mode": "preference",
