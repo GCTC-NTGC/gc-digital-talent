@@ -171,7 +171,10 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
             </React.Fragment>
           ))
         ) : (
-          <p data-h2-font-style="base(italic)" data-h2-padding="base(0, 0, x1, 0)">
+          <p
+            data-h2-font-style="base(italic)"
+            data-h2-padding="base(0, 0, x1, 0)"
+          >
             {intl.formatMessage({
               defaultMessage:
                 "There are no skills attached to this experience yet. You can add some on the step above.",

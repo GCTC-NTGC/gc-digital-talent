@@ -305,7 +305,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
             >
               Filter by
             </h4>
-            <div >
+            <div>
               <SearchBar handleSearch={handleSearch} />
             </div>
             <SkillResults

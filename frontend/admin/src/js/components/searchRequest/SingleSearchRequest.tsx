@@ -122,12 +122,12 @@ const ManagerInfo: React.FunctionComponent<{
                 })}
                 content={
                   applicantFilter
-                  ? applicantFilter?.pools?.map(
-                      (pool) => pool?.name?.[locale] || nonApplicableMessage,
-                    )
-                  : poolCandidateFilter?.pools?.map(
-                      (pool) => pool?.name?.[locale] || nonApplicableMessage,
-                    )
+                    ? applicantFilter?.pools?.map(
+                        (pool) => pool?.name?.[locale] || nonApplicableMessage,
+                      )
+                    : poolCandidateFilter?.pools?.map(
+                        (pool) => pool?.name?.[locale] || nonApplicableMessage,
+                      )
                 }
               />
 

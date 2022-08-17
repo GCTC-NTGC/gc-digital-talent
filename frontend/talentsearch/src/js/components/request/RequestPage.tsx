@@ -64,7 +64,10 @@ const RequestPage: React.FunctionComponent = () => {
         data-h2-margin="base(x3, 0, 0, 0) p-tablet(x6, 0, 0, 0)"
         data-h2-position="base(relative)"
       >
-        <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)" data-h2-position="base(relative)">
+        <div
+          data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)"
+          data-h2-position="base(relative)"
+        >
           <div
             data-h2-background-color="base(dt-white)"
             data-h2-radius="base(s)"

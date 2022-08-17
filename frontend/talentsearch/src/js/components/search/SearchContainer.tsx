@@ -124,18 +124,18 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
                 data-h2-font-weight="base(300)"
               >
                 {intl.formatMessage({
-                defaultMessage: "How to use this tool",
-                description:
-                  "Heading displayed in the How To area of the hero section of the Search page.",
-              })}
+                  defaultMessage: "How to use this tool",
+                  description:
+                    "Heading displayed in the How To area of the hero section of the Search page.",
+                })}
               </h2>
               <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Use the filters below to specify your hiring needs. At any time you can look at the results located at the bottom of this page to see how many candidates match the requirements you have entered. When you are comfortable with the filters you have selected, click the Request Candidates button to add more details and submit a request form.",
-                description:
-                  "Content displayed in the How To area of the hero section of the Search page.",
-              })}
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Use the filters below to specify your hiring needs. At any time you can look at the results located at the bottom of this page to see how many candidates match the requirements you have entered. When you are comfortable with the filters you have selected, click the Request Candidates button to add more details and submit a request form.",
+                  description:
+                    "Content displayed in the How To area of the hero section of the Search page.",
+                })}
               </p>
             </div>
             <SearchForm
