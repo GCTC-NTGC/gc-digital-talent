@@ -18,10 +18,12 @@ import { ExperienceAndSkills } from "./ExperienceAndSkills";
 
 interface ExperienceAndSkillsApiProps {
   applicationId: string;
+  applicantId: string;
   experiences: Experience[];
 }
 
 const ExperienceAndSkillsApi = ({
+  applicantId,
   applicationId,
   experiences,
 }: ExperienceAndSkillsApiProps) => {
@@ -34,6 +36,7 @@ const ExperienceAndSkillsApi = ({
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate?.poolAdvertisement ? (
         <ExperienceAndSkills
+          applicantId={applicantId}
           missingSkills={{
             requiredSkills:
               data?.poolCandidate?.poolAdvertisement?.essentialSkills || [],
@@ -59,17 +62,23 @@ const ExperienceAndSkillsApi = ({
 
 interface ApiOrContentProps {
   applicationId?: string;
+  applicantId: string;
   experiences: Experience[];
 }
 
-const ApiOrContent = ({ applicationId, experiences }: ApiOrContentProps) =>
+const ApiOrContent = ({
+  applicationId,
+  applicantId,
+  experiences,
+}: ApiOrContentProps) =>
   applicationId ? (
     <ExperienceAndSkillsApi
+      applicantId={applicantId}
       applicationId={applicationId}
       experiences={experiences}
     />
   ) : (
-    <ExperienceAndSkills experiences={experiences} />
+    <ExperienceAndSkills applicantId={applicantId} experiences={experiences} />
   );
 
 const ExperienceAndSkillsPage = () => {
@@ -87,6 +96,7 @@ const ExperienceAndSkillsPage = () => {
     <Pending fetching={fetching} error={error}>
       {data?.applicant ? (
         <ApiOrContent
+          applicantId={data?.applicant.id}
           applicationId={queryParams.application || undefined}
           experiences={experiences || []}
         />

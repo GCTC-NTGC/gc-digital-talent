@@ -75,6 +75,7 @@ const flattenExperienceSkills = (experiences: MergedExperiences): Skill[] => {
 };
 
 export interface ExperienceAndSkillsProps {
+  applicantId: string;
   experiences?: Experience[];
   applicationId?: Scalars["ID"];
   missingSkills?: {
@@ -85,20 +86,23 @@ export interface ExperienceAndSkillsProps {
 
 export const ExperienceAndSkills: React.FunctionComponent<
   ExperienceAndSkillsProps
-> = ({ experiences, missingSkills, applicationId }) => {
+> = ({ experiences, missingSkills, applicationId, applicantId }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
   const experienceEditPaths = {
-    awardUrl: (id: string) => paths.editExperience("award", id),
-    communityUrl: (id: string) => paths.editExperience("community", id),
-    educationUrl: (id: string) => paths.editExperience("education", id),
-    personalUrl: (id: string) => paths.editExperience("personal", id),
-    workUrl: (id: string) => paths.editExperience("work", id),
+    awardUrl: (id: string) => paths.editExperience(applicantId, "award", id),
+    communityUrl: (id: string) =>
+      paths.editExperience(applicantId, "community", id),
+    educationUrl: (id: string) =>
+      paths.editExperience(applicantId, "education", id),
+    personalUrl: (id: string) =>
+      paths.editExperience(applicantId, "personal", id),
+    workUrl: (id: string) => paths.editExperience(applicantId, "work", id),
   };
 
   const links = [
     {
-      href: paths.createPersonal(),
+      href: paths.createPersonal(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Personal",
         description: "Title for personal experience form button.",
@@ -106,7 +110,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: LightBulbIcon,
     },
     {
-      href: paths.createCommunity(),
+      href: paths.createCommunity(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Community",
         description: "Title for community experience form button.",
@@ -114,7 +118,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: UserGroupIcon,
     },
     {
-      href: paths.createWork(),
+      href: paths.createWork(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Work",
         description: "Title for work experience form button.",
@@ -122,7 +126,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: BriefcaseIcon,
     },
     {
-      href: paths.createEducation(),
+      href: paths.createEducation(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Education",
         description: "Title for education experience form button.",
@@ -130,7 +134,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: BookOpenIcon,
     },
     {
-      href: paths.createAward(),
+      href: paths.createAward(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Award",
         description: "Title for award experience form button.",
