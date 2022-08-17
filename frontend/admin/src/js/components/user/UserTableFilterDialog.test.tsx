@@ -94,7 +94,23 @@ describe("UserTableFilterDialog", () => {
       expect(mockSubmit).toHaveBeenCalledWith(emptyFormValues);
     });
 
-    it.skip("doesn't call submit handler when cleared", () => {});
+    it("doesn't call submit handler when cleared", () => {
+      const { getByRole } = renderButton({
+        isOpenDefault: true,
+      });
+      fireEvent.click(getByRole("button", { name: /clear/i }));
+      expect(mockSubmit).not.toHaveBeenCalled();
+    });
+
+    it("closes the dialog on submission", async () => {
+      const { queryByRole, getByRole } = renderButton({
+        isOpenDefault: true,
+      });
+      await act(async () => {
+        fireEvent.click(getByRole("button", { name: /show results/i }));
+      });
+      expect(queryByRole("dialog")).not.toBeInTheDocument();
+    });
   });
 
   describe("form data", () => {
