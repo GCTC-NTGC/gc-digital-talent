@@ -92,7 +92,6 @@ export const PageContainer: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const intl = useIntl();
-
   // stabilize components that will not change during life of app, avoid render loops in router
   const notFoundComponent = useRef(<IndigenousApprenticeshipNotFound />);
   const notAuthorizedComponent = useRef(
