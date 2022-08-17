@@ -7,6 +7,7 @@ import Dialog from "@common/components/Dialog";
 import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
 import { BellIcon } from "@heroicons/react/outline";
+import { getLocale } from "@common/helpers/localize";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
@@ -15,6 +16,7 @@ import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
   const directIntakePaths = useDirectIntakeRoutes();
   const talentPaths = useTalentSearchRoutes();
@@ -98,7 +100,11 @@ const LoggedOutPage: React.FC = () => {
               </TileLink>
             </div>
             <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-              <TileLink href="/talent-cloud/report" color="primary" external>
+              <TileLink
+                href={`/${locale}/talent-cloud/report`}
+                color="primary"
+                external
+              >
                 {intl.formatMessage({
                   defaultMessage: "Talent Cloud report",
                   description: "Link text to read the report on talent cloud",
