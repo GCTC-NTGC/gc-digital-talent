@@ -47,29 +47,42 @@ function renderButton(props: any) {
 }
 
 describe("UserTableFilterDialog", () => {
-  it("button: hides modal by default", () => {
-    const { queryByRole } = renderButton({ onSubmit: noop });
-    expect(
-      queryByRole("dialog", { name: /select filters/i }),
-    ).not.toBeInTheDocument();
-  });
-
-  it("button: opens modal when clicked", () => {
-    const { getByRole } = renderButton({ onSubmit: noop });
-    fireEvent.click(getByRole("button", { name: /filter/i }));
-    expect(
-      getByRole("dialog", { name: /select filters/i }),
-    ).toBeInTheDocument();
-  });
-
-  it("button: can be set to start with modal open", () => {
-    const { getByRole } = renderButton({
-      onSubmit: noop,
-      isOpenDefault: true,
+  describe("UserTableFilterDialog.Button", () => {
+    it("modal is hidden by default", () => {
+      const { queryByRole } = renderButton({ onSubmit: noop });
+      expect(
+        queryByRole("dialog", { name: /select filters/i }),
+      ).not.toBeInTheDocument();
     });
-    expect(
-      getByRole("dialog", { name: /select filters/i }),
-    ).toBeInTheDocument();
+
+    it("opens modal when clicked", () => {
+      const { getByRole } = renderButton({ onSubmit: noop });
+      fireEvent.click(getByRole("button", { name: /filter/i }));
+      expect(
+        getByRole("dialog", { name: /select filters/i }),
+      ).toBeInTheDocument();
+    });
+
+    it("can be set to start with modal open", () => {
+      const { getByRole } = renderButton({
+        onSubmit: noop,
+        isOpenDefault: true,
+      });
+      expect(
+        getByRole("dialog", { name: /select filters/i }),
+      ).toBeInTheDocument();
+    });
+
+    it("can be closed via X button", async () => {
+      const { getByRole, queryByRole } = renderButton({
+        onSubmit: noop,
+        isOpenDefault: true,
+      });
+      await act(async () => {
+        fireEvent.click(getByRole("button", { name: /close dialog/i }));
+      });
+      expect(queryByRole("dialog")).not.toBeInTheDocument();
+    });
   });
 
   describe("submit button", () => {
