@@ -40,6 +40,7 @@ module.exports = {
         API_URI: JSON.stringify(process.env.API_URI),
         INDIGENOUSAPPRENTICESHIP_APP_URL: JSON.stringify(process.env.INDIGENOUSAPPRENTICESHIP_APP_URL),
         INDIGENOUSAPPRENTICESHIP_APP_DIR: JSON.stringify(process.env.INDIGENOUSAPPRENTICESHIP_APP_DIR),
+        APPLICATIONINSIGHTS_CONNECTION_STRING: JSON.stringify(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING),
         BUILD_DATE: JSON.stringify(new Date()),
       },
     }),
