@@ -57,6 +57,10 @@ const closeDialog = () => {
   fireEvent.click(screen.getByRole("button", { name: /close dialog/i }));
 };
 
+const clearFilters = () => {
+  fireEvent.click(screen.getByRole("button", { name: /clear/i }));
+};
+
 const setFilter = (fieldLabel: string | RegExp, optionLabel: string) => {
   fireEvent.mouseDown(screen.getByRole("combobox", { name: fieldLabel }), {
     button: 0,
@@ -112,7 +116,7 @@ describe("UserTableFilterDialog", () => {
 
     it("doesn't call submit handler when cleared", () => {
       renderButton({ isOpenDefault: true });
-      fireEvent.click(screen.getByRole("button", { name: /clear/i }));
+      clearFilters();
       expect(mockSubmit).not.toHaveBeenCalled();
     });
 
@@ -135,43 +139,61 @@ describe("UserTableFilterDialog", () => {
   });
 
   describe("form data", () => {
-    it("doesn't persist form data changes when modal closed with X", async () => {
-      renderButton({ isOpenDefault: true });
-
-      setFilter(/work locations/i, "Atlantic");
-
-      closeDialog();
-      openDialog();
-
-      await submitFilters();
-
-      // No submitted data.
-      const activeFilter = mockSubmit.mock.lastCall[0];
-      expect(activeFilter.workRegion).toHaveLength(0);
-    });
-
-    it("persists form data when modal submitted and re-opened", async () => {
+    it("correctly selects work location filter", () => {
       renderButton({ isOpenDefault: true });
 
       expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
       setFilter(/work locations/i, "Atlantic");
       expect(screen.getByText("Atlantic")).toBeInTheDocument();
+    });
 
+    it("doesn't persist form data changes when modal closed with X", async () => {
+      renderButton({ isOpenDefault: true });
+      setFilter(/work locations/i, "Atlantic");
+      closeDialog();
+
+      openDialog();
+      expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
+    });
+
+    it("persists form data when modal submitted and re-opened", async () => {
+      renderButton({ isOpenDefault: true });
+      setFilter(/work locations/i, "Atlantic");
       await submitFilters();
 
       openDialog();
       expect(screen.getByText("Atlantic")).toBeInTheDocument();
-
-      await submitFilters();
-      expect(mockSubmit).toHaveBeenCalledTimes(2);
-      const activeFilter = mockSubmit.mock.lastCall[0];
-      expect(activeFilter.workRegion).toHaveLength(1);
     });
   });
 
   describe("clear button", () => {
-    it.skip("clears prior form data when submitted", () => {});
-    it.skip("keeps prior form data when not submitted", () => {});
+    it("clears prior form data when submitted empty", async () => {
+      renderButton({ isOpenDefault: true });
+      setFilter(/work locations/i, "Atlantic");
+      await submitFilters();
+
+      // Clear and submit.
+      openDialog();
+      clearFilters();
+      await submitFilters();
+
+      openDialog();
+      expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
+    });
+
+    it("keeps prior form data when not submitted", async () => {
+      renderButton({ isOpenDefault: true });
+      setFilter(/work locations/i, "Atlantic");
+      await submitFilters();
+
+      // Clear without submitting.
+      openDialog();
+      clearFilters();
+      closeDialog();
+
+      openDialog();
+      expect(screen.getByText("Atlantic")).toBeInTheDocument();
+    });
   });
 
   it("shows all filters in modal", () => {
