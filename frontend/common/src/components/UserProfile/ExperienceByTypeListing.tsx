@@ -35,7 +35,11 @@ const ExperienceByType: React.FunctionComponent<{
 }) => {
   return (
     <div>
-      <div data-h2-display="base(flex)" data-h2-align-items="base(center)" data-h2-padding="base(0, 0, x.5, 0)">
+      <div
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(center)"
+        data-h2-padding="base(0, 0, x.5, 0)"
+      >
         <span data-h2-margin="base(x.125, x.5, 0, 0)">{icon}</span>
         <p data-h2-font-size="base(h5, 1)">{title} experiences</p>
       </div>

@@ -24,13 +24,12 @@ const Tab = (props: TabProps) => {
           }
         : {
             "data-h2-background-color": "base(dt-white)",
-            "data-h2-border": "base(all, 1px, solid, dt-gray) base(top, x.5, solid, dt-gray)",
+            "data-h2-border":
+              "base(all, 1px, solid, dt-gray) base(top, x.5, solid, dt-gray)",
           })}
       {...props}
     >
-      <span>
-        {children}
-      </span>
+      <span>{children}</span>
     </ReachTab>
   );
 };

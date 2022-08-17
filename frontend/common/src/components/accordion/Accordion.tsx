@@ -125,9 +125,9 @@ const Accordion: React.FC<AccordionProps> = ({
           (isOpen
             ? { "data-h2-border": "base(left, x.5, solid, light.dt-primary)" }
             : { "data-h2-border": "base(left, x.5, solid, dark.dt-primary)" }))}
-            id={IDS.content}
-            role="region"
-            aria-labelledby={IDS.trigger}
+        id={IDS.content}
+        role="region"
+        aria-labelledby={IDS.trigger}
         data-h2-background-color="base(dt-white)"
       >
         <div

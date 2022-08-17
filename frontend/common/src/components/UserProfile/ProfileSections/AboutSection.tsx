@@ -168,10 +168,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
             <div data-h2-flex-item="base(1of1)">
               <p data-h2-color="base(dt-gray.dark)">
-              {intl.formatMessage({
-                defaultMessage: "You haven't added any information here yet.",
-                description: "Message for when no data exists for the section",
-              })}
+                {intl.formatMessage({
+                  defaultMessage: "You haven't added any information here yet.",
+                  description:
+                    "Message for when no data exists for the section",
+                })}
               </p>
             </div>
           </div>

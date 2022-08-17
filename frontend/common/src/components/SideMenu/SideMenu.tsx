@@ -45,7 +45,10 @@ const SideMenu: React.FC<SideMenuProps> = ({
   };
 
   return !isSmallScreen || isOpen ? (
-    <div data-h2-flex-item="base(content)" data-h2-background-color="base(dt-secondary.light)">
+    <div
+      data-h2-flex-item="base(content)"
+      data-h2-background-color="base(dt-secondary.light)"
+    >
       <FocusLock
         autoFocus
         returnFocus

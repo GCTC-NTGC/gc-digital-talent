@@ -55,10 +55,7 @@ const Footer: React.FunctionComponent<{
             data-h2-text-align="base(center) l-tablet(left)"
           >
             <nav>
-              <ul
-                style={{ gap: "1rem" }}
-                className="reset-ul"
-              >
+              <ul style={{ gap: "1rem" }} className="reset-ul">
                 {links.map(({ route, label }) => (
                   <li
                     key={label}
@@ -104,7 +101,8 @@ const Footer: React.FunctionComponent<{
                 src={imageUrl(baseUrl, "logo_canada.png")}
                 alt={intl.formatMessage({
                   defaultMessage: "Canada.ca",
-                  description: "Alt text for the Canada logo link in the Footer.",
+                  description:
+                    "Alt text for the Canada logo link in the Footer.",
                 })}
               />
             </a>

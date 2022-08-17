@@ -73,11 +73,7 @@ const Pill: React.FC<PillProps> = ({
       {...rest}
     >
       {/* parent span already has a display style */}
-      <span
-
-      >
-        {children}
-      </span>
+      <span>{children}</span>
     </span>
   );
 };
