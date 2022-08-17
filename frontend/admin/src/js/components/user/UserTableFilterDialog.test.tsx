@@ -72,23 +72,41 @@ describe("UserTableFilterDialog", () => {
     ).toBeInTheDocument();
   });
 
-  it("button: calls submit handler with empty filters", async () => {
-    const mockSubmit = jest.fn();
-    const { getByRole } = renderButton({
-      onSubmit: mockSubmit,
-      isOpenDefault: true,
+  describe("submit button", () => {
+    it("calls submit handler with empty filters", async () => {
+      const mockSubmit = jest.fn();
+      const { getByRole } = renderButton({
+        onSubmit: mockSubmit,
+        isOpenDefault: true,
+      });
+      await act(async () => {
+        fireEvent.click(getByRole("button", { name: /show results/i }));
+      });
+      expect(mockSubmit).toHaveBeenCalledTimes(1);
+      expect(mockSubmit).toHaveBeenCalledWith(emptyFormValues);
     });
-    await act(async () => {
-      fireEvent.click(getByRole("button", { name: /show results/i }));
-    });
-    expect(mockSubmit).toHaveBeenCalledTimes(1);
-    expect(mockSubmit).toHaveBeenCalledWith(emptyFormValues);
+
+    it.skip("doesn't call submit handler when cleared", () => {});
   });
 
-  it.skip("button: doesn't call submit handler when cleared", () => {});
-  it.skip("button: submits empty form data when filters empty", () => {});
+  describe("form data", () => {
+    it.skip("renders form data as filter selections", () => {});
+    it.skip("doesn't persist form data changes when modal closed with X", () => {});
+    it.skip("persists form data when modal submitted and re-opened", () => {});
+  });
 
-  it.skip("clear button: clears selected form data", () => {});
+  describe("clear button", () => {
+    it.skip("clears prior form data when submitted", () => {});
+    it.skip("keeps prior form data when not submitted", () => {});
+  });
+
+  it("shows all filters in modal", () => {
+    const { getAllByRole } = renderButton({
+      onSubmit: noop,
+      isOpenDefault: true,
+    });
+    expect(getAllByRole("combobox")).toHaveLength(10);
+  });
 
   describe("enableEducationType prop", () => {
     it("hide education filter when not enabled", () => {
@@ -104,11 +122,12 @@ describe("UserTableFilterDialog", () => {
 
     it("shows education filter when enabled", () => {
       const mockSubmit = jest.fn();
-      const { getByRole } = renderButton({
+      const { getByRole, getAllByRole } = renderButton({
         onSubmit: mockSubmit,
         isOpenDefault: true,
         enableEducationType: true,
       });
+      expect(getAllByRole("combobox")).toHaveLength(11);
       expect(getByRole("combobox", { name: /education/i })).toBeInTheDocument();
     });
 
