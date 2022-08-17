@@ -83,6 +83,8 @@ const SideMenu: React.FC<SideMenuProps> = ({
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
             className="side-menu__content"
+            aria-label={label}
+            onKeyDown={handleKeyDown}
           >
             <div
               data-h2-margin="base(x1, 0, 0, 0) l-tablet(x2, 0, 0, 0) desktop(x3, 0, 0, 0)"
