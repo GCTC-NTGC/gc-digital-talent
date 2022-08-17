@@ -1025,7 +1025,7 @@ export const simpleGovEmployeeType = defineMessages({
   },
   [GovEmployeeType.Casual]: {
     defaultMessage: "Casual",
-    description: "Simple Casual selection for government employee type.",
+    description: "Simple casual selection for government employee type.",
   },
   [GovEmployeeType.Term]: {
     defaultMessage: "Term",
