@@ -239,10 +239,11 @@ type UserTableFilterButtonProps = Pick<
 const UserTableFilterButton = ({
   onSubmit,
   isOpenDefault = false,
+  enableEducationType,
   ...rest
 }: UserTableFilterButtonProps) => {
   const { formatMessage } = useIntl();
-  const { emptyFormValues } = useFilterOptions();
+  const { emptyFormValues } = useFilterOptions(enableEducationType);
   const [activeFilters, setActiveFilters] =
     useState<FormValues>(emptyFormValues);
   const [isOpen, setIsOpen] = useState(isOpenDefault);
@@ -275,7 +276,7 @@ const UserTableFilterButton = ({
         </span>
       </Button>
       <UserTableFilterDialog
-        {...{ isOpen, activeFilters }}
+        {...{ isOpen, activeFilters, enableEducationType }}
         {...rest}
         onDismiss={handleDismiss}
         onSubmit={handleSubmit}
