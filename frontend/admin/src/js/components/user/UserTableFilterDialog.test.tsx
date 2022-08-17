@@ -7,6 +7,7 @@ import { render, fireEvent, act, screen } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { IntlProvider } from "react-intl";
+import WorkLocationSection from "@common/components/UserProfile/ProfileSections/WorkLocationSection";
 import UserTableFilterDialog from "./UserTableFilterDialog";
 import type { UserTableFilterButtonProps } from "./UserTableFilterDialog";
 
@@ -47,6 +48,24 @@ function renderButton(props: Partial<UserTableFilterButtonProps>) {
   );
 }
 
+const openDialog = () => {
+  fireEvent.click(screen.getByRole("button", { name: /filter/i }));
+};
+
+const closeDialog = () => {
+  fireEvent.click(screen.getByRole("button", { name: /close dialog/i }));
+};
+
+const setFilter = (fieldLabel: string | RegExp, optionLabel: string) => {
+  fireEvent.mouseDown(screen.getByRole("combobox", { name: fieldLabel }), {
+    button: 0,
+  });
+  fireEvent.keyDown(screen.getByText(optionLabel), {
+    keyCode: 13,
+    key: "Enter",
+  });
+};
+
 beforeEach(() => {
   mockSubmit.mockClear();
 });
@@ -60,7 +79,7 @@ describe("UserTableFilterDialog", () => {
 
     it("opens modal when clicked", () => {
       renderButton({});
-      fireEvent.click(screen.getByRole("button", { name: /filter/i }));
+      openDialog();
       expect(screen.getByRole("dialog")).toBeInTheDocument();
     });
 
@@ -71,9 +90,7 @@ describe("UserTableFilterDialog", () => {
 
     it("can be closed via X button", async () => {
       renderButton({ isOpenDefault: true });
-      await act(async () => {
-        fireEvent.click(screen.getByRole("button", { name: /close dialog/i }));
-      });
+      closeDialog();
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
   });
@@ -105,15 +122,7 @@ describe("UserTableFilterDialog", () => {
     it("submits filter data", async () => {
       renderButton({ isOpenDefault: true });
 
-      // Set a filter.
-      fireEvent.mouseDown(
-        screen.getByRole("combobox", { name: /work locations/i }),
-        { button: 0 },
-      );
-      fireEvent.keyDown(screen.getByText("Atlantic"), {
-        keyCode: 13,
-        key: "Enter",
-      });
+      setFilter(/work locations/i, "Atlantic");
 
       await act(async () => {
         fireEvent.click(screen.getByRole("button", { name: /show results/i }));
@@ -125,23 +134,14 @@ describe("UserTableFilterDialog", () => {
   });
 
   describe("form data", () => {
-    it.skip("renders form data as filter selections", () => {});
     it("doesn't persist form data changes when modal closed with X", async () => {
       renderButton({ isOpenDefault: true });
 
-      // Set a filter.
-      fireEvent.mouseDown(
-        screen.getByRole("combobox", { name: /work locations/i }),
-        { button: 0 },
-      );
-      fireEvent.keyDown(screen.getByText("Atlantic"), {
-        keyCode: 13,
-        key: "Enter",
-      });
+      setFilter(/work locations/i, "Atlantic");
 
       // Close and re-open dialog.
-      fireEvent.click(screen.getByRole("button", { name: /close/i }));
-      fireEvent.click(screen.getByRole("button", { name: /filter/i }));
+
+      openDialog();
 
       await act(async () => {
         fireEvent.click(screen.getByRole("button", { name: /show results/i }));
@@ -151,25 +151,21 @@ describe("UserTableFilterDialog", () => {
       const activeFilter = mockSubmit.mock.lastCall[0];
       expect(activeFilter.workRegion).toHaveLength(0);
     });
+
     it("persists form data when modal submitted and re-opened", async () => {
       renderButton({ isOpenDefault: true });
-      expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
 
-      fireEvent.mouseDown(
-        screen.getByRole("combobox", { name: /work locations/i }),
-        { button: 0 },
-      );
-      fireEvent.keyDown(screen.getByText("Atlantic"), {
-        keyCode: 13,
-        key: "Enter",
-      });
+      // Set a filter.
+      expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
+      setFilter(/work locations/i, "Atlantic");
+      expect(screen.getByText("Atlantic")).toBeInTheDocument();
+      // expect(screen.getByText("North")).toBeInTheDocument();
 
       await act(async () => {
         fireEvent.click(screen.getByRole("button", { name: /show results/i }));
       });
 
-      // Re-open dialog.
-      fireEvent.click(screen.getByRole("button", { name: /filter/i }));
+      openDialog();
       expect(screen.getByText("Atlantic")).toBeInTheDocument();
 
       await act(async () => {
