@@ -5,6 +5,7 @@ import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
 import { getLocale } from "@common/helpers/localize";
 import { Helmet } from "react-helmet";
+import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import ClientProvider from "./ClientProvider";
 import PageContainer, { MenuLink } from "./PageContainer";
 import {
@@ -27,6 +28,16 @@ const routes = (
 export const Router: React.FC = () => {
   const intl = useIntl();
   const indigenousApprenticeshipPaths = useIndigenousApprenticeshipRoutes();
+
+  if (process.env.APPLICATIONINSIGHTS_CONNECTION_STRING) {
+    const appInsights = new ApplicationInsights({
+      config: {
+        connectionString: process.env.APPLICATIONINSIGHTS_CONNECTION_STRING,
+      },
+    });
+    appInsights.loadAppInsights();
+    appInsights.trackPageView();
+  }
 
   const menuItems = [
     <MenuLink

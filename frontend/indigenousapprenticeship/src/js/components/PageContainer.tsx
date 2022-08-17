@@ -13,29 +13,8 @@ import {
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import NotAuthorized from "@common/components/NotAuthorized";
-
-import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-import {
-  ReactPlugin,
-  withAITracking,
-} from "@microsoft/applicationinsights-react-js";
-import { createBrowserHistory } from "history";
 import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../indigenousApprenticeshipConstants";
 
-const browserHistory = createBrowserHistory({});
-const reactPlugin = new ReactPlugin();
-
-const appInsights = new ApplicationInsights({
-  config: {
-    connectionString: process.env.APPLICATIONINSIGHTS_CONNECTION_STRING,
-    extensions: [reactPlugin],
-    extensionConfig: {
-      [reactPlugin.identifier]: { history: browserHistory },
-    },
-  },
-});
-
-appInsights.loadAppInsights();
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 
 interface MenuLinkProps {
@@ -113,6 +92,7 @@ export const PageContainer: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const intl = useIntl();
+
   // stabilize components that will not change during life of app, avoid render loops in router
   const notFoundComponent = useRef(<IndigenousApprenticeshipNotFound />);
   const notAuthorizedComponent = useRef(
@@ -152,4 +132,4 @@ export const PageContainer: React.FC<{
   );
 };
 
-export default withAITracking(reactPlugin, PageContainer);
+export default PageContainer;
