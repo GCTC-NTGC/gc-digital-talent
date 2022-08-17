@@ -475,6 +475,9 @@ query getUserProfile($id: ID!) {
     poolCandidates {
       status
       expiryDate
+      user {
+        id
+      }
       pool {
         id
         name {

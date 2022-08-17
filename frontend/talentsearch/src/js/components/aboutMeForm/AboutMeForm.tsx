@@ -24,6 +24,7 @@ import {
 import { SubmitHandler } from "react-hook-form";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
@@ -37,6 +38,7 @@ import {
 import type { User, UpdateUserAsUserInput } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import profileMessages from "../profile/profileMessages";
+import directIntakeRoutes from "../../directIntakeRoutes";
 
 export type FormValues = Pick<
   User,
@@ -68,9 +70,15 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
+  const profilePaths = applicantProfileRoutes(locale);
+  const directIntakePaths = directIntakeRoutes(locale);
+  const returnRoute =
+    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.poolApply(application.pool.id)
+      : profilePaths.home(initialUser.id);
 
   console.log(application);
+  console.log(returnRoute);
 
   const initialDataToFormValues = (data?: User | null): FormValues => ({
     preferredLang: data?.preferredLang,
@@ -91,7 +99,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     await onUpdateAboutMe(initialUser.id, formValuesToSubmitData(formValues))
       .then(() => {
-        navigate(paths.home(initialUser.id));
+        navigate(returnRoute);
         toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {
@@ -118,6 +126,9 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
         defaultMessage: "About me",
         description: "Title for Profile Form wrapper in About me form",
       })}
+      cancelLink={{
+        href: returnRoute,
+      }}
       crumbs={[
         {
           title: intl.formatMessage({
@@ -126,6 +137,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           }),
         },
       ]}
+      originApplication={application}
     >
       <BasicForm
         onSubmit={handleSubmit}
@@ -345,10 +357,10 @@ const AboutMeApi: React.FunctionComponent<AboutMeApiProps> = ({
   onUpdateAboutMe,
 }) => {
   const [result] = useGetApplicationQuery({ variables: { id: applicationId } });
-  const { data, fetching, error } = result;
+  const { data, fetching } = result;
 
   return (
-    <Pending fetching={fetching} error={error}>
+    <Pending fetching={fetching}>
       {data?.poolCandidate ? (
         <AboutMeForm
           initialUser={initialUser}

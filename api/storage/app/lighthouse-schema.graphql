@@ -799,8 +799,8 @@ input PoolBelongsToMany {
 
 type PoolCandidate {
   id: ID!
-  pool: Pool
-  user: Applicant
+  pool: Pool!
+  user: Applicant!
   cmoIdentifier: ID
   expiryDate: Date
   isWoman: Boolean

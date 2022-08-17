@@ -17,6 +17,9 @@ query getAboutMe {
 query getApplication($id: ID!) {
   poolCandidate(id: $id) {
     id
+    user {
+      id
+    }
     pool {
       id
       name {
