@@ -6,7 +6,7 @@ import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
-import { parseUrlQueryParameters, useLocation } from "@common/helpers/router";
+import { useQueryParams } from "@common/helpers/router";
 
 import {
   Experience,
@@ -17,19 +17,18 @@ import profileMessages from "../profile/profileMessages";
 import { ExperienceAndSkills } from "./ExperienceAndSkills";
 
 interface ExperienceAndSkillsApiProps {
-  applicationId: string;
   applicantId: string;
   experiences: Experience[];
 }
 
 const ExperienceAndSkillsApi = ({
   applicantId,
-  applicationId,
   experiences,
 }: ExperienceAndSkillsApiProps) => {
   const intl = useIntl();
+  const { application } = useQueryParams();
   const [{ data, fetching, error }] = useGetApplicationPoolSkillsQuery({
-    variables: { id: applicationId },
+    variables: { id: application },
   });
 
   return (
@@ -74,7 +73,6 @@ const ApiOrContent = ({
   applicationId ? (
     <ExperienceAndSkillsApi
       applicantId={applicantId}
-      applicationId={applicationId}
       experiences={experiences}
     />
   ) : (
@@ -83,8 +81,7 @@ const ApiOrContent = ({
 
 const ExperienceAndSkillsPage = () => {
   const intl = useIntl();
-  const location = useLocation();
-  const queryParams = parseUrlQueryParameters(location);
+  const queryParams = useQueryParams();
   const { loggedInUser } = useAuthorizationContext();
   const [{ data, fetching, error }] = useGetAllApplicantExperiencesQuery({
     variables: { id: loggedInUser?.id || "" },

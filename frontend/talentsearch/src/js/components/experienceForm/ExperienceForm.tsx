@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
 import { BasicForm, TextArea } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
-import { navigate } from "@common/helpers/router";
+import { navigate, useQueryParams } from "@common/helpers/router";
 import { Button } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
 
@@ -77,6 +77,10 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
     : undefined;
+  const { application } = useQueryParams();
+  const returnPath = `${paths.skillsAndExperiences(userId)}${
+    application && `?application=${application}`
+  }`;
 
   const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
     formValues,
@@ -103,7 +107,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
             description:
               "Display text for My experience and skills Form Page Link",
           }),
-          href: paths.skillsAndExperiences(userId),
+          href: returnPath,
         },
         {
           title: experience
@@ -120,7 +124,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         },
       ]}
       cancelLink={{
-        href: paths.skillsAndExperiences(userId),
+        href: returnPath,
       }}
     >
       <BasicForm
@@ -179,7 +183,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         <ProfileFormFooter
           mode="bothButtons"
           cancelLink={{
-            href: paths.skillsAndExperiences(userId),
+            href: returnPath,
           }}
         />
       </BasicForm>
@@ -246,10 +250,14 @@ const ExperienceFormContainer: React.FunctionComponent<
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
+  const { application } = useQueryParams();
+  const returnPath = `${paths.skillsAndExperiences(userId)}${
+    application && `?application=${application}`
+  }`;
 
   const handleSuccess = () => {
     removeFromSessionStorage(cacheKey); // clear the cache
-    navigate(paths.skillsAndExperiences(userId));
+    navigate(returnPath);
     toast.success(
       edit
         ? intl.formatMessage({
@@ -331,7 +339,7 @@ const ExperienceFormContainer: React.FunctionComponent<
         id: experienceIdExact,
       })
       .then((result) => {
-        navigate(paths.skillsAndExperiences(userId));
+        navigate(returnPath);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Experience Deleted",

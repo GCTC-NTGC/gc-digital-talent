@@ -7,12 +7,13 @@ import {
 } from "@heroicons/react/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { EducationExperience, Scalars } from "@common/api/generated";
+import { EducationExperience } from "@common/api/generated";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { IconLink } from "@common/components/Link";
 import { notEmpty, flatten } from "@common/helpers/util";
 import MissingSkills from "@common/components/skills/MissingSkills";
 import { commonMessages } from "@common/messages";
+import { useQueryParams } from "@common/helpers/router";
 import {
   AwardExperience,
   CommunityExperience,
@@ -24,6 +25,7 @@ import {
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
+import { ExperienceType } from "../experienceForm/types";
 
 type MergedExperiences = Array<
   | AwardExperience
@@ -77,7 +79,6 @@ const flattenExperienceSkills = (experiences: MergedExperiences): Skill[] => {
 export interface ExperienceAndSkillsProps {
   applicantId: string;
   experiences?: Experience[];
-  applicationId?: Scalars["ID"];
   missingSkills?: {
     requiredSkills: Skill[];
     optionalSkills: Skill[];
@@ -86,23 +87,27 @@ export interface ExperienceAndSkillsProps {
 
 export const ExperienceAndSkills: React.FunctionComponent<
   ExperienceAndSkillsProps
-> = ({ experiences, missingSkills, applicationId, applicantId }) => {
+> = ({ experiences, missingSkills, applicantId }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
+  const { application } = useQueryParams();
+  const applicationParam = application ? `?application=${application}` : ``;
+
+  const getEditPath = (id: string, type: ExperienceType) => {
+    return `${paths.editExperience(applicantId, type, id)}${applicationParam}`;
+  };
+
   const experienceEditPaths = {
-    awardUrl: (id: string) => paths.editExperience(applicantId, "award", id),
-    communityUrl: (id: string) =>
-      paths.editExperience(applicantId, "community", id),
-    educationUrl: (id: string) =>
-      paths.editExperience(applicantId, "education", id),
-    personalUrl: (id: string) =>
-      paths.editExperience(applicantId, "personal", id),
-    workUrl: (id: string) => paths.editExperience(applicantId, "work", id),
+    awardUrl: (id: string) => getEditPath(id, "award"),
+    communityUrl: (id: string) => getEditPath(id, "community"),
+    educationUrl: (id: string) => getEditPath(id, "education"),
+    personalUrl: (id: string) => getEditPath(id, "personal"),
+    workUrl: (id: string) => getEditPath(id, "work"),
   };
 
   const links = [
     {
-      href: paths.createPersonal(applicantId),
+      href: `${paths.createPersonal(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Personal",
         description: "Title for personal experience form button.",
@@ -110,7 +115,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: LightBulbIcon,
     },
     {
-      href: paths.createCommunity(applicantId),
+      href: `${paths.createCommunity(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Community",
         description: "Title for community experience form button.",
@@ -118,7 +123,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: UserGroupIcon,
     },
     {
-      href: paths.createWork(applicantId),
+      href: `${paths.createWork(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Work",
         description: "Title for work experience form button.",
@@ -126,7 +131,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: BriefcaseIcon,
     },
     {
-      href: paths.createEducation(applicantId),
+      href: `${paths.createEducation(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Education",
         description: "Title for education experience form button.",
@@ -134,7 +139,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: BookOpenIcon,
     },
     {
-      href: paths.createAward(applicantId),
+      href: `${paths.createAward(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Award",
         description: "Title for award experience form button.",
