@@ -1105,7 +1105,7 @@ export const bilingualEvaluations = defineMessages({
   },
   [BilingualEvaluation.NotCompleted]: {
     defaultMessage: "No",
-    description: "No, did not completed a language evaluation",
+    description: "No, did not complete a language evaluation",
   },
 });
 
