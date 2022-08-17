@@ -7,7 +7,7 @@ import { imageUrl } from "@common/helpers/router";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 const keyRegistrationLink = (path: string, ...chunks: React.ReactNode[]) => (
   <a href={path}>{chunks}</a>
@@ -15,9 +15,9 @@ const keyRegistrationLink = (path: string, ...chunks: React.ReactNode[]) => (
 
 const RegisterPage: React.FC = () => {
   const intl = useIntl();
-  const talentPaths = useTalentSearchRoutes();
+  const profilePaths = useApplicantProfileRoutes();
   const paths = useApiRoutes();
-  const loginPath = paths.login(talentPaths.profile(), getLocale(intl));
+  const loginPath = paths.login(profilePaths.myProfile(), getLocale(intl));
 
   return (
     <>

@@ -16,6 +16,7 @@ import {
 import EquityOptions from "./EquityOptions";
 import type { DiversityInclusionUpdateHandler, EquityKeys } from "./types";
 import profileMessages from "../profile/profileMessages";
+import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
 export interface DiversityEquityInclusionFormProps {
   user: User;
@@ -56,6 +57,9 @@ export const DiversityEquityInclusionForm: React.FC<
           }),
         },
       ]}
+      cancelLink={{
+        children: intl.formatMessage(commonMessages.backToProfile),
+      }}
     >
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
@@ -146,6 +150,12 @@ export const DiversityEquityInclusionForm: React.FC<
         hasDisability={user.hasDisability}
         onAdd={(key: EquityKeys) => handleUpdate(key, true)}
         onRemove={(key: EquityKeys) => handleUpdate(key, false)}
+      />
+      <ProfileFormFooter
+        mode="cancelButton"
+        cancelLink={{
+          children: intl.formatMessage(commonMessages.backToProfile),
+        }}
       />
     </ProfileFormWrapper>
   );

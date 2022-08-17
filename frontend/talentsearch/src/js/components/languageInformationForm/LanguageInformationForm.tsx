@@ -89,7 +89,7 @@ const dataToFormValues = (
 };
 
 export const LanguageInformationForm: React.FunctionComponent<{
-  initialData: GetLanguageInformationQuery["me"];
+  initialData: User;
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
 }> = ({ initialData, submitHandler }) => {
   const intl = useIntl();
@@ -473,7 +473,7 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
             toast.success(message);
           }
         }
-        navigate(paths.home());
+        navigate(paths.home(userId));
         toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {
@@ -483,7 +483,7 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      {userData && userId ? (
+      {userData?.me ? (
         <LanguageInformationForm
           initialData={userData.me}
           submitHandler={onSubmit}

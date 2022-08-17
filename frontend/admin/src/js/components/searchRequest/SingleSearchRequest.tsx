@@ -1,7 +1,6 @@
 import { getLocale } from "@common/helpers/localize";
-import SearchRequestFilters, {
-  FilterBlock,
-} from "@common/components/SearchRequestFilters/deprecated/SearchRequestFilters";
+import { FilterBlock } from "@common/components/SearchRequestFilters/deprecated/SearchRequestFilters";
+import SearchRequestFilters from "@common/components/SearchRequestFilters/SearchRequestFilters";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { commonMessages } from "@common/messages";
@@ -30,7 +29,13 @@ const ManagerInfo: React.FunctionComponent<{
     status,
     requestedDate,
     poolCandidateFilter,
+    applicantFilter,
   } = searchRequest;
+
+  const nonApplicableMessage = intl.formatMessage({
+    defaultMessage: "N/A",
+    description: "Text shown when the filter was not selected",
+  });
 
   return (
     <>
@@ -116,16 +121,13 @@ const ManagerInfo: React.FunctionComponent<{
                     "Title for the pool block in the manager info section of the single search request view.",
                 })}
                 content={
-                  // TODO: get pools from applicantFilter isntead of poolCandidateFilter if possible
-                  poolCandidateFilter?.pools?.map(
-                    (pool) =>
-                      pool?.name?.[locale] ||
-                      intl.formatMessage({
-                        defaultMessage: "N/A",
-                        description:
-                          "Text shown when the filter was not selected",
-                      }),
-                  )
+                  applicantFilter
+                  ? applicantFilter?.pools?.map(
+                      (pool) => pool?.name?.[locale] || nonApplicableMessage,
+                    )
+                  : poolCandidateFilter?.pools?.map(
+                      (pool) => pool?.name?.[locale] || nonApplicableMessage,
+                    )
                 }
               />
 
@@ -265,8 +267,7 @@ export const SingleSearchRequest: React.FunctionComponent<
           data-h2-background-color="base(lightest.dt-gray)"
         >
           <SearchRequestFilters
-            poolCandidateFilter={poolCandidateFilter}
-            poolApplicantFilter={applicantFilter}
+            filters={applicantFilter || poolCandidateFilter}
           />
           <div
             data-h2-padding="base(x1, 0, 0, 0)"

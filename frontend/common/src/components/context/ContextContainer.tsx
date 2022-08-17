@@ -7,17 +7,15 @@ import AuthorizationProvider from "./AuthorizationProvider";
 import LanguageRedirectProvider from "./LanguageRedirectProvider";
 
 export interface ContextContainerProps {
-  homePath: string;
   messages: Messages;
 }
 
 const ContextContainer: React.FC<ContextContainerProps> = ({
-  homePath,
   messages,
   children,
 }) => (
   <LanguageRedirectProvider messages={messages}>
-    <AuthenticationProvider homePath={homePath}>
+    <AuthenticationProvider>
       <ClientProvider>
         <AuthorizationProvider>{children}</AuthorizationProvider>
       </ClientProvider>

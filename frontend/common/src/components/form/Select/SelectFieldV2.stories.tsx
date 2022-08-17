@@ -44,25 +44,18 @@ Default.args = {
 export const Required = Template.bind({});
 Required.args = {
   ...Default.args,
-  rules: { required: "This must be accepted to continue." },
+  rules: { required: true },
 };
 
-export const RequiredWithInfo = Template.bind({});
-RequiredWithInfo.args = {
+export const RequiredWithCustomMessage = Template.bind({});
+RequiredWithCustomMessage.args = {
   ...Default.args,
-  context: "We collect the above data for account purposes.",
-  rules: { required: "This must be accepted to continue." },
+  rules: { required: "You must enter a department to continue." },
 };
 
-export const RequiredWithError = Template.bind({});
-RequiredWithError.args = {
+export const RequiredWithContextInfo = Template.bind({});
+RequiredWithContextInfo.args = {
   ...Default.args,
-  rules: { required: "This must be accepted to continue." },
-};
-
-export const RequiredWithErrorAndContext = Template.bind({});
-RequiredWithErrorAndContext.args = {
-  ...Default.args,
-  context: "We collect the above data for account purposes.",
-  rules: { required: "This must be accepted to continue." },
+  rules: { required: true },
+  context: "We collect department data for account purposes.",
 };

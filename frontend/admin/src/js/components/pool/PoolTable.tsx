@@ -50,6 +50,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   editUrlRoot,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useAdminRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
@@ -76,11 +77,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Title displayed for the Pool table pool name column.",
         }),
         accessor: (d) =>
-          viewLinkAccessor(
-            editUrlRoot,
-            d.id,
-            d.name ? d.name[getLocale(intl)] : "",
-          ),
+          viewLinkAccessor(editUrlRoot, d.id, d.name ? d.name[locale] : ""),
       },
       {
         Header: intl.formatMessage({
@@ -120,10 +117,15 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           defaultMessage: "Edit",
           description: "Title displayed for the Pool table Edit column.",
         }),
-        accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
+        accessor: (d) =>
+          tableEditButtonAccessor(
+            d.id,
+            editUrlRoot,
+            d.name ? d.name[locale] : "",
+          ), // callback extracted to separate function to stabilize memoized component
       },
     ],
-    [editUrlRoot, intl, paths],
+    [editUrlRoot, intl, paths, locale],
   );
 
   const data = useMemo(() => pools.filter(notEmpty), [pools]);

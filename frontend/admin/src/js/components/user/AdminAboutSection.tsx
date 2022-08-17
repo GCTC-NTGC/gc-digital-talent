@@ -1,14 +1,18 @@
+import { getCitizenshipStatusesAdmin } from "@common/constants/localizedConstants";
 import React from "react";
 import { useIntl } from "react-intl";
 
-import type { Applicant } from "../../api/generated";
+import { Applicant } from "../../api/generated";
 
 interface AdminAboutSectionProps {
-  applicant: Pick<Applicant, "firstName" | "lastName">;
+  applicant: Pick<
+    Applicant,
+    "firstName" | "lastName" | "citizenship" | "isVeteran"
+  >;
 }
 
 const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
-  applicant: { firstName, lastName },
+  applicant: { firstName, lastName, citizenship, isVeteran },
 }) => {
   const intl = useIntl();
 
@@ -30,7 +34,7 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
             </span>
           </p>
         )}
-        {!firstName && !lastName && (
+        {!firstName && !lastName && !citizenship && isVeteran === null && (
           <p>
             {intl.formatMessage({
               defaultMessage: "No information has been provided.",
@@ -38,6 +42,40 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
                 "Message on Admin side when user not filled WorkPreferences section.",
             })}
           </p>
+        )}
+        {isVeteran !== null && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Member of CAF:",
+              description: "Veteran/member label",
+            })}{" "}
+            <span data-h2-font-weight="base(700)">
+              {isVeteran
+                ? intl.formatMessage({
+                    defaultMessage: "Veteran or member of the CAF",
+                    description:
+                      "message admin side candidate profile, veteran status",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Not a veteran or member of the CAF",
+                    description:
+                      "message admin side candidate profile, not veteran status",
+                  })}
+            </span>
+          </p>
+        )}
+        {citizenship ? (
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Citizenship:",
+              description: "Citizenship label",
+            })}{" "}
+            <span data-h2-font-weight="base(700)">
+              {intl.formatMessage(getCitizenshipStatusesAdmin(citizenship))}
+            </span>
+          </p>
+        ) : (
+          ""
         )}
       </div>
     </div>

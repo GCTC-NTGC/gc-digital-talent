@@ -7,16 +7,23 @@ import {
   AdvertisementStatus,
   PoolAdvertisement,
   Skill,
+  UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
 
 import { SectionMetadata } from "./EditPool";
 import AddSkillsToPool from "./AddSkillsToPool";
+import { useEditPoolContext } from "./EditPoolContext";
+
+export type EssentialSkillsSubmitData = Pick<
+  UpdatePoolAdvertisementInput,
+  "essentialSkills"
+>;
 
 interface EssentialSkillsSectionProps {
   poolAdvertisement: PoolAdvertisement;
   skills: Array<Skill>;
   sectionMetadata: SectionMetadata;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: EssentialSkillsSubmitData) => void;
 }
 
 export const EssentialSkillsSection = ({
@@ -26,6 +33,7 @@ export const EssentialSkillsSection = ({
   onSave,
 }: EssentialSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { isSubmitting } = useEditPoolContext();
 
   const [selectedSkills, setSelectedSkills] = useState<Array<Skill>>(
     poolAdvertisement.essentialSkills ? poolAdvertisement.essentialSkills : [],
@@ -33,6 +41,14 @@ export const EssentialSkillsSection = ({
 
   const handleChangeSelectedSkills = (changedSelectedSkills: Array<Skill>) =>
     setSelectedSkills(changedSelectedSkills);
+
+  const handleSave = () => {
+    onSave({
+      essentialSkills: {
+        sync: selectedSkills.map((skill) => skill.id),
+      },
+    });
+  };
 
   // disabled unless status is draft
   const formDisabled =
@@ -62,7 +78,12 @@ export const EssentialSkillsSection = ({
       />
 
       {!formDisabled && (
-        <Button onClick={() => onSave(selectedSkills)} color="cta" mode="solid">
+        <Button
+          onClick={handleSave}
+          color="cta"
+          mode="solid"
+          disabled={isSubmitting}
+        >
           {intl.formatMessage({
             defaultMessage: "Save essential skills",
             description: "Text on a button to save the pool essential skills",

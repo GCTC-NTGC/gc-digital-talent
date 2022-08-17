@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
@@ -9,7 +10,8 @@ import { FormValues as SearchFormValues } from "../search/SearchForm";
 
 type LocationState = {
   some: {
-    candidateFilter: PoolCandidateFilter & ApplicantFilterInput;
+    applicantFilter: ApplicantFilterInput;
+    candidateFilter: PoolCandidateFilter; // TODO: Remove candidateFilter when deprecated
     initialValues: SearchFormValues;
     candidateCount: number;
   };
@@ -19,13 +21,24 @@ const RequestPage: React.FunctionComponent = () => {
   const intl = useIntl();
   const location = useLocation();
   const state = location.state as LocationState;
-  const poolCandidateFilter = state ? state.some.candidateFilter : null;
+  const applicantFilter = state ? state.some.applicantFilter : null;
+  const candidateFilter = state ? state.some.candidateFilter : null; // TODO: Remove candidateFilter when deprecated
   const initialValues = state ? state.some.initialValues : null;
   const candidateCount = state ? state.some.candidateCount : null;
 
-  const CreateRequestForm = checkFeatureFlag("FEATURE_APPLICANTSEARCH")
-    ? CreateRequest
-    : OldCreateRequest;
+  const CreateRequestForm = checkFeatureFlag("FEATURE_APPLICANTSEARCH") ? (
+    <CreateRequest
+      applicantFilter={applicantFilter as ApplicantFilterInput}
+      searchFormInitialValues={initialValues}
+      candidateCount={candidateCount}
+    />
+  ) : (
+    <OldCreateRequest
+      poolCandidateFilter={candidateFilter as PoolCandidateFilter}
+      searchFormInitialValues={initialValues}
+      candidateCount={candidateCount}
+    />
+  );
 
   return (
     <section
@@ -60,11 +73,7 @@ const RequestPage: React.FunctionComponent = () => {
             data-h2-position="base(relative)"
             data-h2-offset="base(-x2, auto, auto, auto) p-tablet(-x4, auto, auto, auto)"
           >
-            <CreateRequestForm
-              poolCandidateFilter={poolCandidateFilter}
-              searchFormInitialValues={initialValues}
-              candidateCount={candidateCount}
-            />
+            {CreateRequestForm}
           </div>
         </div>
       </div>

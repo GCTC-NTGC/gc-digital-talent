@@ -7,18 +7,18 @@ import Dialog from "@common/components/Dialog";
 import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
 import { BellIcon } from "@heroicons/react/outline";
-import { getLocale } from "@common/helpers/localize";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
+import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
   const directIntakePaths = useDirectIntakeRoutes();
   const talentPaths = useTalentSearchRoutes();
+  const profilePaths = useApplicantProfileRoutes();
 
   return (
     <>
@@ -113,14 +113,22 @@ const LoggedOutPage: React.FC = () => {
         centered
         isOpen={loggedIn}
         onDismiss={() => {
-          navigate(talentPaths.profile());
+          navigate(profilePaths.myProfile());
         }}
         title={intl.formatMessage({
           defaultMessage: "Logout",
           description:
             "Title for the modal that appears when an authenticated user lands on /logged-out.",
         })}
-        footer={
+      >
+        <p data-h2-font-size="base(h5, 1)">
+          {intl.formatMessage({
+            defaultMessage: "Are you sure you would like to logout?",
+            description:
+              "Question displayed when authenticated user lands on /logged-out.",
+          })}
+        </p>
+        <Dialog.Footer>
           <div
             data-h2-display="base(flex)"
             data-h2-align-items="base(center)"
@@ -130,7 +138,7 @@ const LoggedOutPage: React.FC = () => {
               mode="outline"
               color="primary"
               type="button"
-              href={`/${locale}`}
+              href={profilePaths.myProfile()}
               external
             >
               {intl.formatMessage({
@@ -154,15 +162,7 @@ const LoggedOutPage: React.FC = () => {
               </Button>
             </span>
           </div>
-        }
-      >
-        <p data-h2-font-size="base(h5, 1.3)">
-          {intl.formatMessage({
-            defaultMessage: "Are you sure you would like to logout?",
-            description:
-              "Question displayed when authenticated user lands on /logged-out.",
-          })}
-        </p>
+        </Dialog.Footer>
       </Dialog>
     </>
   );

@@ -10,18 +10,25 @@ import {
   AdvertisementStatus,
   LocalizedString,
   PoolAdvertisement,
+  UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
+import { useEditPoolContext } from "./EditPoolContext";
 
 type FormValues = {
   YourWorkEn?: LocalizedString["en"];
   YourWorkFr?: LocalizedString["fr"];
 };
 
+export type WorkTasksSubmitData = Pick<
+  UpdatePoolAdvertisementInput,
+  "keyTasks"
+>;
+
 interface WorkTasksSectionProps {
   poolAdvertisement: PoolAdvertisement;
   sectionMetadata: SectionMetadata;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: WorkTasksSubmitData) => void;
 }
 
 const TEXT_AREA_MAX_WORDS = 200;
@@ -33,6 +40,7 @@ export const WorkTasksSection = ({
   onSave,
 }: WorkTasksSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     YourWorkEn: initialData.keyTasks?.en ?? "",
@@ -51,6 +59,15 @@ export const WorkTasksSection = ({
     control,
     name: "YourWorkFr",
   });
+
+  const handleSave = (formValues: FormValues) => {
+    onSave({
+      keyTasks: {
+        en: formValues.YourWorkEn,
+        fr: formValues.YourWorkFr,
+      },
+    });
+  };
 
   // disabled unless status is draft
   const formDisabled =
@@ -71,7 +88,7 @@ export const WorkTasksSection = ({
         })}
       </p>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSave)}>
+        <form onSubmit={handleSubmit(handleSave)}>
           <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <TextArea
@@ -155,6 +172,7 @@ export const WorkTasksSection = ({
               })}
               color="cta"
               mode="solid"
+              isSubmitting={isSubmitting}
             />
           )}
         </form>

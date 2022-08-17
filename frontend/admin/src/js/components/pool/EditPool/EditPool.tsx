@@ -20,24 +20,46 @@ import {
 } from "../../../api/generated";
 import DashboardContentContainer from "../../DashboardContentContainer";
 import { useAdminRoutes } from "../../../adminRoutes";
-import PoolNameSection from "./PoolNameSection";
-import ClosingDateSection from "./ClosingDateSection";
-import YourImpactSection from "./YourImpactSection";
-import WorkTasksSection from "./WorkTasksSection";
-import OtherRequirementsSection from "./OtherRequirementsSection";
-import StatusSection from "./StatusSection";
-import EssentialSkillsSection from "./EssentialSkillsSection";
-import AssetSkillsSection from "./AssetSkillsSection";
+import PoolNameSection, { type PoolNameSubmitData } from "./PoolNameSection";
+import ClosingDateSection, {
+  type ClosingDateSubmitData,
+} from "./ClosingDateSection";
+import YourImpactSection, {
+  type YourImpactSubmitData,
+} from "./YourImpactSection";
+import WorkTasksSection, { type WorkTasksSubmitData } from "./WorkTasksSection";
+import OtherRequirementsSection, {
+  type OtherRequirementsSubmitData,
+} from "./OtherRequirementsSection";
+import StatusSection, { type ExtendSubmitData } from "./StatusSection";
+import EssentialSkillsSection, {
+  type EssentialSkillsSubmitData,
+} from "./EssentialSkillsSection";
+import AssetSkillsSection, {
+  type AssetSkillsSubmitData,
+} from "./AssetSkillsSection";
+import EditPoolContext from "./EditPoolContext";
+import useMutations from "./useMutations";
+
+export type PoolSubmitData =
+  | AssetSkillsSubmitData
+  | ClosingDateSubmitData
+  | EssentialSkillsSubmitData
+  | ExtendSubmitData
+  | OtherRequirementsSubmitData
+  | PoolNameSubmitData
+  | WorkTasksSubmitData
+  | YourImpactSubmitData;
 
 export interface EditPoolFormProps {
   poolAdvertisement: PoolAdvertisement;
   classifications: Array<Classification>;
   skills: Array<Skill>;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: PoolSubmitData) => void;
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: (submitData: unknown) => void;
+  onExtend: (submitData: ExtendSubmitData) => void;
   onArchive: () => void;
 }
 
@@ -278,25 +300,30 @@ export const EditPool = ({ poolId }: EditPoolProps) => {
   const [{ data, fetching, error }] = useGetEditPoolDataQuery({
     variables: { poolId },
   });
+
+  const { isFetching, mutations } = useMutations();
+
+  const ctx = React.useMemo(() => {
+    return { isSubmitting: isFetching };
+  }, [isFetching]);
+
   return (
     <Pending fetching={fetching} error={error}>
       <DashboardContentContainer>
         {data?.poolAdvertisement ? (
-          <EditPoolForm
-            poolAdvertisement={data.poolAdvertisement}
-            classifications={data.classifications.filter(notEmpty)}
-            skills={data.skills.filter(notEmpty)}
-            onSave={(submitData: unknown) =>
-              console.warn("onSave not yet implemented", submitData)
-            }
-            onPublish={() => console.warn("onPublish not yet implemented")}
-            onDelete={() => console.warn("onDelete not yet implemented")}
-            onClose={() => console.warn("onClose not yet implemented")}
-            onExtend={(submitData: unknown) =>
-              console.warn("onExtend not yet implemented", submitData)
-            }
-            onArchive={() => console.warn("onArchive not yet implemented")}
-          />
+          <EditPoolContext.Provider value={ctx}>
+            <EditPoolForm
+              poolAdvertisement={data.poolAdvertisement}
+              classifications={data.classifications.filter(notEmpty)}
+              skills={data.skills.filter(notEmpty)}
+              onSave={(saveData) => mutations.update(poolId, saveData)}
+              onPublish={() => mutations.publish(poolId)}
+              onDelete={() => mutations.delete(poolId)}
+              onClose={() => mutations.close(poolId)}
+              onExtend={(extendData) => mutations.update(poolId, extendData)}
+              onArchive={() => console.warn("onArchive not yet implemented")}
+            />
+          </EditPoolContext.Provider>
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}

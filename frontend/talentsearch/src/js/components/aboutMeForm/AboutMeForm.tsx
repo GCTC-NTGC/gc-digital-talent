@@ -3,7 +3,11 @@ import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { OperationResult } from "urql";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
-import { ProvinceOrTerritory, Language } from "@common/api/generated";
+import {
+  ProvinceOrTerritory,
+  Language,
+  CitizenshipStatus,
+} from "@common/api/generated";
 import { commonMessages, errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
@@ -11,9 +15,9 @@ import { navigate } from "@common/helpers/router";
 import {
   getProvinceOrTerritory,
   getLanguage,
+  getCitizenshipStatusesProfile,
 } from "@common/constants/localizedConstants";
 import { SubmitHandler } from "react-hook-form";
-import pick from "lodash/pick";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -37,7 +41,8 @@ export type FormValues = Pick<
   | "firstName"
   | "lastName"
   | "email"
->;
+  | "citizenship"
+> & { isVeteran: string };
 
 export type AboutMeUpdateHandler = (
   id: string,
@@ -45,7 +50,7 @@ export type AboutMeUpdateHandler = (
 ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
 
 export interface AboutMeFormProps {
-  initialUser: User | null;
+  initialUser: User;
   onUpdateAboutMe: AboutMeUpdateHandler;
 }
 
@@ -57,37 +62,39 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
 
-  const initialDataToFormValues = (data?: User | null): FormValues => {
-    return pick(data, [
-      "preferredLang",
-      "currentProvince",
-      "currentCity",
-      "telephone",
-      "firstName",
-      "lastName",
-      "email",
-    ]);
-  };
+  const initialDataToFormValues = (data?: User | null): FormValues => ({
+    preferredLang: data?.preferredLang,
+    currentProvince: data?.currentProvince,
+    currentCity: data?.currentCity,
+    telephone: data?.telephone,
+    firstName: data?.firstName,
+    lastName: data?.lastName,
+    email: data?.email,
+    citizenship: data?.citizenship,
+    isVeteran: data?.isVeteran === true ? "true" : "false",
+  });
 
   const formValuesToSubmitData = (data: FormValues): UpdateUserAsUserInput => {
-    return data;
+    return { ...data, isVeteran: data.isVeteran === "true" };
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    if (!initialUser?.id) {
-      toast.error(intl.formatMessage(profileMessages.userNotFound));
-      return;
-    }
-
     await onUpdateAboutMe(initialUser.id, formValuesToSubmitData(formValues))
       .then(() => {
-        navigate(paths.home());
+        navigate(paths.home(initialUser.id));
         toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));
       });
   };
+
+  // citizenship statuses ordered to fit prototype
+  const citizenshipStatusesOrdered = [
+    CitizenshipStatus.Citizen,
+    CitizenshipStatus.PermanentResident,
+    CitizenshipStatus.Other,
+  ];
 
   return (
     <ProfileFormWrapper
@@ -205,6 +212,56 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+            />
+            <RadioGroup
+              idPrefix="isVeteran"
+              legend={intl.formatMessage({
+                defaultMessage: "Member of the Canadian Armed Forces (CAF)",
+                description:
+                  "Legend text for required Canadian Armed Forces selection in About Me form",
+              })}
+              name="isVeteran"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              items={[
+                {
+                  value: "false",
+                  label: intl.formatMessage({
+                    defaultMessage: "I am not a veteran of the CAF",
+                    description:
+                      "Label for the not a veteran selection in the About Me form",
+                  }),
+                },
+                {
+                  value: "true",
+                  label: intl.formatMessage({
+                    defaultMessage: "I am a member or veteran of the CAF",
+                    description:
+                      "Label for the currently a member or veteran selection in the About Me form",
+                  }),
+                },
+              ]}
+            />
+            <RadioGroup
+              idPrefix="citizenship"
+              legend={intl.formatMessage({
+                defaultMessage: "Citizenship Status",
+                description:
+                  "Legend text for required citizenship status in About Me form",
+              })}
+              name="citizenship"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              items={citizenshipStatusesOrdered.map((status) => ({
+                value: status,
+                label: intl.formatMessage(
+                  getCitizenshipStatusesProfile(status),
+                ),
+              }))}
+              context={intl.formatMessage({
+                defaultMessage:
+                  "Preference will be given to Canadian citizens and permanent residents of Canada",
+                description:
+                  "Context text for required citizenship status section in About Me form, explaining preference",
+              })}
             />
           </div>
         </div>

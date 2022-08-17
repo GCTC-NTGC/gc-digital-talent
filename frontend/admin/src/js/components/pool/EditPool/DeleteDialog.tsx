@@ -56,7 +56,6 @@ const DeleteDialog = ({
         defaultMessage: "Delete",
         description: "Heading for the delete pool dialog",
       })}
-      footer={Footer}
     >
       <p>
         {intl.formatMessage({
@@ -70,6 +69,7 @@ const DeleteDialog = ({
           description: "Second paragraph for Delete pool dialog",
         })}
       </p>
+      <Dialog.Footer>{Footer}</Dialog.Footer>
     </Dialog>
   );
 };

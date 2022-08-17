@@ -14,17 +14,6 @@ export type Color =
   | "ia-primary"
   | "ia-secondary";
 
-export interface DialogProps {
-  isOpen: boolean;
-  color?: Color;
-  onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
-  title: string;
-  subtitle?: string;
-  confirmation?: boolean;
-  footer?: React.ReactNode;
-  centered?: boolean;
-}
-
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
     "data-h2-background-color": "base(dt-linear)",
@@ -44,7 +33,112 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
 };
 
-const Dialog: React.FC<DialogProps> = ({
+type HeaderProps = Pick<
+  DialogProps,
+  "title" | "subtitle" | "onDismiss" | "confirmation" | "color"
+>;
+
+const Header = ({
+  title,
+  subtitle,
+  onDismiss,
+  confirmation = false,
+  color = "ia-primary",
+}: HeaderProps) => {
+  const intl = useIntl();
+  return (
+    <div
+      className={`dialog__header ${
+        confirmation ? `dialog__header--confirmation` : null
+      }`}
+      data-h2-radius="base(s, s, none, none)"
+      data-h2-padding="base(x1)"
+      data-h2-position="base(relative)"
+      {...(!confirmation
+        ? { ...colorMap[color] }
+        : {
+            "data-h2-background-color": "base(dt-white)",
+          })}
+    >
+      <button
+        type="button"
+        onClick={onDismiss}
+        className="dialog-close"
+        data-h2-padding="base(x.5)"
+        data-h2-position="base(absolute)"
+        data-h2-offset="base(x.5, x.5, auto, auto)"
+        {...(confirmation
+          ? {
+              "data-h2-color": "base(dt-black)",
+            }
+          : {
+              "data-h2-color": "base(dt-white)",
+            })}
+      >
+        <span data-h2-visibility="base(invisible)">
+          {intl.formatMessage({
+            defaultMessage: "Close dialog",
+            description: "Text for the button to close a modal dialog.",
+          })}
+        </span>
+        <XIcon className="dialog-close__icon" />
+      </button>
+      <div
+        className="dialog__title dialog__title--standard"
+        data-h2-position="base(relative)"
+      >
+        <h1
+          id="dialog-title"
+          data-h2-font-weight="base(700)"
+          data-h2-font-size="base(h3, 1.1)"
+          data-h2-margin="base(0)"
+        >
+          {title}
+        </h1>
+        {subtitle && (
+          <p
+            data-h2-margin="base(x.25, 0, 0, 0)"
+            {...(confirmation
+              ? {
+                  "data-h2-color": "base(dt-primary)",
+                }
+              : null)}
+          >
+            {subtitle}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+type FooterProps = {
+  children: React.ReactNode;
+};
+
+const Footer = ({ children }: FooterProps) => (
+  <div
+    className="dialog__footer"
+    data-h2-margin="base(x1, 0, 0, 0)"
+    data-h2-padding="base(x1, 0, 0, 0)"
+    data-h2-border="base(top, 1px, solid, dt-gray)"
+  >
+    {children}
+  </div>
+);
+
+export interface DialogProps {
+  isOpen: boolean;
+  color?: Color;
+  onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
+  title: string;
+  subtitle?: string;
+  confirmation?: boolean;
+  centered?: boolean;
+  children: React.ReactNode;
+}
+
+const Dialog = ({
   title,
   subtitle,
   onDismiss,
@@ -52,96 +146,23 @@ const Dialog: React.FC<DialogProps> = ({
   color = "ia-primary",
   confirmation = false,
   centered = false,
-  footer,
   children,
-}) => {
-  const intl = useIntl();
+}: DialogProps) => {
   return (
-    <Overlay
-      isOpen={isOpen}
-      onDismiss={onDismiss}
-      data-h2-font-family="base(sans)"
-    >
+    <Overlay {...{ isOpen, onDismiss }} data-h2-font-family="base(sans)">
       <Content
         aria-labelledby="dialog-title"
         className={centered ? `dialog--centered` : undefined}
       >
-        <div
-          className={`dialog__header ${
-            confirmation ? `dialog__header--confirmation` : null
-          }`}
-          data-h2-radius="base(s, s, none, none)"
-          data-h2-padding="base(x1)"
-          data-h2-position="base(relative)"
-          {...(!confirmation
-            ? { ...colorMap[color] }
-            : {
-                "data-h2-background-color": "base(dt-white)",
-              })}
-        >
-          <button
-            type="button"
-            onClick={onDismiss}
-            className="dialog-close"
-            data-h2-padding="base(x.5)"
-            data-h2-position="base(absolute)"
-            data-h2-offset="base(x.5, x.5, auto, auto)"
-            {...(confirmation
-              ? {
-                  "data-h2-color": "base(dt-black)",
-                }
-              : {
-                  "data-h2-color": "base(dt-white)",
-                })}
-          >
-            <span data-h2-visibility="base(invisible)">
-              {intl.formatMessage({
-                defaultMessage: "Close dialog",
-                description: "Text for the button to close a modal dialog.",
-              })}
-            </span>
-            <XIcon className="dialog-close__icon" />
-          </button>
-          <div
-            className="dialog__title dialog__title--standard"
-            data-h2-position="base(relative)"
-          >
-            <h1
-              id="dialog-title"
-              data-h2-font-weight="base(700)"
-              data-h2-font-size="base(h3, 1.1)"
-              data-h2-margin="base(0)"
-            >
-              {title}
-            </h1>
-            {subtitle && (
-              <p
-                data-h2-margin="base(x.25, 0, 0, 0)"
-                {...(confirmation
-                  ? {
-                      "data-h2-color": "base(dt-primary)",
-                    }
-                  : null)}
-              >
-                {subtitle}
-              </p>
-            )}
-          </div>
-        </div>
+        <Header {...{ title, subtitle, onDismiss, confirmation, color }} />
         <div className="dialog__content">{children}</div>
-        {footer ? (
-          <div
-            className="dialog__footer"
-            data-h2-margin="base(x1, 0, 0, 0)"
-            data-h2-padding="base(x1, 0, 0, 0)"
-            data-h2-border="base(top, 1px, solid, dt-gray)"
-          >
-            {footer}
-          </div>
-        ) : null}
       </Content>
     </Overlay>
   );
 };
 
+Dialog.Overlay = Overlay;
+Dialog.Content = Content;
+Dialog.Header = Header;
+Dialog.Footer = Footer;
 export default Dialog;

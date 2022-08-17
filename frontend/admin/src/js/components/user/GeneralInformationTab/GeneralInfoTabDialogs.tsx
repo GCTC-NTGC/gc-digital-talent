@@ -160,29 +160,6 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
       color="ts-primary"
       isOpen={selectedCandidate !== null}
       onDismiss={resetAndClose}
-      footer={
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(space-between)"
-        >
-          <CloseDialogButton close={resetAndClose} />
-          <ConfirmDialogButton
-            onConfirm={handleSubmit}
-            title={
-              submitting
-                ? intl.formatMessage({
-                    defaultMessage: "Submitting",
-                    description: "Text on submit button when submitting",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Change status",
-                    description: "Confirmation button for change status dialog",
-                  })
-            }
-            disabled={submitting}
-          />
-        </div>
-      }
     >
       <p>
         {intl.formatMessage({
@@ -260,6 +237,29 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
           />
         </div>
       </div>
+      <Dialog.Footer>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(space-between)"
+        >
+          <CloseDialogButton close={resetAndClose} />
+          <ConfirmDialogButton
+            onConfirm={handleSubmit}
+            title={
+              submitting
+                ? intl.formatMessage({
+                    defaultMessage: "Submitting",
+                    description: "Text on submit button when submitting",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Change status",
+                    description: "Confirmation button for change status dialog",
+                  })
+            }
+            disabled={submitting}
+          />
+        </div>
+      </Dialog.Footer>
     </Dialog>
   );
 };
@@ -338,30 +338,6 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
       color="ts-primary"
       isOpen={selectedCandidate !== null}
       onDismiss={resetAndClose}
-      footer={
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(space-between)"
-        >
-          <CloseDialogButton close={resetAndClose} />
-          <ConfirmDialogButton
-            onConfirm={handleSubmit}
-            title={
-              submitting
-                ? intl.formatMessage({
-                    defaultMessage: "Submitting",
-                    description: "Text on submit button when submitting",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Change date",
-                    description:
-                      "Confirmation button for change expiry date dialog",
-                  })
-            }
-            disabled={submitting}
-          />
-        </div>
-      }
     >
       <p>
         {intl.formatMessage({
@@ -416,6 +392,30 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
           />
         </div>
       </div>
+      <Dialog.Footer>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(space-between)"
+        >
+          <CloseDialogButton close={resetAndClose} />
+          <ConfirmDialogButton
+            onConfirm={handleSubmit}
+            title={
+              submitting
+                ? intl.formatMessage({
+                    defaultMessage: "Submitting",
+                    description: "Text on submit button when submitting",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Change date",
+                    description:
+                      "Confirmation button for change expiry date dialog",
+                  })
+            }
+            disabled={submitting}
+          />
+        </div>
+      </Dialog.Footer>
     </Dialog>
   );
 };
@@ -480,7 +480,27 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
       color="ts-primary"
       isOpen={selectedCandidate !== null}
       onDismiss={onDismiss}
-      footer={
+    >
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "You're about to <strong>remove the following user:</strong>",
+          description:
+            "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
+        })}
+      </p>
+      <p>
+        - {user.firstName} {user.lastName}
+      </p>
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "From the following pool:",
+          description:
+            "Second section of text on the remove candidate from pool dialog",
+        })}
+      </p>
+      <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
+      <Dialog.Footer>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(space-between)"
@@ -504,27 +524,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
             icon={UserRemoveIcon}
           />
         </div>
-      }
-    >
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "You're about to <strong>remove the following user:</strong>",
-          description:
-            "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
-        })}
-      </p>
-      <p>
-        - {user.firstName} {user.lastName}
-      </p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "From the following pool:",
-          description:
-            "Second section of text on the remove candidate from pool dialog",
-        })}
-      </p>
-      <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
+      </Dialog.Footer>
     </Dialog>
   );
 };
@@ -625,29 +625,6 @@ export const AddToPoolDialog: React.FC<{
       color="ts-primary"
       isOpen={isVisible}
       onDismiss={resetAndClose}
-      footer={
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(space-between)"
-        >
-          <CloseDialogButton close={resetAndClose} />
-          <ConfirmDialogButton
-            onConfirm={handleSubmit}
-            title={
-              submitting
-                ? intl.formatMessage({
-                    defaultMessage: "Submitting",
-                    description: "Text on submit button when submitting",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Add to new pool",
-                    description: "Confirmation button for add to pool dialog",
-                  })
-            }
-            disabled={submitting}
-          />
-        </div>
-      }
     >
       <p>
         {intl.formatMessage({
@@ -765,6 +742,29 @@ export const AddToPoolDialog: React.FC<{
           />
         </div>
       </div>
+      <Dialog.Footer>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(space-between)"
+        >
+          <CloseDialogButton close={resetAndClose} />
+          <ConfirmDialogButton
+            onConfirm={handleSubmit}
+            title={
+              submitting
+                ? intl.formatMessage({
+                    defaultMessage: "Submitting",
+                    description: "Text on submit button when submitting",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Add to new pool",
+                    description: "Confirmation button for add to pool dialog",
+                  })
+            }
+            disabled={submitting}
+          />
+        </div>
+      </Dialog.Footer>
     </Dialog>
   );
 };

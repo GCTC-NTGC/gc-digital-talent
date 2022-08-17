@@ -61,7 +61,6 @@ const PublishDialog = ({
         defaultMessage: "Publish",
         description: "Heading for the publish pool dialog",
       })}
-      footer={Footer}
     >
       <p>
         {intl.formatMessage({
@@ -99,6 +98,7 @@ const PublishDialog = ({
           {relativeExpiryDate(new Date(expiryDate), intl)}
         </div>
       </InputWrapper>
+      <Dialog.Footer>{Footer}</Dialog.Footer>
     </Dialog>
   );
 };

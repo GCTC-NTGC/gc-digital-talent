@@ -17,7 +17,7 @@ import {
   WorkRegion,
   UpdateUserAsUserInput,
   useWorkLocationPreferenceQuery,
-  WorkLocationPreferenceQuery,
+  User,
 } from "../../api/generated";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -28,7 +28,7 @@ export type FormValues = Pick<
   "locationPreferences" | "locationExemptions"
 >;
 export interface WorkLocationPreferenceFormProps {
-  initialData: WorkLocationPreferenceQuery | undefined;
+  initialData: User;
   handleWorkLocationPreference: (
     id: string,
     data: UpdateUserAsUserInput,
@@ -40,12 +40,10 @@ export const WorkLocationPreferenceForm: React.FC<
 > = ({ initialData, handleWorkLocationPreference }) => {
   const intl = useIntl();
 
-  const dataToFormValues = (
-    data: WorkLocationPreferenceQuery | undefined,
-  ): FormValues => ({
+  const dataToFormValues = (data: User): FormValues => ({
     ...data,
-    locationPreferences: data?.me?.locationPreferences,
-    locationExemptions: data?.me?.locationExemptions,
+    locationPreferences: data.locationPreferences,
+    locationExemptions: data.locationExemptions,
   });
   const formValuesToSubmitData = (
     values: FormValues,
@@ -59,12 +57,10 @@ export const WorkLocationPreferenceForm: React.FC<
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    if (initialData?.me) {
-      await handleWorkLocationPreference(
-        initialData.me?.id,
-        formValuesToSubmitData(data),
-      );
-    }
+    await handleWorkLocationPreference(
+      initialData.id,
+      formValuesToSubmitData(data),
+    );
   };
 
   return (
@@ -187,7 +183,7 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
         if (!preProfileStatus && currentProfileStatus) {
           toast.success(message);
         }
-        navigate(paths.home());
+        navigate(paths.home(id));
         toast.success(intl.formatMessage(profileMessages.userUpdated));
 
         return result.data.updateUserAsUser;
@@ -199,7 +195,7 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {userData?.me ? (
         <WorkLocationPreferenceForm
-          initialData={userData}
+          initialData={userData.me}
           handleWorkLocationPreference={handleWorkLocationPreference}
         />
       ) : (

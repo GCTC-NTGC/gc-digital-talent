@@ -1,10 +1,10 @@
 import React from "react";
 
-export interface AlertDialogActionsProps {
+export interface AlertDialogFooterProps {
   children: React.ReactNode;
 }
 
-const AlertDialogActions = ({ children }: AlertDialogActionsProps) => (
+const AlertDialogFooter = ({ children }: AlertDialogFooterProps) => (
   <div
     className="dialog__footer"
     data-h2-display="base(flex)"
@@ -18,4 +18,4 @@ const AlertDialogActions = ({ children }: AlertDialogActionsProps) => (
   </div>
 );
 
-export default AlertDialogActions;
+export default AlertDialogFooter;

@@ -5,12 +5,26 @@ interface HasServerConfig {
 }
 
 /**
- * A function to retrieve a environment variable value from the window object
+ * Retrieve an environment variable value from the window object
  */
 export const getRuntimeVariable = (name: string): string | undefined => {
   const windowWithConfig = window as unknown as HasServerConfig;
   // eslint-disable-next-line no-underscore-dangle
   return windowWithConfig.__SERVER_CONFIG__?.get(name);
+};
+
+/**
+ * Retrieve an environment variable value from the window object with error if missing
+ */
+export const getRuntimeVariableNotNull = (name: string): string => {
+  const runtimeVariable = getRuntimeVariable(name);
+  if (runtimeVariable) {
+    return runtimeVariable;
+  }
+
+  // eslint-disable-next-line no-console
+  console.error(`Missing mandatory runtime variable: ${name}`);
+  return " ";
 };
 
 /**

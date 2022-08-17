@@ -263,6 +263,7 @@ type PoolAdvertisement {
     classifications: [Classification] @belongsToMany
     keyTasks: LocalizedString @rename(attribute: "key_tasks")
     yourImpact: LocalizedString @rename(attribute: "your_impact")
+    isRemote: Boolean @rename(attribute: "is_remote")
     advertisementLocation: LocalizedString @rename(attribute: "advertisement_location")
     securityClearance: SecurityStatus @rename(attribute: "security_clearance")
     advertisementLanguage: PoolAdvertisementLanguage @rename(attribute: "advertisement_language")
@@ -327,6 +328,8 @@ type PoolCandidate {
 
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
     notes: String
+    archivedAt: DateTime @rename(attribute: "archived_at")
+    submittedAt: DateTime @rename(attribute: "submitted_at")
 }
 
 enum LanguageAbility {
@@ -734,13 +737,13 @@ input PoolsHasMany {
 When creating a User, name is required.
 """
 input CreateUserInput {
-    sub: String @rules(apply: ["unique:users,sub"])
+    sub: String @rules(apply: ["sometimes","unique:users,sub"])
     roles: [Role] = []
 
     # Personal info
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
-    email: Email @rules(apply: ["unique:users,email"])
+    email: Email @rules(apply: ["sometimes","unique:users,email"])
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
@@ -1235,6 +1238,7 @@ input UpdatePoolAdvertisementInput {
     advertisementLanguage: PoolAdvertisementLanguage @rename(attribute: "advertisement_language")
     securityClearance: SecurityStatus @rename(attribute: "security_clearance")
     advertisementLocation: LocalizedStringInput @rename(attribute: "advertisement_location")
+    isRemote: Boolean @rename(attribute: "is_remote")
 }
 
 type Mutation {
@@ -1281,14 +1285,12 @@ type Mutation {
 
     # PoolAdvertisement mutations
     createPoolAdvertisement(userId: ID! @rename(attribute: "user_id"), poolAdvertisement: CreatePoolAdvertisementInput! @spread): PoolAdvertisement @create(model: "Pool") @guard @can(ability: "create", model: "Pool")
-
     updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput! @spread): PoolAdvertisement @update(model: "Pool") @guard @can(ability: "update", find: "id", model: "Pool")
-
     publishPoolAdvertisement(id: ID!): PoolAdvertisement @guard @can(ability: "publish", find: "id", model: "Pool")
-
     changePoolExpiryDate(id: ID!, newExpiryDate: DateTimeTz! @rename(attribute: "new_expiry_date") @rules(apply: ["after:today"])): PoolAdvertisement @guard @can(ability: "changePoolExpiryDate", find: "id", model: "Pool")
-
     closePoolAdvertisement(id: ID!): PoolAdvertisement @guard @can(ability: "closePoolAdvertisement", find: "id", model: "Pool")
-
     deletePoolAdvertisement(id: ID!): PoolAdvertisement @delete(model: "Pool", globalId: false) @guard @can(ability: "delete", find: "id", model: "Pool")
+
+    archiveApplication(id:ID!): PoolCandidate @guard @can(ability: "archiveApplication", find: "id")
+    createApplication(userId:ID!, poolId:ID!): PoolCandidate
 }

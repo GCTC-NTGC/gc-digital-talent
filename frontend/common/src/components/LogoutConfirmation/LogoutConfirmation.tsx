@@ -36,7 +36,7 @@ const LogoutConfirmation = ({
             "Question displayed when authenticated user attempts to logout",
         })}
       </AlertDialog.Description>
-      <AlertDialog.Actions>
+      <AlertDialog.Footer>
         <Button
           mode="outline"
           color="primary"
@@ -57,7 +57,7 @@ const LogoutConfirmation = ({
             })}
           </Button>
         </span>
-      </AlertDialog.Actions>
+      </AlertDialog.Footer>
     </AlertDialog>
   );
 };

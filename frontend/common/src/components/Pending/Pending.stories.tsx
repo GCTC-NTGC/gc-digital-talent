@@ -3,10 +3,12 @@ import { Story, Meta } from "@storybook/react";
 import type { CombinedError } from "urql";
 import Pending from "./Pending";
 import NotFound from "../NotFound";
+import OverlayOrDialogDecorator from "../../../.storybook/decorators/OverlayOrDialogDecorator";
 
 export default {
   component: Pending,
   title: "Components/Pending",
+  decorators: [OverlayOrDialogDecorator],
   argTypes: {
     wait: {
       name: "wait",
@@ -45,15 +47,13 @@ const TemplatePending: Story = (args) => {
   }, [wait, setLoading]);
 
   return (
-    <div style={{ width: "100%", height: "100vh" }}>
-      <Pending fetching={isLoading} error={combinedError}>
-        {notFound ? (
-          <NotFound headingMessage="Not Found">{notFound}</NotFound>
-        ) : (
-          <p>Finished Loading!</p>
-        )}
-      </Pending>
-    </div>
+    <Pending fetching={isLoading} error={combinedError}>
+      {notFound ? (
+        <NotFound headingMessage="Not Found">{notFound}</NotFound>
+      ) : (
+        <p>Finished Loading!</p>
+      )}
+    </Pending>
   );
 };
 

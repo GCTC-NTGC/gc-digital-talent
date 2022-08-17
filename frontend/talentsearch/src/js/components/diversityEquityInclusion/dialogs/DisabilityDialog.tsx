@@ -13,7 +13,7 @@ import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
-import DialogActions from "./DialogActions";
+import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
 
 interface FormValues {
@@ -70,11 +70,6 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
       onDismiss={onDismiss}
       color="ts-primary"
       title={intl.formatMessage(getEmploymentEquityGroup("disability"))}
-      footer={
-        <DisabilityDialogFooter isAdded={isAdded} onSave={onSave}>
-          <DialogActions onDismiss={onDismiss} />
-        </DisabilityDialogFooter>
-      }
     >
       <UnderReview />
       <p data-h2-margin="base(0, 0, x1, 0)">
@@ -92,6 +87,11 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
             : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1"
         }
       />
+      <Dialog.Footer>
+        <DisabilityDialogFooter isAdded={isAdded} onSave={onSave}>
+          <DialogFooter onDismiss={onDismiss} />
+        </DisabilityDialogFooter>
+      </Dialog.Footer>
     </Dialog>
   );
 };

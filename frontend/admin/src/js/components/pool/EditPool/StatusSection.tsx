@@ -2,7 +2,6 @@ import * as React from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
-import { AdvertisementStatus } from "admin/src/js/api/generated";
 import { heavyPrimary } from "@common/helpers/format";
 import {
   FolderOpenIcon,
@@ -10,13 +9,15 @@ import {
   PencilIcon,
   SpeakerphoneIcon,
 } from "@heroicons/react/outline";
-import { PoolAdvertisement } from "../../../api/generated";
+import { PoolAdvertisement, AdvertisementStatus } from "../../../api/generated";
 import { SectionMetadata } from "./EditPool";
 import PublishDialog from "./PublishDialog";
 import CloseDialog from "./CloseDialog";
 import DeleteDialog from "./DeleteDialog";
 import ArchiveDialog from "./ArchiveDialog";
-import ExtendDialog from "./ExtendDialog";
+import ExtendDialog, { type ExtendSubmitData } from "./ExtendDialog";
+
+export type { ExtendSubmitData };
 
 interface StatusSectionProps {
   poolAdvertisement: PoolAdvertisement;
@@ -24,7 +25,7 @@ interface StatusSectionProps {
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: (submitData: unknown) => void;
+  onExtend: (submitData: ExtendSubmitData) => void;
   onArchive: () => void;
 }
 

@@ -2,7 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import messages from "../../../messages/commonMessages";
-import { getProvinceOrTerritory } from "../../../constants/localizedConstants";
+import {
+  getProvinceOrTerritory,
+  getCitizenshipStatusesProfile,
+} from "../../../constants/localizedConstants";
 import { getLanguage } from "../../../constants";
 import type { Applicant } from "../../../api/generated";
 
@@ -16,6 +19,8 @@ interface AboutSectionProps {
     | "preferredLang"
     | "currentCity"
     | "currentProvince"
+    | "citizenship"
+    | "isVeteran"
   >;
   editPath?: string;
 }
@@ -30,6 +35,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
     preferredLang,
     currentCity,
     currentProvince,
+    citizenship,
+    isVeteran,
   },
 }) => {
   const intl = useIntl();
@@ -112,6 +119,42 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             </p>
           </div>
         )}
+        {isVeteran !== null && (
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Member of CAF:",
+                description: "Veteran/member label",
+              })}{" "}
+              <span data-h2-font-weight="base(700)">
+                {isVeteran
+                  ? intl.formatMessage({
+                      defaultMessage: "I am a veteran or member of the CAF",
+                      description: "Am member or veteran of the CAF",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "I am not a veteran or member of the CAF",
+                      description: "Am not member or veteran of the CAF",
+                    })}
+              </span>
+            </p>
+          </div>
+        )}
+        {citizenship ? (
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Citizenship Status:",
+                description: "Citizenship status label",
+              })}{" "}
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage(getCitizenshipStatusesProfile(citizenship))}
+              </span>
+            </p>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       {!firstName &&
         !lastName &&
@@ -119,15 +162,16 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !telephone &&
         !preferredLang &&
         !currentCity &&
-        !currentProvince && (
+        !currentProvince &&
+        !citizenship &&
+        isVeteran === null && (
           <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
             <div data-h2-flex-item="base(1of1)">
               <p data-h2-color="base(dt-gray.dark)">
-                {intl.formatMessage({
-                  defaultMessage: "You haven't added any information here yet.",
-                  description:
-                    "Message for when no data exists for the section",
-                })}
+              {intl.formatMessage({
+                defaultMessage: "You haven't added any information here yet.",
+                description: "Message for when no data exists for the section",
+              })}
               </p>
             </div>
           </div>
@@ -138,7 +182,9 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !telephone ||
         !preferredLang ||
         !currentCity ||
-        !currentProvince) && (
+        !currentProvince ||
+        !citizenship ||
+        isVeteran === null) && (
         <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>

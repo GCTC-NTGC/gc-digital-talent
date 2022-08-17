@@ -26,15 +26,14 @@ describe('Auth flows (development)', () => {
     it('redirects restricted pages to login', () => {
       [
         '/en/admin/dashboard',
-        '/en/admin/skills',
-        '/en/admin/search-requests',
+        '/en/admin/talent-requests',
         '/en/admin/users',
-        '/en/admin/classifications',
+        '/en/admin/settings/classifications',
         '/en/admin/cmo-assets',
         '/en/admin/pools',
-        '/en/admin/departments',
-        '/en/admin/skill-families',
-        '/en/admin/skills',
+        '/en/admin/settings/departments',
+        '/en/admin/settings/skills',
+        '/en/admin/settings/skills/families',
       ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
         onAuthLoginPage()
@@ -171,15 +170,14 @@ describe('Auth flows (development)', () => {
     it('displays a not authorized message if logged in without the admin role', () => {
       [
         '/en/admin/dashboard',
-        '/en/admin/skills',
-        '/en/admin/search-requests',
+        '/en/admin/talent-requests',
         '/en/admin/users',
-        '/en/admin/classifications',
+        '/en/admin/settings/classifications',
         '/en/admin/cmo-assets',
         '/en/admin/pools',
-        '/en/admin/departments',
-        '/en/admin/skill-families',
-        '/en/admin/skills',
+        '/en/admin/settings/departments',
+        '/en/admin/settings/skills',
+        '/en/admin/settings/skills/families',
       ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
         cy.contains('not authorized');

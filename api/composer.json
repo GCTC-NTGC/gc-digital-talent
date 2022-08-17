@@ -1,11 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "gc-digital-talent/api",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "The GC Digital Talent API.",
+    "keywords": ["canada", "talent", "api"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.4",
         "doctrine/dbal": "^3.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^3.0",
