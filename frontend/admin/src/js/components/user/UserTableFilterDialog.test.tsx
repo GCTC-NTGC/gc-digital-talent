@@ -10,10 +10,6 @@ import { IntlProvider } from "react-intl";
 import UserTableFilterDialog from "./UserTableFilterDialog";
 // import type { UserTableFilterButtonProps } from "./UserTableFilterDialog";
 
-function noop() {
-  // does nothing.
-}
-
 const mockClient = {
   executeQuery: () => fromValue([]),
 } as any;
@@ -40,42 +36,43 @@ const Providers = ({ children }: ProvidersProps) => (
   </IntlProvider>
 );
 
+const mockSubmit = jest.fn();
+
 function renderButton(props: any) {
-  return render(<UserTableFilterDialog.Button {...props} />, {
-    wrapper: Providers,
-  });
+  return render(
+    <UserTableFilterDialog.Button onSubmit={mockSubmit} {...props} />,
+    {
+      wrapper: Providers,
+    },
+  );
 }
+
+beforeEach(() => {
+  mockSubmit.mockClear();
+});
 
 describe("UserTableFilterDialog", () => {
   describe("UserTableFilterDialog.Button", () => {
     it("modal is hidden by default", () => {
-      const { queryByRole } = renderButton({ onSubmit: noop });
-      expect(
-        queryByRole("dialog", { name: /select filters/i }),
-      ).not.toBeInTheDocument();
+      const { queryByRole } = renderButton({});
+      expect(queryByRole("dialog")).not.toBeInTheDocument();
     });
 
     it("opens modal when clicked", () => {
-      const { getByRole } = renderButton({ onSubmit: noop });
+      const { getByRole } = renderButton({});
       fireEvent.click(getByRole("button", { name: /filter/i }));
-      expect(
-        getByRole("dialog", { name: /select filters/i }),
-      ).toBeInTheDocument();
+      expect(getByRole("dialog")).toBeInTheDocument();
     });
 
     it("can be set to start with modal open", () => {
       const { getByRole } = renderButton({
-        onSubmit: noop,
         isOpenDefault: true,
       });
-      expect(
-        getByRole("dialog", { name: /select filters/i }),
-      ).toBeInTheDocument();
+      expect(getByRole("dialog")).toBeInTheDocument();
     });
 
     it("can be closed via X button", async () => {
       const { getByRole, queryByRole } = renderButton({
-        onSubmit: noop,
         isOpenDefault: true,
       });
       await act(async () => {
@@ -87,9 +84,7 @@ describe("UserTableFilterDialog", () => {
 
   describe("submit button", () => {
     it("calls submit handler with empty filters", async () => {
-      const mockSubmit = jest.fn();
       const { getByRole } = renderButton({
-        onSubmit: mockSubmit,
         isOpenDefault: true,
       });
       await act(async () => {
@@ -115,7 +110,6 @@ describe("UserTableFilterDialog", () => {
 
   it("shows all filters in modal", () => {
     const { getAllByRole } = renderButton({
-      onSubmit: noop,
       isOpenDefault: true,
     });
     expect(getAllByRole("combobox")).toHaveLength(10);
@@ -123,9 +117,7 @@ describe("UserTableFilterDialog", () => {
 
   describe("enableEducationType prop", () => {
     it("hide education filter when not enabled", () => {
-      const mockSubmit = jest.fn();
       const { queryByRole } = renderButton({
-        onSubmit: mockSubmit,
         isOpenDefault: true,
       });
       expect(
@@ -134,9 +126,7 @@ describe("UserTableFilterDialog", () => {
     });
 
     it("shows education filter when enabled", () => {
-      const mockSubmit = jest.fn();
       const { getByRole, getAllByRole } = renderButton({
-        onSubmit: mockSubmit,
         isOpenDefault: true,
         enableEducationType: true,
       });
@@ -145,9 +135,7 @@ describe("UserTableFilterDialog", () => {
     });
 
     it("submits education form data when enabled", async () => {
-      const mockSubmit = jest.fn();
       const { getByRole } = renderButton({
-        onSubmit: mockSubmit,
         isOpenDefault: true,
         enableEducationType: true,
       });
