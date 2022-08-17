@@ -39,6 +39,7 @@ const Providers = ({ children }: ProvidersProps) => (
 
 const mockSubmit = jest.fn();
 
+// Helpers.
 function renderButton(props: Partial<UserTableFilterButtonProps>) {
   return render(
     <UserTableFilterDialog.Button {...props} onSubmit={mockSubmit} />,
@@ -66,6 +67,12 @@ const setFilter = (fieldLabel: string | RegExp, optionLabel: string) => {
   });
 };
 
+const submitFilters = async () => {
+  await act(async () => {
+    fireEvent.click(screen.getByRole("button", { name: /show results/i }));
+  });
+};
+
 beforeEach(() => {
   mockSubmit.mockClear();
 });
@@ -88,7 +95,7 @@ describe("UserTableFilterDialog", () => {
       expect(screen.getByRole("dialog")).toBeInTheDocument();
     });
 
-    it("can be closed via X button", async () => {
+    it("can be closed via X button", () => {
       renderButton({ isOpenDefault: true });
       closeDialog();
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -98,9 +105,7 @@ describe("UserTableFilterDialog", () => {
   describe("submit button", () => {
     it("calls submit handler with empty filters", async () => {
       renderButton({ isOpenDefault: true });
-      await act(async () => {
-        fireEvent.click(screen.getByRole("button", { name: /show results/i }));
-      });
+      await submitFilters();
       expect(mockSubmit).toHaveBeenCalledTimes(1);
       expect(mockSubmit).toHaveBeenCalledWith(emptyFormValues);
     });
@@ -113,9 +118,7 @@ describe("UserTableFilterDialog", () => {
 
     it("closes the dialog on submission", async () => {
       renderButton({ isOpenDefault: true });
-      await act(async () => {
-        fireEvent.click(screen.getByRole("button", { name: /show results/i }));
-      });
+      await submitFilters();
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
@@ -124,9 +127,7 @@ describe("UserTableFilterDialog", () => {
 
       setFilter(/work locations/i, "Atlantic");
 
-      await act(async () => {
-        fireEvent.click(screen.getByRole("button", { name: /show results/i }));
-      });
+      await submitFilters();
       expect(mockSubmit).toHaveBeenCalledTimes(1);
       const activeFilter = mockSubmit.mock.lastCall[0];
       expect(activeFilter.workRegion).toHaveLength(1);
@@ -139,13 +140,10 @@ describe("UserTableFilterDialog", () => {
 
       setFilter(/work locations/i, "Atlantic");
 
-      // Close and re-open dialog.
-
+      closeDialog();
       openDialog();
 
-      await act(async () => {
-        fireEvent.click(screen.getByRole("button", { name: /show results/i }));
-      });
+      await submitFilters();
 
       // No submitted data.
       const activeFilter = mockSubmit.mock.lastCall[0];
@@ -155,22 +153,16 @@ describe("UserTableFilterDialog", () => {
     it("persists form data when modal submitted and re-opened", async () => {
       renderButton({ isOpenDefault: true });
 
-      // Set a filter.
       expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
       setFilter(/work locations/i, "Atlantic");
       expect(screen.getByText("Atlantic")).toBeInTheDocument();
-      // expect(screen.getByText("North")).toBeInTheDocument();
 
-      await act(async () => {
-        fireEvent.click(screen.getByRole("button", { name: /show results/i }));
-      });
+      await submitFilters();
 
       openDialog();
       expect(screen.getByText("Atlantic")).toBeInTheDocument();
 
-      await act(async () => {
-        fireEvent.click(screen.getByRole("button", { name: /show results/i }));
-      });
+      await submitFilters();
       expect(mockSubmit).toHaveBeenCalledTimes(2);
       const activeFilter = mockSubmit.mock.lastCall[0];
       expect(activeFilter.workRegion).toHaveLength(1);
@@ -211,9 +203,7 @@ describe("UserTableFilterDialog", () => {
         isOpenDefault: true,
         enableEducationType: true,
       });
-      await act(async () => {
-        fireEvent.click(screen.getByRole("button", { name: /show results/i }));
-      });
+      await submitFilters();
       expect(mockSubmit.mock.lastCall[0]).toMatchObject({ educationType: [] });
     });
   });
