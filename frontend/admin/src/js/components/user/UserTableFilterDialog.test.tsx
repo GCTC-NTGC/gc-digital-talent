@@ -7,12 +7,20 @@ import { render, fireEvent, act, screen } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { IntlProvider } from "react-intl";
-import WorkLocationSection from "@common/components/UserProfile/ProfileSections/WorkLocationSection";
 import UserTableFilterDialog from "./UserTableFilterDialog";
 import type { UserTableFilterButtonProps } from "./UserTableFilterDialog";
 
 const mockClient = {
-  executeQuery: () => fromValue([]),
+  executeQuery: () =>
+    // Combining all responses into one for simpler test setup,
+    // though not how data would ever be returned in app.
+    fromValue({
+      data: {
+        classifications: [{ id: "IT_3", group: "IT", level: "3" }],
+        pools: [{ id: "BAR", name: { en: "Bar Pool" } }],
+        skills: [{ id: "BAZ", name: { en: "Baz Skill" } }],
+      },
+    }),
 } as any;
 
 const emptyFormValues = {
@@ -126,27 +134,54 @@ describe("UserTableFilterDialog", () => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
-    it("submits filter data", async () => {
+    it("submits non-empty filter data for all filters", async () => {
       renderButton({ isOpenDefault: true });
 
+      // Static filters.
+      setFilter(/languages/i, "French only");
+      setFilter(/work preferences/i, "Shift-work");
       setFilter(/work locations/i, "Atlantic");
+      setFilter(/duration/i, "Term");
+      setFilter(/availability/i, "Inactive");
+      // Can't target options (non-unique).
+      // setFilter(/profile complete/i, "Yes");
+      // setFilter(/government employee/i, "Yes");
+
+      // TODO: Async filters.
+      setFilter(/classifications/i, "IT-3");
+      setFilter(/pools/i, "Bar Pool");
+      setFilter(/skill filter/i, "Baz Skill");
 
       await submitFilters();
       expect(mockSubmit).toHaveBeenCalledTimes(1);
+      // expect(mockSubmit).toHaveBeenCalledWith({});
       const activeFilter = mockSubmit.mock.lastCall[0];
+      expect(Object.keys(activeFilter)).toHaveLength(10);
+      // Static filters.
       expect(activeFilter.workRegion).toHaveLength(1);
+      expect(activeFilter.employmentDuration).toHaveLength(1);
+      expect(activeFilter.languageAbility).toHaveLength(1);
+      expect(activeFilter.operationalRequirement).toHaveLength(1);
+      // Unset. (Can't target)
+      expect(activeFilter.govEmployee).toHaveLength(0);
+      expect(activeFilter.profileComplete).toHaveLength(0);
+
+      // Unset async filters.
+      expect(activeFilter.classifications).toHaveLength(1);
+      expect(activeFilter.skills).toHaveLength(1);
+      expect(activeFilter.pools).toHaveLength(1);
     });
   });
 
-  describe("form data", () => {
-    it("correctly selects work location filter", () => {
-      renderButton({ isOpenDefault: true });
+  it("correctly selects work location filter", () => {
+    renderButton({ isOpenDefault: true });
 
-      expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
-      setFilter(/work locations/i, "Atlantic");
-      expect(screen.getByText("Atlantic")).toBeInTheDocument();
-    });
+    expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
+    setFilter(/work locations/i, "Atlantic");
+    expect(screen.getByText("Atlantic")).toBeInTheDocument();
+  });
 
+  describe("data persistence", () => {
     it("doesn't persist form data changes when modal closed with X", async () => {
       renderButton({ isOpenDefault: true });
       setFilter(/work locations/i, "Atlantic");
@@ -166,13 +201,14 @@ describe("UserTableFilterDialog", () => {
     });
   });
 
-  describe("clear button", () => {
-    it("clears prior form data when submitted empty", async () => {
+  describe("prior state", () => {
+    beforeEach(async () => {
       renderButton({ isOpenDefault: true });
       setFilter(/work locations/i, "Atlantic");
       await submitFilters();
+    });
 
-      // Clear and submit.
+    it("clears prior state when cleared and submitted", async () => {
       openDialog();
       clearFilters();
       await submitFilters();
@@ -181,12 +217,7 @@ describe("UserTableFilterDialog", () => {
       expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
     });
 
-    it("keeps prior form data when not submitted", async () => {
-      renderButton({ isOpenDefault: true });
-      setFilter(/work locations/i, "Atlantic");
-      await submitFilters();
-
-      // Clear without submitting.
+    it("keeps prior state when cleared but not submitted", async () => {
       openDialog();
       clearFilters();
       closeDialog();
@@ -196,13 +227,13 @@ describe("UserTableFilterDialog", () => {
     });
   });
 
-  it("shows all filters in modal", () => {
+  it("shows correct filters in modal", () => {
     renderButton({ isOpenDefault: true });
     expect(screen.getAllByRole("combobox")).toHaveLength(10);
   });
 
   describe("enableEducationType prop", () => {
-    it("hide education filter when not enabled", () => {
+    it("hides education filter when not enabled", () => {
       renderButton({ isOpenDefault: true });
       expect(
         screen.queryByRole("combobox", { name: /education/i }),
@@ -220,13 +251,28 @@ describe("UserTableFilterDialog", () => {
       ).toBeInTheDocument();
     });
 
-    it("submits education form data when enabled", async () => {
+    it("submits empty education data when empty", async () => {
       renderButton({
         isOpenDefault: true,
         enableEducationType: true,
       });
       await submitFilters();
-      expect(mockSubmit.mock.lastCall[0]).toMatchObject({ educationType: [] });
+
+      const activeFilter = mockSubmit.mock.lastCall[0];
+      expect(activeFilter.educationType).toBeDefined();
+      expect(activeFilter.educationType).toHaveLength(0);
+    });
+
+    it("submits education data when populated", async () => {
+      renderButton({
+        isOpenDefault: true,
+        enableEducationType: true,
+      });
+      setFilter(/education/i, "Diploma");
+      await submitFilters();
+
+      const activeFilter = mockSubmit.mock.lastCall[0];
+      expect(activeFilter.educationType).toHaveLength(1);
     });
   });
 });
