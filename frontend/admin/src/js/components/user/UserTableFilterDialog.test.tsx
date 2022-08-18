@@ -279,10 +279,11 @@ describe("UserTableFilterDialog", () => {
         enableEducationType: true,
       });
       selectFilterOption(/education/i);
+      selectFilterOption(/education/i);
       await submitFilters();
 
       const activeFilter = mockSubmit.mock.lastCall[0];
-      expect(activeFilter.educationType).toHaveLength(1);
+      expect(activeFilter.educationType).toHaveLength(2);
     });
   });
 });
