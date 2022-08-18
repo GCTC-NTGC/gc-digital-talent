@@ -21,7 +21,7 @@ const mockClient = {
         skills: [{ id: "BAZ", name: { en: "Baz Skill" } }],
       },
     }),
-} as any;
+} as any; // eslint-disable-line
 
 const emptyFormValues = {
   classifications: [],
