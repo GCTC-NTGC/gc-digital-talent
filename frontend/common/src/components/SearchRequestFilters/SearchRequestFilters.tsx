@@ -260,10 +260,7 @@ const ApplicantFilters: React.FC<{
           />
         </div>
       </div>
-      <div
-        data-h2-flex-item="base(1of1) p-tablet(1of2)"
-        data-h2-border="p-tablet(left, 1px, solid, dt-gray.light)"
-      >
+      <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
           <FilterBlock
             title={intl.formatMessage({

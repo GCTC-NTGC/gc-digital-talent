@@ -58,6 +58,11 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   const error = get(errors, name)?.message;
   const required = !!rules.required;
 
+  let columnValue = { "data-h2-flex-item": "base(1of1)" };
+  if (columns === 2) {
+    columnValue = { "data-h2-flex-item": "base(1of1) p-tablet(1of2)" };
+  }
+
   return (
     <Fieldset
       legend={legend}
@@ -73,7 +78,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
         {items.map(({ value, label }) => {
           const id = `${idPrefix}-${value}`;
           return (
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)" key={id}>
+            <div {...columnValue} key={id}>
               <InputWrapper
                 inputId={id}
                 label={label}

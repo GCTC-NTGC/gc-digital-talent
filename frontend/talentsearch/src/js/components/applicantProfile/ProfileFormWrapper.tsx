@@ -47,7 +47,9 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         backgroundSize: "100vw 5rem",
       }}
     >
-      <Breadcrumbs links={links} />
+      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <Breadcrumbs links={links} />
+      </div>
     </div>
   );
 

@@ -148,8 +148,8 @@ export const ExperienceAndSkills: React.FunctionComponent<
       }}
     >
       <div data-h2-margin="base(x2, 0)">
-        <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(center, 0, x1)">
-          <div data-h2-flex-item="base(1of1) p-tablet(content)">
+        <div data-h2-flex-grid="base(flex-start, 0, x.5)">
+          <div data-h2-flex-item="base(1of1)">
             <p
               data-h2-font-style="base(reset)"
               data-h2-font-weight="base(700)"
@@ -162,32 +162,28 @@ export const ExperienceAndSkills: React.FunctionComponent<
               })}
             </p>
           </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(fill)">
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column) p-tablet(row)"
-              data-h2-justify-content="base(center) l-tablet(space-between)"
-              style={{ flexGrow: "2" }}
-            >
+          <div data-h2-flex-item="base(1of1)">
+            <div data-h2-flex-grid="base(center, 0, x1) p-tablet(center, 0, x.5)">
               {links.map(({ title, href, icon }) => (
-                <IconLink
-                  key={title}
-                  href={href}
-                  type="button"
-                  color="primary"
-                  icon={icon}
-                  block
-                >
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "<hidden>Add new </hidden>{title}<hidden> experience</hidden>",
-                      description:
-                        "Link text for adding a new experience of a specific type.",
-                    },
-                    { title },
-                  )}
-                </IconLink>
+                <div key={title} data-h2-flex-item="base(1of1) p-tablet(1of5)">
+                  <IconLink
+                    href={href}
+                    type="button"
+                    color="primary"
+                    icon={icon}
+                    block
+                  >
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "<hidden>Add new </hidden>{title}<hidden> experience</hidden>",
+                        description:
+                          "Link text for adding a new experience of a specific type.",
+                      },
+                      { title },
+                    )}
+                  </IconLink>
+                </div>
               ))}
             </div>
           </div>

@@ -16,22 +16,20 @@ const IconLink: React.FC<IconLinkProps> = ({
   return (
     <Link block={block} {...rest}>
       <span
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        {...(block
-          ? {
-              "data-h2-justify-content": "base(center)",
-            }
-          : null)}
+        data-h2-flex-grid="base(center, 0, x.4, 0)"
+        data-h2-justify-content="base(center)"
       >
         {Icon && (
-          <Icon
-            data-h2-margin="base(-2px, x.5, 0, 0)"
-            data-h2-width="base(x1)"
-            data-h2-vertical-align="base(middle)"
-          />
+          <div data-h2-flex-item="base(content)">
+            <Icon
+              data-h2-width="base(x1)"
+              data-h2-vertical-align="base(bottom)"
+            />
+          </div>
         )}
-        <span data-h2-text-decoration="base(underline)">{children}</span>
+        <div data-h2-flex-item="base(content)">
+          <span data-h2-text-decoration="base(underline)">{children}</span>
+        </div>
       </span>
     </Link>
   );

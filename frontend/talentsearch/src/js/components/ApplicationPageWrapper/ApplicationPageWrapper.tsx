@@ -133,7 +133,9 @@ const ApplicationPageWrapper = ({
             backgroundSize: "100vw 5rem",
           }}
         >
-          {breadcrumbs}
+          <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+            {breadcrumbs}
+          </div>
         </div>
       ) : null}
     </>
