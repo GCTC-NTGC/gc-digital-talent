@@ -41,11 +41,11 @@ const CreateAccount = React.lazy(
 const ProfilePage = React.lazy(
   () => import("./profile/ProfilePage/ProfilePage"),
 );
-const GovInfoFormContainer = React.lazy(
-  () => import("./GovernmentInfoForm/GovernmentInfoForm"),
+const GovernmentInfoFormPage = React.lazy(
+  () => import("./GovernmentInfoForm/GovernmentInfoFormPage"),
 );
-const LanguageInformationFormContainer = React.lazy(
-  () => import("./languageInformationForm/LanguageInformationForm"),
+const LanguageInformationFormPage = React.lazy(
+  () => import("./languageInformationForm/LanguageInformationFormPage"),
 );
 const WorkLocationPreferenceApi = React.lazy(
   () => import("./workLocationPreferenceForm/WorkLocationPreferenceForm"),
@@ -149,7 +149,7 @@ const profileRoutes = (
     action: (context) => {
       const userId = context.params.userId as string;
       return {
-        component: <GovInfoFormContainer meId={userId} />,
+        component: <GovernmentInfoFormPage meId={userId} />,
         authorizedRoles: [Role.Applicant],
       };
     },
@@ -157,7 +157,7 @@ const profileRoutes = (
   {
     path: profilePaths.languageInformation(":userId"),
     action: () => ({
-      component: <LanguageInformationFormContainer />,
+      component: <LanguageInformationFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },

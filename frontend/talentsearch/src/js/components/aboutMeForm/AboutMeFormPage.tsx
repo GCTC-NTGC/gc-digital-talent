@@ -1,8 +1,8 @@
+import React from "react";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { parseUrlQueryParameters, useLocation } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
-import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { OperationResult } from "urql";

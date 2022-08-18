@@ -1,13 +1,12 @@
 import React, { ReactNode } from "react";
 import { useIntl } from "react-intl";
-import { commonMessages, errorMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { Checklist, RadioGroup, Select } from "@common/components/form";
-import { FormProvider, useForm } from "react-hook-form";
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { compact, omit } from "lodash";
 import { getLocale } from "@common/helpers/localize";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import {
@@ -15,14 +14,14 @@ import {
   EstimatedLanguageAbility,
   EvaluatedLanguageAbility,
   GetLanguageInformationQuery,
+  PoolCandidate,
   UpdateUserAsUserInput,
-  useGetLanguageInformationQuery,
   User,
-  useUpdateLanguageInformationMutation,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
+import directIntakeRoutes from "../../directIntakeRoutes";
 import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<
@@ -90,10 +89,17 @@ const dataToFormValues = (
 
 export const LanguageInformationForm: React.FunctionComponent<{
   initialData: User;
+  application?: PoolCandidate;
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
-}> = ({ initialData, submitHandler }) => {
+}> = ({ initialData, application, submitHandler }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const profilePaths = applicantProfileRoutes(locale);
+  const directIntakePaths = directIntakeRoutes(locale);
+  const returnRoute =
+    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.poolApply(application.pool.id)
+      : profilePaths.home(initialData.id);
 
   const defaultValues = dataToFormValues(initialData);
 
@@ -101,8 +107,16 @@ export const LanguageInformationForm: React.FunctionComponent<{
     defaultValues,
   });
 
-  const onSubmit = (values: FormValues) =>
-    submitHandler(formValuesToSubmitData(values));
+  const onSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    await submitHandler(formValuesToSubmitData(formValues))
+      .then(() => {
+        navigate(returnRoute);
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
+      });
+  };
 
   // hooks to watch, needed for conditional rendering
   const [consideredLanguages, bilingualEvaluation] = methods.watch([
@@ -271,6 +285,9 @@ export const LanguageInformationForm: React.FunctionComponent<{
             description:
               "Title for Profile Form wrapper in Language Information Form",
           })}
+          cancelLink={{
+            href: returnRoute,
+          }}
           crumbs={[
             {
               title: intl.formatMessage({
@@ -280,6 +297,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
               }),
             },
           ]}
+          originApplication={application}
         >
           <div data-h2-padding="b(bottom, l)">
             <div
@@ -434,67 +452,4 @@ export const LanguageInformationForm: React.FunctionComponent<{
   );
 };
 
-export const LanguageInformationFormContainer: React.FunctionComponent = () => {
-  const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
-
-  const [lookUpResult] = useGetLanguageInformationQuery();
-  const { data: userData, fetching, error } = lookUpResult;
-  const userId = userData?.me?.id;
-  const preProfileStatus = userData?.me?.isProfileComplete;
-
-  const [, executeMutation] = useUpdateLanguageInformationMutation();
-
-  const handleUpdateUser = (id: string, data: UpdateUserAsUserInput) =>
-    executeMutation({ id, user: data }).then((result) => {
-      if (result.data?.updateUserAsUser) {
-        return result.data.updateUserAsUser;
-      }
-      return Promise.reject(result.error);
-    });
-
-  const onSubmit = async (data: UpdateUserAsUserInput) => {
-    if (userId === undefined || userId === "") {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error: user not found",
-          description: "Message displayed to user if user is not found",
-        }),
-      );
-      return;
-    }
-    await handleUpdateUser(userId, data)
-      .then((res) => {
-        if (res.isProfileComplete) {
-          const currentProfileStatus = res.isProfileComplete;
-          const message = intl.formatMessage(profileMessages.profileCompleted);
-          if (!preProfileStatus && currentProfileStatus) {
-            toast.success(message);
-          }
-        }
-        navigate(paths.home(userId));
-        toast.success(intl.formatMessage(profileMessages.userUpdated));
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(profileMessages.updatingFailed));
-      });
-  };
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {userData?.me ? (
-        <LanguageInformationForm
-          initialData={userData.me}
-          submitHandler={onSubmit}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-export default LanguageInformationFormContainer;
+export default LanguageInformationForm;

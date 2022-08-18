@@ -1,32 +1,33 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { errorMessages } from "@common/messages";
 import { Checkbox, RadioGroup, Select } from "@common/components/form";
-import { getLocale } from "@common/helpers/localize";
-import { toast } from "react-toastify";
-import { empty, notEmpty } from "@common/helpers/util";
-import { navigate } from "@common/helpers/router";
+import { empty } from "@common/helpers/util";
 import { getGovEmployeeType } from "@common/constants/localizedConstants";
 import {
   enumToOptions,
   objectsToSortedOptions,
 } from "@common/helpers/formUtils";
-import Pending from "@common/components/Pending";
+import { getLocale } from "@common/helpers/localize";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { navigate } from "@common/helpers/router";
+import { toast } from "react-toastify";
 import {
   Classification,
-  useGetGovInfoFormLookupDataQuery,
-  useUpdateGovAsUserMutation,
   UpdateUserAsUserInput,
   GetGovInfoFormLookupDataQuery,
   GovEmployeeType,
   Maybe,
   Department,
+  PoolCandidate,
+  User,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-import profileMessages from "../profile/profileMessages";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
+import directIntakeRoutes from "../../directIntakeRoutes";
+import profileMessages from "../profile/profileMessages";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
@@ -365,14 +366,28 @@ export const GovernmentInfoForm: React.FunctionComponent<
 export interface GovInfoFormWithProfileWrapperProps {
   departments: Department[];
   classifications: Classification[];
-  initialData: GetGovInfoFormLookupDataQuery["me"] | undefined;
+  initialData: User;
+  application?: PoolCandidate;
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
 export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
   GovInfoFormWithProfileWrapperProps
-> = ({ departments, classifications, initialData, submitHandler }) => {
+> = ({
+  departments,
+  classifications,
+  initialData,
+  application,
+  submitHandler,
+}) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const profilePaths = applicantProfileRoutes(locale);
+  const directIntakePaths = directIntakeRoutes(locale);
+  const returnRoute =
+    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.poolApply(application.pool.id)
+      : profilePaths.home(initialData.id);
 
   const defaultValues = dataToFormValues(initialData);
 
@@ -380,8 +395,16 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
     defaultValues,
   });
 
-  const onSubmit = (values: FormValues) =>
-    submitHandler(formValuesToSubmitData(values, classifications));
+  const onSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    await submitHandler(formValuesToSubmitData(formValues, classifications))
+      .then(() => {
+        navigate(returnRoute);
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
+      });
+  };
 
   // hooks to watch, needed for conditional rendering
   const [govEmployee, govEmployeeStatus, groupSelection] = methods.watch([
@@ -403,6 +426,9 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
         description:
           "Title for Profile Form Wrapper in Government Information Form",
       })}
+      cancelLink={{
+        href: returnRoute,
+      }}
       crumbs={[
         {
           title: intl.formatMessage({
@@ -412,6 +438,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
           }),
         },
       ]}
+      originApplication={application}
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -429,78 +456,4 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
   );
 };
 
-// outer, containing component
-const GovInfoFormContainer: React.FunctionComponent<{ meId: string }> = ({
-  meId,
-}) => {
-  // needed bits for react-intl, form submits functions, and routing post submission
-  const intl = useIntl();
-
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
-
-  // Fetch departments and classifications from graphQL to pass into component to render and pull "Me" at the same time
-  const [lookUpResult] = useGetGovInfoFormLookupDataQuery();
-  const { data, fetching, error } = lookUpResult;
-  const preProfileStatus = data?.me?.isProfileComplete;
-  const departments: Department[] | [] =
-    data?.departments.filter(notEmpty) ?? [];
-  const classifications: Classification[] | [] =
-    data?.classifications.filter(notEmpty) ?? [];
-  const meInfo = data?.me;
-
-  // submitting the form component values back out to graphQL, after smoothing form-values to appropriate type, then return to /profile
-  const [, executeMutation] = useUpdateGovAsUserMutation();
-  const handleUpdateUser = (id: string, updateData: UpdateUserAsUserInput) =>
-    executeMutation({
-      id,
-      user: updateData,
-    }).then((result) => {
-      if (result.data?.updateUserAsUser) {
-        return result.data.updateUserAsUser;
-      }
-      return Promise.reject(result.error);
-    });
-
-  const onSubmit = async (updateDate: UpdateUserAsUserInput) => {
-    // tristan's suggestion to short-circuit this function if there is no id
-    if (meId === undefined || meId === "") {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error: user not found",
-          description: "Message displayed to user if user is not found",
-        }),
-      );
-      return;
-    }
-    await handleUpdateUser(meId, updateDate)
-      .then((res) => {
-        if (res.isProfileComplete) {
-          const currentProfileStatus = res.isProfileComplete;
-          const message = intl.formatMessage(profileMessages.profileCompleted);
-          if (!preProfileStatus && currentProfileStatus) {
-            toast.success(message);
-            navigate(paths.home(meId));
-          }
-        }
-        navigate(paths.home(meId));
-        toast.success(intl.formatMessage(profileMessages.userUpdated));
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(profileMessages.updatingFailed));
-      });
-  };
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      <GovInfoFormWithProfileWrapper
-        departments={departments}
-        classifications={classifications}
-        initialData={meInfo}
-        submitHandler={onSubmit}
-      />
-    </Pending>
-  );
-};
-
-export default GovInfoFormContainer;
+export default GovInfoFormWithProfileWrapper;
