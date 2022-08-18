@@ -130,7 +130,7 @@ export const SkillResults: React.FunctionComponent<SkillResultsProps> = ({
         data-h2-padding="base(x1.5, 0, 0, 0)"
         data-h2-margin="base(x1.5, 0, x.65, 0)"
       >
-        Skill {title}
+        {title}
       </h4>
       {skills.map((skill) => {
         // Check if the poolCandidate has added the skill already.
