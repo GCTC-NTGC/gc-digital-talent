@@ -146,43 +146,47 @@ describe("UserTableFilterDialog", () => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
-    it("submits non-empty filter data for all filters", async () => {
-      // This test is prone to going about the 5s default timeout.
-      jest.setTimeout(10 * 1000);
-      renderButton({ isOpenDefault: true });
+    // This test is prone to going about the 5s default timeout.
+    const extendedTimeout = 10 * 1000;
+    it(
+      "submits non-empty filter data for all filters",
+      async () => {
+        renderButton({ isOpenDefault: true });
 
-      // Static filters.
-      selectFilterOption(/languages/i);
-      selectFilterOption(/work preferences/i);
-      selectFilterOption(/work locations/i);
-      selectFilterOption(/duration/i);
-      selectFilterOption(/availability/i);
-      selectFilterOption(/profile complete/i);
-      selectFilterOption(/government employee/i);
+        // Static filters.
+        selectFilterOption(/languages/i);
+        selectFilterOption(/work preferences/i);
+        selectFilterOption(/work locations/i);
+        selectFilterOption(/duration/i);
+        selectFilterOption(/availability/i);
+        selectFilterOption(/profile complete/i);
+        selectFilterOption(/government employee/i);
 
-      // TODO: Async filters.
-      selectFilterOption(/classifications/i);
-      selectFilterOption(/pools/i);
-      selectFilterOption(/skill filter/i);
+        // TODO: Async filters.
+        selectFilterOption(/classifications/i);
+        selectFilterOption(/pools/i);
+        selectFilterOption(/skill filter/i);
 
-      await submitFilters();
-      expect(mockSubmit).toHaveBeenCalledTimes(1);
+        await submitFilters();
+        expect(mockSubmit).toHaveBeenCalledTimes(1);
 
-      const activeFilter = mockSubmit.mock.lastCall[0];
-      expect(Object.keys(activeFilter)).toHaveLength(10);
-      // Static filters.
-      expect(activeFilter.workRegion).toHaveLength(1);
-      expect(activeFilter.employmentDuration).toHaveLength(1);
-      expect(activeFilter.languageAbility).toHaveLength(1);
-      expect(activeFilter.operationalRequirement).toHaveLength(1);
-      expect(activeFilter.govEmployee).toHaveLength(1);
-      expect(activeFilter.profileComplete).toHaveLength(1);
+        const activeFilter = mockSubmit.mock.lastCall[0];
+        expect(Object.keys(activeFilter)).toHaveLength(10);
+        // Static filters.
+        expect(activeFilter.workRegion).toHaveLength(1);
+        expect(activeFilter.employmentDuration).toHaveLength(1);
+        expect(activeFilter.languageAbility).toHaveLength(1);
+        expect(activeFilter.operationalRequirement).toHaveLength(1);
+        expect(activeFilter.govEmployee).toHaveLength(1);
+        expect(activeFilter.profileComplete).toHaveLength(1);
 
-      // Async filters.
-      expect(activeFilter.classifications).toHaveLength(1);
-      expect(activeFilter.skills).toHaveLength(1);
-      expect(activeFilter.pools).toHaveLength(1);
-    });
+        // Async filters.
+        expect(activeFilter.classifications).toHaveLength(1);
+        expect(activeFilter.skills).toHaveLength(1);
+        expect(activeFilter.pools).toHaveLength(1);
+      },
+      extendedTimeout,
+    );
   });
 
   it("correctly selects work location filter", () => {
