@@ -269,7 +269,7 @@ const UserTableFilterButton = ({
         <ButtonIcon icon={FilterIcon} />
         <span>
           {formatMessage({
-            defaultMessage: "Filter",
+            defaultMessage: "Filters",
             description:
               "Text label for button to open filter dialog on admin tables.",
           })}
