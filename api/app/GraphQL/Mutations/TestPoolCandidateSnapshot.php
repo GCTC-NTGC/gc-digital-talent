@@ -17,10 +17,8 @@ final class TestPoolCandidateSnapshot
         $id = $args['id'];
         $poolCandidate = PoolCandidate::findOrFail($id);
 
-        // $result = GraphQLClient::graphQL($this->snapshotQuery(), ['id' => $id]);
-
         $query = file_get_contents(base_path('app/GraphQL/Mutations/TestPoolCandidateSnapshot.graphql'), true);
-        $result = GraphQLClient::graphQL($query, ['id' => $id]);
+        $result = GraphQLClient::graphQL($query, ['userId' => $poolCandidate->user_id]);
 
         $poolCandidate->profile_snapshot = $result;
         $poolCandidate->save();
