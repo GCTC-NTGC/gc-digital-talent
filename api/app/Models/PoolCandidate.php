@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property Illuminate\Support\Carbon $archived_at
  * @property Illuminate\Support\Carbon $submitted_at
  * @property string $language_ability
+ * @property string $signature
  * @property array $location_preferences
  * @property array $expected_salary
  * @property string $pool_candidate_status
@@ -66,6 +67,7 @@ class PoolCandidate extends Model
         'submitted_at',
         'user_id',
         'pool_id',
+        'signature',
     ];
 
     public function user(): BelongsTo
