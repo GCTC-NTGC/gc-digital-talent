@@ -39,11 +39,11 @@ module.exports = {
         // Run on the invalid hook so that the file time is updated before the next compile
         compiler.hooks.invalid.tap('invalid', (fileName, changeTime) => {
           shell.exec('cd ..;node node_modules/@hydrogen-design-system/hydrogen.css/bin/build.js');
-          var f = path.resolve('common/src/css/hydrogen.css')
+          var f = path.resolve('../common/src/css/hydrogen.css')
           var now = Date.now() / 1000
           var then = now - 100
           fs.utimes(f, then, then, function (err) { if (err) throw err })
-          var s = path.resolve('common/src/css/hydrogen.vars.css')
+          var s = path.resolve('../common/src/css/hydrogen.vars.css')
           var now = Date.now() / 1000
           var then = now - 100
           fs.utimes(s, then, then, function (err) { if (err) throw err })

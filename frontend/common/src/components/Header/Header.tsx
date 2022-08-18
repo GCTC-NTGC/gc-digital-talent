@@ -24,7 +24,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl }) => {
       data-h2-padding="base(x1, 0)"
       data-h2-border="base(bottom, 1px, solid, dt-gray)"
     >
-      <div data-h2-container="base(center, large, x2)">
+      <div data-h2-container="base(center, full, x2)">
         <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(center, 0, x3)">
           <div
             data-h2-flex-item="base(1of1) p-tablet(1of2)"

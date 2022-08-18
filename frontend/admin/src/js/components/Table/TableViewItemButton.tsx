@@ -24,6 +24,7 @@ function TableViewItemButton({
       type="button"
       mode="inline"
       data-h2-font-size="base(caption)"
+      data-h2-padding="base(0)"
     >
       {intl.formatMessage(
         {
