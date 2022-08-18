@@ -129,7 +129,7 @@ function Table<T extends Record<string, unknown>>({
         <div data-h2-margin="base(x2, 0, x.5, 0)">
           <p>{title && <span data-h2-font-weight="base(700)">{title}</span>}</p>
           <div data-h2-flex-grid="base(center, 0, x1)">
-            <div data-h2-flex-item="base(fill)">
+            <div data-h2-flex-item="base(1of1) l-tablet(fill)">
               <div data-h2-flex-grid="base(center, 0, x.5)">
                 <div data-h2-flex-item="base(content)">
                   <SearchForm onChange={setGlobalFilter} />
@@ -193,7 +193,7 @@ function Table<T extends Record<string, unknown>>({
                 </div>
               </div>
             </div>
-            <div data-h2-flex-item="base(content)">
+            <div data-h2-flex-item="base(1of1) l-tablet(content)">
               {addBtn && (
                 <Link
                   mode="solid"
