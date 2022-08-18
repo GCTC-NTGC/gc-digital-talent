@@ -11,9 +11,9 @@
   ],
   "input": [
     "common/src/components",
-    "admin/src/js",
-    "talentsearch/src/js",
-    "indigenousapprenticeship/src/js"
+    "admin/src/js/components",
+    "talentsearch/src/js/components",
+    "indigenousapprenticeship/src/js/components"
   ],
   "output": "common/src/css",
   "variables": true,
