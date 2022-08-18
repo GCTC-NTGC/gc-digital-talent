@@ -16,6 +16,9 @@ scalar PhoneNumber
 "A human readable ID"
 scalar KeyString
 
+"Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org."
+scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
+
 type LocalizedString {
     en: String
     fr: String
@@ -330,6 +333,8 @@ type PoolCandidate {
     notes: String
     archivedAt: DateTime @rename(attribute: "archived_at")
     submittedAt: DateTime @rename(attribute: "submitted_at")
+
+    profileSnapshot: JSON @rename(attribute: "profile_snapshot")
 }
 
 enum LanguageAbility {
@@ -1293,4 +1298,6 @@ type Mutation {
 
     archiveApplication(id:ID!): PoolCandidate @guard @can(ability: "archiveApplication", find: "id")
     createApplication(userId:ID!, poolId:ID!): PoolCandidate
+
+    testPoolCandidateSnapshot(id:ID!): PoolCandidate @guard @can(ability: "update", find: "id")
 }
