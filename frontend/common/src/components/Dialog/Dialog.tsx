@@ -135,6 +135,7 @@ export interface DialogProps {
   confirmation?: boolean;
   centered?: boolean;
   children: React.ReactNode;
+  id?: string;
 }
 
 const Dialog = ({
@@ -146,9 +147,10 @@ const Dialog = ({
   confirmation = false,
   centered = false,
   children,
+  id,
 }: DialogProps) => {
   return (
-    <Overlay {...{ isOpen, onDismiss }} data-h2-font-family="b(sans)">
+    <Overlay {...{ isOpen, onDismiss, id }} data-h2-font-family="b(sans)">
       <Content
         aria-labelledby="dialog-title"
         className={centered ? `dialog--centered` : undefined}

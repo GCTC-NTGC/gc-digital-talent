@@ -1,5 +1,5 @@
 /* Force modal to be near-full screen, regardless of breakpoint */
-[data-reach-dialog-content] {
+#user-table-filter-dialog [data-reach-dialog-content] {
   width: 95vw;
 }
 

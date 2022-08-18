@@ -92,6 +92,7 @@ const UserTableFilterDialog = ({
   return (
     <Dialog
       {...{ isOpen, onDismiss }}
+      id="user-table-filter-dialog"
       title={formatMessage({
         defaultMessage: "Select filters",
         description: "Candidate search filter dialog: title",
