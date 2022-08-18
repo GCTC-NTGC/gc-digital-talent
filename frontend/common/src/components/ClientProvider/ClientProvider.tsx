@@ -143,7 +143,7 @@ const buildValidationErrorMessageNode = (
 
   // if just 1, toast by itself
   if (localizedMessages.length === 1) {
-    return <span>localizedMessages[0]</span>;
+    return <span>{localizedMessages[0]}</span>;
   }
 
   // no messages, no returned node
