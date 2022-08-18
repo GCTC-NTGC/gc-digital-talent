@@ -174,7 +174,7 @@ const PoolCandidatesTable: React.FC<
 
   return (
     <div data-h2-padding="base(0, 0, x3, 0)">
-      <div data-h2-container="base(center, large, x2)">
+      <div data-h2-container="base(center, full, x2)">
         <Table data={memoizedData} columns={columns} />
       </div>
     </div>

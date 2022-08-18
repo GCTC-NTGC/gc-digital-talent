@@ -137,7 +137,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
 
   return (
-    <section data-h2-container="base(left, s)">
+    <section data-h2-container="base(left, small, 0)">
       <PageHeader icon={ViewGridIcon}>
         {intl.formatMessage({
           defaultMessage: "Create New Pool",
@@ -145,13 +145,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         })}
       </PageHeader>
       <Breadcrumbs links={links} />
-      <div
-        data-h2-container="base(left, small, x1) p-tablet(left, small, x2)"
-        data-h2-background-color="base(dt-gray.light)"
-        data-h2-padding="base(x.25)"
-        data-h2-margin="base(x2, 0, 0, 0)"
-        data-h2-radius="base(s)"
-      >
+      <div data-h2-margin="base(x2, 0, 0, 0)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <h3 data-h2-margin="base(x.25, 0)">

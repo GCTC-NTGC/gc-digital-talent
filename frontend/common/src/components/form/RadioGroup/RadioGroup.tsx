@@ -69,11 +69,11 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
       hideOptional={hideOptional}
       hideLegend={hideLegend}
     >
-      <div style={{ columns }}>
+      <div data-h2-flex-grid="base(flex-start, 0, x1, 0)">
         {items.map(({ value, label }) => {
           const id = `${idPrefix}-${value}`;
           return (
-            <div key={id}>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)" key={id}>
               <InputWrapper
                 inputId={id}
                 label={label}

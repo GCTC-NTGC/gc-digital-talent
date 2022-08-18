@@ -257,6 +257,7 @@ export const AddSkillsToPool = ({
               />
             </TabPanel>
             <TabPanel>
+              <p data-h2-font-weight="base(700)">Search by keyword</p>
               <SearchBar handleSearch={handleSearch} />
               <SkillResults
                 title={intl.formatMessage(

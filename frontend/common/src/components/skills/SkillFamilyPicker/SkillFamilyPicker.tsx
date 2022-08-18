@@ -50,12 +50,7 @@ const SkillFamilyPicker: React.FunctionComponent<SkillFamilyPickerProps> = ({
   ).size;
 
   return (
-    <div
-      data-h2-background-color="base(dt-gray.light)"
-      data-h2-padding="base(x.25)"
-      data-h2-radius="base(s)"
-      role="radiogroup"
-    >
+    <div role="radiogroup">
       <p data-h2-font-weight="base(700)">{title}</p>
       <FormProvider {...methods}>
         <form onSubmit={undefined}>

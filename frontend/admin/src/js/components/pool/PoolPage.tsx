@@ -13,7 +13,7 @@ export const PoolPage: React.FC = () => {
         data-h2-background-color="base(dt-linear)"
         data-h2-padding="base(x2, 0)"
       >
-        <div data-h2-container="base(center, large, x2)">
+        <div data-h2-container="base(center, full, x2)">
           <div data-h2-flex-grid="base(center, 0, x2)">
             <div data-h2-flex-item="base(1of1) l-tablet(3of5)">
               <h1
