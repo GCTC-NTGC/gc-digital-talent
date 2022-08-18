@@ -1,8 +1,7 @@
 # Comes from frontend/talentsearch/src/js/api/userOperations.graphql
-# Should match that file to take accurate snapshots
-
-        query getMe {
-            me {
+# Should match the getMe query from that file to take accurate snapshots
+query getProfile($userId:ID!) {
+            user(id:$userId) {
               id
               sub
               roles
