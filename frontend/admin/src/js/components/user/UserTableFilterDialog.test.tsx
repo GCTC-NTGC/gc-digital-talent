@@ -147,6 +147,8 @@ describe("UserTableFilterDialog", () => {
     });
 
     it("submits non-empty filter data for all filters", async () => {
+      // This test is prone to going about the 5s default timeout.
+      jest.setTimeout(10 * 1000);
       renderButton({ isOpenDefault: true });
 
       // Static filters.
