@@ -149,7 +149,7 @@ const MyStatusApi: React.FunctionComponent = () => {
       id,
       user: data,
     }).then((result) => {
-      navigate(paths.home());
+      navigate(paths.home(id));
       toast.success(
         intl.formatMessage({
           defaultMessage: "My Status updated successfully!",

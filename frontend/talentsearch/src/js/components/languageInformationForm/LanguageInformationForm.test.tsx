@@ -8,8 +8,8 @@ import { axeTest, render } from "@common/helpers/testUtils";
 import {
   BilingualEvaluation,
   EvaluatedLanguageAbility,
-  GetLanguageInformationQuery,
   UpdateUserAsUserInput,
+  User,
 } from "../../api/generated";
 import { LanguageInformationForm } from "./LanguageInformationForm";
 
@@ -19,7 +19,7 @@ const renderLanguageInfoForm = ({
   initialData,
   submitHandler,
 }: {
-  initialData: GetLanguageInformationQuery["me"];
+  initialData: User;
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
 }) =>
   render(

@@ -14,7 +14,7 @@ const CancelButton = ({ href, children }: CancelButtonProps) => {
   const profilePaths = useApplicantProfileRoutes();
   return (
     <Link
-      href={href || profilePaths.home()}
+      href={href || profilePaths.myProfile()}
       color="secondary"
       mode="outline"
       data-h2-display="s(inline-flex)"

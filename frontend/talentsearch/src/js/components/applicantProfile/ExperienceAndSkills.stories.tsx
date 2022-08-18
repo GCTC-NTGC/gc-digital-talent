@@ -21,9 +21,11 @@ export const NoExperiences = TemplateExperienceAndSkillsPage.bind({});
 export const WithExperiences = TemplateExperienceAndSkillsPage.bind({});
 
 NoExperiences.args = {
+  applicantId: "Applicant ID",
   experiences: [],
 };
 
 WithExperiences.args = {
+  applicantId: "Applicant ID",
   experiences: fakeExperiences(10),
 };

@@ -11,6 +11,7 @@ import { axeTest, render } from "@common/helpers/testUtils";
 import { ExperienceForm, ExperienceFormProps } from "./ExperienceForm";
 import type { ExperienceQueryData, ExperienceType } from "./types";
 
+const mockUserId = "user-id";
 const mockSkills = fakeSkills(50);
 const mockExperiences = fakeExperiences(5);
 const mockCallback = jest.fn();
@@ -21,6 +22,7 @@ const renderExperienceForm = (props: ExperienceFormProps) =>
 describe("ExperienceForm", () => {
   it("award type should have no accessibility errors", async () => {
     const { container } = renderExperienceForm({
+      userId: mockUserId,
       experienceType: "award",
       onUpdateExperience: mockCallback,
       deleteExperience: mockCallback,
@@ -32,6 +34,7 @@ describe("ExperienceForm", () => {
 
   it("community type should have no accessibility errors", async () => {
     const { container } = renderExperienceForm({
+      userId: mockUserId,
       experienceType: "community",
       onUpdateExperience: mockCallback,
       deleteExperience: mockCallback,
@@ -43,6 +46,7 @@ describe("ExperienceForm", () => {
 
   it("education type should have no accessibility errors", async () => {
     const { container } = renderExperienceForm({
+      userId: mockUserId,
       experienceType: "education",
       onUpdateExperience: mockCallback,
       deleteExperience: mockCallback,
@@ -54,6 +58,7 @@ describe("ExperienceForm", () => {
 
   it("personal type should have no accessibility errors", async () => {
     const { container } = renderExperienceForm({
+      userId: mockUserId,
       experienceType: "personal",
       onUpdateExperience: mockCallback,
       deleteExperience: mockCallback,
@@ -65,6 +70,7 @@ describe("ExperienceForm", () => {
 
   it("work type should have no accessibility errors", async () => {
     const { container } = renderExperienceForm({
+      userId: mockUserId,
       experienceType: "work",
       onUpdateExperience: mockCallback,
       deleteExperience: mockCallback,
@@ -78,6 +84,7 @@ describe("ExperienceForm", () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
     renderExperienceForm({
+      userId: mockUserId,
       experienceType: "award",
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
@@ -104,6 +111,7 @@ describe("ExperienceForm", () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
     renderExperienceForm({
+      userId: mockUserId,
       experienceType: "community",
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
@@ -126,6 +134,7 @@ describe("ExperienceForm", () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
     renderExperienceForm({
+      userId: mockUserId,
       experienceType: "education",
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
@@ -156,6 +165,7 @@ describe("ExperienceForm", () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
     renderExperienceForm({
+      userId: mockUserId,
       experienceType: "personal",
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
@@ -183,6 +193,7 @@ describe("ExperienceForm", () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
     renderExperienceForm({
+      userId: mockUserId,
       experienceType: "work",
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
@@ -208,6 +219,7 @@ describe("ExperienceForm", () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
     renderExperienceForm({
+      userId: mockUserId,
       experienceType: "work", // Type of form shouldn't matter here
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
@@ -237,6 +249,7 @@ describe("ExperienceForm", () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
     renderExperienceForm({
+      userId: mockUserId,
       experienceType: "work", // Type of form shouldn't matter here
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
@@ -250,6 +263,7 @@ describe("ExperienceForm", () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
     renderExperienceForm({
+      userId: mockUserId,
       experienceType: "award",
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
@@ -279,6 +293,7 @@ describe("ExperienceForm", () => {
     }
 
     renderExperienceForm({
+      userId: mockUserId,
       experienceType,
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
@@ -299,6 +314,7 @@ describe("ExperienceForm", () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
     renderExperienceForm({
+      userId: mockUserId,
       experienceType: "award",
       onUpdateExperience: mockSave,
       deleteExperience: mockDelete,
@@ -338,6 +354,7 @@ it("delete should not render when edit is false", async () => {
   const mockSave = jest.fn();
   const mockDelete = jest.fn(() => Promise.resolve());
   renderExperienceForm({
+    userId: mockUserId,
     experienceType: "award",
     onUpdateExperience: mockSave,
     deleteExperience: mockDelete,
@@ -352,6 +369,7 @@ it("delete should render when edit is true and be called properly", async () => 
   const mockSave = jest.fn();
   const mockDelete = jest.fn(() => Promise.resolve());
   renderExperienceForm({
+    userId: mockUserId,
     experienceType: "award",
     onUpdateExperience: mockSave,
     deleteExperience: mockDelete,
