@@ -85,27 +85,26 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
     <>
       <PageHeader icon={UserCircleIcon}>{pageTitle}</PageHeader>
       <Breadcrumbs links={links} />
-      <div
-        data-h2-align-items="base(center)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-margin="base(x2, 0)"
-      >
-        {userName !== " " && (
-          <Heading level="h2" data-h2-margin="base(x.5, 0) l-tablet(0)">
-            {userName}
-          </Heading>
-        )}
-        <div data-h2-margin="l-tablet(0)">
-          <UserProfilePrintButton userId={user.id}>
-            <span>
-              <PrinterIcon style={{ width: "1rem" }} />{" "}
-              {intl.formatMessage({
-                defaultMessage: "Print Profile",
-                description: "Text for button to print a user profile",
-              })}
-            </span>
-          </UserProfilePrintButton>
+      <div data-h2-margin="base(x2, 0, x1, 0)">
+        <div data-h2-flex-grid="base(center, 0, x1)">
+          <div data-h2-flex-item="base(1of1) p-tablet(fill)">
+            {userName !== " " && (
+              <Heading level="h2" data-h2-margin="base(x.5, 0) l-tablet(0)">
+                {userName}
+              </Heading>
+            )}
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(content)">
+            <UserProfilePrintButton userId={user.id}>
+              <span>
+                <PrinterIcon style={{ width: "1rem" }} />{" "}
+                {intl.formatMessage({
+                  defaultMessage: "Print Profile",
+                  description: "Text for button to print a user profile",
+                })}
+              </span>
+            </UserProfilePrintButton>
+          </div>
         </div>
       </div>
       <Tabs>

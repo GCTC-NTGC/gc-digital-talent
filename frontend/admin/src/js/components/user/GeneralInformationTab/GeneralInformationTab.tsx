@@ -82,7 +82,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
     return (
       <div
         data-h2-background-color="base(light.dt-gray)"
-        data-h2-padding="base(x.5)"
+        data-h2-padding="base(x1)"
         data-h2-radius="base(s)"
       >
         {intl.formatMessage({
@@ -214,97 +214,112 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
   return (
     <div
       data-h2-background-color="base(light.dt-gray)"
-      data-h2-padding="base(x.5, x1)"
-      data-h2-flex-grid="base(normal, 0, x.25)"
+      data-h2-padding="base(x1)"
       data-h2-radius="base(s)"
     >
-      <span data-h2-flex-item="base(1of3) desktop(1of6)">
-        {intl.formatMessage({
-          defaultMessage: "Name:",
-          description: "Display text for the name field on users",
-        })}
-      </span>
-      <div data-h2-flex-item="base(2of3) desktop(1of3)">
-        {user.firstName} {user.lastName}
-      </div>
-
-      <span data-h2-flex-item="base(1of3) desktop(1of6)">
-        {intl.formatMessage({
-          defaultMessage: "Preferred Language:",
-          description: "Display text for the preferred language field on users",
-        })}
-      </span>
-      <div data-h2-flex-item="base(2of3) desktop(1of3)">
-        {user.preferredLang
-          ? intl.formatMessage(getLanguage(user.preferredLang as string))
-          : ""}
-      </div>
-
-      <span data-h2-flex-item="base(1of3) desktop(1of6)">
-        {intl.formatMessage({
-          defaultMessage: "Email:",
-          description: "Display text for the email field on users",
-        })}
-      </span>
-      <div
-        data-h2-flex-item="base(2of3) desktop(1of3)"
-        data-h2-font-style="base(underline)"
-      >
-        {user.email}
-      </div>
-
-      <span data-h2-flex-item="base(1of3) desktop(1of6)">
-        {intl.formatMessage({
-          defaultMessage: "Current Location:",
-          description: "Display text for the current location field on users",
-        })}
-      </span>
-      <div data-h2-flex-item="base(2of3) desktop(1of3)">
-        {user.currentCity},{" "}
-        {user.currentProvince
-          ? intl.formatMessage(
-              getProvinceOrTerritory(user.currentProvince as string),
-            )
-          : ""}
-      </div>
-
-      <span data-h2-flex-item="base(1of3) desktop(1of6)">
-        {intl.formatMessage({
-          defaultMessage: "Phone:",
-          description: "Display text for the phone number field on users",
-        })}
-      </span>
-      <div data-h2-flex-item="base(2of3) desktop(1of3)">{user.telephone}</div>
-
-      <span data-h2-flex-item="base(1of3) desktop(1of6)">
-        {intl.formatMessage({
-          defaultMessage: "Member of CAF:",
-          description: "label for CAF status",
-        })}
-      </span>
-      <div data-h2-flex-item="base(2of3) desktop(1of3)">
-        {user.isVeteran === true &&
-          intl.formatMessage({
-            defaultMessage: "Is a veteran or member",
-            description: "user is a veteran or member",
-          })}
-        {user.isVeteran === false &&
-          intl.formatMessage({
-            defaultMessage: "Is not a veteran or member",
-            description: "user is not a veteran or member",
-          })}
-      </div>
-
-      <span data-h2-flex-item="base(1of3) desktop(1of6)">
-        {intl.formatMessage({
-          defaultMessage: "Citizenship:",
-          description: "label for citizenship status",
-        })}
-      </span>
-      <div data-h2-flex-item="base(2of3) desktop(1of3)">
-        {user.citizenship
-          ? intl.formatMessage(getCitizenshipStatusesAdmin(user.citizenship))
-          : ""}
+      <div data-h2-flex-grid="base(normal, 0, x1, x.5)">
+        {/* Name */}
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage: "Name:",
+              description: "Display text for the name field on users",
+            })}
+          </p>
+          <p>
+            {user.firstName} {user.lastName}
+          </p>
+        </div>
+        {/* Email */}
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage: "Email:",
+              description: "Display text for the email field on users",
+            })}
+          </p>
+          <p>{user.email}</p>
+        </div>
+        {/* Preferred language */}
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage: "Preferred Language:",
+              description:
+                "Display text for the preferred language field on users",
+            })}
+          </p>
+          <p>
+            {user.preferredLang
+              ? intl.formatMessage(getLanguage(user.preferredLang as string))
+              : ""}
+          </p>
+        </div>
+        {/* Phone */}
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage: "Phone:",
+              description: "Display text for the phone number field on users",
+            })}
+          </p>
+          <p>{user.telephone}</p>
+        </div>
+        {/* Current location */}
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage: "Current Location:",
+              description:
+                "Display text for the current location field on users",
+            })}
+          </p>
+          <p>
+            {user.currentCity},{" "}
+            {user.currentProvince
+              ? intl.formatMessage(
+                  getProvinceOrTerritory(user.currentProvince as string),
+                )
+              : ""}
+          </p>
+        </div>
+        {/* CAF status */}
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage: "Member of CAF:",
+              description: "label for CAF status",
+            })}
+          </p>
+          <p>
+            {user.isVeteran === true &&
+              intl.formatMessage({
+                defaultMessage: "Is a veteran or member",
+                description: "user is a veteran or member",
+              })}
+            {user.isVeteran === false &&
+              intl.formatMessage({
+                defaultMessage: "Is not a veteran or member",
+                description: "user is not a veteran or member",
+              })}
+          </p>
+        </div>
+        {/* Citizenship */}
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage: "Citizenship:",
+              description: "label for citizenship status",
+            })}
+          </p>
+          <p>
+            {user.citizenship
+              ? intl.formatMessage(
+                  getCitizenshipStatusesAdmin(user.citizenship),
+                )
+              : ""}
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -329,7 +344,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
       </Heading>
       <div
         data-h2-background-color="base(light.dt-gray)"
-        data-h2-padding="base(x.5)"
+        data-h2-padding="base(x1)"
         data-h2-radius="base(s)"
       >
         {user.jobLookingStatus === JobLookingStatus.ActivelyLooking &&
@@ -354,13 +369,13 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
               "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please",
           })}
       </div>
-      <h5 data-h2-margin="base(x2, 0, x1, 0)">
+      <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Pool status",
           description:
             "Title of the 'Pool status' section of the view-user page",
         })}
-      </h5>
+      </Heading>
       <PoolStatusTable user={user} />
       <h5 data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({

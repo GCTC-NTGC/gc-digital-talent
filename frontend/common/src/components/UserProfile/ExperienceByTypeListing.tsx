@@ -100,40 +100,48 @@ const ExperienceByTypeListing: React.FunctionComponent<
         />
       ) : null}
       {communityExperiences.length > 0 ? (
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Community" })}
-          icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
-          experiences={communityExperiences}
-          defaultOpen={defaultOpen}
-          experienceEditPaths={editPaths}
-        />
+        <div data-h2-margin="base(x2, 0, 0, 0)">
+          <ExperienceByType
+            title={intl.formatMessage({ defaultMessage: "Community" })}
+            icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
+            experiences={communityExperiences}
+            defaultOpen={defaultOpen}
+            experienceEditPaths={editPaths}
+          />
+        </div>
       ) : null}
       {workExperiences.length > 0 ? (
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Work" })}
-          icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
-          experiences={workExperiences}
-          defaultOpen={defaultOpen}
-          experienceEditPaths={editPaths}
-        />
+        <div data-h2-margin="base(x2, 0, 0, 0)">
+          <ExperienceByType
+            title={intl.formatMessage({ defaultMessage: "Work" })}
+            icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
+            experiences={workExperiences}
+            defaultOpen={defaultOpen}
+            experienceEditPaths={editPaths}
+          />
+        </div>
       ) : null}
       {educationExperiences.length > 0 ? (
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Education" })}
-          icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
-          experiences={educationExperiences}
-          defaultOpen={defaultOpen}
-          experienceEditPaths={editPaths}
-        />
+        <div data-h2-margin="base(x2, 0, 0, 0)">
+          <ExperienceByType
+            title={intl.formatMessage({ defaultMessage: "Education" })}
+            icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
+            experiences={educationExperiences}
+            defaultOpen={defaultOpen}
+            experienceEditPaths={editPaths}
+          />
+        </div>
       ) : null}
       {awardExperiences.length > 0 ? (
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Award" })}
-          icon={<StarIcon style={{ width: "1.5rem" }} />}
-          experiences={awardExperiences}
-          defaultOpen={defaultOpen}
-          experienceEditPaths={editPaths}
-        />
+        <div data-h2-margin="base(x2, 0, 0, 0)">
+          <ExperienceByType
+            title={intl.formatMessage({ defaultMessage: "Award" })}
+            icon={<StarIcon style={{ width: "1.5rem" }} />}
+            experiences={awardExperiences}
+            defaultOpen={defaultOpen}
+            experienceEditPaths={editPaths}
+          />
+        </div>
       ) : null}
     </>
   );

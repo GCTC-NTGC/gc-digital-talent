@@ -171,7 +171,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
       <p>
         - {user.firstName} {user.lastName}
       </p>
-      <p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "From the following pool:",
           description:
@@ -179,14 +179,14 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
         })}
       </p>
       <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
-      <p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "Choose status:",
           description:
             "Third section of text on the change candidate status dialog",
         })}
       </p>
-      <div data-h2-margin="base(0, 0, x.125, 0)">
+      <div data-h2-margin="base(x.5, 0, x.125, 0)">
         <InputWrapper
           inputId="status"
           label={intl.formatMessage({
@@ -350,14 +350,14 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
       <p>
         - {user.firstName} {user.lastName}
       </p>
-      <p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "Set an expiry date for this candidate on this pool:",
           description:
             "Second section of text on the change candidate expiry date dialog",
         })}
       </p>
-      <div data-h2-margin="base(0, 0, x.125, 0)">
+      <div data-h2-margin="base(x.5, 0, x.125, 0)">
         <InputWrapper
           inputId="date"
           label={intl.formatMessage({
@@ -492,7 +492,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
       <p>
         - {user.firstName} {user.lastName}
       </p>
-      <p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "From the following pool:",
           description:
@@ -635,13 +635,13 @@ export const AddToPoolDialog: React.FC<{
       <p>
         - {user.firstName} {user.lastName}
       </p>
-      <p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "Choose pool:",
           description: "Second section of text on the add user to pool dialog",
         })}
       </p>
-      <div data-h2-margin="base(0, 0, x.125, 0)">
+      <div data-h2-margin="base(x.5, 0, x.125, 0)">
         <InputWrapper
           inputId="pool"
           label={intl.formatMessage({
@@ -700,13 +700,13 @@ export const AddToPoolDialog: React.FC<{
           />
         </div>
       </div>
-      <p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "Set an expiry date for this candidate on this pool:",
           description: "Third section of text on the add user to pool dialog",
         })}
       </p>
-      <div data-h2-margin="base(0, 0, x.125, 0)">
+      <div data-h2-margin="base(x.5, 0, x.125, 0)">
         <InputWrapper
           inputId="date"
           label={intl.formatMessage({
