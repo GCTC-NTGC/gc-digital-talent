@@ -86,7 +86,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
     : undefined;
   const { application } = useQueryParams();
   const returnPath = `${paths.skillsAndExperiences(userId)}${
-    application && `?application=${application}`
+    application ? `?application=${application}` : ``
   }`;
 
   const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
@@ -282,7 +282,7 @@ const ExperienceFormContainer: React.FunctionComponent<
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
   const { application } = useQueryParams();
   const returnPath = `${paths.skillsAndExperiences(userId)}${
-    application && `?application=${application}`
+    application ? `?application=${application}` : ``
   }`;
   const [
     {
