@@ -47,8 +47,8 @@ const GovernmentInfoFormPage = React.lazy(
 const LanguageInformationFormPage = React.lazy(
   () => import("./languageInformationForm/LanguageInformationFormPage"),
 );
-const WorkLocationPreferenceApi = React.lazy(
-  () => import("./workLocationPreferenceForm/WorkLocationPreferenceForm"),
+const WorkLocationPreferenceFormPage = React.lazy(
+  () => import("./workLocationPreferenceForm/WorkLocationPreferenceFormPage"),
 );
 const RoleSalaryFormContainer = React.lazy(
   () => import("./roleSalaryForm/RoleSalaryForm"),
@@ -56,8 +56,8 @@ const RoleSalaryFormContainer = React.lazy(
 const ExperienceFormContainer = React.lazy(
   () => import("./experienceForm/ExperienceForm"),
 );
-const WorkPreferencesApi = React.lazy(
-  () => import("./workPreferencesForm/WorkPreferencesForm"),
+const WorkPreferencesFormPage = React.lazy(
+  () => import("./workPreferencesForm/WorkPreferencesFormPage"),
 );
 const AboutMeFormPage = React.lazy(
   () => import("./aboutMeForm/AboutMeFormPage"),
@@ -164,7 +164,7 @@ const profileRoutes = (
   {
     path: profilePaths.workLocation(":userId"),
     action: () => ({
-      component: <WorkLocationPreferenceApi />,
+      component: <WorkLocationPreferenceFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
@@ -213,7 +213,7 @@ const profileRoutes = (
   {
     path: profilePaths.workPreferences(":userId"),
     action: () => ({
-      component: <WorkPreferencesApi />,
+      component: <WorkPreferencesFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
