@@ -36,7 +36,6 @@ const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
       {...(live && {
         "aria-live": live,
       })}
-      data-h2-background-color="base(dt-white.2)"
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-justify-content="base(center)"
