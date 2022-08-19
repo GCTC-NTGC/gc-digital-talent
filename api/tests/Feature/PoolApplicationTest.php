@@ -175,12 +175,12 @@ class PoolApplicationTest extends TestCase
   {
     // array of statuses that should fail the test, as they should not allow archiving
     $statusesThatShouldFail = [
-      ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+      ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
       ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
       ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE,
-      ApiEnums::CANDIDATE_STATUS_NO_LONGER_INTERESTED,
       ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
-      ApiEnums::CANDIDATE_STATUS_UNAVAILABLE
+      ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+      ApiEnums::CANDIDATE_STATUS_SCREENED_IN,
     ];
 
     // Create admin user we run tests as

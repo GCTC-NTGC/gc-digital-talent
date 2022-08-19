@@ -60,7 +60,7 @@ class PoolCandidateFactory extends Factory
                 3
             ),
             'pool_candidate_status' => $this->faker->boolean() ?
-                                                            ApiEnums::CANDIDATE_STATUS_AVAILABLE :
+                                                            ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE :
                                                             ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
             'user_id' => User::factory(),
             'pool_id' => Pool::factory(),
@@ -97,7 +97,7 @@ class PoolCandidateFactory extends Factory
     {
         return $this->state(function () {
             return [
-                'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+                'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
             ];
         });

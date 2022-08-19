@@ -301,7 +301,7 @@ RAWSQL2;
 
     public function scopeAvailable(Builder $query): Builder
     {
-        return $query->where('pool_candidate_status', ApiEnums::CANDIDATE_STATUS_AVAILABLE);
+        return $query->where('pool_candidate_status', ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE);
     }
 
     public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder
