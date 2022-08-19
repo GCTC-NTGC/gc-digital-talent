@@ -136,14 +136,6 @@ export interface DialogProps {
   confirmation?: boolean;
   centered?: boolean;
   children: React.ReactNode;
-  /**
-   * Hack: This is for storybook
-   *
-   * @reach/dialog portal is appended at the bottom
-   * of the document.body and is not in the root
-   * element so does not get hydrogen styles applied.
-   */
-  "data-h2"?: boolean;
 }
 
 const Dialog = ({
@@ -155,15 +147,9 @@ const Dialog = ({
   confirmation = false,
   centered = false,
   children,
-  ...props
 }: DialogProps) => {
   return (
-    <Overlay
-      {...{ isOpen, onDismiss }}
-      data-h2-font-family="base(sans)"
-      // See:  note in prop type interface
-      {...(props["data-h2"] && { "data-h2": true })}
-    >
+    <Overlay {...{ isOpen, onDismiss }} data-h2-font-family="base(sans)">
       <Content
         aria-labelledby="dialog-title"
         className={centered ? `dialog--centered` : undefined}

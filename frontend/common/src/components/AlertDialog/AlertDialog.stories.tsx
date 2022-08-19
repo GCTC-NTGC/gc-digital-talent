@@ -61,7 +61,6 @@ const Template: Story<StoryArgs> = (args) => {
           isOpen={isOpen}
           onDismiss={close}
           title={title}
-          data-h2
           leastDestructiveRef={leastDestructiveRef}
         >
           {description && (
