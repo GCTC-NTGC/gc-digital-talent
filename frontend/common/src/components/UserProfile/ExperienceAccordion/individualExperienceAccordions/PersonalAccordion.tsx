@@ -82,11 +82,7 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
         data-h2-border="base(none)"
         data-h2-margin="base(x1, 0)"
       />
-      {skillsList?.length > 0 ? (
-        skillsList
-      ) : (
-        <p>No skills have been linked to this experience yet.</p>
-      )}
+      {skillsList?.length > 0 ? skillsList : undefined}
       <hr
         data-h2-background-color="base(dt-gray)"
         data-h2-height="base(1px)"
