@@ -34,7 +34,7 @@ const ExperienceByType: React.FunctionComponent<{
   defaultOpen = false,
 }) => {
   return (
-    <div>
+    <div className="experience-category">
       <div
         data-h2-display="base(flex)"
         data-h2-align-items="base(center)"

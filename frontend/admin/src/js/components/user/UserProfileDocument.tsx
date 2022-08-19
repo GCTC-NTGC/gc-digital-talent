@@ -84,6 +84,14 @@ export const UserProfileDocument = React.forwardRef<
           width: 1.5rem;
           margin-right: 1rem;
         }
+        .experience-category {
+          margin-top: 4rem;
+        }
+        .experience-category >div >span,
+        .experience-category >div >p {
+          display: inline-block;
+          font-size: 1.5rem;
+        }
         .accordion-header {
           width: 100%;
           text-align: left;
@@ -91,6 +99,7 @@ export const UserProfileDocument = React.forwardRef<
           padding-top: 1rem;
           padding-right: 1.5rem;
           padding-left: 1rem;
+          margin-top: 2rem;
         }
         .accordion-header-context {
           display: flex;
@@ -99,6 +108,12 @@ export const UserProfileDocument = React.forwardRef<
           max-width: 100%;
           align-items: center;
           flex-direction: row;
+        }
+        .accordion-header-context .icon {
+          width: 1.5rem;
+        }
+        .accordion-header-wrapper svg {
+          display: none;
         }
       }
     `}</style>

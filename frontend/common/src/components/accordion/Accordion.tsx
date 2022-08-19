@@ -74,9 +74,15 @@ const Accordion: React.FC<AccordionProps> = ({
         >
           <div data-h2-flex-item="base(content)">
             {isOpen ? (
-              <ChevronDownIcon data-h2-width="base(x1.5)" />
+              <ChevronDownIcon
+                data-h2-width="base(x1.5)"
+                data-h2-display="print(none)"
+              />
             ) : (
-              <ChevronRightIcon data-h2-width="base(x1.5)" />
+              <ChevronRightIcon
+                data-h2-width="base(x1.5)"
+                data-h2-display="print(none)"
+              />
             )}
           </div>
           <div data-h2-flex-item="base(fill)" data-h2-text-align="base(left)">
