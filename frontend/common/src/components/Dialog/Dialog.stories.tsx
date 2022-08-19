@@ -35,7 +35,7 @@ const TemplateDialog: ComponentStory<typeof Dialog> = (args) => {
       <Button color="primary" mode="solid" onClick={handleOpen}>
         Open Dialog
       </Button>
-      <Dialog {...args} {...{ isOpen }} onDismiss={handleDismiss} />
+      <Dialog {...args} {...{ isOpen }} onDismiss={handleDismiss} data-h2 />
     </>
   );
 };
