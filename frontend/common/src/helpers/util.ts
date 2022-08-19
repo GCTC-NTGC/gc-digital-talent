@@ -106,15 +106,6 @@ export const emptyToNull = (s: InputMaybe<string>): string | null =>
 export const emptyToUndefined = (s: InputMaybe<string>): string | undefined =>
   empty(s) || s === "" ? undefined : s;
 
-/**
- * Accepts an array of arrays and flattens it (T[][] -> T[])
- * @param arrArr T[][]  An array of arrays
- * @returns T[]         Flattened version of the array
- */
-export function flatten<T>(arr: T[][]): T[] {
-  return ([] as T[]).concat(...arr);
-}
-
 export function uniqueItems<T>(arr: T[]): T[] {
   return Array.from(new Set(arr));
 }
