@@ -8,7 +8,7 @@ describe("Talent Search Workflow Tests", () => {
       aliasMutation(req, "createPoolCandidateSearchRequest");
     });
 
-    cy.visit("/en/talent/search");
+    cy.visit("/en/search");
   });
 
   const searchReturnsGreaterThanZeroApplicants = () => {
@@ -24,6 +24,8 @@ describe("Talent Search Workflow Tests", () => {
 
     // second request is properly filtered
     searchReturnsGreaterThanZeroApplicants();
+
+    cy.findByRole("combobox", { name: /Classification/i }).click().type('{downArrow}{enter}');
 
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,

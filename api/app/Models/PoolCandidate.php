@@ -22,7 +22,9 @@ use Illuminate\Database\Eloquent\Builder;
  * @property boolean $is_visible_minority
  * @property boolean $has_diploma
  * @property Illuminate\Support\Carbon $archived_at
+ * @property Illuminate\Support\Carbon $submitted_at
  * @property string $language_ability
+ * @property string $signature
  * @property array $location_preferences
  * @property array $expected_salary
  * @property string $pool_candidate_status
@@ -49,6 +51,7 @@ class PoolCandidate extends Model
     protected $casts = [
         'expiry_date' => 'date',
         'archived_at' => 'datetime',
+        'submitted_at' => 'datetime',
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
@@ -61,6 +64,10 @@ class PoolCandidate extends Model
     */
     protected $fillable = [
         'archived_at',
+        'submitted_at',
+        'user_id',
+        'pool_id',
+        'signature',
     ];
 
     public function user(): BelongsTo

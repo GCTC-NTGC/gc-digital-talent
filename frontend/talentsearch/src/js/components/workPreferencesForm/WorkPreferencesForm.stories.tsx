@@ -2,21 +2,15 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import { OperationalRequirementV2 } from "@common/constants/localizedConstants";
-import {
-  GetWorkPreferencesQuery,
-  UpdateUserAsUserInput,
-} from "../../api/generated";
+import { UpdateUserAsUserInput, User } from "../../api/generated";
 
 import { WorkPreferencesForm } from "./WorkPreferencesForm";
 
-const mockUser: GetWorkPreferencesQuery | undefined = {
-  __typename: "Query",
-  me: {
-    __typename: "User",
-    id: "11",
-    wouldAcceptTemporary: true,
-    acceptedOperationalRequirements: [OperationalRequirementV2[0]],
-  },
+const mockUser: User = {
+  __typename: "User",
+  id: "11",
+  wouldAcceptTemporary: true,
+  acceptedOperationalRequirements: [OperationalRequirementV2[0]],
 };
 
 export default {

@@ -263,6 +263,7 @@ type PoolAdvertisement {
     classifications: [Classification] @belongsToMany
     keyTasks: LocalizedString @rename(attribute: "key_tasks")
     yourImpact: LocalizedString @rename(attribute: "your_impact")
+    isRemote: Boolean @rename(attribute: "is_remote")
     advertisementLocation: LocalizedString @rename(attribute: "advertisement_location")
     securityClearance: SecurityStatus @rename(attribute: "security_clearance")
     advertisementLanguage: PoolAdvertisementLanguage @rename(attribute: "advertisement_language")
@@ -286,6 +287,8 @@ enum PoolCandidateStatus {
     UNAVAILABLE
     EXPIRED
     PLACED_CASUAL
+    DRAFT
+    DRAFT_EXPIRED
 }
 
 enum SecurityStatus{
@@ -328,6 +331,8 @@ type PoolCandidate {
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
     notes: String
     archivedAt: DateTime @rename(attribute: "archived_at")
+    submittedAt: DateTime @rename(attribute: "submitted_at")
+    signature: String
 }
 
 enum LanguageAbility {
@@ -735,13 +740,13 @@ input PoolsHasMany {
 When creating a User, name is required.
 """
 input CreateUserInput {
-    sub: String @rules(apply: ["unique:users,sub"])
+    sub: String @rules(apply: ["sometimes","unique:users,sub"])
     roles: [Role] = []
 
     # Personal info
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
-    email: Email @rules(apply: ["unique:users,email"])
+    email: Email @rules(apply: ["sometimes","unique:users,email"])
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
@@ -1236,6 +1241,7 @@ input UpdatePoolAdvertisementInput {
     advertisementLanguage: PoolAdvertisementLanguage @rename(attribute: "advertisement_language")
     securityClearance: SecurityStatus @rename(attribute: "security_clearance")
     advertisementLocation: LocalizedStringInput @rename(attribute: "advertisement_location")
+    isRemote: Boolean @rename(attribute: "is_remote")
 }
 
 type Mutation {
@@ -1289,4 +1295,6 @@ type Mutation {
     deletePoolAdvertisement(id: ID!): PoolAdvertisement @delete(model: "Pool", globalId: false) @guard @can(ability: "delete", find: "id", model: "Pool")
 
     archiveApplication(id:ID!): PoolCandidate @guard @can(ability: "archiveApplication", find: "id")
+    createApplication(userId:ID!, poolId:ID!): PoolCandidate
+    submitApplication(applicationId: ID!, signature: String!): PoolCandidate
 }

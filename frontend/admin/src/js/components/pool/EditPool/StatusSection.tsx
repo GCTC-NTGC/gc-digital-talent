@@ -2,7 +2,6 @@ import * as React from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
-import { AdvertisementStatus } from "admin/src/js/api/generated";
 import { heavyPrimary } from "@common/helpers/format";
 import {
   FolderOpenIcon,
@@ -10,7 +9,7 @@ import {
   PencilIcon,
   SpeakerphoneIcon,
 } from "@heroicons/react/outline";
-import { PoolAdvertisement } from "../../../api/generated";
+import { PoolAdvertisement, AdvertisementStatus } from "../../../api/generated";
 import { SectionMetadata } from "./EditPool";
 import PublishDialog from "./PublishDialog";
 import CloseDialog from "./CloseDialog";

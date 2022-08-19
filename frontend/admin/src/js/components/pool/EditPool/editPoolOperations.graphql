@@ -78,6 +78,7 @@ query getEditPoolData($poolId: ID!) {
         category
       }
     }
+    isRemote
     advertisementLocation {
       en
       fr

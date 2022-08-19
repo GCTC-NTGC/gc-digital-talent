@@ -315,6 +315,8 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
             <Pagination
               ariaLabel={intl.formatMessage({
                 defaultMessage: "keyword search skills results",
+                description:
+                  "Accessibility label for a result set of skills, searched by keyword",
               })}
               color="primary"
               mode="outline"

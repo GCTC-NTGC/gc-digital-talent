@@ -132,6 +132,7 @@ query getPoolAdvertisement($id: ID!) {
         category
       }
     }
+    isRemote
     advertisementLocation {
       en
       fr

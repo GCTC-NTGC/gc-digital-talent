@@ -612,6 +612,8 @@ type Mutation {
   closePoolAdvertisement(id: ID!): PoolAdvertisement
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
   archiveApplication(id: ID!): PoolCandidate
+  createApplication(userId: ID!, poolId: ID!): PoolCandidate
+  submitApplication(applicationId: ID!, signature: String!): PoolCandidate
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -771,6 +773,7 @@ type PoolAdvertisement {
   classifications: [Classification]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
+  isRemote: Boolean
   advertisementLocation: LocalizedString
   securityClearance: SecurityStatus
   advertisementLanguage: PoolAdvertisementLanguage
@@ -815,6 +818,8 @@ type PoolCandidate {
   status: PoolCandidateStatus
   notes: String
   archivedAt: DateTime
+  submittedAt: DateTime
+  signature: String
 }
 
 type PoolCandidateFilter {
@@ -871,6 +876,8 @@ enum PoolCandidateStatus {
   UNAVAILABLE
   EXPIRED
   PLACED_CASUAL
+  DRAFT
+  DRAFT_EXPIRED
 }
 
 enum PoolStatus {
@@ -1140,6 +1147,7 @@ input UpdatePoolAdvertisementInput {
   advertisementLanguage: PoolAdvertisementLanguage
   securityClearance: SecurityStatus
   advertisementLocation: LocalizedStringInput
+  isRemote: Boolean
 }
 
 input UpdatePoolCandidateAsAdminInput {

@@ -6,10 +6,10 @@ import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import Link from "@common/components/Link";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
+import commonMessages from "@common/messages/commonMessages";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useBrowsePoolQuery } from "../../api/generated";
 import type { Pool } from "../../api/generated";
-import commonMessages from "../commonMessages";
 
 interface BrowseIndividualPoolProps {
   pool: Pool;
