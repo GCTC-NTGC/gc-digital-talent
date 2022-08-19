@@ -77,7 +77,7 @@ function TableFooter({
                   {intl.formatMessage({
                     defaultMessage: "Download CSV",
                     description:
-                      "Text label for button to download an csv file of items in a table.",
+                      "Text label for button to download a csv file of items in a table.",
                   })}
                 </DownloadCsv>
               </Spacer>

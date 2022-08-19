@@ -1025,7 +1025,7 @@ export const simpleGovEmployeeType = defineMessages({
   },
   [GovEmployeeType.Casual]: {
     defaultMessage: "Casual",
-    description: "Simple Casual selection for government employee type.",
+    description: "Simple casual selection for government employee type.",
   },
   [GovEmployeeType.Term]: {
     defaultMessage: "Term",
@@ -1105,7 +1105,7 @@ export const bilingualEvaluations = defineMessages({
   },
   [BilingualEvaluation.NotCompleted]: {
     defaultMessage: "No",
-    description: "No, did not completed a language evaluation",
+    description: "No, did not complete a language evaluation",
   },
 });
 
