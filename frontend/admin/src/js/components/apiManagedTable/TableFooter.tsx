@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import Pagination from "@common/components/Pagination";
 import Pending from "@common/components/Pending";
 import { CombinedError } from "urql";
-import { Spacer } from "../Table/tableComponents";
 import { PaginatorInfo } from "../../api/generated";
 
 export interface TableFooterProps {

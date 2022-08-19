@@ -27,10 +27,6 @@ import {
   isWorkExperience,
 } from "../../../types/ExperienceUtils";
 
-const purpleText = (chunks: string[]) => (
-  <span data-h2-color="base(dt-primary)">{...chunks}</span>
-);
-
 export interface SkillAccordionProps {
   skill: Skill;
 }

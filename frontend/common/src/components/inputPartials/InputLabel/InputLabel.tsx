@@ -6,7 +6,7 @@ import { commonMessages } from "../../../messages";
 export interface InputLabelProps {
   inputId: string;
   label: string | React.ReactNode;
-  label_size?: object;
+  labelSize?: object;
   required: boolean;
   contextIsVisible?: boolean;
   contextToggleHandler?: (contextIsActive: boolean) => void;
@@ -17,7 +17,7 @@ export interface InputLabelProps {
 const InputLabel: React.FC<InputLabelProps> = ({
   inputId,
   label,
-  label_size,
+  labelSize,
   required,
   contextToggleHandler = () => {
     /* returns nothing */
@@ -44,7 +44,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
       })}
     >
       <label
-        {...label_size}
+        {...labelSize}
         data-h2-margin="base(0, x.125, 0, 0)"
         htmlFor={inputId}
       >

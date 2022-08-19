@@ -6,11 +6,6 @@ import { getGovEmployeeType } from "../../../constants/localizedConstants";
 import { getLocale } from "../../../helpers/localize";
 import { Applicant, GovEmployeeType } from "../../../api/generated";
 
-// styling a text bit with red colour within intls
-function redText(msg: string) {
-  return <span data-h2-color="base(dt-error)">{msg}</span>;
-}
-
 const GovernmentInformationSection: React.FunctionComponent<{
   applicant: Pick<
     Applicant,
