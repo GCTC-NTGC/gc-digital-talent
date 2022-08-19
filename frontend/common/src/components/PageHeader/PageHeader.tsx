@@ -1,8 +1,6 @@
 import React from "react";
 import Heading from "../Heading";
 
-import "./pageHeader.css";
-
 export interface PageHeaderProps {
   icon?: React.FC<{ className: string }>;
 }
