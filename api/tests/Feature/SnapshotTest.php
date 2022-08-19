@@ -31,7 +31,6 @@ class SnapshotTest extends TestCase
         // set up a user with a pool candidate
         $userId = $this->faker->Uuid();
         $poolCandidateId = $this->faker->Uuid();
-        print_r($userId);
         User::factory()->create([
             "id" => $userId
         ]);
