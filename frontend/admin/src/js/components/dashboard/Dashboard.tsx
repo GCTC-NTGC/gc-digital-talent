@@ -128,9 +128,19 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
           onDismiss={handleDismiss}
         />
         <SideMenuContentWrapper>
-          <div data-h2-height="base(100%)">
+          <div
+            data-h2-min-height="base(100%)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+          >
             <Header baseUrl={ADMIN_APP_DIR} width="full" />
-            <main id="main">{content}</main>
+            <main
+              id="main"
+              data-h2-flex-grow="base(1)"
+              data-h2-background-color="base(dt-gray.15)"
+            >
+              {content}
+            </main>
             <Footer baseUrl={ADMIN_APP_DIR} width="full" />
           </div>
         </SideMenuContentWrapper>

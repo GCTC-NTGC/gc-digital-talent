@@ -91,7 +91,6 @@ const SideMenu: React.FC<SideMenuProps> = ({
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
               data-h2-flex-grow="base(1)"
-              data-h2-border="base(top, 1px, solid, dt-white.1)"
             >
               <div
                 data-h2-display="base(flex)"

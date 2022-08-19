@@ -61,7 +61,7 @@ const CloseDialog = ({
         description: "Heading for the close pool dialog",
       })}
     >
-      <p>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage: "This pool is set to automatically close on:",
           description: "First paragraph for the close pool dialog",
@@ -84,7 +84,7 @@ const CloseDialog = ({
           {relativeExpiryDate(new Date(expiryDate), intl)}
         </div>
       </InputWrapper>
-      <p>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "You can choose to manually close it now, this will prevent users from submitting applications.",
