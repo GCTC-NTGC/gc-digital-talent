@@ -1187,4 +1187,38 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
   }
+
+  public function testPoolCandidateStatusAccessor(): void
+  {
+    // Create admin user we run tests as
+    $newUser = new User;
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->save();
+
+    // 1
+    // not submitted, expiry date in the future, status set to expired
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+      'submitted_at' => null,
+      'expiry_date' => config('constants.far_future_date'),
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+    ]);
+
+    // Assert candidate 1 is DRAFT, despite being set as EXPIRED, the null submitted_at forces an override
+    $this->graphQL(/** @lang Graphql */ '
+      query poolCandidate {
+          poolCandidate(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
+              status
+          }
+      }
+    ')->assertJson([
+       "data" => [
+          "poolCandidate" => [
+              "status" => ApiEnums::CANDIDATE_STATUS_DRAFT,
+          ]
+      ]
+    ]);
+  }
 }

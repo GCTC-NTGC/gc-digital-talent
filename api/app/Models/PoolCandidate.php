@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class PoolCandidate
@@ -322,4 +323,39 @@ RAWSQL2;
         }
         return $query;
     }
+
+   /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
+   public function getPoolCandidateStatusAttribute()
+   {
+        // pull info
+        $submittedAt = $this->submitted_at;
+        $expiryDate = $this->expiry_date;
+        $currentTime = date("Y-m-d H:i:s");
+        $isExpired = $currentTime > $expiryDate ? true : false;
+
+        // to avoid recursively calling the accessor, it is important to SELECT it outside of the regular way via direct DB
+        // grab self Id, run a DB statement and then grab the value out of the resulting object in an array
+        $candidateId = $this->id;
+        $results = DB::select('select pool_candidate_status from pool_candidates where id = :id', ['id' => $candidateId]);
+        $candidateStatus = $results[0]->pool_candidate_status;
+
+        // ensure null submitted_at returns either draft or expired draft
+        if ($submittedAt == null){
+            if($isExpired) {
+                return ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED;
+            }
+            return ApiEnums::CANDIDATE_STATUS_DRAFT;
+        }
+
+        // ensure expired returned with some exceptions
+        if ($candidateStatus != (ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL | ApiEnums::CANDIDATE_STATUS_PLACED_TERM | ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE)) {
+            if ($isExpired) {
+                return ApiEnums::CANDIDATE_STATUS_EXPIRED;
+            }
+            return $candidateStatus;
+        }
+
+       // no overriding
+       return $candidateStatus;
+   }
 }
