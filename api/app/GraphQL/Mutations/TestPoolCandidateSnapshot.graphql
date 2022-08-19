@@ -51,7 +51,6 @@ query getProfile($userId:ID!) {
                   fr
                 }
               }
-
               isWoman
               hasDisability
               isIndigenous
@@ -148,21 +147,6 @@ query getProfile($userId:ID!) {
                   endDate
                 }
               }
-              # awardExperiences {
-              #   id
-              # }
-              # communityExperiences {
-              #   id
-              # }
-              # educationExperiences {
-              #   id
-              # }
-              # personalExperiences {
-              #   id
-              # }
-              # workExperiences {
-              #   id
-              # }
               poolCandidates {
                 status
                 expiryDate

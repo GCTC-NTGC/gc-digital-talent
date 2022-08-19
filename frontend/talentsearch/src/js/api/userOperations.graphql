@@ -49,7 +49,6 @@ query getMe {
         fr
       }
     }
-
     isWoman
     hasDisability
     isIndigenous
@@ -146,21 +145,6 @@ query getMe {
         endDate
       }
     }
-    # awardExperiences {
-    #   id
-    # }
-    # communityExperiences {
-    #   id
-    # }
-    # educationExperiences {
-    #   id
-    # }
-    # personalExperiences {
-    #   id
-    # }
-    # workExperiences {
-    #   id
-    # }
     poolCandidates {
       status
       expiryDate
