@@ -347,7 +347,7 @@ const RoleSalaryFormContainer: React.FunctionComponent = () => {
           }
         }
       }
-      navigate(paths.home());
+      navigate(paths.home(id));
       toast.success(intl.formatMessage(profileMessages.userUpdated));
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;

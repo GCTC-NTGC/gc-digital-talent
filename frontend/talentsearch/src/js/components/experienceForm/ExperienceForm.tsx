@@ -28,7 +28,6 @@ import ExperienceSkills from "./ExperienceSkills";
 import type { Skill } from "../../api/generated";
 import {
   useGetMyExperiencesQuery,
-  useGetMeQuery,
   useGetSkillsQuery,
 } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
@@ -50,6 +49,7 @@ import {
 } from "./mutations";
 
 export interface ExperienceFormProps {
+  userId: string;
   experienceType: ExperienceType;
   experience?: ExperienceQueryData;
   skills: Skill[];
@@ -60,6 +60,7 @@ export interface ExperienceFormProps {
 }
 
 export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
+  userId,
   experience,
   experienceType,
   onUpdateExperience,
@@ -102,7 +103,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
             description:
               "Display text for My experience and skills Form Page Link",
           }),
-          href: paths.skillsAndExperiences(),
+          href: paths.skillsAndExperiences(userId),
         },
         {
           title: experience
@@ -119,7 +120,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         },
       ]}
       cancelLink={{
-        href: paths.skillsAndExperiences(),
+        href: paths.skillsAndExperiences(userId),
       }}
     >
       <BasicForm
@@ -178,7 +179,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         <ProfileFormFooter
           mode="bothButtons"
           cancelLink={{
-            href: paths.skillsAndExperiences(),
+            href: paths.skillsAndExperiences(userId),
           }}
         />
       </BasicForm>
@@ -199,7 +200,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
               "Question displayed when a user attempts to delete an experience from their profile",
           })}
         </AlertDialog.Description>
-        <AlertDialog.Actions>
+        <AlertDialog.Footer>
           <Button
             type="button"
             mode="outline"
@@ -225,13 +226,14 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
               })}
             </Button>
           </span>
-        </AlertDialog.Actions>
+        </AlertDialog.Footer>
       </AlertDialog>
     </ProfileFormWrapper>
   );
 };
 
 export interface ExperienceFormContainerProps {
+  userId: string;
   experienceType: ExperienceType;
   experienceId?: string;
   edit?: boolean;
@@ -239,18 +241,15 @@ export interface ExperienceFormContainerProps {
 
 const ExperienceFormContainer: React.FunctionComponent<
   ExperienceFormContainerProps
-> = ({ experienceType, experienceId, edit }) => {
+> = ({ userId, experienceType, experienceId, edit }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
 
-  const [meResults] = useGetMeQuery();
-  const { data: meData, fetching: fetchingMe, error: meError } = meResults;
-
   const handleSuccess = () => {
     removeFromSessionStorage(cacheKey); // clear the cache
-    navigate(paths.skillsAndExperiences());
+    navigate(paths.skillsAndExperiences(userId));
     toast.success(
       edit
         ? intl.formatMessage({
@@ -316,11 +315,9 @@ const ExperienceFormContainer: React.FunctionComponent<
   );
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
-    if (meData?.me) {
-      const args = getMutationArgs(experienceId || meData.me.id, values);
-      const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
-      res.then(handleMutationResponse).catch(handleError);
-    }
+    const args = getMutationArgs(experienceId || userId, values);
+    const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
+    res.then(handleMutationResponse).catch(handleError);
   };
 
   // delete functionality //
@@ -329,24 +326,21 @@ const ExperienceFormContainer: React.FunctionComponent<
   const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
 
   const handleDeleteExperience = () => {
-    if (meData?.me) {
-      executeDeletionMutation
-        .executeDeletionMutation({
-          id: experienceIdExact,
-        })
-        .then((result) => {
-          navigate(paths.skillsAndExperiences());
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Experience Deleted",
-              description:
-                "Message displayed to user after experience deleted.",
-            }),
-          );
-          return result.data;
-        })
-        .catch(handleError);
-    }
+    executeDeletionMutation
+      .executeDeletionMutation({
+        id: experienceIdExact,
+      })
+      .then((result) => {
+        navigate(paths.skillsAndExperiences(userId));
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Experience Deleted",
+            description: "Message displayed to user after experience deleted.",
+          }),
+        );
+        return result.data;
+      })
+      .catch(handleError);
   };
 
   let found = true;
@@ -355,12 +349,10 @@ const ExperienceFormContainer: React.FunctionComponent<
   }
 
   return (
-    <Pending
-      fetching={fetchingSkills || fetchingMe || fetchingExperience}
-      error={skillError || meError}
-    >
-      {skillsData && meData && found ? (
+    <Pending fetching={fetchingSkills || fetchingExperience} error={skillError}>
+      {skillsData && found ? (
         <ExperienceForm
+          userId={userId}
           experience={experience as ExperienceQueryData}
           experienceType={experienceType}
           skills={skillsData.skills as Skill[]}

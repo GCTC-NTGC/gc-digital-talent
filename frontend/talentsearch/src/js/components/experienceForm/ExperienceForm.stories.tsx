@@ -14,19 +14,23 @@ export default {
   args: {
     experienceType: "award",
     skills: skillData,
+    userId: "user-id",
   },
 } as Meta;
 
 interface ExperienceFormStoryArgs {
   experienceType: ExperienceType;
   skills: Skill[];
+  userId: string;
 }
 
 const TemplateExperienceFormForm: Story<ExperienceFormStoryArgs> = ({
   experienceType,
   skills,
+  userId,
 }) => (
   <ExperienceForm
+    userId={userId}
     experienceType={experienceType}
     skills={skills}
     onUpdateExperience={async (data: ExperienceDetailsSubmissionData) => {
