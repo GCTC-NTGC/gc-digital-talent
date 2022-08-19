@@ -378,6 +378,14 @@ export const poolCandidateStatuses = defineMessages({
     defaultMessage: "Placed Casual",
     description: "The pool candidate's status is Placed Casual.",
   },
+  [PoolCandidateStatus.Draft]: {
+    defaultMessage: "Draft",
+    description: "The pool candidate's status is Draft.",
+  },
+  [PoolCandidateStatus.DraftExpired]: {
+    defaultMessage: "Draft Expired",
+    description: "The pool candidate's status is Expired Draft.",
+  },
 });
 
 export const getPoolCandidateStatus = (
