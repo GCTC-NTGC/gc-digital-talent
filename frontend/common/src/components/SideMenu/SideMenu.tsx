@@ -45,57 +45,66 @@ const SideMenu: React.FC<SideMenuProps> = ({
   };
 
   return !isSmallScreen || isOpen ? (
-    <div
-      data-h2-flex-item="base(content)"
-      data-h2-background-color="base(dt-secondary.light)"
-    >
-      <FocusLock
-        autoFocus
-        returnFocus
-        disabled={!isSmallScreen}
-        className={`side-menu${isOpen ? ` side-menu--open` : ``}`}
+    <div data-h2-flex-item="base(content)">
+      <div
+        data-h2-position="base(sticky)"
+        data-h2-offset="base(0, auto, auto, auto)"
+        data-h2-height="base(100vh)"
       >
-        <RemoveScroll
-          enabled={isSmallScreen && isOpen}
-          data-h2-background-color="base(light.dt-secondary)"
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-height="base(100%)"
+        <FocusLock
+          autoFocus
+          returnFocus
+          disabled={!isSmallScreen}
+          className={`side-menu${isOpen ? ` side-menu--open` : ``}`}
         >
-          <div
-            data-h2-margin="base(0, 0, x.5, 0)"
-            className="side-menu__header"
-          >
-            <SideMenuItem as="button" onClick={handleToggle} icon={MenuIcon}>
-              {isOpen
-                ? intl.formatMessage({
-                    defaultMessage: "Close Menu",
-                    description: "Text label for button that closes side menu.",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Open Menu",
-                    description: "Text label for button that opens side menu.",
-                  })}
-            </SideMenuItem>
-            {header}
-          </div>
-          <nav
+          <RemoveScroll
+            enabled={isSmallScreen && isOpen}
+            data-h2-background-color="base(light.dt-secondary)"
+            data-h2-overflow="base(auto, all)"
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
-            className="side-menu__content"
-            aria-label={label}
-            onKeyDown={handleKeyDown}
+            data-h2-height="base(100%)"
           >
-            <div
-              data-h2-margin="base(x1, 0, 0, 0) l-tablet(x2, 0, 0, 0) desktop(x3, 0, 0, 0)"
-              className="side-menu__content"
-            >
-              {children}
+            <div data-h2-margin="base(0, 0, x2, 0)">
+              <SideMenuItem as="button" onClick={handleToggle} icon={MenuIcon}>
+                {isOpen
+                  ? intl.formatMessage({
+                      defaultMessage: "Close Menu",
+                      description:
+                        "Text label for button that closes side menu.",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Open Menu",
+                      description:
+                        "Text label for button that opens side menu.",
+                    })}
+              </SideMenuItem>
+              {header}
             </div>
-            {footer && <div className="side-menu__footer">{footer}</div>}
-          </nav>
-        </RemoveScroll>
-      </FocusLock>
+            <nav
+              /**
+               * Ignore `no-noninteractive-element-interactions` since
+               * this is captured to close the element
+               */
+              onKeyDown={handleKeyDown}
+              aria-label={label}
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-flex-grow="base(1)"
+              data-h2-border="base(top, 1px, solid, dt-white.1)"
+            >
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-flex-grow="base(1)"
+              >
+                {children}
+              </div>
+              {footer && <div>{footer}</div>}
+            </nav>
+          </RemoveScroll>
+        </FocusLock>
+      </div>
     </div>
   ) : null;
 };

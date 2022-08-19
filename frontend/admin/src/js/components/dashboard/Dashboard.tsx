@@ -129,9 +129,9 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
         />
         <SideMenuContentWrapper>
           <div data-h2-height="base(100%)">
-            <Header baseUrl={ADMIN_APP_DIR} />
+            <Header baseUrl={ADMIN_APP_DIR} width="full" />
             <main id="main">{content}</main>
-            <Footer baseUrl={ADMIN_APP_DIR} />
+            <Footer baseUrl={ADMIN_APP_DIR} width="full" />
           </div>
         </SideMenuContentWrapper>
       </div>

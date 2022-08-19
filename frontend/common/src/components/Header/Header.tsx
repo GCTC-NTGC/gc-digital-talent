@@ -10,21 +10,30 @@ import { imageUrl, useLocation } from "../../helpers/router";
 
 export interface HeaderProps {
   baseUrl: string;
+  width?: string;
 }
 
-const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl }) => {
+const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl, width }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
   const location = useLocation();
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
+  let headerWidth = {
+    "data-h2-container": "base(center, large, x1) p-tablet(center, large, x2)",
+  };
+  if (width === "full") {
+    headerWidth = {
+      "data-h2-container": "base(center, full, x1) p-tablet(center, full, x2)",
+    };
+  }
   return (
     <header
       data-h2-padding="base(x1, 0)"
       data-h2-border="base(bottom, 1px, solid, dt-gray)"
     >
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div {...headerWidth}>
         <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(center, 0, x3)">
           <div
             data-h2-flex-item="base(1of1) p-tablet(1of2)"

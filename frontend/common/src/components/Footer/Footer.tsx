@@ -4,7 +4,8 @@ import { imageUrl } from "../../helpers/router";
 
 const Footer: React.FunctionComponent<{
   baseUrl: string;
-}> = ({ baseUrl }) => {
+  width?: string;
+}> = ({ baseUrl, width }) => {
   const intl = useIntl();
   const links = [
     {
@@ -40,6 +41,14 @@ const Footer: React.FunctionComponent<{
       }),
     },
   ];
+  let footerWidth = {
+    "data-h2-container": "base(center, large, x1) p-tablet(center, large, x2)",
+  };
+  if (width === "full") {
+    footerWidth = {
+      "data-h2-container": "base(center, full, x1) p-tablet(center, full, x2)",
+    };
+  }
   return (
     <footer
       className="footer"
@@ -48,7 +57,7 @@ const Footer: React.FunctionComponent<{
       data-h2-background-color="base(lightest.dt-gray)"
       style={{ marginTop: "auto" }}
     >
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div {...footerWidth}>
         <div data-h2-flex-grid="base(center, 0, x3)">
           <div
             data-h2-flex-item="base(1of1) l-tablet(1of2)"
