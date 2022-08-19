@@ -8,7 +8,7 @@ use App\GraphQL\Util\GraphQLClient;
 final class TestPoolCandidateSnapshot
 {
     /**
-     * Publishes the pool advertisement.
+     * Tests snapshot capability by saving the user profile to the given pool candidate
      * @param  null  $_
      * @param  array{}  $args
      */
