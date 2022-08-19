@@ -6,7 +6,7 @@ const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
 require('dotenv').config({ path: './.env' });
-var shell = require("shelljs");
+const shell = require("shelljs");
 const fs = require("fs");
 
 module.exports = {

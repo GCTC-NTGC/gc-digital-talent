@@ -1,7 +1,7 @@
 const path = require("path");
 const TsTransformer = require("@formatjs/ts-transformer");
 const transform = TsTransformer.transform;
-var shell = require("shelljs");
+const shell = require("shelljs");
 const fs = require("fs");
 // This uses ts-loader to inject generated ids into react-intl messages.
 const reactIntlTransformRule = {
