@@ -96,18 +96,18 @@ const LanguageInformationSection: React.FunctionComponent<{
           </span>
         </p>
       )}
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Completed an official GoC evaluation:",
-          description:
-            "Completed a government of canada abbreviation evaluation label and colon",
-        })}{" "}
-        <span data-h2-font-weight="b(700)">
-          {bilingualEvaluation
-            ? intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))
-            : ""}
-        </span>
-      </p>
+      {bilingualEvaluation && (
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "Completed an official GoC evaluation:",
+            description:
+              "Completed a government of canada abbreviation evaluation label and colon",
+          })}{" "}
+          <span data-h2-font-weight="b(700)">
+            {intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))}
+          </span>
+        </p>
+      )}
       {(bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
         bilingualEvaluation === BilingualEvaluation.CompletedFrench) && (
         <p>
