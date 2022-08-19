@@ -37,10 +37,8 @@ setIntlConfig({
 export const decorators = [
     withIntl,
     (Story) => (
-      <div data-h2>
-        <div data-h2-font-family="base(sans)">
-          <Story />
-        </div>
+      <div data-h2-font-family="base(sans)">
+        <Story />
       </div>
     ),
   ];
