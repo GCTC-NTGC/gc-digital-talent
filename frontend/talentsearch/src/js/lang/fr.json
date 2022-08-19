@@ -1940,5 +1940,17 @@
   "ZuyuPO": {
     "defaultMessage": "IT-01: Technicien(ne) (60 000 $ à 78 000 $)",
     "description": "IT-01 classification label including titles and salaries"
+  },
+  "5lBIzg": {
+    "defaultMessage": "Mon profile",
+    "description": "Label displayed on the applicant profile menu item."
+  },
+  "ioghLh": {
+    "defaultMessage": "Mes applications",
+    "description": "Label displayed on the users pool applications menu item."
+  },
+  "SXvOXV": {
+    "defaultMessage": "Possibilités de navigation",
+    "description": "Label displayed on the browse pools menu item."
   }
 }
