@@ -51,6 +51,7 @@ class PoolApplicationTest extends TestCase
           pool {
             id
           }
+          status
         }
       }
     ')->assertJson([
@@ -61,7 +62,8 @@ class PoolApplicationTest extends TestCase
           ],
           'pool' => [
             'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-          ]
+          ],
+          'status' => 'DRAFT'
         ]
       ]
     ]);
@@ -76,6 +78,7 @@ class PoolApplicationTest extends TestCase
           pool {
             id
           }
+          status
         }
       }
     ')->assertJson([
@@ -86,7 +89,8 @@ class PoolApplicationTest extends TestCase
           ],
           'pool' => [
             'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-          ]
+          ],
+          'status' => 'DRAFT'
         ]
       ]
     ]);
