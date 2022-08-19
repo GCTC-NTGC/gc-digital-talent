@@ -17,14 +17,6 @@ export interface AlertDialogProps
   onDismiss: () => void;
   title: string;
   children: React.ReactNode;
-  /**
-   * Hack: This is for storybook
-   *
-   * @reach/alert-dialog portal is appended at the bottom
-   * of the document.body and is not in the root
-   * element so does not get hydrogen styles applied.
-   */
-  "data-h2"?: boolean;
 }
 
 const AlertDialog = ({
@@ -33,14 +25,11 @@ const AlertDialog = ({
   title,
   children,
   leastDestructiveRef,
-  ...props
 }: AlertDialogProps) =>
   isOpen ? (
     <AlertDialogOverlay
       leastDestructiveRef={leastDestructiveRef}
       onDismiss={onDismiss}
-      // See:  note in prop type interface
-      {...(props["data-h2"] && { "data-h2": true })}
     >
       <AlertDialogContent>
         <AlertDialogHeading onDismiss={onDismiss}>{title}</AlertDialogHeading>
