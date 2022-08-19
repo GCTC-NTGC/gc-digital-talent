@@ -64,12 +64,6 @@ const IndeterminateCheckbox: React.FC<
   );
 };
 
-const Spacer: React.FC = ({ children }) => (
-  <div data-h2-margin="base(0, 0, 0, x.5)" style={{ flexShrink: 0 }}>
-    {children}
-  </div>
-);
-
 const ButtonIcon: React.FC<{
   icon: React.FC<HTMLAttributes<HTMLOrSVGElement>>;
 }> = ({ icon }) => {

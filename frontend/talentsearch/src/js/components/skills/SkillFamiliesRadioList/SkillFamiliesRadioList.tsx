@@ -15,9 +15,6 @@ const Family: React.FC<FamilyProps> = ({ family, checked, callback }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const uncheckedStyle = { "data-h2-font-weight": "base(400)" };
-  const checkedStyle = { "data-h2-font-weight": "base(700)" };
-
   return (
     <div key={family.key}>
       <label data-h2-font-size="base(copy)">

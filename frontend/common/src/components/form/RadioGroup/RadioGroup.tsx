@@ -82,7 +82,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
               <InputWrapper
                 inputId={id}
                 label={label}
-                label_size="copy"
+                labelSize="copy"
                 // Don't show Required tag, error or context on individual input, as its handled by Fieldset.
                 required={false}
                 hideOptional

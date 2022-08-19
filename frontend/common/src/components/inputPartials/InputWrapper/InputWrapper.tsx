@@ -6,7 +6,7 @@ import InputLabel from "../InputLabel/InputLabel";
 export interface InputWrapperProps {
   inputId: string;
   label: string | React.ReactNode;
-  label_size?: string;
+  labelSize?: string;
   required: boolean;
   error?: string;
   errorPosition?: "top" | "bottom";
@@ -18,7 +18,7 @@ export interface InputWrapperProps {
 const InputWrapper: React.FC<InputWrapperProps> = ({
   inputId,
   label,
-  label_size,
+  labelSize,
   required,
   error,
   errorPosition = "bottom",
@@ -29,9 +29,9 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   ...rest
 }) => {
   const [contextVisible, setContextVisible] = useState(false);
-  let font_size = { "data-h2-font-size": "base(caption)" };
-  if (label_size === "copy") {
-    font_size = { "data-h2-font-size": "base(copy)" };
+  let fontSize = { "data-h2-font-size": "base(caption)" };
+  if (labelSize === "copy") {
+    fontSize = { "data-h2-font-size": "base(copy)" };
   }
   return (
     <>
@@ -45,7 +45,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
           <InputLabel
             inputId={inputId}
             label={label}
-            label_size={font_size}
+            labelSize={fontSize}
             required={required}
             contextIsVisible={context !== undefined && context !== ""}
             contextToggleHandler={setContextVisible}

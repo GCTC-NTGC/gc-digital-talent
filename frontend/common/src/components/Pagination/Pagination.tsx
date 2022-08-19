@@ -1,8 +1,4 @@
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  DotsHorizontalIcon,
-} from "@heroicons/react/solid";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Button } from "..";
@@ -65,11 +61,11 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
     onCurrentPageChange(currentPage - 1);
   };
 
-  let font_color = {};
+  let fontColor = {};
   if (color === "black") {
-    font_color = { "data-h2-color": "base(dt-black)" };
+    fontColor = { "data-h2-color": "base(dt-black)" };
   } else if (color === "white") {
-    font_color = { "data-h2-color": "base(dt-white)" };
+    fontColor = { "data-h2-color": "base(dt-white)" };
   }
 
   const lastPage = paginationRange[paginationRange.length - 1];
@@ -133,7 +129,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                         data-h2-margin="base(-x.5, 0, 0, 0)"
                         data-h2-font-size="base(h6, 1)"
                         data-h2-font-weight="base(700)"
-                        {...font_color}
+                        {...fontColor}
                       >
                         ...
                       </span>
@@ -211,7 +207,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
         <div data-h2-flex-item="base(content)">
           <div data-h2-flex-grid="base(center, 0, x2, 0)">
             <div data-h2-flex-item="base(content)">
-              <label data-h2-font-size="base(copy)" {...font_color}>
+              <label data-h2-font-size="base(copy)" {...fontColor}>
                 {intl.formatMessage({
                   defaultMessage: "Go to page:",
                   description: "Label for pagination input in admin table.",

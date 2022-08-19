@@ -5,11 +5,7 @@ import React, { ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
 import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
 import SearchForm from "./SearchForm";
-import {
-  ButtonIcon,
-  IndeterminateCheckbox,
-  Spacer,
-} from "../Table/tableComponents";
+import { ButtonIcon, IndeterminateCheckbox } from "../Table/tableComponents";
 import type {
   ColumnHiddenEvent,
   ColumnsOf,

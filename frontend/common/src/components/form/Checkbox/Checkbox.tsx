@@ -47,7 +47,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
         <InputWrapper
           inputId={id}
           label={label}
-          label_size="copy"
+          labelSize="copy"
           required={!!rules.required}
           context={context}
           error={error}

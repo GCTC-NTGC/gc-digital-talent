@@ -1,5 +1,4 @@
 import React from "react";
-import BannerFold from "./BannerFold";
 import "./style.css";
 
 const Banner: React.FC = ({ children }) => (
