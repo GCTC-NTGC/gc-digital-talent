@@ -50,8 +50,8 @@ const LanguageInformationFormPage = React.lazy(
 const WorkLocationPreferenceFormPage = React.lazy(
   () => import("./workLocationPreferenceForm/WorkLocationPreferenceFormPage"),
 );
-const RoleSalaryFormContainer = React.lazy(
-  () => import("./roleSalaryForm/RoleSalaryForm"),
+const RoleSalaryFormPage = React.lazy(
+  () => import("./roleSalaryForm/RoleSalaryFormPage"),
 );
 const ExperienceFormContainer = React.lazy(
   () => import("./experienceForm/ExperienceForm"),
@@ -62,8 +62,8 @@ const WorkPreferencesFormPage = React.lazy(
 const AboutMeFormPage = React.lazy(
   () => import("./aboutMeForm/AboutMeFormPage"),
 );
-const DiversityEquityInclusionFormApi = React.lazy(
-  () => import("./diversityEquityInclusion/DiversityEquityInclusionForm"),
+const EmploymentEquityFormPage = React.lazy(
+  () => import("./employmentEquityForm/EmploymentEquityFormPage"),
 );
 const ExperienceAndSkillsRouterApi = React.lazy(
   () => import("./applicantProfile/ExperienceAndSkills"),
@@ -171,7 +171,7 @@ const profileRoutes = (
   {
     path: profilePaths.roleSalary(":userId"),
     action: () => ({
-      component: <RoleSalaryFormContainer />,
+      component: <RoleSalaryFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
@@ -227,7 +227,7 @@ const profileRoutes = (
   {
     path: profilePaths.diversityEquityInclusion(":userId"),
     action: () => ({
-      component: <DiversityEquityInclusionFormApi />,
+      component: <EmploymentEquityFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
