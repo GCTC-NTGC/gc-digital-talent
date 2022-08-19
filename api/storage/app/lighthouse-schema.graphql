@@ -523,6 +523,11 @@ input IdInput {
   id: ID!
 }
 
+"""
+Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org.
+"""
+scalar JSON
+
 enum JobLookingStatus {
   ACTIVELY_LOOKING
   OPEN_TO_OPPORTUNITIES
@@ -613,6 +618,7 @@ type Mutation {
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
   archiveApplication(id: ID!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
+  testPoolCandidateSnapshot(id: ID!): PoolCandidate
   submitApplication(applicationId: ID!, signature: String!): PoolCandidate
 }
 
@@ -819,6 +825,7 @@ type PoolCandidate {
   notes: String
   archivedAt: DateTime
   submittedAt: DateTime
+  profileSnapshot: JSON
   signature: String
 }
 

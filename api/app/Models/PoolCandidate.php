@@ -55,6 +55,7 @@ class PoolCandidate extends Model
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
+        'profile_snapshot' => 'json'
     ];
 
     /**
