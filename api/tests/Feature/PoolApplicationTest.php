@@ -181,6 +181,12 @@ class PoolApplicationTest extends TestCase
       ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
       ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
       ApiEnums::CANDIDATE_STATUS_SCREENED_IN,
+      ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
+      ApiEnums::CANDIDATE_STATUS_DRAFT,
+      ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
+      ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+      ApiEnums::CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE,
+      ApiEnums::CANDIDATE_STATUS_QUALIFIED_WITHDREW,
     ];
 
     // Create admin user we run tests as
@@ -215,8 +221,32 @@ class PoolApplicationTest extends TestCase
         'pool_candidate_status' => $statusesThatShouldFail[5],
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16',
     ]);
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[6],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a17',
+    ]);
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[7],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a18',
+    ]);
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[8],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a19',
+    ]);
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[9],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a20',
+    ]);
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[10],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21',
+    ]);
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[11],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
+    ]);
 
-    // Assert un-expired object cannot be archived, 6 different ones that should fail
+    // Assert un-expired object cannot be archived, 12 different ones that should fail
     // just running through each of them one at a time
     $this->graphQL(/** @lang Graphql */ '
         mutation archivalTest($id: ID!) {
@@ -300,6 +330,89 @@ class PoolApplicationTest extends TestCase
           'message' => 'pool candidate status does not contain a valid value.',
         ]]
     ]);
+    $this->graphQL(/** @lang Graphql */ '
+        mutation archivalTest($id: ID!) {
+          archiveApplication(id: $id) {
+            archivedAt
+          }
+        }
+      ', [
+        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a17',
+        ])->assertJson([
+        'errors' => [[
+          'message' => 'pool candidate status does not contain a valid value.',
+        ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation archivalTest($id: ID!) {
+        archiveApplication(id: $id) {
+          archivedAt
+        }
+      }
+    ', [
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a18',
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation archivalTest($id: ID!) {
+        archiveApplication(id: $id) {
+          archivedAt
+        }
+      }
+    ', [
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a19',
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation archivalTest($id: ID!) {
+        archiveApplication(id: $id) {
+          archivedAt
+        }
+      }
+    ', [
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a20',
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation archivalTest($id: ID!) {
+        archiveApplication(id: $id) {
+          archivedAt
+        }
+      }
+    ', [
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21',
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation archivalTest($id: ID!) {
+        archiveApplication(id: $id) {
+          archivedAt
+        }
+      }
+    ', [
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+      ]);
   }
 
   public function testApplicationSubmit(): void
