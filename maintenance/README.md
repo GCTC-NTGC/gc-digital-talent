@@ -23,12 +23,12 @@ To set up a local development environment, run these commands from anywhere in r
    - For testing admin accounts:
      1. Navigate to http://localhost:8000/login
      2. Enter `admin@test.com` as the "User/subject" (the "Claims" input can be left blank, and there is no password)
-     3. You should be redirected to http://localhost:8000/admin/dashboard
+     3. Navigate to http://localhost:8000/admin/dashboard
    - For testing applicant accounts:
      1. Navigate to http://localhost:8000/en/login-info
      2. Click on "Continue to GC Key and login"
      3. Enter `applicant@test.com` as the "User/subject" (the "Claims" input can be left blank, and there is no password)
-     4. You should be redirected to http://localhost:8000/en/talent/profile
+     4. Navigate to http://localhost:8000/en/talent/profile
 
 ## Environment Maintenance
 
