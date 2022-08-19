@@ -50,15 +50,7 @@ const SkillFamiliesRadioList: React.FC<SkillFamiliesRadioListProps> = ({
 
   return (
     <div data-h2-flex-grid="base(flex-start, 0, x.25)">
-      <div data-h2-flex-item="base(1of1)">
-        <h4
-          data-h2-font-size="base(copy, 1)"
-          data-h2-font-weight="base(700)"
-          data-h2-margin="base(0, 0, x.5, 0)"
-        >
-          Filter by
-        </h4>
-      </div>
+      <div data-h2-flex-item="base(1of1)" />
       {skillFamilies.map((family) => (
         <div data-h2-flex-item="base(1of1)" key={family.key}>
           <Family
