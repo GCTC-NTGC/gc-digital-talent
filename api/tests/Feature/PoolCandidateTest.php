@@ -1206,6 +1206,51 @@ class PoolCandidateTest extends TestCase
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
     ]);
 
+    // 2
+    // not submitted, expiry date in the past, status set to expired
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+      'submitted_at' => null,
+      'expiry_date' => config('constants.past_date'),
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
+    ]);
+
+    // 3
+    // expired and submitted applicant that has a PLACED status
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.past_date'),
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a33',
+    ]);
+
+    // 4
+    // expired and submitted applicant that lacks a PLACED status
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.past_date'),
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a44',
+    ]);
+
+    // 5
+    // unexpired and submitted
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a55'
+    ]);
+
+    // 6
+    // unexpired and submitted
+    PoolCandidate::factory()->create([
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a66'
+    ]);
+
     // Assert candidate 1 is DRAFT, despite being set as EXPIRED, the null submitted_at forces an override
     $this->graphQL(/** @lang Graphql */ '
       query poolCandidate {
@@ -1217,6 +1262,81 @@ class PoolCandidateTest extends TestCase
        "data" => [
           "poolCandidate" => [
               "status" => ApiEnums::CANDIDATE_STATUS_DRAFT,
+          ]
+      ]
+    ]);
+
+    // Assert candidate 2 is DRAFT_EXPIRED, despite being set as EXPIRED, the null submitted_at forces an override
+    $this->graphQL(/** @lang Graphql */ '
+      query poolCandidate {
+          poolCandidate(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22") {
+              status
+          }
+      }
+    ')->assertJson([
+       "data" => [
+          "poolCandidate" => [
+              "status" => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
+          ]
+      ]
+    ]);
+
+    // Assert candidate 3 is PLACED_CASUAL, despite being past expiry date
+    $this->graphQL(/** @lang Graphql */ '
+      query poolCandidate {
+          poolCandidate(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a33") {
+              status
+          }
+      }
+    ')->assertJson([
+       "data" => [
+          "poolCandidate" => [
+              "status" => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+          ]
+      ]
+    ]);
+
+    // Assert candidate 4 is EXPIRED, despite being set as UNDER_ASSESSMENT an override occurs due to being past expiry
+    $this->graphQL(/** @lang Graphql */ '
+      query poolCandidate {
+          poolCandidate(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a44") {
+              status
+          }
+      }
+    ')->assertJson([
+       "data" => [
+          "poolCandidate" => [
+              "status" => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+          ]
+      ]
+    ]);
+
+    // Assert candidate 5 is NEW_APPLICATION as it was set
+    $this->graphQL(/** @lang Graphql */ '
+      query poolCandidate {
+          poolCandidate(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a55") {
+              status
+          }
+      }
+    ')->assertJson([
+       "data" => [
+          "poolCandidate" => [
+              "status" => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+          ]
+      ]
+    ]);
+
+    // Assert candidate 6 is APPLICATION_REVIEW as it was set
+    $this->graphQL(/** @lang Graphql */ '
+      query poolCandidate {
+          poolCandidate(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a66") {
+              status
+          }
+      }
+    ')->assertJson([
+       "data" => [
+          "poolCandidate" => [
+              "status" => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
           ]
       ]
     ]);

@@ -347,8 +347,8 @@ RAWSQL2;
             return ApiEnums::CANDIDATE_STATUS_DRAFT;
         }
 
-        // ensure expired returned with some exceptions
-        if ($candidateStatus != (ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL | ApiEnums::CANDIDATE_STATUS_PLACED_TERM | ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE)) {
+        // ensure expired returned if past expiry date with exception for PLACED
+        if ($candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_TERM && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE) {
             if ($isExpired) {
                 return ApiEnums::CANDIDATE_STATUS_EXPIRED;
             }
