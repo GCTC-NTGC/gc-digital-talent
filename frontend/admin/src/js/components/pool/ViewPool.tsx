@@ -379,7 +379,10 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 data-h2-margin="base(x2, 0, 0, 0)"
                 data-h2-font-size="base(h3)"
               >
-                Your impact
+                {intl.formatMessage({
+                  defaultMessage: "Your Impact (English)",
+                  description: "Title for English pool advertisement impact",
+                })}
               </h2>
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -388,7 +391,10 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 data-h2-font-weight="base(700)"
                 data-h2-font-size="base(h6)"
               >
-                English impact text
+                {intl.formatMessage({
+                  defaultMessage: "Your Impact (English)",
+                  description: "Title for English pool advertisement impact",
+                })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
                 {pool.yourImpact?.en || ""}
@@ -400,7 +406,10 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 data-h2-font-weight="base(700)"
                 data-h2-font-size="base(h6)"
               >
-                French impact text
+                {intl.formatMessage({
+                  defaultMessage: "Your Impact (French)",
+                  description: "Title for French pool advertisement impact",
+                })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
                 {pool.yourImpact?.fr || ""}
@@ -420,7 +429,10 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 data-h2-font-weight="base(700)"
                 data-h2-font-size="base(h6)"
               >
-                English work text
+                {intl.formatMessage({
+                  defaultMessage: "Your Work (English)",
+                  description: "Title for English pool advertisement Work",
+                })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
                 {pool.keyTasks?.en || ""}
@@ -432,7 +444,10 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 data-h2-font-weight="base(700)"
                 data-h2-font-size="base(h6)"
               >
-                French work text
+                {intl.formatMessage({
+                  defaultMessage: "Your Work (French)",
+                  description: "Title for French pool advertisement Work",
+                })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
                 {pool.keyTasks?.fr || ""}

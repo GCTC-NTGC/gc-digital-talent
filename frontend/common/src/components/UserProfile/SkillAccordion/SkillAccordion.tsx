@@ -262,14 +262,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
 
   function renderDetail() {
     if (experiences != null && experiences.length > 0) {
-      return (
-        <>
-          <p data-h2-font-weight="base(700)">
-            This skill has the following related experiences:
-          </p>
-          {renderWithExperience()}
-        </>
-      );
+      return renderWithExperience();
     }
     return renderNoExperience();
   }
