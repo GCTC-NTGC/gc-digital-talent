@@ -118,7 +118,7 @@ export const CreateAccountForm: React.FunctionComponent<
         />
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h2>
+            <h2 data-h2-margin="base(x2, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage: "Getting started",
                 description: "Main heading in create account page.",
@@ -214,7 +214,7 @@ export const CreateAccountForm: React.FunctionComponent<
                 }))}
                 defaultSelected={Language.En}
               />
-              <p data-h2-margin="base(x2, 0, 0, 0)">
+              <p data-h2-margin="base(x2, 0, x1, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "Below we’d like to know if you’re already an employee with the Government of Canada. We collect this information because it helps us understand, at an aggregate level, how digital skills are distributed amongst departments.",

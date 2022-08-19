@@ -77,7 +77,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
 
   return (
     <>
-      <div data-h2-position="base(relative)" data-h2-margin="base(x2, 0, 0, 0)">
+      <div data-h2-position="base(relative)">
         <div
           data-h2-layer="base(1, relative)"
           data-h2-flex-grid="l-tablet(normal, 0, x3)"
@@ -85,7 +85,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
           <div data-h2-flex-item="l-tablet(1of2)">
             <h2
               data-h2-font-size="base(h4, 1)"
-              data-h2-margin="base(0, 0, x1, 0)"
+              data-h2-margin="base(x2, 0, x1, 0)"
             >
               {intl.formatMessage({
                 defaultMessage: "My employment equity information:",
@@ -155,7 +155,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
           <div data-h2-flex-item="l-tablet(1of2)">
             <h2
               data-h2-font-size="base(h4, 1)"
-              data-h2-margin="base(0, 0, x1, 0)"
+              data-h2-margin="base(x2, 0, x1, 0)"
             >
               {intl.formatMessage({
                 defaultMessage: "Employment equity options:",

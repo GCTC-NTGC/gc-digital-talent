@@ -241,28 +241,30 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
                 },
               ]}
             />
-            <RadioGroup
-              idPrefix="citizenship"
-              legend={intl.formatMessage({
-                defaultMessage: "Citizenship Status",
-                description:
-                  "Legend text for required citizenship status in About Me form",
-              })}
-              name="citizenship"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-              items={citizenshipStatusesOrdered.map((status) => ({
-                value: status,
-                label: intl.formatMessage(
-                  getCitizenshipStatusesProfile(status),
-                ),
-              }))}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "Preference will be given to Canadian citizens and permanent residents of Canada",
-                description:
-                  "Context text for required citizenship status section in About Me form, explaining preference",
-              })}
-            />
+            <div data-h2-margin="base(x1, 0, 0, 0)">
+              <RadioGroup
+                idPrefix="citizenship"
+                legend={intl.formatMessage({
+                  defaultMessage: "Citizenship Status",
+                  description:
+                    "Legend text for required citizenship status in About Me form",
+                })}
+                name="citizenship"
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
+                items={citizenshipStatusesOrdered.map((status) => ({
+                  value: status,
+                  label: intl.formatMessage(
+                    getCitizenshipStatusesProfile(status),
+                  ),
+                }))}
+                context={intl.formatMessage({
+                  defaultMessage:
+                    "Preference will be given to Canadian citizens and permanent residents of Canada",
+                  description:
+                    "Context text for required citizenship status section in About Me form, explaining preference",
+                })}
+              />
+            </div>
           </div>
         </div>
         <h2

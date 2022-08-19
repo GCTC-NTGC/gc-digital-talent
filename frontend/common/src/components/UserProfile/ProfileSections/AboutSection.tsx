@@ -125,7 +125,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               {intl.formatMessage({
                 defaultMessage: "Member of CAF:",
                 description: "Veteran/member label",
-              })}{" "}
+              })}
+              <br />
               <span data-h2-font-weight="base(700)">
                 {isVeteran
                   ? intl.formatMessage({
@@ -146,7 +147,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               {intl.formatMessage({
                 defaultMessage: "Citizenship Status:",
                 description: "Citizenship status label",
-              })}{" "}
+              })}
+              <br />
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage(getCitizenshipStatusesProfile(citizenship))}
               </span>
