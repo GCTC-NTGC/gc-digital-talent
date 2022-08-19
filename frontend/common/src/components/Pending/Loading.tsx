@@ -20,7 +20,14 @@ export interface LoadingProps {
 
 const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
   const intl = useIntl();
-
+  const inlineWrapper = {
+    inline: {
+      "data-h2-background-color": "base(dt-white)",
+      "data-h2-padding": "base(x.25)",
+      "data-h2-radius": "base(100%)",
+    },
+    none: {},
+  };
   const typeMap = {
     inline: {
       "data-h2-position": "base(relative)",
@@ -42,20 +49,22 @@ const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
       style={{
         backgroundColor: inline ? undefined : `rgba(255,255,255,0.95)`,
         bottom: 0,
-        left: 0,
-        right: 0,
+        left: "1rem",
+        right: "1rem",
         top: 0,
         zIndex: 9999,
       }}
     >
-      <span className="lds-dual-ring">
-        <span data-h2-visibility="base(invisible)">
-          {intl.formatMessage({
-            defaultMessage: "Loading...",
-            description: "Message to display when a page is loading.",
-          })}
+      <div {...inlineWrapper[inline === true ? "inline" : "none"]}>
+        <span className="lds-dual-ring">
+          <span data-h2-visibility="base(invisible)">
+            {intl.formatMessage({
+              defaultMessage: "Loading...",
+              description: "Message to display when a page is loading.",
+            })}
+          </span>
         </span>
-      </span>
+      </div>
     </div>
   );
 };

@@ -53,7 +53,10 @@ function TableFooter({
         <div data-h2-flex-grid="base(center, 0, x2, 0)">
           <div data-h2-flex-item="base(content)">
             {hasSelection && (
-              <div data-h2-flex-grid="base(center, 0, x1, 0)">
+              <div
+                data-h2-flex-grid="base(center, 0, x1, 0)"
+                data-h2-position="base(relative)"
+              >
                 {/* <div data-h2-flex-item="base(content)">
                   <div
                     data-h2-position="base(relative)"
