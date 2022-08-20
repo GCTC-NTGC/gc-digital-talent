@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import useFeatureFlags from "@common/hooks/useFeatureFlags";
 import { AuthenticationContext } from "@common/components/Auth";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { Helmet } from "react-helmet";
@@ -439,6 +439,13 @@ const directIntakeRoutes = (
       };
     },
   },
+  {
+    path: directIntakePaths.applications(":userId"),
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+    }),
+  },
 ];
 
 export const Router: React.FC = () => {
@@ -448,6 +455,7 @@ export const Router: React.FC = () => {
   const talentPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
   const directIntakePaths = useDirectIntakeRoutes();
+  const featureFlags = useFeatureFlags();
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
   const [isConfirmationOpen, setConfirmationOpen] =
     React.useState<boolean>(false);
@@ -473,6 +481,46 @@ export const Router: React.FC = () => {
       })}
     />,
   ];
+
+  if (featureFlags.directIntake) {
+    menuItems.push(
+      <MenuLink
+        key="browseOpportunities"
+        href={directIntakePaths.allPools()}
+        text={intl.formatMessage({
+          defaultMessage: "Browse opportunities",
+          description: "Label displayed on the browse pools menu item.",
+        })}
+      />,
+    );
+
+    if (featureFlags.directIntake && loggedIn && data?.me?.id) {
+      menuItems.push(
+        <MenuLink
+          key="myApplications"
+          href={directIntakePaths.applications(data.me.id)}
+          text={intl.formatMessage({
+            defaultMessage: "My applications",
+            description:
+              "Label displayed on the users pool applications menu item.",
+          })}
+        />,
+      );
+    }
+  }
+
+  if (featureFlags.applicantProfile && loggedIn && data?.me?.id) {
+    menuItems.push(
+      <MenuLink
+        key="myProfile"
+        href={profilePaths.home(data.me.id)}
+        text={intl.formatMessage({
+          defaultMessage: "My profile",
+          description: "Label displayed on the applicant profile menu item.",
+        })}
+      />,
+    );
+  }
 
   let authLinks = [
     <MenuLink
@@ -518,10 +566,10 @@ export const Router: React.FC = () => {
         contentRoutes={[
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),
-          ...(checkFeatureFlag("FEATURE_APPLICANTPROFILE")
+          ...(featureFlags.applicantProfile
             ? profileRoutes(profilePaths, data?.me?.id)
             : []),
-          ...(checkFeatureFlag("FEATURE_DIRECTINTAKE")
+          ...(featureFlags.directIntake
             ? directIntakeRoutes(directIntakePaths)
             : []),
         ]}

@@ -7,6 +7,8 @@ export type DirectIntakeRoutes = ReturnType<typeof directIntakeRoutes>;
 
 const directIntakeRoutes = (lang: string) => {
   const home = (): string => path.join("/", lang, DIRECTINTAKE_APP_DIR);
+  const userHome = (userId: string): string =>
+    path.join("/", lang, "users", userId);
 
   return {
     home,
@@ -16,8 +18,8 @@ const directIntakeRoutes = (lang: string) => {
     poolAdvertisement: (id: string) => path.join(home(), "pools", id, "view"),
     poolApplyThanks: (id: string) =>
       path.join(home(), "pools", id, "apply", "thanks"),
-    poolApplications: (id: string) =>
-      path.join("/", lang, "users", id, "applications"),
+    applications: (userId: string) =>
+      path.join(userHome(userId), "applications"),
   };
 };
 

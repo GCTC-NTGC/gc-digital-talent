@@ -40,7 +40,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
               description:
                 "'My Applications' breadcrumb from applicant profile wrapper.",
             }),
-            href: directIntakePaths.poolApplications(originApplication.user.id),
+            href: directIntakePaths.applications(originApplication.user.id),
             icon: (
               <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />
             ),
