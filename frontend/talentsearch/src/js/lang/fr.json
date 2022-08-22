@@ -1477,10 +1477,6 @@
     "defaultMessage": "Certains emplois exigent que vous travailliez des heures inhabituelles ou que vous accomplissiez des tâches qui sont un peu en dehors de la normale. Veuillez indiquer les exigences spéciales avec lesquelles vous êtes à l'aise.",
     "description": "Description text for Profile Form wrapper  in Work Preferences Form"
   },
-  "wPcJH7": {
-    "defaultMessage": "Je suis intéressé(e) à la mutation latérale ou au détachement.",
-    "description": "Label displayed on lateral/secondment checkbox"
-  },
   "x5C9Ab": {
     "defaultMessage": "Écrit",
     "description": "Label displayed on the language information form written field."

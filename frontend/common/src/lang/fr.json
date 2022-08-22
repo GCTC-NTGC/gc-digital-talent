@@ -747,10 +747,6 @@
     "defaultMessage": "Activer ou désactiver le contexte",
     "description": "Label to toggle the context description of an input."
   },
-  "jmP8ub": {
-    "defaultMessage": "Je m'intéresse à la mutation latérale ou au détachement.",
-    "description": "Message to state user is interested in lateral deployment or secondment"
-  },
   "jtygmI": {
     "defaultMessage": "Éducation"
   },
