@@ -72,7 +72,7 @@
     "react-select": "^5.4.0",
     "react-toastify": "^9.0.8",
     "universal-router": "^9.1.0",
-    "urql": "^2.2.3"
+    "urql": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
