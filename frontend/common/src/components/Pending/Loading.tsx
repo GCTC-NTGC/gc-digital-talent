@@ -49,8 +49,8 @@ const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
       style={{
         backgroundColor: inline ? undefined : `rgba(255,255,255,0.95)`,
         bottom: 0,
-        left: "1rem",
-        right: "1rem",
+        left: inline ? `1rem` : 0,
+        right: inline ? `1rem` : 0,
         top: 0,
         zIndex: 9999,
       }}
