@@ -16,6 +16,7 @@ import {
   GetLanguageInformationQuery,
   PoolCandidate,
   UpdateUserAsUserInput,
+  UpdateUserAsUserMutation,
   User,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -87,10 +88,15 @@ const dataToFormValues = (
   };
 };
 
+export type LanguageInformationUpdateHandler = (
+  id: string,
+  data: UpdateUserAsUserInput,
+) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
+
 export const LanguageInformationForm: React.FunctionComponent<{
   initialData: User;
   application?: PoolCandidate;
-  submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
+  submitHandler: LanguageInformationUpdateHandler;
 }> = ({ initialData, application, submitHandler }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -108,7 +114,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    await submitHandler(formValuesToSubmitData(formValues))
+    await submitHandler(initialData.id, formValuesToSubmitData(formValues))
       .then(() => {
         navigate(returnRoute);
         toast.success(intl.formatMessage(profileMessages.userUpdated));

@@ -13,12 +13,14 @@ import {
   useGetApplicationQuery,
 } from "../../api/generated";
 import profileMessages from "../profile/profileMessages";
-import LanguageInformationForm from "./LanguageInformationForm";
+import LanguageInformationForm, {
+  LanguageInformationUpdateHandler,
+} from "./LanguageInformationForm";
 
 interface LanguageInformationFormApiProps {
   applicationId: string;
   initialData: User;
-  submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
+  submitHandler: LanguageInformationUpdateHandler;
 }
 
 const LanguageInformationFormApi: React.FunctionComponent<
@@ -48,7 +50,7 @@ const LanguageInformationFormApi: React.FunctionComponent<
 interface ApiOrContentProps {
   applicationId?: string;
   initialData: User;
-  submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
+  submitHandler: LanguageInformationUpdateHandler;
 }
 const ApiOrContent = ({
   applicationId,
@@ -75,38 +77,23 @@ const LanguageInformationFormPage: React.FunctionComponent = () => {
 
   const [lookUpResult] = useGetLanguageInformationQuery();
   const { data: userData, fetching, error } = lookUpResult;
-  const userId = userData?.me?.id;
   const preProfileStatus = userData?.me?.isProfileComplete;
 
   const [, executeMutation] = useUpdateLanguageInformationMutation();
 
-  const handleUpdateUser = (id: string, data: UpdateUserAsUserInput) =>
-    executeMutation({ id, user: data }).then((result) => {
-      if (result.data?.updateUserAsUser) {
-        return result.data.updateUserAsUser;
-      }
-      return Promise.reject(result.error);
-    });
-
-  const onSubmit = async (data: UpdateUserAsUserInput) => {
-    if (userId === undefined || userId === "") {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error: user not found",
-          description: "Message displayed to user if user is not found",
-        }),
-      );
-      return;
-    }
-    await handleUpdateUser(userId, data).then((res) => {
-      if (res.isProfileComplete) {
-        const currentProfileStatus = res.isProfileComplete;
+  const onSubmit = async (id: string, data: UpdateUserAsUserInput) => {
+    return executeMutation({ id, user: data }).then((res) => {
+      if (res.data?.updateUserAsUser) {
+        const currentProfileStatus =
+          res.data?.updateUserAsUser?.isProfileComplete;
         const message = intl.formatMessage(profileMessages.profileCompleted);
         if (!preProfileStatus && currentProfileStatus) {
           toast.success(message);
         }
+        return res.data.updateUserAsUser;
       }
-      return res;
+
+      return Promise.reject(res.error);
     });
   };
 
