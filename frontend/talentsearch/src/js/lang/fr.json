@@ -600,10 +600,6 @@
     "defaultMessage": "Niveau 3 : Conseiller technique (88 000 $ à 110 000 $). <openModal>En savoir plus sur TI-03</openModal>",
     "description": "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please"
   },
-  "4EacDM": {
-    "defaultMessage": "Veuillez indiquer si vous êtes intéressé par la mutation latérale ou le détachement. Pour en savoir plus sur ce sujet.",
-    "description": "Text blurb, asking about interest in deployment/secondment in the government info form"
-  },
   "4FEV7d": {
     "defaultMessage": "Vous vous êtes connecté avec succès",
     "description": "Title for successful login alert in create account page."
