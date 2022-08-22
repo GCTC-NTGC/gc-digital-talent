@@ -42,6 +42,7 @@ class PoolApplicationTest extends TestCase
     ]);
 
     // Assert creating a pool application succeeds
+    // returns DRAFT_EXPIRED rather than DRAFT due to expiry being null by default
     $this->graphQL(/** @lang Graphql */ '
       mutation createApplication {
         createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
@@ -63,7 +64,7 @@ class PoolApplicationTest extends TestCase
           'pool' => [
             'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
           ],
-          'status' => 'DRAFT'
+          'status' => 'DRAFT_EXPIRED'
         ]
       ]
     ]);
@@ -90,7 +91,7 @@ class PoolApplicationTest extends TestCase
           'pool' => [
             'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
           ],
-          'status' => 'DRAFT'
+          'status' => 'DRAFT_EXPIRED'
         ]
       ]
     ]);
@@ -107,13 +108,15 @@ class PoolApplicationTest extends TestCase
     // Create pool candidates
     PoolCandidate::factory()->create([
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+      'submitted_at' => config('constants.past_date'),
     ]);
     // this one is archived
     PoolCandidate::factory()->create([
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-      'archived_at' =>config('constants.past_date')
+      'archived_at' => config('constants.past_date'),
+      'submitted_at' => config('constants.past_date'),
     ]);
 
     // TODO: FIGURE OUT HOW TO UNIT TEST POLICIES EFFECTIVELY
