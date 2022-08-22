@@ -18,7 +18,6 @@ type Applicant {
   isVeteran: Boolean
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean @deprecated(reason: "Replaced by role and salary expectations")
   currentClassification: Classification
   department: Department
   languageAbility: LanguageAbility
@@ -351,7 +350,6 @@ input CreateUserInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   isWoman: Boolean
@@ -1219,7 +1217,6 @@ input UpdateUserAsAdminInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   isWoman: Boolean
@@ -1264,7 +1261,6 @@ input UpdateUserAsUserInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   isWoman: Boolean
@@ -1312,7 +1308,6 @@ type User {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean @deprecated(reason: "Replaced by role and salary expectations")
   currentClassification: Classification
   department: Department
   isWoman: Boolean
