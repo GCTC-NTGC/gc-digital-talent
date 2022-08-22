@@ -78,7 +78,7 @@
     "@babel/core": "^7.18.10",
     "@faker-js/faker": "^7.3.0",
     "@formatjs/cli": "^5.0.9",
-    "@formatjs/ts-transformer": "^3.9.9",
+    "@formatjs/ts-transformer": "^3.9.11",
     "@graphql-codegen/add": "^3.2.1",
     "@graphql-codegen/cli": "^2.11.6",
     "@graphql-codegen/typescript": "^2.7.3",
