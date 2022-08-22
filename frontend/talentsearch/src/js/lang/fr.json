@@ -1793,10 +1793,6 @@
     "defaultMessage": "Que sont les recrutements en bassin?",
     "description": "Title for according describing pool recruitment's"
   },
-  "bDk3RM": {
-    "defaultMessage": "Déploiement latéral",
-    "description": "Label displayed on lateral/secondment bounding box"
-  },
   "cHJFcW": {
     "defaultMessage": "Autres exigences",
     "description": "Title for other pool requirements"
