@@ -204,53 +204,77 @@ class PoolApplicationTest extends TestCase
     $newUser->save();
 
     // Create pool candidates
+    // submitted at statuses for ones other than draft/draft-expired, and future expiry dates for unexpired
     PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[0],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
     ]);
     PoolCandidate::factory()->create([
         'pool_candidate_status' => $statusesThatShouldFail[1],
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+        'submitted_at' => config('constants.past_date'),
+        'expiry_date' => config('constants.far_future_date'),
     ]);
     PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[2],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
     ]);
     PoolCandidate::factory()->create([
         'pool_candidate_status' => $statusesThatShouldFail[3],
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
+        'submitted_at' => config('constants.past_date'),
+        'expiry_date' => config('constants.far_future_date'),
     ]);
     PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[4],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
     ]);
     PoolCandidate::factory()->create([
         'pool_candidate_status' => $statusesThatShouldFail[5],
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16',
+        'submitted_at' => config('constants.past_date'),
+        'expiry_date' => config('constants.far_future_date'),
     ]);
     PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[6],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a17',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
     ]);
+    // these two are draft and draft-expired so no submitted_at and the latter expired
     PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[7],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a18',
+      'expiry_date' => config('constants.far_future_date'),
     ]);
     PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[8],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a19',
+      'expiry_date' => config('constants.past_date'),
     ]);
     PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[9],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a20',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
     ]);
     PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[10],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
     ]);
     PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[11],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
     ]);
 
     // Assert un-expired object cannot be archived, 12 different ones that should fail

@@ -1198,22 +1198,31 @@ class PoolCandidateTest extends TestCase
     $newUser->save();
 
     // 1
-    // not submitted, expiry date in the future, status set to expired
+    // not submitted, expiry date in the future DRAFT
     PoolCandidate::factory()->create([
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
       'submitted_at' => null,
       'expiry_date' => config('constants.far_future_date'),
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
     ]);
+    // set status to EXPIRED manually despite not being submitted
+    // this was split into two steps as otherwise PoolCandidateFactory automatically assigns a submitted_at
+    $candidate1 = PoolCandidate::find('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11');
+    $candidate1->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_EXPIRED;
+    $candidate1->save();
 
     // 2
-    // not submitted, expiry date in the past, status set to expired
+    // not submitted, expiry date in the past, DRAFT EXPIRED
     PoolCandidate::factory()->create([
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
       'submitted_at' => null,
       'expiry_date' => config('constants.past_date'),
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
     ]);
+    // set status to EXPIRED manually despite not being submitted
+    $candidate2 = PoolCandidate::find('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22');
+    $candidate2->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_EXPIRED;
+    $candidate2->save();
 
     // 3
     // expired and submitted applicant that has a PLACED status
