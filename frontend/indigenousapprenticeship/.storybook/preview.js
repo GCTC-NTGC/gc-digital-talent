@@ -1,4 +1,3 @@
-import "../../common/src/css/hydrogen.vars.css";
 import "../../common/src/css/hydrogen.css";
 import "../src/css/app.css"
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';

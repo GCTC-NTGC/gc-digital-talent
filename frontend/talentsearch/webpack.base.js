@@ -14,7 +14,6 @@ module.exports = {
     app: [
       "./src/js/pageContainer.tsx",
       "../common/src/css/hydrogen.css",
-      "../common/src/css/hydrogen.vars.css",
       "../common/src/css/common.css",
       "./src/css/app.css",
     ],
@@ -44,10 +43,6 @@ module.exports = {
           var now = Date.now() / 1000
           var then = now - 100
           fs.utimes(f, then, then, function (err) { if (err) throw err })
-          var s = path.resolve('../common/src/css/hydrogen.vars.css')
-          var now = Date.now() / 1000
-          var then = now - 100
-          fs.utimes(s, then, then, function (err) { if (err) throw err })
         })
       },
     },

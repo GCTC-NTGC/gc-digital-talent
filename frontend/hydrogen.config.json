@@ -16,7 +16,7 @@
     "indigenousapprenticeship/src/js/components"
   ],
   "output": "common/src/css",
-  "variables": true,
+  "variables": false,
   "reset_styles": true,
   "dark_mode": "preference",
   "colors": [
