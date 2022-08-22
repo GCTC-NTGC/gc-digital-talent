@@ -61,7 +61,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.4",
     "@types/debounce": "^1.2.1",
-    "@types/jest": "^28.1.6",
+    "@types/jest": "^28.1.7",
     "@types/jest-axe": "^3.5.4",
     "@types/lodash": "^4.14.184",
     "@types/node": "^18.7.3",
