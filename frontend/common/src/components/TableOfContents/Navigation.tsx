@@ -6,8 +6,8 @@ const Navigation: React.FC = ({ children }) => {
 
   return (
     <div
-      data-h2-flex-item="base(1of1) p-tablet(1of4)"
-      data-h2-text-align="base(left) p-tablet(right)"
+      data-h2-flex-item="base(1of1) l-tablet(1of4)"
+      data-h2-text-align="base(left) l-tablet(right)"
     >
       <div data-h2-height="base(100%)" data-h2-position="base(relative)">
         <div
@@ -29,7 +29,7 @@ const Navigation: React.FC = ({ children }) => {
             aria-labelledby="toc-heading"
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
-            data-h2-align-items="base(flex-start) p-tablet(flex-end)"
+            data-h2-align-items="base(flex-start) l-tablet(flex-end)"
           >
             {children}
           </nav>
