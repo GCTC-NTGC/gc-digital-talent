@@ -63,7 +63,7 @@ const GovernmentInformationSection: React.FunctionComponent<{
               <p>
                 {intl.formatMessage({
                   defaultMessage: "Employment type:",
-                  description: "Label for applicants employee type",
+                  description: "Label for applicant's employment type",
                 })}
                 <br />
                 <span data-h2-font-weight="base(700)">
