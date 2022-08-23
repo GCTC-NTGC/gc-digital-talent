@@ -287,16 +287,16 @@ function Table<T extends Record<string, unknown>>({
                   <div data-h2-flex-item="base(content)">
                     <Button type="button" mode="inline" color="white">
                       {intl.formatMessage({
-                        defaultMessage: "Download XML",
+                        defaultMessage: "Download CSV",
                         description:
-                          "Text label for button to download an xml file of items in a table.",
+                          "Text label for button to print items in a table.",
                       })}
                     </Button>
                   </div>
                   <div data-h2-flex-item="base(content)">
                     <Button type="button" mode="inline" color="white">
                       {intl.formatMessage({
-                        defaultMessage: "Download PDF",
+                        defaultMessage: "Print",
                         description:
                           "Text label for button to download a pdf of items in a table.",
                       })}
