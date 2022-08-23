@@ -15,7 +15,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
 
   return (
     <div>
-      <h2 data-h2-font-size="b(h3)">
+      <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "1. Work Experience Details",
           description: "Title for Work Experience form",
@@ -28,101 +28,113 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
           description: "Description blurb for Work Experience form",
         })}
       </p>
-      <div data-h2-display="b(flex)" data-h2-padding="b(top, m)">
-        <div data-h2-padding="b(right, l)">
-          <Input
-            id="role"
-            label={intl.formatMessage({
-              defaultMessage: "My Role",
-              description:
-                "Label displayed on Work Experience form for role input",
-            })}
-            name="role"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-
-          <Input
-            id="organization"
-            label={intl.formatMessage({
-              defaultMessage: "Organization",
-              description:
-                "Label displayed on Work Experience form for organization input",
-            })}
-            name="organization"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-
-          <Input
-            id="team"
-            label={intl.formatMessage({
-              defaultMessage: "Team, Group, or Division",
-              description:
-                "Label displayed on Work Experience form for team/group/division input",
-            })}
-            name="team"
-            type="text"
-          />
-        </div>
-        <div>
-          <Checkbox
-            boundingBox
-            boundingBoxLabel={intl.formatMessage({
-              defaultMessage: "Current Role",
-              description:
-                "Label displayed on Work Experience form for current role bounded box",
-            })}
-            id="currentRole"
-            label={intl.formatMessage({
-              defaultMessage: "I am currently active in this role",
-              description:
-                "Label displayed on Work Experience form for current role input",
-            })}
-            name="currentRole"
-          />
-          <div data-h2-display="b(flex)">
-            <div data-h2-padding="b(right, s)">
-              <Input
-                id="startDate"
-                label={intl.formatMessage({
-                  defaultMessage: "Start Date",
+      <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">
+        <div data-h2-flex-grid="base(flex-start, 0, x2, 0)">
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <Input
+              id="role"
+              label={intl.formatMessage({
+                defaultMessage: "My Role",
+                description:
+                  "Label displayed on Work Experience form for role input",
+              })}
+              name="role"
+              type="text"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <div data-h2-margin="base(x1, 0, x.875, 0)">
+              <Checkbox
+                boundingBox
+                boundingBoxLabel={intl.formatMessage({
+                  defaultMessage: "Current Role",
                   description:
-                    "Label displayed on Work Experience form for start date input",
+                    "Label displayed on Work Experience form for current role bounded box",
                 })}
-                name="startDate"
-                type="date"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
+                id="currentRole"
+                label={intl.formatMessage({
+                  defaultMessage: "I am currently active in this role",
+                  description:
+                    "Label displayed on Work Experience form for current role input",
+                })}
+                name="currentRole"
               />
             </div>
-            <div>
-              {/* conditionally render the end-date based off the state attached to the checkbox input */}
-              {!isCurrent && (
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <Input
+              id="organization"
+              label={intl.formatMessage({
+                defaultMessage: "Organization",
+                description:
+                  "Label displayed on Work Experience form for organization input",
+              })}
+              name="organization"
+              type="text"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <div data-h2-flex-grid="base(flex-start, 0, x2, 0)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
-                  id="endDate"
+                  id="startDate"
                   label={intl.formatMessage({
-                    defaultMessage: "End Date",
+                    defaultMessage: "Start Date",
                     description:
-                      "Label displayed on Work Experience form for end date input",
+                      "Label displayed on Work Experience form for start date input",
                   })}
-                  name="endDate"
+                  name="startDate"
                   type="date"
-                  rules={
-                    isCurrent
-                      ? {}
-                      : {
-                          required: intl.formatMessage(errorMessages.required),
-                          min: {
-                            value: startDate,
-                            message: intl.formatMessage(
-                              errorMessages.futureDate,
-                            ),
-                          },
-                        }
-                  }
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
-              )}
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                {/* conditionally render the end-date based off the state attached to the checkbox input */}
+                {!isCurrent && (
+                  <Input
+                    id="endDate"
+                    label={intl.formatMessage({
+                      defaultMessage: "End Date",
+                      description:
+                        "Label displayed on Work Experience form for end date input",
+                    })}
+                    name="endDate"
+                    type="date"
+                    rules={
+                      isCurrent
+                        ? {}
+                        : {
+                            required: intl.formatMessage(
+                              errorMessages.required,
+                            ),
+                            min: {
+                              value: startDate,
+                              message: intl.formatMessage(
+                                errorMessages.futureDate,
+                              ),
+                            },
+                          }
+                    }
+                  />
+                )}
+              </div>
             </div>
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <Input
+              id="team"
+              label={intl.formatMessage({
+                defaultMessage: "Team, Group, or Division",
+                description:
+                  "Label displayed on Work Experience form for team/group/division input",
+              })}
+              name="team"
+              type="text"
+            />
           </div>
         </div>
       </div>

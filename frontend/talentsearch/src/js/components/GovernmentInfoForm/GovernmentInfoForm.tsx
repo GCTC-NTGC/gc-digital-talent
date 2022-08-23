@@ -181,7 +181,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
   // render the actual form
   return (
     <div>
-      <div data-h2-flex-item="b(1of1) s(1of2) m(1of6) l(1of12)">
+      <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of6) desktop(1of12)">
         <RadioGroup
           idPrefix="govEmployeeYesNo"
           legend={intl.formatMessage({
@@ -217,7 +217,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
       </div>
       {govEmployee === "yes" && (
         <>
-          <div data-h2-padding="b(top-bottom, m)">
+          <div data-h2-padding="base(x1, 0)">
             <Select
               id="department"
               name="department"
@@ -237,7 +237,10 @@ export const GovernmentInfoForm: React.FunctionComponent<
               }}
             />
           </div>
-          <div data-h2-padding="b(bottom, s)" data-h2-flex-item="b(1of3)">
+          <div
+            data-h2-padding="base(0, 0, x.5, 0)"
+            data-h2-flex-item="base(1of3)"
+          >
             <RadioGroup
               idPrefix="govEmployeeType"
               legend={intl.formatMessage({
@@ -270,12 +273,18 @@ export const GovernmentInfoForm: React.FunctionComponent<
             })}
           </p>
         )}
-      <div data-h2-display="b(flex)" data-h2-flex-direction="b(column) s(row)">
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) p-tablet(row)"
+      >
         {govEmployee === "yes" &&
           (govEmployeeStatus === GovEmployeeType.Term ||
             govEmployeeStatus === GovEmployeeType.Indeterminate ||
             govEmployeeStatus === GovEmployeeType.Casual) && (
-            <div data-h2-padding="s(right, l)" style={{ width: "100%" }}>
+            <div
+              data-h2-padding="p-tablet(0, x2, 0, 0)"
+              data-h2-width="base(100%)"
+            >
               <Select
                 id="currentClassificationGroup"
                 label={intl.formatMessage({

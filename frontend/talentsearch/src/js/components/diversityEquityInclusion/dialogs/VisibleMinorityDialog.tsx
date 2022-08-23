@@ -41,11 +41,13 @@ const VisibleMinorityDialogFooter: React.FC<EquityDialogFooterProps> = ({
     <FormProvider {...methods}>
       <AddToProfile />
       <form onSubmit={handleSubmit(submitHandler)}>
-        <Checkbox
-          id="isVisibleMinority"
-          name="isVisibleMinority"
-          label={intl.formatMessage(getEmploymentEquityStatement("minority"))}
-        />
+        <div data-h2-margin="base(0, 0, x1, 0)">
+          <Checkbox
+            id="isVisibleMinority"
+            name="isVisibleMinority"
+            label={intl.formatMessage(getEmploymentEquityStatement("minority"))}
+          />
+        </div>
         {children}
       </form>
     </FormProvider>
@@ -68,7 +70,7 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
       title={intl.formatMessage(getEmploymentEquityGroup("minority"))}
     >
       <UnderReview />
-      <p>
+      <p data-h2-margin="base(0, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             'Visible minority refers to whether a person is a visible minority or not, as defined by the Employment Equity Act. The Employment Equity Act defines visible minorities as "persons, other than Aboriginal peoples, who are non-Caucasian in race or non-white in colour". The visible minority population consists mainly of the following groups: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese.',

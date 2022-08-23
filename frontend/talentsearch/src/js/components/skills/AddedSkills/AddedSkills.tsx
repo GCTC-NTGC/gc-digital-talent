@@ -25,7 +25,11 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
 
   return (
     <>
-      <h3 data-h2-font-size="b(h5)">
+      <h3
+        data-h2-font-size="base(copy, 1)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x2, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "Selected skills",
           description: "Section header for a list of skills selected",
@@ -48,7 +52,7 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
         </Chips>
       ) : null}
       {filteredSkills.length === 0 && (
-        <p data-h2-font-style="b(italic)">
+        <p data-h2-font-style="base(italic)">
           {intl.formatMessage({
             defaultMessage:
               "There are no skills selected yet. You can add some using the provided links.",
@@ -60,14 +64,14 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
 
       {showHighAlert && filteredSkills.length >= 6 && (
         <div
-          data-h2-border="b(gold, all, solid, s)"
-          data-h2-bg-color="b(gold[.1])"
-          data-h2-padding="b(all, s)"
-          data-h2-radius="b(s)"
-          data-h2-font-color="b([dark]darkgold)"
+          data-h2-border="base(all, 1px, solid, dt-accent)"
+          data-h2-background-color="base(dt-accent.1)"
+          data-h2-padding="base(x.5)"
+          data-h2-radius="base(s)"
+          data-h2-color="base(darker.dt-accent)"
           role="alert"
         >
-          <div data-h2-font-style="b(italic)">
+          <div data-h2-font-style="base(italic)">
             <p>
               <strong>
                 {intl.formatMessage({

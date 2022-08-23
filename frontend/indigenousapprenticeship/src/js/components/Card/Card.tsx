@@ -8,25 +8,17 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ title, Icon, children }) => (
-  <div
-    data-h2-display="b(flex)"
-    data-h2-flex-direction="b(column)"
-    data-h2-align-items="b(center)"
-    data-h2-padding="b(right-left, l) m(right-left, none)"
-  >
-    {Icon && <Icon className="card__icon" data-h2-width="b(25) m(50)" />}
+  <div data-h2-text-align="base(center)">
+    {Icon && <Icon data-h2-width="base(x4)" />}
     <Heading
       as="h4"
       color="white"
-      data-h2-display="b(flex)"
-      data-h2-flex-direction="b(column)"
-      data-h2-align-items="b(center)"
-      data-h2-margin="b(bottom, xxs)"
-      data-h2-font-size="b(h3)"
+      data-h2-font-size="base(h3, 1)"
+      data-h2-margin="base(x1, 0, x1, 0)"
     >
       {title}
     </Heading>
-    {children}
+    <div data-h2-color="base(ia-white)">{children}</div>
   </div>
 );
 

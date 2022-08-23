@@ -14,20 +14,20 @@ export interface CardProps {
 
 const colorMap = {
   "ts-primary": {
-    "data-h2-bg-color": "b(lightpurple)",
-    "data-h2-font-color": "b(white)",
+    "data-h2-background-color": "base(dt-primary.light)",
+    "data-h2-color": "base(dt-white)",
   },
   "ts-secondary": {
-    "data-h2-bg-color": "b(lightnavy)",
-    "data-h2-font-color": "b(white)",
+    "data-h2-background-color": "base(dt-secondary.light)",
+    "data-h2-color": "base(dt-white)",
   },
   "ia-primary": {
-    "data-h2-bg-color": "b(ia-pink)",
-    "data-h2-font-color": "b(white)",
+    "data-h2-background-color": "base(ia-primary)",
+    "data-h2-color": "base(ia-white)",
   },
   "ia-secondary": {
-    "data-h2-bg-color": "b(ia-purple)",
-    "data-h2-font-color": "b(white)",
+    "data-h2-background-color": "base(ia-secondary)",
+    "data-h2-color": "base(ia-white)",
   },
 };
 
@@ -40,27 +40,27 @@ const Card = ({
   return (
     <div
       className="card"
-      data-h2-display="b(block)"
-      data-h2-radius="b(s)"
-      data-h2-shadow="b(s)"
+      data-h2-display="base(block)"
+      data-h2-radius="base(s)"
+      data-h2-shadow="base(s)"
       {...rest}
     >
       <span
         className="card__header"
-        data-h2-display="b(block)"
-        data-h2-font-size="b(h5) l(h4)"
-        data-h2-padding="b(all, s)"
-        data-h2-margin="b(all, none)"
-        data-h2-radius="b(s, s, none, none)"
+        data-h2-display="base(block)"
+        data-h2-font-size="base(h5, 1) laptop(h4, 1)"
+        data-h2-padding="base(x.5)"
+        data-h2-margin="base(0)"
+        data-h2-radius="base(s, s, 0, 0)"
         {...colorMap[color]}
       >
         {title}
       </span>
       <div
         className="card__body"
-        data-h2-bg-color="b(white)"
-        data-h2-radius="b(none, none, s, s)"
-        data-h2-padding="b(all, s)"
+        data-h2-background-color="base(dt-white)"
+        data-h2-radius="base(0, 0, s, s)"
+        data-h2-padding="base(x.5)"
       >
         {children}
       </div>

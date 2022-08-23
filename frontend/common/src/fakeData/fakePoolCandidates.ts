@@ -55,6 +55,10 @@ const generatePoolCandidate = (
     status: faker.helpers.arrayElement<PoolCandidateStatus>(
       Object.values(PoolCandidateStatus),
     ),
+    submittedAt: faker.date
+      .between("2022-01-01", "2022-07-31")
+      .toISOString()
+      .substring(0, 10),
   };
 };
 

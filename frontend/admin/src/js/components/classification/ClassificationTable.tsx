@@ -85,11 +85,15 @@ export const ClassificationTable: React.FC<
   );
 
   return (
-    <Table
-      data={memoizedData}
-      columns={columns}
-      hiddenCols={["minSalary", "maxSalary"]}
-    />
+    <div data-h2-padding="base(0, 0, x3, 0)">
+      <div data-h2-container="base(center, large, x2)">
+        <Table
+          data={memoizedData}
+          columns={columns}
+          hiddenCols={["minSalary", "maxSalary"]}
+        />
+      </div>
+    </div>
   );
 };
 
