@@ -5,8 +5,10 @@ import { flatten, notEmpty } from "@common/helpers/util";
 import { ExperienceAndSkills } from "./ExperienceAndSkills";
 
 export default {
-  component: ExperienceAndSkills,
   title: "ApplicantProfile/ExperienceAndSkillsPage",
+  args: {
+    applicantId: "test",
+  },
 } as ComponentMeta<typeof ExperienceAndSkills>;
 
 const Template: ComponentStory<typeof ExperienceAndSkills> = (args) => {
@@ -29,13 +31,8 @@ const mockExperienceSkills = flatten(
 
 const mockSkills = [...fakeSkills(20), ...mockExperienceSkills];
 
-function getRandom<T>(items: T[], n: number) {
-  const shuffled = items.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, n);
-}
-
-const mockRequiredSkills = getRandom(mockSkills, 5);
-const mockOptionalSkills = getRandom(mockSkills, 5);
+const mockRequiredSkills = mockSkills.slice(0, 5);
+const mockOptionalSkills = mockSkills.slice(6, 10);
 
 NoExperiences.args = {
   experiences: [],

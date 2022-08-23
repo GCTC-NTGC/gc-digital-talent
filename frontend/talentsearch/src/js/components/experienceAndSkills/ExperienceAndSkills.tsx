@@ -1,14 +1,12 @@
+import React from "react";
 import {
   BookOpenIcon,
   BriefcaseIcon,
   LightBulbIcon,
   StarIcon,
   UserGroupIcon,
-  UserIcon,
 } from "@heroicons/react/solid";
-import * as React from "react";
 import { useIntl } from "react-intl";
-import { EducationExperience } from "@common/api/generated";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { IconLink } from "@common/components/Link";
 import { notEmpty, flatten } from "@common/helpers/util";
@@ -19,7 +17,7 @@ import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import {
   AwardExperience,
   CommunityExperience,
-  Experience,
+  EducationExperience,
   PersonalExperience,
   PoolAdvertisement,
   Skill,
@@ -83,7 +81,7 @@ const flattenExperienceSkills = (experiences: MergedExperiences): Skill[] => {
 
 export interface ExperienceAndSkillsProps {
   applicantId: string;
-  experiences?: Experience[];
+  experiences?: MergedExperiences;
   poolAdvertisement?: PoolAdvertisement;
   missingSkills?: {
     requiredSkills: Skill[];
@@ -180,7 +178,6 @@ export const ExperienceAndSkills: React.FunctionComponent<
           description: "Link text for breadcrumb to user applications page.",
         }),
         href: directIntakePaths.applications(applicantId),
-        icon: <UserIcon style={{ width: "1rem", marginRight: "5px" }} />,
       },
       {
         title: advertisementTitle,
@@ -252,7 +249,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         </div>
       </div>
       {missingSkills && (
-        <div data-h2-margin="b(top-bottom, s)">
+        <div data-h2-margin="base(x1, 0)">
           <MissingSkills
             addedSkills={
               hasExperiences ? flattenExperienceSkills(experiences) : []

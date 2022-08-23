@@ -16,6 +16,7 @@ import {
   AwardedScope,
   EducationType,
   EducationStatus,
+  Experience,
 } from "../api/generated";
 
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
