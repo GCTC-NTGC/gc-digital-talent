@@ -244,7 +244,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 />
               </div>
             </div>
-            <div data-h2-flex-item="base(1of1)p-tablet(1of2)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <div data-h2-padding="base(0) p-tablet(0, x2, 0, 0)">
                 <Input
                   id="email"
@@ -266,7 +266,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 />
               </div>
             </div>
-            <div data-h2-flex-item="base(1of1)p-tablet(1of2)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <div data-h2-padding="base(0) p-tablet(0, 0, 0, x2)">
                 <Input
                   id="jobTitle"
