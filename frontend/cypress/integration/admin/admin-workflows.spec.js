@@ -29,6 +29,7 @@ describe("Admin Workflow Tests", () => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "AllUsersPaginated");
       aliasQuery(req, "User");
+      aliasQuery(req, "selectedUsers");
       aliasMutation(req, "UpdateUserAsAdmin");
     });
 
@@ -102,5 +103,24 @@ describe("Admin Workflow Tests", () => {
       .findByText("+10123456789")
       .should("exist")
       .and("be.visible");
+  });
+
+  it("Selects a user and downloads a CSV", () => {
+    cy.findByRole("link", { name: /Manage users/i }).click();
+    cy.wait("@gqlAllUsersPaginatedQuery");
+
+    searchForUser("Applicant", "applicant@test.com");
+
+    cy.findByRole("table")
+      .findByRole("row", { name: /applicant/i })
+      .findByRole("button", { name: /select/i })
+      .click();
+
+    cy.wait("@gqlselectedUsersQuery");
+
+    cy.findByRole("link", { name: /download csv/i })
+      .click();
+
+    cy.verifyDownload('.csv', { contains: true });
   });
 });

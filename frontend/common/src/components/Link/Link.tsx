@@ -1,7 +1,7 @@
 import React from "react";
 import sanitizeUrl from "../../helpers/sanitizeUrl";
 import type { Color } from "../Button";
-import { colorMap } from "../Button/Button";
+import useCommonLinkStyles from "./useCommonLinkStyles";
 import useLinkClickHandler from "./useLinkClickHandler";
 
 export interface LinkProps extends React.HTMLProps<HTMLAnchorElement> {
@@ -32,6 +32,7 @@ const Link: React.FC<LinkProps> = ({
   const clickHandler = useLinkClickHandler({
     to: url || "#",
   });
+  const styles = useCommonLinkStyles({ color, disabled, mode, block, type });
   return (
     <a
       href={url}
@@ -42,21 +43,7 @@ const Link: React.FC<LinkProps> = ({
             onClick: clickHandler,
           }
         : null)}
-      {...(type === "button"
-        ? {
-            "data-h2-radius": "base(s)",
-            "data-h2-padding": "base(x.5, x1)",
-            "data-h2-font-size": "base(copy)",
-            ...(disabled && { style: { opacity: 0.6, pointerEvents: "none" } }),
-            ...(color && mode ? { ...colorMap[color][mode] } : {}),
-            ...(block
-              ? {
-                  "data-h2-display": "base(block)",
-                  "data-h2-text-align": "base(center)",
-                }
-              : { "data-h2-display": "base(inline-block)" }),
-          }
-        : {})}
+      {...styles}
       {...rest}
     >
       {children}

@@ -97,7 +97,6 @@ class UserFactory extends Factory
                 'ADVANCED'
             ]),
             'is_gov_employee' => $isGovEmployee,
-            'interested_in_later_or_secondment' => $this->faker->boolean(),
             'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
             'current_classification' => $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
