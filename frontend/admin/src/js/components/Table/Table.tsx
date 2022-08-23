@@ -289,7 +289,7 @@ function Table<T extends Record<string, unknown>>({
                       {intl.formatMessage({
                         defaultMessage: "Download CSV",
                         description:
-                          "Text label for button to print items in a table.",
+                          "Text label for button to download a csv file of items in a table.",
                       })}
                     </Button>
                   </div>
