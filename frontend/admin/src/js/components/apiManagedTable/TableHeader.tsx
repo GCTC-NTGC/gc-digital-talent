@@ -6,11 +6,7 @@ import { useIntl } from "react-intl";
 import { PlusIcon, TableIcon } from "@heroicons/react/outline";
 import { SubmitHandler } from "react-hook-form";
 import SearchForm from "./SearchForm";
-import {
-  ButtonIcon,
-  IndeterminateCheckbox,
-  Spacer,
-} from "../Table/tableComponents";
+import { ButtonIcon, IndeterminateCheckbox } from "../Table/tableComponents";
 import type {
   ColumnHiddenEvent,
   ColumnsOf,
@@ -159,19 +155,19 @@ function TableHeader<T extends Record<string, unknown>>({
             {addBtn && (
               <Spacer>
                 <Link
-                  mode="outline"
-                  color="black"
+                  mode="solid"
+                  color="primary"
                   type="button"
-                  data-h2-display="b(inline-flex)"
-                  data-h2-align-items="b(center)"
+                  data-h2-display="base(inline-flex)"
+                  data-h2-align-items="base(center)"
                   style={{ textDecoration: "none" }}
                   href={addBtn.path}
                 >
                   <ButtonIcon icon={PlusIcon} />
                   <span>{addBtn.label}</span>
                 </Link>
-              </Spacer>
-            )}
+              )}
+            </div>
           </div>
         </div>
       )}

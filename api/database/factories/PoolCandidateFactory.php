@@ -66,7 +66,26 @@ class PoolCandidateFactory extends Factory
             'pool_id' => Pool::factory(),
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'notes' => $this->faker->paragraphs(3, true),
+            'submitted_at' => null,
+            'signature' => null,
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (PoolCandidate $poolCandidate) {
+            // after setting pool_candidate_status, check what it is and update accordingly, give it a submitted date if it isn't DRAFT or DRAFT_EXPIRED
+            // add a signature in the above case too
+            $status = $poolCandidate->pool_candidate_status;
+            if ($status !='DRAFT' && $status != 'DRAFT_EXPIRED'){
+                $submittedDate = $this->faker->dateTimeBetween('-3 months', 'now');
+                $fakeSignature = $this->faker->firstName();
+                $poolCandidate->update([
+                                'submitted_at' => $submittedDate,
+                                'signature' => $fakeSignature,
+                                ]);
+            }
+        });
     }
 
     /**

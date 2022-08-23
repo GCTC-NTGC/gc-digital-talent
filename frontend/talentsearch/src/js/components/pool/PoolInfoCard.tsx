@@ -18,9 +18,9 @@ export interface PoolInfoCardProps {
 
 const P: React.FC = ({ children }) => (
   <p
-    data-h2-display="b(flex)"
-    data-h2-align-items="b(center)"
-    data-h2-margin="b(top-bottom, xxs)"
+    data-h2-display="base(flex)"
+    data-h2-align-items="base(center)"
+    data-h2-margin="base(x.125, 0)"
   >
     {children}
   </p>
@@ -36,12 +36,12 @@ const PoolInfoCard = ({
 
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-radius="b(s)"
-      data-h2-padding="b(all, s)"
-      data-h2-display="b(flex)"
-      data-h2-flex-direction="b(column)"
-      data-h2-align-items="b(flex-start)"
+      data-h2-background-color="base(dt-gray.light)"
+      data-h2-radius="base(s)"
+      data-h2-padding="base(x.5)"
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-align-items="base(flex-start)"
     >
       <P>
         <CalendarIcon

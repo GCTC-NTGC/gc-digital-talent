@@ -51,6 +51,7 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
               }
             }}
             errorPosition="top"
+            data-h2-margin="base(0)"
           />
         </div>
       </FormProvider>

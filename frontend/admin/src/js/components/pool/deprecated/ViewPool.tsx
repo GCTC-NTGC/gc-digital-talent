@@ -76,20 +76,20 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
       <PageHeader icon={ViewGridIcon}>{pageTitle}</PageHeader>
       <Breadcrumbs links={links} />
       <div
-        data-h2-align-items="b(center)"
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column) m(row)"
-        data-h2-margin="b(top-bottom, l)"
+        data-h2-align-items="base(center)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-margin="base(x2, 0)"
       >
         {pool.name && (
           <h2
-            data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
-            data-h2-font-weight="b(800)"
+            data-h2-margin="base(x.5, 0) p-tablet(0)"
+            data-h2-font-weight="base(700)"
           >
             {poolName}
           </h2>
         )}
-        <div data-h2-margin="m(left, auto)">
+        <div data-h2-margin="l-tablet(0, 0, 0, auto)">
           <Link
             mode="outline"
             color="primary"

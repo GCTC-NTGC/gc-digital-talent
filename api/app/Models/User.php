@@ -37,7 +37,6 @@ use Illuminate\Support\Facades\DB;
  * @property string $verbal_level
  * @property string $estimated_language_ability
  * @property string $is_gov_employee
- * @property string $interested_in_later_or_secondment
  * @property string $department
  * @property string $current_classification
  * @property string $citizenship

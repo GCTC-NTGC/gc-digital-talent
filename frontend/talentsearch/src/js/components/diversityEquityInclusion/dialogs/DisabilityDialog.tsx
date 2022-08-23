@@ -41,11 +41,15 @@ const DisabilityDialogFooter: React.FC<EquityDialogFooterProps> = ({
     <FormProvider {...methods}>
       <AddToProfile />
       <form onSubmit={handleSubmit(submitHandler)}>
-        <Checkbox
-          id="hasDisability"
-          name="hasDisability"
-          label={intl.formatMessage(getEmploymentEquityStatement("disability"))}
-        />
+        <div data-h2-margin="base(0, 0, x1, 0)">
+          <Checkbox
+            id="hasDisability"
+            name="hasDisability"
+            label={intl.formatMessage(
+              getEmploymentEquityStatement("disability"),
+            )}
+          />
+        </div>
         {children}
       </form>
     </FormProvider>
@@ -68,7 +72,7 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
       title={intl.formatMessage(getEmploymentEquityGroup("disability"))}
     >
       <UnderReview />
-      <p>
+      <p data-h2-margin="base(0, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "Refers to a person whose daily activities are limited as a result of an impairment or difficulty with particular tasks. The only exception to this is for developmental disabilities where a person is considered to be disabled if the respondent has been diagnosed with this condition.",

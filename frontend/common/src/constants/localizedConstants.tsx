@@ -421,6 +421,14 @@ export const poolCandidateStatuses = defineMessages({
     defaultMessage: "Placed Casual",
     description: "The pool candidate's status is Placed Casual.",
   },
+  [PoolCandidateStatus.Draft]: {
+    defaultMessage: "Draft",
+    description: "The pool candidate's status is Draft.",
+  },
+  [PoolCandidateStatus.DraftExpired]: {
+    defaultMessage: "Draft Expired",
+    description: "The pool candidate's status is Expired Draft.",
+  },
 });
 
 export const getPoolCandidateStatus = (
@@ -824,7 +832,11 @@ export const operationalRequirementLabelFull = defineMessages({
     defaultMessage:
       "Availability, willingness and ability to work overtime (short notice)",
     description:
-      "The operational requirement described as short notice overtime.",
+      "The operational requirement described as occasional overtime.",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "Work weekends",
+    description: "The operational requirement described as work weekends.",
   },
   [OperationalRequirement.OvertimeOccasional]: {
     defaultMessage:

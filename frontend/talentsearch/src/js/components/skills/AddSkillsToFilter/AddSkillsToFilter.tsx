@@ -183,9 +183,9 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
   return (
     <>
       <h3
-        data-h2-font-size="b(h4)"
-        data-h2-font-weight="b(700)"
-        data-h2-margin="b(bottom, m)"
+        data-h2-font-size="base(h6, 1)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x3, 0, x1, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Skills as filters",
@@ -200,7 +200,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
             "Describing how to use the skill filters on search page, paragraph one.",
         })}
       </p>
-      <p>
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             " Why are there a limited number of skills? It’s important that applicants and managers are pulling from the same list of skills in order to create matches.",
@@ -208,12 +208,12 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
             "Describing how to use the skill filters on search page, paragraph two.",
         })}
       </p>
-      <h4>
+      {/* <h4>
         {intl.formatMessage({
           defaultMessage: "Find and select skills",
           description: "Subtitle for the skills filter on the search form.",
         })}
-      </h4>
+      </h4> */}
       <Tabs>
         <TabList>
           {tabs.map((tab, index) => (
@@ -230,19 +230,21 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
                 handleSkillFamilyChange(checked, SkillCategory.Technical)
               }
             />
-            <SkillResults
-              title={intl.formatMessage(
-                {
-                  defaultMessage: "Results ({skillCount})",
-                  description: "A title for a skill list of results",
-                },
-                { skillCount: filteredTechnicalSkills.length },
-              )}
-              skills={technicalSkillsPagination.currentTableData}
-              addedSkills={addedSkills}
-              onAddSkill={handleAddSkill}
-              onRemoveSkill={handleRemoveSkill}
-            />
+            <div data-h2-margin="base(0, 0, x1, 0)">
+              <SkillResults
+                title={intl.formatMessage(
+                  {
+                    defaultMessage: "Results ({skillCount})",
+                    description: "A title for a skill list of results",
+                  },
+                  { skillCount: filteredTechnicalSkills.length },
+                )}
+                skills={technicalSkillsPagination.currentTableData}
+                addedSkills={addedSkills}
+                onAddSkill={handleAddSkill}
+                onRemoveSkill={handleRemoveSkill}
+              />
+            </div>
             <Pagination
               ariaLabel={intl.formatMessage({
                 defaultMessage: "Technical skills results",
@@ -296,7 +298,16 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
             />
           </TabPanel>
           <TabPanel>
-            <SearchBar handleSearch={handleSearch} />
+            <h4
+              data-h2-font-size="base(copy, 1)"
+              data-h2-font-weight="base(700)"
+              data-h2-margin="base(0, 0, x.5, 0)"
+            >
+              Filter by
+            </h4>
+            <div>
+              <SearchBar handleSearch={handleSearch} />
+            </div>
             <SkillResults
               title={intl.formatMessage(
                 {

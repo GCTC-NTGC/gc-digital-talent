@@ -16,6 +16,9 @@ scalar PhoneNumber
 "A human readable ID"
 scalar KeyString
 
+"Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org."
+scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
+
 type LocalizedString {
     en: String
     fr: String
@@ -66,8 +69,6 @@ type User {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean
-        @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
     department: Department @belongsTo
 
@@ -181,7 +182,6 @@ type Applicant {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
     department: Department @belongsTo
 
@@ -287,6 +287,8 @@ enum PoolCandidateStatus {
     UNAVAILABLE
     EXPIRED
     PLACED_CASUAL
+    DRAFT
+    DRAFT_EXPIRED
 }
 
 enum SecurityStatus{
@@ -330,6 +332,9 @@ type PoolCandidate {
     notes: String
     archivedAt: DateTime @rename(attribute: "archived_at")
     submittedAt: DateTime @rename(attribute: "submitted_at")
+
+    profileSnapshot: JSON @rename(attribute: "profile_snapshot")
+    signature: String
 }
 
 enum LanguageAbility {
@@ -765,7 +770,6 @@ input CreateUserInput {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
     department: DepartmentBelongsTo
 
@@ -826,7 +830,6 @@ input UpdateUserAsAdminInput {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
     department: DepartmentBelongsTo
 
@@ -883,7 +886,6 @@ input UpdateUserAsUserInput {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
     department: DepartmentBelongsTo
 
@@ -1293,4 +1295,7 @@ type Mutation {
 
     archiveApplication(id:ID!): PoolCandidate @guard @can(ability: "archiveApplication", find: "id")
     createApplication(userId:ID!, poolId:ID!): PoolCandidate
+
+    testPoolCandidateSnapshot(id:ID!): PoolCandidate @guard @can(ability: "update", find: "id")
+    submitApplication(applicationId: ID!, signature: String!): PoolCandidate
 }
