@@ -190,7 +190,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         // eslint-disable-next-line react/button-has-type
         {...{ ref, type, disabled }}
         data-h2-radius="base(s)"
-        data-h2-padding="b(top-bottom, xs) b(right-left, s)"
         data-h2-font-size="b(caption) m(normal)"
         data-h2-font-family="b(sans)"
         {...(block
