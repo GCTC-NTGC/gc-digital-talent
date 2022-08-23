@@ -30,10 +30,6 @@ const messages = defineMessages({
     defaultMessage: "Go back to my profile",
     description: "Link text for button to return to user profile",
   },
-  notApplicable: {
-    defaultMessage: "N/A",
-    description: "Message displayed when an item is not applicable",
-  },
 });
 
 export default messages;
