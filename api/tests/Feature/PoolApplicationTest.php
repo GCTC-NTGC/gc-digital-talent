@@ -37,12 +37,14 @@ class PoolApplicationTest extends TestCase
     $newUser->id= 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
     $newUser->save();
 
+    // create an unexpired Pool instance
     Pool::factory()->create([
       'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+      'expiry_date' => config('constants.far_future_date'),
     ]);
 
     // Assert creating a pool application succeeds
-    // returns DRAFT_EXPIRED rather than DRAFT due to expiry being null by default
+    // returns DRAFT as a result of pool_candidate_status Accessor and unexpired pool
     $this->graphQL(/** @lang Graphql */ '
       mutation createApplication {
         createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
@@ -64,7 +66,7 @@ class PoolApplicationTest extends TestCase
           'pool' => [
             'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
           ],
-          'status' => 'DRAFT_EXPIRED'
+          'status' => 'DRAFT'
         ]
       ]
     ]);
@@ -91,7 +93,7 @@ class PoolApplicationTest extends TestCase
           'pool' => [
             'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
           ],
-          'status' => 'DRAFT_EXPIRED'
+          'status' => 'DRAFT'
         ]
       ]
     ]);

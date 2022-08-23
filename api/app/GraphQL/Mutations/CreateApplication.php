@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 use App\Models\PoolCandidate;
+use App\Models\Pool;
 use Database\Helpers\ApiEnums;
 
 final class CreateApplication
@@ -18,11 +19,15 @@ final class CreateApplication
             'user_id' => $args['userId'],
             'pool_id' => $args['poolId'],
           ]);
-        // set to draft if new
-        if ($application->pool_candidate_status == null) {
-            $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_DRAFT;
-            $application->save();
-        }
+
+        // draft expiry date is the same as the expiry of the pool it is attached to
+        $poolExpiry = Pool::find($application->pool_id)->expiry_date;
+
+        // set to DRAFT in the database itself, Accessor already returns this as DRAFT if unexpired via API
+        $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_DRAFT;
+        $application->expiry_date = $poolExpiry;
+        $application->save();
+
         return $application;
     }
 }
