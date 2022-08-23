@@ -75,7 +75,7 @@ const Template: Story<StoryArgs> = (args) => {
             >
               Cancel
             </Button>
-            <div data-h2-margin="b(left, s)">
+            <div data-h2-margin="base(0, 0, 0, x.5)">
               <Button mode="solid" color="primary" onClick={close}>
                 Confirm
               </Button>

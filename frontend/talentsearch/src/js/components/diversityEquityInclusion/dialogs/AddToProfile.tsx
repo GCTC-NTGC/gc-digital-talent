@@ -5,7 +5,7 @@ const AddToProfile: React.FC = () => {
   const intl = useIntl();
 
   return (
-    <p>
+    <p data-h2-margin="base(0, 0, x.5, 0)">
       {intl.formatMessage({
         defaultMessage:
           "Based on this definition, I want to add the following to my profile:",

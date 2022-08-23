@@ -31,7 +31,6 @@ mutation CreateAccount($id: ID!, $user: UpdateUserAsUserInput!) {
     preferredLang
     isGovEmployee
     govEmployeeType
-    interestedInLaterOrSecondment
     isProfileComplete
     department {
       id

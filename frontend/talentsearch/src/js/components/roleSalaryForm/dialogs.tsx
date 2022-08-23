@@ -75,7 +75,10 @@ export const DialogLevelOne: React.FC<DialogLevelsProps> = ({
         </li>
       </ul>
       <Dialog.Footer>
-        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(center)"
+        >
           <CloseDialogButton close={onDismiss}>
             {intl.formatMessage({
               defaultMessage: "Close",
@@ -112,7 +115,10 @@ export const DialogLevelTwo: React.FC<DialogLevelsProps> = ({
         })}
       </p>
       <Dialog.Footer>
-        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(center)"
+        >
           <CloseDialogButton close={onDismiss}>
             {intl.formatMessage({
               defaultMessage: "Close",
@@ -157,7 +163,10 @@ export const DialogLevelThreeLead: React.FC<DialogLevelsProps> = ({
         })}
       </p>
       <Dialog.Footer>
-        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(center)"
+        >
           <CloseDialogButton close={onDismiss}>
             {intl.formatMessage({
               defaultMessage: "Close",
@@ -202,7 +211,10 @@ export const DialogLevelThreeAdvisor: React.FC<DialogLevelsProps> = ({
         })}
       </p>
       <Dialog.Footer>
-        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(center)"
+        >
           <CloseDialogButton close={onDismiss}>
             {intl.formatMessage({
               defaultMessage: "Close",
@@ -247,7 +259,10 @@ export const DialogLevelFourLead: React.FC<DialogLevelsProps> = ({
         })}
       </p>
       <Dialog.Footer>
-        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(center)"
+        >
           <CloseDialogButton close={onDismiss}>
             {intl.formatMessage({
               defaultMessage: "Close",
@@ -330,7 +345,10 @@ export const DialogLevelFourAdvisor: React.FC<DialogLevelsProps> = ({
         </li>
       </ul>
       <Dialog.Footer>
-        <div data-h2-display="b(flex)" data-h2-justify-content="b(center)">
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(center)"
+        >
           <CloseDialogButton close={onDismiss}>
             {intl.formatMessage({
               defaultMessage: "Close",

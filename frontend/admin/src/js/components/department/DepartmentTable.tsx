@@ -45,7 +45,13 @@ export const DepartmentTable: React.FC<
 
   const data = useMemo(() => departments.filter(notEmpty), [departments]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <div data-h2-padding="base(0, 0, x3, 0)">
+      <div data-h2-container="base(center, large, x2)">
+        <Table data={data} columns={columns} />
+      </div>
+    </div>
+  );
 };
 
 export const DepartmentTableApi: React.FunctionComponent = () => {

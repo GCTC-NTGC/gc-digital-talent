@@ -31,7 +31,7 @@ const UnderReview: React.FC = () => {
   const locale = getLocale(intl);
 
   return (
-    <p>
+    <p data-h2-margin="base(0, 0, x1, 0)">
       {intl.formatMessage(
         {
           defaultMessage:

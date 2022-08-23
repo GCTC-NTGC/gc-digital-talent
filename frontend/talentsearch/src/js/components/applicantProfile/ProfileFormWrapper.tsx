@@ -42,8 +42,8 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
 
   const breadcrumbs = (
     <div
-      data-h2-padding="b(top-bottom, m) b(right-left, s) s(right-left, xxl)"
-      data-h2-font-color="b(white)"
+      data-h2-padding="base(x1, 0)"
+      data-h2-color="base(dt-white)"
       style={{
         background: `url(${imageUrl(
           TALENTSEARCH_APP_DIR,
@@ -52,29 +52,28 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         backgroundSize: "100vw 5rem",
       }}
     >
-      <Breadcrumbs links={links} />
+      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <Breadcrumbs links={links} />
+      </div>
     </div>
   );
 
   return (
     <section>
       {breadcrumbs}
-      <div
-        data-h2-margin="b(right-left, none) s(right-left, xxl)"
-        data-h2-width="b(100) s(75)"
-      >
-        <div data-h2-margin="b(top-bottom, l)">
+      <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
+        <div data-h2-margin="base(x3, 0, x1, 0)">
           <CancelButton {...cancelLink} />
         </div>
         <h1
-          data-h2-margin="b(all, none)"
-          data-h2-font-size="b(h2)"
-          data-h2-font-weight="b(200)"
+          data-h2-margin="base(0, 0, x1, 0)"
+          data-h2-font-size="base(h2, 1)"
+          data-h2-font-weight="base(700)"
         >
           {title}
         </h1>
-        <p>{description}</p>
-        <div>{children}</div>
+        <p data-h2-margin="base(0, 0, x1, 0)">{description}</p>
+        <div data-h2-margin="base(0, 0, x3, 0)">{children}</div>
       </div>
       {breadcrumbs}
     </section>
