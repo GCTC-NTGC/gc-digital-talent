@@ -77,7 +77,7 @@ class PoolCandidateFactory extends Factory
         return $this->afterCreating(function (PoolCandidate $poolCandidate) {
             // after setting pool_candidate_status, check what it is and update accordingly, give it a submitted date if it isn't DRAFT or DRAFT_EXPIRED
             // add a signature in the above case too
-            // grab status from database the same way as Accessor in PoolCandidate.php
+            // grab status from database directly, bypassing the Accessor in order to avoid the Accessor overriding in some cases
             $candidateId = $poolCandidate->id;
             $results = DB::select('select pool_candidate_status from pool_candidates where id = :id', ['id' => $candidateId]);
             $candidateStatus = $results[0]->pool_candidate_status;
