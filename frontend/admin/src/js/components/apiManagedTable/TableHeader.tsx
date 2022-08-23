@@ -6,7 +6,11 @@ import { useIntl } from "react-intl";
 import { PlusIcon, TableIcon } from "@heroicons/react/outline";
 import { SubmitHandler } from "react-hook-form";
 import SearchForm from "./SearchForm";
-import { ButtonIcon, IndeterminateCheckbox } from "../Table/tableComponents";
+import {
+  ButtonIcon,
+  IndeterminateCheckbox,
+  Spacer,
+} from "../Table/tableComponents";
 import type {
   ColumnHiddenEvent,
   ColumnsOf,
@@ -166,8 +170,8 @@ function TableHeader<T extends Record<string, unknown>>({
                   <ButtonIcon icon={PlusIcon} />
                   <span>{addBtn.label}</span>
                 </Link>
-              )}
-            </div>
+              </Spacer>
+            )}
           </div>
         </div>
       )}
