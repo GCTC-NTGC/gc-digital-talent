@@ -36,7 +36,6 @@ ADefaultArgs.args = {
     "id",
     "isGovEmployee",
     "govEmployeeType",
-    "interestedInLaterOrSecondment",
     "department",
     "currentClassification",
   ]),
