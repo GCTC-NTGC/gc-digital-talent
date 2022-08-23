@@ -69,8 +69,6 @@ type User {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean
-        @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
     department: Department @belongsTo
 
@@ -184,7 +182,6 @@ type Applicant {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
     department: Department @belongsTo
 
@@ -785,7 +782,6 @@ input CreateUserInput {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
     department: DepartmentBelongsTo
 
@@ -846,7 +842,6 @@ input UpdateUserAsAdminInput {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
     department: DepartmentBelongsTo
 
@@ -903,7 +898,6 @@ input UpdateUserAsUserInput {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
     department: DepartmentBelongsTo
 

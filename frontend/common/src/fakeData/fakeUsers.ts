@@ -100,7 +100,6 @@ const generateUser = (
       GovEmployeeType.Term,
       GovEmployeeType.Indeterminate,
     ]),
-    interestedInLaterOrSecondment: faker.datatype.boolean(),
     department: faker.helpers.arrayElement<Department>(departments),
     currentClassification:
       faker.helpers.arrayElement<Classification>(classifications),
