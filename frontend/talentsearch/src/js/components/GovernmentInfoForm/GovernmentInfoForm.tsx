@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { errorMessages } from "@common/messages";
-import { Checkbox, RadioGroup, Select } from "@common/components/form";
+import { RadioGroup, Select } from "@common/components/form";
 import { empty } from "@common/helpers/util";
 import { getGovEmployeeType } from "@common/constants/localizedConstants";
 import {
@@ -66,7 +66,6 @@ export const formValuesToSubmitData = (
     return {
       isGovEmployee: false,
       govEmployeeType: null,
-      interestedInLaterOrSecondment: null,
       department: null,
       currentClassification: {
         connect: null,
@@ -77,7 +76,6 @@ export const formValuesToSubmitData = (
     return {
       isGovEmployee: values.govEmployeeYesNo === "yes",
       govEmployeeType: values.govEmployeeType,
-      interestedInLaterOrSecondment: null,
       department: values.department ? { connect: values.department } : null,
       currentClassification: {
         disconnect: true,
@@ -88,7 +86,6 @@ export const formValuesToSubmitData = (
     return {
       isGovEmployee: values.govEmployeeYesNo === "yes",
       govEmployeeType: values.govEmployeeType,
-      interestedInLaterOrSecondment: null,
       department: values.department ? { connect: values.department } : null,
       currentClassification: classificationId
         ? {
@@ -100,7 +97,6 @@ export const formValuesToSubmitData = (
   return {
     isGovEmployee: values.govEmployeeYesNo === "yes",
     govEmployeeType: values.govEmployeeType,
-    interestedInLaterOrSecondment: values.lateralDeployBool,
     department: values.department ? { connect: values.department } : null,
     currentClassification: classificationId
       ? {
@@ -124,9 +120,7 @@ const dataToFormValues = (
   return {
     govEmployeeYesNo: boolToYesNo(data?.isGovEmployee),
     govEmployeeType: data?.govEmployeeType,
-    lateralDeployBool: empty(data?.interestedInLaterOrSecondment)
-      ? undefined
-      : data?.interestedInLaterOrSecondment,
+    lateralDeployBool: undefined,
     department: data?.department?.id,
     currentClassificationGroup: data?.currentClassification?.group,
     currentClassificationLevel: data?.currentClassification?.level
@@ -188,7 +182,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
   // render the actual form
   return (
     <div>
-      <div data-h2-flex-item="b(1of1) s(1of2) m(1of6) l(1of12)">
+      <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of6) desktop(1of12)">
         <RadioGroup
           idPrefix="govEmployeeYesNo"
           legend={intl.formatMessage({
@@ -224,7 +218,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
       </div>
       {govEmployee === "yes" && (
         <>
-          <div data-h2-padding="b(top-bottom, m)">
+          <div data-h2-padding="base(x1, 0)">
             <Select
               id="department"
               name="department"
@@ -244,7 +238,10 @@ export const GovernmentInfoForm: React.FunctionComponent<
               }}
             />
           </div>
-          <div data-h2-padding="b(bottom, s)" data-h2-flex-item="b(1of3)">
+          <div
+            data-h2-padding="base(0, 0, x.5, 0)"
+            data-h2-flex-item="base(1of3)"
+          >
             <RadioGroup
               idPrefix="govEmployeeType"
               legend={intl.formatMessage({
@@ -266,39 +263,6 @@ export const GovernmentInfoForm: React.FunctionComponent<
       )}
       {govEmployee === "yes" &&
         (govEmployeeStatus === GovEmployeeType.Term ||
-          govEmployeeStatus === GovEmployeeType.Indeterminate) && (
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "Please indicate if you are interested in lateral deployment or secondment. Learn more about this.",
-              description:
-                "Text blurb, asking about interest in deployment/secondment in the government info form",
-            })}
-          </p>
-        )}
-      {govEmployee === "yes" &&
-        (govEmployeeStatus === GovEmployeeType.Term ||
-          govEmployeeStatus === GovEmployeeType.Indeterminate) && (
-          <div data-h2-padding="b(bottom, s)">
-            <Checkbox
-              id="lateralDeployBool"
-              label={intl.formatMessage({
-                defaultMessage:
-                  "I am interested in lateral deployment or secondment.",
-                description: "Label displayed on lateral/secondment checkbox",
-              })}
-              name="lateralDeployBool"
-              boundingBox
-              boundingBoxLabel={intl.formatMessage({
-                defaultMessage: "Lateral Deployment",
-                description:
-                  "Label displayed on lateral/secondment bounding box",
-              })}
-            />
-          </div>
-        )}
-      {govEmployee === "yes" &&
-        (govEmployeeStatus === GovEmployeeType.Term ||
           govEmployeeStatus === GovEmployeeType.Indeterminate ||
           govEmployeeStatus === GovEmployeeType.Casual) && (
           <p>
@@ -310,12 +274,18 @@ export const GovernmentInfoForm: React.FunctionComponent<
             })}
           </p>
         )}
-      <div data-h2-display="b(flex)" data-h2-flex-direction="b(column) s(row)">
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) p-tablet(row)"
+      >
         {govEmployee === "yes" &&
           (govEmployeeStatus === GovEmployeeType.Term ||
             govEmployeeStatus === GovEmployeeType.Indeterminate ||
             govEmployeeStatus === GovEmployeeType.Casual) && (
-            <div data-h2-padding="s(right, l)" style={{ width: "100%" }}>
+            <div
+              data-h2-padding="p-tablet(0, x2, 0, 0)"
+              data-h2-width="base(100%)"
+            >
               <Select
                 id="currentClassificationGroup"
                 label={intl.formatMessage({

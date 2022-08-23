@@ -129,7 +129,11 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           defaultValues: initialDataToFormValues(initialUser),
         }}
       >
-        <h2 data-h2-font-size="b(h3)" data-h2-font-weight="b(700)">
+        <h2
+          data-h2-margin="base(x2, 0, x1, 0)"
+          data-h2-font-size="base(h3, 1.3)"
+          data-h2-font-weight="base(700)"
+        >
           {intl.formatMessage({
             defaultMessage: "Personal Information",
             description:
@@ -144,8 +148,8 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               "Description for Personal Information section of the About Me form",
           })}
         </p>
-        <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-          <div data-h2-padding="b(right, l)">
+        <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
+          <div>
             <RadioGroup
               idPrefix="required-lang-preferences"
               legend={intl.formatMessage({
@@ -243,31 +247,37 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
                 },
               ]}
             />
-            <RadioGroup
-              idPrefix="citizenship"
-              legend={intl.formatMessage({
-                defaultMessage: "Citizenship Status",
-                description:
-                  "Legend text for required citizenship status in About Me form",
-              })}
-              name="citizenship"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-              items={citizenshipStatusesOrdered.map((status) => ({
-                value: status,
-                label: intl.formatMessage(
-                  getCitizenshipStatusesProfile(status),
-                ),
-              }))}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "Preference will be given to Canadian citizens and permanent residents of Canada",
-                description:
-                  "Context text for required citizenship status section in About Me form, explaining preference",
-              })}
-            />
+            <div data-h2-margin="base(x1, 0, 0, 0)">
+              <RadioGroup
+                idPrefix="citizenship"
+                legend={intl.formatMessage({
+                  defaultMessage: "Citizenship Status",
+                  description:
+                    "Legend text for required citizenship status in About Me form",
+                })}
+                name="citizenship"
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
+                items={citizenshipStatusesOrdered.map((status) => ({
+                  value: status,
+                  label: intl.formatMessage(
+                    getCitizenshipStatusesProfile(status),
+                  ),
+                }))}
+                context={intl.formatMessage({
+                  defaultMessage:
+                    "Preference will be given to Canadian citizens and permanent residents of Canada",
+                  description:
+                    "Context text for required citizenship status section in About Me form, explaining preference",
+                })}
+              />
+            </div>
           </div>
         </div>
-        <h2 data-h2-font-size="b(h3)" data-h2-font-weight="b(700)">
+        <h2
+          data-h2-margin="base(x2, 0, x1, 0)"
+          data-h2-font-size="base(h3, 1.3)"
+          data-h2-font-weight="base(700)"
+        >
           {intl.formatMessage({
             defaultMessage: "Account Details",
             description:
@@ -282,8 +292,8 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               "Description for Account Details section of the About Me form",
           })}
         </p>
-        <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-          <div data-h2-padding="b(right, l)">
+        <div data-h2-flex-item="base(1of1)">
+          <div>
             <Input
               id="firstName"
               name="firstName"
@@ -323,6 +333,12 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
             />
           </div>
         </div>
+        <hr
+          data-h2-height="base(1px)"
+          data-h2-border="base(none)"
+          data-h2-background-color="base(dt-gray)"
+          data-h2-margin="base(x2, 0)"
+        />
         <ProfileFormFooter mode="saveButton" />
       </BasicForm>
     </ProfileFormWrapper>

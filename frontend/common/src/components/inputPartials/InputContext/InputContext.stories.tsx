@@ -26,7 +26,7 @@ ContextWithBold.args = {
   isVisible: true,
   context: (
     <>
-      Now we collect <span data-h2-font-weight="b(700)">even more</span> data
+      Now we collect <span data-h2-font-weight="base(700)">even more</span> data
       for you.
     </>
   ),

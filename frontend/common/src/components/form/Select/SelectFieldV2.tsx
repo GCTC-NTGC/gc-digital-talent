@@ -139,7 +139,7 @@ const SelectFieldV2 = ({
   const rulesWithDefaults = useRulesWithDefaultMessages(label, rules);
 
   return (
-    <div data-h2-margin="b(bottom, xxs)">
+    <div data-h2-margin="base(0, 0, x.125, 0)">
       <InputWrapper
         {...{ label, context, error }}
         inputId={id}

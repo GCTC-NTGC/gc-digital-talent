@@ -40,6 +40,8 @@ before(() => {
 import '@testing-library/cypress/add-commands'
 import url from 'url'
 
+require('cy-verify-downloads').addCustomCommand();
+
 Cypress.Commands.add('setLocale', (locale) => {
   window.localStorage.setItem('stored_locale', locale)
 })

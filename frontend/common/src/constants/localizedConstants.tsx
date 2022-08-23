@@ -23,6 +23,7 @@ import {
   PoolAdvertisementLanguage,
   SecurityStatus,
   CitizenshipStatus,
+  BilingualEvaluation,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -789,7 +790,11 @@ export const operationalRequirementLabelFull = defineMessages({
     defaultMessage:
       "Availability, willingness and ability to work overtime (short notice)",
     description:
-      "The operational requirement described as short notice overtime.",
+      "The operational requirement described as occasional overtime.",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "Work weekends",
+    description: "The operational requirement described as work weekends.",
   },
   [OperationalRequirement.OvertimeOccasional]: {
     defaultMessage:
@@ -1025,6 +1030,34 @@ export const getGovEmployeeType = (
     `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
   );
 
+export const simpleGovEmployeeType = defineMessages({
+  [GovEmployeeType.Student]: {
+    defaultMessage: "Student",
+    description: "Simple student selection for government employee type.",
+  },
+  [GovEmployeeType.Casual]: {
+    defaultMessage: "Casual",
+    description: "Simple casual selection for government employee type.",
+  },
+  [GovEmployeeType.Term]: {
+    defaultMessage: "Term",
+    description: "Simple term selection for government employee type.",
+  },
+  [GovEmployeeType.Indeterminate]: {
+    defaultMessage: "Indeterminate",
+    description: "Simple indeterminate selection for government employee type.",
+  },
+});
+
+export const getSimpleGovEmployeeType = (
+  govEmployeeTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    simpleGovEmployeeType,
+    govEmployeeTypeId,
+    `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
+  );
+
 export const advertisementStatus = defineMessages({
   [AdvertisementStatus.Draft]: {
     defaultMessage: "Draft",
@@ -1071,4 +1104,28 @@ export const getSecurityClearance = (
     securityClearances,
     securityClearanceId,
     `Invalid  Advertisement Status '${securityClearanceId}'`,
+  );
+
+export const bilingualEvaluations = defineMessages({
+  [BilingualEvaluation.CompletedEnglish]: {
+    defaultMessage: "Yes, completed English evaluation",
+    description: "Completed an English language evaluation",
+  },
+  [BilingualEvaluation.CompletedFrench]: {
+    defaultMessage: "Yes, completed French evaluation",
+    description: "Completed a French language evaluation",
+  },
+  [BilingualEvaluation.NotCompleted]: {
+    defaultMessage: "No",
+    description: "No, did not complete a language evaluation",
+  },
+});
+
+export const getBilingualEvaluation = (
+  bilingualEvaluationId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    bilingualEvaluations,
+    bilingualEvaluationId,
+    `Invalid Language Ability '${bilingualEvaluationId}'`,
   );

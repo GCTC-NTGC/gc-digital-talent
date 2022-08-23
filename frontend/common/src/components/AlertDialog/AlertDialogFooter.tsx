@@ -7,12 +7,12 @@ export interface AlertDialogFooterProps {
 const AlertDialogFooter = ({ children }: AlertDialogFooterProps) => (
   <div
     className="dialog__footer"
-    data-h2-display="b(flex)"
-    data-h2-align-items="b(center)"
-    data-h2-justify-content="b(flex-end)"
-    data-h2-margin="b(top, m)"
-    data-h2-padding="b(top, m)"
-    data-h2-border="b(darkgray, top, solid, s)"
+    data-h2-display="base(flex)"
+    data-h2-align-items="base(center)"
+    data-h2-justify-content="base(flex-end)"
+    data-h2-margin="base(x1, 0, 0, 0)"
+    data-h2-padding="base(x1, 0, 0, 0)"
+    data-h2-border="base(top, 1px, solid, dt-gray.dark)"
   >
     {children}
   </div>
