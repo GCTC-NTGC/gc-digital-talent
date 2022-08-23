@@ -675,4 +675,45 @@ class PoolApplicationTest extends TestCase
       )
     );
   }
+
+  public function testApplicationSubmitStatus(): void
+  {
+    // re-make complete user, attach pool candidate
+    $this->seed(ClassificationSeeder::class);
+    $this->seed(GenericJobTitleSeeder::class);
+
+    $newUser = User::factory()->create();
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
+    $newUser->save();
+
+    $newPool = Pool::factory()->create([]);
+    $newPool->essentialSkills()->sync([]);
+
+    $newPoolCandidate = PoolCandidate::factory()->create([
+      'user_id' => $newUser->id,
+      'pool_id' => $newPool->id,
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+    ]);
+
+    // assert status updated upon submission, and doesn't return DRAFT or EXPIRED
+    $this->graphQL(/** @lang Graphql */ '
+      mutation submitTest($id: ID!, $sig: String!) {
+        submitApplication(applicationId: $id, signature: $sig) {
+          status
+        }
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      'sig' => 'sign',
+      ])->assertJson([
+        "data" => [
+          "submitApplication" => [
+              "status" => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+          ]
+        ]
+    ]);
+  }
 }
