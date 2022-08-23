@@ -58,25 +58,29 @@ export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
   return e2EndDate - e1EndDate;
 };
 export interface ExperienceAndSkillsProps {
+  applicantId: string;
   experiences?: Experience[];
 }
 
 export const ExperienceAndSkills: React.FunctionComponent<
   ExperienceAndSkillsProps
-> = ({ experiences }) => {
+> = ({ applicantId, experiences }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
   const experienceEditPaths = {
-    awardUrl: (id: string) => paths.editExperience("award", id),
-    communityUrl: (id: string) => paths.editExperience("community", id),
-    educationUrl: (id: string) => paths.editExperience("education", id),
-    personalUrl: (id: string) => paths.editExperience("personal", id),
-    workUrl: (id: string) => paths.editExperience("work", id),
+    awardUrl: (id: string) => paths.editExperience(applicantId, "award", id),
+    communityUrl: (id: string) =>
+      paths.editExperience(applicantId, "community", id),
+    educationUrl: (id: string) =>
+      paths.editExperience(applicantId, "education", id),
+    personalUrl: (id: string) =>
+      paths.editExperience(applicantId, "personal", id),
+    workUrl: (id: string) => paths.editExperience(applicantId, "work", id),
   };
 
   const links = [
     {
-      href: paths.createPersonal(),
+      href: paths.createPersonal(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Personal",
         description: "Title for personal experience form button.",
@@ -84,7 +88,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: LightBulbIcon,
     },
     {
-      href: paths.createCommunity(),
+      href: paths.createCommunity(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Community",
         description: "Title for community experience form button.",
@@ -92,7 +96,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: UserGroupIcon,
     },
     {
-      href: paths.createWork(),
+      href: paths.createWork(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Work",
         description: "Title for work experience form button.",
@@ -100,7 +104,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: BriefcaseIcon,
     },
     {
-      href: paths.createEducation(),
+      href: paths.createEducation(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Education",
         description: "Title for education experience form button.",
@@ -108,7 +112,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: BookOpenIcon,
     },
     {
-      href: paths.createAward(),
+      href: paths.createAward(applicantId),
       title: intl.formatMessage({
         defaultMessage: "Award",
         description: "Title for award experience form button.",
@@ -143,52 +147,55 @@ export const ExperienceAndSkills: React.FunctionComponent<
         children: intl.formatMessage(commonMessages.backToProfile),
       }}
     >
-      <p
-        data-h2-font-style="b(reset)"
-        data-h2-font-weight="b(700)"
-        data-h2-margin="b(bottom, xxs)"
-        style={{ textTransform: "uppercase" }}
-      >
-        {intl.formatMessage({
-          defaultMessage: "Add new experience:",
-          description:
-            "Message to user when no experiences have been attached to profile",
-        })}
-      </p>
-      <div
-        data-h2-margin="b(bottom, m)"
-        data-h2-flex-grid="b(normal, contained, flush, xs)"
-        style={{ flexGrow: "2" }}
-      >
-        {links.map(({ title, href, icon }) => (
-          <div data-h2-flex-item="b(1of1) s(1of5)" key={title}>
-            <IconLink
-              href={href}
-              type="button"
-              color="primary"
-              icon={icon}
-              block
+      <div data-h2-margin="base(x2, 0)">
+        <div data-h2-flex-grid="base(flex-start, 0, x.5)">
+          <div data-h2-flex-item="base(1of1)">
+            <p
+              data-h2-font-style="base(reset)"
+              data-h2-font-weight="base(700)"
+              data-h2-text-transform="base(uppercase)"
             >
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "<hidden>Add new </hidden>{title}<hidden> experience</hidden>",
-                  description:
-                    "Link text for adding a new experience of a specific type.",
-                },
-                { title },
-              )}
-            </IconLink>
+              {intl.formatMessage({
+                defaultMessage: "Add new experience:",
+                description:
+                  "Message to user when no experiences have been attached to profile",
+              })}
+            </p>
           </div>
-        ))}
+          <div data-h2-flex-item="base(1of1)">
+            <div data-h2-flex-grid="base(center, 0, x1) p-tablet(center, 0, x.5)">
+              {links.map(({ title, href, icon }) => (
+                <div key={title} data-h2-flex-item="base(1of1) p-tablet(1of5)">
+                  <IconLink
+                    href={href}
+                    type="button"
+                    color="primary"
+                    icon={icon}
+                    block
+                  >
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "<hidden>Add new </hidden>{title}<hidden> experience</hidden>",
+                        description:
+                          "Link text for adding a new experience of a specific type.",
+                      },
+                      { title },
+                    )}
+                  </IconLink>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
       {!experiences || experiences?.length === 0 ? (
         <div
-          data-h2-radius="b(s)"
-          data-h2-bg-color="b(lightgray)"
-          data-h2-padding="b(all, m)"
+          data-h2-radius="base(s)"
+          data-h2-background-color="base(light.dt-gray)"
+          data-h2-padding="base(x1)"
         >
-          <p data-h2-font-style="b(italic)">
+          <p data-h2-font-style="base(italic)">
             {intl.formatMessage({
               defaultMessage:
                 "There are no experiences on your profile yet. You can add some using the preceding buttons.",
@@ -224,6 +231,7 @@ export const ExperienceAndSkillsApi: React.FunctionComponent<{
     <Pending fetching={fetching} error={error}>
       {applicantData?.applicant ? (
         <ExperienceAndSkills
+          applicantId={applicantId}
           experiences={applicantData.applicant.experiences?.filter(notEmpty)}
         />
       ) : (
@@ -243,6 +251,7 @@ export const ExperienceAndSkillsApi: React.FunctionComponent<{
   );
 };
 
+// This should probably be removed now
 const ExperienceAndSkillsRouterApi: React.FunctionComponent = () => {
   const intl = useIntl();
   const [result] = useGetMeQuery();

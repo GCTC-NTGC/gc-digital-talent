@@ -31,14 +31,18 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   isActive = exactMatch,
 }) => {
   const location = useLocation();
+  const activeWeight: Record<string, unknown> = isActive(
+    href ?? null,
+    location.pathname,
+  )
+    ? { "data-h2-font-weight": "base(700)" }
+    : { "data-h2-font-weight": "base(100)" };
   return (
     <Link
       href={href}
       title={title ?? ""}
-      data-h2-font-color="b(ia-pink)"
-      data-h2-font-weight={
-        isActive(href, location.pathname) ? "b(700)" : "b(100)"
-      }
+      data-h2-color="base(ia-primary)"
+      {...activeWeight}
     >
       {text}
     </Link>
@@ -105,7 +109,7 @@ export const PageContainer: React.FC<{
   return (
     <ScrollToTop>
       <>
-        <a href="#main" data-h2-visibility="b(hidden)">
+        <a href="#main" data-h2-visibility="base(hidden)">
           {intl.formatMessage({
             defaultMessage: "Skip to main content",
             description: "Assistive technology skip link",
@@ -113,8 +117,8 @@ export const PageContainer: React.FC<{
         </a>
         <div
           className="container"
-          data-h2-display="b(flex)"
-          data-h2-flex-direction="b(column)"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
           style={{ height: "100vh", margin: "0" }}
         >
           <div>

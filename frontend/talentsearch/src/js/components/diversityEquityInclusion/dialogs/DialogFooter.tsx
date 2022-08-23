@@ -3,23 +3,23 @@ import { useIntl } from "react-intl";
 import { SaveIcon } from "@heroicons/react/solid";
 import { Button } from "@common/components";
 
-interface DialogActionsProps {
+interface DialogFooterProps {
   onDismiss: () => void;
 }
 
-const DialogActions: React.FC<DialogActionsProps> = ({ onDismiss }) => {
+const DialogFooter: React.FC<DialogFooterProps> = ({ onDismiss }) => {
   const intl = useIntl();
   return (
     <div
-      data-h2-display="b(flex)"
-      data-h2-align-items="b(center)"
-      data-h2-justify-content="b(space-between)"
+      data-h2-display="base(flex)"
+      data-h2-align-items="base(center)"
+      data-h2-justify-content="base(space-between)"
     >
       <p>
         <Button type="submit" mode="solid" color="cta">
           <SaveIcon
             style={{ height: "1rem", width: "1rem" }}
-            data-h2-margin="b(right, xxs)"
+            data-h2-margin="base(0, x.125, 0, 0)"
           />
           <span>
             {intl.formatMessage({
@@ -46,4 +46,4 @@ const DialogActions: React.FC<DialogActionsProps> = ({ onDismiss }) => {
   );
 };
 
-export default DialogActions;
+export default DialogFooter;

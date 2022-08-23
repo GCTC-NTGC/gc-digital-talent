@@ -49,7 +49,7 @@ const MultiSelect = ({
     label: optionMap.get(v) ?? String(v),
   });
   return (
-    <div data-h2-margin="b(bottom, xxs)">
+    <div data-h2-margin="base(x1, 0)">
       <InputWrapper
         {...{ label, context, error }}
         inputId={id}

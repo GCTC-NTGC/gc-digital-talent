@@ -2,7 +2,6 @@ import * as React from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
-import { AdvertisementStatus } from "admin/src/js/api/generated";
 import { heavyPrimary } from "@common/helpers/format";
 import {
   FolderOpenIcon,
@@ -10,7 +9,7 @@ import {
   PencilIcon,
   SpeakerphoneIcon,
 } from "@heroicons/react/outline";
-import { PoolAdvertisement } from "../../../api/generated";
+import { PoolAdvertisement, AdvertisementStatus } from "../../../api/generated";
 import { SectionMetadata } from "./EditPool";
 import PublishDialog from "./PublishDialog";
 import CloseDialog from "./CloseDialog";
@@ -54,11 +53,11 @@ export const StatusSection = ({
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+        <h2 data-h2-margin="base(x3, 0, x1, 0)" data-h2-font-size="base(p)">
           {sectionMetadata.title}
         </h2>
       </TableOfContents.Heading>
-      <p>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "Use these options to publish or close your advertisement. A live advertisement will allow applicants to submit applications to this pool.",
@@ -67,19 +66,19 @@ export const StatusSection = ({
         })}
       </p>
 
-      <div data-h2-display="b(flex)" style={{ gap: "0.5rem" }}>
+      <div data-h2-display="base(flex)" style={{ gap: "0.5rem" }}>
         {/* Draft status */}
         {poolAdvertisement.advertisementStatus === AdvertisementStatus.Draft ? (
           <>
             <div
-              data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(all, xs)"
-              data-h2-radius="b(s)"
+              data-h2-background-color="base(dt-gray.light)"
+              data-h2-padding="base(x.5)"
+              data-h2-radius="base(s)"
               style={{ flexGrow: 2 }} // to push buttons to the right side
             >
               <div
-                data-h2-display="b(flex)"
-                data-h2-align-items="b(center)"
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
                 style={{ gap: "0.5rem" }}
               >
                 <PencilIcon
@@ -134,14 +133,14 @@ export const StatusSection = ({
         AdvertisementStatus.Published ? (
           <>
             <div
-              data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(all, xs)"
-              data-h2-radius="b(s)"
+              data-h2-background-color="base(dt-gray.light)"
+              data-h2-padding="base(x.5)"
+              data-h2-radius="base(s)"
               style={{ flexGrow: 2 }} // to push buttons to the right side
             >
               <div
-                data-h2-display="b(flex)"
-                data-h2-align-items="b(center)"
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
                 style={{ gap: "0.5rem" }}
               >
                 <SpeakerphoneIcon
@@ -199,14 +198,14 @@ export const StatusSection = ({
         AdvertisementStatus.Expired ? (
           <>
             <div
-              data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(all, xs)"
-              data-h2-radius="b(s)"
+              data-h2-background-color="base(dt-gray.light)"
+              data-h2-padding="base(x.5)"
+              data-h2-radius="base(s)"
               style={{ flexGrow: 2 }} // to push buttons to the right side
             >
               <div
-                data-h2-display="b(flex)"
-                data-h2-align-items="b(center)"
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
                 style={{ gap: "0.5rem" }}
               >
                 <LockClosedIcon
@@ -264,14 +263,14 @@ export const StatusSection = ({
         {poolAdvertisement.advertisementStatus ===
         AdvertisementStatus.Archived ? (
           <div
-            data-h2-bg-color="b(lightgray)"
-            data-h2-padding="b(all, xs)"
-            data-h2-radius="b(s)"
+            data-h2-background-color="base(dt-gray.light)"
+            data-h2-padding="base(x.5)"
+            data-h2-radius="base(s)"
             style={{ flexGrow: 2 }} // to push buttons to the right side
           >
             <div
-              data-h2-display="b(flex)"
-              data-h2-align-items="b(center)"
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(center)"
               style={{ gap: "0.5rem" }}
             >
               <FolderOpenIcon

@@ -13,7 +13,7 @@ import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
-import DialogActions from "./DialogActions";
+import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
 
 interface FormValues {
@@ -41,11 +41,15 @@ const DisabilityDialogFooter: React.FC<EquityDialogFooterProps> = ({
     <FormProvider {...methods}>
       <AddToProfile />
       <form onSubmit={handleSubmit(submitHandler)}>
-        <Checkbox
-          id="hasDisability"
-          name="hasDisability"
-          label={intl.formatMessage(getEmploymentEquityStatement("disability"))}
-        />
+        <div data-h2-margin="base(0, 0, x1, 0)">
+          <Checkbox
+            id="hasDisability"
+            name="hasDisability"
+            label={intl.formatMessage(
+              getEmploymentEquityStatement("disability"),
+            )}
+          />
+        </div>
         {children}
       </form>
     </FormProvider>
@@ -66,14 +70,9 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
       onDismiss={onDismiss}
       color="ts-primary"
       title={intl.formatMessage(getEmploymentEquityGroup("disability"))}
-      footer={
-        <DisabilityDialogFooter isAdded={isAdded} onSave={onSave}>
-          <DialogActions onDismiss={onDismiss} />
-        </DisabilityDialogFooter>
-      }
     >
       <UnderReview />
-      <p>
+      <p data-h2-margin="base(0, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "Refers to a person whose daily activities are limited as a result of an impairment or difficulty with particular tasks. The only exception to this is for developmental disabilities where a person is considered to be disabled if the respondent has been diagnosed with this condition.",
@@ -88,6 +87,11 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
             : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1"
         }
       />
+      <Dialog.Footer>
+        <DisabilityDialogFooter isAdded={isAdded} onSave={onSave}>
+          <DialogFooter onDismiss={onDismiss} />
+        </DisabilityDialogFooter>
+      </Dialog.Footer>
     </Dialog>
   );
 };

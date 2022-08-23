@@ -1,6 +1,6 @@
 import React, { useImperativeHandle, useMemo } from "react";
 import { FormProvider, useForm, UseFormTrigger } from "react-hook-form";
-import { useIntl } from "react-intl";
+import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
@@ -14,6 +14,7 @@ import {
   getEmploymentEquityGroup,
 } from "@common/constants/localizedConstants";
 import errorMessages from "@common/messages/errorMessages";
+import { hasKey } from "@common/helpers/util";
 import {
   Classification,
   CmoAsset,
@@ -34,16 +35,16 @@ const FilterBlock: React.FunctionComponent<{
     <div>
       <h3
         id={id}
-        data-h2-font-size="b(h4)"
-        data-h2-font-weight="b(700)"
-        data-h2-margin="b(bottom, m)"
+        data-h2-font-size="base(h4)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(0, 0, x1, 0)"
       >
         {title}
       </h3>
       <p
-        data-h2-font-size="b(caption)"
-        data-h2-margin="b(bottom, m)"
-        data-h2-padding="b(right, xl)"
+        data-h2-font-size="base(caption)"
+        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-padding="base(0, x2, 0, 0)"
       >
         {text}
       </p>
@@ -87,6 +88,26 @@ export interface SearchFormProps {
 export interface SearchFormRef {
   triggerValidation: UseFormTrigger<FormValues>;
 }
+
+const classificationLabels: Record<string, MessageDescriptor> = defineMessages({
+  "IT-01": {
+    defaultMessage: "IT-01: Technician ($60,000 to $78,000)",
+    description: "IT-01 classification label including titles and salaries",
+  },
+  "IT-02": {
+    defaultMessage: "IT-02: Analyst ($75,000 to $91,000)",
+    description: "IT-02 classification label including titles and salaries",
+  },
+  "IT-03": {
+    defaultMessage:
+      "IT-03: Technical Advisor or Team Leader ($88,000 to $110,000)",
+    description: "IT-03 classification label including titles and salaries",
+  },
+  "IT-04": {
+    defaultMessage: "IT-04: Senior Advisor or Manager ($101,000 to $126,000)",
+    description: "IT-04 classification label including titles and salaries",
+  },
+});
 
 export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
   ({ classifications, cmoAssets, updateCandidateFilter }, ref) => {
@@ -173,13 +194,23 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       return () => subscription.unsubscribe();
     }, [watch, classificationMap, assetMap, updateCandidateFilter]);
 
-    const classificationOptions: Option<string>[] = useMemo(
+    const getClassificationLabel = React.useCallback(
+      (group: string, level: number): string => {
+        const key = `${group}-0${level}`;
+        return !hasKey(classificationLabels, key)
+          ? key
+          : intl.formatMessage(classificationLabels[key]);
+      },
+      [intl],
+    );
+
+    const classificationOptions: Option<string>[] = React.useMemo(
       () =>
         classifications.map(({ id, group, level }) => ({
           value: id,
-          label: `${group}-0${level}`,
+          label: getClassificationLabel(group, level),
         })),
-      [classifications],
+      [classifications, getClassificationLabel],
     );
 
     const cmoAssetOptions: Option<string>[] = useMemo(
