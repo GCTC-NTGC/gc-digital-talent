@@ -8,26 +8,23 @@ interface StepProps {
 }
 
 const Step: React.FC<StepProps> = ({ position, title, children }) => (
-  <div
-    data-h2-display="b(flex)"
-    data-h2-flex-direction="b(column)"
-    data-h2-align-items="b(center)"
-    data-h2-padding="b(right-left, l) m(right-left, none)"
-  >
-    <Heading
-      as="h4"
-      color="white"
-      data-h2-display="b(flex)"
-      data-h2-flex-direction="b(column)"
-      data-h2-align-items="b(center)"
-      data-h2-margin="b(bottom, s)"
-    >
-      <span data-h2-font-size="b(h1)" data-h2-font-color="b(ia-lightpink)">
+  <div data-h2-text-align="base(center)">
+    <Heading as="h4" data-h2-font-size="base(h3, 1)" color="white">
+      <span
+        data-h2-font-size="base(h1)"
+        data-h2-font-weight="base(800)"
+        data-h2-display="base(inline-block)"
+        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-color="base(light.ia-primary)"
+      >
         {position}
       </span>
-      <span data-h2-font-size="b(h3)">{title}</span>
+      <br />
+      <span>{title}</span>
     </Heading>
-    {children}
+    <div data-h2-color="base(ia-white)" data-h2-margin="base(x1, 0, 0, 0)">
+      {children}
+    </div>
   </div>
 );
 

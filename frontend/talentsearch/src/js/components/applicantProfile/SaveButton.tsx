@@ -9,12 +9,12 @@ const SaveButton: React.FunctionComponent = () => {
     <Submit
       color="cta"
       mode="solid"
-      data-h2-display="b(flex)"
-      data-h2-align-items="b(center)"
+      data-h2-display="base(flex)"
+      data-h2-align-items="base(center)"
       text={
         <>
           <SaveIcon style={{ width: "1rem" }} />
-          <span data-h2-margin="b(left, xxs)">
+          <span data-h2-margin="base(auto, auto, auto, x.125)">
             {intl.formatMessage({
               defaultMessage: "Save and go back",
               description: "Text for save button on profile form.",
@@ -25,7 +25,7 @@ const SaveButton: React.FunctionComponent = () => {
       isSubmittingText={
         <>
           <SaveIcon style={{ width: "1rem" }} />
-          <span data-h2-margin="b(left, xxs)">
+          <span data-h2-margin="base(auto, auto, auto, x.125)">
             {intl.formatMessage({
               defaultMessage: "Saving...",
               description: "Submitting text for save button on profile form.",
@@ -36,7 +36,7 @@ const SaveButton: React.FunctionComponent = () => {
       submittedText={
         <>
           <SaveIcon style={{ width: "1rem" }} />
-          <span data-h2-margin="b(left, xxs)">
+          <span data-h2-margin="base(auto, auto, auto, x.125)">
             {intl.formatMessage({
               defaultMessage: "Saved",
               description: "Submitted text for save button on profile form.",

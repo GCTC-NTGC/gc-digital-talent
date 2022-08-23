@@ -67,7 +67,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     return (
       <a
         href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}
-        data-h2-font-weight="b(700)"
+        data-h2-font-weight="base(700)"
       >
         {msg}
       </a>
@@ -88,10 +88,10 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   function candidateResults() {
     return candidateCount > 0 ? (
       <div
-        data-h2-shadow="b(m)"
-        data-h2-border="b(lightnavy, left, solid, l)"
-        data-h2-margin="b(top, s) b(bottom, m)"
-        data-h2-flex-grid="b(middle, contained, flush, xl)"
+        data-h2-shadow="base(m)"
+        data-h2-border="base(left, x1, solid, dt-secondary.light)"
+        data-h2-margin="base(x.5, 0, x1, 0)"
+        data-h2-flex-grid="base(center, 0, x3)"
       >
         <SearchPools
           candidateCount={candidateCount}
@@ -102,19 +102,22 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
       </div>
     ) : (
       <div
-        data-h2-shadow="b(m)"
-        data-h2-margin="b(top, s) b(bottom, m)"
-        data-h2-padding="b(top-bottom, xs) b(left, s)"
-        data-h2-border="b(darkgray, left, solid, l)"
+        data-h2-shadow="base(m)"
+        data-h2-margin="base(x.5, 0, x1, 0)"
+        data-h2-padding="base(x.25, 0, x.25, x.5)"
+        data-h2-border="base(left, x1, solid, dt-gray.dark)"
       >
-        <p data-h2-margin="b(bottom, none)">
+        <p>
           {intl.formatMessage({
             defaultMessage: "We can still help!",
             description:
               "Heading for helping user if no candidates matched the filters chosen.",
           })}
         </p>
-        <p data-h2-margin="b(top, xxs)" data-h2-font-size="b(caption)">
+        <p
+          data-h2-margin="base(x.125, 0, 0, 0)"
+          data-h2-font-size="base(caption)"
+        >
           {intl.formatMessage(
             {
               defaultMessage:
@@ -132,19 +135,14 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   }
 
   return (
-    <div>
+    <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
       <div
-        data-h2-position="b(relative)"
-        data-h2-flex-grid="b(top, contained, flush, none)"
-        data-h2-container="b(center, l)"
+        data-h2-position="base(relative)"
+        data-h2-flex-grid="base(flex-start, 0, 0)"
       >
-        <div data-h2-flex-item="b(1of1) s(2of3)">
-          <div data-h2-padding="b(right, l)">
-            <h2
-              data-h2-font-color="b(black)"
-              data-h2-font-weight="b(300)"
-              data-h2-margin="b(all, none)"
-            >
+        <div data-h2-flex-item="base(1of1) p-tablet(2of3)">
+          <div>
+            <h2 data-h2-color="base(dt-black)" data-h2-font-weight="base(300)">
               {intl.formatMessage({
                 defaultMessage: "How to use this tool",
                 description:
@@ -169,9 +167,9 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
         <div
-          data-h2-flex-item="b(1of1) s(1of3)"
-          data-h2-visibility="b(hidden) s(visible)"
-          data-h2-position="b(sticky)"
+          data-h2-flex-item="base(1of1) p-tablet(1of3)"
+          data-h2-visibility="base(hidden) p-tablet(visible)"
+          data-h2-position="base(sticky)"
           style={{ top: "3rem", right: "0" }}
         >
           <EstimatedCandidates
@@ -180,12 +178,12 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
       </div>
-      <div data-h2-container="b(center, l)">
+      <div data-h2-container="base(center, large, 0)">
         <div>
           <h3
-            data-h2-font-size="b(h4)"
-            data-h2-font-weight="b(700)"
-            data-h2-margin="b(bottom, m)"
+            data-h2-font-size="base(h4)"
+            data-h2-font-weight="base(700)"
+            data-h2-margin="base(0, 0, x1, 0)"
           >
             {intl.formatMessage(
               {
@@ -208,7 +206,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             }
           />
         </div>
-        <div data-h2-flex-item="b(1of1)" style={{ paddingTop: "0" }}>
+        <div data-h2-flex-item="base(1of1)" style={{ paddingTop: "0" }}>
           {!updatePending ? candidateResults() : <Spinner />}
         </div>
       </div>

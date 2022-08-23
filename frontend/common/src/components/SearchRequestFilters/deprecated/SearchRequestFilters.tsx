@@ -27,11 +27,11 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 
   const emptyArrayOutput = (input: string | string[] | null | undefined) => {
     return input && !isEmpty(input) ? (
-      <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
+      <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
         {input}
       </p>
     ) : (
-      <ul data-h2-font-color="b(black)">
+      <ul data-h2-color="base(dt-black)">
         <li>
           {intl.formatMessage({
             defaultMessage: "(None selected)",
@@ -43,21 +43,21 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
   };
 
   return (
-    <div data-h2-padding="b(bottom, s)">
-      <div data-h2-visibility="b(visible) s(hidden)">
+    <div data-h2-padding="base(0, 0, x.5, 0)">
+      <div data-h2-visibility="base(visible) p-tablet(hidden)">
         <p
-          data-h2-display="b(inline)"
-          data-h2-padding="b(right, xxs)"
-          data-h2-font-weight="b(600)"
+          data-h2-display="base(inline)"
+          data-h2-padding="base(0, x.125, 0, 0)"
+          data-h2-font-weight="base(600)"
         >
           {title}:
         </p>
         {content instanceof Array && content.length > 0 ? (
-          <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
+          <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
             {content.map((text): string => text).join(", ")}
           </p>
         ) : (
-          <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
+          <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
             {content && !isEmpty(content)
               ? content
               : intl.formatMessage({
@@ -67,16 +67,16 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
           </p>
         )}
       </div>
-      <div data-h2-visibility="b(hidden) s(visible)">
+      <div data-h2-visibility="base(hidden) p-tablet(visible)">
         <p
-          data-h2-display="b(block)"
-          data-h2-padding="b(right, xxs)"
-          data-h2-font-weight="b(600)"
+          data-h2-display="base(block)"
+          data-h2-padding="base(0, x.125, 0, 0)"
+          data-h2-font-weight="base(600)"
         >
           {title}
         </p>
         {content instanceof Array && content.length > 0 ? (
-          <ul data-h2-font-color="b(black)">
+          <ul data-h2-color="base(dt-black)">
             {content.map((text) => (
               <li key={uniqueId()}>{text}</li>
             ))}
@@ -189,13 +189,13 @@ const SearchRequestFilters: React.FunctionComponent<
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 
   return (
-    <section data-h2-flex-grid="b(top, contained, flush, xs)">
+    <section data-h2-flex-grid="base(top, contained, flush, xs)">
       <div
-        data-h2-flex-item="b(1of1) s(1of2)"
-        data-h2-border="s(lightgray, right, solid, s)"
+        data-h2-flex-item="base(1of1) p-tablet(1of2)"
+        data-h2-border="base(right, 1px, solid, dt-gray.light)"
         style={{ paddingBottom: "0" }}
       >
-        <div data-h2-padding="s(right, s)">
+        <div data-h2-padding="base(0, x.5, 0, 0)">
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Group and level",
@@ -232,11 +232,11 @@ const SearchRequestFilters: React.FunctionComponent<
         </div>
       </div>
       <div
-        data-h2-flex-item="b(1of1) s(1of2)"
-        data-h2-padding="s(left, xxl)"
+        data-h2-flex-item="base(1of1) p-tablet(1of2)"
+        data-h2-padding="base(0, 0, 0, x3)"
         style={{ paddingTop: "0" }}
       >
-        <div data-h2-padding="s(left, xxl)">
+        <div data-h2-padding="base(0, 0, 0, x3)">
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Work Location",

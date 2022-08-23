@@ -789,7 +789,11 @@ export const operationalRequirementLabelFull = defineMessages({
     defaultMessage:
       "Availability, willingness and ability to work overtime (short notice)",
     description:
-      "The operational requirement described as short notice overtime.",
+      "The operational requirement described as occasional overtime.",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "Work weekends",
+    description: "The operational requirement described as work weekends.",
   },
   [OperationalRequirement.OvertimeOccasional]: {
     defaultMessage:
