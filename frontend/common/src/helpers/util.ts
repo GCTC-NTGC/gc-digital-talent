@@ -106,6 +106,12 @@ export const emptyToNull = (s: InputMaybe<string>): string | null =>
 export const emptyToUndefined = (s: InputMaybe<string>): string | undefined =>
   empty(s) || s === "" ? undefined : s;
 
+/**
+ * Accepts an array of items and removes all duplicate items
+ *
+ * @param arr Array<T>  Array of items
+ * @returns   Array<T>  New array with no duplicates
+ */
 export function uniqueItems<T>(arr: T[]): T[] {
   return Array.from(new Set(arr));
 }
