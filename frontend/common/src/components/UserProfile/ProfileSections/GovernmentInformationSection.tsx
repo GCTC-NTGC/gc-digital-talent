@@ -9,11 +9,7 @@ import { Applicant, GovEmployeeType } from "../../../api/generated";
 const GovernmentInformationSection: React.FunctionComponent<{
   applicant: Pick<
     Applicant,
-    | "isGovEmployee"
-    | "govEmployeeType"
-    | "interestedInLaterOrSecondment"
-    | "department"
-    | "currentClassification"
+    "isGovEmployee" | "govEmployeeType" | "department" | "currentClassification"
   >;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
@@ -33,8 +29,10 @@ const GovernmentInformationSection: React.FunctionComponent<{
         <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {/* // TODO add translation for label */}
-              Employee status:
+              {intl.formatMessage({
+                defaultMessage: "Employee status:",
+                description: "Label for applicant's employee status",
+              })}
               <br />
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage({
@@ -49,20 +47,13 @@ const GovernmentInformationSection: React.FunctionComponent<{
           {applicant.department && (
             <div data-h2-flex-item="base(1of1)">
               <p>
-                {/* // TODO add translation for label */}
-                Department:
+                {intl.formatMessage({
+                  defaultMessage: "Department:",
+                  description: "Label for applicants department",
+                })}
                 <br />
                 <span data-h2-font-weight="base(700)">
-                  {/* // TODO remove department from INTL message */}
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "Department: <strong>{department}</strong>",
-                      description:
-                        "Message to state what department user is in.",
-                    },
-                    { department: applicant.department.name[locale] },
-                  )}
+                  {applicant.department.name[locale]}
                 </span>
               </p>
             </div>
@@ -70,28 +61,13 @@ const GovernmentInformationSection: React.FunctionComponent<{
           {applicant.govEmployeeType && (
             <div data-h2-flex-item="base(1of1)">
               <p>
-                {/* // TODO add translation for label */}
-                Employment type:
+                {intl.formatMessage({
+                  defaultMessage: "Employment type:",
+                  description: "Label for applicant's employment type",
+                })}
                 <br />
                 <span data-h2-font-weight="base(700)">
                   {intl.formatMessage(getGovEmployeeType(govEmployeeTypeId))}
-                </span>
-              </p>
-            </div>
-          )}
-          {applicant.interestedInLaterOrSecondment && (
-            <div data-h2-flex-item="base(1of1)">
-              <p>
-                {/* // TODO add translation for label */}
-                Deployment preferences:
-                <br />
-                <span data-h2-font-weight="base(700)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "I am interested in lateral deployment or secondment.",
-                    description:
-                      "Message to state user is interested in lateral deployment or secondment",
-                  })}
                 </span>
               </p>
             </div>
