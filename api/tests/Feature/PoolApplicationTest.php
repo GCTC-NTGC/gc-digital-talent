@@ -66,7 +66,7 @@ class PoolApplicationTest extends TestCase
           'pool' => [
             'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
           ],
-          'status' => 'DRAFT'
+          'status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]
       ]
     ]);
@@ -93,7 +93,7 @@ class PoolApplicationTest extends TestCase
           'pool' => [
             'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
           ],
-          'status' => 'DRAFT'
+          'status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]
       ]
     ]);
@@ -207,72 +207,72 @@ class PoolApplicationTest extends TestCase
 
     // Create pool candidates
     // submitted at statuses for ones other than draft/draft-expired, and future expiry dates for unexpired
-    PoolCandidate::factory()->create([
+    $candidateOne = PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[0],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
       'submitted_at' => config('constants.past_date'),
       'expiry_date' => config('constants.far_future_date'),
     ]);
-    PoolCandidate::factory()->create([
+    $candidateTwo = PoolCandidate::factory()->create([
         'pool_candidate_status' => $statusesThatShouldFail[1],
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
         'submitted_at' => config('constants.past_date'),
         'expiry_date' => config('constants.far_future_date'),
     ]);
-    PoolCandidate::factory()->create([
+    $candidateThree= PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[2],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
       'submitted_at' => config('constants.past_date'),
       'expiry_date' => config('constants.far_future_date'),
     ]);
-    PoolCandidate::factory()->create([
+    $candidateFour = PoolCandidate::factory()->create([
         'pool_candidate_status' => $statusesThatShouldFail[3],
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
         'submitted_at' => config('constants.past_date'),
         'expiry_date' => config('constants.far_future_date'),
     ]);
-    PoolCandidate::factory()->create([
+    $candidateFive = PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[4],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
       'submitted_at' => config('constants.past_date'),
       'expiry_date' => config('constants.far_future_date'),
     ]);
-    PoolCandidate::factory()->create([
+    $candidateSix = PoolCandidate::factory()->create([
         'pool_candidate_status' => $statusesThatShouldFail[5],
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16',
         'submitted_at' => config('constants.past_date'),
         'expiry_date' => config('constants.far_future_date'),
     ]);
-    PoolCandidate::factory()->create([
+    $candidateSeven = PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[6],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a17',
       'submitted_at' => config('constants.past_date'),
       'expiry_date' => config('constants.far_future_date'),
     ]);
     // these two are draft and draft-expired so no submitted_at and the latter expired
-    PoolCandidate::factory()->create([
+    $candidateEight = PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[7],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a18',
       'expiry_date' => config('constants.far_future_date'),
     ]);
-    PoolCandidate::factory()->create([
+    $candidateNine = PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[8],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a19',
       'expiry_date' => config('constants.past_date'),
     ]);
-    PoolCandidate::factory()->create([
+    $candidateTen = PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[9],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a20',
       'submitted_at' => config('constants.past_date'),
       'expiry_date' => config('constants.far_future_date'),
     ]);
-    PoolCandidate::factory()->create([
+    $candidateEleven = PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[10],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21',
       'submitted_at' => config('constants.past_date'),
       'expiry_date' => config('constants.far_future_date'),
     ]);
-    PoolCandidate::factory()->create([
+    $candidateTwelve = PoolCandidate::factory()->create([
       'pool_candidate_status' => $statusesThatShouldFail[11],
       'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
       'submitted_at' => config('constants.past_date'),
@@ -288,7 +288,7 @@ class PoolApplicationTest extends TestCase
           }
         }
       ', [
-        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+        'id' => $candidateOne->id,
         ])->assertJson([
         'errors' => [[
           'message' => 'pool candidate status does not contain a valid value.',
@@ -301,21 +301,7 @@ class PoolApplicationTest extends TestCase
           }
         }
       ', [
-        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-        ])->assertJson([
-        'errors' => [[
-          'message' => 'pool candidate status does not contain a valid value.',
-        ]]
-    ]);
-
-    $this->graphQL(/** @lang Graphql */ '
-        mutation archivalTest($id: ID!) {
-          archiveApplication(id: $id) {
-            archivedAt
-          }
-        }
-      ', [
-        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
+        'id' => $candidateTwo->id,
         ])->assertJson([
         'errors' => [[
           'message' => 'pool candidate status does not contain a valid value.',
@@ -329,7 +315,7 @@ class PoolApplicationTest extends TestCase
           }
         }
       ', [
-        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
+        'id' => $candidateThree->id,
         ])->assertJson([
         'errors' => [[
           'message' => 'pool candidate status does not contain a valid value.',
@@ -343,7 +329,7 @@ class PoolApplicationTest extends TestCase
           }
         }
       ', [
-        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
+        'id' => $candidateFour->id,
         ])->assertJson([
         'errors' => [[
           'message' => 'pool candidate status does not contain a valid value.',
@@ -357,7 +343,21 @@ class PoolApplicationTest extends TestCase
           }
         }
       ', [
-        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16',
+        'id' => $candidateFive->id,
+        ])->assertJson([
+        'errors' => [[
+          'message' => 'pool candidate status does not contain a valid value.',
+        ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+        mutation archivalTest($id: ID!) {
+          archiveApplication(id: $id) {
+            archivedAt
+          }
+        }
+      ', [
+        'id' => $candidateSix->id,
         ])->assertJson([
         'errors' => [[
           'message' => 'pool candidate status does not contain a valid value.',
@@ -370,7 +370,7 @@ class PoolApplicationTest extends TestCase
           }
         }
       ', [
-        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a17',
+        'id' => $candidateSeven->id,
         ])->assertJson([
         'errors' => [[
           'message' => 'pool candidate status does not contain a valid value.',
@@ -384,7 +384,7 @@ class PoolApplicationTest extends TestCase
         }
       }
     ', [
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a18',
+      'id' => $candidateEight->id,
       ])->assertJson([
       'errors' => [[
         'message' => 'pool candidate status does not contain a valid value.',
@@ -398,7 +398,7 @@ class PoolApplicationTest extends TestCase
         }
       }
     ', [
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a19',
+      'id' => $candidateNine->id,
       ])->assertJson([
       'errors' => [[
         'message' => 'pool candidate status does not contain a valid value.',
@@ -412,7 +412,7 @@ class PoolApplicationTest extends TestCase
         }
       }
     ', [
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a20',
+      'id' => $candidateTen->id,
       ])->assertJson([
       'errors' => [[
         'message' => 'pool candidate status does not contain a valid value.',
@@ -426,7 +426,7 @@ class PoolApplicationTest extends TestCase
         }
       }
     ', [
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21',
+      'id' => $candidateEleven->id,
       ])->assertJson([
       'errors' => [[
         'message' => 'pool candidate status does not contain a valid value.',
@@ -440,7 +440,7 @@ class PoolApplicationTest extends TestCase
         }
       }
     ', [
-      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
+      'id' => $candidateTwelve->id,
       ])->assertJson([
       'errors' => [[
         'message' => 'pool candidate status does not contain a valid value.',
