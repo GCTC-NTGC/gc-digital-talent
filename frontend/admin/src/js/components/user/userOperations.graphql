@@ -44,7 +44,6 @@ query selectedUsers($ids: [ID]!) {
     estimatedLanguageAbility
     isGovEmployee
     govEmployeeType
-    interestedInLaterOrSecondment
     locationPreferences
     locationExemptions
     wouldAcceptTemporary
