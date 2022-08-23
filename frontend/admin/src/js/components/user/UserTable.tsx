@@ -212,8 +212,8 @@ export const UserTable: React.FC = () => {
   const csv = useUserCsvData(selectedApplicants);
 
   return (
-    <div data-h2-margin="b(top-bottom, m)">
-      <h2 id="user-table-heading" data-h2-visibility="b(invisible)">
+    <div data-h2-margin="base(x1, 0)">
+      <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
         {intl.formatMessage({
           defaultMessage: "All Users",
           description: "Title for the admin users table",
@@ -269,43 +269,48 @@ export const UserTable: React.FC = () => {
         }
         hiddenColumnIds={hiddenColumnIds}
       />
-      <Pending fetching={fetching} error={error} inline>
-        <BasicTable
-          labelledBy="user-table-heading"
-          data={filteredData}
-          columns={columns}
-          onSortingRuleChange={setSortingRule}
-          sortingRule={sortingRule}
-          hiddenColumnIds={hiddenColumnIds}
+      <div data-h2-radius="base(s)">
+        <Pending fetching={fetching} error={error} inline>
+          <BasicTable
+            labelledBy="user-table-heading"
+            data={filteredData}
+            columns={columns}
+            onSortingRuleChange={setSortingRule}
+            sortingRule={sortingRule}
+            hiddenColumnIds={hiddenColumnIds}
+          />
+        </Pending>
+        <TableFooter
+          paginatorInfo={data?.usersPaginated?.paginatorInfo}
+          onCurrentPageChange={setCurrentPage}
+          onPageSizeChange={setPageSize}
+          onPrint={handlePrint}
+          csv={{
+            ...csv,
+            fileName: intl.formatMessage(
+              {
+                defaultMessage: "users_{date}.csv",
+                description: "Filename for user CSV file download",
+              },
+              {
+                date: new Date().toISOString(),
+              },
+            ),
+          }}
+          hasSelection
+          fetchingSelected={selectedUsersFetching}
+          selectionError={selectedUsersError}
+          disableActions={
+            selectedUsersFetching ||
+            !!selectedUsersError ||
+            !selectedUsersData?.applicants.length
+          }
         />
-      </Pending>
-      <TableFooter
-        paginatorInfo={data?.usersPaginated?.paginatorInfo}
-        onCurrentPageChange={setCurrentPage}
-        onPageSizeChange={setPageSize}
-        onPrint={handlePrint}
-        csv={{
-          ...csv,
-          fileName: intl.formatMessage(
-            {
-              defaultMessage: "users_{date}.csv",
-              description: "Filename for user CSV file download",
-            },
-            {
-              date: new Date().toISOString(),
-            },
-          ),
-        }}
-        hasSelection
-        fetchingSelected={selectedUsersFetching}
-        selectionError={selectedUsersError}
-        disableActions={
-          selectedUsersFetching ||
-          !!selectedUsersError ||
-          !selectedUsersData?.applicants.length
-        }
-      />
-      <UserProfileDocument applicants={selectedApplicants} ref={componentRef} />
+        <UserProfileDocument
+          applicants={selectedApplicants}
+          ref={componentRef}
+        />
+      </div>
     </div>
   );
 };

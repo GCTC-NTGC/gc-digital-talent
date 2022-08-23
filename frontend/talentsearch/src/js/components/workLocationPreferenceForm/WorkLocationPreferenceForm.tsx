@@ -17,7 +17,7 @@ import {
   WorkRegion,
   UpdateUserAsUserInput,
   useWorkLocationPreferenceQuery,
-  WorkLocationPreferenceQuery,
+  User,
 } from "../../api/generated";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -28,7 +28,7 @@ export type FormValues = Pick<
   "locationPreferences" | "locationExemptions"
 >;
 export interface WorkLocationPreferenceFormProps {
-  initialData: WorkLocationPreferenceQuery | undefined;
+  initialData: User;
   handleWorkLocationPreference: (
     id: string,
     data: UpdateUserAsUserInput,
@@ -40,12 +40,10 @@ export const WorkLocationPreferenceForm: React.FC<
 > = ({ initialData, handleWorkLocationPreference }) => {
   const intl = useIntl();
 
-  const dataToFormValues = (
-    data: WorkLocationPreferenceQuery | undefined,
-  ): FormValues => ({
+  const dataToFormValues = (data: User): FormValues => ({
     ...data,
-    locationPreferences: data?.me?.locationPreferences,
-    locationExemptions: data?.me?.locationExemptions,
+    locationPreferences: data.locationPreferences,
+    locationExemptions: data.locationExemptions,
   });
   const formValuesToSubmitData = (
     values: FormValues,
@@ -59,12 +57,10 @@ export const WorkLocationPreferenceForm: React.FC<
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    if (initialData?.me) {
-      await handleWorkLocationPreference(
-        initialData.me?.id,
-        formValuesToSubmitData(data),
-      );
-    }
+    await handleWorkLocationPreference(
+      initialData.id,
+      formValuesToSubmitData(data),
+    );
   };
 
   return (
@@ -93,8 +89,14 @@ export const WorkLocationPreferenceForm: React.FC<
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-              <div data-h2-padding="b(right, l)" data-testid="workLocation">
+            <div
+              data-h2-flex-item="base(1of1)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
+              <div
+                data-h2-padding="base(0, x2, 0, 0)"
+                data-testid="workLocation"
+              >
                 <Checklist
                   idPrefix="work-location"
                   legend={intl.formatMessage({
@@ -113,8 +115,11 @@ export const WorkLocationPreferenceForm: React.FC<
                 />
               </div>
             </div>
-            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-              <div data-h2-padding="b(right, l)">
+            <div
+              data-h2-flex-item="base(1of1)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
+              <div data-h2-padding="base(0, x2, 0, 0)">
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
@@ -123,7 +128,7 @@ export const WorkLocationPreferenceForm: React.FC<
                       "Explanation text for Location exemptions field in work location preference form",
                   })}
                 </p>
-                <p data-h2-font-color="b([dark]gray)">
+                <p data-h2-color="base(dark.dt-gray)">
                   {intl.formatMessage({
                     defaultMessage:
                       "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
@@ -133,8 +138,11 @@ export const WorkLocationPreferenceForm: React.FC<
                 </p>
               </div>
             </div>
-            <div data-h2-flex-item="b(1of2)" data-h2-padding="b(top, m)">
-              <div data-h2-padding="b(right, l)">
+            <div
+              data-h2-flex-item="base(1of2)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
+              <div data-h2-padding="base(0, x2, 0, 0)">
                 <TextArea
                   id="location-exemptions"
                   label="Location exemptions"
@@ -175,7 +183,7 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
         if (!preProfileStatus && currentProfileStatus) {
           toast.success(message);
         }
-        navigate(paths.home());
+        navigate(paths.home(id));
         toast.success(intl.formatMessage(profileMessages.userUpdated));
 
         return result.data.updateUserAsUser;
@@ -187,7 +195,7 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {userData?.me ? (
         <WorkLocationPreferenceForm
-          initialData={userData}
+          initialData={userData.me}
           handleWorkLocationPreference={handleWorkLocationPreference}
         />
       ) : (

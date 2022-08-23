@@ -17,10 +17,12 @@ const MenuButton: React.FC<DropdownMenuButtonProps> = ({
   const { isExpanded } = useMenuButtonContext();
   return (
     <ReachButton as={Button} mode={isExpanded ? "solid" : "outline"} {...rest}>
-      <span data-h2-display="b(flex)" data-h2-align-items="b(center)">
+      <span data-h2-display="base(flex)" data-h2-align-items="base(center)">
         <span>{children}</span>
         <ChevronDownIcon
-          style={{ height: "1rem", width: "1rem", marginLeft: "0.25rem" }}
+          data-h2-height="base(x1)"
+          data-h2-width="base(x1)"
+          data-h2-margin="base(0, 0, 0, x.125)"
         />
       </span>
     </ReachButton>

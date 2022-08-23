@@ -12,6 +12,7 @@ const indigenousApprenticeshipRoutes = (lang: string) => {
     path.join("/", lang, INDIGENOUSAPPRENTICESHIP_APP_DIR); // leading slash in case empty base url
   return {
     home,
+    frenchURL: (): string => path.join("/", lang, "apprenti-autochtonne-ti"),
   };
 };
 

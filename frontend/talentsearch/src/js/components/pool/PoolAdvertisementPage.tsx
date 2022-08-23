@@ -28,11 +28,13 @@ import {
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
+import commonMessages from "@common/messages/commonMessages";
 import { Role, useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
-import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import commonMessages from "../commonMessages";
+import TALENTSEARCH_APP_DIR, {
+  TALENTSEARCH_RECRUITMENT_EMAIL,
+} from "../../talentSearchConstants";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
 
@@ -68,9 +70,9 @@ const IconTitle = ({ children, icon }: IconTitleProps) => {
 
   return (
     <h3
-      data-h2-display="b(flex)"
-      data-h2-align-items="b(center)"
-      data-h2-font-size="b(h4)"
+      data-h2-display="base(flex)"
+      data-h2-align-items="base(center)"
+      data-h2-font-size="base(h4, 1)"
     >
       <Icon style={{ width: "1em", marginRight: "0.5rem" }} />
       <span>{children}</span>
@@ -79,9 +81,9 @@ const IconTitle = ({ children, icon }: IconTitleProps) => {
 };
 
 // NOTE: Not entirely sure why this is failing?
-const accommodationEmail = (chunks: string[]) => (
+const anchorTag = (chunks: string[]) => (
   // eslint-disable-next-line jsx-a11y/anchor-has-content
-  <a href="mailto:fames@acanteipsum.ca">{...chunks}</a>
+  <a href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>{...chunks}</a>
 );
 
 interface PoolAdvertisementProps {
@@ -196,8 +198,8 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
   return (
     <>
       <div
-        data-h2-padding="b(top-bottom, m) b(right-left, s)"
-        data-h2-font-color="b(white)"
+        data-h2-padding="base(x1, x.5)"
+        data-h2-color="base(dt-white)"
         style={{
           background: `url(${imageUrl(
             TALENTSEARCH_APP_DIR,
@@ -208,23 +210,23 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div data-h2-container="b(center, m)">
-          <h1 data-h2-margin="b(top-bottom, l)">{fullTitle}</h1>
+        <div data-h2-container="base(center, medium, 0)">
+          <h1 data-h2-margin="base(x2, 0)">{fullTitle}</h1>
         </div>
       </div>
       <div
-        data-h2-bg-color="b(white)"
-        data-h2-shadow="b(m)"
-        data-h2-padding="b(top-bottom, m)"
+        data-h2-background-color="base(dt-white)"
+        data-h2-shadow="base(m)"
+        data-h2-padding="base(x1, 0)"
       >
-        <div data-h2-container="b(center, m)">
+        <div data-h2-container="base(center, medium, 0)">
           <Breadcrumbs links={links} />
           <div
-            data-h2-display="b(flex)"
-            data-h2-flex-direction="b(column) m(row)"
-            data-h2-justify-content="b(space-between)"
-            data-h2-align-items="b(center) m(flex-end)"
-            data-h2-margin="b(top, m)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column) p-tablet(row)"
+            data-h2-justify-content="base(space-between)"
+            data-h2-align-items="base(center) p-tablet(flex-end)"
+            data-h2-margin="base(x1, 0, 0, 0)"
           >
             <div>
               <PoolInfoCard
@@ -443,9 +445,9 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
               })}
             </IconTitle>
             <div
-              data-h2-display="b(flex)"
-              data-h2-flex-direction="b(column) m(row)"
-              data-h2-align-items="b(center) m(stretch)"
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column) p-tablet(row)"
+              data-h2-align-items="base(center) p-tablet(stretch)"
             >
               <Card
                 color="ts-secondary"
@@ -456,7 +458,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                     "Title for pool applicant experience requirements",
                 })}
               >
-                <p data-h2-margin="b(top, none)">
+                <p>
                   {intl.formatMessage({
                     defaultMessage:
                       "2 or more years of combined experience in a related field including any of the following:",
@@ -495,11 +497,11 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 </ul>
               </Card>
               <div
-                data-h2-font-size="b(h4)"
-                data-h2-padding="b(all, s)"
-                data-h2-font-weight="b(800)"
-                data-h2-align-self="b(center)"
-                style={{ textTransform: "uppercase" }}
+                data-h2-font-size="base(h4, 1)"
+                data-h2-padding="base(x.5)"
+                data-h2-font-weight="base(700)"
+                data-h2-align-self="base(center)"
+                data-h2-text-transform="base(uppercase)"
               >
                 {intl.formatMessage({
                   defaultMessage: "or",
@@ -516,7 +518,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                     "Title for pool applicant education requirements",
                 })}
               >
-                <p data-h2-margin="b(top-bottom, none)">
+                <p>
                   {intl.formatMessage({
                     defaultMessage:
                       "Successful completion of two years of post secondary education in computer science, information technology, information management or another specialty relevant to this position.",
@@ -615,10 +617,12 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "<strong>Email</strong>: <accommodationEmail>fames@acanteipsum.ca</accommodationEmail>",
+                    "<strong>Email</strong>: <anchorTag>{emailAddress}</anchorTag>",
+                  description: "An email address to contact for help",
                 },
                 {
-                  accommodationEmail,
+                  anchorTag,
+                  emailAddress: TALENTSEARCH_RECRUITMENT_EMAIL,
                 },
               )}
             </p>
@@ -646,6 +650,8 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 ? intl.formatMessage({
                     defaultMessage:
                       "If this process looks like the right fit for you apply now!",
+                    description:
+                      "Message displayed when the pool advertisement can be applied to.",
                   })
                 : intl.formatMessage({
                     defaultMessage: "The deadline for submission has passed.",

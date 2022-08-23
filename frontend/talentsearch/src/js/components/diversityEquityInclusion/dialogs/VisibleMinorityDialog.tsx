@@ -13,7 +13,7 @@ import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
-import DialogActions from "./DialogActions";
+import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
 
 interface FormValues {
@@ -41,11 +41,13 @@ const VisibleMinorityDialogFooter: React.FC<EquityDialogFooterProps> = ({
     <FormProvider {...methods}>
       <AddToProfile />
       <form onSubmit={handleSubmit(submitHandler)}>
-        <Checkbox
-          id="isVisibleMinority"
-          name="isVisibleMinority"
-          label={intl.formatMessage(getEmploymentEquityStatement("minority"))}
-        />
+        <div data-h2-margin="base(0, 0, x1, 0)">
+          <Checkbox
+            id="isVisibleMinority"
+            name="isVisibleMinority"
+            label={intl.formatMessage(getEmploymentEquityStatement("minority"))}
+          />
+        </div>
         {children}
       </form>
     </FormProvider>
@@ -66,14 +68,9 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
       onDismiss={onDismiss}
       color="ts-primary"
       title={intl.formatMessage(getEmploymentEquityGroup("minority"))}
-      footer={
-        <VisibleMinorityDialogFooter isAdded={isAdded} onSave={onSave}>
-          <DialogActions onDismiss={onDismiss} />
-        </VisibleMinorityDialogFooter>
-      }
     >
       <UnderReview />
-      <p>
+      <p data-h2-margin="base(0, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             'Visible minority refers to whether a person is a visible minority or not, as defined by the Employment Equity Act. The Employment Equity Act defines visible minorities as "persons, other than Aboriginal peoples, who are non-Caucasian in race or non-white in colour". The visible minority population consists mainly of the following groups: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese.',
@@ -88,6 +85,11 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
             : "https://www23.statcan.gc.ca/imdb/p3Var_f.pl?Function=DEC&Id=45152"
         }
       />
+      <Dialog.Footer>
+        <VisibleMinorityDialogFooter isAdded={isAdded} onSave={onSave}>
+          <DialogFooter onDismiss={onDismiss} />
+        </VisibleMinorityDialogFooter>
+      </Dialog.Footer>
     </Dialog>
   );
 };

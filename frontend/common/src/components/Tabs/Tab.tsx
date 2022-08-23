@@ -11,41 +11,25 @@ const Tab = (props: TabProps) => {
 
   return (
     <ReachTab
-      data-h2-shadow="b(xs)"
-      data-h2-text-align="b(center)"
-      data-h2-flex-direction="b(column)"
-      data-h2-align-items="b(stretch)"
+      data-h2-padding="base(x.5, x1)"
+      data-h2-margin="base(0, x.5, 0, 0)"
+      data-h2-position="base(relative)"
+      data-h2-offset="base(1px, auto, auto, auto)"
+      data-h2-radius="base(s, s, 0, 0)"
       {...(isSelected
         ? {
-            "data-h2-bg-color": "b(white)",
+            "data-h2-background-color": "base(dt-white)",
+            "data-h2-border":
+              "base(right-left, 1px, solid, dt-gray) base(top, x.5, solid, dt-primary) base(bottom, 1px, solid, dt-white)",
           }
         : {
-            "data-h2-bg-color": "b(lightgray)",
+            "data-h2-background-color": "base(dt-white)",
+            "data-h2-border":
+              "base(all, 1px, solid, dt-gray) base(top, x.5, solid, dt-gray)",
           })}
       {...props}
     >
-      <span
-        {...(isSelected
-          ? {
-              "data-h2-bg-color": "b(lightpurple)",
-            }
-          : {
-              "data-h2-bg-color": "b(lightgray)",
-            })}
-      />
-      <span
-        data-h2-font-size="b(h6)"
-        {...(isSelected
-          ? {
-              "data-h2-bg-color": "b(white)",
-              "data-h2-font-color": "b(lightpurple)",
-            }
-          : {
-              "data-h2-bg-color": "b(lightgray)",
-            })}
-      >
-        {children}
-      </span>
+      <span>{children}</span>
     </ReachTab>
   );
 };

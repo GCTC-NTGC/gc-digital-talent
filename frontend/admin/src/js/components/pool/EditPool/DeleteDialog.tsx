@@ -17,7 +17,7 @@ const DeleteDialog = ({
   const intl = useIntl();
   const Footer = React.useMemo(
     () => (
-      <div data-h2-display="b(flex)">
+      <div data-h2-display="base(flex)">
         <div style={{ flexGrow: 2 } /* push other div to the right */}>
           <Button onClick={onDismiss} mode="outline" color="secondary">
             {intl.formatMessage({
@@ -56,7 +56,6 @@ const DeleteDialog = ({
         defaultMessage: "Delete",
         description: "Heading for the delete pool dialog",
       })}
-      footer={Footer}
     >
       <p>
         {intl.formatMessage({
@@ -70,6 +69,7 @@ const DeleteDialog = ({
           description: "Second paragraph for Delete pool dialog",
         })}
       </p>
+      <Dialog.Footer>{Footer}</Dialog.Footer>
     </Dialog>
   );
 };

@@ -23,21 +23,21 @@ export interface ProfilePageProps {
 
 // styling a text bit with red colour within intls
 export function redText(msg: string) {
-  return <span data-h2-font-color="b(red)">{msg}</span>;
+  return <span data-h2-color="base(dt-error)">{msg}</span>;
 }
 
 export const ProfileForm: React.FC<ProfilePageProps> = ({
   profileDataInput,
 }) => {
-  const { firstName, lastName, experiences } = profileDataInput;
+  const { id: userId, firstName, lastName, experiences } = profileDataInput;
   const paths = useApplicantProfileRoutes();
 
   const experienceEditPaths = {
-    awardUrl: (id: string) => paths.editExperience("award", id),
-    communityUrl: (id: string) => paths.editExperience("community", id),
-    educationUrl: (id: string) => paths.editExperience("education", id),
-    personalUrl: (id: string) => paths.editExperience("personal", id),
-    workUrl: (id: string) => paths.editExperience("work", id),
+    awardUrl: (id: string) => paths.editExperience(userId, "award", id),
+    communityUrl: (id: string) => paths.editExperience(userId, "community", id),
+    educationUrl: (id: string) => paths.editExperience(userId, "education", id),
+    personalUrl: (id: string) => paths.editExperience(userId, "personal", id),
+    workUrl: (id: string) => paths.editExperience(userId, "work", id),
   };
   let userName = `${firstName} ${lastName}`;
   const intl = useIntl();
@@ -55,9 +55,9 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   return (
     <>
       <div
-        data-h2-padding="b(top-bottom, m) b(right-left, s)"
-        data-h2-font-color="b(white)"
-        data-h2-text-align="b(center)"
+        data-h2-padding="base(x1, x.5)"
+        data-h2-color="base(dt-white)"
+        data-h2-text-align="base(center)"
         style={{
           background: `url(${imageUrl(
             TALENTSEARCH_APP_DIR,
@@ -68,7 +68,16 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 data-h2-margin="b(top-bottom, l)">{userName}</h1>
+        <h1
+          data-h2-margin="base(x2, 0)"
+          data-h2-font-weight="base(700)"
+          style={{
+            letterSpacing: "-2px",
+            textShadow: "0 3px 3px rgba(10, 10, 10, .3)",
+          }}
+        >
+          {userName}
+        </h1>
       </div>
 
       <UserProfile
@@ -76,30 +85,36 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
         sections={{
           myStatus: { isVisible: true, override: <MyStatusApi /> },
           hiringPools: { isVisible: true },
-          about: { isVisible: true, editUrl: paths.aboutMe() },
-          language: { isVisible: true, editUrl: paths.languageInformation() },
+          about: { isVisible: true, editUrl: paths.aboutMe(userId) },
+          language: {
+            isVisible: true,
+            editUrl: paths.languageInformation(userId),
+          },
           government: {
             isVisible: true,
-            editUrl: paths.governmentInformation(),
+            editUrl: paths.governmentInformation(userId),
           },
-          workLocation: { isVisible: true, editUrl: paths.workLocation() },
+          workLocation: {
+            isVisible: true,
+            editUrl: paths.workLocation(userId),
+          },
           workPreferences: {
             isVisible: true,
-            editUrl: paths.workPreferences(),
+            editUrl: paths.workPreferences(userId),
           },
           employmentEquity: {
             isVisible: true,
-            editUrl: paths.diversityEquityInclusion(),
+            editUrl: paths.diversityEquityInclusion(userId),
           },
-          roleSalary: { isVisible: true, editUrl: paths.roleSalary() },
+          roleSalary: { isVisible: true, editUrl: paths.roleSalary(userId) },
           skillsExperience: {
             isVisible: true,
-            editUrl: paths.skillsAndExperiences(),
+            editUrl: paths.skillsAndExperiences(userId),
             override: (
               <ExperienceSection
                 experiences={experiences?.filter(notEmpty)}
                 experienceEditPaths={experienceEditPaths}
-                editPath={paths.skillsAndExperiences()}
+                editPath={paths.skillsAndExperiences(userId)}
               />
             ),
           },

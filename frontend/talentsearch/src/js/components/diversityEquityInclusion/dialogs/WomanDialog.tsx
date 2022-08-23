@@ -13,7 +13,7 @@ import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
-import DialogActions from "./DialogActions";
+import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
 
 interface FormValues {
@@ -41,11 +41,13 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
     <FormProvider {...methods}>
       <AddToProfile />
       <form onSubmit={handleSubmit(submitHandler)}>
-        <Checkbox
-          id="isWoman"
-          name="isWoman"
-          label={intl.formatMessage(getEmploymentEquityStatement("woman"))}
-        />
+        <div data-h2-margin="base(0, 0, x1, 0)">
+          <Checkbox
+            id="isWoman"
+            name="isWoman"
+            label={intl.formatMessage(getEmploymentEquityStatement("woman"))}
+          />
+        </div>
         {children}
       </form>
     </FormProvider>
@@ -66,14 +68,9 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
       onDismiss={onDismiss}
       color="ts-primary"
       title={intl.formatMessage(getEmploymentEquityGroup("woman"))}
-      footer={
-        <WomanDialogFooter isAdded={isAdded} onSave={onSave}>
-          <DialogActions onDismiss={onDismiss} />
-        </WomanDialogFooter>
-      }
     >
       <UnderReview />
-      <p>
+      <p data-h2-margin="base(0, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "This category includes persons whose reported gender is female. It includes cisgender (cis) and transgender (trans) women.",
@@ -87,6 +84,11 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
             : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
         }
       />
+      <Dialog.Footer>
+        <WomanDialogFooter isAdded={isAdded} onSave={onSave}>
+          <DialogFooter onDismiss={onDismiss} />
+        </WomanDialogFooter>
+      </Dialog.Footer>
     </Dialog>
   );
 };

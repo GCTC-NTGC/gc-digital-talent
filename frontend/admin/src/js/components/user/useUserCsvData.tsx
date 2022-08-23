@@ -117,13 +117,6 @@ const useUserCsvData = (applicants: Applicant[]) => {
       }),
     },
     {
-      key: "interestedInLaterOrSecondment",
-      label: intl.formatMessage({
-        defaultMessage: "Lateral Deployment / Secondment",
-        description: "CSV Header, Lateral Deployment / Secondment column",
-      }),
-    },
-    {
       key: "currentClassification",
       label: intl.formatMessage({
         defaultMessage: "Current Classification",
@@ -403,7 +396,6 @@ const useUserCsvData = (applicants: Applicant[]) => {
         isGovEmployee,
         department,
         govEmployeeType,
-        interestedInLaterOrSecondment,
         currentClassification,
         locationPreferences,
         locationExemptions,
@@ -441,7 +433,6 @@ const useUserCsvData = (applicants: Applicant[]) => {
         govEmployeeType: govEmployeeType
           ? employeeTypeToString(govEmployeeType)
           : "",
-        interestedInLaterOrSecondment: yesOrNo(interestedInLaterOrSecondment),
         currentClassification: currentClassification
           ? `${currentClassification.group}-${currentClassification.level}`
           : "",

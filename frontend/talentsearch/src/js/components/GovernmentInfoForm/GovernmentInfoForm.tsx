@@ -25,8 +25,8 @@ import {
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-import talentSearchRoutes from "../../talentSearchRoutes";
 import profileMessages from "../profile/profileMessages";
+import applicantProfileRoutes from "../../applicantProfileRoutes";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
@@ -60,7 +60,7 @@ export const formValuesToSubmitData = (
     classifications,
   );
   // various IF statements are to clean up cases where user toggles the conditionally rendered stuff before submitting
-  // IE, picks term position and CS-01, then picks not a government employee before submitting, the conditionally rendered stuff still exists and can get submitted
+  // IE, picks term position and IT-01, then picks not a government employee before submitting, the conditionally rendered stuff still exists and can get submitted
   if (values.govEmployeeYesNo === "no") {
     return {
       isGovEmployee: false,
@@ -187,7 +187,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
   // render the actual form
   return (
     <div>
-      <div data-h2-flex-item="b(1of1) s(1of2) m(1of6) l(1of12)">
+      <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of6) desktop(1of12)">
         <RadioGroup
           idPrefix="govEmployeeYesNo"
           legend={intl.formatMessage({
@@ -223,7 +223,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
       </div>
       {govEmployee === "yes" && (
         <>
-          <div data-h2-padding="b(top-bottom, m)">
+          <div data-h2-padding="base(x1, 0)">
             <Select
               id="department"
               name="department"
@@ -243,7 +243,10 @@ export const GovernmentInfoForm: React.FunctionComponent<
               }}
             />
           </div>
-          <div data-h2-padding="b(bottom, s)" data-h2-flex-item="b(1of3)">
+          <div
+            data-h2-padding="base(0, 0, x.5, 0)"
+            data-h2-flex-item="base(1of3)"
+          >
             <RadioGroup
               idPrefix="govEmployeeType"
               legend={intl.formatMessage({
@@ -278,7 +281,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
       {govEmployee === "yes" &&
         (govEmployeeStatus === GovEmployeeType.Term ||
           govEmployeeStatus === GovEmployeeType.Indeterminate) && (
-          <div data-h2-padding="b(bottom, s)">
+          <div data-h2-padding="base(0, 0, x1, 0)">
             <Checkbox
               id="lateralDeployBool"
               label={intl.formatMessage({
@@ -309,12 +312,18 @@ export const GovernmentInfoForm: React.FunctionComponent<
             })}
           </p>
         )}
-      <div data-h2-display="b(flex)" data-h2-flex-direction="b(column) s(row)">
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) p-tablet(row)"
+      >
         {govEmployee === "yes" &&
           (govEmployeeStatus === GovEmployeeType.Term ||
             govEmployeeStatus === GovEmployeeType.Indeterminate ||
             govEmployeeStatus === GovEmployeeType.Casual) && (
-            <div data-h2-padding="s(right, l)" style={{ width: "100%" }}>
+            <div
+              data-h2-padding="p-tablet(0, x2, 0, 0)"
+              data-h2-width="base(100%)"
+            >
               <Select
                 id="currentClassificationGroup"
                 label={intl.formatMessage({
@@ -430,12 +439,14 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
 };
 
 // outer, containing component
-const GovInfoFormContainer: React.FunctionComponent = () => {
+const GovInfoFormContainer: React.FunctionComponent<{ meId: string }> = ({
+  meId,
+}) => {
   // needed bits for react-intl, form submits functions, and routing post submission
   const intl = useIntl();
 
   const locale = getLocale(intl);
-  const paths = talentSearchRoutes(locale);
+  const paths = applicantProfileRoutes(locale);
 
   // Fetch departments and classifications from graphQL to pass into component to render and pull "Me" at the same time
   const [lookUpResult] = useGetGovInfoFormLookupDataQuery();
@@ -446,7 +457,6 @@ const GovInfoFormContainer: React.FunctionComponent = () => {
   const classifications: Classification[] | [] =
     data?.classifications.filter(notEmpty) ?? [];
   const meInfo = data?.me;
-  const meId = meInfo?.id;
 
   // submitting the form component values back out to graphQL, after smoothing form-values to appropriate type, then return to /profile
   const [, executeMutation] = useUpdateGovAsUserMutation();
@@ -479,10 +489,10 @@ const GovInfoFormContainer: React.FunctionComponent = () => {
           const message = intl.formatMessage(profileMessages.profileCompleted);
           if (!preProfileStatus && currentProfileStatus) {
             toast.success(message);
-            navigate(paths.profile());
+            navigate(paths.home(meId));
           }
         }
-        navigate(paths.profile());
+        navigate(paths.home(meId));
         toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {

@@ -1,14 +1,18 @@
 <?php
 
+use App\Models\AwardExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
+use App\Models\GenericJobTitle;
+use App\Models\Skill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
+use Database\Seeders\SkillSeeder;
 
 class PoolApplicationTest extends TestCase
 {
@@ -296,5 +300,233 @@ class PoolApplicationTest extends TestCase
           'message' => 'pool candidate status does not contain a valid value.',
         ]]
     ]);
+  }
+
+  public function testApplicationSubmit(): void
+  {
+    // need some generic job titles for a complete profile
+    $this->seed(ClassificationSeeder::class);
+    $this->seed(GenericJobTitleSeeder::class);
+
+    // create incomplete user
+    $newUser = User::factory()->create([
+      'is_veteran' => null,
+    ]);
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
+    $newUser->save();
+
+    // pool with no essential skills
+    $newPool = Pool::factory()->create([]);
+    $newPool->essentialSkills()->sync([]);
+
+    $newPoolCandidate = PoolCandidate::factory()->create([
+      'user_id' => $newUser->id,
+      'pool_id' => $newPool->id,
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+    ]);
+
+    // assert incomplete user cannot submit application
+    $this->graphQL(/** @lang Graphql */ '
+      mutation submitTest($id: ID!, $sig: String!) {
+        submitApplication(applicationId: $id, signature: $sig) {
+          submittedAt
+          signature
+        }
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      'sig' => 'SIGNED',
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'The given data was invalid.',
+      ]]
+    ]);
+
+    // make user now complete
+    $newUser->is_veteran = true;
+    $newUser->save();
+
+    // assert complete user can submit application
+    // mimicking testArchivingApplication() where the returned value is always dynamic therefore must test returned structure and type
+    $this->graphQL(/** @lang Graphql */ '
+      mutation submitTest($id: ID!, $sig: String!) {
+        submitApplication(applicationId: $id, signature: $sig) {
+          submittedAt
+        }
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      'sig' => 'SIGNED',
+      ])->assertJson(fn (AssertableJson $json) =>
+      $json->has('data', fn ($json) =>
+        $json->has('submitApplication', fn ($json) =>
+          $json->whereType('submittedAt', 'string')
+        )
+      )
+    );
+
+    // assert user cannot re-submit application
+    $this->graphQL(/** @lang Graphql */ '
+      mutation submitTest($id: ID!, $sig: String!) {
+        submitApplication(applicationId: $id, signature: $sig) {
+          submittedAt
+        }
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      'sig' => 'SIGNED',
+      ])->assertJson([
+        'errors' => [[
+          'message' => 'already submitted',
+        ]]
+    ]);
+  }
+
+  public function testApplicationSubmitSignature(): void
+  {
+    // re-make complete user, attach pool candidate
+    $this->seed(ClassificationSeeder::class);
+    $this->seed(GenericJobTitleSeeder::class);
+
+    $newUser = User::factory()->create();
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
+    $newUser->save();
+
+    $newPool = Pool::factory()->create([]);
+    $newPool->essentialSkills()->sync([]);
+
+    $newPoolCandidate = PoolCandidate::factory()->create([
+      'user_id' => $newUser->id,
+      'pool_id' => $newPool->id,
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+    ]);
+
+    // assert empty signature submission errors
+    $this->graphQL(/** @lang Graphql */ '
+      mutation submitTest($id: ID!, $sig: String!) {
+        submitApplication(applicationId: $id, signature: $sig) {
+          submittedAt
+        }
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      'sig' => '',
+      ])->assertJson([
+        'errors' => [[
+          'message' => 'The given data was invalid.',
+        ]]
+    ]);
+
+    // assert null signature submission errors
+    $this->graphQL(/** @lang Graphql */ '
+      mutation submitTest($id: ID!, $sig: String!) {
+        submitApplication(applicationId: $id, signature: $sig) {
+          submittedAt
+        }
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      'sig' => null,
+      ])->assertJson([
+        'errors' => [[
+          'message' => 'Variable "$sig" of non-null type "String!" must not be null.',
+        ]]
+    ]);
+
+    // assert query above re-submitted with a filled signature field this time succeeds
+    $this->graphQL(/** @lang Graphql */ '
+      mutation submitTest($id: ID!, $sig: String!) {
+        submitApplication(applicationId: $id, signature: $sig) {
+          submittedAt
+        }
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      'sig' => 'SIGNATURE',
+      ])->assertJson(fn (AssertableJson $json) =>
+      $json->has('data', fn ($json) =>
+        $json->has('submitApplication', fn ($json) =>
+          $json->whereType('submittedAt', 'string')
+        )
+      )
+    );
+  }
+
+  public function testApplicationSubmitSkills(): void
+  {
+    // need some generic job titles for a complete profile
+    $this->seed(ClassificationSeeder::class);
+    $this->seed(GenericJobTitleSeeder::class);
+    $this->seed(SkillSeeder::class);
+
+    // create a pool, attach one essential skill to it
+    $newPool = Pool::factory()->create();
+    $newPool->essentialSkills()->sync([Skill::all()->first()->id]);
+
+    // create complete user
+    $newUser = User::factory()->create();
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
+    $newUser->save();
+
+    // create an experience with no skills, then attach it to the user
+    $firstExperience = AwardExperience::factory()->create([
+      'user_id' => $newUser->id,
+    ]);
+
+    $newPoolCandidate = PoolCandidate::factory()->create([
+      'user_id' => $newUser->id,
+      'pool_id' => $newPool->id,
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+    ]);
+
+    // assert user cannot submit application with missing essential skills
+    $this->graphQL(/** @lang Graphql */ '
+      mutation submitTest($id: ID!, $sig: String!) {
+        submitApplication(applicationId: $id, signature: $sig) {
+          submittedAt
+          signature
+        }
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      'sig' => 'SIGNED',
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'The given data was invalid.',
+      ]]
+    ]);
+
+    // create another experience, then attach it to the user, and then connect the essential skill to it
+    $secondExperience = AwardExperience::factory()->create([
+      'user_id' => $newUser->id,
+    ]);
+    $secondExperience->skills()->sync($newPool->essentialSkills()->pluck('pools_essential_skills.skill_id')->toArray());
+
+    // assert user can now submit application as the essential skill is present
+    $this->graphQL(/** @lang Graphql */ '
+      mutation submitTest($id: ID!, $sig: String!) {
+        submitApplication(applicationId: $id, signature: $sig) {
+          submittedAt
+        }
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      'sig' => 'SIGNED',
+      ])->assertJson(fn (AssertableJson $json) =>
+      $json->has('data', fn ($json) =>
+        $json->has('submitApplication', fn ($json) =>
+          $json->whereType('submittedAt', 'string')
+        )
+      )
+    );
   }
 }

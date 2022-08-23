@@ -179,12 +179,12 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
     }));
 
   function span(msg: string): JSX.Element {
-    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
+    return <span data-h2-color="base(dt-primary.light)">{msg}</span>;
   }
 
   return (
     <section>
-      <h2 data-h2-margin="b(top, none)">
+      <h2 data-h2-margin="base(0)">
         {intl.formatMessage({
           defaultMessage: "Request Form",
           description: "Heading for request form.",
@@ -199,9 +199,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       </p>
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div data-h2-flex-grid="b(top, contained, padded, none)">
-            <div data-h2-flex-item="b(1of1) m(1of2)">
-              <div data-h2-padding="b(right, none) m(right, l)">
+          <div data-h2-flex-grid="base(top, contained, padded, none)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <div data-h2-padding="base(0) p-tablet(0, x2, 0, 0)">
                 <Input
                   id="fullName"
                   type="text"
@@ -222,8 +222,8 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 />
               </div>
             </div>
-            <div data-h2-flex-item="b(1of1) m(1of2)">
-              <div data-h2-padding="b(left, none) m(left, l)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <div data-h2-padding="base(0) p-tablet(0, 0, 0, x2)">
                 <Select
                   id="department"
                   name="department"
@@ -244,8 +244,8 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 />
               </div>
             </div>
-            <div data-h2-flex-item="b(1of1) m(1of2)">
-              <div data-h2-padding="b(right, none) m(right, l)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <div data-h2-padding="base(0) p-tablet(0, x2, 0, 0)">
                 <Input
                   id="email"
                   type="email"
@@ -266,8 +266,8 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 />
               </div>
             </div>
-            <div data-h2-flex-item="b(1of1) m(1of2)">
-              <div data-h2-padding="b(left, none) m(left, l)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <div data-h2-padding="base(0) p-tablet(0, 0, 0, x2)">
                 <Input
                   id="jobTitle"
                   type="text"
@@ -309,7 +309,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               rows={8}
             />
           </div>
-          <h2 data-h2-font-weight="b(500)">
+          <h2 data-h2-font-weight="base(500)">
             {intl.formatMessage({
               defaultMessage: "Summary of filters",
               description: "Title of Summary of filters section",
@@ -319,7 +319,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             poolCandidateFilter={poolCandidateFilter}
             poolApplicantFilter={undefined}
           />
-          <p data-h2-font-weight="b(600)">
+          <p data-h2-font-weight="base(600)">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -334,11 +334,11 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             )}
           </p>
 
-          <div data-h2-flex-item="b(1of1)">
+          <div data-h2-flex-item="base(1of1)">
             <Button
               color="primary"
               mode="outline"
-              data-h2-margin="b(right, s)"
+              data-h2-margin="base(right, s)"
               onClick={() => {
                 // Save the initial search form values to the state so they are available to user when click back.
                 pushToStateThenNavigate(paths.search(), {
