@@ -42,20 +42,21 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   const error = get(errors, name)?.message;
 
   return (
-    <div data-h2-margin="b(bottom, xxs)">
+    <div data-h2-margin="base(0, 0, x.125, 0)">
       {!boundingBox ? (
         <InputWrapper
           inputId={id}
           label={label}
+          labelSize="copy"
           required={!!rules.required}
           context={context}
           error={error}
-          data-h2-flex-direction="b(row)"
-          data-h2-align-items="b(flex-start)"
+          data-h2-flex-direction="base(row)"
+          data-h2-align-items="base(center)"
         >
           <input
-            style={{ order: -1 }}
-            data-h2-margin="b(bottom-right, xxs)"
+            data-h2-order="base(-1)"
+            data-h2-margin="base(0, x.25, 0, 0)"
             id={id}
             {...register(name, rules)}
             type="checkbox"
@@ -73,11 +74,12 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           error={error}
         >
           <div
-            data-h2-border="b(darkgray, all, solid, s)"
-            data-h2-radius="b(s)"
-            data-h2-padding="b(right-left, s) b(top-bottom, xxs)"
-            data-h2-display="b(flex)"
-            data-h2-align-items="b(center)"
+            data-h2-background-color="base(dt-white)"
+            data-h2-border="base(all, 1px, solid, dt-gray)"
+            data-h2-radius="base(input)"
+            data-h2-padding="base(x.25, x.5)"
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(center)"
             style={{ width: "100%" }}
           >
             <label htmlFor={id}>
@@ -89,8 +91,8 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
                 {...rest}
               />
               <span
-                data-h2-margin="b(all, none) b(left, xs)"
-                data-h2-font-size="b(caption)"
+                data-h2-margin="base(0, 0, 0, x.25)"
+                data-h2-font-size="base(copy)"
               >
                 {label}
               </span>

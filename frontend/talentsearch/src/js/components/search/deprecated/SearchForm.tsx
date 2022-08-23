@@ -35,16 +35,16 @@ const FilterBlock: React.FunctionComponent<{
     <div>
       <h3
         id={id}
-        data-h2-font-size="b(h4)"
-        data-h2-font-weight="b(700)"
-        data-h2-margin="b(bottom, m)"
+        data-h2-font-size="base(h4)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(0, 0, x1, 0)"
       >
         {title}
       </h3>
       <p
-        data-h2-font-size="b(caption)"
-        data-h2-margin="b(bottom, m)"
-        data-h2-padding="b(right, xl)"
+        data-h2-font-size="base(caption)"
+        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-padding="base(0, x2, 0, 0)"
       >
         {text}
       </p>

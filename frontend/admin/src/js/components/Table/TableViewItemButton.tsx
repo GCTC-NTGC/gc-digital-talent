@@ -19,12 +19,7 @@ function TableViewItemButton({
 }: TableViewItemButtonProps): React.ReactElement {
   const intl = useIntl();
   return (
-    <Link
-      href={viewUrl}
-      type="button"
-      mode="inline"
-      data-h2-font-size="b(caption)"
-    >
+    <Link href={viewUrl} type="button" mode="inline" data-h2-padding="base(0)">
       {intl.formatMessage(
         {
           defaultMessage: "View {name} <hidden>{hiddenLabel}</hidden>",

@@ -29,7 +29,7 @@ const applicantProfileRoutes = (lang: string) => {
     skillsAndExperiences: (userId: string): string =>
       path.join(home(userId), "experiences"),
     createAward: (userId: string): string =>
-      path.join(home(userId), "experiences", "awards", "create"),
+      path.join(home(userId), "experiences", "award", "create"),
     createCommunity: (userId: string): string =>
       path.join(home(userId), "experiences", "community", "create"),
     createEducation: (userId: string): string =>

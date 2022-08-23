@@ -7,6 +7,6 @@ cd /var/www/html/frontend
 npm install
 
 cd /var/www/html/frontend/common
-(cd .. && npm run h2-build --workspace common)
+(cd ..;node node_modules/@hydrogen-design-system/hydrogen.css/bin/build.js)
 npm run codegen
 npm run intl-compile

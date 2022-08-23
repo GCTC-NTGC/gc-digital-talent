@@ -7,7 +7,6 @@ cd /var/www/html/frontend
 npm install
 
 cd /var/www/html/frontend/admin
-(cd .. && npm run h2-build --workspace common)
 npm run codegen
 npm run intl-compile
 npm run dev

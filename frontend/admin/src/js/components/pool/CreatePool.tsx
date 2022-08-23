@@ -137,7 +137,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
 
   return (
-    <section>
+    <section data-h2-container="base(left, small, 0)">
       <PageHeader icon={ViewGridIcon}>
         {intl.formatMessage({
           defaultMessage: "Create New Pool",
@@ -145,16 +145,10 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         })}
       </PageHeader>
       <Breadcrumbs links={links} />
-      <div
-        data-h2-container="b(left, s)"
-        data-h2-bg-color="b(lightgray)"
-        data-h2-padding="b(all, xs)"
-        data-h2-margin="b(top, l)"
-        data-h2-radius="b(s)"
-      >
+      <div data-h2-margin="base(x2, 0, 0, 0)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h3 data-h2-margin="b(top-bottom, xs)">
+            <h3 data-h2-margin="base(x.25, 0)">
               {intl.formatMessage({
                 defaultMessage: "Start blank job poster",
                 description: "Form header to create new pool",
@@ -167,7 +161,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               })}
             </p>
             <Select
-              // data-h2-padding="b(right, l)"
               id="classification"
               label={intl.formatMessage({
                 defaultMessage: "Starting group and level",
@@ -214,7 +207,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         </FormProvider>
       </div>
 
-      <div data-h2-margin="b(top, l)">
+      <div data-h2-margin="base(x2, 0, 0, 0)">
         <Link
           type="button"
           href={paths.poolTable()}
