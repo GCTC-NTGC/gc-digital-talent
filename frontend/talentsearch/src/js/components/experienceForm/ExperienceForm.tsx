@@ -7,7 +7,7 @@ import { getLocale } from "@common/helpers/localize";
 import { navigate, useQueryParams } from "@common/helpers/router";
 import { Button } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
-import { UserIcon, TrashIcon } from "@heroicons/react/solid";
+import { TrashIcon } from "@heroicons/react/solid";
 
 import { removeFromSessionStorage } from "@common/helpers/storageUtils";
 import NotFound from "@common/components/NotFound";
@@ -130,7 +130,6 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           description: "Link text for breadcrumb to user applications page.",
         }),
         href: directIntakePaths.applications(userId),
-        icon: <UserIcon style={{ width: "1rem", marginRight: "5px" }} />,
       },
       {
         title: advertisementTitle,
