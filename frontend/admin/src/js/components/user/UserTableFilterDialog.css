@@ -1,0 +1,12 @@
+/* Force modal to be near-full screen, regardless of breakpoint */
+#user-table-filter-dialog [data-reach-dialog-content] {
+  width: 95vw;
+}
+
+.search-filter__row {
+  display: flex;
+}
+
+.search-filter__row > :first-child {
+  margin-left: 0;
+}

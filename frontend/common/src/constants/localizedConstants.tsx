@@ -201,6 +201,49 @@ export const getEducationRequirement = (
     `Invalid Education Requirement '${educationRequirementId}'`,
   );
 
+export const EmploymentDuration = {
+  Term: "TERM",
+  Indeterminate: "INDETERMINATE",
+};
+export const employmentDurationShort = defineMessages({
+  [EmploymentDuration.Term]: {
+    defaultMessage: "Term",
+    description:
+      "Duration of a non-permanent length (short-form for limited space)",
+  },
+  [EmploymentDuration.Indeterminate]: {
+    defaultMessage: "Indeterminate",
+    description: "Duration that is permanent (short-form for limited space)",
+  },
+});
+
+export const employmentDurationLong = defineMessages({
+  [EmploymentDuration.Term]: {
+    defaultMessage: "Term duration (short term, long term)",
+    description: "Duration of a non-permanent length",
+  },
+  [EmploymentDuration.Indeterminate]: {
+    defaultMessage: "Indeterminate duration (permanent)",
+    description: "Duration that is permanent",
+  },
+});
+
+export const getEmploymentDuration = (
+  employmentDurationId: string | number,
+  format: "long" | "short" = "long",
+): MessageDescriptor => {
+  const messageDictionary = {
+    long: employmentDurationLong,
+    short: employmentDurationShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[format],
+    employmentDurationId,
+    `Invalid Employment Duration '${employmentDurationId}'`,
+  );
+};
+
 export const languageAbilities = defineMessages({
   [LanguageAbility.English]: {
     defaultMessage: "English only",
@@ -964,14 +1007,36 @@ export const JobLookingStatusDescription = defineMessages({
   },
 });
 
-export const getJobLookingStatusDescription = (
+export const JobLookingStatusShort = defineMessages({
+  [JobLookingStatus.ActivelyLooking]: {
+    defaultMessage: "Actively looking",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.OpenToOpportunities]: {
+    defaultMessage: "Open to opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.Inactive]: {
+    defaultMessage: "Inactive",
+    description: "Job Looking Status described as Actively looking.",
+  },
+});
+
+export const getJobLookingStatus = (
   jobLookingStatusDescriptionId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    JobLookingStatusDescription,
+  format: "description" | "short" = "description",
+): MessageDescriptor => {
+  const messageDictionary = {
+    description: JobLookingStatusDescription,
+    short: JobLookingStatusShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[format],
     jobLookingStatusDescriptionId,
     `Invalid Job Looking Status '${jobLookingStatusDescriptionId}'`,
   );
+};
 
 export const getProvinceOrTerritory = (
   provinceOrTerritoryId: string | number,
