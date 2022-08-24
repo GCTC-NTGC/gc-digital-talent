@@ -785,4 +785,269 @@ class PoolApplicationTest extends TestCase
       ]
     ]);
   }
+
+  public function testApplicationDeletionStatuses(): void
+  {
+    // RECYCLING FROM ABOVE TESTS
+    // array of statuses that should fail the test, as they should not allow deletion
+    $statusesThatShouldFail = [
+      ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+      ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+      ApiEnums::CANDIDATE_STATUS_SCREENED_IN,
+      ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
+      ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
+      ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
+      ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+      ApiEnums::CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE,
+      ApiEnums::CANDIDATE_STATUS_QUALIFIED_WITHDREW,
+      ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+      ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
+      ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE,
+      ApiEnums::CANDIDATE_STATUS_EXPIRED,
+    ];
+
+    // Create admin user we run tests as
+    $newUser = new User;
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->save();
+
+    // Create pool candidates
+    $candidateOne = PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[0],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
+    ]);
+    $candidateTwo = PoolCandidate::factory()->create([
+        'pool_candidate_status' => $statusesThatShouldFail[1],
+        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+        'submitted_at' => config('constants.past_date'),
+        'expiry_date' => config('constants.far_future_date'),
+    ]);
+    $candidateThree= PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[2],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
+    ]);
+    $candidateFour = PoolCandidate::factory()->create([
+        'pool_candidate_status' => $statusesThatShouldFail[3],
+        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
+        'submitted_at' => config('constants.past_date'),
+        'expiry_date' => config('constants.far_future_date'),
+    ]);
+    $candidateFive = PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[4],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
+    ]);
+    $candidateSix = PoolCandidate::factory()->create([
+        'pool_candidate_status' => $statusesThatShouldFail[5],
+        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16',
+        'submitted_at' => config('constants.past_date'),
+        'expiry_date' => config('constants.far_future_date'),
+    ]);
+    $candidateSeven = PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[6],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a17',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
+    ]);
+    $candidateEight = PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[7],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a18',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
+    ]);
+    $candidateNine = PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[8],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a19',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
+    ]);
+    $candidateTen = PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[9],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a20',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
+    ]);
+    $candidateEleven = PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[10],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
+    ]);
+    $candidateTwelve = PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[11],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.far_future_date'),
+    ]);
+    $candidateThirteen = PoolCandidate::factory()->create([
+      'pool_candidate_status' => $statusesThatShouldFail[12],
+      'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a23',
+      'submitted_at' => config('constants.past_date'),
+      'expiry_date' => config('constants.past_date'),
+    ]);
+
+    // Assert submitted object cannot be deleted, 13 different ones that should fail
+    // just running through each of them one at a time
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+        'id' => $candidateOne->id,
+        ])->assertJson([
+        'errors' => [[
+          'message' => 'pool candidate status does not contain a valid value.',
+        ]]
+    ]);
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+        'id' => $candidateTwo->id,
+        ])->assertJson([
+        'errors' => [[
+          'message' => 'pool candidate status does not contain a valid value.',
+        ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+        'id' => $candidateThree->id,
+        ])->assertJson([
+        'errors' => [[
+          'message' => 'pool candidate status does not contain a valid value.',
+        ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+        'id' => $candidateFour->id,
+        ])->assertJson([
+        'errors' => [[
+          'message' => 'pool candidate status does not contain a valid value.',
+        ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+        'id' => $candidateFive->id,
+        ])->assertJson([
+        'errors' => [[
+          'message' => 'pool candidate status does not contain a valid value.',
+        ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+        'id' => $candidateSix->id,
+        ])->assertJson([
+        'errors' => [[
+          'message' => 'pool candidate status does not contain a valid value.',
+        ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+        'id' => $candidateSeven->id,
+        ])->assertJson([
+        'errors' => [[
+          'message' => 'pool candidate status does not contain a valid value.',
+        ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+      'id' => $candidateEight->id,
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+      'id' => $candidateNine->id,
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+      'id' => $candidateTen->id,
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+      'id' => $candidateEleven->id,
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+    ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+      'id' => $candidateTwelve->id,
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+      ]);
+
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+      'id' => $candidateThirteen->id,
+      ])->assertJson([
+      'errors' => [[
+        'message' => 'pool candidate status does not contain a valid value.',
+      ]]
+    ]);
+  }
 }
