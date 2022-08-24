@@ -27,6 +27,7 @@ const ApplicationNavigation = ({
   <div
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column) p-tablet(row)"
+    data-h2-align-items="base(center) p-tablet(flex-start)"
   >
     {steps.map((step, index) => (
       <Spacer key={step.path} isLast={index + 1 !== steps.length}>
