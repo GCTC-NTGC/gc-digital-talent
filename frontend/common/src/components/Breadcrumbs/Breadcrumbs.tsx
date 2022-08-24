@@ -50,7 +50,7 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
             href={previousStep.href}
             key={previousStep.title}
           >
-            {previousStep.icon || ""} {previousStep.title}
+            {previousStep.title}
           </Link>
         </>
       ) : (
