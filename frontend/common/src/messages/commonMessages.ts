@@ -30,6 +30,10 @@ const messages = defineMessages({
     defaultMessage: "Go back to my profile",
     description: "Link text for button to return to user profile",
   },
+  backToApplication: {
+    defaultMessage: "Go back to my application",
+    description: "Link text for button to return to user application",
+  },
 });
 
 export default messages;

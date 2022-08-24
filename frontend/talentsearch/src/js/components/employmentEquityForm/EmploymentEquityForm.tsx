@@ -1,39 +1,68 @@
 import React from "react";
 import { useIntl } from "react-intl";
-
-import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
-import type { UpdateUserAsUserInput, User } from "@common/api/generated";
-
-import NotFound from "@common/components/NotFound";
+import { getLocale } from "@common/helpers/localize";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { BriefcaseIcon } from "@heroicons/react/solid";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
-
-import {
-  useGetMyDiversityInfoQuery,
-  useUpdateMyDiversityInfoMutation,
-} from "../../api/generated";
-
 import EquityOptions from "./EquityOptions";
-import type { DiversityInclusionUpdateHandler, EquityKeys } from "./types";
-import profileMessages from "../profile/profileMessages";
+import type { EmploymentEquityUpdateHandler, EquityKeys } from "./types";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
+import { User, PoolCandidate } from "../../api/generated";
+import applicantProfileRoutes from "../../applicantProfileRoutes";
+import directIntakeRoutes from "../../directIntakeRoutes";
 
-export interface DiversityEquityInclusionFormProps {
+export interface EmploymentEquityFormProps {
   user: User;
   isMutating: boolean;
-  onUpdate: DiversityInclusionUpdateHandler;
+  application?: PoolCandidate;
+  onUpdate: EmploymentEquityUpdateHandler;
 }
 
-export const DiversityEquityInclusionForm: React.FC<
-  DiversityEquityInclusionFormProps
-> = ({ user, onUpdate, isMutating }) => {
+export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
+  user,
+  application,
+  onUpdate,
+  isMutating,
+}) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const profilePaths = applicantProfileRoutes(locale);
+  const directIntakePaths = directIntakeRoutes(locale);
+  const returnRoute =
+    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.poolApply(application.pool.id)
+      : profilePaths.home(user.id);
 
   const handleUpdate = (key: EquityKeys, value: boolean) => {
     return onUpdate(user.id, {
       [key]: value,
     });
   };
+
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
 
   return (
     <ProfileFormWrapper
@@ -49,6 +78,7 @@ export const DiversityEquityInclusionForm: React.FC<
           "Title for Profile Form wrapper  in DiversityEquityInclusionForm",
       })}
       crumbs={[
+        ...applicationBreadcrumbs,
         {
           title: intl.formatMessage({
             defaultMessage: "Diversity, equity and inclusion",
@@ -58,8 +88,14 @@ export const DiversityEquityInclusionForm: React.FC<
         },
       ]}
       cancelLink={{
-        children: intl.formatMessage(commonMessages.backToProfile),
+        href: returnRoute,
+        children: intl.formatMessage(
+          application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+            ? commonMessages.backToApplication
+            : commonMessages.backToProfile,
+        ),
       }}
+      prefixBreadcrumbs={!application}
     >
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
@@ -154,45 +190,16 @@ export const DiversityEquityInclusionForm: React.FC<
       <ProfileFormFooter
         mode="cancelButton"
         cancelLink={{
-          children: intl.formatMessage(commonMessages.backToProfile),
+          href: returnRoute,
+          children: intl.formatMessage(
+            application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+              ? commonMessages.backToApplication
+              : commonMessages.backToProfile,
+          ),
         }}
       />
     </ProfileFormWrapper>
   );
 };
 
-const DiversityEquityInclusionFormApi: React.FC = () => {
-  const intl = useIntl();
-
-  const [{ data, fetching, error }] = useGetMyDiversityInfoQuery();
-  const [{ fetching: mutationFetching }, executeMutation] =
-    useUpdateMyDiversityInfoMutation();
-
-  const handleUpdateUser = (id: string, values: UpdateUserAsUserInput) => {
-    return executeMutation({ id, user: values }).then((res) => {
-      if (res.data?.updateUserAsUser) {
-        return res.data.updateUserAsUser;
-      }
-
-      return Promise.reject(res.error);
-    });
-  };
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {data?.me ? (
-        <DiversityEquityInclusionForm
-          user={data.me}
-          onUpdate={handleUpdateUser}
-          isMutating={mutationFetching}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-export default DiversityEquityInclusionFormApi;
+export default EmploymentEquityForm;

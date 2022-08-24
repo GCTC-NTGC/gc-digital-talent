@@ -24,7 +24,7 @@ import {
 const mockDepartments = fakeDepartments();
 const mockClassifications = fakeClassifications();
 const mockUser = fakeUsers()[0];
-const mockSave = jest.fn();
+const mockSave = jest.fn((data) => Promise.resolve(data));
 
 const renderGovInfoForm = ({
   initialData,
