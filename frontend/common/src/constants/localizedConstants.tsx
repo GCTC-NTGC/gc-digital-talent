@@ -394,34 +394,6 @@ export const getWorkRegion = (
   );
 
 export const poolCandidateStatuses = defineMessages({
-  [PoolCandidateStatus.Available]: {
-    defaultMessage: "Available",
-    description: "The pool candidate's status is Available.",
-  },
-  [PoolCandidateStatus.NoLongerInterested]: {
-    defaultMessage: "No Longer Interested",
-    description: "The pool candidate's status is No Longer Interested.",
-  },
-  [PoolCandidateStatus.PlacedIndeterminate]: {
-    defaultMessage: "Placed Indeterminate",
-    description: "The pool candidate's status is Placed Indeterminate.",
-  },
-  [PoolCandidateStatus.PlacedTerm]: {
-    defaultMessage: "Placed Term",
-    description: "The pool candidate's status is Placed Term.",
-  },
-  [PoolCandidateStatus.Unavailable]: {
-    defaultMessage: "Unavailable",
-    description: "The pool candidate's status is Unavailable.",
-  },
-  [PoolCandidateStatus.Expired]: {
-    defaultMessage: "Expired",
-    description: "The pool candidate's status is Expired.",
-  },
-  [PoolCandidateStatus.PlacedCasual]: {
-    defaultMessage: "Placed Casual",
-    description: "The pool candidate's status is Placed Casual.",
-  },
   [PoolCandidateStatus.Draft]: {
     defaultMessage: "Draft",
     description: "The pool candidate's status is Draft.",
@@ -429,6 +401,58 @@ export const poolCandidateStatuses = defineMessages({
   [PoolCandidateStatus.DraftExpired]: {
     defaultMessage: "Draft Expired",
     description: "The pool candidate's status is Expired Draft.",
+  },
+  [PoolCandidateStatus.NewApplication]: {
+    defaultMessage: "New Application",
+    description: "The pool candidate's status is New Application.",
+  },
+  [PoolCandidateStatus.ApplicationReview]: {
+    defaultMessage: "Application Review",
+    description: "The pool candidate's status is Application Review.",
+  },
+  [PoolCandidateStatus.ScreenedIn]: {
+    defaultMessage: "Screened In",
+    description: "The pool candidate's status is Screened In.",
+  },
+  [PoolCandidateStatus.ScreenedOutApplication]: {
+    defaultMessage: "Screened Out Application",
+    description: "The pool candidate's status is Screened Out Application",
+  },
+  [PoolCandidateStatus.UnderAssessment]: {
+    defaultMessage: "Under Assessment",
+    description: "The pool candidate's status is Under Assessment.",
+  },
+  [PoolCandidateStatus.ScreenedOutAssessment]: {
+    defaultMessage: "Screened Out Assessment",
+    description: "The pool candidate's status is Screened Out Assessment.",
+  },
+  [PoolCandidateStatus.QualifiedAvailable]: {
+    defaultMessage: "Qualified Available",
+    description: "The pool candidate's status is Qualified Available",
+  },
+  [PoolCandidateStatus.QualifiedUnavailable]: {
+    defaultMessage: "Qualified Unavailable",
+    description: "The pool candidate's status is Qualified Unavailable.",
+  },
+  [PoolCandidateStatus.QualifiedWithdrew]: {
+    defaultMessage: "Qualified Withdrew",
+    description: "The pool candidate's status is Qualified Withdrew.",
+  },
+  [PoolCandidateStatus.PlacedCasual]: {
+    defaultMessage: "Placed Casual",
+    description: "The pool candidate's status is Placed Casual.",
+  },
+  [PoolCandidateStatus.PlacedTerm]: {
+    defaultMessage: "Placed Term",
+    description: "The pool candidate's status is Placed Term.",
+  },
+  [PoolCandidateStatus.PlacedIndeterminate]: {
+    defaultMessage: "Placed Indeterminate",
+    description: "The pool candidate's status is Placed Indeterminate.",
+  },
+  [PoolCandidateStatus.Expired]: {
+    defaultMessage: "Expired",
+    description: "The pool candidate's status is Expired.",
   },
 });
 

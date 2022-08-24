@@ -280,15 +280,21 @@ enum AdvertisementStatus {
 }
 
 enum PoolCandidateStatus {
-    AVAILABLE
-    PLACED_INDETERMINATE
-    PLACED_TERM
-    NO_LONGER_INTERESTED
-    UNAVAILABLE
-    EXPIRED
-    PLACED_CASUAL
     DRAFT
     DRAFT_EXPIRED
+    NEW_APPLICATION
+    APPLICATION_REVIEW
+    SCREENED_IN
+    SCREENED_OUT_APPLICATION
+    UNDER_ASSESSMENT
+    SCREENED_OUT_ASSESSMENT
+    QUALIFIED_AVAILABLE
+    QUALIFIED_UNAVAILABLE
+    QUALIFIED_WITHDREW
+    PLACED_CASUAL
+    PLACED_TERM
+    PLACED_INDETERMINATE
+    EXPIRED
 }
 
 enum SecurityStatus{
@@ -984,7 +990,7 @@ input CreatePoolCandidateAsAdminInput {
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     cmoAssets: CmoAssetBelongsToMany
-    status: PoolCandidateStatus = AVAILABLE
+    status: PoolCandidateStatus = NEW_APPLICATION
         @rename(attribute: "pool_candidate_status")
     notes: String
 }
