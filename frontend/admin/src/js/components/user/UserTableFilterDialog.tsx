@@ -92,6 +92,7 @@ const UserTableFilterDialog = ({
   return (
     <Dialog
       {...{ isOpen, onDismiss }}
+      color="ts-secondary"
       id="user-table-filter-dialog"
       title={formatMessage({
         defaultMessage: "Select filters",
@@ -261,8 +262,8 @@ const UserTableFilterButton = ({
     <>
       <Button
         onClick={handleOpen}
-        mode="outline"
-        color="black"
+        mode="solid"
+        color="secondary"
         type="button"
         data-h2-display="base(inline-flex)"
         data-h2-align-items="base(center)"
