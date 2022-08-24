@@ -1,0 +1,164 @@
+# Comes from frontend/talentsearch/src/js/api/userOperations.graphql
+# Should match the getMe query from that file to take accurate snapshots
+query getProfile($userId:ID!) {
+            user(id:$userId) {
+              id
+              sub
+              roles
+              firstName
+              lastName
+              email
+              telephone
+              preferredLang
+              currentProvince
+              currentCity
+              citizenship
+              isVeteran
+              languageAbility
+              lookingForEnglish
+              lookingForFrench
+              lookingForBilingual
+              bilingualEvaluation
+              comprehensionLevel
+              writtenLevel
+              verbalLevel
+              estimatedLanguageAbility
+              isGovEmployee
+              govEmployeeType
+              interestedInLaterOrSecondment
+              department {
+                id
+                departmentNumber
+                name {
+                  en
+                  fr
+                }
+              }
+              currentClassification {
+                id
+                group
+                level
+                name {
+                  en
+                  fr
+                }
+              }
+              expectedGenericJobTitles {
+                id
+                key
+                name {
+                  en
+                  fr
+                }
+              }
+              isWoman
+              hasDisability
+              isIndigenous
+              isVisibleMinority
+              jobLookingStatus
+              hasDiploma
+              locationPreferences
+              locationExemptions
+              acceptedOperationalRequirements
+              expectedSalary
+              expectedClassifications {
+                id
+                name {
+                  en
+                  fr
+                }
+                group
+                level
+              }
+              wouldAcceptTemporary
+              cmoAssets {
+                id
+                name {
+                  en
+                  fr
+                }
+                description {
+                  en
+                  fr
+                }
+                key
+              }
+              experiences {
+                id
+                __typename
+                applicant {
+                  id
+                  email
+                }
+                details
+                skills {
+                  id
+                  key
+                  name {
+                    en
+                    fr
+                  }
+                  description {
+                    en
+                    fr
+                  }
+                  keywords {
+                    en
+                    fr
+                  }
+                  experienceSkillRecord {
+                    details
+                  }
+                }
+                ... on AwardExperience {
+                  title
+                  issuedBy
+                  awardedDate
+                  awardedTo
+                  awardedScope
+                }
+                ... on CommunityExperience {
+                  title
+                  organization
+                  project
+                  startDate
+                  endDate
+                }
+                ... on EducationExperience {
+                  institution
+                  areaOfStudy
+                  thesisTitle
+                  startDate
+                  endDate
+                  type
+                  status
+                }
+                ... on PersonalExperience {
+                  title
+                  description
+                  startDate
+                  endDate
+                }
+                ... on WorkExperience {
+                  role
+                  organization
+                  division
+                  startDate
+                  endDate
+                }
+              }
+              poolCandidates {
+                status
+                expiryDate
+                pool {
+                  id
+                  name {
+                    en
+                    fr
+                  }
+                }
+                id
+              }
+              isProfileComplete
+            }
+          }

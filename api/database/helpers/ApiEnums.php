@@ -118,6 +118,8 @@ class ApiEnums
     const CANDIDATE_STATUS_UNAVAILABLE = 'UNAVAILABLE';
     const CANDIDATE_STATUS_EXPIRED = 'EXPIRED';
     const CANDIDATE_STATUS_PLACED_CASUAL = 'PLACED_CASUAL';
+    const CANDIDATE_STATUS_DRAFT = 'DRAFT';
+    const CANDIDATE_STATUS_DRAFT_EXPIRED = 'DRAFT_EXPIRED';
 
     public static function candidateStatuses() : array
     {
@@ -129,6 +131,8 @@ class ApiEnums
             self::CANDIDATE_STATUS_UNAVAILABLE,
             self::CANDIDATE_STATUS_EXPIRED,
             self::CANDIDATE_STATUS_PLACED_CASUAL,
+            self::CANDIDATE_STATUS_DRAFT,
+            self::CANDIDATE_STATUS_DRAFT_EXPIRED,
         ];
     }
 

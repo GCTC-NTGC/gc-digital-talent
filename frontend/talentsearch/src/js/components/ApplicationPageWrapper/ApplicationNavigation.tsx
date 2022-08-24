@@ -12,9 +12,7 @@ const Spacer = ({ children, isLast }: SpacerProps) => {
     return children as JSX.Element;
   }
 
-  return (
-    <div data-h2-margin="b(top, xxs) s(left, xxs) s(top, none)">{children}</div>
-  );
+  return <div data-h2-margin="base(0, 0, 0, x.125)">{children}</div>;
 };
 
 export interface ApplicationNavigationProps {
@@ -27,9 +25,9 @@ const ApplicationNavigation = ({
   steps,
 }: ApplicationNavigationProps) => (
   <div
-    data-h2-display="b(flex)"
-    data-h2-flex-direction="b(column) s(row)"
-    data-h2-align-items="b(center) s(flex-start)"
+    data-h2-display="base(flex)"
+    data-h2-flex-direction="base(column) p-tablet(row)"
+    data-h2-align-items="base(center) p-tablet(flex-start)"
   >
     {steps.map((step, index) => (
       <Spacer key={step.path} isLast={index + 1 !== steps.length}>
@@ -37,7 +35,7 @@ const ApplicationNavigation = ({
           {...step}
           disabled={index + 1 === currentStep}
           {...(index !== steps.length - 1 && {
-            "data-h2-margin": "s(right, s)",
+            "data-h2-margin": "p-tablet(0, x.5, 0, 0)",
           })}
         />
       </Spacer>

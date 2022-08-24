@@ -136,7 +136,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         {experienceType === "personal" && <PersonalExperienceForm />}
         {experienceType === "work" && <WorkExperienceForm />}
         <ExperienceSkills skills={skills} />
-        <h2 data-h2-font-size="b(h3)">
+        <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "4. Additional information for this experience",
             description: "Title for addition information on Experience form",
@@ -165,7 +165,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
             type="button"
             mode="outline"
             color="secondary"
-            data-h2-margin="b(top, l)"
+            data-h2-margin="base(x2, 0, 0, 0)"
           >
             <span>
               <TrashIcon style={{ width: "0.9rem" }} />{" "}
@@ -213,7 +213,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
               description: "Cancel confirmation",
             })}
           </Button>
-          <span data-h2-margin="b(left, xxs)">
+          <span data-h2-margin="base(0, 0, 0, x.125)">
             <Button
               type="submit"
               mode="solid"

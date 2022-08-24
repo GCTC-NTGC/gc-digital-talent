@@ -101,9 +101,7 @@ describe("GovernmentInfoForm", () => {
         name: /i have a term position/i,
       }),
     );
-    expect(
-      screen.getByRole("checkbox", { name: /lateral deployment/i }),
-    ).toBeInTheDocument();
+
     expect(
       screen.getByRole("option", {
         name: /choose group/i,
@@ -134,12 +132,6 @@ describe("GovernmentInfoForm", () => {
       name: /i have a term position/i,
     });
     fireEvent.click(termPos); // Open the other forms
-
-    expect(
-      await screen.getByText(
-        "Please indicate if you are interested in lateral deployment or secondment. Learn more about this.",
-      ),
-    ).toBeTruthy();
 
     expect(await screen.getByText("Current Classification Group")).toBeTruthy();
 

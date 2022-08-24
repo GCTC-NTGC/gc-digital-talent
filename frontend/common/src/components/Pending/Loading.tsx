@@ -20,15 +20,20 @@ export interface LoadingProps {
 
 const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
   const intl = useIntl();
-
+  const inlineWrapper = {
+    inline: {
+      "data-h2-background-color": "base(dt-white)",
+      "data-h2-padding": "base(x.25)",
+      "data-h2-radius": "base(100%)",
+    },
+    none: {},
+  };
   const typeMap = {
     inline: {
-      "data-h2-padding": "b(all, s)",
-      "data-h2-position": "b(relative)",
+      "data-h2-position": "base(relative)",
     },
     full: {
-      "data-h2-padding": undefined,
-      "data-h2-position": "b(fixed)",
+      "data-h2-position": "base(fixed)",
     },
   };
 
@@ -38,26 +43,28 @@ const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
       {...(live && {
         "aria-live": live,
       })}
-      data-h2-display="b(flex)"
-      data-h2-align-items="b(center)"
-      data-h2-justify-content="b(center)"
+      data-h2-display="base(flex)"
+      data-h2-align-items="base(center)"
+      data-h2-justify-content="base(center)"
       style={{
         backgroundColor: inline ? undefined : `rgba(255,255,255,0.95)`,
         bottom: 0,
-        left: 0,
-        right: 0,
+        left: inline ? `1rem` : 0,
+        right: inline ? `1rem` : 0,
         top: 0,
         zIndex: 9999,
       }}
     >
-      <span className="lds-dual-ring">
-        <span data-h2-visibility="b(invisible)">
-          {intl.formatMessage({
-            defaultMessage: "Loading...",
-            description: "Message to display when a page is loading.",
-          })}
+      <div {...inlineWrapper[inline === true ? "inline" : "none"]}>
+        <span className="lds-dual-ring">
+          <span data-h2-visibility="base(invisible)">
+            {intl.formatMessage({
+              defaultMessage: "Loading...",
+              description: "Message to display when a page is loading.",
+            })}
+          </span>
         </span>
-      </span>
+      </div>
     </div>
   );
 };

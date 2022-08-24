@@ -71,7 +71,7 @@ export interface SectionMetadata {
 type SpacerProps = React.HTMLProps<HTMLSpanElement>;
 
 export const Spacer = ({ children, ...rest }: SpacerProps) => (
-  <span data-h2-margin="b(bottom-right, s)" {...rest}>
+  <span data-h2-margin="base(0, x.5, x.5, 0)" {...rest}>
     {children}
   </span>
 );
@@ -185,7 +185,7 @@ export const EditPoolForm = ({
   };
 
   return (
-    <DashboardContentContainer>
+    <div>
       <PageHeader icon={ViewGridIcon}>
         {intl.formatMessage({
           defaultMessage: "Edit pool advertisement",
@@ -193,101 +193,104 @@ export const EditPoolForm = ({
         })}
       </PageHeader>
       <Breadcrumbs links={links} />
-      <TableOfContents.Wrapper>
-        <TableOfContents.Navigation
-          data-h2-bg-color="b(lightgray)"
-          data-h2-radius="b(s)"
-        >
-          <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
-            {sectionMetadata.poolName.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.closingDate.id}>
-            {sectionMetadata.closingDate.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.yourImpact.id}>
-            {sectionMetadata.yourImpact.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.workTasks.id}>
-            {sectionMetadata.workTasks.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.essentialSkills.id}>
-            {sectionMetadata.essentialSkills.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.assetSkills.id}>
-            {sectionMetadata.assetSkills.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.otherRequirements.id}>
-            {sectionMetadata.otherRequirements.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
-            {sectionMetadata.status.title}
-          </TableOfContents.AnchorLink>
-        </TableOfContents.Navigation>
-
-        <TableOfContents.Content>
-          <PoolNameSection
-            poolAdvertisement={poolAdvertisement}
-            classifications={classifications}
-            sectionMetadata={sectionMetadata.poolName}
-            onSave={onSave}
-          />
-          <ClosingDateSection
-            poolAdvertisement={poolAdvertisement}
-            sectionMetadata={sectionMetadata.closingDate}
-            onSave={onSave}
-          />
-          <YourImpactSection
-            poolAdvertisement={poolAdvertisement}
-            sectionMetadata={sectionMetadata.yourImpact}
-            onSave={onSave}
-          />
-          <WorkTasksSection
-            poolAdvertisement={poolAdvertisement}
-            sectionMetadata={sectionMetadata.workTasks}
-            onSave={onSave}
-          />
-          <EssentialSkillsSection
-            poolAdvertisement={poolAdvertisement}
-            skills={skills}
-            sectionMetadata={sectionMetadata.essentialSkills}
-            onSave={onSave}
-          />
-          <AssetSkillsSection
-            poolAdvertisement={poolAdvertisement}
-            skills={skills}
-            sectionMetadata={sectionMetadata.assetSkills}
-            onSave={onSave}
-          />
-          <OtherRequirementsSection
-            poolAdvertisement={poolAdvertisement}
-            sectionMetadata={sectionMetadata.otherRequirements}
-            onSave={onSave}
-          />
-          <StatusSection
-            poolAdvertisement={poolAdvertisement}
-            sectionMetadata={sectionMetadata.status}
-            onPublish={onPublish}
-            onDelete={onDelete}
-            onClose={onClose}
-            onExtend={onExtend}
-            onArchive={onArchive}
-          />
-        </TableOfContents.Content>
-      </TableOfContents.Wrapper>
-
-      <Link
-        href={adminPaths.poolTable()}
-        color="secondary"
-        mode="solid"
-        type="button"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Back to pool dashboard",
-          description:
-            "Text on a link to navigate back to the pool dashboard page",
-        })}
-      </Link>
-    </DashboardContentContainer>
+      <div data-h2-container="base(left, large, 0)">
+        <TableOfContents.Wrapper>
+          <TableOfContents.Navigation
+            data-h2-background-color="base(dt-gray.light)"
+            data-h2-radius="base(s)"
+          >
+            <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
+              {sectionMetadata.poolName.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink id={sectionMetadata.closingDate.id}>
+              {sectionMetadata.closingDate.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink id={sectionMetadata.yourImpact.id}>
+              {sectionMetadata.yourImpact.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink id={sectionMetadata.workTasks.id}>
+              {sectionMetadata.workTasks.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink id={sectionMetadata.essentialSkills.id}>
+              {sectionMetadata.essentialSkills.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink id={sectionMetadata.assetSkills.id}>
+              {sectionMetadata.assetSkills.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink
+              id={sectionMetadata.otherRequirements.id}
+            >
+              {sectionMetadata.otherRequirements.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
+              {sectionMetadata.status.title}
+            </TableOfContents.AnchorLink>
+            <Link
+              href={adminPaths.poolTable()}
+              color="secondary"
+              mode="outline"
+              type="button"
+              data-h2-margin="base(x2, 0, 0, 0)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Back to pool dashboard",
+                description:
+                  "Text on a link to navigate back to the pool dashboard page",
+              })}
+            </Link>
+          </TableOfContents.Navigation>
+          <TableOfContents.Content>
+            <PoolNameSection
+              poolAdvertisement={poolAdvertisement}
+              classifications={classifications}
+              sectionMetadata={sectionMetadata.poolName}
+              onSave={onSave}
+            />
+            <ClosingDateSection
+              poolAdvertisement={poolAdvertisement}
+              sectionMetadata={sectionMetadata.closingDate}
+              onSave={onSave}
+            />
+            <YourImpactSection
+              poolAdvertisement={poolAdvertisement}
+              sectionMetadata={sectionMetadata.yourImpact}
+              onSave={onSave}
+            />
+            <WorkTasksSection
+              poolAdvertisement={poolAdvertisement}
+              sectionMetadata={sectionMetadata.workTasks}
+              onSave={onSave}
+            />
+            <EssentialSkillsSection
+              poolAdvertisement={poolAdvertisement}
+              skills={skills}
+              sectionMetadata={sectionMetadata.essentialSkills}
+              onSave={onSave}
+            />
+            <AssetSkillsSection
+              poolAdvertisement={poolAdvertisement}
+              skills={skills}
+              sectionMetadata={sectionMetadata.assetSkills}
+              onSave={onSave}
+            />
+            <OtherRequirementsSection
+              poolAdvertisement={poolAdvertisement}
+              sectionMetadata={sectionMetadata.otherRequirements}
+              onSave={onSave}
+            />
+            <StatusSection
+              poolAdvertisement={poolAdvertisement}
+              sectionMetadata={sectionMetadata.status}
+              onPublish={onPublish}
+              onDelete={onDelete}
+              onClose={onClose}
+              onExtend={onExtend}
+              onArchive={onArchive}
+            />
+          </TableOfContents.Content>
+        </TableOfContents.Wrapper>
+      </div>
+    </div>
   );
 };
 

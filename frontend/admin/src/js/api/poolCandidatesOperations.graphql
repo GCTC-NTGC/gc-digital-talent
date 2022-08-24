@@ -259,7 +259,6 @@ query getCandidateProfile($id: ID!) {
       estimatedLanguageAbility
       isGovEmployee
       govEmployeeType
-      interestedInLaterOrSecondment
       locationPreferences
       locationExemptions
       wouldAcceptTemporary
@@ -373,7 +372,6 @@ query getUserProfile($id: ID!) {
     estimatedLanguageAbility
     isGovEmployee
     govEmployeeType
-    interestedInLaterOrSecondment
     locationPreferences
     locationExemptions
     wouldAcceptTemporary
