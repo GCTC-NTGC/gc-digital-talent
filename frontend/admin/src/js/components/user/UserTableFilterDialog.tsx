@@ -39,7 +39,7 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
   };
 
   return (
-    <div style={{ display: "flex", placeContent: "space-between" }}>
+    <div data-h2-display="base(flex)" style={{ placeContent: "space-between" }}>
       <Button color="secondary" mode="outline" onClick={handleClear}>
         {formatMessage({
           description: "Clear button within the search filter dialog",
@@ -64,7 +64,7 @@ const Row = (props: RowProps) => (
 type ItemProps = React.HTMLAttributes<HTMLDivElement> & { grow?: boolean };
 const Item = ({ grow = false, ...rest }: ItemProps) => (
   <div
-    data-h2-margin="b(left, s)"
+    data-h2-margin="base(0, 0, 0, x1)"
     {...(grow && { style: { flexGrow: 1 } })}
     {...rest}
   />
@@ -264,8 +264,8 @@ const UserTableFilterButton = ({
         mode="outline"
         color="black"
         type="button"
-        data-h2-display="b(inline-flex)"
-        data-h2-align-items="b(center)"
+        data-h2-display="base(inline-flex)"
+        data-h2-align-items="base(center)"
       >
         <ButtonIcon icon={FilterIcon} />
         <span>

@@ -68,11 +68,11 @@ function TableHeader<T extends Record<string, unknown>>({
                 <div data-h2-flex-item="base(content)">
                   <div data-h2-position="base(relative)">
                     <Button
-                      mode="outline"
-                      color="black"
+                      mode="solid"
+                      color="secondary"
                       type="button"
-                      data-h2-display="b(inline-flex)"
-                      data-h2-align-items="b(center)"
+                      data-h2-display="base(inline-flex)"
+                      data-h2-align-items="base(center)"
                       onClick={() => setShowList(!showList)}
                     >
                       <ButtonIcon icon={TableIcon} />
@@ -101,7 +101,7 @@ function TableHeader<T extends Record<string, unknown>>({
                             "Legend for the column toggle in admin tables.",
                         })}
                       >
-                        <div data-h2-margin="b(top-bottom, xxs)">
+                        <div data-h2-margin="base(x.125, 0)">
                           <IndeterminateCheckbox
                             checked={hiddenColumnIds.length === 0}
                             indeterminate={
@@ -118,10 +118,7 @@ function TableHeader<T extends Record<string, unknown>>({
                           />
                         </div>
                         {columns.map((column) => (
-                          <div
-                            key={column.id}
-                            data-h2-margin="b(top-bottom, xxs)"
-                          >
+                          <div key={column.id} data-h2-margin="base(x.125, 0)">
                             <label htmlFor={column.id}>
                               <input
                                 id={column.id}
