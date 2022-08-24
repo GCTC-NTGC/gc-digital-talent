@@ -58,7 +58,7 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
 
 type RowProps = React.HTMLAttributes<HTMLDivElement>;
 const Row = (props: RowProps) => (
-  <div className="search-filter__row" {...props} />
+  <div data-h2-display="base(flex)" {...props} />
 );
 
 type ItemProps = React.HTMLAttributes<HTMLDivElement> & { grow?: boolean };
