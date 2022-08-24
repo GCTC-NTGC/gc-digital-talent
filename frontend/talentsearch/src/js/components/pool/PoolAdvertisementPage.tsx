@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { BriefcaseIcon } from "@heroicons/react/solid";
 
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
@@ -135,7 +134,6 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
         description: "Breadcrumb title for the browse pools page.",
       }),
       href: paths.home(),
-      icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: fullTitle,
