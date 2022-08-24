@@ -617,7 +617,7 @@ type Mutation {
   archiveApplication(id: ID!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): Boolean
-  submitApplication(applicationId: ID!, signature: String!): PoolCandidate
+  submitApplication(id: ID!, signature: String!): PoolCandidate
   testPoolCandidateSnapshot(id: ID!): PoolCandidate
 }
 

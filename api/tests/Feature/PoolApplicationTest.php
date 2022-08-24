@@ -477,7 +477,7 @@ class PoolApplicationTest extends TestCase
     // assert incomplete user cannot submit application
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationId: $id, signature: $sig) {
+        submitApplication(id: $id, signature: $sig) {
           submittedAt
           signature
         }
@@ -499,7 +499,7 @@ class PoolApplicationTest extends TestCase
     // mimicking testArchivingApplication() where the returned value is always dynamic therefore must test returned structure and type
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationId: $id, signature: $sig) {
+        submitApplication(id: $id, signature: $sig) {
           submittedAt
         }
       }
@@ -517,7 +517,7 @@ class PoolApplicationTest extends TestCase
     // assert user cannot re-submit application
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationId: $id, signature: $sig) {
+        submitApplication(id: $id, signature: $sig) {
           submittedAt
         }
       }
@@ -556,7 +556,7 @@ class PoolApplicationTest extends TestCase
     // assert empty signature submission errors
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationId: $id, signature: $sig) {
+        submitApplication(id: $id, signature: $sig) {
           submittedAt
         }
       }
@@ -572,7 +572,7 @@ class PoolApplicationTest extends TestCase
     // assert null signature submission errors
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationId: $id, signature: $sig) {
+        submitApplication(id: $id, signature: $sig) {
           submittedAt
         }
       }
@@ -588,7 +588,7 @@ class PoolApplicationTest extends TestCase
     // assert query above re-submitted with a filled signature field this time succeeds
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationId: $id, signature: $sig) {
+        submitApplication(id: $id, signature: $sig) {
           submittedAt
         }
       }
@@ -637,7 +637,7 @@ class PoolApplicationTest extends TestCase
     // assert user cannot submit application with missing essential skills
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationId: $id, signature: $sig) {
+        submitApplication(id: $id, signature: $sig) {
           submittedAt
           signature
         }
@@ -660,7 +660,7 @@ class PoolApplicationTest extends TestCase
     // assert user can now submit application as the essential skill is present
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationId: $id, signature: $sig) {
+        submitApplication(id: $id, signature: $sig) {
           submittedAt
         }
       }
@@ -701,7 +701,7 @@ class PoolApplicationTest extends TestCase
     // assert status updated upon submission, and doesn't return DRAFT or EXPIRED
     $this->graphQL(/** @lang Graphql */ '
       mutation submitTest($id: ID!, $sig: String!) {
-        submitApplication(applicationId: $id, signature: $sig) {
+        submitApplication(id: $id, signature: $sig) {
           status
         }
       }
