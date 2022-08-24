@@ -1,12 +1,12 @@
 #! /bin/bash
 
-parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+parent_path=~/gc-digital-talent/maintenance/scripts
 source ${parent_path}/lib/common.sh
 
-cd /var/www/html/frontend
+cd ~/gc-digital-talent/frontend
 npm install
 
-cd /var/www/html/frontend/talentsearch
+cd ~/gc-digital-talent/frontend/talentsearch
 npm run codegen
 npm run intl-compile
 npm run dev

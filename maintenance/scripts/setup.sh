@@ -1,48 +1,46 @@
 #! /bin/bash
 
-parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+parent_path=~/gc-digital-talent/maintenance/scripts
 source ${parent_path}/lib/common.sh
 
-cd /var/www/html/api
+cd ~/gc-digital-talent/api
 cp .env.example .env
 ${parent_path}/update_env_appkey.sh .env
 
 # setup api project
-cd /var/www/html/api
+cd ~/gc-digital-talent/api
 cp .env.example .env
 composer install
 php artisan key:generate
 php artisan migrate:fresh --seed
 php artisan lighthouse:print-schema --write
 php artisan config:clear
-chown -R www-data ./storage ./vendor
-chmod -R 775 ./storage
 
 # setup frontend workspace
-cd /var/www/html/frontend
+cd ~/gc-digital-talent/frontend
 npm install
 
 # setup common project
-cd /var/www/html/frontend/common
+cd ~/gc-digital-talent/frontend/common
 npm run codegen
 npm run intl-compile
 
 # setup talentsearch project
-cd /var/www/html/frontend/talentsearch
+cd ~/gc-digital-talent/frontend/talentsearch
 cp .env.example .env
 npm run codegen
 npm run intl-compile
 npm run dev
 
 # setup indigenous apprenticeship project
-cd /var/www/html/frontend/indigenousapprenticeship
+cd ~/gc-digital-talent/frontend/indigenousapprenticeship
 cp .env.example .env
 npm run codegen
 npm run intl-compile
 npm run dev
 
 # setup admin project
-cd /var/www/html/frontend/admin
+cd ~/gc-digital-talent/frontend/admin
 cp .env.example .env
 npm run codegen
 npm run intl-compile
