@@ -15,9 +15,12 @@ final class ArchiveApplicationValidator extends Validator
     public function rules(): array
     {
         return [
-            // application status check
-            // TODO, UPDATE WITH "REJECTED" STATUS ONCE IT IS ADDED IN
-            'pool_candidate_status' => [ Rule::in([ApiEnums::CANDIDATE_STATUS_EXPIRED]) ],
+            // application status check, must be one of these to be archived see issue #3660
+            'pool_candidate_status' => [ Rule::in([
+                ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
+                ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
+                ApiEnums::CANDIDATE_STATUS_EXPIRED,
+                ]) ],
             'archived_at' => ['prohibited', 'nullable'],
         ];
     }

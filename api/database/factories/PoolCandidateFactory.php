@@ -9,6 +9,7 @@ use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
+use Illuminate\Support\Facades\DB;
 
 class PoolCandidateFactory extends Factory
 {
@@ -60,7 +61,7 @@ class PoolCandidateFactory extends Factory
                 3
             ),
             'pool_candidate_status' => $this->faker->boolean() ?
-                                                            ApiEnums::CANDIDATE_STATUS_AVAILABLE :
+                                                            ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE :
                                                             ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
             'user_id' => User::factory(),
             'pool_id' => Pool::factory(),
@@ -76,8 +77,11 @@ class PoolCandidateFactory extends Factory
         return $this->afterCreating(function (PoolCandidate $poolCandidate) {
             // after setting pool_candidate_status, check what it is and update accordingly, give it a submitted date if it isn't DRAFT or DRAFT_EXPIRED
             // add a signature in the above case too
-            $status = $poolCandidate->pool_candidate_status;
-            if ($status !='DRAFT' && $status != 'DRAFT_EXPIRED'){
+            // grab status from database directly, bypassing the Accessor in order to avoid the Accessor overriding in some cases
+            $candidateId = $poolCandidate->id;
+            $results = DB::select('select pool_candidate_status from pool_candidates where id = :id', ['id' => $candidateId]);
+            $candidateStatus = $results[0]->pool_candidate_status;
+            if ($candidateStatus !='DRAFT' && $candidateStatus != 'DRAFT_EXPIRED'){
                 $submittedDate = $this->faker->dateTimeBetween('-3 months', 'now');
                 $fakeSignature = $this->faker->firstName();
                 $poolCandidate->update([
@@ -97,7 +101,7 @@ class PoolCandidateFactory extends Factory
     {
         return $this->state(function () {
             return [
-                'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+                'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
             ];
         });

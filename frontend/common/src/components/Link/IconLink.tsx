@@ -3,7 +3,7 @@ import Link from "./Link";
 import type { LinkProps } from "./Link";
 
 export interface IconLinkProps extends LinkProps {
-  icon?: React.FC<{ className?: string; style?: Record<string, string> }>;
+  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
 const IconLink: React.FC<IconLinkProps> = ({

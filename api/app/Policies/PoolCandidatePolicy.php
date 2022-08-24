@@ -30,7 +30,7 @@ class PoolCandidatePolicy
      */
     public function view(User $user, PoolCandidate $poolCandidate)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->id === $poolCandidate->user_id;
     }
 
     /**

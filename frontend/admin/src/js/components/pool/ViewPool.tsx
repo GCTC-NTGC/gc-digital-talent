@@ -7,7 +7,6 @@ import {
   ClipboardIcon,
   CogIcon,
   ExternalLinkIcon,
-  HomeIcon,
   TicketIcon,
   UserGroupIcon,
   ViewGridIcon,
@@ -121,7 +120,6 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         description: "Breadcrumb title for the home page link.",
       }),
       href: adminPaths.home(),
-      icon: <HomeIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage({
@@ -129,7 +127,6 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
         description: "Breadcrumb title for the pools page link.",
       }),
       href: adminPaths.poolTable(),
-      icon: <ViewGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage(

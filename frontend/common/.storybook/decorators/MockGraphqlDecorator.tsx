@@ -1,7 +1,9 @@
 import { Client, getOperationName, Provider as GraphqlProvider } from "urql";
-import { fromValue } from 'wonka';
+import { fromValue, pipe, delay } from 'wonka';
 import { useParameter } from "@storybook/addons";
 import { StoryContext, StoryFn } from "@storybook/react";
+import random from "lodash/random";
+import merge from "lodash/merge";
 
 /**
  * MockGraphqlDecorator
@@ -23,6 +25,15 @@ export default function MockGraphqlDecorator(Story: StoryFn, context: StoryConte
   // Source: https://johnclarke73.medium.com/mocking-react-context-in-storybook-bb57304f2f6c
   // See: https://storybook.js.org/docs/react/addons/addons-api#useparameter
   const responseData: any = useParameter('apiResponses', {})
+  // Random latency delay added to each GraphQL API operation (in milliseconds).
+  // Default: 0. (no latency)
+  const defaultConfig = {
+    latency: {
+      min: 0,
+      max: 0,
+    },
+  };
+  const config = useParameter('apiResponsesConfig', defaultConfig)
 
   const defaultNullResponse = { data: null }
 
@@ -33,9 +44,17 @@ export default function MockGraphqlDecorator(Story: StoryFn, context: StoryConte
     executeQuery: ({ query }) => {
       const operationName = getOperationName(query)
       const response = operationName && responseData[operationName]
-      return !!response
-        ? fromValue(response)
+      const mergedConfig = merge(defaultConfig, config)
+
+      const operationResult = !!response
+        ? pipe(
+            fromValue(response),
+            // Simulate latency in returning response.
+            delay(random(mergedConfig.latency.min, mergedConfig.latency.max)),
+          )
         : fromValue(defaultNullResponse)
+
+      return operationResult;
     }
     // TODO: Implement for mutations when required.
   } as Client;
