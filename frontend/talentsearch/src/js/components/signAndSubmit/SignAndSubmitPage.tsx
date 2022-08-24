@@ -45,7 +45,7 @@ const ImportantInfo = () => {
   return (
     <ol>
       {steps.map((item) => (
-        <li key={uniqueId()} data-h2-margin="b(bottom, m)">
+        <li key={uniqueId()} data-h2-margin="base(0, 0, x1, 0)">
           {item}
         </li>
       ))}
@@ -90,12 +90,15 @@ const Signature = ({ isNotComplete }: { isNotComplete: boolean }) => {
         </p>
         <ul>
           {confirmations.map((item) => (
-            <li key={uniqueId()} data-h2-margin="b(bottom, m)">
+            <li key={uniqueId()} data-h2-margin="base(0, 0, x1, 0)">
               {item}
             </li>
           ))}
         </ul>
-        <div data-h2-width="b(100) s(75) m(50)" data-h2-margin="b(bottom, m)">
+        <div
+          data-h2-width="base(100%) p-tablet(75%) l-tablet(50%)"
+          data-h2-margin="base(0, 0, x1, 0)"
+        >
           <Input
             id="signature"
             label={intl.formatMessage({
@@ -111,11 +114,14 @@ const Signature = ({ isNotComplete }: { isNotComplete: boolean }) => {
             disabled={isNotComplete}
           />
         </div>
-        <div data-h2-text-align="b(center) s(left)">
+        <div data-h2-text-align="base(center) p-tablet(left)">
           <Submit
             color="cta"
             text={
-              <span data-h2-display="b(flex)" data-h2-align-items="b(center)">
+              <span
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Submit my application",
                   description: "Submit button label on sign and submit page.",
@@ -198,7 +204,6 @@ export const SignAndSubmitForm = ({
             description: "Breadcrumb for sign and submit page.",
           }),
           href: paths.allPools(),
-          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
           title: jobTitle,
