@@ -1190,10 +1190,6 @@
     "defaultMessage": "(s'ouvre dans un nouvel onglet)",
     "description": "Text that appears in links that open in a new tab."
   },
-  "OHem3h": {
-    "defaultMessage": "<primary>{role}</primary> à {division}",
-    "description": "Role at Team, Group or Division"
-  },
   "PQ3bhH": {
     "defaultMessage": "...m'oblige à <strong>faire des heures supplémentaires régulièrement</strong>.",
     "description": "The operational requirement described as regular overtime."
@@ -1353,5 +1349,9 @@
   "KMSWLW": {
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
+  },
+  "VOheZB": {
+    "defaultMessage": "<primary>{role}</primary> à {organization}",
+    "description": "Role at organization in work experience block of skill accordion."
   }
 }
