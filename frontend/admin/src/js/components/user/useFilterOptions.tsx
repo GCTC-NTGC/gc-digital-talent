@@ -56,7 +56,7 @@ export default function useFilterOptions(enableEducationType = false) {
       .filter(notEmpty)
       .map(({ id, group, level }) => ({
         value: id,
-        label: `${group}-${level}`,
+        label: `${group}-0${level}`,
       })),
     operationalRequirement: OperationalRequirementV2.map((value) => ({
       value,
