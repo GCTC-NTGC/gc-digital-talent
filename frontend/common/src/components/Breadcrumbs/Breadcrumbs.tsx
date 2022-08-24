@@ -72,7 +72,7 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
                 href={link.href}
                 key={link.title}
               >
-                {link.icon || ""} {link.title}
+                {link.title}
               </Link>
             ) : (
               <span
@@ -81,7 +81,7 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
                 data-h2-font-weight="base(700)"
                 key={link.title}
               >
-                {link.icon || ""} {link.title}
+                {link.title}
               </span>
             )}
           </Fragment>

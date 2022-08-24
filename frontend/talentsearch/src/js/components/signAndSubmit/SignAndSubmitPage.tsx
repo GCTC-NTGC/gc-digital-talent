@@ -6,11 +6,7 @@ import Pending from "@common/components/Pending";
 import TableOfContents from "@common/components/TableOfContents";
 import { commonMessages, errorMessages } from "@common/messages";
 import { ArrowSmRightIcon } from "@heroicons/react/outline";
-import {
-  BriefcaseIcon,
-  ClipboardCheckIcon,
-  UserIcon,
-} from "@heroicons/react/solid";
+import { ClipboardCheckIcon, UserIcon } from "@heroicons/react/solid";
 import uniqueId from "lodash/uniqueId";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
