@@ -2181,10 +2181,6 @@
     "defaultMessage": "Publier",
     "description": "Text on a button to publish the pool"
   },
-  "tJTEzl": {
-    "defaultMessage": "Télécharger XML",
-    "description": "Text label for button to download an xml file of items in a table."
-  },
   "tiv5J7": {
     "defaultMessage": "Enregistrer les tâches de travail",
     "description": "Text on a button to save the pool work tasks"
@@ -2260,5 +2256,9 @@
   "wziEOM": {
     "defaultMessage": "résultats des compétences, recherche par mot-clé",
     "description": "Accessibility label for a result set of skills, searched by keyword"
+  },
+  "mxOuYK": {
+    "defaultMessage": "Télécharger CSV",
+    "description": "Text label for button to download a csv file of items in a table."
   }
 }

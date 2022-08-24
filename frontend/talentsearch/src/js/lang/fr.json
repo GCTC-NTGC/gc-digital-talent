@@ -600,10 +600,6 @@
     "defaultMessage": "Niveau 3 : Conseiller technique (88 000 $ à 110 000 $). <openModal>En savoir plus sur TI-03</openModal>",
     "description": "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please"
   },
-  "4EacDM": {
-    "defaultMessage": "Veuillez indiquer si vous êtes intéressé par la mutation latérale ou le détachement. Pour en savoir plus sur ce sujet.",
-    "description": "Text blurb, asking about interest in deployment/secondment in the government info form"
-  },
   "4FEV7d": {
     "defaultMessage": "Vous vous êtes connecté avec succès",
     "description": "Title for successful login alert in create account page."
@@ -1481,10 +1477,6 @@
     "defaultMessage": "Certains emplois exigent que vous travailliez des heures inhabituelles ou que vous accomplissiez des tâches qui sont un peu en dehors de la normale. Veuillez indiquer les exigences spéciales avec lesquelles vous êtes à l'aise.",
     "description": "Description text for Profile Form wrapper  in Work Preferences Form"
   },
-  "wPcJH7": {
-    "defaultMessage": "Je suis intéressé(e) à la mutation latérale ou au détachement.",
-    "description": "Label displayed on lateral/secondment checkbox"
-  },
   "x5C9Ab": {
     "defaultMessage": "Écrit",
     "description": "Label displayed on the language information form written field."
@@ -1800,10 +1792,6 @@
   "asP33b": {
     "defaultMessage": "Que sont les recrutements en bassin?",
     "description": "Title for according describing pool recruitment's"
-  },
-  "bDk3RM": {
-    "defaultMessage": "Déploiement latéral",
-    "description": "Label displayed on lateral/secondment bounding box"
   },
   "cHJFcW": {
     "defaultMessage": "Autres exigences",

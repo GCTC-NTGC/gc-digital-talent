@@ -42,7 +42,6 @@ query getGovInfoFormLookupData {
       minSalary
       maxSalary
     }
-    interestedInLaterOrSecondment
   }
 }
 
@@ -50,7 +49,6 @@ mutation UpdateGovAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     isGovEmployee
     govEmployeeType
-    interestedInLaterOrSecondment
     isProfileComplete
     department {
       id

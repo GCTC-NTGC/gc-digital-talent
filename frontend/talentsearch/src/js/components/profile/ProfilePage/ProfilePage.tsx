@@ -23,7 +23,7 @@ export interface ProfilePageProps {
 
 // styling a text bit with red colour within intls
 export function redText(msg: string) {
-  return <span data-h2-font-color="b(red)">{msg}</span>;
+  return <span data-h2-color="base(dt-error)">{msg}</span>;
 }
 
 export const ProfileForm: React.FC<ProfilePageProps> = ({
@@ -55,9 +55,9 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   return (
     <>
       <div
-        data-h2-padding="b(top-bottom, m) b(right-left, s)"
-        data-h2-font-color="b(white)"
-        data-h2-text-align="b(center)"
+        data-h2-padding="base(x1, x.5)"
+        data-h2-color="base(dt-white)"
+        data-h2-text-align="base(center)"
         style={{
           background: `url(${imageUrl(
             TALENTSEARCH_APP_DIR,
@@ -68,7 +68,16 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 data-h2-margin="b(top-bottom, l)">{userName}</h1>
+        <h1
+          data-h2-margin="base(x2, 0)"
+          data-h2-font-weight="base(700)"
+          style={{
+            letterSpacing: "-2px",
+            textShadow: "0 3px 3px rgba(10, 10, 10, .3)",
+          }}
+        >
+          {userName}
+        </h1>
       </div>
 
       <UserProfile

@@ -18,7 +18,6 @@ type Applicant {
   isVeteran: Boolean
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
   department: Department
   languageAbility: LanguageAbility
@@ -351,7 +350,6 @@ input CreateUserInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   isWoman: Boolean
@@ -523,6 +521,11 @@ input IdInput {
   id: ID!
 }
 
+"""
+Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org.
+"""
+scalar JSON
+
 enum JobLookingStatus {
   ACTIVELY_LOOKING
   OPEN_TO_OPPORTUNITIES
@@ -613,6 +616,8 @@ type Mutation {
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
   archiveApplication(id: ID!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
+  testPoolCandidateSnapshot(id: ID!): PoolCandidate
+  submitApplication(applicationId: ID!, signature: String!): PoolCandidate
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -818,6 +823,8 @@ type PoolCandidate {
   notes: String
   archivedAt: DateTime
   submittedAt: DateTime
+  profileSnapshot: JSON
+  signature: String
 }
 
 type PoolCandidateFilter {
@@ -874,6 +881,8 @@ enum PoolCandidateStatus {
   UNAVAILABLE
   EXPIRED
   PLACED_CASUAL
+  DRAFT
+  DRAFT_EXPIRED
 }
 
 enum PoolStatus {
@@ -1219,7 +1228,6 @@ input UpdateUserAsAdminInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   isWoman: Boolean
@@ -1264,7 +1272,6 @@ input UpdateUserAsUserInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   isWoman: Boolean
@@ -1312,7 +1319,6 @@ type User {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
   department: Department
   isWoman: Boolean

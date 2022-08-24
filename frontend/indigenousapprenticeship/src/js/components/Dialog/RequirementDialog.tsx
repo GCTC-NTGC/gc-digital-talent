@@ -26,7 +26,7 @@ const RequirementDialog: React.FC<BasicDialogProps> = ({
         description: "Heading for the applicant requirements dialog",
       })}
     >
-      <ul>
+      <ul data-h2-padding="base(0, 0, 0, x1)">
         <li>
           {intl.formatMessage({
             defaultMessage:

@@ -15,7 +15,12 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.workingDirectories": ["frontend/admin", "frontend/common", "frontend/indigenousapprenticeship",  "frontend/talentsearch"],
+  "eslint.workingDirectories": [
+    "frontend/admin",
+    "frontend/common",
+    "frontend/indigenousapprenticeship",
+    "frontend/talentsearch"
+  ],
   "[typescriptreact]": {
     "editor.tabSize": 2
   },
@@ -40,7 +45,6 @@
   },
   "vscode-graphql.useSchemaFileDefinitions": true,
   "cSpell.customDictionaries": {
-
     "project-words": {
       "name": "project-words",
       "path": "${workspaceRoot}/.vscode/project-words.txt",

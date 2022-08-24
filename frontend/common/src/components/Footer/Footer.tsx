@@ -4,7 +4,8 @@ import { imageUrl } from "../../helpers/router";
 
 const Footer: React.FunctionComponent<{
   baseUrl: string;
-}> = ({ baseUrl }) => {
+  width?: string;
+}> = ({ baseUrl, width }) => {
   const intl = useIntl();
   const links = [
     {
@@ -40,78 +41,81 @@ const Footer: React.FunctionComponent<{
       }),
     },
   ];
+  let footerWidth = {
+    "data-h2-container": "base(center, large, x1) p-tablet(center, large, x2)",
+  };
+  if (width === "full") {
+    footerWidth = {
+      "data-h2-container": "base(center, full, x1) p-tablet(center, full, x2)",
+    };
+  }
   return (
     <footer
       className="footer"
-      data-h2-border="b(gray, top, solid, s)"
-      data-h2-bg-color="b(lightgray[.6])"
+      data-h2-border="base(top, 1px, solid, dt-gray)"
+      data-h2-padding="base(x2, 0)"
+      data-h2-background-color="base(lightest.dt-gray)"
       style={{ marginTop: "auto" }}
     >
-      <div data-h2-flex-grid="b(middle, contained, flush, xl)">
-        <div
-          data-h2-flex-item="b(1of1) m(1of2)"
-          data-h2-padding="b(left, xl)"
-          data-h2-text-align="b(center) m(left)"
-        >
-          <nav>
-            <ul
-              style={{ gap: "1rem" }}
-              className="reset-ul"
-              data-h2-display="b(flex)"
-              data-h2-flex-wrap="b(wrap)"
-              data-h2-justify-content="b(center) m(flex-start)"
-              data-h2-margin="b(bottom, xs)"
+      <div {...footerWidth}>
+        <div data-h2-flex-grid="base(center, 0, x3)">
+          <div
+            data-h2-flex-item="base(1of1) l-tablet(1of2)"
+            data-h2-text-align="base(center) l-tablet(left)"
+          >
+            <nav>
+              <ul style={{ gap: "1rem" }} className="reset-ul">
+                {links.map(({ route, label }) => (
+                  <li
+                    key={label}
+                    data-h2-display="base(inline-block)"
+                    data-h2-margin="base(0, x1, 0, 0)"
+                  >
+                    {/* These links must use real anchor links, not the history api, as they may direct to outside of this app. */}
+                    <a href={route}>{label}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <p
+              data-h2-font-size="base(caption)"
+              data-h2-color="base(dark.dt-gray)"
+              data-h2-margin="base(x1, 0, 0, 0)"
             >
-              {links.map(({ route, label }) => (
-                <li
-                  key={label}
-                  data-h2-display="b(inline-block)"
-                  data-h2-margin="b(top-bottom, none)"
-                >
-                  {/* These links must use real anchor links, not the history api, as they may direct to outside of this app. */}
-                  <a href={route}>{label}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <p
-            data-h2-font-size="b(caption)"
-            data-h2-font-color="b(darkgray)"
-            data-h2-margin="b(bottom, none) b(top, m)"
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Date Modified: {modifiedDate}",
+                  description:
+                    "Header for the sites last date modification found in the footer.",
+                },
+                {
+                  modifiedDate: new Date(process.env.BUILD_DATE ?? "1970-01-01")
+                    .toISOString()
+                    .slice(0, 10),
+                },
+              )}
+            </p>
+          </div>
+          <div
+            data-h2-flex-item="base(1of1) l-tablet(1of2)"
+            data-h2-text-align="base(center) l-tablet(right)"
           >
-            {intl.formatMessage(
-              {
-                defaultMessage: "Date Modified: {modifiedDate}",
-                description:
-                  "Header for the sites last date modification found in the footer.",
-              },
-              {
-                modifiedDate: new Date(process.env.BUILD_DATE ?? "1970-01-01")
-                  .toISOString()
-                  .slice(0, 10),
-              },
-            )}
-          </p>
-        </div>
-        <div
-          data-h2-flex-item="b(1of1) m(1of2)"
-          data-h2-padding="b(right, xl)"
-          data-h2-text-align="b(center) m(right)"
-        >
-          <a
-            href={`https://www.canada.ca/${intl.locale}.html`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              style={{ width: "12rem" }}
-              src={imageUrl(baseUrl, "logo_canada.png")}
-              alt={intl.formatMessage({
-                defaultMessage: "Canada.ca",
-                description: "Alt text for the Canada logo link in the Footer.",
-              })}
-            />
-          </a>
+            <a
+              href={`https://www.canada.ca/${intl.locale}.html`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                style={{ width: "12rem" }}
+                src={imageUrl(baseUrl, "logo_canada.png")}
+                alt={intl.formatMessage({
+                  defaultMessage: "Canada.ca",
+                  description:
+                    "Alt text for the Canada logo link in the Footer.",
+                })}
+              />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,98 +1,24 @@
+/* The element this class is applied to doesn't accept data attributes, so this value was required to be set in CSS instead */
 .side-menu {
-  bottom: 0;
-  flex-shrink: 0;
-  height: 100vh;
-  max-width: 95vw;
-  overflow-x: hidden;
-  position: fixed;
-  left: 0;
-  top: 0;
-  transform: translateX(-100%);
-  transition: transform 150ms ease-in;
-  width: 16rem;
-  z-index: 9999;
-}
-
-.side-menu--open {
-  transform: translateX(0);
-}
-
-.side-menu__inner,
-.side-menu > div {
   height: 100%;
 }
 
-.side-menu__content {
-  flex-grow: 1;
-  overflow-y: auto;
+/* This value couldn't be set using Hydrogen because it takes advantage of a class modifier to alter styles */
+.side-menu .side-menu__item--active {
+  background-color: rgba(255, 255, 255, .2);
 }
 
-.side-menu__item {
-  background: none;
-  border: none;
-  border: thin solid transparent;
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-  padding: 0.5rem 0.75rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+/* data-h2 is required for the following styles because they need to override Hydrogen attribute styles */
+[data-h2] .side-menu__item .side-menu__item__label {
+  visibility: hidden;
+  position: absolute;
+  left: -100%;
+  width: 0px;
 }
 
-.side-menu__item--active {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.side-menu__item > span {
-  text-decoration: underline;
-}
-
-.side-menu__item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  cursor: pointer;
-}
-.side-menu__item:focus {
-  outline: none;
-  border: thin dashed rgba(255, 255, 255, 0.6);
-}
-
-.side-menu-item__icon {
-  flex-shrink: 0;
-  height: 1.25rem;
-  width: 1.25rem;
-  margin-right: 0.5rem;
-}
-
-.side-menu__content-wrapper {
-  min-height: 100vh;
-  max-width: 100%;
-}
-
-@media (min-width: 64em) {
-  .side-menu {
-    transform: translateX(0);
-
-    /**
-         * Container padding - 0.5rem * 2
-         * Icon Size - 1.25rem
-         * Button padding - 0.75rem * 2
-         */
-    width: 4rem;
-  }
-
-  .side-menu--open {
-    width: 16rem;
-  }
-
-  .side-menu:not(.side-menu--open) .side-menu-item__icon {
-    margin-right: 0.75rem;
-  }
-
-  .side-menu__content-wrapper {
-    margin-left: auto;
-    width: calc(100% - 4rem);
-  }
-
-  .side-menu--open ~ .side-menu__content-wrapper {
-    width: calc(100% - 16rem);
-  }
+[data-h2] .side-menu--open .side-menu__item .side-menu__item__label {
+  visibility: visible;
+  position: relative;
+  left: auto;
+  width: auto;
 }

@@ -77,7 +77,13 @@ export const SkillFamilyTable: React.FC<
 
   const data = useMemo(() => skillFamilies.filter(notEmpty), [skillFamilies]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <div data-h2-padding="base(0, 0, x3, 0)">
+      <div data-h2-container="base(center, large, x2)">
+        <Table data={data} columns={columns} />
+      </div>
+    </div>
+  );
 };
 
 export const SkillFamilyTableApi: React.FunctionComponent = () => {

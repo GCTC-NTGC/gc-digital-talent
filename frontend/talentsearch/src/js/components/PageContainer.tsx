@@ -38,12 +38,18 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
 }) => {
   const location = useLocation();
   const El = as;
+  const activeWeight: Record<string, unknown> = isActive(
+    href ?? null,
+    location.pathname,
+  )
+    ? { "data-h2-font-weight": "base(700)" }
+    : { "data-h2-font-weight": "base(100)" };
   return (
     <El
       href={href}
       title={title ?? undefined}
-      data-h2-font-color="b(lightpurple)"
-      data-h2-font-size="b(normal)"
+      data-h2-color="base(dt-primary)"
+      data-h2-font-size="base(normal)"
       style={{
         border: "none",
         background: "none",
@@ -51,13 +57,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
       }}
       {...rest}
     >
-      <span
-        data-h2-font-weight={
-          isActive(href ?? null, location.pathname) ? "b(700)" : "b(200)"
-        }
-      >
-        {text}
-      </span>
+      <span {...activeWeight}>{text}</span>
     </El>
   );
 };
@@ -123,7 +123,10 @@ export const PageContainer: React.FC<{
   return (
     <ScrollToTop>
       <>
-        <a href="#main" data-h2-visibility="b(hidden)">
+        <a
+          href="#main"
+          data-h2-visibility="base(invisible) base:focus-visible(visible)"
+        >
           {intl.formatMessage({
             defaultMessage: "Skip to main content",
             description: "Assistive technology skip link",
@@ -131,9 +134,10 @@ export const PageContainer: React.FC<{
         </a>
         <div
           className="container"
-          data-h2-display="b(flex)"
-          data-h2-flex-direction="b(column)"
-          style={{ height: "100vh", margin: "0" }}
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-height="base(100vh)"
+          data-h2-margin="base(0)"
         >
           <div>
             <Header baseUrl={TALENTSEARCH_APP_DIR} />
