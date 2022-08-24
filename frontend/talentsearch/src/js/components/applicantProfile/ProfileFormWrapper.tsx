@@ -29,7 +29,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
   if (prefixBreadcrumbs) {
     links = [
       {
-        title: intl.formatMessage({
+          title: intl.formatMessage({
           defaultMessage: "My Profile",
           description: "Breadcrumb from applicant profile wrapper.",
         }),
