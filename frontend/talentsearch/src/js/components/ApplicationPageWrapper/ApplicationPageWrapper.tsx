@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { BriefcaseIcon } from "@heroicons/react/solid";
 
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { imageUrl } from "@common/helpers/router";
@@ -44,7 +43,6 @@ const ApplicationPageWrapper = ({
             description: "Breadcrumb from applicant profile wrapper.",
           }),
           href: paths.allPools(),
-          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         ...crumbs,
       ]}

@@ -3,66 +3,6 @@ fragment applicant on Applicant {
   email
 }
 
-query getAllApplicantExperiences($id: ID!) {
-  applicant(id: $id) {
-    id
-    experiences {
-      id
-      details
-      applicant {
-        ...applicant
-      }
-      skills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        experienceSkillRecord {
-          details
-        }
-      }
-      ... on AwardExperience {
-        title
-        issuedBy
-        awardedDate
-        awardedTo
-        awardedScope
-      }
-      ... on CommunityExperience {
-        title
-        organization
-        project
-        startDate
-        endDate
-      }
-      ... on EducationExperience {
-        institution
-        areaOfStudy
-        thesisTitle
-        startDate
-        endDate
-        type
-        status
-      }
-      ... on PersonalExperience {
-        title
-        description
-        startDate
-        endDate
-      }
-      ... on WorkExperience {
-        role
-        organization
-        division
-        startDate
-        endDate
-      }
-    }
-  }
-}
-
 query getApplicantExperiencesByType($id: ID!) {
   applicant(id: $id) {
     awardExperiences {

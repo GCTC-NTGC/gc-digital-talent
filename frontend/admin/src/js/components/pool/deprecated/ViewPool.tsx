@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { ViewGridIcon, HomeIcon } from "@heroicons/react/outline";
+import { ViewGridIcon } from "@heroicons/react/outline";
 
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
@@ -45,7 +45,6 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
         description: "Breadcrumb title for the home page link.",
       }),
       href: adminPaths.home(),
-      icon: <HomeIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage({
@@ -53,7 +52,6 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
         description: "Breadcrumb title for the pools page link.",
       }),
       href: adminPaths.poolTable(),
-      icon: <ViewGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: poolName,

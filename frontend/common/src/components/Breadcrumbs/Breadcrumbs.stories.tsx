@@ -1,6 +1,5 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { FilterIcon } from "@heroicons/react/solid";
 import Breadcrumbs from "./Breadcrumbs";
 import type { BreadcrumbsProps } from "./Breadcrumbs";
 
@@ -39,7 +38,6 @@ BlackFontBreadcrumbs.args = {
     {
       title: "My Name",
       href: "localnothost",
-      icon: <FilterIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     { title: "Not My Name", href: "nothost" },
     { title: "No Link" },
@@ -51,7 +49,6 @@ WhiteFontBreadcrumbs.args = {
     {
       title: "My Name",
       href: "localnothost",
-      icon: <FilterIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     { title: "Not My Name", href: "nothost" },
     { title: "No Link" },

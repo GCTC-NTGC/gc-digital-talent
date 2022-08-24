@@ -231,6 +231,11 @@ export function queryParametersToSearchString(
   return queryString ? `?${queryString}` : "";
 }
 
+export function useQueryParams() {
+  const location = useLocation();
+  return parseUrlQueryParameters(location);
+}
+
 export const ScrollToTop: React.FC<{ children: React.ReactElement }> = ({
   children,
 }): React.ReactElement => {

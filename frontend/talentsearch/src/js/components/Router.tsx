@@ -65,8 +65,8 @@ const AboutMeFormContainer = React.lazy(
 const DiversityEquityInclusionFormApi = React.lazy(
   () => import("./diversityEquityInclusion/DiversityEquityInclusionForm"),
 );
-const ExperienceAndSkillsRouterApi = React.lazy(
-  () => import("./applicantProfile/ExperienceAndSkills"),
+const ExperienceAndSkillsPage = React.lazy(
+  () => import("./experienceAndSkills/ExperienceAndSkillsPage"),
 );
 
 /** Direct Intake */
@@ -234,7 +234,7 @@ const profileRoutes = (
   {
     path: profilePaths.skillsAndExperiences(":userId"),
     action: () => ({
-      component: <ExperienceAndSkillsRouterApi />,
+      component: <ExperienceAndSkillsPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
