@@ -2,8 +2,13 @@ import React, { Fragment } from "react";
 import { ChevronRightIcon } from "@heroicons/react/solid";
 import Link from "../Link";
 
+interface BreadcrumbLink {
+  title: string;
+  href?: string;
+}
+
 export interface BreadcrumbsProps {
-  links: { title: string; href?: string; icon?: JSX.Element }[];
+  links: BreadcrumbLink[];
 }
 
 const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => (

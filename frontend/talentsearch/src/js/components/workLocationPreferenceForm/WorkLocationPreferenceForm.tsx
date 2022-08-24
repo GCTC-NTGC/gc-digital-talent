@@ -5,6 +5,7 @@ import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { errorMessages } from "@common/messages";
+import { BriefcaseIcon } from "@heroicons/react/solid";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -78,6 +79,30 @@ export const WorkLocationPreferenceForm: React.FC<
       });
   };
 
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
+
   return (
     <ProfileFormWrapper
       description={intl.formatMessage({
@@ -95,6 +120,7 @@ export const WorkLocationPreferenceForm: React.FC<
         href: returnRoute,
       }}
       crumbs={[
+        ...applicationBreadcrumbs,
         {
           title: intl.formatMessage({
             defaultMessage: "Work Location Preference",
@@ -103,7 +129,7 @@ export const WorkLocationPreferenceForm: React.FC<
           }),
         },
       ]}
-      originApplication={application}
+      prefixBreadcrumbs={!application}
     >
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>

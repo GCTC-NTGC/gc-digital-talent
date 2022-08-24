@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { BasicForm, Checklist } from "@common/components/form";
-import { InformationCircleIcon } from "@heroicons/react/solid";
+import { BriefcaseIcon, InformationCircleIcon } from "@heroicons/react/solid";
 import { errorMessages } from "@common/messages";
 import Button from "@common/components/Button";
 import { notEmpty } from "@common/helpers/util";
@@ -157,6 +157,31 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
       </ModalButton>
     );
   }
+
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
+
   return (
     <ProfileFormWrapper
       title={intl.formatMessage({
@@ -172,6 +197,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
         href: returnRoute,
       }}
       crumbs={[
+        ...applicationBreadcrumbs,
         {
           title: intl.formatMessage({
             defaultMessage: "Role and Salary Expectations",
@@ -179,7 +205,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           }),
         },
       ]}
-      originApplication={application}
+      prefixBreadcrumbs={!application}
     >
       <BasicForm
         onSubmit={handleSubmit}

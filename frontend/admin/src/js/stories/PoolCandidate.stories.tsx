@@ -77,7 +77,7 @@ stories.add("Update Pool Candidate Form", () => {
     locationPreferences: [WorkRegion.BritishColumbia, WorkRegion.Ontario],
     pool: { id: "pool-id" },
     user: { id: "user-id" },
-    status: PoolCandidateStatus.Available,
+    status: PoolCandidateStatus.NewApplication,
   };
 
   return (

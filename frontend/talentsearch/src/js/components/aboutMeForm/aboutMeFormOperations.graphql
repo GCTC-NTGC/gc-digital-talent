@@ -14,22 +14,6 @@ query getAboutMe {
   }
 }
 
-query getApplication($id: ID!) {
-  poolCandidate(id: $id) {
-    id
-    user {
-      id
-    }
-    pool {
-      id
-      name {
-        en
-        fr
-      }
-    }
-  }
-}
-
 mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     preferredLang

@@ -1,10 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import {
-  HomeIcon,
-  PrinterIcon,
-  UserCircleIcon,
-} from "@heroicons/react/outline";
+import { PrinterIcon, UserCircleIcon } from "@heroicons/react/outline";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
@@ -55,7 +51,6 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         description: "Breadcrumb title for the home link.",
       }),
       href: adminPaths.home(),
-      icon: <HomeIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage({
@@ -63,7 +58,6 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         description: "Breadcrumb title for the all users table link.",
       }),
       href: adminPaths.userTable(),
-      icon: <UserCircleIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: userName,

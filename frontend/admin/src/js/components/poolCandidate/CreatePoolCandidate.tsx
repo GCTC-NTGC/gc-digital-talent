@@ -237,7 +237,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   const methods = useForm<FormValues>({
     defaultValues: {
       pool: poolId,
-      status: PoolCandidateStatus.Available, // Status for new candidates should always default to Available.
+      status: PoolCandidateStatus.NewApplication, // Status for new candidates default
     },
   });
   const { control, handleSubmit } = methods;

@@ -11,6 +11,7 @@ import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
+import { BriefcaseIcon } from "@heroicons/react/solid";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import {
@@ -97,6 +98,30 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
       });
   };
 
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
+
   return (
     <ProfileFormWrapper
       description={intl.formatMessage({
@@ -113,6 +138,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
         href: returnRoute,
       }}
       crumbs={[
+        ...applicationBreadcrumbs,
         {
           title: intl.formatMessage({
             defaultMessage: "Work Preferences",
@@ -120,7 +146,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
           }),
         },
       ]}
-      originApplication={application}
+      prefixBreadcrumbs={!application}
     >
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>

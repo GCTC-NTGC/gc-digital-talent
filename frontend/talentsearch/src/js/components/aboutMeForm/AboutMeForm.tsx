@@ -13,6 +13,7 @@ import {
 } from "@common/constants/localizedConstants";
 import { SubmitHandler } from "react-hook-form";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { BriefcaseIcon } from "@heroicons/react/solid";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
@@ -91,6 +92,30 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
       });
   };
 
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
+
   // citizenship statuses ordered to fit prototype
   const citizenshipStatusesOrdered = [
     CitizenshipStatus.Citizen,
@@ -113,7 +138,9 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
       cancelLink={{
         href: returnRoute,
       }}
+      prefixBreadcrumbs={!application}
       crumbs={[
+        ...applicationBreadcrumbs,
         {
           title: intl.formatMessage({
             defaultMessage: "About Me",
@@ -121,7 +148,6 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           }),
         },
       ]}
-      originApplication={application}
     >
       <BasicForm
         onSubmit={handleSubmit}

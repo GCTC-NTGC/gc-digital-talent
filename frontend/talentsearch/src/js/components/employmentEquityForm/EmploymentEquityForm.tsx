@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { BriefcaseIcon } from "@heroicons/react/solid";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import EquityOptions from "./EquityOptions";
 import type { EmploymentEquityUpdateHandler, EquityKeys } from "./types";
@@ -39,6 +40,30 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
     });
   };
 
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
+
   return (
     <ProfileFormWrapper
       description={intl.formatMessage({
@@ -53,6 +78,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
           "Title for Profile Form wrapper  in DiversityEquityInclusionForm",
       })}
       crumbs={[
+        ...applicationBreadcrumbs,
         {
           title: intl.formatMessage({
             defaultMessage: "Diversity, equity and inclusion",
@@ -69,7 +95,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
             : commonMessages.backToProfile,
         ),
       }}
-      originApplication={application}
+      prefixBreadcrumbs={!application}
     >
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({

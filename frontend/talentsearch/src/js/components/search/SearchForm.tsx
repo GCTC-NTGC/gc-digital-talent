@@ -9,6 +9,8 @@ import {
   getEmploymentEquityGroup,
   getOperationalRequirement,
   getWorkRegion,
+  getEmploymentDuration,
+  EmploymentDuration,
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
@@ -403,17 +405,15 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 },
                 {
                   value: "true",
-                  label: intl.formatMessage({
-                    defaultMessage: "Term duration (short term, long term)",
-                    description: "Duration of a non-permanent length",
-                  }),
+                  label: intl.formatMessage(
+                    getEmploymentDuration(EmploymentDuration.Term),
+                  ),
                 },
                 {
                   value: "nothing",
-                  label: intl.formatMessage({
-                    defaultMessage: "Indeterminate duration (permanent)",
-                    description: "Duration that is permanent",
-                  }),
+                  label: intl.formatMessage(
+                    getEmploymentDuration(EmploymentDuration.Indeterminate),
+                  ),
                 },
               ]}
             />

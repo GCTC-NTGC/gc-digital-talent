@@ -6,6 +6,7 @@ import { CreateUserInput, Language, User } from "../../api/generated";
 import { CreateUserForm } from "./CreateUser";
 import { UpdateUserForm } from "./UpdateUser";
 import UserTable from "./UserTable";
+import UserTableFilterDialogMeta from "./UserTableFilterDialog.stories";
 
 const userData = fakeUsers();
 // It is possible data may come back from api with missing data.
@@ -48,6 +49,7 @@ UsersTableStory.parameters = {
         },
       },
     },
+    ...UserTableFilterDialogMeta.parameters?.apiResponses,
   },
 };
 

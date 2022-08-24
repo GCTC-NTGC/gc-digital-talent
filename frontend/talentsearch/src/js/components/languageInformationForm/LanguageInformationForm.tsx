@@ -9,6 +9,7 @@ import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
+import { BriefcaseIcon } from "@heroicons/react/solid";
 import {
   BilingualEvaluation,
   EstimatedLanguageAbility,
@@ -276,6 +277,30 @@ export const LanguageInformationForm: React.FunctionComponent<{
       },
     ];
 
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -295,6 +320,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
             href: returnRoute,
           }}
           crumbs={[
+            ...applicationBreadcrumbs,
             {
               title: intl.formatMessage({
                 defaultMessage: "Language Information",
@@ -303,7 +329,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
               }),
             },
           ]}
-          originApplication={application}
+          prefixBreadcrumbs={!application}
         >
           <div data-h2-padding="base(0, 0, x2, 0)">
             <div
