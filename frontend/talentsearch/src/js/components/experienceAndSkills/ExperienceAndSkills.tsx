@@ -9,7 +9,7 @@ import {
 import { useIntl } from "react-intl";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { IconLink } from "@common/components/Link";
-import { notEmpty, flatten } from "@common/helpers/util";
+import { notEmpty } from "@common/helpers/util";
 import MissingSkills from "@common/components/skills/MissingSkills";
 import { commonMessages } from "@common/messages";
 import { useQueryParams } from "@common/helpers/router";
@@ -69,14 +69,13 @@ export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
 };
 
 const flattenExperienceSkills = (experiences: MergedExperiences): Skill[] => {
-  const skillSkills = experiences
+  return experiences
     .map((experience) => {
       const { skills } = experience;
       return skills?.filter(notEmpty);
     })
-    .filter(notEmpty);
-
-  return flatten(skillSkills);
+    .filter(notEmpty)
+    .flatMap((skill) => skill);
 };
 
 export interface ExperienceAndSkillsProps {

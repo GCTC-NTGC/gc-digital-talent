@@ -39,5 +39,6 @@ module.exports = {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
 
   // Setup file
+  verbose: true,
   setupFilesAfterEnv: ["./src/js/tests/setup.ts"],
 };

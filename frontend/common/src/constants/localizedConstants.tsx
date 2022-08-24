@@ -23,6 +23,7 @@ import {
   PoolAdvertisementLanguage,
   SecurityStatus,
   CitizenshipStatus,
+  BilingualEvaluation,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -199,6 +200,49 @@ export const getEducationRequirement = (
     educationRequirementId,
     `Invalid Education Requirement '${educationRequirementId}'`,
   );
+
+export const EmploymentDuration = {
+  Term: "TERM",
+  Indeterminate: "INDETERMINATE",
+};
+export const employmentDurationShort = defineMessages({
+  [EmploymentDuration.Term]: {
+    defaultMessage: "Term",
+    description:
+      "Duration of a non-permanent length (short-form for limited space)",
+  },
+  [EmploymentDuration.Indeterminate]: {
+    defaultMessage: "Indeterminate",
+    description: "Duration that is permanent (short-form for limited space)",
+  },
+});
+
+export const employmentDurationLong = defineMessages({
+  [EmploymentDuration.Term]: {
+    defaultMessage: "Term duration (short term, long term)",
+    description: "Duration of a non-permanent length",
+  },
+  [EmploymentDuration.Indeterminate]: {
+    defaultMessage: "Indeterminate duration (permanent)",
+    description: "Duration that is permanent",
+  },
+});
+
+export const getEmploymentDuration = (
+  employmentDurationId: string | number,
+  format: "long" | "short" = "long",
+): MessageDescriptor => {
+  const messageDictionary = {
+    long: employmentDurationLong,
+    short: employmentDurationShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[format],
+    employmentDurationId,
+    `Invalid Employment Duration '${employmentDurationId}'`,
+  );
+};
 
 export const languageAbilities = defineMessages({
   [LanguageAbility.English]: {
@@ -963,14 +1007,36 @@ export const JobLookingStatusDescription = defineMessages({
   },
 });
 
-export const getJobLookingStatusDescription = (
+export const JobLookingStatusShort = defineMessages({
+  [JobLookingStatus.ActivelyLooking]: {
+    defaultMessage: "Actively looking",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.OpenToOpportunities]: {
+    defaultMessage: "Open to opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.Inactive]: {
+    defaultMessage: "Inactive",
+    description: "Job Looking Status described as Actively looking.",
+  },
+});
+
+export const getJobLookingStatus = (
   jobLookingStatusDescriptionId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    JobLookingStatusDescription,
+  format: "description" | "short" = "description",
+): MessageDescriptor => {
+  const messageDictionary = {
+    description: JobLookingStatusDescription,
+    short: JobLookingStatusShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[format],
     jobLookingStatusDescriptionId,
     `Invalid Job Looking Status '${jobLookingStatusDescriptionId}'`,
   );
+};
 
 export const getProvinceOrTerritory = (
   provinceOrTerritoryId: string | number,
@@ -1029,6 +1095,34 @@ export const getGovEmployeeType = (
     `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
   );
 
+export const simpleGovEmployeeType = defineMessages({
+  [GovEmployeeType.Student]: {
+    defaultMessage: "Student",
+    description: "Simple student selection for government employee type.",
+  },
+  [GovEmployeeType.Casual]: {
+    defaultMessage: "Casual",
+    description: "Simple casual selection for government employee type.",
+  },
+  [GovEmployeeType.Term]: {
+    defaultMessage: "Term",
+    description: "Simple term selection for government employee type.",
+  },
+  [GovEmployeeType.Indeterminate]: {
+    defaultMessage: "Indeterminate",
+    description: "Simple indeterminate selection for government employee type.",
+  },
+});
+
+export const getSimpleGovEmployeeType = (
+  govEmployeeTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    simpleGovEmployeeType,
+    govEmployeeTypeId,
+    `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
+  );
+
 export const advertisementStatus = defineMessages({
   [AdvertisementStatus.Draft]: {
     defaultMessage: "Draft",
@@ -1075,4 +1169,28 @@ export const getSecurityClearance = (
     securityClearances,
     securityClearanceId,
     `Invalid  Advertisement Status '${securityClearanceId}'`,
+  );
+
+export const bilingualEvaluations = defineMessages({
+  [BilingualEvaluation.CompletedEnglish]: {
+    defaultMessage: "Yes, completed English evaluation",
+    description: "Completed an English language evaluation",
+  },
+  [BilingualEvaluation.CompletedFrench]: {
+    defaultMessage: "Yes, completed French evaluation",
+    description: "Completed a French language evaluation",
+  },
+  [BilingualEvaluation.NotCompleted]: {
+    defaultMessage: "No",
+    description: "No, did not complete a language evaluation",
+  },
+});
+
+export const getBilingualEvaluation = (
+  bilingualEvaluationId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    bilingualEvaluations,
+    bilingualEvaluationId,
+    `Invalid Language Ability '${bilingualEvaluationId}'`,
   );

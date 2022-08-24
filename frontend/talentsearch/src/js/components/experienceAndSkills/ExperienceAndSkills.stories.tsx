@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { fakeSkills, fakeExperiences } from "@common/fakeData";
-import { flatten, notEmpty } from "@common/helpers/util";
+import { notEmpty } from "@common/helpers/util";
 import { ExperienceAndSkills } from "./ExperienceAndSkills";
 
 export default {
@@ -21,13 +21,12 @@ export const NoExperiencesMissingSkills = Template.bind({});
 export const WithExperiencesMissingSkills = Template.bind({});
 
 const mockExperiences = fakeExperiences(10);
-const mockExperienceSkills = flatten(
-  mockExperiences
-    .map((experience) => {
-      return experience.skills;
-    })
-    .filter(notEmpty),
-);
+const mockExperienceSkills = mockExperiences
+  .map((experience) => {
+    return experience.skills;
+  })
+  .filter(notEmpty)
+  .flatMap((skill) => skill);
 
 const mockSkills = [...fakeSkills(20), ...mockExperienceSkills];
 

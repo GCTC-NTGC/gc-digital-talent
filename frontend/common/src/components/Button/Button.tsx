@@ -11,12 +11,12 @@ export type Color =
 
 export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   /** The style type of the element. */
-  color: Color;
+  color?: Color;
   /** The style mode of the element. */
-  mode: "solid" | "outline" | "inline" | "tableHeader";
+  mode?: "solid" | "outline" | "inline" | "tableHeader";
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
-  type?: "button" | "submit" | "reset" | undefined;
+  type?: "button" | "submit" | "reset";
   classNames?: string;
 }
 
@@ -164,9 +164,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,
-      type,
-      color,
-      mode,
+      type = "button",
+      color = "primary",
+      mode = "solid",
       disabled,
       block = false,
       classNames,
@@ -186,14 +186,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }
     return (
       <button
-        ref={ref}
         className={`button ${classNames}`}
         // eslint-disable-next-line react/button-has-type
-        type={type || "button"}
-        disabled={disabled}
+        {...{ ref, type, disabled }}
         data-h2-radius="base(s)"
-        data-h2-font-size="base(copy)"
-        data-h2-transition="base:hover(background, .2s, ease, 0s)"
+        data-h2-font-size="b(caption) m(normal)"
+        data-h2-font-family="b(sans)"
         {...(block
           ? { "data-h2-display": "base(block)" }
           : { "data-h2-display": "base(inline-block)" })}
