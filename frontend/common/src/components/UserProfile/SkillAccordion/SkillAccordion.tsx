@@ -202,16 +202,17 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         <p>
           {intl.formatMessage(
             {
-              defaultMessage: "<primary>{role}</primary> at {division}",
-              description: "Role at Team, Group or Division",
+              defaultMessage: "<primary>{role}</primary> at {organization}",
+              description:
+                "Role at organization in work experience block of skill accordion.",
             },
-            { division, role },
+            { organization, role },
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
           {getDateRange({ endDate, startDate, intl, locale })}
         </p>
-        <p>{organization}</p>
+        <p>{division}</p>
         <p>{skill.experienceSkillRecord?.details}</p>
         <p>
           {intl.formatMessage(
