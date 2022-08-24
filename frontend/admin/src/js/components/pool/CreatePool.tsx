@@ -13,7 +13,6 @@ import Breadcrumbs, {
   BreadcrumbsProps,
 } from "@common/components/Breadcrumbs/Breadcrumbs";
 import { ViewGridIcon } from "@heroicons/react/outline";
-import { ViewGridIcon as SolidGridIcon } from "@heroicons/react/solid";
 import Link from "@common/components/Link/Link";
 import { getLocalizedName } from "@common/helpers/localize";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -102,7 +101,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         description: "Breadcrumb title for the pools page link.",
       }),
       href: paths.poolTable(),
-      icon: <SolidGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage({

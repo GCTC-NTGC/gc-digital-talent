@@ -7,7 +7,7 @@ import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import { Link } from "@common/components";
 import PageHeader from "@common/components/PageHeader";
-import { HomeIcon, ViewGridIcon } from "@heroicons/react/outline";
+import { ViewGridIcon } from "@heroicons/react/outline";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import TableOfContents from "@common/components/TableOfContents";
 import { notEmpty } from "@common/helpers/util";
@@ -97,7 +97,6 @@ export const EditPoolForm = ({
         description: "Breadcrumb title for the home page link.",
       }),
       href: adminPaths.home(),
-      icon: <HomeIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage({
@@ -105,7 +104,6 @@ export const EditPoolForm = ({
         description: "Breadcrumb title for the pools page link.",
       }),
       href: adminPaths.poolTable(),
-      icon: <ViewGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage(

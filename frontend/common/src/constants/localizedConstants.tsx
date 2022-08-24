@@ -201,6 +201,49 @@ export const getEducationRequirement = (
     `Invalid Education Requirement '${educationRequirementId}'`,
   );
 
+export const EmploymentDuration = {
+  Term: "TERM",
+  Indeterminate: "INDETERMINATE",
+};
+export const employmentDurationShort = defineMessages({
+  [EmploymentDuration.Term]: {
+    defaultMessage: "Term",
+    description:
+      "Duration of a non-permanent length (short-form for limited space)",
+  },
+  [EmploymentDuration.Indeterminate]: {
+    defaultMessage: "Indeterminate",
+    description: "Duration that is permanent (short-form for limited space)",
+  },
+});
+
+export const employmentDurationLong = defineMessages({
+  [EmploymentDuration.Term]: {
+    defaultMessage: "Term duration (short term, long term)",
+    description: "Duration of a non-permanent length",
+  },
+  [EmploymentDuration.Indeterminate]: {
+    defaultMessage: "Indeterminate duration (permanent)",
+    description: "Duration that is permanent",
+  },
+});
+
+export const getEmploymentDuration = (
+  employmentDurationId: string | number,
+  format: "long" | "short" = "long",
+): MessageDescriptor => {
+  const messageDictionary = {
+    long: employmentDurationLong,
+    short: employmentDurationShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[format],
+    employmentDurationId,
+    `Invalid Employment Duration '${employmentDurationId}'`,
+  );
+};
+
 export const languageAbilities = defineMessages({
   [LanguageAbility.English]: {
     defaultMessage: "English only",
@@ -351,34 +394,6 @@ export const getWorkRegion = (
   );
 
 export const poolCandidateStatuses = defineMessages({
-  [PoolCandidateStatus.Available]: {
-    defaultMessage: "Available",
-    description: "The pool candidate's status is Available.",
-  },
-  [PoolCandidateStatus.NoLongerInterested]: {
-    defaultMessage: "No Longer Interested",
-    description: "The pool candidate's status is No Longer Interested.",
-  },
-  [PoolCandidateStatus.PlacedIndeterminate]: {
-    defaultMessage: "Placed Indeterminate",
-    description: "The pool candidate's status is Placed Indeterminate.",
-  },
-  [PoolCandidateStatus.PlacedTerm]: {
-    defaultMessage: "Placed Term",
-    description: "The pool candidate's status is Placed Term.",
-  },
-  [PoolCandidateStatus.Unavailable]: {
-    defaultMessage: "Unavailable",
-    description: "The pool candidate's status is Unavailable.",
-  },
-  [PoolCandidateStatus.Expired]: {
-    defaultMessage: "Expired",
-    description: "The pool candidate's status is Expired.",
-  },
-  [PoolCandidateStatus.PlacedCasual]: {
-    defaultMessage: "Placed Casual",
-    description: "The pool candidate's status is Placed Casual.",
-  },
   [PoolCandidateStatus.Draft]: {
     defaultMessage: "Draft",
     description: "The pool candidate's status is Draft.",
@@ -386,6 +401,58 @@ export const poolCandidateStatuses = defineMessages({
   [PoolCandidateStatus.DraftExpired]: {
     defaultMessage: "Draft Expired",
     description: "The pool candidate's status is Expired Draft.",
+  },
+  [PoolCandidateStatus.NewApplication]: {
+    defaultMessage: "New Application",
+    description: "The pool candidate's status is New Application.",
+  },
+  [PoolCandidateStatus.ApplicationReview]: {
+    defaultMessage: "Application Review",
+    description: "The pool candidate's status is Application Review.",
+  },
+  [PoolCandidateStatus.ScreenedIn]: {
+    defaultMessage: "Screened In",
+    description: "The pool candidate's status is Screened In.",
+  },
+  [PoolCandidateStatus.ScreenedOutApplication]: {
+    defaultMessage: "Screened Out Application",
+    description: "The pool candidate's status is Screened Out Application",
+  },
+  [PoolCandidateStatus.UnderAssessment]: {
+    defaultMessage: "Under Assessment",
+    description: "The pool candidate's status is Under Assessment.",
+  },
+  [PoolCandidateStatus.ScreenedOutAssessment]: {
+    defaultMessage: "Screened Out Assessment",
+    description: "The pool candidate's status is Screened Out Assessment.",
+  },
+  [PoolCandidateStatus.QualifiedAvailable]: {
+    defaultMessage: "Qualified Available",
+    description: "The pool candidate's status is Qualified Available",
+  },
+  [PoolCandidateStatus.QualifiedUnavailable]: {
+    defaultMessage: "Qualified Unavailable",
+    description: "The pool candidate's status is Qualified Unavailable.",
+  },
+  [PoolCandidateStatus.QualifiedWithdrew]: {
+    defaultMessage: "Qualified Withdrew",
+    description: "The pool candidate's status is Qualified Withdrew.",
+  },
+  [PoolCandidateStatus.PlacedCasual]: {
+    defaultMessage: "Placed Casual",
+    description: "The pool candidate's status is Placed Casual.",
+  },
+  [PoolCandidateStatus.PlacedTerm]: {
+    defaultMessage: "Placed Term",
+    description: "The pool candidate's status is Placed Term.",
+  },
+  [PoolCandidateStatus.PlacedIndeterminate]: {
+    defaultMessage: "Placed Indeterminate",
+    description: "The pool candidate's status is Placed Indeterminate.",
+  },
+  [PoolCandidateStatus.Expired]: {
+    defaultMessage: "Expired",
+    description: "The pool candidate's status is Expired.",
   },
 });
 
@@ -964,14 +1031,36 @@ export const JobLookingStatusDescription = defineMessages({
   },
 });
 
-export const getJobLookingStatusDescription = (
+export const JobLookingStatusShort = defineMessages({
+  [JobLookingStatus.ActivelyLooking]: {
+    defaultMessage: "Actively looking",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.OpenToOpportunities]: {
+    defaultMessage: "Open to opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.Inactive]: {
+    defaultMessage: "Inactive",
+    description: "Job Looking Status described as Actively looking.",
+  },
+});
+
+export const getJobLookingStatus = (
   jobLookingStatusDescriptionId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    JobLookingStatusDescription,
+  format: "description" | "short" = "description",
+): MessageDescriptor => {
+  const messageDictionary = {
+    description: JobLookingStatusDescription,
+    short: JobLookingStatusShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[format],
     jobLookingStatusDescriptionId,
     `Invalid Job Looking Status '${jobLookingStatusDescriptionId}'`,
   );
+};
 
 export const getProvinceOrTerritory = (
   provinceOrTerritoryId: string | number,

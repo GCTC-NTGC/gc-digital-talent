@@ -1,30 +1,35 @@
 import React from "react";
-import { Maybe, Role } from "../../api/generated";
+import { Maybe, Role, User } from "../../api/generated";
 
+export type PossibleUser = Maybe<User>;
 export type PossibleUserRoles = Maybe<Array<Maybe<Role>>>;
 export type MaybeEmail = Maybe<string>;
 
-interface AuthorizationState {
+export interface AuthorizationState {
   loggedInUserRoles: PossibleUserRoles;
   loggedInEmail?: MaybeEmail;
+  loggedInUser?: PossibleUser;
   isLoaded: boolean;
 }
 
 export const AuthorizationContext = React.createContext<AuthorizationState>({
   loggedInUserRoles: null,
   loggedInEmail: null,
+  loggedInUser: null,
   isLoaded: false,
 });
 
 interface AuthorizationContainerProps {
   userRoles?: PossibleUserRoles;
   email?: MaybeEmail;
+  currentUser?: PossibleUser;
   isLoaded: boolean;
 }
 
-export const AuthorizationContainer: React.FC<AuthorizationContainerProps> = ({
+const AuthorizationContainer: React.FC<AuthorizationContainerProps> = ({
   userRoles,
   email,
+  currentUser,
   isLoaded,
   children,
 }) => {
@@ -32,9 +37,10 @@ export const AuthorizationContainer: React.FC<AuthorizationContainerProps> = ({
     return {
       loggedInUserRoles: userRoles,
       loggedInEmail: email,
+      loggedInUser: currentUser,
       isLoaded,
     };
-  }, [userRoles, email, isLoaded]);
+  }, [userRoles, email, currentUser, isLoaded]);
 
   return (
     <AuthorizationContext.Provider value={state}>

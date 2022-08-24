@@ -1,9 +1,10 @@
-import { Button, Link } from "@common/components";
-import Dialog from "@common/components/Dialog";
-import { Fieldset } from "@common/components/inputPartials";
 import React, { ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
-import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
+import { Button, Link } from "@common/components";
+import { PlusIcon, TableIcon } from "@heroicons/react/outline";
+import { SubmitHandler } from "react-hook-form";
+import Dialog from "@common/components/Dialog";
+import { Fieldset } from "@common/components/inputPartials";
 import SearchForm from "./SearchForm";
 import { ButtonIcon, IndeterminateCheckbox } from "../Table/tableComponents";
 import type {
@@ -12,6 +13,8 @@ import type {
   IdType,
   SearchColumn,
 } from "./basicTableHelpers";
+import UserTableFilterDialog from "../user/UserTableFilterDialog";
+import type { FormValues } from "../user/UserTableFilterDialog";
 
 export interface TableHeaderProps<T extends Record<string, unknown>> {
   onSearchChange: (
@@ -43,6 +46,9 @@ function TableHeader<T extends Record<string, unknown>>({
   const intl = useIntl();
 
   const [showList, setShowList] = useState(false);
+  const handleFilterSubmit: SubmitHandler<FormValues> = () => {
+    // do nothing.
+  };
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -57,22 +63,7 @@ function TableHeader<T extends Record<string, unknown>>({
                   <SearchForm onChange={onSearchChange} searchBy={searchBy} />
                 </div>
                 <div data-h2-flex-item="base(content)">
-                  <Button
-                    mode="solid"
-                    color="secondary"
-                    type="button"
-                    data-h2-display="base(inline-flex)"
-                    data-h2-align-items="base(center)"
-                  >
-                    <ButtonIcon icon={FilterIcon} />
-                    <span>
-                      {intl.formatMessage({
-                        defaultMessage: "Filters",
-                        description:
-                          "Text label for button to open filter dialog on admin tables.",
-                      })}
-                    </span>
-                  </Button>
+                  <UserTableFilterDialog.Button onSubmit={handleFilterSubmit} />
                 </div>
                 <div data-h2-flex-item="base(content)">
                   <div data-h2-position="base(relative)">

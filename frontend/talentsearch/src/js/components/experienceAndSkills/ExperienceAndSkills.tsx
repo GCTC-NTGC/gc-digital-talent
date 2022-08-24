@@ -1,3 +1,4 @@
+import React from "react";
 import {
   BookOpenIcon,
   BriefcaseIcon,
@@ -5,28 +6,37 @@ import {
   StarIcon,
   UserGroupIcon,
 } from "@heroicons/react/solid";
-import * as React from "react";
 import { useIntl } from "react-intl";
-import { notEmpty } from "@common/helpers/util";
-import { EducationExperience } from "@common/api/generated";
-import { commonMessages } from "@common/messages";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
 import { IconLink } from "@common/components/Link";
+import { notEmpty } from "@common/helpers/util";
+import MissingSkills from "@common/components/skills/MissingSkills";
+import { commonMessages } from "@common/messages";
+import { useQueryParams } from "@common/helpers/router";
+import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import {
   AwardExperience,
   CommunityExperience,
-  Experience,
+  EducationExperience,
   PersonalExperience,
+  PoolAdvertisement,
+  Skill,
   WorkExperience,
-  useGetAllApplicantExperiencesQuery,
-  useGetMeQuery,
 } from "../../api/generated";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
-import ProfileFormFooter from "./ProfileFormFooter";
-import ProfileFormWrapper from "./ProfileFormWrapper";
-import profileMessages from "../profile/profileMessages";
+import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
+import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
+import { ExperienceType } from "../experienceForm/types";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
+import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+
+type MergedExperiences = Array<
+  | AwardExperience
+  | CommunityExperience
+  | EducationExperience
+  | PersonalExperience
+  | WorkExperience
+>;
 
 export type ExperienceForDate =
   | (AwardExperience & { startDate: string; endDate: string })
@@ -57,30 +67,51 @@ export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
   // Items with end date should be sorted by most recent end date at top.
   return e2EndDate - e1EndDate;
 };
+
+const flattenExperienceSkills = (experiences: MergedExperiences): Skill[] => {
+  return experiences
+    .map((experience) => {
+      const { skills } = experience;
+      return skills?.filter(notEmpty);
+    })
+    .filter(notEmpty)
+    .flatMap((skill) => skill);
+};
+
 export interface ExperienceAndSkillsProps {
   applicantId: string;
-  experiences?: Experience[];
+  experiences?: MergedExperiences;
+  poolAdvertisement?: PoolAdvertisement;
+  missingSkills?: {
+    requiredSkills: Skill[];
+    optionalSkills: Skill[];
+  };
 }
 
 export const ExperienceAndSkills: React.FunctionComponent<
   ExperienceAndSkillsProps
-> = ({ applicantId, experiences }) => {
+> = ({ experiences, missingSkills, applicantId, poolAdvertisement }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
+  const directIntakePaths = useDirectIntakeRoutes();
+  const { application } = useQueryParams();
+  const applicationParam = application ? `?application=${application}` : ``;
+
+  const getEditPath = (id: string, type: ExperienceType) => {
+    return `${paths.editExperience(applicantId, type, id)}${applicationParam}`;
+  };
+
   const experienceEditPaths = {
-    awardUrl: (id: string) => paths.editExperience(applicantId, "award", id),
-    communityUrl: (id: string) =>
-      paths.editExperience(applicantId, "community", id),
-    educationUrl: (id: string) =>
-      paths.editExperience(applicantId, "education", id),
-    personalUrl: (id: string) =>
-      paths.editExperience(applicantId, "personal", id),
-    workUrl: (id: string) => paths.editExperience(applicantId, "work", id),
+    awardUrl: (id: string) => getEditPath(id, "award"),
+    communityUrl: (id: string) => getEditPath(id, "community"),
+    educationUrl: (id: string) => getEditPath(id, "education"),
+    personalUrl: (id: string) => getEditPath(id, "personal"),
+    workUrl: (id: string) => getEditPath(id, "work"),
   };
 
   const links = [
     {
-      href: paths.createPersonal(applicantId),
+      href: `${paths.createPersonal(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Personal",
         description: "Title for personal experience form button.",
@@ -88,7 +119,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: LightBulbIcon,
     },
     {
-      href: paths.createCommunity(applicantId),
+      href: `${paths.createCommunity(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Community",
         description: "Title for community experience form button.",
@@ -96,7 +127,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: UserGroupIcon,
     },
     {
-      href: paths.createWork(applicantId),
+      href: `${paths.createWork(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Work",
         description: "Title for work experience form button.",
@@ -104,7 +135,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: BriefcaseIcon,
     },
     {
-      href: paths.createEducation(applicantId),
+      href: `${paths.createEducation(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Education",
         description: "Title for education experience form button.",
@@ -112,7 +143,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       icon: BookOpenIcon,
     },
     {
-      href: paths.createAward(applicantId),
+      href: `${paths.createAward(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Award",
         description: "Title for award experience form button.",
@@ -121,17 +152,44 @@ export const ExperienceAndSkills: React.FunctionComponent<
     },
   ];
 
+  const hasExperiences = notEmpty(experiences);
+
+  let crumbs = [
+    {
+      title: intl.formatMessage({
+        defaultMessage: "Experience and Skills",
+        description:
+          "Breadcrumb for experience and skills page in applicant profile.",
+      }),
+    },
+  ] as BreadcrumbsProps["links"];
+
+  if (poolAdvertisement) {
+    const advertisementTitle = getFullPoolAdvertisementTitle(
+      intl,
+      poolAdvertisement,
+    );
+
+    crumbs = [
+      {
+        title: intl.formatMessage({
+          defaultMessage: "My Applications",
+          description: "Link text for breadcrumb to user applications page.",
+        }),
+        href: directIntakePaths.applications(applicantId),
+      },
+      {
+        title: advertisementTitle,
+        href: "/#",
+      },
+      ...crumbs,
+    ];
+  }
+
   return (
     <ProfileFormWrapper
-      crumbs={[
-        {
-          title: intl.formatMessage({
-            defaultMessage: "Experience and Skills",
-            description:
-              "Breadcrumb for experience and skills page in applicant profile.",
-          }),
-        },
-      ]}
+      prefixBreadcrumbs={!poolAdvertisement}
+      crumbs={crumbs}
       description={intl.formatMessage({
         defaultMessage:
           "Here is where you can add experiences and skills to your profile. This could be anything from helping community members troubleshoot their computers to full-time employment at an IT organization.",
@@ -189,7 +247,18 @@ export const ExperienceAndSkills: React.FunctionComponent<
           </div>
         </div>
       </div>
-      {!experiences || experiences?.length === 0 ? (
+      {missingSkills && (
+        <div data-h2-margin="base(x1, 0)">
+          <MissingSkills
+            addedSkills={
+              hasExperiences ? flattenExperienceSkills(experiences) : []
+            }
+            requiredSkills={missingSkills.requiredSkills}
+            optionalSkills={missingSkills.optionalSkills}
+          />
+        </div>
+      )}
+      {!hasExperiences ? (
         <div
           data-h2-radius="base(s)"
           data-h2-background-color="base(light.dt-gray)"
@@ -220,54 +289,4 @@ export const ExperienceAndSkills: React.FunctionComponent<
   );
 };
 
-export const ExperienceAndSkillsApi: React.FunctionComponent<{
-  applicantId: string;
-}> = ({ applicantId }) => {
-  const intl = useIntl();
-  const [{ data: applicantData, fetching, error }] =
-    useGetAllApplicantExperiencesQuery({ variables: { id: applicantId } });
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {applicantData?.applicant ? (
-        <ExperienceAndSkills
-          applicantId={applicantId}
-          experiences={applicantData.applicant.experiences?.filter(notEmpty)}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage: "User {applicantId} not found.",
-                description: "Message displayed for user not found.",
-              },
-              { applicantId },
-            )}
-          </p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-// This should probably be removed now
-const ExperienceAndSkillsRouterApi: React.FunctionComponent = () => {
-  const intl = useIntl();
-  const [result] = useGetMeQuery();
-  const { data, fetching, error } = result;
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {data?.me ? (
-        <ExperienceAndSkillsApi applicantId={data.me.id} />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-export default ExperienceAndSkillsRouterApi;
+export default ExperienceAndSkills;
