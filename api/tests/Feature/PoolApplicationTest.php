@@ -716,4 +716,73 @@ class PoolApplicationTest extends TestCase
         ]
     ]);
   }
+
+  public function testApplicationDeletion(): void
+  {
+    // re-make complete user, attach pool candidate
+    $this->seed(ClassificationSeeder::class);
+    $this->seed(GenericJobTitleSeeder::class);
+
+    $newUser = User::factory()->create();
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
+    $newUser->save();
+
+    $newPool = Pool::factory()->create([]);
+    $newPool->essentialSkills()->sync([]);
+
+    $newPoolCandidate = PoolCandidate::factory()->create([
+      'user_id' => $newUser->id,
+      'pool_id' => $newPool->id,
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+      'expiry_date' => config('constants.far_future_date'),
+    ]);
+
+    // Assert candidate exists
+    $this->graphQL(/** @lang Graphql */ '
+      query poolCandidate($id: ID!) {
+          poolCandidate(id: $id) {
+              status
+          }
+      }
+      ', [
+        'id' => $newPoolCandidate->id,
+        ])->assertJson([
+       "data" => [
+          "poolCandidate" => [
+              "status" => ApiEnums::CANDIDATE_STATUS_DRAFT,
+          ]
+      ]
+    ]);
+
+    // run deletion mutation and assert it returns true, indicating success
+    $this->graphQL(/** @lang Graphql */ '
+      mutation deleteTest($id: ID!) {
+        deleteApplication(id: $id)
+      }
+    ', [
+      'id' => $newPoolCandidate->id,
+      ])->assertJson([
+        "data" => [
+          "deleteApplication" => "true",
+        ]
+    ]);
+
+    // Assert candidate no longer exists
+    $this->graphQL(/** @lang Graphql */ '
+      query poolCandidate($id: ID!) {
+          poolCandidate(id: $id) {
+              status
+          }
+      }
+      ', [
+        'id' => $newPoolCandidate->id,
+        ])->assertJson([
+       "data" => [
+          "poolCandidate" => null,
+      ]
+    ]);
+  }
 }
