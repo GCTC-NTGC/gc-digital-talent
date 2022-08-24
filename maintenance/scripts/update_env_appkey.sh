@@ -1,6 +1,6 @@
 #! /bin/bash
 
-parent_path=~/gc-digital-talent/maintenance/scripts
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 source ${parent_path}/lib/common.sh
 
 # Random string generation that works on OSX and Linux. (Plus not pipefails.)
