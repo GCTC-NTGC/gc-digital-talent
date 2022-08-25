@@ -186,12 +186,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }
     return (
       <button
+        ref={ref}
         className={`button ${classNames}`}
         // eslint-disable-next-line react/button-has-type
-        {...{ ref, type, disabled }}
+        type={type || "button"}
+        disabled={disabled}
         data-h2-radius="base(s)"
-        data-h2-font-size="b(caption) m(normal)"
-        data-h2-font-family="b(sans)"
+        data-h2-font-size="base(copy)"
+        data-h2-transition="base:hover(background, .2s, ease, 0s)"
         {...(block
           ? { "data-h2-display": "base(block)" }
           : { "data-h2-display": "base(inline-block)" })}
