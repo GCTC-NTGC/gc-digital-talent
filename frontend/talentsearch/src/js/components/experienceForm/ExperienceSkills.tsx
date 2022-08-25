@@ -36,11 +36,16 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
 
   const handleAddSkill = (id: string) => {
     const foundSkill = skills.find((s) => s.id === id);
-    append({
-      skillId: id,
-      name: foundSkill?.name,
-      details: "",
-    });
+    append(
+      {
+        skillId: id,
+        name: foundSkill?.name,
+        details: "",
+      },
+      {
+        shouldFocus: false,
+      },
+    );
   };
 
   const handleRemoveSkill = (id: string) => {
