@@ -622,8 +622,9 @@ type Mutation {
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
   archiveApplication(id: ID!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
+  deleteApplication(id: ID!): Boolean
+  submitApplication(id: ID!, signature: String!): PoolCandidate
   testPoolCandidateSnapshot(id: ID!): PoolCandidate
-  submitApplication(applicationId: ID!, signature: String!): PoolCandidate
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
