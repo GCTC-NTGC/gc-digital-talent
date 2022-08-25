@@ -5,7 +5,7 @@ import messages from "../../../messages/commonMessages";
 import {
   getProvinceOrTerritory,
   getCitizenshipStatusesProfile,
-  getArmedForcesStatusesAdmin,
+  getArmedForcesStatusesProfile,
 } from "../../../constants/localizedConstants";
 import { getLanguage } from "../../../constants";
 import type { Applicant } from "../../../api/generated";
@@ -130,7 +130,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               <br />
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage(
-                  getArmedForcesStatusesAdmin(armedForcesStatus),
+                  getArmedForcesStatusesProfile(armedForcesStatus),
                 )}
               </span>
             </p>

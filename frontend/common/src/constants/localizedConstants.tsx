@@ -205,7 +205,31 @@ export const getArmedForcesStatusesAdmin = (
   getOrThrowError(
     armedForcesStatusesAdmin,
     armedForcesId,
-    `Invalid Language '${armedForcesId}'`,
+    `Invalid status '${armedForcesId}'`,
+  );
+
+export const armedForcesStatusesProfile = defineMessages({
+  [ArmedForcesStatus.Veteran]: {
+    defaultMessage: "I am a veteran of the CAF",
+    description: "declare self to be a CAF veteran",
+  },
+  [ArmedForcesStatus.Member]: {
+    defaultMessage: "I am an active member of the CAF",
+    description: "declare self to be a CAF member",
+  },
+  [ArmedForcesStatus.NonCaf]: {
+    defaultMessage: "I am not a member of the CAF",
+    description: "declare self to not be in the CAF",
+  },
+});
+
+export const getArmedForcesStatusesProfile = (
+  armedForcesId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    armedForcesStatusesProfile,
+    armedForcesId,
+    `Invalid status '${armedForcesId}'`,
   );
 
 export const educationRequirements = defineMessages({
