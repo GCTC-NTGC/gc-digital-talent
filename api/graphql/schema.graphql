@@ -313,9 +313,9 @@ enum PoolAdvertisementLanguage {
 
 type PoolCandidate {
     id: ID!
-    pool: Pool @belongsTo
+    pool: Pool! @belongsTo
     poolAdvertisement: PoolAdvertisement @belongsTo(relation: "pool")
-    user: Applicant @belongsTo(relation: "user")
+    user: Applicant! @belongsTo(relation: "user")
 
     # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")

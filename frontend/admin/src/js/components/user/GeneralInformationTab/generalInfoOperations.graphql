@@ -19,6 +19,9 @@ query GetGeneralInfo($id: ID!) {
     isWoman
     poolCandidates {
       id
+      user {
+        id
+      }
       pool {
         id
         name {

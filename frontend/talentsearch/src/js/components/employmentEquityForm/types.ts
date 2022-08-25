@@ -25,7 +25,7 @@ export type EquityDialogFooterProps = Pick<
   "isAdded" | "onSave"
 >;
 
-export type DiversityInclusionUpdateHandler = (
+export type EmploymentEquityUpdateHandler = (
   id: string,
   data: UpdateUserAsUserInput,
 ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
