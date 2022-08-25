@@ -41,7 +41,7 @@ const VisibleMinorityDialogFooter: React.FC<EquityDialogFooterProps> = ({
     <FormProvider {...methods}>
       <AddToProfile />
       <form onSubmit={handleSubmit(submitHandler)}>
-        <div data-h2-margin="base(0, 0, x1, 0)">
+        <div data-h2-margin="base(x1, 0, x1.5, 0)">
           <Checkbox
             id="isVisibleMinority"
             name="isVisibleMinority"
@@ -66,11 +66,20 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
     <Dialog
       isOpen={isOpen}
       onDismiss={onDismiss}
-      color="ts-primary"
+      color="ts-secondary"
       title={intl.formatMessage(getEmploymentEquityGroup("minority"))}
     >
       <UnderReview />
-      <p data-h2-margin="base(0, 0, x1, 0)">
+      <div data-h2-margin="base(x1, 0)">
+        <Definition
+          url={
+            intl.locale === "en"
+              ? "https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=45152"
+              : "https://www23.statcan.gc.ca/imdb/p3Var_f.pl?Function=DEC&Id=45152"
+          }
+        />
+      </div>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             'Visible minority refers to whether a person is a visible minority or not, as defined by the Employment Equity Act. The Employment Equity Act defines visible minorities as "persons, other than Aboriginal peoples, who are non-Caucasian in race or non-white in colour". The visible minority population consists mainly of the following groups: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese.',
@@ -78,13 +87,6 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
             "Definition of accepted ways to identify as a visible minority",
         })}
       </p>
-      <Definition
-        url={
-          intl.locale === "en"
-            ? "https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=45152"
-            : "https://www23.statcan.gc.ca/imdb/p3Var_f.pl?Function=DEC&Id=45152"
-        }
-      />
       <Dialog.Footer>
         <VisibleMinorityDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogFooter onDismiss={onDismiss} />
