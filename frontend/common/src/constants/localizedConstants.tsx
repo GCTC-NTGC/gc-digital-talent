@@ -23,6 +23,7 @@ import {
   PoolAdvertisementLanguage,
   SecurityStatus,
   CitizenshipStatus,
+  ArmedForcesStatus,
   BilingualEvaluation,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
@@ -181,6 +182,30 @@ export const getCitizenshipStatusesAdmin = (
     citizenshipStatusesAdmin,
     citizenshipId,
     `Invalid Language '${citizenshipId}'`,
+  );
+
+export const armedForcesStatusesAdmin = defineMessages({
+  [ArmedForcesStatus.Veteran]: {
+    defaultMessage: "Veteran",
+    description: "user is a CAF veteran",
+  },
+  [ArmedForcesStatus.Member]: {
+    defaultMessage: "Member",
+    description: "user is a CAF member",
+  },
+  [ArmedForcesStatus.NonCaf]: {
+    defaultMessage: "Not in the CAF",
+    description: "user is not in the CAF",
+  },
+});
+
+export const getArmedForcesStatusesAdmin = (
+  armedForcesId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    armedForcesStatusesAdmin,
+    armedForcesId,
+    `Invalid Language '${armedForcesId}'`,
   );
 
 export const educationRequirements = defineMessages({

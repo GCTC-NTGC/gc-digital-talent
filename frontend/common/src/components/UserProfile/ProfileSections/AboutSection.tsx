@@ -5,6 +5,7 @@ import messages from "../../../messages/commonMessages";
 import {
   getProvinceOrTerritory,
   getCitizenshipStatusesProfile,
+  getArmedForcesStatusesAdmin,
 } from "../../../constants/localizedConstants";
 import { getLanguage } from "../../../constants";
 import type { Applicant } from "../../../api/generated";
@@ -20,7 +21,7 @@ interface AboutSectionProps {
     | "currentCity"
     | "currentProvince"
     | "citizenship"
-    | "isVeteran"
+    | "armedForcesStatus"
   >;
   editPath?: string;
 }
@@ -36,7 +37,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
     currentCity,
     currentProvince,
     citizenship,
-    isVeteran,
+    armedForcesStatus,
   },
 }) => {
   const intl = useIntl();
@@ -119,7 +120,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             </p>
           </div>
         )}
-        {isVeteran !== null && (
+        {armedForcesStatus !== null && armedForcesStatus !== undefined && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
               {intl.formatMessage({
@@ -128,15 +129,9 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               })}
               <br />
               <span data-h2-font-weight="base(700)">
-                {isVeteran
-                  ? intl.formatMessage({
-                      defaultMessage: "I am a veteran or member of the CAF",
-                      description: "Am member or veteran of the CAF",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "I am not a veteran or member of the CAF",
-                      description: "Am not member or veteran of the CAF",
-                    })}
+                {intl.formatMessage(
+                  getArmedForcesStatusesAdmin(armedForcesStatus),
+                )}
               </span>
             </p>
           </div>
@@ -166,7 +161,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !currentCity &&
         !currentProvince &&
         !citizenship &&
-        isVeteran === null && (
+        armedForcesStatus === null && (
           <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
             <div data-h2-flex-item="base(1of1)">
               <p data-h2-color="base(dt-gray.dark)">
@@ -187,7 +182,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !currentCity ||
         !currentProvince ||
         !citizenship ||
-        isVeteran === null) && (
+        armedForcesStatus === null) && (
         <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
