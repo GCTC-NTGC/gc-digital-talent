@@ -56,20 +56,6 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
   );
 };
 
-type RowProps = React.HTMLAttributes<HTMLDivElement>;
-const Row = (props: RowProps) => (
-  <div data-h2-display="base(flex)" {...props} />
-);
-
-type ItemProps = React.HTMLAttributes<HTMLDivElement> & { grow?: boolean };
-const Item = ({ grow = false, ...rest }: ItemProps) => (
-  <div
-    data-h2-margin="base(0, 0, 0, x1)"
-    {...(grow && { style: { flexGrow: 1 } })}
-    {...rest}
-  />
-);
-
 interface UserTableFilterDialogProps {
   isOpen: boolean;
   onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
@@ -110,8 +96,8 @@ const UserTableFilterDialog = ({
           defaultValues: activeFilters,
         }}
       >
-        <Row>
-          <Item grow>
+        <div data-h2-flex-grid="base(flex-start, 0, x1, x.5)">
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
             <MultiSelectFieldV2
               id="pools"
               label={formatMessage({
@@ -120,8 +106,8 @@ const UserTableFilterDialog = ({
               options={optionsData.pools}
               isLoading={rawGraphqlResults.pools.fetching}
             />
-          </Item>
-          <Item style={{ minWidth: 275 }}>
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
             <SelectFieldV2
               forceArrayFormValue
               id="languageAbility"
@@ -130,10 +116,8 @@ const UserTableFilterDialog = ({
               })}
               options={optionsData.languageAbility}
             />
-          </Item>
-        </Row>
-        <Row>
-          <Item grow>
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
             <MultiSelectFieldV2
               id="classifications"
               label={formatMessage({
@@ -142,8 +126,8 @@ const UserTableFilterDialog = ({
               options={optionsData.classifications}
               isLoading={rawGraphqlResults.classifications.fetching}
             />
-          </Item>
-          <Item grow>
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
             <MultiSelectFieldV2
               id="operationalRequirement"
               label={formatMessage({
@@ -151,8 +135,8 @@ const UserTableFilterDialog = ({
               })}
               options={optionsData.operationalRequirement}
             />
-          </Item>
-          <Item grow>
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
             <MultiSelectFieldV2
               id="workRegion"
               label={formatMessage({
@@ -160,11 +144,9 @@ const UserTableFilterDialog = ({
               })}
               options={optionsData.workRegion}
             />
-          </Item>
-        </Row>
-        <Row>
+          </div>
           {enableEducationType && (
-            <Item grow>
+            <div data-h2-flex-item="base(1of1)">
               <MultiSelectFieldV2
                 id="educationType"
                 label={formatMessage({
@@ -172,9 +154,9 @@ const UserTableFilterDialog = ({
                 })}
                 options={optionsData.educationType}
               />
-            </Item>
+            </div>
           )}
-          <Item>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
             <SelectFieldV2
               forceArrayFormValue
               id="employmentDuration"
@@ -183,8 +165,8 @@ const UserTableFilterDialog = ({
               })}
               options={optionsData.employmentDuration}
             />
-          </Item>
-          <Item grow>
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
             <MultiSelectFieldV2
               id="jobLookingStatus"
               label={formatMessage({
@@ -192,8 +174,8 @@ const UserTableFilterDialog = ({
               })}
               options={optionsData.jobLookingStatus}
             />
-          </Item>
-          <Item>
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
             <SelectFieldV2
               forceArrayFormValue
               id="profileComplete"
@@ -202,10 +184,8 @@ const UserTableFilterDialog = ({
               })}
               options={optionsData.profileComplete}
             />
-          </Item>
-        </Row>
-        <Row>
-          <Item grow>
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
             <MultiSelectFieldV2
               id="skills"
               label={formatMessage({
@@ -214,8 +194,8 @@ const UserTableFilterDialog = ({
               options={optionsData.skills}
               isLoading={rawGraphqlResults.skills.fetching}
             />
-          </Item>
-          <Item>
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
             <SelectFieldV2
               forceArrayFormValue
               id="govEmployee"
@@ -224,8 +204,8 @@ const UserTableFilterDialog = ({
               })}
               options={optionsData.govEmployee}
             />
-          </Item>
-        </Row>
+          </div>
+        </div>
         <Dialog.Footer>
           <Footer />
         </Dialog.Footer>
