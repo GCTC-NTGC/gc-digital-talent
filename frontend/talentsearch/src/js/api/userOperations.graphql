@@ -11,7 +11,7 @@ query getMe {
     currentProvince
     currentCity
     citizenship
-    isVeteran
+    armedForcesStatus
     languageAbility
     lookingForEnglish
     lookingForFrench

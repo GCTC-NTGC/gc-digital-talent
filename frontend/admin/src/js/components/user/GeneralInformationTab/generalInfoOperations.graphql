@@ -7,7 +7,7 @@ query GetGeneralInfo($id: ID!) {
     lastName
     telephone
     citizenship
-    isVeteran
+    armedForcesStatus
     preferredLang
     roles
     currentProvince
