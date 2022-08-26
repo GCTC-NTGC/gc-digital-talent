@@ -1318,9 +1318,11 @@ type Mutation {
     closePoolAdvertisement(id: ID!): PoolAdvertisement @guard @can(ability: "closePoolAdvertisement", find: "id", model: "Pool")
     deletePoolAdvertisement(id: ID!): PoolAdvertisement @delete(model: "Pool", globalId: false) @guard @can(ability: "delete", find: "id", model: "Pool")
 
+    # Application mutations
     archiveApplication(id:ID!): PoolCandidate @guard @can(ability: "archiveApplication", find: "id")
     createApplication(userId:ID!, poolId:ID!): PoolCandidate
+    deleteApplication(id: ID!): Boolean @guard @can(ability: "deleteApplication", find: "id", model: "PoolCandidate")
+    submitApplication(id: ID!, signature: String!): PoolCandidate
 
     testPoolCandidateSnapshot(id:ID!): PoolCandidate @guard @can(ability: "update", find: "id")
-    submitApplication(applicationId: ID!, signature: String!): PoolCandidate
 }
