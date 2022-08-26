@@ -108,6 +108,7 @@ const generateUser = (
     department: faker.helpers.arrayElement<Department>(departments),
     currentClassification:
       faker.helpers.arrayElement<Classification>(classifications),
+    hasPriorityEntitlement: faker.datatype.boolean(),
 
     // Employment Equity
     isWoman: faker.datatype.boolean(),
