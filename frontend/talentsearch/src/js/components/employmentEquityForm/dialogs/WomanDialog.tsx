@@ -41,7 +41,7 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
     <FormProvider {...methods}>
       <AddToProfile />
       <form onSubmit={handleSubmit(submitHandler)}>
-        <div data-h2-margin="base(0, 0, x1, 0)">
+        <div data-h2-margin="base(x1, 0, x1.5, 0)">
           <Checkbox
             id="isWoman"
             name="isWoman"
@@ -66,24 +66,26 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
     <Dialog
       isOpen={isOpen}
       onDismiss={onDismiss}
-      color="ts-primary"
+      color="ts-secondary"
       title={intl.formatMessage(getEmploymentEquityGroup("woman"))}
     >
       <UnderReview />
-      <p data-h2-margin="base(0, 0, x1, 0)">
+      <div data-h2-margin="base(x1, 0)">
+        <Definition
+          url={
+            intl.locale === "en"
+              ? "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
+              : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
+          }
+        />
+      </div>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "This category includes persons whose reported gender is female. It includes cisgender (cis) and transgender (trans) women.",
           description: "Definition of accepted ways to identify as a women",
         })}
       </p>
-      <Definition
-        url={
-          intl.locale === "en"
-            ? "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
-            : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
-        }
-      />
       <Dialog.Footer>
         <WomanDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogFooter onDismiss={onDismiss} />
