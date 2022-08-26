@@ -106,12 +106,12 @@ const SkillPicker = ({
 
   const tabs = [
     intl.formatMessage({
-      defaultMessage: "Occupational skills",
-      description: "Tab name for a list of occupational skills",
+      defaultMessage: "Technical skills",
+      description: "Tab name for a list of technical skills",
     }),
     intl.formatMessage({
-      defaultMessage: "Transferable skills",
-      description: "Tab name for a list of transferable skills",
+      defaultMessage: "Behavioural skills",
+      description: "Tab name for a list of behavioural skills",
     }),
     intl.formatMessage({
       defaultMessage: "By keyword",
