@@ -38,7 +38,9 @@
     "test": "jest",
     "test:watch": "jest --watch"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "devDependencies": {
     "@babel/core": "^7.18.10",
     "@babel/preset-env": "^7.18.10",
