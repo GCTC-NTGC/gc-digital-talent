@@ -17,7 +17,7 @@ const Definition: React.FC<DefinitionProps> = ({ url }) => {
   const intl = useIntl();
 
   return (
-    <p>
+    <p data-h2-margin="base(x1, 0)">
       {intl.formatMessage(
         {
           defaultMessage:

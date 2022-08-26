@@ -72,15 +72,13 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
       title={intl.formatMessage(getEmploymentEquityGroup("disability"))}
     >
       <UnderReview />
-      <div data-h2-margin="base(x1, 0)">
-        <Definition
-          url={
-            intl.locale === "en"
-              ? "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1"
-              : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1"
-          }
-        />
-      </div>
+      <Definition
+        url={
+          intl.locale === "en"
+            ? "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1"
+            : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1"
+        }
+      />
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:

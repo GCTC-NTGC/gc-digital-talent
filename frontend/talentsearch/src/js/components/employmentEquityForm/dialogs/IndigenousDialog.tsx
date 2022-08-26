@@ -72,15 +72,13 @@ const IndigenousDialog: React.FC<EquityDialogProps> = ({
       title={intl.formatMessage(getEmploymentEquityGroup("indigenous"))}
     >
       <UnderReview />
-      <div data-h2-margin="base(x1, 0)">
-        <Definition
-          url={
-            intl.locale === "en"
-              ? "https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=42927"
-              : "https://www23.statcan.gc.ca/imdb/p3Var_f.pl?Function=DEC&Id=42927"
-          }
-        />
-      </div>
+      <Definition
+        url={
+          intl.locale === "en"
+            ? "https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=42927"
+            : "https://www23.statcan.gc.ca/imdb/p3Var_f.pl?Function=DEC&Id=42927"
+        }
+      />
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
