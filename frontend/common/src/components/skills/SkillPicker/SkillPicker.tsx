@@ -17,7 +17,7 @@ import { getLocalizedName } from "../../../helpers/localize";
 
 const PAGE_SIZE = 5;
 
-interface SkillPickerProps {
+export interface SkillPickerProps {
   selectedSkills: Array<Skill>;
   skills: Array<Skill>;
   onChange: (newSkills: Array<Skill>) => void;
