@@ -247,11 +247,23 @@ type Pool {
     poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
     keyTasks: LocalizedString @rename(attribute: "key_tasks")
     status: PoolStatus @rename(attribute: "pool_status")
+    stream: PoolStream
 }
 
 enum PoolStatus {
     TAKING_APPLICATIONS
     NOT_TAKING_APPLICATIONS
+}
+
+enum PoolStream {
+    BUSINESS_ADVISORY_SERVICES
+    DATABASE_MANAGEMENT
+    ENTERPRISE_ARCHITECTURE
+    INFRASTRUCTURE_OPERATIONS
+    PLANNING_AND_REPORTING
+    PROJECT_PORTFOLIO_MANAGEMENT
+    SECURITY
+    SOFTWARE_SOLUTIONS
 }
 
 type PoolAdvertisement {
@@ -270,6 +282,7 @@ type PoolAdvertisement {
     advertisementStatus: AdvertisementStatus @rename(attribute: "advertisement_status")
     essentialSkills: [Skill!] @belongsToMany
     nonessentialSkills: [Skill!] @belongsToMany
+    stream: PoolStream
 }
 
 enum AdvertisementStatus {
@@ -1049,6 +1062,7 @@ input UpdatePoolInput {
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
     status: PoolStatus @rename(attribute: "pool_status")
+    stream: PoolStream
 }
 
 input CreateDepartmentInput {
