@@ -291,8 +291,8 @@ const SkillPicker = ({
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage(
           {
-            defaultMessage: "Selected essential skills ({skillCount})",
-            description: "A title for an essential skill list",
+            defaultMessage: "Selected skills ({skillCount})",
+            description: "A title for an skill list",
           },
           {
             skillCount: selectedSkills.length,
