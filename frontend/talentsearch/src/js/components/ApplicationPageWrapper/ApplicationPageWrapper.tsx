@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { imageUrl } from "@common/helpers/router";
 import { relativeExpiryDate } from "@common/helpers/dateUtils";
@@ -10,7 +9,6 @@ import ApplicationNavigation, {
   type ApplicationNavigationProps,
 } from "./ApplicationNavigation";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
 export interface ApplicationPageWrapperProps {
   title: string;
@@ -30,24 +28,10 @@ const ApplicationPageWrapper = ({
   children,
 }: ApplicationPageWrapperProps) => {
   const intl = useIntl();
-  const paths = useDirectIntakeRoutes();
 
   const banner = imageUrl(TALENTSEARCH_APP_DIR, "applicant-profile-banner.png");
 
-  const breadcrumbs = crumbs ? (
-    <Breadcrumbs
-      links={[
-        {
-          title: intl.formatMessage({
-            defaultMessage: "Browse opportunities",
-            description: "Breadcrumb from applicant profile wrapper.",
-          }),
-          href: paths.allPools(),
-        },
-        ...crumbs,
-      ]}
-    />
-  ) : null;
+  const breadcrumbs = crumbs ? <Breadcrumbs links={crumbs} /> : null;
 
   const showNav = !!(navigation && navigation.steps.length > 0);
 

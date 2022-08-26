@@ -41,29 +41,29 @@ const CreateAccount = React.lazy(
 const ProfilePage = React.lazy(
   () => import("./profile/ProfilePage/ProfilePage"),
 );
-const GovInfoFormContainer = React.lazy(
-  () => import("./GovernmentInfoForm/GovernmentInfoForm"),
+const GovernmentInfoFormPage = React.lazy(
+  () => import("./GovernmentInfoForm/GovernmentInfoFormPage"),
 );
-const LanguageInformationFormContainer = React.lazy(
-  () => import("./languageInformationForm/LanguageInformationForm"),
+const LanguageInformationFormPage = React.lazy(
+  () => import("./languageInformationForm/LanguageInformationFormPage"),
 );
-const WorkLocationPreferenceApi = React.lazy(
-  () => import("./workLocationPreferenceForm/WorkLocationPreferenceForm"),
+const WorkLocationPreferenceFormPage = React.lazy(
+  () => import("./workLocationPreferenceForm/WorkLocationPreferenceFormPage"),
 );
-const RoleSalaryFormContainer = React.lazy(
-  () => import("./roleSalaryForm/RoleSalaryForm"),
+const RoleSalaryFormPage = React.lazy(
+  () => import("./roleSalaryForm/RoleSalaryFormPage"),
 );
 const ExperienceFormContainer = React.lazy(
   () => import("./experienceForm/ExperienceForm"),
 );
-const WorkPreferencesApi = React.lazy(
-  () => import("./workPreferencesForm/WorkPreferencesForm"),
+const WorkPreferencesFormPage = React.lazy(
+  () => import("./workPreferencesForm/WorkPreferencesFormPage"),
 );
-const AboutMeFormContainer = React.lazy(
-  () => import("./aboutMeForm/AboutMeForm"),
+const AboutMeFormPage = React.lazy(
+  () => import("./aboutMeForm/AboutMeFormPage"),
 );
-const DiversityEquityInclusionFormApi = React.lazy(
-  () => import("./diversityEquityInclusion/DiversityEquityInclusionForm"),
+const EmploymentEquityFormPage = React.lazy(
+  () => import("./employmentEquityForm/EmploymentEquityFormPage"),
 );
 const ExperienceAndSkillsPage = React.lazy(
   () => import("./experienceAndSkills/ExperienceAndSkillsPage"),
@@ -80,6 +80,9 @@ const PoolApplicationThanksPage = React.lazy(
 );
 const PoolAdvertisementPage = React.lazy(
   () => import("./pool/PoolAdvertisementPage"),
+);
+const SignAndSubmitPage = React.lazy(
+  () => import("./signAndSubmit/SignAndSubmitPage"),
 );
 
 const talentRoutes = (
@@ -149,7 +152,7 @@ const profileRoutes = (
     action: (context) => {
       const userId = context.params.userId as string;
       return {
-        component: <GovInfoFormContainer meId={userId} />,
+        component: <GovernmentInfoFormPage meId={userId} />,
         authorizedRoles: [Role.Applicant],
       };
     },
@@ -157,21 +160,21 @@ const profileRoutes = (
   {
     path: profilePaths.languageInformation(":userId"),
     action: () => ({
-      component: <LanguageInformationFormContainer />,
+      component: <LanguageInformationFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.workLocation(":userId"),
     action: () => ({
-      component: <WorkLocationPreferenceApi />,
+      component: <WorkLocationPreferenceFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.roleSalary(":userId"),
     action: () => ({
-      component: <RoleSalaryFormContainer />,
+      component: <RoleSalaryFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
@@ -213,21 +216,21 @@ const profileRoutes = (
   {
     path: profilePaths.workPreferences(":userId"),
     action: () => ({
-      component: <WorkPreferencesApi />,
+      component: <WorkPreferencesFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.aboutMe(":userId"),
     action: () => ({
-      component: <AboutMeFormContainer />,
+      component: <AboutMeFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.diversityEquityInclusion(":userId"),
     action: () => ({
-      component: <DiversityEquityInclusionFormApi />,
+      component: <EmploymentEquityFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
@@ -436,6 +439,16 @@ const directIntakeRoutes = (
       const poolId = context.params.id as string;
       return {
         component: <PoolAdvertisementPage id={poolId} />,
+      };
+    },
+  },
+  {
+    path: directIntakePaths.signAndSubmit(":id"),
+    action: (context) => {
+      const applicationId = context.params.id as string;
+      return {
+        component: <SignAndSubmitPage id={applicationId} />,
+        authorizedRoles: [Role.Applicant],
       };
     },
   },

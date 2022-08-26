@@ -1,16 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { BasicForm, Checklist } from "@common/components/form";
-import { SubmitHandler } from "react-hook-form";
-import { InformationCircleIcon } from "@heroicons/react/solid";
-import { commonMessages, errorMessages } from "@common/messages";
+import { BriefcaseIcon, InformationCircleIcon } from "@heroicons/react/solid";
+import { errorMessages } from "@common/messages";
 import Button from "@common/components/Button";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import { toast } from "react-toastify";
-import { navigate } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { unpackMaybes } from "@common/helpers/formUtils";
+import { navigate } from "@common/helpers/router";
+import { toast } from "react-toastify";
+import { getLocale } from "@common/helpers/localize";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import {
   DialogLevelOne,
   DialogLevelTwo,
@@ -23,28 +22,19 @@ import {
   GenericJobTitle,
   GenericJobTitleKey,
   GetRoleSalaryInfoQuery,
+  PoolCandidate,
   UpdateUserAsUserInput,
-  useGetRoleSalaryInfoQuery,
-  useUpdateRoleSalaryMutation,
+  UpdateUserAsUserMutation,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import profileMessages from "../profile/profileMessages";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
+import applicantProfileRoutes from "../../applicantProfileRoutes";
+import directIntakeRoutes from "../../directIntakeRoutes";
 
 export type FormValues = {
   expectedGenericJobTitles: GenericJobTitleKey[];
 };
-
-export type RoleSalaryUpdateHandler = (
-  id: string,
-  data: UpdateUserAsUserInput,
-) => void; // replace with Promise<void> when filling API in TODO
-
-export interface RoleSalaryFormProps {
-  initialFormValues: FormValues;
-  handleSubmit: SubmitHandler<FormValues>;
-}
 
 // accessible button for modals - generate clickable inline elements resembling <a>
 interface ModalButtonProps {
@@ -65,11 +55,76 @@ const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
   );
 };
 
+const dataToFormValues = (data: GetRoleSalaryInfoQuery): FormValues => {
+  return {
+    expectedGenericJobTitles:
+      data?.me?.expectedGenericJobTitles
+        ?.map((genericJobTitle) => genericJobTitle?.key)
+        .filter(notEmpty) ?? [],
+  };
+};
+
+const formValuesToSubmitData = (
+  values: FormValues,
+  GenericJobTitles: GenericJobTitle[],
+): UpdateUserAsUserInput => {
+  const ids = values.expectedGenericJobTitles
+    .map((key: GenericJobTitleKey) =>
+      GenericJobTitles.find((generic) => generic.key === key),
+    )
+    .filter(notEmpty)
+    .map((c: GenericJobTitle) => c.id);
+  return {
+    expectedGenericJobTitles: {
+      sync: ids,
+    },
+  };
+};
+
+export type RoleSalaryUpdateHandler = (
+  id: string,
+  data: UpdateUserAsUserInput,
+) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
+
+export interface RoleSalaryFormProps {
+  initialData: GetRoleSalaryInfoQuery;
+  application?: PoolCandidate;
+  updateRoleSalary: RoleSalaryUpdateHandler;
+}
+
 export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
-  initialFormValues,
-  handleSubmit,
+  initialData,
+  application,
+  updateRoleSalary,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const profilePaths = applicantProfileRoutes(locale);
+  const directIntakePaths = directIntakeRoutes(locale);
+  const returnRoute =
+    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.poolApply(application.pool.id)
+      : profilePaths.myProfile();
+  const GenericJobTitles = unpackMaybes(initialData?.genericJobTitles);
+
+  const handleSubmit = async (formValues: FormValues) => {
+    const userId = initialData.me?.id;
+    if (userId === undefined) {
+      return;
+    }
+
+    await updateRoleSalary(
+      userId,
+      formValuesToSubmitData(formValues, GenericJobTitles),
+    )
+      .then(() => {
+        navigate(returnRoute);
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
+      });
+  };
 
   // modal logic section
   const [isDialogLevel1Open, setDialogLevel1Open] =
@@ -102,6 +157,31 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
       </ModalButton>
     );
   }
+
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
+
   return (
     <ProfileFormWrapper
       title={intl.formatMessage({
@@ -113,7 +193,11 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           "Government classifications are labels that the Government of Canada uses to group similar types of work. In the Government of Canada salary is tied to how positions are classified.",
         description: "Description for the role and salary expectation form",
       })}
+      cancelLink={{
+        href: returnRoute,
+      }}
       crumbs={[
+        ...applicationBreadcrumbs,
         {
           title: intl.formatMessage({
             defaultMessage: "Role and Salary Expectations",
@@ -121,11 +205,12 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           }),
         },
       ]}
+      prefixBreadcrumbs={!application}
     >
       <BasicForm
         onSubmit={handleSubmit}
         options={{
-          defaultValues: initialFormValues,
+          defaultValues: dataToFormValues(initialData),
         }}
       >
         <p data-h2-margin="base(0, 0, x2, 0)">
@@ -297,91 +382,4 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   );
 };
 
-const dataToFormValues = (data: GetRoleSalaryInfoQuery): FormValues => {
-  return {
-    expectedGenericJobTitles:
-      data?.me?.expectedGenericJobTitles
-        ?.map((genericJobTitle) => genericJobTitle?.key)
-        .filter(notEmpty) ?? [],
-  };
-};
-
-const formValuesToSubmitData = (
-  values: FormValues,
-  GenericJobTitles: GenericJobTitle[],
-): UpdateUserAsUserInput => {
-  const ids = values.expectedGenericJobTitles
-    .map((key: GenericJobTitleKey) =>
-      GenericJobTitles.find((generic) => generic.key === key),
-    )
-    .filter(notEmpty)
-    .map((c: GenericJobTitle) => c.id);
-  return {
-    expectedGenericJobTitles: {
-      sync: ids,
-    },
-  };
-};
-
-const RoleSalaryFormContainer: React.FunctionComponent = () => {
-  const intl = useIntl();
-  const paths = useApplicantProfileRoutes();
-
-  const [{ data: initialData, fetching, error }] = useGetRoleSalaryInfoQuery();
-  const preProfileStatus = initialData?.me?.isProfileComplete;
-  const GenericJobTitles = unpackMaybes(initialData?.genericJobTitles);
-
-  const [, executeMutation] = useUpdateRoleSalaryMutation();
-  const handleRoleSalary = (id: string, data: UpdateUserAsUserInput) =>
-    executeMutation({
-      id,
-      user: data,
-    }).then((result) => {
-      if (result.data?.updateUserAsUser) {
-        if (result.data?.updateUserAsUser?.isProfileComplete) {
-          const currentProfileStatus =
-            result.data?.updateUserAsUser?.isProfileComplete;
-          const message = intl.formatMessage(profileMessages.profileCompleted);
-          if (!preProfileStatus && currentProfileStatus) {
-            toast.success(message);
-          }
-        }
-      }
-      navigate(paths.home(id));
-      toast.success(intl.formatMessage(profileMessages.userUpdated));
-      if (result.data?.updateUserAsUser) {
-        return result.data.updateUserAsUser;
-      }
-      return Promise.reject(result.error);
-    });
-
-  if (error) {
-    toast.error(intl.formatMessage(profileMessages.updatingFailed));
-  }
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {initialData?.me ? (
-        <RoleSalaryForm
-          initialFormValues={dataToFormValues(initialData)}
-          handleSubmit={async (formValues) => {
-            const userId = initialData?.me?.id;
-            if (userId === undefined) {
-              return Promise.reject();
-            }
-            return handleRoleSalary(
-              userId,
-              formValuesToSubmitData(formValues, GenericJobTitles),
-            );
-          }}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-export default RoleSalaryFormContainer;
+export default RoleSalaryForm;
