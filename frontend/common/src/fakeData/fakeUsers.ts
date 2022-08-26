@@ -24,6 +24,7 @@ import {
   Applicant,
   Department,
   CitizenshipStatus,
+  ArmedForcesStatus,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakeCmoAssets from "./fakeCmoAssets";
@@ -66,7 +67,11 @@ const generateUser = (
       CitizenshipStatus.PermanentResident,
       CitizenshipStatus.Other,
     ]),
-    isVeteran: faker.datatype.boolean(),
+    armedForcesStatus: faker.helpers.arrayElement<ArmedForcesStatus>([
+      ArmedForcesStatus.Veteran,
+      ArmedForcesStatus.Member,
+      ArmedForcesStatus.NonCaf,
+    ]),
 
     // Language
     languageAbility: faker.helpers.arrayElement<LanguageAbility>(

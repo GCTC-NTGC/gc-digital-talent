@@ -85,6 +85,6 @@ UserProfileNull.args = {
   expectedClassifications: null,
   wouldAcceptTemporary: null,
   cmoAssets: null,
-  isVeteran: null,
+  armedForcesStatus: null,
   citizenship: null,
 };

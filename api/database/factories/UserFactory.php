@@ -134,7 +134,7 @@ class UserFactory extends Factory
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
             'citizenship' => $this->faker->randomElement(ApiEnums::citizenshipStatuses()),
-            'is_veteran' => $this->faker->boolean(),
+            'armed_forces_status' => $this->faker->randomElement(ApiEnums::armedForcesStatuses()),
         ];
     }
 
