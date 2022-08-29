@@ -97,7 +97,7 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Absolutely! Your time is valuable. Apprentices will receive pay and benefits as employees of the Government of Canada. Apprentices will earn $31.02 per hour in the first year of the program, according to Government of Canada pay rates. This amount will increase to $32.17 in the second year of the program. Apprentices will be employed full-time, for a total of 37.5 hours per week.",
+            "Absolutely! Your time is valuable. Apprentices will receive pay and benefits as employees of the Government of Canada. Apprentices will earn between $29.00 and $33.00 per hour to start, with the exact salary to be determined at the time of hire and dependent upon the collective agreement in place within the hiring organization. Apprentices will be employed full-time, for a total of 37.5 hours per week.",
           description: "Learn more dialog question four paragraph one",
         })}
       </p>

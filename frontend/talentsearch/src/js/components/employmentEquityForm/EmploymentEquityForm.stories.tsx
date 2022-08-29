@@ -4,15 +4,15 @@ import { action } from "@storybook/addon-actions";
 import { fakeUsers } from "@common/fakeData";
 import type { InputMaybe, UpdateUserAsUserInput } from "../../api/generated";
 import {
-  DiversityEquityInclusionForm,
-  type DiversityEquityInclusionFormProps,
-} from "./DiversityEquityInclusionForm";
+  EmploymentEquityForm,
+  type EmploymentEquityFormProps,
+} from "./EmploymentEquityForm";
 import { EquityKeys } from "./types";
 
 const userData = fakeUsers();
 
 export default {
-  component: DiversityEquityInclusionForm,
+  component: EmploymentEquityForm,
   title: "DiversityEquityInclusionForm",
   args: {
     user: userData[0],
@@ -27,7 +27,7 @@ export default {
 } as Meta;
 
 const TemplateDiversityEquityInclusionForm: Story<
-  DiversityEquityInclusionFormProps
+  EmploymentEquityFormProps
 > = ({ user, isMutating }) => {
   const [mockUser, setMockUser] = React.useState(user);
 
@@ -57,7 +57,7 @@ const TemplateDiversityEquityInclusionForm: Story<
   };
 
   return (
-    <DiversityEquityInclusionForm
+    <EmploymentEquityForm
       user={mockUser}
       isMutating={isMutating}
       onUpdate={async (_: string, data: UpdateUserAsUserInput) => {

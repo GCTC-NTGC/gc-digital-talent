@@ -93,13 +93,19 @@ describe("AboutMeForm", () => {
 
     expect(
       await screen.getByRole("radio", {
-        name: /I am a member or veteran of the CAF/i,
+        name: /I am not a member of the CAF/i,
       }),
     ).toBeInTheDocument();
 
     expect(
       await screen.getByRole("radio", {
-        name: /I am not a veteran of the CAF/i,
+        name: /I am an active member of the CAF/i,
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.getByRole("radio", {
+        name: /I am a veteran of the CAF/i,
       }),
     ).toBeInTheDocument();
 
@@ -135,13 +141,13 @@ describe("AboutMeForm", () => {
         lastName: "",
         email: "",
         citizenship: null,
-        isVeteran: null,
+        armedForcesStatus: null,
       },
       onUpdateAboutMe: mockSave,
     });
 
     fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
-    expect(await screen.findAllByRole("alert")).toHaveLength(8);
+    expect(await screen.findAllByRole("alert")).toHaveLength(9);
     expect(mockSave).not.toHaveBeenCalled();
   });
 

@@ -50,7 +50,7 @@ type User {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -165,6 +165,12 @@ enum CitizenshipStatus {
     OTHER
 }
 
+enum ArmedForcesStatus {
+    VETERAN
+    MEMBER
+    NON_CAF
+}
+
 type Applicant {
     id: ID!
 
@@ -177,7 +183,7 @@ type Applicant {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
@@ -313,9 +319,9 @@ enum PoolAdvertisementLanguage {
 
 type PoolCandidate {
     id: ID!
-    pool: Pool @belongsTo
+    pool: Pool! @belongsTo
     poolAdvertisement: PoolAdvertisement @belongsTo(relation: "pool")
-    user: Applicant @belongsTo(relation: "user")
+    user: Applicant! @belongsTo(relation: "user")
 
     # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
@@ -773,7 +779,7 @@ input CreateUserInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -833,7 +839,7 @@ input UpdateUserAsAdminInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -889,7 +895,7 @@ input UpdateUserAsUserInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -1095,7 +1101,7 @@ input CreateApplicantFilterInput {
     skills: SkillBelongsToMany
     pools: PoolBelongsToMany
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 }
 
 input ApplicantFilterBelongsTo {
@@ -1318,9 +1324,11 @@ type Mutation {
     closePoolAdvertisement(id: ID!): PoolAdvertisement @guard @can(ability: "closePoolAdvertisement", find: "id", model: "Pool")
     deletePoolAdvertisement(id: ID!): PoolAdvertisement @delete(model: "Pool", globalId: false) @guard @can(ability: "delete", find: "id", model: "Pool")
 
+    # Application mutations
     archiveApplication(id:ID!): PoolCandidate @guard @can(ability: "archiveApplication", find: "id")
     createApplication(userId:ID!, poolId:ID!): PoolCandidate
+    deleteApplication(id: ID!): Boolean @guard @can(ability: "deleteApplication", find: "id", model: "PoolCandidate")
+    submitApplication(id: ID!, signature: String!): PoolCandidate
 
     testPoolCandidateSnapshot(id:ID!): PoolCandidate @guard @can(ability: "update", find: "id")
-    submitApplication(applicationId: ID!, signature: String!): PoolCandidate
 }

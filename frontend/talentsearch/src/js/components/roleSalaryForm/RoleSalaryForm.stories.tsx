@@ -13,8 +13,8 @@ const TemplateRoleSalaryForm: Story = (args) => {
   const { initialFormValues, handleSubmit } = args;
   return (
     <RoleSalaryForm
-      initialFormValues={initialFormValues}
-      handleSubmit={handleSubmit}
+      initialData={initialFormValues}
+      updateRoleSalary={handleSubmit}
     />
   );
 };
@@ -22,16 +22,21 @@ export const formEmpty = TemplateRoleSalaryForm.bind({});
 export const formSomeSelected = TemplateRoleSalaryForm.bind({});
 
 formEmpty.args = {
-  initialFormValues: { expectedGenericJobTitles: [] },
+  initialFormValues: {
+    me: { id: "user-id", expectedGenericJobTitles: [] },
+  },
   handleSubmit: action("handleSubmit"),
 };
 
 formSomeSelected.args = {
   ...formEmpty.args,
   initialFormValues: {
-    expectedGenericJobTitles: [
-      GenericJobTitleKey.AnalystIt02,
-      GenericJobTitleKey.TechnicalAdvisorIt03,
-    ],
+    me: {
+      id: "user-id",
+      expectedGenericJobTitles: [
+        { key: GenericJobTitleKey.AnalystIt02 },
+        { key: GenericJobTitleKey.TechnicalAdvisorIt03 },
+      ],
+    },
   },
 };
