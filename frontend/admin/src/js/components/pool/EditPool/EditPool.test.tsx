@@ -26,6 +26,8 @@ const renderWithReactIntl = (
 };
 
 describe("Edit Pool tests", () => {
+  // This test is prone to going beyond the 5s default timeout.
+  const extendedTimeout = 10 * 1000;
   it("should have save buttons that emit a save event when the status is draft", async () => {
     const handleSave = jest.fn();
     const props = {
@@ -59,7 +61,7 @@ describe("Edit Pool tests", () => {
     });
 
     expect(handleSave).toHaveBeenCalledTimes(7);
-  });
+  }, extendedTimeout);
 
   it("should have a publish button that pops a modal and emits an event when the status is draft", async () => {
     const handleEvent = jest.fn();
