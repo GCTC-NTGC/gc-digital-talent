@@ -77,6 +77,11 @@ describe("GovernmentInfoForm", () => {
         name: /employment status/i,
       }),
     ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", {
+        name: /priority number/i,
+      }),
+    ).not.toBeInTheDocument();
 
     // Open second round of form elements
     fireEvent.click(
@@ -112,6 +117,18 @@ describe("GovernmentInfoForm", () => {
         name: /choose level/i,
       }),
     ).toBeInTheDocument();
+
+    // open priority number
+    fireEvent.click(
+      screen.getByRole("radio", {
+        name: /i have a priority entitlement/i,
+      }),
+    );
+    expect(
+      screen.queryByRole("textbox", {
+        name: /priority number/i,
+      }),
+    ).toBeInTheDocument();
   });
 
   it("should submit the form", async () => {
@@ -139,6 +156,12 @@ describe("GovernmentInfoForm", () => {
       name: /i am a student/i,
     });
     fireEvent.click(isStudent);
+
+    fireEvent.click(
+      screen.getByRole("radio", {
+        name: /i have a priority entitlement/i,
+      }),
+    );
 
     fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
     await waitFor(() => {
