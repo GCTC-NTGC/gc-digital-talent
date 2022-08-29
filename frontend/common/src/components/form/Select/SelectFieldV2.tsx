@@ -170,14 +170,14 @@ const SelectFieldV2 = ({
               ) =>
                 /* eslint-disable no-nested-ternary, prettier/prettier */
                 isArray<Option>(singleOrMulti)
-                  // Stores MultiValue as array of values.
-                  ? field.onChange(singleOrMulti.map((o) => o.value))
+                  ? // Stores MultiValue as array of values.
+                    field.onChange(singleOrMulti.map((o) => o.value))
                   : forceArrayFormValue
-                    // Stores SingleValue as array of one value, or null as empty array.
-                    ? field.onChange(singleOrMulti ? [singleOrMulti?.value] : [])
-                    // Stores SingleValue as value or null
-                    : field.onChange(singleOrMulti?.value || null);
-                /* eslint-enable no-nested-ternary, prettier/prettier */
+                  ? // Stores SingleValue as array of one value, or null as empty array.
+                    field.onChange(singleOrMulti ? [singleOrMulti?.value] : [])
+                  : // Stores SingleValue as value or null
+                    field.onChange(singleOrMulti?.value || null);
+              /* eslint-enable no-nested-ternary, prettier/prettier */
 
               // For WCAG-compliant contrasts.
               const accessibleTextStyle = {
