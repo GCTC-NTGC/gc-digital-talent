@@ -38,6 +38,8 @@ type FormValues = Pick<
   department: string;
   currentClassificationGroup: string;
   currentClassificationLevel: string;
+  priorityEntitlementYesNo?: "yes" | "no";
+  priorityEntitlementNumber?: string;
 };
 
 export interface CreateAccountFormProps {
@@ -62,10 +64,16 @@ export const CreateAccountForm: React.FunctionComponent<
       ...formValuesToSubmitData(values, classifications),
     });
   // hooks to watch, needed for conditional rendering
-  const [govEmployee, govEmployeeStatus, groupSelection] = methods.watch([
+  const [
+    govEmployee,
+    govEmployeeStatus,
+    groupSelection,
+    hasPriorityEntitlement,
+  ] = methods.watch([
     "govEmployeeYesNo",
     "govEmployeeType",
     "currentClassificationGroup",
+    "priorityEntitlementYesNo",
   ]);
 
   return (
@@ -236,6 +244,7 @@ export const CreateAccountForm: React.FunctionComponent<
                 govEmployee={govEmployee}
                 govEmployeeStatus={govEmployeeStatus}
                 groupSelection={groupSelection}
+                priorityEntitlement={hasPriorityEntitlement}
               />
               <div
                 data-h2-margin="base(x2, 0)"
