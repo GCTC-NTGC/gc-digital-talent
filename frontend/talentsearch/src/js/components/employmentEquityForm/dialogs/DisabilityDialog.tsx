@@ -17,10 +17,10 @@ import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
 
 interface FormValues {
-  isWoman: boolean;
+  hasDisability: boolean;
 }
 
-const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
+const DisabilityDialogFooter: React.FC<EquityDialogFooterProps> = ({
   onSave,
   isAdded,
   children,
@@ -28,24 +28,26 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
   const intl = useIntl();
   const methods = useForm<FormValues>({
     defaultValues: {
-      isWoman: isAdded,
+      hasDisability: isAdded,
     },
   });
   const { handleSubmit } = methods;
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
-    onSave(data.isWoman);
+    onSave(data.hasDisability);
   };
 
   return (
     <FormProvider {...methods}>
       <AddToProfile />
       <form onSubmit={handleSubmit(submitHandler)}>
-        <div data-h2-margin="base(0, 0, x1, 0)">
+        <div data-h2-margin="base(x1, 0, x1.5, 0)">
           <Checkbox
-            id="isWoman"
-            name="isWoman"
-            label={intl.formatMessage(getEmploymentEquityStatement("woman"))}
+            id="hasDisability"
+            name="hasDisability"
+            label={intl.formatMessage(
+              getEmploymentEquityStatement("disability"),
+            )}
           />
         </div>
         {children}
@@ -54,7 +56,7 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
   );
 };
 
-const WomanDialog: React.FC<EquityDialogProps> = ({
+const DisabilityDialog: React.FC<EquityDialogProps> = ({
   isOpen,
   onDismiss,
   isAdded,
@@ -66,31 +68,32 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
     <Dialog
       isOpen={isOpen}
       onDismiss={onDismiss}
-      color="ts-primary"
-      title={intl.formatMessage(getEmploymentEquityGroup("woman"))}
+      color="ts-secondary"
+      title={intl.formatMessage(getEmploymentEquityGroup("disability"))}
     >
       <UnderReview />
-      <p data-h2-margin="base(0, 0, x1, 0)">
-        {intl.formatMessage({
-          defaultMessage:
-            "This category includes persons whose reported gender is female. It includes cisgender (cis) and transgender (trans) women.",
-          description: "Definition of accepted ways to identify as a women",
-        })}
-      </p>
       <Definition
         url={
           intl.locale === "en"
-            ? "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
-            : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
+            ? "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1"
+            : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1"
         }
       />
+      <p data-h2-margin="base(x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "Refers to a person whose daily activities are limited as a result of an impairment or difficulty with particular tasks. The only exception to this is for developmental disabilities where a person is considered to be disabled if the respondent has been diagnosed with this condition.",
+          description:
+            "Definition of accepted ways to identify as person with a disability.",
+        })}
+      </p>
       <Dialog.Footer>
-        <WomanDialogFooter isAdded={isAdded} onSave={onSave}>
+        <DisabilityDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogFooter onDismiss={onDismiss} />
-        </WomanDialogFooter>
+        </DisabilityDialogFooter>
       </Dialog.Footer>
     </Dialog>
   );
 };
 
-export default WomanDialog;
+export default DisabilityDialog;

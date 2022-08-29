@@ -8,11 +8,11 @@ import { fakeUsers } from "@common/fakeData";
 import { act } from "react-dom/test-utils";
 import { axeTest, render } from "@common/helpers/testUtils";
 import {
-  DiversityEquityInclusionForm,
-  type DiversityEquityInclusionFormProps,
-} from "./DiversityEquityInclusionForm";
+  EmploymentEquityForm,
+  type EmploymentEquityFormProps,
+} from "./EmploymentEquityForm";
 
-import type { DiversityInclusionUpdateHandler } from "./types";
+import type { EmploymentEquityUpdateHandler } from "./types";
 
 const mockUser = fakeUsers()[0];
 
@@ -20,9 +20,9 @@ const renderDiversityEquityInclusionForm = ({
   user,
   onUpdate,
   isMutating,
-}: DiversityEquityInclusionFormProps) =>
+}: EmploymentEquityFormProps) =>
   render(
-    <DiversityEquityInclusionForm
+    <EmploymentEquityForm
       user={user}
       onUpdate={onUpdate}
       isMutating={isMutating}
@@ -142,7 +142,7 @@ describe("DiversityEquityInclusionForm", () => {
         ...mockUser,
         isWoman: false,
       },
-      onUpdate: mockSave as DiversityInclusionUpdateHandler,
+      onUpdate: mockSave as EmploymentEquityUpdateHandler,
       isMutating: false,
     });
 

@@ -1724,7 +1724,7 @@ class UserTest extends TestCase
         ]);
         User::factory()->count(1)->create([
             'citizenship' => null,
-            'is_veteran' => null,
+            'armed_forces_status' => null,
         ]);
 
         // Create some complete users.

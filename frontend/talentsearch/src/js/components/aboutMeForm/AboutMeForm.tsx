@@ -1,14 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
-import { OperationResult } from "urql";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
-import {
-  ProvinceOrTerritory,
-  Language,
-  CitizenshipStatus,
-} from "@common/api/generated";
-import { commonMessages, errorMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
@@ -16,21 +10,25 @@ import {
   getProvinceOrTerritory,
   getLanguage,
   getCitizenshipStatusesProfile,
+  getArmedForcesStatusesProfile,
 } from "@common/constants/localizedConstants";
 import { SubmitHandler } from "react-hook-form";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { BriefcaseIcon } from "@heroicons/react/solid";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
-  useUpdateUserAsUserMutation,
-  useGetAboutMeQuery,
+  ProvinceOrTerritory,
+  Language,
+  CitizenshipStatus,
   UpdateUserAsUserMutation,
-  Exact,
+  PoolCandidate,
+  ArmedForcesStatus,
 } from "../../api/generated";
 import type { User, UpdateUserAsUserInput } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import profileMessages from "../profile/profileMessages";
+import directIntakeRoutes from "../../directIntakeRoutes";
 
 export type FormValues = Pick<
   User,
@@ -42,7 +40,8 @@ export type FormValues = Pick<
   | "lastName"
   | "email"
   | "citizenship"
-> & { isVeteran: string };
+  | "armedForcesStatus"
+>;
 
 export type AboutMeUpdateHandler = (
   id: string,
@@ -51,16 +50,23 @@ export type AboutMeUpdateHandler = (
 
 export interface AboutMeFormProps {
   initialUser: User;
+  application?: PoolCandidate;
   onUpdateAboutMe: AboutMeUpdateHandler;
 }
 
 export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   initialUser,
+  application,
   onUpdateAboutMe,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
+  const profilePaths = applicantProfileRoutes(locale);
+  const directIntakePaths = directIntakeRoutes(locale);
+  const returnRoute =
+    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.poolApply(application.pool.id)
+      : profilePaths.home(initialUser.id);
 
   const initialDataToFormValues = (data?: User | null): FormValues => ({
     preferredLang: data?.preferredLang,
@@ -71,17 +77,17 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
     lastName: data?.lastName,
     email: data?.email,
     citizenship: data?.citizenship,
-    isVeteran: data?.isVeteran === true ? "true" : "false",
+    armedForcesStatus: data?.armedForcesStatus,
   });
 
   const formValuesToSubmitData = (data: FormValues): UpdateUserAsUserInput => {
-    return { ...data, isVeteran: data.isVeteran === "true" };
+    return data;
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     await onUpdateAboutMe(initialUser.id, formValuesToSubmitData(formValues))
       .then(() => {
-        navigate(paths.home(initialUser.id));
+        navigate(returnRoute);
         toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {
@@ -89,11 +95,41 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
       });
   };
 
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
+
   // citizenship statuses ordered to fit prototype
   const citizenshipStatusesOrdered = [
     CitizenshipStatus.Citizen,
     CitizenshipStatus.PermanentResident,
     CitizenshipStatus.Other,
+  ];
+
+  const armedForcesStatusOrdered = [
+    ArmedForcesStatus.NonCaf,
+    ArmedForcesStatus.Member,
+    ArmedForcesStatus.Veteran,
   ];
 
   return (
@@ -108,7 +144,12 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
         defaultMessage: "About me",
         description: "Title for Profile Form wrapper in About me form",
       })}
+      cancelLink={{
+        href: returnRoute,
+      }}
+      prefixBreadcrumbs={!application}
       crumbs={[
+        ...applicationBreadcrumbs,
         {
           title: intl.formatMessage({
             defaultMessage: "About Me",
@@ -214,32 +255,20 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               }}
             />
             <RadioGroup
-              idPrefix="isVeteran"
+              idPrefix="armedForcesStatus"
               legend={intl.formatMessage({
                 defaultMessage: "Member of the Canadian Armed Forces (CAF)",
                 description:
                   "Legend text for required Canadian Armed Forces selection in About Me form",
               })}
-              name="isVeteran"
+              name="armedForcesStatus"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
-              items={[
-                {
-                  value: "false",
-                  label: intl.formatMessage({
-                    defaultMessage: "I am not a veteran of the CAF",
-                    description:
-                      "Label for the not a veteran selection in the About Me form",
-                  }),
-                },
-                {
-                  value: "true",
-                  label: intl.formatMessage({
-                    defaultMessage: "I am a member or veteran of the CAF",
-                    description:
-                      "Label for the currently a member or veteran selection in the About Me form",
-                  }),
-                },
-              ]}
+              items={armedForcesStatusOrdered.map((status) => ({
+                value: status,
+                label: intl.formatMessage(
+                  getArmedForcesStatusesProfile(status),
+                ),
+              }))}
             />
             <div data-h2-margin="base(x1, 0, 0, 0)">
               <RadioGroup
@@ -339,49 +368,4 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   );
 };
 
-const AboutMeFormContainer: React.FunctionComponent = () => {
-  const intl = useIntl();
-
-  const [result] = useGetAboutMeQuery();
-  const { data, fetching, error } = result;
-  const preProfileStatus = data?.me?.isProfileComplete;
-
-  const [, executeMutation] = useUpdateUserAsUserMutation();
-
-  const handleUpdateUser = (id: string, values: UpdateUserAsUserInput) => {
-    return executeMutation({ id, user: values }).then(
-      (
-        res: OperationResult<
-          UpdateUserAsUserMutation,
-          Exact<{ id: string; user: UpdateUserAsUserInput }>
-        >,
-      ) => {
-        if (res.data?.updateUserAsUser) {
-          const currentProfileStatus =
-            res.data?.updateUserAsUser?.isProfileComplete;
-          const message = intl.formatMessage(profileMessages.profileCompleted);
-          if (!preProfileStatus && currentProfileStatus) {
-            toast.success(message);
-          }
-          return res.data.updateUserAsUser;
-        }
-
-        return Promise.reject(res.error);
-      },
-    );
-  };
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {data?.me ? (
-        <AboutMeForm initialUser={data.me} onUpdateAboutMe={handleUpdateUser} />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-export default AboutMeFormContainer;
+export default AboutMeForm;

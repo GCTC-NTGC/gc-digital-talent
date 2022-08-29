@@ -360,7 +360,7 @@ query getUserProfile($id: ID!) {
     lastName
     telephone
     citizenship
-    isVeteran
+    armedForcesStatus
     preferredLang
     lookingForEnglish
     lookingForFrench
@@ -473,6 +473,9 @@ query getUserProfile($id: ID!) {
     poolCandidates {
       status
       expiryDate
+      user {
+        id
+      }
       pool {
         id
         name {

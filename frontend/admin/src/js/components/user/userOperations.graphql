@@ -52,6 +52,8 @@ query selectedUsers($ids: [ID]!) {
     isIndigenous
     isVisibleMinority
     hasDisability
+    citizenship
+    armedForcesStatus
     expectedSalary
     expectedGenericJobTitles {
       id
@@ -145,6 +147,9 @@ query selectedUsers($ids: [ID]!) {
     poolCandidates {
       status
       expiryDate
+      user {
+        id
+      }
       pool {
         id
         name {

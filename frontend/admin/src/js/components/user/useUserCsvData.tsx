@@ -8,6 +8,7 @@ import {
   uniqueItems,
 } from "@common/helpers/util";
 import {
+  getArmedForcesStatusesAdmin,
   getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
   getGenericJobTitles,
@@ -40,10 +41,10 @@ const useUserCsvData = (applicants: Applicant[]) => {
       }),
     },
     {
-      key: "isVeteran",
+      key: "armedForcesStatus",
       label: intl.formatMessage({
-        defaultMessage: "Veteran",
-        description: "CSV Header, Veteran column",
+        defaultMessage: "Armed Forces Status",
+        description: "CSV Header, Armed Forces column",
       }),
     },
     {
@@ -383,7 +384,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       ({
         firstName,
         lastName,
-        isVeteran,
+        armedForcesStatus,
         citizenship,
         lookingForEnglish,
         lookingForFrench,
@@ -410,7 +411,9 @@ const useUserCsvData = (applicants: Applicant[]) => {
       }) => ({
         firstName: firstName || "",
         lastName: lastName || "",
-        isVeteran: yesOrNo(isVeteran),
+        armedForcesStatus: armedForcesStatus
+          ? intl.formatMessage(getArmedForcesStatusesAdmin(armedForcesStatus))
+          : "",
         citizenship: citizenship
           ? intl.formatMessage(getCitizenshipStatusesAdmin(citizenship))
           : "",
