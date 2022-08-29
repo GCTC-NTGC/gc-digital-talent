@@ -111,7 +111,21 @@ const GovernmentInformationSection: React.FunctionComponent<{
         </div>
       )}
 
-      {applicant.hasPriorityEntitlement !== null && editPath && (
+      {applicant.isGovEmployee === false && !editPath && (
+        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "I am not a current government employee.",
+                description:
+                  "Message indicating the user is not marked in the system as being federally employed currently",
+              })}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {applicant.hasPriorityEntitlement !== null && (
         <div
           data-h2-flex-grid="base(flex-start, 0, x2, x1)"
           data-h2-padding="base(x1, 0, 0, 0)"
@@ -170,25 +184,26 @@ const GovernmentInformationSection: React.FunctionComponent<{
         )}
 
       {(applicant.isGovEmployee === null ||
-        applicant.hasPriorityEntitlement === null) && (
-        <div
-          data-h2-flex-grid="base(flex-start, 0, x2, x1)"
-          data-h2-padding="base(x1, 0, 0, 0)"
-        >
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
-              <a href={editPath}>
-                {intl.formatMessage({
-                  defaultMessage: "Edit your government information options.",
-                  description:
-                    "Link text to edit government information on profile.",
-                })}
-              </a>
-            </p>
+        applicant.hasPriorityEntitlement === null) &&
+        editPath && (
+          <div
+            data-h2-flex-grid="base(flex-start, 0, x2, x1)"
+            data-h2-padding="base(x1, 0, 0, 0)"
+          >
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
+                <a href={editPath}>
+                  {intl.formatMessage({
+                    defaultMessage: "Edit your government information options.",
+                    description:
+                      "Link text to edit government information on profile.",
+                  })}
+                </a>
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
       {applicant.isGovEmployee === null &&
         applicant.hasPriorityEntitlement === null &&
@@ -205,20 +220,6 @@ const GovernmentInformationSection: React.FunctionComponent<{
             </div>
           </div>
         )}
-
-      {applicant.isGovEmployee === false && !editPath && (
-        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "I am not a current government employee.",
-                description:
-                  "Message indicating the user is not marked in the system as being federally employed currently",
-              })}
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
