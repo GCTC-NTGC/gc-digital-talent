@@ -164,7 +164,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         <li>
           {intl.formatMessage({
             defaultMessage:
-              "The data here will be used to match you to prioritized jobs.",
+              "This information will be used to match you to prioritized jobs.",
             description:
               "Explanation on how employment equity information will be used, item two",
           })}
@@ -172,7 +172,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         <li>
           {intl.formatMessage({
             defaultMessage:
-              "This data will be use in an anonymous form for statistical purposes.",
+              "This information will be used in an anonymous form for statistical purposes.",
             description:
               "Explanation on how employment equity information will be used, item three",
           })}
