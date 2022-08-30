@@ -12,7 +12,7 @@ const Spacer = ({ children, isLast }: SpacerProps) => {
     return children as JSX.Element;
   }
 
-  return <div data-h2-margin="base(0, 0, 0, x.125)">{children}</div>;
+  return <div data-h2-margin="base(0, 0, 0, x.5)">{children}</div>;
 };
 
 export interface ApplicationNavigationProps {
