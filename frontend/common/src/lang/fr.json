@@ -1353,5 +1353,37 @@
   "VOheZB": {
     "defaultMessage": "<primary>{role}</primary> à {organization}",
     "description": "Role at organization in work experience block of skill accordion."
+  },
+  "PoolStream.BusinessAdvisoryServices": {
+    "defaultMessage": "Services consultatifs auprès des secteurs d’activités de la TI",
+    "description": "Pool Stream described as Business Line Advisory Services."
+  },
+  "PoolStream.DatabaseManagement": {
+    "defaultMessage": "Gestion de bases de données de la TI",
+    "description": "Pool Stream described as Database Management."
+  },
+  "PoolStream.EnterpriseArchitecture": {
+    "defaultMessage": "Architecture intégrée de la TI",
+    "description": "Pool Stream described as Enterprise Architecture."
+  },
+  "PoolStream.InfrastructureOperations": {
+    "defaultMessage": "Opérations d’infrastructure de la TI",
+    "description": "Pool Stream described as Infrastructure Operations."
+  },
+  "PoolStream.PlanningAndReporting": {
+    "defaultMessage": "Planification et établissement de rapports en matière de TI",
+    "description": "Pool Stream described as Planning and Reporting."
+  },
+  "PoolStream.ProjectPortfolioManagement": {
+    "defaultMessage": "Gestion de portefeuilles de projets de la TI",
+    "description": "Pool Stream described as Project Portfolio Management."
+  },
+  "PoolStream.Security": {
+    "defaultMessage": "Sécurité de la TI",
+    "description": "Pool Stream described as Security."
+  },
+  "PoolStream.SoftwareSolutions": {
+    "defaultMessage": "Solutions logicielles de la TI",
+    "description": "ool Stream described as Software Solutions."
   }
 }

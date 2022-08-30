@@ -1094,34 +1094,42 @@ export const getPoolStatus = (
 
 export const poolStream = defineMessages({
   [PoolStream.BusinessAdvisoryServices]: {
+    id: "PoolStream.BusinessAdvisoryServices",
     defaultMessage: "Business Line Advisory Services",
     description: "Pool Stream described as Business Line Advisory Services.",
   },
   [PoolStream.DatabaseManagement]: {
+    id: "PoolStream.DatabaseManagement",
     defaultMessage: "Database Management",
     description: "Pool Stream described as Database Management.",
   },
   [PoolStream.EnterpriseArchitecture]: {
+    id: "PoolStream.EnterpriseArchitecture",
     defaultMessage: "Enterprise Architecture",
     description: "Pool Stream described as Enterprise Architecture.",
   },
   [PoolStream.InfrastructureOperations]: {
+    id: "PoolStream.InfrastructureOperations",
     defaultMessage: "Infrastructure Operations",
     description: "Pool Stream described as Infrastructure Operations.",
   },
   [PoolStream.PlanningAndReporting]: {
+    id: "PoolStream.PlanningAndReporting",
     defaultMessage: "Planning and Reporting",
     description: "Pool Stream described as Planning and Reporting.",
   },
   [PoolStream.ProjectPortfolioManagement]: {
+    id: "PoolStream.ProjectPortfolioManagement",
     defaultMessage: "Project Portfolio Management",
     description: "Pool Stream described as Project Portfolio Management.",
   },
   [PoolStream.Security]: {
+    id: "PoolStream.Security",
     defaultMessage: "Security",
     description: "Pool Stream described as Security.",
   },
   [PoolStream.SoftwareSolutions]: {
+    id: "PoolStream.SoftwareSolutions",
     defaultMessage: "Software Solutions",
     description: "Pool Stream described as Software Solutions.",
   },
