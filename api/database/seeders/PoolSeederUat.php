@@ -61,7 +61,7 @@ class PoolSeederUat extends Seeder
         $digitalCareers->essentialCriteria()->sync($softAssets);
         $digitalCareers->assetCriteria()->sync($hardAssets);
 
-        $itClassifications = Classification::where('group', 'IT')->get();
+        $itClassifications = Classification::where('group', 'IT')->get()->random();
         $digitalCareers->classifications()->sync($itClassifications);
     }
 }
