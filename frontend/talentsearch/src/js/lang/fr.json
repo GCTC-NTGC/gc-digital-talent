@@ -1561,10 +1561,6 @@
     "defaultMessage": "Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères",
     "description": "Heading for total matching candidates in results section of search page."
   },
-  "pt1KHb": {
-    "defaultMessage": "Demande de candidats du bassin : <primary>{candidateCount, plural, zero {aucun candidat} one {1 candidat} other {{candidateCount} candidats estimés}}</primary>",
-    "description": "Total estimated candidates message in summary of filters"
-  },
   "thdckE": {
     "defaultMessage": "Il y a <strong>{candidateCount}</strong> candidats qui répondent à vos critères dans ce bassin",
     "description": "Message for total estimated candidates box next to search form."
@@ -1656,10 +1652,6 @@
   "2K8q04": {
     "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions sur ce processus?",
     "description": "Opening sentence asking if accommodations are needed"
-  },
-  "5IfAK9": {
-    "defaultMessage": "Demande de candidats pour le bassin : <span>{candidateCount, plural, zero {aucun candidat} one {1 candidat} other {{candidateCount} candidats estimés}}</span>",
-    "description": "Total estimated candidates message in summary of filters"
   },
   "6OJhwM": {
     "defaultMessage": "Trouver et sélectionner les compétences",
@@ -1940,5 +1932,13 @@
   "SXvOXV": {
     "defaultMessage": "Possibilités de navigation",
     "description": "Label displayed on the browse pools menu item."
+  },
+  "8fXduS": {
+    "defaultMessage": "Demande de candidats pour le bassin : <span>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</span>",
+    "description": "Total estimated candidates message in summary of filters"
+  },
+  "og5vUB": {
+    "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</primary>",
+    "description": "Total estimated candidates message in summary of filters"
   }
 }

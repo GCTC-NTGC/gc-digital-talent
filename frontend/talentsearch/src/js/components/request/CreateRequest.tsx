@@ -322,12 +322,12 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Request for pool candidates: <primary>{candidateCount, plural, zero {no candidates} one {1 candidate} other {{candidateCount} estimated candidates}}</primary>",
+                  "Request for pool candidates: <primary>{candidateCountNumber, plural, =0 {no candidates} =1 {1 estimated candidate} other {{candidateCountNumber} estimated candidates}}</primary>",
                 description:
                   "Total estimated candidates message in summary of filters",
               },
               {
-                candidateCount,
+                candidateCountNumber: candidateCount || 0,
               },
             )}
           </p>
