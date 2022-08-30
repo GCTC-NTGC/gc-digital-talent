@@ -394,7 +394,7 @@ export const CreateRequest: React.FunctionComponent<{
       <RequestForm
         departments={departments}
         poolCandidateFilter={poolCandidateFilter}
-        candidateCount={candidateCount ?? 0}
+        candidateCount={candidateCount}
         searchFormInitialValues={searchFormInitialValues}
         handleCreatePoolCandidateSearchRequest={
           handleCreatePoolCandidateSearchRequest
