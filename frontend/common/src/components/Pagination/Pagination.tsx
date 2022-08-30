@@ -231,6 +231,11 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                 <select
                   style={{ cursor: "pointer" }}
                   value={pageSize}
+                  aria-label={intl.formatMessage({
+                    defaultMessage: "Change page size",
+                    description:
+                      "Label for the number of items to display on each page.",
+                  })}
                   onChange={(e) => {
                     onPageSizeChange(Number(e.target.value));
                   }}
