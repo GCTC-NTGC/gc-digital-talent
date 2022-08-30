@@ -10,6 +10,7 @@ import {
   getProvinceOrTerritory,
   getLanguage,
   getCitizenshipStatusesProfile,
+  getArmedForcesStatusesProfile,
 } from "@common/constants/localizedConstants";
 import { SubmitHandler } from "react-hook-form";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
@@ -22,6 +23,7 @@ import {
   CitizenshipStatus,
   UpdateUserAsUserMutation,
   PoolCandidate,
+  ArmedForcesStatus,
 } from "../../api/generated";
 import type { User, UpdateUserAsUserInput } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
@@ -38,7 +40,8 @@ export type FormValues = Pick<
   | "lastName"
   | "email"
   | "citizenship"
-> & { isVeteran: string };
+  | "armedForcesStatus"
+>;
 
 export type AboutMeUpdateHandler = (
   id: string,
@@ -74,11 +77,11 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
     lastName: data?.lastName,
     email: data?.email,
     citizenship: data?.citizenship,
-    isVeteran: data?.isVeteran === true ? "true" : "false",
+    armedForcesStatus: data?.armedForcesStatus,
   });
 
   const formValuesToSubmitData = (data: FormValues): UpdateUserAsUserInput => {
-    return { ...data, isVeteran: data.isVeteran === "true" };
+    return data;
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
@@ -125,6 +128,12 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
     CitizenshipStatus.Citizen,
     CitizenshipStatus.PermanentResident,
     CitizenshipStatus.Other,
+  ];
+
+  const armedForcesStatusOrdered = [
+    ArmedForcesStatus.NonCaf,
+    ArmedForcesStatus.Member,
+    ArmedForcesStatus.Veteran,
   ];
 
   return (
@@ -250,32 +259,20 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               }}
             />
             <RadioGroup
-              idPrefix="isVeteran"
+              idPrefix="armedForcesStatus"
               legend={intl.formatMessage({
                 defaultMessage: "Member of the Canadian Armed Forces (CAF)",
                 description:
                   "Legend text for required Canadian Armed Forces selection in About Me form",
               })}
-              name="isVeteran"
+              name="armedForcesStatus"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
-              items={[
-                {
-                  value: "false",
-                  label: intl.formatMessage({
-                    defaultMessage: "I am not a veteran of the CAF",
-                    description:
-                      "Label for the not a veteran selection in the About Me form",
-                  }),
-                },
-                {
-                  value: "true",
-                  label: intl.formatMessage({
-                    defaultMessage: "I am a member or veteran of the CAF",
-                    description:
-                      "Label for the currently a member or veteran selection in the About Me form",
-                  }),
-                },
-              ]}
+              items={armedForcesStatusOrdered.map((status) => ({
+                value: status,
+                label: intl.formatMessage(
+                  getArmedForcesStatusesProfile(status),
+                ),
+              }))}
             />
             <div data-h2-margin="base(x1, 0, 0, 0)">
               <RadioGroup

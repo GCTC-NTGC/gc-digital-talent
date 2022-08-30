@@ -3,6 +3,7 @@ import { useState } from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
+import SkillPicker from "@common/components/skills/SkillPicker";
 import {
   AdvertisementStatus,
   PoolAdvertisement,
@@ -11,7 +12,6 @@ import {
 } from "../../../api/generated";
 
 import { SectionMetadata } from "./EditPool";
-import AddSkillsToPool from "./AddSkillsToPool";
 import { useEditPoolContext } from "./EditPoolContext";
 
 export type EssentialSkillsSubmitData = Pick<
@@ -39,8 +39,9 @@ export const EssentialSkillsSection = ({
     poolAdvertisement.essentialSkills ? poolAdvertisement.essentialSkills : [],
   );
 
-  const handleChangeSelectedSkills = (changedSelectedSkills: Array<Skill>) =>
+  const handleChangeSelectedSkills = (changedSelectedSkills: Array<Skill>) => {
     setSelectedSkills(changedSelectedSkills);
+  };
 
   const handleSave = () => {
     onSave({
@@ -69,10 +70,10 @@ export const EssentialSkillsSection = ({
             "Helper message for filling in the pool essential skills",
         })}
       </p>
-      <AddSkillsToPool
-        selectedSkills={selectedSkills}
-        skills={skills}
-        onChangeSelectedSkills={handleChangeSelectedSkills}
+      <SkillPicker
+        selectedSkills={selectedSkills || []}
+        skills={skills || []}
+        onChange={handleChangeSelectedSkills}
         idPrefix="essential"
         disabled={formDisabled}
       />

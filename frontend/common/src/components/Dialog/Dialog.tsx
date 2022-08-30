@@ -118,8 +118,8 @@ interface FooterProps {
 const Footer = ({ children }: FooterProps) => (
   <div
     className="dialog__footer"
-    data-h2-margin="base(x1, 0, 0, 0)"
-    data-h2-padding="base(x1, 0, 0, 0)"
+    data-h2-margin="base(x1.5, 0, 0, 0)"
+    data-h2-padding="base(x1.5, 0, 0, 0)"
     data-h2-border="base(top, 1px, solid, dt-gray)"
   >
     {children}

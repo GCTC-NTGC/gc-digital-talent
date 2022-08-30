@@ -13,7 +13,7 @@ query getProfile($userId:ID!) {
               currentProvince
               currentCity
               citizenship
-              isVeteran
+              armedForcesStatus
               languageAbility
               lookingForEnglish
               lookingForFrench
@@ -25,7 +25,6 @@ query getProfile($userId:ID!) {
               estimatedLanguageAbility
               isGovEmployee
               govEmployeeType
-              interestedInLaterOrSecondment
               department {
                 id
                 departmentNumber

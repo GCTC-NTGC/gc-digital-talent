@@ -1,4 +1,7 @@
-import { getCitizenshipStatusesAdmin } from "@common/constants/localizedConstants";
+import {
+  getArmedForcesStatusesAdmin,
+  getCitizenshipStatusesAdmin,
+} from "@common/constants/localizedConstants";
 import React from "react";
 import { useIntl } from "react-intl";
 
@@ -7,12 +10,12 @@ import { Applicant } from "../../api/generated";
 interface AdminAboutSectionProps {
   applicant: Pick<
     Applicant,
-    "firstName" | "lastName" | "citizenship" | "isVeteran"
+    "firstName" | "lastName" | "citizenship" | "armedForcesStatus"
   >;
 }
 
 const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
-  applicant: { firstName, lastName, citizenship, isVeteran },
+  applicant: { firstName, lastName, citizenship, armedForcesStatus },
 }) => {
   const intl = useIntl();
 
@@ -34,7 +37,7 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
             </span>
           </p>
         )}
-        {!firstName && !lastName && !citizenship && isVeteran === null && (
+        {!firstName && !lastName && !citizenship && armedForcesStatus === null && (
           <p>
             {intl.formatMessage({
               defaultMessage: "No information has been provided.",
@@ -43,24 +46,16 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
             })}
           </p>
         )}
-        {isVeteran !== null && (
+        {armedForcesStatus !== null && armedForcesStatus !== undefined && (
           <p>
             {intl.formatMessage({
               defaultMessage: "Member of CAF:",
               description: "Veteran/member label",
             })}{" "}
             <span data-h2-font-weight="base(700)">
-              {isVeteran
-                ? intl.formatMessage({
-                    defaultMessage: "Veteran or member of the CAF",
-                    description:
-                      "message admin side candidate profile, veteran status",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Not a veteran or member of the CAF",
-                    description:
-                      "message admin side candidate profile, not veteran status",
-                  })}
+              {intl.formatMessage(
+                getArmedForcesStatusesAdmin(armedForcesStatus),
+              )}
             </span>
           </p>
         )}
