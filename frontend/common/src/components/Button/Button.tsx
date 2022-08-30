@@ -90,7 +90,7 @@ export const colorMap: Record<
     solid: {
       "data-h2-border": "base(all, 1px, solid, dt-white)",
       "data-h2-background-color": "base(dt-white)",
-      "data-h2-color": "base(light.dt-primary)",
+      "data-h2-color": "base(dt-primary)",
     },
     outline: {
       "data-h2-border": "base(all, 1px, solid, dt-white)",
