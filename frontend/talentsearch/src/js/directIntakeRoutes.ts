@@ -22,6 +22,66 @@ const directIntakeRoutes = (lang: string) => {
       path.join(home(), "applications", id, "submit"),
     applications: (userId: string) =>
       path.join(userHome(userId), "applications"),
+    aboutMe: (poolCandidateId: string) =>
+      path.join(home(), "applications", poolCandidateId, "apply", "about-me"),
+    languageInformation: (poolCandidateId: string) =>
+      path.join(
+        home(),
+        "applications",
+        poolCandidateId,
+        "apply",
+        "language-info",
+      ),
+    governmentInformation: (poolCandidateId: string) =>
+      path.join(
+        home(),
+        "applications",
+        poolCandidateId,
+        "apply",
+        "government-info",
+      ),
+    roleSalary: (poolCandidateId: string) =>
+      path.join(
+        home(),
+        "applications",
+        poolCandidateId,
+        "apply",
+        "role-salary-expectations",
+      ),
+    workLocation: (poolCandidateId: string) =>
+      path.join(
+        home(),
+        "applications",
+        poolCandidateId,
+        "apply",
+        "work-location",
+      ),
+    workPreferences: (poolCandidateId: string) =>
+      path.join(
+        home(),
+        "applications",
+        poolCandidateId,
+        "apply",
+        "work-preferences",
+      ),
+    diversityEquityInclusion: (poolCandidateId: string) =>
+      path.join(
+        home(),
+        "applications",
+        poolCandidateId,
+        "apply",
+        "employment-equity",
+      ),
+    skillsAndExperiences: (poolCandidateId: string) =>
+      path.join(
+        home(),
+        "applications",
+        poolCandidateId,
+        "apply",
+        "experiences",
+      ),
+    reviewApplication: (poolCandidateId: string) =>
+      path.join(home(), "applications", poolCandidateId, "apply"),
   };
 };
 

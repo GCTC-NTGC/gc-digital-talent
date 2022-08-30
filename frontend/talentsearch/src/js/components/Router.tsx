@@ -84,6 +84,9 @@ const PoolAdvertisementPage = React.lazy(
 const SignAndSubmitPage = React.lazy(
   () => import("./signAndSubmit/SignAndSubmitPage"),
 );
+const ReviewMyApplicationPage = React.lazy(
+  () => import("./reviewMyApplication/ReviewMyApplicationPage"),
+);
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -453,11 +456,89 @@ const directIntakeRoutes = (
     },
   },
   {
-    path: directIntakePaths.applications(":userId"),
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-    }),
+    path: directIntakePaths.reviewApplication(":poolCandidateId"),
+    action: (context) => {
+      const poolCandidateId = context.params.poolCandidateId as string;
+      return {
+        component: (
+          <ReviewMyApplicationPage poolCandidateId={poolCandidateId} />
+        ),
+        authorizedRoles: [Role.Applicant],
+      };
+    },
+  },
+  {
+    path: directIntakePaths.aboutMe(":poolCandidateId"),
+    action: () => {
+      return {
+        component: <AboutMeFormPage />,
+        authorizedRoles: [Role.Applicant],
+      };
+    },
+  },
+  {
+    path: directIntakePaths.languageInformation(":poolCandidateId"),
+    action: () => {
+      return {
+        component: <LanguageInformationFormPage />,
+        authorizedRoles: [Role.Applicant],
+      };
+    },
+  },
+  {
+    path: directIntakePaths.governmentInformation(":poolCandidateId"),
+    action: (context) => {
+      const poolCandidateId = context.params.poolCandidateId as string;
+      return {
+        component: <GovernmentInfoFormPage meId={poolCandidateId} />,
+        authorizedRoles: [Role.Applicant],
+      };
+    },
+  },
+  {
+    path: directIntakePaths.roleSalary(":poolCandidateId"),
+    action: () => {
+      return {
+        component: <RoleSalaryFormPage />,
+        authorizedRoles: [Role.Applicant],
+      };
+    },
+  },
+  {
+    path: directIntakePaths.workLocation(":poolCandidateId"),
+    action: () => {
+      return {
+        component: <WorkLocationPreferenceFormPage />,
+        authorizedRoles: [Role.Applicant],
+      };
+    },
+  },
+  {
+    path: directIntakePaths.workPreferences(":poolCandidateId"),
+    action: () => {
+      return {
+        component: <WorkPreferencesFormPage />,
+        authorizedRoles: [Role.Applicant],
+      };
+    },
+  },
+  {
+    path: directIntakePaths.diversityEquityInclusion(":poolCandidateId"),
+    action: () => {
+      return {
+        component: <EmploymentEquityFormPage />,
+        authorizedRoles: [Role.Applicant],
+      };
+    },
+  },
+  {
+    path: directIntakePaths.skillsAndExperiences(":poolCandidateId"),
+    action: () => {
+      return {
+        component: <ExperienceAndSkillsPage />,
+        authorizedRoles: [Role.Applicant],
+      };
+    },
   },
 ];
 
