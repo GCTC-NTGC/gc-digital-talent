@@ -323,13 +323,13 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Request for pool candidates: <span>{candidateCountNumber, plural, =0 {no candidates} =1 {1 estimated candidate} other {{candidateCountNumber} estimated candidates}}</span>",
+                  "Request for pool candidates: <span>{candidateCount, plural, zero {no candidates} one {1 candidate} other {{candidateCount} estimated candidates}}</span>",
                 description:
                   "Total estimated candidates message in summary of filters",
               },
               {
                 span,
-                candidateCountNumber: candidateCount || 0,
+                candidateCount,
               },
             )}
           </p>
@@ -394,7 +394,7 @@ export const CreateRequest: React.FunctionComponent<{
       <RequestForm
         departments={departments}
         poolCandidateFilter={poolCandidateFilter}
-        candidateCount={candidateCount ?? 0}
+        candidateCount={candidateCount}
         searchFormInitialValues={searchFormInitialValues}
         handleCreatePoolCandidateSearchRequest={
           handleCreatePoolCandidateSearchRequest
