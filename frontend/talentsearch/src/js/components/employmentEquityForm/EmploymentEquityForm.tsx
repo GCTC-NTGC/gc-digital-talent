@@ -121,7 +121,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         <p data-h2-margin="base(0, 0, x.5, 0)">
           {intl.formatMessage({
             defaultMessage:
-              "<strong>This section is optional</strong>. If you a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions</strong>:",
+              "<strong>This section is optional</strong>. If you are a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions</strong>:",
             description:
               "Explanation that employment equity information is optional.",
           })}

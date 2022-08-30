@@ -1613,10 +1613,6 @@
     "defaultMessage": "Cette plateforme met l'accent sur l'embauche de talents numériques pour travailler dans des postes classifiés comme TI (technologie de l'information). Examinez les niveaux suivants dans la classification TI et <strong>sélectionnez uniquement</strong> ceux qui représentent le travail que vous voulez faire.",
     "description": "Blurb describing the purpose of the form"
   },
-  "v7eRed": {
-    "defaultMessage": "<strong>Cette section est facultative</strong>. Si vous êtes membre d'un ou de plusieurs de ces groupes d'équité en matière d'emploi et que vous ne souhaitez pas vous identifier sur cette plateforme, il n'y a aucune obligation de le faire. <strong>Remplissez le formulaire ci-dessous si vous remplissez ces deux conditions</strong> :",
-    "description": "Explanation that employment equity information is optional."
-  },
   "3quMA8": {
     "defaultMessage": "<strong>Pourquoi ne puis-je pas modifier mon statut?</strong>",
     "description": "Message in My Status Form."
@@ -1940,5 +1936,9 @@
   "SXvOXV": {
     "defaultMessage": "Possibilités de navigation",
     "description": "Label displayed on the browse pools menu item."
+  },
+  "zHaQlT": {
+    "defaultMessage": "<strong>Cette section est facultative</strong>. Si vous êtes membre d'un ou de plusieurs de ces groupes d'équité en matière d'emploi et que vous ne souhaitez pas vous identifier sur cette plateforme, il n'y a aucune obligation de le faire. <strong>Remplissez le formulaire ci-dessous si vous remplissez ces deux conditions</strong> :",
+    "description": "Explanation that employment equity information is optional."
   }
 }
