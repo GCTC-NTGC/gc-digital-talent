@@ -123,7 +123,7 @@ export const SkillResults: React.FunctionComponent<SkillResultsProps> = ({
   const addedIds = addedSkills.map((skill) => skill?.id);
   return (
     <section data-h2-margin="base(0, 0, x1, 0)">
-      <h4
+      <p
         data-h2-font-size="base(copy, 1)"
         data-h2-border="base(top, 1px, solid, dt-gray)"
         data-h2-font-weight="base(700)"
@@ -131,7 +131,7 @@ export const SkillResults: React.FunctionComponent<SkillResultsProps> = ({
         data-h2-margin="base(x1.5, 0, x.65, 0)"
       >
         {title}
-      </h4>
+      </p>
       {skills.map((skill) => {
         // Check if the poolCandidate has added the skill already.
         const isAdded = addedIds.includes(skill?.id);
