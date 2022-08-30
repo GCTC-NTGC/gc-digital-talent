@@ -456,7 +456,7 @@ class PoolApplicationTest extends TestCase
 
     // create incomplete user
     $newUser = User::factory()->create([
-      'is_veteran' => null,
+      'armed_forces_status' => null,
     ]);
     $newUser->email = 'admin@test.com';
     $newUser->sub = 'admin@test.com';
@@ -492,7 +492,7 @@ class PoolApplicationTest extends TestCase
     ]);
 
     // make user now complete
-    $newUser->is_veteran = true;
+    $newUser->armed_forces_status = ApiEnums::ARMED_FORCES_VETERAN;
     $newUser->save();
 
     // assert complete user can submit application

@@ -9,6 +9,7 @@ import {
   CheckIcon,
 } from "@heroicons/react/outline";
 import {
+  getArmedForcesStatusesAdmin,
   getCitizenshipStatusesAdmin,
   getLanguage,
   getPoolCandidateStatus,
@@ -291,18 +292,14 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
               description: "label for CAF status",
             })}
           </p>
-          <p>
-            {user.isVeteran === true &&
-              intl.formatMessage({
-                defaultMessage: "Is a veteran or member",
-                description: "user is a veteran or member",
-              })}
-            {user.isVeteran === false &&
-              intl.formatMessage({
-                defaultMessage: "Is not a veteran or member",
-                description: "user is not a veteran or member",
-              })}
-          </p>
+          {user.armedForcesStatus !== null &&
+            user.armedForcesStatus !== undefined && (
+              <p>
+                {intl.formatMessage(
+                  getArmedForcesStatusesAdmin(user.armedForcesStatus),
+                )}
+              </p>
+            )}
         </div>
         {/* Citizenship */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">

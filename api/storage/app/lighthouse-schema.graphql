@@ -15,7 +15,7 @@ type Applicant {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
-  isVeteran: Boolean
+  armedForcesStatus: ArmedForcesStatus
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
   currentClassification: Classification
@@ -79,6 +79,12 @@ input ApplicantFilterInput {
   expectedClassifications: [ClassificationFilterInput]
   skills: [IdInput]
   pools: [IdInput]
+}
+
+enum ArmedForcesStatus {
+  VETERAN
+  MEMBER
+  NON_CAF
 }
 
 type AwardExperience implements Experience {
@@ -229,7 +235,7 @@ input CreateApplicantFilterInput {
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
-  isVeteran: Boolean
+  armedForcesStatus: ArmedForcesStatus
 }
 
 input CreateClassificationInput {
@@ -338,7 +344,7 @@ input CreateUserInput {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
-  isVeteran: Boolean
+  armedForcesStatus: ArmedForcesStatus
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1239,7 +1245,7 @@ input UpdateUserAsAdminInput {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
-  isVeteran: Boolean
+  armedForcesStatus: ArmedForcesStatus
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1283,7 +1289,7 @@ input UpdateUserAsUserInput {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
-  isVeteran: Boolean
+  armedForcesStatus: ArmedForcesStatus
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1330,7 +1336,7 @@ type User {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
-  isVeteran: Boolean
+  armedForcesStatus: ArmedForcesStatus
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean

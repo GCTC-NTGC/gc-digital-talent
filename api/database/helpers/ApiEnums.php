@@ -306,4 +306,19 @@ class ApiEnums
             self::CITIZENSHIP_OTHER,
         ];
     }
+
+    /**
+     * CAF Status
+     */
+    const ARMED_FORCES_VETERAN = 'VETERAN';
+    const ARMED_FORCES_MEMBER = 'MEMBER';
+    const ARMED_FORCES_NON_CAF = 'NON_CAF';
+    public static function armedForcesStatuses() : array
+    {
+        return [
+            self::ARMED_FORCES_VETERAN,
+            self::ARMED_FORCES_MEMBER,
+            self::ARMED_FORCES_NON_CAF,
+        ];
+    }
 }

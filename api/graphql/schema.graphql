@@ -50,7 +50,7 @@ type User {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -165,6 +165,12 @@ enum CitizenshipStatus {
     OTHER
 }
 
+enum ArmedForcesStatus {
+    VETERAN
+    MEMBER
+    NON_CAF
+}
+
 type Applicant {
     id: ID!
 
@@ -177,7 +183,7 @@ type Applicant {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
@@ -786,7 +792,7 @@ input CreateUserInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -846,7 +852,7 @@ input UpdateUserAsAdminInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -902,7 +908,7 @@ input UpdateUserAsUserInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -1109,7 +1115,7 @@ input CreateApplicantFilterInput {
     skills: SkillBelongsToMany
     pools: PoolBelongsToMany
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 }
 
 input ApplicantFilterBelongsTo {
