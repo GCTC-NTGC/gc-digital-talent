@@ -6,8 +6,8 @@ import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import Pending from "@common/components/Pending";
 import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../../api/generated";
-import DashboardContentContainer from "../DashboardContentContainer";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
+import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<GetCmoAssetsQuery["cmoAssets"]>>;
 
@@ -16,6 +16,7 @@ export const CmoAssetTable: React.FC<
 > = ({ cmoAssets, editUrlRoot }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useAdminRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
@@ -60,7 +61,19 @@ export const CmoAssetTable: React.FC<
 
   const memoizedData = useMemo(() => cmoAssets.filter(notEmpty), [cmoAssets]);
 
-  return <Table data={memoizedData} columns={columns} />;
+  return (
+    <Table
+      data={memoizedData}
+      columns={columns}
+      addBtn={{
+        path: paths.cmoAssetCreate(),
+        label: intl.formatMessage({
+          defaultMessage: "Create CMO Asset",
+          description: "Heading displayed above the Create CMO Asset form.",
+        }),
+      }}
+    />
+  );
 };
 
 export const CmoAssetTableApi: React.FC = () => {
@@ -70,12 +83,7 @@ export const CmoAssetTableApi: React.FC = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <DashboardContentContainer>
-        <CmoAssetTable
-          cmoAssets={data?.cmoAssets ?? []}
-          editUrlRoot={pathname}
-        />
-      </DashboardContentContainer>
+      <CmoAssetTable cmoAssets={data?.cmoAssets ?? []} editUrlRoot={pathname} />
     </Pending>
   );
 };
