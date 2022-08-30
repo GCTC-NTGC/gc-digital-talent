@@ -83,6 +83,7 @@ query getEditPoolData($poolId: ID!) {
       en
       fr
     }
+    stream
   }
 
   # all classifications to populate form dropdown

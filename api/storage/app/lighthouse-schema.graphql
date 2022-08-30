@@ -1165,6 +1165,7 @@ input UpdateExperienceSkills {
 input UpdatePoolAdvertisementInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
+  stream: PoolStream
   expiryDate: DateTimeTz
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput

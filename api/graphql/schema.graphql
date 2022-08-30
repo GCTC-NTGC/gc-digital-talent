@@ -1266,6 +1266,7 @@ input UpdatePoolAdvertisementInput {
     # Pool name and classification
     name: LocalizedStringInput
     classifications: ClassificationBelongsToMany
+    stream: PoolStream
     # Closing date
     expiryDate: DateTimeTz @rename(attribute: "expiry_date") @rules(apply: ["after:today"])
     # Your impact

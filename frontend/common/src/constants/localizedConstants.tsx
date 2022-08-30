@@ -24,6 +24,7 @@ import {
   SecurityStatus,
   CitizenshipStatus,
   BilingualEvaluation,
+  PoolStream,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -1089,6 +1090,50 @@ export const getPoolStatus = (
     poolStatus,
     poolStatusId,
     `Invalid Pool Status '${poolStatusId}'`,
+  );
+
+export const poolStream = defineMessages({
+  [PoolStream.BusinessAdvisoryServices]: {
+    defaultMessage: "Business Line Advisory Services",
+    description: "Pool Stream described as Business Line Advisory Services.",
+  },
+  [PoolStream.DatabaseManagement]: {
+    defaultMessage: "Database Management",
+    description: "Pool Stream described as Database Management.",
+  },
+  [PoolStream.EnterpriseArchitecture]: {
+    defaultMessage: "Enterprise Architecture",
+    description: "Pool Stream described as Enterprise Architecture.",
+  },
+  [PoolStream.InfrastructureOperations]: {
+    defaultMessage: "Infrastructure Operations",
+    description: "Pool Stream described as Infrastructure Operations.",
+  },
+  [PoolStream.PlanningAndReporting]: {
+    defaultMessage: "Planning and Reporting",
+    description: "Pool Stream described as Planning and Reporting.",
+  },
+  [PoolStream.ProjectPortfolioManagement]: {
+    defaultMessage: "Project Portfolio Management",
+    description: "Pool Stream described as Project Portfolio Management.",
+  },
+  [PoolStream.Security]: {
+    defaultMessage: "Security",
+    description: "Pool Stream described as Security.",
+  },
+  [PoolStream.SoftwareSolutions]: {
+    defaultMessage: "Software Solutions",
+    description: "Pool Stream described as Software Solutions.",
+  },
+});
+
+export const getPoolStream = (
+  poolStreamId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    poolStream,
+    poolStreamId,
+    `Invalid Pool Stream '${poolStreamId}'`,
   );
 
 export const govEmployeeType = defineMessages({
