@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
@@ -112,6 +112,10 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
                 "Pools name breadcrumb from applicant profile wrapper if no name set.",
             }),
           href: directIntakePaths.poolApply(application.pool.id),
+        },
+        {
+          href: directIntakePaths.reviewApplication(application.id),
+          title: intl.formatMessage(commonMessages.stepOne),
         },
       ]
     : [];

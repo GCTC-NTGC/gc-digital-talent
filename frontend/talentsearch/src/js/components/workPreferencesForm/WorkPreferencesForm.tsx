@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import { Checklist, RadioGroup } from "@common/components/form";
 import {
   getOperationalRequirement,
@@ -118,6 +118,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                 "Pools name breadcrumb from applicant profile wrapper if no name set.",
             }),
           href: directIntakePaths.poolApply(application.pool.id),
+        },
+        {
+          href: directIntakePaths.reviewApplication(application.id),
+          title: intl.formatMessage(commonMessages.stepOne),
         },
       ]
     : [];

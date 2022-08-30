@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import { RadioGroup, Select } from "@common/components/form";
 import { empty } from "@common/helpers/util";
 import { getGovEmployeeType } from "@common/constants/localizedConstants";
@@ -404,6 +404,10 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
                 "Pools name breadcrumb from applicant profile wrapper if no name set.",
             }),
           href: directIntakePaths.poolApply(application.pool.id),
+        },
+        {
+          href: directIntakePaths.reviewApplication(application.id),
+          title: intl.formatMessage(commonMessages.stepOne),
         },
       ]
     : [];

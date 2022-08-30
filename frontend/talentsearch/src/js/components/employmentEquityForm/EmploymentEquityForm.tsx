@@ -61,6 +61,10 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
             }),
           href: directIntakePaths.poolApply(application.pool.id),
         },
+        {
+          href: directIntakePaths.reviewApplication(application.id),
+          title: intl.formatMessage(commonMessages.stepOne),
+        },
       ]
     : [];
 

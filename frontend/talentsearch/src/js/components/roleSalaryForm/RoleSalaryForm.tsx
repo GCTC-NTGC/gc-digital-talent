@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { BasicForm, Checklist } from "@common/components/form";
 import { BriefcaseIcon, InformationCircleIcon } from "@heroicons/react/solid";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import Button from "@common/components/Button";
 import { notEmpty } from "@common/helpers/util";
 import { unpackMaybes } from "@common/helpers/formUtils";
@@ -178,6 +178,10 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 "Pools name breadcrumb from applicant profile wrapper if no name set.",
             }),
           href: directIntakePaths.poolApply(application.pool.id),
+        },
+        {
+          href: directIntakePaths.reviewApplication(application.id),
+          title: intl.formatMessage(commonMessages.stepOne),
         },
       ]
     : [];

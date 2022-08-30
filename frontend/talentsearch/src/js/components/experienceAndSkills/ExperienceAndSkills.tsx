@@ -68,7 +68,9 @@ export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
   return e2EndDate - e1EndDate;
 };
 
-const flattenExperienceSkills = (experiences: MergedExperiences): Skill[] => {
+export const flattenExperienceSkills = (
+  experiences: MergedExperiences,
+): Skill[] => {
   return experiences
     .map((experience) => {
       const { skills } = experience;
@@ -179,8 +181,18 @@ export const ExperienceAndSkills: React.FunctionComponent<
         href: directIntakePaths.applications(applicantId),
       },
       {
-        title: advertisementTitle,
-        href: "/#",
+        title:
+          advertisementTitle ||
+          intl.formatMessage({
+            defaultMessage: "Pool name not found",
+            description:
+              "Pools name breadcrumb from applicant profile wrapper if no name set.",
+          }),
+        href: directIntakePaths.poolApply(poolAdvertisement.id),
+      },
+      {
+        href: directIntakePaths.reviewApplication(applicantId),
+        title: intl.formatMessage(commonMessages.stepOne),
       },
       ...crumbs,
     ];

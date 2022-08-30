@@ -4,7 +4,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import { BriefcaseIcon } from "@heroicons/react/solid";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -99,6 +99,10 @@ export const WorkLocationPreferenceForm: React.FC<
                 "Pools name breadcrumb from applicant profile wrapper if no name set.",
             }),
           href: directIntakePaths.poolApply(application.pool.id),
+        },
+        {
+          href: directIntakePaths.reviewApplication(application.id),
+          title: intl.formatMessage(commonMessages.stepOne),
         },
       ]
     : [];
