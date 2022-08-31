@@ -108,7 +108,7 @@ type User {
     # Profile Status
     isProfileComplete: Boolean
     expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
-
+    priorityDerived: PriorityDerivedStatus
 }
 
 enum ProvinceOrTerritory {
@@ -173,6 +173,13 @@ enum ArmedForcesStatus {
     NON_CAF
 }
 
+enum PriorityDerivedStatus {
+    PRIORITY
+    VETERAN
+    CITIZEN_OR_PR
+    OTHER
+}
+
 type Applicant {
     id: ID!
 
@@ -234,7 +241,7 @@ type Applicant {
     workExperiences: [WorkExperience]
 
     expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
-
+    priorityDerived: PriorityDerivedStatus
 }
 
 type UserPublicProfile {
