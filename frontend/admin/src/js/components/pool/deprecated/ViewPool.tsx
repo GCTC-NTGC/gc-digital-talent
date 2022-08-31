@@ -70,7 +70,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
   ];
 
   return (
-    <>
+    <div data-h2-container="base(center, full, x1) p-tablet(center, full, x2)">
       <PageHeader icon={ViewGridIcon}>{pageTitle}</PageHeader>
       <Breadcrumbs links={links} />
       <div
@@ -114,7 +114,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
           <TabPanel>{tabs[1]}</TabPanel>
         </TabPanels>
       </Tabs>
-    </>
+    </div>
   );
 };
 
