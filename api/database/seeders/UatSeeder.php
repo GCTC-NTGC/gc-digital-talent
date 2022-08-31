@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Faker;
 use Database\Helpers\ApiEnums;
 use App\Models\User;
 use App\Models\Pool;
@@ -29,7 +28,6 @@ class UatSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
         $this->truncateTables();
 
         $this->call(ClassificationSeeder::class);
@@ -44,7 +42,7 @@ class UatSeeder extends Seeder
         'roles' => [ApiEnums::ROLE_APPLICANT]
         ])
         ->count(150)
-        ->afterCreating(function (User $user) use ($faker) {
+        ->afterCreating(function (User $user) {
             $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
             $user->cmoAssets()->sync($assets);
 
@@ -67,7 +65,7 @@ class UatSeeder extends Seeder
             } else {
                 // non-government users have no current classification or expected classifications but have salary
                 $user->current_classification = null;
-                $user->expected_salary = $faker->randomElements(ApiEnums::salaryRanges(), 3);
+                $user->expected_salary = array_rand(array_flip(ApiEnums::salaryRanges()), 3);
                 $user->save();
 
                 $user->expectedClassifications()->sync([]);
@@ -88,64 +86,64 @@ class UatSeeder extends Seeder
         ->create();
 
         // add experiences to all the users
-        User::all()->each(function($user) use ($faker) {
+        User::all()->each(function($user) {
             AwardExperience::factory()
-            ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+            ->count(rand(0,3))
             ->for($user)
-            ->afterCreating(function ($model) use ($faker) {
+            ->afterCreating(function ($model) {
                 $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
                 $data = [
-                    $skills[0] => ['details' => $faker->text()],
-                    $skills[1] => ['details' => $faker->text()],
-                    $skills[2] => ['details' => $faker->text()],
+                    $skills[0] => ['details' => 'skill one'],
+                    $skills[1] => ['details' => 'skill two'],
+                    $skills[2] => ['details' => 'skill three'],
                 ];
                 $model->skills()->sync($data);
             })->create();
             CommunityExperience::factory()
-            ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+            ->count(rand(0,3))
             ->for($user)
-            ->afterCreating(function ($model) use ($faker) {
+            ->afterCreating(function ($model) {
                 $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
                 $data = [
-                    $skills[0] => ['details' => $faker->text()],
-                    $skills[1] => ['details' => $faker->text()],
-                    $skills[2] => ['details' => $faker->text()],
+                    $skills[0] => ['details' => 'skill one'],
+                    $skills[1] => ['details' => 'skill two'],
+                    $skills[2] => ['details' => 'skill three'],
                 ];
                 $model->skills()->sync($data);
             })->create();
             EducationExperience::factory()
-            ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+            ->count(rand(0,3))
             ->for($user)
-            ->afterCreating(function ($model) use ($faker) {
+            ->afterCreating(function ($model) {
                 $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
                 $data = [
-                    $skills[0] => ['details' => $faker->text()],
-                    $skills[1] => ['details' => $faker->text()],
-                    $skills[2] => ['details' => $faker->text()],
+                    $skills[0] => ['details' => 'skill one'],
+                    $skills[1] => ['details' => 'skill two'],
+                    $skills[2] => ['details' => 'skill three'],
                 ];
                 $model->skills()->sync($data);
             })->create();
             PersonalExperience::factory()
-            ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+            ->count(rand(0,3))
             ->for($user)
-            ->afterCreating(function ($model) use ($faker) {
+            ->afterCreating(function ($model) {
                 $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
                 $data = [
-                    $skills[0] => ['details' => $faker->text()],
-                    $skills[1] => ['details' => $faker->text()],
-                    $skills[2] => ['details' => $faker->text()],
+                    $skills[0] => ['details' => 'skill one'],
+                    $skills[1] => ['details' => 'skill two'],
+                    $skills[2] => ['details' => 'skill three'],
                 ];
                 $model->skills()->sync($data);
             })->create();
             WorkExperience::factory()
-            ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+            ->count(rand(0,3))
             ->for($user)
-            ->afterCreating(function ($model) use ($faker) {
+            ->afterCreating(function ($model) {
                 $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
                 $data = [
-                    $skills[0] => ['details' => $faker->text()],
-                    $skills[1] => ['details' => $faker->text()],
-                    $skills[2] => ['details' => $faker->text()],
+                    $skills[0] => ['details' => 'skill one'],
+                    $skills[1] => ['details' => 'skill two'],
+                    $skills[2] => ['details' => 'skill three'],
                 ];
                 $model->skills()->sync($data);
             })->create();
