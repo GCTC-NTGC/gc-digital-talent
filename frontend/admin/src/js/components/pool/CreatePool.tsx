@@ -146,12 +146,12 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
       <div data-h2-margin="base(x2, 0, 0, 0)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h3 data-h2-margin="base(x.25, 0)">
+            <h2 data-h2-margin="base(x.25, 0)" data-h2-font-size="base(h3)">
               {intl.formatMessage({
                 defaultMessage: "Start blank job poster",
                 description: "Form header to create new pool",
               })}
-            </h3>
+            </h2>
             <p>
               {intl.formatMessage({
                 defaultMessage: "Create a new job poster from scratch",

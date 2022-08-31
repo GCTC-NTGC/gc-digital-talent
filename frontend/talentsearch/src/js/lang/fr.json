@@ -532,10 +532,6 @@
     "defaultMessage": "Groupe de classifications actuel ",
     "description": "Label displayed on classification group input"
   },
-  "/Qysld": {
-    "defaultMessage": "Les données ici seront utilisées pour vous faire correspondre aux emplois prioritaires.",
-    "description": "Explanation on how employment equity information will be used, item two"
-  },
   "/k21MP": {
     "defaultMessage": "Informations linguistiques",
     "description": "Display Text for Language Information Form Page Link"
@@ -1038,10 +1034,6 @@
   "WyKJsK": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
     "description": "Message displayed to user after experience fails to be updated."
-  },
-  "WyhfVn": {
-    "defaultMessage": "Ces données seront utilisées sous une forme anonyme à des fins statistiques.",
-    "description": "Explanation on how employment equity information will be used, item three"
   },
   "X2Ivfb": {
     "defaultMessage": "… toute durée (à court terme, à long terme ou indéterminée)",
@@ -1613,10 +1605,6 @@
     "defaultMessage": "Cette plateforme met l'accent sur l'embauche de talents numériques pour travailler dans des postes classifiés comme TI (technologie de l'information). Examinez les niveaux suivants dans la classification TI et <strong>sélectionnez uniquement</strong> ceux qui représentent le travail que vous voulez faire.",
     "description": "Blurb describing the purpose of the form"
   },
-  "v7eRed": {
-    "defaultMessage": "<strong>Cette section est facultative</strong>. Si vous êtes membre d'un ou de plusieurs de ces groupes d'équité en matière d'emploi et que vous ne souhaitez pas vous identifier sur cette plateforme, il n'y a aucune obligation de le faire. <strong>Remplissez le formulaire ci-dessous si vous remplissez ces deux conditions</strong> :",
-    "description": "Explanation that employment equity information is optional."
-  },
   "3quMA8": {
     "defaultMessage": "<strong>Pourquoi ne puis-je pas modifier mon statut?</strong>",
     "description": "Message in My Status Form."
@@ -1940,5 +1928,17 @@
   "SXvOXV": {
     "defaultMessage": "Possibilités de navigation",
     "description": "Label displayed on the browse pools menu item."
+  },
+  "zHaQlT": {
+    "defaultMessage": "<strong>Cette section est facultative</strong>. Si vous êtes membre d'un ou de plusieurs de ces groupes d'équité en matière d'emploi et que vous ne souhaitez pas vous identifier sur cette plateforme, il n'y a aucune obligation de le faire. <strong>Remplissez le formulaire ci-dessous si vous remplissez ces deux conditions</strong> :",
+    "description": "Explanation that employment equity information is optional."
+  },
+  "QpfFEG": {
+    "defaultMessage": "Ces renseignements seront utilisées sous une forme anonyme à des fins statistiques.",
+    "description": "Explanation on how employment equity information will be used, item three"
+  },
+  "zqBqj1": {
+    "defaultMessage": "Ces renseignements seront utilisées pour vous faire correspondre aux emplois prioritaires.",
+    "description": "Explanation on how employment equity information will be used, item two"
   }
 }

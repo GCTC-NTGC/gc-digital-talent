@@ -15,43 +15,50 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   ...rest
 }): React.ReactElement => {
   const intl = useIntl();
-  const minWords = 0;
   const numOfWords = countNumberOfWords(text);
   const wordsLeft = wordLimit - numOfWords;
   return (
-    <span
-      aria-valuenow={numOfWords}
-      aria-valuemin={minWords}
-      aria-valuemax={wordLimit}
-      data-h2-font-size="base(caption)"
-      {...rest}
-    >
-      {wordsLeft < 0 ? (
-        <span data-h2-color="base(dt-error)">
-          {Math.abs(wordsLeft)}{" "}
+    <>
+      <span aria-hidden="true" data-h2-font-size="base(caption)" {...rest}>
+        {wordsLeft < 0 ? (
+          <span data-h2-color="base(dt-error)">
+            {Math.abs(wordsLeft)}{" "}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "{wordsLeft, plural, one {word over limit} other {words over limit}}.",
+                description: "Message for when user goes over word limit.",
+              },
+              { wordsLeft },
+            )}
+          </span>
+        ) : (
+          <span data-h2-color="base(dt-gray.dark)">
+            {wordsLeft}{" "}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "{wordsLeft, plural, one {word left} other {words left}}.",
+                description: "Message for when user goes over word limit.",
+              },
+              { wordsLeft },
+            )}
+          </span>
+        )}
+      </span>
+      {wordsLeft < 0 && (
+        <span aria-live="polite" data-h2-visibility="base(invisible)">
           {intl.formatMessage(
             {
-              defaultMessage:
-                "{wordsLeft, plural, one {word over limit} other {words over limit}}.",
-              description: "Message for when user goes over word limit.",
+              defaultMessage: "You are over the word limit, {wordLimit}.",
+              description:
+                "Text read out to assistive technology when over the word limit.",
             },
-            { wordsLeft },
-          )}
-        </span>
-      ) : (
-        <span data-h2-color="base(dt-gray)">
-          {wordsLeft}{" "}
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "{wordsLeft, plural, one {word left} other {words left}}.",
-              description: "Message for when user goes over word limit.",
-            },
-            { wordsLeft },
+            { wordLimit },
           )}
         </span>
       )}
-    </span>
+    </>
   );
 };
 

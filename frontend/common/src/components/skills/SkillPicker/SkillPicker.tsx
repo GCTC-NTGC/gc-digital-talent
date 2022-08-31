@@ -1,54 +1,49 @@
-import * as React from "react";
-import { useMemo, useState } from "react";
-import { Skill, SkillCategory, SkillFamily } from "@common/api/generated";
+import React from "react";
 import { useIntl } from "react-intl";
-import {
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from "@common/components/Tabs";
-import SkillFamilyPicker from "@common/components/skills/SkillFamilyPicker/SkillFamilyPicker";
+import Chip, { Chips } from "../../Chip";
+import Pagination, { usePaginationVars } from "../../Pagination";
+import SearchBar from "../SearchBar";
+import SkillResults from "../SkillResults";
+import SkillFamilyPicker from "../SkillFamilyPicker";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "../../Tabs";
+import { SkillCategory } from "../../../api/generated";
+import type { Skill, SkillFamily } from "../../../api/generated";
+
 import {
   filterSkillsByNameOrKeywords,
   invertSkillSkillFamilyTree,
-} from "@common/helpers/skillUtils";
-import { SkillResults } from "@common/components/skills/SkillResults/SkillResults";
-import { SearchBar } from "@common/components/skills/SearchBar/SearchBar";
-import Pagination, { usePaginationVars } from "@common/components/Pagination";
-import Chip, { Chips } from "@common/components/Chip";
-import { getLocalizedName } from "@common/helpers/localize";
+} from "../../../helpers/skillUtils";
+import { getLocalizedName } from "../../../helpers/localize";
 
-const paginationPageSize = 5;
+const PAGE_SIZE = 5;
 
-interface AddSkillsToPoolProps {
+export interface SkillPickerProps {
   selectedSkills: Array<Skill>;
   skills: Array<Skill>;
-  onChangeSelectedSkills: (changedSelectedSkills: Array<Skill>) => void;
+  onChange: (newSkills: Array<Skill>) => void;
   idPrefix?: string;
   disabled?: boolean;
 }
 
-export const AddSkillsToPool = ({
+const SkillPicker = ({
   selectedSkills,
   skills,
-  onChangeSelectedSkills,
+  onChange,
   idPrefix,
   disabled,
-}: AddSkillsToPoolProps): JSX.Element => {
+}: SkillPickerProps): JSX.Element => {
   const intl = useIntl();
 
   const [selectedTechnicalSkillFamilyId, setSelectedTechnicalSkillFamilyId] =
-    useState<SkillFamily["id"]>();
+    React.useState<SkillFamily["id"] | null>(null);
   const [
     selectedBehaviouralSkillFamilyId,
     setSelectedBehaviouralSkillFamilyId,
-  ] = useState<SkillFamily["id"]>();
-  const [searchQuery, setSearchQuery] = useState<string>();
+  ] = React.useState<SkillFamily["id"] | null>(null);
+  const [searchQuery, setSearchQuery] = React.useState<string>("");
 
   // this function can be a bit heavy
-  const allSkillFamilies = useMemo(
+  const allSkillFamilies = React.useMemo(
     () => invertSkillSkillFamilyTree(skills),
     [skills],
   );
@@ -86,37 +81,37 @@ export const AddSkillsToPool = ({
       skills;
 
   const technicalSkillsFamilySkillsPagination = usePaginationVars<Skill>(
-    paginationPageSize,
+    PAGE_SIZE,
     technicalSkillFamilyFilteredSkills,
   );
   const behaviouralSkillsFamilySkillsPagination = usePaginationVars<Skill>(
-    paginationPageSize,
+    PAGE_SIZE,
     technicalSkillFamilyFilteredSkills,
   );
   const searchSkillsPagination = usePaginationVars<Skill>(
-    paginationPageSize,
+    PAGE_SIZE,
     searchFilteredSkills,
   );
 
   const handleAddSkill = (id: Skill["id"]) => {
     const skillToAdd = skills.find((skill) => skill.id === id);
     if (skillToAdd) {
-      onChangeSelectedSkills([...selectedSkills, skillToAdd]);
+      onChange([...selectedSkills, skillToAdd]);
     }
   };
 
   const handleRemoveSkill = (id: Skill["id"]) => {
-    onChangeSelectedSkills(selectedSkills.filter((skill) => skill.id !== id));
+    onChange(selectedSkills.filter((skill) => skill.id !== id));
   };
 
   const tabs = [
     intl.formatMessage({
-      defaultMessage: "Occupational skills",
-      description: "Tab name for a list of occupational skills",
+      defaultMessage: "Technical skills",
+      description: "Tab name for a list of technical skills",
     }),
     intl.formatMessage({
-      defaultMessage: "Transferable skills",
-      description: "Tab name for a list of transferable skills",
+      defaultMessage: "Behavioural skills",
+      description: "Tab name for a list of behavioural skills",
     }),
     intl.formatMessage({
       defaultMessage: "By keyword",
@@ -159,7 +154,7 @@ export const AddSkillsToPool = ({
                   (sf) => sf.category === SkillCategory.Technical,
                 )}
                 onSelectSkillFamily={(id) => {
-                  setSelectedTechnicalSkillFamilyId(id);
+                  setSelectedTechnicalSkillFamilyId(id || null);
                   technicalSkillsFamilySkillsPagination.setCurrentPage(1);
                 }}
                 idPrefix={`${idPrefix}-technical`}
@@ -188,7 +183,7 @@ export const AddSkillsToPool = ({
                 color="primary"
                 mode="outline"
                 currentPage={technicalSkillsFamilySkillsPagination.currentPage}
-                pageSize={paginationPageSize}
+                pageSize={PAGE_SIZE}
                 totalCount={technicalSkillFamilyFilteredSkills.length}
                 onCurrentPageChange={(page) =>
                   technicalSkillsFamilySkillsPagination.setCurrentPage(page)
@@ -205,15 +200,15 @@ export const AddSkillsToPool = ({
                   description: "A title for a list of skill families",
                 })}
                 nullSelectionLabel={intl.formatMessage({
-                  defaultMessage: "All transferable skills",
+                  defaultMessage: "All behavioural skills",
                   description:
-                    "The option label for 'no filter' on the list of transferable skills",
+                    "The option label for 'no filter' on the list of behavioural skills",
                 })}
                 skillFamilies={allSkillFamilies.filter(
                   (sf) => sf.category === SkillCategory.Behavioural,
                 )}
                 onSelectSkillFamily={(id) => {
-                  setSelectedBehaviouralSkillFamilyId(id);
+                  setSelectedBehaviouralSkillFamilyId(id || null);
                   behaviouralSkillsFamilySkillsPagination.setCurrentPage(1);
                 }}
                 idPrefix={`${idPrefix}-behavioural`}
@@ -246,7 +241,7 @@ export const AddSkillsToPool = ({
                 currentPage={
                   behaviouralSkillsFamilySkillsPagination.currentPage
                 }
-                pageSize={paginationPageSize}
+                pageSize={PAGE_SIZE}
                 totalCount={behaviouralSkillFamilyFilteredSkills.length}
                 onCurrentPageChange={(page) =>
                   behaviouralSkillsFamilySkillsPagination.setCurrentPage(page)
@@ -282,7 +277,7 @@ export const AddSkillsToPool = ({
                 color="primary"
                 mode="outline"
                 currentPage={searchSkillsPagination.currentPage}
-                pageSize={paginationPageSize}
+                pageSize={PAGE_SIZE}
                 totalCount={searchFilteredSkills.length}
                 onCurrentPageChange={(page) =>
                   searchSkillsPagination.setCurrentPage(page)
@@ -296,8 +291,8 @@ export const AddSkillsToPool = ({
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage(
           {
-            defaultMessage: "Selected essential skills ({skillCount})",
-            description: "A title for an essential skill list",
+            defaultMessage: "Selected skills ({skillCount})",
+            description: "A title for an skill list",
           },
           {
             skillCount: selectedSkills.length,
@@ -325,4 +320,4 @@ export const AddSkillsToPool = ({
   );
 };
 
-export default AddSkillsToPool;
+export default SkillPicker;
