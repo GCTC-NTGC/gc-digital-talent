@@ -125,6 +125,20 @@ const useUserCsvData = (applicants: Applicant[]) => {
       }),
     },
     {
+      key: "hasPriorityEntitlement",
+      label: intl.formatMessage({
+        defaultMessage: "Priority Entitlement",
+        description: "CSV Header, Priority Entitlement column",
+      }),
+    },
+    {
+      key: "priorityNumber",
+      label: intl.formatMessage({
+        defaultMessage: "Priority Number",
+        description: "CSV Header, Priority Number column",
+      }),
+    },
+    {
       key: "locationPreferences",
       label: intl.formatMessage({
         defaultMessage: "Location Preferences",
@@ -395,6 +409,8 @@ const useUserCsvData = (applicants: Applicant[]) => {
         verbalLevel,
         estimatedLanguageAbility,
         isGovEmployee,
+        hasPriorityEntitlement,
+        priorityNumber,
         department,
         govEmployeeType,
         currentClassification,
@@ -432,6 +448,8 @@ const useUserCsvData = (applicants: Applicant[]) => {
           ? intl.formatMessage(getLanguageProficiency(estimatedLanguageAbility))
           : "",
         isGovEmployee: yesOrNo(isGovEmployee),
+        hasPriorityEntitlement: yesOrNo(hasPriorityEntitlement),
+        priorityNumber: priorityNumber || "",
         department: department?.name[locale] || "",
         govEmployeeType: govEmployeeType
           ? employeeTypeToString(govEmployeeType)
