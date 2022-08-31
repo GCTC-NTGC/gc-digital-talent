@@ -84,6 +84,9 @@ const PoolAdvertisementPage = React.lazy(
 const SignAndSubmitPage = React.lazy(
   () => import("./signAndSubmit/SignAndSubmitPage"),
 );
+const MyApplicationsPage = React.lazy(
+  () => import("./applications/MyApplicationsPage"),
+);
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -455,7 +458,7 @@ const directIntakeRoutes = (
   {
     path: directIntakePaths.applications(":userId"),
     action: () => ({
-      component: <div />,
+      component: <MyApplicationsPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },

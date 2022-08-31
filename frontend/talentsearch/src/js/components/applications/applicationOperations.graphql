@@ -1,0 +1,37 @@
+query MyApplications {
+  me {
+    id
+
+    poolCandidates {
+      id
+      status
+      poolAdvertisement {
+        id
+        expiryDate
+        name {
+          en
+          fr
+        }
+        classifications {
+          id
+          group
+          level
+          name {
+            en
+            fr
+          }
+          genericJobTitles {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+          minSalary
+          maxSalary
+        }
+      }
+    }
+  }
+}
