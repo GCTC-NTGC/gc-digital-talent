@@ -17,11 +17,11 @@
         "mll-lab/graphql-php-scalars": "^5.1",
         "mll-lab/laravel-graphql-playground": "^2.5",
         "nuwave/lighthouse": "^5.8",
-        "web-token/jwt-core": "^2.2"
+        "web-token/jwt-core": "^2.2",
+        "fakerphp/faker": "^1.9.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
-        "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
