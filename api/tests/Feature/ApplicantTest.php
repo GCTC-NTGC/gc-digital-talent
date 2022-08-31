@@ -928,4 +928,103 @@ class ApplicantTest extends TestCase
             ]
         ]);
     }
+
+    public function testPriorityDerivedStatusAccessor(): void
+    {
+        // test derived property that exists on type User and Applicant from model User.php
+
+        // create candidates
+        $candidateOne = User::factory()->create([
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+            'has_priority_entitlement' => true,
+            'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
+            'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
+        ]);
+        $candidateTwo = User::factory()->create([
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+            'has_priority_entitlement' => false,
+            'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
+            'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
+        ]);
+        $candidateThree = User::factory()->create([
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
+            'has_priority_entitlement' => false,
+            'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
+            'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
+        ]);
+        $candidateFour = User::factory()->create([
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
+            'has_priority_entitlement' => false,
+            'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
+            'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
+        ]);
+
+        // Assert candidate one returns PRIORITY
+        $this->graphQL(/** @lang Graphql */ '
+            query applicant($id: ID!) {
+                applicant(id: $id) {
+                    priorityDerived
+                }
+            }
+            ', [
+                'id' => $candidateOne->id,
+        ])->assertJson([
+            "data" => [
+                "applicant" => [
+                    "priorityDerived" => ApiEnums::PRIORITY_DERIVED_PRIORITY,
+                ]
+            ]
+        ]);
+
+        // Assert candidate two returns VETERAN
+        $this->graphQL(/** @lang Graphql */ '
+            query applicant($id: ID!) {
+                applicant(id: $id) {
+                    priorityDerived
+                }
+            }
+            ', [
+                'id' => $candidateTwo->id,
+        ])->assertJson([
+            "data" => [
+                "applicant" => [
+                    "priorityDerived" => ApiEnums::PRIORITY_DERIVED_VETERAN,
+                ]
+            ]
+        ]);
+
+        // Assert candidate three returns CITIZEN/PR
+        $this->graphQL(/** @lang Graphql */ '
+            query applicant($id: ID!) {
+                applicant(id: $id) {
+                    priorityDerived
+                }
+            }
+            ', [
+                'id' => $candidateThree->id,
+        ])->assertJson([
+            "data" => [
+                "applicant" => [
+                    "priorityDerived" => ApiEnums::PRIORITY_DERIVED_CITIZEN_OR_PR,
+                ]
+            ]
+        ]);
+
+        // Assert candidate four returns OTHER
+        $this->graphQL(/** @lang Graphql */ '
+            query applicant($id: ID!) {
+                applicant(id: $id) {
+                    priorityDerived
+                }
+            }
+            ', [
+                'id' => $candidateFour->id,
+        ])->assertJson([
+            "data" => [
+                "applicant" => [
+                    "priorityDerived" => ApiEnums::PRIORITY_DERIVED_OTHER,
+                ]
+            ]
+        ]);
+    }
 }
