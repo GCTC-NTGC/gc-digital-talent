@@ -1,6 +1,5 @@
 import React from "react";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
 import { fakePoolCandidates } from "@common/fakeData";
 import { MyApplications } from "./MyApplicationsPage";
 
