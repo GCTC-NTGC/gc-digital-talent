@@ -9,6 +9,7 @@ import MissingSkills from "@common/components/skills/MissingSkills";
 import { notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { Link } from "@common/components";
+import { getMissingSkills } from "@common/components/skills/MissingSkills/MissingSkills";
 import {
   Applicant,
   Maybe,
@@ -23,7 +24,6 @@ interface ReviewMyApplicationProps {
   applicant: Applicant;
   poolAdvertisement: PoolAdvertisement;
   poolCandidateId: string;
-  isProfileComplete: boolean;
   closingDate: Date;
   jobTitle: Maybe<string>;
   poolId: string;
@@ -35,7 +35,6 @@ export const ReviewMyApplication: React.FunctionComponent<
   applicant,
   poolAdvertisement,
   poolCandidateId,
-  isProfileComplete,
   closingDate,
   jobTitle,
   poolId,
@@ -48,6 +47,14 @@ export const ReviewMyApplication: React.FunctionComponent<
     optionalSkills: poolAdvertisement.nonessentialSkills?.filter(notEmpty),
   };
   const hasExperiences = notEmpty(applicant.experiences);
+  const { isProfileComplete } = applicant;
+  const isApplicationComplete =
+    isProfileComplete ||
+    getMissingSkills(
+      missingSkills.requiredSkills || [],
+      hasExperiences ? flattenExperienceSkills(experiences) : [],
+    ).length === 0;
+
   return (
     <ApplicationPageWrapper
       closingDate={closingDate}
@@ -90,6 +97,7 @@ export const ReviewMyApplication: React.FunctionComponent<
               defaultMessage: "Step 2: Sign and submit",
               description: "Navigation step in sign and submit page.",
             }),
+            disabled: !isApplicationComplete ?? false,
           },
         ],
       }}
@@ -103,49 +111,49 @@ export const ReviewMyApplication: React.FunctionComponent<
           about: {
             isVisible: true,
             editUrl: `${directIntakePaths.aboutMe(
-              poolAdvertisement.id,
+              poolCandidateId,
             )}?application=${poolCandidateId}`,
           },
           language: {
             isVisible: true,
             editUrl: `${directIntakePaths.languageInformation(
-              poolAdvertisement.id,
+              poolCandidateId,
             )}?application=${poolCandidateId}`,
           },
           government: {
             isVisible: true,
             editUrl: `${directIntakePaths.governmentInformation(
-              poolAdvertisement.id,
+              poolCandidateId,
             )}?application=${poolCandidateId}`,
           },
           workLocation: {
             isVisible: true,
             editUrl: `${directIntakePaths.workLocation(
-              poolAdvertisement.id,
+              poolCandidateId,
             )}?application=${poolCandidateId}`,
           },
           workPreferences: {
             isVisible: true,
             editUrl: `${directIntakePaths.workPreferences(
-              poolAdvertisement.id,
+              poolCandidateId,
             )}?application=${poolCandidateId}`,
           },
           employmentEquity: {
             isVisible: true,
             editUrl: `${directIntakePaths.diversityEquityInclusion(
-              poolAdvertisement.id,
+              poolCandidateId,
             )}?application=${poolCandidateId}`,
           },
           roleSalary: {
             isVisible: true,
             editUrl: `${directIntakePaths.roleSalary(
-              poolAdvertisement.id,
+              poolCandidateId,
             )}?application=${poolCandidateId}`,
           },
           skillsExperience: {
             isVisible: true,
             editUrl: `${directIntakePaths.skillsAndExperiences(
-              poolAdvertisement.id,
+              poolCandidateId,
             )}?application=${poolCandidateId}`,
             override: (
               <>
@@ -190,7 +198,7 @@ export const ReviewMyApplication: React.FunctionComponent<
                     color="cta"
                     mode="solid"
                     type="button"
-                    disabled={isProfileComplete}
+                    disabled={!isApplicationComplete ?? false}
                   >
                     {intl.formatMessage({
                       defaultMessage: "Continue to step 2",
@@ -236,7 +244,6 @@ const ReviewMyApplicationPage: React.FC<{ poolCandidateId: string }> = ({
           poolAdvertisement={data.poolCandidate.poolAdvertisement}
           applicant={data.poolCandidate.user as Applicant}
           poolCandidateId={data.poolCandidate.id}
-          isProfileComplete={false}
           closingDate={data.poolCandidate.poolAdvertisement?.expiryDate}
           jobTitle={data.poolCandidate?.poolAdvertisement?.name?.[locale]}
           poolId={data.poolCandidate.poolAdvertisement?.id}
