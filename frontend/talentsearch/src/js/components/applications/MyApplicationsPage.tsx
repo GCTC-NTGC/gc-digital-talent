@@ -7,41 +7,28 @@ import { imageUrl } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 
-import {
-  useMyApplicationsQuery,
-  type PoolCandidate,
-  PoolCandidateStatus,
-} from "../../api/generated";
+import { useMyApplicationsQuery } from "../../api/generated";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-
-const statusSortMap: Record<PoolCandidateStatus, number> = {
-  [PoolCandidateStatus.Draft]: 1,
-  [PoolCandidateStatus.DraftExpired]: 2,
-  [PoolCandidateStatus.NewApplication]: 3,
-  [PoolCandidateStatus.ApplicationReview]: 4,
-  [PoolCandidateStatus.ScreenedIn]: 5,
-  [PoolCandidateStatus.ScreenedOutApplication]: 6,
-  [PoolCandidateStatus.UnderAssessment]: 7,
-  [PoolCandidateStatus.ScreenedOutAssessment]: 8,
-  [PoolCandidateStatus.QualifiedAvailable]: 9,
-  [PoolCandidateStatus.QualifiedUnavailable]: 10,
-  [PoolCandidateStatus.QualifiedWithdrew]: 11,
-  [PoolCandidateStatus.PlacedCasual]: 12,
-  [PoolCandidateStatus.PlacedTerm]: 13,
-  [PoolCandidateStatus.PlacedIndeterminate]: 14,
-  [PoolCandidateStatus.Expired]: 15,
-};
-
-type Application = Omit<PoolCandidate, "pool" | "user">;
+import ApplicationCard, { type Application } from "./ApplicationCard";
+import ArchivedApplications from "./ArchivedApplications";
+import { statusSortMap } from "./maps";
 
 interface MyApplicationsProps {
   applications: Array<Application>;
 }
 
-const MyApplications = ({ applications }: MyApplicationsProps) => {
+export const MyApplications = ({ applications }: MyApplicationsProps) => {
   const intl = useIntl();
 
-  const sortedApplications = applications.sort((a, b) => {
+  const archivedApplications = applications.filter((application) => {
+    return !!application.archivedAt;
+  });
+
+  const activeApplications = applications.filter((application) => {
+    return !application.archivedAt;
+  });
+
+  const sortedApplications = activeApplications.sort((a, b) => {
     if (a.status && b.status) {
       return statusSortMap[a.status] - statusSortMap[b.status];
     }
@@ -82,9 +69,18 @@ const MyApplications = ({ applications }: MyApplicationsProps) => {
       <div data-h2-padding="base(x3, 0, x3, 0)">
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
           {sortedApplications.length > 0 ? (
-            sortedApplications.map((application) => (
-              <div key={application.id}>{application.id}</div>
-            ))
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x0.5, row)"
+            >
+              {sortedApplications.map((application) => (
+                <ApplicationCard
+                  key={application.id}
+                  application={application}
+                />
+              ))}
+            </div>
           ) : (
             <p>
               {intl.formatMessage({
@@ -94,6 +90,7 @@ const MyApplications = ({ applications }: MyApplicationsProps) => {
               })}
             </p>
           )}
+          <ArchivedApplications applications={archivedApplications} />
         </div>
       </div>
     </>

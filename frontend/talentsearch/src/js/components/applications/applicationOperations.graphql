@@ -5,6 +5,7 @@ query MyApplications {
     poolCandidates {
       id
       status
+      archivedAt
       poolAdvertisement {
         id
         expiryDate
@@ -33,5 +34,16 @@ query MyApplications {
         }
       }
     }
+  }
+}
+
+
+mutation DeleteApplication($id: ID!) {
+  deleteApplication(id: $id)
+}
+
+mutation ArchiveApplication($id: ID!) {
+  archiveApplication(id: $id) {
+    id
   }
 }
