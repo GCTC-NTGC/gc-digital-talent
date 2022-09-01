@@ -1353,5 +1353,9 @@
   "VOheZB": {
     "defaultMessage": "<primary>{role}</primary> à {organization}",
     "description": "Role at organization in work experience block of skill accordion."
+  },
+  "fSBslq": {
+    "defaultMessage": "Taille de la page",
+    "description": "Label for the number of items to display on each page."
   }
 }
