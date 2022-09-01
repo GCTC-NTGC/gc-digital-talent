@@ -1385,5 +1385,9 @@
   "3m7hT5": {
     "defaultMessage": "Services consultatifs auprès des secteurs d’activités de la TI",
     "description": "Pool Stream described as Business Line Advisory Services."
+  },
+  "fSBslq": {
+    "defaultMessage": "Taille de la page",
+    "description": "Label for the number of items to display on each page."
   }
 }

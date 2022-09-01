@@ -43,6 +43,7 @@ class UserFactory extends Factory
         $randomDepartment = Department::inRandomOrder()->first();
         $randomClassification = Classification::inRandomOrder()->first();
         $isGovEmployee = $this->faker->boolean();
+        $hasPriorityEntitlement = $this->faker->boolean(10);
         $hasBeenEvaluated = $this->faker->boolean();
 
         return [
@@ -135,6 +136,8 @@ class UserFactory extends Factory
             'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
             'citizenship' => $this->faker->randomElement(ApiEnums::citizenshipStatuses()),
             'armed_forces_status' => $this->faker->randomElement(ApiEnums::armedForcesStatuses()),
+            'has_priority_entitlement' => $hasPriorityEntitlement,
+            'priority_number' => $hasPriorityEntitlement? $this->faker->word() : null,
         ];
     }
 
