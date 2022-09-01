@@ -10,13 +10,16 @@ import {
   Pool,
   User,
   Applicant,
+  PoolAdvertisement,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
+import fakePoolAdvertisements from "./fakePoolAdvertisements";
 
 const generatePoolCandidate = (
   pools: Pool[],
+  poolAdvertisements: PoolAdvertisement[],
   users: User[],
   classifications: Classification[],
 ): PoolCandidate => {
@@ -24,6 +27,7 @@ const generatePoolCandidate = (
   return {
     id: faker.datatype.uuid(),
     pool: faker.helpers.arrayElement(pools),
+    poolAdvertisement: faker.helpers.arrayElement(poolAdvertisements),
     expectedClassifications:
       faker.helpers.arrayElements<Classification>(classifications),
     user: faker.helpers.arrayElement<User>(users) as Applicant,
@@ -31,7 +35,7 @@ const generatePoolCandidate = (
       faker.lorem.words(faker.datatype.number({ min: 1, max: 3 })),
     ),
     expiryDate: faker.date
-      .between("2100-01-01", "2100-12-31")
+      .between("2022-01-01", "2100-12-31")
       .toISOString()
       .substring(0, 10),
     isWoman: faker.datatype.boolean(),
@@ -55,6 +59,9 @@ const generatePoolCandidate = (
     status: faker.helpers.arrayElement<PoolCandidateStatus>(
       Object.values(PoolCandidateStatus),
     ),
+    archivedAt: faker.helpers.maybe(() =>
+      faker.date.past().toISOString().substring(0, 10),
+    ),
     submittedAt: faker.date
       .between("2022-01-01", "2022-07-31")
       .toISOString()
@@ -62,13 +69,14 @@ const generatePoolCandidate = (
   };
 };
 
-export default (): PoolCandidate[] => {
+export default (amount?: number): PoolCandidate[] => {
   const pools = fakePools();
   const users = fakeUsers();
   const classifications = fakeClassifications();
+  const poolAdvertisements = fakePoolAdvertisements();
 
   faker.seed(0); // repeatable results
-  return [...Array(20)].map(() =>
-    generatePoolCandidate(pools, users, classifications),
+  return [...Array(amount || 20)].map(() =>
+    generatePoolCandidate(pools, poolAdvertisements, users, classifications),
   );
 };
