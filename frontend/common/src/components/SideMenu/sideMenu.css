@@ -5,7 +5,7 @@
 
 /* This value couldn't be set using Hydrogen because it takes advantage of a class modifier to alter styles */
 .side-menu .side-menu__item--active {
-  background-color: rgba(255, 255, 255, .2);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* data-h2 is required for the following styles because they need to override Hydrogen attribute styles */

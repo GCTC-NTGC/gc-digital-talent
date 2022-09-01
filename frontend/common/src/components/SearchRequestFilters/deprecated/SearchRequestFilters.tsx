@@ -43,7 +43,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
   };
 
   return (
-    <div data-h2-padding="base(0, 0, x.5, 0)">
+    <div data-h2-padding="base(0, 0, x1, 0)">
       <div data-h2-visibility="base(visible) p-tablet(hidden)">
         <p
           data-h2-display="base(inline)"
@@ -189,13 +189,9 @@ const SearchRequestFilters: React.FunctionComponent<
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 
   return (
-    <section data-h2-flex-grid="base(top, contained, flush, xs)">
-      <div
-        data-h2-flex-item="base(1of1) p-tablet(1of2)"
-        data-h2-border="base(right, 1px, solid, dt-gray.light)"
-        style={{ paddingBottom: "0" }}
-      >
-        <div data-h2-padding="base(0, x.5, 0, 0)">
+    <section data-h2-flex-grid="base(flex-start, 0, x2, x.5)">
+      <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+        <div>
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Group and level",
@@ -231,12 +227,8 @@ const SearchRequestFilters: React.FunctionComponent<
           />
         </div>
       </div>
-      <div
-        data-h2-flex-item="base(1of1) p-tablet(1of2)"
-        data-h2-padding="base(0, 0, 0, x3)"
-        style={{ paddingTop: "0" }}
-      >
-        <div data-h2-padding="base(0, 0, 0, x3)">
+      <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+        <div>
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Work Location",

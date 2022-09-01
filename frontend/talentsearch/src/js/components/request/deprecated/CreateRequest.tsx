@@ -184,7 +184,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
 
   return (
     <section>
-      <h2 data-h2-margin="base(0)">
+      <h2 data-h2-margin="base(0, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Request Form",
           description: "Heading for request form.",
@@ -199,98 +199,88 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       </p>
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div data-h2-flex-grid="base(top, contained, padded, none)">
+          <div data-h2-flex-grid="base(flex-start, 0, 0) p-tablet(flex-start, 0, x2, 0)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <div data-h2-padding="base(0) p-tablet(0, x2, 0, 0)">
-                <Input
-                  id="fullName"
-                  type="text"
-                  name="fullName"
-                  label={intl.formatMessage({
-                    defaultMessage: "Full Name",
-                    description:
-                      "Label for full name input in the request form",
-                  })}
-                  placeholder={intl.formatMessage({
-                    defaultMessage: "Full name...",
-                    description:
-                      "Placeholder for full name input in the request form.",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
+              <Input
+                id="fullName"
+                type="text"
+                name="fullName"
+                label={intl.formatMessage({
+                  defaultMessage: "Full Name",
+                  description: "Label for full name input in the request form",
+                })}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "Full name...",
+                  description:
+                    "Placeholder for full name input in the request form.",
+                })}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <div data-h2-padding="base(0) p-tablet(0, 0, 0, x2)">
-                <Select
-                  id="department"
-                  name="department"
-                  label={intl.formatMessage({
-                    defaultMessage: "Department / Hiring Organization",
-                    description:
-                      "Label for department select input in the request form",
-                  })}
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a department...",
-                    description:
-                      "Null selection for department select input in the request form.",
-                  })}
-                  options={departmentOptions}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
+              <Select
+                id="department"
+                name="department"
+                label={intl.formatMessage({
+                  defaultMessage: "Department / Hiring Organization",
+                  description:
+                    "Label for department select input in the request form",
+                })}
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a department...",
+                  description:
+                    "Null selection for department select input in the request form.",
+                })}
+                options={departmentOptions}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <div data-h2-padding="base(0) p-tablet(0, x2, 0, 0)">
-                <Input
-                  id="email"
-                  type="email"
-                  name="email"
-                  label={intl.formatMessage({
-                    defaultMessage: "Government e-mail",
-                    description:
-                      "Label for government email input in the request form",
-                  })}
-                  placeholder={intl.formatMessage({
-                    defaultMessage: "example@canada.ca...",
-                    description:
-                      "Placeholder for government email input in the request form",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
+              <Input
+                id="email"
+                type="email"
+                name="email"
+                label={intl.formatMessage({
+                  defaultMessage: "Government e-mail",
+                  description:
+                    "Label for government email input in the request form",
+                })}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "example@canada.ca...",
+                  description:
+                    "Placeholder for government email input in the request form",
+                })}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <div data-h2-padding="base(0) p-tablet(0, 0, 0, x2)">
-                <Input
-                  id="jobTitle"
-                  type="text"
-                  name="jobTitle"
-                  label={intl.formatMessage({
-                    defaultMessage: "What is the job title for this position?",
-                    description:
-                      "Label for job title input in the request form",
-                  })}
-                  placeholder={intl.formatMessage({
-                    defaultMessage: "Developer...",
-                    description:
-                      "Placeholder for job title input in the request form.",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
+              <Input
+                id="jobTitle"
+                type="text"
+                name="jobTitle"
+                label={intl.formatMessage({
+                  defaultMessage: "What is the job title for this position?",
+                  description: "Label for job title input in the request form",
+                })}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "Developer...",
+                  description:
+                    "Placeholder for job title input in the request form.",
+                })}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
             </div>
           </div>
           <div>
-            <p>
+            <p data-h2-margin="base(x2, 0, 0, 0)">
               {intl.formatMessage({
                 defaultMessage:
                   "In this field please include any additional details and qualifications you are seeking from the candidates such as: programming languages, certifications, knowledge, or a specific work location.",
@@ -309,7 +299,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               rows={8}
             />
           </div>
-          <h2 data-h2-font-weight="base(500)">
+          <h2 data-h2-margin="base(x2, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage: "Summary of filters",
               description: "Title of Summary of filters section",
@@ -319,47 +309,59 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             poolCandidateFilter={poolCandidateFilter}
             poolApplicantFilter={undefined}
           />
-          <p data-h2-font-weight="base(600)">
+          <p
+            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-weight="base(600)"
+          >
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Request for pool candidates: <span>{candidateCount, plural, zero {no candidates} one {1 candidate} other {{candidateCount} estimated candidates}}</span>",
+                  "Request for pool candidates: <span>{candidateCountNumber, plural, =0 {no candidates} =1 {1 estimated candidate} other {{candidateCountNumber} estimated candidates}}</span>",
                 description:
                   "Total estimated candidates message in summary of filters",
               },
               {
                 span,
-                candidateCount,
+                candidateCountNumber: candidateCount || 0,
               },
             )}
           </p>
-
-          <div data-h2-flex-item="base(1of1)">
-            <Button
-              color="primary"
-              mode="outline"
-              data-h2-margin="base(right, s)"
-              onClick={() => {
-                // Save the initial search form values to the state so they are available to user when click back.
-                pushToStateThenNavigate(paths.search(), {
-                  searchFormInitialValues,
-                });
-              }}
+          <div data-h2-flex-grid="base(flex-start, 0, 0, x1) p-tablet(center, 0, x2, 0)">
+            <div
+              data-h2-text-align="base(center) p-tablet(left)"
+              data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
-              {intl.formatMessage({
-                defaultMessage: "Back",
-                description:
-                  "Back button located next to the submit button on the request form.",
-              })}
-            </Button>
-            <Submit
-              color="cta"
-              mode="solid"
-              text={intl.formatMessage({
-                defaultMessage: "Submit Request",
-                description: "Submit button text on request form.",
-              })}
-            />
+              <Button
+                color="primary"
+                mode="outline"
+                data-h2-margin="base(0, x.5, 0, 0)"
+                onClick={() => {
+                  // Save the initial search form values to the state so they are available to user when click back.
+                  pushToStateThenNavigate(paths.search(), {
+                    searchFormInitialValues,
+                  });
+                }}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Back",
+                  description:
+                    "Back button located next to the submit button on the request form.",
+                })}
+              </Button>
+            </div>
+            <div
+              data-h2-text-align="base(center) p-tablet(right)"
+              data-h2-flex-item="base(1of1) p-tablet(1of2)"
+            >
+              <Submit
+                color="cta"
+                mode="solid"
+                text={intl.formatMessage({
+                  defaultMessage: "Submit Request",
+                  description: "Submit button text on request form.",
+                })}
+              />
+            </div>
           </div>
         </form>
       </FormProvider>

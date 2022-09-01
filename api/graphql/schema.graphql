@@ -71,6 +71,8 @@ type User {
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     currentClassification: Classification @belongsTo # Users current classification
     department: Department @belongsTo
+    hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+    priorityNumber: String @rename(attribute: "priority_number")
 
     # Employment equity
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -190,6 +192,8 @@ type Applicant {
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     currentClassification: Classification @belongsTo # Users current classification
     department: Department @belongsTo
+    hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+    priorityNumber: String @rename(attribute: "priority_number")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -797,6 +801,8 @@ input CreateUserInput {
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     currentClassification: ClassificationBelongsTo
     department: DepartmentBelongsTo
+    hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+    priorityNumber: String @rename(attribute: "priority_number")
 
     # Employment equity
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -857,6 +863,8 @@ input UpdateUserAsAdminInput {
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     currentClassification: ClassificationBelongsTo
     department: DepartmentBelongsTo
+    hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+    priorityNumber: String @rename(attribute: "priority_number")
 
     # Employment equity
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -913,6 +921,8 @@ input UpdateUserAsUserInput {
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     currentClassification: ClassificationBelongsTo
     department: DepartmentBelongsTo
+    hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+    priorityNumber: String @rename(attribute: "priority_number")
 
     # Employment equity
     isWoman: Boolean @rename(attribute: "is_woman")

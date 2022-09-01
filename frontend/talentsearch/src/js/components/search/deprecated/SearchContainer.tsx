@@ -88,10 +88,11 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   function candidateResults() {
     return candidateCount > 0 ? (
       <div
+        data-h2-background-color="base(dt-white)"
         data-h2-shadow="base(m)"
         data-h2-border="base(left, x1, solid, dt-secondary.light)"
-        data-h2-margin="base(x.5, 0, x1, 0)"
-        data-h2-flex-grid="base(center, 0, x3)"
+        data-h2-margin="base(x.5, 0, 0, 0)"
+        data-h2-radius="base(0, s, s, 0)"
       >
         <SearchPools
           candidateCount={candidateCount}
@@ -103,8 +104,8 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     ) : (
       <div
         data-h2-shadow="base(m)"
-        data-h2-margin="base(x.5, 0, x1, 0)"
-        data-h2-padding="base(x.25, 0, x.25, x.5)"
+        data-h2-margin="base(x.5, 0, 0, 0)"
+        data-h2-padding="base(x1)"
         data-h2-border="base(left, x1, solid, dt-gray.dark)"
       >
         <p>
@@ -114,10 +115,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
               "Heading for helping user if no candidates matched the filters chosen.",
           })}
         </p>
-        <p
-          data-h2-margin="base(x.125, 0, 0, 0)"
-          data-h2-font-size="base(caption)"
-        >
+        <p data-h2-margin="base(x.5, 0, 0, 0)">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -135,55 +133,66 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   }
 
   return (
-    <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
-      <div
-        data-h2-position="base(relative)"
-        data-h2-flex-grid="base(flex-start, 0, 0)"
-      >
-        <div data-h2-flex-item="base(1of1) p-tablet(2of3)">
-          <div>
-            <h2 data-h2-color="base(dt-black)" data-h2-font-weight="base(300)">
-              {intl.formatMessage({
-                defaultMessage: "How to use this tool",
-                description:
-                  "Heading displayed in the How To area of the hero section of the Search page.",
-              })}
-            </h2>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Use the filters below to specify your hiring needs. At any time you can look at the results located at the bottom of this page to see how many candidates match the requirements you have entered. When you are comfortable with the filters you have selected, click the Request Candidates button to add more details and submit a request form.",
-                description:
-                  "Content displayed in the How To area of the hero section of the Search page.",
-              })}
-            </p>
+    <div
+      data-h2-background-color="base(dt-gray.15)"
+      data-h2-padding="base(0, 0, x3, 0)"
+    >
+      <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
+        <div data-h2-flex-grid="base(stretch, 0, x3)">
+          <div data-h2-flex-item="base(1of1) p-tablet(3of5)">
+            <div>
+              <h2
+                data-h2-margin="base(x3, 0, x1, 0)"
+                data-h2-color="base(dt-black)"
+                data-h2-font-weight="base(300)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "How to use this tool",
+                  description:
+                    "Heading displayed in the How To area of the hero section of the Search page.",
+                })}
+              </h2>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Use the filters below to specify your hiring needs. At any time you can look at the results located at the bottom of this page to see how many candidates match the requirements you have entered. When you are comfortable with the filters you have selected, click the Request Candidates button to add more details and submit a request form.",
+                  description:
+                    "Content displayed in the How To area of the hero section of the Search page.",
+                })}
+              </p>
+            </div>
+            <SearchForm
+              classifications={classifications}
+              cmoAssets={cmoAssets}
+              updateCandidateFilter={updateCandidateFilter}
+              updateInitialValues={updateInitialValues}
+              ref={searchRef}
+            />
           </div>
-          <SearchForm
-            classifications={classifications}
-            cmoAssets={cmoAssets}
-            updateCandidateFilter={updateCandidateFilter}
-            updateInitialValues={updateInitialValues}
-            ref={searchRef}
-          />
-        </div>
-        <div
-          data-h2-flex-item="base(1of1) p-tablet(1of3)"
-          data-h2-visibility="base(hidden) p-tablet(visible)"
-          data-h2-position="base(sticky)"
-          style={{ top: "3rem", right: "0" }}
-        >
-          <EstimatedCandidates
-            candidateCount={candidateCount}
-            updatePending={updatePending}
-          />
+          <div
+            data-h2-display="base(none) p-tablet(block)"
+            data-h2-flex-item="base(1of1) p-tablet(2of5)"
+          >
+            <EstimatedCandidates
+              candidateCount={candidateCount}
+              updatePending={updatePending}
+            />
+          </div>
         </div>
       </div>
-      <div data-h2-container="base(center, large, 0)">
+      <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
+        <hr
+          data-h2-margin="base(x3, 0, 0, 0)"
+          data-h2-height="base(1px)"
+          data-h2-background-color="base(dt-gray)"
+          data-h2-border="base(none)"
+        />
         <div>
           <h3
-            data-h2-font-size="base(h4)"
+            data-h2-text-align="base(center) p-tablet(left)"
+            data-h2-font-size="base(h4, 1)"
             data-h2-font-weight="base(700)"
-            data-h2-margin="base(0, 0, x1, 0)"
+            data-h2-margin="base(x3, 0, x1, 0)"
           >
             {intl.formatMessage(
               {
@@ -206,9 +215,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             }
           />
         </div>
-        <div data-h2-flex-item="base(1of1)" style={{ paddingTop: "0" }}>
-          {!updatePending ? candidateResults() : <Spinner />}
-        </div>
+        <div>{!updatePending ? candidateResults() : <Spinner />}</div>
       </div>
     </div>
   );
