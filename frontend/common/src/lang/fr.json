@@ -1354,36 +1354,36 @@
     "defaultMessage": "<primary>{role}</primary> à {organization}",
     "description": "Role at organization in work experience block of skill accordion."
   },
-  "PoolStream.BusinessAdvisoryServices": {
-    "defaultMessage": "Services consultatifs auprès des secteurs d’activités de la TI",
-    "description": "Pool Stream described as Business Line Advisory Services."
-  },
-  "PoolStream.DatabaseManagement": {
+  "MvSp9b": {
     "defaultMessage": "Gestion de bases de données de la TI",
     "description": "Pool Stream described as Database Management."
   },
-  "PoolStream.EnterpriseArchitecture": {
+  "iYot5P": {
     "defaultMessage": "Architecture intégrée de la TI",
     "description": "Pool Stream described as Enterprise Architecture."
   },
-  "PoolStream.InfrastructureOperations": {
+  "jHa7VO": {
     "defaultMessage": "Opérations d’infrastructure de la TI",
     "description": "Pool Stream described as Infrastructure Operations."
   },
-  "PoolStream.PlanningAndReporting": {
+  "ZlEEjR": {
     "defaultMessage": "Planification et établissement de rapports en matière de TI",
     "description": "Pool Stream described as Planning and Reporting."
   },
-  "PoolStream.ProjectPortfolioManagement": {
+  "coUese": {
     "defaultMessage": "Gestion de portefeuilles de projets de la TI",
     "description": "Pool Stream described as Project Portfolio Management."
   },
-  "PoolStream.Security": {
+  "zvUFdA": {
     "defaultMessage": "Sécurité de la TI",
     "description": "Pool Stream described as Security."
   },
-  "PoolStream.SoftwareSolutions": {
+  "8SCmdb": {
     "defaultMessage": "Solutions logicielles de la TI",
-    "description": "ool Stream described as Software Solutions."
+    "description": "Pool Stream described as Software Solutions."
+  },
+  "3m7hT5": {
+    "defaultMessage": "Services consultatifs auprès des secteurs d’activités de la TI",
+    "description": "Pool Stream described as Business Line Advisory Services."
   }
 }
