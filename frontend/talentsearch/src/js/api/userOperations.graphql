@@ -22,6 +22,8 @@ query getMe {
     verbalLevel
     estimatedLanguageAbility
     isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
     govEmployeeType
     department {
       id

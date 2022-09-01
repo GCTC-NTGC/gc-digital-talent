@@ -131,15 +131,18 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
 
   return (
-    <div data-h2-padding="base(0, 0, x3, 0)">
-      <div data-h2-container="base(center, full, x2)">
-        <Table
-          data={data}
-          columns={columns}
-          hiddenCols={["id", "description"]}
-        />
-      </div>
-    </div>
+    <Table
+      data={data}
+      columns={columns}
+      hiddenCols={["id", "description"]}
+      addBtn={{
+        path: paths.poolCreate(),
+        label: intl.formatMessage({
+          defaultMessage: "Create Pool",
+          description: "Heading displayed above the Create Pool form.",
+        }),
+      }}
+    />
   );
 };
 

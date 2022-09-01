@@ -7,6 +7,7 @@ import { getLocale } from "@common/helpers/localize";
 import Pending from "@common/components/Pending";
 import { DepartmentsQuery, useDepartmentsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
+import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<DepartmentsQuery["departments"]>>;
 
@@ -15,6 +16,7 @@ export const DepartmentTable: React.FC<
 > = ({ departments, editUrlRoot }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useAdminRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
@@ -46,11 +48,17 @@ export const DepartmentTable: React.FC<
   const data = useMemo(() => departments.filter(notEmpty), [departments]);
 
   return (
-    <div data-h2-padding="base(0, 0, x3, 0)">
-      <div data-h2-container="base(center, large, x2)">
-        <Table data={data} columns={columns} />
-      </div>
-    </div>
+    <Table
+      data={data}
+      columns={columns}
+      addBtn={{
+        path: paths.departmentCreate(),
+        label: intl.formatMessage({
+          defaultMessage: "Create Department",
+          description: "Heading displayed above the Create Department form.",
+        }),
+      }}
+    />
   );
 };
 

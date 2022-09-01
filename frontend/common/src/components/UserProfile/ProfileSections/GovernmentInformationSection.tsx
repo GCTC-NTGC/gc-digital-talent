@@ -9,7 +9,12 @@ import { Applicant, GovEmployeeType } from "../../../api/generated";
 const GovernmentInformationSection: React.FunctionComponent<{
   applicant: Pick<
     Applicant,
-    "isGovEmployee" | "govEmployeeType" | "department" | "currentClassification"
+    | "isGovEmployee"
+    | "govEmployeeType"
+    | "department"
+    | "currentClassification"
+    | "hasPriorityEntitlement"
+    | "priorityNumber"
   >;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
@@ -91,44 +96,6 @@ const GovernmentInformationSection: React.FunctionComponent<{
             )}
         </div>
       )}
-      {applicant.isGovEmployee === null && editPath && (
-        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "You haven't added any information here yet.",
-                description: "Message for when no data exists for the section",
-              })}
-            </p>
-          </div>
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
-              <a href={editPath}>
-                {intl.formatMessage({
-                  defaultMessage: "Edit your government information options.",
-                  description:
-                    "Link text to edit government information on profile.",
-                })}
-              </a>
-            </p>
-          </div>
-        </div>
-      )}
-
-      {applicant.isGovEmployee === null && !editPath && (
-        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "No information has been provided.",
-                description:
-                  "Message on Admin side when user not filled GovernmentInformation section.",
-              })}
-            </p>
-          </div>
-        </div>
-      )}
       {applicant.isGovEmployee === false && editPath && (
         <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
@@ -143,6 +110,7 @@ const GovernmentInformationSection: React.FunctionComponent<{
           </div>
         </div>
       )}
+
       {applicant.isGovEmployee === false && !editPath && (
         <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
@@ -156,6 +124,102 @@ const GovernmentInformationSection: React.FunctionComponent<{
           </div>
         </div>
       )}
+
+      {applicant.hasPriorityEntitlement !== null && (
+        <div
+          data-h2-flex-grid="base(flex-start, 0, x2, x1)"
+          data-h2-padding="base(x1, 0, 0, 0)"
+        >
+          <div data-h2-flex-item="base(1of1)">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Priority entitlement:",
+                description:
+                  "Label for applicant's priority entitlement status",
+              })}
+              <br />
+              <span data-h2-font-weight="base(700)">
+                {applicant.hasPriorityEntitlement
+                  ? intl.formatMessage({
+                      defaultMessage: "I do have a priority entitlement",
+                      description: "affirm possession of priority entitlement",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "I do not have a priority entitlement",
+                      description: "affirm no entitlement",
+                    })}
+              </span>
+            </p>
+          </div>
+          {applicant.priorityNumber && (
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "Priority number:",
+                  description: "Label for applicant's priority number value",
+                })}
+                <br />
+                <span data-h2-font-weight="base(700)">
+                  {applicant.priorityNumber}
+                </span>
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+      {applicant.isGovEmployee === null &&
+        applicant.hasPriorityEntitlement === null &&
+        editPath && (
+          <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "You haven't added any information here yet.",
+                  description:
+                    "Message for when no data exists for the section",
+                })}
+              </p>
+            </div>
+          </div>
+        )}
+
+      {(applicant.isGovEmployee === null ||
+        applicant.hasPriorityEntitlement === null) &&
+        editPath && (
+          <div
+            data-h2-flex-grid="base(flex-start, 0, x2, x1)"
+            data-h2-padding="base(x1, 0, 0, 0)"
+          >
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
+                <a href={editPath}>
+                  {intl.formatMessage({
+                    defaultMessage: "Edit your government information options.",
+                    description:
+                      "Link text to edit government information on profile.",
+                  })}
+                </a>
+              </p>
+            </div>
+          </div>
+        )}
+
+      {applicant.isGovEmployee === null &&
+        applicant.hasPriorityEntitlement === null &&
+        !editPath && (
+          <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "No information has been provided.",
+                  description:
+                    "Message on Admin side when user not filled GovernmentInformation section.",
+                })}
+              </p>
+            </div>
+          </div>
+        )}
     </div>
   );
 };

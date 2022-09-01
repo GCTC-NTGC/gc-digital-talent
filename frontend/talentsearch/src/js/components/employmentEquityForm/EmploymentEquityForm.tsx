@@ -121,7 +121,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         <p data-h2-margin="base(0, 0, x.5, 0)">
           {intl.formatMessage({
             defaultMessage:
-              "<strong>This section is optional</strong>. If you a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions</strong>:",
+              "<strong>This section is optional</strong>. If you are a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so. <strong>Complete the form below if you meet both of these conditions</strong>:",
             description:
               "Explanation that employment equity information is optional.",
           })}
@@ -164,7 +164,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         <li>
           {intl.formatMessage({
             defaultMessage:
-              "The data here will be used to match you to prioritized jobs.",
+              "This information will be used to match you to prioritized jobs.",
             description:
               "Explanation on how employment equity information will be used, item two",
           })}
@@ -172,7 +172,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         <li>
           {intl.formatMessage({
             defaultMessage:
-              "This data will be use in an anonymous form for statistical purposes.",
+              "This information will be used in an anonymous form for statistical purposes.",
             description:
               "Explanation on how employment equity information will be used, item three",
           })}
