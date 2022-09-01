@@ -9,7 +9,7 @@ import { type PoolCandidate, PoolCandidateStatus } from "../../api/generated";
 import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 import ApplicationActions from "./ApplicationActions";
-import { canBeArchived, isDraft } from "./utils";
+import { canBeArchived, canBeDeleted, isDraft } from "./utils";
 import { type BorderMapKey, borderKeyMap, borderMap } from "./maps";
 
 export type Application = Omit<PoolCandidate, "pool" | "user">;
@@ -23,6 +23,7 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
 
   const applicationIsDraft = isDraft(application.status);
   const applicationCanBeArchived = canBeArchived(application.status);
+  const applicationCanBeDeleted = canBeDeleted(application.status);
 
   let borderKey: BorderMapKey = "dt-gray";
   if (!application.archivedAt && application.status) {
@@ -58,7 +59,7 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
               advertisement={application.poolAdvertisement}
             />
             <ApplicationActions.DeleteAction
-              show={applicationIsDraft}
+              show={applicationCanBeDeleted}
               application={application}
             />
             <ApplicationActions.ArchiveAction
