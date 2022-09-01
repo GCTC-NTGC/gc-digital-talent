@@ -754,7 +754,6 @@ type Query {
     skills: [Skill]! @all
     genericJobTitle(id: ID! @eq): GenericJobTitle @find
     genericJobTitles: [GenericJobTitle]! @all
-    sortedPoolCandidates: [PoolCandidate]! @guard @can(ability: "viewAny")
 }
 input ClassificationBelongsTo {
     connect: ID

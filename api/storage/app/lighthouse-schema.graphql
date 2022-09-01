@@ -970,7 +970,6 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: ID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
-  sortedPoolCandidates: [PoolCandidate]!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
