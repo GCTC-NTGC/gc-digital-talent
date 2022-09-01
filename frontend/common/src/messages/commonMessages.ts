@@ -38,6 +38,11 @@ const messages = defineMessages({
     defaultMessage: "Step 1",
     description: "Breadcrumb back to review application page.",
   },
+  jobTitleNotFound: {
+    defaultMessage: "Job title not found.",
+    description:
+      "Message shown to user when pool name or classification are not found.",
+  },
 });
 
 export default messages;

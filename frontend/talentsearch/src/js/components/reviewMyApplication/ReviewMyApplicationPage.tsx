@@ -71,7 +71,8 @@ export const ReviewMyApplication: React.FunctionComponent<
           href: directIntakePaths.allPools(),
         },
         {
-          title: jobTitle || "Pool name not found.",
+          title:
+            jobTitle || intl.formatMessage(commonMessages.jobTitleNotFound),
           href: directIntakePaths.poolApply(poolId),
         },
         {
@@ -101,7 +102,7 @@ export const ReviewMyApplication: React.FunctionComponent<
           },
         ],
       }}
-      subtitle={jobTitle || "Pool name not found."}
+      subtitle={jobTitle || intl.formatMessage(commonMessages.jobTitleNotFound)}
     >
       <UserProfile
         applicant={applicant}
