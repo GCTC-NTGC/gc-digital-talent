@@ -11,7 +11,6 @@ import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
 import type { Application } from "./ApplicationCard";
 import {
-  PoolCandidateStatus,
   useArchiveApplicationMutation,
   useDeleteApplicationMutation,
 } from "../../api/generated";
@@ -36,10 +35,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
   }
 
   return (
-    <Link
-      href={paths.poolApply(application.id)}
-      disabled={application.status === PoolCandidateStatus.DraftExpired}
-    >
+    <Link href={paths.poolApply(application.id)}>
       {intl.formatMessage(
         {
           defaultMessage: "Continue my application<hidden> {name}</hidden>",
