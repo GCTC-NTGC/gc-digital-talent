@@ -105,7 +105,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.poolApply(application.pool.id)
+      ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialData.id);
 
   const defaultValues = dataToFormValues(initialData);
@@ -481,7 +481,10 @@ export const LanguageInformationForm: React.FunctionComponent<{
               </>
             )}
           </div>
-          <ProfileFormFooter mode="saveButton" />
+          <ProfileFormFooter
+            mode="saveButton"
+            cancelLink={{ href: returnRoute }}
+          />
         </ProfileFormWrapper>
       </form>
     </FormProvider>

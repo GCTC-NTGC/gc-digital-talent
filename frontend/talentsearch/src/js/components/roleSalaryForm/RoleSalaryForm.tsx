@@ -103,7 +103,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.poolApply(application.pool.id)
+      ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.myProfile();
   const GenericJobTitles = unpackMaybes(initialData?.genericJobTitles);
 
@@ -355,7 +355,10 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
             </span>
           </p>
         </div>
-        <ProfileFormFooter mode="saveButton" />
+        <ProfileFormFooter
+          mode="saveButton"
+          cancelLink={{ href: returnRoute }}
+        />
       </BasicForm>
 
       <DialogLevelOne

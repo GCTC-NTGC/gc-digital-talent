@@ -50,7 +50,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.poolApply(application.pool.id)
+      ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialData.id);
 
   const dataToFormValues = (data: User): FormValues => {
@@ -223,7 +223,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
               data-h2-padding="base(x1, 0, 0, 0)"
             >
               <div data-h2-padding="base(0, x2, 0, 0)">
-                <ProfileFormFooter mode="saveButton" />
+                <ProfileFormFooter
+                  mode="saveButton"
+                  cancelLink={{ href: returnRoute }}
+                />
               </div>
             </div>
           </div>

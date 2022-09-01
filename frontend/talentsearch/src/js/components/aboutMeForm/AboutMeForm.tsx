@@ -65,7 +65,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.poolApply(application.pool.id)
+      ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialUser.id);
 
   const initialDataToFormValues = (data?: User | null): FormValues => ({
@@ -366,7 +366,10 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           data-h2-background-color="base(dt-gray)"
           data-h2-margin="base(x2, 0)"
         />
-        <ProfileFormFooter mode="saveButton" />
+        <ProfileFormFooter
+          mode="saveButton"
+          cancelLink={{ href: returnRoute }}
+        />
       </BasicForm>
     </ProfileFormWrapper>
   );

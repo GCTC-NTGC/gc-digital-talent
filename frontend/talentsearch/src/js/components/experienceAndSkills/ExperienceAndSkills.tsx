@@ -14,6 +14,7 @@ import MissingSkills from "@common/components/skills/MissingSkills";
 import { commonMessages } from "@common/messages";
 import { useQueryParams } from "@common/helpers/router";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import {
   AwardExperience,
   CommunityExperience,
@@ -198,6 +199,11 @@ export const ExperienceAndSkills: React.FunctionComponent<
     ];
   }
 
+  const returnRoute =
+    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.reviewApplication(application)
+      : paths.home(applicantId);
+
   return (
     <ProfileFormWrapper
       prefixBreadcrumbs={!poolAdvertisement}
@@ -214,7 +220,12 @@ export const ExperienceAndSkills: React.FunctionComponent<
           "Heading for experience and skills page in applicant profile.",
       })}
       cancelLink={{
-        children: intl.formatMessage(commonMessages.backToProfile),
+        href: returnRoute,
+        children: intl.formatMessage(
+          application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+            ? commonMessages.backToApplication
+            : commonMessages.backToProfile,
+        ),
       }}
     >
       <div data-h2-margin="base(x2, 0)">
@@ -294,7 +305,12 @@ export const ExperienceAndSkills: React.FunctionComponent<
       <ProfileFormFooter
         mode="cancelButton"
         cancelLink={{
-          children: intl.formatMessage(commonMessages.backToProfile),
+          href: returnRoute,
+          children: intl.formatMessage(
+            application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+              ? commonMessages.backToApplication
+              : commonMessages.backToProfile,
+          ),
         }}
       />
     </ProfileFormWrapper>

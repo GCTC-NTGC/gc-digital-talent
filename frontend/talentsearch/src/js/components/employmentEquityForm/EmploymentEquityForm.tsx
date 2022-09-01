@@ -31,7 +31,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.poolApply(application.pool.id)
+      ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(user.id);
 
   const handleUpdate = (key: EquityKeys, value: boolean) => {

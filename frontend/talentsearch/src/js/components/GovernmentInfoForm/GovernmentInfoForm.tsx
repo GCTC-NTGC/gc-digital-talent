@@ -357,7 +357,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.poolApply(application.pool.id)
+      ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialData.id);
 
   const defaultValues = dataToFormValues(initialData);
@@ -449,7 +449,10 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
             govEmployeeStatus={govEmployeeStatus}
             groupSelection={groupSelection}
           />
-          <ProfileFormFooter mode="saveButton" />
+          <ProfileFormFooter
+            mode="saveButton"
+            cancelLink={{ href: returnRoute }}
+          />
         </form>
       </FormProvider>
     </ProfileFormWrapper>
