@@ -17,7 +17,7 @@ const Spacer = ({ children, isLast }: SpacerProps) => {
 
 export interface ApplicationNavigationProps {
   currentStep: number;
-  steps: Omit<StepProps, "disabled">[];
+  steps: StepProps[];
 }
 
 const ApplicationNavigation = ({
@@ -33,9 +33,12 @@ const ApplicationNavigation = ({
       <Spacer key={step.path} isLast={index + 1 !== steps.length}>
         <Step
           {...step}
-          disabled={index + 1 === currentStep}
+          disabled={step.disabled ? true : index + 1 === currentStep}
           {...(index !== steps.length - 1 && {
             "data-h2-margin": "p-tablet(0, x.5, 0, 0)",
+          })}
+          {...(step.disabled && {
+            "data-h2-background-color": "base(dt-error)",
           })}
         />
       </Spacer>
