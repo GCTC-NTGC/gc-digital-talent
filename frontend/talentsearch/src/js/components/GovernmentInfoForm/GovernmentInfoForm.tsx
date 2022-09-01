@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { commonMessages, errorMessages } from "@common/messages";
-import { RadioGroup, Select } from "@common/components/form";
+import { Input, RadioGroup, Select } from "@common/components/form";
 import { empty } from "@common/helpers/util";
 import { getGovEmployeeType } from "@common/constants/localizedConstants";
 import {
@@ -37,6 +37,8 @@ type FormValues = {
   department?: string;
   currentClassificationGroup?: string;
   currentClassificationLevel?: string;
+  priorityEntitlementYesNo?: "yes" | "no";
+  priorityEntitlementNumber?: string;
 };
 
 // take classification group + level from data, return the matching classification from API
@@ -71,6 +73,12 @@ export const formValuesToSubmitData = (
       currentClassification: {
         connect: null,
       },
+      hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
+      priorityNumber:
+        values.priorityEntitlementYesNo === "yes" &&
+        values.priorityEntitlementNumber
+          ? values.priorityEntitlementNumber
+          : null,
     };
   }
   if (values.govEmployeeType === GovEmployeeType.Student) {
@@ -81,6 +89,12 @@ export const formValuesToSubmitData = (
       currentClassification: {
         disconnect: true,
       },
+      hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
+      priorityNumber:
+        values.priorityEntitlementYesNo === "yes" &&
+        values.priorityEntitlementNumber
+          ? values.priorityEntitlementNumber
+          : null,
     };
   }
   if (values.govEmployeeType === GovEmployeeType.Casual) {
@@ -93,6 +107,12 @@ export const formValuesToSubmitData = (
             connect: classificationId,
           }
         : null,
+      hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
+      priorityNumber:
+        values.priorityEntitlementYesNo === "yes" &&
+        values.priorityEntitlementNumber
+          ? values.priorityEntitlementNumber
+          : null,
     };
   }
   return {
@@ -104,6 +124,12 @@ export const formValuesToSubmitData = (
           connect: classificationId,
         }
       : null,
+    hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
+    priorityNumber:
+      values.priorityEntitlementYesNo === "yes" &&
+      values.priorityEntitlementNumber
+        ? values.priorityEntitlementNumber
+        : null,
   };
 };
 
@@ -120,6 +146,10 @@ const dataToFormValues = (
   };
   return {
     govEmployeeYesNo: boolToYesNo(data?.isGovEmployee),
+    priorityEntitlementYesNo: boolToYesNo(data?.hasPriorityEntitlement),
+    priorityEntitlementNumber: data?.priorityNumber
+      ? data.priorityNumber
+      : undefined,
     govEmployeeType: data?.govEmployeeType,
     lateralDeployBool: undefined,
     department: data?.department?.id,
@@ -136,6 +166,7 @@ export interface GovernmentInfoFormProps {
   govEmployee: Maybe<string>;
   govEmployeeStatus: Maybe<GovEmployeeType>;
   groupSelection: Maybe<string>;
+  priorityEntitlement: Maybe<string>;
 }
 
 // inner component
@@ -147,6 +178,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
   govEmployee,
   govEmployeeStatus,
   groupSelection,
+  priorityEntitlement,
 }) => {
   const intl = useIntl();
   // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
@@ -330,6 +362,58 @@ export const GovernmentInfoForm: React.FunctionComponent<
             </div>
           )}
       </div>
+      <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of6) desktop(1of12)">
+        <p data-h2-padding="base(x1, 0)">
+          {intl.formatMessage({
+            defaultMessage:
+              "Do you have a priority entitlement for Government of Canada job applications?",
+            description:
+              "Sentence asking whether the user possesses priority entitlement",
+          })}
+        </p>
+        <RadioGroup
+          idPrefix="priorityEntitlementYesNo"
+          legend={intl.formatMessage({
+            defaultMessage: "Priority Entitlement",
+            description: "Priority Entitlement Status in Government Info Form",
+          })}
+          name="priorityEntitlementYesNo"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={[
+            {
+              value: "no",
+              label: intl.formatMessage({
+                defaultMessage: "I do not have a priority entitlement",
+                description:
+                  "Label displayed for does not have priority entitlement option",
+              }),
+            },
+            {
+              value: "yes",
+              label: intl.formatMessage({
+                defaultMessage: "I have a priority entitlement",
+                description:
+                  "Label displayed does have priority entitlement option",
+              }),
+            },
+          ]}
+        />
+        {priorityEntitlement === "yes" && (
+          <div data-h2-padding="base(x.25, 0)">
+            <Input
+              id="priorityEntitlementNumber"
+              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Priority number",
+                description: "label for priority number input",
+              })}
+              name="priorityEntitlementNumber"
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -378,11 +462,13 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
   };
 
   // hooks to watch, needed for conditional rendering
-  const [govEmployee, govEmployeeStatus, groupSelection] = methods.watch([
-    "govEmployeeYesNo",
-    "govEmployeeType",
-    "currentClassificationGroup",
-  ]);
+  const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =
+    methods.watch([
+      "govEmployeeYesNo",
+      "govEmployeeType",
+      "currentClassificationGroup",
+      "priorityEntitlementYesNo",
+    ]);
 
   const applicationBreadcrumbs = application
     ? [
@@ -448,6 +534,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
             govEmployee={govEmployee}
             govEmployeeStatus={govEmployeeStatus}
             groupSelection={groupSelection}
+            priorityEntitlement={priorityEntitlement}
           />
           <ProfileFormFooter
             mode="saveButton"

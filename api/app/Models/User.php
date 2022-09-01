@@ -37,6 +37,8 @@ use Illuminate\Support\Facades\DB;
  * @property string $verbal_level
  * @property string $estimated_language_ability
  * @property string $is_gov_employee
+ * @property boolean $has_priority_entitlement
+ * @property string $priority_number
  * @property string $department
  * @property string $current_classification
  * @property string $citizenship
@@ -154,6 +156,7 @@ class User extends Model implements Authenticatable
                 is_null($this->attributes['looking_for_bilingual'])
             ) or
             is_null($this->attributes['is_gov_employee']) or
+            is_null($this->attributes['has_priority_entitlement']) or
             is_null($this->attributes['location_preferences']) or
             empty($this->attributes['location_preferences']) or
             is_null($this->attributes['would_accept_temporary']) or
@@ -182,6 +185,7 @@ class User extends Model implements Authenticatable
                 $query->orWhereNotNull('looking_for_bilingual');
             });
             $query->whereNotNull('is_gov_employee');
+            $query->whereNotNull('has_priority_entitlement');
             $query->whereNotNull('location_preferences');
             $query->whereJsonLength('location_preferences', '>', 0);
             $query->whereNotNull('would_accept_temporary');

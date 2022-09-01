@@ -20,6 +20,8 @@ type Applicant {
   govEmployeeType: GovEmployeeType
   currentClassification: Classification
   department: Department
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -359,6 +361,8 @@ input CreateUserInput {
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -1245,6 +1249,8 @@ input UpdateUserAsAdminInput {
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -1289,6 +1295,8 @@ input UpdateUserAsUserInput {
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -1336,6 +1344,8 @@ type User {
   govEmployeeType: GovEmployeeType
   currentClassification: Classification
   department: Department
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean

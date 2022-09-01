@@ -28,7 +28,7 @@ export interface TableProps<
   title?: string;
   addBtn?: {
     path: string;
-    label: string;
+    label: React.ReactNode;
   };
   filter?: boolean;
   pagination?: boolean;

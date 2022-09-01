@@ -146,7 +146,7 @@ describe("UserTableFilterDialog", () => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
-    // This test is prone to going about the 5s default timeout.
+    // This test is prone to going beyond the 5s default timeout.
     const extendedTimeout = 10 * 1000;
     it(
       "submits non-empty filter data for all filters",
