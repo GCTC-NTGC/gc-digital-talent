@@ -1,7 +1,7 @@
 import { Maybe, PoolCandidateStatus } from "../../api/generated";
 
 export const isDraft = (status: Maybe<PoolCandidateStatus>): boolean => {
-  return status ? [PoolCandidateStatus.Draft].includes(status) : false;
+  return status === PoolCandidateStatus.Draft;
 };
 
 export const canBeArchived = (status: Maybe<PoolCandidateStatus>): boolean => {
