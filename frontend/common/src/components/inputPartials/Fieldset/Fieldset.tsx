@@ -75,7 +75,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
               <span
                 data-h2-font-size="base(caption)"
                 {...(required
-                  ? { "data-h2-color": "base(dt-error)" }
+                  ? { "data-h2-color": "base(dark.dt-error)" }
                   : { "data-h2-color": "base(dark.dt-gray)" })}
               >
                 (
