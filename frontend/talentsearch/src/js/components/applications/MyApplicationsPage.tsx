@@ -109,11 +109,7 @@ const MyApplicationsPage = () => {
           applications={data.me.poolCandidates.filter(notEmpty)}
         />
       ) : (
-        <NotFound
-          headingMessage={intl.formatMessage(commonMessages.notFound, {
-            type: "Applications",
-          })}
-        >
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           {intl.formatMessage({
             defaultMessage: "Error, applications  unable to be loaded",
             description: "My applications error message, placeholder",
