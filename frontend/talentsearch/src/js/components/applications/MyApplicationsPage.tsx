@@ -111,7 +111,7 @@ const MyApplicationsPage = () => {
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           {intl.formatMessage({
-            defaultMessage: "Error, applications  unable to be loaded",
+            defaultMessage: "Error, applications unable to be loaded",
             description: "My applications error message, placeholder",
           })}
         </NotFound>
