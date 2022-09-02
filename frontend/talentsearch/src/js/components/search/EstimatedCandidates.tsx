@@ -73,17 +73,6 @@ const EstimatedCandidates: React.FunctionComponent<
                 </>
               )}
             </p>
-            {/* TODO Hide this if results are zero, add translation strings */}
-            <a
-              href="#results"
-              title="View the pools that contain matching talent."
-              data-h2-color="base(dt-black) base:hover(dt-primary)"
-              data-h2-transition="base:hover(color, .2s, ease, 0s)"
-              data-h2-display="base(inline-block)"
-              data-h2-margin="base(x1, 0, 0, 0)"
-            >
-              View results
-            </a>
           </div>
         </div>
       </div>
