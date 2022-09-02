@@ -777,6 +777,7 @@ type Pool {
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
   status: PoolStatus
+  stream: PoolStream
 }
 
 type PoolAdvertisement {
@@ -795,6 +796,7 @@ type PoolAdvertisement {
   advertisementStatus: AdvertisementStatus
   essentialSkills: [Skill!]
   nonessentialSkills: [Skill!]
+  stream: PoolStream
 }
 
 enum PoolAdvertisementLanguage {
@@ -906,6 +908,17 @@ enum PoolCandidateStatus {
 enum PoolStatus {
   TAKING_APPLICATIONS
   NOT_TAKING_APPLICATIONS
+}
+
+enum PoolStream {
+  BUSINESS_ADVISORY_SERVICES
+  DATABASE_MANAGEMENT
+  ENTERPRISE_ARCHITECTURE
+  INFRASTRUCTURE_OPERATIONS
+  PLANNING_AND_REPORTING
+  PROJECT_PORTFOLIO_MANAGEMENT
+  SECURITY
+  SOFTWARE_SOLUTIONS
 }
 
 input PoolsHasMany {
@@ -1162,6 +1175,7 @@ input UpdateExperienceSkills {
 input UpdatePoolAdvertisementInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
+  stream: PoolStream
   expiryDate: DateTimeTz
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
@@ -1206,6 +1220,7 @@ input UpdatePoolInput {
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
   status: PoolStatus
+  stream: PoolStream
 }
 
 input UpdateSkillFamilyInput {

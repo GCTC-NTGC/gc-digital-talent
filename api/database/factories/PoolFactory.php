@@ -43,7 +43,8 @@ class PoolFactory extends Factory
             'security_clearance' => $this->faker->randomElement(ApiEnums::poolAdvertisementSecurity()),
             'advertisement_language' => $this->faker->randomElement(ApiEnums::poolAdvertisementLanguages()),
             'advertisement_location' => !$isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
-            'is_remote' => $isRemote
+            'is_remote' => $isRemote,
+            'stream' => $this->faker->optional->randomElement(ApiEnums::poolStreams()),
         ];
     }
 
