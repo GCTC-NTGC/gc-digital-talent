@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { FAR_FUTURE_DATE, FAR_PAST_DATE } from "../helpers/dateUtils";
 import {
   LanguageAbility,
   WorkRegion,
@@ -63,7 +64,7 @@ const generatePoolCandidate = (
       faker.date.past().toISOString().substring(0, 10),
     ),
     submittedAt: faker.date
-      .between("2022-01-01", "2022-07-31")
+      .between(FAR_PAST_DATE, FAR_FUTURE_DATE)
       .toISOString()
       .substring(0, 10),
   };
