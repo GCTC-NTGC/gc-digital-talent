@@ -2,10 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Button, Link } from "@common/components";
+import AlertDialog from "@common/components/AlertDialog";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
+import { refresh } from "@common/helpers/router";
 
-import AlertDialog from "@common/components/AlertDialog";
 import { toast } from "react-toastify";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
@@ -101,6 +102,7 @@ const DeleteAction = ({ show, application }: DeleteActionProps) => {
       id: application.id,
     }).then((result) => {
       if (result.data?.deleteApplication) {
+        refresh();
         toast.success(
           intl.formatMessage({
             defaultMessage: "Application deleted successfully!",
@@ -204,11 +206,12 @@ const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
 
   const onDismiss = () => setOpen(false);
 
-  const onDelete = () => {
+  const onArchive = () => {
     executeMutation({
       id: application.id,
     }).then((result) => {
       if (result.data?.archiveApplication) {
+        refresh();
         toast.success(
           intl.formatMessage({
             defaultMessage: "Application archived successfully!",
@@ -280,14 +283,14 @@ const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
           >
             {intl.formatMessage({
               defaultMessage: "Cancel",
-              description: "Link text to cancel deleting application.",
+              description: "Link text to cancel archiving application.",
             })}
           </Button>
           <span data-h2-margin="base(0, 0, 0, x.5)">
-            <Button mode="solid" color="cta" type="button" onClick={onDelete}>
+            <Button mode="solid" color="cta" type="button" onClick={onArchive}>
               {intl.formatMessage({
-                defaultMessage: "Delete",
-                description: "Link text to delete.",
+                defaultMessage: "Archive",
+                description: "Link text to archive application.",
               })}
             </Button>
           </span>

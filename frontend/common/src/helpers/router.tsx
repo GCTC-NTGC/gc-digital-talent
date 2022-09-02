@@ -248,3 +248,8 @@ export const ScrollToTop: React.FC<{ children: React.ReactElement }> = ({
   }, [children]);
   return children;
 };
+
+export function refresh() {
+  const history = HISTORY;
+  history.go(0);
+}
