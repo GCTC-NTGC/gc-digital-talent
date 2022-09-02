@@ -36,7 +36,7 @@ const generatePoolCandidate = (
       faker.lorem.words(faker.datatype.number({ min: 1, max: 3 })),
     ),
     expiryDate: faker.date
-      .between("2022-01-01", "2100-12-31")
+      .between(FAR_PAST_DATE, FAR_FUTURE_DATE)
       .toISOString()
       .substring(0, 10),
     isWoman: faker.datatype.boolean(),
@@ -63,10 +63,7 @@ const generatePoolCandidate = (
     archivedAt: faker.helpers.maybe(() =>
       faker.date.past().toISOString().substring(0, 10),
     ),
-    submittedAt: faker.date
-      .between(FAR_PAST_DATE, FAR_FUTURE_DATE)
-      .toISOString()
-      .substring(0, 10),
+    submittedAt: FAR_PAST_DATE,
   };
 };
 
