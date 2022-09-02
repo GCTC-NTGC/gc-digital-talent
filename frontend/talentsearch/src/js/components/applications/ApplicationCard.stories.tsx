@@ -29,7 +29,7 @@ const applications = [...activeApplications, ...archivedApplications];
 
 export default {
   component: ApplicationCard,
-  title: "ApplicationCard",
+  title: "Direct Intake/Application Card",
 } as Meta;
 
 const Template: Story = () => {

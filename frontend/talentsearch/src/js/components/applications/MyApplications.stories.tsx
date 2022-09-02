@@ -10,7 +10,7 @@ const mockApplications = fakePoolCandidates(50);
 
 export default {
   component: MyApplications,
-  title: "MyApplications",
+  title: "Direct Intake/My Applications",
   args: {
     applications: mockApplications,
   },
