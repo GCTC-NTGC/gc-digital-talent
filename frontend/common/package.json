@@ -50,7 +50,7 @@
     "**/*.css"
   ],
   "dependencies": {
-    "@heroicons/react": "^1.0.6",
+    "@heroicons/react": "^2.0.10",
     "@reach/alert-dialog": "^0.16.0",
     "@reach/dialog": "^0.16.0",
     "@reach/menu-button": "^0.16.0",

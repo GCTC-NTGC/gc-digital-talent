@@ -109,7 +109,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@heroicons/react": "^1.0.6",
+    "@heroicons/react": "^2.0.10",
     "core-js": "^3.25.0",
     "debounce": "^1.2.1",
     "dotenv": "^16.0.1",
