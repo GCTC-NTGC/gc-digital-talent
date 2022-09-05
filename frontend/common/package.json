@@ -77,7 +77,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
-    "@faker-js/faker": "^7.3.0",
+    "@faker-js/faker": "^7.5.0",
     "@formatjs/cli": "^5.1.0",
     "@formatjs/ts-transformer": "^3.10.0",
     "@graphql-codegen/add": "^3.2.1",
