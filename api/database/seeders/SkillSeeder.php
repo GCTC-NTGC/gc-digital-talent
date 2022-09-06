@@ -802,8 +802,8 @@ class SkillSeeder extends Seeder
                 'skill_name_fr' => 'Élaboration de la stratégie',
                 'skill_definition_en' => 'Identify specific objectives, set achievable goals, identify priorities, allocate energy and resources, and work with stakeholders toward intended outcomes.',
                 'skill_definition_fr' => 'Déterminer des objectifs spécifiques, fixer des buts réalisables, déterminer les priorités, allouer l’énergie et les ressources, et travailler avec les parties prenantes pour atteindre les résultats escomptés.',
-                'keywords_en' => '',
-                'keywords_fr' => ''
+                'keywords_en' => 'Formulating Strategies; Establishing Strategies',
+                'keywords_fr' => 'Formuler des stratégies;  Établir des stratégies'
             ],
             [
                 'skill_family_en' => 'User Experience and Interface Design',
@@ -1852,24 +1852,41 @@ class SkillSeeder extends Seeder
             ],
         ];
 
-
+        // as close as we have to a unique identifier in the data
+        $englishNames = array_unique(
+            array_map(function ($record) {
+                return trim($record["skill_name_en"]);
+            },
+            $providedData
+        ));
 
         $reshapedData = array_map(
-            function ($record) {
+            function ($englishName) use ($providedData) {
+                // could be more than one if skill is part of multiple skill families
+                $matchingRecords = array_filter(
+                    $providedData,
+                    function($record) use ($englishName) {
+                        return trim($record['skill_name_en']) == $englishName;
+                    }
+                );
+
+                // they *should* all be the same except for skill family so we'll build the model on the first one
+                $firstMatchingRecord = reset($matchingRecords);
+
                 // Take the provided data and reshape it to our data model
                 $model = [
-                    'key' => KeyStringHelpers::toKeyString(trim($record['skill_name_en'])), // no key provided so making our own slug
+                    'key' => KeyStringHelpers::toKeyString($englishName), // no key provided so making our own slug
                     'name' => [
-                        'en' => trim($record['skill_name_en']),
-                        'fr' => trim($record['skill_name_fr'])
+                        'en' => trim($firstMatchingRecord['skill_name_en']),
+                        'fr' => trim($firstMatchingRecord['skill_name_fr'])
                     ],
                     'description' => [ // no descriptions provided so reusing name
-                        'en' => trim($record['skill_definition_en']),
-                        'fr' => trim($record['skill_definition_fr'])
+                        'en' => trim($firstMatchingRecord['skill_definition_en']),
+                        'fr' => trim($firstMatchingRecord['skill_definition_fr'])
                     ],
                     'keywords' => [
-                        'en' => SkillSeeder::parseKeywords($record['keywords_en']),
-                        'fr' => SkillSeeder::parseKeywords($record['keywords_fr'])
+                        'en' => SkillSeeder::parseKeywords($firstMatchingRecord['keywords_en']),
+                        'fr' => SkillSeeder::parseKeywords($firstMatchingRecord['keywords_fr'])
                     ]
                 ];
 
@@ -1878,36 +1895,32 @@ class SkillSeeder extends Seeder
                     'key' => $model['key'],
                 ];
 
-                // associated skill family
-                $skillFamily = SkillFamily::firstWhere('name->en', trim($record['skill_family_en']));
+                // associated skill families
+                $skillFamilyIds = array_map(
+                    function($record) {
+                        $skillFamilyName = trim($record['skill_family_en']);
+                        return SkillFamily::firstWhere('name->en', $skillFamilyName)->id;
+                    },
+                    $matchingRecords
+                );
 
                 return [
                     'model' => $model,
                     'identifier' => $identifier,
-                    'skillFamily' => $skillFamily
+                    'skillFamilyIds' => $skillFamilyIds
                 ];
             },
-            $providedData
+            $englishNames
         );
-
-        // Check for duplicate keys
-        $keys = array_map(
-            function ($element) {
-                return $element['model']['key'];
-            },
-            $reshapedData
-        );
-        if(count(array_unique($keys)) != count($reshapedData))
-            throw new Exception('The keys are not unique');
 
         // Iterate the reshaped to load it
         foreach ($reshapedData as [
             'model' => $model,
             'identifier' => $identifier,
-            'skillFamily' => $skillFamily
+            'skillFamilyIds' => $skillFamilyIds
         ]) {
             $skill = Skill::updateOrCreate($identifier, $model);
-            $skill->families()->sync([$skillFamily->id]);
+            $skill->families()->sync($skillFamilyIds);
         }
     }
 }
