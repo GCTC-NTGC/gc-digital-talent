@@ -7,6 +7,10 @@ import {
   RequestFormProps,
 } from "../components/request/CreateRequest";
 import {
+  RequestForm as RequestFormDeprecated,
+  RequestFormProps as RequestFormDeprecatedProps,
+} from "../components/request/deprecated/CreateRequest";
+import {
   CreatePoolCandidateSearchRequestInput,
   OperationalRequirement,
   PoolCandidateFilter,
@@ -109,4 +113,11 @@ const TemplateRequestForm: Story<RequestFormProps> = (args) => {
   return <RequestForm {...args} />;
 };
 
+const TemplateRequestFormDeprecated: Story<RequestFormDeprecatedProps> = (
+  args,
+) => {
+  return <RequestFormDeprecated {...args} />;
+};
+
 export const Form = TemplateRequestForm.bind({});
+export const FormDeprecated = TemplateRequestFormDeprecated.bind({});

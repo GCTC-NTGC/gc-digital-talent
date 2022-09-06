@@ -80,7 +80,7 @@ const SearchFilterAdvice: React.FC<{
     });
   }
   return (
-    <p data-h2-font-size="base(caption)" data-h2-margin="base(0, 0, x1, 0)">
+    <p data-h2-margin="base(x1, 0)">
       {intl.formatMessage({
         defaultMessage:
           "To improve your results, try removing some of these filters:",

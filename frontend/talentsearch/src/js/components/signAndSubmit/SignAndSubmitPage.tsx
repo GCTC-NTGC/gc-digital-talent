@@ -256,6 +256,7 @@ export const SignAndSubmitForm = ({
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SignAndSubmitPage: React.FC<{ id: string }> = ({ id }) => {
   const intl = useIntl();
 

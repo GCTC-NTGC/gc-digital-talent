@@ -6,12 +6,15 @@ import { getLocalizedName } from "@common/helpers/localize";
 import { Input, Select, Submit } from "@common/components/form";
 import { Option } from "@common/components/form/Select";
 import { FormProvider, useForm } from "react-hook-form";
+import { enumToOptions } from "@common/helpers/formUtils";
+import { getPoolStream } from "@common/constants/localizedConstants";
 import {
   AdvertisementStatus,
   Classification,
   LocalizedString,
   Maybe,
   PoolAdvertisement,
+  PoolStream,
   Scalars,
   UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
@@ -20,6 +23,7 @@ import { useEditPoolContext } from "./EditPoolContext";
 
 type FormValues = {
   classification?: Classification["id"];
+  stream?: PoolStream;
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
 };
@@ -57,6 +61,7 @@ export const PoolNameSection = ({
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     classification: firstId(initialData.classifications), // behavior is undefined when there is more than one
+    stream: initialData.stream ?? undefined,
     specificTitleEn: initialData.name?.en ?? "",
     specificTitleFr: initialData.name?.fr ?? "",
   });
@@ -71,6 +76,7 @@ export const PoolNameSection = ({
       classifications: {
         sync: formValues.classification ? [formValues.classification] : [],
       },
+      stream: formValues.stream ? formValues.stream : undefined,
       name: {
         en: formValues.specificTitleEn,
         fr: formValues.specificTitleFr,
@@ -87,6 +93,13 @@ export const PoolNameSection = ({
       label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
     }))
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
+
+  const streamOptions: Option[] = enumToOptions(PoolStream).map(
+    ({ value }) => ({
+      value,
+      label: intl.formatMessage(getPoolStream(value)),
+    }),
+  );
 
   // disabled unless status is draft
   const formDisabled =
@@ -124,7 +137,22 @@ export const PoolNameSection = ({
               />
             </Spacer>
             <Spacer style={{ flex: 1 }}>
-              {/* TODO: Streams/Job Titles */}
+              <Select
+                id="stream"
+                label={intl.formatMessage({
+                  defaultMessage: "Streams/Job Titles",
+                  description:
+                    "Label displayed on the edit pool form stream/job title field.",
+                })}
+                name="stream"
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a stream/job title...",
+                  description:
+                    "Placeholder displayed on the pool form classification field.",
+                })}
+                options={streamOptions}
+                disabled={formDisabled}
+              />
             </Spacer>
           </div>
           <div data-h2-display="base(flex)">
