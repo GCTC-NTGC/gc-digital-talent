@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use Exception;
 use App\Models\SkillFamily;
+use Database\Helpers\KeyStringHelpers;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class SkillFamilySeeder extends Seeder
 {
@@ -113,7 +114,7 @@ class SkillFamilySeeder extends Seeder
             function ($record) {
                 // Take the provided data and reshape it to our data model
                 $model = [
-                    'key' => Str::slug(trim($record['name_en']), '_'), // no key provided so making our own slug
+                    'key' => KeyStringHelpers::toKeyString(trim($record['name_en']), '_'), // no key provided so making our own slug
                     'name' => [
                         'en' => trim($record['name_en']),
                         'fr' => trim($record['name_fr'])
@@ -145,7 +146,8 @@ class SkillFamilySeeder extends Seeder
             },
             $reshapedData
         );
-        assert((count(array_unique($keys)) == count($reshapedData)));
+        if(count(array_unique($keys)) != count($reshapedData))
+            throw new Exception('The keys are not unique');
 
         // Check for duplicate English names (used for skill lookup)
         $englishNames = array_map(
@@ -155,6 +157,8 @@ class SkillFamilySeeder extends Seeder
             $reshapedData
         );
         assert((count(array_unique($englishNames)) == count($reshapedData)));
+        if(count(array_unique($englishNames)) != count($reshapedData))
+            throw new Exception('The English names are not unique');
 
         // Iterate the reshaped to load it
         foreach ($reshapedData as [

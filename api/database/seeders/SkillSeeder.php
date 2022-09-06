@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use Exception;
 use App\Models\Skill;
 use App\Models\SkillFamily;
+use Database\Helpers\KeyStringHelpers;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class SkillSeeder extends Seeder
 {
@@ -1857,7 +1858,7 @@ class SkillSeeder extends Seeder
             function ($record) {
                 // Take the provided data and reshape it to our data model
                 $model = [
-                    'key' => Str::slug(trim($record['skill_name_en']), '_'), // no key provided so making our own slug
+                    'key' => KeyStringHelpers::toKeyString(trim($record['skill_name_en'])), // no key provided so making our own slug
                     'name' => [
                         'en' => trim($record['skill_name_en']),
                         'fr' => trim($record['skill_name_fr'])
@@ -1896,7 +1897,8 @@ class SkillSeeder extends Seeder
             },
             $reshapedData
         );
-        assert((count(array_unique($keys)) == count($reshapedData)));
+        if(count(array_unique($keys)) != count($reshapedData))
+            throw new Exception('The keys are not unique');
 
         // Iterate the reshaped to load it
         foreach ($reshapedData as [
