@@ -108,7 +108,7 @@ type User {
     # Profile Status
     isProfileComplete: Boolean
     expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
-
+    priorityWeight: Int @rename(attribute: "priority_weight")
 }
 
 enum ProvinceOrTerritory {
@@ -234,7 +234,7 @@ type Applicant {
     workExperiences: [WorkExperience]
 
     expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
-
+    priorityWeight: Int @rename(attribute: "priority_weight")
 }
 
 type UserPublicProfile {

@@ -52,6 +52,7 @@ type Applicant {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   expectedGenericJobTitles: [GenericJobTitle]
+  priorityWeight: Int
 }
 
 type ApplicantFilter {
@@ -1361,6 +1362,7 @@ type User {
   pools: [Pool]
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
+  priorityWeight: Int
 }
 
 input UserBelongsTo {
