@@ -21,7 +21,10 @@ use Illuminate\Database\Eloquent\Builder;
  * @property boolean $is_indigenous
  * @property boolean $is_visible_minority
  * @property boolean $has_diploma
+ * @property Illuminate\Support\Carbon $archived_at
+ * @property Illuminate\Support\Carbon $submitted_at
  * @property string $language_ability
+ * @property string $signature
  * @property array $location_preferences
  * @property array $expected_salary
  * @property string $pool_candidate_status
@@ -47,9 +50,25 @@ class PoolCandidate extends Model
 
     protected $casts = [
         'expiry_date' => 'date',
+        'archived_at' => 'datetime',
+        'submitted_at' => 'datetime',
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
+        'profile_snapshot' => 'json'
+    ];
+
+    /**
+     * The attributes that can be filled using mass-assignment.
+     *
+     * @var array
+    */
+    protected $fillable = [
+        'archived_at',
+        'submitted_at',
+        'user_id',
+        'pool_id',
+        'signature',
     ];
 
     public function user(): BelongsTo
@@ -283,7 +302,7 @@ RAWSQL2;
 
     public function scopeAvailable(Builder $query): Builder
     {
-        return $query->where('pool_candidate_status', ApiEnums::CANDIDATE_STATUS_AVAILABLE);
+        return $query->where('pool_candidate_status', ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE);
     }
 
     public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder
@@ -304,4 +323,34 @@ RAWSQL2;
         }
         return $query;
     }
+
+   /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
+   // pool_candidate_status database value passed into accessor as an argument
+   public function getPoolCandidateStatusAttribute($candidateStatus)
+   {
+        // pull info
+        $submittedAt = $this->submitted_at;
+        $expiryDate = $this->expiry_date;
+        $currentTime = date("Y-m-d H:i:s");
+        $isExpired = $currentTime > $expiryDate ? true : false;
+
+        // ensure null submitted_at returns either draft or expired draft
+        if ($submittedAt == null){
+            if($isExpired) {
+                return ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED;
+            }
+            return ApiEnums::CANDIDATE_STATUS_DRAFT;
+        }
+
+        // ensure expired returned if past expiry date with exception for PLACED
+        if ($candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_TERM && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE) {
+            if ($isExpired) {
+                return ApiEnums::CANDIDATE_STATUS_EXPIRED;
+            }
+            return $candidateStatus;
+        }
+
+       // no overriding
+       return $candidateStatus;
+   }
 }

@@ -108,7 +108,13 @@ const AddSkillsToExperience: React.FunctionComponent<
   return (
     <>
       <AddedSkills skills={addedSkills || []} onRemoveSkill={onRemoveSkill} />
-      <hr />
+      <hr
+        data-h2-background-color="base(dt-gray)"
+        data-h2-height="base(1px)"
+        data-h2-width="base(100%)"
+        data-h2-border="base(none)"
+        data-h2-margin="base(x1, 0)"
+      />
       <h4>
         {intl.formatMessage({
           defaultMessage: "Add Skills",
@@ -179,6 +185,8 @@ const AddSkillsToExperience: React.FunctionComponent<
             <Pagination
               ariaLabel={intl.formatMessage({
                 defaultMessage: "Mainstream skills results",
+                description:
+                  "Accessibility label for a result set of skills, filtered to mainstream skills",
               })}
               color="primary"
               mode="outline"
@@ -211,6 +219,8 @@ const AddSkillsToExperience: React.FunctionComponent<
             <Pagination
               ariaLabel={intl.formatMessage({
                 defaultMessage: "keyword search skills results",
+                description:
+                  "Accessibility label for a result set of skills, searched by keyword",
               })}
               color="primary"
               mode="outline"

@@ -4,6 +4,42 @@ query getUserId {
   }
 }
 
+query getApplication($id: ID!) {
+  poolCandidate(id: $id) {
+    id
+    user {
+      id
+    }
+    pool {
+      id
+    }
+    poolAdvertisement {
+      id
+      name {
+        en
+        fr
+      }
+      classifications {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+}
+
 query getSkills {
   skills {
     id

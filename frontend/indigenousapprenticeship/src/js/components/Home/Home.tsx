@@ -25,9 +25,9 @@ import CTAButtons from "../CallToAction/CTAButtons";
 
 import "./home.css";
 
-// TEMP: Disable rule until we get the proper URL
-// eslint-disable-next-line jsx-a11y/anchor-is-valid
-const honestyPledgeLink = (...chunks: string[]) => <a href="#">{chunks}</a>;
+const mailLink = (...chunks: string[]) => (
+  <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">{chunks}</a>
+);
 
 const Home: React.FunctionComponent = () => {
   const [isApplyDialogOpen, setApplyDialogOpen] =
@@ -40,315 +40,382 @@ const Home: React.FunctionComponent = () => {
   const quote = useQuote();
 
   return (
-    <>
-      <div data-h2-overflow="b(x, hidden)">
+    <div data-h2-overflow="base(hidden, x)">
+      {/* Hero */}
+      <div
+        data-h2-width="base(100%)"
+        data-h2-position="base(relative)"
+        data-h2-display="base(flex) p-tablet(block)"
+        data-h2-flex-direction="base(column)"
+      >
         <div
-          className="hero"
-          data-h2-position="b(relative)"
-          data-h2-overflow="b(all, hidden)"
+          data-h2-background-color="base(ia-primary-dark-to-transparent)"
+          data-h2-height="base(x2)"
+          data-h2-order="base(2)"
+          data-h2-display="base(block) p-tablet(none)"
+          data-h2-layer="base(2, relative)"
+          data-h2-width="base(100%)"
+        />
+        <img
+          data-h2-display="base(block)"
+          data-h2-layer="base(1, relative)"
+          data-h2-margin="base(-x2, 0, 0, 0) p-tablet(0)"
+          data-h2-width="base(100%)"
+          data-h2-order="base(2) p-tablet(1)"
+          src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "hero.jpg")}
+          alt=""
+        />
+        <div
+          className="hero-logo"
+          data-h2-background-color="base(ia-primary.hero) p-tablet(transparent)"
+          data-h2-padding="base(x1.2, x2, x1, x2) p-tablet(0)"
+          data-h2-layer="base(1, relative) p-tablet(1, absolute)"
+          data-h2-order="base(1) p-tablet(2)"
+          data-h2-offset="p-tablet(5%, auto, auto, 50%)"
+          data-h2-width="base(100%) p-tablet(40vw)"
         >
-          <div
-            className="hero__content"
-            data-h2-position="b(absolute)"
-            data-h2-width="b(100)"
-          >
-            <div data-h2-container="b(center, full)">
-              <div
-                data-h2-padding="b(left-right, s) s(left-right, l)"
-                data-h2-display="b(flex)"
-                data-h2-flex-direction="b(column)"
-                data-h2-align-items="b(center)"
-                data-h2-justify-content="b(space-between)"
-              >
-                <div
-                  className="hero__logo"
-                  data-h2-margin="l(top, m)"
-                  data-h2-width="m(50)"
-                >
-                  <h1>
-                    <img
-                      data-h2-margin="b(top, m)"
-                      data-h2-width="b(100)"
-                      src={imageUrl(
-                        INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                        `logo-${intl.locale}.svg`,
-                      )}
-                      alt={intl.formatMessage({
-                        defaultMessage:
-                          "IT Apprenticeship Program for Indigenous Peoples",
-                        description:
-                          "Homepage title for Indigenous Apprenticeship Program",
-                      })}
-                    />
-                  </h1>
-                </div>
-                <div
-                  className="hero__apply"
-                  data-h2-display="b(flex)"
-                  data-h2-justify-content="b(center)"
-                  data-h2-width="m(25)"
-                >
-                  <Button
-                    color="ia-primary"
-                    mode="solid"
-                    onClick={() => setApplyDialogOpen(true)}
-                    block
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Apply Now",
-                      description: "Button text to apply for program",
-                    })}
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
           <img
-            className="hero__image"
-            src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "hero.jpg")}
-            alt=""
-            data-h2-position="b(relative)"
+            data-h2-width="base(100%)"
+            src={imageUrl(
+              INDIGENOUSAPPRENTICESHIP_APP_DIR,
+              `logo-${intl.locale}.svg`,
+            )}
+            alt={intl.formatMessage({
+              defaultMessage:
+                "IT Apprenticeship Program for Indigenous Peoples",
+              description:
+                "Homepage title for Indigenous Apprenticeship Program",
+            })}
           />
         </div>
         <div
-          className="about-program"
-          data-h2-margin="m(bottom, xxl)"
-          data-h2-padding="b(right-left, m) m(all, xl)"
-          data-h2-position="b(relative)"
-          data-h2-bg-color="b(white)"
-          data-h2-radius="b(s)"
+          className="hero-cta"
+          data-h2-padding="base(x1, x2)"
+          data-h2-position="base(relative) p-tablet(absolute)"
+          data-h2-layer="base(1, relative) p-tablet(1, absolute)"
+          data-h2-offset="p-tablet(auto, auto, 20%, 50%)"
+          data-h2-min-width="base(x12)"
+          data-h2-order="base(3)"
         >
-          <div data-h2-display="m(flex)" data-h2-align-items="m(flex-start))">
+          <Button
+            color="ia-primary"
+            mode="solid"
+            onClick={() => setApplyDialogOpen(true)}
+            block
+          >
+            {intl.formatMessage({
+              defaultMessage: "Apply Now",
+              description: "Button text to apply for program",
+            })}
+          </Button>
+        </div>
+      </div>
+      {/* About section */}
+      <div data-h2-layer="base(1, relative)">
+        <div
+          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+          data-h2-position="base(relative)"
+        >
+          <div
+            data-h2-position="base(relative)"
+            data-h2-offset="p-tablet(-x3, auto, auto, auto) l-tablet(-x4, auto, auto, auto)"
+          >
             <div
-              className="program__image-wrapper about-program__image-wrapper"
-              data-h2-position="b(relative)"
-              data-h2-padding="m(right-left, m) l(right-left, xxl)"
+              data-h2-padding="p-tablet(x2) l-tablet(x3)"
+              data-h2-background-color="base(ia-white)"
+              data-h2-radius="base(iap-home-card)"
             >
-              <img
-                src={imageUrl(
-                  INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                  "indigenous-woman-smiling.jpg",
-                )}
-                className="program__image program__image--woman-smiling"
-                alt=""
-                data-h2-position="b(relative)"
-                data-h2-shadow="b(xs)"
-              />
-              <div
-                className="circle circle--top-right"
-                data-h2-position="b(absolute)"
-                data-h2-bg-color="b(ia-pink)"
-              />
-              <div
-                className="circle circle--lg circle--bottom-left"
-                data-h2-position="b(absolute)"
-                data-h2-bg-color="b(ia-purple)"
-              />
-              <img
-                src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "feathers.png")}
-                className="about-program__feathers"
-                alt=""
-                data-h2-position="b(absolute)"
-              />
-            </div>
-            <div
-              className="program__content"
-              data-h2-bg-color="b(white)"
-              data-h2-padding="m(right-left, m) l(right-left, xl)"
-            >
-              <Heading
-                className="about-program__title"
-                data-h2-font-size="b(h3)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "About the Program",
-                  description: "Program information section title",
-                })}
-              </Heading>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "The IT Apprenticeship Program for Indigenous Peoples is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (IT).",
-                  description: "First paragraph about the program",
-                })}
-              </p>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "By valuing and focusing on a person’s potential, rather than on their educational attainment level, the Program removes one of the biggest barriers that exists when it comes to employment within the digital economy. The Program has been developed by, with, and for Indigenous peoples from across Canada.  Its design incorporates the preferences and needs of Indigenous learners while recognizing the importance of community.",
-                  description: "Second paragraph about the program",
-                })}
-              </p>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Apprentices who are involved in the program say that it is “life-changing”, that it represents “a chance to have a better life through technology”, and that “there are no barriers to succeeding in this program”.",
-                  description: "Third paragraph about the program",
-                })}
-              </p>
-              <div data-h2-margin="b(top, l)">
-                <CTAButtons
-                  onClickApply={() => setApplyDialogOpen(true)}
-                  onClickLearn={() => setLearnDialogOpen(true)}
-                />
+              <div data-h2-flex-grid="base(stretch, 0, x3, x1) p-tablet(stretch, 0, x2, x1) l-tablet(stretch, 0, x3, x1)">
+                <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
+                  <div
+                    data-h2-height="p-tablet(100%)"
+                    data-h2-width="p-tablet(100%)"
+                    data-h2-position="base(relative)"
+                  >
+                    <div
+                      data-h2-radius="base(100rem)"
+                      data-h2-height="base(x8)"
+                      data-h2-width="base(x8)"
+                      data-h2-background-color="base(ia-primary)"
+                      data-h2-opacity="base(10%)"
+                      data-h2-position="base(absolute)"
+                      data-h2-offset="base(-x1.5, -x1, auto, auto)"
+                    />
+                    <div
+                      data-h2-radius="base(100rem)"
+                      data-h2-height="base(x15)"
+                      data-h2-width="base(x15)"
+                      data-h2-background-color="base(ia-secondary)"
+                      data-h2-opacity="base(10%)"
+                      data-h2-position="base(absolute)"
+                      data-h2-offset="base(auto, auto, -x3, -x5.5)"
+                    />
+                    <div
+                      data-h2-min-height="base(60vh) p-tablet(initial)"
+                      data-h2-height="p-tablet(100%)"
+                      data-h2-width="p-tablet(100%)"
+                      data-h2-position="base(relative)"
+                      style={{
+                        backgroundImage: `url('${imageUrl(
+                          INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                          "indigenous-woman-smiling.jpg",
+                        )}')`,
+                        backgroundPosition: "center",
+                        backgroundSize: "cover",
+                      }}
+                    />
+                    <img
+                      src={imageUrl(
+                        INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                        "feathers.png",
+                      )}
+                      alt=""
+                      data-h2-position="base(absolute)"
+                      data-h2-width="base(150%)"
+                      data-h2-offset="base(auto, -15%, 0, auto)"
+                      style={{
+                        maxWidth: "initial",
+                        transform: "translate(0, 60%)",
+                      }}
+                    />
+                  </div>
+                </div>
+                <div data-h2-flex-item="base(1of1) p-tablet(4of7)">
+                  <Heading
+                    data-h2-font-size="base(h3, 1)"
+                    data-h2-margin="base(x6, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
+                    data-h2-text-align="base(center) p-tablet(left)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "About the Program",
+                      description: "Program information section title",
+                    })}
+                  </Heading>
+                  <p data-h2-margin="base(x2, 0, x1, 0)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The IT Apprenticeship Program for Indigenous Peoples is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (IT).",
+                      description: "First paragraph about the program",
+                    })}
+                  </p>
+                  <p data-h2-margin="base(x1, 0)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "By valuing and focusing on a person’s potential, rather than on their educational attainment level, the Program removes one of the biggest barriers that exists when it comes to employment within the digital economy. The Program has been developed by, with, and for Indigenous peoples from across Canada.  Its design incorporates the preferences and needs of Indigenous learners while recognizing the importance of community.",
+                      description: "Second paragraph about the program",
+                    })}
+                  </p>
+                  <p data-h2-margin="base(x1, 0)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Apprentices who are involved in the program say that it is “life-changing”, that it represents “a chance to have a better life through technology”, and that “there are no barriers to succeeding in this program”.",
+                      description: "Third paragraph about the program",
+                    })}
+                  </p>
+                  <div data-h2-margin="base(x2, 0, 0, 0)">
+                    <CTAButtons
+                      onClickApply={() => setApplyDialogOpen(true)}
+                      onClickLearn={() => setLearnDialogOpen(true)}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      {/* Learn section */}
+      <div>
         <div
-          className="learn-program"
-          data-h2-container="m(center, m)"
-          data-h2-margin="m(top-bottom, xxl)"
-          data-h2-position="b(relative)"
-          data-h2-bg-color="b(white)"
-          data-h2-radius="b(s)"
+          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+          data-h2-position="base(relative)"
         >
-          <div data-h2-display="m(flex)">
-            <div
-              className="program__image-wrapper learn-program__image-wrapper"
-              data-h2-position="b(relative)"
-              data-h2-padding="m(right-left, m)"
-            >
-              <img
-                src={imageUrl(
-                  INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                  "man-on-computer.jpg",
-                )}
-                className="program__image"
-                alt=""
-                data-h2-position="b(relative)"
-              />
-              <img
-                src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "gloves.png")}
-                className="learn-program__gloves"
-                alt=""
-                data-h2-position="b(absolute)"
-              />
-              <RadiatingCircles
-                className="learn-program__circles"
-                data-h2-font-color="b(ia-gray)"
-                data-h2-position="b(absolute)"
-                data-h2-width="b(100)"
-              />
-            </div>
-            <div
-              className="learn-program__content"
-              data-h2-position="b(relative)"
-              data-h2-margin="b(bottom, l) m(bottom, xxs)"
-            >
-              <Heading
-                data-h2-font-size="b(h3)"
-                data-h2-margin="b(top, l) m(top, xxs)"
-                className="learn-program__title"
+          <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
+            <div data-h2-flex-grid="base(stretch, 0, x3, x1) p-tablet(stretch, 0, x2, x1) l-tablet(stretch, 0, x3, x1)">
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(3of7)"
+                data-h2-order="p-tablet(2)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "What will I learn in this apprenticeship?",
-                  description: "What applicants will learn sections heading",
-                })}
-              </Heading>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Apprentices follow a 24-month structured program consisting of a mix of on-the-job learning and formal training.",
-                  description:
-                    "First paragraph what will you learn at the program",
-                })}
-              </p>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Apprentices will be partnered with a peer to facilitate job shadowing and supervised work, and they are assigned a mentor who provides experienced counsel and guidance over the course of the program.",
-                  description:
-                    "First paragraph what will you learn at the program",
-                })}
-              </p>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "At the end of their 24-month term, apprentices will have marketable and in-demand certifications and skills, as well as the confidence necessary to contribute as part of Canada’s digital workforce, both within and outside the federal public service.",
-                  description:
-                    "First paragraph what will you learn at the program",
-                })}
-              </p>
-              <div data-h2-visibility="b(visible) m(invisible)">
-                <CTAButtons
-                  onClickApply={() => setApplyDialogOpen(true)}
-                  onClickLearn={() => setLearnDialogOpen(true)}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="who-program"
-          data-h2-container="m(center, m)"
-          data-h2-margin="m(top-bottom, xxl)"
-          data-h2-position="b(relative)"
-          data-h2-bg-color="b(white)"
-          data-h2-radius="b(s)"
-        >
-          <div data-h2-display="m(flex)">
-            <div
-              className="program__image-wrapper who-program__image-wrapper"
-              data-h2-position="b(relative)"
-              data-h2-padding="b(right-left, m)"
-            >
-              <img
-                src={imageUrl(
-                  INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                  "applicant.jpg",
-                )}
-                className="program__image"
-                data-h2-position="b(relative)"
-                alt=""
-              />
-              <Triangle
-                className="who-program__triangle"
-                data-h2-position="b(absolute)"
-                data-h2-width="b(100)"
-                data-h2-font-color="b(ia-purple)"
-              />
-              <img
-                src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
-                className="who-program__ulu who-program__ulu--mobile"
-                alt=""
-                data-h2-position="b(absolute)"
-                data-h2-visibility="m(hidden)"
-              />
-            </div>
-            <div
-              className="who-program__content"
-              data-h2-margin="b(bottom, xl) m(bottom, xxs"
-            >
-              <Heading
-                className="about-program__title"
-                data-h2-font-size="b(h3)"
-                data-h2-margin="b(top, xl) m(top, xxs)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Who is the program for?",
-                  description:
-                    "Heading for section about who the program is for",
-                })}
-              </Heading>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "The Program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Metis, and if you have a passion for technology, then this Program is for you!",
-                  description: "First paragraph about who the program is for",
-                })}
-              </p>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "If you are not sure if this Program is right for you, please contact us and a member of our team will be happy to meet with you to answer any questions you may have.",
-                  description: "Second paragraph about who the program is for",
-                })}
-              </p>
-              <div data-h2-display="m(flex)">
                 <div
-                  data-h2-width="m(50)"
-                  data-h2-margin="b(bottom, m) m(right, s)"
+                  data-h2-height="p-tablet(100%)"
+                  data-h2-width="p-tablet(100%)"
+                  data-h2-position="base(relative)"
+                >
+                  <RadiatingCircles
+                    className=""
+                    data-h2-position="base(absolute)"
+                    data-h2-width="base(110%)"
+                    data-h2-offset="base(-x2, -x12, auto, auto)"
+                    data-h2-opacity="base(20%)"
+                  />
+                  <div
+                    data-h2-min-height="base(60vh) p-tablet(initial)"
+                    data-h2-height="p-tablet(100%)"
+                    data-h2-width="p-tablet(100%)"
+                    data-h2-position="base(relative)"
+                    style={{
+                      backgroundImage: `url('${imageUrl(
+                        INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                        "man-on-computer.jpg",
+                      )}')`,
+                      backgroundPosition: "center",
+                      backgroundSize: "cover",
+                    }}
+                  />
+                  <img
+                    src={imageUrl(
+                      INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                      "gloves.png",
+                    )}
+                    alt=""
+                    data-h2-position="base(absolute)"
+                    data-h2-width="base(140%)"
+                    data-h2-offset="base(auto, -x4, -x5, auto) l-tablet(auto, -x8, -x9, auto)"
+                  />
+                </div>
+              </div>
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(4of7)"
+                data-h2-order="p-tablet(1)"
+              >
+                <Heading
+                  data-h2-font-size="base(h3, 1)"
+                  data-h2-margin="base(x4, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
+                  data-h2-text-align="base(center) p-tablet(left)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "What will I learn in this apprenticeship?",
+                    description: "What applicants will learn sections heading",
+                  })}
+                </Heading>
+                <p data-h2-margin="base(x2, 0, x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Apprentices follow a 24-month structured program consisting of a mix of on-the-job learning and formal training.",
+                    description:
+                      "First paragraph what will you learn at the program",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Apprentices will be partnered with a peer to facilitate job shadowing and supervised work, and they are assigned a mentor who provides experienced counsel and guidance over the course of the program.",
+                    description:
+                      "First paragraph what will you learn at the program",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "At the end of their 24-month term, apprentices will have marketable and in-demand certifications and skills, as well as the confidence necessary to contribute as part of Canada’s digital workforce, both within and outside the federal public service.",
+                    description:
+                      "First paragraph what will you learn at the program",
+                  })}
+                </p>
+                <div data-h2-visibility="base(visible) l-tablet(invisible)">
+                  <CTAButtons
+                    onClickApply={() => setApplyDialogOpen(true)}
+                    onClickLearn={() => setLearnDialogOpen(true)}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Who section */}
+      <div data-h2-layer="base(2, relative)" data-h2-margin="base(x2, 0, 0, 0)">
+        <div
+          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+          data-h2-position="base(relative)"
+        >
+          <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
+            <div data-h2-flex-grid="base(stretch, 0, x3, x1) p-tablet(stretch, 0, x2, x1) l-tablet(stretch, 0, x3, x1)">
+              <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
+                <div
+                  data-h2-height="p-tablet(100%)"
+                  data-h2-width="p-tablet(100%)"
+                  data-h2-position="base(relative)"
+                >
+                  <Triangle
+                    className=""
+                    data-h2-position="base(absolute)"
+                    data-h2-width="base(120%)"
+                    data-h2-color="base(ia-secondary)"
+                    data-h2-offset="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
+                  />
+                  <div
+                    data-h2-min-height="base(60vh) p-tablet(initial)"
+                    data-h2-height="p-tablet(100%)"
+                    data-h2-width="p-tablet(100%)"
+                    data-h2-position="base(relative)"
+                    style={{
+                      backgroundImage: `url('${imageUrl(
+                        INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                        "applicant.jpg",
+                      )}')`,
+                      backgroundPosition: "center",
+                      backgroundSize: "cover",
+                    }}
+                  />
+                  <img
+                    src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
+                    alt=""
+                    data-h2-display="base(block) p-tablet(none)"
+                    data-h2-position="base(absolute)"
+                    data-h2-width="base(x20)"
+                    data-h2-offset="base(auto, -30%, -10%, auto)"
+                  />
+                </div>
+              </div>
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(4of7)"
+                data-h2-position="base(relative)"
+              >
+                <Heading
+                  data-h2-font-size="base(h3, 1)"
+                  data-h2-margin="base(x2, 0) p-tablet(x1, 0, x2, 0)"
+                  data-h2-text-align="base(center) p-tablet(left)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Who is the program for?",
+                    description:
+                      "Heading for section about who the program is for",
+                  })}
+                </Heading>
+                <p data-h2-margin="base(x2, 0, x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "The Program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Métis, and if you have a passion for technology, then this Program is for you!",
+                    description: "First paragraph about who the program is for",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "If you are not sure if this Program is right for you, please <mailLink>contact us</mailLink> and a member of our team will be happy to meet with you to answer any questions you may have.",
+                      description:
+                        "Second paragraph about who the program is for",
+                    },
+                    {
+                      mailLink,
+                    },
+                  )}
+                </p>
+                <img
+                  src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
+                  alt=""
+                  data-h2-display="base(none) p-tablet(block)"
+                  data-h2-position="base(absolute)"
+                  data-h2-width="base(x20)"
+                  data-h2-offset="base(auto, -40%, auto, auto) l-tablet(auto, -30%, auto, auto)"
+                />
+                <div
+                  data-h2-margin="base(x2, 0, x1, 0)"
+                  data-h2-min-width="base(5rem)"
+                  data-h2-width="p-tablet(50%)"
+                  data-h2-position="base(relative)"
                 >
                   <Button
                     color="ia-primary"
@@ -364,418 +431,424 @@ const Home: React.FunctionComponent = () => {
                   </Button>
                 </div>
               </div>
-              <img
-                src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
-                className="who-program__ulu who-program__ulu--desktop"
-                alt=""
-                data-h2-position="b(absolute)"
-                data-h2-visibility="b(hidden) m(visible)"
-              />
             </div>
           </div>
         </div>
-        <div
-          className="quote-wrapper"
-          data-h2-padding="b(top-bottom, xxl)"
-          style={{
-            backgroundImage: `url(${imageUrl(
-              INDIGENOUSAPPRENTICESHIP_APP_DIR,
-              "quote-bg.jpg",
-            )})`,
-          }}
-        >
-          <div data-h2-container="b(center, m)">
-            <Heading
-              light
-              data-h2-font-color="b(white)"
-              data-h2-text-align="b(center)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "What We’re Hearing",
-                description: "Heading for the quotes sections",
-              })}
-            </Heading>
-            <Quote {...quote} />
-          </div>
-        </div>
-        <div
-          className="apply-program"
-          data-h2-padding="b(top, xl) m(top, xxl)"
-          data-h2-position="b(relative)"
-        >
-          <div
-            className="apply-program__box-wrapper"
-            data-h2-container="b(center, m)"
-            data-h2-position="b(relative)"
+      </div>
+      {/* Testimonial section */}
+      <div
+        data-h2-layer="base(1, relative)"
+        data-h2-margin="p-tablet(x2, 0, 0, 0)"
+        data-h2-padding="base(x3, 0, x2, 0) l-tablet(x5, 0)"
+        style={{
+          backgroundImage: `url(${imageUrl(
+            INDIGENOUSAPPRENTICESHIP_APP_DIR,
+            "quote-bg.jpg",
+          )})`,
+          backgroundSize: "cover",
+          backgroundPosition: "right 10% center",
+        }}
+      >
+        <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
+          <Heading
+            light
+            data-h2-color="base(ia-white)"
+            data-h2-text-align="base(center)"
           >
+            {intl.formatMessage({
+              defaultMessage: "What We’re Hearing",
+              description: "Heading for the quotes sections",
+            })}
+          </Heading>
+          <Quote {...quote} />
+        </div>
+      </div>
+      {/* Application call to action section */}
+      <div
+        data-h2-padding="base(x2, 0, x5, 0) p-tablet(x3, 0, x6, 0) l-tablet(x6, 0, x9, 0)"
+        style={{
+          backgroundImage: `url(${imageUrl(
+            INDIGENOUSAPPRENTICESHIP_APP_DIR,
+            "sash.jpg",
+          )})`,
+          backgroundSize: "cover",
+          backgroundPosition: "top center",
+        }}
+      >
+        <div data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)">
+          <div>
             <div
-              className="apply-program__box"
-              data-h2-bg-color="b(ia-lightpurple)"
-              data-h2-font-color="b(ia-white)"
-              data-h2-shadow="b(m)"
+              data-h2-shadow="base(l)"
+              data-h2-flex-grid="base(stretch, 0, 0)"
             >
-              <div
-                className="apply-program__box__image"
-                style={{
-                  backgroundImage: `url(${imageUrl(
-                    INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                    "lower-back.jpg",
-                  )})`,
-                }}
-              />
-              <div
-                className="apply-program__box__text"
-                data-h2-padding="b(all, m) m(left, xxl) m(right, l)"
-              >
-                <Heading
-                  light
-                  data-h2-display="b(flex)"
-                  data-h2-flex-direction="b(column)"
-                  data-h2-margin="b(top, xxs)"
-                  data-h2-font-color="b(ia-white)"
-                  data-h2-font-size="b(h3)"
+              <div data-h2-flex-item="base(1of1) p-tablet(1of3) l-tablet(1of2) desktop(4of7)">
+                <div
+                  data-h2-height="base(40vh) p-tablet(100%)"
+                  style={{
+                    backgroundImage: `url(${imageUrl(
+                      INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                      "lower-back.jpg",
+                    )})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                />
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(2of3) l-tablet(1of2) desktop(3of7)">
+                <div
+                  data-h2-height="base(100%)"
+                  data-h2-background-color="base(ia-secondary.light)"
+                  data-h2-padding="base(x2) p-tablet(x3)"
+                  data-h2-text-align="base(center) p-tablet(left)"
                 >
-                  <span>
+                  <Heading
+                    light
+                    data-h2-color="base(ia-white)"
+                    data-h2-font-size="base(h3, 1)"
+                  >
+                    <span>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Is the IT Apprenticeship Program right for you?",
+                        description: "Application box heading part one",
+                      })}
+                    </span>
+                    <br />
+                    <span>
+                      {intl.formatMessage({
+                        defaultMessage: "Apply today!",
+                        description: "Application box heading part two",
+                      })}
+                    </span>
+                  </Heading>
+                  <p
+                    data-h2-color="base(ia-white)"
+                    data-h2-margin="base(x1, 0)"
+                  >
                     {intl.formatMessage({
                       defaultMessage:
-                        "Is the IT Apprenticeship Program right for you?",
-                      description: "Application box heading part one",
+                        "Apply today to start your journey to a career in Information Technology.",
+                      description: "Application box content",
                     })}
-                  </span>
-                  <span>
+                  </p>
+                  <Button
+                    color="ia-primary"
+                    mode="solid"
+                    onClick={() => setApplyDialogOpen(true)}
+                  >
                     {intl.formatMessage({
-                      defaultMessage: "Apply today!",
-                      description: "Application box heading part two",
+                      defaultMessage: "Apply Now",
+                      description: "Button text to apply for program",
                     })}
-                  </span>
-                </Heading>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Apply today to start your journey to a career in Information Technology.",
-                    description: "Application box content",
-                  })}
-                </p>
-                <Button
-                  color="ia-primary"
-                  mode="solid"
-                  onClick={() => setApplyDialogOpen(true)}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Apply Now",
-                    description: "Button text to apply for program",
-                  })}
-                </Button>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-          <div
-            data-h2-visibility="b(visible) m(hidden)"
-            className="apply-program__bg"
-            style={{
-              backgroundImage: `url(${imageUrl(
-                INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                "sash-vert.jpg",
-              )})`,
-            }}
+        </div>
+      </div>
+      {/* Coming soon section */}
+      <div
+        data-h2-background-color="base(ia-secondary)"
+        data-h2-padding="base(0) p-tablet(0, 0, x1, 0) l-tablet(0, 0, x4, 0)"
+        data-h2-position="base(relative)"
+      >
+        <div
+          data-h2-height="base(100%)"
+          data-h2-width="base(100%)"
+          data-h2-position="base(absolute)"
+          data-h2-offset="base(0, auto, auto, 0)"
+          data-h2-overflow="base(hidden, all)"
+        >
+          <RadiatingCircles
+            className=""
+            data-h2-color="base(ia-primary)"
+            data-h2-position="base(absolute)"
+            data-h2-offset="base(x10, auto, auto, -10%)"
+            data-h2-width="base(50%)"
           />
-          <div
-            data-h2-visibility="b(hidden) m(visible)"
-            className="apply-program__bg"
-            style={{
-              backgroundImage: `url(${imageUrl(
-                INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                "sash.jpg",
-              )})`,
-            }}
+          <ThickCircle
+            className=""
+            data-h2-position="base(absolute)"
+            data-h2-offset="base(auto, -10%, x35, auto)"
+            data-h2-width="base(35%)"
           />
         </div>
         <div
-          className="portal-panel"
-          data-h2-bg-color="b(ia-purple)"
-          data-h2-font-color="b(ia-white)"
-          data-h2-position="b(relative)"
-          data-h2-padding="b(bottom, xl)"
+          data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)"
+          data-h2-position="base(relative)"
         >
           <div
-            className="portal-panel__inner"
-            data-h2-container="b(center, m)"
-            data-h2-position="b(relative)"
+            data-h2-text-align="base(center)"
+            data-h2-margin="base(0, 0, x3, 0)"
           >
-            <div
-              className="portal-panel__banner-wrapper"
-              data-h2-display="b(flex)"
-              data-h2-justify-content="b(center)"
-            >
-              <Banner>
-                <Heading
-                  color="white"
-                  data-h2-margin="b(top-bottom, xxs)"
-                  data-h2-font-size="b(h3)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Coming Soon!",
-                    description: "Heading for a coming soon section",
-                  })}
-                </Heading>
-              </Banner>
-            </div>
-            <div data-h2-text-align="b(center)">
-              <Heading light color="white" data-h2-margin="b(top, xxs)">
+            <Banner>
+              <Heading color="white" data-h2-font-size="base(h3)">
                 {intl.formatMessage({
-                  defaultMessage:
-                    "IT Apprenticeship Program for Indigenous Peoples + The Indigenous Talent Portal",
-                  description: "heading for indigenous talent portal section",
+                  defaultMessage: "Coming Soon!",
+                  description: "Heading for a coming soon section",
                 })}
               </Heading>
-              <div
-                data-h2-container="b(center, s)"
-                data-h2-margin="b(top-bottom, xl)"
-              >
-                <Heading as="h3" color="white">
-                  {intl.formatMessage({
-                    defaultMessage: "How it Will Work",
-                    description:
-                      "heading for how the indigenous talent portal will work",
-                  })}
-                </Heading>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Soon, applicants will be able to apply using an online, interactive tool that will be available on this website. Here’s what we’re working on:",
-                    description:
-                      "Description of how the indigenous talent portal will work",
-                  })}
-                </p>
-              </div>
-              <div
-                data-h2-display="m(flex)"
-                data-h2-margin="b(top-bottom, xl)"
-                className="portal-panel__steps"
-              >
-                <div className="portal-panel__step">
-                  <Step
-                    position="1"
-                    title={intl.formatMessage({
-                      defaultMessage: "Complete the Community Honesty Pledge",
-                      description: "How it works, step 1 heading",
-                    })}
-                  >
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "The Program was designed to respond to reconciliation and the building of a renewed relationship based on recognition of rights, respect, cooperation and partnership with Indigenous peoples.",
-                        description: "How it works, step 1 content paragraph 1",
-                      })}
-                    </p>
-                    <p>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "There are  three distinct groups of Indigenous peoples recognized in the Canadian constitution. You will be asked to confirm which Indigenous group(s) you belong to via the <a>Honesty Pledge</a>.",
-                          description:
-                            "How it works, step 1 content paragraph 2",
-                        },
-                        {
-                          a: honestyPledgeLink,
-                        },
-                      )}
-                    </p>
-                  </Step>
-                </div>
-                <div className="portal-panel__step">
-                  <Step
-                    position="2"
-                    title={intl.formatMessage({
-                      defaultMessage: "Provide your Information",
-                      description: "How it works, step 2 heading",
-                    })}
-                  >
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "We want to learn about you and about your interest/passion in the area of IT!",
-                        description: "How it works, step 2 content sentence 1",
-                      })}
-                    </p>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "We’ll invite you to create a profile which will be saved and submitted as your actual application.",
-                        description: "How it works, step 2 content sentence 2",
-                      })}
-                    </p>
-                  </Step>
-                </div>
-                <div className="portal-panel__step">
-                  <Step
-                    position="3"
-                    title={intl.formatMessage({
-                      defaultMessage: "Submit your Profile as your Application",
-                      description: "How it works, step 3 heading",
-                    })}
-                  >
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "You'll be prompted to confirm the information you provided",
-                        description: "How it works, step 3 content sentence 1",
-                      })}
-                    </p>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Upon submission, a team member will contact you within 3-5 business days.",
-                        description: "How it works, step 3 content sentence 2",
-                      })}
-                    </p>
-                  </Step>
-                </div>
-              </div>
-              <div
-                data-h2-container="b(center, s)"
-                data-h2-margin="b(top-bottom, xl)"
-              >
-                <Heading as="h3" color="white">
-                  {intl.formatMessage({
-                    defaultMessage: "Strategy",
-                    description:
-                      "Heading for strategy for the indigenous talent portal",
-                  })}
-                </Heading>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "In collaboration with the IT Apprenticeship Program for Indigenous Peoples, the Indigenous Talent Portal will begin with a focus on IT and technology talent, which will:",
-                    description:
-                      "Description for strategy for the indigenous talent portal",
-                  })}
-                </p>
-              </div>
-              <div
-                data-h2-display="m(flex)"
-                data-h2-margin="b(top-bottom, m) m(top-bottom, xl)"
-                className="portal-panel__strategy"
-              >
-                <div
-                  className="portal-panel__strategy__item"
-                  data-h2-width="b(100) s(50) m(25)"
-                >
-                  <Card
-                    Icon={People}
-                    title={intl.formatMessage({
-                      defaultMessage: "High Demand",
-                      description: "Talent portal strategy item 1 heading",
-                    })}
-                  >
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Address the great demand for Indigenous talent in IT.",
-                        description: "Talent portal strategy item 1 content",
-                      })}
-                    </p>
-                  </Card>
-                </div>
-                <div
-                  className="portal-panel__strategy__item"
-                  data-h2-width="b(100) s(50) m(25)"
-                >
-                  <Card
-                    Icon={TrendingUp}
-                    title={intl.formatMessage({
-                      defaultMessage: "Grow",
-                      description: "Talent portal strategy item 2 heading",
-                    })}
-                  >
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Allow for growth in its recruitment scope by targeting other occupational areas in the future.",
-                        description: "Talent portal strategy item 2 content",
-                      })}
-                    </p>
-                  </Card>
-                </div>
-                <div
-                  className="portal-panel__strategy__item"
-                  data-h2-width="b(100) s(50) m(25)"
-                >
-                  <Card
-                    Icon={BarChart}
-                    title={intl.formatMessage({
-                      defaultMessage: "Assess",
-                      description: "Talent portal strategy item 3 heading",
-                    })}
-                  >
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Allow for data and feedback to be collected and leveraged to improve the service.",
-                        description: "Talent portal strategy item 3 content",
-                      })}
-                    </p>
-                  </Card>
-                </div>
-                <div
-                  className="portal-panel__strategy__item"
-                  data-h2-width="b(100) s(50) m(25)"
-                >
-                  <Card
-                    Icon={Calendar}
-                    title={intl.formatMessage({
-                      defaultMessage: "Launch",
-                      description: "Talent portal strategy item 4 heading",
-                    })}
-                  >
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Aim to launch the program in the early half of 2022.",
-                        description: "Talent portal strategy item 4 content",
-                      })}
-                    </p>
-                  </Card>
-                </div>
-              </div>
-            </div>
-            <div
-              className="talent-portal-wrapper"
-              data-h2-position="b(relative)"
-              data-h2-margin="m(top, xxl)"
+            </Banner>
+            <Heading
+              light
+              color="white"
+              data-h2-margin="base(0, 0, x3, 0) p-tablet(x3, 0)"
             >
-              <div
-                className="talent-portal-card"
-                data-h2-position="b(relative)"
-                data-h2-margin="m(top-bottom, l)"
-                data-h2-bg-color="b(ia-lightpurple)"
-                data-h2-font-color="b(ia-white)"
-                style={{
-                  backgroundImage: `url(${imageUrl(
-                    INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                    "icon-watermark.svg",
-                  )})`,
-                }}
+              {intl.formatMessage({
+                defaultMessage:
+                  "IT Apprenticeship Program for Indigenous Peoples + The Indigenous Talent Portal",
+                description: "heading for indigenous talent portal section",
+              })}
+            </Heading>
+            <Heading as="h3" color="white">
+              {intl.formatMessage({
+                defaultMessage: "How it Will Work",
+                description:
+                  "heading for how the indigenous talent portal will work",
+              })}
+            </Heading>
+            <p
+              data-h2-margin="base(x1, auto, 0, auto)"
+              data-h2-color="base(ia-white)"
+              data-h2-max-width="base(38rem)"
+            >
+              {intl.formatMessage({
+                defaultMessage:
+                  "Soon, applicants will be able to apply using an online, interactive tool that will be available on this website. Here’s what we’re working on:",
+                description:
+                  "Description of how the indigenous talent portal will work",
+              })}
+            </p>
+          </div>
+          <div data-h2-flex-grid="base(flex-start, 0, x3, x2)">
+            <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
+              <Step
+                position="1"
+                title={intl.formatMessage({
+                  defaultMessage:
+                    "Complete the Community Indigenous Peoples Self-Declaration Form",
+                  description: "How it works, step 1 heading",
+                })}
               >
-                <div data-h2-display="m(flex)">
+                <p data-h2-margin="base(x1, 0, 0, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "The Program was designed to respond to reconciliation and the building of a renewed relationship based on recognition of rights, respect, cooperation and partnership with Indigenous peoples.",
+                    description: "How it works, step 1 content paragraph 1",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0, 0, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "There are  three distinct groups of Indigenous peoples recognized in the Canadian constitution. You will be asked to confirm which Indigenous group(s) you belong to via the Indigenous Peoples Self-Declaration Form.",
+                    description: "How it works, step 1 content paragraph 2",
+                  })}
+                </p>
+              </Step>
+            </div>
+            <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
+              <Step
+                position="2"
+                title={intl.formatMessage({
+                  defaultMessage: "Provide your Information",
+                  description: "How it works, step 2 heading",
+                })}
+              >
+                <p data-h2-margin="base(x1, 0, 0, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "We want to learn about you and about your interest/passion in the area of IT!",
+                    description: "How it works, step 2 content sentence 1",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0, 0, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "We’ll invite you to create a profile which will be saved and submitted as your actual application.",
+                    description: "How it works, step 2 content sentence 2",
+                  })}
+                </p>
+              </Step>
+            </div>
+            <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
+              <Step
+                position="3"
+                title={intl.formatMessage({
+                  defaultMessage: "Submit your Profile as your Application",
+                  description: "How it works, step 3 heading",
+                })}
+              >
+                <p data-h2-margin="base(x1, 0, 0, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "You'll be prompted to confirm the information you provided",
+                    description: "How it works, step 3 content sentence 1",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0, 0, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Upon submission, a team member will contact you within 3-5 business days.",
+                    description: "How it works, step 3 content sentence 2",
+                  })}
+                </p>
+              </Step>
+            </div>
+          </div>
+          <div data-h2-text-align="base(center)" data-h2-margin="base(x3, 0)">
+            <Heading as="h3" color="white">
+              {intl.formatMessage({
+                defaultMessage: "Strategy",
+                description:
+                  "Heading for strategy for the indigenous talent portal",
+              })}
+            </Heading>
+            <p
+              data-h2-margin="base(x1, auto, 0, auto)"
+              data-h2-color="base(ia-white)"
+              data-h2-max-width="base(38rem)"
+            >
+              {intl.formatMessage({
+                defaultMessage:
+                  "In collaboration with the IT Apprenticeship Program for Indigenous Peoples, the Indigenous Talent Portal will begin with a focus on IT and technology talent, which will:",
+                description:
+                  "Description for strategy for the indigenous talent portal",
+              })}
+            </p>
+          </div>
+          <div data-h2-flex-grid="base(flex-start, 0, x3, x2)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
+              <Card
+                Icon={People}
+                title={intl.formatMessage({
+                  defaultMessage: "High Demand",
+                  description: "Talent portal strategy item 1 heading",
+                })}
+              >
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Address the great demand for Indigenous talent in IT.",
+                    description: "Talent portal strategy item 1 content",
+                  })}
+                </p>
+              </Card>
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
+              <Card
+                Icon={TrendingUp}
+                title={intl.formatMessage({
+                  defaultMessage: "Grow",
+                  description: "Talent portal strategy item 2 heading",
+                })}
+              >
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Allow for growth in its recruitment scope by targeting other occupational areas in the future.",
+                    description: "Talent portal strategy item 2 content",
+                  })}
+                </p>
+              </Card>
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
+              <Card
+                Icon={BarChart}
+                title={intl.formatMessage({
+                  defaultMessage: "Assess",
+                  description: "Talent portal strategy item 3 heading",
+                })}
+              >
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Allow for data and feedback to be collected and leveraged to improve the service.",
+                    description: "Talent portal strategy item 3 content",
+                  })}
+                </p>
+              </Card>
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
+              <Card
+                Icon={Calendar}
+                title={intl.formatMessage({
+                  defaultMessage: "Launch",
+                  description: "Talent portal strategy item 4 heading",
+                })}
+              >
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Aim to launch the program in the early half of 2022.",
+                    description: "Talent portal strategy item 4 content",
+                  })}
+                </p>
+              </Card>
+            </div>
+          </div>
+          <div data-h2-padding="base(x4, 0)">
+            <div data-h2-position="base(relative)">
+              <div
+                data-h2-position="base(absolute)"
+                data-h2-width="base(75%)"
+                data-h2-offset="base(auto, auto, -2rem, -2rem) p-tablet(auto, auto, -3rem, -3rem)"
+                style={{ transform: "rotate(180deg) scaleX(-1)" }}
+              >
+                <Triangle
+                  className=""
+                  data-h2-width="base(100%)"
+                  data-h2-color="base(light.ia-secondary)"
+                />
+              </div>
+              <div
+                data-h2-background-color="base(ia-secondary.light)"
+                data-h2-padding="base(x2, x2, 0, x2) p-tablet(x3, x2) l-tablet(x5, x3)"
+                data-h2-position="base(relative)"
+                data-h2-text-align="base(center) p-tablet(left)"
+              >
+                <div
+                  data-h2-height="base(100%)"
+                  data-h2-width="base(100%)"
+                  data-h2-position="base(absolute)"
+                  data-h2-offset="base(0, 0, auto, auto)"
+                  data-h2-overflow="base(hidden, all)"
+                >
+                  <img
+                    src={imageUrl(
+                      INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                      "icon-watermark.svg",
+                    )}
+                    alt=""
+                    data-h2-position="base(absolute)"
+                    data-h2-offset="base(auto, -x2, -x5, auto) p-tablet(auto, -x4, -x7, auto)"
+                    data-h2-width="base(120%) p-tablet(x25) desktop(x35)"
+                    data-h2-max-width="base(initial)"
+                    data-h2-opacity="base(40%)"
+                  />
+                </div>
+                <div
+                  data-h2-flex-grid="base(stretch, 0, x2) p-tablet(stretch, 0, 0)"
+                  data-h2-position="base(relative)"
+                >
                   <div
-                    className="talent-portal-card__content"
-                    data-h2-padding="b(all, l)"
+                    data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(3of5) desktop(1of2)"
+                    data-h2-color="base(ia-white)"
                   >
-                    <Heading color="white" light data-h2-margin="b(top, xxs)">
+                    <Heading color="white" light>
                       {intl.formatMessage({
                         defaultMessage: "About the Indigenous Talent Portal",
                         description: "Talent Portal information heading",
                       })}
                     </Heading>
-                    <p>
+                    <p data-h2-margin="base(x1, 0, 0, 0)">
                       {intl.formatMessage({
                         defaultMessage:
                           "The Indigenous Talent Portal was built for the Indigenous community, by the Indigenous community.",
                         description: "Talent portal information sentence 1",
                       })}
                     </p>
-                    <p>
+                    <p data-h2-margin="base(x1, 0, 0, 0)">
                       {intl.formatMessage({
                         defaultMessage:
                           "It is a platform designed to host employment opportunities for Indigenous peoples in a way that recognizes and showcases their unique talents, ideas, skills and passion.",
@@ -783,36 +856,28 @@ const Home: React.FunctionComponent = () => {
                       })}
                     </p>
                   </div>
-                  <img
-                    className="talent-portal-card__image"
-                    src={imageUrl(
-                      INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                      "indigenous-woman.png",
-                    )}
-                    alt=""
-                  />
+                  <div
+                    data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(2of5) desktop(1of2)"
+                    data-h2-position="base(relative)"
+                  >
+                    <img
+                      data-h2-display="base(block)"
+                      data-h2-position="p-tablet(absolute)"
+                      data-h2-offset="p-tablet(auto, -x2, -x3, auto) l-tablet(auto, -x3, -x5, auto)"
+                      src={imageUrl(
+                        INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                        "indigenous-woman.png",
+                      )}
+                      alt=""
+                    />
+                  </div>
                 </div>
               </div>
-              <Triangle
-                className="talent-portal__triangle"
-                data-h2-position="b(absolute)"
-                data-h2-width="b(75)"
-                data-h2-font-color="b(ia-lightpurple)"
-              />
             </div>
           </div>
-          <RadiatingCircles
-            className="portal-panel__bg-item portal-panel__circles"
-            data-h2-font-color="b(ia-pink)"
-            data-h2-position="b(absolute)"
-            data-h2-width="b(50)"
-          />
-          <ThickCircle
-            className="portal-panel__bg-item portal-panel__thick-circle"
-            data-h2-position="b(absolute)"
-          />
         </div>
       </div>
+      {/* Dialogs and alerts */}
       <ApplyDialog
         isOpen={isApplyDialogOpen}
         onDismiss={() => setApplyDialogOpen(false)}
@@ -825,7 +890,7 @@ const Home: React.FunctionComponent = () => {
         isOpen={isRequirementDialogOpen}
         onDismiss={() => setRequirementDialogOpen(false)}
       />
-    </>
+    </div>
   );
 };
 

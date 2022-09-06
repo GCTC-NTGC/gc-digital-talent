@@ -26,7 +26,7 @@ import {
   formValuesToSubmitData,
   GovernmentInfoForm,
 } from "../GovernmentInfoForm/GovernmentInfoForm";
-import talentSearchRoutes from "../../talentSearchRoutes";
+import applicantProfileRoutes from "../../applicantProfileRoutes";
 
 type FormValues = Pick<
   UpdateUserAsUserInput,
@@ -38,6 +38,8 @@ type FormValues = Pick<
   department: string;
   currentClassificationGroup: string;
   currentClassificationLevel: string;
+  priorityEntitlementYesNo?: "yes" | "no";
+  priorityEntitlementNumber?: string;
 };
 
 export interface CreateAccountFormProps {
@@ -62,18 +64,24 @@ export const CreateAccountForm: React.FunctionComponent<
       ...formValuesToSubmitData(values, classifications),
     });
   // hooks to watch, needed for conditional rendering
-  const [govEmployee, govEmployeeStatus, groupSelection] = methods.watch([
+  const [
+    govEmployee,
+    govEmployeeStatus,
+    groupSelection,
+    hasPriorityEntitlement,
+  ] = methods.watch([
     "govEmployeeYesNo",
     "govEmployeeType",
     "currentClassificationGroup",
+    "priorityEntitlementYesNo",
   ]);
 
   return (
     <section>
       <div
-        data-h2-padding="b(top-bottom, m) b(right-left, s)"
-        data-h2-font-color="b(white)"
-        data-h2-text-align="b(center)"
+        data-h2-padding="base(x1, x.5)"
+        data-h2-color="base(dt-white)"
+        data-h2-text-align="base(center)"
         style={{
           background: `url(${imageUrl(
             TALENTSEARCH_APP_DIR,
@@ -85,8 +93,8 @@ export const CreateAccountForm: React.FunctionComponent<
         }}
       >
         <h1
-          data-h2-margin="b(bottom, s) b(top, xl)"
-          data-h2-font-weight="b(700)"
+          data-h2-margin="base(x3, 0, x.5, 0)"
+          data-h2-font-weight="base(700)"
         >
           {intl.formatMessage({
             defaultMessage: "Welcome to Digital Talent",
@@ -96,8 +104,8 @@ export const CreateAccountForm: React.FunctionComponent<
         </h1>
       </div>
       <div
-        data-h2-width="b(100) s(75) m(50)"
-        data-h2-padding="b(right-left, l) s(all, none)"
+        data-h2-width="base(100%) p-tablet(75%) l-tablet(50%)"
+        data-h2-padding="base(0, x2) p-tablet(0)"
         style={{ margin: "auto" }}
       >
         <Alert
@@ -114,17 +122,17 @@ export const CreateAccountForm: React.FunctionComponent<
           })}
           icon={<BellIcon style={{ width: "1.4rem" }} />}
           type="success"
-          data-h2-margin="b(top, xl)"
+          data-h2-margin="base(x3, 0, 0, 0)"
         />
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h2>
+            <h2 data-h2-margin="base(x2, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage: "Getting started",
                 description: "Main heading in create account page.",
               })}
             </h2>
-            <p data-h2-padding="b(bottom, m)">
+            <p data-h2-padding="base(0, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage:
                   "Before we take you to your profile, we need to collect some required information to complete your account set up. ",
@@ -133,8 +141,11 @@ export const CreateAccountForm: React.FunctionComponent<
               })}
             </p>
             <div>
-              <div data-h2-display="b(flex)" data-h2-margin="b(bottom, m)">
-                <div style={{ flex: 1 }} data-h2-padding="b(right, m)">
+              <div
+                data-h2-display="base(flex)"
+                data-h2-margin="base(0, 0, x1, 0)"
+              >
+                <div style={{ flex: 1 }} data-h2-padding="base(0, x1, 0, 0)">
                   <Input
                     id="firstName"
                     name="firstName"
@@ -154,7 +165,7 @@ export const CreateAccountForm: React.FunctionComponent<
                     }}
                   />
                 </div>
-                <div style={{ flex: 1 }} data-h2-padding="b(left, m)">
+                <div style={{ flex: 1 }} data-h2-padding="base(0, 0, 0, x1)">
                   <Input
                     id="lastName"
                     name="lastName"
@@ -175,7 +186,7 @@ export const CreateAccountForm: React.FunctionComponent<
                   />
                 </div>
               </div>
-              <div data-h2-margin="b(bottom, m)">
+              <div data-h2-margin="base(0, 0, x1, 0)">
                 <Input
                   id="email"
                   type="email"
@@ -211,7 +222,7 @@ export const CreateAccountForm: React.FunctionComponent<
                 }))}
                 defaultSelected={Language.En}
               />
-              <p data-h2-margin="b(top, l)">
+              <p data-h2-margin="base(x2, 0, x1, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "Below we’d like to know if you’re already an employee with the Government of Canada. We collect this information because it helps us understand, at an aggregate level, how digital skills are distributed amongst departments.",
@@ -219,7 +230,7 @@ export const CreateAccountForm: React.FunctionComponent<
                     "First message before is a government of canada radio group in create account form.",
                 })}
               </p>
-              <p data-h2-margin="b(bottom, m)">
+              <p data-h2-margin="base(0, 0, x1, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "We also use this information to provide you with more contextualized opportunities and suggestions based on your employment status.",
@@ -233,13 +244,14 @@ export const CreateAccountForm: React.FunctionComponent<
                 govEmployee={govEmployee}
                 govEmployeeStatus={govEmployeeStatus}
                 groupSelection={groupSelection}
+                priorityEntitlement={hasPriorityEntitlement}
               />
               <div
-                data-h2-margin="b(top-bottom, l)"
-                data-h2-padding="b(top-bottom, l)"
-                data-h2-border="b(lightgray, top, solid, s)"
-                data-h2-display="b(flex)"
-                data-h2-justify-content="b(flex-end)"
+                data-h2-margin="base(x2, 0)"
+                data-h2-padding="base(x2, 0)"
+                data-h2-border="base(top, 1px, solid, light.dt-gray)"
+                data-h2-display="base(flex)"
+                data-h2-justify-content="base(flex-end)"
               >
                 <Submit
                   mode="solid"
@@ -262,7 +274,7 @@ export const CreateAccountForm: React.FunctionComponent<
 const CreateAccount: React.FunctionComponent = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = talentSearchRoutes(locale);
+  const paths = applicantProfileRoutes(locale);
 
   const [lookUpResult] = useGetCreateAccountFormDataQuery();
   const { data: lookupData, fetching, error } = lookUpResult;
@@ -297,7 +309,7 @@ const CreateAccount: React.FunctionComponent = () => {
     }
     await handleCreateAccount(meId, data)
       .then(() => {
-        navigate(paths.profile());
+        navigate(paths.home(meId));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Account successfully created.",

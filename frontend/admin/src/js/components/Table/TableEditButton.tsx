@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-
 import { Link } from "@common/components";
+import { Maybe } from "../../api/generated";
 
 export interface TableEditButtonProps {
   /** Id of the object in the table. */
@@ -9,7 +9,7 @@ export interface TableEditButtonProps {
   /** The current url root. */
   editUrlRoot: string;
   /** Label for link text  */
-  label?: string;
+  label?: Maybe<string>;
 }
 
 function TableEditButton({
@@ -20,7 +20,13 @@ function TableEditButton({
   const intl = useIntl();
   const href = `${editUrlRoot}/${id}/edit`;
   return (
-    <Link href={href} type="button" mode="inline" color="primary">
+    <Link
+      href={href}
+      type="button"
+      mode="inline"
+      color="primary"
+      data-h2-padding="base(0)"
+    >
       {intl.formatMessage(
         {
           defaultMessage: "Edit <hidden>{label}</hidden>",
@@ -37,7 +43,7 @@ export default TableEditButton;
 export function tableEditButtonAccessor(
   id: string,
   editUrlRoot: string,
-  label?: string,
+  label?: Maybe<string>,
 ) {
   return <TableEditButton id={id} editUrlRoot={editUrlRoot} label={label} />;
 }

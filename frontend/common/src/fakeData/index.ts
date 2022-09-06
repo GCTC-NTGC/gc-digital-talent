@@ -1,6 +1,7 @@
 import fakeClassifications from "./fakeClassifications";
 import fakeCmoAssets from "./fakeCmoAssets";
 import fakeDepartments from "./fakeDepartments";
+import fakeExperiences from "./fakeExperiences";
 import fakePools from "./fakePools";
 import fakePoolCandidates from "./fakePoolCandidates";
 import fakeUsers, { applicantGenerator as fakeApplicants } from "./fakeUsers";
@@ -14,6 +15,7 @@ export {
   fakeClassifications,
   fakeCmoAssets,
   fakeDepartments,
+  fakeExperiences,
   fakePools,
   fakePoolCandidates,
   fakeUsers,

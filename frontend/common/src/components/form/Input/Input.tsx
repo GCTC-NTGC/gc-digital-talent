@@ -56,7 +56,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   };
 
   return (
-    <div data-h2-margin="b(bottom, xxs)">
+    <div data-h2-margin="base(x1, 0)">
       <InputWrapper
         inputId={id}
         label={label}
@@ -67,18 +67,16 @@ const Input: React.FunctionComponent<InputProps> = ({
         errorPosition={errorPosition}
       >
         <input
-          data-h2-padding="b(all, xxs)"
-          data-h2-radius="b(s)"
-          data-h2-border="b(darkgray, all, solid, s)"
+          data-h2-padding="base(x.25, x.5)"
+          data-h2-radius="base(input)"
+          data-h2-border="base(all, 1px, solid, dt-gray)"
           style={{ width: "100%" }}
-          data-h2-font-size="b(normal)"
-          data-h2-font-family="b(sans)"
           id={id}
           {...register(name, rules)}
           onBlur={whitespaceTrimmer}
           type={type}
           {...(readOnly && {
-            "data-h2-bg-color": "b(lightgray)",
+            "data-h2-background-color": "base(dt-gray.light)",
           })}
           readOnly={readOnly}
           aria-required={rules.required ? "true" : undefined}

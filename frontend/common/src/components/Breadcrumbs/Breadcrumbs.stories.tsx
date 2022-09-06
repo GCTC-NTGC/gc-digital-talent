@@ -1,6 +1,5 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { FilterIcon } from "@heroicons/react/solid";
 import Breadcrumbs from "./Breadcrumbs";
 import type { BreadcrumbsProps } from "./Breadcrumbs";
 
@@ -14,7 +13,7 @@ export default {
 
 const BlackTemplateBreadcrumbs: Story<BreadcrumbsProps> = (args) => {
   return (
-    <div data-h2-font-color="b(black)">
+    <div data-h2-color="base(dt-black)">
       <Breadcrumbs {...args} />
     </div>
   );
@@ -22,7 +21,10 @@ const BlackTemplateBreadcrumbs: Story<BreadcrumbsProps> = (args) => {
 
 const WhiteTemplateBreadcrumbs: Story<BreadcrumbsProps> = (args) => {
   return (
-    <div data-h2-font-color="b(white)" data-h2-bg-color="b(black)">
+    <div
+      data-h2-color="base(dt-white)"
+      data-h2-background-color="base(dt-black)"
+    >
       <Breadcrumbs {...args} />
     </div>
   );
@@ -36,7 +38,6 @@ BlackFontBreadcrumbs.args = {
     {
       title: "My Name",
       href: "localnothost",
-      icon: <FilterIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     { title: "Not My Name", href: "nothost" },
     { title: "No Link" },
@@ -48,7 +49,6 @@ WhiteFontBreadcrumbs.args = {
     {
       title: "My Name",
       href: "localnothost",
-      icon: <FilterIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     { title: "Not My Name", href: "nothost" },
     { title: "No Link" },

@@ -259,7 +259,8 @@ query getCandidateProfile($id: ID!) {
       estimatedLanguageAbility
       isGovEmployee
       govEmployeeType
-      interestedInLaterOrSecondment
+      hasPriorityEntitlement
+      priorityNumber
       locationPreferences
       locationExemptions
       wouldAcceptTemporary
@@ -360,6 +361,8 @@ query getUserProfile($id: ID!) {
     firstName
     lastName
     telephone
+    citizenship
+    armedForcesStatus
     preferredLang
     lookingForEnglish
     lookingForFrench
@@ -371,7 +374,8 @@ query getUserProfile($id: ID!) {
     estimatedLanguageAbility
     isGovEmployee
     govEmployeeType
-    interestedInLaterOrSecondment
+    hasPriorityEntitlement
+    priorityNumber
     locationPreferences
     locationExemptions
     wouldAcceptTemporary
@@ -473,6 +477,9 @@ query getUserProfile($id: ID!) {
     poolCandidates {
       status
       expiryDate
+      user {
+        id
+      }
       pool {
         id
         name {

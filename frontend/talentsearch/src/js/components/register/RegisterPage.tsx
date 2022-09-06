@@ -7,7 +7,7 @@ import { imageUrl } from "@common/helpers/router";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 const keyRegistrationLink = (path: string, ...chunks: React.ReactNode[]) => (
   <a href={path}>{chunks}</a>
@@ -15,16 +15,16 @@ const keyRegistrationLink = (path: string, ...chunks: React.ReactNode[]) => (
 
 const RegisterPage: React.FC = () => {
   const intl = useIntl();
-  const talentPaths = useTalentSearchRoutes();
+  const profilePaths = useApplicantProfileRoutes();
   const paths = useApiRoutes();
-  const loginPath = paths.login(talentPaths.profile(), getLocale(intl));
+  const loginPath = paths.login(profilePaths.myProfile(), getLocale(intl));
 
   return (
     <>
       <div
-        data-h2-padding="b(top-bottom, m) b(right-left, s)"
-        data-h2-font-color="b(white)"
-        data-h2-text-align="b(center)"
+        data-h2-padding="base(x1, x.5)"
+        data-h2-color="base(dt-white)"
+        data-h2-text-align="base(center)"
         style={{
           background: `url(${imageUrl(
             TALENTSEARCH_APP_DIR,
@@ -35,7 +35,7 @@ const RegisterPage: React.FC = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 data-h2-margin="b(top-bottom, l)">
+        <h1 data-h2-margin="base(x2, 0)">
           {intl.formatMessage({
             defaultMessage: "Register using GC Key",
             description:
@@ -43,65 +43,67 @@ const RegisterPage: React.FC = () => {
           })}
         </h1>
       </div>
-      <div data-h2-container="b(center, s)" data-h2-margin="b(top-bottom, xl)">
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "You can log into your Digital Talent profile using your existing GC Key, even if you've never used this platform before.",
-            description: "Instructions on how to login with GC Key.",
-          })}
-        </p>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "If you're unsure whether you have an existing GC Key account, continue to the website and try logging in. If you can't remember your password, you can also reset it there.",
-            description:
-              "Instructions on what to do if user doesn't know if they have a GC Key",
-          })}
-        </p>
-        <p>
-          {intl.formatMessage(
-            {
+      <div data-h2-padding="base(x3, 0)">
+        <div data-h2-container="base(center, small, x1) p-tablet(center, small, x2)">
+          <p>
+            {intl.formatMessage({
               defaultMessage:
-                "<strong>Don't have a GC Key account?</strong> <a>Register for one.</a>",
+                "You can log into your Digital Talent profile using your existing GC Key, even if you've never used this platform before.",
+              description: "Instructions on how to login with GC Key.",
+            })}
+          </p>
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
+            {intl.formatMessage({
+              defaultMessage:
+                "If you're unsure whether you have an existing GC Key account, continue to the website and try logging in. If you can't remember your password, you can also reset it there.",
               description:
-                "Instruction on what to do if user does not have a GC Key.",
-            },
-            {
-              a: (...chunks) => keyRegistrationLink(loginPath, chunks),
-            },
-          )}
-        </p>
-        <hr data-h2-margin="b(top-bottom, l)" />
-        <div
-          data-h2-display="b(flex)"
-          data-h2-flex-direction="b(column) m(row)"
-          data-h2-align-items="b(center)"
-          data-h2-justify-content="b(space-between)"
-        >
-          <p>
-            <Link href={loginPath} external>
-              {intl.formatMessage({
-                defaultMessage: "Log in instead",
-                description: "Login link text on the registration page.",
-              })}
-            </Link>
+                "Instructions on what to do if user doesn't know if they have a GC Key",
+            })}
           </p>
-          <p>
-            <Link
-              href={loginPath}
-              mode="solid"
-              type="button"
-              color="primary"
-              external
-            >
-              {intl.formatMessage({
-                defaultMessage: "Continue to GC Key and Register",
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "<strong>Don't have a GC Key account?</strong> <a>Register for one.</a>",
                 description:
-                  "GC Key registration link text on the registration page.",
-              })}
-            </Link>
+                  "Instruction on what to do if user does not have a GC Key.",
+              },
+              {
+                a: (...chunks) => keyRegistrationLink(loginPath, chunks),
+              },
+            )}
           </p>
+          <hr data-h2-margin="base(x2, 0)" />
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column) l-tablet(row)"
+            data-h2-align-items="base(center)"
+            data-h2-justify-content="base(space-between)"
+          >
+            <p>
+              <Link href={loginPath} external>
+                {intl.formatMessage({
+                  defaultMessage: "Log in instead",
+                  description: "Login link text on the registration page.",
+                })}
+              </Link>
+            </p>
+            <p>
+              <Link
+                href={loginPath}
+                mode="solid"
+                type="button"
+                color="primary"
+                external
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Continue to GC Key and Register",
+                  description:
+                    "GC Key registration link text on the registration page.",
+                })}
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </>

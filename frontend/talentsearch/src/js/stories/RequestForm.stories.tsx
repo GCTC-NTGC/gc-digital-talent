@@ -7,6 +7,10 @@ import {
   RequestFormProps,
 } from "../components/request/CreateRequest";
 import {
+  RequestForm as RequestFormDeprecated,
+  RequestFormProps as RequestFormDeprecatedProps,
+} from "../components/request/deprecated/CreateRequest";
+import {
   CreatePoolCandidateSearchRequestInput,
   OperationalRequirement,
   PoolCandidateFilter,
@@ -18,12 +22,12 @@ const poolCandidateFilter: PoolCandidateFilter = {
   classifications: [
     {
       id: "90689420-553d-4a3b-999a-fb94b1baaa69",
-      group: "CS",
+      group: "IT",
       level: 4,
     },
     {
       id: "bcfa88b3-ed22-4879-8642-e7dd003e91b4",
-      group: "CS",
+      group: "IT",
       level: 5,
     },
     {
@@ -109,4 +113,11 @@ const TemplateRequestForm: Story<RequestFormProps> = (args) => {
   return <RequestForm {...args} />;
 };
 
+const TemplateRequestFormDeprecated: Story<RequestFormDeprecatedProps> = (
+  args,
+) => {
+  return <RequestFormDeprecated {...args} />;
+};
+
 export const Form = TemplateRequestForm.bind({});
+export const FormDeprecated = TemplateRequestFormDeprecated.bind({});

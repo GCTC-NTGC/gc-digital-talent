@@ -3,20 +3,27 @@ import { useState } from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
+import SkillPicker from "@common/components/skills/SkillPicker";
 import {
   AdvertisementStatus,
   PoolAdvertisement,
   Skill,
+  UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
 
 import { SectionMetadata } from "./EditPool";
-import AddSkillsToPool from "./AddSkillsToPool";
+import { useEditPoolContext } from "./EditPoolContext";
+
+export type AssetSkillsSubmitData = Pick<
+  UpdatePoolAdvertisementInput,
+  "nonessentialSkills"
+>;
 
 interface AssetSkillsSectionProps {
   poolAdvertisement: PoolAdvertisement;
   skills: Array<Skill>;
   sectionMetadata: SectionMetadata;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: AssetSkillsSubmitData) => void;
 }
 
 export const AssetSkillsSection = ({
@@ -26,6 +33,7 @@ export const AssetSkillsSection = ({
   onSave,
 }: AssetSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { isSubmitting } = useEditPoolContext();
 
   const [selectedSkills, setSelectedSkills] = useState<Array<Skill>>(
     poolAdvertisement.nonessentialSkills
@@ -36,6 +44,14 @@ export const AssetSkillsSection = ({
   const handleChangeSelectedSkills = (changedSelectedSkills: Array<Skill>) =>
     setSelectedSkills(changedSelectedSkills);
 
+  const handleSave = () => {
+    onSave({
+      nonessentialSkills: {
+        sync: selectedSkills.map((skill) => skill.id),
+      },
+    });
+  };
+
   // disabled unless status is draft
   const formDisabled =
     poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
@@ -43,27 +59,32 @@ export const AssetSkillsSection = ({
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+        <h2 data-h2-margin="base(x3, 0, x1, 0)" data-h2-font-size="base(p)">
           {sectionMetadata.title}
         </h2>
       </TableOfContents.Heading>
-      <p>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "Select skills that will improve the chances of quality matches with managers. These can typically be learned on the job and are not necessary to be accepted into the pool.",
           description: "Helper message for filling in the pool asset skills",
         })}
       </p>
-      <AddSkillsToPool
+      <SkillPicker
         selectedSkills={selectedSkills}
         skills={skills}
-        onChangeSelectedSkills={handleChangeSelectedSkills}
+        onChange={handleChangeSelectedSkills}
         idPrefix="asset"
         disabled={formDisabled}
       />
 
       {!formDisabled && (
-        <Button onClick={() => onSave(selectedSkills)} color="cta" mode="solid">
+        <Button
+          onClick={handleSave}
+          color="cta"
+          mode="solid"
+          disabled={isSubmitting}
+        >
           {intl.formatMessage({
             defaultMessage: "Save asset skills",
             description: "Text on a button to save the pool asset skills",

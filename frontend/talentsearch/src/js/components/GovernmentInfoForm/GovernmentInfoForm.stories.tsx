@@ -36,7 +36,6 @@ ADefaultArgs.args = {
     "id",
     "isGovEmployee",
     "govEmployeeType",
-    "interestedInLaterOrSecondment",
     "department",
     "currentClassification",
   ]),
@@ -71,7 +70,7 @@ export const ECasualClassGroup = TemplateGovInfoForm.bind({});
 ECasualClassGroup.args = {
   initialData: {
     ...DCasualNoClass.args.initialData,
-    currentClassification: { group: "CS" },
+    currentClassification: { group: "IT" },
   },
 };
 
@@ -79,6 +78,6 @@ export const FCasualClassGroupLevel = TemplateGovInfoForm.bind({});
 FCasualClassGroupLevel.args = {
   initialData: {
     ...ECasualClassGroup.args.initialData,
-    currentClassification: { group: "CS", level: 3 },
+    currentClassification: { group: "IT", level: 3 },
   },
 };

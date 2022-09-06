@@ -8,6 +8,7 @@ import { Pill } from "@common/components";
 import Pending from "@common/components/Pending";
 import { AllSkillsQuery, useAllSkillsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
+import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<AllSkillsQuery["skills"]>>;
 
@@ -17,6 +18,7 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useAdminRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
@@ -85,7 +87,19 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
 
   const data = useMemo(() => skills.filter(notEmpty), [skills]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <Table
+      data={data}
+      columns={columns}
+      addBtn={{
+        path: paths.skillCreate(),
+        label: intl.formatMessage({
+          defaultMessage: "Create Skill",
+          description: "Heading displayed above the Create Skill form.",
+        }),
+      }}
+    />
+  );
 };
 
 export const SkillTableApi: React.FunctionComponent = () => {

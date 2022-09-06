@@ -40,6 +40,8 @@ before(() => {
 import '@testing-library/cypress/add-commands'
 import url from 'url'
 
+require('cy-verify-downloads').addCustomCommand();
+
 Cypress.Commands.add('setLocale', (locale) => {
   window.localStorage.setItem('stored_locale', locale)
 })
@@ -138,8 +140,5 @@ Cypress.Commands.add('logout', () => {
 
 // Check if a toast is displayed
 Cypress.Commands.add('expectToast', (text) => {
-  cy.findByRole("alert")
-    .findByText(text)
-    .should("exist")
-    .and("be.visible");
+  cy.contains("[role='alert']", text);
 })

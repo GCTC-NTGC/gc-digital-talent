@@ -42,12 +42,6 @@ const UpdateCmoAsset = React.lazy(() => import("./cmoAsset/UpdateCmoAsset"));
 const PoolCandidatePage = React.lazy(
   () => import("./poolCandidate/PoolCandidatePage"),
 );
-const CreatePoolCandidate = React.lazy(
-  () => import("./poolCandidate/CreatePoolCandidate"),
-);
-const UpdatePoolCandidate = React.lazy(
-  () => import("./poolCandidate/UpdatePoolCandidate"),
-);
 
 /** Pools */
 const PoolPage = React.lazy(() => import("./pool/PoolPage"));
@@ -59,6 +53,9 @@ const DeprecatedViewPool = React.lazy(
 );
 const DeprecatedUpdatePool = React.lazy(
   () => import("./pool/deprecated/UpdatePool"),
+);
+const DeprecatedCreatePool = React.lazy(
+  () => import("./pool/deprecated/CreatePool"),
 );
 
 /** Departments */
@@ -200,22 +197,6 @@ const routes = (
     }),
   },
   {
-    path: paths.poolCandidateCreate(":id"),
-    action: ({ params }) => ({
-      component: <CreatePoolCandidate poolId={params.id as string} />,
-      authorizedRoles: [Role.Admin],
-    }),
-  },
-  {
-    path: paths.poolCandidateUpdate(":poolId", ":candidateId"),
-    action: ({ params }) => ({
-      component: (
-        <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />
-      ),
-      authorizedRoles: [Role.Admin],
-    }),
-  },
-  {
     path: paths.poolTable(),
     action: () => ({
       component: <PoolPage />,
@@ -225,7 +206,12 @@ const routes = (
   {
     path: paths.poolCreate(),
     action: () => ({
-      component: <CreatePool />,
+      component: checkFeatureFlag("FEATURE_DIRECTINTAKE") ? (
+        <CreatePool />
+      ) : (
+        /* deprecated */
+        <DeprecatedCreatePool />
+      ),
       authorizedRoles: [Role.Admin],
     }),
   },
@@ -319,12 +305,112 @@ const routes = (
     }),
   },
   {
-    path: paths.searchRequestUpdate(":id"),
+    path: paths.searchRequestView(":id"),
     action: ({ params }) => ({
       component: (
         <SingleSearchRequestPage searchRequestId={params.id as string} />
       ),
       authorizedRoles: [Role.Admin],
+    }),
+  },
+
+  // Old routes
+  {
+    path: `${paths.home()}/classifications`,
+    action: () => ({
+      component: <div />,
+      redirect: paths.classificationTable(),
+    }),
+  },
+  {
+    path: `${paths.home()}/classifications/create`,
+    action: () => ({
+      component: <div />,
+      redirect: paths.classificationCreate(),
+    }),
+  },
+  {
+    path: `${paths.home()}/classifications/:id/edit`,
+    action: ({ params }) => ({
+      component: <div />,
+      redirect: paths.classificationUpdate(params.id as string),
+    }),
+  },
+  {
+    path: `${paths.home()}/departments`,
+    action: () => ({
+      component: <div />,
+      redirect: paths.departmentTable(),
+    }),
+  },
+  {
+    path: `${paths.home()}/departments/create`,
+    action: () => ({
+      component: <div />,
+      redirect: paths.departmentCreate(),
+    }),
+  },
+  {
+    path: `${paths.home()}/departments/:id/edit`,
+    action: ({ params }) => ({
+      component: <div />,
+      redirect: paths.departmentUpdate(params.id as string),
+    }),
+  },
+  {
+    path: `${paths.home()}/skills`,
+    action: () => ({
+      component: <div />,
+      redirect: paths.skillTable(),
+    }),
+  },
+  {
+    path: `${paths.home()}/skills/create`,
+    action: () => ({
+      component: <div />,
+      redirect: paths.skillCreate(),
+    }),
+  },
+  {
+    path: `${paths.home()}/skills/:id/edit`,
+    action: ({ params }) => ({
+      component: <div />,
+      redirect: paths.skillUpdate(params.id as string),
+    }),
+  },
+  {
+    path: `${paths.home()}/skill-families`,
+    action: () => ({
+      component: <div />,
+      redirect: paths.skillFamilyTable(),
+    }),
+  },
+  {
+    path: `${paths.home()}/skill-families/create`,
+    action: () => ({
+      component: <div />,
+      redirect: paths.skillFamilyCreate(),
+    }),
+  },
+  {
+    path: `${paths.home()}/skill-families/:id/edit`,
+    action: ({ params }) => ({
+      component: <div />,
+      redirect: paths.skillFamilyUpdate(params.id as string),
+    }),
+  },
+  {
+    path: `${paths.home()}/talent-requests`,
+    action: () => ({
+      component: <div />,
+      redirect: paths.searchRequestTable(),
+    }),
+  },
+  {
+    path: `${paths.home()}/talent-requests/:id/edit`,
+    action: ({ params }) => ({
+      component: <div />,
+      redirect: paths.searchRequestView(params.id as string),
     }),
   },
 ];
@@ -337,7 +423,7 @@ export const PoolDashboard: React.FC = () => {
     <Pending fetching={false}>
       <Dashboard contentRoutes={routes(paths, loggedIn)} />
       <Helmet>
-        <html lang={getLocale(intl)} />
+        <html lang={getLocale(intl)} data-h2 />
       </Helmet>
     </Pending>
   );

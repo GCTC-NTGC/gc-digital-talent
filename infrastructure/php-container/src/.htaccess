@@ -1,3 +1,5 @@
+# This file is mounted in the php docker container for local testing.  Any changes to this file that need to be deployed to the servers (dev, UAT, prod) should be manually made in infrastructure/conf/deploy.htaccess also.
+
 # Don't automatically add slash (with 301 redirect) if path matches a directory
 DirectorySlash off
 
@@ -37,6 +39,20 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
+    # Send user requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^users/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^users(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized user requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/users(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
+    # Send search requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^search/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^search(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized search requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/search(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
     # Send logged-out requests to talentsearch dist folder (with or without public/ path prefix).
     RewriteRule ^logged-out/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
     RewriteRule ^logged-out(/(.*))?$ frontend/talentsearch/dist/$2 [L]
@@ -50,6 +66,9 @@ DirectorySlash off
 
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/browse(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
+    # Send localized create account requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/create-account(/(.*))?$ frontend/talentsearch/dist/$2 [L]
 
     # Send register requests to talentsearch dist folder (with or without public/ path prefix).
     RewriteRule ^register-info/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
@@ -65,6 +84,9 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/login-info(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
+    # Indigenous Apprenticeship french vanity url
+    RewriteRule ^apprenti-autochtonne-ti(/(.*))?$  %{ENV:APP_URL}/fr/indigenous-it-apprentice$1 [L,R=301]
+
     # Indigenous Apprenticeship routes
     RewriteRule ^indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$2 [L]
     RewriteRule ^(en|fr)/indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$3 [L]
@@ -75,7 +97,6 @@ DirectorySlash off
     # Send all other requests to /tc-report
     RewriteRule ^(.*)/?$ tc-report/$1 [L]
 </IfModule>
-
 
 <IfModule mod_headers.c>
   # Security headers

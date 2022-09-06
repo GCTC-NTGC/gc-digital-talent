@@ -1347,7 +1347,7 @@
     "description": "Label for the main menu on the pool manager admin portal."
   },
   "R+Zm3X": {
-    "defaultMessage": "Profil d'impression",
+    "defaultMessage": "Imprimer le profil",
     "description": "Text for button to print a user profile"
   },
   "SARjte": {
@@ -1664,5 +1664,601 @@
   "SOZVtc": {
     "defaultMessage": "<heavyPrimary>Actif</heavyPrimary> ‒ Souhaite être contacté pour des possibilités d'emploi",
     "description": "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please"
+  },
+  "+5da+V": {
+    "defaultMessage": "<heavyPrimary>Archivé</heavyPrimary>",
+    "description": "Status name of a pool in ARCHIVED status"
+  },
+  "+OSYz7": {
+    "defaultMessage": "Nouvel utilisateur",
+    "description": "Text label for link to create new user on admin table"
+  },
+  "+svnC6": {
+    "defaultMessage": "Publier",
+    "description": "Heading for the publish pool dialog"
+  },
+  "+umNAP": {
+    "defaultMessage": "Créer un nouveau bassin",
+    "description": "Header for page to create pool advertisements"
+  },
+  "/6voUd": {
+    "defaultMessage": "Modifier l'annonce du bassin",
+    "description": "Header for page to edit pool advertisements"
+  },
+  "/7tcPl": {
+    "defaultMessage": "Votre travail (anglais)",
+    "description": "Title for English pool advertisement Work"
+  },
+  "/QUq6L": {
+    "defaultMessage": "Vous êtes certain de vouloir continuer?",
+    "description": "Second paragraph for Delete pool dialog"
+  },
+  "044hi7": {
+    "defaultMessage": "Copier le lien",
+    "description": "Button text to copy a url"
+  },
+  "0qKFaP": {
+    "defaultMessage": "Ce bassin est actuellement en cours de publication et ouvert à la réception de nouvelles candidatures.",
+    "description": "Status description of a pool in PUBLISHED status"
+  },
+  "1HPhji": {
+    "defaultMessage": "Filtres",
+    "description": "Text label for button to open filter dialog on admin tables."
+  },
+  "2++hVA": {
+    "defaultMessage": "Vous êtes certain de vouloir continuer?",
+    "description": "Third paragraph for Close pool dialog"
+  },
+  "2asU3k": {
+    "defaultMessage": "Enregistrer les compétences essentielles",
+    "description": "Text on a button to save the pool essential skills"
+  },
+  "36k+Da": {
+    "defaultMessage": "Nom",
+    "description": "Label for user table search dropdown (name)."
+  },
+  "3mrTn5": {
+    "defaultMessage": "Prolonger la date de clôture",
+    "description": "Heading for the extend pool closing date dialog"
+  },
+  "45BhQw": {
+    "defaultMessage": "Vous êtes sur le point de PUBLIER ce bassin.",
+    "description": "First paragraph for publish pool dialog"
+  },
+  "4yBTfg": {
+    "defaultMessage": "<heavyPrimary>Ébauche</heavyPrimary>",
+    "description": "Status name of a pool in DRAFT status"
+  },
+  "5PIt8V": {
+    "defaultMessage": "Sélectionnez la classification prévue pour ce processus de recrutement.",
+    "description": "Helper message for selecting a classification for the pool"
+  },
+  "61XRUJ": {
+    "defaultMessage": "Clé",
+    "description": "Label displayed on the pool form name key field."
+  },
+  "66MUMB": {
+    "defaultMessage": "Enregistrer les autres exigences",
+    "description": "Text on a button to save the pool other requirements"
+  },
+  "6BD4FK": {
+    "defaultMessage": "Votre impact (français)",
+    "description": "Title for French pool advertisement impact"
+  },
+  "6InelL": {
+    "defaultMessage": "Basculer vers filtrer par",
+    "description": "Title to toggle sorting order of a table"
+  },
+  "7N+tQw": {
+    "defaultMessage": "Mes bassins",
+    "description": "Breadcrumb title for the pools page link."
+  },
+  "7aG86f": {
+    "defaultMessage": "Sélectionnez une classification...",
+    "description": "Placeholder displayed on the pool form classification field."
+  },
+  "7k27sT": {
+    "defaultMessage": "Clôture manuellement",
+    "description": "Heading for the close pool dialog"
+  },
+  "80DOGy": {
+    "defaultMessage": "Date de fin",
+    "description": "Label displayed on the pool candidate form end date field."
+  },
+  "8bJgxK": {
+    "defaultMessage": "Français - Votre travail",
+    "description": "Label for the French - Your Work textarea in the edit pool page."
+  },
+  "8c/kP1": {
+    "defaultMessage": "Utilisateurs",
+    "description": "Title for users page on the admin portal."
+  },
+  "9flpmN": {
+    "defaultMessage": "Éditer <hidden>{label}</hidden>",
+    "description": "Title displayed for the Edit column."
+  },
+  "A2VzLX": {
+    "defaultMessage": "Emplacement précis (anglais)",
+    "description": "Label for a pool advertisements specific English Location"
+  },
+  "ASNC88": {
+    "defaultMessage": "Exigence en matière de sécurité",
+    "description": "Label displayed on the edit pool form security requirement field."
+  },
+  "B/VlGq": {
+    "defaultMessage": "Gérer les candidats",
+    "description": "Link text for button to manage candidates of a specific pool"
+  },
+  "BQsJSG": {
+    "defaultMessage": "Saisissez une nouvelle date de clôture :",
+    "description": "First paragraph for extend pool closing date dialog"
+  },
+  "BhtXXY": {
+    "defaultMessage": "Fermer",
+    "description": "Text on a button to close the pool"
+  },
+  "CjkBMT": {
+    "defaultMessage": "Téléphone",
+    "description": "Label for user table search dropdown (phone)."
+  },
+  "DDR6Ax": {
+    "defaultMessage": "Sélectionner/Désélectionner tout",
+    "description": "Header label for the row-selection column in tables."
+  },
+  "E9S4B8": {
+    "defaultMessage": "Lien copié!",
+    "description": "Button text to be displayed after link was copied"
+  },
+  "FA+cJX": {
+    "defaultMessage": "Supprimer",
+    "description": "Button to delete the pool in the delete pool dialog"
+  },
+  "FFaQND": {
+    "defaultMessage": "Il faut avoir des compétences",
+    "description": "Title required skills for a pool advertisement"
+  },
+  "FiylOa": {
+    "defaultMessage": "Mots-clés (anglais)",
+    "description": "Label displayed on the skill form keywords field in English."
+  },
+  "Fm4Muz": {
+    "defaultMessage": "Autres exigences",
+    "description": "Sub title for the pool other requirements"
+  },
+  "G/MFLe": {
+    "defaultMessage": "Annonce du bassin",
+    "description": "Link text to view the public facing pool advertisement"
+  },
+  "GXw2um": {
+    "defaultMessage": "Tâches professionnelles",
+    "description": "Sub title for the pool work tasks"
+  },
+  "GYk6Nz": {
+    "defaultMessage": "Autorisation de sécurité : {securityClearance}",
+    "description": "Pool advertisement security clearance requirement"
+  },
+  "H9rxOR": {
+    "defaultMessage": "Colonnes visibles",
+    "description": "Legend for the column toggle in admin tables."
+  },
+  "Hn6YgE": {
+    "defaultMessage": "Modifier le bassin",
+    "description": "Edit pool breadcrumb text"
+  },
+  "Hqt/ej": {
+    "defaultMessage": "Archive",
+    "description": "Heading for the archive pool dialog"
+  },
+  "HxTuuy": {
+    "defaultMessage": "Ce bassin n'est plus annoncée.",
+    "description": "Status description of a pool in ARCHIVED status"
+  },
+  "I8jlr2": {
+    "defaultMessage": "Date de clôture",
+    "description": "Sub title for pool closing date"
+  },
+  "IFGKCz": {
+    "defaultMessage": "Supprimer",
+    "description": "Text on a button to delete the pool"
+  },
+  "IMdFJM": {
+    "defaultMessage": "Toutes les tableaux",
+    "description": "Text in table search form column dropdown when no column is selected."
+  },
+  "IcDAU1": {
+    "defaultMessage": "Emplacement (anglais) : {locationEn}",
+    "description": "Pool advertisement location requirement, English"
+  },
+  "J3779Q": {
+    "defaultMessage": "Groupes de compétences",
+    "description": "A title for a list of skill families"
+  },
+  "Jc0lds": {
+    "defaultMessage": "Bassin archivé",
+    "description": "Button to archive the pool in the archive pool dialog"
+  },
+  "LccTZJ": {
+    "defaultMessage": "Compétences essentielles (exigence)",
+    "description": "Sub title for the pool essential skills"
+  },
+  "LfNNe4": {
+    "defaultMessage": "Par mot-clé",
+    "description": "Tab name for a box to search for skills"
+  },
+  "LvsYj+": {
+    "defaultMessage": "Votre impact (anglais)",
+    "description": "Title for English pool advertisement impact"
+  },
+  "M7s4wO": {
+    "defaultMessage": "Compétences professionnelles",
+    "description": "Tab name for a list of occupational skills"
+  },
+  "MDjwSO": {
+    "defaultMessage": "Titre précis (français)",
+    "description": "Label for a pool advertisements specific French title"
+  },
+  "N0ySd0": {
+    "defaultMessage": "Compétences utiles (compétences souhaitables)",
+    "description": "Sub title for the pool essential skills"
+  },
+  "NeNnAP": {
+    "defaultMessage": "Nom du candidat",
+    "description": "Title displayed on the User table Candidate Name column."
+  },
+  "NfRLs/": {
+    "defaultMessage": "Anglais - Votre impact",
+    "description": "Label for the English - Your Impact textarea in the edit pool page."
+  },
+  "NljjDf": {
+    "defaultMessage": "Vous pouvez choisir de le fermer manuellement maintenant, cela empêchera les utilisateurs de soumettre des candidatures.",
+    "description": "Second paragraph for the close pool dialog"
+  },
+  "NwpZNj": {
+    "defaultMessage": "<heavyPrimary>Publiée</heavyPrimary>",
+    "description": "Status name of a pool in PUBLISHED status"
+  },
+  "OIk63O": {
+    "defaultMessage": "Prolonger la date de clôture",
+    "description": "Button to extend the pool closing date in the extend pool closing date dialog"
+  },
+  "Om6ZoW": {
+    "defaultMessage": "Sélectionnez les compétences que vous recherchez chez les candidats. Toute compétence sélectionnée ici sera nécessaire aux candidats pour postuler. Pour accroître la diversité des candidatures, essayez de limiter au maximum le nombre de compétences sélectionnées",
+    "description": "Helper message for filling in the pool essential skills"
+  },
+  "OumQY2": {
+    "defaultMessage": "Générique",
+    "description": "Label for a pool advertisements generic title"
+  },
+  "P5xgmH": {
+    "defaultMessage": "Exigences",
+    "description": "Title for a pool advertisement requirements"
+  },
+  "P8NuMo": {
+    "defaultMessage": "Archive",
+    "description": "Text on a button to archive the pool"
+  },
+  "PCuQMN": {
+    "defaultMessage": "Saisissez les tâches clés pour cette affiche de poste...",
+    "description": "Placeholder message for  the English - Your Work textarea in the edit pool page."
+  },
+  "PH+6C9": {
+    "defaultMessage": "Emplacement précis (français)",
+    "description": "Label for a pool advertisements specific French Location"
+  },
+  "Pr8bok": {
+    "defaultMessage": "Retour aux bassins",
+    "description": "Link text for buttons to go back to the admin pools page"
+  },
+  "QodYZE": {
+    "defaultMessage": "Créer une nouvelle affiche de poste à partir de zéro",
+    "description": "Form blurb describing create pool form"
+  },
+  "Sjluby": {
+    "defaultMessage": "la clé est une chaîne qui identifie un bassin de manière unique. Elle est généré automatiquement en fonction du groupe et du titre du poste du bassin.",
+    "description": "Context displayed on the pool form key field."
+  },
+  "TLl20s": {
+    "defaultMessage": "Créer un nouveau bassin",
+    "description": "Label displayed on submit button for new pool form."
+  },
+  "UGaZR2": {
+    "defaultMessage": "Emplacement",
+    "description": "Location options in Edit Pool Form"
+  },
+  "UduzGA": {
+    "defaultMessage": "Enregistrer l’introduction",
+    "description": "Text on a button to save the pool introduction"
+  },
+  "UvKDXK": {
+    "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
+    "description": "Descriptive text about the list of users in the admin portal."
+  },
+  "VWz3+d": {
+    "defaultMessage": "Date de clôture",
+    "description": "Label for a pool advertisements expiry date"
+  },
+  "Vl09gv": {
+    "defaultMessage": "Actions sélectionnées :",
+    "description": "Label for action buttons in footer of admin table."
+  },
+  "VlI1K4": {
+    "defaultMessage": "Tous les utilisateurs",
+    "description": "Title for the admin users table"
+  },
+  "Vpk+nl": {
+    "defaultMessage": "Professionnel",
+    "description": "Title for pool advertisement occupational skill list"
+  },
+  "XprYVQ": {
+    "defaultMessage": "Rédiger l'introduction de cette offre d'emploi...",
+    "description": "Placeholder message for  the English - Your Impact textarea in the edit pool page."
+  },
+  "Xsxvql": {
+    "defaultMessage": "Saississez les tâches clés pour cette affiche de poste...",
+    "description": "Placeholder message for the French - Your Work textarea in the edit pool page."
+  },
+  "YH6bFU": {
+    "defaultMessage": "Colonnes du tableau",
+    "description": "Dialog title for the admin tables columns toggle."
+  },
+  "aGI59+": {
+    "defaultMessage": "Ces informations permettent aux candidats de savoir à quel type de travail et pour quel environnement ils postulent. Utilisez cet espace pour parler du domaine du gouvernement que ce processus visera à améliorer. Ainsi que la valeur que crée ce type de travail",
+    "description": "Helper message for filling in the pool introduction"
+  },
+  "bbIDc9": {
+    "defaultMessage": "Enregistrer le nom du bassin",
+    "description": "Text on a button to save the pool name"
+  },
+  "cEeW3m": {
+    "defaultMessage": "Emplacement (français) : {locationFr}",
+    "description": "Pool advertisement location requirement, French"
+  },
+  "cQE6qE": {
+    "defaultMessage": "Rédiger l'introduction de cette offre d'emploi...",
+    "description": "Placeholder message for the French - Your Impact textarea in the edit pool page."
+  },
+  "chFoB8": {
+    "defaultMessage": "Tableau de recherche",
+    "description": "Label for search field on admin tables."
+  },
+  "cy5aj8": {
+    "defaultMessage": "État",
+    "description": "Label for a pool advertisements status"
+  },
+  "dG1EJO": {
+    "defaultMessage": "Ce bassin est annoncé, mais n'accepte plus de candidatures.",
+    "description": "Status description of a pool in EXPIRED status"
+  },
+  "dJxNRU": {
+    "defaultMessage": "Annuler et revenir en arrière",
+    "description": "Label displayed on cancel button for new pool form."
+  },
+  "de2F/x": {
+    "defaultMessage": "Annonce du bassin",
+    "description": "Label for pool advertisement url field"
+  },
+  "dmGvCL": {
+    "defaultMessage": "Modifier l'annonce du bassin",
+    "description": "Link text for button to edit a specific pool"
+  },
+  "eGEusj": {
+    "defaultMessage": "Transférable",
+    "description": "Title for pool advertisement transferable skill list"
+  },
+  "ekGCv2": {
+    "defaultMessage": "Cela mettra votre bassin à la disposition des candidats pour qu'ils puissent soumettre des candidatures",
+    "description": "Second paragraph for publish pool dialog"
+  },
+  "fOl4Ez": {
+    "defaultMessage": "Mots-clés (français)",
+    "description": "Label displayed on the skill form keywords field in French."
+  },
+  "fPy7Mg": {
+    "defaultMessage": "Le français - Votre impact",
+    "description": "Label for the French - Your Impact textarea in the edit pool page."
+  },
+  "fTwl6k": {
+    "defaultMessage": "Titre précis (anglais)",
+    "description": "Label for a pool advertisements specific English title"
+  },
+  "fhkgW2": {
+    "defaultMessage": "Classification de la cible",
+    "description": "Label for a pool advertisements classification group and level"
+  },
+  "fivWMs": {
+    "defaultMessage": "Courriel",
+    "description": "Label for user table search dropdown (email)."
+  },
+  "fp7Nll": {
+    "defaultMessage": "ID du bassin #{id}",
+    "description": "Current pool breadcrumb text"
+  },
+  "fvJnoC": {
+    "defaultMessage": "Exigence linguistique : {languageRequirement}",
+    "description": "Pool advertisement language requirement"
+  },
+  "gLHr9Y": {
+    "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
+    "description": "Third paragraph for publish pool dialog"
+  },
+  "gN5gy5": {
+    "defaultMessage": "Groupe et niveau de départ",
+    "description": "Label displayed on the pool form classification field."
+  },
+  "grrIC7": {
+    "defaultMessage": "Vous êtes sur le point de supprimer ce bassin.",
+    "description": "First paragraph for delete pool dialog"
+  },
+  "gv1Hwu": {
+    "defaultMessage": "Commencez l'affiche d'emploi vide",
+    "description": "Form header to create new pool"
+  },
+  "iOgr3Z": {
+    "defaultMessage": "Supprimer",
+    "description": "Heading for the delete pool dialog"
+  },
+  "iQzlmB": {
+    "defaultMessage": "Nouveau bassin",
+    "description": "New pool breadcrumb text"
+  },
+  "j3m2Ca": {
+    "defaultMessage": "Emplacement précis (précisez ci-dessous)",
+    "description": "Label displayed for 'specific location' option"
+  },
+  "j4G/wv": {
+    "defaultMessage": "Enregistrer les compétences utiles",
+    "description": "Text on a button to save the pool asset skills"
+  },
+  "jPlK9k": {
+    "defaultMessage": "Classification",
+    "description": "Label displayed on the edit pool form classification field."
+  },
+  "jdoFE6": {
+    "defaultMessage": "Nom du bassin et classification de la cible",
+    "description": "Sub title for pool name and classification"
+  },
+  "jiUwae": {
+    "defaultMessage": "Prolonger la date",
+    "description": "Text on a button to extend the expiry date the pool"
+  },
+  "jphtnM": {
+    "defaultMessage": "Travail à distance facultatif (recommandé)",
+    "description": "Label displayed for 'remote optional' option"
+  },
+  "jttjmJ": {
+    "defaultMessage": "Sauvegarder la date de clôture",
+    "description": "Text on a button to save the pool closing date"
+  },
+  "k9nAP5": {
+    "defaultMessage": "Ces informations permettent aux candidats de connaître le type de travail qu'ils seront amenés à effectuer. Parlez des tâches et des attentes liées à ce travail.",
+    "description": "Helper message for filling in the pool work tasks"
+  },
+  "kHKFAH": {
+    "defaultMessage": "Ce bassin n'a pas encore été annoncé.",
+    "description": "Status description of a pool in DRAFT status"
+  },
+  "kTW+mP": {
+    "defaultMessage": "Compétences utiles",
+    "description": "Title optional skills for a pool advertisement"
+  },
+  "l0IDWf": {
+    "defaultMessage": "Résultats ({skillCount})",
+    "description": "A title for a skill list of results"
+  },
+  "lb7SoP": {
+    "defaultMessage": "Anglais - Votre travail",
+    "description": "Label for the English - Your Work textarea in the edit pool page."
+  },
+  "nMYWzb": {
+    "defaultMessage": "Exigence linguistique",
+    "description": "Label displayed on the edit pool form language requirement field."
+  },
+  "nr62lc": {
+    "defaultMessage": "Résultats ({skillCount})",
+    "description": "A title for a list of results"
+  },
+  "pD2NXF": {
+    "defaultMessage": "Compétences transférables",
+    "description": "Tab name for a list of transferable skills"
+  },
+  "pFYfVv": {
+    "defaultMessage": "Sélection de la rangée",
+    "description": "Label for the row-selection column in the tables column-selection modal."
+  },
+  "pLCv50": {
+    "defaultMessage": "Imprimer",
+    "description": "Text label for button to print items in a table."
+  },
+  "rkPb6M": {
+    "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
+    "description": "First paragraph for the close pool dialog"
+  },
+  "ry3jFR": {
+    "defaultMessage": "Votre impact",
+    "description": "Sub title for the pool introduction"
+  },
+  "t4WPUU": {
+    "defaultMessage": "Publier",
+    "description": "Text on a button to publish the pool"
+  },
+  "tiv5J7": {
+    "defaultMessage": "Enregistrer les tâches de travail",
+    "description": "Text on a button to save the pool work tasks"
+  },
+  "tv35lG": {
+    "defaultMessage": "Compétences essentielles sélectionnées ({skillCount})",
+    "description": "A title for an essential skill list"
+  },
+  "uBA5mM": {
+    "defaultMessage": "<heavyPrimary>Expirée</heavyPrimary>",
+    "description": "Status name of a pool in EXPIRED status"
+  },
+  "uDuEu0": {
+    "defaultMessage": "Publier le bassin",
+    "description": "Button to publish the pool in the publish pool dialog"
+  },
+  "v2mXcp": {
+    "defaultMessage": "Gérer les demandes",
+    "description": "Link text for button to manage requests of a specific pool"
+  },
+  "v6qX/r": {
+    "defaultMessage": "Retour au tableau de bord du bassin",
+    "description": "Text on a link to navigate back to the pool dashboard page"
+  },
+  "vZgTKh": {
+    "defaultMessage": "Toutes les compétences techniques",
+    "description": "The option label for 'no filter' on the list of occupational skills"
+  },
+  "w9FYqi": {
+    "defaultMessage": "Annonce du bassin",
+    "description": "Sub title for admin view pool page"
+  },
+  "wcdkTU": {
+    "defaultMessage": "Toutes les compétences transférables",
+    "description": "The option label for 'no filter' on the list of transferable skills"
+  },
+  "xGjm2A": {
+    "defaultMessage": "Sélectionnez les compétences qui amélioreront les chances de correspondre aux qualités recherchées par le les gestionnaire. Celles-ci peuvent généralement être appris en cours de travail et ne sont pas nécessaires pour être accepté dans le bassin",
+    "description": "Helper message for filling in the pool asset skills"
+  },
+  "xcBl1q": {
+    "defaultMessage": "Colonnes",
+    "description": "Label displayed on the Table Columns toggle button."
+  },
+  "xkxwfP": {
+    "defaultMessage": "État de l'annonce",
+    "description": "Sub title for the pool advertisement status"
+  },
+  "xlsfRu": {
+    "defaultMessage": "Sélectionnez les exigences requises pour cette annonce.",
+    "description": "Helper message for filling in the pool other requirements"
+  },
+  "xzkqPm": {
+    "defaultMessage": "Détails",
+    "description": "Sub title for admin view pool page"
+  },
+  "y3mLbv": {
+    "defaultMessage": "Votre travail (français)",
+    "description": "Title for French pool advertisement Work"
+  },
+  "y9tCKP": {
+    "defaultMessage": "Utilisez ces options pour publier ou clore votre annonce. Une annonce en direct permettra aux candidats de soumettre leur candidature pour ce bassin",
+    "description": "Helper message for changing the pool advertisement status"
+  },
+  "yYDzYE": {
+    "defaultMessage": "Fermez le bassin maintenant",
+    "description": "Button to close the pool in the close pool dialog"
+  },
+  "s4DN3G": {
+    "defaultMessage": "Résultats des compétences générales",
+    "description": "Accessibility label for a result set of skills, filtered to mainstream skills"
+  },
+  "wziEOM": {
+    "defaultMessage": "résultats des compétences, recherche par mot-clé",
+    "description": "Accessibility label for a result set of skills, searched by keyword"
+  },
+  "mxOuYK": {
+    "defaultMessage": "Télécharger CSV",
+    "description": "Text label for button to download a csv file of items in a table."
   }
 }

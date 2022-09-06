@@ -45,15 +45,15 @@ const Fieldset: React.FC<FieldsetProps> = ({
         border: "0 none",
         padding: "0",
       }}
-      data-h2-margin="b(bottom, xxs)"
+      data-h2-margin="base(0, 0, x.125, 0)"
     >
-      <legend data-h2-visibility="b(invisible)">{legend}</legend>
+      <legend data-h2-visibility="base(invisible)">{legend}</legend>
       <div
-        data-h2-display="b(flex)"
-        data-h2-flex-wrap="b(wrap)"
-        data-h2-align-items="b(center)"
-        data-h2-justify-content="b(flex-start)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-display="base(flex)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-align-items="base(center)"
+        data-h2-justify-content="base(flex-start)"
+        data-h2-margin="base(0, 0, x.125, 0)"
       >
         {
           /** If hideLegend is true, legend will not be shown (but still exists in the legend tag above). */
@@ -61,22 +61,22 @@ const Fieldset: React.FC<FieldsetProps> = ({
             <span
               aria-hidden="true"
               role="presentation"
-              data-h2-font-size="b(caption)"
-              data-h2-margin="b(right, xxs)"
+              data-h2-font-size="base(caption)"
+              data-h2-margin="base(0, x.125, 0, 0)"
             >
               {legend}
             </span>
           )
         }
-        <div data-h2-display="b(flex)" data-h2-align-items="(center)">
+        <div data-h2-display="base(flex)" data-h2-align-items="base(center)">
           {
             /** If hideOptional is true, only show text if required is true. */
             (required || !hideOptional) && (
               <span
-                data-h2-font-size="b(caption)"
+                data-h2-font-size="base(caption)"
                 {...(required
-                  ? { "data-h2-font-color": "b(red)" }
-                  : { "data-h2-font-color": "b(darkgray)" })}
+                  ? { "data-h2-color": "base(dark.dt-error)" }
+                  : { "data-h2-color": "base(dark.dt-gray)" })}
               >
                 (
                 {required
@@ -90,12 +90,12 @@ const Fieldset: React.FC<FieldsetProps> = ({
             <button
               type="button"
               className="input-label-context-button"
-              data-h2-margin="b(left, xxs)"
+              data-h2-margin="base(0, 0, 0, x.125)"
               onClick={() =>
                 setContextIsActive((currentState) => !currentState)
               }
             >
-              <span data-h2-visibility="b(invisible)">
+              <span data-h2-visibility="base(invisible)">
                 {intl.formatMessage({
                   defaultMessage: "Toggle context",
                   description:
@@ -105,12 +105,12 @@ const Fieldset: React.FC<FieldsetProps> = ({
               {contextIsActive ? (
                 <XCircleIcon
                   style={{ width: "calc(1rem/1.25)" }}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="base(dt-primary)"
                 />
               ) : (
                 <QuestionMarkCircleIcon
                   style={{ width: "calc(1rem/1.25)" }}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="base(dt-primary)"
                 />
               )}
             </button>
@@ -118,19 +118,26 @@ const Fieldset: React.FC<FieldsetProps> = ({
         </div>
       </div>
       <div
-        data-h2-border="b(darkgray, all, solid, s)"
-        data-h2-radius="b(s)"
-        data-h2-padding="b(right-left, s) b(top, xxs)"
+        data-h2-border="base(all, 1px, solid, dt-gray)"
+        data-h2-background-color="base(dt-white)"
+        data-h2-radius="base(input)"
+        data-h2-padding="base(x.5, x.75, x.75, x.75)"
       >
         {children}
       </div>
       {error && (
-        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputError isVisible={!!error} error={error} />
         </div>
       )}
       {contextIsActive && context && (
-        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputContext
             isVisible={contextIsActive && !!context}
             context={context}

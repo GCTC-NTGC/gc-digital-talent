@@ -6,27 +6,38 @@ import { getLocalizedName } from "@common/helpers/localize";
 import { Input, Select, Submit } from "@common/components/form";
 import { Option } from "@common/components/form/Select";
 import { FormProvider, useForm } from "react-hook-form";
+import { enumToOptions } from "@common/helpers/formUtils";
+import { getPoolStream } from "@common/constants/localizedConstants";
 import {
   AdvertisementStatus,
   Classification,
   LocalizedString,
   Maybe,
   PoolAdvertisement,
+  PoolStream,
   Scalars,
+  UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
+import { useEditPoolContext } from "./EditPoolContext";
 
 type FormValues = {
   classification?: Classification["id"];
+  stream?: PoolStream;
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
 };
+
+export type PoolNameSubmitData = Pick<
+  UpdatePoolAdvertisementInput,
+  "classifications" | "name"
+>;
 
 interface PoolNameSectionProps {
   poolAdvertisement: PoolAdvertisement;
   classifications: Array<Maybe<Classification>>;
   sectionMetadata: SectionMetadata;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: PoolNameSubmitData) => void;
 }
 
 const firstId = (
@@ -46,9 +57,11 @@ export const PoolNameSection = ({
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     classification: firstId(initialData.classifications), // behavior is undefined when there is more than one
+    stream: initialData.stream ?? undefined,
     specificTitleEn: initialData.name?.en ?? "",
     specificTitleFr: initialData.name?.fr ?? "",
   });
@@ -58,6 +71,21 @@ export const PoolNameSection = ({
   });
   const { handleSubmit } = methods;
 
+  const handleSave = (formValues: FormValues) => {
+    const data = {
+      classifications: {
+        sync: formValues.classification ? [formValues.classification] : [],
+      },
+      stream: formValues.stream ? formValues.stream : undefined,
+      name: {
+        en: formValues.specificTitleEn,
+        fr: formValues.specificTitleFr,
+      },
+    };
+
+    onSave(data);
+  };
+
   const classificationOptions: Option[] = classifications
     .filter(notEmpty)
     .map(({ id, group, level, name }) => ({
@@ -66,6 +94,13 @@ export const PoolNameSection = ({
     }))
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
 
+  const streamOptions: Option[] = enumToOptions(PoolStream).map(
+    ({ value }) => ({
+      value,
+      label: intl.formatMessage(getPoolStream(value)),
+    }),
+  );
+
   // disabled unless status is draft
   const formDisabled =
     poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
@@ -73,7 +108,7 @@ export const PoolNameSection = ({
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+        <h2 data-h2-margin="base(x3, 0, x1, 0)" data-h2-font-size="base(p)">
           {sectionMetadata.title}
         </h2>
       </TableOfContents.Heading>
@@ -86,8 +121,8 @@ export const PoolNameSection = ({
         })}
       </p>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSave)}>
-          <div data-h2-display="b(flex)">
+        <form onSubmit={handleSubmit(handleSave)}>
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <Select
                 id="classification"
@@ -102,10 +137,25 @@ export const PoolNameSection = ({
               />
             </Spacer>
             <Spacer style={{ flex: 1 }}>
-              {/* TODO: Streams/Job Titles */}
+              <Select
+                id="stream"
+                label={intl.formatMessage({
+                  defaultMessage: "Streams/Job Titles",
+                  description:
+                    "Label displayed on the edit pool form stream/job title field.",
+                })}
+                name="stream"
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a stream/job title...",
+                  description:
+                    "Placeholder displayed on the pool form classification field.",
+                })}
+                options={streamOptions}
+                disabled={formDisabled}
+              />
             </Spacer>
           </div>
-          <div data-h2-display="b(flex)">
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <Input
                 id="specificTitleEn"
@@ -143,6 +193,7 @@ export const PoolNameSection = ({
               })}
               color="cta"
               mode="solid"
+              isSubmitting={isSubmitting}
             />
           )}
         </form>

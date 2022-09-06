@@ -7,7 +7,7 @@ import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import { Link } from "@common/components";
 import PageHeader from "@common/components/PageHeader";
-import { HomeIcon, ViewGridIcon } from "@heroicons/react/outline";
+import { ViewGridIcon } from "@heroicons/react/outline";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import TableOfContents from "@common/components/TableOfContents";
 import { notEmpty } from "@common/helpers/util";
@@ -20,24 +20,46 @@ import {
 } from "../../../api/generated";
 import DashboardContentContainer from "../../DashboardContentContainer";
 import { useAdminRoutes } from "../../../adminRoutes";
-import PoolNameSection from "./PoolNameSection";
-import ClosingDateSection from "./ClosingDateSection";
-import YourImpactSection from "./YourImpactSection";
-import WorkTasksSection from "./WorkTasksSection";
-import OtherRequirementsSection from "./OtherRequirementsSection";
-import StatusSection from "./StatusSection";
-import EssentialSkillsSection from "./EssentialSkillsSection";
-import AssetSkillsSection from "./AssetSkillsSection";
+import PoolNameSection, { type PoolNameSubmitData } from "./PoolNameSection";
+import ClosingDateSection, {
+  type ClosingDateSubmitData,
+} from "./ClosingDateSection";
+import YourImpactSection, {
+  type YourImpactSubmitData,
+} from "./YourImpactSection";
+import WorkTasksSection, { type WorkTasksSubmitData } from "./WorkTasksSection";
+import OtherRequirementsSection, {
+  type OtherRequirementsSubmitData,
+} from "./OtherRequirementsSection";
+import StatusSection, { type ExtendSubmitData } from "./StatusSection";
+import EssentialSkillsSection, {
+  type EssentialSkillsSubmitData,
+} from "./EssentialSkillsSection";
+import AssetSkillsSection, {
+  type AssetSkillsSubmitData,
+} from "./AssetSkillsSection";
+import EditPoolContext from "./EditPoolContext";
+import useMutations from "./useMutations";
+
+export type PoolSubmitData =
+  | AssetSkillsSubmitData
+  | ClosingDateSubmitData
+  | EssentialSkillsSubmitData
+  | ExtendSubmitData
+  | OtherRequirementsSubmitData
+  | PoolNameSubmitData
+  | WorkTasksSubmitData
+  | YourImpactSubmitData;
 
 export interface EditPoolFormProps {
   poolAdvertisement: PoolAdvertisement;
   classifications: Array<Classification>;
   skills: Array<Skill>;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: PoolSubmitData) => void;
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: (submitData: unknown) => void;
+  onExtend: (submitData: ExtendSubmitData) => void;
   onArchive: () => void;
 }
 
@@ -49,7 +71,7 @@ export interface SectionMetadata {
 type SpacerProps = React.HTMLProps<HTMLSpanElement>;
 
 export const Spacer = ({ children, ...rest }: SpacerProps) => (
-  <span data-h2-margin="b(bottom-right, s)" {...rest}>
+  <span data-h2-margin="base(0, x.5, x.5, 0)" {...rest}>
     {children}
   </span>
 );
@@ -75,7 +97,6 @@ export const EditPoolForm = ({
         description: "Breadcrumb title for the home page link.",
       }),
       href: adminPaths.home(),
-      icon: <HomeIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage({
@@ -83,7 +104,6 @@ export const EditPoolForm = ({
         description: "Breadcrumb title for the pools page link.",
       }),
       href: adminPaths.poolTable(),
-      icon: <ViewGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage(
@@ -163,7 +183,7 @@ export const EditPoolForm = ({
   };
 
   return (
-    <DashboardContentContainer>
+    <div>
       <PageHeader icon={ViewGridIcon}>
         {intl.formatMessage({
           defaultMessage: "Edit pool advertisement",
@@ -171,101 +191,104 @@ export const EditPoolForm = ({
         })}
       </PageHeader>
       <Breadcrumbs links={links} />
-      <TableOfContents.Wrapper>
-        <TableOfContents.Navigation
-          data-h2-bg-color="b(lightgray)"
-          data-h2-radius="b(s)"
-        >
-          <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
-            {sectionMetadata.poolName.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.closingDate.id}>
-            {sectionMetadata.closingDate.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.yourImpact.id}>
-            {sectionMetadata.yourImpact.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.workTasks.id}>
-            {sectionMetadata.workTasks.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.essentialSkills.id}>
-            {sectionMetadata.essentialSkills.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.assetSkills.id}>
-            {sectionMetadata.assetSkills.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.otherRequirements.id}>
-            {sectionMetadata.otherRequirements.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
-            {sectionMetadata.status.title}
-          </TableOfContents.AnchorLink>
-        </TableOfContents.Navigation>
-
-        <TableOfContents.Content>
-          <PoolNameSection
-            poolAdvertisement={poolAdvertisement}
-            classifications={classifications}
-            sectionMetadata={sectionMetadata.poolName}
-            onSave={onSave}
-          />
-          <ClosingDateSection
-            poolAdvertisement={poolAdvertisement}
-            sectionMetadata={sectionMetadata.closingDate}
-            onSave={onSave}
-          />
-          <YourImpactSection
-            poolAdvertisement={poolAdvertisement}
-            sectionMetadata={sectionMetadata.yourImpact}
-            onSave={onSave}
-          />
-          <WorkTasksSection
-            poolAdvertisement={poolAdvertisement}
-            sectionMetadata={sectionMetadata.workTasks}
-            onSave={onSave}
-          />
-          <EssentialSkillsSection
-            poolAdvertisement={poolAdvertisement}
-            skills={skills}
-            sectionMetadata={sectionMetadata.essentialSkills}
-            onSave={onSave}
-          />
-          <AssetSkillsSection
-            poolAdvertisement={poolAdvertisement}
-            skills={skills}
-            sectionMetadata={sectionMetadata.assetSkills}
-            onSave={onSave}
-          />
-          <OtherRequirementsSection
-            poolAdvertisement={poolAdvertisement}
-            sectionMetadata={sectionMetadata.otherRequirements}
-            onSave={onSave}
-          />
-          <StatusSection
-            poolAdvertisement={poolAdvertisement}
-            sectionMetadata={sectionMetadata.status}
-            onPublish={onPublish}
-            onDelete={onDelete}
-            onClose={onClose}
-            onExtend={onExtend}
-            onArchive={onArchive}
-          />
-        </TableOfContents.Content>
-      </TableOfContents.Wrapper>
-
-      <Link
-        href={adminPaths.poolTable()}
-        color="secondary"
-        mode="solid"
-        type="button"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Back to pool dashboard",
-          description:
-            "Text on a link to navigate back to the pool dashboard page",
-        })}
-      </Link>
-    </DashboardContentContainer>
+      <div data-h2-container="base(left, large, 0)">
+        <TableOfContents.Wrapper>
+          <TableOfContents.Navigation
+            data-h2-background-color="base(dt-gray.light)"
+            data-h2-radius="base(s)"
+          >
+            <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
+              {sectionMetadata.poolName.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink id={sectionMetadata.closingDate.id}>
+              {sectionMetadata.closingDate.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink id={sectionMetadata.yourImpact.id}>
+              {sectionMetadata.yourImpact.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink id={sectionMetadata.workTasks.id}>
+              {sectionMetadata.workTasks.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink id={sectionMetadata.essentialSkills.id}>
+              {sectionMetadata.essentialSkills.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink id={sectionMetadata.assetSkills.id}>
+              {sectionMetadata.assetSkills.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink
+              id={sectionMetadata.otherRequirements.id}
+            >
+              {sectionMetadata.otherRequirements.title}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
+              {sectionMetadata.status.title}
+            </TableOfContents.AnchorLink>
+            <Link
+              href={adminPaths.poolTable()}
+              color="secondary"
+              mode="outline"
+              type="button"
+              data-h2-margin="base(x2, 0, 0, 0)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Back to pool dashboard",
+                description:
+                  "Text on a link to navigate back to the pool dashboard page",
+              })}
+            </Link>
+          </TableOfContents.Navigation>
+          <TableOfContents.Content>
+            <PoolNameSection
+              poolAdvertisement={poolAdvertisement}
+              classifications={classifications}
+              sectionMetadata={sectionMetadata.poolName}
+              onSave={onSave}
+            />
+            <ClosingDateSection
+              poolAdvertisement={poolAdvertisement}
+              sectionMetadata={sectionMetadata.closingDate}
+              onSave={onSave}
+            />
+            <YourImpactSection
+              poolAdvertisement={poolAdvertisement}
+              sectionMetadata={sectionMetadata.yourImpact}
+              onSave={onSave}
+            />
+            <WorkTasksSection
+              poolAdvertisement={poolAdvertisement}
+              sectionMetadata={sectionMetadata.workTasks}
+              onSave={onSave}
+            />
+            <EssentialSkillsSection
+              poolAdvertisement={poolAdvertisement}
+              skills={skills}
+              sectionMetadata={sectionMetadata.essentialSkills}
+              onSave={onSave}
+            />
+            <AssetSkillsSection
+              poolAdvertisement={poolAdvertisement}
+              skills={skills}
+              sectionMetadata={sectionMetadata.assetSkills}
+              onSave={onSave}
+            />
+            <OtherRequirementsSection
+              poolAdvertisement={poolAdvertisement}
+              sectionMetadata={sectionMetadata.otherRequirements}
+              onSave={onSave}
+            />
+            <StatusSection
+              poolAdvertisement={poolAdvertisement}
+              sectionMetadata={sectionMetadata.status}
+              onPublish={onPublish}
+              onDelete={onDelete}
+              onClose={onClose}
+              onExtend={onExtend}
+              onArchive={onArchive}
+            />
+          </TableOfContents.Content>
+        </TableOfContents.Wrapper>
+      </div>
+    </div>
   );
 };
 
@@ -278,25 +301,30 @@ export const EditPool = ({ poolId }: EditPoolProps) => {
   const [{ data, fetching, error }] = useGetEditPoolDataQuery({
     variables: { poolId },
   });
+
+  const { isFetching, mutations } = useMutations();
+
+  const ctx = React.useMemo(() => {
+    return { isSubmitting: isFetching };
+  }, [isFetching]);
+
   return (
     <Pending fetching={fetching} error={error}>
       <DashboardContentContainer>
         {data?.poolAdvertisement ? (
-          <EditPoolForm
-            poolAdvertisement={data.poolAdvertisement}
-            classifications={data.classifications.filter(notEmpty)}
-            skills={data.skills.filter(notEmpty)}
-            onSave={(submitData: unknown) =>
-              console.warn("onSave not yet implemented", submitData)
-            }
-            onPublish={() => console.warn("onPublish not yet implemented")}
-            onDelete={() => console.warn("onDelete not yet implemented")}
-            onClose={() => console.warn("onClose not yet implemented")}
-            onExtend={(submitData: unknown) =>
-              console.warn("onExtend not yet implemented", submitData)
-            }
-            onArchive={() => console.warn("onArchive not yet implemented")}
-          />
+          <EditPoolContext.Provider value={ctx}>
+            <EditPoolForm
+              poolAdvertisement={data.poolAdvertisement}
+              classifications={data.classifications.filter(notEmpty)}
+              skills={data.skills.filter(notEmpty)}
+              onSave={(saveData) => mutations.update(poolId, saveData)}
+              onPublish={() => mutations.publish(poolId)}
+              onDelete={() => mutations.delete(poolId)}
+              onClose={() => mutations.close(poolId)}
+              onExtend={(extendData) => mutations.update(poolId, extendData)}
+              onArchive={() => console.warn("onArchive not yet implemented")}
+            />
+          </EditPoolContext.Provider>
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}

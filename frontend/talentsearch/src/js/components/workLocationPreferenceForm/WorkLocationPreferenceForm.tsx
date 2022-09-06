@@ -1,24 +1,25 @@
 import { Checklist, TextArea } from "@common/components/form";
 import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
+import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
-import { commonMessages, errorMessages } from "@common/messages";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { errorMessages } from "@common/messages";
+import { BriefcaseIcon } from "@heroicons/react/solid";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import {
   CreateUserInput,
   CreateWorkLocationPreferenceMutation,
-  useCreateWorkLocationPreferenceMutation,
   WorkRegion,
   UpdateUserAsUserInput,
-  useWorkLocationPreferenceQuery,
-  WorkLocationPreferenceQuery,
+  User,
+  PoolCandidate,
 } from "../../api/generated";
+import applicantProfileRoutes from "../../applicantProfileRoutes";
+import directIntakeRoutes from "../../directIntakeRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import profileMessages from "../profile/profileMessages";
@@ -28,7 +29,8 @@ export type FormValues = Pick<
   "locationPreferences" | "locationExemptions"
 >;
 export interface WorkLocationPreferenceFormProps {
-  initialData: WorkLocationPreferenceQuery | undefined;
+  initialData: User;
+  application?: PoolCandidate;
   handleWorkLocationPreference: (
     id: string,
     data: UpdateUserAsUserInput,
@@ -37,15 +39,20 @@ export interface WorkLocationPreferenceFormProps {
 
 export const WorkLocationPreferenceForm: React.FC<
   WorkLocationPreferenceFormProps
-> = ({ initialData, handleWorkLocationPreference }) => {
+> = ({ initialData, application, handleWorkLocationPreference }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const profilePaths = applicantProfileRoutes(locale);
+  const directIntakePaths = directIntakeRoutes(locale);
+  const returnRoute =
+    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.poolApply(application.pool.id)
+      : profilePaths.home(initialData.id);
 
-  const dataToFormValues = (
-    data: WorkLocationPreferenceQuery | undefined,
-  ): FormValues => ({
+  const dataToFormValues = (data: User): FormValues => ({
     ...data,
-    locationPreferences: data?.me?.locationPreferences,
-    locationExemptions: data?.me?.locationExemptions,
+    locationPreferences: data.locationPreferences,
+    locationExemptions: data.locationExemptions,
   });
   const formValuesToSubmitData = (
     values: FormValues,
@@ -59,13 +66,42 @@ export const WorkLocationPreferenceForm: React.FC<
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    if (initialData?.me) {
-      await handleWorkLocationPreference(
-        initialData.me?.id,
-        formValuesToSubmitData(data),
-      );
-    }
+    await handleWorkLocationPreference(
+      initialData.id,
+      formValuesToSubmitData(data),
+    )
+      .then(() => {
+        navigate(returnRoute);
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
+      });
   };
+
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
 
   return (
     <ProfileFormWrapper
@@ -80,7 +116,11 @@ export const WorkLocationPreferenceForm: React.FC<
         description:
           "Title for Profile Form wrapper  in Work Location Preferences Form",
       })}
+      cancelLink={{
+        href: returnRoute,
+      }}
       crumbs={[
+        ...applicationBreadcrumbs,
         {
           title: intl.formatMessage({
             defaultMessage: "Work Location Preference",
@@ -89,12 +129,19 @@ export const WorkLocationPreferenceForm: React.FC<
           }),
         },
       ]}
+      prefixBreadcrumbs={!application}
     >
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-              <div data-h2-padding="b(right, l)" data-testid="workLocation">
+            <div
+              data-h2-flex-item="base(1of1)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
+              <div
+                data-h2-padding="base(0, x2, 0, 0)"
+                data-testid="workLocation"
+              >
                 <Checklist
                   idPrefix="work-location"
                   legend={intl.formatMessage({
@@ -113,8 +160,11 @@ export const WorkLocationPreferenceForm: React.FC<
                 />
               </div>
             </div>
-            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-              <div data-h2-padding="b(right, l)">
+            <div
+              data-h2-flex-item="base(1of1)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
+              <div data-h2-padding="base(0, x2, 0, 0)">
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
@@ -123,7 +173,7 @@ export const WorkLocationPreferenceForm: React.FC<
                       "Explanation text for Location exemptions field in work location preference form",
                   })}
                 </p>
-                <p data-h2-font-color="b([dark]gray)">
+                <p data-h2-color="base(dark.dt-gray)">
                   {intl.formatMessage({
                     defaultMessage:
                       "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
@@ -133,8 +183,11 @@ export const WorkLocationPreferenceForm: React.FC<
                 </p>
               </div>
             </div>
-            <div data-h2-flex-item="b(1of2)" data-h2-padding="b(top, m)">
-              <div data-h2-padding="b(right, l)">
+            <div
+              data-h2-flex-item="base(1of2)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
+              <div data-h2-padding="base(0, x2, 0, 0)">
                 <TextArea
                   id="location-exemptions"
                   label="Location exemptions"
@@ -151,52 +204,4 @@ export const WorkLocationPreferenceForm: React.FC<
   );
 };
 
-export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
-  const intl = useIntl();
-  const paths = useApplicantProfileRoutes();
-
-  const [{ data: userData, fetching, error }] =
-    useWorkLocationPreferenceQuery();
-  const preProfileStatus = userData?.me?.isProfileComplete;
-
-  const [, executeMutation] = useCreateWorkLocationPreferenceMutation();
-  const handleWorkLocationPreference = (
-    id: string,
-    data: UpdateUserAsUserInput,
-  ) =>
-    executeMutation({
-      id,
-      user: data,
-    }).then((result) => {
-      if (result.data?.updateUserAsUser) {
-        const currentProfileStatus =
-          result.data?.updateUserAsUser?.isProfileComplete;
-        const message = intl.formatMessage(profileMessages.profileCompleted);
-        if (!preProfileStatus && currentProfileStatus) {
-          toast.success(message);
-        }
-        navigate(paths.home());
-        toast.success(intl.formatMessage(profileMessages.userUpdated));
-
-        return result.data.updateUserAsUser;
-      }
-      return Promise.reject(result.error);
-    });
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {userData?.me ? (
-        <WorkLocationPreferenceForm
-          initialData={userData}
-          handleWorkLocationPreference={handleWorkLocationPreference}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-export default WorkLocationPreferenceApi;
+export default WorkLocationPreferenceForm;

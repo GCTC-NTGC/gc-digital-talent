@@ -46,7 +46,8 @@ mutation CreateUser($user: CreateUserInput!) {
     estimatedLanguageAbility
 
     isGovEmployee
-    interestedInLaterOrSecondment
+    hasPriorityEntitlement
+    priorityNumber
     department {
       id
       departmentNumber
@@ -116,7 +117,8 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     estimatedLanguageAbility
 
     isGovEmployee
-    interestedInLaterOrSecondment
+    hasPriorityEntitlement
+    priorityNumber
     department {
       id
       departmentNumber
@@ -186,7 +188,8 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
     estimatedLanguageAbility
 
     isGovEmployee
-    interestedInLaterOrSecondment
+    hasPriorityEntitlement
+    priorityNumber
     department {
       id
       departmentNumber

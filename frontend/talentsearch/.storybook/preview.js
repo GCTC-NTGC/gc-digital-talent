@@ -5,6 +5,7 @@ import TalentSearchFrench from "../src/js/lang/frCompiled.json";
 import CommonFrench from "../../common/src/lang";
 import defaultRichTextElements from "../../common/src/helpers/format";
 import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
+import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -18,6 +19,10 @@ export const parameters = {
       color: /(background|color)$/i,
       date: /Date$/,
     },
+  },
+  viewport: {
+    // for possible values: https://github.com/storybookjs/storybook/blob/master/addons/viewport/src/defaults.ts
+    viewports: INITIAL_VIEWPORTS
   },
 }
 
@@ -33,7 +38,7 @@ export const decorators = [
     MockGraphqlDecorator,
     withIntl,
     (Story) => (
-      <div data-h2-font-family="b(sans)">
+      <div data-h2-font-family="base(sans)">
         <Story />
       </div>
     ),

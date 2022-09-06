@@ -10,18 +10,25 @@ import {
   AdvertisementStatus,
   LocalizedString,
   PoolAdvertisement,
+  UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
+import { useEditPoolContext } from "./EditPoolContext";
 
 type FormValues = {
   yourImpactEn?: LocalizedString["en"];
   yourImpactFr?: LocalizedString["fr"];
 };
 
+export type YourImpactSubmitData = Pick<
+  UpdatePoolAdvertisementInput,
+  "yourImpact"
+>;
+
 interface YourImpactSectionProps {
   poolAdvertisement: PoolAdvertisement;
   sectionMetadata: SectionMetadata;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: YourImpactSubmitData) => void;
 }
 
 const TEXT_AREA_MAX_WORDS = 200;
@@ -33,6 +40,7 @@ export const YourImpactSection = ({
   onSave,
 }: YourImpactSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     yourImpactEn: initialData.yourImpact?.en ?? "",
@@ -52,6 +60,15 @@ export const YourImpactSection = ({
     name: "yourImpactFr",
   });
 
+  const handleSave = (formValues: FormValues) => {
+    onSave({
+      yourImpact: {
+        en: formValues.yourImpactEn,
+        fr: formValues.yourImpactFr,
+      },
+    });
+  };
+
   // disabled unless status is draft
   const formDisabled =
     poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
@@ -59,7 +76,7 @@ export const YourImpactSection = ({
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+        <h2 data-h2-margin="base(x3, 0, x1, 0)" data-h2-font-size="base(p)">
           {sectionMetadata.title}
         </h2>
       </TableOfContents.Heading>
@@ -71,8 +88,8 @@ export const YourImpactSection = ({
         })}
       </p>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSave)}>
-          <div data-h2-display="b(flex)">
+        <form onSubmit={handleSubmit(handleSave)}>
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <TextArea
                 id="yourImpactEn"
@@ -101,7 +118,7 @@ export const YourImpactSection = ({
                 disabled={formDisabled}
               >
                 {!formDisabled && (
-                  <div data-h2-align-self="b(flex-end)">
+                  <div data-h2-align-self="base(flex-end)">
                     <WordCounter
                       text={watchYourImpactEn ?? ""}
                       wordLimit={TEXT_AREA_MAX_WORDS}
@@ -138,7 +155,7 @@ export const YourImpactSection = ({
                 disabled={formDisabled}
               >
                 {!formDisabled && (
-                  <div data-h2-align-self="b(flex-end)">
+                  <div data-h2-align-self="base(flex-end)">
                     <WordCounter
                       text={watchYourImpactFr ?? ""}
                       wordLimit={TEXT_AREA_MAX_WORDS}
@@ -157,6 +174,7 @@ export const YourImpactSection = ({
               })}
               color="cta"
               mode="solid"
+              isSubmitting={isSubmitting}
             />
           )}
         </form>

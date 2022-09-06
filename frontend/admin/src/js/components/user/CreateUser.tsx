@@ -7,7 +7,7 @@ import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
-import { emptyToNull } from "@common/helpers/util";
+import { emptyToNull, emptyToUndefined } from "@common/helpers/util";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
@@ -30,8 +30,8 @@ const formValuesToData = (values: FormValues): CreateUserInput => ({
   // empty string isn't valid according to API validation regex pattern, but null is valid.
   telephone: emptyToNull(values.telephone),
   // empty string will violate uniqueness constraints
-  email: emptyToNull(values.email),
-  sub: emptyToNull(values.sub),
+  email: emptyToUndefined(values.email),
+  sub: emptyToUndefined(values.sub),
 });
 
 export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
@@ -66,14 +66,14 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   };
 
   return (
-    <section>
-      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+    <section data-h2-container="base(left, s)">
+      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create User",
           description: "Title displayed on the create a user form.",
         })}
       </h2>
-      <div data-h2-container="b(center, s)">
+      <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input

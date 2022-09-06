@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { ViewGridIcon, HomeIcon } from "@heroicons/react/outline";
+import { ViewGridIcon } from "@heroicons/react/outline";
 
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
@@ -45,7 +45,6 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
         description: "Breadcrumb title for the home page link.",
       }),
       href: adminPaths.home(),
-      icon: <HomeIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage({
@@ -53,7 +52,6 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
         description: "Breadcrumb title for the pools page link.",
       }),
       href: adminPaths.poolTable(),
-      icon: <ViewGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: poolName,
@@ -72,24 +70,24 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
   ];
 
   return (
-    <>
+    <div data-h2-container="base(center, full, x1) p-tablet(center, full, x2)">
       <PageHeader icon={ViewGridIcon}>{pageTitle}</PageHeader>
       <Breadcrumbs links={links} />
       <div
-        data-h2-align-items="b(center)"
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column) m(row)"
-        data-h2-margin="b(top-bottom, l)"
+        data-h2-align-items="base(center)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-margin="base(x2, 0)"
       >
         {pool.name && (
           <h2
-            data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
-            data-h2-font-weight="b(800)"
+            data-h2-margin="base(x.5, 0) p-tablet(0)"
+            data-h2-font-weight="base(700)"
           >
             {poolName}
           </h2>
         )}
-        <div data-h2-margin="m(left, auto)">
+        <div data-h2-margin="l-tablet(0, 0, 0, auto)">
           <Link
             mode="outline"
             color="primary"
@@ -116,7 +114,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
           <TabPanel>{tabs[1]}</TabPanel>
         </TabPanels>
       </Tabs>
-    </>
+    </div>
   );
 };
 

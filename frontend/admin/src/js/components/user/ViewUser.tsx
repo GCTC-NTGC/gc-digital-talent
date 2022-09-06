@@ -1,10 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import {
-  HomeIcon,
-  PrinterIcon,
-  UserCircleIcon,
-} from "@heroicons/react/outline";
+import { PrinterIcon, UserCircleIcon } from "@heroicons/react/outline";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
@@ -55,7 +51,6 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         description: "Breadcrumb title for the home link.",
       }),
       href: adminPaths.home(),
-      icon: <HomeIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage({
@@ -63,7 +58,6 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         description: "Breadcrumb title for the all users table link.",
       }),
       href: adminPaths.userTable(),
-      icon: <UserCircleIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: userName,
@@ -85,30 +79,26 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
     <>
       <PageHeader icon={UserCircleIcon}>{pageTitle}</PageHeader>
       <Breadcrumbs links={links} />
-      <div
-        data-h2-align-items="b(center)"
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column) m(row)"
-        data-h2-margin="b(top-bottom, l)"
-      >
-        {userName !== " " && (
-          <Heading
-            level="h2"
-            data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
-          >
-            {userName}
-          </Heading>
-        )}
-        <div data-h2-margin="m(left, auto)">
-          <UserProfilePrintButton userId={user.id}>
-            <span>
-              <PrinterIcon style={{ width: "1rem" }} />{" "}
-              {intl.formatMessage({
-                defaultMessage: "Print Profile",
-                description: "Text for button to print a user profile",
-              })}
-            </span>
-          </UserProfilePrintButton>
+      <div data-h2-margin="base(x2, 0, x1, 0)">
+        <div data-h2-flex-grid="base(center, 0, x1)">
+          <div data-h2-flex-item="base(1of1) p-tablet(fill)">
+            {userName !== " " && (
+              <Heading level="h2" data-h2-margin="base(x.5, 0) l-tablet(0)">
+                {userName}
+              </Heading>
+            )}
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(content)">
+            <UserProfilePrintButton userId={user.id}>
+              <span>
+                <PrinterIcon style={{ width: "1rem" }} />{" "}
+                {intl.formatMessage({
+                  defaultMessage: "Print Profile",
+                  description: "Text for button to print a user profile",
+                })}
+              </span>
+            </UserProfilePrintButton>
+          </div>
         </div>
       </div>
       <Tabs>

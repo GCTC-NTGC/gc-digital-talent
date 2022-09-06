@@ -58,6 +58,11 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   const error = get(errors, name)?.message;
   const required = !!rules.required;
 
+  let columnValue = { "data-h2-flex-item": "base(1of1)" };
+  if (columns === 2) {
+    columnValue = { "data-h2-flex-item": "base(1of1) p-tablet(1of2)" };
+  }
+
   return (
     <Fieldset
       legend={legend}
@@ -69,25 +74,24 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
       hideOptional={hideOptional}
       hideLegend={hideLegend}
     >
-      <div style={{ columns }}>
+      <div data-h2-flex-grid="base(flex-start, 0, x1, 0)">
         {items.map(({ value, label }) => {
           const id = `${idPrefix}-${value}`;
           return (
-            <div style={{ breakInside: "avoid" }} key={id}>
+            <div {...columnValue} key={id}>
               <InputWrapper
                 inputId={id}
                 label={label}
+                labelSize="copy"
                 // Don't show Required tag, error or context on individual input, as its handled by Fieldset.
                 required={false}
                 hideOptional
-                data-h2-flex-direction="b(row)"
-                data-h2-align-items="b(center)"
-                data-h2-padding="b(bottom, xxs)"
-                hideBottomMargin
+                data-h2-flex-direction="base(row)"
+                data-h2-margin="base(x.25, 0, 0, 0)"
               >
                 <input
-                  style={{ order: -1 }}
-                  data-h2-margin="b(right, xxs)"
+                  data-h2-order="base(-1)"
+                  data-h2-margin="base(3px, x.5, 0, 0)"
                   id={id}
                   {...register(name, rules)}
                   value={value}

@@ -1,17 +1,19 @@
-import { Button } from "@common/components";
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 import Pagination from "@common/components/Pagination";
 import Pending from "@common/components/Pending";
+import { Button } from "@common/components";
+import { DownloadCsv, type DownloadCsvProps } from "@common/components/Link";
 import { CombinedError } from "urql";
-import { Spacer } from "../Table/tableComponents";
 import { PaginatorInfo } from "../../api/generated";
 
+type Csv = Pick<DownloadCsvProps, "headers" | "data" | "fileName">;
 export interface TableFooterProps {
   paginatorInfo?: PaginatorInfo;
   onCurrentPageChange: (n: number) => void;
   onPageSizeChange: (n: number) => void;
   onPrint?: () => void;
+  csv?: Csv;
   hasSelection?: boolean;
   disableActions?: boolean;
   fetchingSelected?: boolean;
@@ -32,6 +34,7 @@ function TableFooter({
   onCurrentPageChange,
   onPageSizeChange,
   onPrint,
+  csv,
   disableActions,
   hasSelection = false,
   fetchingSelected = false,
@@ -41,65 +44,75 @@ function TableFooter({
 
   return (
     <div
-      data-h2-align-items="b(center)"
-      data-h2-display="b(flex)"
-      data-h2-bg-color="b(lightgray)"
-      data-h2-justify-content="b(space-between)"
-      data-h2-radius="b(none, none, s, s)"
-      data-h2-padding="b(all, s)"
+      data-h2-background-color="base(dt-secondary.light)"
+      data-h2-radius="base(0px, 0px, s, s)"
     >
-      {hasSelection && (
-        <div
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(center)"
-          data-h2-margin="b(right, s)"
-        >
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Selected actions:",
-              description: "Label for action buttons in footer of admin table.",
-            })}
-          </p>
-          <Pending fetching={fetchingSelected} error={selectionError} inline>
-            <Spacer>
-              <Button type="button" mode="solid" color="primary" disabled>
-                {intl.formatMessage({
-                  defaultMessage: "Download XML",
-                  description:
-                    "Text label for button to download an xml file of items in a table.",
-                })}
-              </Button>
-            </Spacer>
-            <Spacer>
-              <Button
-                type="button"
-                mode="solid"
-                color="primary"
-                disabled={disableActions}
-                onClick={onPrint}
+      <div data-h2-padding="base(x1, x1)">
+        <div data-h2-flex-grid="base(center, 0, x2, 0)">
+          <div data-h2-flex-item="base(content)">
+            {hasSelection && (
+              <div
+                data-h2-flex-grid="base(center, 0, x1, 0)"
+                data-h2-position="base(relative)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "Print",
-                  description:
-                    "Text label for button to print items in a table.",
-                })}
-              </Button>
-            </Spacer>
-          </Pending>
+                <Pending
+                  fetching={fetchingSelected}
+                  error={selectionError}
+                  inline
+                >
+                  {csv && (
+                    <div data-h2-flex-item="base(content)">
+                      <DownloadCsv
+                        type="button"
+                        mode="inline"
+                        color="white"
+                        disabled={disableActions}
+                        {...csv}
+                      >
+                        {intl.formatMessage({
+                          defaultMessage: "Download CSV",
+                          description:
+                            "Text label for button to download a csv file of items in a table.",
+                        })}
+                      </DownloadCsv>
+                    </div>
+                  )}
+                  <div data-h2-flex-item="base(content)">
+                    <Button
+                      type="button"
+                      mode="inline"
+                      color="white"
+                      disabled={disableActions}
+                      onClick={onPrint}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Print",
+                        description:
+                          "Text label for button to print items in a table.",
+                      })}
+                    </Button>
+                  </div>
+                </Pending>
+              </div>
+            )}
+          </div>
+          <div data-h2-flex-item="base(fill)">
+            <Pagination
+              currentPage={paginatorInfo.currentPage}
+              onCurrentPageChange={onCurrentPageChange}
+              onPageSizeChange={onPageSizeChange}
+              pageSize={paginatorInfo.perPage}
+              pageSizes={[10, 20, 30, 40, 50]}
+              totalCount={paginatorInfo.total}
+              ariaLabel={intl.formatMessage({
+                defaultMessage: "Table results",
+              })}
+              color="white"
+              mode="outline"
+            />
+          </div>
         </div>
-      )}
-      <Pagination
-        currentPage={paginatorInfo.currentPage}
-        onCurrentPageChange={onCurrentPageChange}
-        onPageSizeChange={onPageSizeChange}
-        pageSize={paginatorInfo.perPage}
-        pageSizes={[10, 20, 30, 40, 50]}
-        totalCount={paginatorInfo.total}
-        ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
-        color="black"
-        mode="outline"
-        data-h2-margin="b(all, none)"
-      />
+      </div>
     </div>
   );
 }

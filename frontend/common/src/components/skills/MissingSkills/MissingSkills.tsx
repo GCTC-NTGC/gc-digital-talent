@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { getLocale } from "../../../helpers/localize";
-import type { Skill } from "../../../api/generated";
+import type { Maybe, Skill } from "../../../api/generated";
 import Chip, { Chips } from "../../Chip";
 
 export interface MissingSkillsProps {
@@ -27,14 +27,23 @@ const MissingSkills = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
+  const byLocalizedName = (a: Skill, b: Skill) => {
+    const aName: Maybe<string> = a.name[locale];
+    const bName: Maybe<string> = b.name[locale];
+    if (aName && bName) {
+      return aName.localeCompare(bName, locale);
+    }
+    return 0;
+  };
+
   const missingRequiredSkills = getMissingSkills(
     requiredSkills || [],
     addedSkills,
-  );
+  ).sort(byLocalizedName);
   const missingOptionalSkills = getMissingSkills(
     optionalSkills || [],
     addedSkills,
-  );
+  ).sort(byLocalizedName);
 
   return (
     <>

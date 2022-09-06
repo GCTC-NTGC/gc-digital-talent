@@ -4,10 +4,9 @@ import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
 import { BasicForm, TextArea } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
-import { navigate } from "@common/helpers/router";
+import { navigate, useQueryParams } from "@common/helpers/router";
 import { Button } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
-
 import { TrashIcon } from "@heroicons/react/solid";
 
 import { removeFromSessionStorage } from "@common/helpers/storageUtils";
@@ -15,6 +14,7 @@ import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
+import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
@@ -25,10 +25,11 @@ import PersonalExperienceForm from "../personalExperienceForm/PersonalExperience
 import WorkExperienceForm from "../workExperienceForm/WorkExperienceForm";
 
 import ExperienceSkills from "./ExperienceSkills";
-import type { Skill } from "../../api/generated";
 import {
+  PoolAdvertisement,
+  Skill,
+  useGetApplicationQuery,
   useGetMyExperiencesQuery,
-  useGetMeQuery,
   useGetSkillsQuery,
 } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
@@ -48,10 +49,14 @@ import {
   useExperienceMutations,
   useDeleteExperienceMutation,
 } from "./mutations";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
+import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
 export interface ExperienceFormProps {
+  userId: string;
   experienceType: ExperienceType;
   experience?: ExperienceQueryData;
+  poolAdvertisement?: PoolAdvertisement;
   skills: Skill[];
   onUpdateExperience: (values: ExperienceDetailsSubmissionData) => void;
   deleteExperience: () => void;
@@ -60,6 +65,7 @@ export interface ExperienceFormProps {
 }
 
 export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
+  userId,
   experience,
   experienceType,
   onUpdateExperience,
@@ -67,15 +73,21 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   skills,
   cacheKey,
   edit,
+  poolAdvertisement,
 }) => {
   const [isDialogOpen, setDialogOpen] = React.useState<boolean>(false);
   const cancelDeleteRef = React.useRef(null);
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
+  const directIntakePaths = useDirectIntakeRoutes();
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
     : undefined;
+  const { application } = useQueryParams();
+  const returnPath = `${paths.skillsAndExperiences(userId)}${
+    application ? `?application=${application}` : ``
+  }`;
 
   const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
     formValues,
@@ -83,6 +95,49 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
     const data = formValuesToSubmitData(experienceType, formValues);
     await onUpdateExperience(data);
   };
+
+  let crumbs = [
+    {
+      title: intl.formatMessage({
+        defaultMessage: "Experience and Skills",
+        description: "Display text for My experience and skills Form Page Link",
+      }),
+      href: returnPath,
+    },
+    {
+      title: experience
+        ? intl.formatMessage({
+            defaultMessage: "Edit Experience",
+            description: "Display text for edit experience form in breadcrumbs",
+          })
+        : intl.formatMessage({
+            defaultMessage: "Add Experience",
+            description: "Display text for add experience form in breadcrumbs",
+          }),
+    },
+  ] as BreadcrumbsProps["links"];
+
+  if (poolAdvertisement) {
+    const advertisementTitle = getFullPoolAdvertisementTitle(
+      intl,
+      poolAdvertisement,
+    );
+
+    crumbs = [
+      {
+        title: intl.formatMessage({
+          defaultMessage: "My Applications",
+          description: "Link text for breadcrumb to user applications page.",
+        }),
+        href: directIntakePaths.applications(userId),
+      },
+      {
+        title: advertisementTitle,
+        href: "#",
+      },
+      ...crumbs,
+    ];
+  }
 
   return (
     <ProfileFormWrapper
@@ -95,30 +150,11 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           "Here is where you can add experience and skills to your profile. This could be anything from helping community members troubleshoot their computers to full-time employment at an IT organization.",
         description: "Description for the experience profile form",
       })}
-      crumbs={[
-        {
-          title: intl.formatMessage({
-            defaultMessage: "Experience and Skills",
-            description:
-              "Display text for My experience and skills Form Page Link",
-          }),
-          href: paths.skillsAndExperiences(),
-        },
-        {
-          title: experience
-            ? intl.formatMessage({
-                defaultMessage: "Edit Experience",
-                description:
-                  "Display text for edit experience form in breadcrumbs",
-              })
-            : intl.formatMessage({
-                defaultMessage: "Add Experience",
-                description:
-                  "Display text for add experience form in breadcrumbs",
-              }),
-        },
-      ]}
-      cancelLink={paths.skillsAndExperiences()}
+      prefixBreadcrumbs={!poolAdvertisement}
+      crumbs={crumbs}
+      cancelLink={{
+        href: returnPath,
+      }}
     >
       <BasicForm
         onSubmit={handleSubmit}
@@ -133,7 +169,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         {experienceType === "personal" && <PersonalExperienceForm />}
         {experienceType === "work" && <WorkExperienceForm />}
         <ExperienceSkills skills={skills} />
-        <h2 data-h2-font-size="b(h3)">
+        <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "4. Additional information for this experience",
             description: "Title for addition information on Experience form",
@@ -162,7 +198,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
             type="button"
             mode="outline"
             color="secondary"
-            data-h2-margin="b(top, l)"
+            data-h2-margin="base(x2, 0, 0, 0)"
           >
             <span>
               <TrashIcon style={{ width: "0.9rem" }} />{" "}
@@ -175,7 +211,9 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         )}
         <ProfileFormFooter
           mode="bothButtons"
-          link={paths.skillsAndExperiences()}
+          cancelLink={{
+            href: returnPath,
+          }}
         />
       </BasicForm>
       <AlertDialog
@@ -195,7 +233,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
               "Question displayed when a user attempts to delete an experience from their profile",
           })}
         </AlertDialog.Description>
-        <AlertDialog.Actions>
+        <AlertDialog.Footer>
           <Button
             type="button"
             mode="outline"
@@ -208,7 +246,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
               description: "Cancel confirmation",
             })}
           </Button>
-          <span data-h2-margin="b(left, xxs)">
+          <span data-h2-margin="base(0, 0, 0, x.125)">
             <Button
               type="submit"
               mode="solid"
@@ -221,13 +259,14 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
               })}
             </Button>
           </span>
-        </AlertDialog.Actions>
+        </AlertDialog.Footer>
       </AlertDialog>
     </ProfileFormWrapper>
   );
 };
 
 export interface ExperienceFormContainerProps {
+  userId: string;
   experienceType: ExperienceType;
   experienceId?: string;
   edit?: boolean;
@@ -235,18 +274,29 @@ export interface ExperienceFormContainerProps {
 
 const ExperienceFormContainer: React.FunctionComponent<
   ExperienceFormContainerProps
-> = ({ experienceType, experienceId, edit }) => {
+> = ({ userId, experienceType, experienceId, edit }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
-
-  const [meResults] = useGetMeQuery();
-  const { data: meData, fetching: fetchingMe, error: meError } = meResults;
+  const { application } = useQueryParams();
+  const returnPath = `${paths.skillsAndExperiences(userId)}${
+    application ? `?application=${application}` : ``
+  }`;
+  const [
+    {
+      data: applicationData,
+      fetching: fetchingApplication,
+      error: applicationError,
+    },
+  ] = useGetApplicationQuery({
+    variables: { id: application || "" },
+    pause: !application,
+  });
 
   const handleSuccess = () => {
     removeFromSessionStorage(cacheKey); // clear the cache
-    navigate(paths.skillsAndExperiences());
+    navigate(returnPath);
     toast.success(
       edit
         ? intl.formatMessage({
@@ -312,11 +362,9 @@ const ExperienceFormContainer: React.FunctionComponent<
   );
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
-    if (meData?.me) {
-      const args = getMutationArgs(experienceId || meData.me.id, values);
-      const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
-      res.then(handleMutationResponse).catch(handleError);
-    }
+    const args = getMutationArgs(experienceId || userId, values);
+    const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
+    res.then(handleMutationResponse).catch(handleError);
   };
 
   // delete functionality //
@@ -325,24 +373,21 @@ const ExperienceFormContainer: React.FunctionComponent<
   const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
 
   const handleDeleteExperience = () => {
-    if (meData?.me) {
-      executeDeletionMutation
-        .executeDeletionMutation({
-          id: experienceIdExact,
-        })
-        .then((result) => {
-          navigate(paths.skillsAndExperiences());
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Experience Deleted",
-              description:
-                "Message displayed to user after experience deleted.",
-            }),
-          );
-          return result.data;
-        })
-        .catch(handleError);
-    }
+    executeDeletionMutation
+      .executeDeletionMutation({
+        id: experienceIdExact,
+      })
+      .then((result) => {
+        navigate(returnPath);
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Experience Deleted",
+            description: "Message displayed to user after experience deleted.",
+          }),
+        );
+        return result.data;
+      })
+      .catch(handleError);
   };
 
   let found = true;
@@ -352,11 +397,15 @@ const ExperienceFormContainer: React.FunctionComponent<
 
   return (
     <Pending
-      fetching={fetchingSkills || fetchingMe || fetchingExperience}
-      error={skillError || meError}
+      fetching={fetchingSkills || fetchingExperience || fetchingApplication}
+      error={skillError || applicationError}
     >
-      {skillsData && meData && found ? (
+      {skillsData && found ? (
         <ExperienceForm
+          userId={userId}
+          poolAdvertisement={
+            applicationData?.poolCandidate?.poolAdvertisement || undefined
+          }
           experience={experience as ExperienceQueryData}
           experienceType={experienceType}
           skills={skillsData.skills as Skill[]}

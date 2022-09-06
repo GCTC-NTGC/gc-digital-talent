@@ -1,28 +1,29 @@
 import React, { ReactNode } from "react";
 import { useIntl } from "react-intl";
-import { commonMessages, errorMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { Checklist, RadioGroup, Select } from "@common/components/form";
-import { FormProvider, useForm } from "react-hook-form";
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { compact, omit } from "lodash";
 import { getLocale } from "@common/helpers/localize";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
+import { BriefcaseIcon } from "@heroicons/react/solid";
 import {
   BilingualEvaluation,
   EstimatedLanguageAbility,
   EvaluatedLanguageAbility,
   GetLanguageInformationQuery,
+  PoolCandidate,
   UpdateUserAsUserInput,
-  useGetLanguageInformationQuery,
+  UpdateUserAsUserMutation,
   User,
-  useUpdateLanguageInformationMutation,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
+import directIntakeRoutes from "../../directIntakeRoutes";
 import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<
@@ -88,12 +89,24 @@ const dataToFormValues = (
   };
 };
 
+export type LanguageInformationUpdateHandler = (
+  id: string,
+  data: UpdateUserAsUserInput,
+) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
+
 export const LanguageInformationForm: React.FunctionComponent<{
-  initialData: GetLanguageInformationQuery["me"];
-  submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
-}> = ({ initialData, submitHandler }) => {
+  initialData: User;
+  application?: PoolCandidate;
+  submitHandler: LanguageInformationUpdateHandler;
+}> = ({ initialData, application, submitHandler }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const profilePaths = applicantProfileRoutes(locale);
+  const directIntakePaths = directIntakeRoutes(locale);
+  const returnRoute =
+    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.poolApply(application.pool.id)
+      : profilePaths.home(initialData.id);
 
   const defaultValues = dataToFormValues(initialData);
 
@@ -101,8 +114,16 @@ export const LanguageInformationForm: React.FunctionComponent<{
     defaultValues,
   });
 
-  const onSubmit = (values: FormValues) =>
-    submitHandler(formValuesToSubmitData(values));
+  const onSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    await submitHandler(initialData.id, formValuesToSubmitData(formValues))
+      .then(() => {
+        navigate(returnRoute);
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
+      });
+  };
 
   // hooks to watch, needed for conditional rendering
   const [consideredLanguages, bilingualEvaluation] = methods.watch([
@@ -256,6 +277,30 @@ export const LanguageInformationForm: React.FunctionComponent<{
       },
     ];
 
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -271,7 +316,11 @@ export const LanguageInformationForm: React.FunctionComponent<{
             description:
               "Title for Profile Form wrapper in Language Information Form",
           })}
+          cancelLink={{
+            href: returnRoute,
+          }}
           crumbs={[
+            ...applicationBreadcrumbs,
             {
               title: intl.formatMessage({
                 defaultMessage: "Language Information",
@@ -280,11 +329,12 @@ export const LanguageInformationForm: React.FunctionComponent<{
               }),
             },
           ]}
+          prefixBreadcrumbs={!application}
         >
-          <div data-h2-padding="b(bottom, l)">
+          <div data-h2-padding="base(0, 0, x2, 0)">
             <div
-              data-h2-width="b(100) xs(75) m(50)"
-              data-h2-padding="b(top-bottom, s)"
+              data-h2-width="base(100%) p-tablet(75%) l-tablet(50%)"
+              data-h2-padding="base(x.5, 0)"
             >
               <Checklist
                 idPrefix="considered-position-languages"
@@ -303,7 +353,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
             </div>
             {consideredLanguages.includes("lookingForBilingual") && (
               <>
-                <div data-h2-padding="b(top, s)">
+                <div data-h2-padding="base(x.5, 0, 0, 0)">
                   <RadioGroup
                     idPrefix="bilingualEvaluation"
                     legend={intl.formatMessage({
@@ -319,7 +369,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                   />
                 </div>
                 {bilingualEvaluation !== BilingualEvaluation.NotCompleted ? (
-                  <div data-h2-padding="b(top, s)">
+                  <div data-h2-padding="base(x.5, 0, 0, 0)">
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
@@ -328,8 +378,8 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           "Text requesting language levels given from bilingual evaluation in language information form",
                       })}
                     </p>
-                    <div data-h2-flex-grid="b(normal, contained, flush, m)">
-                      <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
+                    <div data-h2-flex-grid="base(normal, 0, x1)">
+                      <div data-h2-flex-item="base(1of1) p-tablet(1of3) desktop(1of4)">
                         <Select
                           id="comprehensionLevel"
                           name="comprehensionLevel"
@@ -351,7 +401,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           options={EvaluatedAbilityItems}
                         />
                       </div>
-                      <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
+                      <div data-h2-flex-item="base(1of1) p-tablet(1of3) desktop(1of4)">
                         <Select
                           id="writtenLevel"
                           name="writtenLevel"
@@ -373,7 +423,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           options={EvaluatedAbilityItems}
                         />
                       </div>
-                      <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
+                      <div data-h2-flex-item="base(1of1) p-tablet(1of3) desktop(1of4)">
                         <Select
                           id="verbalLevel"
                           name="verbalLevel"
@@ -398,8 +448,8 @@ export const LanguageInformationForm: React.FunctionComponent<{
                     </div>
                   </div>
                 ) : (
-                  <div data-h2-padding="b(top, s)">
-                    <p data-h2-padding="b(bottom, s)">
+                  <div data-h2-padding="base(x.5, 0, 0, 0)">
+                    <p data-h2-padding="base(0, 0, x.5, 0)">
                       {intl.formatMessage(
                         {
                           defaultMessage:
@@ -434,67 +484,4 @@ export const LanguageInformationForm: React.FunctionComponent<{
   );
 };
 
-export const LanguageInformationFormContainer: React.FunctionComponent = () => {
-  const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
-
-  const [lookUpResult] = useGetLanguageInformationQuery();
-  const { data: userData, fetching, error } = lookUpResult;
-  const userId = userData?.me?.id;
-  const preProfileStatus = userData?.me?.isProfileComplete;
-
-  const [, executeMutation] = useUpdateLanguageInformationMutation();
-
-  const handleUpdateUser = (id: string, data: UpdateUserAsUserInput) =>
-    executeMutation({ id, user: data }).then((result) => {
-      if (result.data?.updateUserAsUser) {
-        return result.data.updateUserAsUser;
-      }
-      return Promise.reject(result.error);
-    });
-
-  const onSubmit = async (data: UpdateUserAsUserInput) => {
-    if (userId === undefined || userId === "") {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error: user not found",
-          description: "Message displayed to user if user is not found",
-        }),
-      );
-      return;
-    }
-    await handleUpdateUser(userId, data)
-      .then((res) => {
-        if (res.isProfileComplete) {
-          const currentProfileStatus = res.isProfileComplete;
-          const message = intl.formatMessage(profileMessages.profileCompleted);
-          if (!preProfileStatus && currentProfileStatus) {
-            toast.success(message);
-          }
-        }
-        navigate(paths.home());
-        toast.success(intl.formatMessage(profileMessages.userUpdated));
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(profileMessages.updatingFailed));
-      });
-  };
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {userData && userId ? (
-        <LanguageInformationForm
-          initialData={userData.me}
-          submitHandler={onSubmit}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-export default LanguageInformationFormContainer;
+export default LanguageInformationForm;

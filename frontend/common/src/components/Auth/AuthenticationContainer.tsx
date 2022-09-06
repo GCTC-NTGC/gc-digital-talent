@@ -10,7 +10,7 @@ const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
 const ID_TOKEN = "id_token";
 
-interface AuthenticationState {
+export interface AuthenticationState {
   loggedIn: boolean;
   accessToken: string | null;
   refreshToken: string | null;
@@ -40,9 +40,8 @@ export const AuthenticationContext =
   React.createContext<AuthenticationState>(defaultAuthState);
 
 const logoutAndRefreshPage = (
-  homePath: string,
-  logoutUri: string | undefined,
-  logoutRedirectUri: string | undefined,
+  logoutUri: string,
+  logoutRedirectUri: string,
 ): void => {
   // capture tokens before they are removed
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
@@ -53,22 +52,21 @@ const logoutAndRefreshPage = (
   localStorage.removeItem(REFRESH_TOKEN);
   localStorage.removeItem(ID_TOKEN);
 
-  // check if we have everything we need to do an auth session end
-  let authLogOutUri = null;
-  if (accessToken && logoutUri && logoutRedirectUri) {
-    let tokenIsKnownToBeActive = false;
+  let authSessionIsCurrentlyActive = false; // assume false unless we can prove it below
+
+  if (accessToken) {
     const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
     if (decodedAccessToken.exp)
-      tokenIsKnownToBeActive = Date.now() < decodedAccessToken.exp * 1000; // JWT expiry date in seconds, not milliseconds
-    if (tokenIsKnownToBeActive) {
-      // we probably have an active session with the auth provider so we need to sign out of it
-      authLogOutUri = `${logoutUri}?post_logout_redirect_uri=${logoutRedirectUri}`;
-      if (idToken) authLogOutUri += `&id_token_hint=${idToken}`;
-    }
+      authSessionIsCurrentlyActive = Date.now() < decodedAccessToken.exp * 1000; // JWT expiry date in seconds, not milliseconds
   }
 
-  // Navigate to auth log out to end the session or at least a hard refresh to home (to restart react app)
-  window.location.href = authLogOutUri ?? homePath;
+  if (idToken && authSessionIsCurrentlyActive) {
+    // SiC logout will error out unless there is actually an active session
+    window.location.href = `${logoutUri}?post_logout_redirect_uri=${logoutRedirectUri}&id_token_hint=${idToken}`;
+  } else {
+    // at least a hard refresh to URI to restart react app
+    window.location.href = logoutRedirectUri;
+  }
 };
 
 const refreshTokenSet = async (
@@ -124,15 +122,13 @@ function getTokensFromLocation(
 }
 
 interface AuthenticationContainerProps {
-  homePath: string;
   tokenRefreshPath: string;
-  logoutUri: string | undefined;
-  logoutRedirectUri: string | undefined;
+  logoutUri: string;
+  logoutRedirectUri: string;
 }
 
 const AuthenticationContainer: React.FC<AuthenticationContainerProps> = ({
   tokenRefreshPath,
-  homePath,
   logoutUri,
   logoutRedirectUri,
   children,
@@ -174,7 +170,7 @@ const AuthenticationContainer: React.FC<AuthenticationContainerProps> = ({
       refreshToken: tokens.refreshToken,
       loggedIn: !!tokens.accessToken,
       logout: tokens.accessToken
-        ? () => logoutAndRefreshPage(homePath, logoutUri, logoutRedirectUri)
+        ? () => logoutAndRefreshPage(logoutUri, logoutRedirectUri)
         : () => {
             /* If not logged in, logout does nothing. */
           },
@@ -187,7 +183,6 @@ const AuthenticationContainer: React.FC<AuthenticationContainerProps> = ({
     tokens.accessToken,
     tokens.idToken,
     tokens.refreshToken,
-    homePath,
     logoutUri,
     logoutRedirectUri,
     tokenRefreshPath,

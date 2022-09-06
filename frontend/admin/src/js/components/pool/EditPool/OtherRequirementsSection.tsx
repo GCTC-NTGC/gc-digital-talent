@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { Input, RadioGroup, Select, Submit } from "@common/components/form";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";
-import isEmpty from "lodash/isEmpty";
 import {
   getLanguageRequirement,
   getSecurityClearance,
@@ -15,8 +14,10 @@ import {
   PoolAdvertisement,
   PoolAdvertisementLanguage,
   SecurityStatus,
+  UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
+import { useEditPoolContext } from "./EditPoolContext";
 
 enum LocationOption {
   RemoteOptional = "REMOTE_OPTIONAL",
@@ -31,10 +32,18 @@ type FormValues = {
   specificLocationFr?: LocalizedString["fr"];
 };
 
+export type OtherRequirementsSubmitData = Pick<
+  UpdatePoolAdvertisementInput,
+  | "advertisementLanguage"
+  | "advertisementLocation"
+  | "securityClearance"
+  | "isRemote"
+>;
+
 interface OtherRequirementsSectionProps {
   poolAdvertisement: PoolAdvertisement;
   sectionMetadata: SectionMetadata;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: OtherRequirementsSubmitData) => void;
 }
 
 export const OtherRequirementsSection = ({
@@ -43,15 +52,14 @@ export const OtherRequirementsSection = ({
   onSave,
 }: OtherRequirementsSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     languageRequirement: initialData.advertisementLanguage,
     securityRequirement: initialData.securityClearance,
-    locationOption:
-      isEmpty(initialData.advertisementLocation?.en) &&
-      isEmpty(initialData.advertisementLocation?.fr)
-        ? LocationOption.RemoteOptional
-        : LocationOption.SpecificLocation,
+    locationOption: initialData.isRemote
+      ? LocationOption.RemoteOptional
+      : LocationOption.SpecificLocation,
     specificLocationEn: initialData.advertisementLocation?.en,
     specificLocationFr: initialData.advertisementLocation?.fr,
   });
@@ -81,14 +89,29 @@ export const OtherRequirementsSection = ({
     return formValues;
   };
 
+  const handleSave = (formValues: FormValues) => {
+    onSave({
+      advertisementLanguage: formValues.languageRequirement,
+      advertisementLocation:
+        formValues.locationOption !== LocationOption.RemoteOptional
+          ? {
+              en: formValues.specificLocationEn,
+              fr: formValues.specificLocationFr,
+            }
+          : null,
+      isRemote: formValues.locationOption === LocationOption.RemoteOptional,
+      securityClearance: formValues.securityRequirement,
+    });
+  };
+
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+        <h2 data-h2-margin="base(x3, 0, x1, 0)" data-h2-font-size="base(p)">
           {sectionMetadata.title}
         </h2>
       </TableOfContents.Heading>
-      <p>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "Select the requirements needed for this advertisement.",
@@ -99,10 +122,10 @@ export const OtherRequirementsSection = ({
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit((formValues) =>
-            onSave(formValuesToSubmitData(formValues)),
+            handleSave(formValuesToSubmitData(formValues)),
           )}
         >
-          <div data-h2-display="b(flex)">
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <Select
                 id="languageRequirement"
@@ -127,7 +150,7 @@ export const OtherRequirementsSection = ({
             </Spacer>
             <Spacer style={{ flex: 1 }} />
           </div>
-          <div data-h2-display="b(flex)">
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <Select
                 id="securityRequirement"
@@ -150,7 +173,7 @@ export const OtherRequirementsSection = ({
             </Spacer>
             <Spacer style={{ flex: 1 }} />
           </div>
-          <div data-h2-display="b(flex)">
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <RadioGroup
                 idPrefix="locationOption"
@@ -184,7 +207,7 @@ export const OtherRequirementsSection = ({
           </div>
           {locationOption === LocationOption.SpecificLocation ? (
             <>
-              <div data-h2-display="b(flex)">
+              <div data-h2-display="base(flex)">
                 <Spacer style={{ flex: 1 }}>
                   <Input
                     id="specificLocationEn"
@@ -200,7 +223,7 @@ export const OtherRequirementsSection = ({
                 </Spacer>
                 <Spacer style={{ flex: 1 }} />
               </div>
-              <div data-h2-display="b(flex)">
+              <div data-h2-display="base(flex)">
                 <Spacer style={{ flex: 1 }}>
                   <Input
                     id="specificLocationFr"
@@ -228,6 +251,7 @@ export const OtherRequirementsSection = ({
               })}
               color="cta"
               mode="solid"
+              isSubmitting={isSubmitting}
             />
           )}
         </form>

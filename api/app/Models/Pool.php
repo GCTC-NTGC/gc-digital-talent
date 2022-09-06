@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $security_clearance
  * @property string $advertisement_language
  * @property boolean $is_published
+ * @property string $stream
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $expiry_date
@@ -51,6 +52,7 @@ class Pool extends Model
         'advertisement_location' => 'array',
         'your_impact' => 'array',
         'expiry_date' => 'datetime',
+        'is_remote' => 'boolean'
     ];
 
     /**
@@ -60,6 +62,7 @@ class Pool extends Model
     */
     protected $fillable = [
         'is_published',
+        'is_remote',
         'expiry_date'
     ];
 

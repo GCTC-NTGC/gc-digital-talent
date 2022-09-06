@@ -10,18 +10,25 @@ import {
   AdvertisementStatus,
   LocalizedString,
   PoolAdvertisement,
+  UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
 import { SectionMetadata, Spacer } from "./EditPool";
+import { useEditPoolContext } from "./EditPoolContext";
 
 type FormValues = {
   YourWorkEn?: LocalizedString["en"];
   YourWorkFr?: LocalizedString["fr"];
 };
 
+export type WorkTasksSubmitData = Pick<
+  UpdatePoolAdvertisementInput,
+  "keyTasks"
+>;
+
 interface WorkTasksSectionProps {
   poolAdvertisement: PoolAdvertisement;
   sectionMetadata: SectionMetadata;
-  onSave: (submitData: unknown) => void;
+  onSave: (submitData: WorkTasksSubmitData) => void;
 }
 
 const TEXT_AREA_MAX_WORDS = 200;
@@ -33,6 +40,7 @@ export const WorkTasksSection = ({
   onSave,
 }: WorkTasksSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     YourWorkEn: initialData.keyTasks?.en ?? "",
@@ -52,6 +60,15 @@ export const WorkTasksSection = ({
     name: "YourWorkFr",
   });
 
+  const handleSave = (formValues: FormValues) => {
+    onSave({
+      keyTasks: {
+        en: formValues.YourWorkEn,
+        fr: formValues.YourWorkFr,
+      },
+    });
+  };
+
   // disabled unless status is draft
   const formDisabled =
     poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
@@ -59,7 +76,7 @@ export const WorkTasksSection = ({
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+        <h2 data-h2-margin="base(x3, 0, x1, 0)" data-h2-font-size="base(p)">
           {sectionMetadata.title}
         </h2>
       </TableOfContents.Heading>
@@ -71,8 +88,8 @@ export const WorkTasksSection = ({
         })}
       </p>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSave)}>
-          <div data-h2-display="b(flex)">
+        <form onSubmit={handleSubmit(handleSave)}>
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <TextArea
                 id="YourWorkEn"
@@ -100,7 +117,7 @@ export const WorkTasksSection = ({
                 disabled={formDisabled}
               >
                 {!formDisabled && (
-                  <div data-h2-align-self="b(flex-end)">
+                  <div data-h2-align-self="base(flex-end)">
                     <WordCounter
                       text={watchYourWorkEn ?? ""}
                       wordLimit={TEXT_AREA_MAX_WORDS}
@@ -136,7 +153,7 @@ export const WorkTasksSection = ({
                 disabled={formDisabled}
               >
                 {!formDisabled && (
-                  <div data-h2-align-self="b(flex-end)">
+                  <div data-h2-align-self="base(flex-end)">
                     <WordCounter
                       text={watchYourWorkFr ?? ""}
                       wordLimit={TEXT_AREA_MAX_WORDS}
@@ -155,6 +172,7 @@ export const WorkTasksSection = ({
               })}
               color="cta"
               mode="solid"
+              isSubmitting={isSubmitting}
             />
           )}
         </form>

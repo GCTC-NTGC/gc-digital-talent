@@ -5,7 +5,7 @@ import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { getJobLookingStatusDescription } from "@common/constants/localizedConstants";
+import { getJobLookingStatus } from "@common/constants/localizedConstants";
 import { BasicForm, RadioGroup } from "@common/components/form";
 import Pending from "@common/components/Pending";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
@@ -63,10 +63,9 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     }
   };
 
-  let disabledColor = "";
-  if (!isFormActive) {
-    disabledColor = "b([dark]gray)";
-  }
+  const disabledColor: Record<string, unknown> = !isFormActive
+    ? { "data-h2-color": "base(dark.dt-gray)" }
+    : {};
 
   return (
     <div>
@@ -87,12 +86,17 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
         </div>
         {!isFormActive && (
           <div
-            data-h2-font-color="b(lightpurple)"
-            data-h2-padding="b(all, m)"
-            data-h2-radius="b(s)"
-            data-h2-bg-color="b([light]lightpurple[.1])"
+            data-h2-color="base(dt-primary)"
+            data-h2-border="base(all, 1px, solid, dt-primary.light)"
+            data-h2-margin="base(x1, 0)"
+            data-h2-padding="base(x1)"
+            data-h2-radius="base(input)"
+            data-h2-background-color="base(light.dt-primary.1)"
           >
-            <p>
+            <p
+              data-h2-font-weight="base(700)"
+              data-h2-margin="base(0, 0, x.5, 0)"
+            >
               {intl.formatMessage({
                 defaultMessage:
                   "<strong>Why can’t I change my status?</strong>",
@@ -109,7 +113,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
           </div>
         )}
 
-        <div data-h2-padding="b(top, s)" data-h2-font-color={disabledColor}>
+        <div data-h2-padding="base(x.5, 0, 0, 0)" {...disabledColor}>
           <RadioGroup
             idPrefix="myStatus"
             legend={intl.formatMessage({
@@ -128,7 +132,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               JobLookingStatusSortOrder,
             ).map(({ value }) => ({
               value,
-              label: intl.formatMessage(getJobLookingStatusDescription(value)),
+              label: intl.formatMessage(getJobLookingStatus(value)),
             }))}
           />
         </div>
@@ -149,7 +153,7 @@ const MyStatusApi: React.FunctionComponent = () => {
       id,
       user: data,
     }).then((result) => {
-      navigate(paths.home());
+      navigate(paths.home(id));
       toast.success(
         intl.formatMessage({
           defaultMessage: "My Status updated successfully!",

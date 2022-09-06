@@ -20,8 +20,8 @@ const SearchFilterAdvice: React.FC<{
       link: (
         <a
           href="#classificationsFilter"
-          data-h2-font-color="b(lightpurple)"
-          data-h2-font-weight="b(700)"
+          data-h2-color="base(dt-primary)"
+          data-h2-font-weight="base(700)"
         >
           {intl.formatMessage(
             {
@@ -40,8 +40,8 @@ const SearchFilterAdvice: React.FC<{
       link: (
         <a
           href="#operationalRequirementFilter"
-          data-h2-font-color="b(lightpurple)"
-          data-h2-font-weight="b(700)"
+          data-h2-color="base(dt-primary)"
+          data-h2-font-weight="base(700)"
         >
           {intl.formatMessage(
             {
@@ -55,7 +55,7 @@ const SearchFilterAdvice: React.FC<{
     });
   }
   return (
-    <p data-h2-font-size="b(caption)" data-h2-margin="b(bottom, m)">
+    <p data-h2-margin="base(x1, 0)">
       {intl.formatMessage({
         defaultMessage:
           "To improve your results, try removing some of these filters:",

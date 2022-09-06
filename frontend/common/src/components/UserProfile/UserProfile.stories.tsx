@@ -70,7 +70,6 @@ UserProfileNull.args = {
   verbalLevel: null,
   estimatedLanguageAbility: null,
   isGovEmployee: null,
-  interestedInLaterOrSecondment: null,
   department: null,
   currentClassification: null,
   isWoman: null,
@@ -86,4 +85,6 @@ UserProfileNull.args = {
   expectedClassifications: null,
   wouldAcceptTemporary: null,
   cmoAssets: null,
+  armedForcesStatus: null,
+  citizenship: null,
 };
