@@ -25,9 +25,6 @@ import CTAButtons from "../CallToAction/CTAButtons";
 
 import "./home.css";
 
-// TEMP: Disable rule until we get the proper URL
-// eslint-disable-next-line jsx-a11y/anchor-is-valid
-const honestyPledgeLink = (...chunks: string[]) => <a href="#">{chunks}</a>;
 const mailLink = (...chunks: string[]) => (
   <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">{chunks}</a>
 );
@@ -629,7 +626,8 @@ const Home: React.FunctionComponent = () => {
               <Step
                 position="1"
                 title={intl.formatMessage({
-                  defaultMessage: "Complete the Community Honesty Pledge",
+                  defaultMessage:
+                    "Complete the Community Indigenous Peoples Self-Declaration Form",
                   description: "How it works, step 1 heading",
                 })}
               >
@@ -641,16 +639,11 @@ const Home: React.FunctionComponent = () => {
                   })}
                 </p>
                 <p data-h2-margin="base(x1, 0, 0, 0)">
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "There are  three distinct groups of Indigenous peoples recognized in the Canadian constitution. You will be asked to confirm which Indigenous group(s) you belong to via the <a>Honesty Pledge</a>.",
-                      description: "How it works, step 1 content paragraph 2",
-                    },
-                    {
-                      a: honestyPledgeLink,
-                    },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "There are  three distinct groups of Indigenous peoples recognized in the Canadian constitution. You will be asked to confirm which Indigenous group(s) you belong to via the Indigenous Peoples Self-Declaration Form.",
+                    description: "How it works, step 1 content paragraph 2",
+                  })}
                 </p>
               </Step>
             </div>
