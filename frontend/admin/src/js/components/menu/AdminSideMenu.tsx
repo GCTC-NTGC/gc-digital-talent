@@ -52,8 +52,6 @@ const checkRole = (
   return visible;
 };
 
-const startsWith = (ref: string, test: string): boolean => test.startsWith(ref);
-
 const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
   isOpen,
   onToggle,
@@ -176,7 +174,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
             <SideMenuItem
               href={item.href}
               icon={item.icon}
-              isActive={startsWith(item.href, location.pathname)}
+              isActive={item.href === location.pathname}
             >
               {item.text}
             </SideMenuItem>
