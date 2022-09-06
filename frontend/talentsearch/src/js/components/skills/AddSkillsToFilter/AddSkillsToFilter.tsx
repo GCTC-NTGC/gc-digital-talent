@@ -52,6 +52,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
       >
         {intl.formatMessage({
           defaultMessage: "Skills as filters",
+          id: "hEhmBF",
           description: "Title for the skill filters on search page.",
         })}
       </h3>
@@ -59,6 +60,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
         {intl.formatMessage({
           defaultMessage:
             "Find candidates with the right skills for the job. Use the following tabs to find skills that are necessary for the job and select them to use them as filters for matching candidates.",
+          id: "+cy2GO",
           description:
             "Describing how to use the skill filters on search page, paragraph one.",
         })}
@@ -67,6 +69,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
         {intl.formatMessage({
           defaultMessage:
             " Why are there a limited number of skills? It’s important that applicants and managers are pulling from the same list of skills in order to create matches.",
+          id: "BQ7cf/",
           description:
             "Describing how to use the skill filters on search page, paragraph two.",
         })}

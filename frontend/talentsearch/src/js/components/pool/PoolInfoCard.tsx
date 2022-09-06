@@ -50,6 +50,7 @@ const PoolInfoCard = ({
         <span>
           {intl.formatMessage({
             defaultMessage: "Closing date:",
+            id: "ojN4Si",
             description: "Label for pool advertisement closing date",
           })}{" "}
           {relativeExpiryDate(new Date(closingDate), intl)}
@@ -62,6 +63,7 @@ const PoolInfoCard = ({
         <span>
           {intl.formatMessage({
             defaultMessage: "Salary range:",
+            id: "ls7b2p",
             description: "Label for pool advertisement salary range",
           })}{" "}
           {localizeSalaryRange(salary.min, salary.max, locale)} (

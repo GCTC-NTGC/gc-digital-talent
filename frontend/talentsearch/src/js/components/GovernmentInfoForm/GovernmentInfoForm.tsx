@@ -191,6 +191,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
           classification.group ||
           intl.formatMessage({
             defaultMessage: "Error: classification group not found.",
+            id: "YA/7nb",
             description:
               "Error message if classification group is not defined.",
           }),
@@ -221,6 +222,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
           legend={intl.formatMessage({
             defaultMessage:
               "Do you currently work for the government of Canada?",
+            id: "MtONBT",
             description: "Employee Status in Government Info Form",
           })}
           name="govEmployeeYesNo"
@@ -233,6 +235,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
               label: intl.formatMessage({
                 defaultMessage:
                   "<strong>No</strong>, I am not a Government of Canada employee",
+                id: "rJMWiV",
                 description:
                   "Label displayed for is not a government employee option",
               }),
@@ -242,6 +245,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
               label: intl.formatMessage({
                 defaultMessage:
                   "<strong>Yes</strong>, I am a Government of Canada employee",
+                id: "jbftvG",
                 description:
                   "Label displayed for is a government employee option",
               }),
@@ -257,11 +261,13 @@ export const GovernmentInfoForm: React.FunctionComponent<
               name="department"
               label={intl.formatMessage({
                 defaultMessage: "Which department do you work for?",
+                id: "NP/fsS",
                 description:
                   "Label for department select input in the request form",
               })}
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a department...",
+                id: "WE/Nu+",
                 description:
                   "Null selection for department select input in the request form.",
               })}
@@ -280,6 +286,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
               legend={intl.formatMessage({
                 defaultMessage:
                   "As an employee, what is your employment status?",
+                id: "3f9P13",
                 description: "Employee Status in Government Info Form",
               })}
               name="govEmployeeType"
@@ -302,6 +309,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
             {intl.formatMessage({
               defaultMessage:
                 "Please indicate your current substantive group classification and level.",
+              id: "TS63OC",
               description:
                 "Text blurb, asking about classification and level in the government info form",
             })}
@@ -323,11 +331,13 @@ export const GovernmentInfoForm: React.FunctionComponent<
                 id="currentClassificationGroup"
                 label={intl.formatMessage({
                   defaultMessage: "Current Classification Group",
+                  id: "/K1/1n",
                   description: "Label displayed on classification group input",
                 })}
                 name="currentClassificationGroup"
                 nullSelection={intl.formatMessage({
                   defaultMessage: "Choose Group",
+                  id: "u4v1RB",
                   description: "Null selection for form.",
                 })}
                 rules={{
@@ -347,6 +357,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
                 id="currentClassificationLevel"
                 label={intl.formatMessage({
                   defaultMessage: "Current Classification Level",
+                  id: "gnGAe8",
                   description: "Label displayed on classification level input",
                 })}
                 name="currentClassificationLevel"
@@ -355,6 +366,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
                 }}
                 nullSelection={intl.formatMessage({
                   defaultMessage: "Choose Level",
+                  id: "e/ez/m",
                   description: "Null selection for form.",
                 })}
                 options={levelOptions}
@@ -367,6 +379,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
           {intl.formatMessage({
             defaultMessage:
               "Do you have a priority entitlement for Government of Canada job applications?",
+            id: "v0JyBd",
             description:
               "Sentence asking whether the user possesses priority entitlement",
           })}
@@ -375,6 +388,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
           idPrefix="priorityEntitlementYesNo"
           legend={intl.formatMessage({
             defaultMessage: "Priority Entitlement",
+            id: "FqXo5j",
             description: "Priority Entitlement Status in Government Info Form",
           })}
           name="priorityEntitlementYesNo"
@@ -386,6 +400,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
               value: "no",
               label: intl.formatMessage({
                 defaultMessage: "I do not have a priority entitlement",
+                id: "brQu7D",
                 description:
                   "Label displayed for does not have priority entitlement option",
               }),
@@ -394,6 +409,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
               value: "yes",
               label: intl.formatMessage({
                 defaultMessage: "I have a priority entitlement",
+                id: "uQ8Tss",
                 description:
                   "Label displayed does have priority entitlement option",
               }),
@@ -407,6 +423,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
               type="text"
               label={intl.formatMessage({
                 defaultMessage: "Priority number",
+                id: "P+UY4i",
                 description: "label for priority number input",
               })}
               name="priorityEntitlementNumber"
@@ -475,6 +492,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
         {
           title: intl.formatMessage({
             defaultMessage: "My Applications",
+            id: "mq4G8h",
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
@@ -486,6 +504,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
             application.poolAdvertisement?.name?.[locale] ||
             intl.formatMessage({
               defaultMessage: "Pool name not found",
+              id: "FmD1sL",
               description:
                 "Pools name breadcrumb from applicant profile wrapper if no name set.",
             }),
@@ -499,11 +518,13 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
       description={intl.formatMessage({
         defaultMessage:
           "Please indicate if you are currently an employee in the Government of Canada.",
+        id: "6vsgLY",
         description:
           "Description blurb for Profile Form Wrapper in the Government Information Form",
       })}
       title={intl.formatMessage({
         defaultMessage: "Government Information",
+        id: "xDgNfZ",
         description:
           "Title for Profile Form Wrapper in Government Information Form",
       })}
@@ -515,6 +536,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
         {
           title: intl.formatMessage({
             defaultMessage: "Government Information",
+            id: "Uh9Yj4",
             description:
               "Display Text for Government Information Form Page Link",
           }),

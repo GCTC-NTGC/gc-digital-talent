@@ -30,6 +30,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
       {
         title: intl.formatMessage({
           defaultMessage: "My Profile",
+          id: "tlsomU",
           description: "Breadcrumb from applicant profile wrapper.",
         }),
         href: profilePath.myProfile(),

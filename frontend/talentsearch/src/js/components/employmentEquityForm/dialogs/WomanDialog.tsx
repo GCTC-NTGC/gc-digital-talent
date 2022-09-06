@@ -83,6 +83,7 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
         {intl.formatMessage({
           defaultMessage:
             "This category includes persons whose reported gender is female. It includes cisgender (cis) and transgender (trans) women.",
+          id: "E1WElo",
           description: "Definition of accepted ways to identify as a women",
         })}
       </p>

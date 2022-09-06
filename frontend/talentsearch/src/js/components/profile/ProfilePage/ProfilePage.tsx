@@ -48,6 +48,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   ) {
     userName = intl.formatMessage({
       defaultMessage: "(Missing name)",
+      id: "4xzq2Y",
       description: "Message for Missing names in profile",
     });
   }

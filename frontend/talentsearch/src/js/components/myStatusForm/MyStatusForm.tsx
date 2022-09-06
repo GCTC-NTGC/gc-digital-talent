@@ -80,6 +80,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
             {intl.formatMessage({
               defaultMessage:
                 "Let us know if you want to be contacted for new jobs. Please update this status if your situation changes.",
+              id: "PIgh3U",
               description: "Description for My Status Form",
             })}
           </p>
@@ -100,6 +101,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               {intl.formatMessage({
                 defaultMessage:
                   "<strong>Why can’t I change my status?</strong>",
+                id: "3quMA8",
                 description: "Message in My Status Form.",
               })}
             </p>
@@ -107,6 +109,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               {intl.formatMessage({
                 defaultMessage:
                   "Please complete all required fields on your profile before setting your status as active.",
+                id: "+wdTbk",
                 description: "Message in My Status Form.",
               })}
             </p>
@@ -118,6 +121,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
             idPrefix="myStatus"
             legend={intl.formatMessage({
               defaultMessage: "My status",
+              id: "XBfLOu",
               description: "Legend for my status option in my status form",
             })}
             name="jobLookingStatus"
@@ -157,6 +161,7 @@ const MyStatusApi: React.FunctionComponent = () => {
       toast.success(
         intl.formatMessage({
           defaultMessage: "My Status updated successfully!",
+          id: "W7io0W",
           description:
             "Message displayed to user after user is updated successfully.",
         }),
@@ -171,6 +176,7 @@ const MyStatusApi: React.FunctionComponent = () => {
     toast.error(
       intl.formatMessage({
         defaultMessage: "Error: updating user failed",
+        id: "5FFRV2",
         description:
           "Message displayed to user after user fails to get updated.",
       }),
