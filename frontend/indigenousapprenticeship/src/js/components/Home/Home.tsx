@@ -25,9 +25,9 @@ import CTAButtons from "../CallToAction/CTAButtons";
 
 import "./home.css";
 
-// TEMP: Disable rule until we get the proper URL
-// eslint-disable-next-line jsx-a11y/anchor-is-valid
-const honestyPledgeLink = (...chunks: string[]) => <a href="#">{chunks}</a>;
+const mailLink = (...chunks: string[]) => (
+  <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">{chunks}</a>
+);
 
 const Home: React.FunctionComponent = () => {
   const [isApplyDialogOpen, setApplyDialogOpen] =
@@ -386,17 +386,22 @@ const Home: React.FunctionComponent = () => {
                 <p data-h2-margin="base(x2, 0, x1, 0)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "The Program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Metis, and if you have a passion for technology, then this Program is for you!",
+                      "The Program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Métis, and if you have a passion for technology, then this Program is for you!",
                     description: "First paragraph about who the program is for",
                   })}
                 </p>
                 <p data-h2-margin="base(x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "If you are not sure if this Program is right for you, please contact us and a member of our team will be happy to meet with you to answer any questions you may have.",
-                    description:
-                      "Second paragraph about who the program is for",
-                  })}
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "If you are not sure if this Program is right for you, please <mailLink>contact us</mailLink> and a member of our team will be happy to meet with you to answer any questions you may have.",
+                      description:
+                        "Second paragraph about who the program is for",
+                    },
+                    {
+                      mailLink,
+                    },
+                  )}
                 </p>
                 <img
                   src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
@@ -621,7 +626,8 @@ const Home: React.FunctionComponent = () => {
               <Step
                 position="1"
                 title={intl.formatMessage({
-                  defaultMessage: "Complete the Community Honesty Pledge",
+                  defaultMessage:
+                    "Complete the Community Indigenous Peoples Self-Declaration Form",
                   description: "How it works, step 1 heading",
                 })}
               >
@@ -633,16 +639,11 @@ const Home: React.FunctionComponent = () => {
                   })}
                 </p>
                 <p data-h2-margin="base(x1, 0, 0, 0)">
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "There are  three distinct groups of Indigenous peoples recognized in the Canadian constitution. You will be asked to confirm which Indigenous group(s) you belong to via the <a>Honesty Pledge</a>.",
-                      description: "How it works, step 1 content paragraph 2",
-                    },
-                    {
-                      a: honestyPledgeLink,
-                    },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "There are  three distinct groups of Indigenous peoples recognized in the Canadian constitution. You will be asked to confirm which Indigenous group(s) you belong to via the Indigenous Peoples Self-Declaration Form.",
+                    description: "How it works, step 1 content paragraph 2",
+                  })}
                 </p>
               </Step>
             </div>
