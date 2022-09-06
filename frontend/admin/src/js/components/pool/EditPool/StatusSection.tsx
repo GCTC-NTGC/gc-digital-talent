@@ -7,8 +7,8 @@ import {
   FolderOpenIcon,
   LockClosedIcon,
   PencilIcon,
-  SpeakerphoneIcon,
-} from "@heroicons/react/outline";
+  MegaphoneIcon,
+} from "@heroicons/react/24/outline";
 import { PoolAdvertisement, AdvertisementStatus } from "../../../api/generated";
 import { SectionMetadata } from "./EditPool";
 import PublishDialog from "./PublishDialog";
@@ -143,7 +143,7 @@ export const StatusSection = ({
                 data-h2-align-items="base(center)"
                 style={{ gap: "0.5rem" }}
               >
-                <SpeakerphoneIcon
+                <MegaphoneIcon
                   style={{
                     width: "1rem",
                     height: "1rem",

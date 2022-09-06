@@ -5,8 +5,11 @@ import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import TableOfContents from "@common/components/TableOfContents";
 import { commonMessages, errorMessages } from "@common/messages";
-import { ArrowSmRightIcon } from "@heroicons/react/outline";
-import { ClipboardCheckIcon, UserIcon } from "@heroicons/react/solid";
+import { ArrowSmallRightIcon } from "@heroicons/react/24/outline";
+import {
+  ClipboardDocumentCheckIcon,
+  UserIcon,
+} from "@heroicons/react/24/solid";
 import uniqueId from "lodash/uniqueId";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -122,7 +125,7 @@ const Signature = ({ isNotComplete }: { isNotComplete: boolean }) => {
                   defaultMessage: "Submit my application",
                   description: "Submit button label on sign and submit page.",
                 })}
-                <ArrowSmRightIcon
+                <ArrowSmallRightIcon
                   style={{
                     width: "1em",
                     height: "1em",
@@ -181,7 +184,7 @@ export const SignAndSubmitForm = ({
         description: "Toc navigation item on sign and submit page.",
       }),
       component: <Signature isNotComplete={isNotComplete} />,
-      icon: ClipboardCheckIcon,
+      icon: ClipboardDocumentCheckIcon,
     },
   ];
 

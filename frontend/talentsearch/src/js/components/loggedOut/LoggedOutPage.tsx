@@ -6,7 +6,7 @@ import { imageUrl, navigate } from "@common/helpers/router";
 import Dialog from "@common/components/Dialog";
 import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
-import { BellIcon } from "@heroicons/react/outline";
+import { BellIcon } from "@heroicons/react/24/outline";
 import { getLocale } from "@common/helpers/localize";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";

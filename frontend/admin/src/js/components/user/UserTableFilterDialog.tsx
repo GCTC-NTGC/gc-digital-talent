@@ -9,7 +9,7 @@ import "./UserTableFilterDialog.css";
 import { useFormContext } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import type { Option } from "@common/components/form/Select/SelectFieldV2";
-import { FilterIcon } from "@heroicons/react/outline";
+import { AdjustmentsVerticalIcon } from "@heroicons/react/24/outline";
 import useFilterOptions from "./useFilterOptions";
 import { ButtonIcon } from "../Table/tableComponents";
 
@@ -248,7 +248,7 @@ const UserTableFilterButton = ({
         data-h2-display="base(inline-flex)"
         data-h2-align-items="base(center)"
       >
-        <ButtonIcon icon={FilterIcon} />
+        <ButtonIcon icon={AdjustmentsVerticalIcon} />
         <span>
           {formatMessage({
             defaultMessage: "Filters",

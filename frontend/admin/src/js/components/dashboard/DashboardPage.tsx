@@ -4,8 +4,8 @@ import {
   HomeIcon,
   TicketIcon,
   UserIcon,
-  ViewGridIcon,
-} from "@heroicons/react/outline";
+  Squares2X2Icon,
+} from "@heroicons/react/24/outline";
 import { IconLink } from "@common/components/Link";
 import PageHeader from "@common/components/PageHeader";
 import Pending from "@common/components/Pending";
@@ -61,7 +61,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
             color="secondary"
             type="button"
             href={adminRoutes.poolTable()}
-            icon={ViewGridIcon}
+            icon={Squares2X2Icon}
           >
             {intl.formatMessage({
               defaultMessage: "Manage pools",

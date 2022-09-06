@@ -7,7 +7,7 @@ import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import { Link } from "@common/components";
 import PageHeader from "@common/components/PageHeader";
-import { ViewGridIcon } from "@heroicons/react/outline";
+import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import TableOfContents from "@common/components/TableOfContents";
 import { notEmpty } from "@common/helpers/util";
@@ -184,7 +184,7 @@ export const EditPoolForm = ({
 
   return (
     <div>
-      <PageHeader icon={ViewGridIcon}>
+      <PageHeader icon={Squares2X2Icon}>
         {intl.formatMessage({
           defaultMessage: "Edit pool advertisement",
           description: "Header for page to edit pool advertisements",

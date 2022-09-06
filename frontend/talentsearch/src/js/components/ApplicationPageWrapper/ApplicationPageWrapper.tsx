@@ -4,7 +4,7 @@ import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { imageUrl } from "@common/helpers/router";
 import { relativeExpiryDate } from "@common/helpers/dateUtils";
 
-import { CalendarIcon } from "@heroicons/react/outline";
+import { CalendarIcon } from "@heroicons/react/24/outline";
 import ApplicationNavigation, {
   type ApplicationNavigationProps,
 } from "./ApplicationNavigation";

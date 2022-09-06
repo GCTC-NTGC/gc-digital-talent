@@ -1,14 +1,14 @@
 import React, { HTMLAttributes } from "react";
 import {
-  ChatAlt2Icon,
+  ChatBubbleLeftRightIcon,
   CurrencyDollarIcon,
   InformationCircleIcon,
-  LibraryIcon,
+  BuildingLibraryIcon,
   LightBulbIcon,
-  LightningBoltIcon,
-  LocationMarkerIcon,
-  ThumbUpIcon,
-} from "@heroicons/react/outline";
+  BoltIcon,
+  MapPinIcon,
+  HandThumbUpIcon,
+} from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
 import GovernmentInformationSection from "@common/components/UserProfile/ProfileSections/GovernmentInformationSection";
@@ -136,7 +136,10 @@ export const UserProfileDocument = React.forwardRef<
                   </div>
                   <div className="page-section">
                     <HeadingWrapper>
-                      <Heading icon={ChatAlt2Icon} style={{ flex: "1 1 0%" }}>
+                      <Heading
+                        icon={ChatBubbleLeftRightIcon}
+                        style={{ flex: "1 1 0%" }}
+                      >
                         {intl.formatMessage({
                           defaultMessage: "Language Information",
                           description:
@@ -148,7 +151,10 @@ export const UserProfileDocument = React.forwardRef<
                   </div>
                   <div className="page-section">
                     <HeadingWrapper>
-                      <Heading icon={LibraryIcon} style={{ flex: "1 1 0%" }}>
+                      <Heading
+                        icon={BuildingLibraryIcon}
+                        style={{ flex: "1 1 0%" }}
+                      >
                         {intl.formatMessage({
                           defaultMessage: "Government Information",
                           description:
@@ -160,10 +166,7 @@ export const UserProfileDocument = React.forwardRef<
                   </div>
                   <div className="page-section">
                     <HeadingWrapper>
-                      <Heading
-                        icon={LocationMarkerIcon}
-                        style={{ flex: "1 1 0%" }}
-                      >
+                      <Heading icon={MapPinIcon} style={{ flex: "1 1 0%" }}>
                         {intl.formatMessage({
                           defaultMessage: "Work Location",
                           description:
@@ -175,7 +178,10 @@ export const UserProfileDocument = React.forwardRef<
                   </div>
                   <div className="page-section">
                     <HeadingWrapper>
-                      <Heading icon={ThumbUpIcon} style={{ flex: "1 1 0%" }}>
+                      <Heading
+                        icon={HandThumbUpIcon}
+                        style={{ flex: "1 1 0%" }}
+                      >
                         {intl.formatMessage({
                           defaultMessage: "Work Preferences",
                           description:
@@ -216,10 +222,7 @@ export const UserProfileDocument = React.forwardRef<
                     <RoleSalarySection applicant={applicant} />
                   </div>
                   <HeadingWrapper>
-                    <Heading
-                      icon={LightningBoltIcon}
-                      style={{ flex: "1 1 0%" }}
-                    >
+                    <Heading icon={BoltIcon} style={{ flex: "1 1 0%" }}>
                       {intl.formatMessage({
                         defaultMessage: "My skills and experience",
                         description:

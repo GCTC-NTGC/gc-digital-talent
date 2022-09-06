@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { UserGroupIcon } from "@heroicons/react/outline";
+import { UserGroupIcon } from "@heroicons/react/24/outline";
 
 import PageHeader from "@common/components/PageHeader";
 

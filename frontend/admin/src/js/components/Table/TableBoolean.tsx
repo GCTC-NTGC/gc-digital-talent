@@ -1,4 +1,4 @@
-import { CheckIcon, XIcon } from "@heroicons/react/solid";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import React, { ReactElement } from "react";
 
 export interface TableBooleanProps {
@@ -9,7 +9,7 @@ function TableBoolean({ checked }: TableBooleanProps): ReactElement {
   return checked ? (
     <CheckIcon style={{ width: "1rem" }} />
   ) : (
-    <XIcon style={{ width: "1rem" }} />
+    <XMarkIcon style={{ width: "1rem" }} />
   );
 }
 

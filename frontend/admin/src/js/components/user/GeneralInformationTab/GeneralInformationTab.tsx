@@ -4,10 +4,10 @@ import TableOfContents from "@common/components/TableOfContents";
 import {
   CalculatorIcon,
   InformationCircleIcon,
-  PencilAltIcon,
+  PencilSquareIcon,
   UserIcon,
   CheckIcon,
-} from "@heroicons/react/outline";
+} from "@heroicons/react/24/outline";
 import {
   getArmedForcesStatusesAdmin,
   getCitizenshipStatusesAdmin,
@@ -623,7 +623,7 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
         defaultMessage: "Notes",
         description: "Title of the 'Notes' section of the view-user page",
       }),
-      titleIcon: PencilAltIcon,
+      titleIcon: PencilSquareIcon,
       content: <NotesSection user={user} />,
     },
     {

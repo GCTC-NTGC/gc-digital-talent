@@ -1,4 +1,4 @@
-import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/solid";
+import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { commonMessages } from "../../../messages";

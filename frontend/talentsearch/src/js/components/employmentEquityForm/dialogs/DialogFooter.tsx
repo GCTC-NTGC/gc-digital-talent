@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { SaveIcon } from "@heroicons/react/solid";
+import { ArrowDownOnSquareIcon } from "@heroicons/react/24/solid";
 import { Button } from "@common/components";
 
 interface DialogFooterProps {
@@ -17,7 +17,7 @@ const DialogFooter: React.FC<DialogFooterProps> = ({ onDismiss }) => {
     >
       <p>
         <Button type="submit" mode="solid" color="cta">
-          <SaveIcon
+          <ArrowDownOnSquareIcon
             style={{ height: "1rem", width: "1rem" }}
             data-h2-margin="base(0, x.125, 0, 0)"
           />
