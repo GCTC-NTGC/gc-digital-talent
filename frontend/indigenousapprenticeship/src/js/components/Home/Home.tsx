@@ -28,6 +28,9 @@ import "./home.css";
 // TEMP: Disable rule until we get the proper URL
 // eslint-disable-next-line jsx-a11y/anchor-is-valid
 const honestyPledgeLink = (...chunks: string[]) => <a href="#">{chunks}</a>;
+const mailLink = (...chunks: string[]) => (
+  <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">{chunks}</a>
+);
 
 const Home: React.FunctionComponent = () => {
   const [isApplyDialogOpen, setApplyDialogOpen] =
@@ -391,12 +394,17 @@ const Home: React.FunctionComponent = () => {
                   })}
                 </p>
                 <p data-h2-margin="base(x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "If you are not sure if this Program is right for you, please contact us and a member of our team will be happy to meet with you to answer any questions you may have.",
-                    description:
-                      "Second paragraph about who the program is for",
-                  })}
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "If you are not sure if this Program is right for you, please <mailLink>contact us</mailLink> and a member of our team will be happy to meet with you to answer any questions you may have.",
+                      description:
+                        "Second paragraph about who the program is for",
+                    },
+                    {
+                      mailLink,
+                    },
+                  )}
                 </p>
                 <img
                   src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
