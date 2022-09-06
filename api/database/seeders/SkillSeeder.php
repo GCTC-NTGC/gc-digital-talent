@@ -9,6 +9,28 @@ use Illuminate\Support\Str;
 
 class SkillSeeder extends Seeder
 {
+
+    // takes a keywords string, parses and cleans it, returns an array
+    static function parseKeywords($keywordString) {
+        $keywordArray = explode(';', $keywordString);
+
+        $trimmedKeywords = array_map(
+            function ($keyword) {
+                return trim($keyword);
+            },
+            $keywordArray
+        );
+
+        $filteredKeywords = array_filter(
+            $trimmedKeywords,
+            function ($keyword) {
+                return !empty($keyword);
+            }
+        );
+
+        return $filteredKeywords;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -1829,26 +1851,7 @@ class SkillSeeder extends Seeder
             ],
         ];
 
-        // takes a keywords string, parses and cleans it, returns an array
-        function parseKeywords($keywordString) {
-            $keywordArray = explode(';', $keywordString);
 
-            $trimmedKeywords = array_map(
-                function ($keyword) {
-                    return trim($keyword);
-                },
-                $keywordArray
-            );
-
-            $filteredKeywords = array_filter(
-                $trimmedKeywords,
-                function ($keyword) {
-                    return !empty($keyword);
-                }
-            );
-
-            return $filteredKeywords;
-        }
 
         $reshapedData = array_map(
             function ($record) {
@@ -1864,8 +1867,8 @@ class SkillSeeder extends Seeder
                         'fr' => trim($record['skill_definition_fr'])
                     ],
                     'keywords' => [
-                        'en' => parseKeywords($record['keywords_en']),
-                        'fr' => parseKeywords($record['keywords_fr'])
+                        'en' => SkillSeeder::parseKeywords($record['keywords_en']),
+                        'fr' => SkillSeeder::parseKeywords($record['keywords_fr'])
                     ]
                 ];
 
