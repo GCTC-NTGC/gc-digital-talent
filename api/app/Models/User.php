@@ -55,7 +55,7 @@ use Illuminate\Support\Facades\DB;
  * @property boolean $would_accept_temporary
  * @property array $accepted_operational_requirements
  * @property string $gov_employee_type
- * @property int $priority_status
+ * @property int $priority_weight
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
