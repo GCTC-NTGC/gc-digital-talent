@@ -386,7 +386,7 @@ const Home: React.FunctionComponent = () => {
                 <p data-h2-margin="base(x2, 0, x1, 0)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "The Program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Metis, and if you have a passion for technology, then this Program is for you!",
+                      "The Program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Métis, and if you have a passion for technology, then this Program is for you!",
                     description: "First paragraph about who the program is for",
                   })}
                 </p>

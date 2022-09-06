@@ -207,10 +207,6 @@
     "defaultMessage": "Vise à lancer le programme au début de 2022.",
     "description": "Talent portal strategy item 4 content"
   },
-  "ZHLkHX": {
-    "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous! ",
-    "description": "First paragraph about who the program is for"
-  },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
     "description": "First paragraph what will you learn at the program"
@@ -362,5 +358,9 @@
   "jPLaDk": {
     "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
     "description": "Heading for the message saying the page to view is not authorized."
+  },
+  "khChKa": {
+    "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
+    "description": "First paragraph about who the program is for"
   }
 }
