@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
-import { Link, Pill } from "@common/components";
+import { Pill } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
@@ -12,36 +12,10 @@ import {
   PoolCandidateFilterInput,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
-import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<
   FromArray<SearchPoolCandidatesQuery["searchPoolCandidates"]>
 >;
-
-const TableEditButton: React.FC<{
-  poolCandidateId?: string;
-  poolId?: string;
-}> = ({ poolCandidateId, poolId }) => {
-  const intl = useIntl();
-  const paths = useAdminRoutes();
-  return (
-    <Link
-      type="button"
-      color="primary"
-      mode="inline"
-      href={paths.poolCandidateUpdate(poolId || "", poolCandidateId || "")}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Edit",
-        description: "Title displayed for the Edit column.",
-      })}
-    </Link>
-  );
-};
-
-function tableEditButtonAccessor(poolCandidateId?: string, poolId?: string) {
-  return <TableEditButton poolCandidateId={poolCandidateId} poolId={poolId} />;
-}
 
 export const SingleSearchRequestTable: React.FunctionComponent<
   SearchPoolCandidatesQuery
@@ -192,14 +166,6 @@ export const SingleSearchRequestTable: React.FunctionComponent<
               </Pill>
             );
           }),
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Edit",
-          description:
-            "Title displayed for the single search request table edit column.",
-        }),
-        accessor: ({ id, pool }) => tableEditButtonAccessor(id, pool?.id),
       },
     ],
     [intl, locale],
