@@ -17,10 +17,10 @@ class GeneratedColumnPriority extends Migration
         DB::statement("ALTER TABLE users ADD COLUMN priority_status INT
         GENERATED ALWAYS AS
         (case
-        when has_priority_entitlement = TRUE then 1
-        when armed_forces_status = 'VETERAN' then 2
-        when citizenship = 'CITIZEN' OR citizenship = 'PERMANENT_RESIDENT' then 3
-        else 4
+        when has_priority_entitlement = TRUE then 10
+        when armed_forces_status = 'VETERAN' then 20
+        when citizenship = 'CITIZEN' OR citizenship = 'PERMANENT_RESIDENT' then 30
+        else 40
         end)
         STORED;");
     }
