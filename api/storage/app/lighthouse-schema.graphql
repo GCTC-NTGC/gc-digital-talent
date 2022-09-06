@@ -52,7 +52,7 @@ type Applicant {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   expectedGenericJobTitles: [GenericJobTitle]
-  priorityDerived: PriorityDerivedStatus
+  priorityWeight: Int
 }
 
 type ApplicantFilter {
@@ -913,13 +913,6 @@ input PoolsHasMany {
   create: [CreatePoolInput]
 }
 
-enum PriorityDerivedStatus {
-  PRIORITY
-  VETERAN
-  CITIZEN_OR_PR
-  OTHER
-}
-
 enum ProvinceOrTerritory {
   BRITISH_COLUMBIA
   ALBERTA
@@ -1376,7 +1369,7 @@ type User {
   pools: [Pool]
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
-  priorityDerived: PriorityDerivedStatus
+  priorityWeight: Int
 }
 
 input UserBelongsTo {

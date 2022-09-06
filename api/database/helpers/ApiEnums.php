@@ -296,21 +296,4 @@ class ApiEnums
             self::ARMED_FORCES_NON_CAF,
         ];
     }
-
-    /**
-     * Computed Priority Status
-     */
-    const PRIORITY_DERIVED_PRIORITY = 'PRIORITY';
-    const PRIORITY_DERIVED_VETERAN = 'VETERAN';
-    const PRIORITY_DERIVED_CITIZEN_OR_PR = 'CITIZEN_OR_PR';
-    const PRIORITY_DERIVED_OTHER = 'OTHER';
-    public static function priorityDerivedStatuses() : array
-    {
-        return [
-            self::PRIORITY_DERIVED_PRIORITY,
-            self::PRIORITY_DERIVED_VETERAN,
-            self::PRIORITY_DERIVED_CITIZEN_OR_PR,
-            self::PRIORITY_DERIVED_OTHER,
-        ];
-    }
 }

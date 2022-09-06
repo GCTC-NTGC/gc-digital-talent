@@ -963,7 +963,7 @@ class ApplicantTest extends TestCase
         $this->graphQL(/** @lang Graphql */ '
             query applicant($id: ID!) {
                 applicant(id: $id) {
-                    priorityDerived
+                    priorityWeight
                 }
             }
             ', [
@@ -971,7 +971,7 @@ class ApplicantTest extends TestCase
         ])->assertJson([
             "data" => [
                 "applicant" => [
-                    "priorityDerived" => ApiEnums::PRIORITY_DERIVED_PRIORITY,
+                    "priorityWeight" => 10,
                 ]
             ]
         ]);
@@ -980,7 +980,7 @@ class ApplicantTest extends TestCase
         $this->graphQL(/** @lang Graphql */ '
             query applicant($id: ID!) {
                 applicant(id: $id) {
-                    priorityDerived
+                    priorityWeight
                 }
             }
             ', [
@@ -988,7 +988,7 @@ class ApplicantTest extends TestCase
         ])->assertJson([
             "data" => [
                 "applicant" => [
-                    "priorityDerived" => ApiEnums::PRIORITY_DERIVED_VETERAN,
+                    "priorityWeight" => 20,
                 ]
             ]
         ]);
@@ -997,7 +997,7 @@ class ApplicantTest extends TestCase
         $this->graphQL(/** @lang Graphql */ '
             query applicant($id: ID!) {
                 applicant(id: $id) {
-                    priorityDerived
+                    priorityWeight
                 }
             }
             ', [
@@ -1005,7 +1005,7 @@ class ApplicantTest extends TestCase
         ])->assertJson([
             "data" => [
                 "applicant" => [
-                    "priorityDerived" => ApiEnums::PRIORITY_DERIVED_CITIZEN_OR_PR,
+                    "priorityWeight" => 30,
                 ]
             ]
         ]);
@@ -1014,7 +1014,7 @@ class ApplicantTest extends TestCase
         $this->graphQL(/** @lang Graphql */ '
             query applicant($id: ID!) {
                 applicant(id: $id) {
-                    priorityDerived
+                    priorityWeight
                 }
             }
             ', [
@@ -1022,7 +1022,7 @@ class ApplicantTest extends TestCase
         ])->assertJson([
             "data" => [
                 "applicant" => [
-                    "priorityDerived" => ApiEnums::PRIORITY_DERIVED_OTHER,
+                    "priorityWeight" => 40,
                 ]
             ]
         ]);

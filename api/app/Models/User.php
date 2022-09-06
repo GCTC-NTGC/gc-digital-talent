@@ -55,6 +55,7 @@ use Illuminate\Support\Facades\DB;
  * @property boolean $would_accept_temporary
  * @property array $accepted_operational_requirements
  * @property string $gov_employee_type
+ * @property int $priority_status
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -624,25 +625,5 @@ RAWSQL2;
     {
         $query->whereIn('job_looking_status', [ApiEnums::USER_STATUS_ACTIVELY_LOOKING, ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES]);
         return $query;
-    }
-
-    public function getPriorityDerivedAttribute(): string
-    {
-        $hasPriorityEntitlement = $this->has_priority_entitlement;
-        $armedForcesStatus = $this->armed_forces_status;
-        $citizenship = $this->citizenship;
-
-        if ($hasPriorityEntitlement) {
-            return ApiEnums::PRIORITY_DERIVED_PRIORITY;
-        }
-        elseif ($armedForcesStatus == ApiEnums::ARMED_FORCES_VETERAN) {
-            return ApiEnums::PRIORITY_DERIVED_VETERAN;
-        }
-        elseif ($citizenship == ApiEnums::CITIZENSHIP_CITIZEN || $citizenship == ApiEnums::CITIZENSHIP_PR) {
-            return ApiEnums::PRIORITY_DERIVED_CITIZEN_OR_PR;
-        }
-        else {
-            return ApiEnums::PRIORITY_DERIVED_OTHER;
-        }
     }
 }
