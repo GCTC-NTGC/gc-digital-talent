@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { AcademicCapIcon } from "@heroicons/react/solid";
+import { AcademicCapIcon } from "@heroicons/react/24/solid";
 import AccordionComponent from "./Accordion";
 import type { AccordionProps } from "./Accordion";
 import Button from "../Button";

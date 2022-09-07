@@ -6,11 +6,11 @@ import {
   CheckIcon,
   ClipboardIcon,
   CogIcon,
-  ExternalLinkIcon,
+  ArrowTopRightOnSquareIcon,
   TicketIcon,
   UserGroupIcon,
-  ViewGridIcon,
-} from "@heroicons/react/outline";
+  Squares2X2Icon,
+} from "@heroicons/react/24/outline";
 
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
@@ -142,7 +142,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
   return (
     <DashboardContentContainer>
       <div data-h2-container="base(left, medium, 0)">
-        <PageHeader icon={ViewGridIcon}>{poolName}</PageHeader>
+        <PageHeader icon={Squares2X2Icon}>{poolName}</PageHeader>
         <Breadcrumbs links={links} />
         <div
           data-h2-display="base(flex)"
@@ -258,7 +258,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
-                icon={ExternalLinkIcon}
+                icon={ArrowTopRightOnSquareIcon}
               >
                 {intl.formatMessage({
                   defaultMessage: "View pool advertisement",

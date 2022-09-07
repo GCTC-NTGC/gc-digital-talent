@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import LightBulbIcon from "@heroicons/react/solid/LightBulbIcon";
+import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
 import { getLocale } from "../../../../helpers/localize";

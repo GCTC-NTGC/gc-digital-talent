@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import uniqueId from "lodash/uniqueId";
 
 export interface AccordionProps {

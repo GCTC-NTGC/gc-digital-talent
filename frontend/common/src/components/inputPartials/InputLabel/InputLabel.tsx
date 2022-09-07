@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/solid";
+import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 import { commonMessages } from "../../../messages";
 

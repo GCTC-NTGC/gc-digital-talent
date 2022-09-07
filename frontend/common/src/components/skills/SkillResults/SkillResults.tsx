@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CheckCircleIcon } from "@heroicons/react/solid";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 import { getLocale } from "../../../helpers/localize";
 import { Button } from "../..";

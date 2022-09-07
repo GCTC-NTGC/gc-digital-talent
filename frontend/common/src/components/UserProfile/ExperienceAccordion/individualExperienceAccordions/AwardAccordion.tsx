@@ -1,5 +1,5 @@
 import React from "react";
-import StarIcon from "@heroicons/react/solid/StarIcon";
+import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import { useIntl } from "react-intl";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";

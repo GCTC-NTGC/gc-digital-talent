@@ -9,7 +9,7 @@ import Footer from "@common/components/Footer";
 import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
 
-import { MenuIcon } from "@heroicons/react/outline";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import NotAuthorized from "@common/components/NotAuthorized";
 import AdminSideMenu from "../menu/AdminSideMenu";
 import { ADMIN_APP_DIR } from "../../adminConstants";
@@ -79,7 +79,7 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
       data-h2-shadow="base(s)"
       onClick={onClick}
     >
-      <MenuIcon
+      <Bars3Icon
         style={{ width: "1rem", height: "1rem", marginRight: "0.5rem" }}
       />
       <span>{children}</span>

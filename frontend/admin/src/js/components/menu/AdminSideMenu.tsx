@@ -6,14 +6,14 @@ import SideMenu, { SideMenuItem } from "@common/components/SideMenu";
 import {
   AcademicCapIcon,
   HomeIcon,
-  OfficeBuildingIcon,
+  BuildingOfficeIcon,
   PaperClipIcon,
   TagIcon,
   TicketIcon,
   UserGroupIcon,
   UserIcon,
-  ViewGridIcon,
-} from "@heroicons/react/outline";
+  Squares2X2Icon,
+} from "@heroicons/react/24/outline";
 import { useLocation } from "@common/helpers/router";
 import { AuthorizationContext } from "@common/components/Auth";
 import LoginOrLogout from "./LoginOrLogout";
@@ -52,8 +52,6 @@ const checkRole = (
   return visible;
 };
 
-const startsWith = (ref: string, test: string): boolean => test.startsWith(ref);
-
 const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
   isOpen,
   onToggle,
@@ -79,7 +77,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
     {
       key: "pools",
       href: paths.poolTable(),
-      icon: ViewGridIcon,
+      icon: Squares2X2Icon,
       roles: [Role.Admin],
       text: intl.formatMessage({
         defaultMessage: "Pools",
@@ -129,7 +127,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
     {
       key: "departments",
       href: paths.departmentTable(),
-      icon: OfficeBuildingIcon,
+      icon: BuildingOfficeIcon,
       roles: [Role.Admin],
       text: intl.formatMessage({
         defaultMessage: "Departments",
@@ -176,7 +174,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
             <SideMenuItem
               href={item.href}
               icon={item.icon}
-              isActive={startsWith(item.href, location.pathname)}
+              isActive={item.href === location.pathname}
             >
               {item.text}
             </SideMenuItem>

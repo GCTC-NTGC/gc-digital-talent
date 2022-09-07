@@ -1,18 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import {
-  ChatAlt2Icon,
+  ChatBubbleLeftRightIcon,
   CurrencyDollarIcon,
-  LibraryIcon,
+  BuildingLibraryIcon,
   LightBulbIcon,
-  LightningBoltIcon,
-  LocationMarkerIcon,
-  ThumbUpIcon,
+  BoltIcon,
+  MapPinIcon,
+  HandThumbUpIcon,
   UserGroupIcon,
   UserIcon,
-} from "@heroicons/react/outline";
+} from "@heroicons/react/24/outline";
 
-import { UserCircleIcon } from "@heroicons/react/solid";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
 
 import TableOfContents from "../TableOfContents";
 import AboutSection from "./ProfileSections/AboutSection";
@@ -289,7 +289,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   data-h2-flex-item="base(1of1) p-tablet(fill)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
-                  <TableOfContents.Heading as="h3" icon={ChatAlt2Icon}>
+                  <TableOfContents.Heading
+                    as="h3"
+                    icon={ChatBubbleLeftRightIcon}
+                  >
                     {intl.formatMessage({
                       defaultMessage: "Language Information",
                       description:
@@ -332,7 +335,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   data-h2-flex-item="base(1of1) p-tablet(fill)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
-                  <TableOfContents.Heading as="h3" icon={LibraryIcon}>
+                  <TableOfContents.Heading as="h3" icon={BuildingLibraryIcon}>
                     {intl.formatMessage({
                       defaultMessage: "Government Information",
                       description:
@@ -375,7 +378,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   data-h2-flex-item="base(1of1) p-tablet(fill)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
-                  <TableOfContents.Heading as="h3" icon={LocationMarkerIcon}>
+                  <TableOfContents.Heading as="h3" icon={MapPinIcon}>
                     {intl.formatMessage({
                       defaultMessage: "Work Location",
                       description: "Title of the Work Location content section",
@@ -417,7 +420,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   data-h2-flex-item="base(1of1) p-tablet(fill)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
-                  <TableOfContents.Heading as="h3" icon={ThumbUpIcon}>
+                  <TableOfContents.Heading as="h3" icon={HandThumbUpIcon}>
                     {intl.formatMessage({
                       defaultMessage: "Work Preferences",
                       description:
@@ -546,7 +549,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   data-h2-flex-item="base(1of1) p-tablet(fill)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
-                  <TableOfContents.Heading as="h3" icon={LightningBoltIcon}>
+                  <TableOfContents.Heading as="h3" icon={BoltIcon}>
                     {intl.formatMessage({
                       defaultMessage: "My skills and experience",
                       description:

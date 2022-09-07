@@ -5,7 +5,7 @@ import {
   LightBulbIcon,
   StarIcon,
   UserGroupIcon,
-} from "@heroicons/react/solid";
+} from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { IconLink } from "@common/components/Link";

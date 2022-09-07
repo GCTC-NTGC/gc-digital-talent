@@ -1,5 +1,5 @@
 import React from "react";
-import { ExternalLinkIcon } from "@heroicons/react/outline";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 
 export interface ExternalLinkProps
@@ -27,7 +27,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
       {newTab ? (
         <>
           <span>{children}</span>
-          <ExternalLinkIcon
+          <ArrowTopRightOnSquareIcon
             data-h2-width="base(x1)"
             data-h2-margin="base(0, 0, 0, x.25)"
           />

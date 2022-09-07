@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { XIcon } from "@heroicons/react/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 import Overlay from "./Overlay";
 import Content from "./Content";
@@ -81,7 +81,7 @@ const Header = ({
             description: "Text for the button to close a modal dialog.",
           })}
         </span>
-        <XIcon className="dialog-close__icon" />
+        <XMarkIcon className="dialog-close__icon" />
       </button>
       <div
         className="dialog__title dialog__title--standard"
