@@ -49,7 +49,7 @@ export const ReviewMyApplication: React.FunctionComponent<
   const hasExperiences = notEmpty(applicant.experiences);
   const { isProfileComplete } = applicant;
   const isApplicationComplete =
-    isProfileComplete ||
+    isProfileComplete === true &&
     getMissingSkills(
       missingSkills.requiredSkills || [],
       hasExperiences ? flattenExperienceSkills(experiences) : [],
