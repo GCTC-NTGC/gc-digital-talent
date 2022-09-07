@@ -33,6 +33,7 @@ const WorkLocationSection: React.FunctionComponent<{
             <p>
               {intl.formatMessage({
                 defaultMessage: "Work location:",
+                id: "b5bUa0",
                 description: "Work Location label, followed by colon",
               })}
               <br />
@@ -45,6 +46,7 @@ const WorkLocationSection: React.FunctionComponent<{
             <p>
               {intl.formatMessage({
                 defaultMessage: "Location exemptions:",
+                id: "MoWNS4",
                 description: "Location Exemptions label, followed by colon",
               })}
               <br />
@@ -59,6 +61,7 @@ const WorkLocationSection: React.FunctionComponent<{
             <p>
               {intl.formatMessage({
                 defaultMessage: "You haven't added any information here yet.",
+                id: "SCCX7B",
                 description: "Message for when no data exists for the section",
               })}
             </p>
@@ -68,6 +71,7 @@ const WorkLocationSection: React.FunctionComponent<{
               <a href={editPath}>
                 {intl.formatMessage({
                   defaultMessage: "Edit your work location options.",
+                  id: "F3/88e",
                   description: "Link text to edit work location on profile",
                 })}
               </a>
@@ -80,6 +84,7 @@ const WorkLocationSection: React.FunctionComponent<{
             <p>
               {intl.formatMessage({
                 defaultMessage: "No information has been provided.",
+                id: "1VFyrc",
                 description:
                   "Message on Admin side when user not filled WorkLocation section.",
               })}

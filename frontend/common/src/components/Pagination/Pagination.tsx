@@ -98,6 +98,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   aria-disabled={isLeftArrowDisabled || lessThanTwoItems}
                   aria-label={intl.formatMessage({
                     defaultMessage: "Goto previous page",
+                    id: "drr0f7",
                     description:
                       "Aria label for previous page button in pagination nav",
                   })}
@@ -152,6 +153,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                       aria-label={intl.formatMessage(
                         {
                           defaultMessage: "Goto Page {pageNumber}",
+                          id: "Rv5vo7",
                           description:
                             "Aria label for each button in pagination nav",
                         },
@@ -186,6 +188,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   aria-disabled={isRightArrowDisabled || lessThanTwoItems}
                   aria-label={intl.formatMessage({
                     defaultMessage: "Goto next page",
+                    id: "4uiPHx",
                     description:
                       "Aria label for next page button in pagination nav",
                   })}
@@ -210,6 +213,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
               <label data-h2-font-size="base(copy)" {...fontColor}>
                 {intl.formatMessage({
                   defaultMessage: "Go to page:",
+                  id: "QdXUwo",
                   description: "Label for pagination input in admin table.",
                 })}{" "}
                 <input
@@ -233,6 +237,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   value={pageSize}
                   aria-label={intl.formatMessage({
                     defaultMessage: "Page size",
+                    id: "fSBslq",
                     description:
                       "Label for the number of items to display on each page.",
                   })}
@@ -245,6 +250,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                       {intl.formatMessage(
                         {
                           defaultMessage: "Show {numOfRows}",
+                          id: "pbXAOp",
                           description:
                             "Options for how many rows to show on admin table",
                         },

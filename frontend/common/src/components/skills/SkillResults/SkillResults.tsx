@@ -58,10 +58,12 @@ export const SkillBlock: React.FunctionComponent<{
             {isOpen
               ? intl.formatMessage({
                   defaultMessage: "Hide definition",
+                  id: "VDZ6zw",
                   description: "Text displayed when skill block is open.",
                 })
               : intl.formatMessage({
                   defaultMessage: "See definition",
+                  id: "BjRuMw",
                   description: "Text displayed when skill block is open.",
                 })}
           </Button>
@@ -76,11 +78,13 @@ export const SkillBlock: React.FunctionComponent<{
             {isAdded
               ? intl.formatMessage({
                   defaultMessage: "Remove skill",
+                  id: "ItRgwA",
                   description:
                     "Button label to remove skill on skill result block.",
                 })
               : intl.formatMessage({
                   defaultMessage: "Add skill",
+                  id: "ZOQ9ih",
                   description:
                     "Button label to add skill on skill result block.",
                 })}
