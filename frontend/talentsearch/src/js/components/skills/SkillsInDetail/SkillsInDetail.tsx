@@ -4,7 +4,7 @@ import WordCounter from "@common/components/WordCounter/WordCounter";
 import { countNumberOfWords } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { errorMessages } from "@common/messages";
-import { TrashIcon } from "@heroicons/react/solid";
+import { TrashIcon } from "@heroicons/react/24/solid";
 import * as React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";

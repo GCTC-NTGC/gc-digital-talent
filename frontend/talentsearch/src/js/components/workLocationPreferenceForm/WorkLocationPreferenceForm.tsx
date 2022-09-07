@@ -5,7 +5,7 @@ import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { errorMessages } from "@common/messages";
-import { BriefcaseIcon } from "@heroicons/react/solid";
+import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";

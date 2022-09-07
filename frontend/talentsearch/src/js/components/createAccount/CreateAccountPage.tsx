@@ -2,7 +2,7 @@ import * as React from "react";
 import { imageUrl, navigate } from "@common/helpers/router";
 import { useIntl } from "react-intl";
 import { Alert } from "@common/components";
-import { BellIcon } from "@heroicons/react/outline";
+import { BellIcon } from "@heroicons/react/24/outline";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Input, RadioGroup, Submit } from "@common/components/form";

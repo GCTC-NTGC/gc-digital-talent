@@ -1,6 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { HomeIcon, LoginIcon } from "@heroicons/react/outline";
+import {
+  HomeIcon,
+  ArrowRightOnRectangleIcon,
+} from "@heroicons/react/24/outline";
 import CardLink from "@common/components/CardLink";
 import PageHeader from "@common/components/PageHeader";
 import { useLocation } from "@common/helpers/router";
@@ -42,7 +45,7 @@ const HomePage: React.FC = () => {
                     description:
                       "Text label for the login link to the talent cloud admin portal.",
                   })}
-                  icon={LoginIcon}
+                  icon={ArrowRightOnRectangleIcon}
                 >
                   {intl.formatMessage({
                     defaultMessage: "Portal manager portal",

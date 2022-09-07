@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { SkillCategory, SkillFamily } from "@common/api/generated";
 import { getSkillCategory } from "@common/constants/localizedConstants";
-import { LightningBoltIcon, UserGroupIcon } from "@heroicons/react/outline";
+import { BoltIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 
 interface FamilyProps {
   family: SkillFamily;
@@ -71,7 +71,7 @@ const Category: React.FunctionComponent<CategoryProps> = ({
       image = <UserGroupIcon style={{ width: "calc(1rem*1.25)" }} />;
       break;
     case SkillCategory.Technical:
-      image = <LightningBoltIcon style={{ width: "calc(1rem*1.25)" }} />;
+      image = <BoltIcon style={{ width: "calc(1rem*1.25)" }} />;
       break;
     default:
       image = null;

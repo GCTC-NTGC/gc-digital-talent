@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { OfficeBuildingIcon } from "@heroicons/react/outline";
+import { BuildingOfficeIcon } from "@heroicons/react/24/outline";
 
 import PageHeader from "@common/components/PageHeader";
 
@@ -11,7 +11,7 @@ export const DepartmentPage: React.FC = () => {
   const intl = useIntl();
   return (
     <DashboardContentContainer>
-      <PageHeader icon={OfficeBuildingIcon}>
+      <PageHeader icon={BuildingOfficeIcon}>
         {intl.formatMessage({
           defaultMessage: "Departments",
           description:

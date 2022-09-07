@@ -14,7 +14,7 @@ import {
 } from "@common/constants/localizedConstants";
 import { SubmitHandler } from "react-hook-form";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import { BriefcaseIcon } from "@heroicons/react/solid";
+import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
