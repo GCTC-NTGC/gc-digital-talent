@@ -5,6 +5,7 @@ import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import AdminFrench from "../src/js/lang/frCompiled.json";
 import CommonFrench from "../../common/src/lang";
 import TalentFrench from "../../talentsearch/src/js/lang/frCompiled.json";
+import IndigenousFrench from "../../indigenousapprenticeship/src/js/lang/frCompiled.json";
 import defaultRichTextElements from "../../common/src/helpers/format";
 import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
@@ -39,6 +40,7 @@ const messages = {
     ...CommonFrench,
     // Technically only needed when envvar MERGE_STORYBOOKS=true is used.
     ...TalentFrench,
+    ...IndigenousFrench,
   }
 };
 
