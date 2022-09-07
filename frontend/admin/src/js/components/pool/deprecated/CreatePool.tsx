@@ -13,7 +13,6 @@ import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
-import { keyStringRegex } from "@common/constants/regularExpressions";
 import { enumToOptions } from "@common/helpers/formUtils";
 import {
   getOperationalRequirement,
@@ -181,31 +180,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="key"
-              name="key"
-              label={intl.formatMessage({
-                defaultMessage: "Key",
-                description: "Label displayed on the 'key' input field.",
-              })}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "The 'key' is a string that uniquely identifies a Pool. It should be based on the Pool's English name, and it should be concise. A good example would be \"digital_careers\". It may be used in the code to refer to this particular Pool, so it cannot be changed later.",
-                description:
-                  "Additional context describing the purpose of the Pool's 'key' field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                pattern: {
-                  value: keyStringRegex,
-                  message: intl.formatMessage({
-                    defaultMessage:
-                      "Please use only lowercase letters and underscores.",
-                  }),
-                },
               }}
             />
             <TextArea

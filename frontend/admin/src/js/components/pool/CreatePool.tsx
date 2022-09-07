@@ -29,7 +29,6 @@ import DashboardContentContainer from "../DashboardContentContainer";
 type Option<V> = { value: V; label: string };
 
 type FormValues = {
-  key: string;
   classification: string[];
 };
 
@@ -67,7 +66,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     classifications: {
       sync: values.classification,
     },
-    key: values.key,
   });
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleCreatePool(userId, formValuesToSubmitData(data))
@@ -175,23 +173,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-            />
-            <Input
-              id="key"
-              name="key"
-              label={intl.formatMessage({
-                defaultMessage: "Key",
-                description: "Label displayed on the pool form name key field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "The 'key' is a string that uniquely identifies a Pool. It's auto-generated based on the pool's group and job title.",
-                description: "Context displayed on the pool form key field.",
-              })}
             />
             <Submit
               color="cta"
