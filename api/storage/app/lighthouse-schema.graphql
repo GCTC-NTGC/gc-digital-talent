@@ -709,6 +709,10 @@ type PageInfo {
   lastPage: Int!
 }
 
+input PaginatedPoolCandidateFilterInput {
+  pools: [IdInput]
+}
+
 """Information about pagination using a fully featured paginator."""
 type PaginatorInfo {
   """Number of items in the current page."""
@@ -866,6 +870,15 @@ input PoolCandidateFilterInput {
   pools: [IdInput]
 }
 
+"""A paginated list of PoolCandidate items."""
+type PoolCandidatePaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of PoolCandidate items."""
+  data: [PoolCandidate!]!
+}
+
 type PoolCandidateSearchRequest {
   id: ID!
   fullName: String
@@ -972,6 +985,15 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): UserPaginator
+  poolCandidatesPaginated(
+    where: PaginatedPoolCandidateFilterInput
+
+    """Limits number of fetched items. Maximum allowed value: 1000."""
+    first: Int = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): PoolCandidatePaginator
 }
 
 enum Role {

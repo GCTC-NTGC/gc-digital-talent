@@ -46,6 +46,7 @@ fragment poolCandidateTable on PoolCandidate {
   }
   cmoAssets {
     id
+    key
     name {
       en
       fr
@@ -102,6 +103,28 @@ query getPoolCandidate($id: ID!) {
 query GetPoolCandidates {
   poolCandidates {
     ...poolCandidateTable
+  }
+}
+
+query GetPoolCandidatesPaginated(
+  $where: PaginatedPoolCandidateFilterInput
+  $first: Int
+  $page: Int
+) {
+  poolCandidatesPaginated(where: $where, first: $first, page: $page) {
+    data {
+      ...poolCandidateTable
+    }
+    paginatorInfo {
+      count
+      currentPage
+      firstItem
+      hasMorePages
+      lastItem
+      lastPage
+      perPage
+      total
+    }
   }
 }
 
