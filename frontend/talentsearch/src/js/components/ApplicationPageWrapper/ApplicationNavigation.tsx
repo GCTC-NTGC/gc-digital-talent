@@ -36,9 +36,7 @@ const ApplicationNavigation = ({
           disabled={step.disabled ? true : index + 1 === currentStep}
           {...(index !== steps.length - 1 && {
             "data-h2-margin": "p-tablet(0, x.5, 0, 0)",
-          })}
-          {...(step.disabled && {
-            "data-h2-background-color": "base(dt-error)",
+            "data-h2-font-weight": "base(700)",
           })}
         />
       </Spacer>

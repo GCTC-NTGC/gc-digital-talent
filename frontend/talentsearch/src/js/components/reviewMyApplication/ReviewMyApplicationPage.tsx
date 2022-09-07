@@ -4,15 +4,14 @@ import UserProfile from "@common/components/UserProfile";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { commonMessages, navigationMessages } from "@common/messages";
-import { getLocale } from "@common/helpers/localize";
 import MissingSkills from "@common/components/skills/MissingSkills";
 import { notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { Link } from "@common/components";
 import { getMissingSkills } from "@common/components/skills/MissingSkills/MissingSkills";
+import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
 import {
   Applicant,
-  Maybe,
   PoolAdvertisement,
   useGetReviewMyApplicationPageDataQuery,
 } from "../../api/generated";
@@ -164,8 +163,13 @@ export const ReviewMyApplication: React.FunctionComponent<
             ),
             override: (
               <>
-                {missingSkills && (
-                  <div data-h2-margin="base(x1, 0)">
+                <div
+                  data-h2-background-color="base(dt-gray.light)"
+                  data-h2-padding="base(x1)"
+                  data-h2-radius="base(s)"
+                  data-h2-margin="base(0, 0, x1, 0)"
+                >
+                  {missingSkills && (
                     <MissingSkills
                       addedSkills={
                         hasExperiences
@@ -175,24 +179,25 @@ export const ReviewMyApplication: React.FunctionComponent<
                       requiredSkills={missingSkills.requiredSkills}
                       optionalSkills={missingSkills.optionalSkills}
                     />
-                  </div>
-                )}
-                {!hasExperiences ? (
-                  <div
-                    data-h2-radius="base(s)"
-                    data-h2-background-color="base(light.dt-gray)"
-                    data-h2-padding="base(x1)"
-                  >
-                    <p data-h2-font-style="base(italic)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "There are no experiences on your profile yet. You can add some using the preceding buttons.",
-                        description:
-                          "Message to user when no experiences have been attached to profile.",
-                      })}
-                    </p>
-                  </div>
-                ) : (
+                  )}
+                  {!hasExperiences && (
+                    <div
+                      data-h2-radius="base(s)"
+                      data-h2-background-color="base(light.dt-gray)"
+                      data-h2-padding="base(x1)"
+                    >
+                      <p data-h2-font-style="base(italic)">
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "There are no experiences on your profile yet. You can add some using the preceding buttons.",
+                          description:
+                            "Message to user when no experiences have been attached to profile.",
+                        })}
+                      </p>
+                    </div>
+                  )}
+                </div>
+                {hasExperiences && (
                   <ExperienceSection experiences={experiences} />
                 )}
                 <div
@@ -206,12 +211,16 @@ export const ReviewMyApplication: React.FunctionComponent<
                     mode="solid"
                     type="button"
                     disabled={!isApplicationComplete ?? false}
+                    data-h2-display="base(flex)"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Continue to step 2",
                       description:
                         "Button message on footer of review my application page.",
                     })}
+                    <ArrowSmallRightIcon
+                      style={{ width: "1rem", marginLeft: "0.5rem" }}
+                    />
                   </Link>
                   <Link
                     href={directIntakePaths.applications(applicant.id)}
@@ -239,7 +248,6 @@ const ReviewMyApplicationPage: React.FC<{ poolCandidateId: string }> = ({
   poolCandidateId,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const [{ data, fetching, error }] = useGetReviewMyApplicationPageDataQuery({
     variables: { id: poolCandidateId },
   });
