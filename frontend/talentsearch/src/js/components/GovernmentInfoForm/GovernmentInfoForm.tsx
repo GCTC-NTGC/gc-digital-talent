@@ -1,11 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import {
-  commonMessages,
-  errorMessages,
-  navigationMessages,
-} from "@common/messages";
+import { errorMessages, navigationMessages } from "@common/messages";
 import { Input, RadioGroup, Select } from "@common/components/form";
 import { empty } from "@common/helpers/util";
 import { getGovEmployeeType } from "@common/constants/localizedConstants";

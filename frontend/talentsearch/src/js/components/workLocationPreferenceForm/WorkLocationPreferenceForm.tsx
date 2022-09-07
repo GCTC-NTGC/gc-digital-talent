@@ -4,11 +4,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import {
-  commonMessages,
-  errorMessages,
-  navigationMessages,
-} from "@common/messages";
+import { errorMessages, navigationMessages } from "@common/messages";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";

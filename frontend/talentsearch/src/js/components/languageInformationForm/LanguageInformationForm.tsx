@@ -1,10 +1,6 @@
 import React, { ReactNode } from "react";
 import { useIntl } from "react-intl";
-import {
-  commonMessages,
-  errorMessages,
-  navigationMessages,
-} from "@common/messages";
+import { errorMessages, navigationMessages } from "@common/messages";
 import { Checklist, RadioGroup, Select } from "@common/components/form";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";

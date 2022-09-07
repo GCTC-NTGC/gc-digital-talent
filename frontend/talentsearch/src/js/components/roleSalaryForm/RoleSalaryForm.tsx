@@ -5,11 +5,7 @@ import {
   BriefcaseIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/solid";
-import {
-  commonMessages,
-  errorMessages,
-  navigationMessages,
-} from "@common/messages";
+import { errorMessages, navigationMessages } from "@common/messages";
 import Button from "@common/components/Button";
 import { notEmpty } from "@common/helpers/util";
 import { unpackMaybes } from "@common/helpers/formUtils";

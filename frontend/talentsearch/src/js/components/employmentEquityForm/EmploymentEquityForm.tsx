@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { commonMessages, navigationMessages } from "@common/messages";
+import { navigationMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";

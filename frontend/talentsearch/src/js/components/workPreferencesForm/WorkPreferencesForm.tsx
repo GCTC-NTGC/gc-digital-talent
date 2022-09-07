@@ -1,10 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  commonMessages,
-  errorMessages,
-  navigationMessages,
-} from "@common/messages";
+import { errorMessages, navigationMessages } from "@common/messages";
 import { Checklist, RadioGroup } from "@common/components/form";
 import {
   getOperationalRequirement,

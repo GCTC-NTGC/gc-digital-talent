@@ -8,6 +8,7 @@ const getFullPoolAdvertisementTitle = (
 ): string => {
   if (advertisement === null || advertisement === undefined)
     return intl.formatMessage({
+      id: "D91nGW",
       defaultMessage: "Job title not found.",
       description:
         "Message shown to user when pool name or classification are not found.",

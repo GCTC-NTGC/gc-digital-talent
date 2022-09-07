@@ -11,7 +11,7 @@ import ExperienceSection from "@common/components/UserProfile/ExperienceSection"
 import { IconLink } from "@common/components/Link";
 import { notEmpty } from "@common/helpers/util";
 import MissingSkills from "@common/components/skills/MissingSkills";
-import { commonMessages, navigationMessages } from "@common/messages";
+import { navigationMessages } from "@common/messages";
 import { useQueryParams } from "@common/helpers/router";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";

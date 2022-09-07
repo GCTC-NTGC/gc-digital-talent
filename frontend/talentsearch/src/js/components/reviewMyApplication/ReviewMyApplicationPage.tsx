@@ -60,12 +60,14 @@ export const ReviewMyApplication: React.FunctionComponent<
     <ApplicationPageWrapper
       closingDate={closingDate}
       title={intl.formatMessage({
+        id: "/ooPqb",
         defaultMessage: "My application profile",
         description: "Title for review application page.",
       })}
       crumbs={[
         {
           title: intl.formatMessage({
+            id: "Uaew4x",
             defaultMessage: "My applications",
             description: "Breadcrumb for review application page.",
           }),
@@ -85,6 +87,7 @@ export const ReviewMyApplication: React.FunctionComponent<
           {
             path: directIntakePaths.reviewApplication(applicant.id),
             label: intl.formatMessage({
+              id: "LUEVdb",
               defaultMessage: "Step 1: Review my profile",
               description: "Navigation step in sign and submit page.",
             }),
@@ -92,6 +95,7 @@ export const ReviewMyApplication: React.FunctionComponent<
           {
             path: directIntakePaths.signAndSubmit(applicant.id),
             label: intl.formatMessage({
+              id: "LOh+c5",
               defaultMessage: "Step 2: Sign and submit",
               description: "Navigation step in sign and submit page.",
             }),
@@ -188,6 +192,7 @@ export const ReviewMyApplication: React.FunctionComponent<
                     >
                       <p data-h2-font-style="base(italic)">
                         {intl.formatMessage({
+                          id: "XzUzZz",
                           defaultMessage:
                             "There are no experiences on your profile yet. You can add some using the preceding buttons.",
                           description:
@@ -214,6 +219,7 @@ export const ReviewMyApplication: React.FunctionComponent<
                     data-h2-display="base(flex)"
                   >
                     {intl.formatMessage({
+                      id: "EVGeHh",
                       defaultMessage: "Continue to step 2",
                       description:
                         "Button message on footer of review my application page.",
@@ -229,6 +235,7 @@ export const ReviewMyApplication: React.FunctionComponent<
                     type="button"
                   >
                     {intl.formatMessage({
+                      id: "vD4Qhc",
                       defaultMessage: "Save and go back to my applications",
                       description:
                         "Button message on footer of review my application page.",
@@ -266,6 +273,7 @@ const ReviewMyApplicationPage: React.FC<{ poolCandidateId: string }> = ({
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>
             {intl.formatMessage({
+              id: "jcl2s9",
               defaultMessage: "Error, pool candidate unable to be loaded",
               description: "Error message, placeholder",
             })}
