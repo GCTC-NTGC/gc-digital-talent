@@ -46,6 +46,7 @@ fragment pool on Pool {
     }
   }
   operationalRequirements
+  stream
 }
 
 query getPool($id: ID!) {
@@ -137,6 +138,7 @@ query getPoolAdvertisement($id: ID!) {
       en
       fr
     }
+    stream
   }
 }
 
@@ -161,6 +163,7 @@ query getPools {
       level
     }
     status
+    stream
   }
 }
 
@@ -197,6 +200,7 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
       key
     }
     operationalRequirements
+    stream
   }
 }
 

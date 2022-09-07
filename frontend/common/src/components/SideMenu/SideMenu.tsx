@@ -2,7 +2,7 @@
 import React from "react";
 import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
-import { MenuIcon } from "@heroicons/react/outline";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 import SideMenuItem from "./SideMenuItem";
 import useIsSmallScreen from "../../hooks/useIsSmallScreen";
@@ -66,7 +66,7 @@ const SideMenu: React.FC<SideMenuProps> = ({
             data-h2-height="base(100%)"
           >
             <div data-h2-margin="base(0, 0, x2, 0)">
-              <SideMenuItem as="button" onClick={handleToggle} icon={MenuIcon}>
+              <SideMenuItem as="button" onClick={handleToggle} icon={Bars3Icon}>
                 {isOpen
                   ? intl.formatMessage({
                       defaultMessage: "Close Menu",

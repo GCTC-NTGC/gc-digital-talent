@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { ViewGridIcon } from "@heroicons/react/outline";
+import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
@@ -70,8 +70,8 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
   ];
 
   return (
-    <>
-      <PageHeader icon={ViewGridIcon}>{pageTitle}</PageHeader>
+    <div data-h2-container="base(center, full, x1) p-tablet(center, full, x2)">
+      <PageHeader icon={Squares2X2Icon}>{pageTitle}</PageHeader>
       <Breadcrumbs links={links} />
       <div
         data-h2-align-items="base(center)"
@@ -114,7 +114,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
           <TabPanel>{tabs[1]}</TabPanel>
         </TabPanels>
       </Tabs>
-    </>
+    </div>
   );
 };
 

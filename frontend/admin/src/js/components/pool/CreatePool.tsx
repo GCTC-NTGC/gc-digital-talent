@@ -12,7 +12,7 @@ import PageHeader from "@common/components/PageHeader/PageHeader";
 import Breadcrumbs, {
   BreadcrumbsProps,
 } from "@common/components/Breadcrumbs/Breadcrumbs";
-import { ViewGridIcon } from "@heroicons/react/outline";
+import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import Link from "@common/components/Link/Link";
 import { getLocalizedName } from "@common/helpers/localize";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -136,7 +136,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 
   return (
     <section data-h2-container="base(left, small, 0)">
-      <PageHeader icon={ViewGridIcon}>
+      <PageHeader icon={Squares2X2Icon}>
         {intl.formatMessage({
           defaultMessage: "Create New Pool",
           description: "Header for page to create pool advertisements",

@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { CalendarIcon, CurrencyDollarIcon } from "@heroicons/react/solid";
+import { CalendarIcon, CurrencyDollarIcon } from "@heroicons/react/24/solid";
 
 import { getLocale, localizeSalaryRange } from "@common/helpers/localize";
 import { relativeExpiryDate } from "@common/helpers/dateUtils";

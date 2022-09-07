@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import UserGroupIcon from "@heroicons/react/solid/UserGroupIcon";
+import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
 import { CommunityExperience } from "../../../../api/generated";

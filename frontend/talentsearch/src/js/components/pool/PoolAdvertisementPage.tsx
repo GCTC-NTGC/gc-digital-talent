@@ -13,14 +13,14 @@ import { imageUrl } from "@common/helpers/router";
 import { AdvertisementStatus, SkillCategory } from "@common/api/generated";
 import TableOfContents from "@common/components/TableOfContents";
 import {
-  LightningBoltIcon,
+  BoltIcon,
   BriefcaseIcon as BriefcaseIconOutline,
   PhoneIcon,
   LightBulbIcon,
   CheckCircleIcon,
-  ChipIcon,
+  CpuChipIcon,
   CloudIcon,
-} from "@heroicons/react/outline";
+} from "@heroicons/react/24/outline";
 import Accordion from "@common/components/accordion";
 import {
   getLanguageRequirement,
@@ -306,7 +306,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             )}
             {poolAdvertisement.yourImpact ? (
               <>
-                <IconTitle icon={LightningBoltIcon}>
+                <IconTitle icon={BoltIcon}>
                   {intl.formatMessage({
                     defaultMessage: "Your impact",
                     description:
@@ -335,7 +335,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             </TableOfContents.Heading>
             {essentialSkills[SkillCategory.Technical]?.length ? (
               <>
-                <IconTitle icon={ChipIcon}>
+                <IconTitle icon={CpuChipIcon}>
                   {intl.formatMessage({
                     defaultMessage: "Occupational skills",
                     description:
@@ -388,7 +388,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             </TableOfContents.Heading>
             {nonEssentialSkills[SkillCategory.Technical]?.length ? (
               <>
-                <IconTitle icon={ChipIcon}>
+                <IconTitle icon={CpuChipIcon}>
                   {intl.formatMessage({
                     defaultMessage: "Occupational skills",
                     description:

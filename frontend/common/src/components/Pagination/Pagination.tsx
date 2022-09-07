@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/solid";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Button } from "..";
@@ -231,6 +231,11 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                 <select
                   style={{ cursor: "pointer" }}
                   value={pageSize}
+                  aria-label={intl.formatMessage({
+                    defaultMessage: "Page size",
+                    description:
+                      "Label for the number of items to display on each page.",
+                  })}
                   onChange={(e) => {
                     onPageSizeChange(Number(e.target.value));
                   }}

@@ -1,4 +1,4 @@
-import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/solid";
+import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { commonMessages } from "../../../messages";
@@ -75,7 +75,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
               <span
                 data-h2-font-size="base(caption)"
                 {...(required
-                  ? { "data-h2-color": "base(dt-error)" }
+                  ? { "data-h2-color": "base(dark.dt-error)" }
                   : { "data-h2-color": "base(dark.dt-gray)" })}
               >
                 (

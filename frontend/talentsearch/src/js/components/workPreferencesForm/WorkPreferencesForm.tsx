@@ -11,7 +11,7 @@ import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
-import { BriefcaseIcon } from "@heroicons/react/solid";
+import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import {

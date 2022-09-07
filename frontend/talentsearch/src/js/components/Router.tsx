@@ -84,6 +84,9 @@ const PoolAdvertisementPage = React.lazy(
 const SignAndSubmitPage = React.lazy(
   () => import("./signAndSubmit/SignAndSubmitPage"),
 );
+const MyApplicationsPage = React.lazy(
+  () => import("./applications/MyApplicationsPage"),
+);
 const ReviewMyApplicationPage = React.lazy(
   () => import("./reviewMyApplication/ReviewMyApplicationPage"),
 );
@@ -454,6 +457,13 @@ const directIntakeRoutes = (
         authorizedRoles: [Role.Applicant],
       };
     },
+  },
+  {
+    path: directIntakePaths.applications(":userId"),
+    action: () => ({
+      component: <MyApplicationsPage />,
+      authorizedRoles: [Role.Applicant],
+    }),
   },
   {
     path: directIntakePaths.reviewApplication(":poolCandidateId"),

@@ -7,7 +7,7 @@ import { getLocale } from "@common/helpers/localize";
 import { navigate, useQueryParams } from "@common/helpers/router";
 import { Button } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
-import { TrashIcon } from "@heroicons/react/solid";
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 import { removeFromSessionStorage } from "@common/helpers/storageUtils";
 import NotFound from "@common/components/NotFound";

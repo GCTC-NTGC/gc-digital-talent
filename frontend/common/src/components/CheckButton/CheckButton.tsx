@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { CheckIcon, MinusIcon } from "@heroicons/react/outline";
+import { CheckIcon, MinusIcon } from "@heroicons/react/24/outline";
 
 import "./check-button.css";
 

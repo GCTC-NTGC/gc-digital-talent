@@ -7,11 +7,11 @@ We used [Dependabot](https://github.com/dependabot) to manage the dependency upd
  - If you are satisfied with the PR, approve and merge it.  If not, leave a comment for the next reviewer.
 # Merge Criteria
 These are the suggested criteria with which to evaluate a PR  and decide if it is safe to merge.  They are suggestions only so use your own judgment and experience.  The criteria are broken into sections based on the type of version update (MAJOR.MINOR.PATCH) that the PRs represents.
-### Patch Version Updates
+## Patch Version Updates
  - All GitHub Actions processes completed successfully
  - No merge conflicts
  - Dependabot does not have a rebase pending
-### Minor Version Updates
+## Minor Version Updates
 - The release notes for the dependency mention no breaking changes
-### Major Version Updates
+## Major Version Updates
 - I've checked out the branch, built it, and manually exercised it a bit.

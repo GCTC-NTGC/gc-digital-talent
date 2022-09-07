@@ -1,7 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { BasicForm, Checklist } from "@common/components/form";
-import { BriefcaseIcon, InformationCircleIcon } from "@heroicons/react/solid";
+import {
+  BriefcaseIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/solid";
 import { commonMessages, errorMessages } from "@common/messages";
 import Button from "@common/components/Button";
 import { notEmpty } from "@common/helpers/util";

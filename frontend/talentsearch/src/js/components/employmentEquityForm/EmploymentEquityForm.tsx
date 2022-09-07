@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import { BriefcaseIcon } from "@heroicons/react/solid";
+import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import EquityOptions from "./EquityOptions";
 import type { EmploymentEquityUpdateHandler, EquityKeys } from "./types";

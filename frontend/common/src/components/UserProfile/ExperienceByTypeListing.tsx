@@ -4,7 +4,7 @@ import {
   LightBulbIcon,
   StarIcon,
   UserGroupIcon,
-} from "@heroicons/react/solid";
+} from "@heroicons/react/24/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import ExperienceAccordion, {
