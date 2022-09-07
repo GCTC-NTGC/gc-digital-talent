@@ -23,6 +23,7 @@ const CTAButtons: React.FC<CTAButtonsProps> = ({
         <Button color="ia-primary" mode="solid" onClick={onClickApply} block>
           {intl.formatMessage({
             defaultMessage: "Apply Now",
+            id: "DvmNR7",
             description: "Button text to apply for program",
           })}
         </Button>
@@ -39,6 +40,7 @@ const CTAButtons: React.FC<CTAButtonsProps> = ({
         >
           {intl.formatMessage({
             defaultMessage: "Learn More",
+            id: "CY+493",
             description: "Button text to learn more about the program",
           })}
         </Button>

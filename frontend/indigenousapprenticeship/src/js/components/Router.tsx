@@ -51,6 +51,7 @@ export const Router: React.FC = () => {
       href={indigenousApprenticeshipPaths.home()}
       text={intl.formatMessage({
         defaultMessage: "Home",
+        id: "TFeQL2",
         description:
           "Link to the homepage for indigenous apprenticeship program.",
       })}
