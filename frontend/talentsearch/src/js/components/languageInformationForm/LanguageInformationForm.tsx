@@ -149,6 +149,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
       >
         {intl.formatMessage({
           defaultMessage: "Government of Canada language evaluation.",
+          id: "Ugr5Yt",
           description: "Message on links to the language evaluation tests",
         })}
       </a>
@@ -175,6 +176,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
       value: "lookingForEnglish",
       label: intl.formatMessage({
         defaultMessage: "English positions",
+        id: "JBRqD9",
         description: "Message for the english positions option",
       }),
     },
@@ -182,6 +184,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
       value: "lookingForFrench",
       label: intl.formatMessage({
         defaultMessage: "French positions",
+        id: "5pQfyv",
         description: "Message for the french positions option",
       }),
     },
@@ -189,6 +192,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
       value: "lookingForBilingual",
       label: intl.formatMessage({
         defaultMessage: "Bilingual positions (English and French)",
+        id: "Mu+1pI",
         description: "Message for the bilingual positions option",
       }),
     },
@@ -203,6 +207,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         {
           defaultMessage:
             "I am bilingual (En/Fr) and <strong>have</strong> completed an official <strong>ENGLISH</strong> <languageEvaluationPageLink></languageEvaluationPageLink>",
+          id: "ljnSYf",
           description:
             "Message for the completed english bilingual evaluation option",
         },
@@ -217,6 +222,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         {
           defaultMessage:
             "I am bilingual (En/Fr) and <strong>have</strong> completed an official <strong>FRENCH</strong> <languageEvaluationPageLink></languageEvaluationPageLink>",
+          id: "pak8ye",
           description:
             "Message for the completed french bilingual evaluation option",
         },
@@ -231,6 +237,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         {
           defaultMessage:
             "I am bilingual (En/Fr) and <strong>have NOT</strong> completed an official <languageEvaluationPageLink></languageEvaluationPageLink>",
+          id: "FfEyFv",
           description:
             "Message for the haven't completed bilingual evaluation option",
         },
@@ -262,6 +269,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         label: intl.formatMessage({
           defaultMessage:
             "Beginner <gray>- I have basic reading, writing and verbal communication skills.</gray>",
+          id: "ZuFBx5",
           description: "Message for the beginner language ability option",
         }),
       },
@@ -270,6 +278,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         label: intl.formatMessage({
           defaultMessage:
             "Intermediate <gray>- I have strong reading, writing and verbal communication skills.</gray>",
+          id: "t5G3Fz",
           description: "Message for the intermediate language ability option",
         }),
       },
@@ -277,6 +286,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         value: EstimatedLanguageAbility.Advanced,
         label: intl.formatMessage({
           defaultMessage: "Advanced <gray>- I am completely fluent.</gray>",
+          id: "paLFgh",
           description: "Message for the advanced language ability option",
         }),
       },
@@ -287,6 +297,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         {
           title: intl.formatMessage({
             defaultMessage: "My Applications",
+            id: "mq4G8h",
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
@@ -314,11 +325,13 @@ export const LanguageInformationForm: React.FunctionComponent<{
           description={intl.formatMessage({
             defaultMessage:
               "Use the form below to help us better understand your language preferences and capabilities",
+            id: "TGCq/w",
             description:
               "Description text for Profile Form wrapper in Language Information Form",
           })}
           title={intl.formatMessage({
             defaultMessage: "Language Information",
+            id: "R5aTZ9",
             description:
               "Title for Profile Form wrapper in Language Information Form",
           })}
@@ -330,6 +343,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
             {
               title: intl.formatMessage({
                 defaultMessage: "Language Information",
+                id: "/k21MP",
                 description:
                   "Display Text for Language Information Form Page Link",
               }),
@@ -347,6 +361,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                 legend={intl.formatMessage({
                   defaultMessage:
                     "Select the positions you would like to be considered for",
+                  id: "ntUOoz",
                   description:
                     "Legend for considered position languages check list in language information form",
                 })}
@@ -364,6 +379,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                     idPrefix="bilingualEvaluation"
                     legend={intl.formatMessage({
                       defaultMessage: "Bilingual evaluation",
+                      id: "X354at",
                       description:
                         "Legend bilingual evaluation status in language information form",
                     })}
@@ -380,6 +396,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                       {intl.formatMessage({
                         defaultMessage:
                           "Please indicate the language levels you acquired from your Government of Canada language evaluation.",
+                        id: "Y7l4/n",
                         description:
                           "Text requesting language levels given from bilingual evaluation in language information form",
                       })}
@@ -391,11 +408,13 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           name="comprehensionLevel"
                           label={intl.formatMessage({
                             defaultMessage: "Comprehension",
+                            id: "W4Svkd",
                             description:
                               "Label displayed on the language information form comprehension field.",
                           })}
                           nullSelection={intl.formatMessage({
                             defaultMessage: "Select a level...",
+                            id: "8QN6ZC",
                             description:
                               "Placeholder displayed on the language information form comprehension field.",
                           })}
@@ -413,11 +432,13 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           name="writtenLevel"
                           label={intl.formatMessage({
                             defaultMessage: "Written",
+                            id: "x5C9Ab",
                             description:
                               "Label displayed on the language information form written field.",
                           })}
                           nullSelection={intl.formatMessage({
                             defaultMessage: "Select a level...",
+                            id: "aQJOd0",
                             description:
                               "Placeholder displayed on the language information form written field.",
                           })}
@@ -435,11 +456,13 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           name="verbalLevel"
                           label={intl.formatMessage({
                             defaultMessage: "Verbal",
+                            id: "rywI3C",
                             description:
                               "Label displayed on the language information form verbal field.",
                           })}
                           nullSelection={intl.formatMessage({
                             defaultMessage: "Select a level...",
+                            id: "Y7jEXr",
                             description:
                               "Placeholder displayed on the language information form verbal field.",
                           })}
@@ -460,6 +483,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                         {
                           defaultMessage:
                             "If you want to find out your language proficiency levels, <selfAssessmentLink>click here to find out.</selfAssessmentLink>",
+                          id: "nVh2Qh",
                           description:
                             "Text including link to language proficiency evaluation in language information form",
                         },
@@ -472,6 +496,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                       idPrefix="estimatedLanguageAbility"
                       legend={intl.formatMessage({
                         defaultMessage: "Second language proficiency level",
+                        id: "T1TKNL",
                         description:
                           "Legend for second language proficiency level in language information form",
                       })}

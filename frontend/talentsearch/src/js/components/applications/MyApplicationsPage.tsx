@@ -61,6 +61,7 @@ export const MyApplications = ({ applications }: MyApplicationsProps) => {
         >
           {intl.formatMessage({
             defaultMessage: "My Applications",
+            id: "Boze7x",
             description:
               "Title for page that displays current users applications.",
           })}
@@ -85,6 +86,7 @@ export const MyApplications = ({ applications }: MyApplicationsProps) => {
             <p>
               {intl.formatMessage({
                 defaultMessage: "You currently have no applications.",
+                id: "rw05Jq",
                 description:
                   "Messaged displayed when a user has no applications.",
               })}
@@ -112,6 +114,7 @@ const MyApplicationsPage = () => {
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           {intl.formatMessage({
             defaultMessage: "Error, applications unable to be loaded",
+            id: "Q7yh4j",
             description: "My applications error message, placeholder",
           })}
         </NotFound>

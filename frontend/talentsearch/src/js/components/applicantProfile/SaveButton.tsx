@@ -17,6 +17,7 @@ const SaveButton: React.FunctionComponent = () => {
           <span data-h2-margin="base(auto, auto, auto, x.125)">
             {intl.formatMessage({
               defaultMessage: "Save and go back",
+              id: "CuHYqt",
               description: "Text for save button on profile form.",
             })}
           </span>
@@ -28,6 +29,7 @@ const SaveButton: React.FunctionComponent = () => {
           <span data-h2-margin="base(auto, auto, auto, x.125)">
             {intl.formatMessage({
               defaultMessage: "Saving...",
+              id: "lai6E5",
               description: "Submitting text for save button on profile form.",
             })}
           </span>
@@ -39,6 +41,7 @@ const SaveButton: React.FunctionComponent = () => {
           <span data-h2-margin="base(auto, auto, auto, x.125)">
             {intl.formatMessage({
               defaultMessage: "Saved",
+              id: "TV4UWm",
               description: "Submitted text for save button on profile form.",
             })}
           </span>

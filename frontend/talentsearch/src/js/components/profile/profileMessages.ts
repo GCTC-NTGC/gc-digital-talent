@@ -4,18 +4,22 @@ const messages = defineMessages({
   profileCompleted: {
     defaultMessage:
       "All required fields are complete. You can now change your status.",
+    id: "hTJgV2",
     description: "Message displayed to user when user profile completed.",
   },
   updatingFailed: {
     defaultMessage: "Error: updating user failed",
+    id: "5FFRV2",
     description: "Message displayed to user after user fails to get updated.",
   },
   userNotFound: {
     defaultMessage: "User not found.",
+    id: "2cUBGT",
     description: "Message displayed for user not found.",
   },
   userUpdated: {
     defaultMessage: "User updated successfully!",
+    id: "evxvnW",
     description:
       "Message displayed to user after user is updated successfully.",
   },

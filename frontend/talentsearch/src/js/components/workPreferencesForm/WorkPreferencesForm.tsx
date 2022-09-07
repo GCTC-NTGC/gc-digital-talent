@@ -108,6 +108,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
         {
           title: intl.formatMessage({
             defaultMessage: "My Applications",
+            id: "mq4G8h",
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
@@ -133,11 +134,13 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
       description={intl.formatMessage({
         defaultMessage:
           "Certain jobs require you to work odd hours or perform tasks that are a little outside of the normal. Please indicate which special requirements you are comfortable with.",
+        id: "wKIVFc",
         description:
           "Description text for Profile Form wrapper  in Work Preferences Form",
       })}
       title={intl.formatMessage({
         defaultMessage: "Work preferences",
+        id: "k0++o0",
         description: "Title for Profile Form wrapper  in Work Preferences Form",
       })}
       cancelLink={{
@@ -148,6 +151,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
         {
           title: intl.formatMessage({
             defaultMessage: "Work Preferences",
+            id: "7OWQgZ",
             description: "Display Text for Work Preferences Form Page Link",
           }),
         },
@@ -167,6 +171,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                   legend={intl.formatMessage({
                     defaultMessage:
                       "I would consider accepting a job that lasts for...",
+                    id: "/DCykA",
                     description:
                       "Legend Text for required work preferences options in work preferences form",
                   })}
@@ -180,6 +185,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                       label: intl.formatMessage({
                         defaultMessage:
                           "...any duration (short term, long term, or indeterminate duration)",
+                        id: "X2Ivfb",
                         description:
                           "Label displayed on Work Preferences form for any duration option",
                       }),
@@ -189,6 +195,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                       label: intl.formatMessage({
                         defaultMessage:
                           "...only those of an indeterminate duration. (permanent)",
+                        id: "9zqf5E",
                         description:
                           "Label displayed on Work Preferences form for indeterminate duration option.",
                       }),
@@ -207,6 +214,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                   legend={intl.formatMessage({
                     defaultMessage:
                       "I would consider accepting a job that requires…",
+                    id: "yQ2dDL",
                     description:
                       "Legend for optional work preferences check list in work preferences form",
                   })}

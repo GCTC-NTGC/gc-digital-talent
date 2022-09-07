@@ -18,6 +18,7 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
       <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "1. Award Details",
+          id: "i55f5L",
           description: "Title for Award Details Form",
         })}
       </h2>
@@ -25,6 +26,7 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
         {intl.formatMessage({
           defaultMessage:
             "Did you get recognized for going above and beyond? There are many ways to get recognized, awards are just one of them.",
+          id: "a6c/ce",
           description: "Description blurb for Award Details Form",
         })}
       </p>
@@ -35,11 +37,13 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
               id="awardTitle"
               label={intl.formatMessage({
                 defaultMessage: "Award Title",
+                id: "qeD2p/",
                 description:
                   "Label displayed on award form for award title input",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Write award title here...",
+                id: "9ttiBB",
                 description: "Placeholder for award title input",
               })}
               name="awardTitle"
@@ -52,6 +56,7 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
               id="awardedDate"
               label={intl.formatMessage({
                 defaultMessage: "Date Awarded",
+                id: "5CONbw",
                 description:
                   "Label displayed on award form for date awarded input",
               })}
@@ -65,12 +70,14 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
               id="awardedTo"
               label={intl.formatMessage({
                 defaultMessage: "Awarded to",
+                id: "0H0CLx",
                 description:
                   "Label displayed on Award form for awarded to input",
               })}
               name="awardedTo"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Choose one...",
+                id: "WjssQc",
                 description:
                   "Null selection for select input in the awarded to form.",
               })}
@@ -93,11 +100,13 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
               id="issuedBy"
               label={intl.formatMessage({
                 defaultMessage: "Issuing Organization or Institution",
+                id: "YJdsMY",
                 description:
                   "Label displayed on award form for issuing organization input",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Write name here...",
+                id: "TSqr8X",
                 description: "Placeholder for issuing organization input",
               })}
               name="issuedBy"
@@ -110,12 +119,14 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
               id="awardedScope"
               label={intl.formatMessage({
                 defaultMessage: "Award Scope",
+                id: "DyaaHi",
                 description:
                   "Label displayed on Award form for award scope input",
               })}
               name="awardedScope"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Choose one...",
+                id: "sIM1t+",
                 description:
                   "Null selection for select input in the award scope form.",
               })}

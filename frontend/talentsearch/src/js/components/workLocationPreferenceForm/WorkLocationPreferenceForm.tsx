@@ -89,6 +89,7 @@ export const WorkLocationPreferenceForm: React.FC<
         {
           title: intl.formatMessage({
             defaultMessage: "My Applications",
+            id: "mq4G8h",
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
@@ -114,11 +115,13 @@ export const WorkLocationPreferenceForm: React.FC<
       description={intl.formatMessage({
         defaultMessage:
           "Indicate all locations where you are willing to work, including your current location (if you are interested in working there).",
+        id: "8NJbCH",
         description:
           "Description text for Profile Form wrapper in Work Location Preferences Form",
       })}
       title={intl.formatMessage({
         defaultMessage: "Work location",
+        id: "nOE+8s",
         description:
           "Title for Profile Form wrapper  in Work Location Preferences Form",
       })}
@@ -130,6 +133,7 @@ export const WorkLocationPreferenceForm: React.FC<
         {
           title: intl.formatMessage({
             defaultMessage: "Work Location Preference",
+            id: "c/Qp8R",
             description:
               "Display Text for the current page in Work Location Preference Form Page",
           }),
@@ -152,6 +156,7 @@ export const WorkLocationPreferenceForm: React.FC<
                   idPrefix="work-location"
                   legend={intl.formatMessage({
                     defaultMessage: "Work location",
+                    id: "nueuS8",
                     description:
                       "Legend for optional work preferences check list in work preferences form",
                   })}
@@ -175,6 +180,7 @@ export const WorkLocationPreferenceForm: React.FC<
                   {intl.formatMessage({
                     defaultMessage:
                       "Indicate if there is a city that you would like to exclude from a region.",
+                    id: "1CuGS6",
                     description:
                       "Explanation text for Location exemptions field in work location preference form",
                   })}
@@ -183,6 +189,7 @@ export const WorkLocationPreferenceForm: React.FC<
                   {intl.formatMessage({
                     defaultMessage:
                       "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
+                    id: "2K7dVp",
                     description:
                       "Example for Location exemptions field in work location preference form",
                   })}
