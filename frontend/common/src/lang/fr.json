@@ -842,10 +842,6 @@
     "defaultMessage": "Québec",
     "description": "Quebec selection for province or territory input"
   },
-  "ttj/2n": {
-    "defaultMessage": "Vous n'avez pas encore ajouté de renseignements ici.",
-    "description": "Message that the user hasn't filled out the section yet"
-  },
   "uMzeiF": {
     "defaultMessage": "Rôle et salaire escomptés",
     "description": "Title of the Role and salary expectations section"
