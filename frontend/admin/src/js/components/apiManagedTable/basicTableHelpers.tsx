@@ -36,6 +36,7 @@ export function rowSelectionColumn<T extends RecordWithId>(
   return {
     label: intl.formatMessage({
       defaultMessage: "Row Selection",
+      id: "pFYfVv",
       description:
         "Label for the row-selection column in the tables column-selection modal.",
     }),
@@ -48,6 +49,7 @@ export function rowSelectionColumn<T extends RecordWithId>(
         }
         label={intl.formatMessage({
           defaultMessage: "Select/Deselect all",
+          id: "DDR6Ax",
           description: "Header label for the row-selection column in tables.",
         })}
         onToggle={() => {

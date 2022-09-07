@@ -84,6 +84,7 @@ export const YourImpactSection = ({
         {intl.formatMessage({
           defaultMessage:
             "This information lets applicants know what kind of work, and environment they are applying to. Use this space to talk about the area of government this process will aim to improve. And the value this kind of work creates.",
+          id: "aGI59+",
           description: "Helper message for filling in the pool introduction",
         })}
       </p>
@@ -95,12 +96,14 @@ export const YourImpactSection = ({
                 id="yourImpactEn"
                 label={intl.formatMessage({
                   defaultMessage: "English - Your impact",
+                  id: "NfRLs/",
                   description:
                     "Label for the English - Your Impact textarea in the edit pool page.",
                 })}
                 placeholder={intl.formatMessage({
                   defaultMessage:
                     "Write the introduction for this job poster...",
+                  id: "XprYVQ",
                   description:
                     "Placeholder message for  the English - Your Impact textarea in the edit pool page.",
                 })}
@@ -132,12 +135,14 @@ export const YourImpactSection = ({
                 id="yourImpactFr"
                 label={intl.formatMessage({
                   defaultMessage: "French - Your impact",
+                  id: "fPy7Mg",
                   description:
                     "Label for the French - Your Impact textarea in the edit pool page.",
                 })}
                 placeholder={intl.formatMessage({
                   defaultMessage:
                     "Write the introduction for this job poster...",
+                  id: "cQE6qE",
                   description:
                     "Placeholder message for the French - Your Impact textarea in the edit pool page.",
                 })}
@@ -170,6 +175,7 @@ export const YourImpactSection = ({
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Save introduction",
+                id: "UduzGA",
                 description: "Text on a button to save the pool introduction",
               })}
               color="cta"

@@ -52,6 +52,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
 
   const allTableMsg = intl.formatMessage({
     defaultMessage: "All table",
+    id: "IMdFJM",
     description:
       "Text in table search form column dropdown when no column is selected.",
   });
@@ -89,10 +90,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
         onChange={debouncedChangeHandler}
         aria-label={intl.formatMessage({
           defaultMessage: "Search Table",
+          id: "chFoB8",
           description: "Label for search field on admin tables.",
         })}
         placeholder={intl.formatMessage({
           defaultMessage: "Start writing here...",
+          id: "3F6QqF",
           description:
             "Placeholder displayed on the Global Filter form Search field.",
         })}

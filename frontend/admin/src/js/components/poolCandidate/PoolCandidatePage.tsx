@@ -21,6 +21,7 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Pool Candidates",
+                  id: "8AbNBq",
                   description:
                     "Heading displayed above the Pool Candidate Table component.",
                 })}

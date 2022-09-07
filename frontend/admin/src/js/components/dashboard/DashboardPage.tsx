@@ -29,6 +29,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
         {intl.formatMessage(
           {
             defaultMessage: "Welcome back, {name}",
+            id: "lIwJp4",
             description:
               "Title for dashboard on the talent cloud admin portal.",
           },
@@ -37,6 +38,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
               ? `${currentUser.firstName} ${currentUser.lastName}`
               : intl.formatMessage({
                   defaultMessage: "N/A",
+                  id: "AauSuA",
                   description: "Not available message.",
                 }),
           },
@@ -46,6 +48,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
         {intl.formatMessage({
           defaultMessage:
             "On this page you can find a list of active pools along with a few details about their status.",
+          id: "7B+1RO",
           description:
             "Description of the content found on the admin portal dashboard page.",
         })}
@@ -65,6 +68,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
           >
             {intl.formatMessage({
               defaultMessage: "Manage pools",
+              id: "HgQThJ",
               description:
                 "Text label for link to pools page on admin dashboard",
             })}
@@ -80,6 +84,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
           >
             {intl.formatMessage({
               defaultMessage: "Manage users",
+              id: "U5HvOH",
               description:
                 "Text label for link to users page on admin dashboard",
             })}
@@ -95,6 +100,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
           >
             {intl.formatMessage({
               defaultMessage: "Manage requests",
+              id: "Bvj3zI",
               description:
                 "Text label for link to requests page on admin dashboard",
             })}

@@ -61,6 +61,7 @@ export const StatusSection = ({
         {intl.formatMessage({
           defaultMessage:
             "Use these options to publish or close your advertisement. A live advertisement will allow applicants to submit applications to this pool.",
+          id: "y9tCKP",
           description:
             "Helper message for changing the pool advertisement status",
         })}
@@ -92,6 +93,7 @@ export const StatusSection = ({
                   {intl.formatMessage(
                     {
                       defaultMessage: "<heavyPrimary>Draft</heavyPrimary>",
+                      id: "4yBTfg",
                       description: "Status name of a pool in DRAFT status",
                     },
                     { heavyPrimary },
@@ -100,6 +102,7 @@ export const StatusSection = ({
                 <span>
                   {intl.formatMessage({
                     defaultMessage: "This pool has not been advertised yet.",
+                    id: "kHKFAH",
                     description: "Status description of a pool in DRAFT status",
                   })}
                 </span>
@@ -112,6 +115,7 @@ export const StatusSection = ({
             >
               {intl.formatMessage({
                 defaultMessage: "Publish",
+                id: "t4WPUU",
                 description: "Text on a button to publish the pool",
               })}
             </Button>
@@ -122,6 +126,7 @@ export const StatusSection = ({
             >
               {intl.formatMessage({
                 defaultMessage: "Delete",
+                id: "IFGKCz",
                 description: "Text on a button to delete the pool",
               })}
             </Button>
@@ -154,6 +159,7 @@ export const StatusSection = ({
                   {intl.formatMessage(
                     {
                       defaultMessage: "<heavyPrimary>Published</heavyPrimary>",
+                      id: "NwpZNj",
                       description: "Status name of a pool in PUBLISHED status",
                     },
                     { heavyPrimary },
@@ -163,6 +169,7 @@ export const StatusSection = ({
                   {intl.formatMessage({
                     defaultMessage:
                       "This pool is currently being advertised and open to receiving new applications.",
+                    id: "0qKFaP",
                     description:
                       "Status description of a pool in PUBLISHED status",
                   })}
@@ -176,6 +183,7 @@ export const StatusSection = ({
             >
               {intl.formatMessage({
                 defaultMessage: "Close",
+                id: "BhtXXY",
                 description: "Text on a button to close the pool",
               })}
             </Button>
@@ -186,6 +194,7 @@ export const StatusSection = ({
             >
               {intl.formatMessage({
                 defaultMessage: "Extend the date",
+                id: "jiUwae",
                 description:
                   "Text on a button to extend the expiry date the pool",
               })}
@@ -219,6 +228,7 @@ export const StatusSection = ({
                   {intl.formatMessage(
                     {
                       defaultMessage: "<heavyPrimary>Expired</heavyPrimary>",
+                      id: "uBA5mM",
                       description: "Status name of a pool in EXPIRED status",
                     },
                     { heavyPrimary },
@@ -228,6 +238,7 @@ export const StatusSection = ({
                   {intl.formatMessage({
                     defaultMessage:
                       "This pool is being advertised but no longer accepting applications.",
+                    id: "dG1EJO",
                     description:
                       "Status description of a pool in EXPIRED status",
                   })}
@@ -241,6 +252,7 @@ export const StatusSection = ({
             >
               {intl.formatMessage({
                 defaultMessage: "Extend the date",
+                id: "jiUwae",
                 description:
                   "Text on a button to extend the expiry date the pool",
               })}
@@ -253,6 +265,7 @@ export const StatusSection = ({
             >
               {intl.formatMessage({
                 defaultMessage: "Archive",
+                id: "P8NuMo",
                 description: "Text on a button to archive the pool",
               })}
             </Button>
@@ -284,6 +297,7 @@ export const StatusSection = ({
                 {intl.formatMessage(
                   {
                     defaultMessage: "<heavyPrimary>Archived</heavyPrimary>",
+                    id: "+5da+V",
                     description: "Status name of a pool in ARCHIVED status",
                   },
                   { heavyPrimary },
@@ -292,6 +306,7 @@ export const StatusSection = ({
               <span>
                 {intl.formatMessage({
                   defaultMessage: "This pool is no longer advertised.",
+                  id: "HxTuuy",
                   description:
                     "Status description of a pool in ARCHIVED status",
                 })}

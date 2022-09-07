@@ -71,6 +71,7 @@ function TableFooter({
                       >
                         {intl.formatMessage({
                           defaultMessage: "Download CSV",
+                          id: "mxOuYK",
                           description:
                             "Text label for button to download a csv file of items in a table.",
                         })}
@@ -87,6 +88,7 @@ function TableFooter({
                     >
                       {intl.formatMessage({
                         defaultMessage: "Print",
+                        id: "pLCv50",
                         description:
                           "Text label for button to print items in a table.",
                       })}
@@ -106,6 +108,7 @@ function TableFooter({
               totalCount={paginatorInfo.total}
               ariaLabel={intl.formatMessage({
                 defaultMessage: "Table results",
+                id: "hlcd+5",
               })}
               color="white"
               mode="outline"

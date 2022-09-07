@@ -75,6 +75,7 @@ export const ClosingDateSection = ({
                 id="endDate"
                 label={intl.formatMessage({
                   defaultMessage: "End Date",
+                  id: "80DOGy",
                   description:
                     "Label displayed on the pool candidate form end date field.",
                 })}
@@ -90,6 +91,7 @@ export const ClosingDateSection = ({
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Save closing date",
+                id: "jttjmJ",
                 description: "Text on a button to save the pool closing date",
               })}
               color="cta"

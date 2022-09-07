@@ -30,6 +30,7 @@ function TableEditButton({
       {intl.formatMessage(
         {
           defaultMessage: "Edit <hidden>{label}</hidden>",
+          id: "9flpmN",
           description: "Title displayed for the Edit column.",
         },
         { label },

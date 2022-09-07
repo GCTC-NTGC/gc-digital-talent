@@ -38,6 +38,7 @@ const CloseDialogButton: React.FC<CloseDialogButtonProps> = ({ close }) => {
       <span data-h2-font-style="base(underline)">
         {intl.formatMessage({
           defaultMessage: "Cancel and go back",
+          id: "tiF/jI",
           description: "Close dialog button",
         })}
       </span>
@@ -135,6 +136,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "Status updated successfully",
+            id: "nYriNg",
             description: "Toast for successful status update on view-user page",
           }),
         );
@@ -145,6 +147,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Failed updating status",
+            id: "BnSa6Y",
             description: "Toast for failed status update on view-user page",
           }),
         );
@@ -155,6 +158,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
     <Dialog
       title={intl.formatMessage({
         defaultMessage: "Change status",
+        id: "SARjte",
         description: "title for change status dialog on view-user page",
       })}
       color="ts-primary"
@@ -164,6 +168,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
       <p>
         {intl.formatMessage({
           defaultMessage: "You're about to change status for this user:",
+          id: "p+YRN1",
           description:
             "First section of text on the change candidate status dialog",
         })}
@@ -174,6 +179,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "From the following pool:",
+          id: "FUxE8S",
           description:
             "Second section of text on the change candidate status dialog",
         })}
@@ -182,6 +188,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "Choose status:",
+          id: "Zbk4zf",
           description:
             "Third section of text on the change candidate status dialog",
         })}
@@ -191,6 +198,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
           inputId="status"
           label={intl.formatMessage({
             defaultMessage: "Pool status",
+            id: "n9YPWe",
             description:
               "Label displayed on the status field of the change candidate status dialog",
           })}
@@ -208,6 +216,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
             <option value="" disabled>
               {intl.formatMessage({
                 defaultMessage: "Select a pool status...",
+                id: "usNShh",
                 description:
                   "Placeholder displayed on the status field of the change candidate status dialog.",
               })}
@@ -231,6 +240,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
             isVisible={showErrorMessage}
             error={intl.formatMessage({
               defaultMessage: "Please select a status",
+              id: "eaHqS2",
               description:
                 "Error displayed on the change candidate status dialog if no status selected",
             })}
@@ -249,10 +259,12 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
               submitting
                 ? intl.formatMessage({
                     defaultMessage: "Submitting",
+                    id: "gCbb9X",
                     description: "Text on submit button when submitting",
                   })
                 : intl.formatMessage({
                     defaultMessage: "Change status",
+                    id: "iuve97",
                     description: "Confirmation button for change status dialog",
                   })
             }
@@ -311,6 +323,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "Expiry date updated successfully",
+            id: "HwPuG0",
             description:
               "Toast for successful expiry date update on view-user page",
           }),
@@ -322,6 +335,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Failed updating expiry date",
+            id: "qSTIKZ",
             description:
               "Toast for failed expiry date update on view-user page",
           }),
@@ -333,6 +347,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
     <Dialog
       title={intl.formatMessage({
         defaultMessage: "Expiry Date",
+        id: "zDO6tt",
         description: "title for change expiry date dialog on view-user page",
       })}
       color="ts-primary"
@@ -343,6 +358,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
         {intl.formatMessage({
           defaultMessage:
             "You're about to change the expiry date for this user:",
+          id: "JjTGYe",
           description:
             "First section of text on the change candidate expiry date dialog",
         })}
@@ -353,6 +369,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "Set an expiry date for this candidate on this pool:",
+          id: "n+d6QE",
           description:
             "Second section of text on the change candidate expiry date dialog",
         })}
@@ -362,6 +379,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
           inputId="date"
           label={intl.formatMessage({
             defaultMessage: "Expiry date",
+            id: "WAO4vD",
             description:
               "Label displayed on the date field of the change candidate expiry date dialog",
           })}
@@ -386,6 +404,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
             isVisible={showErrorMessage}
             error={intl.formatMessage({
               defaultMessage: "Please select a date",
+              id: "Cbo1no",
               description:
                 "Error displayed on the change candidate expiry date dialog if no date selected",
             })}
@@ -404,10 +423,12 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
               submitting
                 ? intl.formatMessage({
                     defaultMessage: "Submitting",
+                    id: "gCbb9X",
                     description: "Text on submit button when submitting",
                   })
                 : intl.formatMessage({
                     defaultMessage: "Change date",
+                    id: "gvomlw",
                     description:
                       "Confirmation button for change expiry date dialog",
                   })
@@ -453,6 +474,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "Candidate removed successfully",
+            id: "tmbdSb",
             description:
               "Toast for successful removal of candidate from pool on view-user page",
           }),
@@ -464,6 +486,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Failed updating expiry date",
+            id: "uOtDuW",
             description:
               "Toast for failed removal of candidate from pool on view-user page",
           }),
@@ -475,6 +498,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
     <Dialog
       title={intl.formatMessage({
         defaultMessage: "Remove from pool",
+        id: "KyMCYC",
         description: "title for change expiry date dialog on view-user page",
       })}
       color="ts-primary"
@@ -485,6 +509,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
         {intl.formatMessage({
           defaultMessage:
             "You're about to <strong>remove the following user:</strong>",
+          id: "0cEmmG",
           description:
             "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
         })}
@@ -495,6 +520,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "From the following pool:",
+          id: "vyJpp2",
           description:
             "Second section of text on the remove candidate from pool dialog",
         })}
@@ -512,10 +538,12 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
               submitting
                 ? intl.formatMessage({
                     defaultMessage: "Submitting",
+                    id: "gCbb9X",
                     description: "Text on submit button when submitting",
                   })
                 : intl.formatMessage({
                     defaultMessage: "Remove from pool",
+                    id: "98PjUH",
                     description:
                       "Confirmation button for removing candidate from pool dialog",
                   })
@@ -599,6 +627,7 @@ export const AddToPoolDialog: React.FC<{
         toast.success(
           intl.formatMessage({
             defaultMessage: "User added successfully",
+            id: "O8U5Sz",
             description:
               "Toast for successful add user to pool on view-user page",
           }),
@@ -610,6 +639,7 @@ export const AddToPoolDialog: React.FC<{
         toast.error(
           intl.formatMessage({
             defaultMessage: "Failed adding user",
+            id: "GZqEuI",
             description: "Toast for failed add user to pool on view-user page",
           }),
         );
@@ -620,6 +650,7 @@ export const AddToPoolDialog: React.FC<{
     <Dialog
       title={intl.formatMessage({
         defaultMessage: "Add to different pool",
+        id: "CTWpfa",
         description: "title for add to pool dialog on view-user page",
       })}
       color="ts-primary"
@@ -629,6 +660,7 @@ export const AddToPoolDialog: React.FC<{
       <p>
         {intl.formatMessage({
           defaultMessage: "You're about to add this user to a different pool:",
+          id: "8Y+eEc",
           description: "First section of text on the add user to pool dialog",
         })}
       </p>
@@ -638,6 +670,7 @@ export const AddToPoolDialog: React.FC<{
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "Choose pool:",
+          id: "K3LEpl",
           description: "Second section of text on the add user to pool dialog",
         })}
       </p>
@@ -646,6 +679,7 @@ export const AddToPoolDialog: React.FC<{
           inputId="pool"
           label={intl.formatMessage({
             defaultMessage: "Pools",
+            id: "aJVlIF",
             description:
               "Label displayed on the pools field of the add user to pool dialog",
           })}
@@ -663,6 +697,7 @@ export const AddToPoolDialog: React.FC<{
             <option value="" disabled>
               {intl.formatMessage({
                 defaultMessage: "Select a pool...",
+                id: "X198m3",
                 description:
                   "Placeholder displayed on the pool field of the add user to pool dialog.",
               })}
@@ -694,6 +729,7 @@ export const AddToPoolDialog: React.FC<{
             isVisible={showPoolErrorMessage}
             error={intl.formatMessage({
               defaultMessage: "Please select a pool",
+              id: "uJSvlo",
               description:
                 "Error displayed on the add user to pool dialog if no pool selected",
             })}
@@ -703,6 +739,7 @@ export const AddToPoolDialog: React.FC<{
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "Set an expiry date for this candidate on this pool:",
+          id: "9NDM+k",
           description: "Third section of text on the add user to pool dialog",
         })}
       </p>
@@ -711,6 +748,7 @@ export const AddToPoolDialog: React.FC<{
           inputId="date"
           label={intl.formatMessage({
             defaultMessage: "Expiry date",
+            id: "sICXeM",
             description:
               "Label displayed on the date field of the add user to pool dialog",
           })}
@@ -736,6 +774,7 @@ export const AddToPoolDialog: React.FC<{
             isVisible={showDateErrorMessage}
             error={intl.formatMessage({
               defaultMessage: "Please select an expiry date",
+              id: "k2FnXH",
               description:
                 "Error displayed on the add user to pool dialog if no date selected",
             })}
@@ -754,10 +793,12 @@ export const AddToPoolDialog: React.FC<{
               submitting
                 ? intl.formatMessage({
                     defaultMessage: "Submitting",
+                    id: "gCbb9X",
                     description: "Text on submit button when submitting",
                   })
                 : intl.formatMessage({
                     defaultMessage: "Add to new pool",
+                    id: "yypk6/",
                     description: "Confirmation button for add to pool dialog",
                   })
             }
