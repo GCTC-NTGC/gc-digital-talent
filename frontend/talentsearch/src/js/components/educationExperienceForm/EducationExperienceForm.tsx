@@ -24,6 +24,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
       <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "1. Education Details",
+          id: "W7LpsW",
           description: "Title for Education Details Form",
         })}
       </h2>
@@ -31,6 +32,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
         {intl.formatMessage({
           defaultMessage:
             "Got credentials? Share your degree, certificates, online courses, trade apprenticeship, licences or alternative credentials. If you've learned something from a recognized educational provider, include your experiences here.",
+          id: "7inIW/",
           description: "Description blurb for Education Details Form",
         })}
       </p>
@@ -41,12 +43,14 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
               id="educationType"
               label={intl.formatMessage({
                 defaultMessage: "Type of Education",
+                id: "elFbzT",
                 description:
                   "Label displayed on Education form for education type input",
               })}
               name="educationType"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Choose one...",
+                id: "3YyYDt",
                 description:
                   "Null selection for select education type in the education form.",
               })}
@@ -75,11 +79,13 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
                 boundingBox
                 boundingBoxLabel={intl.formatMessage({
                   defaultMessage: "Current Education",
+                  id: "aDRIDD",
                   description:
                     "Label displayed on Education Experience form for current education bounded box",
                 })}
                 label={intl.formatMessage({
                   defaultMessage: "I am currently active in this education",
+                  id: "491LrZ",
                   description:
                     "Label displayed on Education Experience form for current education input",
                 })}
@@ -92,11 +98,13 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
               id="areaOfStudy"
               label={intl.formatMessage({
                 defaultMessage: "Area of study",
+                id: "nzw1ry",
                 description:
                   "Label displayed on education form for area of study input",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Write area of study here...",
+                id: "Uv9q53",
                 description: "Placeholder for area of study input",
               })}
               name="areaOfStudy"
@@ -111,6 +119,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
                   id="startDate"
                   label={intl.formatMessage({
                     defaultMessage: "Start Date",
+                    id: "/sQHOb",
                     description:
                       "Label displayed on Education Experience form for start date input",
                   })}
@@ -127,6 +136,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
                     id="endDate"
                     label={intl.formatMessage({
                       defaultMessage: "End Date",
+                      id: "Nqwbu3",
                       description:
                         "Label displayed on Education Experience form for end date input",
                     })}
@@ -158,11 +168,13 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
               id="institution"
               label={intl.formatMessage({
                 defaultMessage: "Institution",
+                id: "o0Yt8Q",
                 description:
                   "Label displayed on education form for institution input",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Write name here...",
+                id: "EHOcOR",
                 description: "Placeholder for institution input",
               })}
               name="institution"
@@ -175,12 +187,14 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
               id="educationStatus"
               label={intl.formatMessage({
                 defaultMessage: "Status",
+                id: "OQhL7A",
                 description:
                   "Label displayed on Education form for status input",
               })}
               name="educationStatus"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Choose one...",
+                id: "wwiDm1",
                 description:
                   "Null selection for select status in the education form.",
               })}
@@ -204,11 +218,13 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
               id="thesisTitle"
               label={intl.formatMessage({
                 defaultMessage: "Thesis Title",
+                id: "N87bC7",
                 description:
                   "Label displayed on education form for thesis title input",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Write title here...",
+                id: "8THvSC",
                 description: "Placeholder for thesis title input",
               })}
               name="thesisTitle"

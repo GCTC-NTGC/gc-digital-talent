@@ -24,6 +24,7 @@ const DialogFooter: React.FC<DialogFooterProps> = ({ onDismiss }) => {
           <span>
             {intl.formatMessage({
               defaultMessage: "Save and go back",
+              id: "t12bCU",
               description: "Button text to submit employment equity form.",
             })}
           </span>
@@ -38,6 +39,7 @@ const DialogFooter: React.FC<DialogFooterProps> = ({ onDismiss }) => {
         >
           {intl.formatMessage({
             defaultMessage: "Cancel",
+            id: "LjE48l",
             description: "Button text to close employment equity form.",
           })}
         </Button>

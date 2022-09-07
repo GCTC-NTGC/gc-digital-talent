@@ -27,6 +27,7 @@ const SearchFilterAdvice: React.FC<{
             {
               defaultMessage:
                 "Classification Filters ({classificationFilterCount})",
+              id: "LRysDa",
             },
             { classificationFilterCount },
           )}
@@ -47,6 +48,7 @@ const SearchFilterAdvice: React.FC<{
             {
               defaultMessage:
                 "Conditions of Employment ({operationalRequirementFilterCount})",
+              id: "ky585k",
             },
             { operationalRequirementFilterCount },
           )}
@@ -59,6 +61,7 @@ const SearchFilterAdvice: React.FC<{
       {intl.formatMessage({
         defaultMessage:
           "To improve your results, try removing some of these filters:",
+        id: "zDzzb/",
         description:
           "Heading for total matching candidates in results section of search page.",
       })}{" "}

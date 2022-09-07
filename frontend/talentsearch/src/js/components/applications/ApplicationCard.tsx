@@ -94,6 +94,7 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
             {intl.formatMessage(
               {
                 defaultMessage: "ID: {id}",
+                id: "hEXXG0",
                 description: "Label for application ID",
               },
               {

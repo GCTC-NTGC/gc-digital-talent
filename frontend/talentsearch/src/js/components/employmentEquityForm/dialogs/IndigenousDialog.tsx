@@ -83,6 +83,7 @@ const IndigenousDialog: React.FC<EquityDialogProps> = ({
         {intl.formatMessage({
           defaultMessage:
             "Indigenous identity refers to whether the person identified with the Indigenous peoples of Canada. This includes those who identify as First Nations (North American Indian), Métis and/or Inuk (Inuit), and/or those who report being Registered or Treaty Indians (that is, registered under the Indian Act of Canada), and/or those who have membership in a First Nation or Indian band. Aboriginal peoples of Canada (referred to here as Indigenous peoples) are defined in the Constitution Act, 1982, Section 35 (2) as including the Indian, Inuit and Métis peoples of Canada.",
+          id: "AjEdUz",
           description: "Definition of accepted ways to identify as indigenous.",
         })}
       </p>
