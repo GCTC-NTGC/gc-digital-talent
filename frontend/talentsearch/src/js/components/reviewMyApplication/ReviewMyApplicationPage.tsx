@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import UserProfile from "@common/components/UserProfile";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
-import { commonMessages } from "@common/messages";
+import { commonMessages, navigationMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import MissingSkills from "@common/components/skills/MissingSkills";
 import { notEmpty } from "@common/helpers/util";
@@ -19,13 +19,13 @@ import {
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
 import { flattenExperienceSkills } from "../experienceAndSkills/ExperienceAndSkills";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 interface ReviewMyApplicationProps {
   applicant: Applicant;
   poolAdvertisement: PoolAdvertisement;
   poolCandidateId: string;
   closingDate: Date;
-  jobTitle: Maybe<string>;
   poolId: string;
 }
 
@@ -36,7 +36,6 @@ export const ReviewMyApplication: React.FunctionComponent<
   poolAdvertisement,
   poolCandidateId,
   closingDate,
-  jobTitle,
   poolId,
 }) => {
   const intl = useIntl();
@@ -54,6 +53,7 @@ export const ReviewMyApplication: React.FunctionComponent<
       missingSkills.requiredSkills || [],
       hasExperiences ? flattenExperienceSkills(experiences) : [],
     ).length === 0;
+  const jobTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
 
   return (
     <ApplicationPageWrapper
@@ -71,15 +71,11 @@ export const ReviewMyApplication: React.FunctionComponent<
           href: directIntakePaths.allPools(),
         },
         {
-          title:
-            jobTitle || intl.formatMessage(commonMessages.jobTitleNotFound),
+          title: jobTitle,
           href: directIntakePaths.poolApply(poolId),
         },
         {
-          title: intl.formatMessage({
-            defaultMessage: "Step 1",
-            description: "Breadcrumb for review application page.",
-          }),
+          title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]}
       navigation={{
@@ -102,7 +98,7 @@ export const ReviewMyApplication: React.FunctionComponent<
           },
         ],
       }}
-      subtitle={jobTitle || intl.formatMessage(commonMessages.jobTitleNotFound)}
+      subtitle={jobTitle}
     >
       <UserProfile
         applicant={applicant}
@@ -246,7 +242,6 @@ const ReviewMyApplicationPage: React.FC<{ poolCandidateId: string }> = ({
           applicant={data.poolCandidate.user as Applicant}
           poolCandidateId={data.poolCandidate.id}
           closingDate={data.poolCandidate.poolAdvertisement?.expiryDate}
-          jobTitle={data.poolCandidate?.poolAdvertisement?.name?.[locale]}
           poolId={data.poolCandidate.poolAdvertisement?.id}
         />
       ) : (

@@ -1,6 +1,10 @@
 import React, { ReactNode } from "react";
 import { useIntl } from "react-intl";
-import { commonMessages, errorMessages } from "@common/messages";
+import {
+  commonMessages,
+  errorMessages,
+  navigationMessages,
+} from "@common/messages";
 import { Checklist, RadioGroup, Select } from "@common/components/form";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";
@@ -25,6 +29,7 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import directIntakeRoutes from "../../directIntakeRoutes";
 import profileMessages from "../profile/profileMessages";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export type FormValues = Pick<
   User,
@@ -289,18 +294,15 @@ export const LanguageInformationForm: React.FunctionComponent<{
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
-          title:
-            application.poolAdvertisement?.name?.[locale] ||
-            intl.formatMessage({
-              defaultMessage: "Pool name not found",
-              description:
-                "Pools name breadcrumb from applicant profile wrapper if no name set.",
-            }),
+          title: getFullPoolAdvertisementTitle(
+            intl,
+            application.poolAdvertisement,
+          ),
           href: directIntakePaths.poolApply(application.pool.id),
         },
         {
           href: directIntakePaths.reviewApplication(application.id),
-          title: intl.formatMessage(commonMessages.stepOne),
+          title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]
     : [];

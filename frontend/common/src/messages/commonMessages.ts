@@ -26,23 +26,6 @@ const messages = defineMessages({
     description:
       "Message that there are required fields missing. Please ignore things in <> tags.",
   },
-  backToProfile: {
-    defaultMessage: "Go back to my profile",
-    description: "Link text for button to return to user profile",
-  },
-  backToApplication: {
-    defaultMessage: "Go back to my application",
-    description: "Link text for button to return to user application",
-  },
-  stepOne: {
-    defaultMessage: "Step 1",
-    description: "Breadcrumb back to review application page.",
-  },
-  jobTitleNotFound: {
-    defaultMessage: "Job title not found.",
-    description:
-      "Message shown to user when pool name or classification are not found.",
-  },
 });
 
 export default messages;

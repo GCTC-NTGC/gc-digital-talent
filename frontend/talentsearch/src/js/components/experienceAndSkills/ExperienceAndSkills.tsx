@@ -11,7 +11,7 @@ import ExperienceSection from "@common/components/UserProfile/ExperienceSection"
 import { IconLink } from "@common/components/Link";
 import { notEmpty } from "@common/helpers/util";
 import MissingSkills from "@common/components/skills/MissingSkills";
-import { commonMessages } from "@common/messages";
+import { commonMessages, navigationMessages } from "@common/messages";
 import { useQueryParams } from "@common/helpers/router";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
@@ -168,11 +168,6 @@ export const ExperienceAndSkills: React.FunctionComponent<
   ] as BreadcrumbsProps["links"];
 
   if (poolAdvertisement) {
-    const advertisementTitle = getFullPoolAdvertisementTitle(
-      intl,
-      poolAdvertisement,
-    );
-
     crumbs = [
       {
         title: intl.formatMessage({
@@ -182,18 +177,12 @@ export const ExperienceAndSkills: React.FunctionComponent<
         href: directIntakePaths.applications(applicantId),
       },
       {
-        title:
-          advertisementTitle ||
-          intl.formatMessage({
-            defaultMessage: "Pool name not found",
-            description:
-              "Pools name breadcrumb from applicant profile wrapper if no name set.",
-          }),
+        title: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
         href: directIntakePaths.poolApply(poolAdvertisement.id),
       },
       {
         href: directIntakePaths.reviewApplication(applicantId),
-        title: intl.formatMessage(commonMessages.stepOne),
+        title: intl.formatMessage(navigationMessages.stepOne),
       },
       ...crumbs,
     ];
@@ -223,8 +212,8 @@ export const ExperienceAndSkills: React.FunctionComponent<
         href: returnRoute,
         children: intl.formatMessage(
           application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-            ? commonMessages.backToApplication
-            : commonMessages.backToProfile,
+            ? navigationMessages.backToApplication
+            : navigationMessages.backToProfile,
         ),
       }}
     >
@@ -308,8 +297,8 @@ export const ExperienceAndSkills: React.FunctionComponent<
           href: returnRoute,
           children: intl.formatMessage(
             application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-              ? commonMessages.backToApplication
-              : commonMessages.backToProfile,
+              ? navigationMessages.backToApplication
+              : navigationMessages.backToProfile,
           ),
         }}
       />

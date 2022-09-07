@@ -1,11 +1,18 @@
 import { getLocalizedName } from "@common/helpers/localize";
 import type { IntlShape } from "react-intl";
-import { PoolAdvertisement } from "../../api/generated";
+import { Maybe, PoolAdvertisement } from "../../api/generated";
 
 const getFullPoolAdvertisementTitle = (
   intl: IntlShape,
-  advertisement: PoolAdvertisement,
+  advertisement: Maybe<PoolAdvertisement>,
 ): string => {
+  if (advertisement === null || advertisement === undefined)
+    return intl.formatMessage({
+      defaultMessage: "Job title not found.",
+      description:
+        "Message shown to user when pool name or classification are not found.",
+    });
+
   const classification = advertisement.classifications
     ? advertisement.classifications[0]
     : null;

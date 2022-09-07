@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { commonMessages } from "@common/messages";
+import { commonMessages, navigationMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
@@ -11,6 +11,7 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import { User, PoolCandidate } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import directIntakeRoutes from "../../directIntakeRoutes";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export interface EmploymentEquityFormProps {
   user: User;
@@ -52,18 +53,15 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
-          title:
-            application.poolAdvertisement?.name?.[locale] ||
-            intl.formatMessage({
-              defaultMessage: "Pool name not found",
-              description:
-                "Pools name breadcrumb from applicant profile wrapper if no name set.",
-            }),
+          title: getFullPoolAdvertisementTitle(
+            intl,
+            application.poolAdvertisement,
+          ),
           href: directIntakePaths.poolApply(application.pool.id),
         },
         {
           href: directIntakePaths.reviewApplication(application.id),
-          title: intl.formatMessage(commonMessages.stepOne),
+          title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]
     : [];
@@ -95,8 +93,8 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
         href: returnRoute,
         children: intl.formatMessage(
           application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-            ? commonMessages.backToApplication
-            : commonMessages.backToProfile,
+            ? navigationMessages.backToApplication
+            : navigationMessages.backToProfile,
         ),
       }}
       prefixBreadcrumbs={!application}
@@ -197,8 +195,8 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
           href: returnRoute,
           children: intl.formatMessage(
             application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-              ? commonMessages.backToApplication
-              : commonMessages.backToProfile,
+              ? navigationMessages.backToApplication
+              : navigationMessages.backToProfile,
           ),
         }}
       />

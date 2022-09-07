@@ -1,7 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import { commonMessages, errorMessages } from "@common/messages";
+import {
+  commonMessages,
+  errorMessages,
+  navigationMessages,
+} from "@common/messages";
 import { Input, RadioGroup, Select } from "@common/components/form";
 import { empty } from "@common/helpers/util";
 import { getGovEmployeeType } from "@common/constants/localizedConstants";
@@ -29,6 +33,7 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import directIntakeRoutes from "../../directIntakeRoutes";
 import profileMessages from "../profile/profileMessages";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
@@ -482,18 +487,15 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
-          title:
-            application.poolAdvertisement?.name?.[locale] ||
-            intl.formatMessage({
-              defaultMessage: "Pool name not found",
-              description:
-                "Pools name breadcrumb from applicant profile wrapper if no name set.",
-            }),
+          title: getFullPoolAdvertisementTitle(
+            intl,
+            application.poolAdvertisement,
+          ),
           href: directIntakePaths.poolApply(application.pool.id),
         },
         {
           href: directIntakePaths.reviewApplication(application.id),
-          title: intl.formatMessage(commonMessages.stepOne),
+          title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]
     : [];
