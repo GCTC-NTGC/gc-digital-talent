@@ -22,6 +22,8 @@ query getReviewMyApplicationPageData($id: ID!) {
       estimatedLanguageAbility
       isGovEmployee
       govEmployeeType
+      hasPriorityEntitlement
+      priorityNumber
       isProfileComplete
       department {
         id
