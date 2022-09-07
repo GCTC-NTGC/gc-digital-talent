@@ -11,7 +11,7 @@ export interface MissingSkillsProps {
   addedSkills?: Skill[];
 }
 
-const getMissingSkills = (required: Skill[], added?: Skill[]) => {
+export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
   return !added?.length
     ? required
     : required.filter((skill) => {

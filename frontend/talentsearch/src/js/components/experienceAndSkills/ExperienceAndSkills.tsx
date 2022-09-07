@@ -68,7 +68,9 @@ export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
   return e2EndDate - e1EndDate;
 };
 
-const flattenExperienceSkills = (experiences: MergedExperiences): Skill[] => {
+export const flattenExperienceSkills = (
+  experiences: MergedExperiences,
+): Skill[] => {
   return experiences
     .map((experience) => {
       const { skills } = experience;
