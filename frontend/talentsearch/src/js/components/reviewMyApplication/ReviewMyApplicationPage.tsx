@@ -20,6 +20,7 @@ import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
 import { flattenExperienceSkills } from "../experienceAndSkills/ExperienceAndSkills";
 import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
+import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 interface ReviewMyApplicationProps {
   applicant: Applicant;
@@ -40,6 +41,7 @@ export const ReviewMyApplication: React.FunctionComponent<
 }) => {
   const intl = useIntl();
   const directIntakePaths = useDirectIntakeRoutes();
+  const applicantProfileRoutes = useApplicantProfileRoutes();
   const experiences = applicant.experiences?.filter(notEmpty) || [];
   const missingSkills = {
     requiredSkills: poolAdvertisement.essentialSkills?.filter(notEmpty),
@@ -107,51 +109,59 @@ export const ReviewMyApplication: React.FunctionComponent<
           hiringPools: { isVisible: false },
           about: {
             isVisible: true,
-            editUrl: `${directIntakePaths.aboutMe(
+            editUrl: applicantProfileRoutes.aboutMe(
+              applicant.id,
               poolCandidateId,
-            )}?application=${poolCandidateId}`,
+            ),
           },
           language: {
             isVisible: true,
-            editUrl: `${directIntakePaths.languageInformation(
+            editUrl: applicantProfileRoutes.languageInformation(
+              applicant.id,
               poolCandidateId,
-            )}?application=${poolCandidateId}`,
+            ),
           },
           government: {
             isVisible: true,
-            editUrl: `${directIntakePaths.governmentInformation(
+            editUrl: applicantProfileRoutes.governmentInformation(
+              applicant.id,
               poolCandidateId,
-            )}?application=${poolCandidateId}`,
+            ),
           },
           workLocation: {
             isVisible: true,
-            editUrl: `${directIntakePaths.workLocation(
+            editUrl: applicantProfileRoutes.workLocation(
+              applicant.id,
               poolCandidateId,
-            )}?application=${poolCandidateId}`,
+            ),
           },
           workPreferences: {
             isVisible: true,
-            editUrl: `${directIntakePaths.workPreferences(
+            editUrl: applicantProfileRoutes.workPreferences(
+              applicant.id,
               poolCandidateId,
-            )}?application=${poolCandidateId}`,
+            ),
           },
           employmentEquity: {
             isVisible: true,
-            editUrl: `${directIntakePaths.diversityEquityInclusion(
+            editUrl: applicantProfileRoutes.diversityEquityInclusion(
+              applicant.id,
               poolCandidateId,
-            )}?application=${poolCandidateId}`,
+            ),
           },
           roleSalary: {
             isVisible: true,
-            editUrl: `${directIntakePaths.roleSalary(
+            editUrl: applicantProfileRoutes.roleSalary(
+              applicant.id,
               poolCandidateId,
-            )}?application=${poolCandidateId}`,
+            ),
           },
           skillsExperience: {
             isVisible: true,
-            editUrl: `${directIntakePaths.skillsAndExperiences(
+            editUrl: applicantProfileRoutes.skillsAndExperiences(
+              applicant.id,
               poolCandidateId,
-            )}?application=${poolCandidateId}`,
+            ),
             override: (
               <>
                 {missingSkills && (

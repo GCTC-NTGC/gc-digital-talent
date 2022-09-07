@@ -8,26 +8,66 @@ export type ApplicantProfileRoutes = ReturnType<typeof applicantProfileRoutes>;
 const applicantProfileRoutes = (lang: string) => {
   const home = (userId: string): string =>
     path.join("/", lang, "users", userId, "profile"); // leading slash in case empty base url
+  const applicationParam = (applicationId?: string) =>
+    applicationId ? path.join(`?application=${applicationId}`) : "";
   return {
     home,
     myProfile: (): string => path.join("/", lang, "talent", "profile"),
     createAccount: (): string => path.join("/", lang, "create-account"),
-    aboutMe: (userId: string): string =>
-      path.join(home(userId), "about-me", "edit"),
-    languageInformation: (userId: string): string =>
-      path.join(home(userId), "language-info", "edit"),
-    governmentInformation: (userId: string): string =>
-      path.join(home(userId), "government-info", "edit"),
-    roleSalary: (userId: string): string =>
-      path.join(home(userId), "role-salary-expectations", "edit"),
-    workLocation: (userId: string): string =>
-      path.join(home(userId), "work-location", "edit"),
-    workPreferences: (userId: string): string =>
-      path.join(home(userId), "work-preferences", "edit"),
-    diversityEquityInclusion: (userId: string): string =>
-      path.join(home(userId), "employment-equity", "edit"),
-    skillsAndExperiences: (userId: string): string =>
-      path.join(home(userId), "experiences"),
+    aboutMe: (userId: string, applicationId?: string): string =>
+      path.join(
+        home(userId),
+        "about-me",
+        "edit",
+        applicationParam(applicationId),
+      ),
+    languageInformation: (userId: string, applicationId?: string): string =>
+      path.join(
+        home(userId),
+        "language-info",
+        "edit",
+        applicationParam(applicationId),
+      ),
+    governmentInformation: (userId: string, applicationId?: string): string =>
+      path.join(
+        home(userId),
+        "government-info",
+        "edit",
+        applicationParam(applicationId),
+      ),
+    roleSalary: (userId: string, applicationId?: string): string =>
+      path.join(
+        home(userId),
+        "role-salary-expectations",
+        "edit",
+        applicationParam(applicationId),
+      ),
+    workLocation: (userId: string, applicationId?: string): string =>
+      path.join(
+        home(userId),
+        "work-location",
+        "edit",
+        applicationParam(applicationId),
+      ),
+    workPreferences: (userId: string, applicationId?: string): string =>
+      path.join(
+        home(userId),
+        "work-preferences",
+        "edit",
+        applicationParam(applicationId),
+      ),
+    diversityEquityInclusion: (
+      userId: string,
+      applicationId?: string,
+    ): string =>
+      path.join(
+        home(userId),
+        "employment-equity",
+        "edit",
+        applicationParam(applicationId),
+      ),
+    skillsAndExperiences: (userId: string, applicationId?: string): string =>
+      path.join(home(userId), "experiences", applicationParam(applicationId)),
     createAward: (userId: string): string =>
       path.join(home(userId), "experiences", "award", "create"),
     createCommunity: (userId: string): string =>
