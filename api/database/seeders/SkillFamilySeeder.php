@@ -160,7 +160,7 @@ class SkillFamilySeeder extends Seeder
         if(count(array_unique($englishNames)) != count($reshapedData))
             throw new Exception('The English names are not unique');
 
-        // Iterate the reshaped to load it
+        // Iterate the reshaped data to load it
         foreach ($reshapedData as [
             'model' => $model,
             'identifier' => $identifier
