@@ -1017,7 +1017,7 @@ input CreatePoolCandidateAsAdminInput {
 input CreatePoolInput {
     owner: UserBelongsTo! @rename(attribute: "user")
     name: LocalizedStringInput!
-    key: KeyString!
+    key: KeyString
     description: LocalizedStringInput
     classifications: ClassificationBelongsToMany
     assetCriteria: CmoAssetBelongsToMany
@@ -1252,7 +1252,6 @@ input GenericJobTitleBelongsToMany {
 }
 
 input CreatePoolAdvertisementInput {
-    key: KeyString!
     classifications: ClassificationBelongsToMany
 }
 

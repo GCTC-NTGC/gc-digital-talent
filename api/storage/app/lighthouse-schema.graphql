@@ -261,7 +261,6 @@ input CreateDepartmentInput {
 }
 
 input CreatePoolAdvertisementInput {
-  key: KeyString!
   classifications: ClassificationBelongsToMany
 }
 
@@ -298,7 +297,7 @@ input CreatePoolCandidateSearchRequestInput {
 input CreatePoolInput {
   owner: UserBelongsTo!
   name: LocalizedStringInput!
-  key: KeyString!
+  key: KeyString
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   assetCriteria: CmoAssetBelongsToMany
