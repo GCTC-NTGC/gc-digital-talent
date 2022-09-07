@@ -183,10 +183,6 @@
     "defaultMessage": "Les apprentis feront l’expérience d’un apprentissage au travail et pendant la formation en ligne dans un ou plusieurs domaines de la technologie de l’information. On s’attend à ce que les apprentis démontrent leur intérêt et leur passion pour la technologie en étant prêts à observer, à apprendre et à pratiquer de nouvelles compétences qui sont développées au cours du programme. En moyenne, un apprenti passera quatre jours par semaine en apprentissage pratique, tandis que le cinquième jour de la semaine sera consacré au perfectionnement personnel et professionnel par la formation en ligne et par d’autres possibilités de formation et de perfectionnement.",
     "description": "Learn more dialog question eight paragraph one"
   },
-  "i6XB0+": {
-    "defaultMessage": "Si vous n’êtes pas certain(e) que ce programme vous convient, veuillez communiquer avec nous et un membre de notre équipe se fera un plaisir de vous rencontrer pour répondre à vos questions.",
-    "description": "Second paragraph about who the program is for"
-  },
   "WDRWcu": {
     "defaultMessage": "Dois-je déménager à Ottawa ou à un endroit précis pour participer à ce programme?",
     "description": "Learn more dialog question six heading"
@@ -206,10 +202,6 @@
   "YVqxqN": {
     "defaultMessage": "Vise à lancer le programme au début de 2022.",
     "description": "Talent portal strategy item 4 content"
-  },
-  "ZHLkHX": {
-    "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous! ",
-    "description": "First paragraph about who the program is for"
   },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
@@ -327,10 +319,6 @@
     "defaultMessage": "Le Programme a été conçu pour répondre aux efforts de réconciliation et pour bâtir une relation renouvelée qui est fondée sur les droits, le respect, la collaboration et le partenariat avec les peuples autochtones.",
     "description": "How it works, step 1 content paragraph 1"
   },
-  "X/BwwP": {
-    "defaultMessage": "Il existe trois groupes distincts de peuples autochtones qui sont reconnus par la Constitution canadienne. On vous demandera de confirmer au(x)quel(s) de vous appartenez par l’entremise de la <a>Promesse d’honnêteté</a>.",
-    "description": "How it works, step 1 content paragraph 2"
-  },
   "jyQi0m": {
     "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",
     "description": "Learn more dialog question on paragraph one"
@@ -342,10 +330,6 @@
   "pPOGwF": {
     "defaultMessage": "Ils sont membres des Premières Nations (avec ou sans statut), Inuit ou Métis ",
     "description": "IAP Requirement list item one"
-  },
-  "sqUD2Z": {
-    "defaultMessage": "Remplir la Promesse d’honnêteté de la collectivité",
-    "description": "How it works, step 1 heading"
   },
   "49UIne": {
     "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
@@ -362,5 +346,21 @@
   "jPLaDk": {
     "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
     "description": "Heading for the message saying the page to view is not authorized."
+  },
+  "khChKa": {
+    "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
+    "description": "First paragraph about who the program is for"
+  },
+  "1FM1VL": {
+    "defaultMessage": "Si vous n’êtes pas certain(e) que ce programme vous convient, veuillez <mailLink>communiquer avec nous</mailLink> et un membre de notre équipe se fera un plaisir de vous rencontrer pour répondre à vos questions.",
+    "description": "Second paragraph about who the program is for"
+  },
+  "1pFMSH": {
+    "defaultMessage": "Remplir la Formulaire d’autodéclaration à l’intention des peuples autochtones",
+    "description": "How it works, step 1 heading"
+  },
+  "uJ1rk3": {
+    "defaultMessage": "Il existe trois groupes distincts de peuples autochtones qui sont reconnus par la Constitution canadienne. On vous demandera de confirmer au(x)quel(s) de vous appartenez par l’entremise de la Formulaire d’autodéclaration à l’intention des peuples autochtones.",
+    "description": "How it works, step 1 content paragraph 2"
   }
 }

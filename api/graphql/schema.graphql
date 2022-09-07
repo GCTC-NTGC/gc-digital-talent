@@ -108,7 +108,7 @@ type User {
     # Profile Status
     isProfileComplete: Boolean
     expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
-
+    priorityWeight: Int @rename(attribute: "priority_weight")
 }
 
 enum ProvinceOrTerritory {
@@ -234,7 +234,7 @@ type Applicant {
     workExperiences: [WorkExperience]
 
     expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
-
+    priorityWeight: Int @rename(attribute: "priority_weight")
 }
 
 type UserPublicProfile {
@@ -1009,17 +1009,6 @@ input CreatePoolCandidateAsAdminInput {
     user: ConnectOrCreateBelongsTo! # TODO: This should be switched to UserBelongsTo as soon as possible. Permission to create a PoolCandidate shouldn't imply permission to create a User. See https://github.com/GCTC-NTGC/gc-digital-talent/issues/2356
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
-    isWoman: Boolean @rename(attribute: "is_woman")
-    hasDisability: Boolean @rename(attribute: "has_disability")
-    isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-    hasDiploma: Boolean @rename(attribute: "has_diploma")
-    languageAbility: LanguageAbility @rename(attribute: "language_ability")
-    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
-    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-    expectedClassifications: ClassificationBelongsToMany
-    cmoAssets: CmoAssetBelongsToMany
     status: PoolCandidateStatus = NEW_APPLICATION
         @rename(attribute: "pool_candidate_status")
     notes: String
@@ -1053,17 +1042,6 @@ input UpdateCmoAssetInput {
 input UpdatePoolCandidateAsAdminInput {
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
-    isWoman: Boolean @rename(attribute: "is_woman")
-    hasDisability: Boolean @rename(attribute: "has_disability")
-    isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-    hasDiploma: Boolean @rename(attribute: "has_diploma")
-    languageAbility: LanguageAbility @rename(attribute: "language_ability")
-    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
-    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-    expectedClassifications: ClassificationBelongsToMany
-    cmoAssets: CmoAssetBelongsToMany
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
     notes: String
 }
