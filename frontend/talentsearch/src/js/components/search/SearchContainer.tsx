@@ -101,6 +101,8 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   const searchRef = useRef<SearchFormRef>(null);
 
   const tryHandleSubmit = async () => {
+    console.log(applicantFilter);
+    console.log(classificationFilterCount);
     if (classificationFilterCount === 0) {
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
@@ -231,6 +233,7 @@ const SearchContainerApi: React.FC = () => {
 
   const paths = useTalentSearchRoutes();
   const onSubmit = async () => {
+    console.log({ applicantFilter, pool });
     // pool ID is not in the form so it must be added manually
     if (applicantFilter && pool) {
       applicantFilter.pools = [{ id: pool.id }];
