@@ -46,11 +46,16 @@ const Providers = ({ children }: ProvidersProps) => (
 );
 
 const mockSubmit = jest.fn();
+const mockFilterChange = jest.fn();
 
 // Helpers.
 function renderButton(props: Partial<UserTableFilterButtonProps>) {
   return render(
-    <UserTableFilterDialog.Button {...props} onSubmit={mockSubmit} />,
+    <UserTableFilterDialog.Button
+      {...props}
+      onSubmit={mockSubmit}
+      onFilterChange={mockFilterChange}
+    />,
     {
       wrapper: Providers,
     },
