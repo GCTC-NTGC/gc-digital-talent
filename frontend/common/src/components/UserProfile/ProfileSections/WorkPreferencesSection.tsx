@@ -20,7 +20,12 @@ const WorkPreferencesSection: React.FunctionComponent<{
     ? acceptedOperationalRequirements.map((opRequirement) => (
         <li key={opRequirement}>
           {opRequirement
-            ? intl.formatMessage(getOperationalRequirement(opRequirement))
+            ? intl.formatMessage(
+                getOperationalRequirement(
+                  opRequirement,
+                  "candidateDescription",
+                ),
+              )
             : ""}
         </li>
       ))
@@ -49,7 +54,8 @@ const WorkPreferencesSection: React.FunctionComponent<{
     ? unselectedOperationalArray.map((opRequirement) => (
         <li key={opRequirement}>
           {opRequirement
-            ? getOperationalRequirement(opRequirement).defaultMessage
+            ? getOperationalRequirement(opRequirement, "candidateDescription")
+                .defaultMessage
             : ""}
         </li>
       ))
