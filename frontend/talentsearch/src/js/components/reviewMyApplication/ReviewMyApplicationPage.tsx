@@ -24,20 +24,14 @@ import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 interface ReviewMyApplicationProps {
   applicant: Applicant;
   poolAdvertisement: PoolAdvertisement;
-  poolCandidateId: string;
+  applicationId: string;
   closingDate: Date;
   poolId: string;
 }
 
 export const ReviewMyApplication: React.FunctionComponent<
   ReviewMyApplicationProps
-> = ({
-  applicant,
-  poolAdvertisement,
-  poolCandidateId,
-  closingDate,
-  poolId,
-}) => {
+> = ({ applicant, poolAdvertisement, applicationId, closingDate, poolId }) => {
   const intl = useIntl();
   const directIntakePaths = useDirectIntakeRoutes();
   const applicantProfileRoutes = useApplicantProfileRoutes();
@@ -114,56 +108,56 @@ export const ReviewMyApplication: React.FunctionComponent<
             isVisible: true,
             editUrl: applicantProfileRoutes.aboutMe(
               applicant.id,
-              poolCandidateId,
+              applicationId,
             ),
           },
           language: {
             isVisible: true,
             editUrl: applicantProfileRoutes.languageInformation(
               applicant.id,
-              poolCandidateId,
+              applicationId,
             ),
           },
           government: {
             isVisible: true,
             editUrl: applicantProfileRoutes.governmentInformation(
               applicant.id,
-              poolCandidateId,
+              applicationId,
             ),
           },
           workLocation: {
             isVisible: true,
             editUrl: applicantProfileRoutes.workLocation(
               applicant.id,
-              poolCandidateId,
+              applicationId,
             ),
           },
           workPreferences: {
             isVisible: true,
             editUrl: applicantProfileRoutes.workPreferences(
               applicant.id,
-              poolCandidateId,
+              applicationId,
             ),
           },
           employmentEquity: {
             isVisible: true,
             editUrl: applicantProfileRoutes.diversityEquityInclusion(
               applicant.id,
-              poolCandidateId,
+              applicationId,
             ),
           },
           roleSalary: {
             isVisible: true,
             editUrl: applicantProfileRoutes.roleSalary(
               applicant.id,
-              poolCandidateId,
+              applicationId,
             ),
           },
           skillsExperience: {
             isVisible: true,
             editUrl: applicantProfileRoutes.skillsAndExperiences(
               applicant.id,
-              poolCandidateId,
+              applicationId,
             ),
             override: (
               <>
@@ -265,7 +259,7 @@ const ReviewMyApplicationPage: React.FC<{ poolCandidateId: string }> = ({
         <ReviewMyApplication
           poolAdvertisement={data.poolCandidate.poolAdvertisement}
           applicant={data.poolCandidate.user as Applicant}
-          poolCandidateId={data.poolCandidate.id}
+          applicationId={data.poolCandidate.id}
           closingDate={data.poolCandidate.poolAdvertisement?.expiryDate}
           poolId={data.poolCandidate.poolAdvertisement?.id}
         />
