@@ -151,6 +151,12 @@ describe("UserTableFilterDialog", () => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
+    it("calls the onFilterChange function upon submission", async () => {
+      renderButton({ isOpenDefault: true });
+      await submitFilters();
+      expect(mockFilterChange).toHaveBeenCalled();
+    });
+
     // This test is prone to going beyond the 5s default timeout.
     const extendedTimeout = 10 * 1000;
     it(
