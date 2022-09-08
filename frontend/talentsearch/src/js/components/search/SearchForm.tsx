@@ -3,7 +3,12 @@ import { FormProvider, useForm, UseFormTrigger } from "react-hook-form";
 import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 
-import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
+import {
+  Checklist,
+  MultiSelect,
+  RadioGroup,
+  Select,
+} from "@common/components/form";
 import { getLanguageAbility } from "@common/constants";
 import {
   getEmploymentEquityGroup,
@@ -217,7 +222,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 "Message describing the classification filter of the search form.",
             })}
           >
-            <MultiSelect
+            <Select
               id="classifications"
               label={intl.formatMessage({
                 defaultMessage: "Classification filter",

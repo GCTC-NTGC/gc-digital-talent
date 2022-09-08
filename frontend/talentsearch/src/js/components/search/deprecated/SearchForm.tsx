@@ -1,7 +1,12 @@
 import React, { useImperativeHandle, useMemo } from "react";
 import { FormProvider, useForm, UseFormTrigger } from "react-hook-form";
 import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
-import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
+import {
+  Checklist,
+  MultiSelect,
+  RadioGroup,
+  Select,
+} from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
@@ -245,7 +250,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 "Message describing the classification filter of the search form.",
             })}
           >
-            <MultiSelect
+            <Select
               id="classifications"
               label={intl.formatMessage({
                 defaultMessage: "Classification filter",
