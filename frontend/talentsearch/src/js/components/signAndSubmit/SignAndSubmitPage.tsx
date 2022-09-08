@@ -13,13 +13,13 @@ import {
 import uniqueId from "lodash/uniqueId";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { navigate, useQueryParams } from "@common/helpers/router";
+import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
-import { getMissingSkills } from "@common/components/skills/MissingSkills/MissingSkills";
+
 import { notEmpty } from "@common/helpers/util";
-import directIntakeRoutes, {
-  useDirectIntakeRoutes,
-} from "../../directIntakeRoutes";
+import { getMissingSkills } from "@common/helpers/skillUtils";
+import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
+import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
 import {
   SubmitApplicationMutation,
@@ -27,7 +27,6 @@ import {
   useSubmitApplicationMutation,
 } from "../../api/generated";
 import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
-import { flattenExperienceSkills } from "../experienceAndSkills/ExperienceAndSkills";
 
 const ImportantInfo = () => {
   const intl = useIntl();
@@ -125,6 +124,7 @@ const SignatureForm = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "Application submitted successfully!",
+            id: "Zx0ylN",
             description:
               "Message displayed to user after application is submitted successfully.",
           }),
@@ -134,6 +134,7 @@ const SignatureForm = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: submitting application failed",
+            id: "iilT16",
             description:
               "Message displayed to user after application fails to submit.",
           }),
@@ -141,7 +142,6 @@ const SignatureForm = ({
       });
   };
 
-  console.log(isApplicationComplete);
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -373,14 +373,13 @@ const SignAndSubmitPage: React.FC<{ id: string }> = ({ id }) => {
     ? getFullPoolAdvertisementTitle(intl, data.poolCandidate.poolAdvertisement)
     : intl.formatMessage({
         defaultMessage: "Error, job title not found.",
+        id: "oDyHaL",
         description: "Error message when job title isn't found.",
       });
 
   const isProfileComplete = data?.poolCandidate?.user.isProfileComplete;
   const experiences = data?.poolCandidate?.user.experiences?.filter(notEmpty);
   const hasExperiences = notEmpty(experiences);
-
-  console.log(isProfileComplete);
 
   const isApplicationComplete =
     isProfileComplete === true &&

@@ -14,6 +14,7 @@ import MissingSkills from "@common/components/skills/MissingSkills";
 import { commonMessages } from "@common/messages";
 import { useQueryParams } from "@common/helpers/router";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import {
   AwardExperience,
   CommunityExperience,
@@ -44,41 +45,6 @@ export type ExperienceForDate =
   | EducationExperience
   | PersonalExperience
   | WorkExperience;
-
-export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
-  const e1EndDate = e1.endDate ? new Date(e1.endDate).getTime() : null;
-  const e2EndDate = e2.endDate ? new Date(e2.endDate).getTime() : null;
-  const e1StartDate = e1.startDate ? new Date(e1.startDate).getTime() : -1;
-  const e2StartDate = e2.startDate ? new Date(e2.startDate).getTime() : -1;
-
-  // All items with no end date should be at the top and sorted by most recent start date.
-  if (!e1EndDate && !e2EndDate) {
-    return e2StartDate - e1StartDate;
-  }
-
-  if (!e1EndDate) {
-    return -1;
-  }
-
-  if (!e2EndDate) {
-    return 1;
-  }
-
-  // Items with end date should be sorted by most recent end date at top.
-  return e2EndDate - e1EndDate;
-};
-
-export const flattenExperienceSkills = (
-  experiences: MergedExperiences,
-): Skill[] => {
-  return experiences
-    .map((experience) => {
-      const { skills } = experience;
-      return skills?.filter(notEmpty);
-    })
-    .filter(notEmpty)
-    .flatMap((skill) => skill);
-};
 
 export interface ExperienceAndSkillsProps {
   applicantId: string;
