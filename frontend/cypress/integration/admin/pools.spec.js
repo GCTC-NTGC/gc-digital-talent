@@ -56,11 +56,6 @@ describe("Pools", () => {
           .should('have.text', "IT-01 (Information Technology)");
       });
 
-    // Set a key for pool
-    cy.findByRole("textbox", { name: /key/i })
-      .clear()
-      .type(`test${Cypress._.uniqueId(Date.now().toString())}${Math.floor(Math.random() * 999)}`);
-
     // Submit form
     cy.findByRole("button", { name: /create new pool/i })
       .click();
