@@ -9,6 +9,7 @@ const AddToProfile: React.FC = () => {
       {intl.formatMessage({
         defaultMessage:
           "Based on this definition, I want to add the following to my profile:",
+        id: "DDwQg5",
         description: "Text that appears before employment equity form options.",
       })}
     </p>

@@ -36,6 +36,7 @@ const UnderReview: React.FC = () => {
         {
           defaultMessage:
             "The <actLink>Employment Equity Act</actLink> is currently <reviewLink>under review</reviewLink>.",
+          id: "dcV5qH",
           description:
             "Text that appears in Employment equity dialogs explaining the act is under review.",
         },

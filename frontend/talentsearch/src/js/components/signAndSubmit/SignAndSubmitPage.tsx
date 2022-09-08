@@ -35,21 +35,25 @@ const ImportantInfo = () => {
     intl.formatMessage({
       defaultMessage:
         "When you submit your application, a copy of your profile will be created.",
+      id: "ww86SN",
       description: "Important info list item on sign and submit page.",
     }),
     intl.formatMessage({
       defaultMessage:
         "This copy will be used for the initial application review.",
+      id: "wyxpjm",
       description: "Important info list item on sign and submit page.",
     }),
     intl.formatMessage({
       defaultMessage:
         "Changes made to your profile after submitting will not be updated on this copy.",
+      id: "4NzbMZ",
       description: "Important info list item on sign and submit page.",
     }),
     intl.formatMessage({
       defaultMessage:
         "You are still encouraged to keep your profile up to date, updated versions will be used at later steps of the hiring process.",
+      id: "qDYcDP",
       description: "Important info list item on sign and submit page.",
     }),
   ];
@@ -97,16 +101,19 @@ const SignatureForm = ({
     intl.formatMessage({
       defaultMessage: `"I've reviewed everything written in my
         application`,
+      id: "aeI64y",
       description: "Signature list item on sign and submit page.",
     }),
     intl.formatMessage({
       defaultMessage: `"I understand that I am part of a community who trusts each
         other"`,
+      id: "dIZPra",
       description: "Signature list item on sign and submit page.",
     }),
     intl.formatMessage({
       defaultMessage: `"I promise that the information Ive provided is
         true"`,
+      id: "Lgo2iQ",
       description: "Signature list item on sign and submit page.",
     }),
   ];
@@ -142,6 +149,7 @@ const SignatureForm = ({
           {intl.formatMessage({
             defaultMessage:
               "You made it! By signing your name below you confirm that:",
+            id: "i4CKlO",
             description:
               "Confirmation message before signature form on sign and submit page.",
           })}
@@ -161,6 +169,7 @@ const SignatureForm = ({
             id="signature"
             label={intl.formatMessage({
               defaultMessage: "Signature",
+              id: "YZyNUJ",
               description:
                 "Label displayed for signature input in sign and submit page.",
             })}
@@ -182,6 +191,7 @@ const SignatureForm = ({
               >
                 {intl.formatMessage({
                   defaultMessage: "Submit my application",
+                  id: "Knr0yc",
                   description: "Submit button label on sign and submit page.",
                 })}
                 <ArrowSmallRightIcon
@@ -203,6 +213,7 @@ const SignatureForm = ({
           >
             {intl.formatMessage({
               defaultMessage: "Back to previous step",
+              id: "SDQWZf",
               description: "Label for return link on sign and submit page.",
             })}
           </Link>
@@ -242,6 +253,7 @@ export const SignAndSubmitForm = ({
       id: "importantInformation",
       title: intl.formatMessage({
         defaultMessage: "Important information",
+        id: "/Mb8b6",
         description: "Toc navigation item on sign and submit page.",
       }),
       component: <ImportantInfo />,
@@ -251,6 +263,7 @@ export const SignAndSubmitForm = ({
       id: "signature",
       title: intl.formatMessage({
         defaultMessage: "Signature",
+        id: "Ledr63",
         description: "Toc navigation item on sign and submit page.",
       }),
       component: (
@@ -270,12 +283,14 @@ export const SignAndSubmitForm = ({
       closingDate={closingDate}
       title={intl.formatMessage({
         defaultMessage: "My application profile",
+        id: "6p6syC",
         description: "Title for sign and submit page.",
       })}
       crumbs={[
         {
           title: intl.formatMessage({
             defaultMessage: "My applications",
+            id: "kjtiha",
             description: "Breadcrumb for sign and submit page.",
           }),
           href: paths.allPools(),
@@ -287,6 +302,7 @@ export const SignAndSubmitForm = ({
         {
           title: intl.formatMessage({
             defaultMessage: "Step 2",
+            id: "oOR4Rd",
             description: "Breadcrumb for sign and submit page.",
           }),
         },
@@ -298,6 +314,7 @@ export const SignAndSubmitForm = ({
             path: "#REPLACEWITHREVIEWAPPLICATIONROUTE", // TODO: Replace with review my application route.
             label: intl.formatMessage({
               defaultMessage: "Step 1: Review my profile",
+              id: "LUEVdb",
               description: "Navigation step in sign and submit page.",
             }),
           },
@@ -305,6 +322,7 @@ export const SignAndSubmitForm = ({
             path: "#sign-and-submit",
             label: intl.formatMessage({
               defaultMessage: "Step 2: Sign and submit",
+              id: "LOh+c5",
               description: "Navigation step in sign and submit page.",
             }),
           },
@@ -399,6 +417,7 @@ const SignAndSubmitPage: React.FC<{ id: string }> = ({ id }) => {
           <p>
             {intl.formatMessage({
               defaultMessage: "Error, application unable to be loaded",
+              id: "0+hcuo",
               description: "Error message, placeholder",
             })}
           </p>

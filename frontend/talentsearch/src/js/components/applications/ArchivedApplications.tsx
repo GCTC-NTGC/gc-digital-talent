@@ -25,6 +25,7 @@ const ArchivedApplications = ({ applications }: ArchivedApplicationsProps) => {
         <h2>
           {intl.formatMessage({
             defaultMessage: "Archived Applications",
+            id: "D0bpvq",
             description: "Title for a users archived applications",
           })}
         </h2>
@@ -38,11 +39,13 @@ const ArchivedApplications = ({ applications }: ArchivedApplicationsProps) => {
           {isOpen
             ? intl.formatMessage({
                 defaultMessage: "Hide archived applications",
+                id: "sOmB9g",
                 description:
                   "Button text to hide a users archived applications.",
               })
             : intl.formatMessage({
                 defaultMessage: "Show archived applications",
+                id: "da8nDk",
                 description:
                   "Button text to show a users archived applications.",
               })}
@@ -63,6 +66,7 @@ const ArchivedApplications = ({ applications }: ArchivedApplicationsProps) => {
           <p>
             {intl.formatMessage({
               defaultMessage: "You currently have no archived applications.",
+              id: "Vfxtz/",
               description:
                 "Messaged displayed when a user has no archived applications.",
             })}

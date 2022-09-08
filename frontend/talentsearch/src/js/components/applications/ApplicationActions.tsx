@@ -40,6 +40,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
       {intl.formatMessage(
         {
           defaultMessage: "Continue my application<hidden> {name}</hidden>",
+          id: "60Ee78",
           description: "Link text to continue a specific application",
         },
         {
@@ -73,6 +74,7 @@ const SeeAdvertisementAction = ({
       {intl.formatMessage(
         {
           defaultMessage: "See advertisement<hidden> {name}</hidden>",
+          id: "HXNJ6Z",
           description: "Link text to see an applications advertisement",
         },
         {
@@ -106,6 +108,7 @@ const DeleteAction = ({ show, application }: DeleteActionProps) => {
         toast.success(
           intl.formatMessage({
             defaultMessage: "Application deleted successfully!",
+            id: "xdGPxT",
             description:
               "Message displayed to user after application is deleted successfully.",
           }),
@@ -114,6 +117,7 @@ const DeleteAction = ({ show, application }: DeleteActionProps) => {
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: deleting application failed",
+            id: "M3c9Yo",
             description:
               "Message displayed to user after application fails to get deleted.",
           }),
@@ -136,6 +140,7 @@ const DeleteAction = ({ show, application }: DeleteActionProps) => {
         {intl.formatMessage(
           {
             defaultMessage: "Delete<hidden> application {name}</hidden>",
+            id: "1lmME7",
             description: "Link text to continue a specific application",
           },
           {
@@ -150,6 +155,7 @@ const DeleteAction = ({ show, application }: DeleteActionProps) => {
         title={intl.formatMessage(
           {
             defaultMessage: "Delete Application",
+            id: "FFD16/",
             description:
               "Title for the modal that appears when a user attempts to delete an application",
           },
@@ -161,6 +167,7 @@ const DeleteAction = ({ show, application }: DeleteActionProps) => {
             {
               defaultMessage:
                 "Are you sure you would like to delete application {name}?",
+              id: "5pZFQ3",
               description:
                 "Question displayed when user attempts to delete an application",
             },
@@ -177,6 +184,7 @@ const DeleteAction = ({ show, application }: DeleteActionProps) => {
           >
             {intl.formatMessage({
               defaultMessage: "Cancel",
+              id: "/JLaO5",
               description: "Link text to cancel deleting application.",
             })}
           </Button>
@@ -184,6 +192,7 @@ const DeleteAction = ({ show, application }: DeleteActionProps) => {
             <Button mode="solid" color="cta" type="button" onClick={onDelete}>
               {intl.formatMessage({
                 defaultMessage: "Delete",
+                id: "IUQGA0",
                 description: "Link text to delete.",
               })}
             </Button>
@@ -215,6 +224,7 @@ const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
         toast.success(
           intl.formatMessage({
             defaultMessage: "Application archived successfully!",
+            id: "KEhCJX",
             description:
               "Message displayed to user after application is archived successfully.",
           }),
@@ -223,6 +233,7 @@ const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: archiving application failed",
+            id: "i3IjQt",
             description:
               "Message displayed to user after application fails to get archived.",
           }),
@@ -245,6 +256,7 @@ const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
         {intl.formatMessage(
           {
             defaultMessage: "Archive<hidden> application {name}</hidden>",
+            id: "6B7e8/",
             description: "Link text to continue a specific application",
           },
           {
@@ -258,6 +270,7 @@ const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
         onDismiss={onDismiss}
         title={intl.formatMessage({
           defaultMessage: "Archive Application",
+          id: "yiJYdP",
           description:
             "Title for the modal that appears when a user attempts to archive an application",
         })}
@@ -267,6 +280,7 @@ const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
             {
               defaultMessage:
                 "Are you sure you would like to archive application {name}?",
+              id: "Z0PCOW",
               description:
                 "Question displayed when user attempts to archive an application",
             },
@@ -283,6 +297,7 @@ const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
           >
             {intl.formatMessage({
               defaultMessage: "Cancel",
+              id: "r6DZ71",
               description: "Link text to cancel archiving application.",
             })}
           </Button>
@@ -290,6 +305,7 @@ const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
             <Button mode="solid" color="cta" type="button" onClick={onArchive}>
               {intl.formatMessage({
                 defaultMessage: "Archive",
+                id: "PXfQOZ",
                 description: "Link text to archive application.",
               })}
             </Button>

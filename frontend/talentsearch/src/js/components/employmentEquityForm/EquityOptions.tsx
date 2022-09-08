@@ -89,6 +89,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
             >
               {intl.formatMessage({
                 defaultMessage: "My employment equity information:",
+                id: "Q96xMb",
                 description:
                   "Heading for employment equity categories added to user profile.",
               })}
@@ -145,6 +146,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   {intl.formatMessage({
                     defaultMessage:
                       "You have not added any employment equity options to your profile.",
+                    id: "fK7jxe",
                     description:
                       "Message displayed when a user has no employment equity information.",
                   })}
@@ -159,6 +161,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
             >
               {intl.formatMessage({
                 defaultMessage: "Employment equity options:",
+                id: "TuhgU0",
                 description:
                   "Heading for employment equity categories available to be added to user profile.",
               })}
@@ -215,6 +218,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   {intl.formatMessage({
                     defaultMessage:
                       "There are no available employment equity options.",
+                    id: "px7yu1",
                     description:
                       "Message displayed when there are no employment equity categories available to be added.",
                   })}

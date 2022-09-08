@@ -48,6 +48,7 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
       <p>
         {intl.formatMessage({
           defaultMessage: "We can still help!",
+          id: "5U+V2Y",
           description:
             "Heading for helping user if no candidates matched the filters chosen.",
         })}
@@ -57,6 +58,7 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
           {
             defaultMessage:
               "If there are no matching candidates <a>Get in touch!</a>",
+            id: "+ZXZj+",
             description:
               "Message for helping user if no candidates matched the filters chosen.",
           },

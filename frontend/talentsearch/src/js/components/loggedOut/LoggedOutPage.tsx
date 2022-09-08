@@ -41,6 +41,7 @@ const LoggedOutPage: React.FC = () => {
         <h1 data-h2-margin="base(x2, 0)">
           {intl.formatMessage({
             defaultMessage: "See you next time!",
+            id: "cZmuts",
             description:
               "Title for the page users land on after successful logout.",
           })}
@@ -55,17 +56,20 @@ const LoggedOutPage: React.FC = () => {
           icon={<BellIcon style={{ width: "1rem" }} />}
           title={intl.formatMessage({
             defaultMessage: "You've successfully logged out of the platform",
+            id: "NamQ1+",
             description: "Title for the alert displayed after a user logs out",
           })}
           message={intl.formatMessage({
             defaultMessage:
               "Remember, to sign back in, you'll need to use your GC Key username and password. We hope to see you soon!",
+            id: "6UCzgs",
             description: "Message displayed to a user after logging out.",
           })}
         />
         <h2 data-h2-margin="base(x3, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "Quick Links",
+            id: "Igrveg",
             description:
               "Title displayed for helpful links on logged out page.",
           })}
@@ -74,6 +78,7 @@ const LoggedOutPage: React.FC = () => {
           {intl.formatMessage({
             defaultMessage:
               "Not ready to leave just yet? Head back to the homepage, check out new opportunities, or learn more about some of the research behind this platform.",
+            id: "248YQT",
             description:
               "Description of the links presented on the logged out page.",
           })}
@@ -87,6 +92,7 @@ const LoggedOutPage: React.FC = () => {
               <TileLink href={talentPaths.home()} color="primary">
                 {intl.formatMessage({
                   defaultMessage: "Return home",
+                  id: "Hgd/PL",
                   description: "Link text to return to the home page",
                 })}
               </TileLink>
@@ -95,6 +101,7 @@ const LoggedOutPage: React.FC = () => {
               <TileLink href={directIntakePaths.allPools()} color="primary">
                 {intl.formatMessage({
                   defaultMessage: "View open pools",
+                  id: "FtlwFY",
                   description: "Link text to view all open pools",
                 })}
               </TileLink>
@@ -107,6 +114,7 @@ const LoggedOutPage: React.FC = () => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Talent Cloud report",
+                  id: "L9mWLV",
                   description: "Link text to read the report on talent cloud",
                 })}
               </TileLink>
@@ -123,6 +131,7 @@ const LoggedOutPage: React.FC = () => {
         }}
         title={intl.formatMessage({
           defaultMessage: "Logout",
+          id: "Hiv/2m",
           description:
             "Title for the modal that appears when an authenticated user lands on /logged-out.",
         })}
@@ -130,6 +139,7 @@ const LoggedOutPage: React.FC = () => {
         <p data-h2-font-size="base(h5, 1)">
           {intl.formatMessage({
             defaultMessage: "Are you sure you would like to logout?",
+            id: "Zx3BVC",
             description:
               "Question displayed when authenticated user lands on /logged-out.",
           })}
@@ -149,6 +159,7 @@ const LoggedOutPage: React.FC = () => {
             >
               {intl.formatMessage({
                 defaultMessage: "Cancel",
+                id: "AhNR6n",
                 description: "Link text to cancel logging out.",
               })}
             </Link>
@@ -163,6 +174,7 @@ const LoggedOutPage: React.FC = () => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Logout",
+                  id: "6rhyxk",
                   description: "Link text to logout.",
                 })}
               </Button>

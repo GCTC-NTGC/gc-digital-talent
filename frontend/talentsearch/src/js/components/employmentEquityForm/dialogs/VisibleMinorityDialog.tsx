@@ -81,6 +81,7 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
         {intl.formatMessage({
           defaultMessage:
             'Visible minority refers to whether a person is a visible minority or not, as defined by the Employment Equity Act. The Employment Equity Act defines visible minorities as "persons, other than Aboriginal peoples, who are non-Caucasian in race or non-white in colour". The visible minority population consists mainly of the following groups: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese.',
+          id: "NFL+q8",
           description:
             "Definition of accepted ways to identify as a visible minority",
         })}

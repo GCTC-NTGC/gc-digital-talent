@@ -66,6 +66,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
       <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "2. Skills displayed during this experience",
+          id: "pYGf4h",
           description: "Title for skills on Experience form",
         })}
       </h2>
@@ -73,6 +74,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
         {intl.formatMessage({
           defaultMessage:
             "Select skills that match the abilities you displayed during this experience period. You will explain how you used them in the next step.",
+          id: "csD/wq",
           description: "Description blurb for skills on Experience form",
         })}
       </p>

@@ -125,6 +125,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
               >
                 {intl.formatMessage({
                   defaultMessage: "How to use this tool",
+                  id: "HvD7jI",
                   description:
                     "Heading displayed in the How To area of the hero section of the Search page.",
                 })}
@@ -133,6 +134,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "Use the filters below to specify your hiring needs. At any time you can look at the results located at the bottom of this page to see how many candidates match the requirements you have entered. When you are comfortable with the filters you have selected, click the Request Candidates button to add more details and submit a request form.",
+                  id: "Tg8a57",
                   description:
                     "Content displayed in the How To area of the hero section of the Search page.",
                 })}
@@ -175,6 +177,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
               {
                 defaultMessage:
                   "Results: <primary><testId>{candidateCount}</testId></primary> matching candidates",
+                id: "1xRst5",
                 description:
                   "Heading for total matching candidates in results section of search page.",
               },

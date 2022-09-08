@@ -32,6 +32,7 @@ const SearchHeading: React.FunctionComponent = () => {
           >
             {intl.formatMessage({
               defaultMessage: "Search the Digital Talent Pool",
+              id: "SZTFJq",
               description:
                 "Title displayed in the hero section of the Search page.",
             })}
@@ -53,6 +54,7 @@ const SearchHeading: React.FunctionComponent = () => {
             >
               {intl.formatMessage({
                 defaultMessage: "About the Digital Talent Pool",
+                id: "9hdbFi",
                 description:
                   "Heading displayed in the About area of the hero section of the Search page.",
               })}
@@ -61,6 +63,7 @@ const SearchHeading: React.FunctionComponent = () => {
               {intl.formatMessage({
                 defaultMessage:
                   "This pool is open to most departments and agencies. Candidates in the pool vary from just starting their career to seasoned professionals with several years of work experience. This is an ongoing recruitment pool, which means new candidates are being added every week.",
+                id: "XSxaGk",
                 description:
                   "Content displayed in the About area of the hero section of the Search page.",
               })}

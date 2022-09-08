@@ -12,6 +12,7 @@ use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
+use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 
 class PoolApplicationTest extends TestCase
@@ -609,6 +610,7 @@ class PoolApplicationTest extends TestCase
     // need some generic job titles for a complete profile
     $this->seed(ClassificationSeeder::class);
     $this->seed(GenericJobTitleSeeder::class);
+    $this->seed(SkillFamilySeeder::class);
     $this->seed(SkillSeeder::class);
 
     // create a pool, attach one essential skill to it
