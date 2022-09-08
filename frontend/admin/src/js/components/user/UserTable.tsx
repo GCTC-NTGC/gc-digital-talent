@@ -71,20 +71,6 @@ export const UserTable: React.FC = () => {
   const paths = useAdminRoutes();
   const { pathname } = useLocation();
 
-  const searchStateToFilterInput = (
-    val: string | undefined,
-    col: string | undefined,
-  ): InputMaybe<UserFilterInput> => {
-    if (!val) return undefined;
-
-    return {
-      generalSearch: val && !col ? val : undefined,
-      email: col === "email" ? val : undefined,
-      name: col === "name" ? val : undefined,
-      telephone: col === "phone" ? val : undefined,
-    };
-  };
-
   const [fancyFilter, setFancyFilter] = useState<UserFilterInput>();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -96,13 +82,43 @@ export const UserTable: React.FC = () => {
     col: string | undefined;
   }>();
 
+  // merge search bar input with fancy filter state
+  const filterCombiner = (
+    fancyFilterState: UserFilterInput | undefined,
+    searchBarTerm: string | undefined,
+    searchBarCol: string | undefined,
+  ): InputMaybe<UserFilterInput> => {
+    if (
+      fancyFilterState === undefined &&
+      searchBarTerm === undefined &&
+      searchBarCol === undefined
+    ) {
+      return undefined;
+    }
+
+    return {
+      // search bar
+      generalSearch: searchBarTerm && !searchBarCol ? searchBarTerm : undefined,
+      email: searchBarCol === "email" ? searchBarTerm : undefined,
+      name: searchBarCol === "name" ? searchBarTerm : undefined,
+      telephone: searchBarCol === "phone" ? searchBarTerm : undefined,
+
+      // from fancy filter
+      applicantFilter: fancyFilterState?.applicantFilter,
+      isGovEmployee: fancyFilterState?.isGovEmployee,
+      isProfileComplete: fancyFilterState?.isProfileComplete,
+      jobLookingStatus: fancyFilterState?.jobLookingStatus,
+      poolFilters: fancyFilterState?.poolFilters,
+    };
+  };
+
   useEffect(() => {
     setSelectedRows([]);
   }, [currentPage, pageSize, searchState, sortingRule]);
 
   const [result] = useAllUsersPaginatedQuery({
     variables: {
-      where: searchStateToFilterInput(searchState?.term, searchState?.col),
+      where: filterCombiner(fancyFilter, searchState?.term, searchState?.col),
       page: currentPage,
       first: pageSize,
       orderBy: sortingRuleToOrderByClause(sortingRule),

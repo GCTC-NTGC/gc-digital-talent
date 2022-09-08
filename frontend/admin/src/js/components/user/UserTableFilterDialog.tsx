@@ -274,8 +274,8 @@ const UserTableFilterButton = ({
           ? data.employmentDuration[0].toString() === "TERM"
           : undefined,
       },
-      isGovEmployee: !!data.govEmployee,
-      isProfileComplete: !!data.profileComplete,
+      isGovEmployee: data.govEmployee[0] ? true : undefined,
+      isProfileComplete: data.profileComplete[0] ? true : undefined,
       jobLookingStatus: data.jobLookingStatus.map((status) => {
         return stringToEnumJobLooking(status.toString());
       }),
