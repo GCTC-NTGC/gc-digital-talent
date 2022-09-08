@@ -26,12 +26,11 @@ interface ReviewMyApplicationProps {
   poolAdvertisement: PoolAdvertisement;
   applicationId: string;
   closingDate: Date;
-  poolId: string;
 }
 
 export const ReviewMyApplication: React.FunctionComponent<
   ReviewMyApplicationProps
-> = ({ applicant, poolAdvertisement, applicationId, closingDate, poolId }) => {
+> = ({ applicant, poolAdvertisement, applicationId, closingDate }) => {
   const intl = useIntl();
   const directIntakePaths = useDirectIntakeRoutes();
   const applicantProfileRoutes = useApplicantProfileRoutes();
@@ -69,7 +68,7 @@ export const ReviewMyApplication: React.FunctionComponent<
         },
         {
           title: jobTitle,
-          href: directIntakePaths.poolApply(poolId),
+          href: directIntakePaths.poolApply(poolAdvertisement.id),
         },
         {
           title: intl.formatMessage(navigationMessages.stepOne),
@@ -229,8 +228,8 @@ export const ReviewMyApplication: React.FunctionComponent<
                     type="button"
                   >
                     {intl.formatMessage({
-                      id: "vD4Qhc",
-                      defaultMessage: "Save and go back to my applications",
+                      id: "zqIEuu",
+                      defaultMessage: "Go back to my applications",
                       description:
                         "Button message on footer of review my application page.",
                     })}
@@ -261,7 +260,6 @@ const ReviewMyApplicationPage: React.FC<{ poolCandidateId: string }> = ({
           applicant={data.poolCandidate.user as Applicant}
           applicationId={data.poolCandidate.id}
           closingDate={data.poolCandidate.poolAdvertisement?.expiryDate}
-          poolId={data.poolCandidate.poolAdvertisement?.id}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
