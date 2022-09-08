@@ -18,6 +18,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
       <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "1. Work Experience Details",
+          id: "ciWrxr",
           description: "Title for Work Experience form",
         })}
       </h2>
@@ -25,6 +26,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
         {intl.formatMessage({
           defaultMessage:
             "Share your experiences gained from full-time, part-time, self-employment, fellowships or internships.",
+          id: "i17oNt",
           description: "Description blurb for Work Experience form",
         })}
       </p>
@@ -35,6 +37,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
               id="role"
               label={intl.formatMessage({
                 defaultMessage: "My Role",
+                id: "URHhMF",
                 description:
                   "Label displayed on Work Experience form for role input",
               })}
@@ -49,12 +52,14 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
                 boundingBox
                 boundingBoxLabel={intl.formatMessage({
                   defaultMessage: "Current Role",
+                  id: "2t3Cqv",
                   description:
                     "Label displayed on Work Experience form for current role bounded box",
                 })}
                 id="currentRole"
                 label={intl.formatMessage({
                   defaultMessage: "I am currently active in this role",
+                  id: "8i+lzm",
                   description:
                     "Label displayed on Work Experience form for current role input",
                 })}
@@ -67,6 +72,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
               id="organization"
               label={intl.formatMessage({
                 defaultMessage: "Organization",
+                id: "9UZ/eS",
                 description:
                   "Label displayed on Work Experience form for organization input",
               })}
@@ -82,6 +88,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
                   id="startDate"
                   label={intl.formatMessage({
                     defaultMessage: "Start Date",
+                    id: "8VDBW/",
                     description:
                       "Label displayed on Work Experience form for start date input",
                   })}
@@ -99,6 +106,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
                     id="endDate"
                     label={intl.formatMessage({
                       defaultMessage: "End Date",
+                      id: "09G0vg",
                       description:
                         "Label displayed on Work Experience form for end date input",
                     })}
@@ -129,6 +137,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
               id="team"
               label={intl.formatMessage({
                 defaultMessage: "Team, Group, or Division",
+                id: "xJulQ4",
                 description:
                   "Label displayed on Work Experience form for team/group/division input",
               })}

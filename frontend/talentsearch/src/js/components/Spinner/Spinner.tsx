@@ -8,6 +8,7 @@ const Spinner: React.FC = () => {
       <span data-h2-visibility="base(invisible)">
         {intl.formatMessage({
           defaultMessage: "Searching...",
+          id: "w6vHXf",
           description: "Message to display when a search is in progress.",
         })}
       </span>

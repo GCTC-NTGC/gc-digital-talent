@@ -1,7 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { BasicForm, Checklist } from "@common/components/form";
-import { BriefcaseIcon, InformationCircleIcon } from "@heroicons/react/solid";
+import {
+  BriefcaseIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/solid";
 import { errorMessages } from "@common/messages";
 import Button from "@common/components/Button";
 import { notEmpty } from "@common/helpers/util";
@@ -163,6 +166,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
         {
           title: intl.formatMessage({
             defaultMessage: "My Applications",
+            id: "mq4G8h",
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
@@ -174,6 +178,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
             application.poolAdvertisement?.name?.[locale] ||
             intl.formatMessage({
               defaultMessage: "Pool name not found",
+              id: "FmD1sL",
               description:
                 "Pools name breadcrumb from applicant profile wrapper if no name set.",
             }),
@@ -186,11 +191,13 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
     <ProfileFormWrapper
       title={intl.formatMessage({
         defaultMessage: "Role and Salary Expectations",
+        id: "kCBLsJ",
         description: "Title role and salary expectations form",
       })}
       description={intl.formatMessage({
         defaultMessage:
           "Government classifications are labels that the Government of Canada uses to group similar types of work. In the Government of Canada salary is tied to how positions are classified.",
+        id: "uIpPFZ",
         description: "Description for the role and salary expectation form",
       })}
       cancelLink={{
@@ -201,6 +208,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
         {
           title: intl.formatMessage({
             defaultMessage: "Role and Salary Expectations",
+            id: "dgOYID",
             description: "Label for role and salary link",
           }),
         },
@@ -217,6 +225,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           {intl.formatMessage({
             defaultMessage:
               "This platform is focused on hiring digital talent to work in positions classified as IT(Information Technology). Look at the following levels within the IT classification and <strong>select only</strong> the ones that represent the work you want to do.",
+            id: "n7UXz5",
             description: "Blurb describing the purpose of the form",
           })}
         </p>
@@ -225,6 +234,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           legend={intl.formatMessage({
             defaultMessage:
               "I would like to be referred for jobs at the following levels:",
+            id: "DrR60L",
             description: "Legend for role and salary checklist form",
           })}
           rules={{
@@ -238,6 +248,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "Level 1: Technician ($60,000 to $78,000). <openModal>Learn about IT-01</openModal>",
+                  id: "Zn10pO",
                   description:
                     "Checkbox label for Level IT-01 selection, ignore things in <> tags please",
                 },
@@ -253,6 +264,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "Level 2: Analyst ($75,000 to $91,000). <openModal>Learn about IT-02</openModal>",
+                  id: "PcYOnN",
                   description:
                     "Checkbox label for Level IT-02 selection, ignore things in <> tags please",
                 },
@@ -268,6 +280,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "Level 3: Team Leader ($88,000 to $110,000). <openModal>Learn about IT-03</openModal>",
+                  id: "hizC89",
                   description:
                     "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please",
                 },
@@ -283,6 +296,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "Level 3: Technical Advisor ($88,000 to $110,000). <openModal>Learn about IT-03</openModal>",
+                  id: "44bgIY",
                   description:
                     "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please",
                 },
@@ -298,6 +312,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "Level 4: Senior Advisor ($101,000 to $126,000). <openModal>Learn about IT-04</openModal>",
+                  id: "FayQOt",
                   description:
                     "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please",
                 },
@@ -313,6 +328,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "Level 4: Manager ($101,000 to $126,000). <openModal>Learn about IT-04</openModal>",
+                  id: "75nLSV",
                   description:
                     "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please",
                 },
@@ -336,6 +352,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 {
                   defaultMessage:
                     "<link>Click here to learn more about classifications in the Government of Canada's Digital Community.</link>",
+                  id: "KT3jUW",
                   description: "Link to learn more about classifications",
                 },
                 {

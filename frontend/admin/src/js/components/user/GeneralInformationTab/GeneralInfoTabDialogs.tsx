@@ -7,7 +7,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import { InputError, InputWrapper } from "@common/components/inputPartials";
 import { toast } from "react-toastify";
-import { UserRemoveIcon } from "@heroicons/react/solid";
+import { UserMinusIcon } from "@heroicons/react/24/solid";
 import { isEmpty } from "lodash";
 import {
   CreatePoolCandidateAsAdminInput,
@@ -521,7 +521,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
                   })
             }
             disabled={submitting}
-            icon={UserRemoveIcon}
+            icon={UserMinusIcon}
           />
         </div>
       </Dialog.Footer>

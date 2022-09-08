@@ -137,6 +137,7 @@ const GovernmentInfoFormPage: React.FunctionComponent<{ meId: string }> = ({
       toast.error(
         intl.formatMessage({
           defaultMessage: "Error: user not found",
+          id: "4bjh8X",
           description: "Message displayed to user if user is not found",
         }),
       );

@@ -1,4 +1,4 @@
-import { ChevronDoubleRightIcon } from "@heroicons/react/solid";
+import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import type { Color } from "../Button";
 import sanitizeUrl from "../../helpers/sanitizeUrl";

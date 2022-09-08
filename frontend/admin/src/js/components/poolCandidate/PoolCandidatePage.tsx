@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import PageHeader from "@common/components/PageHeader";
-import { ViewGridIcon } from "@heroicons/react/outline";
+import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import DashboardContentContainer from "../DashboardContentContainer";
 import PoolCandidatesTable from "./PoolCandidatesTable";
 
@@ -9,7 +9,7 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
   const intl = useIntl();
   return (
     <DashboardContentContainer>
-      <PageHeader icon={ViewGridIcon}>
+      <PageHeader icon={Squares2X2Icon}>
         {intl.formatMessage({
           defaultMessage: "Pool Candidates",
           description:

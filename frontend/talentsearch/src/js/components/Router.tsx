@@ -84,6 +84,9 @@ const PoolAdvertisementPage = React.lazy(
 const SignAndSubmitPage = React.lazy(
   () => import("./signAndSubmit/SignAndSubmitPage"),
 );
+const MyApplicationsPage = React.lazy(
+  () => import("./applications/MyApplicationsPage"),
+);
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -455,7 +458,7 @@ const directIntakeRoutes = (
   {
     path: directIntakePaths.applications(":userId"),
     action: () => ({
-      component: <div />,
+      component: <MyApplicationsPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
@@ -482,6 +485,7 @@ export const Router: React.FC = () => {
       href={talentPaths.search()}
       text={intl.formatMessage({
         defaultMessage: "Search",
+        id: "OezjH3",
         description: "Label displayed on the Search menu item.",
       })}
     />,
@@ -490,6 +494,7 @@ export const Router: React.FC = () => {
       href={talentPaths.request()}
       text={intl.formatMessage({
         defaultMessage: "Request",
+        id: "i7hOcw",
         description: "Label displayed on the Request menu item.",
       })}
     />,
@@ -502,6 +507,7 @@ export const Router: React.FC = () => {
         href={directIntakePaths.allPools()}
         text={intl.formatMessage({
           defaultMessage: "Browse opportunities",
+          id: "SXvOXV",
           description: "Label displayed on the browse pools menu item.",
         })}
       />,
@@ -514,6 +520,7 @@ export const Router: React.FC = () => {
           href={directIntakePaths.applications(data.me.id)}
           text={intl.formatMessage({
             defaultMessage: "My applications",
+            id: "ioghLh",
             description:
               "Label displayed on the users pool applications menu item.",
           })}
@@ -529,6 +536,7 @@ export const Router: React.FC = () => {
         href={profilePaths.home(data.me.id)}
         text={intl.formatMessage({
           defaultMessage: "My profile",
+          id: "5lBIzg",
           description: "Label displayed on the applicant profile menu item.",
         })}
       />,
@@ -541,6 +549,7 @@ export const Router: React.FC = () => {
       href={authPaths.login()}
       text={intl.formatMessage({
         defaultMessage: "Login",
+        id: "md7Klw",
         description: "Label displayed on the login link menu item.",
       })}
     />,
@@ -549,6 +558,7 @@ export const Router: React.FC = () => {
       href={authPaths.register()}
       text={intl.formatMessage({
         defaultMessage: "Register",
+        id: "LMGaDQ",
         description: "Label displayed on the register link menu item.",
       })}
     />,
@@ -565,6 +575,7 @@ export const Router: React.FC = () => {
         }}
         text={intl.formatMessage({
           defaultMessage: "Logout",
+          id: "3vDhoc",
           description: "Label displayed on the logout link menu item.",
         })}
       />,

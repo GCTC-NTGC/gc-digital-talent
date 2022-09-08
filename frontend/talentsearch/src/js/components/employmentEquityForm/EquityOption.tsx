@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { MinusIcon, PlusIcon } from "@heroicons/react/outline";
+import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 import { Button } from "@common/components";
 
@@ -20,6 +20,7 @@ const EquityOption: React.FC<EquityOptionProps> = ({
   const removeText = intl.formatMessage(
     {
       defaultMessage: "Remove <hidden>{title} </hidden>from profile",
+      id: "OQ+K+X",
       description:
         "Text label for button to remove employment equity category from profile.",
     },
@@ -31,6 +32,7 @@ const EquityOption: React.FC<EquityOptionProps> = ({
   const addText = intl.formatMessage(
     {
       defaultMessage: "Add <hidden>{title} </hidden>to profile",
+      id: "/AJCvK",
       description:
         "Text label for button to add employment equity category to profile.",
     },

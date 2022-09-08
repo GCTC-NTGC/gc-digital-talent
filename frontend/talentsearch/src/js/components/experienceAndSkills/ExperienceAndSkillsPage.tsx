@@ -49,6 +49,7 @@ const ExperienceAndSkillsApi = ({
           <p>
             {intl.formatMessage({
               defaultMessage: "Application not found.",
+              id: "78ITuW",
               description:
                 "Text displayed when a users application does not exist.",
             })}

@@ -38,6 +38,7 @@ const LoginPage: React.FC = () => {
         <h1 data-h2-margin="base(x2, 0)">
           {intl.formatMessage({
             defaultMessage: "Login using GC Key",
+            id: "Z3prc4",
             description: "Title for the login page for applicant profiles.",
           })}
         </h1>
@@ -48,6 +49,7 @@ const LoginPage: React.FC = () => {
             {intl.formatMessage({
               defaultMessage:
                 "You can log into your Digital Talent profile using your existing GC Key, even if you’ve never used this platform before.",
+              id: "K7wsxV",
               description: "Instructions on how to login with GC Key.",
             })}
           </p>
@@ -55,6 +57,7 @@ const LoginPage: React.FC = () => {
             {intl.formatMessage({
               defaultMessage:
                 "If you’re unsure whether you have an existing GC Key account, continue to the website and try logging in. If you can’t remember your password, you can also reset it there.",
+              id: "Q2+VXx",
               description:
                 "Instructions on what to do if user doesn't know if they have a GC Key",
             })}
@@ -64,6 +67,7 @@ const LoginPage: React.FC = () => {
               {
                 defaultMessage:
                   "<strong>Don't have a GC Key account?</strong> <a>Register for one.</a>",
+                id: "ofOoFQ",
                 description:
                   "Instruction on what to do if user does not have a GC Key.",
               },
@@ -88,6 +92,7 @@ const LoginPage: React.FC = () => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Cancel",
+                  id: "OT0QP3",
                   description:
                     "Link text to cancel logging in and return to talent search home.",
                 })}
@@ -103,6 +108,7 @@ const LoginPage: React.FC = () => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Continue to GC Key and Login",
+                  id: "CZcsxM",
                   description: "GC Key login link text on the login page.",
                 })}
               </Link>

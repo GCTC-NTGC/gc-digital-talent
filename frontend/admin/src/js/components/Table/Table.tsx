@@ -12,7 +12,7 @@ import {
 } from "react-table";
 import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
-import { PlusIcon, TableIcon } from "@heroicons/react/outline";
+import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
 import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import SortIcon from "./SortIcon";
@@ -137,7 +137,7 @@ function Table<T extends Record<string, unknown>>({
                     data-h2-align-items="base(center)"
                     onClick={() => setShowList(!showList)}
                   >
-                    <ButtonIcon icon={TableIcon} />
+                    <ButtonIcon icon={TableCellsIcon} />
                     <span>
                       {intl.formatMessage({
                         defaultMessage: "Columns",

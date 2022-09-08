@@ -13,14 +13,14 @@ import { imageUrl } from "@common/helpers/router";
 import { AdvertisementStatus, SkillCategory } from "@common/api/generated";
 import TableOfContents from "@common/components/TableOfContents";
 import {
-  LightningBoltIcon,
+  BoltIcon,
   BriefcaseIcon as BriefcaseIconOutline,
   PhoneIcon,
   LightBulbIcon,
   CheckCircleIcon,
-  ChipIcon,
+  CpuChipIcon,
   CloudIcon,
-} from "@heroicons/react/outline";
+} from "@heroicons/react/24/outline";
 import Accordion from "@common/components/accordion";
 import {
   getLanguageRequirement,
@@ -55,6 +55,7 @@ const ApplyButton = ({ disabled, href }: ApplyButtonProps) => {
     >
       {intl.formatMessage({
         defaultMessage: "Apply for this process",
+        id: "W2YIEA",
         description: "Link text to apply for a pool advertisement",
       })}
     </Link>
@@ -131,6 +132,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
     {
       title: intl.formatMessage({
         defaultMessage: "Browse opportunities",
+        id: "NSuNSA",
         description: "Breadcrumb title for the browse pools page.",
       }),
       href: paths.home(),
@@ -145,6 +147,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
       id: "about-section",
       title: intl.formatMessage({
         defaultMessage: "About this process",
+        id: "18dDgn",
         description: "Title for the about section of a pool advertisement",
       }),
     },
@@ -152,6 +155,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
       id: "required-skills-section",
       title: intl.formatMessage({
         defaultMessage: "Need to have",
+        id: "WkX8Ge",
         description:
           "Title for the required skills section of a pool advertisement",
       }),
@@ -160,6 +164,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
       id: "optional-skills-section",
       title: intl.formatMessage({
         defaultMessage: "Nice to have",
+        id: "STLaIq",
         description:
           "Title for the optional skills section of a pool advertisement",
       }),
@@ -168,6 +173,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
       id: "requirements-section",
       title: intl.formatMessage({
         defaultMessage: "Requirements",
+        id: "iP8EMf",
         description:
           "Title for the requirements section of a pool advertisement",
       }),
@@ -176,6 +182,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
       id: "details-section",
       title: intl.formatMessage({
         defaultMessage: "Additional details",
+        id: "mNWpoy",
         description: "Title for the details section of a pool advertisement",
       }),
     },
@@ -183,6 +190,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
       id: "apply-section",
       title: intl.formatMessage({
         defaultMessage: "Apply now",
+        id: "C6YPk3",
         description:
           "Title for the apply button section of a pool advertisement",
       }),
@@ -265,6 +273,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             <Accordion
               title={intl.formatMessage({
                 defaultMessage: "What are pool recruitments?",
+                id: "asP33b",
                 description:
                   "Title for according describing pool recruitment's",
               })}
@@ -273,6 +282,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 {intl.formatMessage({
                   defaultMessage:
                     "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
+                  id: "kH4Jsf",
                   description: "Description of pool recruitment, paragraph one",
                 })}
               </p>
@@ -280,6 +290,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 {intl.formatMessage({
                   defaultMessage:
                     "When hiring managers have IT staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
+                  id: "m5hjaz",
                   description: "Description of pool recruitment, paragraph two",
                 })}
               </p>
@@ -290,6 +301,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   {
                     defaultMessage:
                       "What does {classification}{genericTitle} mean?",
+                    id: "gpuTAV",
                     description:
                       "Title for description of a pool advertisements classification group/level",
                   },
@@ -306,9 +318,10 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             )}
             {poolAdvertisement.yourImpact ? (
               <>
-                <IconTitle icon={LightningBoltIcon}>
+                <IconTitle icon={BoltIcon}>
                   {intl.formatMessage({
                     defaultMessage: "Your impact",
+                    id: "Kl5OX1",
                     description:
                       "Title for a pool advertisements impact section.",
                   })}
@@ -321,6 +334,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 <IconTitle icon={BriefcaseIconOutline}>
                   {intl.formatMessage({
                     defaultMessage: "Your work",
+                    id: "uv2lY0",
                     description:
                       "Title for a pool advertisements key tasks section.",
                   })}
@@ -335,9 +349,10 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             </TableOfContents.Heading>
             {essentialSkills[SkillCategory.Technical]?.length ? (
               <>
-                <IconTitle icon={ChipIcon}>
+                <IconTitle icon={CpuChipIcon}>
                   {intl.formatMessage({
                     defaultMessage: "Occupational skills",
+                    id: "zeC2K0",
                     description:
                       "Title for occupational skills on a pool advertisement",
                   })}
@@ -346,6 +361,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   {intl.formatMessage({
                     defaultMessage:
                       "To be admitted into this process, you will need to submit sufficient information to verify your experience in <strong>all of these  skills (Need to have - Occupational)</strong> with your application.",
+                    id: "Y7AKYP",
                     description:
                       "Explanation of a pools required occupational skills",
                   })}
@@ -362,6 +378,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 <IconTitle icon={CloudIcon}>
                   {intl.formatMessage({
                     defaultMessage: "Transferrable skills",
+                    id: "0I8W8B",
                     description:
                       "Title for transferrable skills on a pool advertisement",
                   })}
@@ -370,6 +387,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   {intl.formatMessage({
                     defaultMessage:
                       "To be admitted into this process, you will need to display  capability in these skills during the assessment process.",
+                    id: "7n838F",
                     description:
                       "Explanation of a pools required transferrable skills",
                   })}
@@ -388,9 +406,10 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             </TableOfContents.Heading>
             {nonEssentialSkills[SkillCategory.Technical]?.length ? (
               <>
-                <IconTitle icon={ChipIcon}>
+                <IconTitle icon={CpuChipIcon}>
                   {intl.formatMessage({
                     defaultMessage: "Occupational skills",
+                    id: "zeC2K0",
                     description:
                       "Title for occupational skills on a pool advertisement",
                   })}
@@ -399,6 +418,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   {intl.formatMessage({
                     defaultMessage:
                       "To strengthen your application, take into consideration these skills that many hiring managers are looking for.",
+                    id: "yu4yB8",
                     description:
                       "Explanation of a pools optional transferrable skills",
                   })}
@@ -415,6 +435,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 <IconTitle icon={CloudIcon}>
                   {intl.formatMessage({
                     defaultMessage: "Transferrable skills",
+                    id: "0I8W8B",
                     description:
                       "Title for transferrable skills on a pool advertisement",
                   })}
@@ -434,6 +455,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             <IconTitle icon={LightBulbIcon}>
               {intl.formatMessage({
                 defaultMessage: "Experience and education",
+                id: "owzveI",
                 description:
                   "Title for experience and education pool requirements",
               })}
@@ -448,6 +470,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 style={{ width: "100%" }}
                 title={intl.formatMessage({
                   defaultMessage: "Combination Experience",
+                  id: "7o+Vzu",
                   description:
                     "Title for pool applicant experience requirements",
                 })}
@@ -456,6 +479,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   {intl.formatMessage({
                     defaultMessage:
                       "2 or more years of combined experience in a related field including any of the following:",
+                    id: "s60QyR",
                     description:
                       "lead in to list of experience required for a pool applicant",
                   })}
@@ -464,6 +488,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   <li>
                     {intl.formatMessage({
                       defaultMessage: "On-the-job learning",
+                      id: "qNL/Rp",
                       description:
                         "pool experience requirement, on job learning",
                     })}
@@ -471,6 +496,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   <li>
                     {intl.formatMessage({
                       defaultMessage: "Non-conventional training",
+                      id: "YlWJ/N",
                       description:
                         "pool experience requirement, non-conventional training",
                     })}
@@ -478,6 +504,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   <li>
                     {intl.formatMessage({
                       defaultMessage: "Formal education",
+                      id: "DydUje",
                       description:
                         "pool experience requirement, formal education",
                     })}
@@ -485,6 +512,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   <li>
                     {intl.formatMessage({
                       defaultMessage: "Other field related experience",
+                      id: "GNvz2K",
                       description: "pool experience requirement, other",
                     })}
                   </li>
@@ -499,6 +527,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
               >
                 {intl.formatMessage({
                   defaultMessage: "or",
+                  id: "l9AK3C",
                   description:
                     "that appears between different experience requirements for a pool applicant",
                 })}
@@ -508,6 +537,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 color="ts-secondary"
                 title={intl.formatMessage({
                   defaultMessage: "2-Year Post-secondary Experience",
+                  id: "/Gu4zR",
                   description:
                     "Title for pool applicant education requirements",
                 })}
@@ -516,6 +546,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   {intl.formatMessage({
                     defaultMessage:
                       "Successful completion of two years of post secondary education in computer science, information technology, information management or another specialty relevant to this position.",
+                    id: "r9FSaq",
                     description:
                       "post secondary education experience for pool advertisement",
                   })}
@@ -525,6 +556,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             <IconTitle icon={CheckCircleIcon}>
               {intl.formatMessage({
                 defaultMessage: "Other requirements",
+                id: "cHJFcW",
                 description: "Title for other pool requirements",
               })}
             </IconTitle>
@@ -534,6 +566,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   {
                     defaultMessage:
                       "Language requirement: {languageRequirement}",
+                    id: "fvJnoC",
                     description: "Pool advertisement language requirement",
                   },
                   {
@@ -545,6 +578,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 {intl.formatMessage(
                   {
                     defaultMessage: "Security clearance: {securityClearance}",
+                    id: "GYk6Nz",
                     description:
                       "Pool advertisement security clearance requirement",
                   },
@@ -557,6 +591,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Location: Remote",
+                    id: "+5cxyT",
                     description:
                       "Pool advertisement location requirement, Remote option",
                   })}
@@ -567,6 +602,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                     {intl.formatMessage(
                       {
                         defaultMessage: "Location: {location}",
+                        id: "HYm817",
                         description:
                           "Pool advertisement location requirement, English",
                       },
@@ -587,6 +623,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             <IconTitle icon={PhoneIcon}>
               {intl.formatMessage({
                 defaultMessage: "Contact and Accommodations",
+                id: "W6dFND",
                 description:
                   "Title for contact information on pool advertisement",
               })}
@@ -595,6 +632,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
               {intl.formatMessage({
                 defaultMessage:
                   "Do you require accommodations, or do you have any questions about this process?",
+                id: "2K8q04",
                 description:
                   "Opening sentence asking if accommodations are needed",
               })}
@@ -603,6 +641,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
               {intl.formatMessage({
                 defaultMessage:
                   "Please contact the Digital Community Management Office if you require any accommodations during this application process.",
+                id: "JnhEcG",
                 description:
                   "Description of what to do when accommodations are needed",
               })}
@@ -612,6 +651,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 {
                   defaultMessage:
                     "<strong>Email</strong>: <anchorTag>{emailAddress}</anchorTag>",
+                  id: "Wnw+oz",
                   description: "An email address to contact for help",
                 },
                 {
@@ -623,6 +663,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
             <IconTitle icon={PhoneIcon}>
               {intl.formatMessage({
                 defaultMessage: "Hiring Policies",
+                id: "isfAkZ",
                 description:
                   "Title for hiring information on pool advertisement",
               })}
@@ -631,6 +672,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
               {intl.formatMessage({
                 defaultMessage:
                   "Preference will be given to veterans, Canadian citizens and to permanent residents.",
+                id: "IF1xj8",
                 description: "First hiring policy for pool advertisement",
               })}
             </p>
@@ -644,11 +686,13 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 ? intl.formatMessage({
                     defaultMessage:
                       "If this process looks like the right fit for you apply now!",
+                    id: "SuqyvD",
                     description:
                       "Message displayed when the pool advertisement can be applied to.",
                   })
                 : intl.formatMessage({
                     defaultMessage: "The deadline for submission has passed.",
+                    id: "U+ApNl",
                     description:
                       "Message displayed when the pool advertisement has expired.",
                   })}
@@ -692,6 +736,7 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
         >
           {intl.formatMessage({
             defaultMessage: "Error, pool unable to be loaded",
+            id: "DcEinN",
             description: "Error message, placeholder",
           })}
         </NotFound>

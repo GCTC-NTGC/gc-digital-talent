@@ -23,6 +23,7 @@ final class PublishPoolAdvertisementValidator extends Validator
             'name.fr' => ['string'],
             'classifications' => ['required', 'array', 'size:1'],
             'classifications.*.id' => ['required', 'uuid', 'exists:classifications,id'],
+            'stream' => ['required', 'string'],
 
             // Closing date (Note: Form should return unzoned datetime.)
             'expiry_date' => ['required', /*'date_format:Y-m-d H:i:s',*/ 'after:' . $endOfDay], // TODO: Fix date_format validation

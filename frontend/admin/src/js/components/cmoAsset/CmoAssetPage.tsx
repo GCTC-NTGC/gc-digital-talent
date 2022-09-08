@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { PaperClipIcon } from "@heroicons/react/outline";
+import { PaperClipIcon } from "@heroicons/react/24/outline";
 
 import PageHeader from "@common/components/PageHeader";
 

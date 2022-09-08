@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { ViewGridIcon } from "@heroicons/react/outline";
+import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
 import PageHeader from "@common/components/PageHeader";
 
@@ -11,7 +11,7 @@ export const PoolPage: React.FC = () => {
   const intl = useIntl();
   return (
     <DashboardContentContainer>
-      <PageHeader icon={ViewGridIcon}>
+      <PageHeader icon={Squares2X2Icon}>
         {intl.formatMessage({
           defaultMessage: "Pools",
           description: "Heading displayed above the Pool Table component.",

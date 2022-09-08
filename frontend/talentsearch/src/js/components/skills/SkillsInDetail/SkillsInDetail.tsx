@@ -4,7 +4,7 @@ import WordCounter from "@common/components/WordCounter/WordCounter";
 import { countNumberOfWords } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { errorMessages } from "@common/messages";
-import { TrashIcon } from "@heroicons/react/solid";
+import { TrashIcon } from "@heroicons/react/24/solid";
 import * as React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -35,6 +35,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
       <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "3. Skills in detail",
+          id: "AtZhfR",
           description:
             "Heading for skills in detail section of experience form.",
         })}
@@ -43,6 +44,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
         {intl.formatMessage({
           defaultMessage:
             "After adding some skills please explain how you used them, try answering one or more of these questions:",
+          id: "dTMBj9",
           description:
             "Description for skills in detail section of experience form.",
         })}
@@ -57,6 +59,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
           {intl.formatMessage({
             defaultMessage:
               "What did you accomplish, create or deliver using this skill?",
+            id: "Dy5kjx",
             description:
               "Question for user in skills in detail section of experience form.",
           })}
@@ -65,6 +68,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
           {intl.formatMessage({
             defaultMessage:
               "What tasks or activities did you do that relate to this skill?",
+            id: "d0qGas",
             description:
               "Question for user in skills in detail section of experience form.",
           })}
@@ -73,6 +77,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
           {intl.formatMessage({
             defaultMessage:
               "Were there any special techniques or approaches that you used?",
+            id: "PH8qp2",
             description:
               "Question for user in skills in detail section of experience form.",
           })}
@@ -81,6 +86,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
           {intl.formatMessage({
             defaultMessage:
               "How much responsibility did you have in this role?",
+            id: "b9/MXQ",
             description:
               "Question for user in skills in detail section of experience form.",
           })}
@@ -119,6 +125,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                   >
                     {intl.formatMessage({
                       defaultMessage: "Remove from experience",
+                      id: "70bx4O",
                       description:
                         "Message in skills in details section to remove skill from the experience.",
                     })}
@@ -136,11 +143,13 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                   id={`skill-in-detail-${id}`}
                   label={intl.formatMessage({
                     defaultMessage: "Skill in detail",
+                    id: "J5oMC8",
                     description:
                       "Label for the textarea in the skills in detail section.",
                   })}
                   placeholder={intl.formatMessage({
                     defaultMessage: "How I used this skill...",
+                    id: "i99arX",
                     description:
                       "Placeholder message for textarea in the skills in detail section.",
                   })}
@@ -178,6 +187,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
             {intl.formatMessage({
               defaultMessage:
                 "There are no skills attached to this experience yet. You can add some on the step above.",
+              id: "H05wXr",
               description:
                 "Message to user when no skills have been attached to experience.",
             })}

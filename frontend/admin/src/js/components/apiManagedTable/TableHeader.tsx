@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
 import { Button, Link } from "@common/components";
-import { PlusIcon, TableIcon } from "@heroicons/react/outline";
+import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
 import { SubmitHandler } from "react-hook-form";
 import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
@@ -75,7 +75,7 @@ function TableHeader<T extends Record<string, unknown>>({
                       data-h2-align-items="base(center)"
                       onClick={() => setShowList(!showList)}
                     >
-                      <ButtonIcon icon={TableIcon} />
+                      <ButtonIcon icon={TableCellsIcon} />
                       <span>
                         {intl.formatMessage({
                           defaultMessage: "Columns",

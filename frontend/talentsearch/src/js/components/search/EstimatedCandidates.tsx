@@ -40,6 +40,7 @@ const EstimatedCandidates: React.FunctionComponent<
             >
               {intl.formatMessage({
                 defaultMessage: "Estimated Candidates",
+                id: "09x+E7",
                 description:
                   "Heading for total estimated candidates box next to search form.",
               })}
@@ -62,6 +63,7 @@ const EstimatedCandidates: React.FunctionComponent<
                         one {There is approximately <strong><testId>{candidateCount}</testId></strong> candidate right now who meets your criteria.}
                         other {There are approximately <strong><testId>{candidateCount}</testId></strong> candidates right now who meet your criteria.}
                       }`,
+                      id: "ID8FNk",
                       description:
                         "Message for total estimated candidates box next to search form.",
                     },
@@ -73,17 +75,6 @@ const EstimatedCandidates: React.FunctionComponent<
                 </>
               )}
             </p>
-            {/* TODO Hide this if results are zero, add translation strings */}
-            <a
-              href="#results"
-              title="View the pools that contain matching talent."
-              data-h2-color="base(dt-black) base:hover(dt-primary)"
-              data-h2-transition="base:hover(color, .2s, ease, 0s)"
-              data-h2-display="base(inline-block)"
-              data-h2-margin="base(x1, 0, 0, 0)"
-            >
-              View results
-            </a>
           </div>
         </div>
       </div>

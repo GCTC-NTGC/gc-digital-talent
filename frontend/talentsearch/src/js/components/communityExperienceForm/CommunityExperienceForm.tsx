@@ -18,6 +18,7 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
       <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "1. Community Experience Details",
+          id: "OUKOBH",
           description: "Title for Community Experience form",
         })}
       </h2>
@@ -25,6 +26,7 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
         {intl.formatMessage({
           defaultMessage:
             "Gained experience by being part of or giving back to a community? People learn skills from a wide range of experiences like volunteering or being part of non-profit organizations, indigenous communities, or virtual collaborations.",
+          id: "gDQZIQ",
           description: "Description blurb for Community Experience form",
         })}
       </p>
@@ -35,11 +37,13 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
               id="role"
               label={intl.formatMessage({
                 defaultMessage: "My Role / Job Title",
+                id: "tyPFpt",
                 description:
                   "Label displayed on Community Experience form for role input",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Write title here...",
+                id: "5ikciS",
                 description:
                   "Placeholder displayed on the Community Experience form for role input",
               })}
@@ -54,12 +58,14 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
                 boundingBox
                 boundingBoxLabel={intl.formatMessage({
                   defaultMessage: "Current Role",
+                  id: "yfVLxM",
                   description:
                     "Label displayed on Community Experience form for current role bounded box",
                 })}
                 id="currentRole"
                 label={intl.formatMessage({
                   defaultMessage: "I am currently active in this role",
+                  id: "wASF5V",
                   description:
                     "Label displayed on Community Experience form for current role input",
                 })}
@@ -72,11 +78,13 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
               id="organization"
               label={intl.formatMessage({
                 defaultMessage: "Group / Organization / Community",
+                id: "Badvbb",
                 description:
                   "Label displayed on Community Experience form for organization input",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Write group name here...",
+                id: "EfR7Rv",
                 description:
                   "Placeholder displayed on the Community Experience form for organization input",
               })}
@@ -92,6 +100,7 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
                   id="startDate"
                   label={intl.formatMessage({
                     defaultMessage: "Start Date",
+                    id: "lRuuJ3",
                     description:
                       "Label displayed on Community Experience form for start date input",
                   })}
@@ -109,6 +118,7 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
                     id="endDate"
                     label={intl.formatMessage({
                       defaultMessage: "End Date",
+                      id: "p39ofW",
                       description:
                         "Label displayed on Community Experience form for end date input",
                     })}
@@ -142,11 +152,13 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
               id="project"
               label={intl.formatMessage({
                 defaultMessage: "Project / Product",
+                id: "0RlNw7",
                 description:
                   "Label displayed on Community Experience form for project input",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Write project name here...",
+                id: "81ITk+",
                 description:
                   "Placeholder displayed on the Community Experience form for project input",
               })}

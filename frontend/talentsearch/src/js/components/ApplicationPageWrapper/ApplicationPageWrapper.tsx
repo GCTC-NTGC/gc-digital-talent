@@ -4,7 +4,7 @@ import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { imageUrl } from "@common/helpers/router";
 import { relativeExpiryDate } from "@common/helpers/dateUtils";
 
-import { CalendarIcon } from "@heroicons/react/outline";
+import { CalendarIcon } from "@heroicons/react/24/outline";
 import ApplicationNavigation, {
   type ApplicationNavigationProps,
 } from "./ApplicationNavigation";
@@ -94,6 +94,7 @@ const ApplicationPageWrapper = ({
               <p data-h2-font-size="base(h6, 1)">
                 {intl.formatMessage({
                   defaultMessage: "Closing date:",
+                  id: "GIN69n",
                   description:
                     "Label for a pool advertisements closing date on the application",
                 })}

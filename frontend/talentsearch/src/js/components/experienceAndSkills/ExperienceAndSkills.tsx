@@ -5,7 +5,7 @@ import {
   LightBulbIcon,
   StarIcon,
   UserGroupIcon,
-} from "@heroicons/react/solid";
+} from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { IconLink } from "@common/components/Link";
@@ -114,6 +114,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       href: `${paths.createPersonal(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Personal",
+        id: "nuP1BG",
         description: "Title for personal experience form button.",
       }),
       icon: LightBulbIcon,
@@ -122,6 +123,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       href: `${paths.createCommunity(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Community",
+        id: "mrhpJS",
         description: "Title for community experience form button.",
       }),
       icon: UserGroupIcon,
@@ -130,6 +132,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       href: `${paths.createWork(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Work",
+        id: "RF51Bp",
         description: "Title for work experience form button.",
       }),
       icon: BriefcaseIcon,
@@ -138,6 +141,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       href: `${paths.createEducation(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Education",
+        id: "JUk80l",
         description: "Title for education experience form button.",
       }),
       icon: BookOpenIcon,
@@ -146,6 +150,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       href: `${paths.createAward(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Award",
+        id: "XF4Ok2",
         description: "Title for award experience form button.",
       }),
       icon: StarIcon,
@@ -158,6 +163,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
     {
       title: intl.formatMessage({
         defaultMessage: "Experience and Skills",
+        id: "PF2m1d",
         description:
           "Breadcrumb for experience and skills page in applicant profile.",
       }),
@@ -174,6 +180,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       {
         title: intl.formatMessage({
           defaultMessage: "My Applications",
+          id: "q04FCp",
           description: "Link text for breadcrumb to user applications page.",
         }),
         href: directIntakePaths.applications(applicantId),
@@ -193,11 +200,13 @@ export const ExperienceAndSkills: React.FunctionComponent<
       description={intl.formatMessage({
         defaultMessage:
           "Here is where you can add experiences and skills to your profile. This could be anything from helping community members troubleshoot their computers to full-time employment at an IT organization.",
+        id: "GAjpqU",
         description:
           "Description for the experience and skills page in applicant profile.",
       })}
       title={intl.formatMessage({
         defaultMessage: "My experience and skills",
+        id: "KE49r9",
         description:
           "Heading for experience and skills page in applicant profile.",
       })}
@@ -215,6 +224,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
             >
               {intl.formatMessage({
                 defaultMessage: "Add new experience:",
+                id: "Tr5Pga",
                 description:
                   "Message to user when no experiences have been attached to profile",
               })}
@@ -235,6 +245,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
                       {
                         defaultMessage:
                           "<hidden>Add new </hidden>{title}<hidden> experience</hidden>",
+                        id: "XiUgMy",
                         description:
                           "Link text for adding a new experience of a specific type.",
                       },
@@ -268,6 +279,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
             {intl.formatMessage({
               defaultMessage:
                 "There are no experiences on your profile yet. You can add some using the preceding buttons.",
+              id: "XzUzZz",
               description:
                 "Message to user when no experiences have been attached to profile.",
             })}

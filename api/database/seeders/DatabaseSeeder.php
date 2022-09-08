@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CmoAssetSeeder::class);
         $this->call(DepartmentSeeder::class);
         $this->call(GenericJobTitleSeeder::class);
+        $this->call(SkillFamilySeeder::class);
         $this->call(SkillSeeder::class);
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
@@ -60,7 +61,7 @@ class DatabaseSeeder extends Seeder
                 $pool = Pool::inRandomOrder()->limit(1)->first();
 
                 // are they a government user?
-                if(rand(0, 1)) {
+                if (rand(0, 1)) {
                     // government users have a current classification and expected classifications but no salary
                     $user->current_classification = Classification::inRandomOrder()->first()->id;
                     $user->expected_salary = [];
@@ -79,21 +80,16 @@ class DatabaseSeeder extends Seeder
                 }
 
                 // create a pool candidate in the pool
-                PoolCandidate::factory()->count(1)->sequence(fn () => [
-                    'pool_id' => $pool->id,
-                    'user_id' => $user->id,
-                    'expected_salary' => $user->expected_salary
-                ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-                    // match arrays from the user
-                    $candidate->expectedClassifications()->sync($user->expectedClassifications()->pluck('classifications.id')->toArray());
-                    $candidate->cmoAssets()->sync($user->cmoAssets()->pluck('cmo_assets.id')->toArray());
-
-                })->create();
+                $this->seedPoolCandidate($user, $pool);
             })
             ->create();
 
+        $applicant = User::where('email', 'applicant@test.com')->first();
+        $pool = Pool::inRandomOrder()->first();
+        $this->seedPoolCandidate($applicant, $pool);
+
         // add experiences to all the users
-        User::all()->each(function($user) use ($faker) {
+        User::all()->each(function ($user) use ($faker) {
             AwardExperience::factory()
                 ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
                 ->for($user)
@@ -180,5 +176,19 @@ class DatabaseSeeder extends Seeder
         PoolCandidateFilter::truncate();
         PoolCandidateSearchRequest::truncate();
         User::truncate();
+    }
+
+    private function seedPoolCandidate(User $user, Pool $pool)
+    {
+        // create a pool candidate in the pool
+        PoolCandidate::factory()->count(1)->sequence(fn () => [
+            'pool_id' => $pool->id,
+            'user_id' => $user->id,
+            'expected_salary' => $user->expected_salary
+        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
+            // match arrays from the user
+            $candidate->expectedClassifications()->sync($user->expectedClassifications()->pluck('classifications.id')->toArray());
+            $candidate->cmoAssets()->sync($user->cmoAssets()->pluck('cmo_assets.id')->toArray());
+        })->create();
     }
 }

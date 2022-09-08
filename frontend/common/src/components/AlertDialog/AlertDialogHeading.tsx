@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { AlertDialogLabel } from "@reach/alert-dialog";
-import { XIcon } from "@heroicons/react/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export interface AlertDialogHeadingProps {
   children: React.ReactNode;
@@ -35,7 +35,7 @@ const AlertDialogHeading = ({
             description: "Text for the button to close a modal dialog.",
           })}
         </span>
-        <XIcon className="alert-dialog-close__icon" />
+        <XMarkIcon className="alert-dialog-close__icon" />
       </button>
       <AlertDialogLabel
         data-h2-font-weight="base(700)"
