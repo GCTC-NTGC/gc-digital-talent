@@ -524,8 +524,8 @@
     "defaultMessage": "Ajouter <hidden>{title} </hidden>au profil",
     "description": "Text label for button to add employment equity category to profile."
   },
-  "/DCykA": {
-    "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de…",
+  "GNtu/7": {
+    "defaultMessage": "J'envisagerais d'accepter un emploi :",
     "description": "Legend Text for required work preferences options in work preferences form"
   },
   "/K1/1n": {
@@ -683,8 +683,8 @@
     "defaultMessage": "Continuer vers CléGC et s'inscrire",
     "description": "GC Key registration link text on the registration page."
   },
-  "9zqf5E": {
-    "defaultMessage": "… seulement ceux d'une durée indéterminée. (permanent)",
+  "sYqIp5": {
+    "defaultMessage": "… d'une durée indéterminée seulement. (permanent seulement)",
     "description": "Label displayed on Work Preferences form for indeterminate duration option."
   },
   "AcsOrg": {
@@ -1035,8 +1035,8 @@
     "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
     "description": "Message displayed to user after experience fails to be updated."
   },
-  "X2Ivfb": {
-    "defaultMessage": "… toute durée (à court terme, à long terme ou indéterminée)",
+  "oKaV/T": {
+    "defaultMessage": "… de toute durée. (à court terme, à long terme ou indéterminée)",
     "description": "Label displayed on Work Preferences form for any duration option"
   },
   "X354at": {
@@ -1485,8 +1485,8 @@
     "defaultMessage": "Commencez à écrire ici…",
     "description": "Placeholder displayed on the About Me form current city field."
   },
-  "yQ2dDL": {
-    "defaultMessage": "J'envisagerais d'accepter un emploi qui exige…",
+  "Vvb8tu": {
+    "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
     "description": "Legend for optional work preferences check list in work preferences form"
   },
   "yfVLxM": {
