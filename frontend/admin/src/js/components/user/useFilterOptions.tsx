@@ -54,8 +54,8 @@ export default function useFilterOptions(enableEducationType = false) {
     })),
     classifications: classificationsRes.data?.classifications
       .filter(notEmpty)
-      .map(({ id, group, level }) => ({
-        value: id,
+      .map(({ group, level }) => ({
+        value: `${group}-${level}`,
         label: `${group}-0${level}`,
       })),
     operationalRequirement: OperationalRequirementV2.map((value) => ({

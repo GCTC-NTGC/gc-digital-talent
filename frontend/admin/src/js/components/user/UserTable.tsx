@@ -85,6 +85,7 @@ export const UserTable: React.FC = () => {
     };
   };
 
+  const [fancyFilter, setFancyFilter] = useState<UserFilterInput>();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
@@ -268,6 +269,7 @@ export const UserTable: React.FC = () => {
           )
         }
         hiddenColumnIds={hiddenColumnIds}
+        onFilterChange={setFancyFilter}
       />
       <div data-h2-radius="base(s)">
         <Pending fetching={fetching} error={error} inline>

@@ -15,6 +15,7 @@ import type {
 } from "./basicTableHelpers";
 import UserTableFilterDialog from "../user/UserTableFilterDialog";
 import type { FormValues } from "../user/UserTableFilterDialog";
+import { UserFilterInput } from "../../api/generated";
 
 export interface TableHeaderProps<T extends Record<string, unknown>> {
   onSearchChange: (
@@ -31,6 +32,9 @@ export interface TableHeaderProps<T extends Record<string, unknown>> {
   title?: string;
   onColumnHiddenChange?: (e: ColumnHiddenEvent<T>) => void;
   hiddenColumnIds: Array<IdType<T>>;
+  onFilterChange: React.Dispatch<
+    React.SetStateAction<UserFilterInput | undefined>
+  >;
 }
 
 function TableHeader<T extends Record<string, unknown>>({
@@ -42,6 +46,7 @@ function TableHeader<T extends Record<string, unknown>>({
   title,
   onColumnHiddenChange,
   hiddenColumnIds,
+  onFilterChange,
 }: TableHeaderProps<T>): ReactElement {
   const intl = useIntl();
 
@@ -63,7 +68,10 @@ function TableHeader<T extends Record<string, unknown>>({
                   <SearchForm onChange={onSearchChange} searchBy={searchBy} />
                 </div>
                 <div data-h2-flex-item="base(content)">
-                  <UserTableFilterDialog.Button onSubmit={handleFilterSubmit} />
+                  <UserTableFilterDialog.Button
+                    onSubmit={handleFilterSubmit}
+                    onFilterChange={onFilterChange}
+                  />
                 </div>
                 <div data-h2-flex-item="base(content)">
                   <div data-h2-position="base(relative)">
