@@ -61,6 +61,10 @@ query getPoolAdvertisement($id: ID!) {
         en
         fr
       }
+      description {
+        en
+        fr
+      }
       families {
         id
         key
@@ -79,6 +83,10 @@ query getPoolAdvertisement($id: ID!) {
       id
       key
       name {
+        en
+        fr
+      }
+      description {
         en
         fr
       }
