@@ -20,22 +20,16 @@ module.exports = {
   },
   plugins: [
 
-    //
-    // =========================================================================
-    // Run Hydrogen on Webpack's compiler hooks
+    // Run Hydrogen on Webpack's compiler hooks ================================
     // Note that it's necessary in both instances to cd up and into the common folder
     {
       apply: (compiler) => {
-        //
-        // ---------------------------------------------------------------------
-        // Build Hydrogen
+        // Build Hydrogen ------------------------------------------------------
         // Run on the environment hook to catch the initial compile and non-watch compiles
         compiler.hooks.environment.tap('environment', () => {
           shell.exec('cd ..;node node_modules/@hydrogen-css/hydrogen/bin/build.js');
         })
-        //
-        // ---------------------------------------------------------------------
-        // Build Hydrogen and manipulate it's modified time
+        // Build Hydrogen and manipulate it's modified time --------------------
         // Run on the invalid hook so that the file time is updated before the next compile
         compiler.hooks.invalid.tap('invalid', (fileName, changeTime) => {
           shell.exec('cd ..;node node_modules/@hydrogen-css/hydrogen/bin/build.js');
