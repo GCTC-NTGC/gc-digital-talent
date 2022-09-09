@@ -16,9 +16,14 @@ export const SkillBlock: React.FunctionComponent<{
   const { id, name, description } = skill;
   const [isOpen, setIsOpen] = useState(false);
 
+  const definition = description?.[locale];
+
   return (
     <div data-h2-padding="base(0, 0, x.25, 0)">
-      <div data-h2-flex-grid="base(flex-start, 0, x1, 0)">
+      <div
+        data-h2-flex-grid="base(flex-start, 0, x1, 0)"
+        data-h2-align-items="base(center)"
+      >
         <div data-h2-flex-item="base(1of2)">
           {isAdded ? (
             <span
@@ -49,22 +54,29 @@ export const SkillBlock: React.FunctionComponent<{
           )}
         </div>
         <div data-h2-flex-item="base(1of4)" data-h2-text-align="base(center)">
-          <Button
-            color="primary"
-            mode="inline"
-            type="button"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen
-              ? intl.formatMessage({
-                  defaultMessage: "Hide definition",
-                  description: "Text displayed when skill block is open.",
-                })
-              : intl.formatMessage({
-                  defaultMessage: "See definition",
-                  description: "Text displayed when skill block is open.",
-                })}
-          </Button>
+          {definition ? (
+            <Button
+              color="primary"
+              mode="inline"
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen
+                ? intl.formatMessage({
+                    defaultMessage: "Hide definition",
+                    description: "Text displayed when skill block is open.",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "See definition",
+                    description: "Text displayed when skill block is open.",
+                  })}
+            </Button>
+          ) : (
+            intl.formatMessage({
+              defaultMessage: "No definition provided",
+              description: "Message displayed when a skill has no definition",
+            })
+          )}
         </div>
         <div data-h2-flex-item="base(1of4)" data-h2-text-align="base(center)">
           <Button
@@ -86,7 +98,7 @@ export const SkillBlock: React.FunctionComponent<{
                 })}
           </Button>
         </div>
-        {isOpen && (
+        {definition && isOpen && (
           <div data-h2-flex-item="base(1of1)">
             <div
               data-h2-padding="base(x.75)"
@@ -96,7 +108,7 @@ export const SkillBlock: React.FunctionComponent<{
               data-h2-margin="base(x.25, 0, x.25, x1)"
               data-h2-radius="base(s)"
             >
-              <p data-h2-font-size="base(caption)">{description?.[locale]}</p>
+              <p data-h2-font-size="base(caption)">{definition}</p>
             </div>
           </div>
         )}

@@ -1389,5 +1389,9 @@
   "fSBslq": {
     "defaultMessage": "Taille de la page",
     "description": "Label for the number of items to display on each page."
+  },
+  "YRhYqm": {
+    "defaultMessage": "Aucune définition fournie",
+    "description": "Message displayed when a skill has no definition"
   }
 }
