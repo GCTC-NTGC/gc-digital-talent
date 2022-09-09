@@ -282,28 +282,6 @@ function Table<T extends Record<string, unknown>>({
           </p> */}
           <div data-h2-padding="base(x1, x1)">
             <div data-h2-flex-grid="base(center, 0, x2, 0)">
-              <div data-h2-flex-item="base(content)">
-                <div data-h2-flex-grid="base(center, 0, x1, 0)">
-                  <div data-h2-flex-item="base(content)">
-                    <Button type="button" mode="inline" color="white">
-                      {intl.formatMessage({
-                        defaultMessage: "Download CSV",
-                        description:
-                          "Text label for button to download a csv file of items in a table.",
-                      })}
-                    </Button>
-                  </div>
-                  <div data-h2-flex-item="base(content)">
-                    <Button type="button" mode="inline" color="white">
-                      {intl.formatMessage({
-                        defaultMessage: "Print",
-                        description:
-                          "Text label for button to download a pdf of items in a table.",
-                      })}
-                    </Button>
-                  </div>
-                </div>
-              </div>
               <div data-h2-flex-item="base(fill)">
                 {pagination && (
                   <Pagination
