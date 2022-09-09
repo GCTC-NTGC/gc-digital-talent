@@ -45,4 +45,5 @@ jobs:
 
       - name: "Run ESlint: all workspaces"
         working-directory: frontend
-        run: npm run lint --workspaces --if-present
+        # Pass arg to eslint so that any warnings will raise error code and fail workflow.
+        run: npm run lint --workspaces --if-present -- --max-warnings=0
