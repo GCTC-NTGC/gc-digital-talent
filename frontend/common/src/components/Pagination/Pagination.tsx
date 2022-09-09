@@ -81,7 +81,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           <nav role="navigation" aria-label={ariaLabel}>
             <ul
               data-h2-display="base(flex)"
-              data-h2-gap="base(x.25, all)"
+              data-h2-gap="base(x.25)"
               className="reset-ul"
               {...rest}
             >
