@@ -34,10 +34,12 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
             name="query"
             label={intl.formatMessage({
               defaultMessage: "Search for specific skill...",
+              id: "JY6WhU",
               description: "Label for the skills search bar.",
             })}
             placeholder={intl.formatMessage({
               defaultMessage: "e.g. Python, JavaScript, etc.",
+              id: "PF4ya+",
               description: "Placeholder for the skills search bar.",
             })}
             onChange={(e) => {

@@ -98,6 +98,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
               <span data-h2-visibility="base(invisible)">
                 {intl.formatMessage({
                   defaultMessage: "Toggle context",
+                  id: "2W9CMn",
                   description:
                     "Label to toggle the context description of a field set.",
                 })}

@@ -56,7 +56,7 @@ const ArchivedApplications = ({ applications }: ArchivedApplicationsProps) => {
           <div
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x0.5, row)"
+            data-h2-gap="base(0, x0.5)"
           >
             {applications.map((application) => (
               <ApplicationCard key={application.id} application={application} />

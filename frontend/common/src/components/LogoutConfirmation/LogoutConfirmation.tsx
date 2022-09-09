@@ -25,6 +25,7 @@ const LogoutConfirmation = ({
       onDismiss={onDismiss}
       title={intl.formatMessage({
         defaultMessage: "Logout",
+        id: "ivKwx0",
         description:
           "Title for the modal that appears when an authenticated user attempts to logout",
       })}
@@ -32,6 +33,7 @@ const LogoutConfirmation = ({
       <AlertDialog.Description>
         {intl.formatMessage({
           defaultMessage: "Are you sure you would like to logout?",
+          id: "s3FrzP",
           description:
             "Question displayed when authenticated user attempts to logout",
         })}
@@ -46,6 +48,7 @@ const LogoutConfirmation = ({
         >
           {intl.formatMessage({
             defaultMessage: "Cancel",
+            id: "AhNR6n",
             description: "Link text to cancel logging out.",
           })}
         </Button>
@@ -53,6 +56,7 @@ const LogoutConfirmation = ({
           <Button mode="solid" color="primary" type="button" onClick={onLogout}>
             {intl.formatMessage({
               defaultMessage: "Logout",
+              id: "6rhyxk",
               description: "Link text to logout.",
             })}
           </Button>
