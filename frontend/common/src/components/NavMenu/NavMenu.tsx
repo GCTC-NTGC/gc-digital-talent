@@ -10,7 +10,7 @@ const ListItem: React.FC = ({ children }) => (
     <span
       data-h2-display="base(block)"
       data-h2-margin="base(0, 0, x.5, 0) p-tablet(0)"
-      data-h2-font-style="base:hover(reset)"
+      data-h2-text-decoration="base:hover(none)"
     >
       {children}
     </span>

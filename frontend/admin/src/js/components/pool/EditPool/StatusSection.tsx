@@ -53,7 +53,7 @@ export const StatusSection = ({
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
-        <h2 data-h2-margin="base(x3, 0, x1, 0)" data-h2-font-size="base(p)">
+        <h2 data-h2-margin="base(x3, 0, x1, 0)" data-h2-font-size="base(copy)">
           {sectionMetadata.title}
         </h2>
       </TableOfContents.Heading>

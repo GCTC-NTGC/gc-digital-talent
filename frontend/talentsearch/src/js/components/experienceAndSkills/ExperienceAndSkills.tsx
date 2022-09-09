@@ -218,7 +218,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         <div data-h2-flex-grid="base(flex-start, 0, x.5)">
           <div data-h2-flex-item="base(1of1)">
             <p
-              data-h2-font-style="base(reset)"
+              data-h2-text-decoration="base(none)"
               data-h2-font-weight="base(700)"
               data-h2-text-transform="base(uppercase)"
             >
