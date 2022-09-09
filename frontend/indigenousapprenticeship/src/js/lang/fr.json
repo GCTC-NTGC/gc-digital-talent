@@ -199,10 +199,6 @@
     "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
     "description": "Learn more dialog question two paragraph one"
   },
-  "YVqxqN": {
-    "defaultMessage": "Vise à lancer le programme au début de 2022.",
-    "description": "Talent portal strategy item 4 content"
-  },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
     "description": "First paragraph what will you learn at the program"
@@ -362,5 +358,9 @@
   "uJ1rk3": {
     "defaultMessage": "Il existe trois groupes distincts de peuples autochtones qui sont reconnus par la Constitution canadienne. On vous demandera de confirmer au(x)quel(s) de vous appartenez par l’entremise de la Formulaire d’autodéclaration à l’intention des peuples autochtones.",
     "description": "How it works, step 1 content paragraph 2"
+  },
+  "0sVKGY": {
+    "defaultMessage": "Vise à lancer le programme en fin 2022.",
+    "description": "Talent portal strategy item 4 content"
   }
 }
