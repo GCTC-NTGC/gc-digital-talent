@@ -86,7 +86,7 @@ const SkillPicker = ({
   );
   const behaviouralSkillsFamilySkillsPagination = usePaginationVars<Skill>(
     PAGE_SIZE,
-    technicalSkillFamilyFilteredSkills,
+    behaviouralSkillFamilyFilteredSkills,
   );
   const searchSkillsPagination = usePaginationVars<Skill>(
     PAGE_SIZE,
