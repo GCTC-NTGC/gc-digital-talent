@@ -257,7 +257,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 description: "Label for classification filter in search form.",
               })}
               placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more classification(s)",
+                defaultMessage: "Select a classification",
                 id: "iNsxYi",
                 description:
                   "Placeholder for classification filter in search form.",
@@ -268,7 +268,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   value: "",
                   disabled: true,
                   label: intl.formatMessage({
-                    defaultMessage: "Select one or more classification(s)",
+                    defaultMessage: "Select a classification",
                     id: "iNsxYi",
                     description:
                       "Placeholder for classification filter in search form.",

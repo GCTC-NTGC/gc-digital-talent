@@ -1940,5 +1940,9 @@
   "zqBqj1": {
     "defaultMessage": "Ces renseignements seront utilisées pour vous faire correspondre aux emplois prioritaires.",
     "description": "Explanation on how employment equity information will be used, item two"
+  },
+  "HHEQgM": {
+    "defaultMessage": "Sélectionnez une classification",
+    "description": "Placeholder for classification filter in search form."
   }
 }
