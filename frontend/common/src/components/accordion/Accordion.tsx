@@ -36,7 +36,7 @@ const Accordion: React.FC<AccordionProps> = ({
 
   return (
     <div
-      data-h2-margin="base(x.25, 0, 0, 0)"
+      data-h2-margin="base(x.25, 0, x.25, 0)"
       data-h2-shadow="base(l)"
       data-h2-radius="base(0px, s, s, 0px)"
       data-h2-overflow="base(hidden, all)"
