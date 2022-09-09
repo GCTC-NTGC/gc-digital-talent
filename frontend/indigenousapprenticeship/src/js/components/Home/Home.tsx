@@ -40,7 +40,7 @@ const Home: React.FunctionComponent = () => {
   const quote = useQuote();
 
   return (
-    <div data-h2-overflow="base(hidden, x)">
+    <div data-h2-overflow="base(hidden, visible)">
       {/* Hero */}
       <div
         data-h2-width="base(100%)"
@@ -125,7 +125,7 @@ const Home: React.FunctionComponent = () => {
               data-h2-background-color="base(ia-white)"
               data-h2-radius="base(iap-home-card)"
             >
-              <div data-h2-flex-grid="base(stretch, 0, x3, x1) p-tablet(stretch, 0, x2, x1) l-tablet(stretch, 0, x3, x1)">
+              <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
                 <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
                   <div
                     data-h2-height="p-tablet(100%)"
@@ -231,7 +231,7 @@ const Home: React.FunctionComponent = () => {
           data-h2-position="base(relative)"
         >
           <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
-            <div data-h2-flex-grid="base(stretch, 0, x3, x1) p-tablet(stretch, 0, x2, x1) l-tablet(stretch, 0, x3, x1)">
+            <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
               <div
                 data-h2-flex-item="base(1of1) p-tablet(3of7)"
                 data-h2-order="p-tablet(2)"
@@ -330,7 +330,7 @@ const Home: React.FunctionComponent = () => {
           data-h2-position="base(relative)"
         >
           <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
-            <div data-h2-flex-grid="base(stretch, 0, x3, x1) p-tablet(stretch, 0, x2, x1) l-tablet(stretch, 0, x3, x1)">
+            <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
               <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
                 <div
                   data-h2-height="p-tablet(100%)"
@@ -477,10 +477,7 @@ const Home: React.FunctionComponent = () => {
       >
         <div data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)">
           <div>
-            <div
-              data-h2-shadow="base(l)"
-              data-h2-flex-grid="base(stretch, 0, 0)"
-            >
+            <div data-h2-shadow="base(l)" data-h2-flex-grid="base(stretch, 0)">
               <div data-h2-flex-item="base(1of1) p-tablet(1of3) l-tablet(1of2) desktop(4of7)">
                 <div
                   data-h2-height="base(40vh) p-tablet(100%)"
@@ -558,7 +555,7 @@ const Home: React.FunctionComponent = () => {
           data-h2-width="base(100%)"
           data-h2-position="base(absolute)"
           data-h2-offset="base(0, auto, auto, 0)"
-          data-h2-overflow="base(hidden, all)"
+          data-h2-overflow="base(hidden)"
         >
           <RadiatingCircles
             className=""
@@ -621,7 +618,7 @@ const Home: React.FunctionComponent = () => {
               })}
             </p>
           </div>
-          <div data-h2-flex-grid="base(flex-start, 0, x3, x2)">
+          <div data-h2-flex-grid="base(flex-start, x3, x2)">
             <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
               <Step
                 position="1"
@@ -717,7 +714,7 @@ const Home: React.FunctionComponent = () => {
               })}
             </p>
           </div>
-          <div data-h2-flex-grid="base(flex-start, 0, x3, x2)">
+          <div data-h2-flex-grid="base(flex-start, x3, x2)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
               <Card
                 Icon={People}
@@ -812,7 +809,7 @@ const Home: React.FunctionComponent = () => {
                   data-h2-width="base(100%)"
                   data-h2-position="base(absolute)"
                   data-h2-offset="base(0, 0, auto, auto)"
-                  data-h2-overflow="base(hidden, all)"
+                  data-h2-overflow="base(hidden)"
                 >
                   <img
                     src={imageUrl(
@@ -828,7 +825,7 @@ const Home: React.FunctionComponent = () => {
                   />
                 </div>
                 <div
-                  data-h2-flex-grid="base(stretch, 0, x2) p-tablet(stretch, 0, 0)"
+                  data-h2-flex-grid="base(stretch, x2) p-tablet(stretch, 0)"
                   data-h2-position="base(relative)"
                 >
                   <div

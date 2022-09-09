@@ -142,7 +142,7 @@ const SkillChecklist: React.FunctionComponent<SkillChecklistProps> = ({
   };
 
   return (
-    <div data-h2-flex-grid="base(normal, 0, x1)" data-testid="skillChecklist">
+    <div data-h2-flex-grid="base(normal, x1)" data-testid="skillChecklist">
       {Object.keys(skillCategories).map((category) => {
         return (
           <Category

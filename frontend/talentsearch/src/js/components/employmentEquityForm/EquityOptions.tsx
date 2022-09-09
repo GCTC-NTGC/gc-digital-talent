@@ -80,7 +80,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
       <div data-h2-position="base(relative)">
         <div
           data-h2-layer="base(1, relative)"
-          data-h2-flex-grid="l-tablet(normal, 0, x3)"
+          data-h2-flex-grid="l-tablet(normal, x3)"
         >
           <div data-h2-flex-item="l-tablet(1of2)">
             <h2
