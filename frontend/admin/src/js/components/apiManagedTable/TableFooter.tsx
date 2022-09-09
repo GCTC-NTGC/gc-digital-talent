@@ -48,11 +48,11 @@ function TableFooter({
       data-h2-radius="base(0px, 0px, s, s)"
     >
       <div data-h2-padding="base(x1, x1)">
-        <div data-h2-flex-grid="base(center, 0, x2, 0)">
+        <div data-h2-flex-grid="base(center, x2, 0)">
           <div data-h2-flex-item="base(content)">
             {hasSelection && (
               <div
-                data-h2-flex-grid="base(center, 0, x1, 0)"
+                data-h2-flex-grid="base(center, x1, 0)"
                 data-h2-position="base(relative)"
               >
                 <Pending

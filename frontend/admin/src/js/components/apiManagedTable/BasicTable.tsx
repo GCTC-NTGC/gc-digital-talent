@@ -75,7 +75,7 @@ function BasicTable<T extends RecordWithId>({
     <div
       data-h2-radius="base(s, s, 0px, 0px)"
       data-h2-border="base(right-left, 1px, solid, dt-secondary)"
-      data-h2-overflow="base(auto, all)"
+      data-h2-overflow="base(auto)"
       data-h2-max-width="base(100%)"
     >
       <table aria-labelledby={labelledBy} data-h2-width="base(100%)">

@@ -35,7 +35,7 @@ const CloseDialogButton: React.FC<CloseDialogButtonProps> = ({ close }) => {
   const intl = useIntl();
   return (
     <Button type="button" mode="outline" color="secondary" onClick={close}>
-      <span data-h2-font-style="base(underline)">
+      <span data-h2-text-decoration="base(underline)">
         {intl.formatMessage({
           defaultMessage: "Cancel and go back",
           id: "tiF/jI",
@@ -76,13 +76,13 @@ const ConfirmDialogButton: React.FC<ConfirmDialogButtonProps> = ({
           <Icon style={{ width: "1.5rem" }} />
           <span
             data-h2-padding="base(0, 0, 0, x.25)"
-            data-h2-font-style="base(underline)"
+            data-h2-text-decoration="base(underline)"
           >
             {title}
           </span>
         </>
       ) : (
-        <span data-h2-font-style="base(underline)">{title}</span>
+        <span data-h2-text-decoration="base(underline)">{title}</span>
       )}
     </Button>
   );

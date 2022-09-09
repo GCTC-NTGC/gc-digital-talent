@@ -52,135 +52,139 @@ const ManagerInfo: React.FunctionComponent<{
         })}
       </h2>
       <div data-h2-background-color="base(lightest.dt-gray)">
-        <div
-          data-h2-flex-grid="base(stretch, x1, x1, 0)"
-          style={{ overflowWrap: "break-word" }}
-        >
+        <div data-h2-padding="base(x1)">
           <div
-            data-h2-flex-item="base(1of1) p-tablet(1of4)"
-            data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
+            data-h2-flex-grid="base(stretch, x1, 0)"
+            style={{ overflowWrap: "break-word" }}
           >
             <div
-              data-h2-padding="base(0, x1, 0, 0)"
-              data-h2-height="base(100%)"
+              data-h2-flex-item="base(1of1) p-tablet(1of4)"
+              data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
             >
-              <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Full Name",
-                  id: "W9DTVh",
-                  description:
-                    "Title for the full name block in the manager info section of the single search request view.",
-                })}
-                content={fullName}
-              />
-              <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Government Email",
-                  id: "d3oN4p",
-                  description:
-                    "Title for the government email block in the manager info section of the single search request view.",
-                })}
-                content={email}
-              />
+              <div
+                data-h2-padding="base(0, x1, 0, 0)"
+                data-h2-height="base(100%)"
+              >
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Full Name",
+                    id: "W9DTVh",
+                    description:
+                      "Title for the full name block in the manager info section of the single search request view.",
+                  })}
+                  content={fullName}
+                />
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Government Email",
+                    id: "d3oN4p",
+                    description:
+                      "Title for the government email block in the manager info section of the single search request view.",
+                  })}
+                  content={email}
+                />
+              </div>
             </div>
-          </div>
-          <div
-            data-h2-flex-item="base(1of1) p-tablet(1of4)"
-            data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
-          >
             <div
-              data-h2-padding="base(0, x1, 0, 0)"
-              data-h2-height="base(100%)"
+              data-h2-flex-item="base(1of1) p-tablet(1of4)"
+              data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
             >
-              <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Department",
-                  id: "zwcUgi",
-                  description:
-                    "Title for the department block in the manager info section of the single search request view.",
-                })}
-                content={department?.name?.[locale]}
-              />
-              <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Job title for this position",
-                  id: "gRPGQN",
-                  description:
-                    "Title for the job title block in the manager info section of the single search request view.",
-                })}
-                content={jobTitle}
-              />
+              <div
+                data-h2-padding="base(0, x1, 0, 0)"
+                data-h2-height="base(100%)"
+              >
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Department",
+                    id: "zwcUgi",
+                    description:
+                      "Title for the department block in the manager info section of the single search request view.",
+                  })}
+                  content={department?.name?.[locale]}
+                />
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Job title for this position",
+                    id: "gRPGQN",
+                    description:
+                      "Title for the job title block in the manager info section of the single search request view.",
+                  })}
+                  content={jobTitle}
+                />
+              </div>
             </div>
-          </div>
-          <div
-            data-h2-flex-item="base(1of1) p-tablet(1of4)"
-            data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
-          >
             <div
-              data-h2-padding="base(0, x1, 0, 0)"
-              data-h2-height="base(100%)"
+              data-h2-flex-item="base(1of1) p-tablet(1of4)"
+              data-h2-border="p-tablet(right, 1px, solid, dt-gray)"
             >
-              <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Pool Requested",
-                  id: "rz8uPO",
-                  description:
-                    "Title for the pool block in the manager info section of the single search request view.",
-                })}
-                content={
-                  applicantFilter
-                    ? applicantFilter?.pools?.map(
-                        (pool) => pool?.name?.[locale] || nonApplicableMessage,
-                      )
-                    : poolCandidateFilter?.pools?.map(
-                        (pool) => pool?.name?.[locale] || nonApplicableMessage,
-                      )
-                }
-              />
+              <div
+                data-h2-padding="base(0, x1, 0, 0)"
+                data-h2-height="base(100%)"
+              >
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Pool Requested",
+                    id: "rz8uPO",
+                    description:
+                      "Title for the pool block in the manager info section of the single search request view.",
+                  })}
+                  content={
+                    applicantFilter
+                      ? applicantFilter?.pools?.map(
+                          (pool) =>
+                            pool?.name?.[locale] || nonApplicableMessage,
+                        )
+                      : poolCandidateFilter?.pools?.map(
+                          (pool) =>
+                            pool?.name?.[locale] || nonApplicableMessage,
+                        )
+                  }
+                />
 
-              <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Status",
-                  id: "Lzd38d",
-                  description:
-                    "Title for the status block in the manager info section of the single search request view.",
-                })}
-                content={
-                  status
-                    ? intl.formatMessage(getPoolCandidateSearchStatus(status))
-                    : intl.formatMessage({
-                        defaultMessage: "N/A",
-                        id: "i9AjuX",
-                        description:
-                          "Text shown when the filter was not selected",
-                      })
-                }
-              />
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Status",
+                    id: "Lzd38d",
+                    description:
+                      "Title for the status block in the manager info section of the single search request view.",
+                  })}
+                  content={
+                    status
+                      ? intl.formatMessage(getPoolCandidateSearchStatus(status))
+                      : intl.formatMessage({
+                          defaultMessage: "N/A",
+                          id: "i9AjuX",
+                          description:
+                            "Text shown when the filter was not selected",
+                        })
+                  }
+                />
+              </div>
             </div>
-          </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of4)">
-            <div
-              data-h2-padding="base(0, x1, 0, 0)"
-              data-h2-height="base(100%)"
-            >
-              <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Date Requested",
-                  id: "hzL/Gd",
-                  description:
-                    "Title for the date requested block in the manager info section of the single search request view.",
-                })}
-                content={requestedDate}
-              />
-              <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Date done",
-                  id: "BAzKWq",
-                  description:
-                    "Title for the date done block in the manager info section of the single search request view.",
-                })}
-                content="NA (Request is still pending)"
-              />
+            <div data-h2-flex-item="base(1of1) p-tablet(1of4)">
+              <div
+                data-h2-padding="base(0, x1, 0, 0)"
+                data-h2-height="base(100%)"
+              >
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Date Requested",
+                    id: "hzL/Gd",
+                    description:
+                      "Title for the date requested block in the manager info section of the single search request view.",
+                  })}
+                  content={requestedDate}
+                />
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Date done",
+                    id: "BAzKWq",
+                    description:
+                      "Title for the date done block in the manager info section of the single search request view.",
+                  })}
+                  content="NA (Request is still pending)"
+                />
+              </div>
             </div>
           </div>
         </div>

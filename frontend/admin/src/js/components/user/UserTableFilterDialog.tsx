@@ -100,7 +100,7 @@ const UserTableFilterDialog = ({
           defaultValues: activeFilters,
         }}
       >
-        <div data-h2-flex-grid="base(flex-start, 0, x1, x.5)">
+        <div data-h2-flex-grid="base(flex-start, x1, x.5)">
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
             <MultiSelectFieldV2
               id="pools"

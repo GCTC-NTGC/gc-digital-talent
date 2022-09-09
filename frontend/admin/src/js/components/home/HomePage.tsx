@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
             })}
           </p>
           <div data-h2-margin="base(x2, 0, 0, 0)">
-            <div data-h2-flex-grid="base(top, 0, x2)">
+            <div data-h2-flex-grid="base(top, x2)">
               <div data-h2-flex-item="base(1of3)">
                 <CardLink
                   external

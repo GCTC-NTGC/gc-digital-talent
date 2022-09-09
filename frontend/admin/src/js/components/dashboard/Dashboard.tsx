@@ -126,7 +126,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
         })}
       </a>
 
-      <div data-h2-flex-grid="base(stretch, 0, 0)">
+      <div data-h2-flex-grid="base(stretch, 0)">
         <AdminSideMenu
           isOpen={isMenuOpen}
           onToggle={handleMenuToggle}

@@ -213,7 +213,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               description: "Sub title for admin view pool page",
             })}
           </h2>
-          <div data-h2-flex-grid="base(flex-start, 0, x1, 0)">
+          <div data-h2-flex-grid="base(flex-start, x1, 0)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 readOnly
@@ -288,7 +288,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             })}
           </h2>
           {classification ? (
-            <div data-h2-flex-grid="base(flex-start, 0, x1, 0)">
+            <div data-h2-flex-grid="base(flex-start, x1, 0)">
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
                   id="targetClassification"
@@ -355,7 +355,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               </div>
             </div>
           ) : null}
-          <div data-h2-flex-grid="base(flex-start, 0, x1, 0)">
+          <div data-h2-flex-grid="base(flex-start, x1, 0)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 id="expiryDate"

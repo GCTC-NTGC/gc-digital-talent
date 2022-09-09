@@ -86,7 +86,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
       <PageHeader icon={UserCircleIcon}>{pageTitle}</PageHeader>
       <Breadcrumbs links={links} />
       <div data-h2-margin="base(x2, 0, x1, 0)">
-        <div data-h2-flex-grid="base(center, 0, x1)">
+        <div data-h2-flex-grid="base(center, x1)">
           <div data-h2-flex-item="base(1of1) p-tablet(fill)">
             {userName !== " " && (
               <Heading level="h2" data-h2-margin="base(x.5, 0) l-tablet(0)">
