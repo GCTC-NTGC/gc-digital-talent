@@ -73,7 +73,7 @@ return [
      * gckeymfa for MFA on (production)
      * gckey for MFA off (for testing purposes on DEV or UAT: NOT FOR PRODUCTION!)
      */
-    'acr_values' => env('OAUTH_ACR_VALUES', ''),
+    'acr_values' => env('OAUTH_ACR_VALUES', 'gckeymfa'),
 
     /**
      * This server's client id and secret, known to the OAuth server.
