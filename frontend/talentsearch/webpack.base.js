@@ -27,12 +27,14 @@ module.exports = {
         // Build Hydrogen ------------------------------------------------------
         // Run on the environment hook to catch the initial compile and non-watch compiles
         compiler.hooks.environment.tap('environment', () => {
-          shell.exec('cd ..;node node_modules/@hydrogen-css/hydrogen/bin/build.js');
+          shell.cd('..');
+          shell.exec('node node_modules/@hydrogen-css/hydrogen/bin/build.js');
         })
         // Build Hydrogen and manipulate it's modified time --------------------
         // Run on the invalid hook so that the file time is updated before the next compile
         compiler.hooks.invalid.tap('invalid', (fileName, changeTime) => {
-          shell.exec('cd ..;node node_modules/@hydrogen-css/hydrogen/bin/build.js');
+          shell.cd('..');
+          shell.exec('node node_modules/@hydrogen-css/hydrogen/bin/build.js');
           var f = path.resolve('../common/src/css/hydrogen.css')
           var now = Date.now() / 1000
           var then = now - 100
