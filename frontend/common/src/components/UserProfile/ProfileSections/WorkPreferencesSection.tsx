@@ -105,10 +105,10 @@ const WorkPreferencesSection: React.FunctionComponent<{
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Any duration (short, long term, or indeterminate duration)",
-                  id: "ihYM2v",
+                    "any duration. (short term, long term, or indeterminate duration)",
+                  id: "uHx3G7",
                   description:
-                    "Duration of any length is good, specified three example lengths",
+                    "Label displayed on Work Preferences form for any duration option",
                 })}
               </li>
             </ul>

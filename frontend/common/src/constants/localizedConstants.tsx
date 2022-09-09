@@ -905,60 +905,58 @@ export const getEducationType = (
 
 export const operationalRequirementLabelCandidateDescription = defineMessages({
   [OperationalRequirement.ShiftWork]: {
-    defaultMessage: "...has <strong>shift-work</strong>.",
-    id: "/ndqmQ",
+    defaultMessage: "has <strong>shift-work</strong>.",
+    id: "9rn/MG",
     description: "The operational requirement described as shift work.",
   },
   [OperationalRequirement.OnCall]: {
-    defaultMessage: "...has <strong>24/7 on call-shifts</strong>.",
-    id: "7L6frW",
+    defaultMessage: "has <strong>24/7 on call-shifts</strong>.",
+    id: "X/hYMf",
     description: "The operational requirement described as 24/7 on-call.",
   },
   [OperationalRequirement.Travel]: {
-    defaultMessage: "...requires me to <strong>travel</strong>.",
-    id: "MZwZ0y",
+    defaultMessage: "requires me to <strong>travel</strong>.",
+    id: "qnYbyw",
     description: "The operational requirement described as travel as required.",
   },
   [OperationalRequirement.TransportEquipment]: {
     defaultMessage:
-      "...requires me to <strong>transport, lift and set down equipment weighing up to 20kg</strong>.",
-    id: "dLI4Nb",
+      "requires me to <strong>transport, lift and set down equipment weighing up to 20kg</strong>.",
+    id: "dIZ4oj",
     description:
       "The operational requirement described as transport equipment up to 20kg.",
   },
   [OperationalRequirement.DriversLicense]: {
     defaultMessage:
-      "...requires me to <strong>have a valid driver's license</strong> or personal mobility to the degree normally associated with the possession of a valid driver's license.",
-    id: "gmHam8",
+      "requires me to <strong>have a valid driver's license</strong> or personal mobility to the degree normally associated with the possession of a valid driver's license.",
+    id: "duwt+A",
     description: "The operational requirement described as driver's license.",
   },
   [OperationalRequirement.WorkWeekends]: {
-    defaultMessage: "...requires me to <strong>work weekends</strong>.",
-    id: "fmSaPm",
+    defaultMessage: "requires me to <strong>work weekends</strong>.",
+    id: "CFAc15",
     description: "The operational requirement described as work weekends.",
   },
   [OperationalRequirement.OvertimeScheduled]: {
-    defaultMessage:
-      "...requires me to <strong>work scheduled overtime</strong>.",
-    id: "qLy7xu",
+    defaultMessage: "requires me to <strong>work scheduled overtime</strong>.",
+    id: "1RTwS3",
     description: "The operational requirement described as scheduled overtime.",
   },
   [OperationalRequirement.OvertimeShortNotice]: {
     defaultMessage:
-      "...requires me to <strong>work overtime on short notice</strong>.",
-    id: "hjr9df",
+      "requires me to <strong>work overtime on short notice</strong>.",
+    id: "cnFVR1",
     description: "The operational requirement described as overtime.",
   },
   [OperationalRequirement.OvertimeOccasional]: {
-    defaultMessage:
-      "...requires me to <strong>work occasional overtime</strong>.",
-    id: "EXOS0V",
+    defaultMessage: "requires me to <strong>work occasional overtime</strong>.",
+    id: "RYg7vl",
     description:
       "The operational requirement described as occasional overtime.",
   },
   [OperationalRequirement.OvertimeRegular]: {
-    defaultMessage: "...requires me to <strong>work regular overtime</strong>.",
-    id: "PQ3bhH",
+    defaultMessage: "requires me to <strong>work regular overtime</strong>.",
+    id: "cEB0aW",
     description: "The operational requirement described as regular overtime.",
   },
 });

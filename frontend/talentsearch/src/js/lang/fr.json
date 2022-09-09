@@ -1,4 +1,7 @@
 {
+  ".ellipsis": {
+    "defaultMessage": "… "
+  },
   "+ZXZj+": {
     "defaultMessage": "S’il n’y a aucun candidat qui répond à vos critères <a>Communiquez avec nous! </a>",
     "description": "Message for helping user if no candidates matched the filters chosen."
@@ -1035,8 +1038,8 @@
     "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
     "description": "Message displayed to user after experience fails to be updated."
   },
-  "oKaV/T": {
-    "defaultMessage": "… de toute durée. (à court terme, à long terme ou indéterminée)",
+  "uHx3G7": {
+    "defaultMessage": "de toute durée. (à court terme, à long terme ou indéterminée)",
     "description": "Label displayed on Work Preferences form for any duration option"
   },
   "X354at": {

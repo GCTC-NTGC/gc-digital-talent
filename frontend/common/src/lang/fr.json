@@ -727,9 +727,9 @@
     "defaultMessage": "Projet : {project}",
     "description": "Project Name"
   },
-  "ihYM2v": {
-    "defaultMessage": "Toute durée (à court terme, à long terme ou indéterminée)",
-    "description": "Duration of any length is good, specified three example lengths"
+  "uHx3G7": {
+    "defaultMessage": "de toute durée. (à court terme, à long terme ou indéterminée)",
+    "description": "Label displayed on Work Preferences form for any duration option"
   },
   "inzzdo": {
     "defaultMessage": "Diversité, équité et inclusion",
@@ -930,24 +930,24 @@
     "defaultMessage": "<strong>Virtuel :</strong> Travailler de la maison, partout au Canada.",
     "description": "The work region of Canada described as North."
   },
-  "hjr9df": {
-    "defaultMessage": "… m'oblige à faire des <strong>heures supplémentaires sans préavis</strong>.",
+  "cnFVR1": {
+    "defaultMessage": "m'oblige à faire des <strong>heures supplémentaires sans préavis</strong>.",
     "description": "The operational requirement described as overtime."
   },
   "oU4OmU": {
     "defaultMessage": "<strong>Région de l'Ontario :</strong> à l'exclusion d'Ottawa.",
     "description": "The work region of Canada described as Ontario."
   },
-  "gmHam8": {
-    "defaultMessage": "… m'oblige à <strong>avoir un permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
+  "duwt+A": {
+    "defaultMessage": "m'oblige à <strong>avoir un permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
   "eYak7E": {
     "defaultMessage": "<strong>Région de la capitale nationale :</strong> Ottawa (Ont.) et Gatineau (Qc).",
     "description": "The work region of Canada described as National Capital."
   },
-  "qLy7xu": {
-    "defaultMessage": "… nécessite que je fasse des <strong>heures supplémentaires planifiées</strong>.",
+  "1RTwS3": {
+    "defaultMessage": "nécessite que je fasse des <strong>heures supplémentaires planifiées</strong>.",
     "description": "The operational requirement described as scheduled overtime."
   },
   "Gw2JKz": {
@@ -962,32 +962,32 @@
     "defaultMessage": "<strong>Région de la Colombie-Britannique</strong>",
     "description": "The work region of Canada described as British Columbia."
   },
-  "dLI4Nb": {
-    "defaultMessage": "… m'oblige à <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
+  "dIZ4oj": {
+    "defaultMessage": "m'oblige à <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "ubXVBC": {
     "defaultMessage": "<strong>Région de l'Atlantique :</strong> Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.",
     "description": "The work region of Canada described as Atlantic."
   },
-  "7L6frW": {
-    "defaultMessage": "… a<strong> des quarts de travail sur appel 24 heures sur 24, 7 jours sur 7 </strong>.",
+  "X/hYMf": {
+    "defaultMessage": "a<strong> des quarts de travail sur appel 24 heures sur 24, 7 jours sur 7 </strong>.",
     "description": "The operational requirement described as 24/7 on-call."
   },
-  "MZwZ0y": {
-    "defaultMessage": "… m'oblige à <strong>voyager</strong>.",
+  "qnYbyw": {
+    "defaultMessage": "m'oblige à <strong>voyager</strong>.",
     "description": "The operational requirement described as travel as required."
   },
   "ZcvDAo": {
     "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
     "description": "Message that there are required fields missing. Please ignore things in <> tags."
   },
-  "/ndqmQ": {
-    "defaultMessage": "… a un <strong>travail par quart</strong>.",
+  "9rn/MG": {
+    "defaultMessage": "a un <strong>travail par quart</strong>.",
     "description": "The operational requirement described as shift work."
   },
-  "fmSaPm": {
-    "defaultMessage": "… m'oblige à <strong>travailler les fins de semaine</strong>.",
+  "CFAc15": {
+    "defaultMessage": "m'oblige à <strong>travailler les fins de semaine</strong>.",
     "description": "The operational requirement described as work weekends."
   },
   "TR0Kxz": {
@@ -1134,8 +1134,8 @@
     "defaultMessage": "Débutant",
     "description": "Beginner, skill level"
   },
-  "EXOS0V": {
-    "defaultMessage": "… m'oblige à <strong>faire des heures supplémentaires occasionnelles</strong>.",
+  "RYg7vl": {
+    "defaultMessage": "m'oblige à <strong>faire des heures supplémentaires occasionnelles</strong>.",
     "description": "The operational requirement described as occasional overtime."
   },
   "F3/88e": {
@@ -1186,8 +1186,8 @@
     "defaultMessage": "(s'ouvre dans un nouvel onglet)",
     "description": "Text that appears in links that open in a new tab."
   },
-  "PQ3bhH": {
-    "defaultMessage": "… m'oblige à <strong>faire des heures supplémentaires régulièrement</strong>.",
+  "cEB0aW": {
+    "defaultMessage": "m'oblige à <strong>faire des heures supplémentaires régulièrement</strong>.",
     "description": "The operational requirement described as regular overtime."
   },
   "PzyMeM": {
