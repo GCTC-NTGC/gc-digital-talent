@@ -37,6 +37,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
         <li>
           {intl.formatMessage({
             defaultMessage: "(None selected)",
+            id: "+O6J4u",
             description: "Text shown when the filter was not selected",
           })}
         </li>
@@ -66,6 +67,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
                   ? content
                   : intl.formatMessage({
                       defaultMessage: "N/A",
+                      id: "i9AjuX",
                       description:
                         "Text shown when the filter was not selected",
                     })}
@@ -121,6 +123,7 @@ const ApplicantFilters: React.FC<{
       skill?.name[locale] ||
       intl.formatMessage({
         defaultMessage: "Error: skill name not found",
+        id: "0T3NB0",
         description:
           "Error message when skill name is not found on request page.",
       })
@@ -132,18 +135,24 @@ const ApplicantFilters: React.FC<{
       ? intl.formatMessage({
           defaultMessage:
             "Term duration (short term, long term, or indeterminate duration)",
+          id: "CO50a/",
         })
-      : intl.formatMessage({ defaultMessage: "Term duration (permanent)" });
+      : intl.formatMessage({
+          defaultMessage: "Term duration (permanent)",
+          id: "Ekwul3",
+        });
 
   const educationLevel: string | undefined = applicantFilter?.hasDiploma
     ? intl.formatMessage({
         defaultMessage: "Required diploma from post-secondary institution",
+        id: "/mFrpj",
         description:
           "Education level message when candidate has a diploma found on the request page.",
       })
     : intl.formatMessage({
         defaultMessage:
           "Can accept a combination of work experience and education",
+        id: "9DCx2n",
         description:
           "Education level message when candidate does not have a diploma found on the request page.",
       });
@@ -153,6 +162,7 @@ const ApplicantFilters: React.FC<{
       ? [
           intl.formatMessage({
             defaultMessage: "Woman",
+            id: "/fglL0",
             description:
               "Message for woman option in the employment equity section of the request page.",
           }),
@@ -162,6 +172,7 @@ const ApplicantFilters: React.FC<{
       ? [
           intl.formatMessage({
             defaultMessage: "Visible Minority",
+            id: "4RK/oW",
             description:
               "Message for visible minority option in the employment equity section of the request page.",
           }),
@@ -171,6 +182,7 @@ const ApplicantFilters: React.FC<{
       ? [
           intl.formatMessage({
             defaultMessage: "Indigenous",
+            id: "7GRDML",
             description:
               "Message for indigenous option in the employment equity section of the request page.",
           }),
@@ -180,6 +192,7 @@ const ApplicantFilters: React.FC<{
       ? [
           intl.formatMessage({
             defaultMessage: "Disability",
+            id: "GHlK/f",
             description:
               "Message for disability option in the employment equity section of the request page.",
           }),
@@ -196,6 +209,7 @@ const ApplicantFilters: React.FC<{
     ? intl.formatMessage(getLanguageAbility(applicantFilter?.languageAbility))
     : intl.formatMessage({
         defaultMessage: "Any language",
+        id: "0/8x/z",
       });
 
   const workLocationIds: string[] =
@@ -210,6 +224,7 @@ const ApplicantFilters: React.FC<{
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Group and level",
+              id: "Rn5e/i",
               description:
                 "Title for group and level on summary of filters section",
             })}
@@ -219,6 +234,7 @@ const ApplicantFilters: React.FC<{
             title={intl.formatMessage(
               {
                 defaultMessage: "Selected skills ({numOfSkills})",
+                id: "159+n7",
                 description:
                   "Title for skills section on summary of filters section",
               },
@@ -242,6 +258,7 @@ const ApplicantFilters: React.FC<{
                   <li>
                     {intl.formatMessage({
                       defaultMessage: "(None selected)",
+                      id: "+O6J4u",
                       description:
                         "Text shown when the filter was not selected",
                     })}
@@ -253,6 +270,7 @@ const ApplicantFilters: React.FC<{
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Education Level",
+              id: "YKqt+1",
               description:
                 "Title for education level on summary of filters section",
             })}
@@ -265,6 +283,7 @@ const ApplicantFilters: React.FC<{
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Work language ability",
+              id: "VX3Og5",
               description:
                 "Title for work language on summary of filters section",
             })}
@@ -274,6 +293,7 @@ const ApplicantFilters: React.FC<{
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Employment Duration",
+                id: "PmMr9l",
                 description:
                   "Title for work language on summary of filters section",
               })}
@@ -283,6 +303,7 @@ const ApplicantFilters: React.FC<{
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Work Location",
+              id: "MWZgsB",
               description:
                 "Title for work location section on summary of filters section",
             })}
@@ -291,6 +312,7 @@ const ApplicantFilters: React.FC<{
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Employment equity",
+              id: "+aowPB",
               description:
                 "Title for employment equity section on summary of filters section",
             })}
@@ -300,6 +322,7 @@ const ApplicantFilters: React.FC<{
             title={intl.formatMessage({
               defaultMessage:
                 "Conditions of employment / Operational requirements",
+              id: "cMsRgt",
               description:
                 "Title for operational requirements section on summary of filters section",
             })}
@@ -342,12 +365,14 @@ const SearchRequestFilters: React.FunctionComponent<
   const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
     ? intl.formatMessage({
         defaultMessage: "Required diploma from post-secondary institution",
+        id: "/mFrpj",
         description:
           "Education level message when candidate has a diploma found on the request page.",
       })
     : intl.formatMessage({
         defaultMessage:
           "Can accept a combination of work experience and education",
+        id: "9DCx2n",
         description:
           "Education level message when candidate does not have a diploma found on the request page.",
       });
@@ -356,6 +381,7 @@ const SearchRequestFilters: React.FunctionComponent<
       ? [
           intl.formatMessage({
             defaultMessage: "Woman",
+            id: "/fglL0",
             description:
               "Message for woman option in the employment equity section of the request page.",
           }),
@@ -365,6 +391,7 @@ const SearchRequestFilters: React.FunctionComponent<
       ? [
           intl.formatMessage({
             defaultMessage: "Visible Minority",
+            id: "4RK/oW",
             description:
               "Message for visible minority option in the employment equity section of the request page.",
           }),
@@ -374,6 +401,7 @@ const SearchRequestFilters: React.FunctionComponent<
       ? [
           intl.formatMessage({
             defaultMessage: "Indigenous",
+            id: "7GRDML",
             description:
               "Message for indigenous option in the employment equity section of the request page.",
           }),
@@ -383,6 +411,7 @@ const SearchRequestFilters: React.FunctionComponent<
       ? [
           intl.formatMessage({
             defaultMessage: "Disability",
+            id: "GHlK/f",
             description:
               "Message for disability option in the employment equity section of the request page.",
           }),
@@ -406,6 +435,7 @@ const SearchRequestFilters: React.FunctionComponent<
       )
     : intl.formatMessage({
         defaultMessage: "Any language",
+        id: "0/8x/z",
       });
   const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
     (cmoAsset) => {
@@ -413,6 +443,7 @@ const SearchRequestFilters: React.FunctionComponent<
         cmoAsset?.name[locale] ||
         intl.formatMessage({
           defaultMessage: "Error: skill name not found",
+          id: "vyQv+i",
           description:
             "Error message when cmo asset name is not found on request page.",
         })
@@ -430,6 +461,7 @@ const SearchRequestFilters: React.FunctionComponent<
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Group and level",
+                id: "Rn5e/i",
                 description:
                   "Title for group and level on summary of filters section",
               })}
@@ -439,6 +471,7 @@ const SearchRequestFilters: React.FunctionComponent<
               title={intl.formatMessage(
                 {
                   defaultMessage: "Selected skills ({numOfSkills})",
+                  id: "159+n7",
                   description:
                     "Title for skills section on summary of filters section",
                 },
@@ -449,6 +482,7 @@ const SearchRequestFilters: React.FunctionComponent<
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Education Level",
+                id: "YKqt+1",
                 description:
                   "Title for education level on summary of filters section",
               })}
@@ -457,6 +491,7 @@ const SearchRequestFilters: React.FunctionComponent<
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Type of opportunity",
+                id: "ZuSEII",
                 description:
                   "Title for type of opportunity section on summary of filters section",
               })}
@@ -468,6 +503,7 @@ const SearchRequestFilters: React.FunctionComponent<
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage: "Work language ability",
+                  id: "VX3Og5",
                   description:
                     "Title for work language on summary of filters section",
                 })}
@@ -476,6 +512,7 @@ const SearchRequestFilters: React.FunctionComponent<
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage: "Work Location",
+                  id: "MWZgsB",
                   description:
                     "Title for work location section on summary of filters section",
                 })}
@@ -485,6 +522,7 @@ const SearchRequestFilters: React.FunctionComponent<
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage: "Employment equity",
+                  id: "+aowPB",
                   description:
                     "Title for employment equity section on summary of filters section",
                 })}
@@ -494,6 +532,7 @@ const SearchRequestFilters: React.FunctionComponent<
                 title={intl.formatMessage({
                   defaultMessage:
                     "Conditions of employment / Operational requirements",
+                  id: "cMsRgt",
                   description:
                     "Title for operational requirements section on summary of filters section",
                 })}

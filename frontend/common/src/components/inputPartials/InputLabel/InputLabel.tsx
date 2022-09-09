@@ -86,6 +86,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
               <span data-h2-visibility="base(invisible)">
                 {intl.formatMessage({
                   defaultMessage: "Toggle context",
+                  id: "jhImZp",
                   description:
                     "Label to toggle the context description of an input.",
                 })}
