@@ -84,9 +84,9 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
     : undefined;
-  const { application } = useQueryParams();
+  const { applicationId } = useQueryParams();
   const returnPath = `${paths.skillsAndExperiences(userId)}${
-    application ? `?application=${application}` : ``
+    applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
   const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
@@ -293,9 +293,9 @@ const ExperienceFormContainer: React.FunctionComponent<
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
-  const { application } = useQueryParams();
+  const { applicationId } = useQueryParams();
   const returnPath = `${paths.skillsAndExperiences(userId)}${
-    application ? `?application=${application}` : ``
+    applicationId ? `?applicationId=${applicationId}` : ``
   }`;
   const [
     {
@@ -304,8 +304,8 @@ const ExperienceFormContainer: React.FunctionComponent<
       error: applicationError,
     },
   ] = useGetApplicationQuery({
-    variables: { id: application || "" },
-    pause: !application,
+    variables: { id: applicationId || "" },
+    pause: !applicationId,
   });
 
   const handleSuccess = () => {

@@ -97,8 +97,10 @@ export const ExperienceAndSkills: React.FunctionComponent<
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
   const directIntakePaths = useDirectIntakeRoutes();
-  const { application } = useQueryParams();
-  const applicationParam = application ? `?application=${application}` : ``;
+  const { applicationId } = useQueryParams();
+  const applicationParam = applicationId
+    ? `?applicationId=${applicationId}`
+    : ``;
 
   const getEditPath = (id: string, type: ExperienceType) => {
     return `${paths.editExperience(applicantId, type, id)}${applicationParam}`;
@@ -196,8 +198,8 @@ export const ExperienceAndSkills: React.FunctionComponent<
   }
 
   const returnRoute =
-    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.reviewApplication(application)
+    applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.reviewApplication(applicationId)
       : paths.home(applicantId);
 
   return (
@@ -220,7 +222,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       cancelLink={{
         href: returnRoute,
         children: intl.formatMessage(
-          application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+          applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
             ? navigationMessages.backToApplication
             : navigationMessages.backToProfile,
         ),
@@ -308,7 +310,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         cancelLink={{
           href: returnRoute,
           children: intl.formatMessage(
-            application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+            applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
               ? navigationMessages.backToApplication
               : navigationMessages.backToProfile,
           ),

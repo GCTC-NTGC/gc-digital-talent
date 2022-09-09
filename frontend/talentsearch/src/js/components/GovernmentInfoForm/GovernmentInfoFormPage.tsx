@@ -160,7 +160,7 @@ const GovernmentInfoFormPage: React.FunctionComponent<{ meId: string }> = ({
     <Pending fetching={fetching} error={error}>
       {meInfo ? (
         <ApiOrContent
-          applicationId={queryParams.application}
+          applicationId={queryParams.applicationId}
           departments={departments}
           classifications={classifications}
           initialData={meInfo}

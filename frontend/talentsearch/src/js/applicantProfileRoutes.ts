@@ -9,7 +9,7 @@ const applicantProfileRoutes = (lang: string) => {
   const home = (userId: string): string =>
     path.join("/", lang, "users", userId, "profile"); // leading slash in case empty base url
   const applicationParam = (applicationId?: string) =>
-    applicationId ? path.join(`?application=${applicationId}`) : "";
+    applicationId ? path.join(`?applicationId=${applicationId}`) : "";
   return {
     home,
     myProfile: (): string => path.join("/", lang, "talent", "profile"),

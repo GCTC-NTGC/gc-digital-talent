@@ -108,7 +108,7 @@ const AboutMeFormPage: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
         <ApiOrContent
-          applicationId={queryParams.application}
+          applicationId={queryParams.applicationId}
           initialUser={data.me}
           onUpdateAboutMe={handleUpdateUser}
         />

@@ -26,9 +26,9 @@ const ExperienceAndSkillsApi = ({
   experiences,
 }: ExperienceAndSkillsApiProps) => {
   const intl = useIntl();
-  const { application } = useQueryParams();
+  const { applicationId } = useQueryParams();
   const [{ data, fetching, error }] = useGetApplicationDetailsQuery({
-    variables: { id: application },
+    variables: { id: applicationId },
   });
   return (
     <Pending fetching={fetching} error={error}>
@@ -95,7 +95,7 @@ const ExperienceAndSkillsPage = () => {
       {data?.applicant ? (
         <ApiOrContent
           applicantId={data?.applicant.id}
-          applicationId={queryParams.application || undefined}
+          applicationId={queryParams.applicationId || undefined}
           experiences={experiences || []}
         />
       ) : (

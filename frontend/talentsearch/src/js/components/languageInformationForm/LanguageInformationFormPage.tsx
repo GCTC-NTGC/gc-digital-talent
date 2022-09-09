@@ -101,7 +101,7 @@ const LanguageInformationFormPage: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {userData?.me ? (
         <ApiOrContent
-          applicationId={queryParams.application}
+          applicationId={queryParams.applicationId}
           initialData={userData.me}
           submitHandler={onSubmit}
         />

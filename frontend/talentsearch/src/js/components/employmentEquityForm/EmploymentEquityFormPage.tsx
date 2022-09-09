@@ -98,7 +98,7 @@ const EmploymentEquityFormPage: React.FC = () => {
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
         <ApiOrContent
-          applicationId={queryParams.application}
+          applicationId={queryParams.applicationId}
           user={data.me}
           onUpdate={handleUpdateUser}
           isMutating={mutationFetching}
