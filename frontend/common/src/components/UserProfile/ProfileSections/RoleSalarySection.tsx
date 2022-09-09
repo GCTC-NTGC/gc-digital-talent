@@ -35,6 +35,7 @@ const RoleSalarySection: React.FunctionComponent<{
                 {intl.formatMessage({
                   defaultMessage:
                     "I would like to be referred for jobs at the following levels:",
+                  id: "e2Rfn/",
                   description:
                     "Label for Role and salary expectations sections",
                 })}
@@ -49,6 +50,7 @@ const RoleSalarySection: React.FunctionComponent<{
               <p data-h2-color="base(dt-gray.dark)">
                 {intl.formatMessage({
                   defaultMessage: "You haven't added any information here yet.",
+                  id: "SCCX7B",
                   description:
                     "Message for when no data exists for the section",
                 })}
@@ -63,6 +65,7 @@ const RoleSalarySection: React.FunctionComponent<{
                   {intl.formatMessage({
                     defaultMessage:
                       "Edit your role and salary expectation options.",
+                    id: "BPiMTY",
                     description:
                       "Link text to edit role and salary expectations on profile.",
                   })}
@@ -75,6 +78,7 @@ const RoleSalarySection: React.FunctionComponent<{
               <p>
                 {intl.formatMessage({
                   defaultMessage: "No information has been provided.",
+                  id: "kjX7mF",
                   description:
                     "Message on Admin side when user not filled RoleSalary section.",
                 })}

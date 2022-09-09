@@ -42,8 +42,8 @@ const SkillExperienceSection: React.FunctionComponent<{
           <p>
             {intl.formatMessage({
               defaultMessage: "You haven't added any information here yet.",
-              description:
-                "Message that the user hasn't filled out the section yet",
+              id: "SCCX7B",
+              description: "Message for when no data exists for the section",
             })}
           </p>
           <p>
@@ -51,6 +51,7 @@ const SkillExperienceSection: React.FunctionComponent<{
             <a href={editPath}>
               {intl.formatMessage({
                 defaultMessage: "Edit your skill and experience options.",
+                id: "hDupu9",
                 description:
                   "Link text for editing skills and experiences on profile.",
               })}

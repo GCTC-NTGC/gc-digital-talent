@@ -70,11 +70,13 @@ const SideMenu: React.FC<SideMenuProps> = ({
                 {isOpen
                   ? intl.formatMessage({
                       defaultMessage: "Close Menu",
+                      id: "+ZPD1J",
                       description:
                         "Text label for button that closes side menu.",
                     })
                   : intl.formatMessage({
                       defaultMessage: "Open Menu",
+                      id: "KMSWLW",
                       description:
                         "Text label for button that opens side menu.",
                     })}

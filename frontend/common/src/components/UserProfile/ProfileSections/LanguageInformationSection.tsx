@@ -46,12 +46,14 @@ const LanguageInformationSection: React.FunctionComponent<{
             <p>
               {intl.formatMessage({
                 defaultMessage: "Interested in:",
+                id: "TmCffZ",
                 description: "Interested in label and colon",
               })}
               <br />
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage({
                   defaultMessage: "English positions",
+                  id: "vFMPHW",
                   description: "English Positions message",
                 })}
               </span>
@@ -63,12 +65,14 @@ const LanguageInformationSection: React.FunctionComponent<{
             <p>
               {intl.formatMessage({
                 defaultMessage: "Interested in:",
+                id: "TmCffZ",
                 description: "Interested in label and colon",
               })}
               <br />
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage({
                   defaultMessage: "French positions",
+                  id: "qT9sS0",
                   description: "French Positions message",
                 })}
               </span>
@@ -80,12 +84,14 @@ const LanguageInformationSection: React.FunctionComponent<{
             <p>
               {intl.formatMessage({
                 defaultMessage: "Interested in:",
+                id: "TmCffZ",
                 description: "Interested in label and colon",
               })}
               <br />
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage({
                   defaultMessage: "English or French positions",
+                  id: "fFznH0",
                   description: "English or French Positions message",
                 })}
               </span>
@@ -97,12 +103,14 @@ const LanguageInformationSection: React.FunctionComponent<{
             <p>
               {intl.formatMessage({
                 defaultMessage: "Interested in:",
+                id: "TmCffZ",
                 description: "Interested in label and colon",
               })}
               <br />
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage({
                   defaultMessage: "Bilingual positions (English and French)",
+                  id: "6eCvv1",
                   description: "Bilingual Positions message",
                 })}
               </span>
@@ -114,6 +122,7 @@ const LanguageInformationSection: React.FunctionComponent<{
             <p>
               {intl.formatMessage({
                 defaultMessage: "Completed an official GoC evaluation:",
+                id: "shPV27",
                 description:
                   "Completed a government of canada abbreviation evaluation label and colon",
               })}
@@ -133,6 +142,7 @@ const LanguageInformationSection: React.FunctionComponent<{
               {intl.formatMessage({
                 defaultMessage:
                   "Second language level (Comprehension, Written, Verbal):",
+                id: "D7Qb41",
                 description:
                   "Evaluation results for second language, results in that order followed by a colon",
               })}
@@ -149,6 +159,7 @@ const LanguageInformationSection: React.FunctionComponent<{
               <p>
                 {intl.formatMessage({
                   defaultMessage: "Second language level:",
+                  id: "q3Gl23",
                   description:
                     "Estimated skill in second language, followed by a colon",
                 })}
@@ -172,6 +183,7 @@ const LanguageInformationSection: React.FunctionComponent<{
               <p>
                 {intl.formatMessage({
                   defaultMessage: "You haven't added any information here yet.",
+                  id: "SCCX7B",
                   description:
                     "Message for when no data exists for the section",
                 })}
@@ -192,6 +204,7 @@ const LanguageInformationSection: React.FunctionComponent<{
                   <a href={editPath}>
                     {intl.formatMessage({
                       defaultMessage: "Edit your language information options.",
+                      id: "S9lNLG",
                       description:
                         "Link text to edit language information on profile.",
                     })}
@@ -202,6 +215,7 @@ const LanguageInformationSection: React.FunctionComponent<{
                 <>
                   {intl.formatMessage({
                     defaultMessage: "No information has been provided.",
+                    id: "xjtRjr",
                     description:
                       "Message on Admin side when user not filled language section.",
                   })}
