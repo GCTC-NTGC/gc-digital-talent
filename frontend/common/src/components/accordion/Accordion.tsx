@@ -69,7 +69,7 @@ const Accordion: React.FC<AccordionProps> = ({
         className="accordion-header"
       >
         <div
-          data-h2-flex-grid="base(center, 0, x.5)"
+          data-h2-flex-grid="base(center, x.5)"
           className="accordion-header-wrapper"
         >
           <div data-h2-flex-item="base(content)">
@@ -86,7 +86,7 @@ const Accordion: React.FC<AccordionProps> = ({
             )}
           </div>
           <div data-h2-flex-item="base(fill)" data-h2-text-align="base(left)">
-            <div data-h2-flex-grid="base(center, 0, x.5)">
+            <div data-h2-flex-grid="base(center, x.5)">
               <div data-h2-flex-item="base(1of1) p-tablet(fill)">
                 <p
                   data-h2-font-size="base(h6, 1)"

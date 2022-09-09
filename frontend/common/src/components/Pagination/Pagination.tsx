@@ -74,7 +74,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   return (
     <div>
       <div
-        data-h2-flex-grid="base(center, 0, x2, x1)"
+        data-h2-flex-grid="base(center, x2, x1)"
         data-h2-justify-content="base(flex-end)"
       >
         <div data-h2-flex-item="base(content)">
@@ -205,7 +205,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           </nav>
         </div>
         <div data-h2-flex-item="base(content)">
-          <div data-h2-flex-grid="base(center, 0, x2, 0)">
+          <div data-h2-flex-grid="base(center, x2, 0)">
             <div data-h2-flex-item="base(content)">
               <label data-h2-font-size="base(copy)" {...fontColor}>
                 {intl.formatMessage({

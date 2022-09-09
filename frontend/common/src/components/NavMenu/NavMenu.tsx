@@ -24,12 +24,12 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
   return (
     <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
       <div data-h2-padding="base(x1, 0)">
-        <div data-h2-flex-grid="base(center, 0, x3, 0)">
+        <div data-h2-flex-grid="base(center, x3, 0)">
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <nav>
               <ul
                 data-h2-list-style="base(none)"
-                data-h2-flex-grid="base(flex-start, 0, x1, 0)"
+                data-h2-flex-grid="base(flex-start, x1, 0)"
                 data-h2-justify-content="base(center) p-tablet(flex-start)"
               >
                 {mainItems.map((item) => (
@@ -43,7 +43,7 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
               <nav>
                 <ul
                   data-h2-list-style="base(none)"
-                  data-h2-flex-grid="base(flex-start, 0, x1, 0)"
+                  data-h2-flex-grid="base(flex-start, x1, 0)"
                   data-h2-justify-content="base(center) p-tablet(flex-end)"
                 >
                   {utilityItems.map((item) => (

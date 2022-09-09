@@ -218,7 +218,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
       data-h2-padding="base(x1)"
       data-h2-radius="base(s)"
     >
-      <div data-h2-flex-grid="base(normal, 0, x1, x.5)">
+      <div data-h2-flex-grid="base(normal, x1, x.5)">
         {/* Name */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">

@@ -215,7 +215,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       }}
     >
       <div data-h2-margin="base(x2, 0)">
-        <div data-h2-flex-grid="base(flex-start, 0, x.5)">
+        <div data-h2-flex-grid="base(flex-start, x.5)">
           <div data-h2-flex-item="base(1of1)">
             <p
               data-h2-text-decoration="base(none)"
@@ -231,7 +231,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
             </p>
           </div>
           <div data-h2-flex-item="base(1of1)">
-            <div data-h2-flex-grid="base(center, 0, x1) p-tablet(center, 0, x.5)">
+            <div data-h2-flex-grid="base(center,x1) p-tablet(center, x.5)">
               {links.map(({ title, href, icon }) => (
                 <div key={title} data-h2-flex-item="base(1of1) p-tablet(1of5)">
                   <IconLink
