@@ -40,7 +40,7 @@ const Home: React.FunctionComponent = () => {
   const quote = useQuote();
 
   return (
-    <div data-h2-overflow="base(hidden, x)">
+    <div data-h2-overflow="base(hidden, visible)">
       {/* Hero */}
       <div
         data-h2-width="base(100%)"
@@ -558,7 +558,7 @@ const Home: React.FunctionComponent = () => {
           data-h2-width="base(100%)"
           data-h2-position="base(absolute)"
           data-h2-offset="base(0, auto, auto, 0)"
-          data-h2-overflow="base(hidden, all)"
+          data-h2-overflow="base(hidden)"
         >
           <RadiatingCircles
             className=""
@@ -812,7 +812,7 @@ const Home: React.FunctionComponent = () => {
                   data-h2-width="base(100%)"
                   data-h2-position="base(absolute)"
                   data-h2-offset="base(0, 0, auto, auto)"
-                  data-h2-overflow="base(hidden, all)"
+                  data-h2-overflow="base(hidden)"
                 >
                   <img
                     src={imageUrl(

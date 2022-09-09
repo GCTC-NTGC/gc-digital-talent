@@ -212,7 +212,7 @@ function Table<T extends Record<string, unknown>>({
         <div
           data-h2-radius="base(s, s, 0px, 0px)"
           data-h2-border="base(right-left, 1px, solid, dt-secondary)"
-          data-h2-overflow="base(auto, all)"
+          data-h2-overflow="base(auto)"
           data-h2-max-width="base(100%)"
         >
           <table
