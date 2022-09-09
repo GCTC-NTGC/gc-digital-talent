@@ -33,9 +33,8 @@ module.exports = {
         // Build Hydrogen and manipulate it's modified time --------------------
         // Run on the invalid hook so that the file time is updated before the next compile
         compiler.hooks.invalid.tap('invalid', (fileName, changeTime) => {
-          shell.cd('..');
           shell.exec('node node_modules/@hydrogen-css/hydrogen/bin/build.js');
-          var f = path.resolve('../common/src/css/hydrogen.css')
+          var f = path.resolve('common/src/css/hydrogen.css')
           var now = Date.now() / 1000
           var then = now - 100
           fs.utimes(f, then, then, function (err) { if (err) throw err })
