@@ -59,7 +59,7 @@
   "hydrogen-flex-grid": {
     "prefix": "data-h2-flex-grid",
     "body": [
-      "data-h2-flex-grid=\"${1:query}${2::modifiers}(${3:alignment}, ${4:grid-container-padding}, ${5:column-gutter}, ${6:row-gutter})\""
+      "data-h2-flex-grid=\"${1:query}${2::modifiers}(${3:alignment}, ${4:column-gutter}, ${5:row-gutter})\""
     ]
   },
   "hydrogen-flex-grow": {
@@ -68,7 +68,7 @@
   },
   "hydrogen-flex-item": {
     "prefix": "data-h2-flex-item",
-    "body": ["data-h2-flex-item=\"${1:query}${2::modifiers}(${3:XofY})\""]
+    "body": ["data-h2-flex-item=\"${1:query}${2::modifiers}(${3:X/Y})\""]
   },
   "hydrogen-flex-wrap": {
     "prefix": "data-h2-flex-wrap",
@@ -101,8 +101,10 @@
     "body": ["data-h2-height=\"${1:query}${2::modifiers}(${3:size})\""]
   },
   "hydrogen-gap": {
-    "prefix": "data-h2-gap",
-    "body": ["data-h2-gap=\"${1:query}${2::modifiers}(${3:size}, ${4:axis})\""]
+    "prefix": ["data-h2-gap", "data-h2-gutter"],
+    "body": [
+      "data-h2-gap=\"${1:query}${2::modifiers}(${3:column-gap-unit}, ${4:row-gap-unit})\""
+    ]
   },
   "hydrogen-grid-column": {
     "prefix": "data-h2-grid-column",
@@ -145,6 +147,12 @@
   "hydrogen-list-style": {
     "prefix": "data-h2-list-style",
     "body": ["data-h2-list-style=\"${1:query}${2::modifiers}(${3:style})\""]
+  },
+  "hydrogen-line-height": {
+    "prefix": ["data-h2-line-height", "data-h2-leading"],
+    "body": [
+      "data-h2-line-height=\"${1:query}${2::modifiers}(${3:line-height})\""
+    ]
   },
   "hydrogen-margin": {
     "prefix": "data-h2-margin",
@@ -189,7 +197,7 @@
   "hydrogen-overflow": {
     "prefix": "data-h2-overflow",
     "body": [
-      "data-h2-overflow=\"${1:query}${2::modifiers}(${3:overflow}, ${4:axis})\""
+      "data-h2-overflow=\"${1:query}${2::modifiers}(${3:x-overflow}, ${4:y-overflow})\""
     ]
   },
   "hydrogen-overlay": {
@@ -230,6 +238,12 @@
     "prefix": "data-h2-text-transform",
     "body": [
       "data-h2-text-transform=\"${1:query}${2::modifiers}(${3:transformation})\""
+    ]
+  },
+  "hydrogen-transform": {
+    "prefix": "data-h2-transform",
+    "body": [
+      "data-h2-transform=\"${1:query}${2::modifiers}(${3:transformation})\""
     ]
   },
   "hydrogen-transition": {

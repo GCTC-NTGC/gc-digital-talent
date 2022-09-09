@@ -18,7 +18,7 @@ export const SkillBlock: React.FunctionComponent<{
 
   return (
     <div data-h2-padding="base(0, 0, x.25, 0)">
-      <div data-h2-flex-grid="base(flex-start, 0, x1, 0)">
+      <div data-h2-flex-grid="base(flex-start, x1, 0)">
         <div data-h2-flex-item="base(1of2)">
           {isAdded ? (
             <span

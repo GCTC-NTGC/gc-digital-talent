@@ -204,7 +204,7 @@ const ApplicantFilters: React.FC<{
     intl.formatMessage(getWorkRegion(id)),
   );
   return (
-    <section data-h2-flex-grid="base(flex-start, 0, x2, x.5)">
+    <section data-h2-flex-grid="base(flex-start, x2, x.5)">
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
           <FilterBlock
@@ -425,7 +425,7 @@ const SearchRequestFilters: React.FunctionComponent<
   return (
     <section data-h2-radius="base(s)">
       <div>
-        <div data-h2-flex-grid="base(flex-start, 0, 0, x1) p-tablet(flex-start, 0, x2, 0)">
+        <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(flex-start, x2, 0)">
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <FilterBlock
               title={intl.formatMessage({
