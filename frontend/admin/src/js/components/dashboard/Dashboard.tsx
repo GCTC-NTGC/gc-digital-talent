@@ -9,7 +9,7 @@ import Footer from "@common/components/Footer";
 import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
 
-import { MenuIcon } from "@heroicons/react/outline";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import NotAuthorized from "@common/components/NotAuthorized";
 import AdminSideMenu from "../menu/AdminSideMenu";
 import { ADMIN_APP_DIR } from "../../adminConstants";
@@ -66,20 +66,20 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
   children,
 }) => (
   <div
-    data-h2-visibility="b(visible) m(hidden)"
-    data-h2-position="b(fixed)"
-    data-h2-location="b(bottom-right, xs)"
+    data-h2-visibility="base(visible) l-tablet(hidden)"
+    data-h2-position="base(fixed)"
+    data-h2-offset="base(auto, x.25, x.25, auto)"
     style={{ zIndex: 9998, opacity: show ? 1 : 0 }}
   >
     <Button
       mode="solid"
       color="secondary"
-      data-h2-display="b(inline-flex)"
-      data-h2-align-items="b(center)"
-      data-h2-shadow="b(s)"
+      data-h2-display="base(inline-flex)"
+      data-h2-align-items="base(center)"
+      data-h2-shadow="base(s)"
       onClick={onClick}
     >
-      <MenuIcon
+      <Bars3Icon
         style={{ width: "1rem", height: "1rem", marginRight: "0.5rem" }}
       />
       <span>{children}</span>
@@ -114,14 +114,14 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
 
   return (
     <>
-      <a href="#main" data-h2-visibility="b(hidden)">
+      <a href="#main" data-h2-visibility="base(hidden)">
         {intl.formatMessage({
           defaultMessage: "Skip to main content",
           description: "Assistive technology skip link",
         })}
       </a>
 
-      <div data-h2-display="b(flex)" data-h2-align-items="b(stretch)">
+      <div data-h2-flex-grid="base(stretch, 0, 0)">
         <AdminSideMenu
           isOpen={isMenuOpen}
           onToggle={handleMenuToggle}
@@ -129,16 +129,19 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
         />
         <SideMenuContentWrapper>
           <div
-            className="content-inner"
-            data-h2-display="b(flex)"
-            data-h2-flex-direction="b(column)"
-            data-h2-align-items="b(space-between)"
+            data-h2-min-height="base(100%)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
           >
-            <Header baseUrl={ADMIN_APP_DIR} />
-            <main id="main" data-h2-margin="b(bottom, auto)">
+            <Header baseUrl={ADMIN_APP_DIR} width="full" />
+            <main
+              id="main"
+              data-h2-flex-grow="base(1)"
+              data-h2-background-color="base(dt-gray.15)"
+            >
               {content}
             </main>
-            <Footer baseUrl={ADMIN_APP_DIR} />
+            <Footer baseUrl={ADMIN_APP_DIR} width="full" />
           </div>
         </SideMenuContentWrapper>
       </div>

@@ -50,43 +50,34 @@ const SkillFamilyPicker: React.FunctionComponent<SkillFamilyPickerProps> = ({
   ).size;
 
   return (
-    <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(all, xs)"
-      data-h2-radius="b(s)"
-      role="radiogroup"
-    >
-      <p data-h2-font-weight="b(800)">{title}</p>
-      <FormProvider {...methods}>
-        <form onSubmit={undefined}>
-          <RadioGroup
-            idPrefix={idPrefix ?? "skillFamily"}
-            name="skillFamily"
-            legend={intl.formatMessage({
-              defaultMessage: "Skill Families",
-              description: "Radio group legend for a list of skill families",
-            })}
-            hideOptional
-            hideLegend
-            columns={2}
-            items={[
-              {
-                value: "NULL_SELECTION",
-                label: `${nullSelectionLabel} (${uniqueSkillCount})`,
-              },
-              ...skillFamilies.map((family) => {
-                return {
-                  value: family.id,
-                  label: `${getLocalizedName(family.name, intl)} (${
-                    family.skills ? family.skills.length : "0"
-                  })`,
-                };
-              }),
-            ]}
-          />
-        </form>
-      </FormProvider>
-    </div>
+    <FormProvider {...methods}>
+      <p data-h2-font-weight="base(700)">{title}</p>
+      <RadioGroup
+        idPrefix={idPrefix ?? "skillFamily"}
+        name="skillFamily"
+        legend={intl.formatMessage({
+          defaultMessage: "Skill Families",
+          description: "Radio group legend for a list of skill families",
+        })}
+        hideOptional
+        hideLegend
+        columns={2}
+        items={[
+          {
+            value: "NULL_SELECTION",
+            label: `${nullSelectionLabel} (${uniqueSkillCount})`,
+          },
+          ...skillFamilies.map((family) => {
+            return {
+              value: family.id,
+              label: `${getLocalizedName(family.name, intl)} (${
+                family.skills ? family.skills.length : "0"
+              })`,
+            };
+          }),
+        ]}
+      />
+    </FormProvider>
   );
 };
 

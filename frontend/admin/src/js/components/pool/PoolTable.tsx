@@ -23,6 +23,7 @@ function poolCandidatesLinkAccessor(
       type="button"
       mode="inline"
       color="primary"
+      data-h2-padding="base(0)"
     >
       {intl.formatMessage({
         defaultMessage: "View Candidates",
@@ -130,7 +131,18 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
 
   return (
-    <Table data={data} columns={columns} hiddenCols={["id", "description"]} />
+    <Table
+      data={data}
+      columns={columns}
+      hiddenCols={["id", "description"]}
+      addBtn={{
+        path: paths.poolCreate(),
+        label: intl.formatMessage({
+          defaultMessage: "Create Pool",
+          description: "Heading displayed above the Create Pool form.",
+        }),
+      }}
+    />
   );
 };
 

@@ -25,9 +25,14 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
 
   return (
     <>
-      <h3 data-h2-font-size="b(h5)">
+      <h3
+        data-h2-font-size="base(copy, 1)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x2, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "Selected skills",
+          id: "l7Hif/",
           description: "Section header for a list of skills selected",
         })}
       </h3>
@@ -48,10 +53,11 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
         </Chips>
       ) : null}
       {filteredSkills.length === 0 && (
-        <p data-h2-font-style="b(italic)">
+        <p data-h2-font-style="base(italic)">
           {intl.formatMessage({
             defaultMessage:
               "There are no skills selected yet. You can add some using the provided links.",
+            id: "AYlTUF",
             description:
               "Invitation to add skills when there aren't any added yet.",
           })}
@@ -60,18 +66,19 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
 
       {showHighAlert && filteredSkills.length >= 6 && (
         <div
-          data-h2-border="b(gold, all, solid, s)"
-          data-h2-bg-color="b(gold[.1])"
-          data-h2-padding="b(all, s)"
-          data-h2-radius="b(s)"
-          data-h2-font-color="b([dark]darkgold)"
+          data-h2-border="base(all, 1px, solid, dt-accent)"
+          data-h2-background-color="base(dt-accent.1)"
+          data-h2-padding="base(x.5)"
+          data-h2-radius="base(s)"
+          data-h2-color="base(darker.dt-accent)"
           role="alert"
         >
-          <div data-h2-font-style="b(italic)">
+          <div data-h2-font-style="base(italic)">
             <p>
               <strong>
                 {intl.formatMessage({
                   defaultMessage: "That's a lot of skills!",
+                  id: "yx7EDY",
                   description:
                     "Title of alert when there are many skills added.",
                 })}
@@ -82,6 +89,7 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
                 {
                   defaultMessage:
                     "On the next step you will explain how you used each skill. Try to focus on a few of your top skills, we recommend <strong>less than six (6)</strong> skills per experience.",
+                  id: "QRGHI2",
                   description:
                     "Message of alert when there are many skills added recommending that fewer skills be selected.",
                 },

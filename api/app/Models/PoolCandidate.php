@@ -55,6 +55,7 @@ class PoolCandidate extends Model
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
+        'profile_snapshot' => 'json'
     ];
 
     /**
@@ -301,7 +302,7 @@ RAWSQL2;
 
     public function scopeAvailable(Builder $query): Builder
     {
-        return $query->where('pool_candidate_status', ApiEnums::CANDIDATE_STATUS_AVAILABLE);
+        return $query->where('pool_candidate_status', ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE);
     }
 
     public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder
@@ -322,4 +323,34 @@ RAWSQL2;
         }
         return $query;
     }
+
+   /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
+   // pool_candidate_status database value passed into accessor as an argument
+   public function getPoolCandidateStatusAttribute($candidateStatus)
+   {
+        // pull info
+        $submittedAt = $this->submitted_at;
+        $expiryDate = $this->expiry_date;
+        $currentTime = date("Y-m-d H:i:s");
+        $isExpired = $currentTime > $expiryDate ? true : false;
+
+        // ensure null submitted_at returns either draft or expired draft
+        if ($submittedAt == null){
+            if($isExpired) {
+                return ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED;
+            }
+            return ApiEnums::CANDIDATE_STATUS_DRAFT;
+        }
+
+        // ensure expired returned if past expiry date with exception for PLACED
+        if ($candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_TERM && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE) {
+            if ($isExpired) {
+                return ApiEnums::CANDIDATE_STATUS_EXPIRED;
+            }
+            return $candidateStatus;
+        }
+
+       // no overriding
+       return $candidateStatus;
+   }
 }

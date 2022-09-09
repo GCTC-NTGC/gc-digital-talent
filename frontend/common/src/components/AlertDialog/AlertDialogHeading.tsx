@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { AlertDialogLabel } from "@reach/alert-dialog";
-import { XIcon } from "@heroicons/react/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export interface AlertDialogHeadingProps {
   children: React.ReactNode;
@@ -16,31 +16,31 @@ const AlertDialogHeading = ({
   return (
     <div
       className="alert-dialog__header"
-      data-h2-radius="b(s, s, none, none)"
-      data-h2-padding="b(all, m)"
-      data-h2-position="b(relative)"
+      data-h2-radius="base(s, s, none, none)"
+      data-h2-padding="base(x1)"
+      data-h2-position="base(relative)"
     >
       <button
         type="button"
         onClick={onDismiss}
         className="alert-dialog-close"
-        data-h2-padding="b(all, xs)"
-        data-h2-position="b(absolute)"
-        data-h2-location="b(top-right, s)"
-        data-h2-font-color="b(black)"
+        data-h2-padding="base(x.5)"
+        data-h2-position="base(absolute)"
+        data-h2-offset="base(x.5, x.5, auto, auto)"
+        data-h2-color="base(dt-black)"
       >
-        <span data-h2-visibility="b(invisible)">
+        <span data-h2-visibility="base(invisible)">
           {intl.formatMessage({
             defaultMessage: "Close dialog",
             description: "Text for the button to close a modal dialog.",
           })}
         </span>
-        <XIcon className="alert-dialog-close__icon" />
+        <XMarkIcon className="alert-dialog-close__icon" />
       </button>
       <AlertDialogLabel
-        data-h2-font-weight="b(700)"
-        data-h2-font-size="b(h3)"
-        data-h2-margin="b(all, none)"
+        data-h2-font-weight="base(700)"
+        data-h2-font-size="base(h3)"
+        data-h2-margin="base(0)"
       >
         {children}
       </AlertDialogLabel>

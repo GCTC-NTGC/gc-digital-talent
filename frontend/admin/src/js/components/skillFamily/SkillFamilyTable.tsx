@@ -12,6 +12,7 @@ import {
   useAllSkillFamiliesQuery,
 } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
+import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<AllSkillFamiliesQuery["skillFamilies"]>>;
 
@@ -30,6 +31,7 @@ export const SkillFamilyTable: React.FC<
 > = ({ skillFamilies, editUrlRoot }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useAdminRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
@@ -77,7 +79,19 @@ export const SkillFamilyTable: React.FC<
 
   const data = useMemo(() => skillFamilies.filter(notEmpty), [skillFamilies]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <Table
+      data={data}
+      columns={columns}
+      addBtn={{
+        path: paths.skillFamilyCreate(),
+        label: intl.formatMessage({
+          defaultMessage: "Create Skill Family",
+          description: "Heading displayed above the Create Skill Family form.",
+        }),
+      }}
+    />
+  );
 };
 
 export const SkillFamilyTableApi: React.FunctionComponent = () => {

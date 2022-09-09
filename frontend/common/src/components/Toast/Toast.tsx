@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ToastContainer, Slide } from "react-toastify";
-import { XCircleIcon } from "@heroicons/react/solid";
+import { XCircleIcon } from "@heroicons/react/24/solid";
 
 import "react-toastify/dist/ReactToastify.min.css";
 import "./toast.css";

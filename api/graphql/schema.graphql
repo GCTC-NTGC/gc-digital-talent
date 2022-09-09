@@ -16,6 +16,9 @@ scalar PhoneNumber
 "A human readable ID"
 scalar KeyString
 
+"Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org."
+scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
+
 type LocalizedString {
     en: String
     fr: String
@@ -47,7 +50,7 @@ type User {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -66,10 +69,10 @@ type User {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean
-        @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
     department: Department @belongsTo
+    hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+    priorityNumber: String @rename(attribute: "priority_number")
 
     # Employment equity
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -105,7 +108,7 @@ type User {
     # Profile Status
     isProfileComplete: Boolean
     expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
-
+    priorityWeight: Int @rename(attribute: "priority_weight")
 }
 
 enum ProvinceOrTerritory {
@@ -164,6 +167,12 @@ enum CitizenshipStatus {
     OTHER
 }
 
+enum ArmedForcesStatus {
+    VETERAN
+    MEMBER
+    NON_CAF
+}
+
 type Applicant {
     id: ID!
 
@@ -176,14 +185,15 @@ type Applicant {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
     department: Department @belongsTo
+    hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+    priorityNumber: String @rename(attribute: "priority_number")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -224,7 +234,7 @@ type Applicant {
     workExperiences: [WorkExperience]
 
     expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
-
+    priorityWeight: Int @rename(attribute: "priority_weight")
 }
 
 type UserPublicProfile {
@@ -247,11 +257,23 @@ type Pool {
     poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
     keyTasks: LocalizedString @rename(attribute: "key_tasks")
     status: PoolStatus @rename(attribute: "pool_status")
+    stream: PoolStream
 }
 
 enum PoolStatus {
     TAKING_APPLICATIONS
     NOT_TAKING_APPLICATIONS
+}
+
+enum PoolStream {
+    BUSINESS_ADVISORY_SERVICES
+    DATABASE_MANAGEMENT
+    ENTERPRISE_ARCHITECTURE
+    INFRASTRUCTURE_OPERATIONS
+    PLANNING_AND_REPORTING
+    PROJECT_PORTFOLIO_MANAGEMENT
+    SECURITY
+    SOFTWARE_SOLUTIONS
 }
 
 type PoolAdvertisement {
@@ -270,6 +292,7 @@ type PoolAdvertisement {
     advertisementStatus: AdvertisementStatus @rename(attribute: "advertisement_status")
     essentialSkills: [Skill!] @belongsToMany
     nonessentialSkills: [Skill!] @belongsToMany
+    stream: PoolStream
 }
 
 enum AdvertisementStatus {
@@ -280,15 +303,21 @@ enum AdvertisementStatus {
 }
 
 enum PoolCandidateStatus {
-    AVAILABLE
-    PLACED_INDETERMINATE
-    PLACED_TERM
-    NO_LONGER_INTERESTED
-    UNAVAILABLE
-    EXPIRED
-    PLACED_CASUAL
     DRAFT
     DRAFT_EXPIRED
+    NEW_APPLICATION
+    APPLICATION_REVIEW
+    SCREENED_IN
+    SCREENED_OUT_APPLICATION
+    UNDER_ASSESSMENT
+    SCREENED_OUT_ASSESSMENT
+    QUALIFIED_AVAILABLE
+    QUALIFIED_UNAVAILABLE
+    QUALIFIED_WITHDREW
+    PLACED_CASUAL
+    PLACED_TERM
+    PLACED_INDETERMINATE
+    EXPIRED
 }
 
 enum SecurityStatus{
@@ -307,8 +336,9 @@ enum PoolAdvertisementLanguage {
 
 type PoolCandidate {
     id: ID!
-    pool: Pool @belongsTo
-    user: Applicant @belongsTo(relation: "user")
+    pool: Pool! @belongsTo
+    poolAdvertisement: PoolAdvertisement @belongsTo(relation: "pool")
+    user: Applicant! @belongsTo(relation: "user")
 
     # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
@@ -332,6 +362,8 @@ type PoolCandidate {
     notes: String
     archivedAt: DateTime @rename(attribute: "archived_at")
     submittedAt: DateTime @rename(attribute: "submitted_at")
+
+    profileSnapshot: JSON @rename(attribute: "profile_snapshot")
     signature: String
 }
 
@@ -740,19 +772,31 @@ input PoolsHasMany {
 When creating a User, name is required.
 """
 input CreateUserInput {
-    sub: String @rules(apply: ["sometimes","unique:users,sub"])
+    sub: String @rules(
+        apply: ["sometimes","unique:users,sub"]
+        messages: [{
+            rule: "unique"
+            message: "This user identifier (sub) is already in use"
+        }]
+    )
     roles: [Role] = []
 
     # Personal info
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
-    email: Email @rules(apply: ["sometimes","unique:users,email"])
+    email: Email @rules(
+        apply: ["sometimes","unique:users,email"],
+        messages: [{
+            rule: "unique"
+            message: "This email address is already in use"
+        }]
+    )
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -768,9 +812,10 @@ input CreateUserInput {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
     department: DepartmentBelongsTo
+    hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+    priorityNumber: String @rename(attribute: "priority_number")
 
     # Employment equity
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -813,7 +858,7 @@ input UpdateUserAsAdminInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -829,9 +874,10 @@ input UpdateUserAsAdminInput {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
     department: DepartmentBelongsTo
+    hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+    priorityNumber: String @rename(attribute: "priority_number")
 
     # Employment equity
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -870,7 +916,7 @@ input UpdateUserAsUserInput {
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -886,9 +932,10 @@ input UpdateUserAsUserInput {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
     department: DepartmentBelongsTo
+    hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
+    priorityNumber: String @rename(attribute: "priority_number")
 
     # Employment equity
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -962,18 +1009,7 @@ input CreatePoolCandidateAsAdminInput {
     user: ConnectOrCreateBelongsTo! # TODO: This should be switched to UserBelongsTo as soon as possible. Permission to create a PoolCandidate shouldn't imply permission to create a User. See https://github.com/GCTC-NTGC/gc-digital-talent/issues/2356
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
-    isWoman: Boolean @rename(attribute: "is_woman")
-    hasDisability: Boolean @rename(attribute: "has_disability")
-    isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-    hasDiploma: Boolean @rename(attribute: "has_diploma")
-    languageAbility: LanguageAbility @rename(attribute: "language_ability")
-    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
-    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-    expectedClassifications: ClassificationBelongsToMany
-    cmoAssets: CmoAssetBelongsToMany
-    status: PoolCandidateStatus = AVAILABLE
+    status: PoolCandidateStatus = NEW_APPLICATION
         @rename(attribute: "pool_candidate_status")
     notes: String
 }
@@ -1006,17 +1042,6 @@ input UpdateCmoAssetInput {
 input UpdatePoolCandidateAsAdminInput {
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
-    isWoman: Boolean @rename(attribute: "is_woman")
-    hasDisability: Boolean @rename(attribute: "has_disability")
-    isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-    hasDiploma: Boolean @rename(attribute: "has_diploma")
-    languageAbility: LanguageAbility @rename(attribute: "language_ability")
-    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
-    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-    expectedClassifications: ClassificationBelongsToMany
-    cmoAssets: CmoAssetBelongsToMany
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
     notes: String
 }
@@ -1031,6 +1056,7 @@ input UpdatePoolInput {
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
     status: PoolStatus @rename(attribute: "pool_status")
+    stream: PoolStream
 }
 
 input CreateDepartmentInput {
@@ -1077,7 +1103,7 @@ input CreateApplicantFilterInput {
     skills: SkillBelongsToMany
     pools: PoolBelongsToMany
     citizenship: CitizenshipStatus
-    isVeteran: Boolean @rename(attribute: "is_veteran")
+    armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 }
 
 input ApplicantFilterBelongsTo {
@@ -1105,7 +1131,13 @@ input SkillBelongsToMany {
     sync: [ID!]
 }
 input CreateSkillFamilyInput {
-    key: KeyString! @rules(apply: ["unique:skill_families,key"])
+    key: KeyString! @rules(
+        apply: ["unique:skill_families,key"]
+        messages: [{
+            rule: "unique"
+            message: "This skill family key string is already in use"
+        }]
+    )
     name: LocalizedStringInput!
     description: LocalizedStringInput
     skills: SkillBelongsToMany
@@ -1228,6 +1260,7 @@ input UpdatePoolAdvertisementInput {
     # Pool name and classification
     name: LocalizedStringInput
     classifications: ClassificationBelongsToMany
+    stream: PoolStream
     # Closing date
     expiryDate: DateTimeTz @rename(attribute: "expiry_date") @rules(apply: ["after:today"])
     # Your impact
@@ -1294,7 +1327,11 @@ type Mutation {
     closePoolAdvertisement(id: ID!): PoolAdvertisement @guard @can(ability: "closePoolAdvertisement", find: "id", model: "Pool")
     deletePoolAdvertisement(id: ID!): PoolAdvertisement @delete(model: "Pool", globalId: false) @guard @can(ability: "delete", find: "id", model: "Pool")
 
+    # Application mutations
     archiveApplication(id:ID!): PoolCandidate @guard @can(ability: "archiveApplication", find: "id")
     createApplication(userId:ID!, poolId:ID!): PoolCandidate
-    submitApplication(applicationId: ID!, signature: String!): PoolCandidate
+    deleteApplication(id: ID!): Boolean @guard @can(ability: "deleteApplication", find: "id", model: "PoolCandidate")
+    submitApplication(id: ID!, signature: String!): PoolCandidate
+
+    testPoolCandidateSnapshot(id:ID!): PoolCandidate @guard @can(ability: "update", find: "id")
 }

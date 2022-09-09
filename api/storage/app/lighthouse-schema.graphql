@@ -15,12 +15,13 @@ type Applicant {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
-  isVeteran: Boolean
+  armedForcesStatus: ArmedForcesStatus
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
   department: Department
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -51,6 +52,7 @@ type Applicant {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   expectedGenericJobTitles: [GenericJobTitle]
+  priorityWeight: Int
 }
 
 type ApplicantFilter {
@@ -80,6 +82,12 @@ input ApplicantFilterInput {
   expectedClassifications: [ClassificationFilterInput]
   skills: [IdInput]
   pools: [IdInput]
+}
+
+enum ArmedForcesStatus {
+  VETERAN
+  MEMBER
+  NON_CAF
 }
 
 type AwardExperience implements Experience {
@@ -230,7 +238,7 @@ input CreateApplicantFilterInput {
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
-  isVeteran: Boolean
+  armedForcesStatus: ArmedForcesStatus
 }
 
 input CreateClassificationInput {
@@ -262,18 +270,7 @@ input CreatePoolCandidateAsAdminInput {
   user: ConnectOrCreateBelongsTo!
   cmoIdentifier: ID
   expiryDate: Date
-  isWoman: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  hasDiploma: Boolean
-  languageAbility: LanguageAbility
-  locationPreferences: [WorkRegion]
-  acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
-  status: PoolCandidateStatus = AVAILABLE
+  status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
 }
 
@@ -339,7 +336,7 @@ input CreateUserInput {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
-  isVeteran: Boolean
+  armedForcesStatus: ArmedForcesStatus
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -351,9 +348,10 @@ input CreateUserInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -523,6 +521,11 @@ input IdInput {
   id: ID!
 }
 
+"""
+Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org.
+"""
+scalar JSON
+
 enum JobLookingStatus {
   ACTIVELY_LOOKING
   OPEN_TO_OPPORTUNITIES
@@ -613,7 +616,9 @@ type Mutation {
   deletePoolAdvertisement(id: ID!): PoolAdvertisement
   archiveApplication(id: ID!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
-  submitApplication(applicationId: ID!, signature: String!): PoolCandidate
+  deleteApplication(id: ID!): Boolean
+  submitApplication(id: ID!, signature: String!): PoolCandidate
+  testPoolCandidateSnapshot(id: ID!): PoolCandidate
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -762,6 +767,7 @@ type Pool {
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
   status: PoolStatus
+  stream: PoolStream
 }
 
 type PoolAdvertisement {
@@ -780,6 +786,7 @@ type PoolAdvertisement {
   advertisementStatus: AdvertisementStatus
   essentialSkills: [Skill!]
   nonessentialSkills: [Skill!]
+  stream: PoolStream
 }
 
 enum PoolAdvertisementLanguage {
@@ -800,8 +807,9 @@ input PoolBelongsToMany {
 
 type PoolCandidate {
   id: ID!
-  pool: Pool
-  user: Applicant
+  pool: Pool!
+  poolAdvertisement: PoolAdvertisement
+  user: Applicant!
   cmoIdentifier: ID
   expiryDate: Date
   isWoman: Boolean
@@ -819,6 +827,7 @@ type PoolCandidate {
   notes: String
   archivedAt: DateTime
   submittedAt: DateTime
+  profileSnapshot: JSON
   signature: String
 }
 
@@ -869,20 +878,37 @@ enum PoolCandidateSearchStatus {
 }
 
 enum PoolCandidateStatus {
-  AVAILABLE
-  PLACED_INDETERMINATE
-  PLACED_TERM
-  NO_LONGER_INTERESTED
-  UNAVAILABLE
-  EXPIRED
-  PLACED_CASUAL
   DRAFT
   DRAFT_EXPIRED
+  NEW_APPLICATION
+  APPLICATION_REVIEW
+  SCREENED_IN
+  SCREENED_OUT_APPLICATION
+  UNDER_ASSESSMENT
+  SCREENED_OUT_ASSESSMENT
+  QUALIFIED_AVAILABLE
+  QUALIFIED_UNAVAILABLE
+  QUALIFIED_WITHDREW
+  PLACED_CASUAL
+  PLACED_TERM
+  PLACED_INDETERMINATE
+  EXPIRED
 }
 
 enum PoolStatus {
   TAKING_APPLICATIONS
   NOT_TAKING_APPLICATIONS
+}
+
+enum PoolStream {
+  BUSINESS_ADVISORY_SERVICES
+  DATABASE_MANAGEMENT
+  ENTERPRISE_ARCHITECTURE
+  INFRASTRUCTURE_OPERATIONS
+  PLANNING_AND_REPORTING
+  PROJECT_PORTFOLIO_MANAGEMENT
+  SECURITY
+  SOFTWARE_SOLUTIONS
 }
 
 input PoolsHasMany {
@@ -1139,6 +1165,7 @@ input UpdateExperienceSkills {
 input UpdatePoolAdvertisementInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
+  stream: PoolStream
   expiryDate: DateTimeTz
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
@@ -1153,17 +1180,6 @@ input UpdatePoolAdvertisementInput {
 input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID
   expiryDate: Date
-  isWoman: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  hasDiploma: Boolean
-  languageAbility: LanguageAbility
-  locationPreferences: [WorkRegion]
-  acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus
   notes: String
 }
@@ -1183,6 +1199,7 @@ input UpdatePoolInput {
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
   status: PoolStatus
+  stream: PoolStream
 }
 
 input UpdateSkillFamilyInput {
@@ -1211,7 +1228,7 @@ input UpdateUserAsAdminInput {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
-  isVeteran: Boolean
+  armedForcesStatus: ArmedForcesStatus
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1223,9 +1240,10 @@ input UpdateUserAsAdminInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -1256,7 +1274,7 @@ input UpdateUserAsUserInput {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
-  isVeteran: Boolean
+  armedForcesStatus: ArmedForcesStatus
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1268,9 +1286,10 @@ input UpdateUserAsUserInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -1304,7 +1323,7 @@ type User {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
-  isVeteran: Boolean
+  armedForcesStatus: ArmedForcesStatus
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -1316,9 +1335,10 @@ type User {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
-  interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
   department: Department
+  hasPriorityEntitlement: Boolean
+  priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -1342,6 +1362,7 @@ type User {
   pools: [Pool]
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
+  priorityWeight: Int
 }
 
 input UserBelongsTo {

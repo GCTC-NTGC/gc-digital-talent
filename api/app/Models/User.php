@@ -37,11 +37,12 @@ use Illuminate\Support\Facades\DB;
  * @property string $verbal_level
  * @property string $estimated_language_ability
  * @property string $is_gov_employee
- * @property string $interested_in_later_or_secondment
+ * @property boolean $has_priority_entitlement
+ * @property string $priority_number
  * @property string $department
  * @property string $current_classification
  * @property string $citizenship
- * @property boolean $is_veteran
+ * @property string $armed_forces_status
  * @property boolean $is_woman
  * @property boolean $has_disability
  * @property boolean $is_indigenous
@@ -54,6 +55,7 @@ use Illuminate\Support\Facades\DB;
  * @property boolean $would_accept_temporary
  * @property array $accepted_operational_requirements
  * @property string $gov_employee_type
+ * @property int $priority_weight
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -155,11 +157,12 @@ class User extends Model implements Authenticatable
                 is_null($this->attributes['looking_for_bilingual'])
             ) or
             is_null($this->attributes['is_gov_employee']) or
+            is_null($this->attributes['has_priority_entitlement']) or
             is_null($this->attributes['location_preferences']) or
             empty($this->attributes['location_preferences']) or
             is_null($this->attributes['would_accept_temporary']) or
             is_null($this->attributes['citizenship']) or
-            is_null($this->attributes['is_veteran']) or
+            is_null($this->attributes['armed_forces_status']) or
             $this->expectedGenericJobTitles->isEmpty()
         ) {
             return false;
@@ -183,12 +186,13 @@ class User extends Model implements Authenticatable
                 $query->orWhereNotNull('looking_for_bilingual');
             });
             $query->whereNotNull('is_gov_employee');
+            $query->whereNotNull('has_priority_entitlement');
             $query->whereNotNull('location_preferences');
             $query->whereJsonLength('location_preferences', '>', 0);
             $query->whereNotNull('would_accept_temporary');
             $query->has('expectedGenericJobTitles');
             $query->whereNotNull('citizenship');
-            $query->whereNotNull('is_veteran');
+            $query->whereNotNull('armed_forces_status');
         }
         return $query;
     }
@@ -272,7 +276,7 @@ class User extends Model implements Authenticatable
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-                'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE]
+                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE]
             ];
         }
         return $this->filterByPools($query, $poolFilters);

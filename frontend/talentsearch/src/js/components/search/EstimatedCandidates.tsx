@@ -15,54 +15,68 @@ const EstimatedCandidates: React.FunctionComponent<
   const intl = useIntl();
 
   return (
-    <div
-      data-h2-bg-color="b(white)"
-      data-h2-border="b(lightgray, all, solid, s)"
-      data-h2-shadow="b(m)"
-    >
+    <div data-h2-height="base(100%)" data-h2-position="base(relative)">
       <div
-        data-h2-bg-color="b(linear-70[lightpurple][lightnavy])"
-        data-h2-padding="b(top-bottom, s) b(left, s) b(right, s)"
+        data-h2-padding="base(x3, 0, 0, 0)"
+        data-h2-position="base(sticky)"
+        data-h2-offset="p-tablet(0, auto, auto, auto)"
       >
-        <p
-          data-h2-font-color="b(white)"
-          data-h2-font-size="b(h4)"
-          data-h2-margin="b(all, none)"
-          data-h2-font-weight="b(700)"
+        <div
+          data-h2-background-color="base(dt-white)"
+          data-h2-overflow="base(hidden, all)"
+          data-h2-radius="base(s)"
+          data-h2-shadow="base(l)"
         >
-          {intl.formatMessage({
-            defaultMessage: "Estimated Candidates",
-            description:
-              "Heading for total estimated candidates box next to search form.",
-          })}
-        </p>
-      </div>
-      <div
-        data-h2-margin="b(top-bottom, m) b(right-left, l)"
-        aria-live="polite"
-      >
-        <p data-h2-text-align="b(center)">
-          {updatePending ? (
-            <Spinner />
-          ) : (
-            <>
-              {intl.formatMessage(
-                {
-                  defaultMessage: `{candidateCount, plural,
-                      one {There is approximately <strong><testId>{candidateCount}</testId></strong> candidate right now who meets your criteria.}
-                      other {There are approximately <strong><testId>{candidateCount}</testId></strong> candidates right now who meet your criteria.}
-                    }`,
-                  description:
-                    "Message for total estimated candidates box next to search form.",
-                },
-                {
-                  testId,
-                  candidateCount,
-                },
+          <div
+            data-h2-background-color="base(dt-secondary)"
+            data-h2-padding="base(x1)"
+            data-h2-radius="base(s, s, 0, 0)"
+          >
+            <p
+              data-h2-text-align="base(center)"
+              data-h2-color="base(dt-white)"
+              data-h2-font-size="base(h5, 1.3)"
+              data-h2-font-weight="base(700)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Estimated Candidates",
+                id: "09x+E7",
+                description:
+                  "Heading for total estimated candidates box next to search form.",
+              })}
+            </p>
+          </div>
+          <div
+            data-h2-padding="base(x1)"
+            data-h2-radius="base(0, 0, s, s)"
+            aria-live="polite"
+            data-h2-text-align="base(center)"
+          >
+            <p>
+              {updatePending ? (
+                <Spinner />
+              ) : (
+                <>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: `{candidateCount, plural,
+                        one {There is approximately <strong><testId>{candidateCount}</testId></strong> candidate right now who meets your criteria.}
+                        other {There are approximately <strong><testId>{candidateCount}</testId></strong> candidates right now who meet your criteria.}
+                      }`,
+                      id: "ID8FNk",
+                      description:
+                        "Message for total estimated candidates box next to search form.",
+                    },
+                    {
+                      testId,
+                      candidateCount,
+                    },
+                  )}
+                </>
               )}
-            </>
-          )}
-        </p>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

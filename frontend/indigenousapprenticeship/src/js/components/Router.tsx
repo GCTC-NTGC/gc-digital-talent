@@ -75,7 +75,7 @@ export const Router: React.FC = () => {
         contentRoutes={routes(indigenousApprenticeshipPaths, locale)}
       />
       <Helmet>
-        <html lang={locale} />
+        <html lang={locale} data-h2 />
       </Helmet>
       <Toast />
     </ClientProvider>

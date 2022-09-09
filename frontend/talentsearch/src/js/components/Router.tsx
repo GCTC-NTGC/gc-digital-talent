@@ -41,32 +41,32 @@ const CreateAccount = React.lazy(
 const ProfilePage = React.lazy(
   () => import("./profile/ProfilePage/ProfilePage"),
 );
-const GovInfoFormContainer = React.lazy(
-  () => import("./GovernmentInfoForm/GovernmentInfoForm"),
+const GovernmentInfoFormPage = React.lazy(
+  () => import("./GovernmentInfoForm/GovernmentInfoFormPage"),
 );
-const LanguageInformationFormContainer = React.lazy(
-  () => import("./languageInformationForm/LanguageInformationForm"),
+const LanguageInformationFormPage = React.lazy(
+  () => import("./languageInformationForm/LanguageInformationFormPage"),
 );
-const WorkLocationPreferenceApi = React.lazy(
-  () => import("./workLocationPreferenceForm/WorkLocationPreferenceForm"),
+const WorkLocationPreferenceFormPage = React.lazy(
+  () => import("./workLocationPreferenceForm/WorkLocationPreferenceFormPage"),
 );
-const RoleSalaryFormContainer = React.lazy(
-  () => import("./roleSalaryForm/RoleSalaryForm"),
+const RoleSalaryFormPage = React.lazy(
+  () => import("./roleSalaryForm/RoleSalaryFormPage"),
 );
 const ExperienceFormContainer = React.lazy(
   () => import("./experienceForm/ExperienceForm"),
 );
-const WorkPreferencesApi = React.lazy(
-  () => import("./workPreferencesForm/WorkPreferencesForm"),
+const WorkPreferencesFormPage = React.lazy(
+  () => import("./workPreferencesForm/WorkPreferencesFormPage"),
 );
-const AboutMeFormContainer = React.lazy(
-  () => import("./aboutMeForm/AboutMeForm"),
+const AboutMeFormPage = React.lazy(
+  () => import("./aboutMeForm/AboutMeFormPage"),
 );
-const DiversityEquityInclusionFormApi = React.lazy(
-  () => import("./diversityEquityInclusion/DiversityEquityInclusionForm"),
+const EmploymentEquityFormPage = React.lazy(
+  () => import("./employmentEquityForm/EmploymentEquityFormPage"),
 );
-const ExperienceAndSkillsRouterApi = React.lazy(
-  () => import("./applicantProfile/ExperienceAndSkills"),
+const ExperienceAndSkillsPage = React.lazy(
+  () => import("./experienceAndSkills/ExperienceAndSkillsPage"),
 );
 
 /** Direct Intake */
@@ -80,6 +80,12 @@ const PoolApplicationThanksPage = React.lazy(
 );
 const PoolAdvertisementPage = React.lazy(
   () => import("./pool/PoolAdvertisementPage"),
+);
+const SignAndSubmitPage = React.lazy(
+  () => import("./signAndSubmit/SignAndSubmitPage"),
+);
+const MyApplicationsPage = React.lazy(
+  () => import("./applications/MyApplicationsPage"),
 );
 
 const talentRoutes = (
@@ -149,7 +155,7 @@ const profileRoutes = (
     action: (context) => {
       const userId = context.params.userId as string;
       return {
-        component: <GovInfoFormContainer meId={userId} />,
+        component: <GovernmentInfoFormPage meId={userId} />,
         authorizedRoles: [Role.Applicant],
       };
     },
@@ -157,21 +163,21 @@ const profileRoutes = (
   {
     path: profilePaths.languageInformation(":userId"),
     action: () => ({
-      component: <LanguageInformationFormContainer />,
+      component: <LanguageInformationFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.workLocation(":userId"),
     action: () => ({
-      component: <WorkLocationPreferenceApi />,
+      component: <WorkLocationPreferenceFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.roleSalary(":userId"),
     action: () => ({
-      component: <RoleSalaryFormContainer />,
+      component: <RoleSalaryFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
@@ -213,28 +219,28 @@ const profileRoutes = (
   {
     path: profilePaths.workPreferences(":userId"),
     action: () => ({
-      component: <WorkPreferencesApi />,
+      component: <WorkPreferencesFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.aboutMe(":userId"),
     action: () => ({
-      component: <AboutMeFormContainer />,
+      component: <AboutMeFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.diversityEquityInclusion(":userId"),
     action: () => ({
-      component: <DiversityEquityInclusionFormApi />,
+      component: <EmploymentEquityFormPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.skillsAndExperiences(":userId"),
     action: () => ({
-      component: <ExperienceAndSkillsRouterApi />,
+      component: <ExperienceAndSkillsPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
@@ -440,9 +446,19 @@ const directIntakeRoutes = (
     },
   },
   {
+    path: directIntakePaths.signAndSubmit(":id"),
+    action: (context) => {
+      const applicationId = context.params.id as string;
+      return {
+        component: <SignAndSubmitPage id={applicationId} />,
+        authorizedRoles: [Role.Applicant],
+      };
+    },
+  },
+  {
     path: directIntakePaths.applications(":userId"),
     action: () => ({
-      component: <div />,
+      component: <MyApplicationsPage />,
       authorizedRoles: [Role.Applicant],
     }),
   },
@@ -469,6 +485,7 @@ export const Router: React.FC = () => {
       href={talentPaths.search()}
       text={intl.formatMessage({
         defaultMessage: "Search",
+        id: "OezjH3",
         description: "Label displayed on the Search menu item.",
       })}
     />,
@@ -477,6 +494,7 @@ export const Router: React.FC = () => {
       href={talentPaths.request()}
       text={intl.formatMessage({
         defaultMessage: "Request",
+        id: "i7hOcw",
         description: "Label displayed on the Request menu item.",
       })}
     />,
@@ -489,6 +507,7 @@ export const Router: React.FC = () => {
         href={directIntakePaths.allPools()}
         text={intl.formatMessage({
           defaultMessage: "Browse opportunities",
+          id: "SXvOXV",
           description: "Label displayed on the browse pools menu item.",
         })}
       />,
@@ -501,6 +520,7 @@ export const Router: React.FC = () => {
           href={directIntakePaths.applications(data.me.id)}
           text={intl.formatMessage({
             defaultMessage: "My applications",
+            id: "ioghLh",
             description:
               "Label displayed on the users pool applications menu item.",
           })}
@@ -516,6 +536,7 @@ export const Router: React.FC = () => {
         href={profilePaths.home(data.me.id)}
         text={intl.formatMessage({
           defaultMessage: "My profile",
+          id: "5lBIzg",
           description: "Label displayed on the applicant profile menu item.",
         })}
       />,
@@ -528,6 +549,7 @@ export const Router: React.FC = () => {
       href={authPaths.login()}
       text={intl.formatMessage({
         defaultMessage: "Login",
+        id: "md7Klw",
         description: "Label displayed on the login link menu item.",
       })}
     />,
@@ -536,6 +558,7 @@ export const Router: React.FC = () => {
       href={authPaths.register()}
       text={intl.formatMessage({
         defaultMessage: "Register",
+        id: "LMGaDQ",
         description: "Label displayed on the register link menu item.",
       })}
     />,
@@ -552,6 +575,7 @@ export const Router: React.FC = () => {
         }}
         text={intl.formatMessage({
           defaultMessage: "Logout",
+          id: "3vDhoc",
           description: "Label displayed on the logout link menu item.",
         })}
       />,

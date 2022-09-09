@@ -93,14 +93,17 @@ const AddSkillsToExperience: React.FunctionComponent<
   const tabs = [
     intl.formatMessage({
       defaultMessage: "My frequent skills",
+      id: "fUQPUr",
       description: "Tab name for a list of frequently used skills",
     }),
     intl.formatMessage({
       defaultMessage: "Mainstream skills",
+      id: "RKdRiG",
       description: "Tab name for a list of mainstream skills",
     }),
     intl.formatMessage({
       defaultMessage: "Search by keyword",
+      id: "WjREkG",
       description: "Tab name for a box to search for skills",
     }),
   ];
@@ -108,10 +111,17 @@ const AddSkillsToExperience: React.FunctionComponent<
   return (
     <>
       <AddedSkills skills={addedSkills || []} onRemoveSkill={onRemoveSkill} />
-      <hr />
+      <hr
+        data-h2-background-color="base(dt-gray)"
+        data-h2-height="base(1px)"
+        data-h2-width="base(100%)"
+        data-h2-border="base(none)"
+        data-h2-margin="base(x1, 0)"
+      />
       <h4>
         {intl.formatMessage({
           defaultMessage: "Add Skills",
+          id: "2SNKYg",
           description: "Section header for adding skills to this experience",
         })}
       </h4>
@@ -129,6 +139,7 @@ const AddSkillsToExperience: React.FunctionComponent<
               title={intl.formatMessage(
                 {
                   defaultMessage: "Frequently used skills ({skillCount})",
+                  id: "EYCY8j",
                   description:
                     "Section header for a list of frequently used skills",
                 },
@@ -144,6 +155,7 @@ const AddSkillsToExperience: React.FunctionComponent<
             <Pagination
               ariaLabel={intl.formatMessage({
                 defaultMessage: "Frequent skills results",
+                id: "Y+d/yO",
               })}
               color="primary"
               mode="outline"
@@ -165,6 +177,7 @@ const AddSkillsToExperience: React.FunctionComponent<
               title={intl.formatMessage(
                 {
                   defaultMessage: "Results ({skillCount})",
+                  id: "l0IDWf",
                   description: "A title for a skill list of results",
                 },
                 {
@@ -179,6 +192,7 @@ const AddSkillsToExperience: React.FunctionComponent<
             <Pagination
               ariaLabel={intl.formatMessage({
                 defaultMessage: "Mainstream skills results",
+                id: "s4DN3G",
                 description:
                   "Accessibility label for a result set of skills, filtered to mainstream skills",
               })}
@@ -199,6 +213,7 @@ const AddSkillsToExperience: React.FunctionComponent<
               title={intl.formatMessage(
                 {
                   defaultMessage: "Results ({skillCount})",
+                  id: "nr62lc",
                   description: "A title for a list of results",
                 },
                 {
@@ -213,6 +228,7 @@ const AddSkillsToExperience: React.FunctionComponent<
             <Pagination
               ariaLabel={intl.formatMessage({
                 defaultMessage: "keyword search skills results",
+                id: "wziEOM",
                 description:
                   "Accessibility label for a result set of skills, searched by keyword",
               })}

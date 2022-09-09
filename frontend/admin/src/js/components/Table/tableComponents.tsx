@@ -34,7 +34,7 @@ export const IndeterminateCheckbox: React.FC<
 };
 
 export const Spacer: React.FC = ({ children }) => (
-  <div data-h2-margin="b(left, s)" style={{ flexShrink: 0 }}>
+  <div data-h2-margin="base(0, 0, 0, x.5)" style={{ flexShrink: 0 }}>
     {children}
   </div>
 );
@@ -47,7 +47,7 @@ export const ButtonIcon: React.FC<{
   return (
     <Icon
       style={{ height: "1em", width: "1rem" }}
-      data-h2-margin="b(right, xs)"
+      data-h2-margin="base(0, x.25, 0, 0)"
     />
   );
 };

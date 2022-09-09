@@ -4,8 +4,8 @@ import {
   HomeIcon,
   TicketIcon,
   UserIcon,
-  ViewGridIcon,
-} from "@heroicons/react/outline";
+  Squares2X2Icon,
+} from "@heroicons/react/24/outline";
 import { IconLink } from "@common/components/Link";
 import PageHeader from "@common/components/PageHeader";
 import Pending from "@common/components/Pending";
@@ -25,7 +25,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
 
   return (
     <DashboardContentContainer>
-      <PageHeader icon={HomeIcon}>
+      <PageHeader data-h2-padding="base(x2, 0, x1, 0)" icon={HomeIcon}>
         {intl.formatMessage(
           {
             defaultMessage: "Welcome back, {name}",
@@ -51,17 +51,17 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
         })}
       </p>
       <div
-        data-h2-display="b(flex)"
-        data-h2-flex-wrap="b(wrap)"
-        data-h2-margin="b(top-bottom, m)"
+        data-h2-display="base(flex)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-margin="base(x2, 0, 0, 0)"
       >
-        <span data-h2-margin="b(bottom-right, s)">
+        <span data-h2-margin="base(0, x.5, x.5, 0)">
           <IconLink
             mode="solid"
             color="secondary"
             type="button"
             href={adminRoutes.poolTable()}
-            icon={ViewGridIcon}
+            icon={Squares2X2Icon}
           >
             {intl.formatMessage({
               defaultMessage: "Manage pools",
@@ -70,7 +70,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
             })}
           </IconLink>
         </span>
-        <span data-h2-margin="b(bottom-right, s)">
+        <span data-h2-margin="base(0, x.5, x.5, 0)">
           <IconLink
             mode="solid"
             color="secondary"
@@ -85,7 +85,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
             })}
           </IconLink>
         </span>
-        <span data-h2-margin="b(bottom-right, s)">
+        <span data-h2-margin="base(0, x.5, x.5, 0)">
           <IconLink
             mode="solid"
             color="secondary"

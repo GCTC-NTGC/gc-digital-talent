@@ -3,6 +3,7 @@ import { useState } from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
+import SkillPicker from "@common/components/skills/SkillPicker";
 import {
   AdvertisementStatus,
   PoolAdvertisement,
@@ -11,7 +12,6 @@ import {
 } from "../../../api/generated";
 
 import { SectionMetadata } from "./EditPool";
-import AddSkillsToPool from "./AddSkillsToPool";
 import { useEditPoolContext } from "./EditPoolContext";
 
 export type AssetSkillsSubmitData = Pick<
@@ -59,21 +59,21 @@ export const AssetSkillsSection = ({
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
+        <h2 data-h2-margin="base(x3, 0, x1, 0)" data-h2-font-size="base(p)">
           {sectionMetadata.title}
         </h2>
       </TableOfContents.Heading>
-      <p>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "Select skills that will improve the chances of quality matches with managers. These can typically be learned on the job and are not necessary to be accepted into the pool.",
           description: "Helper message for filling in the pool asset skills",
         })}
       </p>
-      <AddSkillsToPool
+      <SkillPicker
         selectedSkills={selectedSkills}
         skills={skills}
-        onChangeSelectedSkills={handleChangeSelectedSkills}
+        onChange={handleChangeSelectedSkills}
         idPrefix="asset"
         disabled={formDisabled}
       />

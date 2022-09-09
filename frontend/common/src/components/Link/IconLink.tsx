@@ -3,7 +3,7 @@ import Link from "./Link";
 import type { LinkProps } from "./Link";
 
 export interface IconLinkProps extends LinkProps {
-  icon?: React.FC<{ className?: string; style?: Record<string, string> }>;
+  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
 const IconLink: React.FC<IconLinkProps> = ({
@@ -16,21 +16,20 @@ const IconLink: React.FC<IconLinkProps> = ({
   return (
     <Link block={block} {...rest}>
       <span
-        data-h2-display="b(flex)"
-        data-h2-align-items="b(center)"
-        {...(block
-          ? {
-              "data-h2-justify-content": "b(center)",
-            }
-          : null)}
+        data-h2-flex-grid="base(center, 0, x.4, 0)"
+        data-h2-justify-content="base(center)"
       >
         {Icon && (
-          <Icon
-            data-h2-margin="b(right, xs)"
-            style={{ height: "1rem", width: "1rem" }}
-          />
+          <div data-h2-flex-item="base(content)">
+            <Icon
+              data-h2-width="base(x1)"
+              data-h2-vertical-align="base(bottom)"
+            />
+          </div>
         )}
-        <span>{children}</span>
+        <div data-h2-flex-item="base(content)">
+          <span data-h2-text-decoration="base(underline)">{children}</span>
+        </div>
       </span>
     </Link>
   );

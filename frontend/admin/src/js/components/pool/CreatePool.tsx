@@ -12,8 +12,7 @@ import PageHeader from "@common/components/PageHeader/PageHeader";
 import Breadcrumbs, {
   BreadcrumbsProps,
 } from "@common/components/Breadcrumbs/Breadcrumbs";
-import { ViewGridIcon } from "@heroicons/react/outline";
-import { ViewGridIcon as SolidGridIcon } from "@heroicons/react/solid";
+import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import Link from "@common/components/Link/Link";
 import { getLocalizedName } from "@common/helpers/localize";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -102,7 +101,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         description: "Breadcrumb title for the pools page link.",
       }),
       href: paths.poolTable(),
-      icon: <SolidGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage({
@@ -137,29 +135,23 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
 
   return (
-    <section>
-      <PageHeader icon={ViewGridIcon}>
+    <section data-h2-container="base(left, small, 0)">
+      <PageHeader icon={Squares2X2Icon}>
         {intl.formatMessage({
           defaultMessage: "Create New Pool",
           description: "Header for page to create pool advertisements",
         })}
       </PageHeader>
       <Breadcrumbs links={links} />
-      <div
-        data-h2-container="b(left, s)"
-        data-h2-bg-color="b(lightgray)"
-        data-h2-padding="b(all, xs)"
-        data-h2-margin="b(top, l)"
-        data-h2-radius="b(s)"
-      >
+      <div data-h2-margin="base(x2, 0, 0, 0)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h3 data-h2-margin="b(top-bottom, xs)">
+            <h2 data-h2-margin="base(x.25, 0)" data-h2-font-size="base(h3)">
               {intl.formatMessage({
                 defaultMessage: "Start blank job poster",
                 description: "Form header to create new pool",
               })}
-            </h3>
+            </h2>
             <p>
               {intl.formatMessage({
                 defaultMessage: "Create a new job poster from scratch",
@@ -167,7 +159,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               })}
             </p>
             <Select
-              // data-h2-padding="b(right, l)"
               id="classification"
               label={intl.formatMessage({
                 defaultMessage: "Starting group and level",
@@ -214,7 +205,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         </FormProvider>
       </div>
 
-      <div data-h2-margin="b(top, l)">
+      <div data-h2-margin="base(x2, 0, 0, 0)">
         <Link
           type="button"
           href={paths.poolTable()}

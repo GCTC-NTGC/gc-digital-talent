@@ -1,28 +1,29 @@
 import React, { ReactNode } from "react";
 import { useIntl } from "react-intl";
-import { commonMessages, errorMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { Checklist, RadioGroup, Select } from "@common/components/form";
-import { FormProvider, useForm } from "react-hook-form";
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { compact, omit } from "lodash";
 import { getLocale } from "@common/helpers/localize";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
+import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import {
   BilingualEvaluation,
   EstimatedLanguageAbility,
   EvaluatedLanguageAbility,
   GetLanguageInformationQuery,
+  PoolCandidate,
   UpdateUserAsUserInput,
-  useGetLanguageInformationQuery,
+  UpdateUserAsUserMutation,
   User,
-  useUpdateLanguageInformationMutation,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
+import directIntakeRoutes from "../../directIntakeRoutes";
 import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<
@@ -88,12 +89,24 @@ const dataToFormValues = (
   };
 };
 
+export type LanguageInformationUpdateHandler = (
+  id: string,
+  data: UpdateUserAsUserInput,
+) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
+
 export const LanguageInformationForm: React.FunctionComponent<{
   initialData: User;
-  submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
-}> = ({ initialData, submitHandler }) => {
+  application?: PoolCandidate;
+  submitHandler: LanguageInformationUpdateHandler;
+}> = ({ initialData, application, submitHandler }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const profilePaths = applicantProfileRoutes(locale);
+  const directIntakePaths = directIntakeRoutes(locale);
+  const returnRoute =
+    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.poolApply(application.pool.id)
+      : profilePaths.home(initialData.id);
 
   const defaultValues = dataToFormValues(initialData);
 
@@ -101,8 +114,16 @@ export const LanguageInformationForm: React.FunctionComponent<{
     defaultValues,
   });
 
-  const onSubmit = (values: FormValues) =>
-    submitHandler(formValuesToSubmitData(values));
+  const onSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    await submitHandler(initialData.id, formValuesToSubmitData(formValues))
+      .then(() => {
+        navigate(returnRoute);
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
+      });
+  };
 
   // hooks to watch, needed for conditional rendering
   const [consideredLanguages, bilingualEvaluation] = methods.watch([
@@ -123,6 +144,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
       >
         {intl.formatMessage({
           defaultMessage: "Government of Canada language evaluation.",
+          id: "Ugr5Yt",
           description: "Message on links to the language evaluation tests",
         })}
       </a>
@@ -149,6 +171,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
       value: "lookingForEnglish",
       label: intl.formatMessage({
         defaultMessage: "English positions",
+        id: "JBRqD9",
         description: "Message for the english positions option",
       }),
     },
@@ -156,6 +179,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
       value: "lookingForFrench",
       label: intl.formatMessage({
         defaultMessage: "French positions",
+        id: "5pQfyv",
         description: "Message for the french positions option",
       }),
     },
@@ -163,6 +187,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
       value: "lookingForBilingual",
       label: intl.formatMessage({
         defaultMessage: "Bilingual positions (English and French)",
+        id: "Mu+1pI",
         description: "Message for the bilingual positions option",
       }),
     },
@@ -177,6 +202,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         {
           defaultMessage:
             "I am bilingual (En/Fr) and <strong>have</strong> completed an official <strong>ENGLISH</strong> <languageEvaluationPageLink></languageEvaluationPageLink>",
+          id: "ljnSYf",
           description:
             "Message for the completed english bilingual evaluation option",
         },
@@ -191,6 +217,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         {
           defaultMessage:
             "I am bilingual (En/Fr) and <strong>have</strong> completed an official <strong>FRENCH</strong> <languageEvaluationPageLink></languageEvaluationPageLink>",
+          id: "pak8ye",
           description:
             "Message for the completed french bilingual evaluation option",
         },
@@ -205,6 +232,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         {
           defaultMessage:
             "I am bilingual (En/Fr) and <strong>have NOT</strong> completed an official <languageEvaluationPageLink></languageEvaluationPageLink>",
+          id: "FfEyFv",
           description:
             "Message for the haven't completed bilingual evaluation option",
         },
@@ -236,6 +264,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         label: intl.formatMessage({
           defaultMessage:
             "Beginner <gray>- I have basic reading, writing and verbal communication skills.</gray>",
+          id: "ZuFBx5",
           description: "Message for the beginner language ability option",
         }),
       },
@@ -244,6 +273,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         label: intl.formatMessage({
           defaultMessage:
             "Intermediate <gray>- I have strong reading, writing and verbal communication skills.</gray>",
+          id: "t5G3Fz",
           description: "Message for the intermediate language ability option",
         }),
       },
@@ -251,10 +281,37 @@ export const LanguageInformationForm: React.FunctionComponent<{
         value: EstimatedLanguageAbility.Advanced,
         label: intl.formatMessage({
           defaultMessage: "Advanced <gray>- I am completely fluent.</gray>",
+          id: "paLFgh",
           description: "Message for the advanced language ability option",
         }),
       },
     ];
+
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            id: "mq4G8h",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              id: "FmD1sL",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
 
   return (
     <FormProvider {...methods}>
@@ -263,34 +320,43 @@ export const LanguageInformationForm: React.FunctionComponent<{
           description={intl.formatMessage({
             defaultMessage:
               "Use the form below to help us better understand your language preferences and capabilities",
+            id: "TGCq/w",
             description:
               "Description text for Profile Form wrapper in Language Information Form",
           })}
           title={intl.formatMessage({
             defaultMessage: "Language Information",
+            id: "R5aTZ9",
             description:
               "Title for Profile Form wrapper in Language Information Form",
           })}
+          cancelLink={{
+            href: returnRoute,
+          }}
           crumbs={[
+            ...applicationBreadcrumbs,
             {
               title: intl.formatMessage({
                 defaultMessage: "Language Information",
+                id: "/k21MP",
                 description:
                   "Display Text for Language Information Form Page Link",
               }),
             },
           ]}
+          prefixBreadcrumbs={!application}
         >
-          <div data-h2-padding="b(bottom, l)">
+          <div data-h2-padding="base(0, 0, x2, 0)">
             <div
-              data-h2-width="b(100) xs(75) m(50)"
-              data-h2-padding="b(top-bottom, s)"
+              data-h2-width="base(100%) p-tablet(75%) l-tablet(50%)"
+              data-h2-padding="base(x.5, 0)"
             >
               <Checklist
                 idPrefix="considered-position-languages"
                 legend={intl.formatMessage({
                   defaultMessage:
                     "Select the positions you would like to be considered for",
+                  id: "ntUOoz",
                   description:
                     "Legend for considered position languages check list in language information form",
                 })}
@@ -303,11 +369,12 @@ export const LanguageInformationForm: React.FunctionComponent<{
             </div>
             {consideredLanguages.includes("lookingForBilingual") && (
               <>
-                <div data-h2-padding="b(top, s)">
+                <div data-h2-padding="base(x.5, 0, 0, 0)">
                   <RadioGroup
                     idPrefix="bilingualEvaluation"
                     legend={intl.formatMessage({
                       defaultMessage: "Bilingual evaluation",
+                      id: "X354at",
                       description:
                         "Legend bilingual evaluation status in language information form",
                     })}
@@ -319,27 +386,30 @@ export const LanguageInformationForm: React.FunctionComponent<{
                   />
                 </div>
                 {bilingualEvaluation !== BilingualEvaluation.NotCompleted ? (
-                  <div data-h2-padding="b(top, s)">
+                  <div data-h2-padding="base(x.5, 0, 0, 0)">
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
                           "Please indicate the language levels you acquired from your Government of Canada language evaluation.",
+                        id: "Y7l4/n",
                         description:
                           "Text requesting language levels given from bilingual evaluation in language information form",
                       })}
                     </p>
-                    <div data-h2-flex-grid="b(normal, contained, flush, m)">
-                      <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
+                    <div data-h2-flex-grid="base(normal, 0, x1)">
+                      <div data-h2-flex-item="base(1of1) p-tablet(1of3) desktop(1of4)">
                         <Select
                           id="comprehensionLevel"
                           name="comprehensionLevel"
                           label={intl.formatMessage({
                             defaultMessage: "Comprehension",
+                            id: "W4Svkd",
                             description:
                               "Label displayed on the language information form comprehension field.",
                           })}
                           nullSelection={intl.formatMessage({
                             defaultMessage: "Select a level...",
+                            id: "8QN6ZC",
                             description:
                               "Placeholder displayed on the language information form comprehension field.",
                           })}
@@ -351,17 +421,19 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           options={EvaluatedAbilityItems}
                         />
                       </div>
-                      <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
+                      <div data-h2-flex-item="base(1of1) p-tablet(1of3) desktop(1of4)">
                         <Select
                           id="writtenLevel"
                           name="writtenLevel"
                           label={intl.formatMessage({
                             defaultMessage: "Written",
+                            id: "x5C9Ab",
                             description:
                               "Label displayed on the language information form written field.",
                           })}
                           nullSelection={intl.formatMessage({
                             defaultMessage: "Select a level...",
+                            id: "aQJOd0",
                             description:
                               "Placeholder displayed on the language information form written field.",
                           })}
@@ -373,17 +445,19 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           options={EvaluatedAbilityItems}
                         />
                       </div>
-                      <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
+                      <div data-h2-flex-item="base(1of1) p-tablet(1of3) desktop(1of4)">
                         <Select
                           id="verbalLevel"
                           name="verbalLevel"
                           label={intl.formatMessage({
                             defaultMessage: "Verbal",
+                            id: "rywI3C",
                             description:
                               "Label displayed on the language information form verbal field.",
                           })}
                           nullSelection={intl.formatMessage({
                             defaultMessage: "Select a level...",
+                            id: "Y7jEXr",
                             description:
                               "Placeholder displayed on the language information form verbal field.",
                           })}
@@ -398,12 +472,13 @@ export const LanguageInformationForm: React.FunctionComponent<{
                     </div>
                   </div>
                 ) : (
-                  <div data-h2-padding="b(top, s)">
-                    <p data-h2-padding="b(bottom, s)">
+                  <div data-h2-padding="base(x.5, 0, 0, 0)">
+                    <p data-h2-padding="base(0, 0, x.5, 0)">
                       {intl.formatMessage(
                         {
                           defaultMessage:
                             "If you want to find out your language proficiency levels, <selfAssessmentLink>click here to find out.</selfAssessmentLink>",
+                          id: "nVh2Qh",
                           description:
                             "Text including link to language proficiency evaluation in language information form",
                         },
@@ -416,6 +491,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                       idPrefix="estimatedLanguageAbility"
                       legend={intl.formatMessage({
                         defaultMessage: "Second language proficiency level",
+                        id: "T1TKNL",
                         description:
                           "Legend for second language proficiency level in language information form",
                       })}
@@ -434,67 +510,4 @@ export const LanguageInformationForm: React.FunctionComponent<{
   );
 };
 
-export const LanguageInformationFormContainer: React.FunctionComponent = () => {
-  const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
-
-  const [lookUpResult] = useGetLanguageInformationQuery();
-  const { data: userData, fetching, error } = lookUpResult;
-  const userId = userData?.me?.id;
-  const preProfileStatus = userData?.me?.isProfileComplete;
-
-  const [, executeMutation] = useUpdateLanguageInformationMutation();
-
-  const handleUpdateUser = (id: string, data: UpdateUserAsUserInput) =>
-    executeMutation({ id, user: data }).then((result) => {
-      if (result.data?.updateUserAsUser) {
-        return result.data.updateUserAsUser;
-      }
-      return Promise.reject(result.error);
-    });
-
-  const onSubmit = async (data: UpdateUserAsUserInput) => {
-    if (userId === undefined || userId === "") {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error: user not found",
-          description: "Message displayed to user if user is not found",
-        }),
-      );
-      return;
-    }
-    await handleUpdateUser(userId, data)
-      .then((res) => {
-        if (res.isProfileComplete) {
-          const currentProfileStatus = res.isProfileComplete;
-          const message = intl.formatMessage(profileMessages.profileCompleted);
-          if (!preProfileStatus && currentProfileStatus) {
-            toast.success(message);
-          }
-        }
-        navigate(paths.home(userId));
-        toast.success(intl.formatMessage(profileMessages.userUpdated));
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(profileMessages.updatingFailed));
-      });
-  };
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {userData?.me ? (
-        <LanguageInformationForm
-          initialData={userData.me}
-          submitHandler={onSubmit}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-export default LanguageInformationFormContainer;
+export default LanguageInformationForm;

@@ -35,19 +35,13 @@ const FilterBlock: React.FunctionComponent<{
     <div>
       <h3
         id={id}
-        data-h2-font-size="b(h4)"
-        data-h2-font-weight="b(700)"
-        data-h2-margin="b(bottom, m)"
+        data-h2-font-size="base(h6, 1)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x3, 0, x1, 0)"
       >
         {title}
       </h3>
-      <p
-        data-h2-font-size="b(caption)"
-        data-h2-margin="b(bottom, m)"
-        data-h2-padding="b(right, xl)"
-      >
-        {text}
-      </p>
+      <p data-h2-margin="base(0, 0, x1, 0)">{text}</p>
       {children && <div style={{ maxWidth: "30rem" }}>{children}</div>}
     </div>
   );
@@ -92,19 +86,23 @@ export interface SearchFormRef {
 const classificationLabels: Record<string, MessageDescriptor> = defineMessages({
   "IT-01": {
     defaultMessage: "IT-01: Technician ($60,000 to $78,000)",
+    id: "ZuyuPO",
     description: "IT-01 classification label including titles and salaries",
   },
   "IT-02": {
     defaultMessage: "IT-02: Analyst ($75,000 to $91,000)",
+    id: "UN2Ncr",
     description: "IT-02 classification label including titles and salaries",
   },
   "IT-03": {
     defaultMessage:
       "IT-03: Technical Advisor or Team Leader ($88,000 to $110,000)",
+    id: "Aa8SIB",
     description: "IT-03 classification label including titles and salaries",
   },
   "IT-04": {
     defaultMessage: "IT-04: Senior Advisor or Manager ($101,000 to $126,000)",
+    id: "5YzNJj",
     description: "IT-04 classification label including titles and salaries",
   },
 });
@@ -221,6 +219,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             name[locale] ??
             intl.formatMessage({
               defaultMessage: "Error: name not loaded",
+              id: "m+d9ls",
               description: "Error message for cmo asset filer on search form.",
             }),
         })),
@@ -234,12 +233,14 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             id="classificationsFilter"
             title={intl.formatMessage({
               defaultMessage: "Classification filter",
+              id: "TxVbLI",
               description:
                 "Heading for classification filter of the search form.",
             })}
             text={intl.formatMessage({
               defaultMessage:
                 "We use this filter to match candidates who express interest in a classification level, or certain expected salaries in these classifications.",
+              id: "dxv7Jx",
               description:
                 "Message describing the classification filter of the search form.",
             })}
@@ -248,10 +249,12 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               id="classifications"
               label={intl.formatMessage({
                 defaultMessage: "Classification filter",
+                id: "V8v+/g",
                 description: "Label for classification filter in search form.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more classification(s)",
+                id: "iNsxYi",
                 description:
                   "Placeholder for classification filter in search form.",
               })}
@@ -266,12 +269,14 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             id="educationRequirementFilter"
             title={intl.formatMessage({
               defaultMessage: "Education requirement for the job",
+              id: "AyP6Fr",
               description:
                 "Heading for education requirement filter of the search form.",
             })}
             text={intl.formatMessage({
               defaultMessage:
                 "Most jobs in the Digital community do not require a diploma, change this only if the job requires a diploma.",
+              id: "mhtcMd",
               description:
                 "Message describing the education requirement filter of the search form.",
             })}
@@ -280,6 +285,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               idPrefix="education_requirement"
               legend={intl.formatMessage({
                 defaultMessage: "Education Requirement filter",
+                id: "/JQ6DD",
                 description:
                   "Legend for the Education Requirement filter radio group",
               })}
@@ -291,6 +297,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   label: intl.formatMessage({
                     defaultMessage:
                       "Can accept a combination of work experience and education",
+                    id: "74WtLG",
                     description:
                       "Radio group option for education requirement filter in search form.",
                   }),
@@ -300,6 +307,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   label: intl.formatMessage({
                     defaultMessage:
                       "Required diploma from post-secondary institution",
+                    id: "KoPFx4",
                     description:
                       "Radio group option for education requirement filter in search form.",
                   }),
@@ -312,12 +320,14 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             title={intl.formatMessage({
               defaultMessage:
                 "Conditions of employment / Operational requirements",
+              id: "laGCzG",
               description:
                 "Heading for operational requirements section of the search form.",
             })}
             text={intl.formatMessage({
               defaultMessage:
                 "The selected conditions of employment will be compared to those chosen by candidates in their applications.",
+              id: "IT6Djp",
               description:
                 "Message describing the operational requirements filter in the search form.",
             })}
@@ -326,6 +336,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               idPrefix="operationalRequirements"
               legend={intl.formatMessage({
                 defaultMessage: "Conditions of employment",
+                id: "bKvvaI",
                 description:
                   "Legend for the Conditions of Employment filter checklist",
               })}
@@ -342,12 +353,14 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             id="workLocationFilter"
             title={intl.formatMessage({
               defaultMessage: "Work location",
+              id: "uP+q43",
               description:
                 "Heading for work location section of the search form.",
             })}
             text={intl.formatMessage({
               defaultMessage:
                 "If you have more detailed work location requirement, let us know in the comment section of the submission form.",
+              id: "v7sYE7",
               description:
                 "Message describing the work location filter in the search form.",
             })}
@@ -357,10 +370,12 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               name="workRegions"
               label={intl.formatMessage({
                 defaultMessage: "Region",
+                id: "F+WFWB",
                 description: "Label for work location filter in search form.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select a location...",
+                id: "asqSAJ",
                 description:
                   "Placeholder for work location filter in search form.",
               })}
@@ -374,12 +389,14 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             id="workingLanguageFilter"
             title={intl.formatMessage({
               defaultMessage: "Working language ability",
+              id: "p72C40",
               description:
                 "Heading for working language ability section of the search form.",
             })}
             text={intl.formatMessage({
               defaultMessage:
                 "Select the working language ability the candidate needs for this position.",
+              id: "RGzfes",
               description:
                 "Message describing the work language ability filter in the search form.",
             })}
@@ -388,6 +405,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               idPrefix="languageAbility"
               legend={intl.formatMessage({
                 defaultMessage: "Language",
+                id: "sk9CeW",
                 description:
                   "Legend for the Working Language Ability radio buttons",
               })}
@@ -398,6 +416,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   value: NullSelection,
                   label: intl.formatMessage({
                     defaultMessage: "Any language (English or French)",
+                    id: "YyHN1i",
                     description:
                       "No preference for language ability - will accept English or French",
                   }),
@@ -413,12 +432,14 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             id="employmentEquityFilter"
             title={intl.formatMessage({
               defaultMessage: "Employment equity",
+              id: "ITkmBQ",
               description:
                 "Heading for employment equity section of the search form.",
             })}
             text={intl.formatMessage({
               defaultMessage:
                 "Managers can request candidates by employment equity group(s) to address current of future representation gaps in the workforce. (Categories reflect EE data defined under the Public Service Employment Act and collected through the PSC application process. For consistency, this platform reflects the PSC's category terminology.)",
+              id: "Za/qCZ",
               description:
                 "Message describing the employment equity filter in the search form.",
             })}
@@ -427,12 +448,14 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               idPrefix="employmentEquity"
               legend={intl.formatMessage({
                 defaultMessage: "Employment equity groups",
+                id: "m3qn9l",
                 description: "Legend for the employment equity checklist",
               })}
               name="employmentEquity"
               context={intl.formatMessage({
                 defaultMessage:
                   "<strong>Note:</strong> If you select more than one employment equity group, ALL candidates who have self-declared as being members of ANY of the selected EE groups will be referred. If you have more detailed EE requirements, let us know in the comment section of the submission form.",
+                id: "GIPciq",
                 description:
                   "Context for employment equity filter in search form.",
               })}
@@ -466,12 +489,14 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             id="cmoAssetFilter"
             title={intl.formatMessage({
               defaultMessage: "Skill filters",
+              id: "kAieVP",
               description:
                 "Heading for skill filters section of the search form.",
             })}
             text={intl.formatMessage({
               defaultMessage:
                 "All applicants in this pool have been assessed for several soft skills.",
+              id: "1EyeE7",
               description:
                 "Message describing the skill filter in the search form.",
             })}
@@ -480,6 +505,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               idPrefix="cmoAssets"
               legend={intl.formatMessage({
                 defaultMessage: "Skills organized by stream",
+                id: "3nKkyo",
                 description: "Legend for Skills filter checklist",
               })}
               name="cmoAssets"

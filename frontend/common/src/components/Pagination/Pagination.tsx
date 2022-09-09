@@ -1,8 +1,4 @@
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  DotsHorizontalIcon,
-} from "@heroicons/react/solid";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Button } from "..";
@@ -65,165 +61,203 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
     onCurrentPageChange(currentPage - 1);
   };
 
+  let fontColor = {};
+  if (color === "black") {
+    fontColor = { "data-h2-color": "base(dt-black)" };
+  } else if (color === "white") {
+    fontColor = { "data-h2-color": "base(dt-white)" };
+  }
+
   const lastPage = paginationRange[paginationRange.length - 1];
   const isLeftArrowDisabled = currentPage === 1;
   const isRightArrowDisabled = currentPage === lastPage;
   return (
-    <div
-      data-h2-padding="b(all, s)"
-      data-h2-display="b(flex)"
-      data-h2-align-items="b(center)"
-      data-h2-flex-direction="b(column) s(row)"
-    >
-      <nav
-        role="navigation"
-        aria-label={ariaLabel}
-        data-h2-margin="b(bottom, s) s(right, s) s(bottom, none)"
+    <div>
+      <div
+        data-h2-flex-grid="base(center, 0, x2, x1)"
+        data-h2-justify-content="base(flex-end)"
       >
-        <ul
-          className="reset-ul"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(center)"
-          data-h2-margin="b(top, none)"
-          {...rest}
-        >
-          {/* left navigation arrow */}
-          <li data-h2-margin="b(all, none)">
-            <Button
-              classNames={
-                isLeftArrowDisabled || lessThanTwoItems ? "disabled" : ""
-              }
-              color={color}
-              mode={mode}
-              type="button"
-              disabled={isLeftArrowDisabled || lessThanTwoItems}
-              aria-disabled={isLeftArrowDisabled || lessThanTwoItems}
-              aria-label={intl.formatMessage({
-                defaultMessage: "Goto previous page",
-                description:
-                  "Aria label for previous page button in pagination nav",
-              })}
-              onClick={previousPage}
-              data-h2-margin="b(right, xxs)"
-              data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
-              data-testid="leftArrowButton"
+        <div data-h2-flex-item="base(content)">
+          <nav role="navigation" aria-label={ariaLabel}>
+            <ul
+              data-h2-display="base(flex)"
+              data-h2-gap="base(x.25, all)"
+              className="reset-ul"
+              {...rest}
             >
-              <ArrowLeftIcon style={{ width: "1.125rem" }} />
-            </Button>
-          </li>
-          {paginationRange.map((pageNumber, index) => {
-            // If the pageItem is a DOT, render the DOTS unicode character
-            if (pageNumber === DOTS) {
-              return (
-                <li
-                  key={`${index + 1}-dots`}
-                  data-h2-display="b(flex)"
-                  data-h2-margin="b(right-left, xs) b(top, none)"
-                  data-testid="dots"
-                >
-                  <DotsHorizontalIcon style={{ width: "1.125rem" }} />
-                </li>
-              );
-            }
-            const current = pageNumber === currentPage;
-            return (
-              <li
-                key={`${pageNumber}-pageNumber`}
-                data-h2-margin="b(all, none)"
-              >
+              {/* left navigation arrow */}
+              <li data-h2-display="base(inline-block)">
                 <Button
-                  classNames={lessThanTwoItems ? "disabled" : ""}
-                  data-testid="pagination"
+                  classNames={
+                    isLeftArrowDisabled || lessThanTwoItems ? "disabled" : ""
+                  }
                   color={color}
-                  mode={`${current ? "solid" : mode}`}
+                  mode={mode}
                   type="button"
-                  disabled={lessThanTwoItems}
-                  aria-label={intl.formatMessage(
-                    {
-                      defaultMessage: "Goto Page {pageNumber}",
-                      description:
-                        "Aria label for each button in pagination nav",
-                    },
-                    { pageNumber },
-                  )}
-                  aria-current={current}
-                  onClick={() => onCurrentPageChange(Number(pageNumber))}
-                  data-h2-margin="b(right-left, xxs)"
-                  data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+                  disabled={isLeftArrowDisabled || lessThanTwoItems}
+                  aria-disabled={isLeftArrowDisabled || lessThanTwoItems}
+                  aria-label={intl.formatMessage({
+                    defaultMessage: "Goto previous page",
+                    description:
+                      "Aria label for previous page button in pagination nav",
+                  })}
+                  onClick={previousPage}
+                  data-testid="leftArrowButton"
+                  data-h2-padding="base(x.85)"
+                  data-h2-position="base(relative)"
                 >
-                  {pageNumber}
+                  <ArrowLeftIcon
+                    data-h2-position="base(center)"
+                    data-h2-display="base(block)"
+                    data-h2-height="base(x.8)"
+                  />
                 </Button>
               </li>
-            );
-          })}
-          {/* right navigation arrow */}
-          <li data-h2-margin="b(all, none)">
-            <Button
-              classNames={
-                isRightArrowDisabled || lessThanTwoItems ? "disabled" : ""
-              }
-              color={color}
-              mode={mode}
-              type="button"
-              disabled={isRightArrowDisabled || lessThanTwoItems}
-              aria-disabled={isRightArrowDisabled || lessThanTwoItems}
-              aria-label={intl.formatMessage({
-                defaultMessage: "Goto next page",
-                description:
-                  "Aria label for next page button in pagination nav",
+              {paginationRange.map((pageNumber, index) => {
+                // If the pageItem is a DOT, render the DOTS unicode character
+                if (pageNumber === DOTS) {
+                  return (
+                    <li
+                      key={`${index + 1}-dots`}
+                      data-h2-display="base(flex)"
+                      data-h2-align-items="base(center)"
+                      data-h2-padding="base(0, x.5)"
+                      data-testid="dots"
+                    >
+                      <span
+                        data-h2-display="base(block)"
+                        data-h2-margin="base(-x.5, 0, 0, 0)"
+                        data-h2-font-size="base(h6, 1)"
+                        data-h2-font-weight="base(700)"
+                        {...fontColor}
+                      >
+                        ...
+                      </span>
+                    </li>
+                  );
+                }
+                const current = pageNumber === currentPage;
+                return (
+                  <li
+                    key={`${pageNumber}-pageNumber`}
+                    data-h2-display="base(inline-block)"
+                  >
+                    <Button
+                      classNames={lessThanTwoItems ? "disabled" : ""}
+                      data-testid="pagination"
+                      color={color}
+                      mode={`${current ? "solid" : mode}`}
+                      type="button"
+                      disabled={lessThanTwoItems}
+                      aria-label={intl.formatMessage(
+                        {
+                          defaultMessage: "Goto Page {pageNumber}",
+                          description:
+                            "Aria label for each button in pagination nav",
+                        },
+                        { pageNumber },
+                      )}
+                      aria-current={current}
+                      onClick={() => onCurrentPageChange(Number(pageNumber))}
+                      data-h2-padding="base(x.85)"
+                      data-h2-position="base(relative)"
+                    >
+                      <span
+                        data-h2-position="base(center)"
+                        data-h2-display="base(block)"
+                        data-h2-height="base(x1)"
+                      >
+                        {pageNumber}
+                      </span>
+                    </Button>
+                  </li>
+                );
               })}
-              onClick={nextPage}
-              data-h2-margin="b(left, xxs)"
-              data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
-              data-testid="rightArrowButton"
-            >
-              <ArrowRightIcon style={{ width: "1.125rem" }} />
-            </Button>
-          </li>
-        </ul>
-      </nav>
-      <div data-h2-margin="b(bottom, s) s(right, s) s(bottom, none)">
-        <label>
-          {intl.formatMessage({
-            defaultMessage: "Go to page:",
-            description: "Label for pagination input in admin table.",
-          })}{" "}
-          <input
-            type="number"
-            value={currentPage}
-            onChange={(e) => {
-              const p = e.target.value ? Number(e.target.value) : 0;
-              onCurrentPageChange(p);
-            }}
-            disabled={lessThanTwoItems}
-            min={1}
-            max={totalPageCount}
-            style={{ width: "65px" }}
-          />
-        </label>
-      </div>
-      {pageSizes && (
-        <select
-          style={{ cursor: "pointer" }}
-          value={pageSize}
-          onChange={(e) => {
-            onPageSizeChange(Number(e.target.value));
-          }}
-        >
-          {pageSizes.map((numOfRows) => (
-            <option key={numOfRows} value={numOfRows}>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Show {numOfRows}",
-                  description:
-                    "Options for how many rows to show on admin table",
-                },
-                { numOfRows },
+              {/* right navigation arrow */}
+              <li data-h2-display="base(inline-block)">
+                <Button
+                  classNames={
+                    isRightArrowDisabled || lessThanTwoItems ? "disabled" : ""
+                  }
+                  color={color}
+                  mode={mode}
+                  type="button"
+                  disabled={isRightArrowDisabled || lessThanTwoItems}
+                  aria-disabled={isRightArrowDisabled || lessThanTwoItems}
+                  aria-label={intl.formatMessage({
+                    defaultMessage: "Goto next page",
+                    description:
+                      "Aria label for next page button in pagination nav",
+                  })}
+                  onClick={nextPage}
+                  data-testid="rightArrowButton"
+                  data-h2-padding="base(x.85)"
+                  data-h2-position="base(relative)"
+                >
+                  <ArrowRightIcon
+                    data-h2-position="base(center)"
+                    data-h2-display="base(block)"
+                    data-h2-height="base(x.8)"
+                  />
+                </Button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div data-h2-flex-item="base(content)">
+          <div data-h2-flex-grid="base(center, 0, x2, 0)">
+            <div data-h2-flex-item="base(content)">
+              <label data-h2-font-size="base(copy)" {...fontColor}>
+                {intl.formatMessage({
+                  defaultMessage: "Go to page:",
+                  description: "Label for pagination input in admin table.",
+                })}{" "}
+                <input
+                  type="number"
+                  value={currentPage}
+                  onChange={(e) => {
+                    const p = e.target.value ? Number(e.target.value) : 0;
+                    onCurrentPageChange(p);
+                  }}
+                  disabled={lessThanTwoItems}
+                  min={1}
+                  max={totalPageCount}
+                  style={{ width: "65px" }}
+                />
+              </label>
+            </div>
+            <div data-h2-flex-item="base(content)">
+              {pageSizes && (
+                <select
+                  style={{ cursor: "pointer" }}
+                  value={pageSize}
+                  aria-label={intl.formatMessage({
+                    defaultMessage: "Page size",
+                    description:
+                      "Label for the number of items to display on each page.",
+                  })}
+                  onChange={(e) => {
+                    onPageSizeChange(Number(e.target.value));
+                  }}
+                >
+                  {pageSizes.map((numOfRows) => (
+                    <option key={numOfRows} value={numOfRows}>
+                      {intl.formatMessage(
+                        {
+                          defaultMessage: "Show {numOfRows}",
+                          description:
+                            "Options for how many rows to show on admin table",
+                        },
+                        { numOfRows },
+                      )}
+                    </option>
+                  ))}
+                </select>
               )}
-            </option>
-          ))}
-        </select>
-      )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

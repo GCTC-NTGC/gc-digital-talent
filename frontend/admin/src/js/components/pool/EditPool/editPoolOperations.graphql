@@ -83,6 +83,7 @@ query getEditPoolData($poolId: ID!) {
       en
       fr
     }
+    stream
   }
 
   # all classifications to populate form dropdown
@@ -128,7 +129,10 @@ query getEditPoolData($poolId: ID!) {
   }
 }
 
-mutation updatePoolAdvertisement($id: ID!, $poolAdvertisement: UpdatePoolAdvertisementInput!) {
+mutation updatePoolAdvertisement(
+  $id: ID!
+  $poolAdvertisement: UpdatePoolAdvertisementInput!
+) {
   updatePoolAdvertisement(id: $id, poolAdvertisement: $poolAdvertisement) {
     id
   }

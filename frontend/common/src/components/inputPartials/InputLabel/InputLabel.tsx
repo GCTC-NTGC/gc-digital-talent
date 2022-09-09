@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/solid";
+import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 import { commonMessages } from "../../../messages";
 
 export interface InputLabelProps {
   inputId: string;
   label: string | React.ReactNode;
+  labelSize?: object;
   required: boolean;
   contextIsVisible?: boolean;
   contextToggleHandler?: (contextIsActive: boolean) => void;
@@ -16,6 +17,7 @@ export interface InputLabelProps {
 const InputLabel: React.FC<InputLabelProps> = ({
   inputId,
   label,
+  labelSize,
   required,
   contextToggleHandler = () => {
     /* returns nothing */
@@ -30,70 +32,79 @@ const InputLabel: React.FC<InputLabelProps> = ({
     setContextIsActive((currentState) => !currentState);
   };
   const intl = useIntl();
+  const appendLabel = required || !hideOptional || contextIsVisible;
 
   return (
     <div
-      data-h2-display="b(flex)"
-      data-h2-flex-wrap="b(wrap)"
-      data-h2-align-items="b(center)"
-      data-h2-justify-content="b(flex-start)"
+      data-h2-display="base(flex)"
+      data-h2-flex-wrap="base(wrap)"
+      data-h2-align-items="base(center)"
+      data-h2-justify-content="base(flex-start)"
+      data-h2-width="base(100%)"
       {...(!hideBottomMargin && {
-        "data-h2-margin": "b(bottom, xxs)",
+        "data-h2-margin": "base(0, 0, x.125, 0)",
       })}
     >
       <label
-        data-h2-font-size="b(caption)"
-        data-h2-margin="b(right, xxs)"
+        {...labelSize}
+        data-h2-margin="base(0, x.125, 0, 0)"
+        {...(!appendLabel && {
+          "data-h2-flex-grow": "base(1)",
+        })}
         htmlFor={inputId}
       >
         {label}
       </label>
-      <div data-h2-display="b(flex)" data-h2-align-items="b(center)">
-        {
-          /** If hideOptional is true, only show text if required is true. */
-          (required || !hideOptional) && (
-            <span
-              data-h2-font-size="b(caption)"
-              {...(required
-                ? { "data-h2-font-color": "b(red)" }
-                : { "data-h2-font-color": "b(darkgray)" })}
+      {appendLabel && (
+        <div data-h2-display="base(flex)" data-h2-align-items="base(center)">
+          {
+            /** If hideOptional is true, only show text if required is true. */
+            (required || !hideOptional) && (
+              <span
+                data-h2-font-size="base(caption)"
+                data-h2-display="base(inline-block)"
+                data-h2-margin="base(0, 0, 0, x.125)"
+                {...(required
+                  ? { "data-h2-color": "base(dark.dt-error)" }
+                  : { "data-h2-color": "base(dark.dt-gray)" })}
+              >
+                (
+                {required
+                  ? intl.formatMessage(commonMessages.required)
+                  : intl.formatMessage(commonMessages.optional)}
+                )
+              </span>
+            )
+          }
+          {contextIsVisible && (
+            <button
+              type="button"
+              className="input-label-context-button"
+              data-h2-margin="base(0, 0, 0, x.125)"
+              onClick={clickHandler}
             >
-              (
-              {required
-                ? intl.formatMessage(commonMessages.required)
-                : intl.formatMessage(commonMessages.optional)}
-              )
-            </span>
-          )
-        }
-        {contextIsVisible && (
-          <button
-            type="button"
-            className="input-label-context-button"
-            data-h2-margin="b(left, xxs)"
-            onClick={clickHandler}
-          >
-            <span data-h2-visibility="b(invisible)">
-              {intl.formatMessage({
-                defaultMessage: "Toggle context",
-                description:
-                  "Label to toggle the context description of an input.",
-              })}
-            </span>
-            {contextIsActive ? (
-              <XCircleIcon
-                style={{ width: "calc(1rem/1.25)" }}
-                data-h2-font-color="b(lightpurple)"
-              />
-            ) : (
-              <QuestionMarkCircleIcon
-                style={{ width: "calc(1rem/1.25)" }}
-                data-h2-font-color="b(lightpurple)"
-              />
-            )}
-          </button>
-        )}
-      </div>
+              <span data-h2-visibility="base(invisible)">
+                {intl.formatMessage({
+                  defaultMessage: "Toggle context",
+                  description:
+                    "Label to toggle the context description of an input.",
+                })}
+              </span>
+              {contextIsActive ? (
+                <XCircleIcon
+                  style={{ width: "calc(1rem/1.25)" }}
+                  data-h2-color="base(dt-primary)"
+                />
+              ) : (
+                <QuestionMarkCircleIcon
+                  style={{ width: "calc(1rem/1.25)" }}
+                  data-h2-color="base(dt-primary)"
+                />
+              )}
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -23,6 +23,9 @@ import {
   PoolAdvertisementLanguage,
   SecurityStatus,
   CitizenshipStatus,
+  ArmedForcesStatus,
+  BilingualEvaluation,
+  PoolStream,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -182,6 +185,54 @@ export const getCitizenshipStatusesAdmin = (
     `Invalid Language '${citizenshipId}'`,
   );
 
+export const armedForcesStatusesAdmin = defineMessages({
+  [ArmedForcesStatus.Veteran]: {
+    defaultMessage: "Veteran",
+    description: "user is a CAF veteran",
+  },
+  [ArmedForcesStatus.Member]: {
+    defaultMessage: "Member",
+    description: "user is a CAF member",
+  },
+  [ArmedForcesStatus.NonCaf]: {
+    defaultMessage: "Not in the CAF",
+    description: "user is not in the CAF",
+  },
+});
+
+export const getArmedForcesStatusesAdmin = (
+  armedForcesId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    armedForcesStatusesAdmin,
+    armedForcesId,
+    `Invalid status '${armedForcesId}'`,
+  );
+
+export const armedForcesStatusesProfile = defineMessages({
+  [ArmedForcesStatus.Veteran]: {
+    defaultMessage: "I am a veteran of the CAF",
+    description: "declare self to be a CAF veteran",
+  },
+  [ArmedForcesStatus.Member]: {
+    defaultMessage: "I am an active member of the CAF",
+    description: "declare self to be a CAF member",
+  },
+  [ArmedForcesStatus.NonCaf]: {
+    defaultMessage: "I am not a member of the CAF",
+    description: "declare self to not be in the CAF",
+  },
+});
+
+export const getArmedForcesStatusesProfile = (
+  armedForcesId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    armedForcesStatusesProfile,
+    armedForcesId,
+    `Invalid status '${armedForcesId}'`,
+  );
+
 export const educationRequirements = defineMessages({
   hasDiploma: {
     defaultMessage: "Required diploma from post-secondary institution",
@@ -199,6 +250,49 @@ export const getEducationRequirement = (
     educationRequirementId,
     `Invalid Education Requirement '${educationRequirementId}'`,
   );
+
+export const EmploymentDuration = {
+  Term: "TERM",
+  Indeterminate: "INDETERMINATE",
+};
+export const employmentDurationShort = defineMessages({
+  [EmploymentDuration.Term]: {
+    defaultMessage: "Term",
+    description:
+      "Duration of a non-permanent length (short-form for limited space)",
+  },
+  [EmploymentDuration.Indeterminate]: {
+    defaultMessage: "Indeterminate",
+    description: "Duration that is permanent (short-form for limited space)",
+  },
+});
+
+export const employmentDurationLong = defineMessages({
+  [EmploymentDuration.Term]: {
+    defaultMessage: "Term duration (short term, long term)",
+    description: "Duration of a non-permanent length",
+  },
+  [EmploymentDuration.Indeterminate]: {
+    defaultMessage: "Indeterminate duration (permanent)",
+    description: "Duration that is permanent",
+  },
+});
+
+export const getEmploymentDuration = (
+  employmentDurationId: string | number,
+  format: "long" | "short" = "long",
+): MessageDescriptor => {
+  const messageDictionary = {
+    long: employmentDurationLong,
+    short: employmentDurationShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[format],
+    employmentDurationId,
+    `Invalid Employment Duration '${employmentDurationId}'`,
+  );
+};
 
 export const languageAbilities = defineMessages({
   [LanguageAbility.English]: {
@@ -350,34 +444,6 @@ export const getWorkRegion = (
   );
 
 export const poolCandidateStatuses = defineMessages({
-  [PoolCandidateStatus.Available]: {
-    defaultMessage: "Available",
-    description: "The pool candidate's status is Available.",
-  },
-  [PoolCandidateStatus.NoLongerInterested]: {
-    defaultMessage: "No Longer Interested",
-    description: "The pool candidate's status is No Longer Interested.",
-  },
-  [PoolCandidateStatus.PlacedIndeterminate]: {
-    defaultMessage: "Placed Indeterminate",
-    description: "The pool candidate's status is Placed Indeterminate.",
-  },
-  [PoolCandidateStatus.PlacedTerm]: {
-    defaultMessage: "Placed Term",
-    description: "The pool candidate's status is Placed Term.",
-  },
-  [PoolCandidateStatus.Unavailable]: {
-    defaultMessage: "Unavailable",
-    description: "The pool candidate's status is Unavailable.",
-  },
-  [PoolCandidateStatus.Expired]: {
-    defaultMessage: "Expired",
-    description: "The pool candidate's status is Expired.",
-  },
-  [PoolCandidateStatus.PlacedCasual]: {
-    defaultMessage: "Placed Casual",
-    description: "The pool candidate's status is Placed Casual.",
-  },
   [PoolCandidateStatus.Draft]: {
     defaultMessage: "Draft",
     description: "The pool candidate's status is Draft.",
@@ -385,6 +451,58 @@ export const poolCandidateStatuses = defineMessages({
   [PoolCandidateStatus.DraftExpired]: {
     defaultMessage: "Draft Expired",
     description: "The pool candidate's status is Expired Draft.",
+  },
+  [PoolCandidateStatus.NewApplication]: {
+    defaultMessage: "New Application",
+    description: "The pool candidate's status is New Application.",
+  },
+  [PoolCandidateStatus.ApplicationReview]: {
+    defaultMessage: "Application Review",
+    description: "The pool candidate's status is Application Review.",
+  },
+  [PoolCandidateStatus.ScreenedIn]: {
+    defaultMessage: "Screened In",
+    description: "The pool candidate's status is Screened In.",
+  },
+  [PoolCandidateStatus.ScreenedOutApplication]: {
+    defaultMessage: "Screened Out Application",
+    description: "The pool candidate's status is Screened Out Application",
+  },
+  [PoolCandidateStatus.UnderAssessment]: {
+    defaultMessage: "Under Assessment",
+    description: "The pool candidate's status is Under Assessment.",
+  },
+  [PoolCandidateStatus.ScreenedOutAssessment]: {
+    defaultMessage: "Screened Out Assessment",
+    description: "The pool candidate's status is Screened Out Assessment.",
+  },
+  [PoolCandidateStatus.QualifiedAvailable]: {
+    defaultMessage: "Qualified Available",
+    description: "The pool candidate's status is Qualified Available",
+  },
+  [PoolCandidateStatus.QualifiedUnavailable]: {
+    defaultMessage: "Qualified Unavailable",
+    description: "The pool candidate's status is Qualified Unavailable.",
+  },
+  [PoolCandidateStatus.QualifiedWithdrew]: {
+    defaultMessage: "Qualified Withdrew",
+    description: "The pool candidate's status is Qualified Withdrew.",
+  },
+  [PoolCandidateStatus.PlacedCasual]: {
+    defaultMessage: "Placed Casual",
+    description: "The pool candidate's status is Placed Casual.",
+  },
+  [PoolCandidateStatus.PlacedTerm]: {
+    defaultMessage: "Placed Term",
+    description: "The pool candidate's status is Placed Term.",
+  },
+  [PoolCandidateStatus.PlacedIndeterminate]: {
+    defaultMessage: "Placed Indeterminate",
+    description: "The pool candidate's status is Placed Indeterminate.",
+  },
+  [PoolCandidateStatus.Expired]: {
+    defaultMessage: "Expired",
+    description: "The pool candidate's status is Expired.",
   },
 });
 
@@ -789,7 +907,11 @@ export const operationalRequirementLabelFull = defineMessages({
     defaultMessage:
       "Availability, willingness and ability to work overtime (short notice)",
     description:
-      "The operational requirement described as short notice overtime.",
+      "The operational requirement described as occasional overtime.",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "Work weekends",
+    description: "The operational requirement described as work weekends.",
   },
   [OperationalRequirement.OvertimeOccasional]: {
     defaultMessage:
@@ -959,14 +1081,36 @@ export const JobLookingStatusDescription = defineMessages({
   },
 });
 
-export const getJobLookingStatusDescription = (
+export const JobLookingStatusShort = defineMessages({
+  [JobLookingStatus.ActivelyLooking]: {
+    defaultMessage: "Actively looking",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.OpenToOpportunities]: {
+    defaultMessage: "Open to opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.Inactive]: {
+    defaultMessage: "Inactive",
+    description: "Job Looking Status described as Actively looking.",
+  },
+});
+
+export const getJobLookingStatus = (
   jobLookingStatusDescriptionId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    JobLookingStatusDescription,
+  format: "description" | "short" = "description",
+): MessageDescriptor => {
+  const messageDictionary = {
+    description: JobLookingStatusDescription,
+    short: JobLookingStatusShort,
+  };
+
+  return getOrThrowError(
+    messageDictionary[format],
     jobLookingStatusDescriptionId,
     `Invalid Job Looking Status '${jobLookingStatusDescriptionId}'`,
   );
+};
 
 export const getProvinceOrTerritory = (
   provinceOrTerritoryId: string | number,
@@ -997,6 +1141,50 @@ export const getPoolStatus = (
     `Invalid Pool Status '${poolStatusId}'`,
   );
 
+export const poolStream = defineMessages({
+  [PoolStream.BusinessAdvisoryServices]: {
+    defaultMessage: "Business Line Advisory Services",
+    description: "Pool Stream described as Business Line Advisory Services.",
+  },
+  [PoolStream.DatabaseManagement]: {
+    defaultMessage: "Database Management",
+    description: "Pool Stream described as Database Management.",
+  },
+  [PoolStream.EnterpriseArchitecture]: {
+    defaultMessage: "Enterprise Architecture",
+    description: "Pool Stream described as Enterprise Architecture.",
+  },
+  [PoolStream.InfrastructureOperations]: {
+    defaultMessage: "Infrastructure Operations",
+    description: "Pool Stream described as Infrastructure Operations.",
+  },
+  [PoolStream.PlanningAndReporting]: {
+    defaultMessage: "Planning and Reporting",
+    description: "Pool Stream described as Planning and Reporting.",
+  },
+  [PoolStream.ProjectPortfolioManagement]: {
+    defaultMessage: "Project Portfolio Management",
+    description: "Pool Stream described as Project Portfolio Management.",
+  },
+  [PoolStream.Security]: {
+    defaultMessage: "Security",
+    description: "Pool Stream described as Security.",
+  },
+  [PoolStream.SoftwareSolutions]: {
+    defaultMessage: "Software Solutions",
+    description: "Pool Stream described as Software Solutions.",
+  },
+});
+
+export const getPoolStream = (
+  poolStreamId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    poolStream,
+    poolStreamId,
+    `Invalid Pool Stream '${poolStreamId}'`,
+  );
+
 export const govEmployeeType = defineMessages({
   [GovEmployeeType.Student]: {
     defaultMessage: "I am a <strong>student</strong>",
@@ -1021,6 +1209,34 @@ export const getGovEmployeeType = (
 ): MessageDescriptor =>
   getOrThrowError(
     govEmployeeType,
+    govEmployeeTypeId,
+    `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
+  );
+
+export const simpleGovEmployeeType = defineMessages({
+  [GovEmployeeType.Student]: {
+    defaultMessage: "Student",
+    description: "Simple student selection for government employee type.",
+  },
+  [GovEmployeeType.Casual]: {
+    defaultMessage: "Casual",
+    description: "Simple casual selection for government employee type.",
+  },
+  [GovEmployeeType.Term]: {
+    defaultMessage: "Term",
+    description: "Simple term selection for government employee type.",
+  },
+  [GovEmployeeType.Indeterminate]: {
+    defaultMessage: "Indeterminate",
+    description: "Simple indeterminate selection for government employee type.",
+  },
+});
+
+export const getSimpleGovEmployeeType = (
+  govEmployeeTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    simpleGovEmployeeType,
     govEmployeeTypeId,
     `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
   );
@@ -1071,4 +1287,28 @@ export const getSecurityClearance = (
     securityClearances,
     securityClearanceId,
     `Invalid  Advertisement Status '${securityClearanceId}'`,
+  );
+
+export const bilingualEvaluations = defineMessages({
+  [BilingualEvaluation.CompletedEnglish]: {
+    defaultMessage: "Yes, completed English evaluation",
+    description: "Completed an English language evaluation",
+  },
+  [BilingualEvaluation.CompletedFrench]: {
+    defaultMessage: "Yes, completed French evaluation",
+    description: "Completed a French language evaluation",
+  },
+  [BilingualEvaluation.NotCompleted]: {
+    defaultMessage: "No",
+    description: "No, did not complete a language evaluation",
+  },
+});
+
+export const getBilingualEvaluation = (
+  bilingualEvaluationId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    bilingualEvaluations,
+    bilingualEvaluationId,
+    `Invalid Language Ability '${bilingualEvaluationId}'`,
   );

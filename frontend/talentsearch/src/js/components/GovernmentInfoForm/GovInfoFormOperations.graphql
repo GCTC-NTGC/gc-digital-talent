@@ -21,6 +21,8 @@ query getGovInfoFormLookupData {
   me {
     id
     isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
     isProfileComplete
     govEmployeeType
     department {
@@ -42,7 +44,6 @@ query getGovInfoFormLookupData {
       minSalary
       maxSalary
     }
-    interestedInLaterOrSecondment
   }
 }
 
@@ -50,7 +51,8 @@ mutation UpdateGovAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     isGovEmployee
     govEmployeeType
-    interestedInLaterOrSecondment
+    hasPriorityEntitlement
+    priorityNumber
     isProfileComplete
     department {
       id

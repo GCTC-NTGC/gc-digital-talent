@@ -11,7 +11,7 @@ query getMe {
     currentProvince
     currentCity
     citizenship
-    isVeteran
+    armedForcesStatus
     languageAbility
     lookingForEnglish
     lookingForFrench
@@ -22,8 +22,9 @@ query getMe {
     verbalLevel
     estimatedLanguageAbility
     isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
     govEmployeeType
-    interestedInLaterOrSecondment
     department {
       id
       departmentNumber
@@ -49,7 +50,6 @@ query getMe {
         fr
       }
     }
-
     isWoman
     hasDisability
     isIndigenous
@@ -146,24 +146,12 @@ query getMe {
         endDate
       }
     }
-    # awardExperiences {
-    #   id
-    # }
-    # communityExperiences {
-    #   id
-    # }
-    # educationExperiences {
-    #   id
-    # }
-    # personalExperiences {
-    #   id
-    # }
-    # workExperiences {
-    #   id
-    # }
     poolCandidates {
       status
       expiryDate
+      user {
+        id
+      }
       pool {
         id
         name {

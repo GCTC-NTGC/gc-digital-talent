@@ -4,7 +4,7 @@ import {
   LightBulbIcon,
   StarIcon,
   UserGroupIcon,
-} from "@heroicons/react/solid";
+} from "@heroicons/react/24/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import ExperienceAccordion, {
@@ -34,25 +34,25 @@ const ExperienceByType: React.FunctionComponent<{
   defaultOpen = false,
 }) => {
   return (
-    <div>
-      <div data-h2-display="b(flex)" data-h2-margin="b(top-bottom, m)">
-        {icon}
-        <p
-          data-h2-font-size="b(h4)"
-          data-h2-margin="b(all, none)"
-          data-h2-padding="b(left, s)"
-        >
-          {title}
-        </p>
+    <div className="experience-category">
+      <div
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(center)"
+        data-h2-padding="base(0, 0, x.5, 0)"
+      >
+        <span data-h2-margin="base(x.125, x.5, 0, 0)">{icon}</span>
+        <p data-h2-font-size="base(h5, 1)">{title} experiences</p>
       </div>
-      {experiences.map((experience) => (
-        <ExperienceAccordion
-          key={experience.id}
-          experience={experience}
-          editPaths={experienceEditPaths}
-          defaultOpen={defaultOpen}
-        />
-      ))}
+      <div>
+        {experiences.map((experience) => (
+          <ExperienceAccordion
+            key={experience.id}
+            experience={experience}
+            editPaths={experienceEditPaths}
+            defaultOpen={defaultOpen}
+          />
+        ))}
+      </div>
     </div>
   );
 };
@@ -100,40 +100,48 @@ const ExperienceByTypeListing: React.FunctionComponent<
         />
       ) : null}
       {communityExperiences.length > 0 ? (
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Community" })}
-          icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
-          experiences={communityExperiences}
-          defaultOpen={defaultOpen}
-          experienceEditPaths={editPaths}
-        />
+        <div data-h2-margin="base(x2, 0, 0, 0)">
+          <ExperienceByType
+            title={intl.formatMessage({ defaultMessage: "Community" })}
+            icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
+            experiences={communityExperiences}
+            defaultOpen={defaultOpen}
+            experienceEditPaths={editPaths}
+          />
+        </div>
       ) : null}
       {workExperiences.length > 0 ? (
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Work" })}
-          icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
-          experiences={workExperiences}
-          defaultOpen={defaultOpen}
-          experienceEditPaths={editPaths}
-        />
+        <div data-h2-margin="base(x2, 0, 0, 0)">
+          <ExperienceByType
+            title={intl.formatMessage({ defaultMessage: "Work" })}
+            icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
+            experiences={workExperiences}
+            defaultOpen={defaultOpen}
+            experienceEditPaths={editPaths}
+          />
+        </div>
       ) : null}
       {educationExperiences.length > 0 ? (
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Education" })}
-          icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
-          experiences={educationExperiences}
-          defaultOpen={defaultOpen}
-          experienceEditPaths={editPaths}
-        />
+        <div data-h2-margin="base(x2, 0, 0, 0)">
+          <ExperienceByType
+            title={intl.formatMessage({ defaultMessage: "Education" })}
+            icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
+            experiences={educationExperiences}
+            defaultOpen={defaultOpen}
+            experienceEditPaths={editPaths}
+          />
+        </div>
       ) : null}
       {awardExperiences.length > 0 ? (
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Award" })}
-          icon={<StarIcon style={{ width: "1.5rem" }} />}
-          experiences={awardExperiences}
-          defaultOpen={defaultOpen}
-          experienceEditPaths={editPaths}
-        />
+        <div data-h2-margin="base(x2, 0, 0, 0)">
+          <ExperienceByType
+            title={intl.formatMessage({ defaultMessage: "Award" })}
+            icon={<StarIcon style={{ width: "1.5rem" }} />}
+            experiences={awardExperiences}
+            defaultOpen={defaultOpen}
+            experienceEditPaths={editPaths}
+          />
+        </div>
       ) : null}
     </>
   );

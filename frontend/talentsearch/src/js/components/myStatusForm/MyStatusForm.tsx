@@ -5,7 +5,7 @@ import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { getJobLookingStatusDescription } from "@common/constants/localizedConstants";
+import { getJobLookingStatus } from "@common/constants/localizedConstants";
 import { BasicForm, RadioGroup } from "@common/components/form";
 import Pending from "@common/components/Pending";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
@@ -63,10 +63,9 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     }
   };
 
-  let disabledColor = "";
-  if (!isFormActive) {
-    disabledColor = "b([dark]gray)";
-  }
+  const disabledColor: Record<string, unknown> = !isFormActive
+    ? { "data-h2-color": "base(dark.dt-gray)" }
+    : {};
 
   return (
     <div>
@@ -81,21 +80,28 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
             {intl.formatMessage({
               defaultMessage:
                 "Let us know if you want to be contacted for new jobs. Please update this status if your situation changes.",
+              id: "PIgh3U",
               description: "Description for My Status Form",
             })}
           </p>
         </div>
         {!isFormActive && (
           <div
-            data-h2-font-color="b(lightpurple)"
-            data-h2-padding="b(all, m)"
-            data-h2-radius="b(s)"
-            data-h2-bg-color="b([light]lightpurple[.1])"
+            data-h2-color="base(dt-primary)"
+            data-h2-border="base(all, 1px, solid, dt-primary.light)"
+            data-h2-margin="base(x1, 0)"
+            data-h2-padding="base(x1)"
+            data-h2-radius="base(input)"
+            data-h2-background-color="base(light.dt-primary.1)"
           >
-            <p>
+            <p
+              data-h2-font-weight="base(700)"
+              data-h2-margin="base(0, 0, x.5, 0)"
+            >
               {intl.formatMessage({
                 defaultMessage:
                   "<strong>Why can’t I change my status?</strong>",
+                id: "3quMA8",
                 description: "Message in My Status Form.",
               })}
             </p>
@@ -103,17 +109,19 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               {intl.formatMessage({
                 defaultMessage:
                   "Please complete all required fields on your profile before setting your status as active.",
+                id: "+wdTbk",
                 description: "Message in My Status Form.",
               })}
             </p>
           </div>
         )}
 
-        <div data-h2-padding="b(top, s)" data-h2-font-color={disabledColor}>
+        <div data-h2-padding="base(x.5, 0, 0, 0)" {...disabledColor}>
           <RadioGroup
             idPrefix="myStatus"
             legend={intl.formatMessage({
               defaultMessage: "My status",
+              id: "XBfLOu",
               description: "Legend for my status option in my status form",
             })}
             name="jobLookingStatus"
@@ -128,7 +136,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               JobLookingStatusSortOrder,
             ).map(({ value }) => ({
               value,
-              label: intl.formatMessage(getJobLookingStatusDescription(value)),
+              label: intl.formatMessage(getJobLookingStatus(value)),
             }))}
           />
         </div>
@@ -153,6 +161,7 @@ const MyStatusApi: React.FunctionComponent = () => {
       toast.success(
         intl.formatMessage({
           defaultMessage: "My Status updated successfully!",
+          id: "W7io0W",
           description:
             "Message displayed to user after user is updated successfully.",
         }),
@@ -167,6 +176,7 @@ const MyStatusApi: React.FunctionComponent = () => {
     toast.error(
       intl.formatMessage({
         defaultMessage: "Error: updating user failed",
+        id: "5FFRV2",
         description:
           "Message displayed to user after user fails to get updated.",
       }),

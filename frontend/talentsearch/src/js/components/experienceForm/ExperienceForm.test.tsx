@@ -234,14 +234,14 @@ describe("ExperienceForm", () => {
       screen.getByRole("heading", { name: /skills in detail/i }),
     ).toBeInTheDocument();
 
-    const mainstreamSkills = screen.getByRole("tab", {
-      name: /mainstream skills/i,
+    const technicalSkills = screen.getByRole("tab", {
+      name: /technical skills/i,
     });
-    expect(mainstreamSkills).toBeInTheDocument();
+    expect(technicalSkills).toBeInTheDocument();
 
-    fireEvent.click(mainstreamSkills);
+    fireEvent.click(technicalSkills);
     expect(
-      await screen.getByTestId("skillChecklist").parentElement,
+      await screen.getByRole("tabpanel", { name: /technical skills/i }),
     ).toHaveStyle("display:block;");
   });
 
@@ -321,14 +321,14 @@ describe("ExperienceForm", () => {
       skills: mockSkills,
     });
 
-    const mainstreamSkills = screen.getByRole("tab", {
-      name: /mainstream skills/i,
+    const technicalSkills = screen.getByRole("tab", {
+      name: /technical skills/i,
     });
-    expect(mainstreamSkills).toBeInTheDocument();
+    expect(technicalSkills).toBeInTheDocument();
 
-    fireEvent.click(mainstreamSkills);
-    const skillChecklist = await screen.getAllByTestId("skillChecklist");
-    const checklistParent = skillChecklist[0].parentElement;
+    fireEvent.click(technicalSkills);
+    const skillChecklist = await screen.getByRole("group");
+    const checklistParent = skillChecklist.parentElement;
     expect(checklistParent).toHaveStyle("display:block;");
 
     if (checklistParent) {

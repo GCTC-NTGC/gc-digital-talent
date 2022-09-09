@@ -1,26 +1,27 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { commonMessages, errorMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { Checklist, RadioGroup } from "@common/components/form";
 import {
   getOperationalRequirement,
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { getLocale } from "@common/helpers/localize";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
+import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import {
+  PoolCandidate,
   UpdateUserAsUserInput,
   UpdateWorkPreferencesMutation,
-  useGetWorkPreferencesQuery,
   User,
-  useUpdateWorkPreferencesMutation,
 } from "../../api/generated";
+import applicantProfileRoutes from "../../applicantProfileRoutes";
+import directIntakeRoutes from "../../directIntakeRoutes";
 import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<
@@ -31,6 +32,7 @@ export type FormValues = Pick<
 };
 export interface WorkPreferencesFormProps {
   initialData: User;
+  application?: PoolCandidate;
   handleWorkPreferences: (
     id: string,
     data: UpdateUserAsUserInput,
@@ -39,9 +41,17 @@ export interface WorkPreferencesFormProps {
 
 export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   initialData,
+  application,
   handleWorkPreferences,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const profilePaths = applicantProfileRoutes(locale);
+  const directIntakePaths = directIntakeRoutes(locale);
+  const returnRoute =
+    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.poolApply(application.pool.id)
+      : profilePaths.home(initialData.id);
 
   const dataToFormValues = (data: User): FormValues => {
     const boolToString = (boolVal: boolean | null | undefined): string => {
@@ -78,42 +88,85 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    if (initialData) {
-      await handleWorkPreferences(initialData.id, formValuesToSubmitData(data));
-    }
+    await handleWorkPreferences(initialData.id, formValuesToSubmitData(data))
+      .then(() => {
+        navigate(returnRoute);
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
+      });
   };
+
+  const applicationBreadcrumbs = application
+    ? [
+        {
+          title: intl.formatMessage({
+            defaultMessage: "My Applications",
+            id: "mq4G8h",
+            description:
+              "'My Applications' breadcrumb from applicant profile wrapper.",
+          }),
+          href: directIntakePaths.applications(application.user.id),
+          icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
+        },
+        {
+          title:
+            application.poolAdvertisement?.name?.[locale] ||
+            intl.formatMessage({
+              defaultMessage: "Pool name not found",
+              id: "FmD1sL",
+              description:
+                "Pools name breadcrumb from applicant profile wrapper if no name set.",
+            }),
+          href: directIntakePaths.poolApply(application.pool.id),
+        },
+      ]
+    : [];
 
   return (
     <ProfileFormWrapper
       description={intl.formatMessage({
         defaultMessage:
           "Certain jobs require you to work odd hours or perform tasks that are a little outside of the normal. Please indicate which special requirements you are comfortable with.",
+        id: "wKIVFc",
         description:
           "Description text for Profile Form wrapper  in Work Preferences Form",
       })}
       title={intl.formatMessage({
         defaultMessage: "Work preferences",
+        id: "k0++o0",
         description: "Title for Profile Form wrapper  in Work Preferences Form",
       })}
+      cancelLink={{
+        href: returnRoute,
+      }}
       crumbs={[
+        ...applicationBreadcrumbs,
         {
           title: intl.formatMessage({
             defaultMessage: "Work Preferences",
+            id: "7OWQgZ",
             description: "Display Text for Work Preferences Form Page Link",
           }),
         },
       ]}
+      prefixBreadcrumbs={!application}
     >
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-              <div data-h2-padding="b(right, l)">
+            <div
+              data-h2-flex-item="base(1of1)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
+              <div data-h2-padding="base(0, x2, 0, 0)">
                 <RadioGroup
                   idPrefix="required-work-preferences"
                   legend={intl.formatMessage({
                     defaultMessage:
                       "I would consider accepting a job that lasts for...",
+                    id: "/DCykA",
                     description:
                       "Legend Text for required work preferences options in work preferences form",
                   })}
@@ -127,6 +180,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                       label: intl.formatMessage({
                         defaultMessage:
                           "...any duration (short term, long term, or indeterminate duration)",
+                        id: "X2Ivfb",
                         description:
                           "Label displayed on Work Preferences form for any duration option",
                       }),
@@ -136,6 +190,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                       label: intl.formatMessage({
                         defaultMessage:
                           "...only those of an indeterminate duration. (permanent)",
+                        id: "9zqf5E",
                         description:
                           "Label displayed on Work Preferences form for indeterminate duration option.",
                       }),
@@ -144,13 +199,17 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                 />
               </div>
             </div>
-            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-              <div data-h2-padding="b(right, l)">
+            <div
+              data-h2-flex-item="base(1of1)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
+              <div data-h2-padding="base(0, x2, 0, 0)">
                 <Checklist
                   idPrefix="optional-work-preferences"
                   legend={intl.formatMessage({
                     defaultMessage:
                       "I would consider accepting a job that requires…",
+                    id: "yQ2dDL",
                     description:
                       "Legend for optional work preferences check list in work preferences form",
                   })}
@@ -164,8 +223,11 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                 />
               </div>
             </div>
-            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-              <div data-h2-padding="b(right, l)">
+            <div
+              data-h2-flex-item="base(1of1)"
+              data-h2-padding="base(x1, 0, 0, 0)"
+            >
+              <div data-h2-padding="base(0, x2, 0, 0)">
                 <ProfileFormFooter mode="saveButton" />
               </div>
             </div>
@@ -176,55 +238,4 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   );
 };
 
-export const WorkPreferencesApi: React.FunctionComponent = () => {
-  const intl = useIntl();
-  const paths = useApplicantProfileRoutes();
-
-  const [{ data: initialData, fetching, error }] = useGetWorkPreferencesQuery();
-  const preProfileStatus = initialData?.me?.isProfileComplete;
-
-  const [, executeMutation] = useUpdateWorkPreferencesMutation();
-  const handleWorkPreferences = (id: string, data: UpdateUserAsUserInput) =>
-    executeMutation({
-      id,
-      user: data,
-    }).then((result) => {
-      if (result.data?.updateUserAsUser) {
-        if (result.data?.updateUserAsUser?.isProfileComplete) {
-          const currentProfileStatus =
-            result.data?.updateUserAsUser?.isProfileComplete;
-          const message = intl.formatMessage(profileMessages.profileCompleted);
-          if (!preProfileStatus && currentProfileStatus) {
-            toast.success(message);
-          }
-        }
-      }
-      navigate(paths.home(id));
-      toast.success(intl.formatMessage(profileMessages.userUpdated));
-      if (result.data?.updateUserAsUser) {
-        return result.data.updateUserAsUser;
-      }
-      return Promise.reject(result.error);
-    });
-
-  if (error) {
-    toast.error(intl.formatMessage(profileMessages.updatingFailed));
-  }
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {initialData?.me ? (
-        <WorkPreferencesForm
-          initialData={initialData.me}
-          handleWorkPreferences={handleWorkPreferences}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
-
-export default WorkPreferencesApi;
+export default WorkPreferencesForm;

@@ -6,10 +6,14 @@ export function identity<T>(value: T): T {
 
 /**
  * Returns true if value is not null or undefined.
- * Can be used to filter nulls and undefined values out of an array.
+ * Can be used to filter nulls and undefined values out of an array in a
+ * typescript-compatible way.
  * @param item
+ * @see https://stackoverflow.com/a/46700791
  */
-export function notEmpty<T>(value: T | null | undefined): value is T {
+export function notEmpty<TValue>(
+  value: TValue | null | undefined,
+): value is TValue {
   return value !== null && value !== undefined;
 }
 
@@ -105,3 +109,13 @@ export const emptyToNull = (s: InputMaybe<string>): string | null =>
  */
 export const emptyToUndefined = (s: InputMaybe<string>): string | undefined =>
   empty(s) || s === "" ? undefined : s;
+
+/**
+ * Accepts an array of items and removes all duplicate items
+ *
+ * @param arr Array<T>  Array of items
+ * @returns   Array<T>  New array with no duplicates
+ */
+export function uniqueItems<T>(arr: T[]): T[] {
+  return Array.from(new Set(arr));
+}

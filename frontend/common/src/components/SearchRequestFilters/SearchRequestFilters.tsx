@@ -29,11 +29,11 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 
   const emptyArrayOutput = (input: string | string[] | null | undefined) => {
     return input && !isEmpty(input) ? (
-      <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
+      <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
         {input}
       </p>
     ) : (
-      <ul data-h2-font-color="b(black)">
+      <ul data-h2-color="base(dt-black)">
         <li>
           {intl.formatMessage({
             defaultMessage: "(None selected)",
@@ -45,23 +45,23 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
   };
 
   return (
-    <div data-h2-padding="b(bottom, s)">
-      <div data-h2-visibility="b(visible) s(hidden)">
+    <div data-h2-padding="base(0, 0, x1, 0)">
+      <div data-h2-visibility="base(visible) p-tablet(hidden)">
         <p
-          data-h2-display="b(inline)"
-          data-h2-padding="b(right, xxs)"
-          data-h2-font-weight="b(600)"
+          data-h2-display="base(inline)"
+          data-h2-padding="base(0, x.125, 0, 0)"
+          data-h2-font-weight="base(600)"
         >
           {title}:
         </p>
         {content !== undefined && (
           <span>
             {content instanceof Array && content.length > 0 ? (
-              <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
+              <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
                 {content.map((text): string => text).join(", ")}
               </p>
             ) : (
-              <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
+              <p data-h2-display="base(inline)" data-h2-color="base(dt-black)">
                 {content && !isEmpty(content)
                   ? content
                   : intl.formatMessage({
@@ -75,18 +75,18 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
         )}
         {children && children}
       </div>
-      <div data-h2-visibility="b(hidden) s(visible)">
+      <div data-h2-visibility="base(hidden) p-tablet(visible)">
         <p
-          data-h2-display="b(block)"
-          data-h2-padding="b(right, xxs)"
-          data-h2-font-weight="b(600)"
+          data-h2-display="base(block)"
+          data-h2-padding="base(0, x.125, 0, 0)"
+          data-h2-font-weight="base(600)"
         >
           {title}
         </p>
         {content !== undefined && (
           <span>
             {content instanceof Array && content.length > 0 ? (
-              <ul data-h2-font-color="b(black)">
+              <ul data-h2-color="base(dt-black)">
                 {content.map((text) => (
                   <li key={uniqueId()}>{text}</li>
                 ))}
@@ -204,9 +204,9 @@ const ApplicantFilters: React.FC<{
     intl.formatMessage(getWorkRegion(id)),
   );
   return (
-    <section data-h2-flex-grid="b(top, contained, flush, xs)">
-      <div data-h2-flex-item="b(1of1) s(1of2)" style={{ paddingBottom: "0" }}>
-        <div data-h2-padding="s(right, s)">
+    <section data-h2-flex-grid="base(flex-start, 0, x2, x.5)">
+      <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+        <div>
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Group and level",
@@ -238,7 +238,7 @@ const ApplicantFilters: React.FC<{
                   );
                 })
               ) : (
-                <ul data-h2-font-color="b(black)">
+                <ul data-h2-color="base(dt-black)">
                   <li>
                     {intl.formatMessage({
                       defaultMessage: "(None selected)",
@@ -260,13 +260,8 @@ const ApplicantFilters: React.FC<{
           />
         </div>
       </div>
-      <div
-        data-h2-flex-item="b(1of1) s(1of2)"
-        data-h2-padding="s(left, xxl)"
-        data-h2-border="s(lightgray, left, solid, s)"
-        style={{ paddingTop: "0" }}
-      >
-        <div data-h2-padding="s(left, xxl)">
+      <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+        <div>
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Work language ability",
@@ -428,89 +423,84 @@ const SearchRequestFilters: React.FunctionComponent<
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 
   return (
-    <section data-h2-flex-grid="b(top, contained, flush, xs)">
-      <div
-        data-h2-flex-item="b(1of1) s(1of2)"
-        data-h2-border="s(lightgray, right, solid, s)"
-        style={{ paddingBottom: "0" }}
-      >
-        <div data-h2-padding="s(right, s)">
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Group and level",
-              description:
-                "Title for group and level on summary of filters section",
-            })}
-            content={classifications}
-          />
-          <FilterBlock
-            title={intl.formatMessage(
-              {
-                defaultMessage: "Selected skills ({numOfSkills})",
+    <section data-h2-radius="base(s)">
+      <div>
+        <div data-h2-flex-grid="base(flex-start, 0, 0, x1) p-tablet(flex-start, 0, x2, 0)">
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Group and level",
                 description:
-                  "Title for skills section on summary of filters section",
-              },
-              { numOfSkills: skills?.length },
-            )}
-            content={skills}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Education Level",
-              description:
-                "Title for education level on summary of filters section",
-            })}
-            content={educationLevel}
-          />
-        </div>
-        <FilterBlock
-          title={intl.formatMessage({
-            defaultMessage: "Type of opportunity",
-            description:
-              "Title for type of opportunity section on summary of filters section",
-          })}
-          content={typeOfOpportunity}
-        />
-      </div>
-      <div
-        data-h2-flex-item="b(1of1) s(1of2)"
-        data-h2-padding="s(left, xxl)"
-        style={{ paddingTop: "0" }}
-      >
-        <div data-h2-padding="s(left, xxl)">
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Work language ability",
-              description:
-                "Title for work language on summary of filters section",
-            })}
-            content={languageAbility}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Work Location",
-              description:
-                "Title for work location section on summary of filters section",
-            })}
-            content={workLocations}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Employment equity",
-              description:
-                "Title for employment equity section on summary of filters section",
-            })}
-            content={employmentEquity}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage:
-                "Conditions of employment / Operational requirements",
-              description:
-                "Title for operational requirements section on summary of filters section",
-            })}
-            content={operationalRequirements}
-          />
+                  "Title for group and level on summary of filters section",
+              })}
+              content={classifications}
+            />
+            <FilterBlock
+              title={intl.formatMessage(
+                {
+                  defaultMessage: "Selected skills ({numOfSkills})",
+                  description:
+                    "Title for skills section on summary of filters section",
+                },
+                { numOfSkills: skills?.length },
+              )}
+              content={skills}
+            />
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Education Level",
+                description:
+                  "Title for education level on summary of filters section",
+              })}
+              content={educationLevel}
+            />
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Type of opportunity",
+                description:
+                  "Title for type of opportunity section on summary of filters section",
+              })}
+              content={typeOfOpportunity}
+            />
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <div>
+              <FilterBlock
+                title={intl.formatMessage({
+                  defaultMessage: "Work language ability",
+                  description:
+                    "Title for work language on summary of filters section",
+                })}
+                content={languageAbility}
+              />
+              <FilterBlock
+                title={intl.formatMessage({
+                  defaultMessage: "Work Location",
+                  description:
+                    "Title for work location section on summary of filters section",
+                })}
+                content={workLocations}
+              />
+
+              <FilterBlock
+                title={intl.formatMessage({
+                  defaultMessage: "Employment equity",
+                  description:
+                    "Title for employment equity section on summary of filters section",
+                })}
+                content={employmentEquity}
+              />
+              <FilterBlock
+                title={intl.formatMessage({
+                  defaultMessage:
+                    "Conditions of employment / Operational requirements",
+                  description:
+                    "Title for operational requirements section on summary of filters section",
+                })}
+                content={operationalRequirements}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>

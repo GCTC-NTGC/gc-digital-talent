@@ -1,14 +1,14 @@
 import React, { HTMLAttributes } from "react";
 import {
-  ChatAlt2Icon,
+  ChatBubbleLeftRightIcon,
   CurrencyDollarIcon,
   InformationCircleIcon,
-  LibraryIcon,
+  BuildingLibraryIcon,
   LightBulbIcon,
-  LightningBoltIcon,
-  LocationMarkerIcon,
-  ThumbUpIcon,
-} from "@heroicons/react/outline";
+  BoltIcon,
+  MapPinIcon,
+  HandThumbUpIcon,
+} from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
 import GovernmentInformationSection from "@common/components/UserProfile/ProfileSections/GovernmentInformationSection";
@@ -43,11 +43,11 @@ const Heading: React.FC<HeadingProps & HTMLAttributes<HTMLHeadingElement>> = ({
 
   return (
     <El
-      data-h2-display="b(flex)"
-      data-h2-font-weight="b(800)"
-      data-h2-align-items="b(center)"
-      data-h2-margin="b(top, none) b(bottom, m)"
-      data-h2-justify-content="b(start)"
+      data-h2-display="base(flex)"
+      data-h2-font-weight="base(700)"
+      data-h2-align-items="base(center)"
+      data-h2-margin="base(0, 0, x1, 0)"
+      data-h2-justify-content="base(start)"
       {...rest}
     >
       {Icon && <Icon className="heading-icon" />}
@@ -84,6 +84,14 @@ export const UserProfileDocument = React.forwardRef<
           width: 1.5rem;
           margin-right: 1rem;
         }
+        .experience-category {
+          margin-top: 4rem;
+        }
+        .experience-category >div >span,
+        .experience-category >div >p {
+          display: inline-block;
+          font-size: 1.5rem;
+        }
         .accordion-header {
           width: 100%;
           text-align: left;
@@ -91,6 +99,7 @@ export const UserProfileDocument = React.forwardRef<
           padding-top: 1rem;
           padding-right: 1.5rem;
           padding-left: 1rem;
+          margin-top: 2rem;
         }
         .accordion-header-context {
           display: flex;
@@ -99,6 +108,12 @@ export const UserProfileDocument = React.forwardRef<
           max-width: 100%;
           align-items: center;
           flex-direction: row;
+        }
+        .accordion-header-context .icon {
+          width: 1.5rem;
+        }
+        .accordion-header-wrapper svg {
+          display: none;
         }
       }
     `}</style>
@@ -121,7 +136,10 @@ export const UserProfileDocument = React.forwardRef<
                   </div>
                   <div className="page-section">
                     <HeadingWrapper>
-                      <Heading icon={ChatAlt2Icon} style={{ flex: "1 1 0%" }}>
+                      <Heading
+                        icon={ChatBubbleLeftRightIcon}
+                        style={{ flex: "1 1 0%" }}
+                      >
                         {intl.formatMessage({
                           defaultMessage: "Language Information",
                           description:
@@ -133,7 +151,10 @@ export const UserProfileDocument = React.forwardRef<
                   </div>
                   <div className="page-section">
                     <HeadingWrapper>
-                      <Heading icon={LibraryIcon} style={{ flex: "1 1 0%" }}>
+                      <Heading
+                        icon={BuildingLibraryIcon}
+                        style={{ flex: "1 1 0%" }}
+                      >
                         {intl.formatMessage({
                           defaultMessage: "Government Information",
                           description:
@@ -145,10 +166,7 @@ export const UserProfileDocument = React.forwardRef<
                   </div>
                   <div className="page-section">
                     <HeadingWrapper>
-                      <Heading
-                        icon={LocationMarkerIcon}
-                        style={{ flex: "1 1 0%" }}
-                      >
+                      <Heading icon={MapPinIcon} style={{ flex: "1 1 0%" }}>
                         {intl.formatMessage({
                           defaultMessage: "Work Location",
                           description:
@@ -160,7 +178,10 @@ export const UserProfileDocument = React.forwardRef<
                   </div>
                   <div className="page-section">
                     <HeadingWrapper>
-                      <Heading icon={ThumbUpIcon} style={{ flex: "1 1 0%" }}>
+                      <Heading
+                        icon={HandThumbUpIcon}
+                        style={{ flex: "1 1 0%" }}
+                      >
                         {intl.formatMessage({
                           defaultMessage: "Work Preferences",
                           description:
@@ -201,10 +222,7 @@ export const UserProfileDocument = React.forwardRef<
                     <RoleSalarySection applicant={applicant} />
                   </div>
                   <HeadingWrapper>
-                    <Heading
-                      icon={LightningBoltIcon}
-                      style={{ flex: "1 1 0%" }}
-                    >
+                    <Heading icon={BoltIcon} style={{ flex: "1 1 0%" }}>
                       {intl.formatMessage({
                         defaultMessage: "My skills and experience",
                         description:
