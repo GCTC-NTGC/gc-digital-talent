@@ -63,9 +63,7 @@ export const ClosingDateSection = ({
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
-        <h2 data-h2-margin="base(x3, 0, 0, 0)" data-h2-font-size="base(copy)">
-          {sectionMetadata.title}
-        </h2>
+        <h2 data-h2-margin="base(x3, 0, 0, 0)">{sectionMetadata.title}</h2>
       </TableOfContents.Heading>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleSave)}>
