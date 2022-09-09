@@ -1060,62 +1060,62 @@ export const operationalRequirementLabelFull = defineMessages({
 
 export const operationalRequirementLabelShort = defineMessages({
   [OperationalRequirement.ShiftWork]: {
-    id: "OperationalRequirement.ShiftWork.short",
     defaultMessage: "Shift-work",
+    id: "RRSGnD",
     description:
       "The operational requirement described as shift work. (short-form for limited space)",
   },
   [OperationalRequirement.OnCall]: {
-    id: "OperationalRequirement.OnCall.short",
     defaultMessage: "24/7 on-call",
+    id: "NtxfWk",
     description:
       "The operational requirement described as 24/7 on-call. (short-form for limited space)",
   },
   [OperationalRequirement.Travel]: {
-    id: "OperationalRequirement.Travel.short",
     defaultMessage: "Travel as required",
+    id: "7Gg5er",
     description:
       "The operational requirement described as travel as required. (short-form for limited space)",
   },
   [OperationalRequirement.TransportEquipment]: {
-    id: "OperationalRequirement.TransportEquipment.short",
     defaultMessage: "Transport equipment up to 20kg",
+    id: "ovtI5X",
     description:
       "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)",
   },
   [OperationalRequirement.DriversLicense]: {
-    id: "OperationalRequirement.DriversLicense.short",
     defaultMessage: "Driver's license",
+    id: "BnnVAv",
     description:
       "The operational requirement described as driver's license. (short-form for limited space)",
   },
   [OperationalRequirement.OvertimeRegular]: {
-    id: "OperationalRequirement.OvertimeRegular.short",
     defaultMessage: "Overtime (regular)",
+    id: "/hsnPJ",
     description:
       "The operational requirement described as regular overtime. (short-form for limited space)",
   },
   [OperationalRequirement.OvertimeOccasional]: {
-    id: "OperationalRequirement.OvertimeOccasional.short",
     defaultMessage: "Overtime (occasional)",
+    id: "Lw0WrP",
     description:
       "The operational requirement described as occasional overtime. (short-form for limited space)",
   },
   [OperationalRequirement.OvertimeScheduled]: {
-    id: "OperationalRequirement.OvertimeScheduled.short",
     defaultMessage: "Work scheduled overtime",
+    id: "0Nz6aa",
     description:
       "The operational requirement described as scheduled overtime. (short-form for limited space)",
   },
   [OperationalRequirement.OvertimeShortNotice]: {
-    id: "OperationalRequirement.OvertimeShortNotice.short",
     defaultMessage: "Work overtime on short notice",
+    id: "WYLjD1",
     description:
       "The operational requirement described as short notice overtime. (short-form for limited space)",
   },
   [OperationalRequirement.WorkWeekends]: {
-    id: "OperationalRequirement.WorkWeekends.short",
     defaultMessage: "Work weekends",
+    id: "mhO12a",
     description:
       "The operational requirement described as work weekends. (short-form for limited space)",
   },
