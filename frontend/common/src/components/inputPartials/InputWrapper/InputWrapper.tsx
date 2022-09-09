@@ -41,18 +41,16 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
         data-h2-align-items="base(flex-start)"
         {...rest}
       >
-        <div>
-          <InputLabel
-            inputId={inputId}
-            label={label}
-            labelSize={fontSize}
-            required={required}
-            contextIsVisible={context !== undefined && context !== ""}
-            contextToggleHandler={setContextVisible}
-            hideOptional={hideOptional}
-            hideBottomMargin={hideBottomMargin}
-          />
-        </div>
+        <InputLabel
+          inputId={inputId}
+          label={label}
+          labelSize={fontSize}
+          required={required}
+          contextIsVisible={context !== undefined && context !== ""}
+          contextToggleHandler={setContextVisible}
+          hideOptional={hideOptional}
+          hideBottomMargin={hideBottomMargin}
+        />
         {error && errorPosition === "top" && (
           <div
             data-h2-display="base(block)"
