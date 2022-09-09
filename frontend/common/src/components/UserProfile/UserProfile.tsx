@@ -54,14 +54,14 @@ export interface UserProfileProps {
 const HeadingWrapper: React.FC<{ show: boolean }> = ({ children, show }) => {
   if (!show && children) {
     return (
-      <div data-h2-padding="base(x3, 0, x1, 0)">
+      <div data-h2-padding="base(x1, 0, x1, 0)">
         <div data-h2-flex-grid="base(center, 0, x2, x1)">{children}</div>
       </div>
     );
   }
 
   return (
-    <div data-h2-padding="base(x3, 0, x1, 0)">
+    <div data-h2-padding="base(x2, 0, x1, 0)">
       <div data-h2-flex-grid="base(center, 0, x2, x1)">{children}</div>
     </div>
   );

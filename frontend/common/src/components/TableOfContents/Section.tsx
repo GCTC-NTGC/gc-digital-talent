@@ -10,7 +10,7 @@ const Section: React.FC<SectionProps & HTMLAttributes<HTMLDivElement>> = ({
   ...rest
 }) => (
   <div id={id} {...rest}>
-    <div>{children}</div>
+    {children}
   </div>
 );
 
