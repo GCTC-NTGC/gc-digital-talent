@@ -85,7 +85,7 @@
     "@graphql-codegen/typescript": "^2.7.3",
     "@graphql-codegen/typescript-operations": "^2.5.3",
     "@graphql-codegen/typescript-urql": "^3.7.0",
-    "@hydrogen-css/hydrogen": "^2.0.0-beta.25",
+    "@hydrogen-css/hydrogen": "^2.0.0-beta.27",
     "@storybook/addon-actions": "6.5.9",
     "@storybook/addon-essentials": "6.5.9",
     "@storybook/addon-links": "6.5.9",

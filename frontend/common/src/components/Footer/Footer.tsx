@@ -58,7 +58,7 @@ const Footer: React.FunctionComponent<{
       style={{ marginTop: "auto" }}
     >
       <div {...footerWidth}>
-        <div data-h2-flex-grid="base(center, 0, x3)">
+        <div data-h2-flex-grid="base(center, x3)">
           <div
             data-h2-flex-item="base(1of1) l-tablet(1of2)"
             data-h2-text-align="base(center) l-tablet(left)"

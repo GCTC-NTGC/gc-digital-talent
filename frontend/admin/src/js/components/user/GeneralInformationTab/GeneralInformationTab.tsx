@@ -65,7 +65,7 @@ const ModalTableButton: React.FC<ModalTableButtonProps> = ({
       data-h2-padding="base(0)"
       onClick={click}
     >
-      <span data-h2-font-style="base(underline)">{children}</span>
+      <span data-h2-text-decoration="base(underline)">{children}</span>
     </Button>
   );
 };
@@ -164,7 +164,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                     </ModalTableButton>
                   </td>
                   <td
-                    data-h2-font-style="base(underline)"
+                    data-h2-text-decoration="base(underline)"
                     data-h2-background-color="base(light.dt-gray)"
                     data-h2-padding="base(x.25, 0)"
                   >
@@ -177,7 +177,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                     </ModalTableButton>
                   </td>
                   <td
-                    data-h2-font-style="base(underline)"
+                    data-h2-text-decoration="base(underline)"
                     data-h2-background-color="base(light.dt-gray)"
                     data-h2-color="base(dark.dt-gray)"
                     data-h2-padding="base(x.25, 0)"
@@ -218,7 +218,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
       data-h2-padding="base(x1)"
       data-h2-radius="base(s)"
     >
-      <div data-h2-flex-grid="base(normal, 0, x1, x.5)">
+      <div data-h2-flex-grid="base(normal, x1, x.5)">
         {/* Name */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
@@ -388,7 +388,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
           setShowAddToPoolDialog(true);
         }}
       >
-        <span data-h2-font-style="base(underline)">
+        <span data-h2-text-decoration="base(underline)">
           {intl.formatMessage({
             defaultMessage: "Add user to pool",
             description: "Button to add user to pool on the view-user page",
@@ -512,7 +512,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
             return null;
           })}
           <Button type="submit" mode="solid" color="secondary">
-            <span data-h2-font-style="base(underline)">
+            <span data-h2-text-decoration="base(underline)">
               {intl.formatMessage({
                 defaultMessage: "Save notes",
                 description:

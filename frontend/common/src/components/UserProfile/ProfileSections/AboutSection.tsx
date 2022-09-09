@@ -47,7 +47,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       data-h2-padding="base(x1)"
       data-h2-radius="base(s)"
     >
-      <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+      <div data-h2-flex-grid="base(flex-start, x2, x1)">
         {(!!firstName || !!lastName) && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
@@ -162,7 +162,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !currentProvince &&
         !citizenship &&
         armedForcesStatus === null && (
-          <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+          <div data-h2-flex-grid="base(flex-start, x2, x1)">
             <div data-h2-flex-item="base(1of1)">
               <p data-h2-color="base(dt-gray.dark)">
                 {intl.formatMessage({
@@ -183,7 +183,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !currentProvince ||
         !citizenship ||
         armedForcesStatus === null) && (
-        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+        <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
