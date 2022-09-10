@@ -903,7 +903,7 @@ export const getEducationType = (
     `Invalid educationType ${educationTypeId}`,
   );
 
-export const operationalRequirementLabelCandidateDescription = defineMessages({
+export const operationalRequirementLabelFirstPerson = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "has <strong>shift-work</strong>.",
     id: "9rn/MG",
@@ -1121,10 +1121,10 @@ export const operationalRequirementLabelShort = defineMessages({
 
 export const getOperationalRequirement = (
   operationalRequirementId: string | number,
-  format: "candidateDescription" | "full" | "short" = "full",
+  format: "firstPerson" | "full" | "short" = "full",
 ): MessageDescriptor => {
   const messageDictionary = {
-    candidateDescription: operationalRequirementLabelCandidateDescription,
+    firstPerson: operationalRequirementLabelFirstPerson,
     full: operationalRequirementLabelFull,
     short: operationalRequirementLabelShort,
   };

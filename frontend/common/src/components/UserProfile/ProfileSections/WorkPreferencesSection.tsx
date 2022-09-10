@@ -21,10 +21,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
         <li key={opRequirement}>
           {opRequirement
             ? intl.formatMessage(
-                getOperationalRequirement(
-                  opRequirement,
-                  "candidateDescription",
-                ),
+                getOperationalRequirement(opRequirement, "firstPerson"),
               )
             : ""}
         </li>
@@ -55,10 +52,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
         <li key={opRequirement}>
           {opRequirement
             ? intl.formatMessage(
-                getOperationalRequirement(
-                  opRequirement,
-                  "candidateDescription",
-                ),
+                getOperationalRequirement(opRequirement, "firstPerson"),
               )
             : ""}
         </li>

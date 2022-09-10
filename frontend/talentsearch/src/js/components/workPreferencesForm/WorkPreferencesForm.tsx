@@ -240,10 +240,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                     label: (
                       <WithEllipsisPrefix>
                         {intl.formatMessage(
-                          getOperationalRequirement(
-                            value,
-                            "candidateDescription",
-                          ),
+                          getOperationalRequirement(value, "firstPerson"),
                         )}
                       </WithEllipsisPrefix>
                     ),
