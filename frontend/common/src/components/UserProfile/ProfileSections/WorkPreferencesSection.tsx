@@ -54,8 +54,12 @@ const WorkPreferencesSection: React.FunctionComponent<{
     ? unselectedOperationalArray.map((opRequirement) => (
         <li key={opRequirement}>
           {opRequirement
-            ? getOperationalRequirement(opRequirement, "candidateDescription")
-                .defaultMessage
+            ? intl.formatMessage(
+                getOperationalRequirement(
+                  opRequirement,
+                  "candidateDescription",
+                ),
+              )
             : ""}
         </li>
       ))
