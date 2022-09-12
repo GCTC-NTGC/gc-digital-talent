@@ -24,6 +24,7 @@ const useMutations = () => {
     toast.error(
       intl.formatMessage({
         defaultMessage: "Error: updating pool failed",
+        id: "2TrYLI",
         description:
           "Message displayed to user after pool fails to get updated.",
       }),
@@ -40,6 +41,7 @@ const useMutations = () => {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool updated successfully!",
+              id: "nPUAz5",
               description: "Message displayed to user after pool is updated",
             }),
           );
@@ -57,6 +59,7 @@ const useMutations = () => {
     toast.error(
       intl.formatMessage({
         defaultMessage: "Error: publishing pool failed",
+        id: "TkTpzk",
         description:
           "Message displayed to user after pool fails to get publish.",
       }),
@@ -71,6 +74,7 @@ const useMutations = () => {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool published successfully!",
+              id: "P5+9Wy",
               description: "Message displayed to user after pool is published",
             }),
           );
@@ -88,6 +92,7 @@ const useMutations = () => {
     toast.error(
       intl.formatMessage({
         defaultMessage: "Error: closing pool failed",
+        id: "dYBwCh",
         description:
           "Message displayed to user after pool fails to get closed.",
       }),
@@ -102,6 +107,7 @@ const useMutations = () => {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool closed successfully!",
+              id: "JJB5Yd",
               description: "Message displayed to user after pool is closed",
             }),
           );
@@ -119,6 +125,7 @@ const useMutations = () => {
     toast.error(
       intl.formatMessage({
         defaultMessage: "Error: closing pool failed",
+        id: "RXoZOS",
         description:
           "Message displayed to user after pool fails to get deleted.",
       }),
@@ -133,6 +140,7 @@ const useMutations = () => {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool deleted successfully!",
+              id: "93AuFS",
               description: "Message displayed to user after pool is deleted",
             }),
           );

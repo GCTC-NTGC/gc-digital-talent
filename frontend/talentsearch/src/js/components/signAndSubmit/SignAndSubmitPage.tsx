@@ -11,10 +11,22 @@ import {
   UserIcon,
 } from "@heroicons/react/24/solid";
 import uniqueId from "lodash/uniqueId";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { navigate } from "@common/helpers/router";
+import { toast } from "react-toastify";
+
+import { notEmpty } from "@common/helpers/util";
+import { getMissingSkills } from "@common/helpers/skillUtils";
+import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
+import {
+  SubmitApplicationMutation,
+  useGetApplicationDataQuery,
+  useSubmitApplicationMutation,
+} from "../../api/generated";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 const ImportantInfo = () => {
   const intl = useIntl();
@@ -22,29 +34,38 @@ const ImportantInfo = () => {
     intl.formatMessage({
       defaultMessage:
         "When you submit your application, a copy of your profile will be created.",
+      id: "ww86SN",
       description: "Important info list item on sign and submit page.",
     }),
     intl.formatMessage({
       defaultMessage:
         "This copy will be used for the initial application review.",
+      id: "wyxpjm",
       description: "Important info list item on sign and submit page.",
     }),
     intl.formatMessage({
       defaultMessage:
         "Changes made to your profile after submitting will not be updated on this copy.",
+      id: "4NzbMZ",
       description: "Important info list item on sign and submit page.",
     }),
     intl.formatMessage({
       defaultMessage:
         "You are still encouraged to keep your profile up to date, updated versions will be used at later steps of the hiring process.",
+      id: "qDYcDP",
       description: "Important info list item on sign and submit page.",
     }),
   ];
 
   return (
     <ol>
-      {steps.map((item) => (
-        <li key={uniqueId()} data-h2-margin="base(0, 0, x1, 0)">
+      {steps.map((item, index) => (
+        <li
+          key={uniqueId()}
+          {...(index !== steps.length - 1 && {
+            "data-h2-margin": "base(0, 0, x1, 0)",
+          })}
+        >
           {item}
         </li>
       ))}
@@ -52,37 +73,83 @@ const ImportantInfo = () => {
   );
 };
 
-const Signature = ({ isNotComplete }: { isNotComplete: boolean }) => {
+type FormValues = {
+  signature: string;
+};
+
+type SignatureFormProps = {
+  applicationId: string;
+  userId: string;
+  isApplicationComplete: boolean;
+  handleSubmitApplication: (
+    id: string,
+    signature: string,
+  ) => Promise<SubmitApplicationMutation["submitApplication"]>;
+};
+
+const SignatureForm = ({
+  applicationId,
+  userId,
+  isApplicationComplete,
+  handleSubmitApplication,
+}: SignatureFormProps) => {
   const intl = useIntl();
-  const methods = useForm<{ signature: string }>();
+  const paths = useDirectIntakeRoutes();
+  const methods = useForm<FormValues>();
   const confirmations = [
     intl.formatMessage({
       defaultMessage: `"I've reviewed everything written in my
         application`,
+      id: "aeI64y",
       description: "Signature list item on sign and submit page.",
     }),
     intl.formatMessage({
       defaultMessage: `"I understand that I am part of a community who trusts each
         other"`,
+      id: "dIZPra",
       description: "Signature list item on sign and submit page.",
     }),
     intl.formatMessage({
       defaultMessage: `"I promise that the information Ive provided is
         true"`,
+      id: "Lgo2iQ",
       description: "Signature list item on sign and submit page.",
     }),
   ];
+
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    await handleSubmitApplication(applicationId, data.signature)
+      .then(() => {
+        navigate(paths.applications(userId));
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Application submitted successfully!",
+            id: "Zx0ylN",
+            description:
+              "Message displayed to user after application is submitted successfully.",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: submitting application failed",
+            id: "iilT16",
+            description:
+              "Message displayed to user after application fails to submit.",
+          }),
+        );
+      });
+  };
+
   return (
     <FormProvider {...methods}>
-      <form
-        onSubmit={methods.handleSubmit(() => {
-          // TODO: ADD SUBMIT APPLICATION MUTATION HERE
-        })}
-      >
-        <p>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <p data-h2-margin="base(0, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage:
               "You made it! By signing your name below you confirm that:",
+            id: "i4CKlO",
             description:
               "Confirmation message before signature form on sign and submit page.",
           })}
@@ -102,6 +169,7 @@ const Signature = ({ isNotComplete }: { isNotComplete: boolean }) => {
             id="signature"
             label={intl.formatMessage({
               defaultMessage: "Signature",
+              id: "YZyNUJ",
               description:
                 "Label displayed for signature input in sign and submit page.",
             })}
@@ -110,7 +178,7 @@ const Signature = ({ isNotComplete }: { isNotComplete: boolean }) => {
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            disabled={isNotComplete}
+            disabled={!isApplicationComplete}
           />
         </div>
         <div data-h2-text-align="base(center) p-tablet(left)">
@@ -123,6 +191,7 @@ const Signature = ({ isNotComplete }: { isNotComplete: boolean }) => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Submit my application",
+                  id: "Knr0yc",
                   description: "Submit button label on sign and submit page.",
                 })}
                 <ArrowSmallRightIcon
@@ -134,16 +203,17 @@ const Signature = ({ isNotComplete }: { isNotComplete: boolean }) => {
                 />
               </span>
             }
-            disabled={isNotComplete}
+            disabled={!isApplicationComplete}
           />
           <Link
-            href="#REPLACE HREF WITH ROUTE WHEN AVAILABLE"
+            href="#REPLACEWITHREVIEWAPPLICATIONROUTE" // TODO: Replace with review my application route.
             color="black"
             mode="inline"
             type="button"
           >
             {intl.formatMessage({
               defaultMessage: "Back to previous step",
+              id: "SDQWZf",
               description: "Label for return link on sign and submit page.",
             })}
           </Link>
@@ -154,15 +224,26 @@ const Signature = ({ isNotComplete }: { isNotComplete: boolean }) => {
 };
 
 export interface SignAndSubmitFormProps {
+  applicationId: string;
+  poolAdvertisementId: string;
+  userId: string;
   closingDate: Date;
   jobTitle: string;
-  isNotComplete: boolean;
+  isApplicationComplete: boolean;
+  handleSubmitApplication: (
+    id: string,
+    signature: string,
+  ) => Promise<SubmitApplicationMutation["submitApplication"]>;
 }
 
 export const SignAndSubmitForm = ({
+  applicationId,
+  poolAdvertisementId,
+  userId,
   closingDate,
   jobTitle,
-  isNotComplete,
+  isApplicationComplete,
+  handleSubmitApplication,
 }: SignAndSubmitFormProps) => {
   const intl = useIntl();
   const paths = useDirectIntakeRoutes();
@@ -172,6 +253,7 @@ export const SignAndSubmitForm = ({
       id: "importantInformation",
       title: intl.formatMessage({
         defaultMessage: "Important information",
+        id: "/Mb8b6",
         description: "Toc navigation item on sign and submit page.",
       }),
       component: <ImportantInfo />,
@@ -181,36 +263,46 @@ export const SignAndSubmitForm = ({
       id: "signature",
       title: intl.formatMessage({
         defaultMessage: "Signature",
+        id: "Ledr63",
         description: "Toc navigation item on sign and submit page.",
       }),
-      component: <Signature isNotComplete={isNotComplete} />,
+      component: (
+        <SignatureForm
+          applicationId={applicationId}
+          userId={userId}
+          isApplicationComplete={isApplicationComplete}
+          handleSubmitApplication={handleSubmitApplication}
+        />
+      ),
       icon: ClipboardDocumentCheckIcon,
     },
   ];
 
-  const applicationRoute = "#REPLACE-WITH-APPLICATION-ROUTE";
   return (
     <ApplicationPageWrapper
       closingDate={closingDate}
       title={intl.formatMessage({
         defaultMessage: "My application profile",
+        id: "6p6syC",
         description: "Title for sign and submit page.",
       })}
       crumbs={[
         {
           title: intl.formatMessage({
             defaultMessage: "My applications",
+            id: "kjtiha",
             description: "Breadcrumb for sign and submit page.",
           }),
           href: paths.allPools(),
         },
         {
           title: jobTitle,
-          href: applicationRoute,
+          href: paths.poolAdvertisement(poolAdvertisementId),
         },
         {
           title: intl.formatMessage({
             defaultMessage: "Step 2",
+            id: "oOR4Rd",
             description: "Breadcrumb for sign and submit page.",
           }),
         },
@@ -219,9 +311,10 @@ export const SignAndSubmitForm = ({
         currentStep: 2,
         steps: [
           {
-            path: applicationRoute,
+            path: "#REPLACEWITHREVIEWAPPLICATIONROUTE", // TODO: Replace with review my application route.
             label: intl.formatMessage({
               defaultMessage: "Step 1: Review my profile",
+              id: "LUEVdb",
               description: "Navigation step in sign and submit page.",
             }),
           },
@@ -229,6 +322,7 @@ export const SignAndSubmitForm = ({
             path: "#sign-and-submit",
             label: intl.formatMessage({
               defaultMessage: "Step 2: Sign and submit",
+              id: "LOh+c5",
               description: "Navigation step in sign and submit page.",
             }),
           },
@@ -247,9 +341,19 @@ export const SignAndSubmitForm = ({
         <TableOfContents.Content>
           {tocNavItems.map((item) => (
             <TableOfContents.Section key={item.id} id={item.id}>
-              <TableOfContents.Heading as="h3" icon={item.icon}>
-                {item.title}
-              </TableOfContents.Heading>
+              <div data-h2-padding="base(x3, 0, x1, 0)">
+                <div data-h2-flex-grid="base(center, 0, x2, x1)">
+                  <div
+                    data-h2-flex-item="base(1of1) p-tablet(content)"
+                    data-h2-text-align="base(center) p-tablet(right)"
+                  >
+                    <TableOfContents.Heading as="h3" icon={item.icon}>
+                      {item.title}
+                    </TableOfContents.Heading>
+                  </div>
+                </div>
+              </div>
+
               {item.component}
             </TableOfContents.Section>
           ))}
@@ -259,31 +363,60 @@ export const SignAndSubmitForm = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SignAndSubmitPage: React.FC<{ id: string }> = ({ id }) => {
   const intl = useIntl();
+  const [{ data, fetching, error }] = useGetApplicationDataQuery({
+    variables: { id },
+  });
 
-  // TODO: Fetch application data query
-  // const [{ data, fetching, error }] = REPLACEWITHPROFILEDATAQUERY({
-  //   variables: { id },
-  // });
-  const application = true;
-  const fetching = true;
-  const error = undefined;
+  const jobTitle = data?.poolCandidate?.poolAdvertisement
+    ? getFullPoolAdvertisementTitle(intl, data.poolCandidate.poolAdvertisement)
+    : intl.formatMessage({
+        defaultMessage: "Error, job title not found.",
+        id: "oDyHaL",
+        description: "Error message when job title isn't found.",
+      });
+
+  const isProfileComplete = data?.poolCandidate?.user.isProfileComplete;
+  const experiences = data?.poolCandidate?.user.experiences?.filter(notEmpty);
+  const hasExperiences = notEmpty(experiences);
+
+  const isApplicationComplete =
+    isProfileComplete === true &&
+    getMissingSkills(
+      data?.poolCandidate?.poolAdvertisement?.essentialSkills || [],
+      hasExperiences
+        ? flattenExperienceSkills(experiences).filter(notEmpty)
+        : [],
+    ).length === 0;
+
+  const [, executeMutation] = useSubmitApplicationMutation();
+  const handleSubmitApplication = (applicationId: string, signature: string) =>
+    executeMutation({ id: applicationId, signature }).then((result) => {
+      if (result.data?.submitApplication) {
+        return result.data.submitApplication;
+      }
+      return Promise.reject(result.error);
+    });
 
   return (
     <Pending fetching={fetching} error={error}>
-      {application ? (
+      {data?.poolCandidate && data.poolCandidate.poolAdvertisement ? (
         <SignAndSubmitForm
-          closingDate={new Date(Date.now())} // TODO: Replace with api data
-          jobTitle="REPLACE WITH JOB TITLE" // TODO: Replace with api data
-          isNotComplete // TODO: Replace with api data
+          applicationId={id}
+          poolAdvertisementId={data.poolCandidate.poolAdvertisement?.id}
+          userId={data.poolCandidate.user.id}
+          closingDate={data.poolCandidate.poolAdvertisement?.expiryDate}
+          jobTitle={jobTitle}
+          isApplicationComplete={isApplicationComplete}
+          handleSubmitApplication={handleSubmitApplication}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>
             {intl.formatMessage({
               defaultMessage: "Error, application unable to be loaded",
+              id: "0+hcuo",
               description: "Error message, placeholder",
             })}
           </p>

@@ -23,7 +23,7 @@ const EstimatedCandidates: React.FunctionComponent<
       >
         <div
           data-h2-background-color="base(dt-white)"
-          data-h2-overflow="base(hidden, all)"
+          data-h2-overflow="base(hidden)"
           data-h2-radius="base(s)"
           data-h2-shadow="base(l)"
         >
@@ -40,6 +40,7 @@ const EstimatedCandidates: React.FunctionComponent<
             >
               {intl.formatMessage({
                 defaultMessage: "Estimated Candidates",
+                id: "09x+E7",
                 description:
                   "Heading for total estimated candidates box next to search form.",
               })}
@@ -62,6 +63,7 @@ const EstimatedCandidates: React.FunctionComponent<
                         one {There is approximately <strong><testId>{candidateCount}</testId></strong> candidate right now who meets your criteria.}
                         other {There are approximately <strong><testId>{candidateCount}</testId></strong> candidates right now who meet your criteria.}
                       }`,
+                      id: "ID8FNk",
                       description:
                         "Message for total estimated candidates box next to search form.",
                     },

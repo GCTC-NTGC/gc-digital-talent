@@ -13,7 +13,7 @@ function renderContainer() {
   return render(
     <LanguageRedirectContainer messages={{ hello: "Bonjour" }}>
       <div>
-        {/* eslint-disable-next-line formatjs/no-id */}
+        {/* eslint-disable-next-line formatjs/enforce-id */}
         <FormattedMessage id="hello" defaultMessage="Hello" />
       </div>
     </LanguageRedirectContainer>,

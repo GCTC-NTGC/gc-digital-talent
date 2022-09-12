@@ -75,6 +75,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool created successfully!",
+              id: "wZ91g+",
               description:
                 "Message displayed to user after pool is created successfully.",
             }),
@@ -85,6 +86,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: creating pool failed",
+            id: "W2qRX5",
             description:
               "Message displayed to pool after pool fails to get created.",
           }),
@@ -96,6 +98,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     {
       title: intl.formatMessage({
         defaultMessage: "My Pools",
+        id: "7N+tQw",
         description: "Breadcrumb title for the pools page link.",
       }),
       href: paths.poolTable(),
@@ -103,6 +106,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     {
       title: intl.formatMessage({
         defaultMessage: `New Pool`,
+        id: "iQzlmB",
         description: "New pool breadcrumb text",
       }),
     },
@@ -137,6 +141,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
       <PageHeader icon={Squares2X2Icon}>
         {intl.formatMessage({
           defaultMessage: "Create New Pool",
+          id: "+umNAP",
           description: "Header for page to create pool advertisements",
         })}
       </PageHeader>
@@ -147,12 +152,14 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
             <h2 data-h2-margin="base(x.25, 0)" data-h2-font-size="base(h3)">
               {intl.formatMessage({
                 defaultMessage: "Start blank job poster",
+                id: "gv1Hwu",
                 description: "Form header to create new pool",
               })}
             </h2>
             <p>
               {intl.formatMessage({
                 defaultMessage: "Create a new job poster from scratch",
+                id: "QodYZE",
                 description: "Form blurb describing create pool form",
               })}
             </p>
@@ -160,12 +167,14 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               id="classification"
               label={intl.formatMessage({
                 defaultMessage: "Starting group and level",
+                id: "gN5gy5",
                 description:
                   "Label displayed on the pool form classification field.",
               })}
               name="classification"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a classification...",
+                id: "7aG86f",
                 description:
                   "Placeholder displayed on the pool form classification field.",
               })}
@@ -178,6 +187,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               color="cta"
               text={intl.formatMessage({
                 defaultMessage: "Create new pool",
+                id: "TLl20s",
                 description:
                   "Label displayed on submit button for new pool form.",
               })}
@@ -195,6 +205,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         >
           {intl.formatMessage({
             defaultMessage: "Cancel and go back",
+            id: "dJxNRU",
             description: "Label displayed on cancel button for new pool form.",
           })}
         </Link>

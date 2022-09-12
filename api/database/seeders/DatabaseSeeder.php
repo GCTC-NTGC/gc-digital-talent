@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CmoAssetSeeder::class);
         $this->call(DepartmentSeeder::class);
         $this->call(GenericJobTitleSeeder::class);
+        $this->call(SkillFamilySeeder::class);
         $this->call(SkillSeeder::class);
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);

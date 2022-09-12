@@ -32,6 +32,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
           {
             defaultMessage:
               "There are <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> matching candidates in this pool",
+            id: "Ba4Y8a",
             description:
               "Message for total estimated candidates box next to search form.",
           },
@@ -45,6 +46,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
         {intl.formatMessage(
           {
             defaultMessage: "Pool Owner: {firstName} {lastName}",
+            id: "/quEXs",
             description: "Text showing the owner of the HR pool.",
           },
           {
@@ -57,6 +59,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
       <Button color="cta" mode="solid" onClick={handleSubmit}>
         {intl.formatMessage({
           defaultMessage: "Request Candidates",
+          id: "6mDW+R",
           description:
             "Button link message on search page that takes user to the request form.",
         })}

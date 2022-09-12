@@ -98,6 +98,7 @@ export const CreateAccountForm: React.FunctionComponent<
         >
           {intl.formatMessage({
             defaultMessage: "Welcome to Digital Talent",
+            id: "0m7BIV",
             description:
               "Title for the create account page for applicant profiles.",
           })}
@@ -111,12 +112,14 @@ export const CreateAccountForm: React.FunctionComponent<
         <Alert
           title={intl.formatMessage({
             defaultMessage: "You’ve successfully logged in",
+            id: "4FEV7d",
             description:
               "Title for successful login alert in create account page.",
           })}
           message={intl.formatMessage({
             defaultMessage:
               "Welcome to the Digital Talent platform. Moving forward, you can log into your profile using the same GC Key username and password.",
+            id: "0O/eV0",
             description:
               "Message for successful login alert in create account page.",
           })}
@@ -129,6 +132,7 @@ export const CreateAccountForm: React.FunctionComponent<
             <h2 data-h2-margin="base(x2, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage: "Getting started",
+                id: "o/YTo0",
                 description: "Main heading in create account page.",
               })}
             </h2>
@@ -136,6 +140,7 @@ export const CreateAccountForm: React.FunctionComponent<
               {intl.formatMessage({
                 defaultMessage:
                   "Before we take you to your profile, we need to collect some required information to complete your account set up. ",
+                id: "bYg+MM",
                 description:
                   "Message after main heading in create account page.",
               })}
@@ -152,11 +157,13 @@ export const CreateAccountForm: React.FunctionComponent<
                     type="text"
                     label={intl.formatMessage({
                       defaultMessage: "Given name(s)",
+                      id: "WpRB7Z",
                       description:
                         "Label displayed for the first name field in create account form.",
                     })}
                     placeholder={intl.formatMessage({
                       defaultMessage: "e.g. Thomas",
+                      id: "H1J8wl",
                       description:
                         "Placeholder displayed for the first name field in create account form.",
                     })}
@@ -172,11 +179,13 @@ export const CreateAccountForm: React.FunctionComponent<
                     type="text"
                     label={intl.formatMessage({
                       defaultMessage: "Surname(s)",
+                      id: "h9q52R",
                       description:
                         "Label displayed for the last name field in create account form.",
                     })}
                     placeholder={intl.formatMessage({
                       defaultMessage: "e.g. Edison",
+                      id: "X9IdZQ",
                       description:
                         "Placeholder displayed for the first name field in create account form.",
                     })}
@@ -194,11 +203,13 @@ export const CreateAccountForm: React.FunctionComponent<
                   label={intl.formatMessage({
                     defaultMessage:
                       "Which email do you like to be contacted at?",
+                    id: "MTwQ3S",
                     description:
                       "Label displayed for the email field in create account form.",
                   })}
                   placeholder={intl.formatMessage({
                     defaultMessage: "e.g. thomas.edison@example.com",
+                    id: "UIkTbl",
                     description:
                       "Placeholder displayed for the first name field in create account form.",
                   })}
@@ -211,6 +222,7 @@ export const CreateAccountForm: React.FunctionComponent<
                 idPrefix="required-lang-preferences"
                 legend={intl.formatMessage({
                   defaultMessage: "What is your preferred contact language?",
+                  id: "0ScnOT",
                   description:
                     "Legend text for required language preference in create account form",
                 })}
@@ -226,6 +238,7 @@ export const CreateAccountForm: React.FunctionComponent<
                 {intl.formatMessage({
                   defaultMessage:
                     "Below we’d like to know if you’re already an employee with the Government of Canada. We collect this information because it helps us understand, at an aggregate level, how digital skills are distributed amongst departments.",
+                  id: "XijxiY",
                   description:
                     "First message before is a government of canada radio group in create account form.",
                 })}
@@ -234,6 +247,7 @@ export const CreateAccountForm: React.FunctionComponent<
                 {intl.formatMessage({
                   defaultMessage:
                     "We also use this information to provide you with more contextualized opportunities and suggestions based on your employment status.",
+                  id: "5U4C61",
                   description:
                     "Second message before is a government of canada radio group in create account form.",
                 })}
@@ -258,6 +272,7 @@ export const CreateAccountForm: React.FunctionComponent<
                   color="primary"
                   text={intl.formatMessage({
                     defaultMessage: "Save and go to my profile",
+                    id: "H3Za3e",
                     description:
                       "Button label for submit button on create account form.",
                   })}
@@ -302,6 +317,7 @@ const CreateAccount: React.FunctionComponent = () => {
       toast.error(
         intl.formatMessage({
           defaultMessage: "Error: user not found",
+          id: "4bjh8X",
           description: "Message displayed to user if user is not found",
         }),
       );
@@ -313,6 +329,7 @@ const CreateAccount: React.FunctionComponent = () => {
         toast.success(
           intl.formatMessage({
             defaultMessage: "Account successfully created.",
+            id: "DK870a",
             description:
               "Message displayed to user if account is created successfully.",
           }),
@@ -322,6 +339,7 @@ const CreateAccount: React.FunctionComponent = () => {
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: creating account failed.",
+            id: "BruLeg",
             description:
               "Message displayed to user if account fails to get updated.",
           }),

@@ -233,6 +233,7 @@ type Applicant {
     personalExperiences: [PersonalExperience]
     workExperiences: [WorkExperience]
 
+    isProfileComplete: Boolean
     expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
     priorityWeight: Int @rename(attribute: "priority_weight")
 }
@@ -359,6 +360,7 @@ type PoolCandidate {
     cmoAssets: [CmoAsset] @belongsToMany
 
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+    statusWeight: Int @rename(attribute: "status_weight")
     notes: String
     archivedAt: DateTime @rename(attribute: "archived_at")
     submittedAt: DateTime @rename(attribute: "submitted_at")

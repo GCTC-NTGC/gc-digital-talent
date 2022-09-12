@@ -56,6 +56,7 @@ export const getLocalizedName = (
 
   const notAvailable = intl.formatMessage({
     defaultMessage: "N/A",
+    id: "UCGAzS",
     description: "displayed when localized string not available",
   });
 

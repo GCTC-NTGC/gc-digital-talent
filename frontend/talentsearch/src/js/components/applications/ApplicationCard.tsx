@@ -49,7 +49,7 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
                 )
               : ""}
           </h2>
-          <div data-h2-display="base(flex)" data-h2-gap="base(x0.5, all)">
+          <div data-h2-display="base(flex)" data-h2-gap="base(x0.5)">
             <ApplicationActions.ContinueAction
               show={applicationIsDraft}
               application={application}
@@ -94,6 +94,7 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
             {intl.formatMessage(
               {
                 defaultMessage: "ID: {id}",
+                id: "hEXXG0",
                 description: "Label for application ID",
               },
               {

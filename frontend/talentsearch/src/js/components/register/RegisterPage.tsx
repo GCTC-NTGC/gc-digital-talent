@@ -38,6 +38,7 @@ const RegisterPage: React.FC = () => {
         <h1 data-h2-margin="base(x2, 0)">
           {intl.formatMessage({
             defaultMessage: "Register using GC Key",
+            id: "zILELf",
             description:
               "Title for the registration page for applicant profiles.",
           })}
@@ -49,6 +50,7 @@ const RegisterPage: React.FC = () => {
             {intl.formatMessage({
               defaultMessage:
                 "You can log into your Digital Talent profile using your existing GC Key, even if you've never used this platform before.",
+              id: "c3CV4P",
               description: "Instructions on how to login with GC Key.",
             })}
           </p>
@@ -56,6 +58,7 @@ const RegisterPage: React.FC = () => {
             {intl.formatMessage({
               defaultMessage:
                 "If you're unsure whether you have an existing GC Key account, continue to the website and try logging in. If you can't remember your password, you can also reset it there.",
+              id: "pcnr9A",
               description:
                 "Instructions on what to do if user doesn't know if they have a GC Key",
             })}
@@ -65,6 +68,7 @@ const RegisterPage: React.FC = () => {
               {
                 defaultMessage:
                   "<strong>Don't have a GC Key account?</strong> <a>Register for one.</a>",
+                id: "ofOoFQ",
                 description:
                   "Instruction on what to do if user does not have a GC Key.",
               },
@@ -84,6 +88,7 @@ const RegisterPage: React.FC = () => {
               <Link href={loginPath} external>
                 {intl.formatMessage({
                   defaultMessage: "Log in instead",
+                  id: "rUFZwt",
                   description: "Login link text on the registration page.",
                 })}
               </Link>
@@ -98,6 +103,7 @@ const RegisterPage: React.FC = () => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Continue to GC Key and Register",
+                  id: "9yMdpm",
                   description:
                     "GC Key registration link text on the registration page.",
                 })}

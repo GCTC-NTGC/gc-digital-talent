@@ -41,6 +41,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Action",
+          id: "TDTE1c",
           description:
             "Title displayed for the search request table edit column.",
         }),
@@ -54,6 +55,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "ID",
+          id: "f24Z8p",
           description: "Title displayed on the search request table id column.",
         }),
         accessor: "id",
@@ -61,6 +63,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Date Received",
+          id: "r2gD/4",
           description:
             "Title displayed on the search request table requested date column.",
         }),
@@ -69,6 +72,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Status",
+          id: "t3sEc+",
           description:
             "Title displayed on the search request table status column.",
         }),
@@ -77,6 +81,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Manager",
+          id: "7FtbwK",
           description:
             "Title displayed on the search request table manager column.",
         }),
@@ -85,6 +90,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Department",
+          id: "i3C5Hn",
           description:
             "Title displayed on the search request table department column.",
         }),
@@ -93,6 +99,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Email",
+          id: "hiZAeF",
           description:
             "Title displayed on the search request table email column.",
         }),
@@ -101,6 +108,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Job Title",
+          id: "8hee5d",
           description:
             "Title displayed on the search request table job title column.",
         }),
@@ -109,6 +117,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Pool",
+          id: "Htqzxb",
           description:
             "Title displayed on the search request table pool column.",
         }),

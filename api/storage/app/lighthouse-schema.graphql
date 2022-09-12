@@ -51,6 +51,7 @@ type Applicant {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
+  isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
 }
@@ -823,6 +824,7 @@ type PoolCandidate {
   expectedClassifications: [Classification]
   cmoAssets: [CmoAsset]
   status: PoolCandidateStatus
+  statusWeight: Int
   notes: String
   archivedAt: DateTime
   submittedAt: DateTime

@@ -55,6 +55,7 @@ const RequestPage: React.FunctionComponent = () => {
         >
           {intl.formatMessage({
             defaultMessage: "Search the Digital Talent Pool",
+            id: "NXzsK4",
             description: "Main heading displayed at the top of request page.",
           })}
         </h1>

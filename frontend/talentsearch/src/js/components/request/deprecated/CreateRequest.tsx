@@ -141,6 +141,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "Request created successfully!",
+            id: "gUb3PY",
             description:
               "Message displayed to user after a pool candidate request is created successfully.",
           }),
@@ -150,6 +151,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: creating request failed",
+            id: "9nIALc",
             description:
               "Message displayed to user after a pool candidate request fails to get created.",
           }),
@@ -173,6 +175,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
         name[locale] ??
         intl.formatMessage({
           defaultMessage: "Error: department name not found.",
+          id: "WbDLlc",
           description:
             "Error message when department name is not found on request page.",
         }),
@@ -187,6 +190,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       <h2 data-h2-margin="base(0, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Request Form",
+          id: "LOYv+/",
           description: "Heading for request form.",
         })}
       </h2>
@@ -194,12 +198,13 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
         {intl.formatMessage({
           defaultMessage:
             "To submit a request, please provide the following information so we can contact you.",
+          id: "GHvRHc",
           description: "Explanation message for request form.",
         })}
       </p>
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div data-h2-flex-grid="base(flex-start, 0, 0) p-tablet(flex-start, 0, x2, 0)">
+          <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, 0)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 id="fullName"
@@ -207,10 +212,12 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 name="fullName"
                 label={intl.formatMessage({
                   defaultMessage: "Full Name",
+                  id: "dRnKNR",
                   description: "Label for full name input in the request form",
                 })}
                 placeholder={intl.formatMessage({
                   defaultMessage: "Full name...",
+                  id: "OjhS6t",
                   description:
                     "Placeholder for full name input in the request form.",
                 })}
@@ -225,11 +232,13 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 name="department"
                 label={intl.formatMessage({
                   defaultMessage: "Department / Hiring Organization",
+                  id: "UUIb3j",
                   description:
                     "Label for department select input in the request form",
                 })}
                 nullSelection={intl.formatMessage({
                   defaultMessage: "Select a department...",
+                  id: "WE/Nu+",
                   description:
                     "Null selection for department select input in the request form.",
                 })}
@@ -246,11 +255,13 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 name="email"
                 label={intl.formatMessage({
                   defaultMessage: "Government e-mail",
+                  id: "mRNmrR",
                   description:
                     "Label for government email input in the request form",
                 })}
                 placeholder={intl.formatMessage({
                   defaultMessage: "example@canada.ca...",
+                  id: "N6+rnM",
                   description:
                     "Placeholder for government email input in the request form",
                 })}
@@ -266,10 +277,12 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 name="jobTitle"
                 label={intl.formatMessage({
                   defaultMessage: "What is the job title for this position?",
+                  id: "7lCUIL",
                   description: "Label for job title input in the request form",
                 })}
                 placeholder={intl.formatMessage({
                   defaultMessage: "Developer...",
+                  id: "zz9pwK",
                   description:
                     "Placeholder for job title input in the request form.",
                 })}
@@ -284,6 +297,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               {intl.formatMessage({
                 defaultMessage:
                   "In this field please include any additional details and qualifications you are seeking from the candidates such as: programming languages, certifications, knowledge, or a specific work location.",
+                id: "Zzd/sJ",
                 description:
                   "Blurb before additional comments textarea in the request form.",
               })}
@@ -293,6 +307,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               name="additionalComments"
               label={intl.formatMessage({
                 defaultMessage: "Additional Comments",
+                id: "FC5tje",
                 description:
                   "Label for additional comments textarea in the request form.",
               })}
@@ -302,6 +317,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           <h2 data-h2-margin="base(x2, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage: "Summary of filters",
+              id: "emx1cK",
               description: "Title of Summary of filters section",
             })}
           </h2>
@@ -317,6 +333,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               {
                 defaultMessage:
                   "Request for pool candidates: <span>{candidateCountNumber, plural, =0 {no candidates} =1 {1 estimated candidate} other {{candidateCountNumber} estimated candidates}}</span>",
+                id: "8fXduS",
                 description:
                   "Total estimated candidates message in summary of filters",
               },
@@ -326,7 +343,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               },
             )}
           </p>
-          <div data-h2-flex-grid="base(flex-start, 0, 0, x1) p-tablet(center, 0, x2, 0)">
+          <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(center, x2, 0)">
             <div
               data-h2-text-align="base(center) p-tablet(left)"
               data-h2-flex-item="base(1of1) p-tablet(1of2)"
@@ -344,6 +361,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               >
                 {intl.formatMessage({
                   defaultMessage: "Back",
+                  id: "L8k+lC",
                   description:
                     "Back button located next to the submit button on the request form.",
                 })}
@@ -358,6 +376,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 mode="solid"
                 text={intl.formatMessage({
                   defaultMessage: "Submit Request",
+                  id: "eTTlR0",
                   description: "Submit button text on request form.",
                 })}
               />

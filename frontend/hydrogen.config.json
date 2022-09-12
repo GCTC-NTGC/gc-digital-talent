@@ -1,11 +1,11 @@
 {
   "info": {
     "docs": "https://beta.hydrogen.design",
-    "settings": "https://beta.hydrogen.design/settings",
-    "code": "https://github.com/hydrogen-css/hydrogen",
-    "roadmap": "https://github.com/orgs/hydrogen-css/projects/1"
+    "settings": "https://beta.hydrogen.design/en/docs/setup/configuration/",
+    "code": "https://github.com/hydrogen-design-system/hydrogen",
+    "feedback": "https://forms.office.com/r/vz80dsUabZ",
+    "roadmap": "https://github.com/orgs/hydrogen-design-system/projects/1"
   },
-  "debug": false,
   "temp": [
     "../*/src/views/*.html"
   ],
@@ -16,321 +16,331 @@
     "indigenousapprenticeship/src/js/components"
   ],
   "output": "common/src/css",
-  "variables": false,
-  "reset_styles": true,
-  "dark_mode": "preference",
-  "colors": [
-    {
-      "key": "dt-black",
-      "color": "#1E1E23",
-      "modifiers": []
-    },
-    {
-      "key": "dt-white",
-      "color": "#FFFFFF",
-      "modifiers": []
-    },
-    {
-      "key": "dt-gray",
-      "color": "#B9B9B9",
-      "modifiers": [
-        {
-          "key": "light",
-          "color": "#F0F0F0"
-        },
-        {
-          "key": "dark",
-          "color": "#646464"
-        }
-      ]
-    },
-    {
-      "key": "dt-primary",
-      "color": "#674C90",
-      "modifiers": [
-        {
-          "key": "dark",
-          "color": "#363661"
-        }
-      ]
-    },
-    {
-      "key": "dt-secondary",
-      "color": "#072131",
-      "modifiers": [
-        {
-          "key": "light",
-          "color": "#1D2C4C"
-        }
-      ]
-    },
-    {
-      "key": "dt-accent",
-      "color": "#F8A812",
-      "modifiers": [
-        {
-          "key": "light",
-          "color": "#FBDCA5"
-        },
-        {
-          "key": "dark",
-          "color": "#F8A812"
-        }
-      ]
-    },
-    {
-      "key": "dt-success",
-      "color": "#087835",
-      "modifiers": []
-    },
-    {
-      "key": "dt-error",
-      "color": "#e90101",
-      "modifiers": []
-    },
-    {
-      "key": "ia-black",
-      "color": "#1E1E23",
-      "modifiers": []
-    },
-    {
-      "key": "ia-white",
-      "color": "#FFFFFF",
-      "modifiers": []
-    },
-    {
-      "key": "ia-gray",
-      "color": "#B9B9B9",
-      "modifiers": [
-        {
-          "key": "light",
-          "color": "#F0F0F0"
-        },
-        {
-          "key": "dark",
-          "color": "#646464"
-        }
-      ]
-    },
-    {
-      "key": "ia-primary",
-      "color": "#C01E5A",
-      "modifiers": [
-        {
-          "key": "light",
-          "color": "#E9568A"
-        },
-        {
-          "key": "dark",
-          "color": "#781443"
-        },
-        {
-          "key": "hero",
-          "color": "rgb(71, 6, 46)"
-        }
-      ]
-    },
-    {
-      "key": "ia-secondary",
-      "color": "#272F6B",
-      "modifiers": [
-        {
-          "key": "light",
-          "color": "#4D5194"
-        },
-        {
-          "key": "dark",
-          "color": "#211C53"
-        }
-      ]
-    },
-    {
-      "key": "ia-error",
-      "color": "#AE0000",
-      "modifiers": []
-    }
-  ],
-  "containers": [
-    {
-      "key": "s",
-      "max_width": "39rem"
-    },
-    {
-      "key": "small",
-      "max_width": "39rem"
-    },
-    {
-      "key": "m",
-      "max_width": "60rem"
-    },
-    {
-      "key": "medium",
-      "max_width": "60rem"
-    },
-    {
-      "key": "l",
-      "max_width": "80rem"
-    },
-    {
-      "key": "large",
-      "max_width": "80rem"
-    },
-    {
-      "key": "full",
-      "max_width": "none"
-    },
-    {
-      "key": "iap-home",
-      "max_width": "70rem"
-    }
-  ],
-  "fonts": [
-    {
-      "key": "sans",
-      "family": "'Open Sans', sans-serif"
-    },
-    {
-      "key": "serif",
-      "family": "serif"
-    },
-    {
-      "key": "script",
-      "family": "script"
-    },
-    {
-      "key": "mono",
-      "family": "monospace"
-    }
-  ],
-  "gradients": [
-    {
-      "key": "dt-linear",
-      "gradient": "linear-gradient(#674C90, #1D2C4C)",
-      "fallback": "#674C90"
-    },
-    {
-      "key": "ia-linear-primary",
-      "gradient": "linear-gradient(#272F6B, #0F1037)",
-      "fallback": "#272F6B"
-    },
-    {
-      "key": "ia-linear-secondary",
-      "gradient": "linear-gradient(#C01E5A, #781443)",
-      "fallback": "#C01E5A"
-    },
-    {
-      "key": "ia-secondary-to-transparent",
-      "gradient": "linear-gradient(RGB(39, 47, 107), RGB(39, 47, 107, 0))",
-      "fallback": "transparent"
-    },
-    {
-      "key": "ia-primary-dark-to-transparent",
-      "gradient": "linear-gradient(rgb(71, 6, 46), rgba(71, 6, 46, 0))",
-      "fallback": "transparent"
-    }
-  ],
-  "media": [
-    {
-      "key": "base",
-      "query": null
-    },
-    {
-      "key": "print",
-      "query": "print"
-    },
-    {
-      "key": "p-tablet",
-      "query": "screen and (min-width: 48em)"
-    },
-    {
-      "key": "l-tablet",
-      "query": "screen and (min-width: 67.5em)"
-    },
-    {
-      "key": "laptop",
-      "query": "screen and (min-width: 80em)"
-    },
-    {
-      "key": "desktop",
-      "query": "screen and (min-width: 100em)"
-    }
-  ],
-  "radius": [
-    {
-      "key": "s",
-      "radius": "10px"
-    },
-    {
-      "key": "m",
-      "radius": "50rem"
-    },
-    {
-      "key": "l",
-      "radius": "100%"
-    },
-    {
-      "key": "input",
-      "radius": "4px"
-    },
-    {
-      "key": "iap-home-card",
-      "radius": "20px"
-    }
-  ],
-  "shadows": [
-    {
-      "key": "s",
-      "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2)"
-    },
-    {
-      "key": "m",
-      "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2)"
-    },
-    {
-      "key": "l",
-      "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .2)"
-    },
-    {
-      "key": "xl",
-      "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .2)"
-    },
-    {
-      "key": "xxl",
-      "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2)"
-    }
-  ],
-  "transitions": {
-    "durations": [
-      {
-        "key": "default",
-        "duration": ".2s"
-      }
-    ],
-    "functions": [
-      {
-        "key": "ease",
-        "function": "ease"
-      }
-    ],
-    "delays": [
-      {
-        "key": "none",
-        "delay": "0s"
-      }
-    ]
+  "build": {
+    "base_query_key": "base",
+    "dark_mode": "preference",
+    "logs": false,
+    "minification": true,
+    "prefixing": true,
+    "quiet": false,
+    "reset_styles": true,
+    "validation": true,
+    "var_export": false
   },
-  "typography": [
-    {
-      "size": "100%",
-      "line_height": "1.3",
-      "query_key": "base",
-      "type_scale": "1.2"
+  "styles": {
+    "foundations": {
+      "media": [
+        {
+          "key": "print",
+          "query": "print"
+        },
+        {
+          "key": "p-tablet",
+          "query": "screen and (min-width: 48em)"
+        },
+        {
+          "key": "l-tablet",
+          "query": "screen and (min-width: 67.5em)"
+        },
+        {
+          "key": "laptop",
+          "query": "screen and (min-width: 80em)"
+        },
+        {
+          "key": "desktop",
+          "query": "screen and (min-width: 100em)"
+        }
+      ],
+      "typography": [
+        {
+          "size": "100%",
+          "line_height": "1.3",
+          "query_key": "base",
+          "type_scale": "1.2"
+        },
+        {
+          "size": "112.5%",
+          "line_height": "1.3",
+          "query_key": "desktop",
+          "type_scale": "1.2"
+        }
+      ]
     },
-    {
-      "size": "112.5%",
-      "line_height": "1.3",
-      "query_key": "desktop",
-      "type_scale": "1.2"
+    "tokens": {
+      "colors": [
+        {
+          "key": "dt-black",
+          "color": "#1E1E23",
+          "modifiers": []
+        },
+        {
+          "key": "dt-white",
+          "color": "#FFFFFF",
+          "modifiers": []
+        },
+        {
+          "key": "dt-gray",
+          "color": "#B9B9B9",
+          "modifiers": [
+            {
+              "key": "light",
+              "color": "#F0F0F0"
+            },
+            {
+              "key": "dark",
+              "color": "#646464"
+            }
+          ]
+        },
+        {
+          "key": "dt-primary",
+          "color": "#674C90",
+          "modifiers": [
+            {
+              "key": "dark",
+              "color": "#363661"
+            }
+          ]
+        },
+        {
+          "key": "dt-secondary",
+          "color": "#072131",
+          "modifiers": [
+            {
+              "key": "light",
+              "color": "#1D2C4C"
+            }
+          ]
+        },
+        {
+          "key": "dt-accent",
+          "color": "#F8A812",
+          "modifiers": [
+            {
+              "key": "light",
+              "color": "#FBDCA5"
+            },
+            {
+              "key": "dark",
+              "color": "#F8A812"
+            }
+          ]
+        },
+        {
+          "key": "dt-success",
+          "color": "#087835",
+          "modifiers": []
+        },
+        {
+          "key": "dt-error",
+          "color": "#e90101",
+          "modifiers": []
+        },
+        {
+          "key": "ia-black",
+          "color": "#1E1E23",
+          "modifiers": []
+        },
+        {
+          "key": "ia-white",
+          "color": "#FFFFFF",
+          "modifiers": []
+        },
+        {
+          "key": "ia-gray",
+          "color": "#B9B9B9",
+          "modifiers": [
+            {
+              "key": "light",
+              "color": "#F0F0F0"
+            },
+            {
+              "key": "dark",
+              "color": "#646464"
+            }
+          ]
+        },
+        {
+          "key": "ia-primary",
+          "color": "#C01E5A",
+          "modifiers": [
+            {
+              "key": "light",
+              "color": "#E9568A"
+            },
+            {
+              "key": "dark",
+              "color": "#781443"
+            },
+            {
+              "key": "hero",
+              "color": "rgb(71, 6, 46)"
+            }
+          ]
+        },
+        {
+          "key": "ia-secondary",
+          "color": "#272F6B",
+          "modifiers": [
+            {
+              "key": "light",
+              "color": "#4D5194"
+            },
+            {
+              "key": "dark",
+              "color": "#211C53"
+            }
+          ]
+        },
+        {
+          "key": "ia-error",
+          "color": "#AE0000",
+          "modifiers": []
+        }
+      ],
+      "containers": [
+        {
+          "key": "s",
+          "max_width": "39rem"
+        },
+        {
+          "key": "small",
+          "max_width": "39rem"
+        },
+        {
+          "key": "m",
+          "max_width": "60rem"
+        },
+        {
+          "key": "medium",
+          "max_width": "60rem"
+        },
+        {
+          "key": "l",
+          "max_width": "80rem"
+        },
+        {
+          "key": "large",
+          "max_width": "80rem"
+        },
+        {
+          "key": "full",
+          "max_width": "none"
+        },
+        {
+          "key": "iap-home",
+          "max_width": "70rem"
+        }
+      ],
+      "fonts": [
+        {
+          "key": "sans",
+          "family": "'Open Sans', sans-serif"
+        },
+        {
+          "key": "serif",
+          "family": "serif"
+        },
+        {
+          "key": "script",
+          "family": "script"
+        },
+        {
+          "key": "mono",
+          "family": "monospace"
+        }
+      ],
+      "gradients": [
+        {
+          "key": "dt-linear",
+          "gradient": "linear-gradient(#674C90, #1D2C4C)",
+          "fallback": "#674C90"
+        },
+        {
+          "key": "ia-linear-primary",
+          "gradient": "linear-gradient(#272F6B, #0F1037)",
+          "fallback": "#272F6B"
+        },
+        {
+          "key": "ia-linear-secondary",
+          "gradient": "linear-gradient(#C01E5A, #781443)",
+          "fallback": "#C01E5A"
+        },
+        {
+          "key": "ia-secondary-to-transparent",
+          "gradient": "linear-gradient(RGB(39, 47, 107), RGB(39, 47, 107, 0))",
+          "fallback": "transparent"
+        },
+        {
+          "key": "ia-primary-dark-to-transparent",
+          "gradient": "linear-gradient(rgb(71, 6, 46), rgba(71, 6, 46, 0))",
+          "fallback": "transparent"
+        }
+      ],
+      "radii": [
+        {
+          "key": "s",
+          "radius": "10px"
+        },
+        {
+          "key": "m",
+          "radius": "50rem"
+        },
+        {
+          "key": "l",
+          "radius": "100%"
+        },
+        {
+          "key": "input",
+          "radius": "4px"
+        },
+        {
+          "key": "iap-home-card",
+          "radius": "20px"
+        }
+      ],
+      "shadows": [
+        {
+          "key": "s",
+          "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2)"
+        },
+        {
+          "key": "m",
+          "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2)"
+        },
+        {
+          "key": "l",
+          "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .2)"
+        },
+        {
+          "key": "xl",
+          "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .2)"
+        },
+        {
+          "key": "xxl",
+          "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2)"
+        }
+      ],
+      "transitions": {
+        "durations": [
+          {
+            "key": "default",
+            "duration": ".2s"
+          }
+        ],
+        "functions": [
+          {
+            "key": "ease",
+            "function": "ease"
+          }
+        ],
+        "delays": [
+          {
+            "key": "none",
+            "delay": "0s"
+          }
+        ]
+      }
     }
-  ]
+  }
 }

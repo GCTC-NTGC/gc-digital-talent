@@ -52,6 +52,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "ID",
+          id: "If8CeH",
           description:
             "Title displayed on the Pool Candidates table ID column.",
         }),
@@ -60,6 +61,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Pool",
+          id: "n0pfBx",
           description:
             "Title displayed for the Pool Candidates table Pool column.",
         }),
@@ -68,6 +70,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "User",
+          id: "8Hw3Zf",
           description:
             "Title displayed for the Pool Candidates table User column.",
         }),
@@ -76,6 +79,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Expiry",
+          id: "29OmCu",
           description:
             "Title displayed for the Pool Candidates table Expiry column.",
         }),
@@ -84,6 +88,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Woman",
+          id: "7SWIeC",
           description:
             "Title displayed for the Pool Candidates table Woman column.",
         }),
@@ -92,6 +97,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Disability",
+          id: "TAyq5Q",
           description:
             "Title displayed for the Pool Candidates table Disability column.",
         }),
@@ -100,6 +106,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Indigenous",
+          id: "NZyO8h",
           description:
             "Title displayed for the Pool Candidates table Indigenous column.",
         }),
@@ -108,6 +115,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Visible Minority",
+          id: "Bu20w5",
           description:
             "Title displayed for the Pool Candidates table Visible Minority column.",
         }),
@@ -116,6 +124,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Diploma",
+          id: "IIX75o",
           description:
             "Title displayed for the Pool Candidates table Diploma column.",
         }),
@@ -124,6 +133,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Language Ability",
+          id: "GZ7CVk",
           description:
             "Title displayed for the Pool Candidates table Language Ability column.",
         }),
@@ -133,6 +143,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Name",
+          id: "xxLs3C",
           description:
             "Title displayed on the Pool Candidates table name column.",
         }),
@@ -141,6 +152,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Telephone",
+          id: "CdXStL",
           description:
             "Title displayed on the Pool Candidates table telephone column.",
         }),
@@ -149,6 +161,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Preferred Language",
+          id: "dTJkNA",
           description:
             "Title displayed on the Pool Candidates table Preferred Lang column.",
         }),
@@ -158,6 +171,7 @@ const PoolCandidatesTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Edit",
+          id: "aGEisH",
           description:
             "Title displayed for the Pool Candidates table Edit column.",
         }),

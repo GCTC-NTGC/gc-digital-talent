@@ -14,6 +14,7 @@ export const SearchRequestPage: React.FunctionComponent = () => {
       <PageHeader icon={TicketIcon}>
         {intl.formatMessage({
           defaultMessage: "All Requests",
+          id: "IfWj5I",
           description: "Heading displayed above the search request component.",
         })}
       </PageHeader>

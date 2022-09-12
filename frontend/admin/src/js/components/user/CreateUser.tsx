@@ -49,6 +49,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "User created successfully!",
+            id: "fAIozk",
             description:
               "Message displayed to user after user is created successfully.",
           }),
@@ -58,6 +59,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: creating user failed",
+            id: "EfRVfk",
             description:
               "Message displayed to user after user fails to get created.",
           }),
@@ -70,6 +72,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
       <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create User",
+          id: "/uqLeF",
           description: "Title displayed on the create a user form.",
         })}
       </h2>
@@ -80,6 +83,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               id="email"
               label={intl.formatMessage({
                 defaultMessage: "Email",
+                id: "sZHcsV",
                 description: "Label displayed on the user form email field.",
               })}
               type="email"
@@ -89,6 +93,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               id="firstName"
               label={intl.formatMessage({
                 defaultMessage: "First Name",
+                id: "XKjVO0",
                 description:
                   "Label displayed on the user form first name field.",
               })}
@@ -102,6 +107,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               id="lastName"
               label={intl.formatMessage({
                 defaultMessage: "Last Name",
+                id: "oQnVSn",
                 description:
                   "Label displayed on the user form last name field.",
               })}
@@ -115,6 +121,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               id="telephone"
               label={intl.formatMessage({
                 defaultMessage: "Telephone",
+                id: "8L5kDc",
                 description:
                   "Label displayed on the user form telephone field.",
               })}
@@ -125,12 +132,14 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               id="preferredLang"
               label={intl.formatMessage({
                 defaultMessage: "Preferred Language",
+                id: "o+ZObe",
                 description:
                   "Label displayed on the user form preferred language field.",
               })}
               name="preferredLang"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a language...",
+                id: "vnhTgE",
                 description:
                   "Placeholder displayed on the user form preferred language field.",
               })}
@@ -146,6 +155,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               id="sub"
               label={intl.formatMessage({
                 defaultMessage: "Subject",
+                id: "m4rXNt",
                 description: "Label displayed on the user form subject field.",
               })}
               type="text"
@@ -153,6 +163,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               context={intl.formatMessage({
                 defaultMessage:
                   "The 'subject' is a string that uniquely identifies a user's login identity.",
+                id: "I8v/Uy",
                 description:
                   "Additional context describing the purpose of the users's 'subject' field.",
               })}
@@ -162,10 +173,12 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               name="roles"
               label={intl.formatMessage({
                 defaultMessage: "Roles",
+                id: "kwNyl6",
                 description: "Label displayed on the user form roles field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select zero or more roles...",
+                id: "Cw8pyL",
                 description:
                   "Placeholder displayed on the user form roles field.",
               })}
@@ -176,6 +189,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               context={intl.formatMessage({
                 defaultMessage:
                   "The roles grant additional functionality to a user's login.",
+                id: "Z6sh9j",
                 description:
                   "Additional context describing the purpose of the users's 'role' field.",
               })}

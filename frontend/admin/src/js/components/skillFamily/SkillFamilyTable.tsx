@@ -37,6 +37,7 @@ export const SkillFamilyTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "ID",
+          id: "ZobKCk",
           description: "Title displayed on the Skill Family table ID column.",
         }),
         accessor: "id",
@@ -44,6 +45,7 @@ export const SkillFamilyTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Name",
+          id: "VphXhu",
           description:
             "Title displayed for the Skill Family table Name column.",
         }),
@@ -52,6 +54,7 @@ export const SkillFamilyTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Description",
+          id: "XSo129",
           description:
             "Title displayed for the Skill Family table Description column.",
         }),
@@ -60,6 +63,7 @@ export const SkillFamilyTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Category",
+          id: "m5RwGF",
           description:
             "Title displayed for the Skill Family table Category column.",
         }),
@@ -68,6 +72,7 @@ export const SkillFamilyTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Edit",
+          id: "rJ36SS",
           description:
             "Title displayed for the Skill Family table Edit column.",
         }),
@@ -87,6 +92,7 @@ export const SkillFamilyTable: React.FC<
         path: paths.skillFamilyCreate(),
         label: intl.formatMessage({
           defaultMessage: "Create Skill Family",
+          id: "TRqbR/",
           description: "Heading displayed above the Create Skill Family form.",
         }),
       }}

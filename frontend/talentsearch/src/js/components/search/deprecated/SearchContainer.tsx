@@ -111,6 +111,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
         <p>
           {intl.formatMessage({
             defaultMessage: "We can still help!",
+            id: "5U+V2Y",
             description:
               "Heading for helping user if no candidates matched the filters chosen.",
           })}
@@ -120,6 +121,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             {
               defaultMessage:
                 "If there are no matching candidates <a>Get in touch!</a>",
+              id: "+ZXZj+",
               description:
                 "Message for helping user if no candidates matched the filters chosen.",
             },
@@ -138,7 +140,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
       data-h2-padding="base(0, 0, x3, 0)"
     >
       <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
-        <div data-h2-flex-grid="base(stretch, 0, x3)">
+        <div data-h2-flex-grid="base(stretch, x3)">
           <div data-h2-flex-item="base(1of1) p-tablet(3of5)">
             <div>
               <h2
@@ -148,6 +150,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
               >
                 {intl.formatMessage({
                   defaultMessage: "How to use this tool",
+                  id: "HvD7jI",
                   description:
                     "Heading displayed in the How To area of the hero section of the Search page.",
                 })}
@@ -156,6 +159,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "Use the filters below to specify your hiring needs. At any time you can look at the results located at the bottom of this page to see how many candidates match the requirements you have entered. When you are comfortable with the filters you have selected, click the Request Candidates button to add more details and submit a request form.",
+                  id: "Tg8a57",
                   description:
                     "Content displayed in the How To area of the hero section of the Search page.",
                 })}
@@ -198,6 +202,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
               {
                 defaultMessage:
                   "Results: <primary><testId>{candidateCount}</testId></primary> matching candidates",
+                id: "1xRst5",
                 description:
                   "Heading for total matching candidates in results section of search page.",
               },

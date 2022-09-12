@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { Skill, SkillFamily } from "../api/generated";
+import staticSkills from "./skills.json";
 
 const generateSkill = (skillFamilies: SkillFamily[]) => {
   const name = faker.random.word();
@@ -27,6 +28,9 @@ const generateSkill = (skillFamilies: SkillFamily[]) => {
     experienceSkills: [],
   };
 };
+
+export const getStaticSkills = (): Skill[] =>
+  staticSkills.data.skills as Skill[];
 
 export default (
   numToGenerate = 10,

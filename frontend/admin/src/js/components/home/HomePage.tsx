@@ -22,6 +22,7 @@ const HomePage: React.FC = () => {
           <PageHeader icon={HomeIcon}>
             {intl.formatMessage({
               defaultMessage: "Home",
+              id: "6EOrWk",
               description:
                 "Title for homepage on the talent cloud admin portal.",
             })}
@@ -30,18 +31,20 @@ const HomePage: React.FC = () => {
             {intl.formatMessage({
               defaultMessage:
                 "Welcome to GC Talent, please log in to continue.",
+              id: "LGo8fw",
               description:
                 "Instructional text for the talent cloud pool manager portal home page.",
             })}
           </p>
           <div data-h2-margin="base(x2, 0, 0, 0)">
-            <div data-h2-flex-grid="base(top, 0, x2)">
+            <div data-h2-flex-grid="base(top, x2)">
               <div data-h2-flex-item="base(1of3)">
                 <CardLink
                   external
                   href={apiRoutes.login(location.pathname, getLocale(intl))}
                   label={intl.formatMessage({
                     defaultMessage: "Login",
+                    id: "TxEV7S",
                     description:
                       "Text label for the login link to the talent cloud admin portal.",
                   })}
@@ -49,6 +52,7 @@ const HomePage: React.FC = () => {
                 >
                   {intl.formatMessage({
                     defaultMessage: "Portal manager portal",
+                    id: "u6GmEz",
                     description: "Title for the pool manager login link.",
                   })}
                 </CardLink>

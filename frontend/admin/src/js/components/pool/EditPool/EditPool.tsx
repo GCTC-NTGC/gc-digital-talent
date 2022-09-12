@@ -94,6 +94,7 @@ export const EditPoolForm = ({
     {
       title: intl.formatMessage({
         defaultMessage: "Home",
+        id: "DUK/pz",
         description: "Breadcrumb title for the home page link.",
       }),
       href: adminPaths.home(),
@@ -101,6 +102,7 @@ export const EditPoolForm = ({
     {
       title: intl.formatMessage({
         defaultMessage: "Pools",
+        id: "3fAkvM",
         description: "Breadcrumb title for the pools page link.",
       }),
       href: adminPaths.poolTable(),
@@ -109,6 +111,7 @@ export const EditPoolForm = ({
       title: intl.formatMessage(
         {
           defaultMessage: `Pool ID #{id}`,
+          id: "fp7Nll",
           description: "Current pool breadcrumb text",
         },
         { id: poolAdvertisement.id },
@@ -118,6 +121,7 @@ export const EditPoolForm = ({
     {
       title: intl.formatMessage({
         defaultMessage: `Edit Pool`,
+        id: "Hn6YgE",
         description: "Edit pool breadcrumb text",
       }),
     },
@@ -128,6 +132,7 @@ export const EditPoolForm = ({
       id: "pool-name",
       title: intl.formatMessage({
         defaultMessage: "Pool name and target classification",
+        id: "jdoFE6",
         description: "Sub title for pool name and classification",
       }),
     },
@@ -135,6 +140,7 @@ export const EditPoolForm = ({
       id: "closing-date",
       title: intl.formatMessage({
         defaultMessage: "Closing date",
+        id: "I8jlr2",
         description: "Sub title for pool closing date",
       }),
     },
@@ -142,6 +148,7 @@ export const EditPoolForm = ({
       id: "your-impact",
       title: intl.formatMessage({
         defaultMessage: "Your impact",
+        id: "ry3jFR",
         description: "Sub title for the pool introduction",
       }),
     },
@@ -149,6 +156,7 @@ export const EditPoolForm = ({
       id: "work-tasks",
       title: intl.formatMessage({
         defaultMessage: "Work tasks",
+        id: "GXw2um",
         description: "Sub title for the pool work tasks",
       }),
     },
@@ -156,6 +164,7 @@ export const EditPoolForm = ({
       id: "essential-skills",
       title: intl.formatMessage({
         defaultMessage: "Essential skills (Need to have)",
+        id: "LccTZJ",
         description: "Sub title for the pool essential skills",
       }),
     },
@@ -163,6 +172,7 @@ export const EditPoolForm = ({
       id: "asset-skills",
       title: intl.formatMessage({
         defaultMessage: "Asset skills (Nice to have skills)",
+        id: "N0ySd0",
         description: "Sub title for the pool essential skills",
       }),
     },
@@ -170,6 +180,7 @@ export const EditPoolForm = ({
       id: "other-requirements",
       title: intl.formatMessage({
         defaultMessage: "Other requirements",
+        id: "Fm4Muz",
         description: "Sub title for the pool other requirements",
       }),
     },
@@ -177,6 +188,7 @@ export const EditPoolForm = ({
       id: "status",
       title: intl.formatMessage({
         defaultMessage: "Advertisement status",
+        id: "xkxwfP",
         description: "Sub title for the pool advertisement status",
       }),
     },
@@ -187,6 +199,7 @@ export const EditPoolForm = ({
       <PageHeader icon={Squares2X2Icon}>
         {intl.formatMessage({
           defaultMessage: "Edit pool advertisement",
+          id: "/6voUd",
           description: "Header for page to edit pool advertisements",
         })}
       </PageHeader>
@@ -232,6 +245,7 @@ export const EditPoolForm = ({
             >
               {intl.formatMessage({
                 defaultMessage: "Back to pool dashboard",
+                id: "v6qX/r",
                 description:
                   "Text on a link to navigate back to the pool dashboard page",
               })}
@@ -333,6 +347,7 @@ export const EditPool = ({ poolId }: EditPoolProps) => {
               {intl.formatMessage(
                 {
                   defaultMessage: "Pool {poolId} not found.",
+                  id: "Sb2fEr",
                   description: "Message displayed for pool not found.",
                 },
                 { poolId },

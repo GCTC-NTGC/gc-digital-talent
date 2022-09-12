@@ -11,6 +11,7 @@ use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
 use Database\Seeders\PoolSeeder;
+use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
@@ -218,6 +219,7 @@ class ApplicantFilterTest extends TestCase
 
         // Before we add relationships, we need to seed the related values
         $this->seed(ClassificationSeeder::class);
+        $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
         $this->seed(PoolSeeder::class);
 
@@ -237,6 +239,7 @@ class ApplicantFilterTest extends TestCase
     {
         // Before we add relationships, we need to seed the related values
         $this->seed(ClassificationSeeder::class);
+        $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
         $this->seed(PoolSeeder::class);
 
@@ -319,6 +322,7 @@ class ApplicantFilterTest extends TestCase
         // Seed everything required
         $this->seed(DepartmentSeeder::class);
         $this->seed(ClassificationSeeder::class);
+        $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
 
         $filter = ApplicantFilter::factory()->withRelationships()->create();
@@ -379,6 +383,7 @@ class ApplicantFilterTest extends TestCase
         $this->seed(DepartmentSeeder::class);
         $this->seed(ClassificationSeeder::class);
         $this->seed(GenericJobTitleSeeder::class);
+        $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
         $pool = Pool::factory()->create();
 

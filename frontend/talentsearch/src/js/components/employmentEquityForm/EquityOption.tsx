@@ -20,6 +20,7 @@ const EquityOption: React.FC<EquityOptionProps> = ({
   const removeText = intl.formatMessage(
     {
       defaultMessage: "Remove <hidden>{title} </hidden>from profile",
+      id: "OQ+K+X",
       description:
         "Text label for button to remove employment equity category from profile.",
     },
@@ -31,6 +32,7 @@ const EquityOption: React.FC<EquityOptionProps> = ({
   const addText = intl.formatMessage(
     {
       defaultMessage: "Add <hidden>{title} </hidden>to profile",
+      id: "/AJCvK",
       description:
         "Text label for button to add employment equity category to profile.",
     },
@@ -48,7 +50,7 @@ const EquityOption: React.FC<EquityOptionProps> = ({
       data-h2-padding="base(x.5)"
       data-h2-shadow="base(m)"
       data-h2-radius="base(0px, s, s, 0px)"
-      data-h2-overflow="base(hidden, all)"
+      data-h2-overflow="base(hidden)"
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-justify-content="base(space-between)"

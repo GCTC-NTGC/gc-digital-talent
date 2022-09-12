@@ -83,6 +83,7 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
         {intl.formatMessage({
           defaultMessage:
             "Refers to a person whose daily activities are limited as a result of an impairment or difficulty with particular tasks. The only exception to this is for developmental disabilities where a person is considered to be disabled if the respondent has been diagnosed with this condition.",
+          id: "hz8OYx",
           description:
             "Definition of accepted ways to identify as person with a disability.",
         })}

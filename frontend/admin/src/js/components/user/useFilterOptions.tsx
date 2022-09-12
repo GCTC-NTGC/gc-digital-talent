@@ -39,7 +39,7 @@ export default function useFilterOptions(enableEducationType = false) {
     // Values expected to be strings or numbers.
     value: "true",
     // No description since common term that can be de-duplicated by FormatJS.
-    label: intl.formatMessage({ defaultMessage: "Yes" }),
+    label: intl.formatMessage({ defaultMessage: "Yes", id: "a5msuh" }),
   };
 
   const optionsData = {
