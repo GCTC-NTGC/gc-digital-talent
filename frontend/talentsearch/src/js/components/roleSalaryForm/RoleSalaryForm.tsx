@@ -5,7 +5,7 @@ import {
   BriefcaseIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/solid";
-import { errorMessages } from "@common/messages";
+import { errorMessages, navigationMessages } from "@common/messages";
 import Button from "@common/components/Button";
 import { notEmpty } from "@common/helpers/util";
 import { unpackMaybes } from "@common/helpers/formUtils";
@@ -34,6 +34,7 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import profileMessages from "../profile/profileMessages";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import directIntakeRoutes from "../../directIntakeRoutes";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export type FormValues = {
   expectedGenericJobTitles: GenericJobTitleKey[];
@@ -106,7 +107,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.poolApply(application.pool.id)
+      ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.myProfile();
   const GenericJobTitles = unpackMaybes(initialData?.genericJobTitles);
 
@@ -174,15 +175,15 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
-          title:
-            application.poolAdvertisement?.name?.[locale] ||
-            intl.formatMessage({
-              defaultMessage: "Pool name not found",
-              id: "FmD1sL",
-              description:
-                "Pools name breadcrumb from applicant profile wrapper if no name set.",
-            }),
+          title: getFullPoolAdvertisementTitle(
+            intl,
+            application.poolAdvertisement,
+          ),
           href: directIntakePaths.poolApply(application.pool.id),
+        },
+        {
+          href: directIntakePaths.reviewApplication(application.id),
+          title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]
     : [];
@@ -368,7 +369,10 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
             </span>
           </p>
         </div>
-        <ProfileFormFooter mode="saveButton" />
+        <ProfileFormFooter
+          mode="saveButton"
+          cancelLink={{ href: returnRoute }}
+        />
       </BasicForm>
 
       <DialogLevelOne
