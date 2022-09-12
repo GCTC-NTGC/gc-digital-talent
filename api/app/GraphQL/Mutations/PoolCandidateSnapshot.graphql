@@ -24,6 +24,8 @@ query getProfile($userId: ID!) {
     verbalLevel
     estimatedLanguageAbility
     isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
     govEmployeeType
     department {
       id
