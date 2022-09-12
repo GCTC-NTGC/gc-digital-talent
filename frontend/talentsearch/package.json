@@ -109,7 +109,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.10",
-    "core-js": "^3.25.0",
+    "core-js": "^3.25.1",
     "debounce": "^1.2.1",
     "dotenv": "^16.0.2",
     "graphql": "^16.6.0",
