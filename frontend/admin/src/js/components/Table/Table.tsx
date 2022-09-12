@@ -58,6 +58,7 @@ const IndeterminateCheckbox: React.FC<
       />{" "}
       {intl.formatMessage({
         defaultMessage: "Toggle All",
+        id: "7d/ot8",
         description: "Label displayed on the Table Columns toggle fieldset.",
       })}
     </label>
@@ -141,6 +142,7 @@ function Table<T extends Record<string, unknown>>({
                     <span>
                       {intl.formatMessage({
                         defaultMessage: "Columns",
+                        id: "xcBl1q",
                         description:
                           "Label displayed on the Table Columns toggle button.",
                       })}
@@ -152,6 +154,7 @@ function Table<T extends Record<string, unknown>>({
                     onDismiss={() => setShowList(false)}
                     title={intl.formatMessage({
                       defaultMessage: "Table columns",
+                      id: "YH6bFU",
                       description:
                         "Dialog title for the admin tables columns toggle.",
                     })}
@@ -159,6 +162,7 @@ function Table<T extends Record<string, unknown>>({
                     <Fieldset
                       legend={intl.formatMessage({
                         defaultMessage: "Visible columns",
+                        id: "H9rxOR",
                         description:
                           "Legend for the column toggle in admin tables.",
                       })}
@@ -281,7 +285,7 @@ function Table<T extends Record<string, unknown>>({
             })}
           </p> */}
           <div data-h2-padding="base(x1, x1)">
-            <div data-h2-flex-grid="base(center, 0, x2, 0)">
+            <div data-h2-flex-grid="base(center, x2, 0)">
               <div data-h2-flex-item="base(fill)">
                 {pagination && (
                   <Pagination
@@ -295,6 +299,7 @@ function Table<T extends Record<string, unknown>>({
                     totalCount={rows.length}
                     ariaLabel={intl.formatMessage({
                       defaultMessage: "Table results",
+                      id: "hlcd+5",
                     })}
                     color="white"
                     mode="outline"

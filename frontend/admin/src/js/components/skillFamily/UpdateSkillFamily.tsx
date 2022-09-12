@@ -94,6 +94,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill family updated successfully!",
+            id: "2ekC5r",
             description:
               "Message displayed to user after skillFamily is updated successfully.",
           }),
@@ -103,6 +104,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: updating skill family failed",
+            id: "zpwZSQ",
             description:
               "Message displayed to user after skillFamily fails to get updated.",
           }),
@@ -120,6 +122,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
       <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Update Skill Family",
+          id: "GQskY1",
           description: "Title displayed on the update a skillFamily form.",
         })}
       </h2>
@@ -131,6 +134,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
               name="name.en"
               label={intl.formatMessage({
                 defaultMessage: "Name (English)",
+                id: "2wo24b",
                 description:
                   "Label displayed on the create a skill family form name (English) field.",
               })}
@@ -144,6 +148,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
               name="name.fr"
               label={intl.formatMessage({
                 defaultMessage: "Name (French)",
+                id: "0oqRIl",
                 description:
                   "Label displayed on the create a skill family form name (French) field.",
               })}
@@ -157,6 +162,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
               name="description.en"
               label={intl.formatMessage({
                 defaultMessage: "Description (English)",
+                id: "luZnRG",
                 description:
                   "Label displayed on the create a skill family form description (English) field.",
               })}
@@ -169,6 +175,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
               name="description.fr"
               label={intl.formatMessage({
                 defaultMessage: "Description (French)",
+                id: "Q0gIlv",
                 description:
                   "Label displayed on the create a skill family form description (French) field.",
               })}
@@ -181,11 +188,13 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
               name="category"
               label={intl.formatMessage({
                 defaultMessage: "Category",
+                id: "KZR3ad",
                 description:
                   "Label displayed on the skill family form category field.",
               })}
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a category...",
+                id: "rna1rM",
                 description:
                   "Placeholder displayed on the skill family form category field.",
               })}
@@ -202,11 +211,13 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
               name="skills"
               label={intl.formatMessage({
                 defaultMessage: "Skills",
+                id: "F2Rs/C",
                 description:
                   "Label displayed on the skill family form skills field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more skills...",
+                id: "7Cx7lp",
                 description:
                   "Placeholder displayed on the skill family form skills field.",
               })}
@@ -270,6 +281,7 @@ const UpdateSkillFamily: React.FunctionComponent<{
               {intl.formatMessage(
                 {
                   defaultMessage: "SkillFamily {skillFamilyId} not found.",
+                  id: "ZWnKEJ",
                   description: "Message displayed for skillFamily not found.",
                 },
                 { skillFamilyId },

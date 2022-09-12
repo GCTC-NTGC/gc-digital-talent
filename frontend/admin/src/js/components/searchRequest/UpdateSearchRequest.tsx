@@ -44,6 +44,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
         toast.success(
           intl.formatMessage({
             defaultMessage: "Notes saved successfully!",
+            id: "YNLJcX",
             description:
               "Message displayed to user after the personal notes have been saved successfully on the single search request page.",
           }),
@@ -53,6 +54,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: saving notes failed",
+            id: "fhL8jz",
             description:
               "Message displayed to user after the personal notes fail to save on the single search request page.",
           }),
@@ -71,6 +73,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
         toast.success(
           intl.formatMessage({
             defaultMessage: "Request status successfully set to done!",
+            id: "xjOcT7",
             description:
               "Message displayed to user after the request has been successfully set to done on the single search request page.",
           }),
@@ -80,6 +83,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: saving notes failed",
+            id: "RIYFZu",
             description:
               "Message displayed to user after the request has failed to change the status tp done on the single search request page.",
           }),
@@ -95,6 +99,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
       >
         {intl.formatMessage({
           defaultMessage: "Personal Notes",
+          id: "l05aVF",
           description:
             "Heading for the personal notes section of the single search request view.",
         })}
@@ -112,6 +117,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
                 name="adminNotes"
                 label={intl.formatMessage({
                   defaultMessage: "Personal Notes",
+                  id: "p7D5i5",
                   description:
                     "Label displayed on the search request form personal notes field.",
                 })}
@@ -127,6 +133,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
                 >
                   {intl.formatMessage({
                     defaultMessage: "Save Notes",
+                    id: "DRsBYY",
                     description:
                       "Button label displayed on the search request form which saves the users personal notes.",
                   })}
@@ -144,6 +151,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
               >
                 {intl.formatMessage({
                   defaultMessage: "Back to All Requests",
+                  id: "s6HoFU",
                   description:
                     "Button label displayed on the search request form which returns the user back to all requests.",
                 })}
@@ -151,6 +159,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
               <Submit
                 text={intl.formatMessage({
                   defaultMessage: "Mark this request as done",
+                  id: "UNScjB",
                   description:
                     "Button label displayed on the search request form which changes request status to done.",
                 })}

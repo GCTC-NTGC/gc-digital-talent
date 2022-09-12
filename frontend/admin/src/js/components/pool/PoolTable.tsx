@@ -27,6 +27,7 @@ function poolCandidatesLinkAccessor(
     >
       {intl.formatMessage({
         defaultMessage: "View Candidates",
+        id: "aYYb0w",
         description: "Text for a link to the Pool Candidates table",
       })}
     </Link>
@@ -57,6 +58,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Id",
+          id: "kt5dPm",
           description:
             "Title displayed on the Pool table Unique Identifier column.",
         }),
@@ -65,6 +67,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Candidates",
+          id: "EdUZaX",
           description:
             "Header for the View Candidates column of the Pools table",
         }),
@@ -74,6 +77,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Pool Name",
+          id: "HocLRh",
           description: "Title displayed for the Pool table pool name column.",
         }),
         accessor: (d) =>
@@ -82,6 +86,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Owner",
+          id: "VgbJiw",
           description: "Title displayed for the Pool table owner email column.",
         }),
         accessor: ({ owner }) => owner?.email,
@@ -89,6 +94,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Group and Level",
+          id: "FGUGtr",
           description:
             "Title displayed for the Pool table Group and Level column.",
         }),
@@ -108,6 +114,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Status",
+          id: "ioqFVF",
           description: "Title displayed for the Pool table status column.",
         }),
         accessor: "status",
@@ -115,6 +122,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Edit",
+          id: "tpzt/B",
           description: "Title displayed for the Pool table Edit column.",
         }),
         accessor: (d) =>
@@ -139,6 +147,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
         path: paths.poolCreate(),
         label: intl.formatMessage({
           defaultMessage: "Create Pool",
+          id: "/Y7x+s",
           description: "Heading displayed above the Create Pool form.",
         }),
       }}

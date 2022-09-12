@@ -825,6 +825,7 @@ type PoolCandidate {
   expectedClassifications: [Classification]
   cmoAssets: [CmoAsset]
   status: PoolCandidateStatus
+  statusWeight: Int
   notes: String
   archivedAt: DateTime
   submittedAt: DateTime

@@ -22,6 +22,7 @@ export const CmoAssetTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "ID",
+          id: "FvnSwn",
           description: "Title displayed on the CMO Asset table ID column.",
         }),
         accessor: "id",
@@ -29,6 +30,7 @@ export const CmoAssetTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Key",
+          id: "CcOlo0",
           description: "Title displayed for the CMO Asset table Key column.",
         }),
         accessor: "key",
@@ -36,6 +38,7 @@ export const CmoAssetTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Name",
+          id: "4XF9kF",
           description: "Title displayed for the CMO Asset table Name column.",
         }),
         accessor: (d) => d.name?.[locale],
@@ -43,6 +46,7 @@ export const CmoAssetTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Description",
+          id: "ZZaEho",
           description:
             "Title displayed for the CMO Asset table Description column.",
         }),
@@ -51,6 +55,7 @@ export const CmoAssetTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Edit",
+          id: "z2m2Gp",
           description: "Title displayed for the CMO Asset table Edit column.",
         }),
         accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
@@ -69,6 +74,7 @@ export const CmoAssetTable: React.FC<
         path: paths.cmoAssetCreate(),
         label: intl.formatMessage({
           defaultMessage: "Create CMO Asset",
+          id: "7iglPJ",
           description: "Heading displayed above the Create CMO Asset form.",
         }),
       }}

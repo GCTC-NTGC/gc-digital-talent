@@ -22,6 +22,7 @@ const DeleteDialog = ({
           <Button onClick={onDismiss} mode="outline" color="secondary">
             {intl.formatMessage({
               defaultMessage: "Cancel and go back",
+              id: "tiF/jI",
               description: "Close dialog button",
             })}
           </Button>
@@ -37,6 +38,7 @@ const DeleteDialog = ({
           >
             {intl.formatMessage({
               defaultMessage: "Delete",
+              id: "FA+cJX",
               description:
                 "Button to delete the pool in the delete pool dialog",
             })}
@@ -54,18 +56,21 @@ const DeleteDialog = ({
       color="ts-secondary"
       title={intl.formatMessage({
         defaultMessage: "Delete",
+        id: "iOgr3Z",
         description: "Heading for the delete pool dialog",
       })}
     >
       <p>
         {intl.formatMessage({
           defaultMessage: "You're about to delete this pool.",
+          id: "grrIC7",
           description: "First paragraph for delete pool dialog",
         })}
       </p>
       <p>
         {intl.formatMessage({
           defaultMessage: "Are you sure you want to continue?",
+          id: "/QUq6L",
           description: "Second paragraph for Delete pool dialog",
         })}
       </p>

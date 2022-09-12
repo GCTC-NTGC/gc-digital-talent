@@ -64,6 +64,7 @@ export const EssentialSkillsSection = ({
         {intl.formatMessage({
           defaultMessage:
             "Select the skills that you are looking for in applicants. Any skill selected here will be required for any applicant to apply. To increase the diversity of applications try to keep the selected number of skills to a minimum.",
+          id: "Om6ZoW",
           description:
             "Helper message for filling in the pool essential skills",
         })}
@@ -85,6 +86,7 @@ export const EssentialSkillsSection = ({
         >
           {intl.formatMessage({
             defaultMessage: "Save essential skills",
+            id: "2asU3k",
             description: "Text on a button to save the pool essential skills",
           })}
         </Button>

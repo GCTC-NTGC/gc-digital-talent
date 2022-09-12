@@ -30,6 +30,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "firstName",
       label: intl.formatMessage({
         defaultMessage: "First Name",
+        id: "ukL9do",
         description: "CSV Header, First Name column",
       }),
     },
@@ -37,6 +38,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "lastName",
       label: intl.formatMessage({
         defaultMessage: "Last Name",
+        id: "DlBusi",
         description: "CSV Header, Last Name column",
       }),
     },
@@ -44,6 +46,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "armedForcesStatus",
       label: intl.formatMessage({
         defaultMessage: "Armed Forces Status",
+        id: "A1QU9O",
         description: "CSV Header, Armed Forces column",
       }),
     },
@@ -51,6 +54,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "citizenship",
       label: intl.formatMessage({
         defaultMessage: "Citizenship",
+        id: "FWftu5",
         description: "CSV Header, Citizenship column",
       }),
     },
@@ -58,6 +62,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "language",
       label: intl.formatMessage({
         defaultMessage: "Language",
+        id: "Q/clLF",
         description: "CSV Header, Language column",
       }),
     },
@@ -65,6 +70,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "bilingualEvaluation",
       label: intl.formatMessage({
         defaultMessage: "Bilingual Evaluation",
+        id: "M9ij/0",
         description: "CSV Header, Bilingual Evaluation column",
       }),
     },
@@ -72,6 +78,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "comprehensionLevel",
       label: intl.formatMessage({
         defaultMessage: "Comprehension Level",
+        id: "QIh0q7",
         description: "CSV Header, Comprehension Level column",
       }),
     },
@@ -79,6 +86,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "writtenLevel",
       label: intl.formatMessage({
         defaultMessage: "Written Level",
+        id: "w/v77x",
         description: "CSV Header, Written Level column",
       }),
     },
@@ -86,6 +94,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "verbalLevel",
       label: intl.formatMessage({
         defaultMessage: "Verbal Level",
+        id: "5R2iR2",
         description: "CSV Header, Verbal Level column",
       }),
     },
@@ -93,6 +102,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "estimatedLanguageAbility",
       label: intl.formatMessage({
         defaultMessage: "Estimated Language Ability",
+        id: "nRtrPx",
         description: "CSV Header, Estimated Language Ability column",
       }),
     },
@@ -100,6 +110,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "isGovEmployee",
       label: intl.formatMessage({
         defaultMessage: "Government Employee",
+        id: "DHfumB",
         description: "CSV Header, Government Employee column",
       }),
     },
@@ -107,6 +118,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "department",
       label: intl.formatMessage({
         defaultMessage: "Department",
+        id: "oCX5SP",
         description: "CSV Header, Department column",
       }),
     },
@@ -114,6 +126,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "govEmployeeType",
       label: intl.formatMessage({
         defaultMessage: "Employee Type",
+        id: "DwTEsB",
         description: "CSV Header, Employee Type column",
       }),
     },
@@ -121,6 +134,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "currentClassification",
       label: intl.formatMessage({
         defaultMessage: "Current Classification",
+        id: "hMRpmG",
         description: "CSV Header, Current Classification column",
       }),
     },
@@ -128,6 +142,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "hasPriorityEntitlement",
       label: intl.formatMessage({
         defaultMessage: "Priority Entitlement",
+        id: "h9dLBX",
         description: "CSV Header, Priority Entitlement column",
       }),
     },
@@ -135,6 +150,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "priorityNumber",
       label: intl.formatMessage({
         defaultMessage: "Priority Number",
+        id: "gKXZaj",
         description: "CSV Header, Priority Number column",
       }),
     },
@@ -142,6 +158,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "locationPreferences",
       label: intl.formatMessage({
         defaultMessage: "Location Preferences",
+        id: "114gjj",
         description: "CSV Header, Location Preferences column",
       }),
     },
@@ -149,6 +166,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "locationExemptions",
       label: intl.formatMessage({
         defaultMessage: "Location Exemptions",
+        id: "8mt/5/",
         description: "CSV Header, Location Exemptions column",
       }),
     },
@@ -156,6 +174,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "wouldAcceptTemporary",
       label: intl.formatMessage({
         defaultMessage: "Accept Temporary",
+        id: "eCK3Ng",
         description: "CSV Header, Accept Temporary column",
       }),
     },
@@ -163,6 +182,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "acceptedOperationalRequirements",
       label: intl.formatMessage({
         defaultMessage: "Accepted Operation Requirements",
+        id: "qs/dFw",
         description: "CSV Header, Accepted Operation Requirements column",
       }),
     },
@@ -170,6 +190,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "isWoman",
       label: intl.formatMessage({
         defaultMessage: "Woman",
+        id: "aGaaPi",
         description: "CSV Header, Woman column",
       }),
     },
@@ -177,6 +198,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "isIndigenous",
       label: intl.formatMessage({
         defaultMessage: "Indigenous",
+        id: "83v9YH",
         description: "CSV Header, Indigenous column",
       }),
     },
@@ -184,6 +206,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "isVisibleMinority",
       label: intl.formatMessage({
         defaultMessage: "Visible Minority",
+        id: "1vVbe3",
         description: "CSV Header, Visible Minority column",
       }),
     },
@@ -191,6 +214,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "hasDisability",
       label: intl.formatMessage({
         defaultMessage: "Disabled",
+        id: "AijsNM",
         description: "CSV Header, Disabled column",
       }),
     },
@@ -198,6 +222,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "expectedClassification",
       label: intl.formatMessage({
         defaultMessage: "Role/Salary Expectation",
+        id: "iIZS1K",
         description: "CSV Header, Role/Salary Expectation column",
       }),
     },
@@ -205,6 +230,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       key: "skills",
       label: intl.formatMessage({
         defaultMessage: "Skills",
+        id: "3IAJad",
         description: "CSV Header, Skills column",
       }),
     },
@@ -225,10 +251,12 @@ const useUserCsvData = (applicants: Applicant[]) => {
       return value
         ? intl.formatMessage({
             defaultMessage: "Yes",
+            id: "UOO1gW",
             description: "Message for when a value is true",
           })
         : intl.formatMessage({
             defaultMessage: "No",
+            id: "q7bz0J",
             description: "Message for when a value is false",
           });
     };
@@ -262,6 +290,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
         // English Only
         return intl.formatMessage({
           defaultMessage: "English positions",
+          id: "vFMPHW",
           description: "English Positions message",
         });
       }
@@ -269,6 +298,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
         // French only
         return intl.formatMessage({
           defaultMessage: "French positions",
+          id: "qT9sS0",
           description: "French Positions message",
         });
       }
@@ -276,6 +306,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
         // English or French
         return intl.formatMessage({
           defaultMessage: "English or French positions",
+          id: "fFznH0",
           description: "English or French Positions message",
         });
       }
@@ -283,6 +314,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
         // Bilingual
         return intl.formatMessage({
           defaultMessage: "Bilingual positions (English and French)",
+          id: "6eCvv1",
           description: "Bilingual Positions message",
         });
       }
