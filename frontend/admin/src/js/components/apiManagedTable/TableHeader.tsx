@@ -79,6 +79,7 @@ function TableHeader<T extends Record<string, unknown>>({
                       <span>
                         {intl.formatMessage({
                           defaultMessage: "Columns",
+                          id: "xcBl1q",
                           description:
                             "Label displayed on the Table Columns toggle button.",
                         })}
@@ -90,6 +91,7 @@ function TableHeader<T extends Record<string, unknown>>({
                       onDismiss={() => setShowList(false)}
                       title={intl.formatMessage({
                         defaultMessage: "Table columns",
+                        id: "YH6bFU",
                         description:
                           "Dialog title for the admin tables columns toggle.",
                       })}
@@ -97,6 +99,7 @@ function TableHeader<T extends Record<string, unknown>>({
                       <Fieldset
                         legend={intl.formatMessage({
                           defaultMessage: "Visible columns",
+                          id: "H9rxOR",
                           description:
                             "Legend for the column toggle in admin tables.",
                         })}

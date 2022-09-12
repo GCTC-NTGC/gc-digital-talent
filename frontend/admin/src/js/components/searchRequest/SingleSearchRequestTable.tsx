@@ -28,6 +28,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Candidate ID",
+          id: "1bNptz",
           description:
             "Title displayed on the single search request table id column.",
         }),
@@ -36,6 +37,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Candidate Name",
+          id: "0PmIE8",
           description:
             "Title displayed on the single search request table candidate name column.",
         }),
@@ -44,6 +46,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Group and Level",
+          id: "MmFgbF",
           description:
             "Title displayed on the single search request table classifications column.",
         }),
@@ -63,6 +66,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Operational Requirements",
+          id: "gN/+W2",
           description:
             "Title displayed on the single search request table operational requirements column.",
         }),
@@ -86,6 +90,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Employment Equity",
+          id: "i45Vxz",
           description:
             "Title displayed on the single search request table employment equity column.",
         }),
@@ -100,6 +105,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
               ? [
                   intl.formatMessage({
                     defaultMessage: "Woman",
+                    id: "VaCRxh",
                     description:
                       "Message for woman option in the employment equity column on the the single search request table.",
                   }),
@@ -109,6 +115,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
               ? [
                   intl.formatMessage({
                     defaultMessage: "Visible Minority",
+                    id: "UdZaOq",
                     description:
                       "Message for visible minority option in the employment equity column on the the single search request table.",
                   }),
@@ -118,6 +125,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
               ? [
                   intl.formatMessage({
                     defaultMessage: "Indigenous",
+                    id: "JtgX1e",
                     description:
                       "Message for indigenous option in the employment equity column on the the single search request table.",
                   }),
@@ -127,6 +135,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
               ? [
                   intl.formatMessage({
                     defaultMessage: "Disability",
+                    id: "97LfRf",
                     description:
                       "Message for disability option in the employment equity column on the the single search request table.",
                   }),
@@ -139,6 +148,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                 {option ||
                   intl.formatMessage({
                     defaultMessage: "Error: Name not found.",
+                    id: "c9jMPS",
                     description:
                       "Error message displayed on the single search request table employment equity column.",
                   })}
@@ -150,6 +160,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Skills",
+          id: "i9/L40",
           description:
             "Title displayed on the single search request table skills column.",
         }),
@@ -160,6 +171,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                 {cmoAsset?.name?.[locale] ||
                   intl.formatMessage({
                     defaultMessage: "Error: Name not found.",
+                    id: "ZP3GYM",
                     description:
                       "Error message displayed on the single search request table operational requirements column.",
                   })}

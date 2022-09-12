@@ -88,6 +88,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
       >
         {intl.formatMessage({
           defaultMessage: "This user is not in any pools yet",
+          id: "W58QTT",
           description:
             "Message on view-user page that the user is not in any pools",
         })}
@@ -105,6 +106,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
             <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
               {intl.formatMessage({
                 defaultMessage: "Pool",
+                id: "icYqDt",
                 description:
                   "Title of the 'Pool' column for the table on view-user page",
               })}
@@ -112,6 +114,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
             <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
               {intl.formatMessage({
                 defaultMessage: "Status",
+                id: "sUx3ZS",
                 description:
                   "Title of the 'Status' column for the table on view-user page",
               })}
@@ -119,6 +122,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
             <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
               {intl.formatMessage({
                 defaultMessage: "Expiry date",
+                id: "STDYoR",
                 description:
                   "Title of the 'Expiry date' column for the table on view-user page",
               })}
@@ -126,6 +130,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
             <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
               {intl.formatMessage({
                 defaultMessage: "Actions",
+                id: "jWNEdi",
                 description:
                   "Title of the 'Actions' column for the table on view-user page",
               })}
@@ -158,6 +163,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Change status",
+                        id: "bl7pCx",
                         description:
                           "Button to change a users status in a pool - located in the table on view-user page",
                       })}
@@ -184,6 +190,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                   >
                     {intl.formatMessage({
                       defaultMessage: "Remove from pool",
+                      id: "C8Ltjj",
                       description:
                         "Button to remove a user from a pool - located in the table on view-user page",
                     })}
@@ -224,6 +231,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Name:",
+              id: "nok2sR",
               description: "Display text for the name field on users",
             })}
           </p>
@@ -236,6 +244,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Email:",
+              id: "3UkIDo",
               description: "Display text for the email field on users",
             })}
           </p>
@@ -246,6 +255,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Preferred Language:",
+              id: "slTax4",
               description:
                 "Display text for the preferred language field on users",
             })}
@@ -261,6 +271,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Phone:",
+              id: "EnvwAC",
               description: "Display text for the phone number field on users",
             })}
           </p>
@@ -271,6 +282,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Current Location:",
+              id: "DMdCkf",
               description:
                 "Display text for the current location field on users",
             })}
@@ -289,6 +301,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Member of CAF:",
+              id: "EkBES+",
               description: "label for CAF status",
             })}
           </p>
@@ -306,6 +319,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Citizenship:",
+              id: "LOhcO4",
               description: "label for citizenship status",
             })}
           </p>
@@ -335,6 +349,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
       <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Personal status",
+          id: "4N6O+3",
           description:
             "Title of the 'Personal status' section of the view-user page",
         })}
@@ -348,6 +363,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
           intl.formatMessage({
             defaultMessage:
               "<heavyPrimary>Active</heavyPrimary> - Wants to be contacted for job opportunities",
+            id: "SOZVtc",
             description:
               "Text in view user page saying they currently have the 'Active' status, ignore things in <> tags please",
           })}
@@ -355,6 +371,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
           intl.formatMessage({
             defaultMessage:
               "<heavyPrimary>Open to opportunities</heavyPrimary> - Not actively looking but still wants to be contacted for job opportunities",
+            id: "ye47Rz",
             description:
               "Text in view user page saying they currently have the 'Open to opportunities' status, ignore things in <> tags please",
           })}
@@ -362,6 +379,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
           intl.formatMessage({
             defaultMessage:
               "<heavyPrimary>Inactive</heavyPrimary> - Does not want to be contacted for job opportunities",
+            id: "S0ghpc",
             description:
               "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please",
           })}
@@ -369,6 +387,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
       <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Pool status",
+          id: "hIaETV",
           description:
             "Title of the 'Pool status' section of the view-user page",
         })}
@@ -377,6 +396,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
       <h5 data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Add user to other pools",
+          id: "uL7iBo",
           description:
             "Title of the 'Add user to pools' section of the view-user page",
         })}
@@ -391,6 +411,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
         <span data-h2-text-decoration="base(underline)">
           {intl.formatMessage({
             defaultMessage: "Add user to pool",
+            id: "4Irijj",
             description: "Button to add user to pool on the view-user page",
           })}
         </span>
@@ -434,6 +455,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                 {
                   defaultMessage:
                     "Successfully updated notes for candidate in {poolName}",
+                  id: "CoUFQ5",
                   description:
                     "Toast notification for successful update of candidates notes in specified pool",
                 },
@@ -449,6 +471,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                 {
                   defaultMessage:
                     "Failed updating notes for candidate in {poolName}",
+                  id: "kXAnJt",
                   description:
                     "Toast notification for failed update of candidates notes in specified pool",
                 },
@@ -468,6 +491,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
         {intl.formatMessage({
           defaultMessage:
             "These notes are shared between all managers of this pool, but not to candidates.",
+          id: "9mJuzm",
           description:
             "Message about the behavior of notes on the view-user page",
         })}
@@ -481,6 +505,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
         >
           {intl.formatMessage({
             defaultMessage: "This user is not in any pools yet",
+            id: "W58QTT",
             description:
               "Message on view-user page that the user is not in any pools",
           })}
@@ -496,11 +521,13 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                     name={candidate.id}
                     label={`${intl.formatMessage({
                       defaultMessage: "Notes",
+                      id: "CSDdh/",
                       description: "Title for a pool candidates notes field",
                     })} - ${candidate.pool?.name?.[locale]}`}
                     defaultValue={candidate.notes ? candidate.notes : ""}
                     placeholder={intl.formatMessage({
                       defaultMessage: "Start writing your notes here...",
+                      id: "/MBeNc",
                       description:
                         "Placeholder text for a pool candidates notes field",
                     })}
@@ -515,6 +542,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
             <span data-h2-text-decoration="base(underline)">
               {intl.formatMessage({
                 defaultMessage: "Save notes",
+                id: "ZNne50",
                 description:
                   "Button to save notes for a pool candidate on the view-user page",
               })}
@@ -542,6 +570,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
         intl.formatMessage({
           defaultMessage:
             "Has not identified as a member of any employment equity groups.",
+          id: "PjK/4B",
           description:
             "Text on view-user page that the user isn't part of any employment equity groups",
         })}
@@ -551,6 +580,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
           {"  "}
           {intl.formatMessage({
             defaultMessage: "Indigenous",
+            id: "HrXZ6X",
             description: "Text on view-user page that the user is indigenous",
           })}
         </div>
@@ -561,6 +591,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
           {"  "}
           {intl.formatMessage({
             defaultMessage: "Person with disability",
+            id: "4Zl/mp",
             description:
               "Text on view-user page that the user has a disability",
           })}
@@ -572,6 +603,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
           {"  "}
           {intl.formatMessage({
             defaultMessage: "Visible minority",
+            id: "eickbr",
             description:
               "Text on view-user page that the user is part of a visible minority",
           })}
@@ -583,6 +615,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
           {"  "}
           {intl.formatMessage({
             defaultMessage: "Woman",
+            id: "3HJ51b",
             description: "Text on view-user page that the user is a woman",
           })}
         </div>
@@ -602,6 +635,7 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
       id: "about",
       title: intl.formatMessage({
         defaultMessage: "About",
+        id: "uutH18",
         description: "Title of the 'About' section of the view-user page",
       }),
       titleIcon: UserIcon,
@@ -611,6 +645,7 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
       id: "candidate-status",
       title: intl.formatMessage({
         defaultMessage: "Candidate status",
+        id: "F00OD4",
         description:
           "Title of the 'Candidate status' section of the view-user page",
       }),
@@ -621,6 +656,7 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
       id: "notes",
       title: intl.formatMessage({
         defaultMessage: "Notes",
+        id: "4AubyK",
         description: "Title of the 'Notes' section of the view-user page",
       }),
       titleIcon: PencilSquareIcon,
@@ -630,6 +666,7 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
       id: "employment-equity",
       title: intl.formatMessage({
         defaultMessage: "Employment equity",
+        id: "BYGKiT",
         description:
           "Title of the 'Employment equity' section of the view-user page",
       }),
@@ -686,6 +723,7 @@ const GeneralInfoTabApi: React.FC<{
           <p>
             {intl.formatMessage({
               defaultMessage: "Failed fetching data for tab.",
+              id: "jI4Mpn",
               description: "Message displayed for failed fetching data.",
             })}
           </p>

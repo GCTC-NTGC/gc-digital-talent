@@ -65,6 +65,7 @@ export const AssetSkillsSection = ({
         {intl.formatMessage({
           defaultMessage:
             "Select skills that will improve the chances of quality matches with managers. These can typically be learned on the job and are not necessary to be accepted into the pool.",
+          id: "xGjm2A",
           description: "Helper message for filling in the pool asset skills",
         })}
       </p>
@@ -85,6 +86,7 @@ export const AssetSkillsSection = ({
         >
           {intl.formatMessage({
             defaultMessage: "Save asset skills",
+            id: "j4G/wv",
             description: "Text on a button to save the pool asset skills",
           })}
         </Button>

@@ -79,6 +79,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill family created successfully!",
+            id: "d8CQJr",
             description:
               "Message displayed to user after skill family is created successfully.",
           }),
@@ -88,6 +89,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: creating skill family failed",
+            id: "rQ3Gbb",
             description:
               "Message displayed to user after skill family fails to get created.",
           }),
@@ -105,6 +107,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
       <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create Skill Family",
+          id: "5Al53V",
           description: "Title displayed on the create a skill family form.",
         })}
       </h2>
@@ -116,12 +119,14 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
               name="key"
               label={intl.formatMessage({
                 defaultMessage: "Key",
+                id: "qVXkby",
                 description:
                   "Label displayed on the create a skill family form key field.",
               })}
               context={intl.formatMessage({
                 defaultMessage:
                   "The 'key' is a string that uniquely identifies a skill family. It should be based on the skill families English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular skill family, so it cannot be changed later.",
+                id: "ytTGvb",
                 description:
                   "Additional context describing the purpose of the skill families 'key' field.",
               })}
@@ -133,6 +138,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
                   message: intl.formatMessage({
                     defaultMessage:
                       "Please use only lowercase letters and underscores.",
+                    id: "aPqZsz",
                   }),
                 },
               }}
@@ -142,6 +148,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
               name="name.en"
               label={intl.formatMessage({
                 defaultMessage: "Name (English)",
+                id: "2wo24b",
                 description:
                   "Label displayed on the create a skill family form name (English) field.",
               })}
@@ -155,6 +162,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
               name="name.fr"
               label={intl.formatMessage({
                 defaultMessage: "Name (French)",
+                id: "0oqRIl",
                 description:
                   "Label displayed on the create a skill family form name (French) field.",
               })}
@@ -168,6 +176,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
               name="description.en"
               label={intl.formatMessage({
                 defaultMessage: "Description (English)",
+                id: "luZnRG",
                 description:
                   "Label displayed on the create a skill family form description (English) field.",
               })}
@@ -180,6 +189,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
               name="description.fr"
               label={intl.formatMessage({
                 defaultMessage: "Description (French)",
+                id: "Q0gIlv",
                 description:
                   "Label displayed on the create a skill family form description (French) field.",
               })}
@@ -192,11 +202,13 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
               name="category"
               label={intl.formatMessage({
                 defaultMessage: "Category",
+                id: "KZR3ad",
                 description:
                   "Label displayed on the skill family form category field.",
               })}
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a category...",
+                id: "rna1rM",
                 description:
                   "Placeholder displayed on the skill family form category field.",
               })}
@@ -213,11 +225,13 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
               name="skills"
               label={intl.formatMessage({
                 defaultMessage: "Skills",
+                id: "F2Rs/C",
                 description:
                   "Label displayed on the skill family form skills field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more skills...",
+                id: "7Cx7lp",
                 description:
                   "Placeholder displayed on the skill family form skills field.",
               })}

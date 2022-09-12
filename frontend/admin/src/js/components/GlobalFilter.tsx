@@ -24,6 +24,7 @@ const GlobalFilter: React.FC<GlobalFilterProps> = ({
       inputId="searchTable"
       label={intl.formatMessage({
         defaultMessage: "Search",
+        id: "QCTZUv",
         description: "Label displayed on the Global Filter form Search field.",
       })}
       required={false}
@@ -39,6 +40,7 @@ const GlobalFilter: React.FC<GlobalFilterProps> = ({
         }}
         placeholder={intl.formatMessage({
           defaultMessage: "Start writing here...",
+          id: "3F6QqF",
           description:
             "Placeholder displayed on the Global Filter form Search field.",
         })}

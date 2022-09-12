@@ -58,6 +58,7 @@ const IndeterminateCheckbox: React.FC<
       />{" "}
       {intl.formatMessage({
         defaultMessage: "Toggle All",
+        id: "7d/ot8",
         description: "Label displayed on the Table Columns toggle fieldset.",
       })}
     </label>
@@ -141,6 +142,7 @@ function Table<T extends Record<string, unknown>>({
                     <span>
                       {intl.formatMessage({
                         defaultMessage: "Columns",
+                        id: "xcBl1q",
                         description:
                           "Label displayed on the Table Columns toggle button.",
                       })}
@@ -152,6 +154,7 @@ function Table<T extends Record<string, unknown>>({
                     onDismiss={() => setShowList(false)}
                     title={intl.formatMessage({
                       defaultMessage: "Table columns",
+                      id: "YH6bFU",
                       description:
                         "Dialog title for the admin tables columns toggle.",
                     })}
@@ -159,6 +162,7 @@ function Table<T extends Record<string, unknown>>({
                     <Fieldset
                       legend={intl.formatMessage({
                         defaultMessage: "Visible columns",
+                        id: "H9rxOR",
                         description:
                           "Legend for the column toggle in admin tables.",
                       })}
@@ -288,6 +292,7 @@ function Table<T extends Record<string, unknown>>({
                     <Button type="button" mode="inline" color="white">
                       {intl.formatMessage({
                         defaultMessage: "Download CSV",
+                        id: "mxOuYK",
                         description:
                           "Text label for button to download a csv file of items in a table.",
                       })}
@@ -297,6 +302,7 @@ function Table<T extends Record<string, unknown>>({
                     <Button type="button" mode="inline" color="white">
                       {intl.formatMessage({
                         defaultMessage: "Print",
+                        id: "jX1JC3",
                         description:
                           "Text label for button to download a pdf of items in a table.",
                       })}
@@ -317,6 +323,7 @@ function Table<T extends Record<string, unknown>>({
                     totalCount={rows.length}
                     ariaLabel={intl.formatMessage({
                       defaultMessage: "Table results",
+                      id: "hlcd+5",
                     })}
                     color="white"
                     mode="outline"

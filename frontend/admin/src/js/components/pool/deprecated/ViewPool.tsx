@@ -33,6 +33,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Pool Details",
+    id: "yBmBnd",
     description: "Title for the page when viewing an individual pool.",
   });
 
@@ -42,6 +43,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
     {
       title: intl.formatMessage({
         defaultMessage: "Home",
+        id: "DUK/pz",
         description: "Breadcrumb title for the home page link.",
       }),
       href: adminPaths.home(),
@@ -49,6 +51,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
     {
       title: intl.formatMessage({
         defaultMessage: "Pools",
+        id: "3fAkvM",
         description: "Breadcrumb title for the pools page link.",
       }),
       href: adminPaths.poolTable(),
@@ -61,10 +64,12 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
   const tabs = [
     intl.formatMessage({
       defaultMessage: "Pool details",
+      id: "gZwKs8",
       description: "Tabs title for the individual pool details.",
     }),
     intl.formatMessage({
       defaultMessage: "Pool candidates",
+      id: "GhGkBV",
       description: "Tabs title for the individual pool candidates.",
     }),
   ];
@@ -96,6 +101,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
           >
             {intl.formatMessage({
               defaultMessage: "Edit pool",
+              id: "SH/wd3",
               description: "Link text for button to edit a specific pool",
             })}
           </Link>
@@ -138,6 +144,7 @@ const ViewPool: React.FC<ViewPoolProps> = ({ poolId }) => {
             {intl.formatMessage(
               {
                 defaultMessage: "Pool {poolId} not found.",
+                id: "Sb2fEr",
                 description: "Message displayed for pool not found.",
               },
               { poolId },

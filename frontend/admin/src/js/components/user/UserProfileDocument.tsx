@@ -128,6 +128,7 @@ export const UserProfileDocument = React.forwardRef<
                       <Heading icon={LightBulbIcon} style={{ flex: "1 1 0%" }}>
                         {intl.formatMessage({
                           defaultMessage: "My Status",
+                          id: "Cx3s+E",
                           description: "Title of the my status content section",
                         })}
                       </Heading>
@@ -142,6 +143,7 @@ export const UserProfileDocument = React.forwardRef<
                       >
                         {intl.formatMessage({
                           defaultMessage: "Language Information",
+                          id: "1pk/7X",
                           description:
                             "Title of the Language Information content section",
                         })}
@@ -157,6 +159,7 @@ export const UserProfileDocument = React.forwardRef<
                       >
                         {intl.formatMessage({
                           defaultMessage: "Government Information",
+                          id: "l1cou8",
                           description:
                             "Title of the Government Information content section",
                         })}
@@ -169,6 +172,7 @@ export const UserProfileDocument = React.forwardRef<
                       <Heading icon={MapPinIcon} style={{ flex: "1 1 0%" }}>
                         {intl.formatMessage({
                           defaultMessage: "Work Location",
+                          id: "F9R74z",
                           description:
                             "Title of the Work Location content section",
                         })}
@@ -184,6 +188,7 @@ export const UserProfileDocument = React.forwardRef<
                       >
                         {intl.formatMessage({
                           defaultMessage: "Work Preferences",
+                          id: "V89Ryn",
                           description:
                             "Title of the Work Preferences content section",
                         })}
@@ -199,6 +204,7 @@ export const UserProfileDocument = React.forwardRef<
                       >
                         {intl.formatMessage({
                           defaultMessage: "Employment Equity Information",
+                          id: "aa7B7S",
                           description:
                             "Title of the Employment Equity Information content section",
                         })}
@@ -214,6 +220,7 @@ export const UserProfileDocument = React.forwardRef<
                       >
                         {intl.formatMessage({
                           defaultMessage: "Role and salary expectations",
+                          id: "uMzeiF",
                           description:
                             "Title of the Role and salary expectations section",
                         })}
@@ -225,6 +232,7 @@ export const UserProfileDocument = React.forwardRef<
                     <Heading icon={BoltIcon} style={{ flex: "1 1 0%" }}>
                       {intl.formatMessage({
                         defaultMessage: "My skills and experience",
+                        id: "Eui2Wf",
                         description:
                           "Title of the My skills and experience content section",
                       })}

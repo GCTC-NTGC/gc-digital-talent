@@ -114,6 +114,7 @@ export const PoolNameSection = ({
         {intl.formatMessage({
           defaultMessage:
             "Select the classification intended for this recruitment process.",
+          id: "5PIt8V",
           description:
             "Helper message for selecting a classification for the pool",
         })}
@@ -126,6 +127,7 @@ export const PoolNameSection = ({
                 id="classification"
                 label={intl.formatMessage({
                   defaultMessage: "Classification",
+                  id: "jPlK9k",
                   description:
                     "Label displayed on the edit pool form classification field.",
                 })}
@@ -139,12 +141,14 @@ export const PoolNameSection = ({
                 id="stream"
                 label={intl.formatMessage({
                   defaultMessage: "Streams/Job Titles",
+                  id: "7SOo+L",
                   description:
                     "Label displayed on the edit pool form stream/job title field.",
                 })}
                 name="stream"
                 nullSelection={intl.formatMessage({
                   defaultMessage: "Select a stream/job title...",
+                  id: "vgOfaa",
                   description:
                     "Placeholder displayed on the pool form classification field.",
                 })}
@@ -161,6 +165,7 @@ export const PoolNameSection = ({
                 type="text"
                 label={intl.formatMessage({
                   defaultMessage: "Specific Title (English)",
+                  id: "fTwl6k",
                   description:
                     "Label for a pool advertisements specific English title",
                 })}
@@ -175,6 +180,7 @@ export const PoolNameSection = ({
                 type="text"
                 label={intl.formatMessage({
                   defaultMessage: "Specific Title (French)",
+                  id: "MDjwSO",
                   description:
                     "Label for a pool advertisements specific French title",
                 })}
@@ -187,6 +193,7 @@ export const PoolNameSection = ({
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Save pool name",
+                id: "bbIDc9",
                 description: "Text on a button to save the pool name",
               })}
               color="cta"

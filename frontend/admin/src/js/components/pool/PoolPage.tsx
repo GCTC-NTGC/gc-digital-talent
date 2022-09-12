@@ -14,6 +14,7 @@ export const PoolPage: React.FC = () => {
       <PageHeader icon={Squares2X2Icon}>
         {intl.formatMessage({
           defaultMessage: "Pools",
+          id: "qL43Gw",
           description: "Heading displayed above the Pool Table component.",
         })}
       </PageHeader>

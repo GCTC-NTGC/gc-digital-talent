@@ -15,6 +15,7 @@ export const SkillPage: React.FC = () => {
       <PageHeader icon={AcademicCapIcon}>
         {intl.formatMessage({
           defaultMessage: "Skills",
+          id: "Dbqtm6",
           description: "Heading displayed above the Skill Table component.",
         })}
       </PageHeader>

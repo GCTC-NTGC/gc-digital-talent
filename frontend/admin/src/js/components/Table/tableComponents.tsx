@@ -27,6 +27,7 @@ export const IndeterminateCheckbox: React.FC<
       {labelText ||
         intl.formatMessage({
           defaultMessage: "Toggle All",
+          id: "7d/ot8",
           description: "Label displayed on the Table Columns toggle fieldset.",
         })}
     </label>

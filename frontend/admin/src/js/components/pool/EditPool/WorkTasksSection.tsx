@@ -82,6 +82,7 @@ export const WorkTasksSection = ({
         {intl.formatMessage({
           defaultMessage:
             "This information lets applicants know the type of work they will be expected to perform. Talk about the tasks and expectations related to this work.",
+          id: "k9nAP5",
           description: "Helper message for filling in the pool work tasks",
         })}
       </p>
@@ -93,11 +94,13 @@ export const WorkTasksSection = ({
                 id="YourWorkEn"
                 label={intl.formatMessage({
                   defaultMessage: "English - Your work",
+                  id: "lb7SoP",
                   description:
                     "Label for the English - Your Work textarea in the edit pool page.",
                 })}
                 placeholder={intl.formatMessage({
                   defaultMessage: "Write the key tasks for this job poster...",
+                  id: "PCuQMN",
                   description:
                     "Placeholder message for  the English - Your Work textarea in the edit pool page.",
                 })}
@@ -129,11 +132,13 @@ export const WorkTasksSection = ({
                 id="YourWorkFr"
                 label={intl.formatMessage({
                   defaultMessage: "French - Your work",
+                  id: "8bJgxK",
                   description:
                     "Label for the French - Your Work textarea in the edit pool page.",
                 })}
                 placeholder={intl.formatMessage({
                   defaultMessage: "Write the key tasks for this job poster...",
+                  id: "Xsxvql",
                   description:
                     "Placeholder message for the French - Your Work textarea in the edit pool page.",
                 })}
@@ -166,6 +171,7 @@ export const WorkTasksSection = ({
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Save work tasks",
+                id: "tiv5J7",
                 description: "Text on a button to save the pool work tasks",
               })}
               color="cta"

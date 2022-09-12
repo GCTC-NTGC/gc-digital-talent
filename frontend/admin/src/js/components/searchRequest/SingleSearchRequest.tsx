@@ -34,6 +34,7 @@ const ManagerInfo: React.FunctionComponent<{
 
   const nonApplicableMessage = intl.formatMessage({
     defaultMessage: "N/A",
+    id: "i9AjuX",
     description: "Text shown when the filter was not selected",
   });
 
@@ -45,6 +46,7 @@ const ManagerInfo: React.FunctionComponent<{
       >
         {intl.formatMessage({
           defaultMessage: "Manager Information",
+          id: "UEsexn",
           description:
             "Heading for the manager info section of the single search request view.",
         })}
@@ -66,6 +68,7 @@ const ManagerInfo: React.FunctionComponent<{
                 <FilterBlock
                   title={intl.formatMessage({
                     defaultMessage: "Full Name",
+                    id: "W9DTVh",
                     description:
                       "Title for the full name block in the manager info section of the single search request view.",
                   })}
@@ -74,6 +77,7 @@ const ManagerInfo: React.FunctionComponent<{
                 <FilterBlock
                   title={intl.formatMessage({
                     defaultMessage: "Government Email",
+                    id: "d3oN4p",
                     description:
                       "Title for the government email block in the manager info section of the single search request view.",
                   })}
@@ -92,6 +96,7 @@ const ManagerInfo: React.FunctionComponent<{
                 <FilterBlock
                   title={intl.formatMessage({
                     defaultMessage: "Department",
+                    id: "zwcUgi",
                     description:
                       "Title for the department block in the manager info section of the single search request view.",
                   })}
@@ -100,6 +105,7 @@ const ManagerInfo: React.FunctionComponent<{
                 <FilterBlock
                   title={intl.formatMessage({
                     defaultMessage: "Job title for this position",
+                    id: "gRPGQN",
                     description:
                       "Title for the job title block in the manager info section of the single search request view.",
                   })}
@@ -118,6 +124,7 @@ const ManagerInfo: React.FunctionComponent<{
                 <FilterBlock
                   title={intl.formatMessage({
                     defaultMessage: "Pool Requested",
+                    id: "rz8uPO",
                     description:
                       "Title for the pool block in the manager info section of the single search request view.",
                   })}
@@ -137,6 +144,7 @@ const ManagerInfo: React.FunctionComponent<{
                 <FilterBlock
                   title={intl.formatMessage({
                     defaultMessage: "Status",
+                    id: "Lzd38d",
                     description:
                       "Title for the status block in the manager info section of the single search request view.",
                   })}
@@ -145,6 +153,7 @@ const ManagerInfo: React.FunctionComponent<{
                       ? intl.formatMessage(getPoolCandidateSearchStatus(status))
                       : intl.formatMessage({
                           defaultMessage: "N/A",
+                          id: "i9AjuX",
                           description:
                             "Text shown when the filter was not selected",
                         })
@@ -160,6 +169,7 @@ const ManagerInfo: React.FunctionComponent<{
                 <FilterBlock
                   title={intl.formatMessage({
                     defaultMessage: "Date Requested",
+                    id: "hzL/Gd",
                     description:
                       "Title for the date requested block in the manager info section of the single search request view.",
                   })}
@@ -168,6 +178,7 @@ const ManagerInfo: React.FunctionComponent<{
                 <FilterBlock
                   title={intl.formatMessage({
                     defaultMessage: "Date done",
+                    id: "BAzKWq",
                     description:
                       "Title for the date done block in the manager info section of the single search request view.",
                   })}
@@ -245,6 +256,7 @@ export const SingleSearchRequest: React.FunctionComponent<
           {
             defaultMessage:
               "<strong>{jobTitle}</strong> at <strong>{department}</strong>",
+            id: "ZLDt/c",
             description:
               "Subtitle displayed above the single search request component.",
           },
@@ -262,6 +274,7 @@ export const SingleSearchRequest: React.FunctionComponent<
         >
           {intl.formatMessage({
             defaultMessage: "Request Information",
+            id: "AAmd5G",
             description:
               "Heading for the request information section of the single search request view.",
           })}
@@ -281,6 +294,7 @@ export const SingleSearchRequest: React.FunctionComponent<
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Additional Comments",
+                id: "WqOnFF",
                 description:
                   "Title for the additional comments block in the search request filters",
               })}
@@ -296,6 +310,7 @@ export const SingleSearchRequest: React.FunctionComponent<
         >
           {intl.formatMessage({
             defaultMessage: "Candidate Results",
+            id: "Duswz0",
             description:
               "Heading for the candidate results section of the single search request view.",
           })}
@@ -330,6 +345,7 @@ export const SingleSearchRequestApi: React.FunctionComponent<{
             {intl.formatMessage(
               {
                 defaultMessage: "Search Request {searchRequestId} not found.",
+                id: "BbaMf0",
                 description:
                   "Message displayed for search request not found on single search request page.",
               },
