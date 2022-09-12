@@ -6,9 +6,9 @@ import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import Card from "@common/components/Card";
-import { Link } from "@common/components";
+import { Button } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
-import { imageUrl } from "@common/helpers/router";
+import { imageUrl, navigate } from "@common/helpers/router";
 
 import { AdvertisementStatus, SkillCategory } from "@common/api/generated";
 import TableOfContents from "@common/components/TableOfContents";
@@ -28,10 +28,11 @@ import {
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
 import commonMessages from "@common/messages/commonMessages";
+import { toast } from "react-toastify";
 import {
   Role,
   useGetPoolAdvertisementQuery,
-  CreateApplicationMutation,
+  useCreateApplicationMutation,
 } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -44,25 +45,25 @@ import getFullPoolAdvertisementTitle from "./getFullPoolAdvertisementTitle";
 
 interface ApplyButtonProps {
   disabled: boolean;
-  href: string;
+  onClick: () => void;
 }
 
-const ApplyButton = ({ disabled, href }: ApplyButtonProps) => {
+const ApplyButton = ({ disabled, onClick }: ApplyButtonProps) => {
   const intl = useIntl();
   return (
-    <Link
+    <Button
       type="button"
       color="primary"
       mode="solid"
       disabled={disabled}
-      href={href}
+      onClick={onClick}
     >
       {intl.formatMessage({
         defaultMessage: "Apply for this process",
         id: "W2YIEA",
         description: "Link text to apply for a pool advertisement",
       })}
-    </Link>
+    </Button>
   );
 };
 
@@ -98,9 +99,13 @@ const anchorTag = (chunks: string[]) => (
 
 interface PoolAdvertisementProps {
   poolAdvertisement: PoolAdvertisement;
+  userId: string;
 }
 
-const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
+const PoolAdvertisement = ({
+  poolAdvertisement,
+  userId,
+}: PoolAdvertisementProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useDirectIntakeRoutes();
@@ -130,11 +135,23 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
     poolAdvertisement.nonessentialSkills,
   );
 
+  const [, executeMutation] = useCreateApplicationMutation();
+  const handleCreateApplication = () =>
+    executeMutation({ userId, poolId: poolAdvertisement.id })
+      .then((result) => {
+        if (result.data?.createApplication) {
+          navigate(paths.reviewApplication(result.data.createApplication.id));
+          toast("Success");
+          return result.data?.createApplication.id;
+        }
+        return result.data?.createApplication;
+      })
+      .catch((result) => {
+        return Promise.reject(result.error);
+      });
+
   const applyBtn = (
-    <ApplyButton
-      disabled={!canApply}
-      href={paths.poolApply(poolAdvertisement.id)}
-    />
+    <ApplyButton disabled={!canApply} onClick={handleCreateApplication} />
   );
 
   const links = [
@@ -740,10 +757,17 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
     visible = true;
   }
 
+  // enforce type of userId as String
+  const dataMe = data?.me ? data.me : undefined;
+  const userId = dataMe?.id ? dataMe.id : "";
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolAdvertisement && visible ? (
-        <PoolAdvertisement poolAdvertisement={data?.poolAdvertisement} />
+        <PoolAdvertisement
+          poolAdvertisement={data?.poolAdvertisement}
+          userId={userId}
+        />
       ) : (
         <NotFound
           headingMessage={intl.formatMessage(commonMessages.notFound, {
