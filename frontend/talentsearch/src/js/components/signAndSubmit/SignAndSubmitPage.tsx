@@ -341,11 +341,12 @@ export const SignAndSubmitForm = ({
         <TableOfContents.Content>
           {tocNavItems.map((item) => (
             <TableOfContents.Section key={item.id} id={item.id}>
-              <div data-h2-padding="base(x3, 0, x1, 0)">
+              <div data-h2-padding="base(x2, 0, x1, 0)">
                 <div data-h2-flex-grid="base(center, x2, x1)">
                   <div
                     data-h2-flex-item="base(1of1) p-tablet(content)"
                     data-h2-text-align="base(center) p-tablet(right)"
+                    style={{ marginTop: 0 }}
                   >
                     <TableOfContents.Heading as="h3" icon={item.icon}>
                       {item.title}
