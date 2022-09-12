@@ -83,6 +83,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill created successfully!",
+            id: "bGi9fO",
             description:
               "Message displayed to user after skill is created successfully.",
           }),
@@ -92,6 +93,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: creating skill failed",
+            id: "ksMybU",
             description:
               "Message displayed to user after skill fails to get created.",
           }),
@@ -111,6 +113,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
       <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create Skill",
+          id: "qZd17O",
           description: "Title displayed on the create a skill form.",
         })}
       </h2>
@@ -122,12 +125,14 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
               name="key"
               label={intl.formatMessage({
                 defaultMessage: "Key",
+                id: "3exDkT",
                 description:
                   "Label displayed on the create a skill form key field.",
               })}
               context={intl.formatMessage({
                 defaultMessage:
                   "The 'key' is a string that uniquely identifies a skill. It should be based on the skills English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular skill, so it cannot be changed later.",
+                id: "jthonT",
                 description:
                   "Additional context describing the purpose of the skills 'key' field.",
               })}
@@ -139,6 +144,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
                   message: intl.formatMessage({
                     defaultMessage:
                       "Please use only lowercase letters and underscores.",
+                    id: "aPqZsz",
                   }),
                 },
               }}
@@ -148,6 +154,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
               name="name.en"
               label={intl.formatMessage({
                 defaultMessage: "Name (English)",
+                id: "gnu0Eb",
                 description:
                   "Label displayed on the create a skill form name (English) field.",
               })}
@@ -161,6 +168,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
               name="name.fr"
               label={intl.formatMessage({
                 defaultMessage: "Name (French)",
+                id: "ZU3fd5",
                 description:
                   "Label displayed on the create a skill form name (French) field.",
               })}
@@ -174,6 +182,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
               name="description.en"
               label={intl.formatMessage({
                 defaultMessage: "Description (English)",
+                id: "rJqCuH",
                 description:
                   "Label displayed on the create a skill form description (English) field.",
               })}
@@ -186,6 +195,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
               name="description.fr"
               label={intl.formatMessage({
                 defaultMessage: "Description (French)",
+                id: "a+bWz1",
                 description:
                   "Label displayed on the create a skill form description (French) field.",
               })}
@@ -198,12 +208,14 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
               name="keywords.en"
               label={intl.formatMessage({
                 defaultMessage: "Keywords (English)",
+                id: "FiylOa",
                 description:
                   "Label displayed on the skill form keywords field in English.",
               })}
               context={intl.formatMessage({
                 defaultMessage:
                   "This field accepts a list of comma separated keywords associated with the skill.",
+                id: "NT3jrI",
                 description:
                   "Additional context describing the purpose of the skills 'keyword' field.",
               })}
@@ -217,12 +229,14 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
               name="keywords.fr"
               label={intl.formatMessage({
                 defaultMessage: "Keywords (French)",
+                id: "fOl4Ez",
                 description:
                   "Label displayed on the skill form keywords field in French.",
               })}
               context={intl.formatMessage({
                 defaultMessage:
                   "This field accepts a list of comma separated keywords associated with the skill.",
+                id: "NT3jrI",
                 description:
                   "Additional context describing the purpose of the skills 'keyword' field.",
               })}
@@ -236,11 +250,13 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
               name="families"
               label={intl.formatMessage({
                 defaultMessage: "Families",
+                id: "xx8yaE",
                 description:
                   "Label displayed on the skill form skill families field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more skill families...",
+                id: "brucUP",
                 description:
                   "Placeholder displayed on the skill form skill families field.",
               })}

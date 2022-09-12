@@ -30,6 +30,7 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
           <p>
             {intl.formatMessage({
               defaultMessage: "Name:",
+              id: "DAmLhV",
               description: "Name label and colon",
             })}{" "}
             <span data-h2-font-weight="base(700)">
@@ -41,6 +42,7 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
           <p>
             {intl.formatMessage({
               defaultMessage: "No information has been provided.",
+              id: "/fv4O0",
               description:
                 "Message on Admin side when user not filled WorkPreferences section.",
             })}
@@ -50,6 +52,7 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
           <p>
             {intl.formatMessage({
               defaultMessage: "Member of CAF:",
+              id: "Md/cQS",
               description: "Veteran/member label",
             })}{" "}
             <span data-h2-font-weight="base(700)">
@@ -63,6 +66,7 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
           <p>
             {intl.formatMessage({
               defaultMessage: "Citizenship:",
+              id: "GiODgs",
               description: "Citizenship label",
             })}{" "}
             <span data-h2-font-weight="base(700)">

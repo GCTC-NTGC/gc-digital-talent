@@ -60,7 +60,7 @@ const SideMenu: React.FC<SideMenuProps> = ({
           <RemoveScroll
             enabled={isSmallScreen && isOpen}
             data-h2-background-color="base(light.dt-secondary)"
-            data-h2-overflow="base(auto, all)"
+            data-h2-overflow="base(auto)"
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
             data-h2-height="base(100%)"
@@ -70,11 +70,13 @@ const SideMenu: React.FC<SideMenuProps> = ({
                 {isOpen
                   ? intl.formatMessage({
                       defaultMessage: "Close Menu",
+                      id: "+ZPD1J",
                       description:
                         "Text label for button that closes side menu.",
                     })
                   : intl.formatMessage({
                       defaultMessage: "Open Menu",
+                      id: "KMSWLW",
                       description:
                         "Text label for button that opens side menu.",
                     })}

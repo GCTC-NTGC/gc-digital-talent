@@ -14,6 +14,7 @@ export const DepartmentPage: React.FC = () => {
       <PageHeader icon={BuildingOfficeIcon}>
         {intl.formatMessage({
           defaultMessage: "Departments",
+          id: "457hEW",
           description:
             "Heading displayed above the Department Table component.",
         })}

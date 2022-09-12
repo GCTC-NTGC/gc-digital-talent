@@ -25,10 +25,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange }) => {
         onChange={debouncedHandleChange}
         aria-label={intl.formatMessage({
           defaultMessage: "Search Table",
+          id: "chFoB8",
           description: "Label for search field on admin tables.",
         })}
         placeholder={intl.formatMessage({
           defaultMessage: "Start writing here...",
+          id: "3F6QqF",
           description:
             "Placeholder displayed on the Global Filter form Search field.",
         })}

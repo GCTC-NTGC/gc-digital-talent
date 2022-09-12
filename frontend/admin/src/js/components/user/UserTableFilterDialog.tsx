@@ -51,12 +51,14 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
         {formatMessage({
           description: "Clear button within the search filter dialog",
           defaultMessage: "Clear filters",
+          id: "uC0YPE",
         })}
       </Button>
       <Button type="submit" color="cta">
         {formatMessage({
           description: "Submit button within the search filter dialog",
           defaultMessage: "Show results",
+          id: "V4+lDw",
         })}
       </Button>
     </div>
@@ -89,11 +91,13 @@ const UserTableFilterDialog = ({
       id="user-table-filter-dialog"
       title={formatMessage({
         defaultMessage: "Select filters",
+        id: "P9SZBZ",
         description: "Candidate search filter dialog: title",
       })}
       subtitle={formatMessage({
         defaultMessage:
           "Narrow down your table results using the following filters.",
+        id: "hqZfyb",
         description: "Candidate search filter dialog: subtitle",
       })}
     >
@@ -103,12 +107,13 @@ const UserTableFilterDialog = ({
           defaultValues: activeFilters,
         }}
       >
-        <div data-h2-flex-grid="base(flex-start, 0, x1, x.5)">
+        <div data-h2-flex-grid="base(flex-start, x1, x.5)">
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
             <MultiSelectFieldV2
               id="pools"
               label={formatMessage({
                 defaultMessage: "Pools",
+                id: "mjyHeP",
               })}
               options={optionsData.pools}
               isLoading={rawGraphqlResults.pools.fetching}
@@ -120,6 +125,7 @@ const UserTableFilterDialog = ({
               id="languageAbility"
               label={formatMessage({
                 defaultMessage: "Languages",
+                id: "GsBRWL",
               })}
               options={optionsData.languageAbility}
             />
@@ -129,6 +135,7 @@ const UserTableFilterDialog = ({
               id="classifications"
               label={formatMessage({
                 defaultMessage: "Classifications",
+                id: "5TVKj1",
               })}
               options={optionsData.classifications}
               isLoading={rawGraphqlResults.classifications.fetching}
@@ -139,6 +146,7 @@ const UserTableFilterDialog = ({
               id="operationalRequirement"
               label={formatMessage({
                 defaultMessage: "Work Preferences",
+                id: "1XyQqX",
               })}
               options={optionsData.operationalRequirement}
             />
@@ -148,6 +156,7 @@ const UserTableFilterDialog = ({
               id="workRegion"
               label={formatMessage({
                 defaultMessage: "Work Locations",
+                id: "qhhPj5",
               })}
               options={optionsData.workRegion}
             />
@@ -158,6 +167,7 @@ const UserTableFilterDialog = ({
                 id="educationType"
                 label={formatMessage({
                   defaultMessage: "Education",
+                  id: "jtygmI",
                 })}
                 options={optionsData.educationType}
               />
@@ -169,6 +179,7 @@ const UserTableFilterDialog = ({
               id="employmentDuration"
               label={formatMessage({
                 defaultMessage: "Duration Preferences",
+                id: "hmfQmT",
               })}
               options={optionsData.employmentDuration}
             />
@@ -178,6 +189,7 @@ const UserTableFilterDialog = ({
               id="jobLookingStatus"
               label={formatMessage({
                 defaultMessage: "Availability",
+                id: "hOxIeP",
               })}
               options={optionsData.jobLookingStatus}
             />
@@ -188,6 +200,7 @@ const UserTableFilterDialog = ({
               id="profileComplete"
               label={formatMessage({
                 defaultMessage: "Profile Complete",
+                id: "OPG1Q0",
               })}
               options={optionsData.profileComplete}
             />
@@ -197,6 +210,7 @@ const UserTableFilterDialog = ({
               id="skills"
               label={formatMessage({
                 defaultMessage: "Skill Filter",
+                id: "GGaxMx",
               })}
               options={optionsData.skills}
               isLoading={rawGraphqlResults.skills.fetching}
@@ -208,6 +222,7 @@ const UserTableFilterDialog = ({
               id="govEmployee"
               label={formatMessage({
                 defaultMessage: "Government Employee",
+                id: "YojrdC",
               })}
               options={optionsData.govEmployee}
             />
@@ -301,6 +316,7 @@ const UserTableFilterButton = ({
         <span>
           {formatMessage({
             defaultMessage: "Filters",
+            id: "1HPhji",
             description:
               "Text label for button to open filter dialog on admin tables.",
           })}

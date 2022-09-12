@@ -61,9 +61,9 @@ function TableHeader<T extends Record<string, unknown>>({
       {filter && (
         <div data-h2-margin="base(x2, 0, x.5, 0)">
           <p>{title && <span data-h2-font-weight="base(700)">{title}</span>}</p>
-          <div data-h2-flex-grid="base(center, 0, x1)">
+          <div data-h2-flex-grid="base(center, x1)">
             <div data-h2-flex-item="base(1of1) l-tablet(fill)">
-              <div data-h2-flex-grid="base(center, 0, x.5)">
+              <div data-h2-flex-grid="base(center, x.5)">
                 <div data-h2-flex-item="base(content)">
                   <SearchForm onChange={onSearchChange} searchBy={searchBy} />
                 </div>
@@ -87,6 +87,7 @@ function TableHeader<T extends Record<string, unknown>>({
                       <span>
                         {intl.formatMessage({
                           defaultMessage: "Columns",
+                          id: "xcBl1q",
                           description:
                             "Label displayed on the Table Columns toggle button.",
                         })}
@@ -98,6 +99,7 @@ function TableHeader<T extends Record<string, unknown>>({
                       onDismiss={() => setShowList(false)}
                       title={intl.formatMessage({
                         defaultMessage: "Table columns",
+                        id: "YH6bFU",
                         description:
                           "Dialog title for the admin tables columns toggle.",
                       })}
@@ -105,6 +107,7 @@ function TableHeader<T extends Record<string, unknown>>({
                       <Fieldset
                         legend={intl.formatMessage({
                           defaultMessage: "Visible columns",
+                          id: "H9rxOR",
                           description:
                             "Legend for the column toggle in admin tables.",
                         })}

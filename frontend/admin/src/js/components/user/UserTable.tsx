@@ -58,6 +58,7 @@ const profileLinkAccessor = (
       href={profileLink}
       title={intl.formatMessage({
         defaultMessage: "Link to user profile",
+        id: "dizg6V",
         description: "Descriptive title for an anchor link",
       })}
     >
@@ -150,6 +151,7 @@ export const UserTable: React.FC = () => {
       {
         label: intl.formatMessage({
           defaultMessage: "Candidate Name",
+          id: "NeNnAP",
           description:
             "Title displayed on the User table Candidate Name column.",
         }),
@@ -160,6 +162,7 @@ export const UserTable: React.FC = () => {
       {
         label: intl.formatMessage({
           defaultMessage: "Email",
+          id: "0+g2jN",
           description: "Title displayed for the User table Email column.",
         }),
         accessor: (user) =>
@@ -174,6 +177,7 @@ export const UserTable: React.FC = () => {
       {
         label: intl.formatMessage({
           defaultMessage: "Telephone",
+          id: "fXMsoK",
           description: "Title displayed for the User table Telephone column.",
         }),
         accessor: (user) => user.telephone,
@@ -183,6 +187,7 @@ export const UserTable: React.FC = () => {
       {
         label: intl.formatMessage({
           defaultMessage: "Preferred Language",
+          id: "mf+QEY",
           description:
             "Title displayed for the User table Preferred Language column.",
         }),
@@ -193,6 +198,7 @@ export const UserTable: React.FC = () => {
       {
         label: intl.formatMessage({
           defaultMessage: "Edit",
+          id: "qYH0du",
           description: "Title displayed for the User table Edit column.",
         }),
         accessor: (d) => tableEditButtonAccessor(d.id, pathname, fullName(d)), // callback extracted to separate function to stabilize memoized component
@@ -233,6 +239,7 @@ export const UserTable: React.FC = () => {
       <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
         {intl.formatMessage({
           defaultMessage: "All Users",
+          id: "VlI1K4",
           description: "Title for the admin users table",
         })}
       </h2>
@@ -248,6 +255,7 @@ export const UserTable: React.FC = () => {
         addBtn={{
           label: intl.formatMessage({
             defaultMessage: "New user",
+            id: "+OSYz7",
             description:
               "Text label for link to create new user on admin table",
           }),
@@ -257,6 +265,7 @@ export const UserTable: React.FC = () => {
           {
             label: intl.formatMessage({
               defaultMessage: "Name",
+              id: "36k+Da",
               description: "Label for user table search dropdown (name).",
             }),
             value: "name",
@@ -264,6 +273,7 @@ export const UserTable: React.FC = () => {
           {
             label: intl.formatMessage({
               defaultMessage: "Email",
+              id: "fivWMs",
               description: "Label for user table search dropdown (email).",
             }),
             value: "email",
@@ -271,6 +281,7 @@ export const UserTable: React.FC = () => {
           {
             label: intl.formatMessage({
               defaultMessage: "Phone",
+              id: "CjkBMT",
               description: "Label for user table search dropdown (phone).",
             }),
             value: "phone",
@@ -308,6 +319,7 @@ export const UserTable: React.FC = () => {
             fileName: intl.formatMessage(
               {
                 defaultMessage: "users_{date}.csv",
+                id: "mYuXWF",
                 description: "Filename for user CSV file download",
               },
               {

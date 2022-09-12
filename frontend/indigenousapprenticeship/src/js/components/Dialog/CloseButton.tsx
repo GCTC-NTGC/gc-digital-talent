@@ -13,6 +13,7 @@ const CloseButton: React.FC<CloseButtonProps> = ({ onClick }) => {
       <Button onClick={onClick} mode="outline" color="ia-secondary">
         {intl.formatMessage({
           defaultMessage: "Close",
+          id: "4p0QdF",
           description: "Button text used to close an open modal",
         })}
       </Button>

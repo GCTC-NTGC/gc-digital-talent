@@ -22,6 +22,7 @@ const ArchiveDialog = ({
           <Button onClick={onDismiss} mode="outline" color="secondary">
             {intl.formatMessage({
               defaultMessage: "Cancel and go back",
+              id: "tiF/jI",
               description: "Close dialog button",
             })}
           </Button>
@@ -37,6 +38,7 @@ const ArchiveDialog = ({
           >
             {intl.formatMessage({
               defaultMessage: "Archive pool",
+              id: "Jc0lds",
               description:
                 "Button to archive the pool in the archive pool dialog",
             })}
@@ -54,6 +56,7 @@ const ArchiveDialog = ({
       color="ts-secondary"
       title={intl.formatMessage({
         defaultMessage: "Archive",
+        id: "Hqt/ej",
         description: "Heading for the archive pool dialog",
       })}
     >

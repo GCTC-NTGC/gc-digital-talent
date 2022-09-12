@@ -1,7 +1,12 @@
 import React, { useImperativeHandle, useMemo } from "react";
 import { FormProvider, useForm, UseFormTrigger } from "react-hook-form";
 import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
-import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
+import {
+  Checklist,
+  MultiSelect,
+  RadioGroup,
+  Select,
+} from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
@@ -60,7 +65,7 @@ export type FormValues = Pick<
   "workRegions" | "operationalRequirements"
 > & {
   languageAbility: LanguageAbility | typeof NullSelection;
-  classifications: string[] | undefined;
+  classification: string | undefined;
   cmoAssets: string[] | undefined;
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
@@ -144,12 +149,11 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       const formValuesToData = (
         values: FormValues,
       ): PoolCandidateFilterInput => {
+        const maybeClassification = values.classification
+          ? classificationMap.get(values.classification)
+          : undefined;
         return {
-          classifications: values.classifications
-            ? values.classifications?.map((id) =>
-                id ? classificationMap.get(id) : undefined,
-              )
-            : [],
+          classifications: maybeClassification ? [maybeClassification] : [],
           cmoAssets: values.cmoAssets
             ? values.cmoAssets?.map((id) => (id ? assetMap.get(id) : undefined))
             : [],
@@ -245,7 +249,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 "Message describing the classification filter of the search form.",
             })}
           >
-            <MultiSelect
+            <Select
               id="classifications"
               label={intl.formatMessage({
                 defaultMessage: "Classification filter",
@@ -253,13 +257,25 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 description: "Label for classification filter in search form.",
               })}
               placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more classification(s)",
-                id: "iNsxYi",
+                defaultMessage: "Select a classification",
+                id: "HHEQgM",
                 description:
                   "Placeholder for classification filter in search form.",
               })}
-              name="classifications"
-              options={classificationOptions}
+              name="classification"
+              options={[
+                {
+                  value: "",
+                  disabled: true,
+                  label: intl.formatMessage({
+                    defaultMessage: "Select a classification",
+                    id: "HHEQgM",
+                    description:
+                      "Placeholder for classification filter in search form.",
+                  }),
+                },
+                ...classificationOptions,
+              ]}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
