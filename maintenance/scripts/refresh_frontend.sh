@@ -8,4 +8,4 @@ cd /var/www/html/frontend
 npm install
 npm run codegen --workspaces
 npm run intl-compile --workspaces
-npm run dev --workspaces --if-present # common workspaces does not have dev script
+npm run dev --workspaces --if-present # common workspace does not have dev script

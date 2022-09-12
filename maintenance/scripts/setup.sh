@@ -29,5 +29,5 @@ cp ./admin/.env.example ./admin/.env --preserve=all
 cd /var/www/html/frontend
 npm run codegen --workspaces
 npm run intl-compile --workspaces
-npm run dev --workspaces --if-present # common workspaces does not have dev script
+npm run dev --workspaces --if-present # common workspace does not have dev script
 
