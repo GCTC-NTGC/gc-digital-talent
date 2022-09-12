@@ -141,12 +141,25 @@ const PoolAdvertisement = ({
       .then((result) => {
         if (result.data?.createApplication) {
           navigate(paths.reviewApplication(result.data.createApplication.id));
-          toast("Success");
+          toast(
+            intl.formatMessage({
+              defaultMessage: "Application created",
+              id: "U/ji+A",
+              description: "Application created successfully",
+            }),
+          );
           return result.data?.createApplication.id;
         }
         return result.data?.createApplication;
       })
       .catch((result) => {
+        toast(
+          intl.formatMessage({
+            defaultMessage: "Error application creation failed",
+            id: "tlAiJm",
+            description: "Application creation failed",
+          }),
+        );
         return Promise.reject(result.error);
       });
 
