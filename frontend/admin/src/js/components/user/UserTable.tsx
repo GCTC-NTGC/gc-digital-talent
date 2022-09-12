@@ -80,29 +80,29 @@ export const UserTable: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
   const [searchState, setSearchState] = useState<{
     term: string | undefined;
-    col: string | undefined;
+    type: string | undefined;
   }>();
 
   // merge search bar input with fancy filter state
-  const filterCombiner = (
+  const buildUserFilterInput = (
     fancyFilterState: UserFilterInput | undefined,
     searchBarTerm: string | undefined,
-    searchBarCol: string | undefined,
+    searchType: string | undefined,
   ): InputMaybe<UserFilterInput> => {
     if (
       fancyFilterState === undefined &&
       searchBarTerm === undefined &&
-      searchBarCol === undefined
+      searchType === undefined
     ) {
       return undefined;
     }
 
     return {
       // search bar
-      generalSearch: searchBarTerm && !searchBarCol ? searchBarTerm : undefined,
-      email: searchBarCol === "email" ? searchBarTerm : undefined,
-      name: searchBarCol === "name" ? searchBarTerm : undefined,
-      telephone: searchBarCol === "phone" ? searchBarTerm : undefined,
+      generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+      email: searchType === "email" ? searchBarTerm : undefined,
+      name: searchType === "name" ? searchBarTerm : undefined,
+      telephone: searchType === "phone" ? searchBarTerm : undefined,
 
       // from fancy filter
       applicantFilter: fancyFilterState?.applicantFilter,
@@ -119,7 +119,11 @@ export const UserTable: React.FC = () => {
 
   const [result] = useAllUsersPaginatedQuery({
     variables: {
-      where: filterCombiner(fancyFilter, searchState?.term, searchState?.col),
+      where: buildUserFilterInput(
+        fancyFilter,
+        searchState?.term,
+        searchState?.type,
+      ),
       page: currentPage,
       first: pageSize,
       orderBy: sortingRuleToOrderByClause(sortingRule),
@@ -244,11 +248,14 @@ export const UserTable: React.FC = () => {
         })}
       </h2>
       <TableHeader
-        onSearchChange={(term: string | undefined, col: string | undefined) => {
+        onSearchChange={(
+          term: string | undefined,
+          type: string | undefined,
+        ) => {
           setCurrentPage(1);
           setSearchState({
             term,
-            col,
+            type,
           });
         }}
         columns={columns}
