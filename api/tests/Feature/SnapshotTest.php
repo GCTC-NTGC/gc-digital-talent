@@ -26,12 +26,11 @@ class SnapshotTest extends TestCase
      */
     public function testCreateSnapshot()
     {
-        $snapshotQuery = $query = file_get_contents(base_path('app/GraphQL/Mutations/TestPoolCandidateSnapshot.graphql'), true);
-
+        $snapshotQuery = $query = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
         // set up a user with a pool candidate
         $userId = $this->faker->Uuid();
         $poolCandidateId = $this->faker->Uuid();
-        User::factory()->create([
+        $user = User::factory()->create([
             "id" => $userId
         ]);
         PoolCandidate::factory()->create([
@@ -42,15 +41,17 @@ class SnapshotTest extends TestCase
         // get what the snapshot should look like
         $expectedSnapshot = $this->graphQL($snapshotQuery, ["userId" => $userId])->json("data.user");
 
-        // make a snapshot
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            mutation snapshot($id: ID!) {
-                testPoolCandidateSnapshot(id: $id) { id }
-              }
-            ', ["id" => $poolCandidateId]
-            );
+        // Submit application
+        $this->graphQL('
+            mutation submitApplication(userId: ID!, signature: String!) {
+                submitApplication(id: $userId, signature: $signature) {
+                    id
+                }
+            }
+        ', [
+            "userId" => $userId,
+            "signature" => $user->first_name . " " . $user->last_name
+        ]);
 
         // get the just-created snapshot
         $actualSnapshot = $this->graphQL(
@@ -61,10 +62,10 @@ class SnapshotTest extends TestCase
                   profileSnapshot
                 }
               }
-            ', ["poolCandidateId" => $poolCandidateId]
-            )->json("data.poolCandidate");
+            ',
+            ["poolCandidateId" => $poolCandidateId]
+        )->json("data.poolCandidate");
 
         assertEquals($expectedSnapshot, $actualSnapshot);
-
     }
 }
