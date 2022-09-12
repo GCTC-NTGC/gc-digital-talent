@@ -4,6 +4,40 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Setup Project",
+      "type": "shell",
+
+      "command": "docker-compose",
+      "args": ["run", "--rm", "maintenance", "bash", "setup.sh"],
+
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "group": "build"
+    },
+    {
+      "label": "Refresh Frontend",
+      "type": "shell",
+
+      "command": "docker-compose",
+      "args": ["run", "--rm", "maintenance", "bash", "refresh_frontend.sh"],
+
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "group": "build"
+    },
+    {
       "label": "Refresh API",
       "type": "shell",
 
@@ -104,6 +138,57 @@
         "clear": true
       },
       "group": "build"
-    }
+    },
+    {
+      "label": "Docker Compose Down",
+      "type": "shell",
+
+      "command": "docker-compose",
+      "args": ["down"],
+
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "group": "build"
+    },
+    {
+      "label": "Docker Compose Up",
+      "type": "shell",
+
+      "command": "docker-compose",
+      "args": ["up", "--detach", "--build"],
+
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "group": "build"
+    },
+    {
+      "label": "Clean",
+      "type": "shell",
+
+      "command": "docker-compose",
+      "args": ["run", "--rm", "maintenance", "bash", "clean.sh"],
+
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "group": "build"
+    },
   ]
 }
