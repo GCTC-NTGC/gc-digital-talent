@@ -2,7 +2,7 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
-import { Input, Select, Submit } from "@common/components/form";
+import { Select, Submit } from "@common/components/form";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
