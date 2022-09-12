@@ -113,7 +113,7 @@ export const WorkPreferencesApi: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {initialData?.me ? (
         <ApiOrContent
-          applicationId={queryParams.applicationIdId}
+          applicationId={queryParams.applicationId}
           initialData={initialData.me}
           handleWorkPreferences={handleWorkPreferences}
         />
