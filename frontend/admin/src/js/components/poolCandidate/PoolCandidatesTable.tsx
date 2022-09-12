@@ -2,14 +2,22 @@ import React, { useEffect, useMemo, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
-import { getLocale } from "@common/helpers/localize";
-import { getLanguage } from "@common/constants/localizedConstants";
+import {
+  getJobLookingStatus,
+  getLanguage,
+  getPoolCandidateStatus,
+  getProvinceOrTerritory,
+} from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import { IdType } from "react-table";
+import { LockClosedIcon } from "@heroicons/react/24/solid";
 import {
+  JobLookingStatus,
   Language,
   PoolCandidate,
   PoolCandidatePaginator,
+  PoolCandidateStatus,
+  ProvinceOrTerritory,
   useGetPoolCandidatesPaginatedQuery,
 } from "../../api/generated";
 import TableHeader from "../apiManagedTable/TableHeader";
@@ -31,6 +39,125 @@ const preferredLanguageAccessor = (
     {language ? intl.formatMessage(getLanguage(language as string)) : ""}
   </span>
 );
+const statusAccessor = (
+  status: PoolCandidateStatus | null | undefined,
+  intl: IntlShape,
+) => {
+  if (status === PoolCandidateStatus.NewApplication) {
+    return (
+      <span data-h2-color="base(dt-accent)" data-h2-font-weight="base(700)">
+        {status
+          ? intl.formatMessage(getPoolCandidateStatus(status as string))
+          : ""}
+      </span>
+    );
+  }
+  if (
+    status === PoolCandidateStatus.ApplicationReview ||
+    status === PoolCandidateStatus.ScreenedIn ||
+    status === PoolCandidateStatus.ScreenedOutApplication ||
+    status === PoolCandidateStatus.UnderAssessment ||
+    status === PoolCandidateStatus.ScreenedOutAssessment
+  ) {
+    return (
+      <span data-h2-font-weight="base(700)">
+        {status
+          ? intl.formatMessage(getPoolCandidateStatus(status as string))
+          : ""}
+      </span>
+    );
+  }
+  return (
+    <span>
+      {status
+        ? intl.formatMessage(getPoolCandidateStatus(status as string))
+        : ""}
+    </span>
+  );
+};
+const priorityAccessor = (
+  priority: number | null | undefined,
+  intl: IntlShape,
+) => {
+  switch (priority) {
+    case 10:
+      return (
+        <span data-h2-color="base(dt-primary)" data-h2-font-weight="base(700)">
+          {intl.formatMessage({
+            defaultMessage: "Priority Entitlement",
+            description: "Priority text for users with priority entitlement",
+          })}
+        </span>
+      );
+    case 20:
+      return (
+        <span data-h2-color="base(dt-primary)" data-h2-font-weight="base(700)">
+          {intl.formatMessage({
+            defaultMessage: "Veteran",
+            description: "Priority text for veterans",
+          })}
+        </span>
+      );
+    case 30:
+      return (
+        <span>
+          {intl.formatMessage({
+            defaultMessage: "Citizen or Resident",
+            description: "Priority text for citizens of canada",
+          })}
+        </span>
+      );
+    default:
+      return (
+        <span>
+          {intl.formatMessage({
+            defaultMessage: "Work Visa",
+            description: "Priority text for users with work visas",
+          })}
+        </span>
+      );
+  }
+};
+const availabilityAccessor = (
+  status: JobLookingStatus | null | undefined,
+  intl: IntlShape,
+) => (
+  <span>
+    {status
+      ? intl.formatMessage(getJobLookingStatus(status as string, "short"))
+      : ""}
+  </span>
+);
+const viewAccessor = (
+  status: PoolCandidateStatus | null | undefined,
+  intl: IntlShape,
+) => (
+  <span>
+    {status === PoolCandidateStatus.NewApplication ||
+    status === PoolCandidateStatus.ApplicationReview ||
+    status === PoolCandidateStatus.ScreenedIn ||
+    status === PoolCandidateStatus.ScreenedOutApplication ||
+    status === PoolCandidateStatus.UnderAssessment ||
+    status === PoolCandidateStatus.ScreenedOutAssessment
+      ? intl.formatMessage({
+          defaultMessage: "View Application",
+          description:
+            "Title displayed on the Pool Candidates table to view a users application.",
+        })
+      : intl.formatMessage({
+          defaultMessage: "View Profile",
+          description:
+            "Title displayed on the Pool Candidates table to view a users profile.",
+        })}
+  </span>
+);
+const provinceAccessor = (
+  province: ProvinceOrTerritory | null | undefined,
+  intl: IntlShape,
+) =>
+  province
+    ? intl.formatMessage(getProvinceOrTerritory(province as string))
+    : "";
 
 const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   const intl = useIntl();
@@ -80,30 +207,86 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
     () => [
       {
         label: intl.formatMessage({
-          defaultMessage: "Pool",
+          defaultMessage: "Status",
           description:
-            "Title displayed for the Pool Candidates table Pool column.",
+            "Title displayed for the Pool Candidates table Status column.",
         }),
-        id: "poolName",
-        accessor: (d) => d.pool?.name?.[getLocale(intl)],
+        header: (
+          <span>
+            {intl.formatMessage({
+              defaultMessage: "Status",
+              description:
+                "Title displayed for the Pool Candidates table Status column.",
+            })}
+            <LockClosedIcon
+              data-h2-margin="base(0, 0, 0, x1)"
+              data-h2-width="base(x1)"
+              data-h2-vertical-align="base(middle)"
+            />
+          </span>
+        ),
+        id: "status",
+        accessor: (d) => statusAccessor(d.status, intl),
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "User",
+          defaultMessage: "Priority",
           description:
-            "Title displayed for the Pool Candidates table User column.",
+            "Title displayed for the Pool Candidates table Priority column.",
         }),
-        id: "user",
-        accessor: (d) => d.user?.email,
+        header: (
+          <span>
+            {intl.formatMessage({
+              defaultMessage: "Priority",
+              description:
+                "Title displayed for the Pool Candidates table Priority column.",
+            })}
+            <LockClosedIcon
+              data-h2-margin="base(0, 0, 0, x1)"
+              data-h2-width="base(x1)"
+              data-h2-vertical-align="base(middle)"
+            />
+          </span>
+        ),
+        id: "priority",
+        accessor: ({ user }) => priorityAccessor(user.priorityWeight, intl),
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Name",
+          defaultMessage: "Availability",
+          description:
+            "Title displayed for the Pool Candidates table Availability column.",
+        }),
+        id: "availability",
+        accessor: ({ user }) =>
+          availabilityAccessor(user.jobLookingStatus, intl),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "View",
+          description:
+            "Title displayed for the Pool Candidates table View column.",
+        }),
+        id: "view",
+        accessor: (d) => viewAccessor(d.status, intl),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Candidate Name",
           description:
             "Title displayed on the Pool Candidates table name column.",
         }),
         id: "candidateName",
         accessor: ({ user }) => `${user?.firstName} ${user?.lastName}`,
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Email",
+          description:
+            "Title displayed for the Pool Candidates table Email column.",
+        }),
+        id: "email",
+        accessor: ({ user }) => user?.email,
       },
       {
         label: intl.formatMessage({
@@ -114,6 +297,28 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         id: "preferredLang",
         accessor: ({ user }) =>
           preferredLanguageAccessor(user?.preferredLang, intl),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Current Location",
+          description:
+            "Title displayed on the Pool Candidates table Current Location column.",
+        }),
+        id: "currentLocation",
+        accessor: ({ user }) =>
+          `${user?.currentCity}, ${provinceAccessor(
+            user?.currentProvince,
+            intl,
+          )}`,
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Date Received",
+          description:
+            "Title displayed on the Pool Candidates table Date Received column.",
+        }),
+        id: "dateReceived",
+        accessor: (d) => d.submittedAt,
       },
     ],
     [intl],

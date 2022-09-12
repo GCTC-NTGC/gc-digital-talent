@@ -23,6 +23,10 @@ fragment poolCandidateTable on PoolCandidate {
     email
     preferredLang
     telephone
+    priorityWeight
+    jobLookingStatus
+    currentCity
+    currentProvince
   }
   cmoIdentifier
   expiryDate
@@ -53,6 +57,7 @@ fragment poolCandidateTable on PoolCandidate {
     }
   }
   status
+  submittedAt
 }
 
 fragment poolCandidateForm on PoolCandidate {
