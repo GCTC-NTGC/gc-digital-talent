@@ -28,7 +28,11 @@ import {
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
 import commonMessages from "@common/messages/commonMessages";
-import { Role, useGetPoolAdvertisementQuery } from "../../api/generated";
+import {
+  Role,
+  useGetPoolAdvertisementQuery,
+  CreateApplicationMutation,
+} from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import TALENTSEARCH_APP_DIR, {
