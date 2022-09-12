@@ -23,7 +23,7 @@ const EstimatedCandidates: React.FunctionComponent<
       >
         <div
           data-h2-background-color="base(dt-white)"
-          data-h2-overflow="base(hidden, all)"
+          data-h2-overflow="base(hidden)"
           data-h2-radius="base(s)"
           data-h2-shadow="base(l)"
         >

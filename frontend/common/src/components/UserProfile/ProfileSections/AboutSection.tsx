@@ -47,12 +47,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       data-h2-padding="base(x1)"
       data-h2-radius="base(s)"
     >
-      <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+      <div data-h2-flex-grid="base(flex-start, x2, x1)">
         {(!!firstName || !!lastName) && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
               {intl.formatMessage({
                 defaultMessage: "Name:",
+                id: "DAmLhV",
                 description: "Name label and colon",
               })}
               <br />
@@ -67,6 +68,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             <p>
               {intl.formatMessage({
                 defaultMessage: "Email:",
+                id: "mtFK6A",
                 description: "Email label and colon",
               })}
               <br />
@@ -79,6 +81,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             <p>
               {intl.formatMessage({
                 defaultMessage: "Phone:",
+                id: "azOv8A",
                 description: "Phone label and colon",
               })}
               <br />
@@ -91,6 +94,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             <p>
               {intl.formatMessage({
                 defaultMessage: "Preferred Communication Language:",
+                id: "bEwwY/",
                 description:
                   "Preferred Language for communication purposes label and colon",
               })}
@@ -108,6 +112,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             <p>
               {intl.formatMessage({
                 defaultMessage: "Current Location:",
+                id: "s1h7Mc",
                 description: "Current Location label and colon",
               })}
               <br />
@@ -125,6 +130,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             <p>
               {intl.formatMessage({
                 defaultMessage: "Member of CAF:",
+                id: "Md/cQS",
                 description: "Veteran/member label",
               })}
               <br />
@@ -141,6 +147,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             <p>
               {intl.formatMessage({
                 defaultMessage: "Citizenship Status:",
+                id: "92hwzj",
                 description: "Citizenship status label",
               })}
               <br />
@@ -162,11 +169,12 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !currentProvince &&
         !citizenship &&
         armedForcesStatus === null && (
-          <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+          <div data-h2-flex-grid="base(flex-start, x2, x1)">
             <div data-h2-flex-item="base(1of1)">
               <p data-h2-color="base(dt-gray.dark)">
                 {intl.formatMessage({
                   defaultMessage: "You haven't added any information here yet.",
+                  id: "SCCX7B",
                   description:
                     "Message for when no data exists for the section",
                 })}
@@ -183,13 +191,14 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !currentProvince ||
         !citizenship ||
         armedForcesStatus === null) && (
-        <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+        <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
               <a href={editPath}>
                 {intl.formatMessage({
                   defaultMessage: "Edit your about me options.",
+                  id: "L9AGk7",
                   description: "Link text to edit about me section on profile.",
                 })}
               </a>

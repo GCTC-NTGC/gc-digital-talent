@@ -1,0 +1,66 @@
+fragment poolAdvertisementSkills on Skill {
+  id
+  key
+  name {
+    en
+    fr
+  }
+  families {
+    id
+    key
+    description {
+      en
+      fr
+    }
+    name {
+      en
+      fr
+    }
+    category
+  }
+}
+
+fragment applicantExperiences on Applicant {
+  id
+  experiences {
+    ...experience
+  }
+}
+
+query getApplicationData($id: ID!) {
+  poolCandidate(id: $id) {
+    user {
+      id
+      isProfileComplete
+      ...applicantExperiences
+    }
+    poolAdvertisement {
+      id
+      classifications {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+      }
+      expiryDate
+      essentialSkills {
+        ...poolAdvertisementSkills
+      }
+      nonessentialSkills {
+        ...poolAdvertisementSkills
+      }
+    }
+  }
+}
+
+mutation submitApplication($id: ID!, $signature: String!) {
+  submitApplication(id: $id, signature: $signature) {
+    id
+    signature
+  }
+}
+
+

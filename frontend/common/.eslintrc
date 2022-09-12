@@ -49,6 +49,13 @@
     ],
     "rules": {
         "formatjs/no-id": "off",
+        "formatjs/enforce-id": [
+            "error",
+            {
+                "idInterpolationPattern": "[sha512:contenthash:base64:6]",
+                "idWhitelist": ["\\."]
+            }
+        ],
         "camelcase": "warn",
         "consistent-return": "warn",
         "import/no-extraneous-dependencies": [

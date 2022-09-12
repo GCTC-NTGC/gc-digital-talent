@@ -55,14 +55,14 @@ const HeadingWrapper: React.FC<{ show: boolean }> = ({ children, show }) => {
   if (!show && children) {
     return (
       <div data-h2-padding="base(x1, 0, x1, 0)">
-        <div data-h2-flex-grid="base(center, 0, x2, x1)">{children}</div>
+        <div data-h2-flex-grid="base(center, x2, x1)">{children}</div>
       </div>
     );
   }
 
   return (
     <div data-h2-padding="base(x2, 0, x1, 0)">
-      <div data-h2-flex-grid="base(center, 0, x2, x1)">{children}</div>
+      <div data-h2-flex-grid="base(center, x2, x1)">{children}</div>
     </div>
   );
 };
@@ -85,6 +85,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             <TableOfContents.AnchorLink id="status-section">
               {intl.formatMessage({
                 defaultMessage: "My Status",
+                id: "TLgbZm",
                 description: "Title of the My Status section",
               })}
             </TableOfContents.AnchorLink>
@@ -93,6 +94,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             <TableOfContents.AnchorLink id="pools-section">
               {intl.formatMessage({
                 defaultMessage: "My Hiring Pools",
+                id: "xUl9pz",
                 description: "Title of the My Hiring Pools section",
               })}
             </TableOfContents.AnchorLink>
@@ -101,6 +103,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             <TableOfContents.AnchorLink id="about-section">
               {intl.formatMessage({
                 defaultMessage: "About Me",
+                id: "4sJvia",
                 description: "Title of the About link section",
               })}
             </TableOfContents.AnchorLink>
@@ -109,6 +112,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             <TableOfContents.AnchorLink id="language-section">
               {intl.formatMessage({
                 defaultMessage: "Language Information",
+                id: "B9x0ZV",
                 description: "Title of the Language Information link section",
               })}
             </TableOfContents.AnchorLink>
@@ -117,6 +121,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             <TableOfContents.AnchorLink id="government-section">
               {intl.formatMessage({
                 defaultMessage: "Government Information",
+                id: "Nc4sjC",
                 description: "Title of the Government Information link section",
               })}
             </TableOfContents.AnchorLink>
@@ -125,6 +130,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             <TableOfContents.AnchorLink id="work-location-section">
               {intl.formatMessage({
                 defaultMessage: "Work Location",
+                id: "9WxeNz",
                 description: "Title of the Work Location link section",
               })}
             </TableOfContents.AnchorLink>
@@ -133,6 +139,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             <TableOfContents.AnchorLink id="work-preferences-section">
               {intl.formatMessage({
                 defaultMessage: "Work Preferences",
+                id: "0DzlCc",
                 description: "Title of the Work Preferences link section",
               })}
             </TableOfContents.AnchorLink>
@@ -141,6 +148,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             <TableOfContents.AnchorLink id="diversity-equity-inclusion-section">
               {intl.formatMessage({
                 defaultMessage: "Diversity, equity and inclusion",
+                id: "e2R6fy",
                 description:
                   "Title of the Diversity, equity and inclusion link section",
               })}
@@ -150,6 +158,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             <TableOfContents.AnchorLink id="role-and-salary-section">
               {intl.formatMessage({
                 defaultMessage: "Role and salary expectations",
+                id: "95OYVk",
                 description:
                   "Title of the Role and salary expectations link section",
               })}
@@ -159,6 +168,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             <TableOfContents.AnchorLink id="skills-and-experience-section">
               {intl.formatMessage({
                 defaultMessage: "My skills and experience",
+                id: "fqIEKE",
                 description:
                   "Title of the My skills and experience link section",
               })}
@@ -176,6 +186,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   <TableOfContents.Heading as="h3" icon={LightBulbIcon}>
                     {intl.formatMessage({
                       defaultMessage: "My Status",
+                      id: "Cx3s+E",
                       description: "Title of the my status content section",
                     })}
                   </TableOfContents.Heading>
@@ -191,6 +202,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Edit My Status",
+                        id: "om3i0o",
                         description: "Text on link to update a users status.",
                       })}
                     </Link>
@@ -210,6 +222,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   <TableOfContents.Heading as="h3" icon={UserGroupIcon}>
                     {intl.formatMessage({
                       defaultMessage: "My hiring pools",
+                      id: "fNOekV",
                       description:
                         "Title of the my hiring pools content section",
                     })}
@@ -226,6 +239,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Edit My Hiring Pools",
+                        id: "l/MbFR",
                         description:
                           "Text on link to update a users hiring pools.",
                       })}
@@ -250,6 +264,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   <TableOfContents.Heading as="h3" icon={UserIcon}>
                     {intl.formatMessage({
                       defaultMessage: "About Me",
+                      id: "CnB8IO",
                       description: "Title of the about content section",
                     })}
                   </TableOfContents.Heading>
@@ -265,6 +280,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Edit About Me",
+                        id: "/+CmAn",
                         description:
                           "Text on link to update a users personal information.",
                       })}
@@ -295,6 +311,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   >
                     {intl.formatMessage({
                       defaultMessage: "Language Information",
+                      id: "1pk/7X",
                       description:
                         "Title of the Language Information content section",
                     })}
@@ -311,6 +328,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Edit Language Information",
+                        id: "Vbw1ES",
                         description:
                           "Text on link to update a users language information.",
                       })}
@@ -338,6 +356,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   <TableOfContents.Heading as="h3" icon={BuildingLibraryIcon}>
                     {intl.formatMessage({
                       defaultMessage: "Government Information",
+                      id: "l1cou8",
                       description:
                         "Title of the Government Information content section",
                     })}
@@ -354,6 +373,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Edit Government Information",
+                        id: "5APACq",
                         description:
                           "Text on link to update a users government information.",
                       })}
@@ -381,6 +401,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   <TableOfContents.Heading as="h3" icon={MapPinIcon}>
                     {intl.formatMessage({
                       defaultMessage: "Work Location",
+                      id: "F9R74z",
                       description: "Title of the Work Location content section",
                     })}
                   </TableOfContents.Heading>
@@ -396,6 +417,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Edit Work Location",
+                        id: "FF0ubO",
                         description:
                           "Text on link to update a users work location.",
                       })}
@@ -423,6 +445,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   <TableOfContents.Heading as="h3" icon={HandThumbUpIcon}>
                     {intl.formatMessage({
                       defaultMessage: "Work Preferences",
+                      id: "V89Ryn",
                       description:
                         "Title of the Work Preferences content section",
                     })}
@@ -439,6 +462,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Edit Work Preferences",
+                        id: "p8Gi1k",
                         description:
                           "Text on link to update a users work preferences.",
                       })}
@@ -466,6 +490,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   <TableOfContents.Heading as="h3" icon={UserCircleIcon}>
                     {intl.formatMessage({
                       defaultMessage: "Diversity, equity and inclusion",
+                      id: "inzzdo",
                       description:
                         "Title of the Diversity, equity and inclusion content section",
                     })}
@@ -482,6 +507,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Edit Diversity, Equity and Inclusion",
+                        id: "AF8g2I",
                         description:
                           "Text on link to update a users employment equity.",
                       })}
@@ -509,6 +535,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   <TableOfContents.Heading as="h3" icon={CurrencyDollarIcon}>
                     {intl.formatMessage({
                       defaultMessage: "Role and salary expectations",
+                      id: "uMzeiF",
                       description:
                         "Title of the Role and salary expectations section",
                     })}
@@ -525,6 +552,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Edit Role and Salary",
+                        id: "CEzDTC",
                         description:
                           "Text on link to update a users role and salary expectations.",
                       })}
@@ -552,6 +580,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   <TableOfContents.Heading as="h3" icon={BoltIcon}>
                     {intl.formatMessage({
                       defaultMessage: "My skills and experience",
+                      id: "Eui2Wf",
                       description:
                         "Title of the My skills and experience content section",
                     })}
@@ -568,6 +597,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Edit Skills and Experience",
+                        id: "XqFhIa",
                         description:
                           "Text on link to update a users skills and experiences.",
                       })}

@@ -18,7 +18,7 @@ export const SkillBlock: React.FunctionComponent<{
 
   return (
     <div data-h2-padding="base(0, 0, x.25, 0)">
-      <div data-h2-flex-grid="base(flex-start, 0, x1, 0)">
+      <div data-h2-flex-grid="base(flex-start, x1, 0)">
         <div data-h2-flex-item="base(1of2)">
           {isAdded ? (
             <span
@@ -58,10 +58,12 @@ export const SkillBlock: React.FunctionComponent<{
             {isOpen
               ? intl.formatMessage({
                   defaultMessage: "Hide definition",
+                  id: "VDZ6zw",
                   description: "Text displayed when skill block is open.",
                 })
               : intl.formatMessage({
                   defaultMessage: "See definition",
+                  id: "BjRuMw",
                   description: "Text displayed when skill block is open.",
                 })}
           </Button>
@@ -76,11 +78,13 @@ export const SkillBlock: React.FunctionComponent<{
             {isAdded
               ? intl.formatMessage({
                   defaultMessage: "Remove skill",
+                  id: "ItRgwA",
                   description:
                     "Button label to remove skill on skill result block.",
                 })
               : intl.formatMessage({
                   defaultMessage: "Add skill",
+                  id: "ZOQ9ih",
                   description:
                     "Button label to add skill on skill result block.",
                 })}

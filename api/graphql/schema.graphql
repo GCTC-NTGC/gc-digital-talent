@@ -233,6 +233,7 @@ type Applicant {
     personalExperiences: [PersonalExperience]
     workExperiences: [WorkExperience]
 
+    isProfileComplete: Boolean
     expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
     priorityWeight: Int @rename(attribute: "priority_weight")
 }

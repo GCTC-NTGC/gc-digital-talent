@@ -1,9 +1,11 @@
 /* eslint-disable no-underscore-dangle */
+import { notEmpty } from "../helpers/util";
 import {
   AwardExperience,
   CommunityExperience,
   EducationExperience,
   PersonalExperience,
+  Skill,
   WorkExperience,
 } from "../api/generated";
 
@@ -13,6 +15,7 @@ export type AnyExperience =
   | EducationExperience
   | PersonalExperience
   | WorkExperience;
+
 export const isAwardExperience = (e: AnyExperience): e is AwardExperience =>
   e.__typename === "AwardExperience";
 export const isCommunityExperience = (
@@ -55,4 +58,24 @@ export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
 
   // Items with end date should be sorted by most recent end date at top.
   return e2EndDate - e1EndDate;
+};
+
+type MergedExperiences = Array<
+  | AwardExperience
+  | CommunityExperience
+  | EducationExperience
+  | PersonalExperience
+  | WorkExperience
+>;
+
+export const flattenExperienceSkills = (
+  experiences: MergedExperiences,
+): Skill[] => {
+  return experiences
+    .map((experience) => {
+      const { skills } = experience;
+      return skills?.filter(notEmpty);
+    })
+    .filter(notEmpty)
+    .flatMap((skill) => skill);
 };
