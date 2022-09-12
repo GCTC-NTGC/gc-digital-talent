@@ -53,6 +53,7 @@ const LocalizedLoadingMessage = <
     <components.LoadingMessage {...props}>
       {formatMessage({
         defaultMessage: "Loading...",
+        id: "ylHC90",
         description:
           "Message shown in options dropdown when Select field is loading options.",
       })}
@@ -74,6 +75,7 @@ const LocalizedNoOptionsMessage = <
     <components.NoOptionsMessage {...props}>
       {formatMessage({
         defaultMessage: "No options",
+        id: "lsFH+y",
         description:
           "Message shown in options dropdown when Select field has no options.",
       })}
@@ -118,6 +120,7 @@ const SelectFieldV2 = ({
 
   const defaultPlaceholder = formatMessage({
     defaultMessage: "Select...",
+    id: "rQwIDB",
     description:
       "Default placeholder shown when Select field has nothing actively selected.",
   });

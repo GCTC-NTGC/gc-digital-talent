@@ -26,14 +26,17 @@ const Submit: React.FunctionComponent<SubmitProps> = ({
   const intl = useIntl();
   const defaultText = intl.formatMessage({
     defaultMessage: "Submit",
+    id: "YHqVoj",
     description: "Default text for submit button.",
   });
   const defaultSubmittedText = intl.formatMessage({
     defaultMessage: "Submitted",
+    id: "rGTGvl",
     description: "Default text for submitted button.",
   });
   const defaultIsSubmittingText = intl.formatMessage({
     defaultMessage: "Submitting",
+    id: "mDOWWQ",
     description: "Default text for submitting button.",
   });
 

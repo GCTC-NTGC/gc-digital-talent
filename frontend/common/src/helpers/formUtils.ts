@@ -152,6 +152,7 @@ export const objectsToSortedOptions = (
         name[locale] ??
         intl.formatMessage({
           defaultMessage: "Error: name not found.",
+          id: "62+Jkh",
           description: "Error message when name is not found on listed item.",
         }),
     }));

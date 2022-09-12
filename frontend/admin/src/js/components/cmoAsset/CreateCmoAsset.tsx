@@ -33,6 +33,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
         toast.success(
           intl.formatMessage({
             defaultMessage: "CMO Asset created successfully!",
+            id: "Nhto6b",
             description:
               "Message displayed to user after cmo asset is created successfully.",
           }),
@@ -42,6 +43,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: creating cmo asset failed",
+            id: "NhQGh5",
             description:
               "Message displayed to user after cmo asset fails to get created.",
           }),
@@ -53,6 +55,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
       <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create CMO Asset",
+          id: "MpB5zS",
           description: "Title displayed on the create a cmo asset form.",
         })}
       </h2>
@@ -64,12 +67,14 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               name="key"
               label={intl.formatMessage({
                 defaultMessage: "Key",
+                id: "BfXsHe",
                 description:
                   "Label displayed on the create a cmo asset form key field.",
               })}
               context={intl.formatMessage({
                 defaultMessage:
                   "The 'key' is a string that uniquely identifies a CMO Asset. It should be based on the CMO Asset's English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular CMO Asset, so it cannot be changed later.",
+                id: "vg3F7X",
                 description:
                   "Additional context describing the purpose of the CMO Asset's 'key' field.",
               })}
@@ -81,6 +86,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
                   message: intl.formatMessage({
                     defaultMessage:
                       "Please use only lowercase letters and underscores.",
+                    id: "aPqZsz",
                   }),
                 },
               }}
@@ -90,6 +96,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               name="name.en"
               label={intl.formatMessage({
                 defaultMessage: "Name (English)",
+                id: "U6V+uR",
                 description:
                   "Label displayed on the create a cmo asset form name (English) field.",
               })}
@@ -103,6 +110,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               name="name.fr"
               label={intl.formatMessage({
                 defaultMessage: "Name (French)",
+                id: "pHVKt/",
                 description:
                   "Label displayed on the create a cmo asset form name (French) field.",
               })}
@@ -116,6 +124,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               name="description.en"
               label={intl.formatMessage({
                 defaultMessage: "Description (English)",
+                id: "zgaPwN",
                 description:
                   "Label displayed on the create a cmo asset form description (English) field.",
               })}
@@ -128,6 +137,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               name="description.fr"
               label={intl.formatMessage({
                 defaultMessage: "Description (French)",
+                id: "oVWttp",
                 description:
                   "Label displayed on the create a cmo asset form description (French) field.",
               })}

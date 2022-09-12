@@ -57,6 +57,7 @@ const SkillFamilyPicker: React.FunctionComponent<SkillFamilyPickerProps> = ({
         name="skillFamily"
         legend={intl.formatMessage({
           defaultMessage: "Skill Families",
+          id: "GuMTqQ",
           description: "Radio group legend for a list of skill families",
         })}
         hideOptional

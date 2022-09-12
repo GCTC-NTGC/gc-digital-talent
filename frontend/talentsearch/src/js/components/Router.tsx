@@ -87,6 +87,9 @@ const SignAndSubmitPage = React.lazy(
 const MyApplicationsPage = React.lazy(
   () => import("./applications/MyApplicationsPage"),
 );
+const ReviewMyApplicationPage = React.lazy(
+  () => import("./reviewMyApplication/ReviewMyApplicationPage"),
+);
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -461,6 +464,18 @@ const directIntakeRoutes = (
       component: <MyApplicationsPage />,
       authorizedRoles: [Role.Applicant],
     }),
+  },
+  {
+    path: directIntakePaths.reviewApplication(":poolCandidateId"),
+    action: (context) => {
+      const poolCandidateId = context.params.poolCandidateId as string;
+      return {
+        component: (
+          <ReviewMyApplicationPage poolCandidateId={poolCandidateId} />
+        ),
+        authorizedRoles: [Role.Applicant],
+      };
+    },
   },
 ];
 

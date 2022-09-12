@@ -68,7 +68,7 @@ const TileLink: React.FC<TileLinkProps> = ({
     >
       <span
         data-h2-display="base(block)"
-        data-h2-overflow="base(hidden, all)"
+        data-h2-overflow="base(hidden)"
         data-h2-padding="base(x3, 0, 0, 0)"
         data-h2-width="base(100%)"
         style={{

@@ -12,10 +12,12 @@ const Footer: React.FunctionComponent<{
       route: "mailto:GCTalentGC@tbs-sct.gc.ca",
       title: intl.formatMessage({
         defaultMessage: "Submit feedback to GC Talent Cloud via email.",
+        id: "mZMdKM",
         description: "Title for the feedback link in the Footer.",
       }),
       label: intl.formatMessage({
         defaultMessage: "Feedback",
+        id: "1J4e+j",
         description: "Label for the feedback link in the Footer.",
       }),
     },
@@ -23,6 +25,7 @@ const Footer: React.FunctionComponent<{
       route: `/${intl.locale}/terms-and-conditions`,
       label: intl.formatMessage({
         defaultMessage: "Terms & Conditions",
+        id: "ZGpncy",
         description: "Label for the terms and conditions link in the Footer.",
       }),
     },
@@ -30,6 +33,7 @@ const Footer: React.FunctionComponent<{
       route: `/${intl.locale}/privacy-notice`,
       label: intl.formatMessage({
         defaultMessage: "Privacy Policy",
+        id: "VcOlXA",
         description: "Label for the privacy link in the Footer.",
       }),
     },
@@ -37,6 +41,7 @@ const Footer: React.FunctionComponent<{
       route: `https://www.canada.ca/${intl.locale}.html`,
       label: intl.formatMessage({
         defaultMessage: "Canada.ca",
+        id: "ZE77nf",
         description: "Label for the Canada link in the Footer.",
       }),
     },
@@ -58,7 +63,7 @@ const Footer: React.FunctionComponent<{
       style={{ marginTop: "auto" }}
     >
       <div {...footerWidth}>
-        <div data-h2-flex-grid="base(center, 0, x3)">
+        <div data-h2-flex-grid="base(center, x3)">
           <div
             data-h2-flex-item="base(1of1) l-tablet(1of2)"
             data-h2-text-align="base(center) l-tablet(left)"
@@ -85,6 +90,7 @@ const Footer: React.FunctionComponent<{
               {intl.formatMessage(
                 {
                   defaultMessage: "Date Modified: {modifiedDate}",
+                  id: "Fc/i3e",
                   description:
                     "Header for the sites last date modification found in the footer.",
                 },
@@ -110,6 +116,7 @@ const Footer: React.FunctionComponent<{
                 src={imageUrl(baseUrl, "logo_canada.png")}
                 alt={intl.formatMessage({
                   defaultMessage: "Canada.ca",
+                  id: "m1eQrS",
                   description:
                     "Alt text for the Canada logo link in the Footer.",
                 })}

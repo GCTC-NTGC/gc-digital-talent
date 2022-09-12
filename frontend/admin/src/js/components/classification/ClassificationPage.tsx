@@ -15,6 +15,7 @@ export const ClassificationPage: React.FC = () => {
       <PageHeader icon={TagIcon}>
         {intl.formatMessage({
           defaultMessage: "Classifications",
+          id: "hnyrdl",
           description:
             "Heading displayed above the Classification Table component.",
         })}

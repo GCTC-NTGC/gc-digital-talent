@@ -92,7 +92,10 @@ const ExperienceByTypeListing: React.FunctionComponent<
     <>
       {personalExperiences.length > 0 ? (
         <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Personal" })}
+          title={intl.formatMessage({
+            defaultMessage: "Personal",
+            id: "NDx+B0",
+          })}
           icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
           experiences={personalExperiences}
           defaultOpen={defaultOpen}
@@ -102,7 +105,10 @@ const ExperienceByTypeListing: React.FunctionComponent<
       {communityExperiences.length > 0 ? (
         <div data-h2-margin="base(x2, 0, 0, 0)">
           <ExperienceByType
-            title={intl.formatMessage({ defaultMessage: "Community" })}
+            title={intl.formatMessage({
+              defaultMessage: "Community",
+              id: "4CrCbD",
+            })}
             icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
             experiences={communityExperiences}
             defaultOpen={defaultOpen}
@@ -113,7 +119,7 @@ const ExperienceByTypeListing: React.FunctionComponent<
       {workExperiences.length > 0 ? (
         <div data-h2-margin="base(x2, 0, 0, 0)">
           <ExperienceByType
-            title={intl.formatMessage({ defaultMessage: "Work" })}
+            title={intl.formatMessage({ defaultMessage: "Work", id: "GcPFLS" })}
             icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
             experiences={workExperiences}
             defaultOpen={defaultOpen}
@@ -124,7 +130,10 @@ const ExperienceByTypeListing: React.FunctionComponent<
       {educationExperiences.length > 0 ? (
         <div data-h2-margin="base(x2, 0, 0, 0)">
           <ExperienceByType
-            title={intl.formatMessage({ defaultMessage: "Education" })}
+            title={intl.formatMessage({
+              defaultMessage: "Education",
+              id: "jtygmI",
+            })}
             icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
             experiences={educationExperiences}
             defaultOpen={defaultOpen}
@@ -135,7 +144,10 @@ const ExperienceByTypeListing: React.FunctionComponent<
       {awardExperiences.length > 0 ? (
         <div data-h2-margin="base(x2, 0, 0, 0)">
           <ExperienceByType
-            title={intl.formatMessage({ defaultMessage: "Award" })}
+            title={intl.formatMessage({
+              defaultMessage: "Award",
+              id: "SEZweh",
+            })}
             icon={<StarIcon style={{ width: "1.5rem" }} />}
             experiences={awardExperiences}
             defaultOpen={defaultOpen}

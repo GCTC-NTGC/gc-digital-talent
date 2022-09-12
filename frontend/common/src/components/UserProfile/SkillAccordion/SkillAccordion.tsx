@@ -73,6 +73,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {intl.formatMessage(
             {
               defaultMessage: " at {institution}",
+              id: "CX/qKY",
               description: "Study at institution",
             },
             { institution },
@@ -95,6 +96,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             ? intl.formatMessage(
                 {
                   defaultMessage: "Thesis: {thesisTitle}",
+                  id: "omDlZN",
                   description: "Thesis, if applicable",
                 },
                 { thesisTitle },
@@ -116,6 +118,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {intl.formatMessage(
             {
               defaultMessage: "<primary>{title}</primary> issued by {issuedBy}",
+              id: "cK/hoN",
               description: "The award title is issued by some group",
             },
             { issuedBy, title },
@@ -127,6 +130,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         <p>
           {intl.formatMessage({
             defaultMessage: "Awarded to : ",
+            id: "HWRZ/z",
             description: "The award was given to",
           })}
           {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
@@ -134,6 +138,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         <p>
           {intl.formatMessage({
             defaultMessage: "Scope : ",
+            id: "IfsigK",
             description: "The scope of the award given",
           })}
           {awardedScope
@@ -145,6 +150,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {intl.formatMessage(
             {
               defaultMessage: "Additional information: {details}",
+              id: "OvJwG6",
               description: "Additional information if provided",
             },
             { details },
@@ -163,6 +169,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {intl.formatMessage(
             {
               defaultMessage: "<primary>{title}</primary> at {organization}",
+              id: "UPx6kk",
               description: "Title at organization",
             },
             { organization, title },
@@ -175,6 +182,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {intl.formatMessage(
             {
               defaultMessage: "Project: {project}",
+              id: "gtLuDM",
               description: "Project Name",
             },
             { project },
@@ -185,6 +193,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {intl.formatMessage(
             {
               defaultMessage: "Additional information: {details}",
+              id: "OvJwG6",
               description: "Additional information if provided",
             },
             { details },
@@ -203,6 +212,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {intl.formatMessage(
             {
               defaultMessage: "<primary>{role}</primary> at {organization}",
+              id: "VOheZB",
               description:
                 "Role at organization in work experience block of skill accordion.",
             },
@@ -218,6 +228,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {intl.formatMessage(
             {
               defaultMessage: "Additional information: {details}",
+              id: "OvJwG6",
               description: "Additional information if provided",
             },
             { details },
@@ -255,6 +266,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         {intl.formatMessage({
           defaultMessage:
             "You do not have any experiences attached to this skill",
+          id: "oC/GRF",
           description: "The skill is not attached to any experience",
         })}
       </p>
@@ -275,11 +287,13 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         experiences?.length === 1
           ? intl.formatMessage({
               defaultMessage: "1 Experience",
+              id: "dQseX7",
               description: "Pluralization for one experience",
             })
           : intl.formatMessage(
               {
                 defaultMessage: "{experienceLength} Experiences",
+                id: "xNVsei",
                 description: "Pluralization for zero or multiple experiences",
               },
               { experienceLength: experiences ? experiences.length : 0 },

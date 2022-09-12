@@ -85,7 +85,7 @@ const LoggedOutPage: React.FC = () => {
         </p>
         <div data-h2-margin="base(x1, 0, 0, 0)">
           <div
-            data-h2-flex-grid="base(normal, 0, x.5)"
+            data-h2-flex-grid="base(normal, x.5)"
             style={{ margin: "0 -0.5rem" }}
           >
             <div data-h2-flex-item="base(1of1) l-tablet(1of3)">

@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { errorMessages } from "@common/messages";
+import { errorMessages, navigationMessages } from "@common/messages";
 import { Checklist, RadioGroup } from "@common/components/form";
 import {
   getOperationalRequirement,
@@ -23,6 +23,7 @@ import {
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import directIntakeRoutes from "../../directIntakeRoutes";
 import profileMessages from "../profile/profileMessages";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export type FormValues = Pick<
   UpdateUserAsUserInput,
@@ -50,7 +51,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.poolApply(application.pool.id)
+      ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialData.id);
 
   const dataToFormValues = (data: User): FormValues => {
@@ -111,15 +112,15 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
-          title:
-            application.poolAdvertisement?.name?.[locale] ||
-            intl.formatMessage({
-              defaultMessage: "Pool name not found",
-              id: "FmD1sL",
-              description:
-                "Pools name breadcrumb from applicant profile wrapper if no name set.",
-            }),
+          title: getFullPoolAdvertisementTitle(
+            intl,
+            application.poolAdvertisement,
+          ),
           href: directIntakePaths.poolApply(application.pool.id),
+        },
+        {
+          href: directIntakePaths.reviewApplication(application.id),
+          title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]
     : [];
@@ -228,7 +229,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
               data-h2-padding="base(x1, 0, 0, 0)"
             >
               <div data-h2-padding="base(0, x2, 0, 0)">
-                <ProfileFormFooter mode="saveButton" />
+                <ProfileFormFooter
+                  mode="saveButton"
+                  cancelLink={{ href: returnRoute }}
+                />
               </div>
             </div>
           </div>

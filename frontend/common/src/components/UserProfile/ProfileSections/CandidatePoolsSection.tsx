@@ -26,6 +26,7 @@ const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
           {intl.formatMessage({
             defaultMessage:
               "You have not been accepted into any hiring pools yet.",
+            id: "gWEfA9",
             description: "Message for if user not part of any hiring pools",
           })}
         </p>
@@ -46,6 +47,7 @@ const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage: "ID:",
+                  id: "CPRJ61",
                   description: "The ID and colon",
                 })}{" "}
                 {poolCandidate?.id}
@@ -55,6 +57,7 @@ const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage: "Expiry Date:",
+                  id: "ZSAzrR",
                   description: "The expiry date label and colon",
                 })}{" "}
                 {poolCandidate?.expiryDate}

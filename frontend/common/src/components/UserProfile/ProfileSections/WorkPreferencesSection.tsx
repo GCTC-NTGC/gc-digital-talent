@@ -61,12 +61,13 @@ const WorkPreferencesSection: React.FunctionComponent<{
       data-h2-padding="base(x1)"
       data-h2-radius="base(s)"
     >
-      <div data-h2-flex-grid="base(flex-start, 0, x2, x1)">
+      <div data-h2-flex-grid="base(flex-start, x2, x1)">
         {wouldAcceptTemporary === null && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
                 defaultMessage: "You haven't added any information here yet.",
+                id: "SCCX7B",
                 description: "Message for when no data exists for the section",
               })}
             </p>
@@ -75,6 +76,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
               <a href={editPath}>
                 {intl.formatMessage({
                   defaultMessage: "Edit your work preference options.",
+                  id: "eFCDP4",
                   description: "Link text to edit work preferences on profile",
                 })}
               </a>
@@ -88,6 +90,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
               {intl.formatMessage({
                 defaultMessage:
                   "I would consider accepting a job that lasts for:",
+                id: "Vc9vE7",
                 description:
                   "Label for what length of position user prefers, followed by colon",
               })}
@@ -97,6 +100,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
                 {intl.formatMessage({
                   defaultMessage:
                     "Any duration (short, long term, or indeterminate duration)",
+                  id: "ihYM2v",
                   description:
                     "Duration of any length is good, specified three example lengths",
                 })}
@@ -111,6 +115,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
               {intl.formatMessage({
                 defaultMessage:
                   "I would consider accepting a job that lasts for:",
+                id: "Vc9vE7",
                 description:
                   "Label for what length of position user prefers, followed by colon",
               })}
@@ -119,6 +124,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
               <li>
                 {intl.formatMessage({
                   defaultMessage: "Permanent duration",
+                  id: "8cRL8r",
                   description: "Permanent duration only",
                 })}{" "}
               </li>
@@ -131,6 +137,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
             <p>
               {intl.formatMessage({
                 defaultMessage: "I would consider accepting a job that:",
+                id: "l/jGX9",
                 description:
                   "Label for what conditions a user will accept, followed by a colon",
               })}
@@ -146,6 +153,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
               {intl.formatMessage({
                 defaultMessage:
                   "I would <strong>not consider</strong> accepting a job that:",
+                id: "GThNuu",
                 description:
                   "would not accept job line before a list, ignore things in <> please",
               })}
@@ -161,6 +169,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
             <p>
               {intl.formatMessage({
                 defaultMessage: "I would consider accepting a job that:",
+                id: "l/jGX9",
                 description:
                   "Label for what conditions a user will accept, followed by a colon",
               })}
@@ -177,6 +186,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
               {intl.formatMessage({
                 defaultMessage:
                   "I would <strong>not consider</strong> accepting a job that:",
+                id: "GThNuu",
                 description:
                   "would not accept job line before a list, ignore things in <> please",
               })}
@@ -192,6 +202,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
             <p>
               {intl.formatMessage({
                 defaultMessage: "No information has been provided.",
+                id: "/fv4O0",
                 description:
                   "Message on Admin side when user not filled WorkPreferences section.",
               })}

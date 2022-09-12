@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
-import { errorMessages } from "@common/messages";
+import { errorMessages, navigationMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
@@ -29,6 +29,7 @@ import type { User, UpdateUserAsUserInput } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import profileMessages from "../profile/profileMessages";
 import directIntakeRoutes from "../../directIntakeRoutes";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export type FormValues = Pick<
   User,
@@ -65,7 +66,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.poolApply(application.pool.id)
+      ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialUser.id);
 
   const initialDataToFormValues = (data?: User | null): FormValues => ({
@@ -108,15 +109,15 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
-          title:
-            application.poolAdvertisement?.name?.[locale] ||
-            intl.formatMessage({
-              defaultMessage: "Pool name not found",
-              id: "FmD1sL",
-              description:
-                "Pools name breadcrumb from applicant profile wrapper if no name set.",
-            }),
+          title: getFullPoolAdvertisementTitle(
+            intl,
+            application.poolAdvertisement,
+          ),
           href: directIntakePaths.poolApply(application.pool.id),
+        },
+        {
+          href: directIntakePaths.reviewApplication(application.id),
+          title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]
     : [];
@@ -384,7 +385,10 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           data-h2-background-color="base(dt-gray)"
           data-h2-margin="base(x2, 0)"
         />
-        <ProfileFormFooter mode="saveButton" />
+        <ProfileFormFooter
+          mode="saveButton"
+          cancelLink={{ href: returnRoute }}
+        />
       </BasicForm>
     </ProfileFormWrapper>
   );
