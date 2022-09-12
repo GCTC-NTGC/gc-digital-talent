@@ -204,7 +204,7 @@ export const ReviewMyApplication: React.FunctionComponent<
                   style={{ gap: "1rem" }}
                 >
                   <Link
-                    href={directIntakePaths.signAndSubmit(applicant.id)}
+                    href={directIntakePaths.signAndSubmit(applicationId)}
                     color="cta"
                     mode="solid"
                     type="button"
