@@ -61,11 +61,13 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
         skills?.length === 1
           ? intl.formatMessage({
               defaultMessage: "1 Skill",
+              id: "A2KwTw",
               description: "Pluralization for one skill",
             })
           : intl.formatMessage(
               {
                 defaultMessage: "{skillsLength} Skills",
+                id: "l27ekQ",
                 description: "Pluralization for zero or multiple skills",
               },
               { skillsLength: skills?.length },
@@ -94,6 +96,7 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
         {intl.formatMessage(
           {
             defaultMessage: "Additional information: {details}",
+            id: "OvJwG6",
             description: "Additional information if provided",
           },
           { details },
@@ -111,6 +114,7 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
           <Link href={editUrl} color="primary" mode="outline" type="button">
             {intl.formatMessage({
               defaultMessage: "Edit Experience",
+              id: "phbDSx",
               description: "Edit Experience button label",
             })}
           </Link>

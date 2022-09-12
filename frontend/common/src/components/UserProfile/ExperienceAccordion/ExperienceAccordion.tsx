@@ -92,6 +92,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     <Accordion
       title={intl.formatMessage({
         defaultMessage: "Unknown Experience",
+        id: "U/Lv8i",
         description: "Title for unknown experiences",
       })}
     />

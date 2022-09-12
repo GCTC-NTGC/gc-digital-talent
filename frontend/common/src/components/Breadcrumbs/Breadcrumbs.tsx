@@ -58,7 +58,7 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
           <Fragment key={link.title}>
             {index > 0 && (
               <span
-                data-h2-padding="base(0, x.5)"
+                data-h2-padding="base(0, x.25)"
                 data-h2-display="base(flex)"
                 data-h2-align-items="base(center)"
               >

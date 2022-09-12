@@ -8,8 +8,9 @@ import MissingSkills from "@common/components/skills/MissingSkills";
 import { notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { Link } from "@common/components";
-import { getMissingSkills } from "@common/components/skills/MissingSkills/MissingSkills";
 import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
+import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
+import { getMissingSkills } from "@common/helpers/skillUtils";
 import {
   Applicant,
   PoolAdvertisement,
@@ -17,7 +18,6 @@ import {
 } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
-import { flattenExperienceSkills } from "../experienceAndSkills/ExperienceAndSkills";
 import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
