@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-
+import { getMissingSkills } from "../../../helpers/skillUtils";
 import { getLocale } from "../../../helpers/localize";
 import type { Maybe, Skill } from "../../../api/generated";
 import Chip, { Chips } from "../../Chip";
@@ -10,14 +10,6 @@ export interface MissingSkillsProps {
   optionalSkills?: Skill[];
   addedSkills?: Skill[];
 }
-
-const getMissingSkills = (required: Skill[], added?: Skill[]) => {
-  return !added?.length
-    ? required
-    : required.filter((skill) => {
-        return !added.find((addedSkill) => addedSkill.id === skill.id);
-      });
-};
 
 const MissingSkills = ({
   requiredSkills,
