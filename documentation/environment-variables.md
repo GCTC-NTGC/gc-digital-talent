@@ -22,5 +22,5 @@ For deployment in production there needs to be a way to change variables in the 
 3) `docker-compose up --detach`
 
 To check if a particular environment variable is set in a container, a command like this could be used:
-`docker-compose exec php printenv FEATURE_APPLICANTPROFILE`
+`docker-compose exec php printenv FEATURE_DIRECTINTAKE`
 

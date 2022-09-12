@@ -6,6 +6,5 @@ OAUTH_LOGOUT_URI="http://localhost:8000/oxauth/endsession"
 # OAUTH_LOGOUT_URI="https://te-auth.id.tbs-sct.gc.ca/oxauth/restv1/end_session"
 
 # Feature flags
-FEATURE_APPLICANTPROFILE=true
 FEATURE_DIRECTINTAKE=true
 FEATURE_APPLICANTSEARCH=true
