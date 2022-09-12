@@ -1,0 +1,29 @@
+# Source: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/automating-dependabot-with-github-actions#label-a-pull-request
+name: Dependabot auto-label
+# Can't use `pull_request` due to GITHUB_TOKEN and security
+# See: https://github.com/dependabot/dependabot-core/issues/3253#issuecomment-852541544
+on: pull_request_target
+
+permissions:
+  pull-requests: write
+  issues: write
+  repository-projects: write
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1.3.3
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Add priority label for all direct dependencies
+        # Indirect dependencies deeper in dependency graph are implicitly lower priority.
+        # See: https://github.com/dependabot/fetch-metadata#usage-instructions
+        if: ${{ startsWith(steps.metadata.outputs.dependency-type, 'direct:') }}
+        run: gh pr edit "$PR_URL" --add-label "dependencies-priority"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -23,7 +23,7 @@ const renderSkillFamilyPicker = () => {
 describe("Skill Family Picker Tests", () => {
   test("should display the skill FamilyPicker div", async () => {
     renderSkillFamilyPicker();
-    const element = screen.getByRole("radiogroup");
+    const element = screen.getByRole("group", { name: /skill families/i });
     expect(element).toBeTruthy();
   });
 

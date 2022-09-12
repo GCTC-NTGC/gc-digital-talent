@@ -22,6 +22,7 @@ const BrowsePools: React.FC<BrowsePoolsProps> = ({ pools }) => {
       <h1>
         {intl.formatMessage({
           defaultMessage: "Browse Pools",
+          id: "oG9dAi",
           description: "Page title for the direct intake browse pools page.",
         })}
       </h1>
@@ -40,6 +41,7 @@ const BrowsePools: React.FC<BrowsePoolsProps> = ({ pools }) => {
           <p>
             {intl.formatMessage({
               defaultMessage: "No pools found.",
+              id: "mW0/n1",
               description:
                 "Message displayed on the browse pools direct intake page when there are no pools.",
             })}

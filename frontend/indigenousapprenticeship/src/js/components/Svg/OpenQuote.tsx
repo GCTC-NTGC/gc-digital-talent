@@ -2,7 +2,6 @@ import React from "react";
 
 const OpenQuote: React.FC = (props) => (
   <svg
-    className="quote--open"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 78 62"

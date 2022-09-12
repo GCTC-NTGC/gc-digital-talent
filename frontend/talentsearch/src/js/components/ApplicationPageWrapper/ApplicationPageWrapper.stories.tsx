@@ -1,6 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
+import { FAR_FUTURE_DATE, FAR_PAST_DATE } from "@common/helpers/dateUtils";
 import ApplicationPageWrapper from "./ApplicationPageWrapper";
 
 type ApplicationPageWrapperComponent = typeof ApplicationPageWrapper;
@@ -73,13 +74,11 @@ const Template: ComponentStory<ApplicationPageWrapperComponent> = (args) => {
   );
 };
 
-const TODAY = new Date();
-
 export const BasicApplicationPageWrapper = Template.bind({});
 BasicApplicationPageWrapper.args = {
   title: "Basic Application Page Wrapper",
   subtitle: "Subtitle for Page Wrapper",
-  closingDate: new Date(new Date(TODAY).setMonth(TODAY.getMonth() + 1)),
+  closingDate: new Date(FAR_FUTURE_DATE),
   crumbs: [{ title: "Pool Name" }, { title: "About Me" }],
   navigation: {
     currentStep: 1,
@@ -100,7 +99,7 @@ export const NoNavigationApplicationPageWrapper = Template.bind({});
 NoNavigationApplicationPageWrapper.args = {
   title: "Basic Application Page Wrapper",
   subtitle: "Subtitle for Page Wrapper",
-  closingDate: new Date(new Date(TODAY).setMonth(TODAY.getMonth() + 1)),
+  closingDate: new Date(FAR_FUTURE_DATE),
   crumbs: [{ title: "Pool Name" }, { title: "About Me" }],
 };
 
@@ -108,6 +107,6 @@ export const ExpiredApplicationPageWrapper = Template.bind({});
 ExpiredApplicationPageWrapper.args = {
   title: "Basic Application Page Wrapper",
   subtitle: "Subtitle for Page Wrapper",
-  closingDate: new Date(new Date(TODAY).setMonth(TODAY.getMonth() - 1)),
+  closingDate: new Date(FAR_PAST_DATE),
   crumbs: [{ title: "Pool Name" }, { title: "About Me" }],
 };

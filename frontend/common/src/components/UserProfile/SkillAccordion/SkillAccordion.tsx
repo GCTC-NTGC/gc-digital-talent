@@ -43,8 +43,10 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     const { title, description, startDate, endDate, details } = experience;
     return (
       <>
-        <p data-h2-font-color="b(lightpurple)">{title}</p>
-        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
+        <p data-h2-color="base(dt-primary)">{title}</p>
+        <p data-h2-margin="base(0, 0, x.5, 0)">
+          {getDateRange({ endDate, startDate, intl, locale })}
+        </p>
         <p> {description} </p>
         <p>{skill.experienceSkillRecord?.details}</p>
         <p> {details} </p>
@@ -67,39 +69,40 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <div>
         <p>
-          <span data-h2-font-color="b(lightpurple)"> {areaOfStudy} </span>
+          <span data-h2-color="base(dt-primary)"> {areaOfStudy} </span>
           {intl.formatMessage(
             {
               defaultMessage: " at {institution}",
+              id: "CX/qKY",
               description: "Study at institution",
             },
             { institution },
           )}
         </p>
+        <p data-h2-margin="base(0, 0, x.5, 0)">
+          {getDateRange({ endDate, startDate, intl, locale })}
+        </p>
         <p>
-          {" "}
           {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
           <span
-            data-h2-font-color="b(lightpurple)"
-            data-h2-font-style="b(italic)"
+            data-h2-color="base(dt-primary)"
+            data-h2-font-style="base(italic)"
           >
-            {" "}
             {status ? intl.formatMessage(getEducationStatus(status)) : ""}{" "}
           </span>
         </p>
         <p>
-          {" "}
           {thesisTitle
             ? intl.formatMessage(
                 {
                   defaultMessage: "Thesis: {thesisTitle}",
+                  id: "omDlZN",
                   description: "Thesis, if applicable",
                 },
                 { thesisTitle },
               )
-            : ""}{" "}
+            : ""}
         </p>
-        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
         <p> {details} </p>
         <p>{skill.experienceSkillRecord?.details}</p>
       </div>
@@ -115,33 +118,39 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {intl.formatMessage(
             {
               defaultMessage: "<primary>{title}</primary> issued by {issuedBy}",
+              id: "cK/hoN",
               description: "The award title is issued by some group",
             },
             { issuedBy, title },
           )}
         </p>
+        <p data-h2-margin="base(0, 0, x.5, 0)">
+          {awardedDate && formattedDate(awardedDate, locale)}
+        </p>
         <p>
           {intl.formatMessage({
             defaultMessage: "Awarded to : ",
+            id: "HWRZ/z",
             description: "The award was given to",
-          })}{" "}
+          })}
           {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
         </p>
         <p>
           {intl.formatMessage({
             defaultMessage: "Scope : ",
+            id: "IfsigK",
             description: "The scope of the award given",
-          })}{" "}
+          })}
           {awardedScope
             ? intl.formatMessage(getAwardedScope(awardedScope))
             : ""}
         </p>
-        <p> {awardedDate && formattedDate(awardedDate, locale)}</p>
         <p>{skill.experienceSkillRecord?.details}</p>
         <p>
           {intl.formatMessage(
             {
               defaultMessage: "Additional information: {details}",
+              id: "OvJwG6",
               description: "Additional information if provided",
             },
             { details },
@@ -160,32 +169,35 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {intl.formatMessage(
             {
               defaultMessage: "<primary>{title}</primary> at {organization}",
+              id: "UPx6kk",
               description: "Title at organization",
             },
             { organization, title },
           )}
         </p>
-        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
+        <p data-h2-margin="base(0, 0, x.5, 0)">
+          {getDateRange({ endDate, startDate, intl, locale })}
+        </p>
         <p>
-          {" "}
           {intl.formatMessage(
             {
               defaultMessage: "Project: {project}",
+              id: "gtLuDM",
               description: "Project Name",
             },
             { project },
-          )}{" "}
+          )}
         </p>
         <p>{skill.experienceSkillRecord?.details}</p>
         <p>
-          {" "}
           {intl.formatMessage(
             {
               defaultMessage: "Additional information: {details}",
+              id: "OvJwG6",
               description: "Additional information if provided",
             },
             { details },
-          )}{" "}
+          )}
         </p>
       </>
     );
@@ -199,19 +211,24 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         <p>
           {intl.formatMessage(
             {
-              defaultMessage: "<primary>{role}</primary> at {division}",
-              description: "Role at Team, Group or Division",
+              defaultMessage: "<primary>{role}</primary> at {organization}",
+              id: "VOheZB",
+              description:
+                "Role at organization in work experience block of skill accordion.",
             },
-            { division, role },
+            { organization, role },
           )}
         </p>
-        <p>{organization}</p>
-        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
+        <p data-h2-margin="base(0, 0, x.5, 0)">
+          {getDateRange({ endDate, startDate, intl, locale })}
+        </p>
+        <p>{division}</p>
         <p>{skill.experienceSkillRecord?.details}</p>
         <p>
           {intl.formatMessage(
             {
               defaultMessage: "Additional information: {details}",
+              id: "OvJwG6",
               description: "Additional information if provided",
             },
             { details },
@@ -223,8 +240,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   const renderWithExperience = () => {
     return experiences?.map((experience) => {
       return (
-        <ul key={experience?.id}>
-          <li>
+        <ul data-h2-padding="base(0, 0, 0, x1)" key={experience?.id}>
+          <li data-h2-margin="base(x1, 0, 0, 0)">
             {isPersonalExperience(experience!)
               ? getPersonalExperience(experience)
               : ""}
@@ -249,6 +266,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         {intl.formatMessage({
           defaultMessage:
             "You do not have any experiences attached to this skill",
+          id: "oC/GRF",
           description: "The skill is not attached to any experience",
         })}
       </p>
@@ -259,7 +277,6 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     if (experiences != null && experiences.length > 0) {
       return renderWithExperience();
     }
-
     return renderNoExperience();
   }
   return (
@@ -270,21 +287,20 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         experiences?.length === 1
           ? intl.formatMessage({
               defaultMessage: "1 Experience",
+              id: "dQseX7",
               description: "Pluralization for one experience",
             })
           : intl.formatMessage(
               {
                 defaultMessage: "{experienceLength} Experiences",
+                id: "xNVsei",
                 description: "Pluralization for zero or multiple experiences",
               },
               { experienceLength: experiences ? experiences.length : 0 },
             )
       }
     >
-      <div data-h2-padding="b(left, l)" data-testid="detail">
-        {renderDetail()}
-      </div>
-      <div data-h2-padding="b(left, l)" />
+      <div data-testid="detail">{renderDetail()}</div>
     </Accordion>
   );
 };

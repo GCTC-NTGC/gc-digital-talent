@@ -24,7 +24,7 @@ import {
 const mockDepartments = fakeDepartments();
 const mockClassifications = fakeClassifications();
 const mockUser = fakeUsers()[0];
-const mockSave = jest.fn();
+const mockSave = jest.fn((data) => Promise.resolve(data));
 
 const renderGovInfoForm = ({
   initialData,
@@ -77,6 +77,11 @@ describe("GovernmentInfoForm", () => {
         name: /employment status/i,
       }),
     ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", {
+        name: /priority number/i,
+      }),
+    ).not.toBeInTheDocument();
 
     // Open second round of form elements
     fireEvent.click(
@@ -101,9 +106,7 @@ describe("GovernmentInfoForm", () => {
         name: /i have a term position/i,
       }),
     );
-    expect(
-      screen.getByRole("checkbox", { name: /lateral deployment/i }),
-    ).toBeInTheDocument();
+
     expect(
       screen.getByRole("option", {
         name: /choose group/i,
@@ -112,6 +115,18 @@ describe("GovernmentInfoForm", () => {
     expect(
       screen.getByRole("option", {
         name: /choose level/i,
+      }),
+    ).toBeInTheDocument();
+
+    // open priority number
+    fireEvent.click(
+      screen.getByRole("radio", {
+        name: /i have a priority entitlement/i,
+      }),
+    );
+    expect(
+      screen.queryByRole("textbox", {
+        name: /priority number/i,
       }),
     ).toBeInTheDocument();
   });
@@ -135,18 +150,18 @@ describe("GovernmentInfoForm", () => {
     });
     fireEvent.click(termPos); // Open the other forms
 
-    expect(
-      await screen.getByText(
-        "Please indicate if you are interested in lateral deployment or secondment. Learn more about this.",
-      ),
-    ).toBeTruthy();
-
     expect(await screen.getByText("Current Classification Group")).toBeTruthy();
 
     const isStudent = await screen.getByRole("radio", {
       name: /i am a student/i,
     });
     fireEvent.click(isStudent);
+
+    fireEvent.click(
+      screen.getByRole("radio", {
+        name: /i have a priority entitlement/i,
+      }),
+    );
 
     fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
     await waitFor(() => {

@@ -22,7 +22,12 @@ textarea {
   cursor: pointer;
 }
 
+button {
+  border: none;
+}
+
 .button {
+  border: none;
   cursor: pointer;
   overflow-wrap: break-word;
 }

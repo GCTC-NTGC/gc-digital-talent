@@ -12,6 +12,7 @@ import {
   useAllSkillFamiliesQuery,
 } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
+import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<AllSkillFamiliesQuery["skillFamilies"]>>;
 
@@ -30,11 +31,13 @@ export const SkillFamilyTable: React.FC<
 > = ({ skillFamilies, editUrlRoot }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useAdminRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
         Header: intl.formatMessage({
           defaultMessage: "ID",
+          id: "ZobKCk",
           description: "Title displayed on the Skill Family table ID column.",
         }),
         accessor: "id",
@@ -42,6 +45,7 @@ export const SkillFamilyTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Name",
+          id: "VphXhu",
           description:
             "Title displayed for the Skill Family table Name column.",
         }),
@@ -50,6 +54,7 @@ export const SkillFamilyTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Description",
+          id: "XSo129",
           description:
             "Title displayed for the Skill Family table Description column.",
         }),
@@ -58,6 +63,7 @@ export const SkillFamilyTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Category",
+          id: "m5RwGF",
           description:
             "Title displayed for the Skill Family table Category column.",
         }),
@@ -66,6 +72,7 @@ export const SkillFamilyTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Edit",
+          id: "rJ36SS",
           description:
             "Title displayed for the Skill Family table Edit column.",
         }),
@@ -77,7 +84,20 @@ export const SkillFamilyTable: React.FC<
 
   const data = useMemo(() => skillFamilies.filter(notEmpty), [skillFamilies]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <Table
+      data={data}
+      columns={columns}
+      addBtn={{
+        path: paths.skillFamilyCreate(),
+        label: intl.formatMessage({
+          defaultMessage: "Create Skill Family",
+          id: "TRqbR/",
+          description: "Heading displayed above the Create Skill Family form.",
+        }),
+      }}
+    />
+  );
 };
 
 export const SkillFamilyTableApi: React.FunctionComponent = () => {

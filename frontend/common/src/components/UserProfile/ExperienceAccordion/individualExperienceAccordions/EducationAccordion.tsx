@@ -1,5 +1,5 @@
 import React from "react";
-import BookOpenIcon from "@heroicons/react/solid/BookOpenIcon";
+import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
 import { useIntl } from "react-intl";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
@@ -35,13 +35,21 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
   const skillsList = skills
     ? skills.map((skill, index) => (
         // eslint-disable-next-line react/no-array-index-key
-        <ul key={index}>
+        <ul data-h2-padding="base(0, 0, 0, x1)" key={index}>
           <li>
             {skill.name[locale] && (
-              <p data-h2-font-color="b(lightpurple)">{skill.name[locale]}</p>
+              <p
+                data-h2-color="base(dt-primary)"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x1, 0, x.25, 0)"
+              >
+                {skill.name[locale]}
+              </p>
             )}
             {skill.description && skill.description[locale] && (
-              <p>{skill.description[locale]}</p>
+              <p data-h2-margin="base(0, 0, x.25, 0)">
+                {skill.description[locale]}
+              </p>
             )}
             {skill.experienceSkillRecord &&
               skill.experienceSkillRecord.details && (
@@ -57,6 +65,7 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
       title={intl.formatMessage(
         {
           defaultMessage: "{areaOfStudy} at {institution}",
+          id: "UrsGGK",
           description: "Study at institution",
         },
         { areaOfStudy, institution },
@@ -66,11 +75,13 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
         skills?.length === 1
           ? intl.formatMessage({
               defaultMessage: "1 Skill",
+              id: "A2KwTw",
               description: "Pluralization for one skill",
             })
           : intl.formatMessage(
               {
                 defaultMessage: "{skillsLength} Skills",
+                id: "l27ekQ",
                 description: "Pluralization for zero or multiple skills",
               },
               { skillsLength: skills?.length },
@@ -79,50 +90,70 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
       Icon={BookOpenIcon}
       defaultOpen={defaultOpen}
     >
-      <div data-h2-padding="b(left, l)">
-        <p>
-          {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
-          {status ? intl.formatMessage(getEducationStatus(status)) : ""}
-        </p>
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "{areaOfStudy} at {institution}",
-              description: "Study at institution",
-            },
-            { areaOfStudy, institution },
-          )}
-        </p>
-        <p>
-          {thesisTitle
-            ? intl.formatMessage(
-                {
-                  defaultMessage: "Thesis: {thesisTitle}",
-                  description: "Thesis, if applicable",
-                },
-                { thesisTitle },
-              )
-            : ""}
-        </p>
-      </div>
-      <hr />
-      <div data-h2-padding="b(left, l)">{skillsList}</div>
-      <div data-h2-padding="b(left, l)">
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "Additional information: {details}",
-              description: "Additional information if provided",
-            },
-            { details },
-          )}
-        </p>
-      </div>
+      <p>
+        {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
+        {status ? intl.formatMessage(getEducationStatus(status)) : ""}
+      </p>
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "{areaOfStudy} at {institution}",
+            id: "UrsGGK",
+            description: "Study at institution",
+          },
+          { areaOfStudy, institution },
+        )}
+      </p>
+      <p>
+        {thesisTitle
+          ? intl.formatMessage(
+              {
+                defaultMessage: "Thesis: {thesisTitle}",
+                id: "omDlZN",
+                description: "Thesis, if applicable",
+              },
+              { thesisTitle },
+            )
+          : ""}
+      </p>
+      <hr
+        data-h2-background-color="base(dt-gray)"
+        data-h2-height="base(1px)"
+        data-h2-width="base(100%)"
+        data-h2-border="base(none)"
+        data-h2-margin="base(x1, 0)"
+      />
+      {skillsList?.length > 0 ? skillsList : undefined}
+      <hr
+        data-h2-background-color="base(dt-gray)"
+        data-h2-height="base(1px)"
+        data-h2-width="base(100%)"
+        data-h2-border="base(none)"
+        data-h2-margin="base(x1, 0)"
+      />
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "Additional information: {details}",
+            id: "OvJwG6",
+            description: "Additional information if provided",
+          },
+          { details },
+        )}
+      </p>
       {editUrl && (
-        <div data-h2-padding="b(left, l)">
+        <div>
+          <hr
+            data-h2-background-color="base(dt-gray)"
+            data-h2-height="base(1px)"
+            data-h2-width="base(100%)"
+            data-h2-border="base(none)"
+            data-h2-margin="base(x1, 0)"
+          />
           <Link href={editUrl} color="primary" mode="outline" type="button">
             {intl.formatMessage({
               defaultMessage: "Edit Experience",
+              id: "phbDSx",
               description: "Edit Experience button label",
             })}
           </Link>

@@ -2,12 +2,14 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import AlertDialog from "./AlertDialog";
 import type { AlertDialogProps } from "./AlertDialog";
+import OverlayOrDialogDecorator from "../../../.storybook/decorators/OverlayOrDialogDecorator";
 
 import Button from "../Button";
 
 export default {
   component: AlertDialog,
   title: "Components/Alert Dialog",
+  decorators: [OverlayOrDialogDecorator],
   args: {
     title: "Alert Dialog",
     description: null,
@@ -64,7 +66,7 @@ const Template: Story<StoryArgs> = (args) => {
           {description && (
             <AlertDialog.Description>{description}</AlertDialog.Description>
           )}
-          <AlertDialog.Actions>
+          <AlertDialog.Footer>
             <Button
               mode="outline"
               color="black"
@@ -73,12 +75,12 @@ const Template: Story<StoryArgs> = (args) => {
             >
               Cancel
             </Button>
-            <div data-h2-margin="b(left, s)">
+            <div data-h2-margin="base(0, 0, 0, x.5)">
               <Button mode="solid" color="primary" onClick={close}>
                 Confirm
               </Button>
             </div>
-          </AlertDialog.Actions>
+          </AlertDialog.Footer>
         </AlertDialog>
       )}
     </div>

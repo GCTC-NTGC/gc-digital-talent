@@ -1,10 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import {
-  HomeIcon,
-  PrinterIcon,
-  UserCircleIcon,
-} from "@heroicons/react/outline";
+import { PrinterIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
@@ -37,6 +33,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Candidate Details",
+    id: "XtBhGo",
     description: "Title for the page when viewing an individual user.",
   });
 
@@ -44,6 +41,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
   if (isEmpty(user?.firstName) && isEmpty(user?.firstName)) {
     userName = intl.formatMessage({
       defaultMessage: "(Missing name)",
+      id: "4xzq2Y",
       description: "Message for Missing names in profile",
     });
   }
@@ -52,18 +50,18 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
     {
       title: intl.formatMessage({
         defaultMessage: "Home",
+        id: "YtEDfa",
         description: "Breadcrumb title for the home link.",
       }),
       href: adminPaths.home(),
-      icon: <HomeIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage({
         defaultMessage: "Users",
+        id: "eMXL0K",
         description: "Breadcrumb title for the all users table link.",
       }),
       href: adminPaths.userTable(),
-      icon: <UserCircleIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: userName,
@@ -73,10 +71,12 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
   const tabs = [
     intl.formatMessage({
       defaultMessage: "General Information",
+      id: "EK90Iy",
       description: "Tabs title for the individual user general info.",
     }),
     intl.formatMessage({
       defaultMessage: "Candidate Profile",
+      id: "/no0jA",
       description: "Tabs title for the individual user profile.",
     }),
   ];
@@ -85,30 +85,27 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
     <>
       <PageHeader icon={UserCircleIcon}>{pageTitle}</PageHeader>
       <Breadcrumbs links={links} />
-      <div
-        data-h2-align-items="b(center)"
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column) m(row)"
-        data-h2-margin="b(top-bottom, l)"
-      >
-        {userName !== " " && (
-          <Heading
-            level="h2"
-            data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
-          >
-            {userName}
-          </Heading>
-        )}
-        <div data-h2-margin="m(left, auto)">
-          <UserProfilePrintButton userId={user.id}>
-            <span>
-              <PrinterIcon style={{ width: "1rem" }} />{" "}
-              {intl.formatMessage({
-                defaultMessage: "Print Profile",
-                description: "Text for button to print a user profile",
-              })}
-            </span>
-          </UserProfilePrintButton>
+      <div data-h2-margin="base(x2, 0, x1, 0)">
+        <div data-h2-flex-grid="base(center, x1)">
+          <div data-h2-flex-item="base(1of1) p-tablet(fill)">
+            {userName !== " " && (
+              <Heading level="h2" data-h2-margin="base(x.5, 0) l-tablet(0)">
+                {userName}
+              </Heading>
+            )}
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(content)">
+            <UserProfilePrintButton userId={user.id}>
+              <span>
+                <PrinterIcon style={{ width: "1rem" }} />{" "}
+                {intl.formatMessage({
+                  defaultMessage: "Print Profile",
+                  id: "R+Zm3X",
+                  description: "Text for button to print a user profile",
+                })}
+              </span>
+            </UserProfilePrintButton>
+          </div>
         </div>
       </div>
       <Tabs>
@@ -155,6 +152,7 @@ const ViewUser: React.FC<ViewUserProps> = ({ userId }) => {
               {intl.formatMessage(
                 {
                   defaultMessage: "User {userId} not found.",
+                  id: "0SoKjt",
                   description: "Message displayed for user not found.",
                 },
                 { userId },

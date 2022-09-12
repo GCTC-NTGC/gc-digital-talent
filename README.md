@@ -18,7 +18,7 @@ The GC Digital Talent app is divided into multiple services, each treated as its
   - this includes a mock oauth2 server (only used for local development envs)
 - `/maintenance`, additional scripts which run inside the docker containers for setup and updates
 
-The api, and frontend projects are designed to each run in a separate container. However, since they all use the [Laravel](https://github.com/laravel/laravel) or [Lumen](https://github.com/laravel/lumen) framework, they can also be run on a single PHP server, with requests routed carefully between them. This is currently how docker infrastructure works.
+The api, and frontend projects are designed to each run in a separate container. However, since they all use the [Laravel](https://github.com/laravel/laravel) framework, they can also be run on a single PHP server, with requests routed carefully between them. This is currently how docker infrastructure works.
 
 Each sub-project has its own `README.md`, with advice on how to contribute to that sub-project. The README files also contain notes on how to configure the sub-projects, but if you simply want to get the project running on a new machine, you may disregard these notes and move straight to the steps below.
 

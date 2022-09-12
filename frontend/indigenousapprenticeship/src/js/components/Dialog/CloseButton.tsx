@@ -9,10 +9,11 @@ interface CloseButtonProps {
 const CloseButton: React.FC<CloseButtonProps> = ({ onClick }) => {
   const intl = useIntl();
   return (
-    <div data-h2-display="b(flex)" data-h2-justify-content="b(flex-end)">
+    <div data-h2-display="base(flex)" data-h2-justify-content="base(flex-end)">
       <Button onClick={onClick} mode="outline" color="ia-secondary">
         {intl.formatMessage({
           defaultMessage: "Close",
+          id: "4p0QdF",
           description: "Button text used to close an open modal",
         })}
       </Button>

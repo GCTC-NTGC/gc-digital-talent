@@ -12,7 +12,7 @@ import {
   waitFor,
   axeTest,
 } from "@common/helpers/testUtils";
-import { WorkLocationPreferenceQuery, WorkRegion } from "../../api/generated";
+import { User, WorkRegion } from "../../api/generated";
 import {
   WorkLocationPreferenceForm,
   WorkLocationPreferenceFormProps,
@@ -31,23 +31,17 @@ const renderWorkLocationPreferenceForm = ({
 
 const mockUser = fakeUsers()[0];
 
-const mockInitialData: WorkLocationPreferenceQuery | undefined = {
-  __typename: "Query",
-  me: {
-    __typename: "User",
-    id: "thanka11",
-    locationPreferences: [WorkRegion.Atlantic],
-    locationExemptions: "dagu",
-  },
+const mockInitialData: User = {
+  __typename: "User",
+  id: "thanka11",
+  locationPreferences: [WorkRegion.Atlantic],
+  locationExemptions: "dagu",
 };
-const mockInitialEmptyData: WorkLocationPreferenceQuery | undefined = {
-  __typename: "Query",
-  me: {
-    __typename: "User",
-    id: "thanka11",
-    locationPreferences: undefined,
-    locationExemptions: "",
-  },
+const mockInitialEmptyData: User = {
+  __typename: "User",
+  id: "thanka11",
+  locationPreferences: undefined,
+  locationExemptions: "",
 };
 
 describe("WorkLocationPreferenceForm", () => {

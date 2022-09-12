@@ -26,6 +26,7 @@ const PoolApplicationThanks: React.FC<PoolApplicationThanksProps> = ({
     {
       title: intl.formatMessage({
         defaultMessage: "Pools Index",
+        id: "tf/wEc",
         description: "Breadcrumb title for the pools index link.",
       }),
       href: paths.home(),
@@ -39,6 +40,7 @@ const PoolApplicationThanks: React.FC<PoolApplicationThanksProps> = ({
     {
       title: intl.formatMessage({
         defaultMessage: "Apply",
+        id: "8/aBOG",
         description: "Breadcrumb title for the pool application link.",
       }),
       href: pool ? paths.poolApply(pool.id) : undefined,
@@ -47,6 +49,7 @@ const PoolApplicationThanks: React.FC<PoolApplicationThanksProps> = ({
     {
       title: intl.formatMessage({
         defaultMessage: "Thanks for Applying",
+        id: "Uyo9WO",
         description:
           "Breadcrumb title for the pools 'thanks for applying page' link.",
       }),
@@ -60,6 +63,7 @@ const PoolApplicationThanks: React.FC<PoolApplicationThanksProps> = ({
         {intl.formatMessage(
           {
             defaultMessage: "Thanks for applying to {poolName}",
+            id: "hDSk9d",
             description: "Title for page thanking user for applying to a pool",
           },
           {
@@ -75,6 +79,7 @@ const PoolApplicationThanks: React.FC<PoolApplicationThanksProps> = ({
       >
         {intl.formatMessage({
           defaultMessage: "Back to pools list",
+          id: "RdrUZz",
           description: "Label for button to the browse pools page",
         })}
       </Link>
@@ -103,6 +108,7 @@ const PoolApplicationThanksPage: React.FC<PoolApplicationThanksPageProps> = ({
           <p>
             {intl.formatMessage({
               defaultMessage: "Error, pool unable to be loaded",
+              id: "DcEinN",
               description: "Error message, placeholder",
             })}
           </p>

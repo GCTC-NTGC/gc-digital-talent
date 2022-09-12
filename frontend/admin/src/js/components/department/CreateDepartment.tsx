@@ -39,6 +39,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department created successfully!",
+            id: "yGlG9e",
             description:
               "Message displayed to user after department is created successfully.",
           }),
@@ -48,6 +49,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: creating department failed",
+            id: "VaVo2t",
             description:
               "Message displayed to user after department fails to get created.",
           }),
@@ -56,14 +58,15 @@ export const CreateDepartmentForm: React.FunctionComponent<
   };
 
   return (
-    <section>
-      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+    <section data-h2-container="base(left, s)">
+      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create Department",
+          id: "XBY4Fq",
           description: "Title displayed on the create a department form.",
         })}
       </h2>
-      <div data-h2-container="b(center, s)">
+      <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -71,6 +74,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
               name="departmentNumber"
               label={intl.formatMessage({
                 defaultMessage: "Department #",
+                id: "/YiBdv",
                 description:
                   "Label displayed on the create a department form department number field.",
               })}
@@ -84,6 +88,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
               name="name.en"
               label={intl.formatMessage({
                 defaultMessage: "Name (English)",
+                id: "4boO/6",
                 description:
                   "Label displayed on the create a department form name (English) field.",
               })}
@@ -97,6 +102,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
               name="name.fr"
               label={intl.formatMessage({
                 defaultMessage: "Name (French)",
+                id: "c0n+2j",
                 description:
                   "Label displayed on the create a department form name (French) field.",
               })}

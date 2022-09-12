@@ -8,10 +8,12 @@ import { axeTest, render } from "@common/helpers/testUtils";
 import {
   BilingualEvaluation,
   EvaluatedLanguageAbility,
-  GetLanguageInformationQuery,
-  UpdateUserAsUserInput,
+  User,
 } from "../../api/generated";
-import { LanguageInformationForm } from "./LanguageInformationForm";
+import {
+  LanguageInformationForm,
+  LanguageInformationUpdateHandler,
+} from "./LanguageInformationForm";
 
 const mockUser = { id: "testUserId" };
 
@@ -19,8 +21,8 @@ const renderLanguageInfoForm = ({
   initialData,
   submitHandler,
 }: {
-  initialData: GetLanguageInformationQuery["me"];
-  submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
+  initialData: User;
+  submitHandler: LanguageInformationUpdateHandler;
 }) =>
   render(
     <LanguageInformationForm
@@ -91,7 +93,7 @@ describe("LanguageInformationForm tests", () => {
     });
   });
   test("If not bilingual extra fields are not required.", async () => {
-    const mockSave = jest.fn();
+    const mockSave = jest.fn((data) => Promise.resolve(data));
     renderLanguageInfoForm({
       initialData: mockUser,
       submitHandler: mockSave,
@@ -104,7 +106,7 @@ describe("LanguageInformationForm tests", () => {
     await waitFor(() => expect(mockSave).toHaveBeenCalledTimes(1));
   });
   test("Form submits data in correct shape", async () => {
-    const mockSave = jest.fn();
+    const mockSave = jest.fn((data) => Promise.resolve(data));
     const user = {
       id: "testUserId",
       bilingualEvaluation: BilingualEvaluation.CompletedFrench,
@@ -124,7 +126,7 @@ describe("LanguageInformationForm tests", () => {
     fireEvent.submit(screen.getByText(/save/i));
 
     await waitFor(() =>
-      expect(mockSave).toHaveBeenCalledWith({
+      expect(mockSave).toHaveBeenCalledWith(user.id, {
         bilingualEvaluation: BilingualEvaluation.CompletedFrench,
         comprehensionLevel: EvaluatedLanguageAbility.A,
         writtenLevel: EvaluatedLanguageAbility.P,

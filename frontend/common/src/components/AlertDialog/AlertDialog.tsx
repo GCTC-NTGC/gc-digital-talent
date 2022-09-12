@@ -7,7 +7,7 @@ import type { AlertDialogProps as ReachAlertDialogProps } from "@reach/alert-dia
 
 import "@reach/dialog/styles.css";
 
-import AlertDialogActions from "./AlertDialogActions";
+import AlertDialogFooter from "./AlertDialogFooter";
 import AlertDialogContent from "./AlertDialogContent";
 import AlertDialogHeading from "./AlertDialogHeading";
 
@@ -38,7 +38,7 @@ const AlertDialog = ({
     </AlertDialogOverlay>
   ) : null;
 
-AlertDialog.Actions = AlertDialogActions;
+AlertDialog.Footer = AlertDialogFooter;
 AlertDialog.Content = AlertDialogContent;
 AlertDialog.Description = AlertDialogDescription;
 AlertDialog.Heading = AlertDialogHeading;

@@ -23,7 +23,7 @@ const renderSearchContainer = ({
     <SearchContainer
       classifications={mockClassifications}
       candidateCount={candidateCount}
-      onUpdateCandidateFilter={mockUpdate}
+      onUpdateApplicantFilter={mockUpdate}
       onSubmit={mockSubmit}
     />,
   );

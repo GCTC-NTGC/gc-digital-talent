@@ -12,14 +12,14 @@ const defaultProps = {
   isOpen: true, // isOpen true by default so we don't need to keep opening it.
   color: "primary" as Color,
   title: "title",
-  content: "content",
+  children: "content",
   onDismiss: jest.fn() as (
     e: React.MouseEvent<Element> | React.KeyboardEvent<Element>,
   ) => void,
 };
 
-const renderDialog = (props: DialogProps & { content: string }) => {
-  return render(<Dialog {...props}>{props.content}</Dialog>);
+const renderDialog = ({ children, ...props }: DialogProps) => {
+  return render(<Dialog {...props}>{children}</Dialog>);
 };
 
 describe("Dialog", () => {

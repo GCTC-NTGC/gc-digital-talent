@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { Input, RadioGroup, Select, Submit } from "@common/components/form";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";
-import isEmpty from "lodash/isEmpty";
 import {
   getLanguageRequirement,
   getSecurityClearance,
@@ -35,7 +34,10 @@ type FormValues = {
 
 export type OtherRequirementsSubmitData = Pick<
   UpdatePoolAdvertisementInput,
-  "advertisementLanguage" | "advertisementLocation" | "securityClearance"
+  | "advertisementLanguage"
+  | "advertisementLocation"
+  | "securityClearance"
+  | "isRemote"
 >;
 
 interface OtherRequirementsSectionProps {
@@ -55,11 +57,9 @@ export const OtherRequirementsSection = ({
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     languageRequirement: initialData.advertisementLanguage,
     securityRequirement: initialData.securityClearance,
-    locationOption:
-      isEmpty(initialData.advertisementLocation?.en) &&
-      isEmpty(initialData.advertisementLocation?.fr)
-        ? LocationOption.RemoteOptional
-        : LocationOption.SpecificLocation,
+    locationOption: initialData.isRemote
+      ? LocationOption.RemoteOptional
+      : LocationOption.SpecificLocation,
     specificLocationEn: initialData.advertisementLocation?.en,
     specificLocationFr: initialData.advertisementLocation?.fr,
   });
@@ -92,12 +92,14 @@ export const OtherRequirementsSection = ({
   const handleSave = (formValues: FormValues) => {
     onSave({
       advertisementLanguage: formValues.languageRequirement,
-      advertisementLocation: formValues.locationOption
-        ? {
-            en: formValues.specificLocationEn,
-            fr: formValues.specificLocationFr,
-          }
-        : null,
+      advertisementLocation:
+        formValues.locationOption !== LocationOption.RemoteOptional
+          ? {
+              en: formValues.specificLocationEn,
+              fr: formValues.specificLocationFr,
+            }
+          : null,
+      isRemote: formValues.locationOption === LocationOption.RemoteOptional,
       securityClearance: formValues.securityRequirement,
     });
   };
@@ -105,14 +107,13 @@ export const OtherRequirementsSection = ({
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-          {sectionMetadata.title}
-        </h2>
+        <h2 data-h2-margin="base(x3, 0, x1, 0)">{sectionMetadata.title}</h2>
       </TableOfContents.Heading>
-      <p>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "Select the requirements needed for this advertisement.",
+          id: "xlsfRu",
           description:
             "Helper message for filling in the pool other requirements",
         })}
@@ -123,12 +124,13 @@ export const OtherRequirementsSection = ({
             handleSave(formValuesToSubmitData(formValues)),
           )}
         >
-          <div data-h2-display="b(flex)">
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <Select
                 id="languageRequirement"
                 label={intl.formatMessage({
                   defaultMessage: "Language requirement",
+                  id: "nMYWzb",
                   description:
                     "Label displayed on the edit pool form language requirement field.",
                 })}
@@ -148,12 +150,13 @@ export const OtherRequirementsSection = ({
             </Spacer>
             <Spacer style={{ flex: 1 }} />
           </div>
-          <div data-h2-display="b(flex)">
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <Select
                 id="securityRequirement"
                 label={intl.formatMessage({
                   defaultMessage: "Security requirement",
+                  id: "ASNC88",
                   description:
                     "Label displayed on the edit pool form security requirement field.",
                 })}
@@ -171,12 +174,13 @@ export const OtherRequirementsSection = ({
             </Spacer>
             <Spacer style={{ flex: 1 }} />
           </div>
-          <div data-h2-display="b(flex)">
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <RadioGroup
                 idPrefix="locationOption"
                 legend={intl.formatMessage({
                   defaultMessage: "Location",
+                  id: "UGaZR2",
                   description: "Location options in Edit Pool Form",
                 })}
                 name="locationOption"
@@ -185,6 +189,7 @@ export const OtherRequirementsSection = ({
                     value: LocationOption.RemoteOptional,
                     label: intl.formatMessage({
                       defaultMessage: "Remote optional (Recommended)",
+                      id: "jphtnM",
                       description:
                         "Label displayed for 'remote optional' option",
                     }),
@@ -193,6 +198,7 @@ export const OtherRequirementsSection = ({
                     value: LocationOption.SpecificLocation,
                     label: intl.formatMessage({
                       defaultMessage: "Specific location (Specify below)",
+                      id: "j3m2Ca",
                       description:
                         "Label displayed for 'specific location' option",
                     }),
@@ -205,7 +211,7 @@ export const OtherRequirementsSection = ({
           </div>
           {locationOption === LocationOption.SpecificLocation ? (
             <>
-              <div data-h2-display="b(flex)">
+              <div data-h2-display="base(flex)">
                 <Spacer style={{ flex: 1 }}>
                   <Input
                     id="specificLocationEn"
@@ -213,6 +219,7 @@ export const OtherRequirementsSection = ({
                     type="text"
                     label={intl.formatMessage({
                       defaultMessage: "Specific Location (English)",
+                      id: "A2VzLX",
                       description:
                         "Label for a pool advertisements specific English Location",
                     })}
@@ -221,7 +228,7 @@ export const OtherRequirementsSection = ({
                 </Spacer>
                 <Spacer style={{ flex: 1 }} />
               </div>
-              <div data-h2-display="b(flex)">
+              <div data-h2-display="base(flex)">
                 <Spacer style={{ flex: 1 }}>
                   <Input
                     id="specificLocationFr"
@@ -229,6 +236,7 @@ export const OtherRequirementsSection = ({
                     type="text"
                     label={intl.formatMessage({
                       defaultMessage: "Specific Location (French)",
+                      id: "PH+6C9",
                       description:
                         "Label for a pool advertisements specific French Location",
                     })}
@@ -244,6 +252,7 @@ export const OtherRequirementsSection = ({
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Save other requirements",
+                id: "66MUMB",
                 description:
                   "Text on a button to save the pool other requirements",
               })}

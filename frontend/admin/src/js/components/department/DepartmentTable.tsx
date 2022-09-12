@@ -7,6 +7,7 @@ import { getLocale } from "@common/helpers/localize";
 import Pending from "@common/components/Pending";
 import { DepartmentsQuery, useDepartmentsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
+import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<DepartmentsQuery["departments"]>>;
 
@@ -15,11 +16,13 @@ export const DepartmentTable: React.FC<
 > = ({ departments, editUrlRoot }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useAdminRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
         Header: intl.formatMessage({
           defaultMessage: "Department #",
+          id: "QOvS1b",
           description:
             "Title displayed for the Department table Department # column.",
         }),
@@ -28,6 +31,7 @@ export const DepartmentTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Name",
+          id: "2wmzS1",
           description: "Title displayed for the Department table Name column.",
         }),
         accessor: (d) => d.name?.[locale],
@@ -35,6 +39,7 @@ export const DepartmentTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Edit",
+          id: "hTfHUv",
           description: "Title displayed for the Department table Edit column.",
         }),
         accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
@@ -45,7 +50,20 @@ export const DepartmentTable: React.FC<
 
   const data = useMemo(() => departments.filter(notEmpty), [departments]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <Table
+      data={data}
+      columns={columns}
+      addBtn={{
+        path: paths.departmentCreate(),
+        label: intl.formatMessage({
+          defaultMessage: "Create Department",
+          id: "ZbpbD6",
+          description: "Heading displayed above the Create Department form.",
+        }),
+      }}
+    />
+  );
 };
 
 export const DepartmentTableApi: React.FunctionComponent = () => {

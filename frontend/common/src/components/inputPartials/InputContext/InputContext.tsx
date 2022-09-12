@@ -11,12 +11,14 @@ export const InputContext: React.FC<InputContextProps> = ({
 }) => {
   return isVisible ? (
     <span
-      data-h2-display="b(block)"
-      data-h2-radius="b(s)"
-      data-h2-bg-color="b(lightpurple[.1])"
-      data-h2-padding="b(all, xs)"
-      data-h2-font-color="b(lightpurple)"
-      data-h2-font-size="b(caption)"
+      data-h2-display="base(block)"
+      data-h2-margin="base(x.25, 0, 0, 0)"
+      data-h2-border="base(all, 1px, solid, dt-primary.light)"
+      data-h2-radius="base(input)"
+      data-h2-background-color="base(dt-primary.1)"
+      data-h2-padding="base(x.75)"
+      data-h2-color="base(dt-primary)"
+      data-h2-font-size="base(caption)"
       role="alert"
     >
       {context}

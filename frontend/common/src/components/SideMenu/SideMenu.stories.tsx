@@ -1,8 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { HomeIcon } from "@heroicons/react/outline";
+import { HomeIcon } from "@heroicons/react/24/outline";
 
-import { LoginIcon } from "@heroicons/react/solid";
+import { LoginIcon } from "@heroicons/react/24/solid";
 import SideMenuComponent from "./SideMenu";
 import SideMenuItem from "./SideMenuItem";
 
@@ -34,7 +34,7 @@ const TemplateSideMenu: Story = (args) => {
   };
 
   return (
-    <div data-h2-display="b(flex)">
+    <div data-h2-display="base(flex)">
       <SideMenuComponent
         label="Test Menu"
         isOpen={isOpen}
@@ -49,7 +49,7 @@ const TemplateSideMenu: Story = (args) => {
           Home
         </SideMenuItem>
       </SideMenuComponent>
-      <div data-h2-padding="b(all, m)" data-h2-width="b(100)">
+      <div data-h2-padding="base(x1)" data-h2-width="base(100%)">
         <Button color="primary" mode="solid" onClick={handleToggle}>
           Toggle Menu
         </Button>

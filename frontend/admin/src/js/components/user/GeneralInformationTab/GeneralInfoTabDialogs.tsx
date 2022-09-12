@@ -7,7 +7,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import { InputError, InputWrapper } from "@common/components/inputPartials";
 import { toast } from "react-toastify";
-import { UserRemoveIcon } from "@heroicons/react/solid";
+import { UserMinusIcon } from "@heroicons/react/24/solid";
 import { isEmpty } from "lodash";
 import {
   CreatePoolCandidateAsAdminInput,
@@ -35,9 +35,10 @@ const CloseDialogButton: React.FC<CloseDialogButtonProps> = ({ close }) => {
   const intl = useIntl();
   return (
     <Button type="button" mode="outline" color="secondary" onClick={close}>
-      <span data-h2-font-style="b(underline)">
+      <span data-h2-text-decoration="base(underline)">
         {intl.formatMessage({
           defaultMessage: "Cancel and go back",
+          id: "tiF/jI",
           description: "Close dialog button",
         })}
       </span>
@@ -67,18 +68,21 @@ const ConfirmDialogButton: React.FC<ConfirmDialogButtonProps> = ({
       color="secondary"
       disabled={disabled}
       onClick={onConfirm}
-      data-h2-display="b(flex)"
-      data-h2-align-items="b(center)"
+      data-h2-display="base(flex)"
+      data-h2-align-items="base(center)"
     >
       {Icon ? (
         <>
           <Icon style={{ width: "1.5rem" }} />
-          <span data-h2-padding="b(left, xs)" data-h2-font-style="b(underline)">
+          <span
+            data-h2-padding="base(0, 0, 0, x.25)"
+            data-h2-text-decoration="base(underline)"
+          >
             {title}
           </span>
         </>
       ) : (
-        <span data-h2-font-style="b(underline)">{title}</span>
+        <span data-h2-text-decoration="base(underline)">{title}</span>
       )}
     </Button>
   );
@@ -132,6 +136,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "Status updated successfully",
+            id: "nYriNg",
             description: "Toast for successful status update on view-user page",
           }),
         );
@@ -142,6 +147,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Failed updating status",
+            id: "BnSa6Y",
             description: "Toast for failed status update on view-user page",
           }),
         );
@@ -152,15 +158,99 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
     <Dialog
       title={intl.formatMessage({
         defaultMessage: "Change status",
+        id: "SARjte",
         description: "title for change status dialog on view-user page",
       })}
       color="ts-primary"
       isOpen={selectedCandidate !== null}
       onDismiss={resetAndClose}
-      footer={
+    >
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "You're about to change status for this user:",
+          id: "p+YRN1",
+          description:
+            "First section of text on the change candidate status dialog",
+        })}
+      </p>
+      <p>
+        - {user.firstName} {user.lastName}
+      </p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
+        {intl.formatMessage({
+          defaultMessage: "From the following pool:",
+          id: "FUxE8S",
+          description:
+            "Second section of text on the change candidate status dialog",
+        })}
+      </p>
+      <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
+        {intl.formatMessage({
+          defaultMessage: "Choose status:",
+          id: "Zbk4zf",
+          description:
+            "Third section of text on the change candidate status dialog",
+        })}
+      </p>
+      <div data-h2-margin="base(x.5, 0, x.125, 0)">
+        <InputWrapper
+          inputId="status"
+          label={intl.formatMessage({
+            defaultMessage: "Pool status",
+            id: "n9YPWe",
+            description:
+              "Label displayed on the status field of the change candidate status dialog",
+          })}
+          required
+        >
+          <select
+            data-h2-radius="base(s)"
+            data-h2-padding="base(x.25)"
+            data-h2-font-size="base(copy)"
+            data-h2-width="base(100%)"
+            id="status"
+            defaultValue=""
+            onChange={(e) => setSelectedStatus(e.target.value)}
+          >
+            <option value="" disabled>
+              {intl.formatMessage({
+                defaultMessage: "Select a pool status...",
+                id: "usNShh",
+                description:
+                  "Placeholder displayed on the status field of the change candidate status dialog.",
+              })}
+            </option>
+            {enumToOptions(PoolCandidateStatus).map(({ value }) => (
+              <option
+                data-h2-font-family="base(sans)"
+                key={value}
+                value={value}
+              >
+                {intl.formatMessage(getPoolCandidateStatus(value))}
+              </option>
+            ))}
+          </select>
+        </InputWrapper>
         <div
-          data-h2-display="b(flex)"
-          data-h2-justify-content="b(space-between))"
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
+          <InputError
+            isVisible={showErrorMessage}
+            error={intl.formatMessage({
+              defaultMessage: "Please select a status",
+              id: "eaHqS2",
+              description:
+                "Error displayed on the change candidate status dialog if no status selected",
+            })}
+          />
+        </div>
+      </div>
+      <Dialog.Footer>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(space-between)"
         >
           <CloseDialogButton close={resetAndClose} />
           <ConfirmDialogButton
@@ -169,87 +259,19 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
               submitting
                 ? intl.formatMessage({
                     defaultMessage: "Submitting",
+                    id: "gCbb9X",
                     description: "Text on submit button when submitting",
                   })
                 : intl.formatMessage({
                     defaultMessage: "Change status",
+                    id: "iuve97",
                     description: "Confirmation button for change status dialog",
                   })
             }
             disabled={submitting}
           />
         </div>
-      }
-    >
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "You're about to change status for this user:",
-          description:
-            "First section of text on the change candidate status dialog",
-        })}
-      </p>
-      <p>
-        - {user.firstName} {user.lastName}
-      </p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "From the following pool:",
-          description:
-            "Second section of text on the change candidate status dialog",
-        })}
-      </p>
-      <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Choose status:",
-          description:
-            "Third section of text on the change candidate status dialog",
-        })}
-      </p>
-      <div data-h2-margin="b(bottom, xxs)">
-        <InputWrapper
-          inputId="status"
-          label={intl.formatMessage({
-            defaultMessage: "Pool status",
-            description:
-              "Label displayed on the status field of the change candidate status dialog",
-          })}
-          required
-        >
-          <select
-            data-h2-radius="b(s)"
-            data-h2-padding="b(all, xs)"
-            data-h2-font-size="b(normal)"
-            data-h2-width="b(100)"
-            id="status"
-            defaultValue=""
-            onChange={(e) => setSelectedStatus(e.target.value)}
-          >
-            <option value="" disabled>
-              {intl.formatMessage({
-                defaultMessage: "Select a pool status...",
-                description:
-                  "Placeholder displayed on the status field of the change candidate status dialog.",
-              })}
-            </option>
-            {enumToOptions(PoolCandidateStatus).map(({ value }) => (
-              <option data-h2-font-family="b(sans)" key={value} value={value}>
-                {intl.formatMessage(getPoolCandidateStatus(value))}
-              </option>
-            ))}
-          </select>
-        </InputWrapper>
-        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
-          <InputError
-            isVisible={showErrorMessage}
-            error={intl.formatMessage({
-              defaultMessage: "Please select a status",
-              description:
-                "Error displayed on the change candidate status dialog if no status selected",
-            })}
-          />
-        </div>
-      </div>
+      </Dialog.Footer>
     </Dialog>
   );
 };
@@ -301,6 +323,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "Expiry date updated successfully",
+            id: "HwPuG0",
             description:
               "Toast for successful expiry date update on view-user page",
           }),
@@ -312,6 +335,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Failed updating expiry date",
+            id: "qSTIKZ",
             description:
               "Toast for failed expiry date update on view-user page",
           }),
@@ -323,15 +347,74 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
     <Dialog
       title={intl.formatMessage({
         defaultMessage: "Expiry Date",
+        id: "zDO6tt",
         description: "title for change expiry date dialog on view-user page",
       })}
       color="ts-primary"
       isOpen={selectedCandidate !== null}
       onDismiss={resetAndClose}
-      footer={
+    >
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "You're about to change the expiry date for this user:",
+          id: "JjTGYe",
+          description:
+            "First section of text on the change candidate expiry date dialog",
+        })}
+      </p>
+      <p>
+        - {user.firstName} {user.lastName}
+      </p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
+        {intl.formatMessage({
+          defaultMessage: "Set an expiry date for this candidate on this pool:",
+          id: "n+d6QE",
+          description:
+            "Second section of text on the change candidate expiry date dialog",
+        })}
+      </p>
+      <div data-h2-margin="base(x.5, 0, x.125, 0)">
+        <InputWrapper
+          inputId="date"
+          label={intl.formatMessage({
+            defaultMessage: "Expiry date",
+            id: "WAO4vD",
+            description:
+              "Label displayed on the date field of the change candidate expiry date dialog",
+          })}
+          required
+        >
+          <input
+            data-h2-radius="base(s)"
+            data-h2-padding="base(x.25)"
+            data-h2-width="base(100%)"
+            data-h2-font-size="base(copy)"
+            data-h2-font-family="base(sans)"
+            id="date"
+            type="date"
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+        </InputWrapper>
         <div
-          data-h2-display="b(flex)"
-          data-h2-justify-content="b(space-between))"
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
+          <InputError
+            isVisible={showErrorMessage}
+            error={intl.formatMessage({
+              defaultMessage: "Please select a date",
+              id: "Cbo1no",
+              description:
+                "Error displayed on the change candidate expiry date dialog if no date selected",
+            })}
+          />
+        </div>
+      </div>
+      <Dialog.Footer>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(space-between)"
         >
           <CloseDialogButton close={resetAndClose} />
           <ConfirmDialogButton
@@ -340,10 +423,12 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
               submitting
                 ? intl.formatMessage({
                     defaultMessage: "Submitting",
+                    id: "gCbb9X",
                     description: "Text on submit button when submitting",
                   })
                 : intl.formatMessage({
                     defaultMessage: "Change date",
+                    id: "gvomlw",
                     description:
                       "Confirmation button for change expiry date dialog",
                   })
@@ -351,58 +436,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
             disabled={submitting}
           />
         </div>
-      }
-    >
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "You're about to change the expiry date for this user:",
-          description:
-            "First section of text on the change candidate expiry date dialog",
-        })}
-      </p>
-      <p>
-        - {user.firstName} {user.lastName}
-      </p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Set an expiry date for this candidate on this pool:",
-          description:
-            "Second section of text on the change candidate expiry date dialog",
-        })}
-      </p>
-      <div data-h2-margin="b(bottom, xxs)">
-        <InputWrapper
-          inputId="date"
-          label={intl.formatMessage({
-            defaultMessage: "Expiry date",
-            description:
-              "Label displayed on the date field of the change candidate expiry date dialog",
-          })}
-          required
-        >
-          <input
-            data-h2-radius="b(s)"
-            data-h2-padding="b(all, xs)"
-            data-h2-width="b(100)"
-            data-h2-font-size="b(normal)"
-            data-h2-font-family="b(sans)"
-            id="date"
-            type="date"
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
-        </InputWrapper>
-        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
-          <InputError
-            isVisible={showErrorMessage}
-            error={intl.formatMessage({
-              defaultMessage: "Please select a date",
-              description:
-                "Error displayed on the change candidate expiry date dialog if no date selected",
-            })}
-          />
-        </div>
-      </div>
+      </Dialog.Footer>
     </Dialog>
   );
 };
@@ -440,6 +474,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "Candidate removed successfully",
+            id: "tmbdSb",
             description:
               "Toast for successful removal of candidate from pool on view-user page",
           }),
@@ -451,6 +486,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Failed updating expiry date",
+            id: "uOtDuW",
             description:
               "Toast for failed removal of candidate from pool on view-user page",
           }),
@@ -462,15 +498,38 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
     <Dialog
       title={intl.formatMessage({
         defaultMessage: "Remove from pool",
+        id: "KyMCYC",
         description: "title for change expiry date dialog on view-user page",
       })}
       color="ts-primary"
       isOpen={selectedCandidate !== null}
       onDismiss={onDismiss}
-      footer={
+    >
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "You're about to <strong>remove the following user:</strong>",
+          id: "0cEmmG",
+          description:
+            "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
+        })}
+      </p>
+      <p>
+        - {user.firstName} {user.lastName}
+      </p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
+        {intl.formatMessage({
+          defaultMessage: "From the following pool:",
+          id: "vyJpp2",
+          description:
+            "Second section of text on the remove candidate from pool dialog",
+        })}
+      </p>
+      <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
+      <Dialog.Footer>
         <div
-          data-h2-display="b(flex)"
-          data-h2-justify-content="b(space-between))"
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(space-between)"
         >
           <CloseDialogButton close={onDismiss} />
           <ConfirmDialogButton
@@ -479,39 +538,21 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
               submitting
                 ? intl.formatMessage({
                     defaultMessage: "Submitting",
+                    id: "gCbb9X",
                     description: "Text on submit button when submitting",
                   })
                 : intl.formatMessage({
                     defaultMessage: "Remove from pool",
+                    id: "98PjUH",
                     description:
                       "Confirmation button for removing candidate from pool dialog",
                   })
             }
             disabled={submitting}
-            icon={UserRemoveIcon}
+            icon={UserMinusIcon}
           />
         </div>
-      }
-    >
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "You're about to <strong>remove the following user:</strong>",
-          description:
-            "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
-        })}
-      </p>
-      <p>
-        - {user.firstName} {user.lastName}
-      </p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "From the following pool:",
-          description:
-            "Second section of text on the remove candidate from pool dialog",
-        })}
-      </p>
-      <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
+      </Dialog.Footer>
     </Dialog>
   );
 };
@@ -586,6 +627,7 @@ export const AddToPoolDialog: React.FC<{
         toast.success(
           intl.formatMessage({
             defaultMessage: "User added successfully",
+            id: "O8U5Sz",
             description:
               "Toast for successful add user to pool on view-user page",
           }),
@@ -597,6 +639,7 @@ export const AddToPoolDialog: React.FC<{
         toast.error(
           intl.formatMessage({
             defaultMessage: "Failed adding user",
+            id: "GZqEuI",
             description: "Toast for failed add user to pool on view-user page",
           }),
         );
@@ -607,65 +650,46 @@ export const AddToPoolDialog: React.FC<{
     <Dialog
       title={intl.formatMessage({
         defaultMessage: "Add to different pool",
+        id: "CTWpfa",
         description: "title for add to pool dialog on view-user page",
       })}
       color="ts-primary"
       isOpen={isVisible}
       onDismiss={resetAndClose}
-      footer={
-        <div
-          data-h2-display="b(flex)"
-          data-h2-justify-content="b(space-between))"
-        >
-          <CloseDialogButton close={resetAndClose} />
-          <ConfirmDialogButton
-            onConfirm={handleSubmit}
-            title={
-              submitting
-                ? intl.formatMessage({
-                    defaultMessage: "Submitting",
-                    description: "Text on submit button when submitting",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Add to new pool",
-                    description: "Confirmation button for add to pool dialog",
-                  })
-            }
-            disabled={submitting}
-          />
-        </div>
-      }
     >
       <p>
         {intl.formatMessage({
           defaultMessage: "You're about to add this user to a different pool:",
+          id: "8Y+eEc",
           description: "First section of text on the add user to pool dialog",
         })}
       </p>
       <p>
         - {user.firstName} {user.lastName}
       </p>
-      <p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "Choose pool:",
+          id: "K3LEpl",
           description: "Second section of text on the add user to pool dialog",
         })}
       </p>
-      <div data-h2-margin="b(bottom, xxs)">
+      <div data-h2-margin="base(x.5, 0, x.125, 0)">
         <InputWrapper
           inputId="pool"
           label={intl.formatMessage({
             defaultMessage: "Pools",
+            id: "aJVlIF",
             description:
               "Label displayed on the pools field of the add user to pool dialog",
           })}
           required
         >
           <select
-            data-h2-radius="b(s)"
-            data-h2-padding="b(all, xs)"
-            data-h2-font-size="b(normal)"
-            data-h2-width="b(100)"
+            data-h2-radius="base(s)"
+            data-h2-padding="base(x.25)"
+            data-h2-font-size="base(copy)"
+            data-h2-width="base(100%)"
             id="pool"
             defaultValue=""
             onChange={(e) => setSelectedPool(e.target.value)}
@@ -673,6 +697,7 @@ export const AddToPoolDialog: React.FC<{
             <option value="" disabled>
               {intl.formatMessage({
                 defaultMessage: "Select a pool...",
+                id: "X198m3",
                 description:
                   "Placeholder displayed on the pool field of the add user to pool dialog.",
               })}
@@ -686,7 +711,7 @@ export const AddToPoolDialog: React.FC<{
               }
               return (
                 <option
-                  data-h2-font-family="b(sans)"
+                  data-h2-font-family="base(sans)"
                   key={pool?.id}
                   value={pool?.id}
                 >
@@ -696,56 +721,91 @@ export const AddToPoolDialog: React.FC<{
             })}
           </select>
         </InputWrapper>
-        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputError
             isVisible={showPoolErrorMessage}
             error={intl.formatMessage({
               defaultMessage: "Please select a pool",
+              id: "uJSvlo",
               description:
                 "Error displayed on the add user to pool dialog if no pool selected",
             })}
           />
         </div>
       </div>
-      <p>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "Set an expiry date for this candidate on this pool:",
+          id: "9NDM+k",
           description: "Third section of text on the add user to pool dialog",
         })}
       </p>
-      <div data-h2-margin="b(bottom, xxs)">
+      <div data-h2-margin="base(x.5, 0, x.125, 0)">
         <InputWrapper
           inputId="date"
           label={intl.formatMessage({
             defaultMessage: "Expiry date",
+            id: "sICXeM",
             description:
               "Label displayed on the date field of the add user to pool dialog",
           })}
           required
         >
           <input
-            data-h2-radius="b(s)"
-            data-h2-padding="b(all, xs)"
-            data-h2-width="b(100)"
-            data-h2-font-size="b(normal)"
-            data-h2-font-family="b(sans)"
-            data-h2-border="b(darkgray, all, solid, s)"
+            data-h2-radius="base(s)"
+            data-h2-padding="base(x.25)"
+            data-h2-width="base(100%)"
+            data-h2-font-size="base(copy)"
+            data-h2-font-family="base(sans)"
+            data-h2-border="base(all, 1px, solid, dark.dt-gray)"
             id="date"
             type="date"
             onChange={(e) => setSelectedDate(e.target.value)}
           />
         </InputWrapper>
-        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+        <div
+          data-h2-display="base(block)"
+          data-h2-margin="base(x.125, 0, 0, 0)"
+        >
           <InputError
             isVisible={showDateErrorMessage}
             error={intl.formatMessage({
               defaultMessage: "Please select an expiry date",
+              id: "k2FnXH",
               description:
                 "Error displayed on the add user to pool dialog if no date selected",
             })}
           />
         </div>
       </div>
+      <Dialog.Footer>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(space-between)"
+        >
+          <CloseDialogButton close={resetAndClose} />
+          <ConfirmDialogButton
+            onConfirm={handleSubmit}
+            title={
+              submitting
+                ? intl.formatMessage({
+                    defaultMessage: "Submitting",
+                    id: "gCbb9X",
+                    description: "Text on submit button when submitting",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Add to new pool",
+                    id: "yypk6/",
+                    description: "Confirmation button for add to pool dialog",
+                  })
+            }
+            disabled={submitting}
+          />
+        </div>
+      </Dialog.Footer>
     </Dialog>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
-import { Link, Pill } from "@common/components";
+import { Pill } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
@@ -12,36 +12,10 @@ import {
   PoolCandidateFilterInput,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
-import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<
   FromArray<SearchPoolCandidatesQuery["searchPoolCandidates"]>
 >;
-
-const TableEditButton: React.FC<{
-  poolCandidateId?: string;
-  poolId?: string;
-}> = ({ poolCandidateId, poolId }) => {
-  const intl = useIntl();
-  const paths = useAdminRoutes();
-  return (
-    <Link
-      type="button"
-      color="primary"
-      mode="inline"
-      href={paths.poolCandidateUpdate(poolId || "", poolCandidateId || "")}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Edit",
-        description: "Title displayed for the Edit column.",
-      })}
-    </Link>
-  );
-};
-
-function tableEditButtonAccessor(poolCandidateId?: string, poolId?: string) {
-  return <TableEditButton poolCandidateId={poolCandidateId} poolId={poolId} />;
-}
 
 export const SingleSearchRequestTable: React.FunctionComponent<
   SearchPoolCandidatesQuery
@@ -54,6 +28,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Candidate ID",
+          id: "1bNptz",
           description:
             "Title displayed on the single search request table id column.",
         }),
@@ -62,6 +37,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Candidate Name",
+          id: "0PmIE8",
           description:
             "Title displayed on the single search request table candidate name column.",
         }),
@@ -70,6 +46,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Group and Level",
+          id: "MmFgbF",
           description:
             "Title displayed on the single search request table classifications column.",
         }),
@@ -89,6 +66,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Operational Requirements",
+          id: "gN/+W2",
           description:
             "Title displayed on the single search request table operational requirements column.",
         }),
@@ -112,6 +90,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Employment Equity",
+          id: "i45Vxz",
           description:
             "Title displayed on the single search request table employment equity column.",
         }),
@@ -126,6 +105,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
               ? [
                   intl.formatMessage({
                     defaultMessage: "Woman",
+                    id: "VaCRxh",
                     description:
                       "Message for woman option in the employment equity column on the the single search request table.",
                   }),
@@ -135,6 +115,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
               ? [
                   intl.formatMessage({
                     defaultMessage: "Visible Minority",
+                    id: "UdZaOq",
                     description:
                       "Message for visible minority option in the employment equity column on the the single search request table.",
                   }),
@@ -144,6 +125,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
               ? [
                   intl.formatMessage({
                     defaultMessage: "Indigenous",
+                    id: "JtgX1e",
                     description:
                       "Message for indigenous option in the employment equity column on the the single search request table.",
                   }),
@@ -153,6 +135,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
               ? [
                   intl.formatMessage({
                     defaultMessage: "Disability",
+                    id: "97LfRf",
                     description:
                       "Message for disability option in the employment equity column on the the single search request table.",
                   }),
@@ -165,6 +148,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                 {option ||
                   intl.formatMessage({
                     defaultMessage: "Error: Name not found.",
+                    id: "c9jMPS",
                     description:
                       "Error message displayed on the single search request table employment equity column.",
                   })}
@@ -176,6 +160,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Skills",
+          id: "i9/L40",
           description:
             "Title displayed on the single search request table skills column.",
         }),
@@ -186,20 +171,13 @@ export const SingleSearchRequestTable: React.FunctionComponent<
                 {cmoAsset?.name?.[locale] ||
                   intl.formatMessage({
                     defaultMessage: "Error: Name not found.",
+                    id: "ZP3GYM",
                     description:
                       "Error message displayed on the single search request table operational requirements column.",
                   })}
               </Pill>
             );
           }),
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Edit",
-          description:
-            "Title displayed for the single search request table edit column.",
-        }),
-        accessor: ({ id, pool }) => tableEditButtonAccessor(id, pool?.id),
       },
     ],
     [intl, locale],

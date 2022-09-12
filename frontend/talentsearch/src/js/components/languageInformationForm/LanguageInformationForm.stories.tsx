@@ -19,8 +19,9 @@ const TemplateLangInfoForm: Story = (args) => {
   return (
     <LanguageInformationForm
       initialData={initialData}
-      submitHandler={async (data) => {
-        action("Update Language Information")(data);
+      submitHandler={async (id, data) => {
+        action("Update Language Information")(id, data);
+        return Promise.resolve(data);
       }}
     />
   );

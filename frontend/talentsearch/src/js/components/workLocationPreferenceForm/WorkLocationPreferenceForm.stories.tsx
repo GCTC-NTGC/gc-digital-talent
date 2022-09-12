@@ -1,11 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import {
-  UpdateUserAsUserInput,
-  WorkLocationPreferenceQuery,
-  WorkRegion,
-} from "../../api/generated";
+import { UpdateUserAsUserInput, User, WorkRegion } from "../../api/generated";
 import { WorkLocationPreferenceForm } from "./WorkLocationPreferenceForm";
 
 export default {
@@ -13,14 +9,11 @@ export default {
   title: "WorkLocationPreferenceForm",
 } as Meta;
 
-const mockUser: WorkLocationPreferenceQuery | undefined = {
-  __typename: "Query",
-  me: {
-    __typename: "User",
-    id: "thanka11",
-    locationPreferences: [WorkRegion.Atlantic],
-    locationExemptions: "dagu",
-  },
+const mockUser: User = {
+  __typename: "User",
+  id: "thanka11",
+  locationPreferences: [WorkRegion.Atlantic],
+  locationExemptions: "dagu",
 };
 
 const TemplateWorkLocationPreferencesForm: Story = () => {

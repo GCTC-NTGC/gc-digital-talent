@@ -17,15 +17,16 @@ const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
   const poolCandidates = unpackMaybes(applicant.poolCandidates);
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(all, m)"
-      data-h2-radius="b(s)"
+      data-h2-background-color="base(light.dt-gray)"
+      data-h2-padding="base(x1)"
+      data-h2-radius="base(s)"
     >
       {(!poolCandidates || poolCandidates.length === 0) && (
-        <p>
+        <p data-h2-color="base(dt-gray.dark)">
           {intl.formatMessage({
             defaultMessage:
               "You have not been accepted into any hiring pools yet.",
+            id: "gWEfA9",
             description: "Message for if user not part of any hiring pools",
           })}
         </p>
@@ -34,10 +35,10 @@ const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
         poolCandidates.map((poolCandidate) => (
           <div
             key={poolCandidate?.id}
-            data-h2-display="b(flex)"
-            data-h2-flex-direction="b(row)"
-            data-h2-justify-content="b(space-between)"
-            data-h2-padding="b(top-bottom, m)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(row)"
+            data-h2-justify-content="base(space-between)"
+            data-h2-padding="base(x1, 0)"
           >
             <div>
               <p>{poolCandidate?.pool?.name?.[locale]}</p>
@@ -46,6 +47,7 @@ const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage: "ID:",
+                  id: "CPRJ61",
                   description: "The ID and colon",
                 })}{" "}
                 {poolCandidate?.id}
@@ -55,6 +57,7 @@ const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage: "Expiry Date:",
+                  id: "ZSAzrR",
                   description: "The expiry date label and colon",
                 })}{" "}
                 {poolCandidate?.expiryDate}

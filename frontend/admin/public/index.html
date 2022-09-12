@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-h2>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,9 +10,12 @@
   <link rel="icon" type="image/png" sizes="16x16" href="<%= htmlWebpackPlugin.files.publicPath %>images/favicon-16x16.png">
   <link rel="manifest" href="<%= htmlWebpackPlugin.files.publicPath %>site.webmanifest">
   <title><%= htmlWebpackPlugin.options.title %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="app" data-h2-font-family="b(sans)"></div>
+  <div id="app" data-h2-font-family="base(sans)"></div>
   <script src="<%= htmlWebpackPlugin.files.publicPath %>config.sjs"></script>
 </body>
 </html>

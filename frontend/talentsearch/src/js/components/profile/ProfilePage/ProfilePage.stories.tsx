@@ -48,5 +48,6 @@ Object.keys(fakeUserData).forEach((key) => {
 });
 EmptyAllNull.args = {
   ...nullUserData,
+  id: "test ID", // this page can only be loaded by a logged in user
   email: undefined,
 };

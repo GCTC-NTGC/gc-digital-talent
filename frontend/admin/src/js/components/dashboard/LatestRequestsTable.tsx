@@ -10,7 +10,7 @@ import type { PoolCandidateSearchStatus } from "@common/api/generated";
 import { notEmpty } from "@common/helpers/util";
 import Pending from "@common/components/Pending";
 import Heading from "@common/components/Heading";
-import Table from "../Table";
+import Table, { tableViewItemButtonAccessor } from "../Table";
 import type { ColumnsOf } from "../Table";
 
 import {
@@ -26,26 +26,6 @@ import { useAdminRoutes } from "../../adminRoutes";
 type Data = NonNullable<
   FromArray<LatestRequestsQuery["latestPoolCandidateSearchRequests"]>
 >;
-
-const requestActionAccessor = (
-  id: string,
-  path: string,
-  intl: IntlShape,
-  fullName?: string | null,
-) => (
-  <a key={id} href={path} data-h2-display="b(block)" data-h2-width="b(100)">
-    {intl.formatMessage(
-      {
-        defaultMessage: "View request<hidden>{name}</hidden>",
-        description:
-          "Link text for the view action of the latests requests table on the admin portal dashboard.",
-      },
-      {
-        name: fullName,
-      },
-    )}
-  </a>
-);
 
 const statusAccessor = (
   status: PoolCandidateSearchStatus | null | undefined,
@@ -75,21 +55,21 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Action",
+        id: "YR/3EG",
         description:
           "Title displayed on the latest requests table for the action column.",
       }),
-      width: 10,
       accessor: ({ id, fullName }) =>
-        requestActionAccessor(
-          id,
-          paths.searchRequestUpdate(id),
-          intl,
-          fullName,
+        tableViewItemButtonAccessor(
+          paths.searchRequestView(id),
+          "request",
+          fullName || undefined,
         ),
     },
     {
       Header: intl.formatMessage({
         defaultMessage: "Pool name",
+        id: "iIJ/rI",
         description:
           "Title displayed on the latest requests table for the pool column.",
       }),
@@ -126,6 +106,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Date received",
+        id: "61vOnW",
         description:
           "Title displayed on the latest requests table for the date column.",
       }),
@@ -134,6 +115,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Status",
+        id: "hSgcxP",
         description:
           "Title displayed on the latest requests table status column.",
       }),
@@ -142,6 +124,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Manager",
+        id: "myqzYj",
         description:
           "Title displayed on the latest requests table manager column.",
       }),
@@ -150,6 +133,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Department",
+        id: "TZt+a5",
         description:
           "Title displayed on the latest requests table department column.",
       }),
@@ -158,6 +142,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Email",
+        id: "5LWGeI",
         description:
           "Title displayed on the latest requests table email column.",
       }),
@@ -172,10 +157,11 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
       <Heading
         id="latest-requests-heading"
         level="h2"
-        data-h2-margin="b(top-bottom, m)"
+        data-h2-margin="base(x3, 0, x1, 0)"
       >
         {intl.formatMessage({
-          defaultMessage: "Latests requests",
+          defaultMessage: "Latest requests",
+          id: "+phJjJ",
           description:
             "Title for the latests requests table in the admin dashboard",
         })}

@@ -31,14 +31,18 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   isActive = exactMatch,
 }) => {
   const location = useLocation();
+  const activeWeight: Record<string, unknown> = isActive(
+    href ?? null,
+    location.pathname,
+  )
+    ? { "data-h2-font-weight": "base(700)" }
+    : { "data-h2-font-weight": "base(100)" };
   return (
     <Link
       href={href}
       title={title ?? ""}
-      data-h2-font-color="b(ia-pink)"
-      data-h2-font-weight={
-        isActive(href, location.pathname) ? "b(700)" : "b(100)"
-      }
+      data-h2-color="base(ia-primary)"
+      {...activeWeight}
     >
       {text}
     </Link>
@@ -52,6 +56,7 @@ const IndigenousApprenticeshipNotFound: React.FC = () => {
       headingMessage={intl.formatMessage({
         description: "Heading for the message saying the page was not found.",
         defaultMessage: "Sorry, we can't find the page you were looking for.",
+        id: "pBJzgi",
       })}
     >
       <p>
@@ -59,6 +64,7 @@ const IndigenousApprenticeshipNotFound: React.FC = () => {
           description: "Detailed message saying the page was not found.",
           defaultMessage:
             "Oops, it looks like you've landed on a page that either doesn't exist or has moved.",
+          id: "pgHTkX",
         })}
       </p>
     </NotFound>
@@ -73,6 +79,7 @@ const IndigenousApprenticeshipNotAuthorized: React.FC = () => {
         description:
           "Heading for the message saying the page to view is not authorized.",
         defaultMessage: "Sorry, you are not authorized to view this page.",
+        id: "jPLaDk",
       })}
     >
       <p>
@@ -81,6 +88,7 @@ const IndigenousApprenticeshipNotAuthorized: React.FC = () => {
             "Detailed message saying the page to view is not authorized.",
           defaultMessage:
             "Oops, it looks like you've landed on a page that you are not authorized to view.",
+          id: "gKyog2",
         })}
       </p>
     </NotAuthorized>
@@ -105,16 +113,17 @@ export const PageContainer: React.FC<{
   return (
     <ScrollToTop>
       <>
-        <a href="#main" data-h2-visibility="b(hidden)">
+        <a href="#main" data-h2-visibility="base(hidden)">
           {intl.formatMessage({
             defaultMessage: "Skip to main content",
+            id: "Srs7a4",
             description: "Assistive technology skip link",
           })}
         </a>
         <div
           className="container"
-          data-h2-display="b(flex)"
-          data-h2-flex-direction="b(column)"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
           style={{ height: "100vh", margin: "0" }}
         >
           <div>

@@ -76,30 +76,31 @@ export const WorkTasksSection = ({
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading>
-        <h2 data-h2-margin="b(top, l)" data-h2-font-size="b(p)">
-          {sectionMetadata.title}
-        </h2>
+        <h2 data-h2-margin="base(x3, 0, x1, 0)">{sectionMetadata.title}</h2>
       </TableOfContents.Heading>
       <p>
         {intl.formatMessage({
           defaultMessage:
             "This information lets applicants know the type of work they will be expected to perform. Talk about the tasks and expectations related to this work.",
+          id: "k9nAP5",
           description: "Helper message for filling in the pool work tasks",
         })}
       </p>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleSave)}>
-          <div data-h2-display="b(flex)">
+          <div data-h2-display="base(flex)">
             <Spacer style={{ flex: 1 }}>
               <TextArea
                 id="YourWorkEn"
                 label={intl.formatMessage({
                   defaultMessage: "English - Your work",
+                  id: "lb7SoP",
                   description:
                     "Label for the English - Your Work textarea in the edit pool page.",
                 })}
                 placeholder={intl.formatMessage({
                   defaultMessage: "Write the key tasks for this job poster...",
+                  id: "PCuQMN",
                   description:
                     "Placeholder message for  the English - Your Work textarea in the edit pool page.",
                 })}
@@ -117,7 +118,7 @@ export const WorkTasksSection = ({
                 disabled={formDisabled}
               >
                 {!formDisabled && (
-                  <div data-h2-align-self="b(flex-end)">
+                  <div data-h2-align-self="base(flex-end)">
                     <WordCounter
                       text={watchYourWorkEn ?? ""}
                       wordLimit={TEXT_AREA_MAX_WORDS}
@@ -131,11 +132,13 @@ export const WorkTasksSection = ({
                 id="YourWorkFr"
                 label={intl.formatMessage({
                   defaultMessage: "French - Your work",
+                  id: "8bJgxK",
                   description:
                     "Label for the French - Your Work textarea in the edit pool page.",
                 })}
                 placeholder={intl.formatMessage({
                   defaultMessage: "Write the key tasks for this job poster...",
+                  id: "Xsxvql",
                   description:
                     "Placeholder message for the French - Your Work textarea in the edit pool page.",
                 })}
@@ -153,7 +156,7 @@ export const WorkTasksSection = ({
                 disabled={formDisabled}
               >
                 {!formDisabled && (
-                  <div data-h2-align-self="b(flex-end)">
+                  <div data-h2-align-self="base(flex-end)">
                     <WordCounter
                       text={watchYourWorkFr ?? ""}
                       wordLimit={TEXT_AREA_MAX_WORDS}
@@ -168,6 +171,7 @@ export const WorkTasksSection = ({
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Save work tasks",
+                id: "tiv5J7",
                 description: "Text on a button to save the pool work tasks",
               })}
               color="cta"

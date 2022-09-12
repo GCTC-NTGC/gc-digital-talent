@@ -30,7 +30,7 @@ class PoolCandidatePolicy
      */
     public function view(User $user, PoolCandidate $poolCandidate)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->id === $poolCandidate->user_id;
     }
 
     /**
@@ -100,6 +100,18 @@ class PoolCandidatePolicy
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function archiveApplication(User $user, PoolCandidate $poolCandidate)
+    {
+        return $user->isAdmin() || $user->id === $poolCandidate->user_id;
+    }
+
+    /**
+     * Determine whether the user can delete an application
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\PoolCandidate  $poolCandidate
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function deleteApplication(User $user, PoolCandidate $poolCandidate)
     {
         return $user->isAdmin() || $user->id === $poolCandidate->user_id;
     }

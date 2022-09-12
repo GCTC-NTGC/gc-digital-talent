@@ -15,20 +15,14 @@ const FilterBlock: React.FC<FilterBlockProps> = ({
   <div>
     <h3
       id={id}
-      data-h2-font-size="b(h4)"
-      data-h2-font-weight="b(700)"
-      data-h2-margin="b(bottom, m)"
+      data-h2-font-size="base(h6, 1)"
+      data-h2-font-weight="base(700)"
+      data-h2-margin="base(x3, 0, x1, 0)"
     >
       {title}
     </h3>
-    <p
-      data-h2-font-size="b(caption)"
-      data-h2-margin="b(bottom, m)"
-      data-h2-padding="b(right, xl)"
-    >
-      {text}
-    </p>
-    {children && <div style={{ maxWidth: "30rem" }}>{children}</div>}
+    <p data-h2-margin="base(0, 0, x1, 0)">{text}</p>
+    {children && <div>{children}</div>}
   </div>
 );
 

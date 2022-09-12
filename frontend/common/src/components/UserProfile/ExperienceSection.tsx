@@ -108,16 +108,19 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
   const tabs = [
     intl.formatMessage({
       defaultMessage: "By Date",
+      id: "w+L6oa",
       description:
         "Tab title for experiences sorted by date in applicant profile.",
     }),
     intl.formatMessage({
       defaultMessage: "By Type",
+      id: "P/tHlt",
       description:
         "Tab title for experiences sorted by type in applicant profile.",
     }),
     intl.formatMessage({
       defaultMessage: "By Skills",
+      id: "JerysR",
       description:
         "Tab title for experiences sorted by skills in applicant profile.",
     }),
@@ -157,14 +160,15 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
     </Tabs>
   ) : (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(all, m)"
-      data-h2-radius="b(s)"
+      data-h2-background-color="base(dt-gray.light)"
+      data-h2-padding="base(x1)"
+      data-h2-radius="base(s)"
     >
       {!editPath ? (
         <p>
           {intl.formatMessage({
             defaultMessage: "No information has been provided",
+            id: "4Xa7Pd",
             description:
               "Message on Admin side when user not filled Experience section.",
           })}
@@ -174,6 +178,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
           <p>
             {intl.formatMessage({
               defaultMessage: "You haven't added any information here yet.",
+              id: "SCCX7B",
               description: "Message for when no data exists for the section",
             })}
           </p>
@@ -181,6 +186,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
             <a href={editPath}>
               {intl.formatMessage({
                 defaultMessage: "Edit your experience options.",
+                id: "c39xT8",
                 description:
                   "Link text to edit experience information on profile.",
               })}

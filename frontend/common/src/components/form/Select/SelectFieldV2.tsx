@@ -53,6 +53,7 @@ const LocalizedLoadingMessage = <
     <components.LoadingMessage {...props}>
       {formatMessage({
         defaultMessage: "Loading...",
+        id: "ylHC90",
         description:
           "Message shown in options dropdown when Select field is loading options.",
       })}
@@ -74,6 +75,7 @@ const LocalizedNoOptionsMessage = <
     <components.NoOptionsMessage {...props}>
       {formatMessage({
         defaultMessage: "No options",
+        id: "lsFH+y",
         description:
           "Message shown in options dropdown when Select field has no options.",
       })}
@@ -118,6 +120,7 @@ const SelectFieldV2 = ({
 
   const defaultPlaceholder = formatMessage({
     defaultMessage: "Select...",
+    id: "rQwIDB",
     description:
       "Default placeholder shown when Select field has nothing actively selected.",
   });
@@ -139,7 +142,7 @@ const SelectFieldV2 = ({
   const rulesWithDefaults = useRulesWithDefaultMessages(label, rules);
 
   return (
-    <div data-h2-margin="b(bottom, xxs)">
+    <div data-h2-margin="base(0, 0, x.125, 0)">
       <InputWrapper
         {...{ label, context, error }}
         inputId={id}
@@ -170,14 +173,14 @@ const SelectFieldV2 = ({
               ) =>
                 /* eslint-disable no-nested-ternary, prettier/prettier */
                 isArray<Option>(singleOrMulti)
-                  // Stores MultiValue as array of values.
-                  ? field.onChange(singleOrMulti.map((o) => o.value))
+                  ? // Stores MultiValue as array of values.
+                    field.onChange(singleOrMulti.map((o) => o.value))
                   : forceArrayFormValue
-                    // Stores SingleValue as array of one value, or null as empty array.
-                    ? field.onChange(singleOrMulti ? [singleOrMulti?.value] : [])
-                    // Stores SingleValue as value or null
-                    : field.onChange(singleOrMulti?.value || null);
-                /* eslint-enable no-nested-ternary, prettier/prettier */
+                  ? // Stores SingleValue as array of one value, or null as empty array.
+                    field.onChange(singleOrMulti ? [singleOrMulti?.value] : [])
+                  : // Stores SingleValue as value or null
+                    field.onChange(singleOrMulti?.value || null);
+              /* eslint-enable no-nested-ternary, prettier/prettier */
 
               // For WCAG-compliant contrasts.
               const accessibleTextStyle = {

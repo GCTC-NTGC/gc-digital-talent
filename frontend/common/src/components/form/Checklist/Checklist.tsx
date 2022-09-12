@@ -69,15 +69,16 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
             key={id}
             inputId={id}
             label={label}
+            labelSize="copy"
             // Don't show Required tag, error or context on individual input, as its handled by Fieldset.
             required={false}
             hideOptional
-            data-h2-flex-direction="b(row)"
-            data-h2-align-items="b(center)"
+            data-h2-margin="base(x.25, 0, 0, 0)"
+            data-h2-flex-direction="base(row)"
           >
             <input
-              style={{ order: -1 }}
-              data-h2-margin="b(bottom-right, xxs)"
+              data-h2-order="base(-1)"
+              data-h2-margin="base(3px, x.5, 0, 0)"
               id={id}
               {...register(name, rules)}
               value={value}

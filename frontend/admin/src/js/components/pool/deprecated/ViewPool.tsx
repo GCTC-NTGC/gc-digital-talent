@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { ViewGridIcon, HomeIcon } from "@heroicons/react/outline";
+import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
@@ -33,6 +33,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Pool Details",
+    id: "yBmBnd",
     description: "Title for the page when viewing an individual pool.",
   });
 
@@ -42,18 +43,18 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
     {
       title: intl.formatMessage({
         defaultMessage: "Home",
+        id: "DUK/pz",
         description: "Breadcrumb title for the home page link.",
       }),
       href: adminPaths.home(),
-      icon: <HomeIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage({
         defaultMessage: "Pools",
+        id: "3fAkvM",
         description: "Breadcrumb title for the pools page link.",
       }),
       href: adminPaths.poolTable(),
-      icon: <ViewGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: poolName,
@@ -63,33 +64,35 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
   const tabs = [
     intl.formatMessage({
       defaultMessage: "Pool details",
+      id: "gZwKs8",
       description: "Tabs title for the individual pool details.",
     }),
     intl.formatMessage({
       defaultMessage: "Pool candidates",
+      id: "GhGkBV",
       description: "Tabs title for the individual pool candidates.",
     }),
   ];
 
   return (
-    <>
-      <PageHeader icon={ViewGridIcon}>{pageTitle}</PageHeader>
+    <div data-h2-container="base(center, full, x1) p-tablet(center, full, x2)">
+      <PageHeader icon={Squares2X2Icon}>{pageTitle}</PageHeader>
       <Breadcrumbs links={links} />
       <div
-        data-h2-align-items="b(center)"
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column) m(row)"
-        data-h2-margin="b(top-bottom, l)"
+        data-h2-align-items="base(center)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-margin="base(x2, 0)"
       >
         {pool.name && (
           <h2
-            data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
-            data-h2-font-weight="b(800)"
+            data-h2-margin="base(x.5, 0) p-tablet(0)"
+            data-h2-font-weight="base(700)"
           >
             {poolName}
           </h2>
         )}
-        <div data-h2-margin="m(left, auto)">
+        <div data-h2-margin="l-tablet(0, 0, 0, auto)">
           <Link
             mode="outline"
             color="primary"
@@ -98,6 +101,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
           >
             {intl.formatMessage({
               defaultMessage: "Edit pool",
+              id: "SH/wd3",
               description: "Link text for button to edit a specific pool",
             })}
           </Link>
@@ -116,7 +120,7 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
           <TabPanel>{tabs[1]}</TabPanel>
         </TabPanels>
       </Tabs>
-    </>
+    </div>
   );
 };
 
@@ -140,6 +144,7 @@ const ViewPool: React.FC<ViewPoolProps> = ({ poolId }) => {
             {intl.formatMessage(
               {
                 defaultMessage: "Pool {poolId} not found.",
+                id: "Sb2fEr",
                 description: "Message displayed for pool not found.",
               },
               { poolId },

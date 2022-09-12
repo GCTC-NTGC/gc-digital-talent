@@ -49,7 +49,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
@@ -58,7 +58,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool2['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
@@ -114,7 +114,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'is_woman' => false,
@@ -127,7 +127,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'is_woman' => true,
@@ -140,7 +140,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'is_woman' => true,
@@ -234,7 +234,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(1)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
@@ -244,7 +244,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(2)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
@@ -254,7 +254,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'language_ability' => ApiEnums::LANGUAGE_ABILITY_BILINGUAL,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
@@ -339,7 +339,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(1)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'expected_salary' => [],
@@ -349,7 +349,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(2)->sequence(fn () => [
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'expected_salary' => ['_50_59K', '_70_79K'],
@@ -367,7 +367,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->sequence(fn () => [
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'expected_salary' => ['_60_69K', '_80_89K'],
@@ -379,7 +379,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(11)->sequence(fn () => [
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'expected_salary' => ['_90_99K', '_100K_PLUS']
@@ -442,7 +442,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'has_diploma' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
@@ -452,7 +452,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'has_diploma' => true,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
@@ -514,7 +514,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'location_preferences' => ["ONTARIO"],
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
@@ -524,7 +524,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'location_preferences' => ["TELEWORK"],
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
@@ -586,7 +586,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'would_accept_temporary' => false,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
@@ -596,7 +596,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'would_accept_temporary' => true,
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
@@ -658,7 +658,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(1)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => [],
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
@@ -668,7 +668,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(2)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => ["SHIFT_WORK"],
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
@@ -678,7 +678,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => ["SHIFT_WORK", "TRAVEL"],
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
@@ -766,7 +766,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(1)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])
@@ -775,7 +775,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(2)->sequence(fn () => [
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])->afterCreating(function ($user) use ($skill1) {
@@ -795,7 +795,7 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->count(4)->sequence(fn () => [
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             ])->afterCreating(function ($user) use ($skill1, $skill2) {
@@ -925,6 +925,489 @@ class ApplicantTest extends TestCase
         )->assertJson([
             'data' => [
                 'countApplicants' => 0
+            ]
+        ]);
+    }
+
+    public function testPriorityWeight(): void
+    {
+        // test generated property that exists on type User and Applicant from model User.php
+
+        // create candidates
+        $candidateOne = User::factory()->create([
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+            'has_priority_entitlement' => true,
+            'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
+            'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
+        ]);
+        $candidateTwo = User::factory()->create([
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+            'has_priority_entitlement' => false,
+            'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
+            'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
+        ]);
+        $candidateThree = User::factory()->create([
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
+            'has_priority_entitlement' => false,
+            'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
+            'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
+        ]);
+        $candidateFour = User::factory()->create([
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
+            'has_priority_entitlement' => false,
+            'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
+            'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
+        ]);
+
+        // Assert candidate one returns 10
+        $this->graphQL(/** @lang Graphql */ '
+            query applicant($id: ID!) {
+                applicant(id: $id) {
+                    priorityWeight
+                }
+            }
+            ', [
+                'id' => $candidateOne->id,
+        ])->assertJson([
+            "data" => [
+                "applicant" => [
+                    "priorityWeight" => 10,
+                ]
+            ]
+        ]);
+
+        // Assert candidate two returns 20
+        $this->graphQL(/** @lang Graphql */ '
+            query applicant($id: ID!) {
+                applicant(id: $id) {
+                    priorityWeight
+                }
+            }
+            ', [
+                'id' => $candidateTwo->id,
+        ])->assertJson([
+            "data" => [
+                "applicant" => [
+                    "priorityWeight" => 20,
+                ]
+            ]
+        ]);
+
+        // Assert candidate three returns 30
+        $this->graphQL(/** @lang Graphql */ '
+            query applicant($id: ID!) {
+                applicant(id: $id) {
+                    priorityWeight
+                }
+            }
+            ', [
+                'id' => $candidateThree->id,
+        ])->assertJson([
+            "data" => [
+                "applicant" => [
+                    "priorityWeight" => 30,
+                ]
+            ]
+        ]);
+
+        // Assert candidate four returns 40
+        $this->graphQL(/** @lang Graphql */ '
+            query applicant($id: ID!) {
+                applicant(id: $id) {
+                    priorityWeight
+                }
+            }
+            ', [
+                'id' => $candidateFour->id,
+        ])->assertJson([
+            "data" => [
+                "applicant" => [
+                    "priorityWeight" => 40,
+                ]
+            ]
+        ]);
+    }
+
+    public function testStatusWeight(): void {
+        // test generated property that exists on type PoolCandidate from model PoolCandidate.php
+
+        // create candidates for each status
+        $user = User::All()->first();
+        $pool1 = Pool::factory()->create([
+            'user_id' => $user['id']
+        ]);
+        $candidateOne = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+        ]);
+        $candidateTwo = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+            'expiry_date' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
+        ]);
+        $candidateThree = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+        ]);
+        $candidateFour = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+        ]);
+        $candidateFive = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_SCREENED_IN,
+        ]);
+        $candidateSix = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
+        ]);
+        $candidateSeven = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a17',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
+        ]);
+        $candidateEight = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a18',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
+        ]);
+        $candidateNine = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a19',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+        ]);
+        $candidateTen = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a20',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE,
+        ]);
+        $candidateEleven = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_WITHDREW,
+        ]);
+        $candidateTwelve = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+        ]);
+        $candidateThirteen = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a23',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
+        ]);
+        $candidateFourteen = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a24',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE,
+        ]);
+        $candidateFifteen = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a25',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+        ]);
+
+        // Assert candidate one DRAFT is 10
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateOne->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 10,
+                    "status" => ApiEnums::CANDIDATE_STATUS_DRAFT,
+                ]
+            ]
+        ]);
+        // Assert candidate two DRAFT_EXPIRED is 20
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateTwo->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 20,
+                    "status" => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
+                ]
+            ]
+        ]);
+        // Assert candidate three NEW APPLICATION is 30
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateThree->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 30,
+                    "status" => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+                ]
+            ]
+        ]);
+        // Assert candidate four APPLICATION REVIEW is 40
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateFour->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 40,
+                    "status" => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+                ]
+            ]
+        ]);
+        // Assert candidate five SCREENED IN is 50
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateFive->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 50,
+                    "status" => ApiEnums::CANDIDATE_STATUS_SCREENED_IN,
+                ]
+            ]
+        ]);
+        // Assert candidate six SCREENED OUT APPLICATION is 60
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateSix->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 60,
+                    "status" => ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
+                ]
+            ]
+        ]);
+        // Assert candidate seven UNDER ASSESSMENT is 70
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateSeven->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 70,
+                    "status" => ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
+                ]
+            ]
+        ]);
+        // Assert candidate eight SCREENED OUT ASSESSMENT is 80
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateEight->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 80,
+                    "status" => ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
+                ]
+            ]
+        ]);
+        // Assert candidate nine QUALIFIED AVAILABLE is 90
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateNine->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 90,
+                    "status" => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+                ]
+            ]
+        ]);
+        // Assert candidate ten QUALIFIED UNAVAILABLE is 100
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateTen->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 100,
+                    "status" => ApiEnums::CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE,
+                ]
+            ]
+        ]);
+        // Assert candidate eleven QUALIFIED WITHDREW is 110
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateEleven->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 110,
+                    "status" => ApiEnums::CANDIDATE_STATUS_QUALIFIED_WITHDREW
+                ]
+            ]
+        ]);
+        // Assert candidate twelve PLACED CASUAL is 120
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateTwelve->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 120,
+                    "status" => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+                ]
+            ]
+        ]);
+        // Assert candidate thirteen PLACED TERM is 130
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateThirteen->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 130,
+                    "status" => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
+                ]
+            ]
+        ]);
+        // Assert candidate fourteen PLACED INDETERMINATE is 140
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateFourteen->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 140,
+                    "status" => ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE,
+                ]
+            ]
+        ]);
+        // Assert candidate fifteen EXPIRED is 150
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidate($id: ID!) {
+                poolCandidate(id: $id) {
+                    statusWeight
+                    status
+                }
+            }
+            ', [
+                'id' => $candidateFifteen->id,
+        ])->assertJson([
+            "data" => [
+                "poolCandidate" => [
+                    "statusWeight" => 150,
+                    "status" => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+                ]
             ]
         ]);
     }

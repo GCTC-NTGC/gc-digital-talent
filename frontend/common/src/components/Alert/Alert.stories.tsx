@@ -1,5 +1,5 @@
 import React from "react";
-import { BellIcon } from "@heroicons/react/outline";
+import { BellIcon } from "@heroicons/react/24/outline";
 import { Meta, Story } from "@storybook/react";
 import Alert, { AlertProps } from "./Alert";
 

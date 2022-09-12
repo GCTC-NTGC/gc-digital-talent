@@ -9,7 +9,7 @@ type CandidateResultsProps = SearchPoolsProps;
 const mailLink = (msg: string) => (
   <a
     href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}
-    data-h2-font-weight="b(700)"
+    data-h2-font-weight="base(700)"
   >
     {msg}
   </a>
@@ -25,10 +25,11 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
 
   return candidateCount > 0 ? (
     <div
-      data-h2-shadow="b(m)"
-      data-h2-border="b(lightnavy, left, solid, l)"
-      data-h2-margin="b(top, s) b(bottom, m)"
-      data-h2-flex-grid="b(middle, contained, flush, xl)"
+      data-h2-background-color="base(dt-white)"
+      data-h2-shadow="base(m)"
+      data-h2-border="base(left, x1, solid, dt-secondary.light)"
+      data-h2-margin="base(x.5, 0, 0, 0)"
+      data-h2-radius="base(0, s, s, 0)"
     >
       <SearchPools
         candidateCount={candidateCount}
@@ -39,23 +40,25 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
     </div>
   ) : (
     <div
-      data-h2-shadow="b(m)"
-      data-h2-margin="b(top, s) b(bottom, m)"
-      data-h2-padding="b(top-bottom, xs) b(left, s)"
-      data-h2-border="b(darkgray, left, solid, l)"
+      data-h2-shadow="base(m)"
+      data-h2-margin="base(x.5, 0, 0, 0)"
+      data-h2-padding="base(x1)"
+      data-h2-border="base(left, x1, solid, dt-gray.dark)"
     >
-      <p data-h2-margin="b(bottom, none)">
+      <p>
         {intl.formatMessage({
           defaultMessage: "We can still help!",
+          id: "5U+V2Y",
           description:
             "Heading for helping user if no candidates matched the filters chosen.",
         })}
       </p>
-      <p data-h2-margin="b(top, xxs)" data-h2-font-size="b(caption)">
+      <p data-h2-margin="base(x.5, 0, 0, 0)">
         {intl.formatMessage(
           {
             defaultMessage:
               "If there are no matching candidates <a>Get in touch!</a>",
+            id: "+ZXZj+",
             description:
               "Message for helping user if no candidates matched the filters chosen.",
           },

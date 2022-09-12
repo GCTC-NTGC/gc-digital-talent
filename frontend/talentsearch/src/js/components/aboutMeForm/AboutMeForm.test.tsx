@@ -62,6 +62,7 @@ describe("AboutMeForm", () => {
     expect(
       await screen.getByRole("radio", { name: /english/i }),
     ).toBeInTheDocument();
+
     expect(
       await screen.getByRole("radio", { name: /french/i }),
     ).toBeInTheDocument();
@@ -89,6 +90,42 @@ describe("AboutMeForm", () => {
     expect(
       await screen.getByRole("textbox", { name: /email/i }),
     ).toBeInTheDocument();
+
+    expect(
+      await screen.getByRole("radio", {
+        name: /I am not a member of the CAF/i,
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.getByRole("radio", {
+        name: /I am an active member of the CAF/i,
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.getByRole("radio", {
+        name: /I am a veteran of the CAF/i,
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.getByRole("radio", {
+        name: /I am a Canadian citizen/i,
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.getByRole("radio", {
+        name: /I am a permanent resident of Canada/i,
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.getByRole("radio", {
+        name: /Other/i,
+      }),
+    ).toBeInTheDocument();
   });
 
   it("Should not submit with empty fields.", async () => {
@@ -103,12 +140,14 @@ describe("AboutMeForm", () => {
         firstName: "",
         lastName: "",
         email: "",
+        citizenship: null,
+        armedForcesStatus: null,
       },
       onUpdateAboutMe: mockSave,
     });
 
     fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
-    expect(await screen.findAllByRole("alert")).toHaveLength(7);
+    expect(await screen.findAllByRole("alert")).toHaveLength(9);
     expect(mockSave).not.toHaveBeenCalled();
   });
 

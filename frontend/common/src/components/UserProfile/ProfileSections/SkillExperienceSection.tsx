@@ -35,15 +35,15 @@ const SkillExperienceSection: React.FunctionComponent<{
       {" "}
       {!experiences || experiences?.length === 0 ? (
         <div
-          data-h2-bg-color="b(lightgray)"
-          data-h2-padding="b(all, m)"
-          data-h2-radius="b(s)"
+          data-h2-background-color="base(light.dt-gray)"
+          data-h2-padding="base(x1)"
+          data-h2-radius="base(s)"
         >
           <p>
             {intl.formatMessage({
               defaultMessage: "You haven't added any information here yet.",
-              description:
-                "Message that the user hasn't filled out the section yet",
+              id: "SCCX7B",
+              description: "Message for when no data exists for the section",
             })}
           </p>
           <p>
@@ -51,6 +51,7 @@ const SkillExperienceSection: React.FunctionComponent<{
             <a href={editPath}>
               {intl.formatMessage({
                 defaultMessage: "Edit your skill and experience options.",
+                id: "hDupu9",
                 description:
                   "Link text for editing skills and experiences on profile.",
               })}
@@ -58,7 +59,7 @@ const SkillExperienceSection: React.FunctionComponent<{
           </p>
         </div>
       ) : (
-        <div data-h2-padding="b(all, m)" data-h2-radius="b(s)">
+        <div data-h2-padding="base(x1)" data-h2-radius="base(s)">
           <ExperienceSection
             experiences={experiences?.filter(notEmpty)}
             experienceEditPaths={experienceEditPaths as ExperiencePaths}

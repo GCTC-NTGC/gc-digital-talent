@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
-import { useLocation } from "@common/helpers/router";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
@@ -11,7 +10,7 @@ import {
   GetPoolCandidateSearchRequestsQuery,
   useGetPoolCandidateSearchRequestsQuery,
 } from "../../api/generated";
-import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
+import Table, { ColumnsOf, tableViewItemButtonAccessor } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<
@@ -31,8 +30,8 @@ const statusAccessor = (
 );
 
 export const SearchRequestTable: React.FunctionComponent<
-  GetPoolCandidateSearchRequestsQuery & { editUrlRoot: string }
-> = ({ poolCandidateSearchRequests, editUrlRoot }) => {
+  GetPoolCandidateSearchRequestsQuery
+> = ({ poolCandidateSearchRequests }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
@@ -41,7 +40,22 @@ export const SearchRequestTable: React.FunctionComponent<
     () => [
       {
         Header: intl.formatMessage({
+          defaultMessage: "Action",
+          id: "TDTE1c",
+          description:
+            "Title displayed for the search request table edit column.",
+        }),
+        accessor: ({ id, fullName }) =>
+          tableViewItemButtonAccessor(
+            paths.searchRequestView(id),
+            "request",
+            fullName || "",
+          ),
+      },
+      {
+        Header: intl.formatMessage({
           defaultMessage: "ID",
+          id: "f24Z8p",
           description: "Title displayed on the search request table id column.",
         }),
         accessor: "id",
@@ -49,6 +63,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Date Received",
+          id: "r2gD/4",
           description:
             "Title displayed on the search request table requested date column.",
         }),
@@ -57,6 +72,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Status",
+          id: "t3sEc+",
           description:
             "Title displayed on the search request table status column.",
         }),
@@ -65,6 +81,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Manager",
+          id: "7FtbwK",
           description:
             "Title displayed on the search request table manager column.",
         }),
@@ -73,6 +90,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Department",
+          id: "i3C5Hn",
           description:
             "Title displayed on the search request table department column.",
         }),
@@ -81,6 +99,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Email",
+          id: "hiZAeF",
           description:
             "Title displayed on the search request table email column.",
         }),
@@ -89,6 +108,7 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Job Title",
+          id: "8hee5d",
           description:
             "Title displayed on the search request table job title column.",
         }),
@@ -97,13 +117,13 @@ export const SearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Pool",
+          id: "Htqzxb",
           description:
             "Title displayed on the search request table pool column.",
         }),
-        accessor: ({ poolCandidateFilter }) =>
-          // TODO: get pools from applicantFilter if it is defined.
-          poolCandidateFilter
-            ? poolCandidateFilter?.pools?.map(
+        accessor: ({ applicantFilter, poolCandidateFilter }) =>
+          applicantFilter
+            ? applicantFilter?.pools?.map(
                 (pool) =>
                   pool && (
                     <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
@@ -111,18 +131,17 @@ export const SearchRequestTable: React.FunctionComponent<
                     </a>
                   ),
               )
-            : "SHOULD HAVE GOT DATA FROM APPLICANT FILTER INSTEAD",
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Edit",
-          description:
-            "Title displayed for the search request table edit column.",
-        }),
-        accessor: ({ id }) => tableEditButtonAccessor(id, editUrlRoot),
+            : poolCandidateFilter?.pools?.map(
+                (pool) =>
+                  pool && (
+                    <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
+                      {pool.name?.[locale]}
+                    </a>
+                  ),
+              ),
       },
     ],
-    [intl, locale, paths, editUrlRoot],
+    [intl, locale, paths],
   );
 
   const memoizedData = useMemo(
@@ -136,13 +155,11 @@ export const SearchRequestTable: React.FunctionComponent<
 export const SearchRequestTableApi: React.FunctionComponent = () => {
   const [result] = useGetPoolCandidateSearchRequestsQuery();
   const { data, fetching, error } = result;
-  const { pathname } = useLocation();
 
   return (
     <Pending fetching={fetching} error={error}>
       <SearchRequestTable
         poolCandidateSearchRequests={data?.poolCandidateSearchRequests ?? []}
-        editUrlRoot={pathname}
       />
     </Pending>
   );

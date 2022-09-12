@@ -1,0 +1,5 @@
+<!-- Ensure data-h2 is set on body tag, so that wraps higher up than normal
+storybook decorator. This allows libraries like reach-dialog to work, which
+append elements to the bottom of the body tag enclosure.
+Source: https://github.com/storybookjs/storybook/issues/1672#issuecomment-455621938 -->
+<script>setTimeout(function () { document.body.setAttribute("data-h2", "true"); }, 0);</script>

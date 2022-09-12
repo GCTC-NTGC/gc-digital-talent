@@ -15,39 +15,39 @@ const colorMap: Record<
 > = {
   primary: {
     solid: {
-      "data-h2-border": "b(darkpurple, all, solid, s)",
-      "data-h2-bg-color": "b(lightpurple)",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "base(all, 1px, solid, dark.dt-primary)",
+      "data-h2-background-color": "base(dt-primary)",
+      "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "b(darkpurple, all, solid, s)",
-      "data-h2-bg-color": "b(lightpurple[.1])",
-      "data-h2-font-color": "b(darkpurple)",
+      "data-h2-border": "base(all, 1px, solid, dark.dt-primary)",
+      "data-h2-background-color": "base(light.dt-primary.1)",
+      "data-h2-color": "base(dark.dt-primary)",
     },
   },
   secondary: {
     solid: {
-      "data-h2-border": "b(darknavy, all, solid, s)",
-      "data-h2-bg-color": "b(lightnavy)",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "base(all, 1px, solid, dark.dt-secondary)",
+      "data-h2-background-color": "base(light.dt-secondary)",
+      "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "b(darknavy, all, solid, s)",
-      "data-h2-bg-color": "b(lightnavy[.1])",
-      "data-h2-font-color": "b(darknavy)",
+      "data-h2-border": "base(all, 1px, solid, dark.dt-secondary)",
+      "data-h2-background-color": "base(light.dt-secondary.1)",
+      "data-h2-color": "base(dark.dt-secondary)",
     },
   },
   neutral: {
     solid: {
       /* not very visible - should probably be fixed before using */
-      "data-h2-border": "b(darkgray, all, solid, s)",
-      "data-h2-bg-color": "b(gray)",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "base(all, 1px, solid, dark.dt-gray)",
+      "data-h2-background-color": "base(dark.dt-gray)",
+      "data-h2-color": "base(dt-white)",
     },
     outline: {
-      "data-h2-border": "b(darkgray, all, solid, s)",
-      "data-h2-bg-color": "b(lightgray[.1])",
-      "data-h2-font-color": "b(darkgray)",
+      "data-h2-border": "base(all, 1px, solid, dark.dt-gray)",
+      "data-h2-background-color": "base(dt-gray.1)",
+      "data-h2-color": "base(dark.dt-gray)",
     },
   },
 };
@@ -61,26 +61,19 @@ const Pill: React.FC<PillProps> = ({
 }): React.ReactElement => {
   return (
     <span
-      data-h2-padding="b(all, xs)"
+      data-h2-padding="base(x.25, x.75)"
       {...(block
-        ? { "data-h2-display": "b(block)" }
-        : { "data-h2-display": "b(inline-block)" })}
-      data-h2-radius="b(m)"
-      data-h2-font-size="b(caption)"
-      data-h2-font-family="b(sans)"
+        ? { "data-h2-display": "base(block)" }
+        : { "data-h2-display": "base(inline-block)" })}
+      data-h2-radius="base(m)"
+      data-h2-font-size="base(caption)"
       {...colorMap[color][mode]}
-      data-h2-margin="b(all, xxs)"
-      data-h2-text-align="b(center)"
+      data-h2-margin="base(x.125)"
+      data-h2-text-align="base(center)"
       {...rest}
     >
       {/* parent span already has a display style */}
-      <span
-        data-h2-display="b(flex)"
-        data-h2-align-items="b(center)"
-        data-h2-justify-content="b(center)"
-      >
-        {children}
-      </span>
+      <span>{children}</span>
     </span>
   );
 };

@@ -40,7 +40,7 @@ InPools.args = {
       {
         id: "candidate-1",
         pool: basePools[0],
-        status: PoolCandidateStatus.Available,
+        status: PoolCandidateStatus.NewApplication,
         expiryDate: "2022-06-21",
       },
       {

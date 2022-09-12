@@ -48,11 +48,12 @@ const ExtendDialog = ({
   const { handleSubmit } = methods;
   const Footer = React.useMemo(
     () => (
-      <div data-h2-display="b(flex)">
+      <div data-h2-display="base(flex)">
         <div style={{ flexGrow: 2 } /* push other div to the right */}>
           <Button onClick={onDismiss} mode="outline" color="secondary">
             {intl.formatMessage({
               defaultMessage: "Cancel and go back",
+              id: "tiF/jI",
               description: "Close dialog button",
             })}
           </Button>
@@ -67,6 +68,7 @@ const ExtendDialog = ({
           >
             {intl.formatMessage({
               defaultMessage: "Extend closing date",
+              id: "OIk63O",
               description:
                 "Button to extend the pool closing date in the extend pool closing date dialog",
             })}
@@ -84,13 +86,14 @@ const ExtendDialog = ({
       color="ts-secondary"
       title={intl.formatMessage({
         defaultMessage: "Extend Closing Date",
+        id: "3mrTn5",
         description: "Heading for the extend pool closing date dialog",
       })}
-      footer={Footer}
     >
       <p>
         {intl.formatMessage({
           defaultMessage: "Write a new closing date:",
+          id: "BQsJSG",
           description: "First paragraph for extend pool closing date dialog",
         })}
       </p>
@@ -100,6 +103,7 @@ const ExtendDialog = ({
             id="extendDialog-endDate"
             label={intl.formatMessage({
               defaultMessage: "End Date",
+              id: "80DOGy",
               description:
                 "Label displayed on the pool candidate form end date field.",
             })}
@@ -115,6 +119,7 @@ const ExtendDialog = ({
           />
         </form>
       </FormProvider>
+      <Dialog.Footer>{Footer}</Dialog.Footer>
     </Dialog>
   );
 };

@@ -6,10 +6,10 @@ import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import Link from "@common/components/Link";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
+import commonMessages from "@common/messages/commonMessages";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useBrowsePoolQuery } from "../../api/generated";
 import type { Pool } from "../../api/generated";
-import commonMessages from "../commonMessages";
 
 interface BrowseIndividualPoolProps {
   pool: Pool;
@@ -26,6 +26,7 @@ const BrowseIndividualPool: React.FC<BrowseIndividualPoolProps> = ({
     {
       title: intl.formatMessage({
         defaultMessage: "Pools Index",
+        id: "tf/wEc",
         description: "Breadcrumb title for the pools index link.",
       }),
       href: paths.home(),
@@ -48,6 +49,7 @@ const BrowseIndividualPool: React.FC<BrowseIndividualPoolProps> = ({
       >
         {intl.formatMessage({
           defaultMessage: "Apply",
+          id: "mMGycA",
           description: "Apply label for button to apply to pool",
         })}
       </Link>
@@ -69,6 +71,7 @@ const BrowseIndividualPoolApi: React.FC<{ poolId: string }> = ({ poolId }) => {
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           {intl.formatMessage({
             defaultMessage: "Error, pool unable to be loaded",
+            id: "DcEinN",
             description: "Error message, placeholder",
           })}
         </NotFound>

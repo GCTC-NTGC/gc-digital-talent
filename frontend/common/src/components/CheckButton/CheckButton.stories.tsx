@@ -23,15 +23,15 @@ const Template: Story<{ label: string }> = (args) => {
 
   return (
     <div
-      data-h2-display="b(flex)"
-      data-h2-justify-content="b(space-around)"
-      style={{ margin: "-1rem" }}
+      data-h2-display="base(flex)"
+      data-h2-justify-content="base(space-around)"
+      data-h2-margin="base(-x1)"
     >
       <div
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column)"
-        data-h2-align-items="b(center)"
-        style={{ padding: "1rem" }}
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-align-items="base(center)"
+        data-h2-padding="base(x1)"
       >
         <span>Not Checked</span>
         <CheckButton
@@ -41,10 +41,10 @@ const Template: Story<{ label: string }> = (args) => {
         />
       </div>
       <div
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column)"
-        data-h2-align-items="b(center)"
-        style={{ padding: "1rem" }}
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-align-items="base(center)"
+        data-h2-padding="base(x1)"
       >
         <span>Checked</span>
         <CheckButton
@@ -54,10 +54,10 @@ const Template: Story<{ label: string }> = (args) => {
         />
       </div>
       <div
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column)"
-        data-h2-align-items="b(center)"
-        style={{ padding: "1rem" }}
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-align-items="base(center)"
+        data-h2-padding="base(x1)"
       >
         <span>Indeterminate</span>
         <CheckButton
@@ -68,10 +68,10 @@ const Template: Story<{ label: string }> = (args) => {
         />
       </div>
       <div
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column)"
-        data-h2-align-items="b(center)"
-        style={{ padding: "1rem" }}
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-align-items="base(center)"
+        data-h2-padding="base(x1)"
       >
         <span>Controlled</span>
         <CheckButton checked={isChecked} onToggle={handleCheck} label={label} />

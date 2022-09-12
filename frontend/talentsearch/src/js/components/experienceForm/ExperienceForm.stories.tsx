@@ -2,11 +2,11 @@ import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import type { Skill } from "@common/api/generated";
-import { fakeSkills, fakeSkillFamilies } from "@common/fakeData";
+import { getStaticSkills } from "@common/fakeData";
 import { ExperienceForm } from "./ExperienceForm";
 import type { ExperienceDetailsSubmissionData, ExperienceType } from "./types";
 
-const skillData = fakeSkills(15, fakeSkillFamilies(4));
+const skillData = getStaticSkills();
 
 export default {
   component: ExperienceForm,
@@ -14,19 +14,23 @@ export default {
   args: {
     experienceType: "award",
     skills: skillData,
+    userId: "user-id",
   },
 } as Meta;
 
 interface ExperienceFormStoryArgs {
   experienceType: ExperienceType;
   skills: Skill[];
+  userId: string;
 }
 
 const TemplateExperienceFormForm: Story<ExperienceFormStoryArgs> = ({
   experienceType,
   skills,
+  userId,
 }) => (
   <ExperienceForm
+    userId={userId}
     experienceType={experienceType}
     skills={skills}
     onUpdateExperience={async (data: ExperienceDetailsSubmissionData) => {

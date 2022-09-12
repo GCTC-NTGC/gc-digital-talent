@@ -24,15 +24,19 @@ import {
   Applicant,
   Department,
   CitizenshipStatus,
+  ArmedForcesStatus,
+  GenericJobTitle,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakeCmoAssets from "./fakeCmoAssets";
 import fakeDepartments from "./fakeDepartments";
+import fakeGenericJobTitles from "./fakeGenericJobTitles";
 
 const generateUser = (
   departments: Department[],
   classifications: Classification[], // all classifications
   cmoAssets: CmoAsset[], // all CmoAssets
+  genericJobTitles: GenericJobTitle[], // all generic job titles
 
   awardExperiences: AwardExperience[], // Experiences belonging to this user
   communityExperiences: CommunityExperience[], // Experiences belonging to this user
@@ -66,7 +70,11 @@ const generateUser = (
       CitizenshipStatus.PermanentResident,
       CitizenshipStatus.Other,
     ]),
-    isVeteran: faker.datatype.boolean(),
+    armedForcesStatus: faker.helpers.arrayElement<ArmedForcesStatus>([
+      ArmedForcesStatus.Veteran,
+      ArmedForcesStatus.Member,
+      ArmedForcesStatus.NonCaf,
+    ]),
 
     // Language
     languageAbility: faker.helpers.arrayElement<LanguageAbility>(
@@ -100,10 +108,10 @@ const generateUser = (
       GovEmployeeType.Term,
       GovEmployeeType.Indeterminate,
     ]),
-    interestedInLaterOrSecondment: faker.datatype.boolean(),
     department: faker.helpers.arrayElement<Department>(departments),
     currentClassification:
       faker.helpers.arrayElement<Classification>(classifications),
+    hasPriorityEntitlement: faker.datatype.boolean(),
 
     // Employment Equity
     isWoman: faker.datatype.boolean(),
@@ -131,7 +139,8 @@ const generateUser = (
       faker.helpers.arrayElements<Classification>(classifications),
     wouldAcceptTemporary: faker.datatype.boolean(),
     cmoAssets: faker.helpers.arrayElements<CmoAsset>(cmoAssets),
-
+    expectedGenericJobTitles:
+      faker.helpers.arrayElements<GenericJobTitle>(genericJobTitles),
     poolCandidates,
 
     experiences: [
@@ -156,6 +165,7 @@ export const defaultGenerator = (numToGenerate = 20): User[] => {
   const departments = fakeDepartments();
   const classifications = fakeClassifications();
   const cmoAssets = fakeCmoAssets();
+  const genericJobTitles = fakeGenericJobTitles();
 
   const awardExperiences: AwardExperience[] = [];
   const communityExperiences: CommunityExperience[] = [];
@@ -169,6 +179,7 @@ export const defaultGenerator = (numToGenerate = 20): User[] => {
       departments,
       classifications,
       cmoAssets,
+      genericJobTitles,
       awardExperiences,
       communityExperiences,
       educationExperiences,

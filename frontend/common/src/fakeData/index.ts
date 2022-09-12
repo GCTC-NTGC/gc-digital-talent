@@ -1,19 +1,21 @@
 import fakeClassifications from "./fakeClassifications";
 import fakeCmoAssets from "./fakeCmoAssets";
 import fakeDepartments from "./fakeDepartments";
+import fakeExperiences from "./fakeExperiences";
 import fakePools from "./fakePools";
 import fakePoolCandidates from "./fakePoolCandidates";
 import fakeUsers, { applicantGenerator as fakeApplicants } from "./fakeUsers";
 import fakeSearchRequests from "./fakeSearchRequests";
 import fakePoolCandidateFilters from "./fakePoolCandidateFilters";
-import fakeSkillFamilies from "./fakeSkillFamilies";
-import fakeSkills from "./fakeSkills";
+import fakeSkillFamilies, { getStaticSkillFamilies } from "./fakeSkillFamilies";
+import fakeSkills, { getStaticSkills } from "./fakeSkills";
 import fakePoolAdvertisements from "./fakePoolAdvertisements";
 
 export {
   fakeClassifications,
   fakeCmoAssets,
   fakeDepartments,
+  fakeExperiences,
   fakePools,
   fakePoolCandidates,
   fakeUsers,
@@ -23,4 +25,6 @@ export {
   fakeSkillFamilies,
   fakeSkills,
   fakePoolAdvertisements,
+  getStaticSkillFamilies,
+  getStaticSkills,
 };

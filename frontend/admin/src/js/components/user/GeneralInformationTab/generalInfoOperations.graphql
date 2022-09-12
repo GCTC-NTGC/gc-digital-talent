@@ -6,6 +6,8 @@ query GetGeneralInfo($id: ID!) {
     firstName
     lastName
     telephone
+    citizenship
+    armedForcesStatus
     preferredLang
     roles
     currentProvince
@@ -17,6 +19,9 @@ query GetGeneralInfo($id: ID!) {
     isWoman
     poolCandidates {
       id
+      user {
+        id
+      }
       pool {
         id
         name {

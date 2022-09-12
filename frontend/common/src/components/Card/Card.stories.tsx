@@ -9,9 +9,9 @@ export default {
 
 const Spacer: React.FC = ({ children }) => (
   <div
-    data-h2-display="b(flex)"
-    data-h2-flex-direction="b(column)"
-    data-h2-align-items="b(center)"
+    data-h2-display="base(flex)"
+    data-h2-flex-direction="base(column)"
+    data-h2-align-items="base(center)"
     style={{ padding: "1rem" }}
   >
     {children}
@@ -20,8 +20,8 @@ const Spacer: React.FC = ({ children }) => (
 
 const Template: Story = () => (
   <div
-    data-h2-display="b(flex)"
-    data-h2-justify-content="b(space-around)"
+    data-h2-display="base(flex)"
+    data-h2-justify-content="base(space-around)"
     style={{ margin: "-1rem" }}
   >
     <Spacer>

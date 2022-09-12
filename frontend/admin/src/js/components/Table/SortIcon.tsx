@@ -1,5 +1,5 @@
 import React from "react";
-import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
+import { BarsArrowUpIcon, BarsArrowDownIcon } from "@heroicons/react/24/solid";
 
 interface SortIconProps {
   isSortedDesc?: boolean;
@@ -17,9 +17,9 @@ const SortIcon: React.FC<SortIconProps> = ({
     flexShrink: 0,
   };
   return isSortedDesc ? (
-    <SortDescendingIcon style={iconStyles} />
+    <BarsArrowDownIcon style={iconStyles} />
   ) : (
-    <SortAscendingIcon style={iconStyles} />
+    <BarsArrowUpIcon style={iconStyles} />
   );
 };
 

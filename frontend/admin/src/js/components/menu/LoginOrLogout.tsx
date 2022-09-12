@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import { useIntl } from "react-intl";
-import { LogoutIcon, LoginIcon } from "@heroicons/react/outline";
+import {
+  ArrowLeftOnRectangleIcon,
+  ArrowRightOnRectangleIcon,
+} from "@heroicons/react/24/outline";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { SideMenuItem } from "@common/components/SideMenu";
 import { useLocation } from "@common/helpers/router";
@@ -20,7 +23,7 @@ const LoginOrLogout = () => {
   return (
     <>
       <SideMenuItem
-        icon={loggedIn ? LogoutIcon : LoginIcon}
+        icon={loggedIn ? ArrowLeftOnRectangleIcon : ArrowRightOnRectangleIcon}
         href={
           !loggedIn
             ? apiRoutes.login(location.pathname, getLocale(intl))
@@ -41,10 +44,12 @@ const LoginOrLogout = () => {
         {loggedIn
           ? intl.formatMessage({
               defaultMessage: "Logout",
+              id: "TGV2F7",
               description: "Label displayed on the Logout menu item.",
             })
           : intl.formatMessage({
               defaultMessage: "Login",
+              id: "71ID2W",
               description: "Label displayed on the Login menu item.",
             })}
       </SideMenuItem>

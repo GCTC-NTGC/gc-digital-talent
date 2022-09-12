@@ -15,9 +15,10 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
 
   return (
     <div>
-      <h2 data-h2-font-size="b(h3)">
+      <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "1. Personal Experience Details",
+          id: "UDpZ1q",
           description: "Title for Personal Experience Details form",
         })}
       </h2>
@@ -25,20 +26,22 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
         {intl.formatMessage({
           defaultMessage:
             "People are more than just education and work experiences. We want to make space for you to share your learning from other experiences. To protect your privacy, please don't share sensitive information about yourself or others. A good measure would be if you are comfortable with all your colleagues knowing it.",
+          id: "knmaAL",
           description: "Description blurb for Personal Experience Details form",
         })}
       </p>
-
       <div>
         <Input
           id="experienceTitle"
           label={intl.formatMessage({
             defaultMessage: "Short title for this experience",
+            id: "97UAb8",
             description:
               "Label displayed on Personal Experience form for experience title input",
           })}
           placeholder={intl.formatMessage({
             defaultMessage: "Write title here...",
+            id: "Q18B0y",
             description: "Placeholder for experience title input",
           })}
           name="experienceTitle"
@@ -50,45 +53,52 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
           id="experienceDescription"
           label={intl.formatMessage({
             defaultMessage: "Experience Description",
+            id: "q5rd9x",
             description:
               "Label displayed on Personal Experience form for experience description input",
           })}
           placeholder={intl.formatMessage({
             defaultMessage: "Describe experience details here...",
+            id: "Os+BwT",
             description: "Placeholder for experience description input",
           })}
           name="experienceDescription"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
-
-        <Checkbox
-          boundingBox
-          boundingBoxLabel={intl.formatMessage({
-            defaultMessage: "Disclaimer",
-            description:
-              "Label displayed on Personal Experience form for disclaimer bounded box",
-          })}
-          id="disclaimer"
-          label={intl.formatMessage({
-            defaultMessage:
-              "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
-            description:
-              "Label displayed on Personal Experience form for disclaimer checkbox",
-          })}
-          name="disclaimer"
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-        />
+        <div data-h2-margin="base(0, 0, x1, 0)">
+          <Checkbox
+            boundingBox
+            boundingBoxLabel={intl.formatMessage({
+              defaultMessage: "Disclaimer",
+              id: "sapxcU",
+              description:
+                "Label displayed on Personal Experience form for disclaimer bounded box",
+            })}
+            id="disclaimer"
+            label={intl.formatMessage({
+              defaultMessage:
+                "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
+              id: "oURESC",
+              description:
+                "Label displayed on Personal Experience form for disclaimer checkbox",
+            })}
+            name="disclaimer"
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+          />
+        </div>
 
         <Checkbox
           boundingBox
           boundingBoxLabel={intl.formatMessage({
             defaultMessage: "Current Experience",
+            id: "OAOnyY",
             description:
               "Label displayed on Personal Experience form for current experience bounded box",
           })}
           id="currentRole"
           label={intl.formatMessage({
             defaultMessage: "I am currently active in this experience",
+            id: "aemElP",
             description:
               "Label displayed on Personal Experience form for current experience input",
           })}
@@ -96,14 +106,15 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
         />
 
         <div
-          data-h2-display="b(flex)"
-          data-h2-flex-direction="b(column) s(row)"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column) p-tablet(row)"
         >
-          <div data-h2-padding="b(right, none) s(right, l)">
+          <div data-h2-padding="base(0) p-tablet(0, x2, 0, 0)">
             <Input
               id="startDate"
               label={intl.formatMessage({
                 defaultMessage: "Start Date",
+                id: "NDunA+",
                 description:
                   "Label displayed on Personal Experience form for start date input",
               })}
@@ -119,6 +130,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
                 id="endDate"
                 label={intl.formatMessage({
                   defaultMessage: "End Date",
+                  id: "qhmriI",
                   description:
                     "Label displayed on Personal Experience form for end date input",
                 })}

@@ -74,7 +74,7 @@ describe("Create Account Form tests", () => {
     });
 
     fireEvent.submit(screen.getByRole("button", { name: /save/i }));
-    expect(await screen.findAllByRole("alert")).toHaveLength(4);
+    expect(await screen.findAllByRole("alert")).toHaveLength(5);
     expect(mockSave).not.toHaveBeenCalled();
   });
 
@@ -116,6 +116,12 @@ describe("Create Account Form tests", () => {
       name: /i am a student/i,
     });
     fireEvent.click(isStudent);
+
+    fireEvent.click(
+      screen.getByRole("radio", {
+        name: /i have a priority entitlement/i,
+      }),
+    );
 
     fireEvent.submit(screen.getByRole("button", { name: /save/i }));
     await waitFor(() => {

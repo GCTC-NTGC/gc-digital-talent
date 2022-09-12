@@ -1,0 +1,3718 @@
+{
+  "data": {
+    "skillFamilies": [
+      {
+        "__typename": "SkillFamily",
+        "id": "ec3a6829-3186-46a6-b7d4-9f9058b81d08",
+        "key": "programming_languages_and_tools",
+        "category": "TECHNICAL",
+        "name": {
+          "en": "Programming Languages and Tools",
+          "fr": "Langages et outils de programmation"
+        },
+        "description": {
+          "en": "Programming Languages and Tools",
+          "fr": "Langages et outils de programmation"
+        },
+        "skills": [
+          {
+            "id": "6fe56dc9-f0f0-4a19-8511-aff4f9da4f3d",
+            "key": "dotnet_programming",
+            "name": {
+              "en": ".NET Programming",
+              "fr": "Programmation .NET"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "80fdb829-2855-4aa5-bd94-14dc87fa4dbd",
+            "key": "adobe_xd",
+            "name": {
+              "en": "Adobe XD",
+              "fr": "Adobe XD"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this product to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "cc4cd3ac-078e-4c5e-9fff-87e552c16297",
+            "key": "angular",
+            "name": {
+              "en": "Angular",
+              "fr": "Angular"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "a8a74dcb-d400-467c-9080-1b24c0b97919",
+            "key": "apache",
+            "name": {
+              "en": "Apache",
+              "fr": "Apache"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "7c3014e7-ed1c-4724-b3b8-52ab33ede810",
+            "key": "aspdotnet",
+            "name": {
+              "en": "asp.net",
+              "fr": "asp.net"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "98c381c7-f9de-4dcf-a72c-8e92ce10e197",
+            "key": "aws_codebuild",
+            "name": {
+              "en": "AWS CodeBuild",
+              "fr": "AWS CodeBuild"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "f166e98b-3a56-4a7a-82b1-e8e57cccb904",
+            "key": "aws_codepipeline",
+            "name": {
+              "en": "AWS CodePipeline",
+              "fr": "AWS CodePipeline"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "7695ec6c-7cee-4b17-8c2e-4a11d295bf1b",
+            "key": "aws_ectwo",
+            "name": {
+              "en": "AWS EC2",
+              "fr": "AWS EC2"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "f50164ad-afe5-49fd-828e-f2f795565fca",
+            "key": "aws_ecr",
+            "name": {
+              "en": "AWS ECR",
+              "fr": "AWS ECR"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "7adb140d-841c-455c-bb35-34881f8ba86f",
+            "key": "aws_lambda",
+            "name": {
+              "en": "AWS Lambda",
+              "fr": "AWS Lambda"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "e6eb7f4c-517c-4ebd-9cf2-49a0f358c016",
+            "key": "aws_rds",
+            "name": {
+              "en": "AWS RDS",
+              "fr": "AWS RDS"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "07f4a054-4743-4f43-aca3-76214c7b2a5d",
+            "key": "aws_sthree",
+            "name": {
+              "en": "AWS S3",
+              "fr": "AWS S3"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "e95ce60a-4b9a-47c1-9b45-45908405a562",
+            "key": "azure_blob_storage",
+            "name": {
+              "en": "Azure Blob Storage",
+              "fr": "Azure Blob Storage"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "137dbcec-8f1a-44e5-b2a5-43418e4a475d",
+            "key": "azure_container_registry",
+            "name": {
+              "en": "Azure Container Registry",
+              "fr": "Azure Container Registry"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "2fb703af-d80e-410e-b6d3-4c03c0ce7318",
+            "key": "azure_pipelines",
+            "name": {
+              "en": "Azure Pipelines",
+              "fr": "Azure Pipelines"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "8b61c4a1-1d0b-46ca-8cf4-734ce01129da",
+            "key": "azure_sql_database",
+            "name": {
+              "en": "Azure SQL Database",
+              "fr": "Azure SQL Database"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "c603a570-2e38-4427-a4d8-c2aa1924e3c0",
+            "key": "csharp",
+            "name": {
+              "en": "C#",
+              "fr": "C#"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "05e55564-916a-49e3-b2fb-e57bb71f9da5",
+            "key": "cplusplus",
+            "name": {
+              "en": "C++",
+              "fr": "C++"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "ceac89e8-42f6-4543-8547-03cfa3a85bac",
+            "key": "cobol",
+            "name": {
+              "en": "COBOL",
+              "fr": "COBOL"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "b6968af3-6f7b-44c0-bcf6-bc58abd03b39",
+            "key": "docker",
+            "name": {
+              "en": "Docker",
+              "fr": "Docker"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "6c67b6ff-8b5f-4b5e-b4a3-c5d150f00588",
+            "key": "fsharp_or_visual_basic",
+            "name": {
+              "en": "F# or Visual Basic",
+              "fr": "F# ou Visual Basic"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "5c3eb3dd-f6c1-4c81-ae1d-5b590287d204",
+            "key": "git",
+            "name": {
+              "en": "Git",
+              "fr": "Git"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "860801cc-4571-4a93-a3dd-97cff9c7ba66",
+            "key": "html",
+            "name": {
+              "en": "HTML",
+              "fr": "HTML"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "3423dee8-cf93-491f-aaa2-3edd03230805",
+            "key": "java",
+            "name": {
+              "en": "Java",
+              "fr": "Java"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "36f221d9-09c2-4b88-90a3-9b33c667cdb0",
+            "key": "javascript",
+            "name": {
+              "en": "Javascript",
+              "fr": "Javascript"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "a53beb80-95d8-4289-9b17-41073754afd2",
+            "key": "jquery",
+            "name": {
+              "en": "Jquery",
+              "fr": "Jquery"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "4c5cb720-74f7-4976-abd6-2a529fc50ccb",
+            "key": "jsp",
+            "name": {
+              "en": "JSP",
+              "fr": "JSP"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "e247a491-86f6-4f95-8a71-31726989729c",
+            "key": "microsoft_dynamics",
+            "name": {
+              "en": "Microsoft Dynamics",
+              "fr": "Microsoft Dynamics"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "2a6b10c2-f964-4a03-b9ff-6d860c05d895",
+            "key": "mongodb",
+            "name": {
+              "en": "MongoDB",
+              "fr": "MongoDB"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "be9c9d81-7ec1-4cf0-91ae-f14e699166a5",
+            "key": "mysql",
+            "name": {
+              "en": "MySQL",
+              "fr": "MySQL"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "0a0dfd6a-2d47-4bfe-95eb-f2de21805b49",
+            "key": "nginx",
+            "name": {
+              "en": "nginx",
+              "fr": "nginx"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "eaef2e16-40fa-4ae4-a12b-fc0365f3f78a",
+            "key": "nodejs",
+            "name": {
+              "en": "NodeJS",
+              "fr": "NodeJS"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "37c84096-8aa3-4ce8-98b6-01c2478cd642",
+            "key": "php",
+            "name": {
+              "en": "PHP",
+              "fr": "PHP"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "526f4896-ae8d-4684-884e-878f0bc4d353",
+            "key": "postgresql",
+            "name": {
+              "en": "PostgreSQL",
+              "fr": "PostgreSQL"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "7bf99e55-3d75-4f4f-b92d-355a090157c0",
+            "key": "python",
+            "name": {
+              "en": "Python",
+              "fr": "Python"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "44ab43fe-9e9f-4753-9476-ee2d6146097c",
+            "key": "r",
+            "name": {
+              "en": "R",
+              "fr": "R"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "02ecc71f-f0cb-47bc-afa9-bd92b2037d52",
+            "key": "react",
+            "name": {
+              "en": "React",
+              "fr": "React"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "b06af606-7c86-471b-b7a8-8e21e9f2831e",
+            "key": "ruby_on_rails",
+            "name": {
+              "en": "Ruby on Rails",
+              "fr": "Ruby on Rails"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "dca896d6-3659-41fa-b7fd-d6fef4483f4b",
+            "key": "sass",
+            "name": {
+              "en": "Sass",
+              "fr": "Sass"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "497981d3-617d-4487-b6ca-e2fed0be0982",
+            "key": "sharepoint",
+            "name": {
+              "en": "SharePoint",
+              "fr": "SharePoint"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "e6819eac-48af-4bb5-bef5-cc9f1bc69b55",
+            "key": "sql",
+            "name": {
+              "en": "SQL",
+              "fr": "SQL"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "3ecf3b14-8722-48a0-a9cc-c7f24cf41ee3",
+            "key": "transact_sql__t_sql_",
+            "name": {
+              "en": "Transact-SQL (T-SQL)",
+              "fr": "Transact-SQL (T-SQL)"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "73b69f93-b617-4942-9963-f660927fa77d",
+            "key": "vue",
+            "name": {
+              "en": "Vue",
+              "fr": "Vue"
+            },
+            "description": {
+              "en": "Apply concrete knowledge of this language to develop a variety of projects.",
+              "fr": "Appliquer des connaissances concrètes de ce langage pour élaborer une variété de projets."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "117a2c50-49d1-4201-81a5-08e944d6b777",
+        "key": "development_and_programming",
+        "category": "TECHNICAL",
+        "name": {
+          "en": "Development and Programming",
+          "fr": "Développement et programmation"
+        },
+        "description": {
+          "en": "Development and Programming",
+          "fr": "Développement et programmation"
+        },
+        "skills": [
+          {
+            "id": "24e853e9-84b9-4876-a044-bd238593060f",
+            "key": "api_design",
+            "name": {
+              "en": "API Design",
+              "fr": "API Design"
+            },
+            "description": {
+              "en": "Plan and build interfaces for connections between systems to expose data to users and developers.",
+              "fr": "Planifier et construire des interfaces pour les connexions entre les systèmes afin d’exposer les données aux utilisateurs et aux développeurs."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "d3c74d00-dac2-4892-a0b0-dc3de4765bfc",
+            "key": "application_development",
+            "name": {
+              "en": "Application Development",
+              "fr": "Développement d’application"
+            },
+            "description": {
+              "en": "Design, build, and deploy application software using programming languages and tools.",
+              "fr": "Concevoir, construire et déployer des logiciels d’application à l’aide de langages et d’outils de programmation."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "7e48a434-1a9f-4271-9f08-6fe142ab6915",
+            "key": "automated_testing",
+            "name": {
+              "en": "Automated Testing",
+              "fr": "Tests automatisés"
+            },
+            "description": {
+              "en": "Run tests on products using automation tools to compare actual outcomes with intended ones.",
+              "fr": "Exécuter des tests sur les produits à l’aide d’outils d’automatisation afin de comparer les résultats réels aux résultats escomptés."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "fe269690-b3c4-4be9-b8e1-e5204112082e",
+            "key": "data_cleaning",
+            "name": {
+              "en": "Data Cleaning",
+              "fr": "Nettoyage des données"
+            },
+            "description": {
+              "en": "Inspect, cleanse, and transform data to prepare it for analysis.",
+              "fr": "Inspecter, nettoyer et transformer les données pour les préparer à l’analyse."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "503341b8-83a0-41f6-a505-108e52f10b26",
+            "key": "devops",
+            "name": {
+              "en": "DevOps",
+              "fr": "Opérations de développement"
+            },
+            "description": {
+              "en": "Share and document IT practices that reduce time to delivery and maintain quality, security, and performance.",
+              "fr": "Partager et documenter les pratiques informatiques qui réduisent les délais de livraison et préservent la qualité, la sécurité et le rendement."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "92140518-44b4-494d-b9e1-97b306d1abf1",
+            "key": "front_end_development",
+            "name": {
+              "en": "Front-End Development",
+              "fr": "Premières phases du cycle de développement"
+            },
+            "description": {
+              "en": "Build web applications using programming languages such as, but not limited to, HTML5, CSS3, or JavaScript.",
+              "fr": "Construire des applications Web en utilisant des langages de programmation tels que ceux-ci, mais sans s’y limiter, HTML5, CSS3 ou JavaScript."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "9506e4c9-abc0-426a-8ec0-eaf4567db3be",
+            "key": "functional_testing",
+            "name": {
+              "en": "Functional Testing",
+              "fr": "Tests fonctionnels"
+            },
+            "description": {
+              "en": "Assess the functionality of applications to see if they meet specified requirements.",
+              "fr": "Évaluer la fonctionnalité des applications pour voir si elles satisfont les exigences précisées."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "90045158-5f5c-4096-8fc4-0ea70ec38c77",
+            "key": "version_control",
+            "name": {
+              "en": "Version Control",
+              "fr": "Contrôle de la version"
+            },
+            "description": {
+              "en": "Track and manage changes to software code throughout the life cycle of a product.",
+              "fr": "Suivre et gérer les modifications du code logiciel tout au long du cycle de vie d’un produit."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "24fbc212-f78e-4837-92a4-7be46082eb3d",
+            "key": "web_development",
+            "name": {
+              "en": "Web Development",
+              "fr": "Développement Web"
+            },
+            "description": {
+              "en": "Build web applications using JavaScript and a server-side language such as, but not limited to, PHP or Python.",
+              "fr": "Construire des applications Web en utilisant JavaScript et un langage côté serveur tel que, PHP ou Python, mais sans s’y limiter."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "fc83f994-3679-496e-aa3f-c60bda8c385b",
+            "key": "requirements_analysis",
+            "name": {
+              "en": "Requirements Analysis",
+              "fr": "Analyse des besoins"
+            },
+            "description": {
+              "en": "Determine users' needs and expectations for a new or modified product.",
+              "fr": "Déterminer les besoins et les attentes des utilisateurs pour un produit nouveau ou modifié."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "5bba7424-d97b-4b3f-a834-31a22e03649e",
+        "key": "database_design___data_administration",
+        "category": "TECHNICAL",
+        "name": {
+          "en": "Database Design & Data Administration",
+          "fr": "Conception de bases de données et administration des données"
+        },
+        "description": {
+          "en": "Database Design & Data Administration",
+          "fr": "Conception de bases de données et administration des données"
+        },
+        "skills": [
+          {
+            "id": "abe4f58d-80f3-4504-aab2-dd92954ab4cc",
+            "key": "data_analysis",
+            "name": {
+              "en": "Data Analysis",
+              "fr": "Analyse des données"
+            },
+            "description": {
+              "en": "Use data to discover useful information, inform conclusions, and support decision-making.",
+              "fr": "Utiliser les données pour découvrir des informations utiles, étayer les conclusions et soutenir la prise de décision."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "1d4e0a04-4ed5-4467-999b-f8eea4099bc2",
+            "key": "data_interoperability",
+            "name": {
+              "en": "Data Interoperability",
+              "fr": "Interopérabilité des données"
+            },
+            "description": {
+              "en": "Ensure different devices, applications, or components can connect and exchange data.",
+              "fr": "S’assurer que différents dispositifs, applications ou composants peuvent se connecter et échanger des données."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "b8092d6e-34cd-4eee-93f9-89c44500b454",
+            "key": "data_security_and_recovery",
+            "name": {
+              "en": "Data Security and Recovery",
+              "fr": "Sécurité et récupération des données"
+            },
+            "description": {
+              "en": "Protect databases from damage and intrusion while ensuring they are able to recovery quickly in the event of a failure.",
+              "fr": "Protéger les bases de données contre les dommages et les intrusions tout en veillant à ce qu’elles puissent se rétablir rapidement en cas de défaillance."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "15a16ad2-bbee-4251-8c90-056d566c1359",
+            "key": "database_design___management",
+            "name": {
+              "en": "Database Design & Management",
+              "fr": "Conception et gestion des bases de données"
+            },
+            "description": {
+              "en": "Use best practices to develop database models that meet data requirements and employ software tools to access and interact with the data.",
+              "fr": "Utiliser les meilleures pratiques pour développer des modèles de base de données qui répondent aux exigences en matière de données et utiliser des outils logiciels pour accéder aux données et interagir avec elles."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "b55321a7-8bbd-449a-b5a7-5b5204395957",
+            "key": "database_programming_tools",
+            "name": {
+              "en": "Database Programming Tools",
+              "fr": "Outils de programmation de bases de données"
+            },
+            "description": {
+              "en": "Use and work in data programming tools such as, but not limited to, SQL, NSQL, Excel, or other ETL (extract, transform, load) tools.",
+              "fr": "Utiliser et travailler avec des outils de programmation de données tels que, mais sans s’y limiter, SQL, NSQL, Excel, ou d’autres outils ETL (extraction, transformation, chargement)."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "76245f04-8492-466d-a098-508d31f6b7c3",
+            "key": "database_software_installation_processes_and_techniques",
+            "name": {
+              "en": "Database Software Installation Processes and Techniques",
+              "fr": "Processus et techniques d’installation des logiciels de base de données"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "938a3dac-6993-416b-8e1f-d824880c3651",
+            "key": "database_systems",
+            "name": {
+              "en": "Database Systems",
+              "fr": "Systèmes de bases de données"
+            },
+            "description": {
+              "en": "Ability to work with database systems such as Oracle, MySQL, MariaDB or PstgreSQL.",
+              "fr": "Être en mesure à travailler avec des systèmes de bases de données tels que Oracle, MySQL, MariaDB ou PstgreSQL."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "751e179a-688a-4814-b830-8efa25c0b90e",
+            "key": "database_trends_and_directions",
+            "name": {
+              "en": "Database Trends and Directions",
+              "fr": "Tendances et orientations en matière de bases de données"
+            },
+            "description": {
+              "en": "Stay current on best approaches to database design and management as they change over time.",
+              "fr": "Se tenir au courant des meilleures approches en matière de conception et de gestion des bases de données, car elles évoluent au fil du temps."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "b18be7fd-463f-4650-80ae-00983ff029fe",
+        "key": "it_architecture",
+        "category": "TECHNICAL",
+        "name": {
+          "en": "IT Architecture",
+          "fr": "Architecture informatique"
+        },
+        "description": {
+          "en": "IT Architecture",
+          "fr": "Architecture informatique"
+        },
+        "skills": [
+          {
+            "id": "78b9fc8a-6020-489f-9b19-545420925c13",
+            "key": "application_architecture",
+            "name": {
+              "en": "Application Architecture",
+              "fr": "Architecture d’application"
+            },
+            "description": {
+              "en": "Describe and document the patterns and techniques used to build an application.",
+              "fr": "Décrire et documenter les modèles et les techniques utilisés pour développer une application."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "a922ef0b-2d44-41ee-85b1-dcf046a4249c",
+            "key": "cloud_architecture",
+            "name": {
+              "en": "Cloud Architecture",
+              "fr": "Architecture infonuagique"
+            },
+            "description": {
+              "en": "Describe and document how different components and capabilities connect to build an online platform.",
+              "fr": "Décrire et documenter comment différents composants et capacités se connectent pour construire une plateforme en ligne."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "4db1d989-2b59-46b7-afd8-9f718d66edb1",
+            "key": "cloud_security_architecture",
+            "name": {
+              "en": "Cloud Security Architecture",
+              "fr": "Architecture de sécurité infonuagique"
+            },
+            "description": {
+              "en": "Describe and document how to integrate security controls throughout the deployment of information to cloud-based servers.",
+              "fr": "Décrire et documenter comment intégrer les contrôles de sécurité tout au long du déploiement des informations sur les serveurs en nuage."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "66e83666-042f-4fe8-a039-42716cd13e87",
+            "key": "information_technology_systems_and_solutions",
+            "name": {
+              "en": "Information Technology Systems and Solutions",
+              "fr": "Systèmes et solutions de technologies de l’information"
+            },
+            "description": {
+              "en": "Apply best practices in the design, development, and support of computer-based information systems and products.",
+              "fr": "Appliquer les pratiques exemplaires en matière de conception, l’élaboration et le soutien des systèmes et produits d’information informatisés."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "604f6b3f-2b90-42f6-907f-435537938bb4",
+            "key": "mobile_application_architecture",
+            "name": {
+              "en": "Mobile Application Architecture",
+              "fr": "Architecture des applications mobiles"
+            },
+            "description": {
+              "en": "Describe and document the patterns and techniques used to build an application for mobile devices.",
+              "fr": "Décrire et documenter les modèles et les techniques utilisés pour développer une application pour les appareils mobiles."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "15d4e49c-3ccf-4062-a2a0-95203067f749",
+            "key": "network_architecture",
+            "name": {
+              "en": "Network Architecture",
+              "fr": "Architecture de réseau"
+            },
+            "description": {
+              "en": "Describe and document the connection between devices so they may access and share resources.",
+              "fr": "Décrire et documenter la connexion entre les appareils pour que l’utilisateur puisse accéder aux ressources et les partager."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "6bb1b456-b770-4a00-8149-da4c87b5448e",
+            "key": "solution_architecture",
+            "name": {
+              "en": "Solution Architecture",
+              "fr": "Architecture des solutions"
+            },
+            "description": {
+              "en": "Describe and document appropriate IT products or services to address an organization's specific business needs.",
+              "fr": "Décrire et documenter les produits ou services informatiques appropriés pour répondre aux besoins d’entreprise précis d’une organisation."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "46f4496e-18b0-433d-b7de-4ce03e2dcce2",
+            "key": "systems_interoperability",
+            "name": {
+              "en": "Systems Interoperability",
+              "fr": "Interopérabilité des systèmes"
+            },
+            "description": {
+              "en": "Ensure different devices, applications, or components can connect and exchange data.",
+              "fr": "S’assurer que différents dispositifs, applications ou composants peuvent se connecter et échanger des données."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "a66203bd-d09e-46c4-9a18-e59f7f413818",
+            "key": "virtualisation_systems",
+            "name": {
+              "en": "Virtualisation Systems",
+              "fr": "Systèmes de virtualisation"
+            },
+            "description": {
+              "en": "Configure Windows and Linux virtual machines using appropriate tools such as, but not limited to, Microsoft Hyper-V, VMware, or Virtualbox.",
+              "fr": "Configurer des machines virtuelles Windows et Linux à l’aide d’outils appropriés comme ceux-ci, mais sans s’y limiter, Microsoft Hyper-V, VMware ou Virtualbox."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "49a8ad7b-d3c6-41d6-8eca-0dc68ecb5030",
+            "key": "enterprise_information_technology_architecture",
+            "name": {
+              "en": "Enterprise Information Technology Architecture",
+              "fr": "Architecture des technologies de l’information de l’entreprise"
+            },
+            "description": {
+              "en": "Describe and document guidelines for acquiring, building, or modifying an organization's IT resources.",
+              "fr": "Décrire et documenter les lignes directrices pour l’acquisition, la construction ou la modification des ressources informatiques d’une organisation."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "fc83f994-3679-496e-aa3f-c60bda8c385b",
+            "key": "requirements_analysis",
+            "name": {
+              "en": "Requirements Analysis",
+              "fr": "Analyse des besoins"
+            },
+            "description": {
+              "en": "Determine users' needs and expectations for a new or modified product.",
+              "fr": "Déterminer les besoins et les attentes des utilisateurs pour un produit nouveau ou modifié."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "7a1a90fd-eb7c-436f-b400-423906225b23",
+        "key": "it_project_management",
+        "category": "TECHNICAL",
+        "name": {
+          "en": "IT Project Management",
+          "fr": "Gestion des projets informatiques"
+        },
+        "description": {
+          "en": "IT Project Management",
+          "fr": "Gestion des projets informatiques"
+        },
+        "skills": [
+          {
+            "id": "88694c2f-fe18-4456-972e-d695dc4b79b6",
+            "key": "agile_methodologies",
+            "name": {
+              "en": "Agile Methodologies",
+              "fr": "Méthodologies agiles"
+            },
+            "description": {
+              "en": "Break projects up into short, structured cycles so work can be routinely assessed and improved upon.",
+              "fr": "Diviser les projets en cycles courts et structurés afin que le travail puisse être régulièrement évalué et amélioré."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "47170316-73cb-4e21-92b0-ba5e1e386027",
+            "key": "enhanced_management_framework_for_it_projects",
+            "name": {
+              "en": "Enhanced Management Framework for IT Projects",
+              "fr": "Cadre amélioré de gestion des projets informatiques"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "007d67c5-9341-458a-880c-5a49b130b0fa",
+            "key": "government_of_canada_it_policies_and_standards",
+            "name": {
+              "en": "Government of Canada IT Policies and Standards",
+              "fr": "Politiques et normes du gouvernement du Canada en matière de TI"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "bc83c467-c8b5-401d-807a-61974066cd33",
+            "key": "it_change_management",
+            "name": {
+              "en": "IT Change Management",
+              "fr": "Gestion des changements informatiques"
+            },
+            "description": {
+              "en": "Review and plan proposed changes to IT systems or services to reduce disruptions to IT services when they're implemented.",
+              "fr": "Examiner et planifier les changements proposés aux systèmes ou services informatiques afin de réduire les perturbations des services informatiques lors de leur mise en œuvre."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "3ca9c255-001b-4184-8a5d-3d32eb7f93ea",
+            "key": "it_project_estimating_and_planning_techniques",
+            "name": {
+              "en": "IT Project Estimating and Planning Techniques",
+              "fr": "Techniques d’estimation et de planification des projets informatiques"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "4c9ecb7c-4be9-4942-8bb1-f198a436db22",
+            "key": "it_project_portfolio_management_tools",
+            "name": {
+              "en": "IT Project Portfolio Management Tools",
+              "fr": "Outils de gestion de portefeuille de projets informatiques"
+            },
+            "description": {
+              "en": "Ability to use and work in project portfolio management tools, such as Clarity PPM.",
+              "fr": "Être en mesure d’utiliser et travailler avec des outils de gestion de portefeuille de projets, tels que Clarity PPM."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "c757841f-4c60-448a-9b3b-045d3b732874",
+            "key": "it_project_progress_monitoring",
+            "name": {
+              "en": "IT Project Progress Monitoring",
+              "fr": "Suivi de l’avancement des projets informatiques"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "ff8c03ab-bb96-4504-b148-42d6edd9a478",
+            "key": "implementation_of_gc_digital_standards_in_operations",
+            "name": {
+              "en": "Implementation of GC Digital Standards in Operations",
+              "fr": "Mise en œuvre des normes numériques du gouvernement du Canada dans les opérations"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "3de6b240-2b40-4f31-b340-f941a6c9e2cc",
+        "key": "technical_advising",
+        "category": "TECHNICAL",
+        "name": {
+          "en": "Technical Advising",
+          "fr": "Conseil technique"
+        },
+        "description": {
+          "en": "Technical Advising",
+          "fr": "Conseil technique"
+        },
+        "skills": [
+          {
+            "id": "12f09956-e28b-42e9-abb8-19507b1b6e85",
+            "key": "business_analysis",
+            "name": {
+              "en": "Business Analysis",
+              "fr": "Analyse des activités"
+            },
+            "description": {
+              "en": "Analyze business requirements and map them to the appropriate IT services required.",
+              "fr": "Analyser les exigences d’entreprise et les mettre en correspondance avec les services informatiques appropriés et requis."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "00071f08-f447-4f59-b381-1b3b65fab9f1",
+            "key": "communication_of_technical_information_to_non_technical_audiences",
+            "name": {
+              "en": "Communication of Technical Information to Non-Technical Audiences",
+              "fr": "Communication d’informations techniques à des publics non techniques"
+            },
+            "description": {
+              "en": "Share information in plain language so anyone can understand, regardless of technical knowledge.",
+              "fr": "Partager les informations dans un langage clair et simple afin que tout le monde puisse comprendre, quelles que soient ses connaissances techniques."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "4c760d35-f228-4a9f-9d42-ad113db0b189",
+            "key": "integrating_gc_digital_standards_into_technical_advice",
+            "name": {
+              "en": "Integrating GC Digital Standards into Technical Advice",
+              "fr": "Intégration des normes numériques du gouvernement du Canada dans les conseils techniques"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "c8124fec-426a-468c-8d59-7e1210a9572c",
+            "key": "strategy_development",
+            "name": {
+              "en": "Strategy Development",
+              "fr": "Élaboration de la stratégie"
+            },
+            "description": {
+              "en": "Identify the most favourable objective for a team and create a plan to achieve it.",
+              "fr": "Déterminer l’objectif le plus favorable pour une équipe et créer un plan pour l’atteindre."
+            },
+            "keywords": {
+              "en": ["Formulating Strategies", "Establishing Strategies"],
+              "fr": ["Formuler des stratégies", "Établir des stratégies"]
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "2b357f02-09fc-41b0-86ee-05cfa5e67aba",
+        "key": "user_experience_and_interface_design",
+        "category": "TECHNICAL",
+        "name": {
+          "en": "User Experience and Interface Design",
+          "fr": "Expérience utilisateur et conception d’interfaces"
+        },
+        "description": {
+          "en": "User Experience and Interface Design",
+          "fr": "Expérience utilisateur et conception d’interfaces"
+        },
+        "skills": [
+          {
+            "id": "12f09956-e28b-42e9-abb8-19507b1b6e85",
+            "key": "business_analysis",
+            "name": {
+              "en": "Business Analysis",
+              "fr": "Analyse des activités"
+            },
+            "description": {
+              "en": "Analyze business requirements and map them to the appropriate IT services required.",
+              "fr": "Analyser les exigences d’entreprise et les mettre en correspondance avec les services informatiques appropriés et requis."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "abe4f58d-80f3-4504-aab2-dd92954ab4cc",
+            "key": "data_analysis",
+            "name": {
+              "en": "Data Analysis",
+              "fr": "Analyse des données"
+            },
+            "description": {
+              "en": "Use data to discover useful information, inform conclusions, and support decision-making.",
+              "fr": "Utiliser les données pour découvrir des informations utiles, étayer les conclusions et soutenir la prise de décision."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "b2bdee81-d1a1-438e-b110-3c3f28ceeff0",
+            "key": "digital_product_accessibility",
+            "name": {
+              "en": "Digital Product Accessibility",
+              "fr": "Accessibilité des produits numériques"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "0a5fb737-ed8f-4157-afef-4d9323b55c75",
+            "key": "digital_product_prototyping",
+            "name": {
+              "en": "Digital Product Prototyping",
+              "fr": "Prototypage numérique de produits"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "cfef7d25-2ac0-4774-8dfa-8745fe3964eb",
+            "key": "graphic_design",
+            "name": {
+              "en": "Graphic Design",
+              "fr": "Conception graphique"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "6183ef18-fc0c-4c27-8e85-d13a7a9cee2b",
+            "key": "root_cause_analysis",
+            "name": {
+              "en": "Root Cause Analysis",
+              "fr": "Analyse des causes profondes"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "202a8942-0c28-4a9e-ac8c-a3164251cf0e",
+            "key": "ux_research_methods",
+            "name": {
+              "en": "UX Research Methods",
+              "fr": "Méthodes de recherche UX"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "fc83f994-3679-496e-aa3f-c60bda8c385b",
+            "key": "requirements_analysis",
+            "name": {
+              "en": "Requirements Analysis",
+              "fr": "Analyse des besoins"
+            },
+            "description": {
+              "en": "Determine users' needs and expectations for a new or modified product.",
+              "fr": "Déterminer les besoins et les attentes des utilisateurs pour un produit nouveau ou modifié."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "85a410e8-a27e-4914-a18d-cd556fe161e9",
+        "key": "it_security",
+        "category": "TECHNICAL",
+        "name": {
+          "en": "IT Security",
+          "fr": "Sécurité informatique"
+        },
+        "description": {
+          "en": "IT Security",
+          "fr": "Sécurité informatique"
+        },
+        "skills": [
+          {
+            "id": "a3de2d5a-5dfa-4581-90b6-4f607c0bcb7f",
+            "key": "accreditation_procedures__policies__and_practices",
+            "name": {
+              "en": "Accreditation Procedures, Policies, and Practices",
+              "fr": "Procédures, politiques et pratiques d’accréditation"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "7c4564f2-0105-499a-9537-50e43f4ef5a2",
+            "key": "application_access_management",
+            "name": {
+              "en": "Application Access Management",
+              "fr": "Gestion de l’accès aux applications"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "58bb6c78-b16d-4ed2-8bff-461563385462",
+            "key": "business_continuity_analysis_procedures_and_exercise_frameworks",
+            "name": {
+              "en": "Business Continuity Analysis Procedures and Exercise Frameworks",
+              "fr": "Procédures d’analyse de la continuité des activités et cadres d’exercices"
+            },
+            "description": {
+              "en": "Identify threats to essential business functions and create prevention and recovery systems to deal with them.",
+              "fr": "Cerner les menaces pesant sur les fonctions essentielles de l’entreprise et créer des systèmes de prévention et de récupération pour y faire face."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "994dc129-9b26-4082-8de7-60dc1d6ae09f",
+            "key": "cryptographic_applications",
+            "name": {
+              "en": "Cryptographic Applications",
+              "fr": "Applications cryptographiques"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "7fdf8f27-dd88-4136-90ee-f3dedbedebff",
+            "key": "it_disaster_recovery_management",
+            "name": {
+              "en": "IT Disaster Recovery Management",
+              "fr": "Gestion de la reprise après sinistre informatique"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "7cc71469-efde-46d0-818b-4ecb4e6dd64e",
+            "key": "it_disaster_recovery_planning",
+            "name": {
+              "en": "IT Disaster Recovery Planning",
+              "fr": "Planification de la reprise après sinistre informatique"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "e163433d-45cd-4e65-8f46-53a539199f4c",
+            "key": "it_operations_security",
+            "name": {
+              "en": "IT Operations Security",
+              "fr": "Sécurité des opérations informatiques"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "9271e32f-0295-43bc-af4e-074c1d444ec1",
+            "key": "it_security_principles__methods__and_policies",
+            "name": {
+              "en": "IT Security Principles, Methods, and Policies",
+              "fr": "Principes, méthodes et politiques de sécurité des TI"
+            },
+            "description": {
+              "en": "Understand and use IT security practices, standards, technologies or solutions.",
+              "fr": "Comprendre et utiliser les pratiques, normes, technologies ou solutions en matière de sécurité informatique."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "e907770a-f637-4a15-9e56-82f1f90f4ccf",
+            "key": "it_software_and_hardware_security_requirements",
+            "name": {
+              "en": "IT Software and Hardware Security Requirements",
+              "fr": "Exigences en matière de sécurité des logiciels et du matériel informatique"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "7e550eb4-bd6e-4704-aeaa-ce26f23d7ad2",
+            "key": "preservation_planning_practices__policies__and_procedures",
+            "name": {
+              "en": "Preservation Planning Practices, Policies, and Procedures",
+              "fr": "Pratiques, politiques et procédures de planification de la préservation"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "0910670e-a64d-48ec-90a5-0d4f0a1cdc30",
+            "key": "security_certification_procedures",
+            "name": {
+              "en": "Security Certification Procedures",
+              "fr": "Procédures de certification de sécurité"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "c6ca697e-2af7-4e90-a6e5-c41e79491ee3",
+        "key": "infrastructure_operations",
+        "category": "TECHNICAL",
+        "name": {
+          "en": "Infrastructure/Operations",
+          "fr": "Infrastructure/Opérations"
+        },
+        "description": {
+          "en": "Infrastructure/Operations",
+          "fr": "Infrastructure/Opérations"
+        },
+        "skills": [
+          {
+            "id": "49a8ad7b-d3c6-41d6-8eca-0dc68ecb5030",
+            "key": "enterprise_information_technology_architecture",
+            "name": {
+              "en": "Enterprise Information Technology Architecture",
+              "fr": "Architecture des technologies de l’information de l’entreprise"
+            },
+            "description": {
+              "en": "Describe and document guidelines for acquiring, building, or modifying an organization's IT resources.",
+              "fr": "Décrire et documenter les lignes directrices pour l’acquisition, la construction ou la modification des ressources informatiques d’une organisation."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "8d43a372-ef52-4198-a93d-8c58e77ed2af",
+            "key": "cloud_computing_platform_configuration",
+            "name": {
+              "en": "Cloud Computing Platform Configuration",
+              "fr": "Configuration de la plate-forme infonuagique"
+            },
+            "description": {
+              "en": "Set hardware and software details for elements of a cloud environment to make sure they can interoperate and communicate.",
+              "fr": "Définir les détails matériels et logiciels des éléments d’un environnement infonuagique pour vous assurer qu’ils peuvent interopérer et communiquer."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "73257928-fb94-4d0a-a6f6-e50e00618690",
+            "key": "enterprise_software",
+            "name": {
+              "en": "Enterprise Software",
+              "fr": "Logiciels d’entreprise"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "b560c5b7-98ea-4501-8de7-541a51789e97",
+            "key": "installing_and_configuring_software_and_hardware_devices",
+            "name": {
+              "en": "Installing and Configuring Software and Hardware Devices",
+              "fr": "Installer et configurer les dispositifs logiciels et matériels"
+            },
+            "description": {
+              "en": "Installing equipment, machines, wiring, or programs to meet specifications and changing the default attributes of software or hardware devices according to a defined build or baseline of technical specifications.",
+              "fr": "Installer des équipements, des machines, des câblages ou des programmes pour répondre à des caractéristiques techniques et modifier les attributs par défaut des dispositifs logiciels ou matériels en fonction d’un ensemble défini ou d’une base de caractéristiques techniques."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "8ce6bfa4-ade7-48ef-8b58-573db1a7936c",
+            "key": "it_incident_tracking",
+            "name": {
+              "en": "IT Incident Tracking",
+              "fr": "Suivi des incidents informatiques"
+            },
+            "description": {
+              "en": "Using an issue tracking solution to track and monitor software and hardware bugs and issues and their resolution.",
+              "fr": "Utiliser une solution de suivi des problèmes pour suivre et surveiller les bogues et les problèmes liés aux logiciels et au matériel ainsi que la résolution de ceux-ci."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "347a6330-2d72-4b20-9d66-6a66f7fffddb",
+            "key": "it_infrastructure_management",
+            "name": {
+              "en": "IT Infrastructure Management",
+              "fr": "Gestion de l’infrastructure informatique"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "2bc6ab2e-a72a-46c2-8425-e7f63a33aae0",
+            "key": "it_systems_administration",
+            "name": {
+              "en": "IT Systems Administration",
+              "fr": "Administration des systèmes informatiques"
+            },
+            "description": {
+              "en": "The upkeep, configuration, and reliable operation of computer systems, especially multi-user computers such as servers.",
+              "fr": "Effectuer la maintenance, la configuration et le fonctionnement fiable des systèmes informatiques, en particulier des ordinateurs multi-utilisateurs comme les serveurs."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "1e0560ce-cdee-4636-b948-8c367d336f79",
+            "key": "it_troubleshooting",
+            "name": {
+              "en": "IT Troubleshooting",
+              "fr": "Dépannage informatique"
+            },
+            "description": {
+              "en": "Determine causes of operating errors and decide what to do about them.",
+              "fr": "Déterminer les causes des erreurs de fonctionnement et décider des mesures à prendre."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "40adc75b-45f9-4414-a79c-5fc0a58255db",
+        "key": "cyber_security",
+        "category": "TECHNICAL",
+        "name": {
+          "en": "Cyber Security",
+          "fr": "Cybersécurité"
+        },
+        "description": {
+          "en": "Cyber Security",
+          "fr": "Cybersécurité"
+        },
+        "skills": [
+          {
+            "id": "d014b4c3-8c7f-4958-b56d-80aac54ad373",
+            "key": "application_of_nist_controls",
+            "name": {
+              "en": "Application of NIST controls",
+              "fr": "Application des contrôles NIST"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "7fc7ba75-e0ad-4c79-90de-569adc6e1185",
+            "key": "cybersecurity_principles",
+            "name": {
+              "en": "Cybersecurity Principles",
+              "fr": "Principes de cybersécurité"
+            },
+            "description": {
+              "en": "Understand and follow best practices to protect electronic information from digital attacks.",
+              "fr": "Comprendre et suivre les pratiques exemplaires pour protéger les informations électroniques contre les attaques numériques."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "9f3bc571-4cdf-4813-b812-49299a1be7e8",
+            "key": "evidence_integrity",
+            "name": {
+              "en": "Evidence Integrity",
+              "fr": "Intégrité des données probantes"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "379c614e-b71a-428d-ae3c-f5ff60d2356c",
+            "key": "intrusion_technology",
+            "name": {
+              "en": "Intrusion Technology",
+              "fr": "Technologie d’intrusion"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "7151ad53-eb07-45a3-9b39-2353d421c8d9",
+            "key": "malware_detection",
+            "name": {
+              "en": "Malware Detection",
+              "fr": "Détection des logiciels malveillants"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "6b843299-e690-4231-8d58-6bc6db436183",
+            "key": "security_event_correlation_tools",
+            "name": {
+              "en": "Security Event Correlation Tools",
+              "fr": "Outils de corrélation des événements de sécurité"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "5eca8e90-7262-4121-af7f-fab5fc7c632f",
+            "key": "vulnerability_assessment",
+            "name": {
+              "en": "Vulnerability Assessment",
+              "fr": "Évaluation de la vulnérabilité"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "874fd5e8-87ca-4aab-a83a-e5a26e5dfef3",
+        "key": "it_management",
+        "category": "TECHNICAL",
+        "name": {
+          "en": "IT Management",
+          "fr": "Gestion informatique"
+        },
+        "description": {
+          "en": "IT Management",
+          "fr": "Gestion informatique"
+        },
+        "skills": [
+          {
+            "id": "ff8c03ab-bb96-4504-b148-42d6edd9a478",
+            "key": "implementation_of_gc_digital_standards_in_operations",
+            "name": {
+              "en": "Implementation of GC Digital Standards in Operations",
+              "fr": "Mise en œuvre des normes numériques du gouvernement du Canada dans les opérations"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "0650a510-eec6-495d-9cea-5b6a39da8484",
+            "key": "government_and_department_policies_and_standards",
+            "name": {
+              "en": "Government and Department Policies and Standards",
+              "fr": "Politiques et normes du gouvernement et des ministères"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "2a188428-0006-46b8-8016-907f6e336b3a",
+            "key": "implementation_and_enforcement_of_policies",
+            "name": {
+              "en": "Implementation and Enforcement of Policies",
+              "fr": "Mise en œuvre et application des politiques"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "f9fa223f-228c-4771-9002-0d5d132b2c43",
+            "key": "it_strategy_development",
+            "name": {
+              "en": "IT Strategy Development",
+              "fr": "Élaboration de la stratégie informatique"
+            },
+            "description": {
+              "en": "Identify business goals and create a guide outlining how IT should be used to achieve them.",
+              "fr": "Déterminer les objectifs de l’entreprise et créer un guide décrivant comment l’informatique doit être utilisée pour les atteindre."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "c95e64f7-9029-458c-800a-a425af6a1df9",
+        "key": "information_management",
+        "category": "TECHNICAL",
+        "name": {
+          "en": "Information Management",
+          "fr": "Gestion de l’information"
+        },
+        "description": {
+          "en": "Information Management",
+          "fr": "Gestion de l’information"
+        },
+        "skills": [
+          {
+            "id": "be97bd40-ad2a-44ae-bf49-9e97e40d8493",
+            "key": "data_discovery_and_profiling",
+            "name": {
+              "en": "Data Discovery and Profiling",
+              "fr": "Découverte et profilage de données"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "83cbaa35-7e75-48fa-bccd-7f9bcc8c0eac",
+            "key": "data_movement",
+            "name": {
+              "en": "Data Movement",
+              "fr": "Mouvement des données"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "2501814e-a579-48f0-8d02-f893b66bbf9c",
+            "key": "information_privacy_laws",
+            "name": {
+              "en": "Information Privacy Laws",
+              "fr": "Lois sur la confidentialité des informations"
+            },
+            "description": {
+              "en": "",
+              "fr": ""
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "3adf233b-bf1f-4ff2-acdf-432b589bab69",
+            "key": "information_life_cycle",
+            "name": {
+              "en": "Information Life Cycle",
+              "fr": "Cycle de vie de l’information"
+            },
+            "description": {
+              "en": "Understand the stages data passes through from its creation to destruction.",
+              "fr": "Comprendre les étapes par lesquelles passent les données de leur création à leur destruction."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "b608cab5-147d-458b-bbe5-57a5bc7d98f5",
+        "key": "personal",
+        "category": "BEHAVIOURAL",
+        "name": {
+          "en": "Personal",
+          "fr": "Personnel"
+        },
+        "description": {
+          "en": "Personal",
+          "fr": "Personnel"
+        },
+        "skills": [
+          {
+            "id": "f405169f-4b2b-41ff-baf3-70d64cae2a9d",
+            "key": "accountability",
+            "name": {
+              "en": "Accountability",
+              "fr": "Responsabilité"
+            },
+            "description": {
+              "en": "Be transparent about, and take responsibility for, decisions and actions.",
+              "fr": "Faire preuve de transparence et assumer la responsabilité des décisions et actions."
+            },
+            "keywords": {
+              "en": ["Responsibility", "Ownership", "Transparency"],
+              "fr": ["Responsabilité", "Appropriation", "Transparence"]
+            }
+          },
+          {
+            "id": "1ed07d5d-25b3-40bb-b3df-9a32ddf6f342",
+            "key": "adaptability",
+            "name": {
+              "en": "Adaptability",
+              "fr": "Adaptabilité"
+            },
+            "description": {
+              "en": "Openness and ability to adjust to changing circumstances.",
+              "fr": "Avoir une ouverture d’esprit et une capacité à s’adapter à des circonstances changeantes."
+            },
+            "keywords": {
+              "en": ["Flexibility", "Resilience", "Versatility"],
+              "fr": ["Flexibilité", "Résilience", "Polyvalence"]
+            }
+          },
+          {
+            "id": "3a7bc36e-8914-49c9-afc0-e63917fb5436",
+            "key": "attention_to_detail",
+            "name": {
+              "en": "Attention to Detail",
+              "fr": "Souci du détail"
+            },
+            "description": {
+              "en": "Pay close attention to all elements of an activity or product, and find inaccuracies and inconsistencies.",
+              "fr": "Porter une attention particulière à tous les éléments d’une activité ou d’un produit, et trouver les inexactitudes et les incohérences."
+            },
+            "keywords": {
+              "en": [
+                "Thoroughness",
+                "Meticulousness",
+                "Precision",
+                "Conscientiousness"
+              ],
+              "fr": [
+                "Rigueur",
+                "Méticulosité",
+                "Précision",
+                "Faire preuve de conscience"
+              ]
+            }
+          },
+          {
+            "id": "1a452b6f-4695-45ed-8cd9-68c47972016c",
+            "key": "continuous_learning",
+            "name": {
+              "en": "Continuous Learning",
+              "fr": "Apprentissage continu"
+            },
+            "description": {
+              "en": "Continually gain, develop, and apply new knowledge and skills.",
+              "fr": "Acquérir, améliorer et appliquer continuellement de nouvelles connaissances et compétences."
+            },
+            "keywords": {
+              "en": [
+                "Adaptability",
+                "Constant Development",
+                "Thirst for Knowledge",
+                "Eagerness to Learn"
+              ],
+              "fr": [
+                "Capacité d’adaptation",
+                "Amélioration constante",
+                "Soif de connaissances",
+                "Désir d’apprendre"
+              ]
+            }
+          },
+          {
+            "id": "81d4e283-dc2c-4c88-93e9-d39da65c485c",
+            "key": "courage",
+            "name": {
+              "en": "Courage",
+              "fr": "Courage"
+            },
+            "description": {
+              "en": "Confront difficult situations without allowing fear to become a barrier.",
+              "fr": "Affronter les situations difficiles sans laisser la peur devenir un obstacle."
+            },
+            "keywords": {
+              "en": [
+                "Bravery",
+                "Determination",
+                "Grit",
+                "Boldness",
+                "Resolution"
+              ],
+              "fr": [
+                "Bravoure",
+                "Détermination",
+                "Courage",
+                "Audace",
+                "Résolution"
+              ]
+            }
+          },
+          {
+            "id": "ae661a38-66c9-49ae-a76c-543859c997e5",
+            "key": "curiosity",
+            "name": {
+              "en": "Curiosity",
+              "fr": "Curiosité"
+            },
+            "description": {
+              "en": "Drive to seek out and discover new information.",
+              "fr": "Avoir la volonté de rechercher et de découvrir de nouvelles informations."
+            },
+            "keywords": {
+              "en": [
+                "Inquisitive",
+                "Thirst for Knowledge",
+                "Eagerness to Learn"
+              ],
+              "fr": ["Curieux", "Soif de connaissances", "Désir d’apprendre"]
+            }
+          },
+          {
+            "id": "9817cbc1-91d0-4eb0-834e-8af8c06b522d",
+            "key": "dependability",
+            "name": {
+              "en": "Dependability",
+              "fr": "Fiabilité"
+            },
+            "description": {
+              "en": "Finish tasks in a trustworthy way, openly communicating about progress and concerns.",
+              "fr": "Terminer les tâches de manière digne de confiance, en communiquant ouvertement les progrès et les préoccupations."
+            },
+            "keywords": {
+              "en": [
+                "Reliability",
+                "Trustworthiness",
+                "Credibility",
+                "Consistency"
+              ],
+              "fr": ["Fiabilité", "Confiance", "Crédibilité", "Cohérence"]
+            }
+          },
+          {
+            "id": "f26852be-8098-4d23-a274-7f6313ccf107",
+            "key": "empathy",
+            "name": {
+              "en": "Empathy",
+              "fr": "Empathie"
+            },
+            "description": {
+              "en": "Willingness to consider and try to understand the feelings and viewpoints of other people.",
+              "fr": "Avoir la volonté de prendre en compte# et d’essayer de comprendre les sentiments et les points de vue d’autres personnes."
+            },
+            "keywords": {
+              "en": [
+                "Compassion",
+                "Understanding",
+                "Humanity",
+                "Sensitivity",
+                "Thoughtfulness"
+              ],
+              "fr": [
+                "Compassion",
+                "Compréhension",
+                "Humanité",
+                "Sensibilité",
+                "Délicatesse"
+              ]
+            }
+          },
+          {
+            "id": "c27d04ed-6392-48c9-98c8-f83fbe328217",
+            "key": "flexibility",
+            "name": {
+              "en": "Flexibility",
+              "fr": "Flexibilité"
+            },
+            "description": {
+              "en": "Try a different approach or method when current efforts are not working.",
+              "fr": "Essayer une approche ou une méthode différente lorsque les efforts actuels ne fonctionnent pas."
+            },
+            "keywords": {
+              "en": ["Resilience", "Adaptability", "Versatility"],
+              "fr": ["Résilience", "Adaptabilité", "Polyvalence"]
+            }
+          },
+          {
+            "id": "2c18b527-0009-41ad-8a12-1e5e0e4728fa",
+            "key": "humility",
+            "name": {
+              "en": "Humility",
+              "fr": "Humilité"
+            },
+            "description": {
+              "en": "Aware of the true value they and others bring to a team,which helps them accept feedback and contributions from others.",
+              "fr": "Être conscient de la valeur réelle qu’eux-mêmes et les autres apportent à une équipe, ce qui les aide à accepter le retour d’information et les contributions des autres."
+            },
+            "keywords": {
+              "en": ["Humbleness", "Modesty", "Unpretentious"],
+              "fr": ["Humilité", "Modestie", "Sans prétention"]
+            }
+          },
+          {
+            "id": "a1e80a70-6b52-4620-a271-2c992df478bd",
+            "key": "initiative",
+            "name": {
+              "en": "Initiative",
+              "fr": "Initiative"
+            },
+            "description": {
+              "en": "Take helpful action without being asked or directed to do so.",
+              "fr": "Prendre des mesures utiles sans que cela ne soit demandé ou ordonné."
+            },
+            "keywords": {
+              "en": ["Drive", "Resourcefulness", "Leadership", "Ambition"],
+              "fr": ["Dynamisme", "Débrouillardise", "Leadership", "Ambition"]
+            }
+          },
+          {
+            "id": "3004193a-a15a-476a-9dc5-f3db288341e8",
+            "key": "integrity",
+            "name": {
+              "en": "Integrity",
+              "fr": "Intégrité"
+            },
+            "description": {
+              "en": "Committed to upholding the public's trust by acting in an honest, fair, and ethical manner.",
+              "fr": "S’engager à maintenir la confiance du public en agissant de manière honnête, équitable et éthique."
+            },
+            "keywords": {
+              "en": [
+                "Honesty",
+                "Morality",
+                "Virtue",
+                "Trustworthiness",
+                "Ethical"
+              ],
+              "fr": ["Honnêteté", "Moralité", "Vertu", "Fiabilité", "Éthique"]
+            }
+          },
+          {
+            "id": "6edd2d79-079a-4f5a-89ca-eb78d57705f0",
+            "key": "judgement",
+            "name": {
+              "en": "Judgement",
+              "fr": "Jugement"
+            },
+            "description": {
+              "en": "Take all relevant information into account and make well-informed, evidence-based decisions.",
+              "fr": "Prendre en compte toutes les informations pertinentes et prendre des décisions éclairées, fondées sur des données probantes."
+            },
+            "keywords": {
+              "en": ["Decision", "Evaluation", "Assessment", "Discretion"],
+              "fr": ["Décision", "Évaluation", "Appréciation", "Discernement"]
+            }
+          },
+          {
+            "id": "2f1dfec7-9361-451a-b550-576fdfcefdfd",
+            "key": "openness",
+            "name": {
+              "en": "Openness",
+              "fr": "Ouverture"
+            },
+            "description": {
+              "en": "Share freely to the greatest benefit",
+              "fr": "Partager librement pour le plus grand bénéfice de tous"
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "e6e4c961-473a-46cd-8110-e694589388d4",
+            "key": "passion",
+            "name": {
+              "en": "Passion",
+              "fr": "Passion"
+            },
+            "description": {
+              "en": "Demonstrate enthusiasm for a task, initiative, or approach.",
+              "fr": "Faire preuve d’enthousiasme pour une tâche, une initiative ou une approche."
+            },
+            "keywords": {
+              "en": ["Enthusiasm", "Eagerness", "Fervor", "Energy"],
+              "fr": ["Enthousiasme", "Ardeur", "Ferveur", "Énergie"]
+            }
+          },
+          {
+            "id": "82f39a76-7444-40e0-bf48-c2166d265e79",
+            "key": "persistence",
+            "name": {
+              "en": "Persistence",
+              "fr": "Persistance"
+            },
+            "description": {
+              "en": "Continuously work towards an outcome, despite challenges and setbacks.",
+              "fr": "Travailler continuellement à l’atteinte d’un résultat, malgré les défis et les revers."
+            },
+            "keywords": {
+              "en": [
+                "Perseverance",
+                "Determination",
+                "Tenacity",
+                "Patience",
+                "Grit",
+                "Diligence"
+              ],
+              "fr": [
+                "Persévérance",
+                "Détermination",
+                "Ténacité",
+                "Patience",
+                "Grain",
+                "Diligence"
+              ]
+            }
+          },
+          {
+            "id": "9cc67831-1d9e-45ab-8760-73df9a18e359",
+            "key": "positive_attitude",
+            "name": {
+              "en": "Positive Attitude",
+              "fr": "Attitude positive"
+            },
+            "description": {
+              "en": "Face challenges with optimism and to make the best of bad situations.",
+              "fr": "Relever les défis avec optimisme et tirer le meilleur parti des mauvaises situations."
+            },
+            "keywords": {
+              "en": [
+                "Optimistic",
+                "Can-do Attitude",
+                "Positivity",
+                "Good Attitude"
+              ],
+              "fr": [
+                "Optimiste",
+                "Attitude gagnate",
+                "Positivité",
+                "Bonne attitude"
+              ]
+            }
+          },
+          {
+            "id": "ff97f3f6-3073-475c-bbcf-d260b91822bc",
+            "key": "resilience",
+            "name": {
+              "en": "Resilience",
+              "fr": "Résilience"
+            },
+            "description": {
+              "en": "Quickly recover from significant or sustained adversity, challenges, or change.",
+              "fr": "Se remettre rapidement d’une adversité, de défis ou de changements importants ou durables."
+            },
+            "keywords": {
+              "en": ["Flexibility", "Adaptability", "Adjustability"],
+              "fr": ["Flexibilité", "Adaptabilité", "Ajustement"]
+            }
+          },
+          {
+            "id": "837a267b-0e0d-448b-b5c4-eb91e8ede5e6",
+            "key": "results_mindset",
+            "name": {
+              "en": "Results Mindset",
+              "fr": "Orienté vers les résultats"
+            },
+            "description": {
+              "en": "Focus efforts on achieving quality results consistent with the overall vision.",
+              "fr": "Concentrer les efforts sur l’obtention de résultats de qualité conformes à la vision globale."
+            },
+            "keywords": {
+              "en": ["Results-Oriented", "Goal-Driven", "Outcome-Oriented"],
+              "fr": [
+                "Axé sur les résultats",
+                "Axé sur les objectifs",
+                "Axé sur les résultats"
+              ]
+            }
+          },
+          {
+            "id": "1777402b-f5de-4cfb-a0c3-4b63a1c58186",
+            "key": "self_awareness",
+            "name": {
+              "en": "Self-Awareness",
+              "fr": "Conscience de soi"
+            },
+            "description": {
+              "en": "Think objectively about one's own strengths and limitations.",
+              "fr": "Réfléchir objectivement à ses propres forces et limites."
+            },
+            "keywords": {
+              "en": [
+                "Introspection",
+                "Self Knowledge",
+                "Self Analysis",
+                "Understanding of Self"
+              ],
+              "fr": [
+                "Introspection",
+                "Connaissance de soi",
+                "Analyse de soi",
+                "Compréhension de soi"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "d2905bef-ac0b-41d5-a941-6646185f2b0d",
+        "key": "interpersonal",
+        "category": "BEHAVIOURAL",
+        "name": {
+          "en": "Interpersonal",
+          "fr": "Interpersonnel"
+        },
+        "description": {
+          "en": "Interpersonal",
+          "fr": "Interpersonnel"
+        },
+        "skills": [
+          {
+            "id": "7506a6e0-5a58-47ac-9393-e6f03dd6e842",
+            "key": "inclusive_mindset",
+            "name": {
+              "en": "Inclusive Mindset",
+              "fr": "Esprit d’inclusivité"
+            },
+            "description": {
+              "en": "Involve all team members in activities and remove barriers so everyone can enjoy the same experiences.",
+              "fr": "Faire participer tous les membres de l’équipe aux activités et supprimer les obstacles pour que chacun puisse vivre les mêmes expériences."
+            },
+            "keywords": {
+              "en": [
+                "Inclusion",
+                "Non-discriminatory",
+                "Considerate of Differences"
+              ],
+              "fr": [
+                "Inclusion",
+                "Non-discrimination",
+                "Prise en compte des différences"
+              ]
+            }
+          },
+          {
+            "id": "ada275a6-78d6-4762-bdfd-19b620537a50",
+            "key": "client_focus",
+            "name": {
+              "en": "Client Focus",
+              "fr": "Axé sur le client"
+            },
+            "description": {
+              "en": "Engage respectfully with service or product users, prioritizing their needs, promoting satisfaction, and resolving issues.",
+              "fr": "S’engager respectueusement avec les utilisateurs de services ou de produits, en donnant la priorité à leurs besoins, en favorisant la satisfaction et en résolvant les problèmes."
+            },
+            "keywords": {
+              "en": [
+                "Customer Service",
+                "Client Service",
+                "Customer Care",
+                "Customer Engagement",
+                "Service to Clients"
+              ],
+              "fr": [
+                "Service aux consommateurs",
+                "Service à la clientèle",
+                "Soins à la clientèle",
+                "Engagement envers la clientèle",
+                "Service aux clients"
+              ]
+            }
+          },
+          {
+            "id": "86b5996b-23fe-4f03-ba06-5c2cbd39f038",
+            "key": "collaboration",
+            "name": {
+              "en": "Collaboration",
+              "fr": "Collaboration"
+            },
+            "description": {
+              "en": "Work with others toward a common goal through the mutual sharing of ideas, information, and resources.",
+              "fr": "Travailler avec d’autres personnes pour atteindre un objectif commun en partageant des idées, des informations et des ressources."
+            },
+            "keywords": {
+              "en": ["Cooperation", "Teamwork", "Working Together"],
+              "fr": ["Coopération", "Travail d’équipe", "Travail en commun"]
+            }
+          },
+          {
+            "id": "49deaf24-f36c-435f-b51c-40d5150342dc",
+            "key": "networking",
+            "name": {
+              "en": "Networking",
+              "fr": "Mise en réseau"
+            },
+            "description": {
+              "en": "Seek out and form professional relationships with others in a way that benefits both parties.",
+              "fr": "Rechercher et établir des relations professionnelles avec d’autres personnes d’une manière qui profite aux deux parties."
+            },
+            "keywords": {
+              "en": [
+                "Connecting",
+                "Building Relationships",
+                "Relationship Development",
+                "Lead Generation"
+              ],
+              "fr": [
+                "Établir des liens",
+                "Établir des relations",
+                "Développer des relations",
+                "Génération de prospects"
+              ]
+            }
+          },
+          {
+            "id": "d0f8ef6b-3d6f-461c-95d7-1fdacdd29cee",
+            "key": "relationship_management",
+            "name": {
+              "en": "Relationship Management",
+              "fr": "Gestion des relations"
+            },
+            "description": {
+              "en": "Build rapport with clients and stakeholders and keep them engaged over a sustained amount of time.",
+              "fr": "Établir des relations avec les clients et les parties prenantes et les maintenir engagés sur une période de temps prolongée."
+            },
+            "keywords": {
+              "en": [
+                "Relationship Building",
+                "Interpersonal Skills",
+                "People Skills",
+                "Relations Development"
+              ],
+              "fr": [
+                "Établissement de relations",
+                "Compétences interpersonnelles",
+                "Compétences relationnelles",
+                "Établissement de liens"
+              ]
+            }
+          },
+          {
+            "id": "15fc1a43-85df-4504-8cd9-0c0bdd0376d8",
+            "key": "respect",
+            "name": {
+              "en": "Respect",
+              "fr": "Respect"
+            },
+            "description": {
+              "en": "Commit to creating an environment that is free from discrimination, harassment, and bullying.",
+              "fr": "S’engager à créer un environnement exempt de discrimination, de harcèlement et d’intimidation."
+            },
+            "keywords": {
+              "en": [
+                "Consideration",
+                "Appreciation",
+                "Professional",
+                "Courteous"
+              ],
+              "fr": [
+                "Considération",
+                "Appréciation",
+                "Professionnalisme",
+                "Courtoisie"
+              ]
+            }
+          },
+          {
+            "id": "c003428c-4cd7-442d-855a-b0c0dea6a84d",
+            "key": "stakeholder_relations",
+            "name": {
+              "en": "Stakeholder Relations",
+              "fr": "Relations avec les parties prenantes"
+            },
+            "description": {
+              "en": "Communicate with invested parties to assess their needs, negotiate outcomes, and manage expectations.",
+              "fr": "Communiquer avec les parties investies pour évaluer leurs besoins, négocier les résultats et gérer les attentes."
+            },
+            "keywords": {
+              "en": [
+                "Relationship Management",
+                "Client Service",
+                "Negotiation"
+              ],
+              "fr": [
+                "Gestion des relations",
+                "Service à la clientèle",
+                "Négociation"
+              ]
+            }
+          },
+          {
+            "id": "9e71eb00-c182-4237-a748-d7c87fd0c0f6",
+            "key": "teamwork",
+            "name": {
+              "en": "Teamwork",
+              "fr": "Travail d’équipe"
+            },
+            "description": {
+              "en": "Doing one's part to the best of their abilities when working as a member of a group.",
+              "fr": "Faire sa part au mieux de ses capacités lorsqu’on travaille en tant que membre d’un groupe."
+            },
+            "keywords": {
+              "en": ["Collaboration", "Cooperation", "Integrity"],
+              "fr": ["Collaboration", "Coopération", "Intégrité"]
+            }
+          },
+          {
+            "id": "350f7fd7-0427-481b-b8e7-01e6df2d639e",
+            "key": "respect_for_diversity",
+            "name": {
+              "en": "Respect for Diversity",
+              "fr": "Respect de la diversité"
+            },
+            "description": {
+              "en": "Appreciate the unique qualities and views people from different backgrounds bring to a team.",
+              "fr": "Apprécier les qualités et les points de vue uniques que des personnes d’origines différentes apportent à une équipe."
+            },
+            "keywords": {
+              "en": [
+                "Inclusive",
+                "Accepting of differences",
+                "Cultural Competence"
+              ],
+              "fr": [
+                "Inclusivité",
+                "Acceptation des différences",
+                "Compétence culturelle"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "7d1461f4-4409-439f-ad76-98026a487960",
+        "key": "leadership",
+        "category": "BEHAVIOURAL",
+        "name": {
+          "en": "Leadership",
+          "fr": "Leadership"
+        },
+        "description": {
+          "en": "Leadership",
+          "fr": "Leadership"
+        },
+        "skills": [
+          {
+            "id": "21cd1b30-7daa-4123-87b8-7dbba6191947",
+            "key": "advice_to_senior_management",
+            "name": {
+              "en": "Advice to Senior Management",
+              "fr": "Conseil à la direction générale"
+            },
+            "description": {
+              "en": "Provide evidence-based recommendations and communicate them to upper-level managers in a clear and meaningful way.",
+              "fr": "Fournir des recommandations fondées sur des données probantes et les communiquer aux responsables de niveau élevé de manière claire et significative."
+            },
+            "keywords": {
+              "en": ["Advising", "Counselling", "Guiding"],
+              "fr": ["Conseil", "Orientation", "Guide"]
+            }
+          },
+          {
+            "id": "3dc92f6b-8672-4f18-bbaf-49946a714653",
+            "key": "change_management",
+            "name": {
+              "en": "Change Management",
+              "fr": "Gestion du changement"
+            },
+            "description": {
+              "en": "Support people who are affected by change to help ensure it is adopted successfully.",
+              "fr": "Soutenir les personnes concernées par le changement afin de s’assurer qu’il est adopté avec succès."
+            },
+            "keywords": {
+              "en": [
+                "Bringing About Change",
+                "Supporting Change",
+                "Leading Through Change",
+                "Coaching"
+              ],
+              "fr": [
+                "Susciter le changement",
+                "Soutenir le changement",
+                "Diriger par le changement",
+                "Mentorat"
+              ]
+            }
+          },
+          {
+            "id": "37f0e940-1991-4216-8ea6-d4a06e7a060a",
+            "key": "conflict_management",
+            "name": {
+              "en": "Conflict Management",
+              "fr": "Gestion des conflits"
+            },
+            "description": {
+              "en": "Help others overcome difficulties stemming from differences of opinion or issues with communication.",
+              "fr": "Aider les autres à surmonter les difficultés découlant de divergences d’opinion ou de problèmes de communication."
+            },
+            "keywords": {
+              "en": [
+                "Dealing With Conflict",
+                "Addressing Conflict",
+                "Conflict Resolution"
+              ],
+              "fr": [
+                "Gérer les conflits",
+                "Traiter les conflits",
+                "Résolution des conflits"
+              ]
+            }
+          },
+          {
+            "id": "08f8a15c-968a-4f1c-ae56-d86d58e6d112",
+            "key": "creating_inclusive_environments",
+            "name": {
+              "en": "Creating Inclusive Environments",
+              "fr": "Création d’environnements inclusifs"
+            },
+            "description": {
+              "en": "Create a space where every person feels respected and appreciated.",
+              "fr": "Créer un espace où chaque personne se sent respectée et appréciée."
+            },
+            "keywords": {
+              "en": [
+                "Inclusion",
+                "Non-discriminatory",
+                "Considerate of Differences"
+              ],
+              "fr": [
+                "Inclusion",
+                "Non-discrimination",
+                "Prise en compte des différences"
+              ]
+            }
+          },
+          {
+            "id": "a8575aae-dfaf-4ad2-851a-e70dcfaf44fe",
+            "key": "decision_making",
+            "name": {
+              "en": "Decision-Making",
+              "fr": "Prise de décision"
+            },
+            "description": {
+              "en": "Comfortably select a course of action when faced with a choice between feasible alternatives.",
+              "fr": "Choisir confortablement un plan d’action lorsqu’on est confronté à un choix entre plusieurs alternatives réalisables."
+            },
+            "keywords": {
+              "en": ["Judgement", "Judgment", "Decisiveness"],
+              "fr": ["Jugement", "Jugement", "Décisiff"]
+            }
+          },
+          {
+            "id": "91957da4-87f3-488a-8454-34fe8c24ef6f",
+            "key": "developing_others",
+            "name": {
+              "en": "Developing Others",
+              "fr": "Amélioration des autres"
+            },
+            "description": {
+              "en": "Support others as they learn and grow in their own careers.",
+              "fr": "Soutener les autres pendant qu’ils apprennent et se développent dans leur propre carrière."
+            },
+            "keywords": {
+              "en": ["Coaching", "Mentorship", "Guidance"],
+              "fr": ["Accompagnement", "Mentorat", "Guide"]
+            }
+          },
+          {
+            "id": "7b0ded08-5688-4aa2-835f-a4244c2b4308",
+            "key": "ethical_decision_making",
+            "name": {
+              "en": "Ethical Decision-Making",
+              "fr": "Prise de décisions éthiques"
+            },
+            "description": {
+              "en": "Make decisions without bias or self-interest, ensuring fairness for all people involved.",
+              "fr": "Prendre des décisions sans parti pris ni intérêt personnel, en assurant l’équité pour toutes les personnes concernées."
+            },
+            "keywords": {
+              "en": [
+                "Judgment",
+                "Decisiveness",
+                "Integrity",
+                "Ethical Leadership"
+              ],
+              "fr": ["Jugement", "Décisif", "Intégrité", "Leadership éthique"]
+            }
+          },
+          {
+            "id": "db32056a-a7ae-44ea-8699-27c5e5ac735b",
+            "key": "project_management",
+            "name": {
+              "en": "Project Management",
+              "fr": "Gestion de projet"
+            },
+            "description": {
+              "en": "Prioritize the most impactful changes, managing competing priorities, advancing a continuous cycle of improvement.",
+              "fr": "Donner la priorité aux changements ayant le plus d’impact, gérer les priorités concurrentes, faire progresser un cycle continu d’amélioration."
+            },
+            "keywords": {
+              "en": [
+                "Administration of Projects",
+                "Prioritization",
+                "Managing Schedules",
+                "Advancing Progress"
+              ],
+              "fr": [
+                "Administration des projets",
+                "Établissement des priorités",
+                "Gestion des horaire",
+                "Avancement des travaux"
+              ]
+            }
+          },
+          {
+            "id": "0bd52040-25d6-4c40-9b1a-9cffe2b8331d",
+            "key": "resource_management",
+            "name": {
+              "en": "Resource Management",
+              "fr": "Gestion des ressources"
+            },
+            "description": {
+              "en": "Effectively develop and allocate assets as they are needed.",
+              "fr": "Développer et allouer efficacement les actifs en fonction des besoins."
+            },
+            "keywords": {
+              "en": [
+                "Asset Management",
+                "Administration of Resources",
+                "Resource Allocation"
+              ],
+              "fr": [
+                "Gestion des actifs",
+                "Administration des ressources",
+                "Allocation des ressources"
+              ]
+            }
+          },
+          {
+            "id": "3c34d63d-1ba0-48e3-a680-59dcae9e3a7d",
+            "key": "risk_mindset",
+            "name": {
+              "en": "Risk Mindset",
+              "fr": "Orienté vers la prise de risque"
+            },
+            "description": {
+              "en": "Comfortably take calculated risks and learn from those that are unsuccessful.",
+              "fr": "Prendre confortablement des risques calculés et tirer les leçons de ceux qui n’ont pas fonctionné."
+            },
+            "keywords": {
+              "en": ["Comfort with Risk", "Calculated Risk", "Risk Taking"],
+              "fr": [
+                "Confort avec le risque",
+                "Risque calculé",
+                "Prise de risque"
+              ]
+            }
+          },
+          {
+            "id": "983f5568-cdf1-49fb-9133-dfe4fa256bce",
+            "key": "team_leadership",
+            "name": {
+              "en": "Team Leadership",
+              "fr": "Direction de l’équipe"
+            },
+            "description": {
+              "en": "Support and motivate team members so they may collectively deliver on agreed-upon outcomes.",
+              "fr": "Soutenir et motiver les membres de l’équipe afin qu’ils puissent collectivement atteindre les résultats convenus."
+            },
+            "keywords": {
+              "en": ["Managing Teams", "Guiding Teams"],
+              "fr": ["Gérer des équipes", "Guider des équipes"]
+            }
+          },
+          {
+            "id": "c8124fec-426a-468c-8d59-7e1210a9572c",
+            "key": "strategy_development",
+            "name": {
+              "en": "Strategy Development",
+              "fr": "Élaboration de la stratégie"
+            },
+            "description": {
+              "en": "Identify the most favourable objective for a team and create a plan to achieve it.",
+              "fr": "Déterminer l’objectif le plus favorable pour une équipe et créer un plan pour l’atteindre."
+            },
+            "keywords": {
+              "en": ["Formulating Strategies", "Establishing Strategies"],
+              "fr": ["Formuler des stratégies", "Établir des stratégies"]
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "5a28c58a-b272-4258-9b9b-b599aa3ef629",
+        "key": "communication",
+        "category": "BEHAVIOURAL",
+        "name": {
+          "en": "Communication",
+          "fr": "Communication"
+        },
+        "description": {
+          "en": "Communication",
+          "fr": "Communication"
+        },
+        "skills": [
+          {
+            "id": "2fcda6eb-60cb-408b-a07a-e82733cf03ce",
+            "key": "storytelling",
+            "name": {
+              "en": "Storytelling",
+              "fr": "Communication narrative"
+            },
+            "description": {
+              "en": "Communicate progress, success stories, and lessons learned to diverse audiences in a clear, compelling manner.",
+              "fr": "Communiquer les progrès, les réussites et les leçons apprises à divers publics de manière claire et convaincante."
+            },
+            "keywords": {
+              "en": ["Creating narratives", "Communication", "Engagement"],
+              "fr": ["Création de récits", "Communication", "Mobilisation"]
+            }
+          },
+          {
+            "id": "b9419796-c509-44c6-a6fa-ddc9f5e18a93",
+            "key": "verbal_communication",
+            "name": {
+              "en": "Verbal Communication",
+              "fr": "Communication verbale"
+            },
+            "description": {
+              "en": "Clearly share concepts, coordinate work, and advance goals through discussion or presentations.",
+              "fr": "Partager clairement les concepts, coordonner le travail et faire progresser les objectifs par le biais de discussions ou de présentations."
+            },
+            "keywords": {
+              "en": [
+                "Oral Communication",
+                "Verbal Expression",
+                "Presentation",
+                "Speaking",
+                "Spoken Communication"
+              ],
+              "fr": [
+                "Communication orale",
+                "Expression verbale",
+                "Présentation",
+                "Prise de parole",
+                "Communication verbale"
+              ]
+            }
+          },
+          {
+            "id": "29ef6563-e554-49a5-bc93-f451780a2bee",
+            "key": "visual_communication",
+            "name": {
+              "en": "Visual Communication",
+              "fr": "Communication visuelle"
+            },
+            "description": {
+              "en": "Use visual aids such as diagrams and illustrations to convey information to others.",
+              "fr": "Utiliser des supports visuels tels que des diagrammes et des illustrations pour transmettre des informations aux autres."
+            },
+            "keywords": {
+              "en": ["Video Communication", "Visual Media", "Graphics"],
+              "fr": ["Communication vidéo", "Médias visuels", "Graphisme"]
+            }
+          },
+          {
+            "id": "e11078c2-f9e7-40b2-a911-2d77afb30df8",
+            "key": "written_communication",
+            "name": {
+              "en": "Written Communication",
+              "fr": "Communication écrite"
+            },
+            "description": {
+              "en": "Write information in a clear, logical manner so readers may understand and use the concepts shared.",
+              "fr": "Rédiger des informations de manière claire et logique afin que les lecteurs puissent comprendre et utiliser les concepts partagés."
+            },
+            "keywords": {
+              "en": ["Writing", "Written Information"],
+              "fr": ["Rédaction", "Information écrite"]
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "b5cb1047-b406-47d4-9015-d874f87da38c",
+        "key": "thinking",
+        "category": "BEHAVIOURAL",
+        "name": {
+          "en": "Thinking",
+          "fr": "Réfléchir"
+        },
+        "description": {
+          "en": "Thinking",
+          "fr": "Réfléchir"
+        },
+        "skills": [
+          {
+            "id": "7506a6e0-5a58-47ac-9393-e6f03dd6e842",
+            "key": "inclusive_mindset",
+            "name": {
+              "en": "Inclusive Mindset",
+              "fr": "Esprit d’inclusivité"
+            },
+            "description": {
+              "en": "Involve all team members in activities and remove barriers so everyone can enjoy the same experiences.",
+              "fr": "Faire participer tous les membres de l’équipe aux activités et supprimer les obstacles pour que chacun puisse vivre les mêmes expériences."
+            },
+            "keywords": {
+              "en": [
+                "Inclusion",
+                "Non-discriminatory",
+                "Considerate of Differences"
+              ],
+              "fr": [
+                "Inclusion",
+                "Non-discrimination",
+                "Prise en compte des différences"
+              ]
+            }
+          },
+          {
+            "id": "9f41b735-ede6-4615-ac98-7d00ccb3d15d",
+            "key": "ability_to_learn_quickly",
+            "name": {
+              "en": "Ability to Learn Quickly",
+              "fr": "Capacité d’apprendre rapidement"
+            },
+            "description": {
+              "en": "Rapidly pick up new skills and competencies, and apply them in a work situation.",
+              "fr": "Acquérir rapidement de nouvelles aptitudes et compétences, et les appliquer dans une situation de travail."
+            },
+            "keywords": {
+              "en": ["Fast Learner", "Quick Learner"],
+              "fr": ["Apprentissage rapide", "Apprend rapide"]
+            }
+          },
+          {
+            "id": "731bac49-9bc7-4176-9398-2a8ae6cef5a0",
+            "key": "analysis",
+            "name": {
+              "en": "Analysis",
+              "fr": "Analyse"
+            },
+            "description": {
+              "en": "Collect and utilize qualitative and quantitative data to make decisions.",
+              "fr": "Recueillir et utiliser des données qualitatives et quantitatives pour prendre des décisions."
+            },
+            "keywords": {
+              "en": [
+                "Examination",
+                "Investigation",
+                "Assessment",
+                "Exploration",
+                "Interpretation"
+              ],
+              "fr": [
+                "Examen",
+                "Enquête",
+                "Évaluation",
+                "Exploration",
+                "Interprétation"
+              ]
+            }
+          },
+          {
+            "id": "49d2f2c4-5c84-428e-ae3a-f367ee8f1c0b",
+            "key": "analytical_thinking",
+            "name": {
+              "en": "Analytical Thinking",
+              "fr": "Pensée analytique"
+            },
+            "description": {
+              "en": "Break down complex issues into smaller parts to gain understanding and insight about a topic.",
+              "fr": "Décomposer des questions complexes en parties plus petites afin de mieux comprendre et mieux approcher un sujet."
+            },
+            "keywords": {
+              "en": [
+                "Critical Thinking",
+                "Logical Thinking",
+                "Analysis of Facts"
+              ],
+              "fr": ["Pensée critique", "Pensée logique", "Analyse des faits"]
+            }
+          },
+          {
+            "id": "548de174-c274-4ecf-950f-29dcf76c5625",
+            "key": "organizational_acumen",
+            "name": {
+              "en": "Organizational Acumen",
+              "fr": "Sens de l’organisation"
+            },
+            "description": {
+              "en": "Understand the objectives and ecosystem of an organization.",
+              "fr": "Comprendre les objectifs et l’écosystème d’une organisation."
+            },
+            "keywords": {
+              "en": ["Business Savvy", "Business Sense"],
+              "fr": ["Connaissance des affaires", "Sens des affaires"]
+            }
+          },
+          {
+            "id": "60ac916d-2acd-4e7c-bb67-53ce0f33777a",
+            "key": "complex_problem_solving",
+            "name": {
+              "en": "Complex Problem Solving",
+              "fr": "Résolution de problèmes complexes"
+            },
+            "description": {
+              "en": "Use logical approaches to solve unique, ill-defined, or intricate problems.",
+              "fr": "Utiliser des approches logiques pour résoudre des problèmes uniques, mal définis ou complexes."
+            },
+            "keywords": {
+              "en": [
+                "Problem Resolution",
+                "Troubleshooting",
+                "Problem Analysis"
+              ],
+              "fr": [
+                "Résolution de problèmes",
+                "Dépannage",
+                "Analyse de problèmes"
+              ]
+            }
+          },
+          {
+            "id": "0634999a-f6db-4189-918a-316f24d7a88e",
+            "key": "creative_thinking",
+            "name": {
+              "en": "Creative Thinking",
+              "fr": "Pensée créative"
+            },
+            "description": {
+              "en": "Generate new, unusual, or clever ideas about a topic or to solve an issue.",
+              "fr": "Générer des idées nouvelles, inhabituelles ou ingénieuses sur un sujet ou pour résoudre un problème."
+            },
+            "keywords": {
+              "en": [
+                "Imagination",
+                "Innovative",
+                "Originality",
+                "Thinking Outside the Box"
+              ],
+              "fr": [
+                "Imagination",
+                "Innovation",
+                "Originalité",
+                "Sortir des sentiers battus"
+              ]
+            }
+          },
+          {
+            "id": "eeab1490-6fd6-4a9f-ac2c-2cd2d632b1b8",
+            "key": "critical_thinking",
+            "name": {
+              "en": "Critical Thinking",
+              "fr": "Pensée critique"
+            },
+            "description": {
+              "en": "Take a structured and objective approach to evaluating information before forming an opinion about a topic.",
+              "fr": "Adopter une approche structurée et objective pour évaluer les informations avant de se faire une opinion sur un sujet."
+            },
+            "keywords": {
+              "en": [
+                "Reflection",
+                "Reasoning",
+                "Objective",
+                "Analysis",
+                "Critical Evaluation"
+              ],
+              "fr": [
+                "Réflexion",
+                "Raisonnement",
+                "Objectif",
+                "Analyse",
+                "Évaluation critique"
+              ]
+            }
+          },
+          {
+            "id": "20645d7f-ca4e-446d-b9b3-c03ce9674eaa",
+            "key": "design_thinking",
+            "name": {
+              "en": "Design Thinking",
+              "fr": "Orienté vers la conception"
+            },
+            "description": {
+              "en": "Design products and services with users always in mind.",
+              "fr": "Concevoir des produits et des services en gardant toujours les utilisateurs à l’esprit."
+            },
+            "keywords": {
+              "en": [
+                "Creative Problem-Solving",
+                "Creative Thinking",
+                "Human-Centred Design"
+              ],
+              "fr": [
+                "Résolution de problèmes de façon créative",
+                "Pensée créative",
+                "Conception axée sur l’humain"
+              ]
+            }
+          },
+          {
+            "id": "75a314c7-2f20-40be-81ae-5c55b22fe713",
+            "key": "entrepreneurial_thinking",
+            "name": {
+              "en": "Entrepreneurial Thinking",
+              "fr": "Pensée entrepreneuriale"
+            },
+            "description": {
+              "en": "Resourcefully recognize opportunities and go after them.",
+              "fr": "Reconnaître les occasions avec ingéniosité et les saisir."
+            },
+            "keywords": {
+              "en": ["Entrepreneurial Spirit", "Enterprising", "Pioneering"],
+              "fr": ["Esprit d’entreprise", "Entreprenant", "Pionnier"]
+            }
+          },
+          {
+            "id": "3e0aedf8-544c-4489-a0b3-5eee57cac993",
+            "key": "innovation",
+            "name": {
+              "en": "Innovation",
+              "fr": "Innovation"
+            },
+            "description": {
+              "en": "Foster novel ideas and turn them into solutions that are effective and valuable to others.",
+              "fr": "Favoriser les idées nouvelles et les transformer en solutions efficaces et utiles pour les autres."
+            },
+            "keywords": {
+              "en": [
+                "Inventive",
+                "Creative",
+                "Originality",
+                "Modernizing",
+                "Inventiveness"
+              ],
+              "fr": [
+                "Inventif",
+                "Créatif",
+                "Originalité",
+                "Modernisation",
+                "Inventivité"
+              ]
+            }
+          },
+          {
+            "id": "17ed24df-1236-430e-af35-1804b22104c4",
+            "key": "insight",
+            "name": {
+              "en": "Insight",
+              "fr": "Aperçu"
+            },
+            "description": {
+              "en": "Perceptively analyze situations to allow for a deep and accurate understanding of the issue.",
+              "fr": "Analyser avec perspicacité les situations pour permettre une compréhension profonde et précise du problème."
+            },
+            "keywords": {
+              "en": ["Understanding", "Perception", "Awareness"],
+              "fr": ["Compréhension", "Perception", "Conscience"]
+            }
+          },
+          {
+            "id": "90d816db-4d31-4889-bfe7-b62891e1838b",
+            "key": "originality",
+            "name": {
+              "en": "Originality",
+              "fr": "Originalité"
+            },
+            "description": {
+              "en": "Come up with new ideas about a given topic.",
+              "fr": "Trouver de nouvelles idées sur un sujet donné."
+            },
+            "keywords": {
+              "en": [
+                "Creativity",
+                "Inventiveness",
+                "Novelty",
+                "Innovation",
+                "Individuality"
+              ],
+              "fr": [
+                "Créativité",
+                "Inventivité",
+                "Nouveauté",
+                "Innovation",
+                "Individualité"
+              ]
+            }
+          },
+          {
+            "id": "68d4d3c7-df10-4c22-be0c-aa150b76b564",
+            "key": "problem_solving",
+            "name": {
+              "en": "Problem Solving",
+              "fr": "Résolution de problèmes"
+            },
+            "description": {
+              "en": "Identify the source of an issue, and find and implement an effective solution.",
+              "fr": "Cerner la source d’un problème, puis trouver et mettre en œuvre une solution efficace."
+            },
+            "keywords": {
+              "en": [
+                "Finding Solutions",
+                "Problem Resolution",
+                "Dealing with Issues",
+                "Troubleshooting"
+              ],
+              "fr": [
+                "Trouver des solutions",
+                "Résoudre des problèmes",
+                "Faire face à des problèmes",
+                "Dépanner"
+              ]
+            }
+          },
+          {
+            "id": "7f679b94-2c94-4fbc-9364-d304313d9723",
+            "key": "strategic_thinking",
+            "name": {
+              "en": "Strategic Thinking",
+              "fr": "Réflexion stratégique"
+            },
+            "description": {
+              "en": "Think of various options in a given situation and select that which will produce the most desirable outcome.",
+              "fr": "Penser à différentes options dans une situation donnée et choisir celle qui produira le résultat le plus souhaitable."
+            },
+            "keywords": {
+              "en": ["Strategic Planning", "Visionary", "Strategy Analysis"],
+              "fr": [
+                "Planification stratégique",
+                "Visionnaire",
+                "Analyse de la stratégie"
+              ]
+            }
+          },
+          {
+            "id": "21df58e3-8cec-40bc-a7ff-8bd8f6c54aba",
+            "key": "systems_thinking",
+            "name": {
+              "en": "Systems Thinking",
+              "fr": "Pensée systémique"
+            },
+            "description": {
+              "en": "Understand and analyze how all aspects of a service integrate and impact each other, and use that insight to create a clear direction for the service.",
+              "fr": "Comprendre et analyser comment tous les aspects d’un service s’intègrent et ont un impact les uns sur les autres, et utiliser ces connaissances pour créer une direction claire pour le service."
+            },
+            "keywords": {
+              "en": ["Service Integration", "Planning"],
+              "fr": ["Intégration des services", "Planification"]
+            }
+          }
+        ]
+      },
+      {
+        "__typename": "SkillFamily",
+        "id": "64362acf-776f-4ff4-88d4-48efe60ba53e",
+        "key": "working_in_government",
+        "category": "BEHAVIOURAL",
+        "name": {
+          "en": "Working in Government",
+          "fr": "Travailler au sein du gouvernement"
+        },
+        "description": {
+          "en": "Working in Government",
+          "fr": "Travailler au sein du gouvernement"
+        },
+        "skills": [
+          {
+            "id": "350f7fd7-0427-481b-b8e7-01e6df2d639e",
+            "key": "respect_for_diversity",
+            "name": {
+              "en": "Respect for Diversity",
+              "fr": "Respect de la diversité"
+            },
+            "description": {
+              "en": "Appreciate the unique qualities and views people from different backgrounds bring to a team.",
+              "fr": "Apprécier les qualités et les points de vue uniques que des personnes d’origines différentes apportent à une équipe."
+            },
+            "keywords": {
+              "en": [
+                "Inclusive",
+                "Accepting of differences",
+                "Cultural Competence"
+              ],
+              "fr": [
+                "Inclusivité",
+                "Acceptation des différences",
+                "Compétence culturelle"
+              ]
+            }
+          },
+          {
+            "id": "93d0a8f5-e6d6-4d26-86c3-5242e9be01cf",
+            "key": "awareness_of_science_organizations",
+            "name": {
+              "en": "Awareness of Science Organizations",
+              "fr": "Connaissance des organisations scientifiques"
+            },
+            "description": {
+              "en": "Maintain a basic understanding of Canada's various scientific organizations and knowledge of how to seek them out.",
+              "fr": "Maintenir une compréhension de base des diverses organisations scientifiques du Canada et savoir comment les consulter."
+            },
+            "keywords": {
+              "en": [],
+              "fr": []
+            }
+          },
+          {
+            "id": "00906107-6180-4eb4-9482-5c566822fec4",
+            "key": "digital_literacy",
+            "name": {
+              "en": "Digital Literacy",
+              "fr": "Connaissances du numérique"
+            },
+            "description": {
+              "en": "Understand and use technology to find, evaluate, and communicate information.",
+              "fr": "Comprendre et utiliser la technologie pour trouver, évaluer et communiquer des informations."
+            },
+            "keywords": {
+              "en": ["Computer Skills", "Digital Competence"],
+              "fr": ["Compétences informatiques", "Compétences numériques"]
+            }
+          },
+          {
+            "id": "3057a5b0-ea7b-4ec9-9bfc-0d9d943cffd6",
+            "key": "gbaplus",
+            "name": {
+              "en": "GBA+",
+              "fr": "GBA+"
+            },
+            "description": {
+              "en": "Commit to advancing gender equality in Canada by using rigorous analysis to identify systemic inequalities in policies, programs, and initiatives.",
+              "fr": "S’engager à faire progresser l’égalité des sexes au Canada en utilisant une analyse rigoureuse pour cerner les inégalités systémiques dans les politiques, les programmes et les initiatives."
+            },
+            "keywords": {
+              "en": ["Gender Equality", "Gender Analysis"],
+              "fr": ["Égalité des sexes", "Analyse de genre"]
+            }
+          },
+          {
+            "id": "ba2dbe00-15da-4d1e-8e0a-60d7e89da984",
+            "key": "indigenous_cultural_competency",
+            "name": {
+              "en": "Indigenous Cultural Competency",
+              "fr": "Compétence culturelle autochtone"
+            },
+            "description": {
+              "en": "Commit to fostering positive relationships with Indigenous peoples by looking inward to identify harmful beliefs and biases, and taking action to change them.",
+              "fr": "S’engager à favoriser des relations positives avec les peuples autochtones en faisant une introspection pour connaître les croyances et les préjugés nuisibles, et en prenant des mesures pour les changer."
+            },
+            "keywords": {
+              "en": ["Cultural Sensitivity", "Diversity"],
+              "fr": ["Sensibilité culturelle", "Diversité"]
+            }
+          },
+          {
+            "id": "fe053201-7c85-4f39-9f2a-ecd85d190f68",
+            "key": "working_on_a_distributed_team",
+            "name": {
+              "en": "Working on a Distributed Team",
+              "fr": "Travailler dans une équipe distribuée"
+            },
+            "description": {
+              "en": "Use available resources to communicate, collaborate, and work in a way that engages team members in distributed locations.",
+              "fr": "Utiliser les ressources disponibles pour communiquer, collaborer et travailler de manière à impliquer les membres de l’équipe dans des lieux distribués."
+            },
+            "keywords": {
+              "en": ["Remote Work", "Work From Home"],
+              "fr": ["Travail à distance", "Travail à domicile"]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

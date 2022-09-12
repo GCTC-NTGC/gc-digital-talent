@@ -41,6 +41,7 @@ query getPoolAdvertisement($id: ID!) {
     advertisementStatus
     advertisementLanguage
     securityClearance
+    isRemote
     advertisementLocation {
       en
       fr
@@ -57,6 +58,10 @@ query getPoolAdvertisement($id: ID!) {
       id
       key
       name {
+        en
+        fr
+      }
+      description {
         en
         fr
       }
@@ -78,6 +83,10 @@ query getPoolAdvertisement($id: ID!) {
       id
       key
       name {
+        en
+        fr
+      }
+      description {
         en
         fr
       }

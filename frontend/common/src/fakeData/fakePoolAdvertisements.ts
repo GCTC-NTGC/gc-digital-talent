@@ -6,6 +6,7 @@ import {
   Classification,
   PoolAdvertisement,
   PoolAdvertisementLanguage,
+  PoolStream,
   SecurityStatus,
   Skill,
 } from "../api/generated";
@@ -49,6 +50,7 @@ const generatePoolAdvertisement = (
     securityClearance: faker.helpers.arrayElement(
       Object.values(SecurityStatus),
     ),
+    stream: faker.helpers.arrayElement<PoolStream>(Object.values(PoolStream)),
     yourImpact: toLocalizedString(faker.lorem.paragraphs()),
   };
 };

@@ -23,7 +23,7 @@ Try to follow Functional Programming principles.
 	- More complex helper functions should call simpler helper functions!
 	- Some other commonly useful array functions: [includes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes), [some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some), [every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 	- A lot of other helper functions you might need are well implemented in various utility libraries. We use [lodash](https://lodash.com/docs/), so before writing your own helper function it might be worth checking if it already exists there!
-- Instead of modifying objects, its easy to create new objects with parts of the old objects copied over. [Spread sytax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) is a power tool for doing this succinctly, and can be used in a few different ways:
+- Instead of modifying objects, its easy to create new objects with parts of the old objects copied over. [Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) is a power tool for doing this succinctly, and can be used in a few different ways:
 	- Adding an item to an array: `const newArray = [...oldArray, "new value"]`
 	- Adding an item to an object: `const newObj = {...oldObj, newProp: "new value"}`
 	- "Updating" a value in an object: `const newObj = {...oldObj, existingProp: "new value"}`

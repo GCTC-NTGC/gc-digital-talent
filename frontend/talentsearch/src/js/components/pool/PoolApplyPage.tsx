@@ -24,6 +24,7 @@ const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
     {
       title: intl.formatMessage({
         defaultMessage: "Pools Index",
+        id: "tf/wEc",
         description: "Breadcrumb title for the pools index link.",
       }),
       href: paths.home(),
@@ -47,6 +48,7 @@ const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
       >
         {intl.formatMessage({
           defaultMessage: "Back to pool",
+          id: "dHLkSE",
           description: "Label for button to return to view pool",
         })}
       </Link>
@@ -73,6 +75,7 @@ const PoolApplyPage: React.FC<PoolApplyPageProps> = ({ id }) => {
           <p>
             {intl.formatMessage({
               defaultMessage: "Error, pool unable to be loaded",
+              id: "DcEinN",
               description: "Error message, placeholder",
             })}
           </p>

@@ -1,6 +1,6 @@
 describe("Talentsearch Search Page", () => {
   beforeEach(() => {
-    cy.visit("/en/talent/search")
+    cy.visit("/en/search")
   });
 
   it("loads page successfully", () => {

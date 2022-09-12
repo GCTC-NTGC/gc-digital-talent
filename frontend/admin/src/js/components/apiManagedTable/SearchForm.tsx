@@ -52,17 +52,18 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
 
   const allTableMsg = intl.formatMessage({
     defaultMessage: "All table",
+    id: "IMdFJM",
     description:
       "Text in table search form column dropdown when no column is selected.",
   });
 
   return (
-    <div data-h2-display="b(flex)" data-h2-margin="b(left, s)">
+    <div data-h2-display="base(flex)">
       {showDropdown ? (
         <DropdownMenu>
           <MenuButton
-            color="black"
-            data-h2-radius="b(s, none, none, s)"
+            color="secondary"
+            data-h2-radius="base(s, none, none, s)"
             style={{ flexShrink: 0, borderRightWidth: 0 }}
           >
             {column ? column.label : allTableMsg}
@@ -89,24 +90,24 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
         onChange={debouncedChangeHandler}
         aria-label={intl.formatMessage({
           defaultMessage: "Search Table",
+          id: "chFoB8",
           description: "Label for search field on admin tables.",
         })}
         placeholder={intl.formatMessage({
           defaultMessage: "Start writing here...",
+          id: "3F6QqF",
           description:
             "Placeholder displayed on the Global Filter form Search field.",
         })}
-        data-h2-border="b(black, all, solid, s)"
-        data-h2-bg-color="b(white)"
-        data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-        data-h2-font-size="b(caption) m(normal)"
-        data-h2-font-family="b(sans)"
+        data-h2-border="base(all, 1px, solid, dt-secondary)"
+        data-h2-background-color="base(dt-white)"
+        data-h2-padding="base(x.25, x.5)"
         {...(showDropdown
           ? {
-              "data-h2-radius": "b(none, s, s, none)",
+              "data-h2-radius": "base(none, s, s, none)",
             }
           : {
-              "data-h2-radius": "b(s)",
+              "data-h2-radius": "base(s)",
             })}
       />
     </div>

@@ -15,15 +15,16 @@ const TOCHeading: React.FC<
   const Icon = icon || null;
 
   return (
-    <Heading
-      level={as}
-      data-h2-display="b(flex)"
-      data-h2-align-items="b(center)"
-      data-h2-margin="b(top, none) b(bottom, m)"
-      data-h2-justify-content="b(start)"
-      {...rest}
-    >
-      {Icon && <Icon className="toc-heading__icon" />}
+    <Heading level={as} {...rest}>
+      {Icon && (
+        <Icon
+          className="toc-heading__icon"
+          data-h2-margin="base(0, x.5, 0, 0)"
+          data-h2-position="base(relative)"
+          data-h2-offset="base(3px, auto, auto, auto)"
+          data-h2-width="base(x1.5)"
+        />
+      )}
       <span>{children}</span>
     </Heading>
   );

@@ -12,8 +12,7 @@ import PageHeader from "@common/components/PageHeader/PageHeader";
 import Breadcrumbs, {
   BreadcrumbsProps,
 } from "@common/components/Breadcrumbs/Breadcrumbs";
-import { ViewGridIcon } from "@heroicons/react/outline";
-import { ViewGridIcon as SolidGridIcon } from "@heroicons/react/solid";
+import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import Link from "@common/components/Link/Link";
 import { getLocalizedName } from "@common/helpers/localize";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -78,6 +77,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool created successfully!",
+              id: "wZ91g+",
               description:
                 "Message displayed to user after pool is created successfully.",
             }),
@@ -88,6 +88,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: creating pool failed",
+            id: "W2qRX5",
             description:
               "Message displayed to pool after pool fails to get created.",
           }),
@@ -99,14 +100,15 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     {
       title: intl.formatMessage({
         defaultMessage: "My Pools",
+        id: "7N+tQw",
         description: "Breadcrumb title for the pools page link.",
       }),
       href: paths.poolTable(),
-      icon: <SolidGridIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     {
       title: intl.formatMessage({
         defaultMessage: `New Pool`,
+        id: "iQzlmB",
         description: "New pool breadcrumb text",
       }),
     },
@@ -137,46 +139,44 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
 
   return (
-    <section>
-      <PageHeader icon={ViewGridIcon}>
+    <section data-h2-container="base(left, small, 0)">
+      <PageHeader icon={Squares2X2Icon}>
         {intl.formatMessage({
           defaultMessage: "Create New Pool",
+          id: "+umNAP",
           description: "Header for page to create pool advertisements",
         })}
       </PageHeader>
       <Breadcrumbs links={links} />
-      <div
-        data-h2-container="b(left, s)"
-        data-h2-bg-color="b(lightgray)"
-        data-h2-padding="b(all, xs)"
-        data-h2-margin="b(top, l)"
-        data-h2-radius="b(s)"
-      >
+      <div data-h2-margin="base(x2, 0, 0, 0)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h3 data-h2-margin="b(top-bottom, xs)">
+            <h2 data-h2-margin="base(x.25, 0)" data-h2-font-size="base(h3)">
               {intl.formatMessage({
                 defaultMessage: "Start blank job poster",
+                id: "gv1Hwu",
                 description: "Form header to create new pool",
               })}
-            </h3>
+            </h2>
             <p>
               {intl.formatMessage({
                 defaultMessage: "Create a new job poster from scratch",
+                id: "QodYZE",
                 description: "Form blurb describing create pool form",
               })}
             </p>
             <Select
-              // data-h2-padding="b(right, l)"
               id="classification"
               label={intl.formatMessage({
                 defaultMessage: "Starting group and level",
+                id: "gN5gy5",
                 description:
                   "Label displayed on the pool form classification field.",
               })}
               name="classification"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a classification...",
+                id: "7aG86f",
                 description:
                   "Placeholder displayed on the pool form classification field.",
               })}
@@ -190,6 +190,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               name="key"
               label={intl.formatMessage({
                 defaultMessage: "Key",
+                id: "61XRUJ",
                 description: "Label displayed on the pool form name key field.",
               })}
               type="text"
@@ -199,6 +200,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               context={intl.formatMessage({
                 defaultMessage:
                   "The 'key' is a string that uniquely identifies a Pool. It's auto-generated based on the pool's group and job title.",
+                id: "Sjluby",
                 description: "Context displayed on the pool form key field.",
               })}
             />
@@ -206,6 +208,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               color="cta"
               text={intl.formatMessage({
                 defaultMessage: "Create new pool",
+                id: "TLl20s",
                 description:
                   "Label displayed on submit button for new pool form.",
               })}
@@ -214,7 +217,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         </FormProvider>
       </div>
 
-      <div data-h2-margin="b(top, l)">
+      <div data-h2-margin="base(x2, 0, 0, 0)">
         <Link
           type="button"
           href={paths.poolTable()}
@@ -223,6 +226,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         >
           {intl.formatMessage({
             defaultMessage: "Cancel and go back",
+            id: "dJxNRU",
             description: "Label displayed on cancel button for new pool form.",
           })}
         </Link>

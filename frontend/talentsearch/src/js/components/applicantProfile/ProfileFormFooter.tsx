@@ -1,32 +1,38 @@
 import * as React from "react";
-import CancelButton from "./CancelButton";
+import CancelButton, { type CancelButtonProps } from "./CancelButton";
 import SaveButton from "./SaveButton";
 
 export interface ProfileFormFooterProps {
   mode: "cancelButton" | "saveButton" | "bothButtons";
-  link?: string;
+  cancelLink?: CancelButtonProps;
 }
 
 const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
   mode,
   children,
-  link,
+  cancelLink,
 }) => {
   const bottomButtons = () => {
     switch (mode) {
       case "bothButtons":
         return (
-          <>
-            <span data-h2-padding="b(right, xs)">
-              <CancelButton link={link} />
+          <div data-h2-display="base(flex)" data-h2-align-items="base(center)">
+            <span
+              data-h2-display="base(inline-block)"
+              data-h2-margin="base(0, x1, 0, 0)"
+            >
+              <CancelButton {...cancelLink} />
             </span>
-            <span>
+            <span
+              data-h2-display="base(inline-block)"
+              data-h2-margin="base(0, x1, 0, 0)"
+            >
               <SaveButton />
             </span>
-          </>
+          </div>
         );
       case "cancelButton":
-        return <CancelButton />;
+        return <CancelButton {...cancelLink} />;
       case "saveButton":
         return <SaveButton />;
       default:
@@ -34,7 +40,7 @@ const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
     }
   };
   return (
-    <div data-h2-margin="b(top-bottom, l)" data-h2-display="b(flex)">
+    <div data-h2-margin="base(x2, 0, x3, 0)" data-h2-display="base(flex)">
       {children}
       {bottomButtons()}
     </div>

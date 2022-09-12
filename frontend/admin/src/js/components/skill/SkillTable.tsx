@@ -8,6 +8,7 @@ import { Pill } from "@common/components";
 import Pending from "@common/components/Pending";
 import { AllSkillsQuery, useAllSkillsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
+import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<AllSkillsQuery["skills"]>>;
 
@@ -17,11 +18,13 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useAdminRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
         Header: intl.formatMessage({
           defaultMessage: "ID",
+          id: "Z6o8ym",
           description: "Title displayed on the Skill table ID column.",
         }),
         accessor: "id",
@@ -29,6 +32,7 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Name",
+          id: "BOeBpE",
           description: "Title displayed for the skill table Name column.",
         }),
         accessor: (skill) => skill.name?.[locale],
@@ -36,6 +40,7 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Description",
+          id: "9yGJ6k",
           description:
             "Title displayed for the skill table Description column.",
         }),
@@ -44,6 +49,7 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Keywords",
+          id: "I7rxxQ",
           description: "Title displayed for the skill table Keywords column.",
         }),
         // keywords[locale] throws type problems
@@ -62,6 +68,7 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Skill Families",
+          id: "KB+xr6",
           description:
             "Title displayed for the skill table Skill Families column.",
         }),
@@ -75,6 +82,7 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Edit",
+          id: "X4nVv/",
           description: "Title displayed for the skill table Edit column.",
         }),
         accessor: (skill) => tableEditButtonAccessor(skill.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
@@ -85,7 +93,20 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
 
   const data = useMemo(() => skills.filter(notEmpty), [skills]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <Table
+      data={data}
+      columns={columns}
+      addBtn={{
+        path: paths.skillCreate(),
+        label: intl.formatMessage({
+          defaultMessage: "Create Skill",
+          id: "lFrPv1",
+          description: "Heading displayed above the Create Skill form.",
+        }),
+      }}
+    />
+  );
 };
 
 export const SkillTableApi: React.FunctionComponent = () => {

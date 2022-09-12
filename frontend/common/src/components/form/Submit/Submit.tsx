@@ -10,6 +10,7 @@ export interface SubmitProps {
   color?: "primary" | "secondary" | "cta" | "white";
   mode?: "solid" | "outline" | "inline";
   isSubmitting?: boolean;
+  disabled?: boolean;
 }
 
 const Submit: React.FunctionComponent<SubmitProps> = ({
@@ -19,19 +20,23 @@ const Submit: React.FunctionComponent<SubmitProps> = ({
   color,
   mode,
   isSubmitting: overrideSubmitting,
+  disabled,
   ...rest
 }) => {
   const intl = useIntl();
   const defaultText = intl.formatMessage({
     defaultMessage: "Submit",
+    id: "YHqVoj",
     description: "Default text for submit button.",
   });
   const defaultSubmittedText = intl.formatMessage({
     defaultMessage: "Submitted",
+    id: "rGTGvl",
     description: "Default text for submitted button.",
   });
   const defaultIsSubmittingText = intl.formatMessage({
     defaultMessage: "Submitting",
+    id: "mDOWWQ",
     description: "Default text for submitting button.",
   });
 
@@ -48,7 +53,7 @@ const Submit: React.FunctionComponent<SubmitProps> = ({
       color={color || "primary"}
       mode={mode || "solid"}
       type="submit"
-      disabled={isSubmitting || overrideSubmitting}
+      disabled={disabled || isSubmitting || overrideSubmitting}
       {...rest}
     >
       {currentText}

@@ -26,13 +26,14 @@ const SearchFilterAdvice: React.FC<{
       link: (
         <a
           href="#classificationsFilter"
-          data-h2-font-color="b(lightpurple)"
-          data-h2-font-weight="b(700)"
+          data-h2-color="base(dt-primary.light)"
+          data-h2-font-weight="base(700)"
         >
           {intl.formatMessage(
             {
               defaultMessage:
                 "Classification Filters ({classificationFilterCount})",
+              id: "LRysDa",
             },
             { classificationFilterCount },
           )}
@@ -46,13 +47,14 @@ const SearchFilterAdvice: React.FC<{
       link: (
         <a
           href="#operationalRequirementFilter"
-          data-h2-font-color="b(lightpurple)"
-          data-h2-font-weight="b(700)"
+          data-h2-color="base(dt-primary.light)"
+          data-h2-font-weight="base(700)"
         >
           {intl.formatMessage(
             {
               defaultMessage:
                 "Conditions of Employment ({operationalRequirementFilterCount})",
+              id: "ky585k",
             },
             { operationalRequirementFilterCount },
           )}
@@ -66,12 +68,13 @@ const SearchFilterAdvice: React.FC<{
       link: (
         <a
           href="#cmoAssetFilter"
-          data-h2-font-color="b(lightpurple)"
-          data-h2-font-weight="b(700)"
+          data-h2-color="base(dt-primary.light)"
+          data-h2-font-weight="base(700)"
         >
           {intl.formatMessage(
             {
               defaultMessage: "Skills Filters ({cmoAssetFilterCount})",
+              id: "/DbKFl",
             },
             { cmoAssetFilterCount },
           )}
@@ -80,10 +83,11 @@ const SearchFilterAdvice: React.FC<{
     });
   }
   return (
-    <p data-h2-font-size="b(caption)" data-h2-margin="b(bottom, m)">
+    <p data-h2-margin="base(x1, 0)">
       {intl.formatMessage({
         defaultMessage:
           "To improve your results, try removing some of these filters:",
+        id: "zDzzb/",
         description:
           "Heading for total matching candidates in results section of search page.",
       })}{" "}

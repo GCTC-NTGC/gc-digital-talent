@@ -13,6 +13,7 @@ const AuthorizationProvider: React.FC = ({ children }) => {
     <AuthorizationContainer
       userRoles={data?.me?.roles}
       email={data?.me?.email}
+      currentUser={data?.me}
       isLoaded={isLoaded}
     >
       <Pending fetching={!isLoaded}>{children}</Pending>

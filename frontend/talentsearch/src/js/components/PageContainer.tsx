@@ -38,12 +38,18 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
 }) => {
   const location = useLocation();
   const El = as;
+  const activeWeight: Record<string, unknown> = isActive(
+    href ?? null,
+    location.pathname,
+  )
+    ? { "data-h2-font-weight": "base(700)" }
+    : { "data-h2-font-weight": "base(100)" };
   return (
     <El
       href={href}
       title={title ?? undefined}
-      data-h2-font-color="b(lightpurple)"
-      data-h2-font-size="b(normal)"
+      data-h2-color="base(dt-primary)"
+      data-h2-font-size="base(normal)"
       style={{
         border: "none",
         background: "none",
@@ -51,13 +57,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
       }}
       {...rest}
     >
-      <span
-        data-h2-font-weight={
-          isActive(href ?? null, location.pathname) ? "b(700)" : "b(200)"
-        }
-      >
-        {text}
-      </span>
+      <span {...activeWeight}>{text}</span>
     </El>
   );
 };
@@ -69,6 +69,7 @@ const TalentSearchNotFound: React.FC = () => {
       headingMessage={intl.formatMessage({
         description: "Heading for the message saying the page was not found.",
         defaultMessage: "Sorry, we can't find the page you were looking for.",
+        id: "pBJzgi",
       })}
     >
       <p>
@@ -76,6 +77,7 @@ const TalentSearchNotFound: React.FC = () => {
           description: "Detailed message saying the page was not found.",
           defaultMessage:
             "Oops, it looks like you've landed on a page that either doesn't exist or has moved.",
+          id: "pgHTkX",
         })}
       </p>
     </NotFound>
@@ -90,6 +92,7 @@ const TalentSearchNotAuthorized: React.FC = () => {
         description:
           "Heading for the message saying the page to view is not authorized.",
         defaultMessage: "Sorry, you are not authorized to view this page.",
+        id: "jPLaDk",
       })}
     >
       <p>
@@ -98,6 +101,7 @@ const TalentSearchNotAuthorized: React.FC = () => {
             "Detailed message saying the page to view is not authorized.",
           defaultMessage:
             "Oops, it looks like you've landed on a page that you are not authorized to view.",
+          id: "gKyog2",
         })}
       </p>
     </NotAuthorized>
@@ -123,17 +127,22 @@ export const PageContainer: React.FC<{
   return (
     <ScrollToTop>
       <>
-        <a href="#main" data-h2-visibility="b(hidden)">
+        <a
+          href="#main"
+          data-h2-visibility="base(invisible) base:focus-visible(visible)"
+        >
           {intl.formatMessage({
             defaultMessage: "Skip to main content",
+            id: "Srs7a4",
             description: "Assistive technology skip link",
           })}
         </a>
         <div
           className="container"
-          data-h2-display="b(flex)"
-          data-h2-flex-direction="b(column)"
-          style={{ height: "100vh", margin: "0" }}
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-height="base(100vh)"
+          data-h2-margin="base(0)"
         >
           <div>
             <Header baseUrl={TALENTSEARCH_APP_DIR} />
