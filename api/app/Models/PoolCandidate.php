@@ -70,6 +70,7 @@ class PoolCandidate extends Model
         'user_id',
         'pool_id',
         'signature',
+        'profile_snapshot'
     ];
 
     public function user(): BelongsTo
