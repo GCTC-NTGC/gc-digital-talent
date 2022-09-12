@@ -1334,6 +1334,4 @@ type Mutation {
     createApplication(userId:ID!, poolId:ID!): PoolCandidate
     deleteApplication(id: ID!): Boolean @guard @can(ability: "deleteApplication", find: "id", model: "PoolCandidate")
     submitApplication(id: ID!, signature: String!): PoolCandidate
-
-    testPoolCandidateSnapshot(id:ID!): PoolCandidate @guard @can(ability: "update", find: "id")
 }
