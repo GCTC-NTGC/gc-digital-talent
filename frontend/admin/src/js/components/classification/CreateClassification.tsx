@@ -41,6 +41,7 @@ export const CreateClassificationForm: React.FunctionComponent<
         toast.success(
           intl.formatMessage({
             defaultMessage: "Classification created successfully!",
+            id: "3D/wxC",
             description:
               "Message displayed to user after classification is created successfully.",
           }),
@@ -50,6 +51,7 @@ export const CreateClassificationForm: React.FunctionComponent<
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: creating classification failed",
+            id: "5jFkhf",
             description:
               "Message displayed to user after classification fails to get created.",
           }),
@@ -61,6 +63,7 @@ export const CreateClassificationForm: React.FunctionComponent<
       <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create Classification",
+          id: "D8Pgbs",
           description: "Title displayed on the create a classification form.",
         })}
       </h2>
@@ -72,6 +75,7 @@ export const CreateClassificationForm: React.FunctionComponent<
               name="name.en"
               label={intl.formatMessage({
                 defaultMessage: "Name (English)",
+                id: "7wYPgC",
                 description:
                   "Label displayed on the classification form name (English) field.",
               })}
@@ -85,6 +89,7 @@ export const CreateClassificationForm: React.FunctionComponent<
               name="name.fr"
               label={intl.formatMessage({
                 defaultMessage: "Name (French)",
+                id: "uAmdiU",
                 description:
                   "Label displayed on the classification form name (French) field.",
               })}
@@ -98,6 +103,7 @@ export const CreateClassificationForm: React.FunctionComponent<
               name="group"
               label={intl.formatMessage({
                 defaultMessage: "Group",
+                id: "hgxH8y",
                 description:
                   "Label displayed for the classification form group field.",
               })}
@@ -111,11 +117,13 @@ export const CreateClassificationForm: React.FunctionComponent<
               name="level"
               label={intl.formatMessage({
                 defaultMessage: "Level",
+                id: "bVRixs",
                 description:
                   "Label displayed on the classification form level field.",
               })}
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a level...",
+                id: "OqGhl+",
                 description:
                   "Placeholder displayed on the classification form level field.",
               })}
@@ -139,6 +147,7 @@ export const CreateClassificationForm: React.FunctionComponent<
               name="minSalary"
               label={intl.formatMessage({
                 defaultMessage: "Minimum Salary",
+                id: "3b6cy/",
                 description:
                   "Label displayed for the classification form min salary field.",
               })}
@@ -158,6 +167,7 @@ export const CreateClassificationForm: React.FunctionComponent<
               name="maxSalary"
               label={intl.formatMessage({
                 defaultMessage: "Maximum Salary",
+                id: "gpKGjq",
                 description:
                   "Label displayed for the classification form max salary field.",
               })}

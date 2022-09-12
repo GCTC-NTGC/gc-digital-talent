@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property array $location_preferences
  * @property array $expected_salary
  * @property string $pool_candidate_status
+ * @property int $status_weight
  * @property int $pool_id
  * @property int $user_id
  * @property array $accepted_operational_requirements

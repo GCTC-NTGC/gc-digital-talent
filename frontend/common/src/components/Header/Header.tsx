@@ -34,7 +34,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl, width }) => {
       data-h2-border="base(bottom, 1px, solid, dt-gray)"
     >
       <div {...headerWidth}>
-        <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(center, 0, x3)">
+        <div data-h2-flex-grid="base(flex-start, x1) p-tablet(center, x3)">
           <div
             data-h2-flex-item="base(1of1) p-tablet(1of2)"
             data-h2-text-align="base(center) p-tablet(left)"
@@ -49,6 +49,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl, width }) => {
                 src={imageUrl(baseUrl, "logo_goc_colour.svg")}
                 alt={intl.formatMessage({
                   defaultMessage: "Canada.ca",
+                  id: "gpcHeU",
                   description:
                     "Alt text for the Canada logo link in the Header.",
                 })}
@@ -64,6 +65,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl, width }) => {
               lang={changeToLang === "en" ? "en" : "fr"}
               title={intl.formatMessage({
                 defaultMessage: "Change language",
+                id: "GowrkB",
                 description: "Title for the language toggle link.",
               })}
             >

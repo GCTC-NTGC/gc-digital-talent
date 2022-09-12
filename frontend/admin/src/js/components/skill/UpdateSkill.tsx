@@ -100,6 +100,7 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill updated successfully!",
+            id: "UTFKyy",
             description:
               "Message displayed to user after skill is updated successfully.",
           }),
@@ -109,6 +110,7 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: updating skill failed",
+            id: "eSyXWT",
             description:
               "Message displayed to user after skill fails to get updated.",
           }),
@@ -128,6 +130,7 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
       <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Update Skill",
+          id: "WoAuKA",
           description: "Title displayed on the update a skill form.",
         })}
       </h2>
@@ -139,6 +142,7 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
               name="name.en"
               label={intl.formatMessage({
                 defaultMessage: "Name (English)",
+                id: "5F/aKm",
                 description:
                   "Label displayed on the update a skill form name (English) field.",
               })}
@@ -152,6 +156,7 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
               name="name.fr"
               label={intl.formatMessage({
                 defaultMessage: "Name (French)",
+                id: "j01W+1",
                 description:
                   "Label displayed on the update a skill form name (French) field.",
               })}
@@ -165,6 +170,7 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
               name="description.en"
               label={intl.formatMessage({
                 defaultMessage: "Description (English)",
+                id: "fdKtYm",
                 description:
                   "Label displayed on the update a skill form description (English) field.",
               })}
@@ -177,6 +183,7 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
               name="description.fr"
               label={intl.formatMessage({
                 defaultMessage: "Description (French)",
+                id: "4EkI/1",
                 description:
                   "Label displayed on the update a skill form description (French) field.",
               })}
@@ -189,12 +196,14 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
               name="keywords.en"
               label={intl.formatMessage({
                 defaultMessage: "Keywords (English)",
+                id: "FiylOa",
                 description:
                   "Label displayed on the skill form keywords field in English.",
               })}
               context={intl.formatMessage({
                 defaultMessage:
                   "This field accepts a list of comma separated keywords associated with the skill.",
+                id: "NT3jrI",
                 description:
                   "Additional context describing the purpose of the skills 'keyword' field.",
               })}
@@ -208,12 +217,14 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
               name="keywords.fr"
               label={intl.formatMessage({
                 defaultMessage: "Keywords (French)",
+                id: "fOl4Ez",
                 description:
                   "Label displayed on the skill form keywords field in French.",
               })}
               context={intl.formatMessage({
                 defaultMessage:
                   "This field accepts a list of comma separated keywords associated with the skill.",
+                id: "NT3jrI",
                 description:
                   "Additional context describing the purpose of the skills 'keyword' field.",
               })}
@@ -227,11 +238,13 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
               name="families"
               label={intl.formatMessage({
                 defaultMessage: "Families",
+                id: "JxVREd",
                 description:
                   "Label displayed on the skill form families field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more families...",
+                id: "9bz9jA",
                 description:
                   "Placeholder displayed on the skill form families field.",
               })}
@@ -287,6 +300,7 @@ export const UpdateSkill: React.FunctionComponent<{
               {intl.formatMessage(
                 {
                   defaultMessage: "Skill {skillId} not found.",
+                  id: "953EAy",
                   description: "Message displayed for skill not found.",
                 },
                 { skillId },

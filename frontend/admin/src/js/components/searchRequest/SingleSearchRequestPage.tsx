@@ -18,6 +18,7 @@ export const SingleSearchRequestPage: React.FunctionComponent<{
             >
               {intl.formatMessage({
                 defaultMessage: "View Request",
+                id: "HkC8XB",
                 description:
                   "Heading displayed above the single search request component.",
               })}

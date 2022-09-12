@@ -68,6 +68,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Pool Details",
+    id: "yBmBnd",
     description: "Title for the page when viewing an individual pool.",
   });
 
@@ -117,6 +118,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
     {
       title: intl.formatMessage({
         defaultMessage: "Home",
+        id: "DUK/pz",
         description: "Breadcrumb title for the home page link.",
       }),
       href: adminPaths.home(),
@@ -124,6 +126,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
     {
       title: intl.formatMessage({
         defaultMessage: "Pools",
+        id: "3fAkvM",
         description: "Breadcrumb title for the pools page link.",
       }),
       href: adminPaths.poolTable(),
@@ -132,6 +135,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
       title: intl.formatMessage(
         {
           defaultMessage: `Pool ID #{id}`,
+          id: "fp7Nll",
           description: "Current pool breadcrumb text",
         },
         { id: pool.id },
@@ -159,6 +163,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             >
               {intl.formatMessage({
                 defaultMessage: "Manage candidates",
+                id: "B/VlGq",
                 description:
                   "Link text for button to manage candidates of a specific pool",
               })}
@@ -175,6 +180,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             >
               {intl.formatMessage({
                 defaultMessage: "Manage requests",
+                id: "v2mXcp",
                 description:
                   "Link text for button to manage requests of a specific pool",
               })}
@@ -190,6 +196,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             >
               {intl.formatMessage({
                 defaultMessage: "Edit pool advertisement",
+                id: "dmGvCL",
                 description: "Link text for button to edit a specific pool",
               })}
             </IconLink>
@@ -202,10 +209,11 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           >
             {intl.formatMessage({
               defaultMessage: "View pool advertisement",
+              id: "w9FYqi",
               description: "Sub title for admin view pool page",
             })}
           </h2>
-          <div data-h2-flex-grid="base(flex-start, 0, x1, 0)">
+          <div data-h2-flex-grid="base(flex-start, x1, 0)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 readOnly
@@ -216,6 +224,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 type="text"
                 label={intl.formatMessage({
                   defaultMessage: "Pool advertisement",
+                  id: "de2F/x",
                   description: "Label for pool advertisement url field",
                 })}
               />
@@ -241,11 +250,13 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   {linkCopied
                     ? intl.formatMessage({
                         defaultMessage: "Link copied!",
+                        id: "E9S4B8",
                         description:
                           "Button text to be displayed after link was copied",
                       })
                     : intl.formatMessage({
                         defaultMessage: "Copy link",
+                        id: "044hi7",
                         description: "Button text to copy a url",
                       })}
                 </span>
@@ -262,6 +273,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               >
                 {intl.formatMessage({
                   defaultMessage: "View pool advertisement",
+                  id: "G/MFLe",
                   description:
                     "Link text to view the public facing pool advertisement",
                 })}
@@ -271,11 +283,12 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
             {intl.formatMessage({
               defaultMessage: "Details",
+              id: "xzkqPm",
               description: "Sub title for admin view pool page",
             })}
           </h2>
           {classification ? (
-            <div data-h2-flex-grid="base(flex-start, 0, x1, 0)">
+            <div data-h2-flex-grid="base(flex-start, x1, 0)">
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
                   id="targetClassification"
@@ -286,6 +299,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   value={`${classification.group}-0${classification.level}`}
                   label={intl.formatMessage({
                     defaultMessage: "Target classification",
+                    id: "fhkgW2",
                     description:
                       "Label for a pool advertisements classification group and level",
                   })}
@@ -301,6 +315,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   value={getLocalizedName(genericTitle?.name, intl)}
                   label={intl.formatMessage({
                     defaultMessage: "Generic",
+                    id: "OumQY2",
                     description:
                       "Label for a pool advertisements generic title",
                   })}
@@ -316,6 +331,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   value={classification?.name?.en ?? ""}
                   label={intl.formatMessage({
                     defaultMessage: "Specific Title (English)",
+                    id: "fTwl6k",
                     description:
                       "Label for a pool advertisements specific English title",
                   })}
@@ -331,6 +347,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   value={classification?.name?.fr ?? ""}
                   label={intl.formatMessage({
                     defaultMessage: "Specific Title (French)",
+                    id: "MDjwSO",
                     description:
                       "Label for a pool advertisements specific French title",
                   })}
@@ -338,7 +355,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               </div>
             </div>
           ) : null}
-          <div data-h2-flex-grid="base(flex-start, 0, x1, 0)">
+          <div data-h2-flex-grid="base(flex-start, x1, 0)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 id="expiryDate"
@@ -351,6 +368,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 })}
                 label={intl.formatMessage({
                   defaultMessage: "Closing date",
+                  id: "VWz3+d",
                   description: "Label for a pool advertisements expiry date",
                 })}
               />
@@ -367,6 +385,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 )}
                 label={intl.formatMessage({
                   defaultMessage: "Status",
+                  id: "cy5aj8",
                   description: "Label for a pool advertisements status",
                 })}
               />
@@ -378,6 +397,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Your Impact (English)",
+                  id: "LvsYj+",
                   description: "Title for English pool advertisement impact",
                 })}
               </h2>
@@ -390,6 +410,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Your Impact (English)",
+                  id: "LvsYj+",
                   description: "Title for English pool advertisement impact",
                 })}
               </p>
@@ -405,6 +426,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Your Impact (French)",
+                  id: "6BD4FK",
                   description: "Title for French pool advertisement impact",
                 })}
               </p>
@@ -428,6 +450,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Your Work (English)",
+                  id: "/7tcPl",
                   description: "Title for English pool advertisement Work",
                 })}
               </p>
@@ -443,6 +466,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Your Work (French)",
+                  id: "y3mLbv",
                   description: "Title for French pool advertisement Work",
                 })}
               </p>
@@ -454,6 +478,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
             {intl.formatMessage({
               defaultMessage: "Need to have skills",
+              id: "FFaQND",
               description: "Title required skills for a pool advertisement",
             })}
           </h2>
@@ -466,6 +491,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Occupational",
+                  id: "Vpk+nl",
                   description:
                     "Title for pool advertisement occupational skill list",
                 })}
@@ -491,6 +517,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Transferable",
+                  id: "eGEusj",
                   description:
                     "Title for pool advertisement transferable skill list",
                 })}
@@ -510,6 +537,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
             {intl.formatMessage({
               defaultMessage: "Nice to have skills",
+              id: "kTW+mP",
               description: "Title optional skills for a pool advertisement",
             })}
           </h2>
@@ -522,6 +550,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Occupational",
+                  id: "Vpk+nl",
                   description:
                     "Title for pool advertisement occupational skill list",
                 })}
@@ -547,6 +576,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Transferable",
+                  id: "eGEusj",
                   description:
                     "Title for pool advertisement transferable skill list",
                 })}
@@ -566,6 +596,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           <h2 data-h2-margin="base(x2, 0, x1, 0)" data-h2-font-size="base(h3)">
             {intl.formatMessage({
               defaultMessage: "Requirements",
+              id: "P5xgmH",
               description: "Title for a pool advertisement requirements",
             })}
           </h2>
@@ -574,6 +605,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               {intl.formatMessage(
                 {
                   defaultMessage: "Language requirement: {languageRequirement}",
+                  id: "fvJnoC",
                   description: "Pool advertisement language requirement",
                 },
                 {
@@ -585,6 +617,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               {intl.formatMessage(
                 {
                   defaultMessage: "Security clearance: {securityClearance}",
+                  id: "GYk6Nz",
                   description:
                     "Pool advertisement security clearance requirement",
                 },
@@ -597,6 +630,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               <li>
                 {intl.formatMessage({
                   defaultMessage: "Location: Remote optional",
+                  id: "3OfvwW",
                   description:
                     "Label for a pool advertisement that has remote option.",
                 })}
@@ -607,6 +641,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   {intl.formatMessage(
                     {
                       defaultMessage: "Location (English): {locationEn}",
+                      id: "IcDAU1",
                       description:
                         "Pool advertisement location requirement, English",
                     },
@@ -619,6 +654,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   {intl.formatMessage(
                     {
                       defaultMessage: "Location (French): {locationFr}",
+                      id: "cEeW3m",
                       description:
                         "Pool advertisement location requirement, French",
                     },
@@ -640,6 +676,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
           >
             {intl.formatMessage({
               defaultMessage: "Back to pools",
+              id: "Pr8bok",
               description:
                 "Link text for buttons to go back to the admin pools page",
             })}
@@ -670,6 +707,7 @@ const ViewPool = ({ poolId }: ViewPoolProps) => {
             {intl.formatMessage(
               {
                 defaultMessage: "Pool {poolId} not found.",
+                id: "Sb2fEr",
                 description: "Message displayed for pool not found.",
               },
               { poolId },

@@ -396,7 +396,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           "Text requesting language levels given from bilingual evaluation in language information form",
                       })}
                     </p>
-                    <div data-h2-flex-grid="base(normal, 0, x1)">
+                    <div data-h2-flex-grid="base(normal, x1)">
                       <div data-h2-flex-item="base(1of1) p-tablet(1of3) desktop(1of4)">
                         <Select
                           id="comprehensionLevel"

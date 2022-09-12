@@ -22,6 +22,7 @@ const Navigation: React.FC = ({ children }) => {
           >
             {intl.formatMessage({
               defaultMessage: "On this page",
+              id: "3Nd6dv",
               description: "Title for  pages table of contents.",
             })}
           </p>

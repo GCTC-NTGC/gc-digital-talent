@@ -13,6 +13,7 @@ export const UserPage: React.FC = () => {
       <PageHeader icon={UserIcon}>
         {intl.formatMessage({
           defaultMessage: "Users",
+          id: "8c/kP1",
           description: "Title for users page on the admin portal.",
         })}
       </PageHeader>
@@ -20,6 +21,7 @@ export const UserPage: React.FC = () => {
         {intl.formatMessage({
           defaultMessage:
             "The following is a list of active users along with some of their details.",
+          id: "UvKDXK",
           description:
             "Descriptive text about the list of users in the admin portal.",
         })}

@@ -58,6 +58,7 @@ const IndeterminateCheckbox: React.FC<
       />{" "}
       {intl.formatMessage({
         defaultMessage: "Toggle All",
+        id: "7d/ot8",
         description: "Label displayed on the Table Columns toggle fieldset.",
       })}
     </label>
@@ -122,9 +123,9 @@ function Table<T extends Record<string, unknown>>({
       {filter && (
         <div data-h2-margin="base(x2, 0, x.5, 0)">
           <p>{title && <span data-h2-font-weight="base(700)">{title}</span>}</p>
-          <div data-h2-flex-grid="base(center, 0, x1)">
+          <div data-h2-flex-grid="base(center, x1)">
             <div data-h2-flex-item="base(1of1) l-tablet(fill)">
-              <div data-h2-flex-grid="base(center, 0, x.5)">
+              <div data-h2-flex-grid="base(center, x.5)">
                 <div data-h2-flex-item="base(content)">
                   <SearchForm onChange={setGlobalFilter} />
                 </div>
@@ -141,6 +142,7 @@ function Table<T extends Record<string, unknown>>({
                     <span>
                       {intl.formatMessage({
                         defaultMessage: "Columns",
+                        id: "xcBl1q",
                         description:
                           "Label displayed on the Table Columns toggle button.",
                       })}
@@ -152,6 +154,7 @@ function Table<T extends Record<string, unknown>>({
                     onDismiss={() => setShowList(false)}
                     title={intl.formatMessage({
                       defaultMessage: "Table columns",
+                      id: "YH6bFU",
                       description:
                         "Dialog title for the admin tables columns toggle.",
                     })}
@@ -159,6 +162,7 @@ function Table<T extends Record<string, unknown>>({
                     <Fieldset
                       legend={intl.formatMessage({
                         defaultMessage: "Visible columns",
+                        id: "H9rxOR",
                         description:
                           "Legend for the column toggle in admin tables.",
                       })}
@@ -212,7 +216,7 @@ function Table<T extends Record<string, unknown>>({
         <div
           data-h2-radius="base(s, s, 0px, 0px)"
           data-h2-border="base(right-left, 1px, solid, dt-secondary)"
-          data-h2-overflow="base(auto, all)"
+          data-h2-overflow="base(auto)"
           data-h2-max-width="base(100%)"
         >
           <table
@@ -281,13 +285,14 @@ function Table<T extends Record<string, unknown>>({
             })}
           </p> */}
           <div data-h2-padding="base(x1, x1)">
-            <div data-h2-flex-grid="base(center, 0, x2, 0)">
+            <div data-h2-flex-grid="base(center, x2, 0)">
               <div data-h2-flex-item="base(content)">
-                <div data-h2-flex-grid="base(center, 0, x1, 0)">
+                <div data-h2-flex-grid="base(center, x1, 0)">
                   <div data-h2-flex-item="base(content)">
                     <Button type="button" mode="inline" color="white">
                       {intl.formatMessage({
                         defaultMessage: "Download CSV",
+                        id: "mxOuYK",
                         description:
                           "Text label for button to download a csv file of items in a table.",
                       })}
@@ -297,6 +302,7 @@ function Table<T extends Record<string, unknown>>({
                     <Button type="button" mode="inline" color="white">
                       {intl.formatMessage({
                         defaultMessage: "Print",
+                        id: "jX1JC3",
                         description:
                           "Text label for button to download a pdf of items in a table.",
                       })}
@@ -317,6 +323,7 @@ function Table<T extends Record<string, unknown>>({
                     totalCount={rows.length}
                     ariaLabel={intl.formatMessage({
                       defaultMessage: "Table results",
+                      id: "hlcd+5",
                     })}
                     color="white"
                     mode="outline"
