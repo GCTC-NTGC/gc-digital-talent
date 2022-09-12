@@ -38,6 +38,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
         toast.success(
           intl.formatMessage({
             defaultMessage: "CMO Asset updated successfully!",
+            id: "Kdfiu3",
             description:
               "Message displayed to user after cmo asset is updated successfully.",
           }),
@@ -47,6 +48,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: updating cmo asset failed",
+            id: "+e8VZ8",
             description:
               "Message displayed to user after cmo asset fails to get updated.",
           }),
@@ -58,6 +60,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
       <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Update CMO Asset",
+          id: "5JRGJY",
           description: "Title displayed on the update a cmo asset form.",
         })}
       </h2>
@@ -69,6 +72,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
               name="name.en"
               label={intl.formatMessage({
                 defaultMessage: "Name (English)",
+                id: "U6V+uR",
                 description:
                   "Label displayed on the create a cmo asset form name (English) field.",
               })}
@@ -82,6 +86,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
               name="name.fr"
               label={intl.formatMessage({
                 defaultMessage: "Name (French)",
+                id: "pHVKt/",
                 description:
                   "Label displayed on the create a cmo asset form name (French) field.",
               })}
@@ -95,6 +100,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
               name="description.en"
               label={intl.formatMessage({
                 defaultMessage: "Description (English)",
+                id: "zgaPwN",
                 description:
                   "Label displayed on the create a cmo asset form description (English) field.",
               })}
@@ -107,6 +113,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
               name="description.fr"
               label={intl.formatMessage({
                 defaultMessage: "Description (French)",
+                id: "oVWttp",
                 description:
                   "Label displayed on the create a cmo asset form description (French) field.",
               })}
@@ -162,6 +169,7 @@ const UpdateCmoAsset: React.FunctionComponent<{
               {intl.formatMessage(
                 {
                   defaultMessage: "CMO Asset {cmoAssetId} not found.",
+                  id: "rE/ytf",
                   description: "Message displayed for cmo asset not found.",
                 },
                 { cmoAssetId },

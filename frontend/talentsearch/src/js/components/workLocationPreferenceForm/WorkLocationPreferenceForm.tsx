@@ -4,7 +4,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import { errorMessages } from "@common/messages";
+import { errorMessages, navigationMessages } from "@common/messages";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -22,6 +22,7 @@ import applicantProfileRoutes from "../../applicantProfileRoutes";
 import directIntakeRoutes from "../../directIntakeRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<
@@ -46,7 +47,7 @@ export const WorkLocationPreferenceForm: React.FC<
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.poolApply(application.pool.id)
+      ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialData.id);
 
   const dataToFormValues = (data: User): FormValues => ({
@@ -92,15 +93,15 @@ export const WorkLocationPreferenceForm: React.FC<
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
-          title:
-            application.poolAdvertisement?.name?.[locale] ||
-            intl.formatMessage({
-              defaultMessage: "Pool name not found",
-              id: "FmD1sL",
-              description:
-                "Pools name breadcrumb from applicant profile wrapper if no name set.",
-            }),
+          title: getFullPoolAdvertisementTitle(
+            intl,
+            application.poolAdvertisement,
+          ),
           href: directIntakePaths.poolApply(application.pool.id),
+        },
+        {
+          href: directIntakePaths.reviewApplication(application.id),
+          title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]
     : [];
@@ -205,7 +206,10 @@ export const WorkLocationPreferenceForm: React.FC<
               </div>
             </div>
           </div>
-          <ProfileFormFooter mode="saveButton" />
+          <ProfileFormFooter
+            mode="saveButton"
+            cancelLink={{ href: returnRoute }}
+          />
         </form>
       </FormProvider>
     </ProfileFormWrapper>

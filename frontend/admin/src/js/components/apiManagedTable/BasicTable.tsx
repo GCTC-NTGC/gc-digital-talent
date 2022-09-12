@@ -105,6 +105,7 @@ function BasicTable<T extends RecordWithId>({
                         }
                         title={intl.formatMessage({
                           defaultMessage: "Toggle SortBy",
+                          id: "6InelL",
                           description:
                             "Title to toggle sorting order of a table",
                         })}

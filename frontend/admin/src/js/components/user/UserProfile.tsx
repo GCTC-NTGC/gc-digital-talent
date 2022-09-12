@@ -42,6 +42,7 @@ const UserProfileApi: React.FunctionComponent<{
           <p>
             {intl.formatMessage({
               defaultMessage: "No candidate data",
+              id: "dAxaVL",
               description: "No candidate data was found",
             })}
           </p>

@@ -113,6 +113,7 @@ export const OtherRequirementsSection = ({
         {intl.formatMessage({
           defaultMessage:
             "Select the requirements needed for this advertisement.",
+          id: "xlsfRu",
           description:
             "Helper message for filling in the pool other requirements",
         })}
@@ -129,6 +130,7 @@ export const OtherRequirementsSection = ({
                 id="languageRequirement"
                 label={intl.formatMessage({
                   defaultMessage: "Language requirement",
+                  id: "nMYWzb",
                   description:
                     "Label displayed on the edit pool form language requirement field.",
                 })}
@@ -154,6 +156,7 @@ export const OtherRequirementsSection = ({
                 id="securityRequirement"
                 label={intl.formatMessage({
                   defaultMessage: "Security requirement",
+                  id: "ASNC88",
                   description:
                     "Label displayed on the edit pool form security requirement field.",
                 })}
@@ -177,6 +180,7 @@ export const OtherRequirementsSection = ({
                 idPrefix="locationOption"
                 legend={intl.formatMessage({
                   defaultMessage: "Location",
+                  id: "UGaZR2",
                   description: "Location options in Edit Pool Form",
                 })}
                 name="locationOption"
@@ -185,6 +189,7 @@ export const OtherRequirementsSection = ({
                     value: LocationOption.RemoteOptional,
                     label: intl.formatMessage({
                       defaultMessage: "Remote optional (Recommended)",
+                      id: "jphtnM",
                       description:
                         "Label displayed for 'remote optional' option",
                     }),
@@ -193,6 +198,7 @@ export const OtherRequirementsSection = ({
                     value: LocationOption.SpecificLocation,
                     label: intl.formatMessage({
                       defaultMessage: "Specific location (Specify below)",
+                      id: "j3m2Ca",
                       description:
                         "Label displayed for 'specific location' option",
                     }),
@@ -213,6 +219,7 @@ export const OtherRequirementsSection = ({
                     type="text"
                     label={intl.formatMessage({
                       defaultMessage: "Specific Location (English)",
+                      id: "A2VzLX",
                       description:
                         "Label for a pool advertisements specific English Location",
                     })}
@@ -229,6 +236,7 @@ export const OtherRequirementsSection = ({
                     type="text"
                     label={intl.formatMessage({
                       defaultMessage: "Specific Location (French)",
+                      id: "PH+6C9",
                       description:
                         "Label for a pool advertisements specific French Location",
                     })}
@@ -244,6 +252,7 @@ export const OtherRequirementsSection = ({
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Save other requirements",
+                id: "66MUMB",
                 description:
                   "Text on a button to save the pool other requirements",
               })}

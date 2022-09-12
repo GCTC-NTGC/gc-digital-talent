@@ -25,6 +25,7 @@ export const ClassificationTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "ID",
+          id: "VqyL+/",
           description: "Title displayed on the Classification table ID column.",
         }),
         accessor: "id",
@@ -32,6 +33,7 @@ export const ClassificationTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Name",
+          id: "HUCIzc",
           description:
             "Title displayed for the Classification table Name column.",
         }),
@@ -40,6 +42,7 @@ export const ClassificationTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Group",
+          id: "aS4Lty",
           description:
             "Title displayed for the Classification table Group column.",
         }),
@@ -48,6 +51,7 @@ export const ClassificationTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Level",
+          id: "yZqUAU",
           description:
             "Title displayed for the Classification table Level column.",
         }),
@@ -56,6 +60,7 @@ export const ClassificationTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Minimum Salary",
+          id: "9c/MAZ",
           description:
             "Title displayed for the Classification table Minimum Salary column.",
         }),
@@ -64,6 +69,7 @@ export const ClassificationTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Maximum Salary",
+          id: "Ke0TPJ",
           description:
             "Title displayed for the Classification table Maximum Salary column.",
         }),
@@ -72,6 +78,7 @@ export const ClassificationTable: React.FC<
       {
         Header: intl.formatMessage({
           defaultMessage: "Edit",
+          id: "D753gS",
           description:
             "Title displayed for the Classification table Edit column.",
         }),
@@ -95,6 +102,7 @@ export const ClassificationTable: React.FC<
         path: paths.classificationCreate(),
         label: intl.formatMessage({
           defaultMessage: "Create Classification",
+          id: "DexZJJ",
           description:
             "Heading displayed above the Create Classification form.",
         }),
