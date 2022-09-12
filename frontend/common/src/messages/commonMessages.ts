@@ -32,16 +32,6 @@ const messages = defineMessages({
     description:
       "Message that there are required fields missing. Please ignore things in <> tags.",
   },
-  backToProfile: {
-    defaultMessage: "Go back to my profile",
-    id: "u+NuHm",
-    description: "Link text for button to return to user profile",
-  },
-  backToApplication: {
-    defaultMessage: "Go back to my application",
-    id: "HMXnoR",
-    description: "Link text for button to return to user application",
-  },
 });
 
 export default messages;

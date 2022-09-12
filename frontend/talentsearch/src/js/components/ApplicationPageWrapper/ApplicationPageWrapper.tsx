@@ -48,7 +48,16 @@ const ApplicationPageWrapper = ({
         }}
       >
         <div data-h2-container="base(center, medium, x1)">
-          <h1 data-h2-margin="base(x2, 0)">{title}</h1>
+          <h1
+            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-weight="base(700)"
+            style={{
+              letterSpacing: "-2px",
+              textShadow: "0 3px 3px rgba(10, 10, 10, .3)",
+            }}
+          >
+            {title}
+          </h1>
           {breadcrumbs}
         </div>
       </div>

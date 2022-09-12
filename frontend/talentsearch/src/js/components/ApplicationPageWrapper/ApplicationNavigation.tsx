@@ -12,12 +12,12 @@ const Spacer = ({ children, isLast }: SpacerProps) => {
     return children as JSX.Element;
   }
 
-  return <div data-h2-margin="base(0, 0, 0, x.125)">{children}</div>;
+  return <div data-h2-margin="base(0, 0, 0, x.5)">{children}</div>;
 };
 
 export interface ApplicationNavigationProps {
   currentStep: number;
-  steps: Omit<StepProps, "disabled">[];
+  steps: StepProps[];
 }
 
 const ApplicationNavigation = ({
@@ -33,9 +33,10 @@ const ApplicationNavigation = ({
       <Spacer key={step.path} isLast={index + 1 !== steps.length}>
         <Step
           {...step}
-          disabled={index + 1 === currentStep}
+          disabled={step.disabled ? true : index + 1 === currentStep}
           {...(index !== steps.length - 1 && {
             "data-h2-margin": "p-tablet(0, x.5, 0, 0)",
+            "data-h2-font-weight": "base(700)",
           })}
         />
       </Spacer>

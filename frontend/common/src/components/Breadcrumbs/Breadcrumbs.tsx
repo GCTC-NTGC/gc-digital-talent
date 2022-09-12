@@ -38,11 +38,11 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
       {isMobile && previousStep ? (
         <>
           <span
-            data-h2-padding="base(0, x.25)"
+            data-h2-padding="base(0, x.5)"
             data-h2-display="base(flex)"
             data-h2-align-items="base(center)"
           >
-            <ChevronLeftIcon style={{ width: "1.4rem" }} />
+            <ChevronLeftIcon style={{ width: "1rem" }} />
           </span>
           <Link
             data-h2-display="base(flex)"
@@ -62,7 +62,7 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
                 data-h2-display="base(flex)"
                 data-h2-align-items="base(center)"
               >
-                <ChevronRightIcon style={{ width: "1.4rem" }} />
+                <ChevronRightIcon style={{ width: "1rem" }} />
               </span>
             )}
             {link.href ? (
