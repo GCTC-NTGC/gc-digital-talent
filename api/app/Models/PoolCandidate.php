@@ -334,21 +334,21 @@ RAWSQL2;
         $currentTime = date("Y-m-d H:i:s");
         $isExpired = $currentTime > $expiryDate ? true : false;
 
-        // ensure null submitted_at returns either draft or expired draft
-        if ($submittedAt == null){
-            if($isExpired) {
-                return ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED;
-            }
-            return ApiEnums::CANDIDATE_STATUS_DRAFT;
-        }
+        // // ensure null submitted_at returns either draft or expired draft
+        // if ($submittedAt == null){
+        //     if($isExpired) {
+        //         return ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED;
+        //     }
+        //     return ApiEnums::CANDIDATE_STATUS_DRAFT;
+        // }
 
-        // ensure expired returned if past expiry date with exception for PLACED
-        if ($candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_TERM && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE) {
-            if ($isExpired) {
-                return ApiEnums::CANDIDATE_STATUS_EXPIRED;
-            }
-            return $candidateStatus;
-        }
+        // // ensure expired returned if past expiry date with exception for PLACED
+        // if ($candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_TERM && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE) {
+        //     if ($isExpired) {
+        //         return ApiEnums::CANDIDATE_STATUS_EXPIRED;
+        //     }
+        //     return $candidateStatus;
+        // }
 
        // no overriding
        return $candidateStatus;
