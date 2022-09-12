@@ -63,7 +63,7 @@
     "@types/debounce": "^1.2.1",
     "@types/jest": "^29.0.1",
     "@types/jest-axe": "^3.5.4",
-    "@types/lodash": "^4.14.184",
+    "@types/lodash": "^4.14.185",
     "@types/node": "^18.7.16",
     "@types/path-browserify": "^1.0.0",
     "@types/react": "^17.0.43",
