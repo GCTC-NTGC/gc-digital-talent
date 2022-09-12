@@ -8,7 +8,6 @@ import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectF
 import "./UserTableFilterDialog.css";
 import { useFormContext } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import type { Option } from "@common/components/form/Select/SelectFieldV2";
 import { AdjustmentsVerticalIcon } from "@heroicons/react/24/outline";
 import useFilterOptions from "./useFilterOptions";
 import { ButtonIcon } from "../Table/tableComponents";
@@ -19,6 +18,8 @@ import {
   stringToEnumLocation,
   stringToEnumOperational,
 } from "./util";
+
+type Option = { value: string; label: string };
 
 export type FormValues = {
   pools: Option["value"][];
@@ -267,35 +268,35 @@ const UserTableFilterButton = ({
     onFilterChange({
       applicantFilter: {
         expectedClassifications: data.classifications.map((classification) => {
-          const splitString = classification.toString().split("-");
+          const splitString = classification.split("-");
           return { group: splitString[0], level: Number(splitString[1]) };
         }),
         languageAbility: data.languageAbility[0]
-          ? stringToEnumLanguage(data.languageAbility[0].toString())
+          ? stringToEnumLanguage(data.languageAbility[0])
           : undefined,
         locationPreferences: data.workRegion.map((region) => {
-          return stringToEnumLocation(region.toString());
+          return stringToEnumLocation(region);
         }),
         operationalRequirements: data.operationalRequirement.map(
           (requirement) => {
-            return stringToEnumOperational(requirement.toString());
+            return stringToEnumOperational(requirement);
           },
         ),
         skills: data.skills.map((skill) => {
-          const skillString = skill.toString();
+          const skillString = skill;
           return { id: skillString };
         }),
         wouldAcceptTemporary: data.employmentDuration[0]
-          ? data.employmentDuration[0].toString() === "TERM"
+          ? data.employmentDuration[0] === "TERM"
           : undefined,
       },
       isGovEmployee: data.govEmployee[0] ? true : undefined,
       isProfileComplete: data.profileComplete[0] ? true : undefined,
       jobLookingStatus: data.jobLookingStatus.map((status) => {
-        return stringToEnumJobLooking(status.toString());
+        return stringToEnumJobLooking(status);
       }),
       poolFilters: data.pools.map((pool) => {
-        const poolString = pool.toString();
+        const poolString = pool;
         return { poolId: poolString };
       }),
     });
