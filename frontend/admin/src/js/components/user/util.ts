@@ -27,7 +27,11 @@ export function stringToEnumLocation(
 export function stringToEnumOperational(
   selection: string,
 ): OperationalRequirement | undefined {
-  if (Object.values(OperationalRequirement).includes(selection as OperationalRequirement)) {
+  if (
+    Object.values(OperationalRequirement).includes(
+      selection as OperationalRequirement,
+    )
+  ) {
     return selection as OperationalRequirement;
   }
   return undefined;
