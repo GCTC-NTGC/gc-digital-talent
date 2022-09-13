@@ -72,7 +72,7 @@ export const UserTable: React.FC = () => {
   const paths = useAdminRoutes();
   const { pathname } = useLocation();
 
-  const [fancyFilter, setFancyFilter] = useState<UserFilterInput>();
+  const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
@@ -84,7 +84,7 @@ export const UserTable: React.FC = () => {
   }>();
 
   // merge search bar input with fancy filter state
-  const buildUserFilterInput = (
+  const addSearchToUserFilterInput = (
     fancyFilterState: UserFilterInput | undefined,
     searchBarTerm: string | undefined,
     searchType: string | undefined,
@@ -119,8 +119,8 @@ export const UserTable: React.FC = () => {
 
   const [result] = useAllUsersPaginatedQuery({
     variables: {
-      where: buildUserFilterInput(
-        fancyFilter,
+      where: addSearchToUserFilterInput(
+        userFilterInput,
         searchState?.term,
         searchState?.type,
       ),
@@ -303,7 +303,7 @@ export const UserTable: React.FC = () => {
           )
         }
         hiddenColumnIds={hiddenColumnIds}
-        onFilterChange={setFancyFilter}
+        onFilterChange={setUserFilterInput}
       />
       <div data-h2-radius="base(s)">
         <Pending fetching={fetching} error={error} inline>
