@@ -12,7 +12,6 @@ const filterEmpty = (value) => value != "(none)" ? value : undefined;
 const data = new Map([
     ["OAUTH_POST_LOGOUT_REDIRECT", filterEmpty("<!--#echo var="OAUTH_POST_LOGOUT_REDIRECT" -->")],
     ["OAUTH_LOGOUT_URI", filterEmpty("<!--#echo var="OAUTH_LOGOUT_URI" -->")],
-    ["FEATURE_APPLICANTPROFILE", filterEmpty("<!--#echo var="FEATURE_APPLICANTPROFILE" -->")],
     ["FEATURE_DIRECTINTAKE", filterEmpty("<!--#echo var="FEATURE_DIRECTINTAKE" -->")],
     ["FEATURE_APPLICANTSEARCH", filterEmpty("<!--#echo var="FEATURE_APPLICANTSEARCH" -->")],
 ]);

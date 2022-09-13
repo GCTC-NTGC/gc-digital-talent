@@ -1,6 +1,5 @@
 alertdialog
 Analyser
-APPLICANTPROFILE
 APPLICANTSEARCH
 Assertable
 Authenticatable
