@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
 import { Button, Link } from "@common/components";
 import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
+import { SubmitHandler } from "react-hook-form";
 import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import SearchForm from "./SearchForm";
@@ -13,7 +14,14 @@ import type {
   SearchColumn,
 } from "./basicTableHelpers";
 import UserTableFilterDialog from "../user/UserTableFilterDialog";
+import type { FormValues } from "../user/UserTableFilterDialog";
 import { UserFilterInput } from "../../api/generated";
+import {
+  stringToEnumJobLooking,
+  stringToEnumLanguage,
+  stringToEnumLocation,
+  stringToEnumOperational,
+} from "../user/util";
 
 export interface TableHeaderProps<T extends Record<string, unknown>> {
   onSearchChange: (
@@ -49,6 +57,44 @@ function TableHeader<T extends Record<string, unknown>>({
   const intl = useIntl();
 
   const [showList, setShowList] = useState(false);
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
+    onFilterChange({
+      applicantFilter: {
+        expectedClassifications: data.classifications.map((classification) => {
+          const splitString = classification.split("-");
+          return { group: splitString[0], level: Number(splitString[1]) };
+        }),
+        languageAbility: data.languageAbility[0]
+          ? stringToEnumLanguage(data.languageAbility[0])
+          : undefined,
+        locationPreferences: data.workRegion.map((region) => {
+          return stringToEnumLocation(region);
+        }),
+        operationalRequirements: data.operationalRequirement.map(
+          (requirement) => {
+            return stringToEnumOperational(requirement);
+          },
+        ),
+        skills: data.skills.map((skill) => {
+          const skillString = skill;
+          return { id: skillString };
+        }),
+        wouldAcceptTemporary: data.employmentDuration[0]
+          ? data.employmentDuration[0] === "TERM"
+          : undefined,
+      },
+      isGovEmployee: data.govEmployee[0] ? true : undefined,
+      isProfileComplete: data.profileComplete[0] ? true : undefined,
+      jobLookingStatus: data.jobLookingStatus.map((status) => {
+        return stringToEnumJobLooking(status);
+      }),
+      poolFilters: data.pools.map((pool) => {
+        const poolString = pool;
+        return { poolId: poolString };
+      }),
+    });
+  };
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -63,9 +109,7 @@ function TableHeader<T extends Record<string, unknown>>({
                   <SearchForm onChange={onSearchChange} searchBy={searchBy} />
                 </div>
                 <div data-h2-flex-item="base(content)">
-                  <UserTableFilterDialog.Button
-                    onFilterChange={onFilterChange}
-                  />
+                  <UserTableFilterDialog.Button onSubmit={handleFilterSubmit} />
                 </div>
                 <div data-h2-flex-item="base(content)">
                   <div data-h2-position="base(relative)">

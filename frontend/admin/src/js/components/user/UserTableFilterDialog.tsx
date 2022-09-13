@@ -11,13 +11,6 @@ import type { SubmitHandler } from "react-hook-form";
 import { AdjustmentsVerticalIcon } from "@heroicons/react/24/outline";
 import useFilterOptions from "./useFilterOptions";
 import { ButtonIcon } from "../Table/tableComponents";
-import { UserFilterInput } from "../../api/generated";
-import {
-  stringToEnumJobLooking,
-  stringToEnumLanguage,
-  stringToEnumLocation,
-  stringToEnumOperational,
-} from "./util";
 
 type Option = { value: string; label: string };
 
@@ -239,17 +232,14 @@ const UserTableFilterDialog = ({
 
 export type UserTableFilterButtonProps = Pick<
   UserTableFilterDialogProps,
-  "enableEducationType"
+  "onSubmit" | "enableEducationType"
 > & {
   isOpenDefault?: boolean;
-  onFilterChange: React.Dispatch<
-    React.SetStateAction<UserFilterInput | undefined>
-  >;
 };
 const UserTableFilterButton = ({
+  onSubmit,
   isOpenDefault = false,
   enableEducationType,
-  onFilterChange,
   ...rest
 }: UserTableFilterButtonProps) => {
   const { formatMessage } = useIntl();
@@ -261,46 +251,8 @@ const UserTableFilterButton = ({
   const handleOpen = () => setIsOpen(true);
   const handleDismiss = () => setIsOpen(false);
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
+    onSubmit(data);
     setActiveFilters(data);
-    // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
-    onFilterChange({
-      applicantFilter: {
-        expectedClassifications: data.classifications.map((classification) => {
-          const splitString = classification.split("-");
-          return { group: splitString[0], level: Number(splitString[1]) };
-        }),
-        hasDiploma: data.educationType
-          ? data.educationType[0] === "true"
-          : undefined,
-        languageAbility: data.languageAbility[0]
-          ? stringToEnumLanguage(data.languageAbility[0])
-          : undefined,
-        locationPreferences: data.workRegion.map((region) => {
-          return stringToEnumLocation(region);
-        }),
-        operationalRequirements: data.operationalRequirement.map(
-          (requirement) => {
-            return stringToEnumOperational(requirement);
-          },
-        ),
-        skills: data.skills.map((skill) => {
-          const skillString = skill;
-          return { id: skillString };
-        }),
-        wouldAcceptTemporary: data.employmentDuration[0]
-          ? data.employmentDuration[0] === "TERM"
-          : undefined,
-      },
-      isGovEmployee: data.govEmployee[0] ? true : undefined,
-      isProfileComplete: data.profileComplete[0] ? true : undefined,
-      jobLookingStatus: data.jobLookingStatus.map((status) => {
-        return stringToEnumJobLooking(status);
-      }),
-      poolFilters: data.pools.map((pool) => {
-        const poolString = pool;
-        return { poolId: poolString };
-      }),
-    });
     setIsOpen(false);
   };
 
