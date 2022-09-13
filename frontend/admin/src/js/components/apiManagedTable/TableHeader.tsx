@@ -2,7 +2,6 @@ import React, { ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
 import { Button, Link } from "@common/components";
 import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
-import { SubmitHandler } from "react-hook-form";
 import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import SearchForm from "./SearchForm";
@@ -14,7 +13,6 @@ import type {
   SearchColumn,
 } from "./basicTableHelpers";
 import UserTableFilterDialog from "../user/UserTableFilterDialog";
-import type { FormValues } from "../user/UserTableFilterDialog";
 import { UserFilterInput } from "../../api/generated";
 
 export interface TableHeaderProps<T extends Record<string, unknown>> {
@@ -51,9 +49,6 @@ function TableHeader<T extends Record<string, unknown>>({
   const intl = useIntl();
 
   const [showList, setShowList] = useState(false);
-  const handleFilterSubmit: SubmitHandler<FormValues> = () => {
-    // do nothing.
-  };
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -69,7 +64,6 @@ function TableHeader<T extends Record<string, unknown>>({
                 </div>
                 <div data-h2-flex-item="base(content)">
                   <UserTableFilterDialog.Button
-                    onSubmit={handleFilterSubmit}
                     onFilterChange={onFilterChange}
                   />
                 </div>
