@@ -48,6 +48,9 @@ const CreatePoolCandidate = React.lazy(
 const UpdatePoolCandidate = React.lazy(
   () => import("./poolCandidate/UpdatePoolCandidate"),
 );
+const ViewPoolCandidatePage = React.lazy(
+  () => import("./poolCandidate/ViewPoolCandidate/ViewPoolCandidatePage"),
+);
 
 /** Pools */
 const PoolPage = React.lazy(() => import("./pool/PoolPage"));
@@ -214,6 +217,17 @@ const routes = (
     action: ({ params }) => ({
       component: (
         <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />
+      ),
+      authorizedRoles: [Role.Admin],
+    }),
+  },
+  {
+    path: paths.candidateApplication(":poolCandidateId"),
+    action: ({ params }) => ({
+      component: (
+        <ViewPoolCandidatePage
+          poolCandidateId={params.poolCandidateId as string}
+        />
       ),
       authorizedRoles: [Role.Admin],
     }),

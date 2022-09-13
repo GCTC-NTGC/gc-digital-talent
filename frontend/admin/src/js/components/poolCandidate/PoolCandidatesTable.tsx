@@ -18,8 +18,9 @@ import {
 import Table, {
   ColumnsOf,
   tableBooleanAccessor,
-  tableEditButtonAccessor,
+  tableViewItemButtonAccessor,
 } from "../Table";
+import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
 
@@ -43,10 +44,11 @@ const preferredLanguageAccessor = (
   </span>
 );
 
-const PoolCandidatesTable: React.FC<
-  GetPoolCandidatesQuery & { editUrlRoot: string }
-> = ({ poolCandidates, editUrlRoot }) => {
+const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
+  poolCandidates,
+}) => {
   const intl = useIntl();
+  const adminRoutes = useAdminRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
@@ -170,15 +172,24 @@ const PoolCandidatesTable: React.FC<
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Edit",
-          id: "aGEisH",
+          defaultMessage: "View Application",
+          id: "beiFJG",
           description:
-            "Title displayed for the Pool Candidates table Edit column.",
+            "Title displayed for the Pool Candidates table View Application column.",
         }),
-        accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
+        accessor: (d) =>
+          tableViewItemButtonAccessor(
+            adminRoutes.candidateApplication(d.id),
+            intl.formatMessage({
+              defaultMessage: "Application",
+              id: "uibBHA",
+              description:
+                "Title displayed for the Pool Candidates table View Application column.",
+            }),
+          ),
       },
     ],
-    [intl, editUrlRoot],
+    [intl, adminRoutes],
   );
 
   const memoizedData = useMemo(
@@ -204,14 +215,10 @@ export const PoolCandidatesTableApi: React.FC<{ poolId: string }> = ({
     variables: { id: poolId },
   });
   const { data, fetching, error } = result;
-  const { pathname } = useLocation();
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolCandidatesTable
-        poolCandidates={data?.pool?.poolCandidates ?? []}
-        editUrlRoot={pathname}
-      />
+      <PoolCandidatesTable poolCandidates={data?.pool?.poolCandidates ?? []} />
     </Pending>
   );
 };
