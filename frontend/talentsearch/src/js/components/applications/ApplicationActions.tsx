@@ -36,7 +36,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
   }
 
   return (
-    <Link href={paths.poolApply(application.id)}>
+    <Link href={paths.reviewApplication(application.id)}>
       {intl.formatMessage(
         {
           defaultMessage: "Continue my application<hidden> {name}</hidden>",
