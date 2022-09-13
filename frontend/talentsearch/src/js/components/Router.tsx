@@ -544,7 +544,7 @@ export const Router: React.FC = () => {
     }
   }
 
-  if (featureFlags.applicantProfile && loggedIn && data?.me?.id) {
+  if (loggedIn && data?.me?.id) {
     menuItems.push(
       <MenuLink
         key="myProfile"
@@ -605,9 +605,7 @@ export const Router: React.FC = () => {
         contentRoutes={[
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),
-          ...(featureFlags.applicantProfile
-            ? profileRoutes(profilePaths, data?.me?.id)
-            : []),
+          ...profileRoutes(profilePaths, data?.me?.id),
           ...(featureFlags.directIntake
             ? directIntakeRoutes(directIntakePaths)
             : []),
