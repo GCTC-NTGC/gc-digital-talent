@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
@@ -11,6 +11,9 @@ import {
 import Pending from "@common/components/Pending";
 import { IdType } from "react-table";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
+import { Link } from "@common/components";
+import { useReactToPrint } from "react-to-print";
+import printStyles from "@common/constants/printStyles";
 import {
   JobLookingStatus,
   Language,
@@ -19,11 +22,15 @@ import {
   PoolCandidateStatus,
   ProvinceOrTerritory,
   useGetPoolCandidatesPaginatedQuery,
+  useGetPoolCandidatesQuery,
 } from "../../api/generated";
 import TableHeader from "../apiManagedTable/TableHeader";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   ColumnsOf,
   handleColumnHiddenChange,
+  handleRowSelectedChange,
+  rowSelectionColumn,
 } from "../apiManagedTable/basicTableHelpers";
 import BasicTable from "../apiManagedTable/BasicTable";
 import TableFooter from "../apiManagedTable/TableFooter";
@@ -128,29 +135,40 @@ const availabilityAccessor = (
       : ""}
   </span>
 );
-const viewAccessor = (
-  status: PoolCandidateStatus | null | undefined,
-  intl: IntlShape,
-) => (
-  <span>
-    {status === PoolCandidateStatus.NewApplication ||
-    status === PoolCandidateStatus.ApplicationReview ||
-    status === PoolCandidateStatus.ScreenedIn ||
-    status === PoolCandidateStatus.ScreenedOutApplication ||
-    status === PoolCandidateStatus.UnderAssessment ||
-    status === PoolCandidateStatus.ScreenedOutAssessment
-      ? intl.formatMessage({
-          defaultMessage: "View Application",
-          description:
-            "Title displayed on the Pool Candidates table to view a users application.",
-        })
-      : intl.formatMessage({
-          defaultMessage: "View Profile",
-          description:
-            "Title displayed on the Pool Candidates table to view a users profile.",
-        })}
-  </span>
-);
+const viewAccessor = (url: string, isQualified: boolean, intl: IntlShape) => {
+  return (
+    <span data-h2-font-weight="base(700)">
+      <Link
+        href={url}
+        title={
+          isQualified
+            ? intl.formatMessage({
+                defaultMessage: "Link to candidate application",
+                description:
+                  "Descriptive title for anchor link to candidates application",
+              })
+            : intl.formatMessage({
+                defaultMessage: "Link to candidate profile",
+                description:
+                  "Descriptive title for anchor link to candidates profile",
+              })
+        }
+      >
+        {isQualified
+          ? intl.formatMessage({
+              defaultMessage: "View Application",
+              description:
+                "Title displayed on the Pool Candidates table to view a users application.",
+            })
+          : intl.formatMessage({
+              defaultMessage: "View Profile",
+              description:
+                "Title displayed on the Pool Candidates table to view a users profile.",
+            })}
+      </Link>
+    </span>
+  );
+};
 const provinceAccessor = (
   province: ProvinceOrTerritory | null | undefined,
   intl: IntlShape,
@@ -161,30 +179,12 @@ const provinceAccessor = (
 
 const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
   const [selectedRows, setSelectedRows] = useState<PoolCandidate[]>([]);
-  /* const [searchState, setSearchState] = useState<{  --- TODO: Re-add this with functionality for text search
-    term: string | undefined;
-    col: string | undefined;
-  }>();
-
-
-  const searchStateToFilterInput = (
-    val: string | undefined,
-    col: string | undefined,
-  ): InputMaybe<UserFilterInput> => {
-    if (!val) return undefined;
-
-    return {
-      generalSearch: val && !col ? val : undefined,
-      email: col === "email" ? val : undefined,
-      name: col === "name" ? val : undefined,
-      telephone: col === "phone" ? val : undefined,
-    };
-  }; */
 
   useEffect(() => {
     setSelectedRows([]);
@@ -205,6 +205,20 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
 
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
+      rowSelectionColumn(
+        intl,
+        selectedRows,
+        filteredData.length,
+        (candidate: Data) =>
+          `${candidate.user.firstName} ${candidate.user.lastName}`,
+        (event) =>
+          handleRowSelectedChange(
+            filteredData,
+            selectedRows,
+            setSelectedRows,
+            event,
+          ),
+      ),
       {
         label: intl.formatMessage({
           defaultMessage: "Status",
@@ -268,7 +282,18 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             "Title displayed for the Pool Candidates table View column.",
         }),
         id: "view",
-        accessor: (d) => viewAccessor(d.status, intl),
+        accessor: (d) => {
+          const isQualified =
+            d.status !== PoolCandidateStatus.NewApplication &&
+            d.status !== PoolCandidateStatus.ApplicationReview &&
+            d.status !== PoolCandidateStatus.ScreenedIn &&
+            d.status !== PoolCandidateStatus.ScreenedOutApplication &&
+            d.status !== PoolCandidateStatus.UnderAssessment &&
+            d.status !== PoolCandidateStatus.ScreenedOutAssessment;
+
+          // TODO: Update this to navigate to application if applicant not qualified
+          return viewAccessor(paths.userView(d.user.id), isQualified, intl);
+        },
       },
       {
         label: intl.formatMessage({
@@ -321,21 +346,21 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         accessor: (d) => d.submittedAt,
       },
     ],
-    [intl],
+    [intl, selectedRows, filteredData, paths],
   );
 
   const allColumnIds = columns.map((c) => c.id);
 
-  /* const selectedApplicantIds = selectedRows.map((user) => user.id);
+  const selectedCandidateIds = selectedRows.map((user) => user.id);
   const [
     {
-      data: selectedUsersData,
-      fetching: selectedUsersFetching,
-      error: selectedUsersError,
+      data: selectedCandidatesData,
+      fetching: selectedCandidatesFetching,
+      error: selectedCandidatesError,
     },
-  ] = useSelectedUsersQuery({
+  ] = useGetPoolCandidatesQuery({
     variables: {
-      ids: selectedApplicantIds,
+      ids: selectedCandidateIds,
     },
   });
 
@@ -345,10 +370,10 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
     pageStyle: printStyles,
     documentTitle: "Candidate Profiles",
   });
-  const selectedApplicants =
-    selectedUsersData?.applicants.filter(notEmpty) ?? [];
+  const selectedCandidates =
+    selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
 
-  const csv = useUserCsvData(selectedApplicants); */
+  // const csv = useUserCsvData(selectedApplicants);
 
   return (
     <div data-h2-margin="base(x1, 0)">
@@ -381,7 +406,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             columns={columns}
             hiddenColumnIds={hiddenColumnIds}
             onSortingRuleChange={() => {
-              /* TODO: Implement this later */
+              /* Implement this later if desired */
             }}
           />
         </Pending>
@@ -390,6 +415,14 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
           onCurrentPageChange={setCurrentPage}
           onPageSizeChange={setPageSize}
           hasSelection
+          onPrint={handlePrint}
+          fetchingSelected={selectedCandidatesFetching}
+          selectionError={selectedCandidatesError}
+          disableActions={
+            selectedCandidatesFetching ||
+            !!selectedCandidatesError ||
+            !selectedCandidatesData?.poolCandidates.length
+          }
         />
       </div>
     </div>

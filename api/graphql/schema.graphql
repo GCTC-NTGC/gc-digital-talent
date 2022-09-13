@@ -740,7 +740,7 @@ type Query {
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
-    poolCandidates: [PoolCandidate]! @all(scopes: ["expiryFilter"]) @guard @can(ability: "viewAny")
+    poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]! @all(scopes: ["expiryFilter"]) @guard @can(ability: "viewAny")
     poolCandidatesPaginated(where: PaginatedPoolCandidateFilterInput): [PoolCandidate]! @paginate(defaultCount: 10, maxCount: 1000 ) @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
     countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants") @count(model: "PoolCandidate" scopes: ["expiryFilter", "available"])

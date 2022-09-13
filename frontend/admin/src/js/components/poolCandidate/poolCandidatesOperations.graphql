@@ -105,8 +105,8 @@ query getPoolCandidate($id: ID!) {
   }
 }
 
-query GetPoolCandidates {
-  poolCandidates {
+query GetPoolCandidates($ids: [ID]) {
+  poolCandidates(includeIds: $ids) {
     ...poolCandidateTable
   }
 }
