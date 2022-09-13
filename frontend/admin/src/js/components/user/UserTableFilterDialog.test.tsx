@@ -161,7 +161,7 @@ describe("UserTableFilterDialog", () => {
 
         const activeFilter = mockFilterChange.mock.lastCall[0];
         expect(Object.keys(activeFilter)).toHaveLength(5);
-        expect(Object.keys(activeFilter.applicantFilter)).toHaveLength(6);
+        expect(Object.keys(activeFilter.applicantFilter)).toHaveLength(7);
         // Static filters.
         expect(activeFilter.applicantFilter.locationPreferences).toHaveLength(
           1,
@@ -263,28 +263,28 @@ describe("UserTableFilterDialog", () => {
       ).toBeVisible();
     });
 
-    // it("submits empty education data when empty", async () => {
-    //   renderButton({
-    //     isOpenDefault: true,
-    //     enableEducationType: true,
-    //   });
-    //   await submitFilters();
+    it("submits empty education data when empty", async () => {
+      renderButton({
+        isOpenDefault: true,
+        enableEducationType: true,
+      });
+      await submitFilters();
 
-    //   const activeFilter = mockFilterChange.mock.lastCall[0];
-    //   expect(activeFilter).toBeDefined();
-    // });
-    //
-    // it("submits education data when populated", async () => {
-    //   renderButton({
-    //     isOpenDefault: true,
-    //     enableEducationType: true,
-    //   });
-    //   selectFilterOption(/education/i);
-    //   selectFilterOption(/education/i);
-    //   await submitFilters();
+      const activeFilter = mockFilterChange.mock.lastCall[0];
+      expect(activeFilter.applicantFilter.hasDiploma).toBe(false);
+    });
 
-    //   const activeFilter = mockFilterChange.mock.lastCall[0];
-    //   expect(activeFilter.applicantFilter).toHaveLength(2);
-    // });
+    it("submits education data when populated", async () => {
+      renderButton({
+        isOpenDefault: true,
+        enableEducationType: true,
+      });
+      selectFilterOption(/education/i);
+      selectFilterOption(/education/i);
+      await submitFilters();
+
+      const activeFilter = mockFilterChange.mock.lastCall[0];
+      expect(activeFilter.applicantFilter.hasDiploma).toBe(false);
+    });
   });
 });
