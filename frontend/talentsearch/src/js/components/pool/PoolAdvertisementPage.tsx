@@ -141,7 +141,7 @@ const PoolAdvertisement = ({
       .then((result) => {
         if (result.data?.createApplication) {
           navigate(paths.reviewApplication(result.data.createApplication.id));
-          toast(
+          toast.success(
             intl.formatMessage({
               defaultMessage: "Application created",
               id: "U/ji+A",
@@ -153,7 +153,7 @@ const PoolAdvertisement = ({
         return result.data?.createApplication;
       })
       .catch((result) => {
-        toast(
+        toast.error(
           intl.formatMessage({
             defaultMessage: "Error application creation failed",
             id: "tlAiJm",
