@@ -11,10 +11,11 @@ import ExperienceSection from "@common/components/UserProfile/ExperienceSection"
 import { IconLink } from "@common/components/Link";
 import { notEmpty } from "@common/helpers/util";
 import MissingSkills from "@common/components/skills/MissingSkills";
-import { commonMessages } from "@common/messages";
+import { navigationMessages } from "@common/messages";
 import { useQueryParams } from "@common/helpers/router";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import {
   AwardExperience,
   CommunityExperience,
@@ -62,8 +63,10 @@ export const ExperienceAndSkills: React.FunctionComponent<
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
   const directIntakePaths = useDirectIntakeRoutes();
-  const { application } = useQueryParams();
-  const applicationParam = application ? `?application=${application}` : ``;
+  const { applicationId } = useQueryParams();
+  const applicationParam = applicationId
+    ? `?applicationId=${applicationId}`
+    : ``;
 
   const getEditPath = (id: string, type: ExperienceType) => {
     return `${paths.editExperience(applicantId, type, id)}${applicationParam}`;
@@ -139,11 +142,6 @@ export const ExperienceAndSkills: React.FunctionComponent<
   ] as BreadcrumbsProps["links"];
 
   if (poolAdvertisement) {
-    const advertisementTitle = getFullPoolAdvertisementTitle(
-      intl,
-      poolAdvertisement,
-    );
-
     crumbs = [
       {
         title: intl.formatMessage({
@@ -154,12 +152,21 @@ export const ExperienceAndSkills: React.FunctionComponent<
         href: directIntakePaths.applications(applicantId),
       },
       {
-        title: advertisementTitle,
-        href: "/#",
+        title: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
+        href: directIntakePaths.poolApply(poolAdvertisement.id),
+      },
+      {
+        href: directIntakePaths.reviewApplication(applicantId),
+        title: intl.formatMessage(navigationMessages.stepOne),
       },
       ...crumbs,
     ];
   }
+
+  const returnRoute =
+    applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.reviewApplication(applicationId)
+      : paths.home(applicantId);
 
   return (
     <ProfileFormWrapper
@@ -179,7 +186,12 @@ export const ExperienceAndSkills: React.FunctionComponent<
           "Heading for experience and skills page in applicant profile.",
       })}
       cancelLink={{
-        children: intl.formatMessage(commonMessages.backToProfile),
+        href: returnRoute,
+        children: intl.formatMessage(
+          applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+            ? navigationMessages.backToApplication
+            : navigationMessages.backToProfile,
+        ),
       }}
     >
       <div data-h2-margin="base(x2, 0)">
@@ -262,7 +274,12 @@ export const ExperienceAndSkills: React.FunctionComponent<
       <ProfileFormFooter
         mode="cancelButton"
         cancelLink={{
-          children: intl.formatMessage(commonMessages.backToProfile),
+          href: returnRoute,
+          children: intl.formatMessage(
+            applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+              ? navigationMessages.backToApplication
+              : navigationMessages.backToProfile,
+          ),
         }}
       />
     </ProfileFormWrapper>

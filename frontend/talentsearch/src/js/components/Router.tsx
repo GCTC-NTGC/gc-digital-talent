@@ -87,6 +87,9 @@ const SignAndSubmitPage = React.lazy(
 const MyApplicationsPage = React.lazy(
   () => import("./applications/MyApplicationsPage"),
 );
+const ReviewMyApplicationPage = React.lazy(
+  () => import("./reviewMyApplication/ReviewMyApplicationPage"),
+);
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -462,6 +465,18 @@ const directIntakeRoutes = (
       authorizedRoles: [Role.Applicant],
     }),
   },
+  {
+    path: directIntakePaths.reviewApplication(":poolCandidateId"),
+    action: (context) => {
+      const poolCandidateId = context.params.poolCandidateId as string;
+      return {
+        component: (
+          <ReviewMyApplicationPage poolCandidateId={poolCandidateId} />
+        ),
+        authorizedRoles: [Role.Applicant],
+      };
+    },
+  },
 ];
 
 export const Router: React.FC = () => {
@@ -529,7 +544,7 @@ export const Router: React.FC = () => {
     }
   }
 
-  if (featureFlags.applicantProfile && loggedIn && data?.me?.id) {
+  if (loggedIn && data?.me?.id) {
     menuItems.push(
       <MenuLink
         key="myProfile"
@@ -590,9 +605,7 @@ export const Router: React.FC = () => {
         contentRoutes={[
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),
-          ...(featureFlags.applicantProfile
-            ? profileRoutes(profilePaths, data?.me?.id)
-            : []),
+          ...profileRoutes(profilePaths, data?.me?.id),
           ...(featureFlags.directIntake
             ? directIntakeRoutes(directIntakePaths)
             : []),
