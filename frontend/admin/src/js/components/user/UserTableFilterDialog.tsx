@@ -269,9 +269,6 @@ const UserTableFilterButton = ({
           const splitString = classification.split("-");
           return { group: splitString[0], level: Number(splitString[1]) };
         }),
-        hasDiploma: data.educationType
-          ? data.educationType[0] === "true"
-          : undefined,
         languageAbility: data.languageAbility[0]
           ? stringToEnumLanguage(data.languageAbility[0])
           : undefined,
