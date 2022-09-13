@@ -46,16 +46,11 @@ const Providers = ({ children }: ProvidersProps) => (
 );
 
 const mockSubmit = jest.fn();
-const mockFilterChange = jest.fn();
 
 // Helpers.
 function renderButton(props: Partial<UserTableFilterButtonProps>) {
   return render(
-    <UserTableFilterDialog.Button
-      {...props}
-      onSubmit={mockSubmit}
-      onFilterChange={mockFilterChange}
-    />,
+    <UserTableFilterDialog.Button {...props} onSubmit={mockSubmit} />,
     {
       wrapper: Providers,
     },
@@ -149,12 +144,6 @@ describe("UserTableFilterDialog", () => {
       renderButton({ isOpenDefault: true });
       await submitFilters();
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-    });
-
-    it("calls the onFilterChange function upon submission", async () => {
-      renderButton({ isOpenDefault: true });
-      await submitFilters();
-      expect(mockFilterChange).toHaveBeenCalled();
     });
 
     // This test is prone to going beyond the 5s default timeout.
