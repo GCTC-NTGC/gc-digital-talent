@@ -239,7 +239,7 @@ const UserTableFilterDialog = ({
 
 export type UserTableFilterButtonProps = Pick<
   UserTableFilterDialogProps,
-  "enableEducationType"
+  "onSubmit" | "enableEducationType"
 > & {
   isOpenDefault?: boolean;
   onFilterChange: React.Dispatch<
@@ -247,6 +247,7 @@ export type UserTableFilterButtonProps = Pick<
   >;
 };
 const UserTableFilterButton = ({
+  onSubmit,
   isOpenDefault = false,
   enableEducationType,
   onFilterChange,
@@ -261,6 +262,7 @@ const UserTableFilterButton = ({
   const handleOpen = () => setIsOpen(true);
   const handleDismiss = () => setIsOpen(false);
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
+    onSubmit(data);
     setActiveFilters(data);
     // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
     onFilterChange({

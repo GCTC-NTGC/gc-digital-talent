@@ -23,6 +23,19 @@ const mockClient = {
     }),
 } as any; // eslint-disable-line
 
+const emptyFormValues = {
+  classifications: [],
+  employmentDuration: [],
+  govEmployee: [],
+  jobLookingStatus: [],
+  languageAbility: [],
+  operationalRequirement: [],
+  pools: [],
+  profileComplete: [],
+  skills: [],
+  workRegion: [],
+};
+
 interface ProvidersProps {
   children: React.ReactElement;
 }
@@ -32,6 +45,7 @@ const Providers = ({ children }: ProvidersProps) => (
   </IntlProvider>
 );
 
+const mockSubmit = jest.fn();
 const mockFilterChange = jest.fn();
 
 // Helpers.
@@ -39,6 +53,7 @@ function renderButton(props: Partial<UserTableFilterButtonProps>) {
   return render(
     <UserTableFilterDialog.Button
       {...props}
+      onSubmit={mockSubmit}
       onFilterChange={mockFilterChange}
     />,
     {
@@ -88,7 +103,7 @@ const submitFilters = async () => {
 };
 
 beforeEach(() => {
-  mockFilterChange.mockClear();
+  mockSubmit.mockClear();
 });
 
 describe("UserTableFilterDialog", () => {
@@ -117,10 +132,17 @@ describe("UserTableFilterDialog", () => {
   });
 
   describe("submit button", () => {
-    it("doesn't trigger submit when cleared", () => {
+    it("calls submit handler with empty filters", async () => {
+      renderButton({ isOpenDefault: true });
+      await submitFilters();
+      expect(mockSubmit).toHaveBeenCalledTimes(1);
+      expect(mockSubmit).toHaveBeenCalledWith(emptyFormValues);
+    });
+
+    it("doesn't call submit handler when cleared", () => {
       renderButton({ isOpenDefault: true });
       clearFilters();
-      expect(mockFilterChange).not.toHaveBeenCalled();
+      expect(mockSubmit).not.toHaveBeenCalled();
     });
 
     it("closes the dialog on submission", async () => {
@@ -157,29 +179,22 @@ describe("UserTableFilterDialog", () => {
         selectFilterOption(/skill filter/i);
 
         await submitFilters();
-        expect(mockFilterChange).toHaveBeenCalledTimes(1);
+        expect(mockSubmit).toHaveBeenCalledTimes(1);
 
-        const activeFilter = mockFilterChange.mock.lastCall[0];
-        expect(Object.keys(activeFilter)).toHaveLength(5);
-        expect(Object.keys(activeFilter.applicantFilter)).toHaveLength(6);
+        const activeFilter = mockSubmit.mock.lastCall[0];
+        expect(Object.keys(activeFilter)).toHaveLength(10);
         // Static filters.
-        expect(activeFilter.applicantFilter.locationPreferences).toHaveLength(
-          1,
-        );
-        expect(activeFilter.applicantFilter.wouldAcceptTemporary).toBe(true);
-        expect(activeFilter.applicantFilter.languageAbility).toBeTruthy();
-        expect(
-          activeFilter.applicantFilter.operationalRequirements,
-        ).toHaveLength(1);
-        expect(activeFilter.isGovEmployee).toBe(true);
-        expect(activeFilter.isProfileComplete).toBe(true);
+        expect(activeFilter.workRegion).toHaveLength(1);
+        expect(activeFilter.employmentDuration).toHaveLength(1);
+        expect(activeFilter.languageAbility).toHaveLength(1);
+        expect(activeFilter.operationalRequirement).toHaveLength(1);
+        expect(activeFilter.govEmployee).toHaveLength(1);
+        expect(activeFilter.profileComplete).toHaveLength(1);
 
         // Async filters.
-        expect(
-          activeFilter.applicantFilter.expectedClassifications,
-        ).toHaveLength(1);
-        expect(activeFilter.applicantFilter.skills).toHaveLength(1);
-        expect(activeFilter.poolFilters).toHaveLength(1);
+        expect(activeFilter.classifications).toHaveLength(1);
+        expect(activeFilter.skills).toHaveLength(1);
+        expect(activeFilter.pools).toHaveLength(1);
       },
       extendedTimeout,
     );
@@ -263,28 +278,29 @@ describe("UserTableFilterDialog", () => {
       ).toBeVisible();
     });
 
-    // it("submits empty education data when empty", async () => {
-    //   renderButton({
-    //     isOpenDefault: true,
-    //     enableEducationType: true,
-    //   });
-    //   await submitFilters();
+    it("submits empty education data when empty", async () => {
+      renderButton({
+        isOpenDefault: true,
+        enableEducationType: true,
+      });
+      await submitFilters();
 
-    //   const activeFilter = mockFilterChange.mock.lastCall[0];
-    //   expect(activeFilter).toBeDefined();
-    // });
-    //
-    // it("submits education data when populated", async () => {
-    //   renderButton({
-    //     isOpenDefault: true,
-    //     enableEducationType: true,
-    //   });
-    //   selectFilterOption(/education/i);
-    //   selectFilterOption(/education/i);
-    //   await submitFilters();
+      const activeFilter = mockSubmit.mock.lastCall[0];
+      expect(activeFilter.educationType).toBeDefined();
+      expect(activeFilter.educationType).toHaveLength(0);
+    });
 
-    //   const activeFilter = mockFilterChange.mock.lastCall[0];
-    //   expect(activeFilter.applicantFilter).toHaveLength(2);
-    // });
+    it("submits education data when populated", async () => {
+      renderButton({
+        isOpenDefault: true,
+        enableEducationType: true,
+      });
+      selectFilterOption(/education/i);
+      selectFilterOption(/education/i);
+      await submitFilters();
+
+      const activeFilter = mockSubmit.mock.lastCall[0];
+      expect(activeFilter.educationType).toHaveLength(2);
+    });
   });
 });
