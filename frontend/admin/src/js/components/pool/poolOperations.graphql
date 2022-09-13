@@ -10,7 +10,6 @@ fragment pool on Pool {
     en
     fr
   }
-  key
   description {
     en
     fr
@@ -153,7 +152,6 @@ query getPools {
       en
       fr
     }
-    key
     description {
       en
       fr
@@ -176,7 +174,6 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
       en
       fr
     }
-    key
     description {
       en
       fr
