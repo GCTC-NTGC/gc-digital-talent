@@ -3,10 +3,7 @@ import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { fakePoolCandidates } from "@common/fakeData";
 import { UpdatePoolCandidateAsAdminInput } from "admin/src/js/api/generated";
-import {
-  ApplicationStatusForm,
-  type FormValues,
-} from "./ApplicationStatusForm";
+import { ApplicationStatusForm } from "./ApplicationStatusForm";
 
 type Meta = ComponentMeta<typeof ApplicationStatusForm>;
 type Story = ComponentStory<typeof ApplicationStatusForm>;
