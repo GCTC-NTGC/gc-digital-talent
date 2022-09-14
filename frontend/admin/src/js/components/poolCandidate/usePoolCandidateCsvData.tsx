@@ -16,6 +16,7 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       key: "availability",
       label: intl.formatMessage({
         defaultMessage: "Availability",
+        id: "l62TJM",
         description: "CSV Header, Availability column",
       }),
     },
@@ -23,6 +24,7 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       key: "firstName",
       label: intl.formatMessage({
         defaultMessage: "First Name",
+        id: "ukL9do",
         description: "CSV Header, First Name column",
       }),
     },
@@ -30,6 +32,7 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       key: "lastName",
       label: intl.formatMessage({
         defaultMessage: "Last Name",
+        id: "DlBusi",
         description: "CSV Header, Last Name column",
       }),
     },
@@ -37,6 +40,7 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       key: "email",
       label: intl.formatMessage({
         defaultMessage: "Email",
+        id: "H02JZe",
         description: "CSV Header, Email column",
       }),
     },
@@ -44,6 +48,7 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       key: "preferredLanguage",
       label: intl.formatMessage({
         defaultMessage: "Preferred Language",
+        id: "p0e6Y5",
         description: "CSV Header, Preferred Language column",
       }),
     },
@@ -51,6 +56,7 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       key: "currentCity",
       label: intl.formatMessage({
         defaultMessage: "Current City",
+        id: "CLOuJF",
         description: "CSV Header, Current City column",
       }),
     },
@@ -58,6 +64,7 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       key: "currentProvince",
       label: intl.formatMessage({
         defaultMessage: "Current Province",
+        id: "Xo0M3N",
         description: "CSV Header, Current Province column",
       }),
     },
@@ -65,6 +72,7 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       key: "dateReceived",
       label: intl.formatMessage({
         defaultMessage: "Date Received",
+        id: "j9m5qA",
         description: "CSV Header, Date Received column",
       }),
     },
@@ -72,6 +80,7 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
       key: "expiryDate",
       label: intl.formatMessage({
         defaultMessage: "Expiry Date",
+        id: "BNEY8G",
         description: "CSV Header, Expiry Date column",
       }),
     },
