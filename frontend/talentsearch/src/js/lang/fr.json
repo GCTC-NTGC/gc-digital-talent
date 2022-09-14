@@ -1947,5 +1947,9 @@
   "HHEQgM": {
     "defaultMessage": "Sélectionnez une classification",
     "description": "Placeholder for classification filter in search form."
+  },
+  "LzSC5k": {
+    "defaultMessage": "Filtrer par ordre de...",
+    "description": "A label for a list of possible filters"
   }
 }
