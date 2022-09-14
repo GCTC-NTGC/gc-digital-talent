@@ -173,10 +173,6 @@
     "defaultMessage": "Demande créée avec succès!",
     "description": "Message displayed to user after a pool candidate request is created successfully."
   },
-  "i7hOcw": {
-    "defaultMessage": "Demande",
-    "description": "Label displayed on the Request menu item."
-  },
   "iNsxYi": {
     "defaultMessage": "Sélectionnez une ou plusieurs classifications",
     "description": "Placeholder for classification filter in search form."
