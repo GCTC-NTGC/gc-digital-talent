@@ -120,3 +120,9 @@ export const strToDateTimeTz = (value: string) => {
 
   return formatISO(parsed);
 };
+
+export const strToFormDate = (value: string) => {
+  const parsed = parseISO(value);
+
+  return format(parsed, "yyyy-MM-dd");
+};
