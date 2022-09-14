@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
-import { Link } from "@common/components";
+import { Button, Link } from "@common/components";
 import PageHeader from "@common/components/PageHeader";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
@@ -11,6 +11,8 @@ import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { getLocalizedName } from "@common/helpers/localize";
 import UserProfile from "@common/components/UserProfile";
 import { useAdminRoutes } from "admin/src/js/adminRoutes";
+import { useState } from "react";
+import { Applicant } from "@common/api/generated";
 import {
   Scalars,
   useGetPoolCandidateSnapshotQuery,
@@ -36,6 +38,9 @@ export const ViewPoolCandidate = ({
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
   const adminPaths = useAdminRoutes();
+
+  // prefer the rich view if available
+  const [preferRichView, setPreferRichView] = useState(true);
 
   const links = [
     {
@@ -63,9 +68,58 @@ export const ViewPoolCandidate = ({
     },
   ] as BreadcrumbsProps["links"];
 
-  const parsedSnapshot: Maybe<PoolCandidate> = JSON.parse(
+  const parsedSnapshot: Maybe<Applicant> = JSON.parse(
     poolCandidate.profileSnapshot,
   );
+  const snapshotUserPropertyExists = !!parsedSnapshot;
+
+  let mainContent: React.ReactNode;
+  if (snapshotUserPropertyExists && preferRichView) {
+    mainContent = (
+      <UserProfile
+        applicant={parsedSnapshot}
+        sections={{
+          myStatus: { isVisible: false },
+          hiringPools: { isVisible: false },
+          about: { isVisible: true },
+          language: {
+            isVisible: true,
+          },
+          government: {
+            isVisible: true,
+          },
+          workLocation: {
+            isVisible: true,
+          },
+          workPreferences: {
+            isVisible: true,
+          },
+          employmentEquity: {
+            isVisible: true,
+          },
+          roleSalary: { isVisible: true },
+          skillsExperience: {
+            isVisible: true,
+          },
+        }}
+        isNavigationVisible={false}
+      />
+    );
+  } else if (snapshotUserPropertyExists && !preferRichView) {
+    mainContent = <pre>{JSON.stringify(parsedSnapshot, null, 2)}</pre>;
+  } else {
+    mainContent = (
+      <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "Profile snapshot not found.",
+            id: "JH2+tK",
+            description: "Message displayed for profile snapshot not found.",
+          })}
+        </p>
+      </NotFound>
+    );
+  }
 
   return (
     <>
@@ -127,49 +181,16 @@ export const ViewPoolCandidate = ({
           id: "rqXJfW",
           description: "Title for the application's profile snapshot.",
         })}
+        {snapshotUserPropertyExists && (
+          <>
+            &nbsp;
+            <Button onClick={() => setPreferRichView(!preferRichView)}>
+              Toggle View
+            </Button>
+          </>
+        )}
       </h2>
-
-      {parsedSnapshot?.user ? (
-        <UserProfile
-          applicant={parsedSnapshot?.user}
-          sections={{
-            myStatus: { isVisible: false },
-            hiringPools: { isVisible: false },
-            about: { isVisible: true },
-            language: {
-              isVisible: true,
-            },
-            government: {
-              isVisible: true,
-            },
-            workLocation: {
-              isVisible: true,
-            },
-            workPreferences: {
-              isVisible: true,
-            },
-            employmentEquity: {
-              isVisible: true,
-            },
-            roleSalary: { isVisible: true },
-            skillsExperience: {
-              isVisible: true,
-            },
-          }}
-          isNavigationVisible={false}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          {" "}
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Profile snapshot not found.",
-              id: "JH2+tK",
-              description: "Message displayed for profile snapshot not found.",
-            })}
-          </p>
-        </NotFound>
-      )}
+      {mainContent}
     </>
   );
 };
