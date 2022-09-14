@@ -34,6 +34,7 @@ import {
 } from "../apiManagedTable/basicTableHelpers";
 import BasicTable from "../apiManagedTable/BasicTable";
 import TableFooter from "../apiManagedTable/TableFooter";
+import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 
 type Data = NonNullable<FromArray<PoolCandidatePaginator["data"]>>;
 
@@ -373,7 +374,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   const selectedCandidates =
     selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
 
-  // const csv = useUserCsvData(selectedApplicants);
+  const csv = usePoolCandidateCsvData(selectedCandidates);
 
   return (
     <div data-h2-margin="base(x1, 0)">
@@ -423,6 +424,18 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             !!selectedCandidatesError ||
             !selectedCandidatesData?.poolCandidates.length
           }
+          csv={{
+            ...csv,
+            fileName: intl.formatMessage(
+              {
+                defaultMessage: "pool_candidates_{date}.csv",
+                description: "Filename for pool candidate CSV file download",
+              },
+              {
+                date: new Date().toISOString(),
+              },
+            ),
+          }}
         />
       </div>
     </div>
