@@ -54,7 +54,6 @@ mutation createPool($pool: CreatePoolInput!) {
       en
       fr
     }
-    key
     description {
       en
       fr

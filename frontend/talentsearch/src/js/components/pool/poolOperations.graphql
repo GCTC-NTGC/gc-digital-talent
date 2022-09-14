@@ -11,6 +11,7 @@ query getPool($id: ID!) {
 query getPoolAdvertisement($id: ID!) {
   me {
     roles
+    id
   }
   poolAdvertisement(id: $id) {
     id
@@ -104,5 +105,11 @@ query getPoolAdvertisement($id: ID!) {
         category
       }
     }
+  }
+}
+
+mutation createApplication($userId: ID!, $poolId: ID!) {
+  createApplication(userId: $userId, poolId: $poolId) {
+    id
   }
 }

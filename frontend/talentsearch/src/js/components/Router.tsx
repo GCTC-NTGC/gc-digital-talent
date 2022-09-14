@@ -504,15 +504,6 @@ export const Router: React.FC = () => {
         description: "Label displayed on the Search menu item.",
       })}
     />,
-    <MenuLink
-      key="request"
-      href={talentPaths.request()}
-      text={intl.formatMessage({
-        defaultMessage: "Request",
-        id: "i7hOcw",
-        description: "Label displayed on the Request menu item.",
-      })}
-    />,
   ];
 
   if (featureFlags.directIntake) {

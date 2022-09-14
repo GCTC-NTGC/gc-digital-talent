@@ -64,6 +64,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
           <MenuButton
             color="secondary"
             data-h2-radius="base(s, none, none, s)"
+            data-h2-margin-right="base(0)"
             style={{ flexShrink: 0, borderRightWidth: 0 }}
           >
             {column ? column.label : allTableMsg}
@@ -102,6 +103,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
         data-h2-border="base(all, 1px, solid, dt-secondary)"
         data-h2-background-color="base(dt-white)"
         data-h2-padding="base(x.25, x.5)"
+        data-h2-margin-left="base(0)"
         {...(showDropdown
           ? {
               "data-h2-radius": "base(none, s, s, none)",
