@@ -437,7 +437,11 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 data-h2-margin="base(x2, 0, 0, 0)"
                 data-h2-font-size="base(h3)"
               >
-                Your work
+                {intl.formatMessage({
+                  defaultMessage: "Your work",
+                  id: "Qp6B20",
+                  description: "Title for pool advertisement work text section",
+                })}
               </h2>
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">

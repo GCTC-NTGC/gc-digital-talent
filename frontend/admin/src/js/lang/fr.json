@@ -2280,5 +2280,9 @@
   "88Haix": {
     "defaultMessage": "Texte de travail en français",
     "description": "Title for French pool advertisement Work"
+  },
+  "Qp6B20": {
+    "defaultMessage": "Votre travail",
+    "description": "Title for pool advertisement work text section"
   }
 }
