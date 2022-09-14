@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\ApplicationSubmitted;
-use App\GraphQL\Util\GraphQLClient;
 
 use App\Models\User;
 use App\Http\Resources\UserResource;
