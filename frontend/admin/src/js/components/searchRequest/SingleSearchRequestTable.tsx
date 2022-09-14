@@ -33,6 +33,7 @@ const TableEditButton: React.FC<{
     >
       {intl.formatMessage({
         defaultMessage: "Edit",
+        id: "srzf65",
         description: "Title displayed for the Edit column.",
       })}
     </Link>
@@ -208,6 +209,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
       {
         Header: intl.formatMessage({
           defaultMessage: "Edit",
+          id: "lo2bSB",
           description:
             "Title displayed for the single search request table edit column.",
         }),

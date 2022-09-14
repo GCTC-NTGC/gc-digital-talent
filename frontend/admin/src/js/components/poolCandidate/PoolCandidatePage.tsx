@@ -42,6 +42,7 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Create Pool Candidate",
+                  id: "z+TEpN",
                   description:
                     "Heading displayed above the Create Pool Candidate form.",
                 })}

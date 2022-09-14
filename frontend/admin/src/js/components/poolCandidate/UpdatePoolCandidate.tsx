@@ -138,6 +138,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
         toast.success(
           intl.formatMessage({
             defaultMessage: "Pool Candidate updated successfully!",
+            id: "ECIFDU",
             description:
               "Message displayed to user after pool candidate is updated successfully.",
           }),
@@ -147,6 +148,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: updating pool candidate failed",
+            id: "HH7lQo",
             description:
               "Message displayed to pool candidate after pool candidate fails to get updated.",
           }),
@@ -171,6 +173,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
       <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Update Pool Candidate",
+          id: "cy2UdP",
           description: "Title displayed on the update a user form.",
         })}
       </h2>
@@ -181,12 +184,14 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               {intl.formatMessage({
                 description: "Heading for the user information section",
                 defaultMessage: "User Information",
+                id: "mv+9jt",
               })}
             </h4>
             <Input
               id="email"
               label={intl.formatMessage({
                 defaultMessage: "Email",
+                id: "sZHcsV",
                 description: "Label displayed on the user form email field.",
               })}
               type="email"
@@ -198,6 +203,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="firstName"
               label={intl.formatMessage({
                 defaultMessage: "First Name",
+                id: "XKjVO0",
                 description:
                   "Label displayed on the user form first name field.",
               })}
@@ -209,6 +215,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="lastName"
               label={intl.formatMessage({
                 defaultMessage: "Last Name",
+                id: "oQnVSn",
                 description:
                   "Label displayed on the user form last name field.",
               })}
@@ -220,6 +227,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="telephone"
               label={intl.formatMessage({
                 defaultMessage: "Telephone",
+                id: "8L5kDc",
                 description:
                   "Label displayed on the user form telephone field.",
               })}
@@ -231,12 +239,14 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="preferredLang"
               label={intl.formatMessage({
                 defaultMessage: "Preferred Language",
+                id: "o+ZObe",
                 description:
                   "Label displayed on the user form preferred language field.",
               })}
               name="preferredLang"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a language...",
+                id: "vnhTgE",
                 description:
                   "Placeholder displayed on the user form preferred language field.",
               })}
@@ -250,12 +260,14 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               {intl.formatMessage({
                 description: "Heading for the candidate information section",
                 defaultMessage: "Candidate Information",
+                id: "1THfui",
               })}
             </h4>
             <Input
               id="cmoIdentifier"
               label={intl.formatMessage({
                 defaultMessage: "Process Number",
+                id: "0MYQ73",
                 description:
                   "Label displayed on the pool candidate form process number field.",
               })}
@@ -266,6 +278,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="expiryDate"
               label={intl.formatMessage({
                 defaultMessage: "Expiry Date",
+                id: "x3SuY9",
                 description:
                   "Label displayed on the pool candidate form expiry date field.",
               })}
@@ -279,6 +292,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="isWoman"
               label={intl.formatMessage({
                 defaultMessage: "Woman",
+                id: "iDohso",
                 description:
                   "Label displayed on the pool candidate form is woman field.",
               })}
@@ -288,6 +302,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="hasDisability"
               label={intl.formatMessage({
                 defaultMessage: "Has Disability",
+                id: "J/HfO8",
                 description:
                   "Label displayed on the pool candidate form has disability field.",
               })}
@@ -297,6 +312,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="isIndigenous"
               label={intl.formatMessage({
                 defaultMessage: "Indigenous",
+                id: "AXASuP",
                 description:
                   "Placeholder displayed on the pool candidate form is indigenous field.",
               })}
@@ -306,6 +322,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="isVisibleMinority"
               label={intl.formatMessage({
                 defaultMessage: "Visible Minority",
+                id: "xIWdFW",
                 description:
                   "Label displayed on the pool candidate form is visible minority field.",
               })}
@@ -315,6 +332,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="hasDiploma"
               label={intl.formatMessage({
                 defaultMessage: "Has Diploma",
+                id: "ABE9vg",
                 description:
                   "Label displayed on the pool candidate form has diploma field.",
               })}
@@ -324,6 +342,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="languageAbility"
               label={intl.formatMessage({
                 defaultMessage: "Language Ability",
+                id: "TkvUdX",
                 description:
                   "Label displayed on the pool candidate form language ability field.",
               })}
@@ -341,11 +360,13 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               name="locationPreferences"
               label={intl.formatMessage({
                 defaultMessage: "Location Preferences",
+                id: "mykZx3",
                 description:
                   "Label displayed on the pool candidate form location preferences field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more location preferences...",
+                id: "bxh7Ba",
                 description:
                   "Placeholder displayed on the pool candidate form location preferences field.",
               })}
@@ -359,12 +380,14 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               name="acceptedOperationalRequirements"
               label={intl.formatMessage({
                 defaultMessage: "Operational Requirements",
+                id: "cH6GzM",
                 description:
                   "Label displayed on the pool candidate form operational requirements field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage:
                   "Select one or more operational requirements...",
+                id: "f9E/6Q",
                 description:
                   "Placeholder displayed on the pool candidate form operational requirements field.",
               })}
@@ -377,12 +400,14 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="expectedSalary"
               label={intl.formatMessage({
                 defaultMessage: "Expected Salary",
+                id: "4r60bZ",
                 description:
                   "Label displayed on the pool candidate form expected salary field.",
               })}
               name="expectedSalary"
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more expected salaries...",
+                id: "cT/8aw",
                 description:
                   "Placeholder displayed on the pool candidate form expected salary field.",
               })}
@@ -395,11 +420,13 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="expectedClassifications"
               label={intl.formatMessage({
                 defaultMessage: "Expected Classifications",
+                id: "5kFbxW",
                 description:
                   "Label displayed on the pool candidate form expected classifications field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more classifications...",
+                id: "IvK9RL",
                 description:
                   "Placeholder displayed on the pool candidate form expected classifications field.",
               })}
@@ -410,11 +437,13 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="cmoAssets"
               label={intl.formatMessage({
                 defaultMessage: "CMO Assets",
+                id: "zWX4ko",
                 description:
                   "Label displayed on the pool candidate form cmo assets field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more CMO Assets...",
+                id: "D2DUgE",
                 description:
                   "Placeholder displayed on the pool candidate form cmo assets field.",
               })}
@@ -425,11 +454,13 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="status"
               label={intl.formatMessage({
                 defaultMessage: "Status",
+                id: "rfkkae",
                 description:
                   "Label displayed on the pool candidate form status field.",
               })}
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a status...",
+                id: "33VQf6",
                 description:
                   "Placeholder displayed on the pool candidate form status field.",
               })}
@@ -535,6 +566,7 @@ const UpdatePoolCandidate: React.FunctionComponent<{
         {intl.formatMessage(
           {
             defaultMessage: "Pool Candidate {poolCandidateId} not found.",
+            id: "6Lo9lm",
             description: "Message displayed for pool candidate not found.",
           },
           {
