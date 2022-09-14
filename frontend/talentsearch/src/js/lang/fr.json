@@ -1,4 +1,7 @@
 {
+  ".ellipsis": {
+    "defaultMessage": "... "
+  },
   "+ZXZj+": {
     "defaultMessage": "S’il n’y a aucun candidat qui répond à vos critères <a>Communiquez avec nous! </a>",
     "description": "Message for helping user if no candidates matched the filters chosen."
@@ -524,8 +527,8 @@
     "defaultMessage": "Ajouter <hidden>{title} </hidden>au profil",
     "description": "Text label for button to add employment equity category to profile."
   },
-  "/DCykA": {
-    "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de…",
+  "GNtu/7": {
+    "defaultMessage": "J'envisagerais d'accepter un emploi :",
     "description": "Legend Text for required work preferences options in work preferences form"
   },
   "/K1/1n": {
@@ -676,15 +679,15 @@
     "description": "Description text for Profile Form wrapper in Work Location Preferences Form"
   },
   "8QN6ZC": {
-    "defaultMessage": "Sélectionnez un niveau…",
+    "defaultMessage": "Sélectionnez un niveau...",
     "description": "Placeholder displayed on the language information form comprehension field."
   },
   "9yMdpm": {
     "defaultMessage": "Continuer vers CléGC et s'inscrire",
     "description": "GC Key registration link text on the registration page."
   },
-  "9zqf5E": {
-    "defaultMessage": "… seulement ceux d'une durée indéterminée. (permanent)",
+  "sYqIp5": {
+    "defaultMessage": "... d'une durée indéterminée seulement. (permanent seulement)",
     "description": "Label displayed on Work Preferences form for indeterminate duration option."
   },
   "AcsOrg": {
@@ -864,7 +867,7 @@
     "description": "Button text to close employment equity form."
   },
   "M6PbPI": {
-    "defaultMessage": "Sélectionner une province ou un territoire…",
+    "defaultMessage": "Sélectionner une province ou un territoire...",
     "description": "Placeholder displayed on the About Me form province or territory field."
   },
   "MNVv3A": {
@@ -1035,8 +1038,8 @@
     "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
     "description": "Message displayed to user after experience fails to be updated."
   },
-  "X2Ivfb": {
-    "defaultMessage": "… toute durée (à court terme, à long terme ou indéterminée)",
+  "uHx3G7": {
+    "defaultMessage": "de toute durée. (à court terme, à long terme ou indéterminée)",
     "description": "Label displayed on Work Preferences form for any duration option"
   },
   "X354at": {
@@ -1071,7 +1074,7 @@
     "defaultMessage": "Résultats fréquents des compétences"
   },
   "Y7jEXr": {
-    "defaultMessage": "Sélectionnez un niveau…",
+    "defaultMessage": "Sélectionnez un niveau...",
     "description": "Placeholder displayed on the language information form verbal field."
   },
   "Y7l4/n": {
@@ -1123,7 +1126,7 @@
     "description": "title for IT-01 dialog"
   },
   "aQJOd0": {
-    "defaultMessage": "Sélectionnez un niveau…",
+    "defaultMessage": "Sélectionnez un niveau...",
     "description": "Placeholder displayed on the language information form written field."
   },
   "b9/MXQ": {
@@ -1278,7 +1281,7 @@
     "description": "Title role and salary expectations form"
   },
   "lai6E5": {
-    "defaultMessage": "Enregistrement…",
+    "defaultMessage": "Enregistrement...",
     "description": "Submitting text for save button on profile form."
   },
   "mJ1HE4": {
@@ -1462,7 +1465,7 @@
     "description": "Description of how the Government of Canada uses employment equity categories in hiring."
   },
   "w6vHXf": {
-    "defaultMessage": "Recherche…",
+    "defaultMessage": "Recherche...",
     "description": "Message to display when a search is in progress."
   },
   "wKIVFc": {
@@ -1482,11 +1485,11 @@
     "description": "Title for Profile Form Wrapper in Government Information Form"
   },
   "xq6TbG": {
-    "defaultMessage": "Commencez à écrire ici…",
+    "defaultMessage": "Commencez à écrire ici...",
     "description": "Placeholder displayed on the About Me form current city field."
   },
-  "yQ2dDL": {
-    "defaultMessage": "J'envisagerais d'accepter un emploi qui exige…",
+  "Vvb8tu": {
+    "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
     "description": "Legend for optional work preferences check list in work preferences form"
   },
   "yfVLxM": {
