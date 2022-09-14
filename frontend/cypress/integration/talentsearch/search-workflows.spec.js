@@ -25,7 +25,7 @@ describe("Talent Search Workflow Tests", () => {
     // second request is properly filtered
     searchReturnsGreaterThanZeroApplicants();
 
-    cy.findByRole("combobox", { name: /Classification/i }).click().type('{downArrow}{enter}');
+    cy.findByRole("combobox", { name: /Classification/i }).select(1);
 
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,

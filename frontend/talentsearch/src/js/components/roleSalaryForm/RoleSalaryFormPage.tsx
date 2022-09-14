@@ -106,7 +106,7 @@ const RoleSalaryFormPage: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {initialData?.me ? (
         <ApiOrContent
-          applicationId={queryParams.application}
+          applicationId={queryParams.applicationId}
           initialData={initialData}
           updateRoleSalary={handleRoleSalary}
         />

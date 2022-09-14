@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { useIntl } from "react-intl";
-import { errorMessages } from "@common/messages";
+import { errorMessages, navigationMessages } from "@common/messages";
 import { Checklist, RadioGroup, Select } from "@common/components/form";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";
@@ -25,6 +25,7 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import directIntakeRoutes from "../../directIntakeRoutes";
 import profileMessages from "../profile/profileMessages";
+import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export type FormValues = Pick<
   User,
@@ -105,7 +106,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.poolApply(application.pool.id)
+      ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialData.id);
 
   const defaultValues = dataToFormValues(initialData);
@@ -300,15 +301,15 @@ export const LanguageInformationForm: React.FunctionComponent<{
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
-          title:
-            application.poolAdvertisement?.name?.[locale] ||
-            intl.formatMessage({
-              defaultMessage: "Pool name not found",
-              id: "FmD1sL",
-              description:
-                "Pools name breadcrumb from applicant profile wrapper if no name set.",
-            }),
+          title: getFullPoolAdvertisementTitle(
+            intl,
+            application.poolAdvertisement,
+          ),
           href: directIntakePaths.poolApply(application.pool.id),
+        },
+        {
+          href: directIntakePaths.reviewApplication(application.id),
+          title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]
     : [];
@@ -396,7 +397,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
                           "Text requesting language levels given from bilingual evaluation in language information form",
                       })}
                     </p>
-                    <div data-h2-flex-grid="base(normal, 0, x1)">
+                    <div data-h2-flex-grid="base(normal, x1)">
                       <div data-h2-flex-item="base(1of1) p-tablet(1of3) desktop(1of4)">
                         <Select
                           id="comprehensionLevel"
@@ -503,7 +504,10 @@ export const LanguageInformationForm: React.FunctionComponent<{
               </>
             )}
           </div>
-          <ProfileFormFooter mode="saveButton" />
+          <ProfileFormFooter
+            mode="saveButton"
+            cancelLink={{ href: returnRoute }}
+          />
         </ProfileFormWrapper>
       </form>
     </FormProvider>

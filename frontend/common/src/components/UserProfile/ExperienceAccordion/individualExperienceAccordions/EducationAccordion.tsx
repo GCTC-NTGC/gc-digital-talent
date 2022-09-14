@@ -65,6 +65,7 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
       title={intl.formatMessage(
         {
           defaultMessage: "{areaOfStudy} at {institution}",
+          id: "UrsGGK",
           description: "Study at institution",
         },
         { areaOfStudy, institution },
@@ -74,11 +75,13 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
         skills?.length === 1
           ? intl.formatMessage({
               defaultMessage: "1 Skill",
+              id: "A2KwTw",
               description: "Pluralization for one skill",
             })
           : intl.formatMessage(
               {
                 defaultMessage: "{skillsLength} Skills",
+                id: "l27ekQ",
                 description: "Pluralization for zero or multiple skills",
               },
               { skillsLength: skills?.length },
@@ -95,6 +98,7 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
         {intl.formatMessage(
           {
             defaultMessage: "{areaOfStudy} at {institution}",
+            id: "UrsGGK",
             description: "Study at institution",
           },
           { areaOfStudy, institution },
@@ -105,6 +109,7 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
           ? intl.formatMessage(
               {
                 defaultMessage: "Thesis: {thesisTitle}",
+                id: "omDlZN",
                 description: "Thesis, if applicable",
               },
               { thesisTitle },
@@ -130,6 +135,7 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
         {intl.formatMessage(
           {
             defaultMessage: "Additional information: {details}",
+            id: "OvJwG6",
             description: "Additional information if provided",
           },
           { details },
@@ -147,6 +153,7 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
           <Link href={editUrl} color="primary" mode="outline" type="button">
             {intl.formatMessage({
               defaultMessage: "Edit Experience",
+              id: "phbDSx",
               description: "Edit Experience button label",
             })}
           </Link>

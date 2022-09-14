@@ -15,6 +15,7 @@ export const SkillFamilyPage: React.FC = () => {
       <PageHeader icon={UserGroupIcon}>
         {intl.formatMessage({
           defaultMessage: "Skill Families",
+          id: "w73KdO",
           description:
             "Heading displayed above the Skill Family Table component.",
         })}

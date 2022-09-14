@@ -111,7 +111,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                   color="secondary"
                   mode="inline"
                   data-h2-padding="base(0)"
-                  data-h2-font-style="base(underline)"
+                  data-h2-text-decoration="base(underline)"
                   data-h2-display="base(flex)"
                   data-h2-align-items="base(center)"
                   onClick={() => {

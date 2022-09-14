@@ -32,6 +32,7 @@ export function getDateRange({
     return intl.formatMessage(
       {
         defaultMessage: "Since: {d1}",
+        id: "Zm9Hnf",
         description: "Since",
       },
       { d1 },
@@ -42,6 +43,7 @@ export function getDateRange({
     : intl.formatMessage(
         {
           defaultMessage: "Since: {d1}",
+          id: "Zm9Hnf",
           description: "Since",
         },
         { d1 },
@@ -79,6 +81,7 @@ export const relativeExpiryDate = (
   if (roundedDiff < 0) {
     return intl.formatMessage({
       defaultMessage: "The deadline for submission has passed.",
+      id: "PzyMeM",
       description: "Message displayed when a date has expired.",
     });
   }
@@ -87,6 +90,7 @@ export const relativeExpiryDate = (
     return intl.formatMessage(
       {
         defaultMessage: "Closes today at {time}",
+        id: "jy7itR",
         description: "Text displayed when relative date is today.",
       },
       {
@@ -99,6 +103,7 @@ export const relativeExpiryDate = (
     return intl.formatMessage(
       {
         defaultMessage: "Closes tomorrow at {time}",
+        id: "GqmxO8",
         description: "Text displayed when relative date is tomorrow.",
       },
       { time },

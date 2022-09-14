@@ -140,7 +140,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
       data-h2-padding="base(0, 0, x3, 0)"
     >
       <div data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)">
-        <div data-h2-flex-grid="base(stretch, 0, x3)">
+        <div data-h2-flex-grid="base(stretch, x3)">
           <div data-h2-flex-item="base(1of1) p-tablet(3of5)">
             <div>
               <h2

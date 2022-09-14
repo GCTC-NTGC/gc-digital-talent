@@ -51,6 +51,7 @@ type Applicant {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
+  isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
 }
@@ -261,7 +262,6 @@ input CreateDepartmentInput {
 }
 
 input CreatePoolAdvertisementInput {
-  key: KeyString!
   classifications: ClassificationBelongsToMany
 }
 
@@ -298,7 +298,7 @@ input CreatePoolCandidateSearchRequestInput {
 input CreatePoolInput {
   owner: UserBelongsTo!
   name: LocalizedStringInput!
-  key: KeyString!
+  key: KeyString
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   assetCriteria: CmoAssetBelongsToMany
@@ -828,6 +828,7 @@ type PoolCandidate {
   expectedClassifications: [Classification]
   cmoAssets: [CmoAsset]
   status: PoolCandidateStatus
+  statusWeight: Int
   notes: String
   archivedAt: DateTime
   submittedAt: DateTime

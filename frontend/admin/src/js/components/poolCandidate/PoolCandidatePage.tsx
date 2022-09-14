@@ -11,6 +11,7 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
     <DashboardContentContainer>
       <PageHeader icon={Squares2X2Icon}>
         {intl.formatMessage({
+          id: "EHVt0j",
           defaultMessage: "Pool Candidates",
           description:
             "Title displayed above the Pool Candidate Table component.",
@@ -20,6 +21,7 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
         {intl.formatMessage({
           defaultMessage:
             "This table shows a list of all applicants to this pool. Use the review button to manage an applicant.",
+          id: "drwKS5",
           description:
             "Descriptive text about the list of pool candidates in the admin portal.",
         })}

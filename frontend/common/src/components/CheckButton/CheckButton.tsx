@@ -68,6 +68,7 @@ const CheckButton = ({
           ? intl.formatMessage(
               {
                 defaultMessage: "Deselect {label}",
+                id: "+6TuVe",
                 description: "Text to uncheck checkbox button",
               },
               { label },
@@ -75,6 +76,7 @@ const CheckButton = ({
           : intl.formatMessage(
               {
                 defaultMessage: "Select {label}",
+                id: "/SBJ7g",
                 description: "Text to check checkbox button",
               },
               { label },

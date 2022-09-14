@@ -44,10 +44,12 @@ const LoginOrLogout = () => {
         {loggedIn
           ? intl.formatMessage({
               defaultMessage: "Logout",
+              id: "TGV2F7",
               description: "Label displayed on the Logout menu item.",
             })
           : intl.formatMessage({
               defaultMessage: "Login",
+              id: "71ID2W",
               description: "Label displayed on the Login menu item.",
             })}
       </SideMenuItem>

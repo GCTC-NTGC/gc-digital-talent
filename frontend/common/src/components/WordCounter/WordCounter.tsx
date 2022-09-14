@@ -27,6 +27,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
               {
                 defaultMessage:
                   "{wordsLeft, plural, one {word over limit} other {words over limit}}.",
+                id: "WPJrmN",
                 description: "Message for when user goes over word limit.",
               },
               { wordsLeft },
@@ -39,6 +40,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
               {
                 defaultMessage:
                   "{wordsLeft, plural, one {word left} other {words left}}.",
+                id: "j6WJBY",
                 description: "Message for when user goes over word limit.",
               },
               { wordsLeft },
@@ -51,6 +53,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
           {intl.formatMessage(
             {
               defaultMessage: "You are over the word limit, {wordLimit}.",
+              id: "JHgARn",
               description:
                 "Text read out to assistive technology when over the word limit.",
             },

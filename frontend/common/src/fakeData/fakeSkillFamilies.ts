@@ -1,5 +1,9 @@
 import { faker } from "@faker-js/faker";
 import { SkillCategory, SkillFamily, Skill } from "../api/generated";
+import staticSkillFamilies from "./skillFamilies.json";
+
+export const getStaticSkillFamilies = (): SkillFamily[] =>
+  staticSkillFamilies.data.skillFamilies as SkillFamily[];
 
 const generateSkillFamily = (skills: Skill[]) => {
   const name = faker.random.word();

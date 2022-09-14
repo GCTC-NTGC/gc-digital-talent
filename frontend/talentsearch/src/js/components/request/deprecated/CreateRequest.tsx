@@ -204,7 +204,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       </p>
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div data-h2-flex-grid="base(flex-start, 0, 0) p-tablet(flex-start, 0, x2, 0)">
+          <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, 0)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 id="fullName"
@@ -343,7 +343,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               },
             )}
           </p>
-          <div data-h2-flex-grid="base(flex-start, 0, 0, x1) p-tablet(center, 0, x2, 0)">
+          <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(center, x2, 0)">
             <div
               data-h2-text-align="base(center) p-tablet(left)"
               data-h2-flex-item="base(1of1) p-tablet(1of2)"

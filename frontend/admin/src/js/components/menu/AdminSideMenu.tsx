@@ -71,6 +71,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       roles: [Role.Admin],
       text: intl.formatMessage({
         defaultMessage: "Dashboard",
+        id: "ZDmkKD",
         description: "Label displayed on the dashboard menu item.",
       }),
     },
@@ -81,6 +82,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       roles: [Role.Admin],
       text: intl.formatMessage({
         defaultMessage: "Pools",
+        id: "wCBE9S",
         description: "Label displayed on the Pools menu item.",
       }),
     },
@@ -91,6 +93,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       roles: [Role.Admin],
       text: intl.formatMessage({
         defaultMessage: "Users",
+        id: "154pGu",
         description: "Label displayed on the Users menu item.",
       }),
     },
@@ -101,6 +104,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       roles: [Role.Admin],
       text: intl.formatMessage({
         defaultMessage: "Requests",
+        id: "QftM3f",
         description: "Label displayed on the requests menu item.",
       }),
     },
@@ -111,6 +115,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       roles: [Role.Admin],
       text: intl.formatMessage({
         defaultMessage: "Classifications",
+        id: "gk7uJQ",
         description: "Label displayed on the classifications menu item.",
       }),
     },
@@ -121,6 +126,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       roles: [Role.Admin],
       text: intl.formatMessage({
         defaultMessage: "CMO Assets",
+        id: "MMP0XC",
         description: "Label displayed on the CMO Assets menu item.",
       }),
     },
@@ -131,6 +137,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       roles: [Role.Admin],
       text: intl.formatMessage({
         defaultMessage: "Departments",
+        id: "HQOsq2",
         description: "Label displayed on the departments menu item.",
       }),
     },
@@ -141,6 +148,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       roles: [Role.Admin],
       text: intl.formatMessage({
         defaultMessage: "Skill Families",
+        id: "4fOu5j",
         description: "Label displayed on the skill families menu item.",
       }),
     },
@@ -151,6 +159,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       roles: [Role.Admin],
       text: intl.formatMessage({
         defaultMessage: "Skills",
+        id: "UC+4MX",
         description: "Label displayed on the skills menu item.",
       }),
     },
@@ -160,6 +169,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
     <SideMenu
       label={intl.formatMessage({
         defaultMessage: "Main Menu",
+        id: "QjF2CL",
         description:
           "Label for the main menu on the pool manager admin portal.",
       })}

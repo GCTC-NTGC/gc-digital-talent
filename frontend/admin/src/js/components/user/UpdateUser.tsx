@@ -72,6 +72,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",
+            id: "evxvnW",
             description:
               "Message displayed to user after user is updated successfully.",
           }),
@@ -81,6 +82,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: updating user failed",
+            id: "5FFRV2",
             description:
               "Message displayed to user after user fails to get updated.",
           }),
@@ -93,6 +95,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
       <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Update User",
+          id: "DguVoT",
           description: "Title displayed on the update a user form.",
         })}
       </h2>
@@ -103,6 +106,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               id="email"
               label={intl.formatMessage({
                 defaultMessage: "Email",
+                id: "sZHcsV",
                 description: "Label displayed on the user form email field.",
               })}
               type="email"
@@ -112,6 +116,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               id="firstName"
               label={intl.formatMessage({
                 defaultMessage: "First Name",
+                id: "XKjVO0",
                 description:
                   "Label displayed on the user form first name field.",
               })}
@@ -125,6 +130,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               id="lastName"
               label={intl.formatMessage({
                 defaultMessage: "Last Name",
+                id: "oQnVSn",
                 description:
                   "Label displayed on the user form last name field.",
               })}
@@ -138,6 +144,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               id="telephone"
               label={intl.formatMessage({
                 defaultMessage: "Telephone",
+                id: "8L5kDc",
                 description:
                   "Label displayed on the user form telephone field.",
               })}
@@ -148,12 +155,14 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               id="preferredLang"
               label={intl.formatMessage({
                 defaultMessage: "Preferred Language",
+                id: "o+ZObe",
                 description:
                   "Label displayed on the user form preferred language field.",
               })}
               name="preferredLang"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a language...",
+                id: "vnhTgE",
                 description:
                   "Placeholder displayed on the user form preferred language field.",
               })}
@@ -169,6 +178,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               id="sub"
               label={intl.formatMessage({
                 defaultMessage: "Subject",
+                id: "m4rXNt",
                 description: "Label displayed on the user form subject field.",
               })}
               type="text"
@@ -176,6 +186,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               context={intl.formatMessage({
                 defaultMessage:
                   "The 'subject' is a string that uniquely identifies a user's login identity.",
+                id: "I8v/Uy",
                 description:
                   "Additional context describing the purpose of the users's 'subject' field.",
               })}
@@ -185,10 +196,12 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               name="roles"
               label={intl.formatMessage({
                 defaultMessage: "Roles",
+                id: "kwNyl6",
                 description: "Label displayed on the user form roles field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select zero or more roles...",
+                id: "Cw8pyL",
                 description:
                   "Placeholder displayed on the user form roles field.",
               })}
@@ -199,6 +212,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               context={intl.formatMessage({
                 defaultMessage:
                   "The roles grant additional functionality to a user's login.",
+                id: "Z6sh9j",
                 description:
                   "Additional context describing the purpose of the users's 'role' field.",
               })}
@@ -259,6 +273,7 @@ const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
               {intl.formatMessage(
                 {
                   defaultMessage: "User {userId} not found.",
+                  id: "0SoKjt",
                   description: "Message displayed for user not found.",
                 },
                 { userId },

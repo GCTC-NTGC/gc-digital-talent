@@ -55,6 +55,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Action",
+        id: "YR/3EG",
         description:
           "Title displayed on the latest requests table for the action column.",
       }),
@@ -68,6 +69,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Pool name",
+        id: "iIJ/rI",
         description:
           "Title displayed on the latest requests table for the pool column.",
       }),
@@ -104,6 +106,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Date received",
+        id: "61vOnW",
         description:
           "Title displayed on the latest requests table for the date column.",
       }),
@@ -112,6 +115,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Status",
+        id: "hSgcxP",
         description:
           "Title displayed on the latest requests table status column.",
       }),
@@ -120,6 +124,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Manager",
+        id: "myqzYj",
         description:
           "Title displayed on the latest requests table manager column.",
       }),
@@ -128,6 +133,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Department",
+        id: "TZt+a5",
         description:
           "Title displayed on the latest requests table department column.",
       }),
@@ -136,6 +142,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
     {
       Header: intl.formatMessage({
         defaultMessage: "Email",
+        id: "5LWGeI",
         description:
           "Title displayed on the latest requests table email column.",
       }),
@@ -154,6 +161,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
       >
         {intl.formatMessage({
           defaultMessage: "Latest requests",
+          id: "+phJjJ",
           description:
             "Title for the latests requests table in the admin dashboard",
         })}

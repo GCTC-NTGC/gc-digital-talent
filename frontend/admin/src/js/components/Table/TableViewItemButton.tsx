@@ -23,6 +23,7 @@ function TableViewItemButton({
       {intl.formatMessage(
         {
           defaultMessage: "View {name} <hidden>{hiddenLabel}</hidden>",
+          id: "+wG2Ap",
           description: "Title displayed for the View Item column.",
         },
         { name, hiddenLabel },

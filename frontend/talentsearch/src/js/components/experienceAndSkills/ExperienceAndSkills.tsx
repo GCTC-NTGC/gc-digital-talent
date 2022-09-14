@@ -11,9 +11,11 @@ import ExperienceSection from "@common/components/UserProfile/ExperienceSection"
 import { IconLink } from "@common/components/Link";
 import { notEmpty } from "@common/helpers/util";
 import MissingSkills from "@common/components/skills/MissingSkills";
-import { commonMessages } from "@common/messages";
+import { navigationMessages } from "@common/messages";
 import { useQueryParams } from "@common/helpers/router";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import {
   AwardExperience,
   CommunityExperience,
@@ -45,39 +47,6 @@ export type ExperienceForDate =
   | PersonalExperience
   | WorkExperience;
 
-export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
-  const e1EndDate = e1.endDate ? new Date(e1.endDate).getTime() : null;
-  const e2EndDate = e2.endDate ? new Date(e2.endDate).getTime() : null;
-  const e1StartDate = e1.startDate ? new Date(e1.startDate).getTime() : -1;
-  const e2StartDate = e2.startDate ? new Date(e2.startDate).getTime() : -1;
-
-  // All items with no end date should be at the top and sorted by most recent start date.
-  if (!e1EndDate && !e2EndDate) {
-    return e2StartDate - e1StartDate;
-  }
-
-  if (!e1EndDate) {
-    return -1;
-  }
-
-  if (!e2EndDate) {
-    return 1;
-  }
-
-  // Items with end date should be sorted by most recent end date at top.
-  return e2EndDate - e1EndDate;
-};
-
-const flattenExperienceSkills = (experiences: MergedExperiences): Skill[] => {
-  return experiences
-    .map((experience) => {
-      const { skills } = experience;
-      return skills?.filter(notEmpty);
-    })
-    .filter(notEmpty)
-    .flatMap((skill) => skill);
-};
-
 export interface ExperienceAndSkillsProps {
   applicantId: string;
   experiences?: MergedExperiences;
@@ -94,8 +63,10 @@ export const ExperienceAndSkills: React.FunctionComponent<
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
   const directIntakePaths = useDirectIntakeRoutes();
-  const { application } = useQueryParams();
-  const applicationParam = application ? `?application=${application}` : ``;
+  const { applicationId } = useQueryParams();
+  const applicationParam = applicationId
+    ? `?applicationId=${applicationId}`
+    : ``;
 
   const getEditPath = (id: string, type: ExperienceType) => {
     return `${paths.editExperience(applicantId, type, id)}${applicationParam}`;
@@ -171,11 +142,6 @@ export const ExperienceAndSkills: React.FunctionComponent<
   ] as BreadcrumbsProps["links"];
 
   if (poolAdvertisement) {
-    const advertisementTitle = getFullPoolAdvertisementTitle(
-      intl,
-      poolAdvertisement,
-    );
-
     crumbs = [
       {
         title: intl.formatMessage({
@@ -186,12 +152,21 @@ export const ExperienceAndSkills: React.FunctionComponent<
         href: directIntakePaths.applications(applicantId),
       },
       {
-        title: advertisementTitle,
-        href: "/#",
+        title: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
+        href: directIntakePaths.poolApply(poolAdvertisement.id),
+      },
+      {
+        href: directIntakePaths.reviewApplication(applicantId),
+        title: intl.formatMessage(navigationMessages.stepOne),
       },
       ...crumbs,
     ];
   }
+
+  const returnRoute =
+    applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+      ? directIntakePaths.reviewApplication(applicationId)
+      : paths.home(applicantId);
 
   return (
     <ProfileFormWrapper
@@ -211,14 +186,19 @@ export const ExperienceAndSkills: React.FunctionComponent<
           "Heading for experience and skills page in applicant profile.",
       })}
       cancelLink={{
-        children: intl.formatMessage(commonMessages.backToProfile),
+        href: returnRoute,
+        children: intl.formatMessage(
+          applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+            ? navigationMessages.backToApplication
+            : navigationMessages.backToProfile,
+        ),
       }}
     >
       <div data-h2-margin="base(x2, 0)">
-        <div data-h2-flex-grid="base(flex-start, 0, x.5)">
+        <div data-h2-flex-grid="base(flex-start, x.5)">
           <div data-h2-flex-item="base(1of1)">
             <p
-              data-h2-font-style="base(reset)"
+              data-h2-text-decoration="base(none)"
               data-h2-font-weight="base(700)"
               data-h2-text-transform="base(uppercase)"
             >
@@ -231,7 +211,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
             </p>
           </div>
           <div data-h2-flex-item="base(1of1)">
-            <div data-h2-flex-grid="base(center, 0, x1) p-tablet(center, 0, x.5)">
+            <div data-h2-flex-grid="base(center,x1) p-tablet(center, x.5)">
               {links.map(({ title, href, icon }) => (
                 <div key={title} data-h2-flex-item="base(1of1) p-tablet(1of5)">
                   <IconLink
@@ -294,7 +274,12 @@ export const ExperienceAndSkills: React.FunctionComponent<
       <ProfileFormFooter
         mode="cancelButton"
         cancelLink={{
-          children: intl.formatMessage(commonMessages.backToProfile),
+          href: returnRoute,
+          children: intl.formatMessage(
+            applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
+              ? navigationMessages.backToApplication
+              : navigationMessages.backToProfile,
+          ),
         }}
       />
     </ProfileFormWrapper>

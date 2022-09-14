@@ -56,6 +56,7 @@ const IndigenousApprenticeshipNotFound: React.FC = () => {
       headingMessage={intl.formatMessage({
         description: "Heading for the message saying the page was not found.",
         defaultMessage: "Sorry, we can't find the page you were looking for.",
+        id: "pBJzgi",
       })}
     >
       <p>
@@ -63,6 +64,7 @@ const IndigenousApprenticeshipNotFound: React.FC = () => {
           description: "Detailed message saying the page was not found.",
           defaultMessage:
             "Oops, it looks like you've landed on a page that either doesn't exist or has moved.",
+          id: "pgHTkX",
         })}
       </p>
     </NotFound>
@@ -77,6 +79,7 @@ const IndigenousApprenticeshipNotAuthorized: React.FC = () => {
         description:
           "Heading for the message saying the page to view is not authorized.",
         defaultMessage: "Sorry, you are not authorized to view this page.",
+        id: "jPLaDk",
       })}
     >
       <p>
@@ -85,6 +88,7 @@ const IndigenousApprenticeshipNotAuthorized: React.FC = () => {
             "Detailed message saying the page to view is not authorized.",
           defaultMessage:
             "Oops, it looks like you've landed on a page that you are not authorized to view.",
+          id: "gKyog2",
         })}
       </p>
     </NotAuthorized>
@@ -112,6 +116,7 @@ export const PageContainer: React.FC<{
         <a href="#main" data-h2-visibility="base(hidden)">
           {intl.formatMessage({
             defaultMessage: "Skip to main content",
+            id: "Srs7a4",
             description: "Assistive technology skip link",
           })}
         </a>

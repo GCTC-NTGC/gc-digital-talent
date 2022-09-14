@@ -48,11 +48,11 @@ function TableFooter({
       data-h2-radius="base(0px, 0px, s, s)"
     >
       <div data-h2-padding="base(x1, x1)">
-        <div data-h2-flex-grid="base(center, 0, x2, 0)">
+        <div data-h2-flex-grid="base(center, x2, 0)">
           <div data-h2-flex-item="base(content)">
             {hasSelection && (
               <div
-                data-h2-flex-grid="base(center, 0, x1, 0)"
+                data-h2-flex-grid="base(center, x1, 0)"
                 data-h2-position="base(relative)"
               >
                 <Pending
@@ -71,6 +71,7 @@ function TableFooter({
                       >
                         {intl.formatMessage({
                           defaultMessage: "Download CSV",
+                          id: "mxOuYK",
                           description:
                             "Text label for button to download a csv file of items in a table.",
                         })}
@@ -87,6 +88,7 @@ function TableFooter({
                     >
                       {intl.formatMessage({
                         defaultMessage: "Print",
+                        id: "pLCv50",
                         description:
                           "Text label for button to print items in a table.",
                       })}
@@ -106,6 +108,7 @@ function TableFooter({
               totalCount={paginatorInfo.total}
               ariaLabel={intl.formatMessage({
                 defaultMessage: "Table results",
+                id: "hlcd+5",
               })}
               color="white"
               mode="outline"

@@ -16,7 +16,7 @@ const IconLink: React.FC<IconLinkProps> = ({
   return (
     <Link block={block} {...rest}>
       <span
-        data-h2-flex-grid="base(center, 0, x.4, 0)"
+        data-h2-flex-grid="base(center, x.4, 0)"
         data-h2-justify-content="base(center)"
       >
         {Icon && (

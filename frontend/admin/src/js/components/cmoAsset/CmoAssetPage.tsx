@@ -15,6 +15,7 @@ export const CmoAssetPage: React.FC = () => {
       <PageHeader icon={PaperClipIcon}>
         {intl.formatMessage({
           defaultMessage: "CMO Assets",
+          id: "HAEmDX",
           description: "Heading displayed above the CMO Asset Table component.",
         })}
       </PageHeader>

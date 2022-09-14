@@ -13,7 +13,6 @@ import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
-import { keyStringRegex } from "@common/constants/regularExpressions";
 import { enumToOptions } from "@common/helpers/formUtils";
 import {
   getOperationalRequirement,
@@ -94,6 +93,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         toast.success(
           intl.formatMessage({
             defaultMessage: "Pool created successfully!",
+            id: "wZ91g+",
             description:
               "Message displayed to user after pool is created successfully.",
           }),
@@ -103,6 +103,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: creating pool failed",
+            id: "W2qRX5",
             description:
               "Message displayed to pool after pool fails to get created.",
           }),
@@ -134,6 +135,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
       <h2 data-h2-font-weight="base(700)" data-h2-margin="base(x3, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Create Pool",
+          id: "ekKb+G",
           description: "Title displayed on the create a pool form.",
         })}
       </h2>
@@ -144,11 +146,13 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               id="owner"
               label={intl.formatMessage({
                 defaultMessage: "Owner",
+                id: "Urq3fM",
                 description: "Label displayed on the pool form owner field.",
               })}
               name="owner"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select an owner...",
+                id: "os4TSk",
                 description:
                   "Placeholder displayed on the pool form owner field.",
               })}
@@ -162,6 +166,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               name="name.en"
               label={intl.formatMessage({
                 defaultMessage: "Name (English)",
+                id: "Ue4SoL",
                 description:
                   "Label displayed on the pool form name (English) field.",
               })}
@@ -175,6 +180,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               name="name.fr"
               label={intl.formatMessage({
                 defaultMessage: "Name (French)",
+                id: "Xk7io5",
                 description:
                   "Label displayed on the pool form name (French) field.",
               })}
@@ -183,36 +189,12 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <Input
-              id="key"
-              name="key"
-              label={intl.formatMessage({
-                defaultMessage: "Key",
-                description: "Label displayed on the 'key' input field.",
-              })}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "The 'key' is a string that uniquely identifies a Pool. It should be based on the Pool's English name, and it should be concise. A good example would be \"digital_careers\". It may be used in the code to refer to this particular Pool, so it cannot be changed later.",
-                description:
-                  "Additional context describing the purpose of the Pool's 'key' field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                pattern: {
-                  value: keyStringRegex,
-                  message: intl.formatMessage({
-                    defaultMessage:
-                      "Please use only lowercase letters and underscores.",
-                  }),
-                },
-              }}
-            />
             <TextArea
               id="description_en"
               name="description.en"
               label={intl.formatMessage({
                 defaultMessage: "Description (English)",
+                id: "6jTDpQ",
                 description:
                   "Label displayed on the pool form description (English) field.",
               })}
@@ -225,6 +207,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               name="description.fr"
               label={intl.formatMessage({
                 defaultMessage: "Description (French)",
+                id: "lfnGmL",
                 description:
                   "Label displayed on the pool form description (French) field.",
               })}
@@ -236,11 +219,13 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               id="classifications"
               label={intl.formatMessage({
                 defaultMessage: "Classifications",
+                id: "ZSXEfX",
                 description:
                   "Label displayed on the pool form classifications field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more classifications...",
+                id: "0tYHRO",
                 description:
                   "Placeholder displayed on the pool form classifications field.",
               })}
@@ -254,11 +239,13 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               id="assetCriteria"
               label={intl.formatMessage({
                 defaultMessage: "Asset Criteria",
+                id: "GGjwcl",
                 description:
                   "Label displayed on the pool form asset criteria field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more asset...",
+                id: "l7xk8j",
                 description:
                   "Placeholder displayed on the pool form asset criteria field.",
               })}
@@ -272,11 +259,13 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               id="essentialCriteria"
               label={intl.formatMessage({
                 defaultMessage: "Essential Criteria",
+                id: "Y9jn9b",
                 description:
                   "Label displayed on the pool form essential criteria field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more essential...",
+                id: "B0lDYB",
                 description:
                   "Placeholder displayed on the pool form essential criteria field.",
               })}
@@ -291,12 +280,14 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               name="operationalRequirements"
               label={intl.formatMessage({
                 defaultMessage: "Operational Requirements",
+                id: "Rimr49",
                 description:
                   "Label displayed on the pool form operational requirements field.",
               })}
               placeholder={intl.formatMessage({
                 defaultMessage:
                   "Select one or more operational requirements...",
+                id: "vkus5u",
                 description:
                   "Placeholder displayed on the pool form operational requirements field.",
               })}
@@ -313,6 +304,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               name="keyTasks.en"
               label={intl.formatMessage({
                 defaultMessage: "Key Tasks (English)",
+                id: "AiOtNy",
                 description:
                   "Label displayed on the pool form key tasks (English) field.",
               })}
@@ -322,6 +314,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               name="keyTasks.fr"
               label={intl.formatMessage({
                 defaultMessage: "Key Tasks (French)",
+                id: "InHDUX",
                 description:
                   "Label displayed on the pool form key tasks (French) field.",
               })}
@@ -330,10 +323,12 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               id="status"
               label={intl.formatMessage({
                 defaultMessage: "Status",
+                id: "fu4Fen",
                 description: "Label displayed on the pool form status field.",
               })}
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a status...",
+                id: "qr5RPo",
                 description:
                   "Placeholder displayed on the pool form status field.",
               })}

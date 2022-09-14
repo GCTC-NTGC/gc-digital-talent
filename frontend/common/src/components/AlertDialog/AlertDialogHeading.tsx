@@ -32,6 +32,7 @@ const AlertDialogHeading = ({
         <span data-h2-visibility="base(invisible)">
           {intl.formatMessage({
             defaultMessage: "Close dialog",
+            id: "g2X8Fx",
             description: "Text for the button to close a modal dialog.",
           })}
         </span>

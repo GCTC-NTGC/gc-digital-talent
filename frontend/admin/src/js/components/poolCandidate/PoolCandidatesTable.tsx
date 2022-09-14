@@ -93,6 +93,7 @@ const priorityAccessor = (
         <span data-h2-color="base(dt-primary)" data-h2-font-weight="base(700)">
           {intl.formatMessage({
             defaultMessage: "Priority Entitlement",
+            id: "j1p7LR",
             description: "Priority text for users with priority entitlement",
           })}
         </span>
@@ -102,6 +103,7 @@ const priorityAccessor = (
         <span data-h2-color="base(dt-primary)" data-h2-font-weight="base(700)">
           {intl.formatMessage({
             defaultMessage: "Veteran",
+            id: "oU8C65",
             description: "Priority text for veterans",
           })}
         </span>
@@ -111,6 +113,7 @@ const priorityAccessor = (
         <span>
           {intl.formatMessage({
             defaultMessage: "Citizen or Resident",
+            id: "oMyc4e",
             description: "Priority text for citizens of canada",
           })}
         </span>
@@ -120,6 +123,7 @@ const priorityAccessor = (
         <span>
           {intl.formatMessage({
             defaultMessage: "Work Visa",
+            id: "EimWiB",
             description: "Priority text for users with work visas",
           })}
         </span>
@@ -145,11 +149,13 @@ const viewAccessor = (url: string, isQualified: boolean, intl: IntlShape) => {
           isQualified
             ? intl.formatMessage({
                 defaultMessage: "Link to candidate application",
+                id: "NtIQ4g",
                 description:
                   "Descriptive title for anchor link to candidates application",
               })
             : intl.formatMessage({
                 defaultMessage: "Link to candidate profile",
+                id: "head8A",
                 description:
                   "Descriptive title for anchor link to candidates profile",
               })
@@ -158,11 +164,13 @@ const viewAccessor = (url: string, isQualified: boolean, intl: IntlShape) => {
         {isQualified
           ? intl.formatMessage({
               defaultMessage: "View Application",
+              id: "7zcW68",
               description:
                 "Title displayed on the Pool Candidates table to view a users application.",
             })
           : intl.formatMessage({
               defaultMessage: "View Profile",
+              id: "09n0oh",
               description:
                 "Title displayed on the Pool Candidates table to view a users profile.",
             })}
@@ -223,6 +231,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       {
         label: intl.formatMessage({
           defaultMessage: "Status",
+          id: "l+cu8R",
           description:
             "Title displayed for the Pool Candidates table Status column.",
         }),
@@ -230,6 +239,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
           <span>
             {intl.formatMessage({
               defaultMessage: "Status",
+              id: "l+cu8R",
               description:
                 "Title displayed for the Pool Candidates table Status column.",
             })}
@@ -246,6 +256,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       {
         label: intl.formatMessage({
           defaultMessage: "Priority",
+          id: "EZQ9Dj",
           description:
             "Title displayed for the Pool Candidates table Priority column.",
         }),
@@ -253,6 +264,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
           <span>
             {intl.formatMessage({
               defaultMessage: "Priority",
+              id: "EZQ9Dj",
               description:
                 "Title displayed for the Pool Candidates table Priority column.",
             })}
@@ -269,6 +281,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       {
         label: intl.formatMessage({
           defaultMessage: "Availability",
+          id: "fLSDYW",
           description:
             "Title displayed for the Pool Candidates table Availability column.",
         }),
@@ -279,6 +292,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       {
         label: intl.formatMessage({
           defaultMessage: "View",
+          id: "VhBuJ/",
           description:
             "Title displayed for the Pool Candidates table View column.",
         }),
@@ -299,6 +313,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       {
         label: intl.formatMessage({
           defaultMessage: "Candidate Name",
+          id: "p/Qp/u",
           description:
             "Title displayed on the Pool Candidates table name column.",
         }),
@@ -308,6 +323,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       {
         label: intl.formatMessage({
           defaultMessage: "Email",
+          id: "BSVnmg",
           description:
             "Title displayed for the Pool Candidates table Email column.",
         }),
@@ -317,6 +333,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       {
         label: intl.formatMessage({
           defaultMessage: "Preferred Language",
+          id: "dTJkNA",
           description:
             "Title displayed on the Pool Candidates table Preferred Lang column.",
         }),
@@ -327,6 +344,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       {
         label: intl.formatMessage({
           defaultMessage: "Current Location",
+          id: "1sPszf",
           description:
             "Title displayed on the Pool Candidates table Current Location column.",
         }),
@@ -340,6 +358,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       {
         label: intl.formatMessage({
           defaultMessage: "Date Received",
+          id: "3eNQnt",
           description:
             "Title displayed on the Pool Candidates table Date Received column.",
         }),
@@ -381,6 +400,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
         {intl.formatMessage({
           defaultMessage: "All Users",
+          id: "VlI1K4",
           description: "Title for the admin users table",
         })}
       </h2>
@@ -429,6 +449,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             fileName: intl.formatMessage(
               {
                 defaultMessage: "pool_candidates_{date}.csv",
+                id: "aWsXoR",
                 description: "Filename for pool candidate CSV file download",
               },
               {

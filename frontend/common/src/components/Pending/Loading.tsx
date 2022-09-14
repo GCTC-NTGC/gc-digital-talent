@@ -60,6 +60,7 @@ const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
           <span data-h2-visibility="base(invisible)">
             {intl.formatMessage({
               defaultMessage: "Loading...",
+              id: "FTJdsa",
               description: "Message to display when a page is loading.",
             })}
           </span>

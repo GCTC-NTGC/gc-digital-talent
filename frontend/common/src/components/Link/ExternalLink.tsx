@@ -35,6 +35,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
             {" "}
             {intl.formatMessage({
               defaultMessage: "(opens in new tab)",
+              id: "OBQ8b9",
               description: "Text that appears in links that open in a new tab.",
             })}
           </span>

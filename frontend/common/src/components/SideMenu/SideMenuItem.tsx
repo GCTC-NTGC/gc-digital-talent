@@ -47,7 +47,7 @@ const SideMenuItem: React.FC<SideMenuItemProps> = ({
       }}
       {...(as === "a" ? { href } : { type: "button" })}
     >
-      <div data-h2-flex-grid="base(center, 0, x.375, 0)">
+      <div data-h2-flex-grid="base(center, x.375, 0)">
         <div data-h2-flex-item="base(content)">
           {Icon ? (
             <Icon

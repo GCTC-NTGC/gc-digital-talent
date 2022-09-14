@@ -6,9 +6,9 @@ import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import Card from "@common/components/Card";
-import { Link } from "@common/components";
+import { Button } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
-import { imageUrl } from "@common/helpers/router";
+import { imageUrl, navigate } from "@common/helpers/router";
 
 import { AdvertisementStatus, SkillCategory } from "@common/api/generated";
 import TableOfContents from "@common/components/TableOfContents";
@@ -28,7 +28,12 @@ import {
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
 import commonMessages from "@common/messages/commonMessages";
-import { Role, useGetPoolAdvertisementQuery } from "../../api/generated";
+import { toast } from "react-toastify";
+import {
+  Role,
+  useGetPoolAdvertisementQuery,
+  useCreateApplicationMutation,
+} from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import TALENTSEARCH_APP_DIR, {
@@ -40,27 +45,31 @@ import getFullPoolAdvertisementTitle from "./getFullPoolAdvertisementTitle";
 
 interface ApplyButtonProps {
   disabled: boolean;
-  href: string;
+  onClick: () => void;
 }
 
-const ApplyButton = ({ disabled, href }: ApplyButtonProps) => {
+const ApplyButton = ({ disabled, onClick }: ApplyButtonProps) => {
   const intl = useIntl();
   return (
-    <Link
+    <Button
       type="button"
       color="primary"
       mode="solid"
       disabled={disabled}
-      href={href}
+      onClick={onClick}
     >
       {intl.formatMessage({
         defaultMessage: "Apply for this process",
         id: "W2YIEA",
         description: "Link text to apply for a pool advertisement",
       })}
-    </Link>
+    </Button>
   );
 };
+
+const Text = ({ children }: { children: React.ReactNode }) => (
+  <p data-h2-margin="base(x0.5, 0, x.5, 0)">{children}</p>
+);
 interface IconTitleProps {
   children: React.ReactNode;
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -74,6 +83,7 @@ const IconTitle = ({ children, icon }: IconTitleProps) => {
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-font-size="base(h4, 1)"
+      data-h2-margin="base(x1.5, 0, x.25, 0)"
     >
       <Icon style={{ width: "1em", marginRight: "0.5rem" }} />
       <span>{children}</span>
@@ -89,9 +99,13 @@ const anchorTag = (chunks: string[]) => (
 
 interface PoolAdvertisementProps {
   poolAdvertisement: PoolAdvertisement;
+  userId: string;
 }
 
-const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
+const PoolAdvertisement = ({
+  poolAdvertisement,
+  userId,
+}: PoolAdvertisementProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useDirectIntakeRoutes();
@@ -121,11 +135,36 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
     poolAdvertisement.nonessentialSkills,
   );
 
+  const [, executeMutation] = useCreateApplicationMutation();
+  const handleCreateApplication = () =>
+    executeMutation({ userId, poolId: poolAdvertisement.id })
+      .then((result) => {
+        if (result.data?.createApplication) {
+          navigate(paths.reviewApplication(result.data.createApplication.id));
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Application created",
+              id: "U/ji+A",
+              description: "Application created successfully",
+            }),
+          );
+          return result.data?.createApplication.id;
+        }
+        return result.data?.createApplication;
+      })
+      .catch((result) => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error application creation failed",
+            id: "tlAiJm",
+            description: "Application creation failed",
+          }),
+        );
+        return Promise.reject(result.error);
+      });
+
   const applyBtn = (
-    <ApplyButton
-      disabled={!canApply}
-      href={paths.poolApply(poolAdvertisement.id)}
-    />
+    <ApplyButton disabled={!canApply} onClick={handleCreateApplication} />
   );
 
   const links = [
@@ -278,22 +317,22 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   "Title for according describing pool recruitment's",
               })}
             >
-              <p>
+              <Text>
                 {intl.formatMessage({
                   defaultMessage:
                     "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
                   id: "kH4Jsf",
                   description: "Description of pool recruitment, paragraph one",
                 })}
-              </p>
-              <p>
+              </Text>
+              <Text>
                 {intl.formatMessage({
                   defaultMessage:
                     "When hiring managers have IT staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
                   id: "m5hjaz",
                   description: "Description of pool recruitment, paragraph two",
                 })}
-              </p>
+              </Text>
             </Accordion>
             {genericTitle?.key && (
               <Accordion
@@ -357,7 +396,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                       "Title for occupational skills on a pool advertisement",
                   })}
                 </IconTitle>
-                <p>
+                <Text>
                   {intl.formatMessage({
                     defaultMessage:
                       "To be admitted into this process, you will need to submit sufficient information to verify your experience in <strong>all of these  skills (Need to have - Occupational)</strong> with your application.",
@@ -365,10 +404,12 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                     description:
                       "Explanation of a pools required occupational skills",
                   })}
-                </p>
+                </Text>
                 {essentialSkills[SkillCategory.Technical]?.map((skill) => (
                   <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <p>{skill.description ? skill.description[locale] : ""}</p>
+                    <Text>
+                      {skill.description ? skill.description[locale] : ""}
+                    </Text>
                   </Accordion>
                 ))}
               </>
@@ -383,7 +424,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                       "Title for transferrable skills on a pool advertisement",
                   })}
                 </IconTitle>
-                <p>
+                <Text>
                   {intl.formatMessage({
                     defaultMessage:
                       "To be admitted into this process, you will need to display  capability in these skills during the assessment process.",
@@ -391,10 +432,12 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                     description:
                       "Explanation of a pools required transferrable skills",
                   })}
-                </p>
+                </Text>
                 {essentialSkills[SkillCategory.Behavioural]?.map((skill) => (
                   <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <p>{skill.description ? skill.description[locale] : ""}</p>
+                    <Text>
+                      {skill.description ? skill.description[locale] : ""}
+                    </Text>
                   </Accordion>
                 ))}
               </>
@@ -414,7 +457,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                       "Title for occupational skills on a pool advertisement",
                   })}
                 </IconTitle>
-                <p>
+                <Text>
                   {intl.formatMessage({
                     defaultMessage:
                       "To strengthen your application, take into consideration these skills that many hiring managers are looking for.",
@@ -422,10 +465,12 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                     description:
                       "Explanation of a pools optional transferrable skills",
                   })}
-                </p>
+                </Text>
                 {nonEssentialSkills[SkillCategory.Technical]?.map((skill) => (
                   <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <p>{skill.description ? skill.description[locale] : ""}</p>
+                    <Text>
+                      {skill.description ? skill.description[locale] : ""}
+                    </Text>
                   </Accordion>
                 ))}
               </>
@@ -442,7 +487,9 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 </IconTitle>
                 {nonEssentialSkills[SkillCategory.Behavioural]?.map((skill) => (
                   <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <p>{skill.description ? skill.description[locale] : ""}</p>
+                    <Text>
+                      {skill.description ? skill.description[locale] : ""}
+                    </Text>
                   </Accordion>
                 ))}
               </>
@@ -475,7 +522,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                     "Title for pool applicant experience requirements",
                 })}
               >
-                <p>
+                <Text>
                   {intl.formatMessage({
                     defaultMessage:
                       "2 or more years of combined experience in a related field including any of the following:",
@@ -483,7 +530,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                     description:
                       "lead in to list of experience required for a pool applicant",
                   })}
-                </p>
+                </Text>
                 <ul>
                   <li>
                     {intl.formatMessage({
@@ -542,7 +589,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                     "Title for pool applicant education requirements",
                 })}
               >
-                <p>
+                <Text>
                   {intl.formatMessage({
                     defaultMessage:
                       "Successful completion of two years of post secondary education in computer science, information technology, information management or another specialty relevant to this position.",
@@ -550,7 +597,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                     description:
                       "post secondary education experience for pool advertisement",
                   })}
-                </p>
+                </Text>
               </Card>
             </div>
             <IconTitle icon={CheckCircleIcon}>
@@ -628,7 +675,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   "Title for contact information on pool advertisement",
               })}
             </IconTitle>
-            <p>
+            <Text>
               {intl.formatMessage({
                 defaultMessage:
                   "Do you require accommodations, or do you have any questions about this process?",
@@ -636,8 +683,8 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 description:
                   "Opening sentence asking if accommodations are needed",
               })}
-            </p>
-            <p>
+            </Text>
+            <Text>
               {intl.formatMessage({
                 defaultMessage:
                   "Please contact the Digital Community Management Office if you require any accommodations during this application process.",
@@ -645,8 +692,8 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                 description:
                   "Description of what to do when accommodations are needed",
               })}
-            </p>
-            <p>
+            </Text>
+            <Text>
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -659,7 +706,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   emailAddress: TALENTSEARCH_RECRUITMENT_EMAIL,
                 },
               )}
-            </p>
+            </Text>
             <IconTitle icon={PhoneIcon}>
               {intl.formatMessage({
                 defaultMessage: "Hiring Policies",
@@ -668,20 +715,20 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                   "Title for hiring information on pool advertisement",
               })}
             </IconTitle>
-            <p>
+            <Text>
               {intl.formatMessage({
                 defaultMessage:
                   "Preference will be given to veterans, Canadian citizens and to permanent residents.",
                 id: "IF1xj8",
                 description: "First hiring policy for pool advertisement",
               })}
-            </p>
+            </Text>
           </TableOfContents.Section>
           <TableOfContents.Section id={sections.apply.id}>
             <TableOfContents.Heading>
               {sections.apply.title}
             </TableOfContents.Heading>
-            <p>
+            <Text>
               {canApply
                 ? intl.formatMessage({
                     defaultMessage:
@@ -696,7 +743,7 @@ const PoolAdvertisement = ({ poolAdvertisement }: PoolAdvertisementProps) => {
                     description:
                       "Message displayed when the pool advertisement has expired.",
                   })}
-            </p>
+            </Text>
             {applyBtn}
           </TableOfContents.Section>
         </TableOfContents.Content>
@@ -723,10 +770,17 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
     visible = true;
   }
 
+  // enforce type of userId as String
+  const dataMe = data?.me ? data.me : undefined;
+  const userId = dataMe?.id ? dataMe.id : "";
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolAdvertisement && visible ? (
-        <PoolAdvertisement poolAdvertisement={data?.poolAdvertisement} />
+        <PoolAdvertisement
+          poolAdvertisement={data?.poolAdvertisement}
+          userId={userId}
+        />
       ) : (
         <NotFound
           headingMessage={intl.formatMessage(commonMessages.notFound, {

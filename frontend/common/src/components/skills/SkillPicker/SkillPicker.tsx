@@ -86,7 +86,7 @@ const SkillPicker = ({
   );
   const behaviouralSkillsFamilySkillsPagination = usePaginationVars<Skill>(
     PAGE_SIZE,
-    technicalSkillFamilyFilteredSkills,
+    behaviouralSkillFamilyFilteredSkills,
   );
   const searchSkillsPagination = usePaginationVars<Skill>(
     PAGE_SIZE,
@@ -107,14 +107,17 @@ const SkillPicker = ({
   const tabs = [
     intl.formatMessage({
       defaultMessage: "Technical skills",
+      id: "kxseH4",
       description: "Tab name for a list of technical skills",
     }),
     intl.formatMessage({
       defaultMessage: "Behavioural skills",
+      id: "LjkK5G",
       description: "Tab name for a list of behavioural skills",
     }),
     intl.formatMessage({
       defaultMessage: "By keyword",
+      id: "LfNNe4",
       description: "Tab name for a box to search for skills",
     }),
   ];
@@ -143,10 +146,12 @@ const SkillPicker = ({
               <SkillFamilyPicker
                 title={intl.formatMessage({
                   defaultMessage: "Skill groups",
+                  id: "J3779Q",
                   description: "A title for a list of skill families",
                 })}
                 nullSelectionLabel={intl.formatMessage({
                   defaultMessage: "All technical skills",
+                  id: "vZgTKh",
                   description:
                     "The option label for 'no filter' on the list of occupational skills",
                 })}
@@ -163,6 +168,7 @@ const SkillPicker = ({
                 title={intl.formatMessage(
                   {
                     defaultMessage: "Results ({skillCount})",
+                    id: "l0IDWf",
                     description: "A title for a skill list of results",
                   },
                   {
@@ -177,6 +183,7 @@ const SkillPicker = ({
               <Pagination
                 ariaLabel={intl.formatMessage({
                   defaultMessage: "Mainstream skills results",
+                  id: "s4DN3G",
                   description:
                     "Accessibility label for a result set of skills, filtered to mainstream skills",
                 })}
@@ -197,10 +204,12 @@ const SkillPicker = ({
               <SkillFamilyPicker
                 title={intl.formatMessage({
                   defaultMessage: "Skill groups",
+                  id: "J3779Q",
                   description: "A title for a list of skill families",
                 })}
                 nullSelectionLabel={intl.formatMessage({
                   defaultMessage: "All behavioural skills",
+                  id: "Sx/Pzn",
                   description:
                     "The option label for 'no filter' on the list of behavioural skills",
                 })}
@@ -217,6 +226,7 @@ const SkillPicker = ({
                 title={intl.formatMessage(
                   {
                     defaultMessage: "Results ({skillCount})",
+                    id: "l0IDWf",
                     description: "A title for a skill list of results",
                   },
                   {
@@ -233,6 +243,7 @@ const SkillPicker = ({
               <Pagination
                 ariaLabel={intl.formatMessage({
                   defaultMessage: "Mainstream skills results",
+                  id: "s4DN3G",
                   description:
                     "Accessibility label for a result set of skills, filtered to mainstream skills",
                 })}
@@ -257,6 +268,7 @@ const SkillPicker = ({
                 title={intl.formatMessage(
                   {
                     defaultMessage: "Results ({skillCount})",
+                    id: "nr62lc",
                     description: "A title for a list of results",
                   },
                   {
@@ -271,6 +283,7 @@ const SkillPicker = ({
               <Pagination
                 ariaLabel={intl.formatMessage({
                   defaultMessage: "keyword search skills results",
+                  id: "wziEOM",
                   description:
                     "Accessibility label for a result set of skills, searched by keyword",
                 })}
@@ -292,6 +305,7 @@ const SkillPicker = ({
         {intl.formatMessage(
           {
             defaultMessage: "Selected skills ({skillCount})",
+            id: "BiSzNu",
             description: "A title for an skill list",
           },
           {

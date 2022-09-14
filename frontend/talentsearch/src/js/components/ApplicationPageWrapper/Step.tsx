@@ -7,13 +7,14 @@ export interface StepProps {
   disabled?: boolean;
 }
 
-const Step = ({ path, label, disabled }: StepProps) => (
+const Step = ({ path, label, disabled, ...rest }: StepProps) => (
   <Link
     href={path}
     mode={disabled ? "solid" : "outline"}
     type="button"
     color="black"
     disabled={disabled}
+    {...rest}
   >
     {label}
   </Link>

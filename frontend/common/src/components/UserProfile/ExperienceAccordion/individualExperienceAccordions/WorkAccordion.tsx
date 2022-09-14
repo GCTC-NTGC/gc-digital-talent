@@ -60,6 +60,7 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
       title={intl.formatMessage(
         {
           defaultMessage: "{role} at {organization}",
+          id: "wTAdQe",
           description: "Role at organization",
         },
         { role, organization },
@@ -69,11 +70,13 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
         skills?.length === 1
           ? intl.formatMessage({
               defaultMessage: "1 Skill",
+              id: "A2KwTw",
               description: "Pluralization for one skill",
             })
           : intl.formatMessage(
               {
                 defaultMessage: "{skillsLength} Skills",
+                id: "l27ekQ",
                 description: "Pluralization for zero or multiple skills",
               },
               { skillsLength: skills?.length },
@@ -86,6 +89,7 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
         {intl.formatMessage(
           {
             defaultMessage: "{role} at {division}",
+            id: "6RiVQA",
             description: "Role at division",
           },
           { role, division },
@@ -111,6 +115,7 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
         {intl.formatMessage(
           {
             defaultMessage: "Additional information: {details}",
+            id: "OvJwG6",
             description: "Additional information if provided",
           },
           { details },
@@ -128,6 +133,7 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
           <Link href={editUrl} color="primary" mode="outline" type="button">
             {intl.formatMessage({
               defaultMessage: "Edit Experience",
+              id: "phbDSx",
               description: "Edit Experience button label",
             })}
           </Link>
