@@ -15,6 +15,13 @@ import type {
 } from "./basicTableHelpers";
 import UserTableFilterDialog from "../user/UserTableFilterDialog";
 import type { FormValues } from "../user/UserTableFilterDialog";
+import { UserFilterInput } from "../../api/generated";
+import {
+  stringToEnumJobLooking,
+  stringToEnumLanguage,
+  stringToEnumLocation,
+  stringToEnumOperational,
+} from "../user/util";
 
 export interface TableHeaderProps<T extends Record<string, unknown>> {
   onSearchChange: (
@@ -31,6 +38,9 @@ export interface TableHeaderProps<T extends Record<string, unknown>> {
   title?: string;
   onColumnHiddenChange?: (e: ColumnHiddenEvent<T>) => void;
   hiddenColumnIds: Array<IdType<T>>;
+  onFilterChange: React.Dispatch<
+    React.SetStateAction<UserFilterInput | undefined>
+  >;
 }
 
 function TableHeader<T extends Record<string, unknown>>({
@@ -42,12 +52,48 @@ function TableHeader<T extends Record<string, unknown>>({
   title,
   onColumnHiddenChange,
   hiddenColumnIds,
+  onFilterChange,
 }: TableHeaderProps<T>): ReactElement {
   const intl = useIntl();
 
   const [showList, setShowList] = useState(false);
-  const handleFilterSubmit: SubmitHandler<FormValues> = () => {
-    // do nothing.
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
+    onFilterChange({
+      applicantFilter: {
+        expectedClassifications: data.classifications.map((classification) => {
+          const splitString = classification.split("-");
+          return { group: splitString[0], level: Number(splitString[1]) };
+        }),
+        languageAbility: data.languageAbility[0]
+          ? stringToEnumLanguage(data.languageAbility[0])
+          : undefined,
+        locationPreferences: data.workRegion.map((region) => {
+          return stringToEnumLocation(region);
+        }),
+        operationalRequirements: data.operationalRequirement.map(
+          (requirement) => {
+            return stringToEnumOperational(requirement);
+          },
+        ),
+        skills: data.skills.map((skill) => {
+          const skillString = skill;
+          return { id: skillString };
+        }),
+        wouldAcceptTemporary: data.employmentDuration[0]
+          ? data.employmentDuration[0] === "TERM"
+          : undefined,
+      },
+      isGovEmployee: data.govEmployee[0] ? true : undefined,
+      isProfileComplete: data.profileComplete[0] ? true : undefined,
+      jobLookingStatus: data.jobLookingStatus.map((status) => {
+        return stringToEnumJobLooking(status);
+      }),
+      poolFilters: data.pools.map((pool) => {
+        const poolString = pool;
+        return { poolId: poolString };
+      }),
+    });
   };
 
   return (
