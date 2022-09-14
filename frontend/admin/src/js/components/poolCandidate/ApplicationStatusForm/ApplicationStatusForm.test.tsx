@@ -2,12 +2,10 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
+import React from "react";
 import { act, fireEvent, screen, waitFor } from "@testing-library/react";
 import { fakePoolCandidates } from "@common/fakeData";
-import React from "react";
 import { axeTest, render } from "@common/helpers/testUtils";
-
-import { UpdatePoolCandidateAsAdminInput } from "admin/src/js/api/generated";
 import {
   ApplicationStatusForm,
   type ApplicationStatusFormProps,
