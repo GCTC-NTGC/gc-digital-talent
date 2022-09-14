@@ -263,6 +263,14 @@ const SkillPicker = ({
               />
             </TabPanel>
             <TabPanel>
+              <p data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Search by keyword",
+                  id: "hm95fj",
+                  description:
+                    "A label to show that this tab for searching by keyword",
+                })}
+              </p>
               <SearchBar handleSearch={handleSearch} />
               <SkillResults
                 title={intl.formatMessage(

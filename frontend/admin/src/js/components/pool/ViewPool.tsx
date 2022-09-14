@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* NOTE: This is temporary until we start the Candidates/Requests pages */
 import * as React from "react";
 import { useIntl } from "react-intl";
 import {
@@ -396,9 +394,9 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 data-h2-font-size="base(h3)"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Your Impact (English)",
-                  id: "LvsYj+",
-                  description: "Title for English pool advertisement impact",
+                  defaultMessage: "Your impact",
+                  id: "rGE0gj",
+                  description: "Title for pool advertisement impact section",
                 })}
               </h2>
             </div>
@@ -409,8 +407,8 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 data-h2-font-size="base(h6)"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Your Impact (English)",
-                  id: "LvsYj+",
+                  defaultMessage: "English impact text",
+                  id: "BzaGwp",
                   description: "Title for English pool advertisement impact",
                 })}
               </p>
@@ -425,8 +423,8 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 data-h2-font-size="base(h6)"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Your Impact (French)",
-                  id: "6BD4FK",
+                  defaultMessage: "French impact text",
+                  id: "CTnN9W",
                   description: "Title for French pool advertisement impact",
                 })}
               </p>
@@ -449,8 +447,8 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 data-h2-font-size="base(h6)"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Your Work (English)",
-                  id: "/7tcPl",
+                  defaultMessage: "English work text",
+                  id: "UjGx0m",
                   description: "Title for English pool advertisement Work",
                 })}
               </p>
@@ -465,8 +463,8 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 data-h2-font-size="base(h6)"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Your Work (French)",
-                  id: "y3mLbv",
+                  defaultMessage: "French work text",
+                  id: "88Haix",
                   description: "Title for French pool advertisement Work",
                 })}
               </p>
