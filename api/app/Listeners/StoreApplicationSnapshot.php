@@ -6,6 +6,7 @@ use App\Events\ApplicationSubmitted;
 
 use App\Models\User;
 use App\Http\Resources\UserResource;
+use App\GraphQL\Util\GraphQLClient;
 
 class StoreApplicationSnapshot
 {
@@ -28,22 +29,9 @@ class StoreApplicationSnapshot
     public function handle(ApplicationSubmitted $event)
     {
         $poolCandidate = $event->poolCandidate;
-        $user = User::with([
-            'department',
-            'currentClassification',
-            'expectedClassifications',
-            'expectedGenericJobTitles',
-            'cmoAssets',
-            'awardExperiences',
-            'communityExperiences',
-            'educationExperiences',
-            'personalExperiences',
-            'workExperiences'
-        ])->findOrFail($poolCandidate->user_id);
-
-        $profile = new UserResource($user);
-
-        $poolCandidate->profile_snapshot = $profile->toJson();
+        $query = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
+        $result = GraphQLClient::graphQL($query, ['userId' => $poolCandidate->user_id]);
+        $poolCandidate->profile_snapshot = $result;
         $poolCandidate->save();
     }
 }
