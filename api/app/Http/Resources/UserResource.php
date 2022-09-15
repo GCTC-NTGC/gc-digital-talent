@@ -73,7 +73,10 @@ class UserResource extends JsonResource
             'expectedSalary' => $this->expected_salary,
             'wouldAcceptTemporary' => $this->would_accept_temporary,
             'cmoAssets' => CmoAssetResource::collection($this->cmoAssets),
-            'experiences' => $collection
+            'poolCandidates' => PoolCandidateResource::collection($this->poolCandidates),
+            'experiences' => $collection,
+            'priorityNumber' => $this->priority_number,
+            'isProfileComplete' => $this->isProfileComplete,
         ];
     }
 }
