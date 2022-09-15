@@ -53,12 +53,25 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
     <Pending fetching={fetching} error={error}>
       <div
         data-h2-background-color="base(dt-gray.light)"
-        data-h2-padding="base(20px, 20px, 20px, 20px)"
+        data-h2-padding="base(x1, x1, x1, x1)"
       >
         <Breadcrumbs links={crumbs} />
       </div>
       <DashboardContentContainer>
-        <PageHeader icon={Squares2X2Icon}>
+        <PageHeader
+          icon={Squares2X2Icon}
+          subtitle={intl.formatMessage(
+            {
+              defaultMessage: "From {poolName}",
+              id: "RDgQ0h",
+              description:
+                "Subtitle on pool candidates page indicating which pool candidates are from",
+            },
+            {
+              poolName: data?.pool?.name?.[locale],
+            },
+          )}
+        >
           {intl.formatMessage({
             id: "EHVt0j",
             defaultMessage: "Pool Candidates",
