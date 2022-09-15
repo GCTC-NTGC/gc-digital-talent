@@ -40,7 +40,7 @@ class UserResource extends JsonResource
             'lastName' => $this->last_name,
             'email' => $this->email,
             'telephone' => $this->telephone,
-            'preferredLang' => $this->preferred_lang,
+            'preferredLang' => $this->preferred_lang ? strtoupper($this->preferred_lang) : null,
             'currentProvince' => $this->current_province,
             'currentCity' => $this->current_city,
             'citizenship' => $this->citizenship,

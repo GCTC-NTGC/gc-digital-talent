@@ -52,7 +52,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'sub' => $this->faker->boolean(75) ? $this->faker->unique()->uuid() : null,
             'telephone' => $this->faker->e164PhoneNumber(),
-            'preferred_lang' => $this->faker->randomElement(['EN', 'FR']),
+            'preferred_lang' => $this->faker->randomElement(['en', 'fr']),
             'roles' => [],
             'job_looking_status' => $this->faker->randomElement([
                 'ACTIVELY_LOOKING',
