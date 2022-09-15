@@ -2260,5 +2260,29 @@
   "mxOuYK": {
     "defaultMessage": "Télécharger CSV",
     "description": "Text label for button to download a csv file of items in a table."
+  },
+  "rGE0gj": {
+    "defaultMessage": "Votre incidence",
+    "description": "Title for pool advertisement impact section"
+  },
+  "BzaGwp": {
+    "defaultMessage": "Texte anglais sur l’incidence",
+    "description": "Title for English pool advertisement impact"
+  },
+  "CTnN9W": {
+    "defaultMessage": "Texte français sur l’incidence",
+    "description": "Title for French pool advertisement impact"
+  },
+  "UjGx0m": {
+    "defaultMessage": "Texte de travail en anglais",
+    "description": "Title for English pool advertisement Work"
+  },
+  "88Haix": {
+    "defaultMessage": "Texte de travail en français",
+    "description": "Title for French pool advertisement Work"
+  },
+  "Qp6B20": {
+    "defaultMessage": "Votre travail",
+    "description": "Title for pool advertisement work text section"
   }
 }
