@@ -406,8 +406,20 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       </h2>
       <TableHeader
         columns={columns}
+        onFilterChange={() => {
+          /* TODO: Implement this later */
+        }}
         onSearchChange={() => {
           /* TODO: Implement this later */
+        }}
+        addBtn={{
+          label: intl.formatMessage({
+            defaultMessage: "Create Pool Candidate",
+            id: "Ox+Gj/",
+            description:
+              "Text label for link to create new pool candidate on admin table",
+          }),
+          path: paths.userCreate(),
         }}
         onColumnHiddenChange={(event) =>
           handleColumnHiddenChange(

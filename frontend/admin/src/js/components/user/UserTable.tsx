@@ -72,20 +72,7 @@ export const UserTable: React.FC = () => {
   const paths = useAdminRoutes();
   const { pathname } = useLocation();
 
-  const searchStateToFilterInput = (
-    val: string | undefined,
-    col: string | undefined,
-  ): InputMaybe<UserFilterInput> => {
-    if (!val) return undefined;
-
-    return {
-      generalSearch: val && !col ? val : undefined,
-      email: col === "email" ? val : undefined,
-      name: col === "name" ? val : undefined,
-      telephone: col === "phone" ? val : undefined,
-    };
-  };
-
+  const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
@@ -93,8 +80,38 @@ export const UserTable: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<User[]>([]);
   const [searchState, setSearchState] = useState<{
     term: string | undefined;
-    col: string | undefined;
+    type: string | undefined;
   }>();
+
+  // merge search bar input with fancy filter state
+  const addSearchToUserFilterInput = (
+    fancyFilterState: UserFilterInput | undefined,
+    searchBarTerm: string | undefined,
+    searchType: string | undefined,
+  ): InputMaybe<UserFilterInput> => {
+    if (
+      fancyFilterState === undefined &&
+      searchBarTerm === undefined &&
+      searchType === undefined
+    ) {
+      return undefined;
+    }
+
+    return {
+      // search bar
+      generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+      email: searchType === "email" ? searchBarTerm : undefined,
+      name: searchType === "name" ? searchBarTerm : undefined,
+      telephone: searchType === "phone" ? searchBarTerm : undefined,
+
+      // from fancy filter
+      applicantFilter: fancyFilterState?.applicantFilter,
+      isGovEmployee: fancyFilterState?.isGovEmployee,
+      isProfileComplete: fancyFilterState?.isProfileComplete,
+      jobLookingStatus: fancyFilterState?.jobLookingStatus,
+      poolFilters: fancyFilterState?.poolFilters,
+    };
+  };
 
   useEffect(() => {
     setSelectedRows([]);
@@ -102,7 +119,11 @@ export const UserTable: React.FC = () => {
 
   const [result] = useAllUsersPaginatedQuery({
     variables: {
-      where: searchStateToFilterInput(searchState?.term, searchState?.col),
+      where: addSearchToUserFilterInput(
+        userFilterInput,
+        searchState?.term,
+        searchState?.type,
+      ),
       page: currentPage,
       first: pageSize,
       orderBy: sortingRuleToOrderByClause(sortingRule),
@@ -227,11 +248,14 @@ export const UserTable: React.FC = () => {
         })}
       </h2>
       <TableHeader
-        onSearchChange={(term: string | undefined, col: string | undefined) => {
+        onSearchChange={(
+          term: string | undefined,
+          type: string | undefined,
+        ) => {
           setCurrentPage(1);
           setSearchState({
             term,
-            col,
+            type,
           });
         }}
         columns={columns}
@@ -279,6 +303,7 @@ export const UserTable: React.FC = () => {
           )
         }
         hiddenColumnIds={hiddenColumnIds}
+        onFilterChange={setUserFilterInput}
       />
       <div data-h2-radius="base(s)">
         <Pending fetching={fetching} error={error} inline>

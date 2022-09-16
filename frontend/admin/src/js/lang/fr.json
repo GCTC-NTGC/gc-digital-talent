@@ -64,7 +64,7 @@
     "description": "Message displayed to user after classification is created successfully."
   },
   "3F6QqF": {
-    "defaultMessage": "Commencer à écrire ici…",
+    "defaultMessage": "Commencer à écrire ici...",
     "description": "Placeholder displayed on the Global Filter form Search field."
   },
   "3b6cy/": {
@@ -1107,7 +1107,7 @@
     "description": "Label displayed on the pool candidate form process number field."
   },
   "/MBeNc": {
-    "defaultMessage": "Commencez à écrire vos notes ici…",
+    "defaultMessage": "Commencez à écrire vos notes ici...",
     "description": "Placeholder text for a pool candidates notes field"
   },
   "/fv4O0": {
@@ -1395,7 +1395,7 @@
     "description": "Label displayed on the date field of the change candidate expiry date dialog"
   },
   "X198m3": {
-    "defaultMessage": "Sélectionner un bassin…",
+    "defaultMessage": "Sélectionner un bassin...",
     "description": "Placeholder displayed on the pool field of the add user to pool dialog."
   },
   "XtBhGo": {
@@ -1578,7 +1578,7 @@
     "description": "Toast for failed expiry date update on view-user page"
   },
   "qr5RPo": {
-    "defaultMessage": "Sélectionnez un statut…",
+    "defaultMessage": "Sélectionnez un statut...",
     "description": "Placeholder displayed on the pool form status field."
   },
   "sICXeM": {
@@ -1622,7 +1622,7 @@
     "description": "Toast for failed removal of candidate from pool on view-user page"
   },
   "usNShh": {
-    "defaultMessage": "Sélectionner un statut de bassin…",
+    "defaultMessage": "Sélectionner un statut de bassin...",
     "description": "Placeholder displayed on the status field of the change candidate status dialog."
   },
   "uutH18": {
@@ -2260,5 +2260,29 @@
   "mxOuYK": {
     "defaultMessage": "Télécharger CSV",
     "description": "Text label for button to download a csv file of items in a table."
+  },
+  "rGE0gj": {
+    "defaultMessage": "Votre incidence",
+    "description": "Title for pool advertisement impact section"
+  },
+  "BzaGwp": {
+    "defaultMessage": "Texte anglais sur l’incidence",
+    "description": "Title for English pool advertisement impact"
+  },
+  "CTnN9W": {
+    "defaultMessage": "Texte français sur l’incidence",
+    "description": "Title for French pool advertisement impact"
+  },
+  "UjGx0m": {
+    "defaultMessage": "Texte de travail en anglais",
+    "description": "Title for English pool advertisement Work"
+  },
+  "88Haix": {
+    "defaultMessage": "Texte de travail en français",
+    "description": "Title for French pool advertisement Work"
+  },
+  "Qp6B20": {
+    "defaultMessage": "Votre travail",
+    "description": "Title for pool advertisement work text section"
   }
 }

@@ -40,6 +40,30 @@ export interface WorkPreferencesFormProps {
   ) => Promise<UpdateWorkPreferencesMutation["updateUserAsUser"]>;
 }
 
+interface WithEllipsisPrefixProps {
+  children: React.ReactNode;
+}
+/**
+ * Helps prepend ellipses to other strings.
+ * (Whitespace conventions for using the ellipsis varies between languages.)
+ *
+ * @see https://www.btb.termiumplus.gc.ca/tcdnstyl-chap?lang=eng&lettr=chapsect17&info0=17.07
+ */
+const WithEllipsisPrefix = ({ children }: WithEllipsisPrefixProps) => {
+  const { formatMessage } = useIntl();
+  const ellipsisPrefix = formatMessage({
+    defaultMessage: "...",
+    id: ".ellipsis",
+  });
+
+  return (
+    <>
+      {ellipsisPrefix}
+      {children}
+    </>
+  );
+};
+
 export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   initialData,
   application,
@@ -166,8 +190,8 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                   idPrefix="required-work-preferences"
                   legend={intl.formatMessage({
                     defaultMessage:
-                      "I would consider accepting a job that lasts for...",
-                    id: "/DCykA",
+                      "I would consider accepting a job that lasts for:",
+                    id: "GNtu/7",
                     description:
                       "Legend Text for required work preferences options in work preferences form",
                   })}
@@ -178,20 +202,24 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                   items={[
                     {
                       value: "true",
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "...any duration (short term, long term, or indeterminate duration)",
-                        id: "X2Ivfb",
-                        description:
-                          "Label displayed on Work Preferences form for any duration option",
-                      }),
+                      label: (
+                        <WithEllipsisPrefix>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "any duration. (short term, long term, or indeterminate duration)",
+                            id: "uHx3G7",
+                            description:
+                              "Label displayed on Work Preferences form for any duration option",
+                          })}
+                        </WithEllipsisPrefix>
+                      ),
                     },
                     {
                       value: "false",
                       label: intl.formatMessage({
                         defaultMessage:
-                          "...only those of an indeterminate duration. (permanent)",
-                        id: "9zqf5E",
+                          "...indeterminate duration only. (permanent only)",
+                        id: "sYqIp5",
                         description:
                           "Label displayed on Work Preferences form for indeterminate duration option.",
                       }),
@@ -208,17 +236,20 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                 <Checklist
                   idPrefix="optional-work-preferences"
                   legend={intl.formatMessage({
-                    defaultMessage:
-                      "I would consider accepting a job that requires…",
-                    id: "yQ2dDL",
+                    defaultMessage: "I would consider accepting a job that:",
+                    id: "Vvb8tu",
                     description:
                       "Legend for optional work preferences check list in work preferences form",
                   })}
                   name="acceptedOperationalRequirements"
                   items={OperationalRequirementV2.map((value) => ({
                     value,
-                    label: intl.formatMessage(
-                      getOperationalRequirement(value, "candidateDescription"),
+                    label: (
+                      <WithEllipsisPrefix>
+                        {intl.formatMessage(
+                          getOperationalRequirement(value, "firstPerson"),
+                        )}
+                      </WithEllipsisPrefix>
                     ),
                   }))}
                 />
