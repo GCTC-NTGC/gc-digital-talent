@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
-import { useLocation } from "@common/helpers/router";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import {
