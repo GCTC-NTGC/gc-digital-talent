@@ -22,7 +22,7 @@ import {
   PoolCandidateStatus,
   ProvinceOrTerritory,
   useGetPoolCandidatesPaginatedQuery,
-  useGetPoolCandidatesQuery,
+  useGetSelectedPoolCandidatesQuery,
 } from "../../api/generated";
 import TableHeader from "../apiManagedTable/TableHeader";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -378,7 +378,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       fetching: selectedCandidatesFetching,
       error: selectedCandidatesError,
     },
-  ] = useGetPoolCandidatesQuery({
+  ] = useGetSelectedPoolCandidatesQuery({
     variables: {
       ids: selectedCandidateIds,
     },

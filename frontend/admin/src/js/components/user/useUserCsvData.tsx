@@ -2,24 +2,22 @@ import React from "react";
 import { useIntl } from "react-intl";
 import type { DownloadCsvProps } from "@common/components/Link";
 import {
-  empty,
-  insertBetween,
-  notEmpty,
-  uniqueItems,
-} from "@common/helpers/util";
+  employeeTypeToString,
+  flattenExperiencesToSkills,
+  getExpectedClassifications,
+  getLocationPreference,
+  getLookingForLanguage,
+  getOperationalRequirements,
+  yesOrNo,
+} from "@common/helpers/csvUtils";
 import {
   getArmedForcesStatusesAdmin,
   getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
-  getGenericJobTitles,
   getLanguageProficiency,
-  getOperationalRequirement,
-  getSimpleGovEmployeeType,
-  getWorkRegion,
 } from "@common/constants/localizedConstants";
 import { getLocale } from "@common/helpers/localize";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { Applicant, GovEmployeeType, type Maybe } from "../../api/generated";
+import { Applicant } from "../../api/generated";
 
 const useUserCsvData = (applicants: Applicant[]) => {
   const intl = useIntl();
@@ -237,195 +235,6 @@ const useUserCsvData = (applicants: Applicant[]) => {
   ];
 
   const data: DownloadCsvProps["data"] = React.useMemo(() => {
-    /**
-     * Converts a possible boolean
-     * to yes or no string
-     *
-     * @param value Maybe<boolean>
-     * @returns React.ReactNode  "yes" or "no"
-     */
-    const yesOrNo = (value: Maybe<boolean>) => {
-      if (empty(value)) {
-        return "";
-      }
-      return value
-        ? intl.formatMessage({
-            defaultMessage: "Yes",
-            id: "UOO1gW",
-            description: "Message for when a value is true",
-          })
-        : intl.formatMessage({
-            defaultMessage: "No",
-            id: "q7bz0J",
-            description: "Message for when a value is false",
-          });
-    };
-
-    /**
-     * Converts a possible array to
-     * a comma separated list
-     *
-     * @param value string[] | undefined    Array of items to convert
-     * @returns string                      Comma separated list or empty
-     */
-    const listOrEmptyString = (value: string[] | undefined) => {
-      return value ? insertBetween(", ", value).join("") : "";
-    };
-
-    /**
-     *  Converts the applicants language preferences
-     *  to a string
-     *
-     * @param english   Maybe<boolean>      If looking for English positions
-     * @param french    Maybe<boolean>      If looking for French positions
-     * @param bilingual   Maybe<boolean>    If looking for Bilingual positions
-     * @returns
-     */
-    const getLookingForLanguage = (
-      english: Maybe<boolean>,
-      french: Maybe<boolean>,
-      bilingual: Maybe<boolean>,
-    ) => {
-      if (english && !french && !bilingual) {
-        // English Only
-        return intl.formatMessage({
-          defaultMessage: "English positions",
-          id: "vFMPHW",
-          description: "English Positions message",
-        });
-      }
-      if (!english && french && !bilingual) {
-        // French only
-        return intl.formatMessage({
-          defaultMessage: "French positions",
-          id: "qT9sS0",
-          description: "French Positions message",
-        });
-      }
-      if (english && french && !bilingual) {
-        // English or French
-        return intl.formatMessage({
-          defaultMessage: "English or French positions",
-          id: "fFznH0",
-          description: "English or French Positions message",
-        });
-      }
-      if (bilingual) {
-        // Bilingual
-        return intl.formatMessage({
-          defaultMessage: "Bilingual positions (English and French)",
-          id: "6eCvv1",
-          description: "Bilingual Positions message",
-        });
-      }
-
-      return "";
-    };
-
-    /**
-     * Converts possible Employee Type
-     * to a string
-     *
-     * @param type  Applicant["govEmployeeType"]
-     * @returns string The employee type
-     */
-    const employeeTypeToString = (type: Applicant["govEmployeeType"]) => {
-      const govEmployeeTypeId =
-        enumToOptions(GovEmployeeType).find(
-          (govEmployeeType) => govEmployeeType.value === type,
-        )?.value || null;
-
-      return govEmployeeTypeId
-        ? intl.formatMessage(getSimpleGovEmployeeType(govEmployeeTypeId))
-        : "";
-    };
-
-    /**
-     * Converts a possible location preference
-     * to a string
-     *
-     * @param preference  Applicant["locationPreferences"]
-     * @returns string
-     */
-    const getLocationPreference = (
-      preference: Applicant["locationPreferences"],
-    ) => {
-      const squishedPreference = preference
-        ?.map((region) =>
-          region ? intl.formatMessage(getWorkRegion(region)) : undefined,
-        )
-        .filter(notEmpty);
-      return listOrEmptyString(squishedPreference);
-    };
-
-    /**
-     * Converts possible array of operational requirements
-     * to a comma separated list or empty string
-     *
-     * @param requirements  Applicant["acceptedOperationalRequirements"]
-     * @returns string
-     */
-    const getOperationalRequirements = (
-      requirements: Applicant["acceptedOperationalRequirements"],
-    ) => {
-      const accepted = requirements
-        ?.map((req) =>
-          req ? intl.formatMessage(getOperationalRequirement(req)) : undefined,
-        )
-        .filter(notEmpty);
-
-      return listOrEmptyString(accepted);
-    };
-
-    /**
-     * Converts a possible array of generic job titles
-     * to a comma separated list or empty string
-     *
-     * @param genericTitles Maybe<Maybe<GenericJobTitle>[]>
-     * @returns string
-     */
-    const getExpectedClassifications = (
-      genericTitles: Applicant["expectedGenericJobTitles"],
-    ) => {
-      const expected = genericTitles
-        ?.map((title) =>
-          title
-            ? intl.formatMessage(getGenericJobTitles(title.key))
-            : undefined,
-        )
-        .filter(notEmpty);
-
-      return listOrEmptyString(expected);
-    };
-
-    /**
-     * Converts a possible array of experiences to
-     * a flattened comma separated list of skills
-     * or an empty string
-     *
-     * @param experiences Maybe<Maybe<Experience>[]>
-     * @returns string
-     */
-    const flattenExperiencesToSkills = (
-      experiences: Applicant["experiences"],
-    ) => {
-      const skills = experiences
-        ?.map((experience) => {
-          return experience?.skills
-            ?.map((skill) => {
-              return skill.name[locale] || undefined;
-            })
-            .filter(notEmpty);
-        })
-        .filter(notEmpty);
-
-      const flattenedSkills = skills
-        ? uniqueItems(skills.flatMap((skill) => skill))
-        : undefined;
-
-      return listOrEmptyString(flattenedSkills);
-    };
-
     const flattenedApplicants: DownloadCsvProps["data"] = applicants.map(
       ({
         firstName,
@@ -469,6 +278,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
           lookingForEnglish,
           lookingForFrench,
           lookingForBilingual,
+          intl,
         ),
         bilingualEvaluation: bilingualEvaluation
           ? intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))
@@ -479,30 +289,32 @@ const useUserCsvData = (applicants: Applicant[]) => {
         estimatedLanguageAbility: estimatedLanguageAbility
           ? intl.formatMessage(getLanguageProficiency(estimatedLanguageAbility))
           : "",
-        isGovEmployee: yesOrNo(isGovEmployee),
-        hasPriorityEntitlement: yesOrNo(hasPriorityEntitlement),
+        isGovEmployee: yesOrNo(isGovEmployee, intl),
+        hasPriorityEntitlement: yesOrNo(hasPriorityEntitlement, intl),
         priorityNumber: priorityNumber || "",
         department: department?.name[locale] || "",
         govEmployeeType: govEmployeeType
-          ? employeeTypeToString(govEmployeeType)
+          ? employeeTypeToString(govEmployeeType, intl)
           : "",
         currentClassification: currentClassification
           ? `${currentClassification.group}-${currentClassification.level}`
           : "",
-        locationPreferences: getLocationPreference(locationPreferences),
+        locationPreferences: getLocationPreference(locationPreferences, intl),
         locationExemptions: locationExemptions || "",
-        wouldAcceptTemporary: yesOrNo(wouldAcceptTemporary),
-        acceptedOperationalRequirement: getOperationalRequirements(
+        wouldAcceptTemporary: yesOrNo(wouldAcceptTemporary, intl),
+        acceptedOperationalRequirements: getOperationalRequirements(
           acceptedOperationalRequirements,
+          intl,
         ),
-        isWoman: yesOrNo(isWoman),
-        isIndigenous: yesOrNo(isIndigenous),
-        isVisibleMinority: yesOrNo(isVisibleMinority),
-        hasDisability: yesOrNo(hasDisability),
+        isWoman: yesOrNo(isWoman, intl),
+        isIndigenous: yesOrNo(isIndigenous, intl),
+        isVisibleMinority: yesOrNo(isVisibleMinority, intl),
+        hasDisability: yesOrNo(hasDisability, intl),
         expectedClassification: getExpectedClassifications(
           expectedGenericJobTitles,
+          intl,
         ),
-        skills: flattenExperiencesToSkills(experiences),
+        skills: flattenExperiencesToSkills(experiences, locale),
       }),
     );
 
