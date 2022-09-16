@@ -1,4 +1,11 @@
+import { aliasQuery } from "../../support/graphql-test-utils";
+
 describe("Talentsearch Direct Intake Page", () => {
+  beforeEach(() => {
+    cy.intercept("POST", "/graphql", (req) => {
+      aliasQuery(req, "getPoolAdvertisement");
+    });
+  });
   // Helpers
   const onAuthLoginPage = () => {
     cy.url().should('contain', Cypress.config().authServerRoot + '/authorize')
@@ -37,13 +44,17 @@ describe("Talentsearch Direct Intake Page", () => {
       cy.visit('/en/browse/pools')
       cy.contains("Browse Pools")
 
-      cy.findByRole('link', {name: 'CMO Digital Careers'})
+      cy.findByRole('link', { name: 'CMO Digital Careers' })
         .should('exist').and('be.visible')
         .click()
 
-      cy.findByRole('link', {name: 'Apply'})
-        .should('exist').and('be.visible')
-        .click()
+      cy.wait("@gqlgetPoolAdvertisementQuery");
+
+      cy.findAllByRole('button', { name: /Apply for this process/i })
+        .should('have.length', 2)
+        .should('exist')
+        .and('be.visible')
+        .click({multiple: true});
 
       // TODO: need to fill this out once it is possible to apply a pool in the app
     });
