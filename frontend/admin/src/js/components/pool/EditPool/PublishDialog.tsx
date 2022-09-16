@@ -89,7 +89,11 @@ const PublishDialog = ({
       </p>
       <InputWrapper
         inputId="closingDate"
-        label="Closing Date"
+        label={intl.formatMessage({
+          defaultMessage: "Closing Date",
+          id: "K+roYh",
+          description: "Closing Date field label for publish pool dialog",
+        })}
         hideOptional
         required={false}
       >
