@@ -27,6 +27,8 @@ describe("Talent Search Workflow Tests", () => {
 
     cy.findByRole("combobox", { name: /Classification/i }).select(1);
 
+    cy.findByRole("combobox", { name: /Region/i }).type("Telework{enter}{enter}");
+
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,
     }).click();
