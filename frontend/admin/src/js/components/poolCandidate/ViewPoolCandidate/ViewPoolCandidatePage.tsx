@@ -106,7 +106,14 @@ export const ViewPoolCandidate = ({
       />
     );
   } else if (snapshotUserPropertyExists && !preferRichView) {
-    mainContent = <pre>{JSON.stringify(parsedSnapshot, null, 2)}</pre>;
+    mainContent = (
+      <pre
+        data-h2-background-color="base(light.dt-gray)"
+        data-h2-overflow="base(scroll, auto)"
+      >
+        {JSON.stringify(parsedSnapshot, null, 2)}
+      </pre>
+    );
   } else {
     mainContent = (
       <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
