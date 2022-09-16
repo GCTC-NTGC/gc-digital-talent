@@ -1,0 +1,19 @@
+query getPoolCandidateSnapshot($poolCandidateId: ID!) {
+  poolCandidate(id: $poolCandidateId) {
+    id
+    user {
+      id
+      firstName
+      lastName
+    }
+    profileSnapshot
+    submittedAt
+    pool {
+      id
+      name {
+        en
+        fr
+      }
+    }
+  }
+}

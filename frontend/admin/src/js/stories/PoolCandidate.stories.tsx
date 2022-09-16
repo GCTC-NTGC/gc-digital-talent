@@ -32,7 +32,7 @@ const poolCandidateData = fakePoolCandidates();
 const stories = storiesOf("Pool Candidates", module);
 
 stories.add("Pool Candidates Table", () => (
-  <PoolCandidatesTable poolCandidates={poolCandidateData} editUrlRoot="#" />
+  <PoolCandidatesTable poolCandidates={poolCandidateData} />
 ));
 
 stories.add("Create Pool Candidate Form", () => (
