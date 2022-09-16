@@ -3,7 +3,7 @@ import Heading from "../Heading";
 
 export interface PageHeaderProps {
   icon?: React.FC<{ className: string }>;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
