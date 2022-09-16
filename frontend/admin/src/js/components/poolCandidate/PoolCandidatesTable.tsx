@@ -35,6 +35,7 @@ import {
 import BasicTable from "../apiManagedTable/BasicTable";
 import TableFooter from "../apiManagedTable/TableFooter";
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
+import PoolCandidateDocument from "./PoolCandidateDocument";
 
 type Data = NonNullable<FromArray<PoolCandidatePaginator["data"]>>;
 
@@ -469,6 +470,10 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
               },
             ),
           }}
+        />
+        <PoolCandidateDocument
+          candidates={selectedCandidates}
+          ref={componentRef}
         />
       </div>
     </div>
