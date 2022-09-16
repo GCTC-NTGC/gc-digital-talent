@@ -8,6 +8,7 @@ import {
   getJobLookingStatus,
   getLanguage,
   getLanguageProficiency,
+  getPoolCandidatePriorities,
   getPoolCandidateStatus,
   getProvinceOrTerritory,
 } from "@common/constants/localizedConstants";
@@ -318,43 +319,14 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
   ];
 
   const data: DownloadCsvProps["data"] = React.useMemo(() => {
-    const candidatePriority = (priority: number | null | undefined) => {
-      switch (priority) {
-        case 10:
-          return intl.formatMessage({
-            defaultMessage: "Priority Entitlement",
-            id: "j1p7LR",
-            description: "Priority text for users with priority entitlement",
-          });
-        case 20:
-          return intl.formatMessage({
-            defaultMessage: "Veteran",
-            id: "oU8C65",
-            description: "Priority text for veterans",
-          });
-        case 30:
-          return intl.formatMessage({
-            defaultMessage: "Citizen or Resident",
-            id: "oMyc4e",
-            description: "Priority text for citizens of canada",
-          });
-        case 40:
-          return intl.formatMessage({
-            defaultMessage: "Work Visa",
-            id: "EimWiB",
-            description: "Priority text for users with work visas",
-          });
-        default:
-          return "";
-      }
-    };
-
     const flattenedCandidates: DownloadCsvProps["data"] = candidates.map(
       ({ status, notes, submittedAt, archivedAt, expiryDate, user }) => ({
         status: status
           ? intl.formatMessage(getPoolCandidateStatus(status as string))
           : "",
-        priority: candidatePriority(user.priorityWeight),
+        priority: user.priorityWeight
+          ? intl.formatMessage(getPoolCandidatePriorities(user.priorityWeight))
+          : "",
         availability: user.jobLookingStatus
           ? intl.formatMessage(
               getJobLookingStatus(user.jobLookingStatus as string, "short"),

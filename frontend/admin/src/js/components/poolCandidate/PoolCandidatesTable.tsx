@@ -5,6 +5,7 @@ import { FromArray } from "@common/types/utilityTypes";
 import {
   getJobLookingStatus,
   getLanguage,
+  getPoolCandidatePriorities,
   getPoolCandidateStatus,
   getProvinceOrTerritory,
 } from "@common/constants/localizedConstants";
@@ -88,48 +89,20 @@ const priorityAccessor = (
   priority: number | null | undefined,
   intl: IntlShape,
 ) => {
-  switch (priority) {
-    case 10:
-      return (
-        <span data-h2-color="base(dt-primary)" data-h2-font-weight="base(700)">
-          {intl.formatMessage({
-            defaultMessage: "Priority Entitlement",
-            id: "j1p7LR",
-            description: "Priority text for users with priority entitlement",
-          })}
-        </span>
-      );
-    case 20:
-      return (
-        <span data-h2-color="base(dt-primary)" data-h2-font-weight="base(700)">
-          {intl.formatMessage({
-            defaultMessage: "Veteran",
-            id: "oU8C65",
-            description: "Priority text for veterans",
-          })}
-        </span>
-      );
-    case 30:
-      return (
-        <span>
-          {intl.formatMessage({
-            defaultMessage: "Citizen or Resident",
-            id: "oMyc4e",
-            description: "Priority text for citizens of canada",
-          })}
-        </span>
-      );
-    default:
-      return (
-        <span>
-          {intl.formatMessage({
-            defaultMessage: "Work Visa",
-            id: "EimWiB",
-            description: "Priority text for users with work visas",
-          })}
-        </span>
-      );
+  if (priority === 10 || priority === 20) {
+    return (
+      <span data-h2-color="base(dt-primary)" data-h2-font-weight="base(700)">
+        {priority
+          ? intl.formatMessage(getPoolCandidatePriorities(priority))
+          : ""}
+      </span>
+    );
   }
+  return (
+    <span>
+      {priority ? intl.formatMessage(getPoolCandidatePriorities(priority)) : ""}
+    </span>
+  );
 };
 const availabilityAccessor = (
   status: JobLookingStatus | null | undefined,

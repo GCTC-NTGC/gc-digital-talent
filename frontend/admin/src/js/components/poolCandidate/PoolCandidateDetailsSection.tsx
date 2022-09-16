@@ -1,5 +1,6 @@
 import {
   getJobLookingStatus,
+  getPoolCandidatePriorities,
   getPoolCandidateStatus,
 } from "@common/constants/localizedConstants";
 import React from "react";
@@ -20,38 +21,6 @@ const PoolCandidateDetailsSection: React.FC<
   candidate: { status, notes, submittedAt, archivedAt, expiryDate, user },
 }) => {
   const intl = useIntl();
-
-  // TODO: Remove this
-  const candidatePriority = (priority: number | null | undefined) => {
-    switch (priority) {
-      case 10:
-        return intl.formatMessage({
-          defaultMessage: "Priority Entitlement",
-          id: "j1p7LR",
-          description: "Priority text for users with priority entitlement",
-        });
-      case 20:
-        return intl.formatMessage({
-          defaultMessage: "Veteran",
-          id: "oU8C65",
-          description: "Priority text for veterans",
-        });
-      case 30:
-        return intl.formatMessage({
-          defaultMessage: "Citizen or Resident",
-          id: "oMyc4e",
-          description: "Priority text for citizens of canada",
-        });
-      case 40:
-        return intl.formatMessage({
-          defaultMessage: "Work Visa",
-          id: "EimWiB",
-          description: "Priority text for users with work visas",
-        });
-      default:
-        return "";
-    }
-  };
 
   return (
     <div data-h2-flex-item="base(1of1) p-tablet(3of4)">
@@ -79,7 +48,11 @@ const PoolCandidateDetailsSection: React.FC<
             description: "Priority label and colon",
           })}{" "}
           <span data-h2-font-weight="base(700)">
-            {candidatePriority(user.priorityWeight)}
+            {user.priorityWeight
+              ? intl.formatMessage(
+                  getPoolCandidatePriorities(user.priorityWeight),
+                )
+              : ""}
           </span>
         </p>
         <p>

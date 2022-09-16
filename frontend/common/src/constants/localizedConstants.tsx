@@ -1489,3 +1489,35 @@ export const getBilingualEvaluation = (
     bilingualEvaluationId,
     `Invalid Language Ability '${bilingualEvaluationId}'`,
   );
+
+export const poolCandidatePriorities = defineMessages({
+  10: {
+    defaultMessage: "Priority Entitlement",
+    id: "j1p7LR",
+    description: "Priority text for users with priority entitlement",
+  },
+  20: {
+    defaultMessage: "Veteran",
+    id: "oU8C65",
+    description: "Priority text for veterans",
+  },
+  30: {
+    defaultMessage: "Citizen or Resident",
+    id: "oMyc4e",
+    description: "Priority text for citizens of canada",
+  },
+  40: {
+    defaultMessage: "Other",
+    id: "K80psp",
+    description: "Priority text for users with no priority",
+  },
+});
+
+export const getPoolCandidatePriorities = (
+  priorityWeight: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    poolCandidatePriorities,
+    priorityWeight,
+    `Invalid Candidate Priority Weight '${priorityWeight}'`,
+  );
