@@ -1588,7 +1588,7 @@
     "defaultMessage": "<strong>Vous n'avez pas de compte de CléGC?</strong> <a>Inscrivez-vous.</a>",
     "description": "Instruction on what to do if user does not have a GC Key."
   },
-  "Ba4Y8a": {
+  "ID8FNk": {
     "defaultMessage": "{candidateCount, plural, one {Il y a actuellement environ <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> candidat qui répond à vos critères.} other {Il y a actuellement environ <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> candidats qui répondent à vos critères.} }",
     "description": "Message for total estimated candidates box next to search form."
   },
