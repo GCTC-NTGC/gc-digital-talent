@@ -50,7 +50,7 @@ stories.add(
       GetPoolCandidatesPaginated: {
         data: {
           poolCandidatesPaginated: {
-            data: [...poolCandidateData.slice(0, 10)],
+            data: poolCandidateData,
             paginatorInfo: mockPaginatorInfo,
           },
         },

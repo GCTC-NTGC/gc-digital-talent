@@ -12,7 +12,6 @@ import {
 import Pending from "@common/components/Pending";
 import { IdType } from "react-table";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
-import { Link } from "@common/components";
 import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
 import {
@@ -26,7 +25,7 @@ import {
   useGetSelectedPoolCandidatesQuery,
 } from "../../api/generated";
 import TableHeader from "../apiManagedTable/TableHeader";
-import { useAdminRoutes } from "../../adminRoutes";
+import { AdminRoutes, useAdminRoutes } from "../../adminRoutes";
 import {
   ColumnsOf,
   handleColumnHiddenChange,
@@ -37,6 +36,7 @@ import BasicTable from "../apiManagedTable/BasicTable";
 import TableFooter from "../apiManagedTable/TableFooter";
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import PoolCandidateDocument from "./PoolCandidateDocument";
+import { tableViewItemButtonAccessor } from "../Table";
 
 type Data = NonNullable<FromArray<PoolCandidatePaginator["data"]>>;
 
@@ -114,41 +114,45 @@ const availabilityAccessor = (
       : ""}
   </span>
 );
-const viewAccessor = (url: string, isQualified: boolean, intl: IntlShape) => {
+const viewAccessor = (
+  candidate: PoolCandidate,
+  adminRoutes: AdminRoutes,
+  intl: IntlShape,
+) => {
+  const isQualified =
+    candidate.status !== PoolCandidateStatus.NewApplication &&
+    candidate.status !== PoolCandidateStatus.ApplicationReview &&
+    candidate.status !== PoolCandidateStatus.ScreenedIn &&
+    candidate.status !== PoolCandidateStatus.ScreenedOutApplication &&
+    candidate.status !== PoolCandidateStatus.UnderAssessment &&
+    candidate.status !== PoolCandidateStatus.ScreenedOutAssessment;
+
+  if (isQualified) {
+    return (
+      <span data-h2-font-weight="base(700)">
+        {tableViewItemButtonAccessor(
+          adminRoutes.userView(candidate.user.id),
+          intl.formatMessage({
+            defaultMessage: "Profile",
+            id: "mRQ/uk",
+            description:
+              "Title displayed for the Pool Candidates table View Profile link.",
+          }),
+        )}
+      </span>
+    );
+  }
   return (
     <span data-h2-font-weight="base(700)">
-      <Link
-        href={url}
-        title={
-          isQualified
-            ? intl.formatMessage({
-                defaultMessage: "Link to candidate application",
-                id: "NtIQ4g",
-                description:
-                  "Descriptive title for anchor link to candidates application",
-              })
-            : intl.formatMessage({
-                defaultMessage: "Link to candidate profile",
-                id: "head8A",
-                description:
-                  "Descriptive title for anchor link to candidates profile",
-              })
-        }
-      >
-        {isQualified
-          ? intl.formatMessage({
-              defaultMessage: "View Application",
-              id: "7zcW68",
-              description:
-                "Title displayed on the Pool Candidates table to view a users application.",
-            })
-          : intl.formatMessage({
-              defaultMessage: "View Profile",
-              id: "09n0oh",
-              description:
-                "Title displayed on the Pool Candidates table to view a users profile.",
-            })}
-      </Link>
+      {tableViewItemButtonAccessor(
+        adminRoutes.candidateApplication(candidate.id),
+        intl.formatMessage({
+          defaultMessage: "Application",
+          id: "5iNcHS",
+          description:
+            "Title displayed for the Pool Candidates table View Application link.",
+        }),
+      )}
     </span>
   );
 };
@@ -162,7 +166,7 @@ const provinceAccessor = (
 
 const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   const intl = useIntl();
-  const paths = useAdminRoutes();
+  const adminRoutes = useAdminRoutes();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -272,16 +276,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         }),
         id: "view",
         accessor: (d) => {
-          const isQualified =
-            d.status !== PoolCandidateStatus.NewApplication &&
-            d.status !== PoolCandidateStatus.ApplicationReview &&
-            d.status !== PoolCandidateStatus.ScreenedIn &&
-            d.status !== PoolCandidateStatus.ScreenedOutApplication &&
-            d.status !== PoolCandidateStatus.UnderAssessment &&
-            d.status !== PoolCandidateStatus.ScreenedOutAssessment;
-
-          // TODO: Update this to navigate to application if applicant not qualified
-          return viewAccessor(paths.userView(d.user.id), isQualified, intl);
+          return viewAccessor(d, adminRoutes, intl);
         },
       },
       {
@@ -340,7 +335,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         accessor: (d) => d.submittedAt,
       },
     ],
-    [intl, selectedRows, filteredData, paths],
+    [intl, selectedRows, filteredData, adminRoutes],
   );
 
   const allColumnIds = columns.map((c) => c.id);
@@ -393,7 +388,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             description:
               "Text label for link to create new pool candidate on admin table",
           }),
-          path: paths.userCreate(),
+          path: adminRoutes.userCreate(),
         }}
         onColumnHiddenChange={(event) =>
           handleColumnHiddenChange(

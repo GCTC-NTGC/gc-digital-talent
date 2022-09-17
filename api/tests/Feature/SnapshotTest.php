@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Events\ApplicationSubmitted;
 use App\Models\PoolCandidate;
 use App\Models\User;
+use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -16,8 +18,22 @@ class SnapshotTest extends TestCase
 {
     use RefreshDatabase;
     use MakesGraphQLRequests;
-    use ClearsSchemaCache;
+    use RefreshesSchemaCache;
     use WithFaker;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->bootRefreshesSchemaCache();
+
+        // Create admin user we run tests as
+        // Note: this extra user does change the results of a couple queries
+        $newUser = new User;
+        $newUser->email = 'admin@test.com';
+        $newUser->sub = 'admin@test.com';
+        $newUser->roles = ['ADMIN'];
+        $newUser->save();
+    }
 
     /**
      * A basic feature test example.
@@ -26,31 +42,18 @@ class SnapshotTest extends TestCase
      */
     public function testCreateSnapshot()
     {
-        $snapshotQuery = $query = file_get_contents(base_path('app/GraphQL/Mutations/TestPoolCandidateSnapshot.graphql'), true);
+        $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
+        $user = User::factory()->create();
 
-        // set up a user with a pool candidate
-        $userId = $this->faker->Uuid();
-        $poolCandidateId = $this->faker->Uuid();
-        User::factory()->create([
-            "id" => $userId
-        ]);
-        PoolCandidate::factory()->create([
-            "id" => $poolCandidateId,
-            "user_id" => $userId
+        $poolCandidate = PoolCandidate::factory()->create([
+            "user_id" => $user->id,
+            "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
         ]);
 
         // get what the snapshot should look like
-        $expectedSnapshot = $this->graphQL($snapshotQuery, ["userId" => $userId])->json("data.user");
+        $expectedSnapshot = $this->graphQL($snapshotQuery, ["userId" => $user->id])->json("data.user");
 
-        // make a snapshot
-        $this->graphQL(
-            /** @lang Graphql */
-            '
-            mutation snapshot($id: ID!) {
-                testPoolCandidateSnapshot(id: $id) { id }
-              }
-            ', ["id" => $poolCandidateId]
-            );
+        ApplicationSubmitted::dispatch($poolCandidate);
 
         // get the just-created snapshot
         $actualSnapshot = $this->graphQL(
@@ -61,10 +64,12 @@ class SnapshotTest extends TestCase
                   profileSnapshot
                 }
               }
-            ', ["poolCandidateId" => $poolCandidateId]
-            )->json("data.poolCandidate");
+            ',
+            ["poolCandidateId" => $poolCandidate->id]
+        )->json("data.poolCandidate.profileSnapshot");
 
-        assertEquals($expectedSnapshot, $actualSnapshot);
+        $decodedActual = json_decode($actualSnapshot, true);
 
+        assertEquals($expectedSnapshot, $decodedActual);
     }
 }

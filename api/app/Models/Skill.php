@@ -37,7 +37,14 @@ class Skill extends Model
         'keywords' => 'array',
     ];
 
-    public function families() : BelongsToMany
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['details'];
+
+    public function families(): BelongsToMany
     {
         return $this->belongsToMany(SkillFamily::class);
     }
@@ -49,9 +56,9 @@ class Skill extends Model
             'experience',
             'experience_skill'
         )
-        ->withTimestamps()
-        ->withPivot('details')
-        ->as('experienceSkillRecord');
+            ->withTimestamps()
+            ->withPivot('details')
+            ->as('experienceSkillRecord');
     }
     public function communityExperiences()
     {
@@ -60,9 +67,9 @@ class Skill extends Model
             'experience',
             'experience_skill'
         )
-        ->withTimestamps()
-        ->withPivot('details')
-        ->as('experienceSkillRecord');
+            ->withTimestamps()
+            ->withPivot('details')
+            ->as('experienceSkillRecord');
     }
     public function educationExperiences()
     {
@@ -71,9 +78,9 @@ class Skill extends Model
             'experience',
             'experience_skill'
         )
-        ->withTimestamps()
-        ->withPivot('details')
-        ->as('experience_skill');
+            ->withTimestamps()
+            ->withPivot('details')
+            ->as('experience_skill');
     }
     public function personalExperiences()
     {
@@ -82,9 +89,9 @@ class Skill extends Model
             'experience',
             'experience_skill'
         )
-        ->withTimestamps()
-        ->withPivot('details')
-        ->as('experienceSkillRecord');
+            ->withTimestamps()
+            ->withPivot('details')
+            ->as('experienceSkillRecord');
     }
     public function workExperiences()
     {
@@ -93,9 +100,9 @@ class Skill extends Model
             'experience',
             'experience_skill'
         )
-        ->withTimestamps()
-        ->withPivot('details')
-        ->as('experience_skill_pivot');
+            ->withTimestamps()
+            ->withPivot('details')
+            ->as('experience_skill_pivot');
     }
     public function getExperiencesAttribute()
     {
@@ -108,13 +115,18 @@ class Skill extends Model
         return $collection;
     }
 
-    public function poolsEssentialSkills() : BelongsToMany
+    public function poolsEssentialSkills(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pools_essential_skills');
     }
 
-    public function poolsNonessentialSkills() : BelongsToMany
+    public function poolsNonessentialSkills(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pools_essential_skills');
+    }
+
+    public function getDetailsAttribute()
+    {
+        return $this->experience_skill_pivot ? $this->experience_skill_pivot->details : "";
     }
 }
