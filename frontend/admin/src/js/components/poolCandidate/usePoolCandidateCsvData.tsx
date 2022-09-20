@@ -1,29 +1,97 @@
 import React from "react";
+import { DownloadCsvProps } from "@common/components/Link";
 import { useIntl } from "react-intl";
-import type { DownloadCsvProps } from "@common/components/Link";
-import {
-  employeeTypeToString,
-  flattenExperiencesToSkills,
-  getExpectedClassifications,
-  getLocationPreference,
-  getLookingForLanguage,
-  getOperationalRequirements,
-  yesOrNo,
-} from "@common/helpers/csvUtils";
 import {
   getArmedForcesStatusesAdmin,
   getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
+  getJobLookingStatus,
+  getLanguage,
   getLanguageProficiency,
+  getPoolCandidatePriorities,
+  getPoolCandidateStatus,
+  getProvinceOrTerritory,
 } from "@common/constants/localizedConstants";
+import {
+  yesOrNo,
+  employeeTypeToString,
+  getLocationPreference,
+  getOperationalRequirements,
+  getExpectedClassifications,
+  flattenExperiencesToSkills,
+} from "@common/helpers/csvUtils";
 import { getLocale } from "@common/helpers/localize";
-import { Applicant } from "../../api/generated";
+import { PoolCandidate } from "../../api/generated";
 
-const useUserCsvData = (applicants: Applicant[]) => {
+const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
   const headers: DownloadCsvProps["headers"] = [
+    {
+      key: "status",
+      label: intl.formatMessage({
+        defaultMessage: "Status",
+        id: "C0ABZu",
+        description: "CSV Header, Status column",
+      }),
+    },
+    {
+      key: "priority",
+      label: intl.formatMessage({
+        defaultMessage: "Priority",
+        id: "w9RqOI",
+        description: "CSV Header, Priority column",
+      }),
+    },
+    {
+      key: "availability",
+      label: intl.formatMessage({
+        defaultMessage: "Availability",
+        id: "l62TJM",
+        description: "CSV Header, Availability column",
+      }),
+    },
+    {
+      key: "notes",
+      label: intl.formatMessage({
+        defaultMessage: "Notes",
+        id: "ev6HnY",
+        description: "CSV Header, Notes column",
+      }),
+    },
+    {
+      key: "currentProvince",
+      label: intl.formatMessage({
+        defaultMessage: "Current Province",
+        id: "Xo0M3N",
+        description: "CSV Header, Current Province column",
+      }),
+    },
+    {
+      key: "dateReceived",
+      label: intl.formatMessage({
+        defaultMessage: "Date Received",
+        id: "j9m5qA",
+        description: "CSV Header, Date Received column",
+      }),
+    },
+    {
+      key: "expiryDate",
+      label: intl.formatMessage({
+        defaultMessage: "Expiry Date",
+        id: "BNEY8G",
+        description: "CSV Header, Expiry Date column",
+      }),
+    },
+    {
+      key: "archivedAt",
+      label: intl.formatMessage({
+        defaultMessage: "Archival Date",
+        id: "nxsvto",
+        description: "CSV Header, Archival Date column",
+      }),
+    },
     {
       key: "firstName",
       label: intl.formatMessage({
@@ -41,6 +109,30 @@ const useUserCsvData = (applicants: Applicant[]) => {
       }),
     },
     {
+      key: "email",
+      label: intl.formatMessage({
+        defaultMessage: "Email",
+        id: "H02JZe",
+        description: "CSV Header, Email column",
+      }),
+    },
+    {
+      key: "preferredLanguage",
+      label: intl.formatMessage({
+        defaultMessage: "Preferred Language",
+        id: "p0e6Y5",
+        description: "CSV Header, Preferred Language column",
+      }),
+    },
+    {
+      key: "currentCity",
+      label: intl.formatMessage({
+        defaultMessage: "Current City",
+        id: "CLOuJF",
+        description: "CSV Header, Current City column",
+      }),
+    },
+    {
       key: "armedForcesStatus",
       label: intl.formatMessage({
         defaultMessage: "Armed Forces Status",
@@ -54,14 +146,6 @@ const useUserCsvData = (applicants: Applicant[]) => {
         defaultMessage: "Citizenship",
         id: "FWftu5",
         description: "CSV Header, Citizenship column",
-      }),
-    },
-    {
-      key: "language",
-      label: intl.formatMessage({
-        defaultMessage: "Language",
-        id: "Q/clLF",
-        description: "CSV Header, Language column",
       }),
     },
     {
@@ -235,93 +319,90 @@ const useUserCsvData = (applicants: Applicant[]) => {
   ];
 
   const data: DownloadCsvProps["data"] = React.useMemo(() => {
-    const flattenedApplicants: DownloadCsvProps["data"] = applicants.map(
-      ({
-        firstName,
-        lastName,
-        armedForcesStatus,
-        citizenship,
-        lookingForEnglish,
-        lookingForFrench,
-        lookingForBilingual,
-        bilingualEvaluation,
-        comprehensionLevel,
-        writtenLevel,
-        verbalLevel,
-        estimatedLanguageAbility,
-        isGovEmployee,
-        hasPriorityEntitlement,
-        priorityNumber,
-        department,
-        govEmployeeType,
-        currentClassification,
-        locationPreferences,
-        locationExemptions,
-        wouldAcceptTemporary,
-        acceptedOperationalRequirements,
-        isWoman,
-        isIndigenous,
-        isVisibleMinority,
-        hasDisability,
-        expectedGenericJobTitles,
-        experiences,
-      }) => ({
-        firstName: firstName || "",
-        lastName: lastName || "",
-        armedForcesStatus: armedForcesStatus
-          ? intl.formatMessage(getArmedForcesStatusesAdmin(armedForcesStatus))
+    const flattenedCandidates: DownloadCsvProps["data"] = candidates.map(
+      ({ status, notes, submittedAt, archivedAt, expiryDate, user }) => ({
+        status: status
+          ? intl.formatMessage(getPoolCandidateStatus(status as string))
           : "",
-        citizenship: citizenship
-          ? intl.formatMessage(getCitizenshipStatusesAdmin(citizenship))
+        priority: user.priorityWeight
+          ? intl.formatMessage(getPoolCandidatePriorities(user.priorityWeight))
           : "",
-        language: getLookingForLanguage(
-          lookingForEnglish,
-          lookingForFrench,
-          lookingForBilingual,
+        availability: user.jobLookingStatus
+          ? intl.formatMessage(
+              getJobLookingStatus(user.jobLookingStatus as string, "short"),
+            )
+          : "",
+        notes: notes || "",
+        dateReceived: submittedAt || "",
+        expiryDate: expiryDate || "",
+        archivedAt: archivedAt || "",
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        email: user.email || "",
+        preferredLanguage: user.preferredLang
+          ? intl.formatMessage(getLanguage(user.preferredLang as string))
+          : "",
+        currentCity: user.currentCity || "",
+        currentProvince: user.currentProvince
+          ? intl.formatMessage(
+              getProvinceOrTerritory(user.currentProvince as string),
+            )
+          : "",
+        armedForcesStatus: user.armedForcesStatus
+          ? intl.formatMessage(
+              getArmedForcesStatusesAdmin(user.armedForcesStatus),
+            )
+          : "",
+        citizenship: user.citizenship
+          ? intl.formatMessage(getCitizenshipStatusesAdmin(user.citizenship))
+          : "",
+        bilingualEvaluation: user.bilingualEvaluation
+          ? intl.formatMessage(getBilingualEvaluation(user.bilingualEvaluation))
+          : "",
+        comprehensionLevel: user.comprehensionLevel || "",
+        writtenLevel: user.writtenLevel || "",
+        verbalLevel: user.verbalLevel || "",
+        estimatedLanguageAbility: user.estimatedLanguageAbility
+          ? intl.formatMessage(
+              getLanguageProficiency(user.estimatedLanguageAbility),
+            )
+          : "",
+        isGovEmployee: yesOrNo(user.isGovEmployee, intl),
+        hasPriorityEntitlement: yesOrNo(user.hasPriorityEntitlement, intl),
+        priorityNumber: user.priorityNumber || "",
+        department: user.department?.name[locale] || "",
+        govEmployeeType: user.govEmployeeType
+          ? employeeTypeToString(user.govEmployeeType, intl)
+          : "",
+        currentClassification: user.currentClassification
+          ? `${user.currentClassification.group}-${user.currentClassification.level}`
+          : "",
+        locationPreferences: getLocationPreference(
+          user.locationPreferences,
           intl,
         ),
-        bilingualEvaluation: bilingualEvaluation
-          ? intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))
-          : "",
-        comprehensionLevel: comprehensionLevel || "",
-        writtenLevel: writtenLevel || "",
-        verbalLevel: verbalLevel || "",
-        estimatedLanguageAbility: estimatedLanguageAbility
-          ? intl.formatMessage(getLanguageProficiency(estimatedLanguageAbility))
-          : "",
-        isGovEmployee: yesOrNo(isGovEmployee, intl),
-        hasPriorityEntitlement: yesOrNo(hasPriorityEntitlement, intl),
-        priorityNumber: priorityNumber || "",
-        department: department?.name[locale] || "",
-        govEmployeeType: govEmployeeType
-          ? employeeTypeToString(govEmployeeType, intl)
-          : "",
-        currentClassification: currentClassification
-          ? `${currentClassification.group}-${currentClassification.level}`
-          : "",
-        locationPreferences: getLocationPreference(locationPreferences, intl),
-        locationExemptions: locationExemptions || "",
-        wouldAcceptTemporary: yesOrNo(wouldAcceptTemporary, intl),
+        locationExemptions: user.locationExemptions || "",
+        wouldAcceptTemporary: yesOrNo(user.wouldAcceptTemporary, intl),
         acceptedOperationalRequirements: getOperationalRequirements(
-          acceptedOperationalRequirements,
+          user.acceptedOperationalRequirements,
           intl,
         ),
-        isWoman: yesOrNo(isWoman, intl),
-        isIndigenous: yesOrNo(isIndigenous, intl),
-        isVisibleMinority: yesOrNo(isVisibleMinority, intl),
-        hasDisability: yesOrNo(hasDisability, intl),
+        isWoman: yesOrNo(user.isWoman, intl),
+        isIndigenous: yesOrNo(user.isIndigenous, intl),
+        isVisibleMinority: yesOrNo(user.isVisibleMinority, intl),
+        hasDisability: yesOrNo(user.hasDisability, intl),
         expectedClassification: getExpectedClassifications(
-          expectedGenericJobTitles,
+          user.expectedGenericJobTitles,
           intl,
         ),
-        skills: flattenExperiencesToSkills(experiences, locale),
+        skills: flattenExperiencesToSkills(user.experiences, locale),
       }),
     );
 
-    return flattenedApplicants;
-  }, [applicants, intl, locale]);
+    return flattenedCandidates;
+  }, [candidates, intl, locale]);
 
   return { headers, data };
 };
 
-export default useUserCsvData;
+export default usePoolCandidateCsvData;
