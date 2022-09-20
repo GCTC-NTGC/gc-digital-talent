@@ -23,6 +23,10 @@ fragment poolCandidateTable on PoolCandidate {
     email
     preferredLang
     telephone
+    priorityWeight
+    jobLookingStatus
+    currentCity
+    currentProvince
   }
   cmoIdentifier
   expiryDate
@@ -46,12 +50,14 @@ fragment poolCandidateTable on PoolCandidate {
   }
   cmoAssets {
     id
+    key
     name {
       en
       fr
     }
   }
   status
+  submittedAt
 }
 
 fragment poolCandidateForm on PoolCandidate {
@@ -93,15 +99,213 @@ fragment poolCandidateForm on PoolCandidate {
   }
   status
 }
+
+fragment selectedPoolCandidates on PoolCandidate {
+  id
+  pool {
+    id
+    name {
+      en
+      fr
+    }
+    classifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+    }
+  }
+  user {
+    id
+    email
+    firstName
+    lastName
+    telephone
+    preferredLang
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+    isGovEmployee
+    govEmployeeType
+    hasPriorityEntitlement
+    priorityNumber
+    priorityWeight
+    locationPreferences
+    locationExemptions
+    wouldAcceptTemporary
+    acceptedOperationalRequirements
+    isWoman
+    isIndigenous
+    isVisibleMinority
+    hasDisability
+    citizenship
+    armedForcesStatus
+    expectedSalary
+    jobLookingStatus
+    currentCity
+    currentProvince
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    currentClassification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+    experiences {
+      id
+      __typename
+      applicant {
+        id
+        email
+      }
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+  }
+  cmoIdentifier
+  expiryDate
+  isWoman
+  hasDisability
+  isIndigenous
+  isVisibleMinority
+  hasDiploma
+  languageAbility
+  locationPreferences
+  acceptedOperationalRequirements
+  expectedSalary
+  expectedClassifications {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+  }
+  cmoAssets {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+  status
+  submittedAt
+  notes
+  archivedAt
+}
 query getPoolCandidate($id: ID!) {
   poolCandidate(id: $id) {
     ...poolCandidateTable
   }
 }
 
-query GetPoolCandidates {
-  poolCandidates {
-    ...poolCandidateTable
+query GetSelectedPoolCandidates($ids: [ID]) {
+  poolCandidates(includeIds: $ids) {
+    ...selectedPoolCandidates
+  }
+}
+
+query GetPoolCandidatesPaginated(
+  $where: PaginatedPoolCandidateFilterInput
+  $first: Int
+  $page: Int
+) {
+  poolCandidatesPaginated(where: $where, first: $first, page: $page) {
+    data {
+      ...poolCandidateTable
+    }
+    paginatorInfo {
+      count
+      currentPage
+      firstItem
+      hasMorePages
+      lastItem
+      lastPage
+      perPage
+      total
+    }
   }
 }
 
