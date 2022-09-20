@@ -71,13 +71,6 @@ const ExperienceAndSkillsPage = React.lazy(
 
 /** Direct Intake */
 const BrowsePoolsPage = React.lazy(() => import("./browse/BrowsePoolsPage"));
-const BrowseIndividualPoolApi = React.lazy(
-  () => import("./browse/BrowseIndividualPool"),
-);
-const PoolApplyPage = React.lazy(() => import("./pool/PoolApplyPage"));
-const PoolApplicationThanksPage = React.lazy(
-  () => import("./pool/PoolApplicationThanksPage"),
-);
 const PoolAdvertisementPage = React.lazy(
   () => import("./pool/PoolAdvertisementPage"),
 );
@@ -411,36 +404,6 @@ const directIntakeRoutes = (
   },
   {
     path: directIntakePaths.pool(":id"),
-    action: (context) => {
-      const poolId = context.params.id as string;
-      return {
-        component: <BrowseIndividualPoolApi poolId={poolId} />,
-        authorizedRoles: [Role.Applicant],
-      };
-    },
-  },
-  {
-    path: directIntakePaths.poolApply(":id"),
-    action: (context) => {
-      const poolId = context.params.id as string;
-      return {
-        component: <PoolApplyPage id={poolId} />,
-        authorizedRoles: [Role.Applicant],
-      };
-    },
-  },
-  {
-    path: directIntakePaths.poolApplyThanks(":id"),
-    action: (context) => {
-      const poolId = context.params.id as string;
-      return {
-        component: <PoolApplicationThanksPage id={poolId} />,
-        authorizedRoles: [Role.Applicant],
-      };
-    },
-  },
-  {
-    path: directIntakePaths.poolAdvertisement(":id"),
     action: (context) => {
       const poolId = context.params.id as string;
       return {
