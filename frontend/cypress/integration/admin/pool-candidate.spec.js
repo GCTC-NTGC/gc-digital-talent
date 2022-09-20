@@ -58,6 +58,8 @@ describe("Pool Candidates", () => {
     cy.findByRole("button", { name: /save changes/i })
       .click();
 
+    cy.wait("@gqlUpdatePoolCandidateStatusMutation")
+
     cy.expectToast(/pool candidate status updated successfully/i);
 
   });
