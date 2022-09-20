@@ -17,7 +17,7 @@ describe("Pool Candidates", () => {
       aliasQuery(req, "GetPoolCandidateStatus");
       aliasQuery(req, "getPoolCandidateSnapshot");
       aliasQuery(req, "getPools");
-      aliasQuery(req, "getPoolCandidatesByPool");
+      aliasQuery(req, "GetPoolCandidatesPaginated");
 
       aliasMutation(req, "UpdatePoolCandidateStatus");
     });
@@ -32,7 +32,7 @@ describe("Pool Candidates", () => {
       .eq(0)
       .click();
 
-    cy.wait("@gqlgetPoolCandidatesByPoolQuery");
+    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 
     cy.findAllByRole("link", { name: /view application/i })
       .eq(0)
