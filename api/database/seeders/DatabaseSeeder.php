@@ -20,6 +20,7 @@ use App\Models\EducationExperience;
 use App\Models\GenericJobTitle;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
+use App\Http\Resources\UserResource;
 use Faker;
 use Database\Helpers\ApiEnums;
 
@@ -189,6 +190,8 @@ class DatabaseSeeder extends Seeder
             // match arrays from the user
             $candidate->expectedClassifications()->sync($user->expectedClassifications()->pluck('classifications.id')->toArray());
             $candidate->cmoAssets()->sync($user->cmoAssets()->pluck('cmo_assets.id')->toArray());
+
+            $candidate->createSnapshot();
         })->create();
     }
 }
