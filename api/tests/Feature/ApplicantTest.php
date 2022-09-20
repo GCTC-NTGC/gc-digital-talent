@@ -1411,4 +1411,126 @@ class ApplicantTest extends TestCase
             ]
         ]);
     }
+
+    public function testSortingPriorityThenStatus(): void
+    {
+        $user = User::All()->first();
+        $pool1 = Pool::factory()->create([
+            'user_id' => $user['id']
+        ]);
+
+        // DRAFT, NOT PRESENT
+        $candidateOne = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+                'has_priority_entitlement' => true,
+                'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
+                'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
+            ])
+        ]);
+        // NEW APPLICATION, NO PRIORITY SO THIRD
+        $candidateTwo = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+                'has_priority_entitlement' => false,
+                'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
+                'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
+            ])
+        ]);
+        // APPLICATION REVIEW, NO PRIORITY SO FOURTH
+        $candidateThree = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+                'has_priority_entitlement' => false,
+                'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
+                'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
+            ])
+        ]);
+
+        // NEW APPLICATION, VETERAN SO SECOND
+        $candidateFour = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+                'has_priority_entitlement' => false,
+                'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
+                'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
+            ])
+        ]);
+        // QUALIFIED AVAILABLE, HAS ENTITLEMENT SO FIRST
+        $candidateFive = PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
+            'expiry_date' => config('constants.far_future_date'),
+            'submitted_at' => config('constants.past_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'user_id' => User::factory([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
+                'has_priority_entitlement' => true,
+                'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
+                'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
+            ])
+        ]);
+
+        // Assert the order is correct
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidatesPaginated {
+                poolCandidatesPaginated (orderBy: [
+                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                    { column: "status_weight", order: ASC }
+                  ])
+                {
+                    data
+                    {
+                        id
+                    }
+                }
+            }
+            ')->assertJson([
+            "data" => [
+                "poolCandidatesPaginated" => [
+                    "data" => [
+                        ["id" => $candidateFive->id,],
+                        ["id" => $candidateFour->id,],
+                        ["id" => $candidateTwo->id,],
+                        ["id" => $candidateThree->id,],
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert that DRAFT is not retrieved
+        $this->graphQL(/** @lang Graphql */ '
+            query poolCandidatesPaginated {
+                poolCandidatesPaginated (orderBy: [
+                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                    { column: "status_weight", order: ASC }
+                  ])
+                {
+                    data
+                    {
+                        status
+                    }
+                }
+            }
+            ')->assertDontSeeText(ApiEnums::CANDIDATE_STATUS_DRAFT);
+    }
 }
