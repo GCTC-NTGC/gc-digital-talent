@@ -51,7 +51,6 @@ describe("Talentsearch Direct Intake Page", () => {
       cy.wait("@gqlgetPoolAdvertisementQuery");
 
       cy.findAllByRole('button', { name: /Apply for this process/i })
-        .should('have.length', 2)
         .should('exist')
         .and('be.visible')
         .click({multiple: true});
