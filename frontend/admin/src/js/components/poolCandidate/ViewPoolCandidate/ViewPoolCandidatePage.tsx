@@ -20,6 +20,7 @@ import {
   Maybe,
 } from "../../../api/generated";
 import DashboardContentContainer from "../../DashboardContentContainer";
+import ApplicationStatusForm from "../ApplicationStatusForm";
 
 export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
@@ -103,6 +104,7 @@ export const ViewPoolCandidate = ({
           },
         }}
         isNavigationVisible={false}
+        sidebar={<ApplicationStatusForm id={poolCandidate.id} />}
       />
     );
   } else if (snapshotUserPropertyExists && !preferRichView) {

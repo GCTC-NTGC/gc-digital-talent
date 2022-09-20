@@ -59,16 +59,8 @@ export const ApplicationStatusForm = ({
   };
 
   return (
-    <div
-      data-h2-position="base(sticky)"
-      data-h2-width="base(100%)"
-      style={{ top: 0 }}
-    >
-      <Heading
-        level="h2"
-        data-h2-margin="base(0, 0, x0.5, 0)"
-        data-h2-font-size="base(h3)"
-      >
+    <div data-h2-width="base(100%)">
+      <Heading level="h2" data-h2-font-size="base(h5)">
         {intl.formatMessage({
           defaultMessage: "Application status",
           id: "/s66sg",
@@ -84,7 +76,7 @@ export const ApplicationStatusForm = ({
           <form onSubmit={handleSubmit(handleFormSubmit)}>
             <Heading
               level="h3"
-              data-h2-font-size="base(h4)"
+              data-h2-font-size="base(h5)"
               data-h2-margin="base(0, 0, x0.25, 0)"
               data-h2-display="base(flex)"
               data-h2-align-items="base(center)"
@@ -137,7 +129,7 @@ export const ApplicationStatusForm = ({
             />
             <Heading
               level="h3"
-              data-h2-font-size="base(h4)"
+              data-h2-font-size="base(h5)"
               data-h2-display="base(flex)"
               data-h2-align-items="base(center)"
             >

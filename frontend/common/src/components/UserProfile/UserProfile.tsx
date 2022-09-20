@@ -50,6 +50,7 @@ export interface UserProfileProps {
     workPreferences?: SectionControl;
   };
   isNavigationVisible?: boolean;
+  sidebar?: React.ReactNode;
 }
 
 const HeadingWrapper: React.FC<{ show: boolean }> = ({ children, show }) => {
@@ -71,6 +72,7 @@ const HeadingWrapper: React.FC<{ show: boolean }> = ({ children, show }) => {
 const UserProfile: React.FC<UserProfileProps> = ({
   applicant,
   sections,
+  sidebar,
   isNavigationVisible = true,
 }) => {
   const intl = useIntl();
@@ -182,6 +184,9 @@ const UserProfile: React.FC<UserProfileProps> = ({
               </TableOfContents.AnchorLink>
             )}
           </TableOfContents.Navigation>
+        )}
+        {!isNavigationVisible && sidebar && (
+          <TableOfContents.Sidebar>{sidebar}</TableOfContents.Sidebar>
         )}
         <TableOfContents.Content>
           {showSection("myStatus") && (
