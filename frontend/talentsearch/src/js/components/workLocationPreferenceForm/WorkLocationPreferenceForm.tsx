@@ -199,9 +199,19 @@ export const WorkLocationPreferenceForm: React.FC<
               <div data-h2-padding="base(0, x2, 0, 0)">
                 <TextArea
                   id="location-exemptions"
-                  label="Location exemptions"
+                  label={intl.formatMessage({
+                    defaultMessage: "Location exemptions",
+                    id: "0qNkIp",
+                    description:
+                      "Location Exemptions field label for work location preference form",
+                  })}
                   name="locationExemptions"
-                  placeholder="Optionally, add a city or village here..."
+                  placeholder={intl.formatMessage({
+                    defaultMessage: "Optionally, add a city or village here...",
+                    id: "OH5tTS",
+                    description:
+                      "Location Exemptions field placeholder for work location preference form",
+                  })}
                 />
               </div>
             </div>

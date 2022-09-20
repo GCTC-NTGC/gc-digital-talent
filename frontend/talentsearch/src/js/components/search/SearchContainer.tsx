@@ -97,11 +97,13 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     applicantFilter?.expectedClassifications?.length ?? 0;
   const operationalRequirementFilterCount =
     applicantFilter?.operationalRequirements?.length ?? 0;
+  const locationPreferencesCount =
+    applicantFilter?.locationPreferences?.length ?? 0;
 
   const searchRef = useRef<SearchFormRef>(null);
 
   const tryHandleSubmit = async () => {
-    if (classificationFilterCount === 0) {
+    if (classificationFilterCount === 0 || locationPreferencesCount === 0) {
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
     } else {

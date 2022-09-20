@@ -120,7 +120,19 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
         data-h2-border="base(none)"
         data-h2-margin="base(x1, 0)"
       />
-      {skillsList?.length > 0 ? skillsList : undefined}
+      {skillsList?.length > 0 ? (
+        skillsList
+      ) : (
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "No skills have been linked to this experience yet.",
+            id: "c4r/Zv",
+            description:
+              "A message explaining that the experience has no associated skills",
+          })}
+        </p>
+      )}
       <hr
         data-h2-background-color="base(dt-gray)"
         data-h2-height="base(1px)"

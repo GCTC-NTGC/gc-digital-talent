@@ -8,10 +8,11 @@ import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectF
 import "./UserTableFilterDialog.css";
 import { useFormContext } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import type { Option } from "@common/components/form/Select/SelectFieldV2";
 import { AdjustmentsVerticalIcon } from "@heroicons/react/24/outline";
 import useFilterOptions from "./useFilterOptions";
 import { ButtonIcon } from "../Table/tableComponents";
+
+type Option = { value: string; label: string };
 
 export type FormValues = {
   pools: Option["value"][];
@@ -232,7 +233,9 @@ const UserTableFilterDialog = ({
 export type UserTableFilterButtonProps = Pick<
   UserTableFilterDialogProps,
   "onSubmit" | "enableEducationType"
-> & { isOpenDefault?: boolean };
+> & {
+  isOpenDefault?: boolean;
+};
 const UserTableFilterButton = ({
   onSubmit,
   isOpenDefault = false,

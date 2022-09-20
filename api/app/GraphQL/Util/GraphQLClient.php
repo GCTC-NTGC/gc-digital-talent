@@ -59,6 +59,6 @@ class GraphQLClient
      */
     private static function graphQLEndpointUrl(): string
     {
-        return config('app.url').'/graphql';
+        return 'http://localhost/graphql';
     }
 }
