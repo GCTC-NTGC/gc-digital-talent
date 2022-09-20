@@ -73,7 +73,11 @@ const CloseDialog = ({
       </p>
       <InputWrapper
         inputId="closingDate"
-        label="Closing Date"
+        label={intl.formatMessage({
+          defaultMessage: "Closing Date",
+          id: "7OQHcx",
+          description: "Closing Date field label for close pool dialog",
+        })}
         hideOptional
         required={false}
       >

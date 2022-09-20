@@ -194,14 +194,29 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
-              {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
-              <a href={editPath}>
-                {intl.formatMessage({
-                  defaultMessage: "Edit your about me options.",
-                  id: "L9AGk7",
-                  description: "Link text to edit about me section on profile.",
-                })}
-              </a>
+              {editPath && (
+                <>
+                  {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
+                  <a href={editPath}>
+                    {intl.formatMessage({
+                      defaultMessage: "Edit your about me options.",
+                      id: "L9AGk7",
+                      description:
+                        "Link text to edit about me section on profile.",
+                    })}
+                  </a>
+                </>
+              )}
+              {!editPath && (
+                <>
+                  {intl.formatMessage({
+                    defaultMessage: "No information has been provided.",
+                    id: "NIEIAC",
+                    description:
+                      "Message on Admin side when user not filled about me section.",
+                  })}
+                </>
+              )}
             </p>
           </div>
         </div>

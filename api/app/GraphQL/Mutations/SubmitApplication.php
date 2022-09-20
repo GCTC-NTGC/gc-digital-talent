@@ -1,6 +1,8 @@
 <?php
 
 namespace App\GraphQL\Mutations;
+
+use App\Events\ApplicationSubmitted;
 use App\Models\PoolCandidate;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
@@ -114,7 +116,9 @@ final class SubmitApplication
         $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
         $application->expiry_date = $expiryDate;
         $application->signature = $signature;
-        $application->save();
+        $success = $application->save();
+
+        ApplicationSubmitted::dispatchIf($success, $application);
 
         return $application;
     }

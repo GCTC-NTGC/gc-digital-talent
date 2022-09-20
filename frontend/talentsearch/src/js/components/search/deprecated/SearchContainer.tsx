@@ -62,6 +62,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   const cmoAssetFilterCount = candidateFilter?.cmoAssets?.length ?? 0;
   const operationalRequirementFilterCount =
     candidateFilter?.operationalRequirements?.length ?? 0;
+  const workRegionFilterCount = candidateFilter?.workRegions?.length ?? 0;
 
   function a(msg: string) {
     return (
@@ -77,7 +78,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   const searchRef = useRef<SearchFormRef>(null);
 
   const tryHandleSubmit = async () => {
-    if (classificationFilterCount === 0) {
+    if (classificationFilterCount === 0 || workRegionFilterCount === 0) {
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
     } else {

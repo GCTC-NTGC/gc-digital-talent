@@ -10,6 +10,7 @@ import {
   oppositeLocale,
 } from "@common/helpers/localize";
 import { Helmet } from "react-helmet";
+import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import ClientProvider from "./ClientProvider";
 import PageContainer, { MenuLink } from "./PageContainer";
 import {
@@ -44,6 +45,16 @@ export const Router: React.FC = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const indigenousApprenticeshipPaths = useIndigenousApprenticeshipRoutes();
+
+  if (process.env.APPLICATIONINSIGHTS_CONNECTION_STRING) {
+    const appInsights = new ApplicationInsights({
+      config: {
+        connectionString: process.env.APPLICATIONINSIGHTS_CONNECTION_STRING,
+      },
+    });
+    appInsights.loadAppInsights();
+    appInsights.trackPageView();
+  }
 
   const menuItems = [
     <MenuLink

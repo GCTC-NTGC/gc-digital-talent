@@ -42,6 +42,15 @@ const UpdateCmoAsset = React.lazy(() => import("./cmoAsset/UpdateCmoAsset"));
 const PoolCandidatePage = React.lazy(
   () => import("./poolCandidate/PoolCandidatePage"),
 );
+const CreatePoolCandidate = React.lazy(
+  () => import("./poolCandidate/CreatePoolCandidate"),
+);
+const UpdatePoolCandidate = React.lazy(
+  () => import("./poolCandidate/UpdatePoolCandidate"),
+);
+const ViewPoolCandidatePage = React.lazy(
+  () => import("./poolCandidate/ViewPoolCandidate/ViewPoolCandidatePage"),
+);
 
 /** Pools */
 const PoolPage = React.lazy(() => import("./pool/PoolPage"));
@@ -193,6 +202,33 @@ const routes = (
     path: paths.poolCandidateTable(":id"),
     action: ({ params }) => ({
       component: <PoolCandidatePage poolId={params.id as string} />,
+      authorizedRoles: [Role.Admin],
+    }),
+  },
+  {
+    path: paths.poolCandidateCreate(":id"),
+    action: ({ params }) => ({
+      component: <CreatePoolCandidate poolId={params.id as string} />,
+      authorizedRoles: [Role.Admin],
+    }),
+  },
+  {
+    path: paths.poolCandidateUpdate(":poolId", ":candidateId"),
+    action: ({ params }) => ({
+      component: (
+        <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />
+      ),
+      authorizedRoles: [Role.Admin],
+    }),
+  },
+  {
+    path: paths.candidateApplication(":poolCandidateId"),
+    action: ({ params }) => ({
+      component: (
+        <ViewPoolCandidatePage
+          poolCandidateId={params.poolCandidateId as string}
+        />
+      ),
       authorizedRoles: [Role.Admin],
     }),
   },
