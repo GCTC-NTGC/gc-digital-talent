@@ -1,58 +1,96 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Link } from "@common/components";
+import PageHeader from "@common/components/PageHeader";
+import { Squares2X2Icon } from "@heroicons/react/24/outline";
+import Breadcrumbs from "@common/components/Breadcrumbs";
+import Pending from "@common/components/Pending";
+import { getLocale } from "@common/helpers/localize";
+import DashboardContentContainer from "../DashboardContentContainer";
+import PoolCandidatesTable from "./PoolCandidatesTable";
 import { useAdminRoutes } from "../../adminRoutes";
-import { PoolCandidatesTableApi } from "./PoolCandidatesTable";
+import { useGetPoolQuery } from "../../api/generated";
 
 export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useAdminRoutes();
+
+  const [{ data, fetching, error }] = useGetPoolQuery({
+    variables: {
+      id: poolId,
+    },
+  });
+
+  const crumbs = [
+    {
+      title: intl.formatMessage({
+        defaultMessage: "My Pools",
+        id: "XYLd6G",
+        description: "Breadcrumb for the My Pools page",
+      }),
+      href: paths.poolTable(),
+    },
+    {
+      title:
+        data?.pool?.name?.[locale] ||
+        intl.formatMessage({
+          defaultMessage: "Pool name not found",
+          id: "HGMl3y",
+          description: "Breadcrumb to pool page if pool name not found",
+        }),
+      href: paths.poolTable(),
+    },
+    {
+      title: intl.formatMessage({
+        defaultMessage: "All Candidates",
+        id: "v8vbWP",
+        description: "Breadcrumb for the All Candidates page",
+      }),
+    },
+  ];
+
   return (
-    <div>
-      <header
-        data-h2-background-color="base(dt-linear)"
-        data-h2-padding="base(x2, 0)"
+    <Pending fetching={fetching} error={error}>
+      <div
+        data-h2-background-color="base(dt-gray.light)"
+        data-h2-padding="base(x1, x1, x1, x1)"
       >
-        <div data-h2-container="base(center, full, x2)">
-          <div data-h2-flex-grid="base(center, x2)">
-            <div data-h2-flex-item="base(1of1) l-tablet(3of5)">
-              <h1
-                data-h2-color="base(dt-white)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(0)"
-                style={{ letterSpacing: "-2px" }}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Pool Candidates",
-                  id: "8AbNBq",
-                  description:
-                    "Heading displayed above the Pool Candidate Table component.",
-                })}
-              </h1>
-            </div>
-            <div
-              data-h2-flex-item="base(1of1) l-tablet(2of5)"
-              data-h2-text-align="l-tablet(right)"
-            >
-              <Link
-                href={paths.poolCandidateCreate(poolId)}
-                color="white"
-                mode="outline"
-                type="button"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Create Pool Candidate",
-                  id: "z+TEpN",
-                  description:
-                    "Heading displayed above the Create Pool Candidate form.",
-                })}
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
-      <PoolCandidatesTableApi poolId={poolId} />
-    </div>
+        <Breadcrumbs links={crumbs} />
+      </div>
+      <DashboardContentContainer>
+        <PageHeader
+          icon={Squares2X2Icon}
+          subtitle={intl.formatMessage(
+            {
+              defaultMessage: "From {poolName}",
+              id: "RDgQ0h",
+              description:
+                "Subtitle on pool candidates page indicating which pool candidates are from",
+            },
+            {
+              poolName: data?.pool?.name?.[locale],
+            },
+          )}
+        >
+          {intl.formatMessage({
+            id: "EHVt0j",
+            defaultMessage: "Pool Candidates",
+            description:
+              "Title displayed above the Pool Candidate Table component.",
+          })}
+        </PageHeader>
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "This table shows a list of all applicants to this pool. Use the review button to manage an applicant.",
+            id: "drwKS5",
+            description:
+              "Descriptive text about the list of pool candidates in the admin portal.",
+          })}
+        </p>
+        <PoolCandidatesTable poolId={poolId} />
+      </DashboardContentContainer>
+    </Pending>
   );
 };
 

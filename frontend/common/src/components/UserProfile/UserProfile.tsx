@@ -49,6 +49,7 @@ export interface UserProfileProps {
     workLocation?: SectionControl;
     workPreferences?: SectionControl;
   };
+  isNavigationVisible?: boolean;
 }
 
 const HeadingWrapper: React.FC<{ show: boolean }> = ({ children, show }) => {
@@ -67,7 +68,11 @@ const HeadingWrapper: React.FC<{ show: boolean }> = ({ children, show }) => {
   );
 };
 
-const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
+const UserProfile: React.FC<UserProfileProps> = ({
+  applicant,
+  sections,
+  isNavigationVisible = true,
+}) => {
   const intl = useIntl();
   const { experiences } = applicant;
 
@@ -80,101 +85,104 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
   return (
     <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
       <TableOfContents.Wrapper>
-        <TableOfContents.Navigation>
-          {showSection("myStatus") && (
-            <TableOfContents.AnchorLink id="status-section">
-              {intl.formatMessage({
-                defaultMessage: "My Status",
-                id: "TLgbZm",
-                description: "Title of the My Status section",
-              })}
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("hiringPools") && (
-            <TableOfContents.AnchorLink id="pools-section">
-              {intl.formatMessage({
-                defaultMessage: "My Hiring Pools",
-                id: "xUl9pz",
-                description: "Title of the My Hiring Pools section",
-              })}
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("about") && (
-            <TableOfContents.AnchorLink id="about-section">
-              {intl.formatMessage({
-                defaultMessage: "About Me",
-                id: "4sJvia",
-                description: "Title of the About link section",
-              })}
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("language") && (
-            <TableOfContents.AnchorLink id="language-section">
-              {intl.formatMessage({
-                defaultMessage: "Language Information",
-                id: "B9x0ZV",
-                description: "Title of the Language Information link section",
-              })}
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("government") && (
-            <TableOfContents.AnchorLink id="government-section">
-              {intl.formatMessage({
-                defaultMessage: "Government Information",
-                id: "Nc4sjC",
-                description: "Title of the Government Information link section",
-              })}
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("workLocation") && (
-            <TableOfContents.AnchorLink id="work-location-section">
-              {intl.formatMessage({
-                defaultMessage: "Work Location",
-                id: "9WxeNz",
-                description: "Title of the Work Location link section",
-              })}
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("workPreferences") && (
-            <TableOfContents.AnchorLink id="work-preferences-section">
-              {intl.formatMessage({
-                defaultMessage: "Work Preferences",
-                id: "0DzlCc",
-                description: "Title of the Work Preferences link section",
-              })}
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("employmentEquity") && (
-            <TableOfContents.AnchorLink id="diversity-equity-inclusion-section">
-              {intl.formatMessage({
-                defaultMessage: "Diversity, equity and inclusion",
-                id: "e2R6fy",
-                description:
-                  "Title of the Diversity, equity and inclusion link section",
-              })}
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("roleSalary") && (
-            <TableOfContents.AnchorLink id="role-and-salary-section">
-              {intl.formatMessage({
-                defaultMessage: "Role and salary expectations",
-                id: "95OYVk",
-                description:
-                  "Title of the Role and salary expectations link section",
-              })}
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("skillsExperience") && (
-            <TableOfContents.AnchorLink id="skills-and-experience-section">
-              {intl.formatMessage({
-                defaultMessage: "My skills and experience",
-                id: "fqIEKE",
-                description:
-                  "Title of the My skills and experience link section",
-              })}
-            </TableOfContents.AnchorLink>
-          )}
-        </TableOfContents.Navigation>
+        {isNavigationVisible && (
+          <TableOfContents.Navigation>
+            {showSection("myStatus") && (
+              <TableOfContents.AnchorLink id="status-section">
+                {intl.formatMessage({
+                  defaultMessage: "My Status",
+                  id: "TLgbZm",
+                  description: "Title of the My Status section",
+                })}
+              </TableOfContents.AnchorLink>
+            )}
+            {showSection("hiringPools") && (
+              <TableOfContents.AnchorLink id="pools-section">
+                {intl.formatMessage({
+                  defaultMessage: "My Hiring Pools",
+                  id: "xUl9pz",
+                  description: "Title of the My Hiring Pools section",
+                })}
+              </TableOfContents.AnchorLink>
+            )}
+            {showSection("about") && (
+              <TableOfContents.AnchorLink id="about-section">
+                {intl.formatMessage({
+                  defaultMessage: "About Me",
+                  id: "4sJvia",
+                  description: "Title of the About link section",
+                })}
+              </TableOfContents.AnchorLink>
+            )}
+            {showSection("language") && (
+              <TableOfContents.AnchorLink id="language-section">
+                {intl.formatMessage({
+                  defaultMessage: "Language Information",
+                  id: "B9x0ZV",
+                  description: "Title of the Language Information link section",
+                })}
+              </TableOfContents.AnchorLink>
+            )}
+            {showSection("government") && (
+              <TableOfContents.AnchorLink id="government-section">
+                {intl.formatMessage({
+                  defaultMessage: "Government Information",
+                  id: "Nc4sjC",
+                  description:
+                    "Title of the Government Information link section",
+                })}
+              </TableOfContents.AnchorLink>
+            )}
+            {showSection("workLocation") && (
+              <TableOfContents.AnchorLink id="work-location-section">
+                {intl.formatMessage({
+                  defaultMessage: "Work Location",
+                  id: "9WxeNz",
+                  description: "Title of the Work Location link section",
+                })}
+              </TableOfContents.AnchorLink>
+            )}
+            {showSection("workPreferences") && (
+              <TableOfContents.AnchorLink id="work-preferences-section">
+                {intl.formatMessage({
+                  defaultMessage: "Work Preferences",
+                  id: "0DzlCc",
+                  description: "Title of the Work Preferences link section",
+                })}
+              </TableOfContents.AnchorLink>
+            )}
+            {showSection("employmentEquity") && (
+              <TableOfContents.AnchorLink id="diversity-equity-inclusion-section">
+                {intl.formatMessage({
+                  defaultMessage: "Diversity, equity and inclusion",
+                  id: "e2R6fy",
+                  description:
+                    "Title of the Diversity, equity and inclusion link section",
+                })}
+              </TableOfContents.AnchorLink>
+            )}
+            {showSection("roleSalary") && (
+              <TableOfContents.AnchorLink id="role-and-salary-section">
+                {intl.formatMessage({
+                  defaultMessage: "Role and salary expectations",
+                  id: "95OYVk",
+                  description:
+                    "Title of the Role and salary expectations link section",
+                })}
+              </TableOfContents.AnchorLink>
+            )}
+            {showSection("skillsExperience") && (
+              <TableOfContents.AnchorLink id="skills-and-experience-section">
+                {intl.formatMessage({
+                  defaultMessage: "My skills and experience",
+                  id: "fqIEKE",
+                  description:
+                    "Title of the My skills and experience link section",
+                })}
+              </TableOfContents.AnchorLink>
+            )}
+          </TableOfContents.Navigation>
+        )}
         <TableOfContents.Content>
           {showSection("myStatus") && (
             <TableOfContents.Section id="status-section">

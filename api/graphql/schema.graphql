@@ -700,6 +700,10 @@ input PoolCandidateFilterInput {
     pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
 }
 
+input PaginatedPoolCandidateFilterInput {
+    pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
+}
+
 input UserFilterInput {
     applicantFilter: ApplicantFilterInput @spread
     poolFilters: [UserPoolFilterInput] @builder(method: "App\\Models\\User@filterByPools")
@@ -738,7 +742,8 @@ type Query {
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
-    poolCandidates: [PoolCandidate]! @all(scopes: ["expiryFilter"]) @guard @can(ability: "viewAny")
+    poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    poolCandidatesPaginated(where: PaginatedPoolCandidateFilterInput): [PoolCandidate]! @paginate(defaultCount: 10, maxCount: 1000 ) @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
     countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants") @count(model: "PoolCandidate" scopes: ["expiryFilter", "available"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
@@ -754,7 +759,7 @@ type Query {
     applicantFilter(id: ID! @eq): ApplicantFilter @find @guard @can(ability: "view", query: true)
     applicantFilters: [ApplicantFilter]! @all @guard @can(ability: "viewAny")
     poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
-    poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
+    poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny") @orderBy(column: "created_at", direction: DESC)
     latestPoolCandidateSearchRequests(limit: Int @limit): [PoolCandidateSearchRequest]! @all @orderBy(column: "created_at", direction: DESC) @guard @can(ability: "viewAny")
     skillFamily(id: ID! @eq): SkillFamily @find
     skillFamilies: [SkillFamily]! @all

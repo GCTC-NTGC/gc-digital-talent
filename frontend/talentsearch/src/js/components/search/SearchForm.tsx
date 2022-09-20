@@ -371,6 +371,9 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 value,
                 label: intl.formatMessage(getWorkRegion(value)),
               }))}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
           </FilterBlock>
           <FilterBlock
