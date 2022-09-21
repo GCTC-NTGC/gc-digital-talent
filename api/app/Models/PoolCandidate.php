@@ -328,10 +328,15 @@ RAWSQL2;
         return $query;
     }
 
-    /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
-    // pool_candidate_status database value passed into accessor as an argument
-    public function getPoolCandidateStatusAttribute($candidateStatus)
+    public function scopeNotDraft(Builder $query): Builder
     {
+        return $query->whereNotIn('pool_candidate_status', ['DRAFT', 'DRAFT_EXPIRED']);
+    }
+
+   /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
+   // pool_candidate_status database value passed into accessor as an argument
+   public function getPoolCandidateStatusAttribute($candidateStatus)
+   {
         // pull info
         $submittedAt = $this->submitted_at;
         $expiryDate = $this->expiry_date;
