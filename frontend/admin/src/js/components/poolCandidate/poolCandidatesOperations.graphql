@@ -292,7 +292,15 @@ query GetPoolCandidatesPaginated(
   $first: Int
   $page: Int
 ) {
-  poolCandidatesPaginated(where: $where, first: $first, page: $page) {
+  poolCandidatesPaginated(
+    where: $where
+    first: $first
+    page: $page
+    orderBy: [
+      { column: "status_weight", order: ASC }
+      { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+    ]
+  ) {
     data {
       ...poolCandidateTable
     }
