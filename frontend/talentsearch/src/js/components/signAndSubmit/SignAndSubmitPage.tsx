@@ -250,7 +250,7 @@ export const SignAndSubmitForm = ({
 
   const tocNavItems = [
     {
-      id: "importantInformation",
+      id: "importantInformation-section",
       title: intl.formatMessage({
         defaultMessage: "Important information",
         id: "/Mb8b6",
@@ -260,7 +260,7 @@ export const SignAndSubmitForm = ({
       icon: UserIcon,
     },
     {
-      id: "signature",
+      id: "signature-section",
       title: intl.formatMessage({
         defaultMessage: "Signature",
         id: "Ledr63",
