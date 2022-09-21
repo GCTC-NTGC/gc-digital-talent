@@ -13,6 +13,7 @@ import UserProfile from "@common/components/UserProfile";
 import { useAdminRoutes } from "admin/src/js/adminRoutes";
 import { useState } from "react";
 import { Applicant } from "@common/api/generated";
+import TableOfContents from "@common/components/TableOfContents";
 import {
   Scalars,
   useGetPoolCandidateSnapshotQuery,
@@ -20,6 +21,7 @@ import {
   Maybe,
 } from "../../../api/generated";
 import DashboardContentContainer from "../../DashboardContentContainer";
+import ApplicationStatusForm from "../ApplicationStatusForm";
 
 export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
@@ -28,7 +30,7 @@ export interface ViewPoolCandidateProps {
 type SpacerProps = React.HTMLProps<HTMLDivElement>;
 
 const Spacer = ({ children, ...rest }: SpacerProps) => (
-  <div data-h2-padding-bottom="base(1.5rem)" {...rest}>
+  <div data-h2-margin-bottom="base(x1)" {...rest}>
     {children}
   </div>
 );
@@ -73,11 +75,30 @@ export const ViewPoolCandidate = ({
   );
   const snapshotUserPropertyExists = !!parsedSnapshot;
 
+  const subTitle = (
+    <h2 data-h2-margin="base(x1, 0, 0, 0)">
+      {intl.formatMessage({
+        defaultMessage: "Application’s profile snapshot",
+        id: "rqXJfW",
+        description: "Title for the application's profile snapshot.",
+      })}
+      {snapshotUserPropertyExists && (
+        <>
+          &nbsp;
+          <Button onClick={() => setPreferRichView(!preferRichView)}>
+            Toggle View
+          </Button>
+        </>
+      )}
+    </h2>
+  );
+
   let mainContent: React.ReactNode;
   if (snapshotUserPropertyExists && preferRichView) {
     mainContent = (
       <UserProfile
         applicant={parsedSnapshot}
+        subTitle={subTitle}
         sections={{
           myStatus: { isVisible: false },
           hiringPools: { isVisible: false },
@@ -107,12 +128,15 @@ export const ViewPoolCandidate = ({
     );
   } else if (snapshotUserPropertyExists && !preferRichView) {
     mainContent = (
-      <pre
-        data-h2-background-color="base(light.dt-gray)"
-        data-h2-overflow="base(scroll, auto)"
-      >
-        {JSON.stringify(parsedSnapshot, null, 2)}
-      </pre>
+      <TableOfContents.Content>
+        {subTitle}
+        <pre
+          data-h2-background-color="base(light.dt-gray)"
+          data-h2-overflow="base(scroll, auto)"
+        >
+          {JSON.stringify(parsedSnapshot, null, 2)}
+        </pre>
+      </TableOfContents.Content>
     );
   } else {
     mainContent = (
@@ -182,22 +206,12 @@ export const ViewPoolCandidate = ({
           </span>
         </Link>
       </Spacer>
-      <h2>
-        {intl.formatMessage({
-          defaultMessage: "Application’s profile snapshot",
-          id: "rqXJfW",
-          description: "Title for the application's profile snapshot.",
-        })}
-        {snapshotUserPropertyExists && (
-          <>
-            &nbsp;
-            <Button onClick={() => setPreferRichView(!preferRichView)}>
-              Toggle View
-            </Button>
-          </>
-        )}
-      </h2>
-      {mainContent}
+      <TableOfContents.Wrapper>
+        <TableOfContents.Sidebar>
+          <ApplicationStatusForm id={poolCandidate.id} />
+        </TableOfContents.Sidebar>
+        {mainContent}
+      </TableOfContents.Wrapper>
     </>
   );
 };
