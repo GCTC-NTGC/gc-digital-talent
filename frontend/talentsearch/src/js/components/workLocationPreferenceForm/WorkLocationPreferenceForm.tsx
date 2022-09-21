@@ -97,7 +97,7 @@ export const WorkLocationPreferenceForm: React.FC<
             intl,
             application.poolAdvertisement,
           ),
-          href: directIntakePaths.poolApply(application.pool.id),
+          href: directIntakePaths.pool(application.pool.id),
         },
         {
           href: directIntakePaths.reviewApplication(application.id),

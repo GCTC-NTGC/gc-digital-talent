@@ -297,7 +297,7 @@ export const SignAndSubmitForm = ({
         },
         {
           title: jobTitle,
-          href: paths.poolAdvertisement(poolAdvertisementId),
+          href: paths.pool(poolAdvertisementId),
         },
         {
           title: intl.formatMessage({
