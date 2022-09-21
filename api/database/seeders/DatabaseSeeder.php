@@ -20,7 +20,6 @@ use App\Models\EducationExperience;
 use App\Models\GenericJobTitle;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
-use App\Http\Resources\UserResource;
 use Faker;
 use Database\Helpers\ApiEnums;
 
