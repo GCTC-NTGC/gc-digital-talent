@@ -8,6 +8,3 @@ OAUTH_LOGOUT_URI="http://localhost:8000/oxauth/endsession"
 # Feature flags
 FEATURE_DIRECTINTAKE=true
 FEATURE_APPLICANTSEARCH=true
-
-# Connection string
-APPLICATIONINSIGHTS_CONNECTION_STRING="InstrumentationKey=8f4f1fd8-8831-4a3b-84a0-20245c86e418;IngestionEndpoint=https://canadacentral-1.in.applicationinsights.azure.com/;LiveEndpoint=https://canadacentral.livediagnostics.monitor.azure.com/"
