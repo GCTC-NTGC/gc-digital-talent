@@ -41,14 +41,14 @@ describe("Pool Candidates", () => {
     cy.wait("@gqlgetPoolCandidateSnapshotQuery");
     cy.wait("@gqlGetPoolCandidateStatusQuery");
 
-    cy.findByRole("combobox", { name: /pool status/i })
+    cy.findByRole("combobox", { name: /candidate pool status/i })
       .select("Screened In")
       .within(() => {
         cy.get("option:selected")
           .should("have.text", "Screened In");
       });
 
-    cy.findByLabelText("Pool expiry date")
+    cy.findByLabelText(/Candidate expiry date/i)
       .type("2023-12-01");
 
     cy.findByRole("textbox", { name: /notes/i })

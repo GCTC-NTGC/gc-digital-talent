@@ -39,10 +39,10 @@ describe("ApplicationStatusForm", () => {
     });
 
     expect(
-      screen.getByRole("combobox", { name: /pool status/i }),
+      screen.getByRole("combobox", { name: /candidate pool status/i }),
     ).toBeInTheDocument();
 
-    expect(screen.getByLabelText(/pool expiry date/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/candidate expiry date/i)).toBeInTheDocument();
 
     expect(screen.getByRole("textbox", { name: /notes/i })).toBeInTheDocument();
 
