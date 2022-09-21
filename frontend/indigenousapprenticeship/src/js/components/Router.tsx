@@ -45,9 +45,11 @@ const routes = (
 export const Router: React.FC = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const aiConnectionString = getRuntimeVariableNotNull(
+    "APPLICATIONINSIGHTS_CONNECTION_STRING",
+  );
   const indigenousApprenticeshipPaths = useIndigenousApprenticeshipRoutes();
-  const aiConnectionString = getRuntimeVariableNotNull("APPLICATIONINSIGHTS_CONNECTION_STRING");
-  if (aiConnectionString && aiConnectionString === ""  ) {
+  if (aiConnectionString && aiConnectionString === "") {
     const appInsights = new ApplicationInsights({
       config: {
         connectionString: aiConnectionString,
@@ -85,4 +87,3 @@ export const Router: React.FC = () => {
 };
 
 export default Router;
-
