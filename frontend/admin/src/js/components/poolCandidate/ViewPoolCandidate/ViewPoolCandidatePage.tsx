@@ -13,6 +13,7 @@ import UserProfile from "@common/components/UserProfile";
 import { useAdminRoutes } from "admin/src/js/adminRoutes";
 import { useState } from "react";
 import { Applicant } from "@common/api/generated";
+import TableOfContents from "@common/components/TableOfContents";
 import {
   Scalars,
   useGetPoolCandidateSnapshotQuery,
@@ -104,17 +105,18 @@ export const ViewPoolCandidate = ({
           },
         }}
         isNavigationVisible={false}
-        sidebar={<ApplicationStatusForm id={poolCandidate.id} />}
       />
     );
   } else if (snapshotUserPropertyExists && !preferRichView) {
     mainContent = (
-      <pre
-        data-h2-background-color="base(light.dt-gray)"
-        data-h2-overflow="base(scroll, auto)"
-      >
-        {JSON.stringify(parsedSnapshot, null, 2)}
-      </pre>
+      <TableOfContents.Content>
+        <pre
+          data-h2-background-color="base(light.dt-gray)"
+          data-h2-overflow="base(scroll, auto)"
+        >
+          {JSON.stringify(parsedSnapshot, null, 2)}
+        </pre>
+      </TableOfContents.Content>
     );
   } else {
     mainContent = (
@@ -199,7 +201,12 @@ export const ViewPoolCandidate = ({
           </>
         )}
       </h2>
-      {mainContent}
+      <TableOfContents.Wrapper>
+        <TableOfContents.Sidebar>
+          <ApplicationStatusForm id={poolCandidate.id} />
+        </TableOfContents.Sidebar>
+        {mainContent}
+      </TableOfContents.Wrapper>
     </>
   );
 };
