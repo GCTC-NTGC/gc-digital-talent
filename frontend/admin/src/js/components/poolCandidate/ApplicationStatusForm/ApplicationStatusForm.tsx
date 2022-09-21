@@ -98,8 +98,8 @@ export const ApplicationStatusForm = ({
             </Heading>
             <Select
               label={intl.formatMessage({
-                defaultMessage: "Pool status",
-                id: "4idVCF",
+                defaultMessage: "Candidate pool status",
+                id: "/pHz5L",
                 description: "Label for the current applications pool status",
               })}
               required
@@ -120,8 +120,8 @@ export const ApplicationStatusForm = ({
               id="expiryDate"
               name="expiryDate"
               label={intl.formatMessage({
-                defaultMessage: "Pool expiry date",
-                id: "W4O1Ip",
+                defaultMessage: "Candidate expiry date",
+                id: "SoKPAb",
                 description:
                   "Label displayed on the pool candidate application form expiry date field.",
               })}
