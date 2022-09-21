@@ -11,6 +11,7 @@ const filterEmpty = (value) => value != "(none)" ? value : undefined;
 
 
 const data = new Map([
+        ["APPLICATIONINSIGHTS_CONNECTION_STRING", filterEmpty("<!--#echo var="APPLICATIONINSIGHTS_CONNECTION_STRING" -->")],
 
 ]);
 
