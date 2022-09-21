@@ -54,7 +54,14 @@ const Footer: React.FunctionComponent = () => {
               data-h2-flex-wrap="p-tablet(wrap)"
             >
               {footerLinks.map((item) => (
-                <a key="" href={item.path} title={item.title}>
+                <a
+                  key=""
+                  href={item.path}
+                  title={item.title}
+                  data-h2-background-color="base:focus-visible(focus)"
+                  data-h2-outline="base(none)"
+                  data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
+                >
                   {item.label}
                 </a>
               ))}

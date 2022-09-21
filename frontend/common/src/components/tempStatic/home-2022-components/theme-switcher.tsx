@@ -66,12 +66,13 @@ const ThemeSwitcher: React.FunctionComponent = () => {
     <div
       id="switcher"
       data-h2-fill="
-    base:children[#icon_pref *](tm-yellow.lightest)
+    base:children[#icon_pref *](tm-yellow.light)
     base:class[light]:children[#icon_pref *](black.lighter)
-    base:class[dark]:children[#icon_pref *](black.lighter)
+    base:class[dark]:children[#icon_pref *](white.dark)
     base:dark:children[#icon_pref *](tm-yellow.dark)
     base:children[#icon_sun *](black.lighter)
-    base:class[light]:children[#icon_sun *](tm-yellow.lightest)
+    base:class[light]:children[#icon_sun *](tm-yellow.light)
+    base:class[dark]:children[#icon_sun *](white.dark)
     base:children[#icon_moon *](black.lighter)
     base:class[dark]:children[#icon_moon *](tm-yellow.dark)
     base:children[button:focus-visible #icon_pref *](black)
@@ -111,7 +112,7 @@ const ThemeSwitcher: React.FunctionComponent = () => {
             data-h2-height="base(1.75rem)"
             data-h2-width="base(1.75rem)"
             data-h2-transition="base(transform, .2s, ease, 0s)"
-            data-h2-background-color="base:dark(white) base(black.lightest)"
+            data-h2-background-color="base:dark(white) base(black)"
             data-h2-radius="base(circle)"
           />
         </div>

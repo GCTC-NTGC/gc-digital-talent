@@ -55,7 +55,13 @@ const FeatureBlock: React.FC<FeatureBlockProps> = ({
         {content.summary}
       </p>
       <div data-h2-padding="base(0, x1, x1, x1)">
-        <a href={content.link.path} title={content.link.title}>
+        <a
+          href={content.link.path}
+          title={content.link.title}
+          data-h2-background-color="base:focus-visible(focus)"
+          data-h2-outline="base(none)"
+          data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
+        >
           {content.link.label}
         </a>
       </div>

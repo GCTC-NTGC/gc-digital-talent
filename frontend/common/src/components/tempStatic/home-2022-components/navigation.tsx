@@ -25,29 +25,59 @@ const Navigation: React.FunctionComponent = () => {
         >
           <ul data-h2-justify-content="base(center) p-tablet(flex-start)">
             <li>
-              <a href="" title="">
+              <a
+                href=""
+                title=""
+                data-h2-background-color="base:focus-visible(focus)"
+                data-h2-outline="base(none)"
+                data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
+              >
                 Home
               </a>
             </li>
             <li>
-              <a href="" title="">
+              <a
+                href=""
+                title=""
+                data-h2-background-color="base:focus-visible(focus)"
+                data-h2-outline="base(none)"
+                data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
+              >
                 Browse opportunities
               </a>
             </li>
             <li>
-              <a href="" title="">
+              <a
+                href=""
+                title=""
+                data-h2-background-color="base:focus-visible(focus)"
+                data-h2-outline="base(none)"
+                data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
+              >
                 Hire talent
               </a>
             </li>
           </ul>
           <ul data-h2-justify-content="base(center) p-tablet(flex-end)">
             <li>
-              <a href="" title="">
+              <a
+                href=""
+                title=""
+                data-h2-background-color="base:focus-visible(focus)"
+                data-h2-outline="base(none)"
+                data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
+              >
                 Register
               </a>
             </li>
             <li>
-              <a href="" title="">
+              <a
+                href=""
+                title=""
+                data-h2-background-color="base:focus-visible(focus)"
+                data-h2-outline="base(none)"
+                data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
+              >
                 Login
               </a>
             </li>
