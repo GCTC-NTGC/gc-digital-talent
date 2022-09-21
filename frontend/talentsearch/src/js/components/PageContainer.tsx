@@ -36,15 +36,26 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   isActive = exactMatch,
   ...rest
 }) => {
+  const intl = useIntl();
   const location = useLocation();
   const El = as;
-  const activeWeight: Record<string, unknown> = isActive(
-    href ?? null,
-    location.pathname,
-  )
+  const isCurrentPage = isActive(href ?? "", location.pathname);
+  const activeWeight: Record<string, unknown> = isCurrentPage
     ? { "data-h2-font-weight": "base(700)" }
     : { "data-h2-font-weight": "base(100)" };
-  return (
+  return isCurrentPage ? (
+    <span data-h2-color="base(dt-primary)" {...activeWeight}>
+      <span data-h2-visibility="base(hidden)">
+        {intl.formatMessage({
+          defaultMessage: "Current page:",
+          id: "XF8DsD",
+          description:
+            "Message read to users with screen reader when page is active.",
+        })}
+      </span>{" "}
+      {text}
+    </span>
+  ) : (
     <El
       href={href}
       title={title ?? undefined}
@@ -57,7 +68,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
       }}
       {...rest}
     >
-      <span {...activeWeight}>{text}</span>
+      <span>{text}</span>
     </El>
   );
 };
