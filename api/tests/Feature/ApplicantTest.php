@@ -1412,7 +1412,7 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testSortingPriorityThenStatus(): void
+    public function testSortingStatusThenPriority(): void
     {
         $user = User::All()->first();
         $pool1 = Pool::factory()->create([
@@ -1432,7 +1432,7 @@ class ApplicantTest extends TestCase
                 'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
             ])
         ]);
-        // NEW APPLICATION, NO PRIORITY SO THIRD
+        // NEW APPLICATION, NO PRIORITY SO SECOND
         $candidateTwo = PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
@@ -1446,7 +1446,7 @@ class ApplicantTest extends TestCase
                 'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
             ])
         ]);
-        // APPLICATION REVIEW, NO PRIORITY SO FOURTH
+        // APPLICATION REVIEW, NO PRIORITY SO THIRD
         $candidateThree = PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
@@ -1461,7 +1461,7 @@ class ApplicantTest extends TestCase
             ])
         ]);
 
-        // NEW APPLICATION, VETERAN SO SECOND
+        // NEW APPLICATION, VETERAN SO FIRST
         $candidateFour = PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
@@ -1475,7 +1475,7 @@ class ApplicantTest extends TestCase
                 'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
             ])
         ]);
-        // QUALIFIED AVAILABLE, HAS ENTITLEMENT SO FIRST
+        // QUALIFIED AVAILABLE, HAS ENTITLEMENT FOURTH
         $candidateFive = PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
@@ -1494,8 +1494,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(/** @lang Graphql */ '
             query poolCandidatesPaginated {
                 poolCandidatesPaginated (orderBy: [
-                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
                     { column: "status_weight", order: ASC }
+                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
                   ])
                 {
                     data
@@ -1508,10 +1508,10 @@ class ApplicantTest extends TestCase
             "data" => [
                 "poolCandidatesPaginated" => [
                     "data" => [
-                        ["id" => $candidateFive->id,],
                         ["id" => $candidateFour->id,],
                         ["id" => $candidateTwo->id,],
                         ["id" => $candidateThree->id,],
+                        ["id" => $candidateFive->id,],
                     ]
                 ]
             ]
@@ -1521,8 +1521,8 @@ class ApplicantTest extends TestCase
         $this->graphQL(/** @lang Graphql */ '
             query poolCandidatesPaginated {
                 poolCandidatesPaginated (orderBy: [
-                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
                     { column: "status_weight", order: ASC }
+                    { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
                   ])
                 {
                     data

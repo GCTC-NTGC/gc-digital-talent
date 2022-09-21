@@ -297,8 +297,8 @@ query GetPoolCandidatesPaginated(
     first: $first
     page: $page
     orderBy: [
-      { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
       { column: "status_weight", order: ASC }
+      { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
     ]
   ) {
     data {
