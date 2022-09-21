@@ -58,6 +58,16 @@ export const ApplicationStatusForm = ({
     });
   };
 
+  const allowedStatuses = enumToOptions(PoolCandidateStatus).filter(
+    ({ value }) => {
+      return (
+        value !== PoolCandidateStatus.Draft &&
+        value !== PoolCandidateStatus.DraftExpired &&
+        value !== PoolCandidateStatus.Expired
+      );
+    },
+  );
+
   return (
     <div data-h2-width="base(100%)">
       <Heading level="h2" data-h2-font-size="base(h5)">
@@ -111,7 +121,7 @@ export const ApplicationStatusForm = ({
                 id: "VMhVyJ",
                 description: "Placeholder text for the pool status field",
               })}
-              options={enumToOptions(PoolCandidateStatus).map(({ value }) => ({
+              options={allowedStatuses.map(({ value }) => ({
                 value,
                 label: intl.formatMessage(getPoolCandidateStatus(value)),
               }))}
