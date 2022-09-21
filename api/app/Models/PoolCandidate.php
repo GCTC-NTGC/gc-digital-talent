@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Builder;
+use App\Http\Resources\UserResource;
 
 /**
  * Class PoolCandidate
@@ -63,7 +64,7 @@ class PoolCandidate extends Model
      * The attributes that can be filled using mass-assignment.
      *
      * @var array
-    */
+     */
     protected $fillable = [
         'archived_at',
         'submitted_at',
@@ -102,22 +103,22 @@ class PoolCandidate extends Model
         // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
 
         // group these in a subquery to properly handle "OR" condition
-        $query->where(function($query) use ($classifications) {
+        $query->where(function ($query) use ($classifications) {
             $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
                 foreach ($classifications as $index => $classification) {
                     if ($index === 0) {
                         // First iteration must use where instead of orWhere
-                        $query->where(function($query) use ($classification) {
+                        $query->where(function ($query) use ($classification) {
                             $query->where('group', $classification['group'])->where('level', $classification['level']);
                         });
                     } else {
-                        $query->orWhere(function($query) use ($classification) {
+                        $query->orWhere(function ($query) use ($classification) {
                             $query->where('group', $classification['group'])->where('level', $classification['level']);
                         });
                     }
                 }
             });
-            $query->orWhere(function($query) use ($classifications) {
+            $query->orWhere(function ($query) use ($classifications) {
                 $this->filterByClassificationToSalary($query, $classifications);
             });
         });
@@ -134,7 +135,7 @@ class PoolCandidate extends Model
 
         // This subquery only works for a non-zero number of filter classifications.
         // If passed zero classifications then return same query builder unchanged.
-        if(count($classifications) == 0)
+        if (count($classifications) == 0)
             return $query;
 
         $parameters = [];
@@ -212,14 +213,14 @@ RAWSQL2;
         }
 
         // OperationalRequirements act as an AND filter. The query should only return candidates willing to accept ALL of the requirements.
-            $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
+        $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
         return $query;
     }
     public function filterByWorkRegions(Builder $query, array $workRegions): Builder
     {
         // WorkRegion acts as an OR filter. The query should return candidates willing to work in ANY of the regions.
-        $query->where(function($query) use ($workRegions) {
-            foreach($workRegions as $index => $region) {
+        $query->where(function ($query) use ($workRegions) {
+            foreach ($workRegions as $index => $region) {
                 if ($index === 0) {
                     // First iteration must use where instead of orWhere
                     $query->whereJsonContains('location_preferences', $region);
@@ -233,7 +234,7 @@ RAWSQL2;
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         // If filtering for a specific language the query should return candidates of that language OR bilingual.
-        $query->where(function($query) use ($languageAbility) {
+        $query->where(function ($query) use ($languageAbility) {
             $query->where('language_ability', $languageAbility);
             if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
                 $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
@@ -279,8 +280,8 @@ RAWSQL2;
         };
 
         // then return queries depending on above array count, special query syntax needed for multiple ORs to ensure proper SQL query formed
-        $query->where(function($query) use ($equityVars) {
-            foreach($equityVars as $index => $equityInstance) {
+        $query->where(function ($query) use ($equityVars) {
+            foreach ($equityVars as $index => $equityInstance) {
                 if ($index === 0) {
                     // First iteration must use where instead of orWhere, as seen in filterWorkRegions
                     $query->where($equityVars[$index], true);
@@ -294,7 +295,7 @@ RAWSQL2;
 
     public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
     {
-        if(empty($poolCandidateStatuses)){
+        if (empty($poolCandidateStatuses)) {
             return $query;
         }
 
@@ -315,11 +316,12 @@ RAWSQL2;
         return $query;
     }
 
-    public function scopeExpiryFilter(Builder $query, ?array $args) {
+    public function scopeExpiryFilter(Builder $query, ?array $args)
+    {
         $expiryStatus = isset($args['expiryStatus']) ? $args['expiryStatus'] : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
         if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
             $query->whereDate('expiry_date', '>=', date("Y-m-d"))
-                  ->orWhereNull('expiry_date');
+                ->orWhereNull('expiry_date');
         } else if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
             $query->whereDate('expiry_date', '<', date("Y-m-d"));
         }
@@ -357,7 +359,31 @@ RAWSQL2;
         //     return $candidateStatus;
         // }
 
-       // no overriding
-       return $candidateStatus;
-   }
+        // no overriding
+        return $candidateStatus;
+    }
+
+    public function createSnapshot()
+    {
+        if ($this->profile_snapshot) {
+            return null;
+        }
+
+        $user = User::with([
+            'department',
+            'currentClassification',
+            'expectedClassifications',
+            'expectedGenericJobTitles',
+            'cmoAssets',
+            'awardExperiences',
+            'communityExperiences',
+            'educationExperiences',
+            'personalExperiences',
+            'workExperiences'
+        ])->findOrFail($this->user_id);
+        $profile = new UserResource($user);
+
+        $this->profile_snapshot = $profile;
+        $this->save();
+    }
 }
