@@ -50,6 +50,7 @@ export interface UserProfileProps {
     workPreferences?: SectionControl;
   };
   isNavigationVisible?: boolean;
+  subTitle?: React.ReactNode;
 }
 
 const HeadingWrapper: React.FC<{ show: boolean }> = ({ children, show }) => {
@@ -91,6 +92,7 @@ const Container = ({
 const UserProfile: React.FC<UserProfileProps> = ({
   applicant,
   sections,
+  subTitle,
   isNavigationVisible = true,
 }) => {
   const intl = useIntl();
@@ -202,6 +204,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
         </TableOfContents.Navigation>
       )}
       <TableOfContents.Content>
+        {subTitle}
         {showSection("myStatus") && (
           <TableOfContents.Section id="status-section">
             <HeadingWrapper show={!!sections.myStatus?.editUrl}>

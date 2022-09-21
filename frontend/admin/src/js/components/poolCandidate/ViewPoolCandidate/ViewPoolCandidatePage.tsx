@@ -30,7 +30,7 @@ export interface ViewPoolCandidateProps {
 type SpacerProps = React.HTMLProps<HTMLDivElement>;
 
 const Spacer = ({ children, ...rest }: SpacerProps) => (
-  <div data-h2-padding-bottom="base(1.5rem)" {...rest}>
+  <div data-h2-margin-bottom="base(x1)" {...rest}>
     {children}
   </div>
 );
@@ -75,11 +75,30 @@ export const ViewPoolCandidate = ({
   );
   const snapshotUserPropertyExists = !!parsedSnapshot;
 
+  const subTitle = (
+    <h2 data-h2-margin="base(x1, 0, 0, 0)">
+      {intl.formatMessage({
+        defaultMessage: "Application’s profile snapshot",
+        id: "rqXJfW",
+        description: "Title for the application's profile snapshot.",
+      })}
+      {snapshotUserPropertyExists && (
+        <>
+          &nbsp;
+          <Button onClick={() => setPreferRichView(!preferRichView)}>
+            Toggle View
+          </Button>
+        </>
+      )}
+    </h2>
+  );
+
   let mainContent: React.ReactNode;
   if (snapshotUserPropertyExists && preferRichView) {
     mainContent = (
       <UserProfile
         applicant={parsedSnapshot}
+        subTitle={subTitle}
         sections={{
           myStatus: { isVisible: false },
           hiringPools: { isVisible: false },
@@ -110,6 +129,7 @@ export const ViewPoolCandidate = ({
   } else if (snapshotUserPropertyExists && !preferRichView) {
     mainContent = (
       <TableOfContents.Content>
+        {subTitle}
         <pre
           data-h2-background-color="base(light.dt-gray)"
           data-h2-overflow="base(scroll, auto)"
@@ -186,21 +206,6 @@ export const ViewPoolCandidate = ({
           </span>
         </Link>
       </Spacer>
-      <h2>
-        {intl.formatMessage({
-          defaultMessage: "Application’s profile snapshot",
-          id: "rqXJfW",
-          description: "Title for the application's profile snapshot.",
-        })}
-        {snapshotUserPropertyExists && (
-          <>
-            &nbsp;
-            <Button onClick={() => setPreferRichView(!preferRichView)}>
-              Toggle View
-            </Button>
-          </>
-        )}
-      </h2>
       <TableOfContents.Wrapper>
         <TableOfContents.Sidebar>
           <ApplicationStatusForm id={poolCandidate.id} />
