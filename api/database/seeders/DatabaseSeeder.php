@@ -43,8 +43,9 @@ class DatabaseSeeder extends Seeder
         $this->call(GenericJobTitleSeeder::class);
         $this->call(SkillFamilySeeder::class);
         $this->call(SkillSeeder::class);
-        $this->call(UserSeederLocal::class);
+        $this->call(UserSeederAdmin::class); // owns the pools
         $this->call(PoolSeeder::class);
+        $this->call(UserSeederLocal::class);
 
         User::factory([
             'roles' => [ApiEnums::ROLE_APPLICANT]

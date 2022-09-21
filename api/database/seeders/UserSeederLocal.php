@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Database\Helpers\ApiEnums;
@@ -17,20 +18,20 @@ class UserSeederLocal extends Seeder
     public function run()
     {
         // shared auth users for testing
-        User::factory()->create([
-            'first_name' => 'Admin',
-            'last_name' => 'Test',
-            'email' => 'admin@test.com',
-            'sub' => 'admin@test.com',
-            'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
-        ]);
-        User::factory()->create([
-            'first_name' => 'Applicant',
-            'last_name' => 'Test',
-            'email' => 'applicant@test.com',
-            'sub' => 'applicant@test.com',
-            'roles' => [ApiEnums::ROLE_APPLICANT]
-        ]);
+        User::factory()
+            ->withExpectedGenericJobTitles()
+            ->withEssentialSkillsForPool(
+                Pool::where('name->en', '=', 'CMO Digital Careers')
+                ->firstOrFail()
+                ->id
+            )
+            ->create([
+                'first_name' => 'Applicant',
+                'last_name' => 'Test',
+                'email' => 'applicant@test.com',
+                'sub' => 'applicant@test.com',
+                'roles' => [ApiEnums::ROLE_APPLICANT]
+            ]);
         User::factory()->create([
             'first_name' => 'No Role',
             'last_name' => 'Test',

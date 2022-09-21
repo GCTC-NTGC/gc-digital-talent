@@ -10,6 +10,7 @@ use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\GenericJobTitle;
 use App\Models\PersonalExperience;
+use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -44,7 +45,13 @@ class UserFactory extends Factory
         $randomClassification = Classification::inRandomOrder()->first();
         $isGovEmployee = $this->faker->boolean();
         $hasPriorityEntitlement = $this->faker->boolean(10);
-        $hasBeenEvaluated = $this->faker->boolean();
+
+        $lookingForLang = $this->faker->randomElement([
+            ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+            ApiEnums::LANGUAGE_ABILITY_FRENCH,
+            ApiEnums::LANGUAGE_ABILITY_BILINGUAL
+        ]);
+        $hasBeenEvaluated = $lookingForLang == ApiEnums::LANGUAGE_ABILITY_BILINGUAL && $this->faker->boolean();
 
         return [
             'first_name' => $this->faker->firstName(),
@@ -75,9 +82,9 @@ class UserFactory extends Factory
                 'NUNAVUT',
             ]),
             'current_city' => $this->faker->city(),
-            'looking_for_english' => $this->faker->boolean(),
-            'looking_for_french' => $this->faker->boolean(),
-            'looking_for_bilingual' => $this->faker->boolean(),
+            'looking_for_english' => $lookingForLang == ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+            'looking_for_french' => $lookingForLang == ApiEnums::LANGUAGE_ABILITY_FRENCH,
+            'looking_for_bilingual' => $lookingForLang == ApiEnums::LANGUAGE_ABILITY_BILINGUAL,
             'bilingual_evaluation' => $hasBeenEvaluated ? $this->faker->randomElement([
                     'COMPLETED_ENGLISH',
                     'COMPLETED_FRENCH',
@@ -192,11 +199,26 @@ class UserFactory extends Factory
                 WorkExperience::factory()->create(['user_id' => $user->id]);
                 $user->refresh();
             }
-            // Tale $count random skills and assign each to a random experience of this user.
+            // Take $count random skills and assign each to a random experience of this user.
             foreach(Skill::inRandomOrder()->take($count)->get() as $skill) {
                 $experience = $this->faker->randomElement($user->experiences);
                 $experience->skills()->save($skill);
             }
+        });
+    }
+
+    /**
+     * Add required skills for given pool
+     * Skills must have already been generated.
+     */
+    public function withEssentialSkillsForPool($poolId)
+    {
+        return $this->afterCreating(function (User $user) use ($poolId) {
+            $pool = Pool::findOrFail($poolId);
+            $essentialSkillIds = $pool->essentialSkills->pluck('id');
+
+            $experience = WorkExperience::factory()->create(['user_id' => $user->id]);
+            $experience->skills()->sync($essentialSkillIds);
         });
     }
 }
