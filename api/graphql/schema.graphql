@@ -700,6 +700,10 @@ input PoolCandidateFilterInput {
     pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
 }
 
+input PaginatedPoolCandidateFilterInput {
+    pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
+}
+
 input UserFilterInput {
     applicantFilter: ApplicantFilterInput @spread
     poolFilters: [UserPoolFilterInput] @builder(method: "App\\Models\\User@filterByPools")
@@ -738,7 +742,8 @@ type Query {
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
-    poolCandidates: [PoolCandidate]! @all(scopes: ["expiryFilter"]) @guard @can(ability: "viewAny")
+    poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    poolCandidatesPaginated(where: PaginatedPoolCandidateFilterInput): [PoolCandidate]! @paginate(defaultCount: 10, maxCount: 1000 ) @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
     countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants") @count(model: "PoolCandidate" scopes: ["expiryFilter", "available"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
@@ -754,7 +759,7 @@ type Query {
     applicantFilter(id: ID! @eq): ApplicantFilter @find @guard @can(ability: "view", query: true)
     applicantFilters: [ApplicantFilter]! @all @guard @can(ability: "viewAny")
     poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
-    poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
+    poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny") @orderBy(column: "created_at", direction: DESC)
     latestPoolCandidateSearchRequests(limit: Int @limit): [PoolCandidateSearchRequest]! @all @orderBy(column: "created_at", direction: DESC) @guard @can(ability: "viewAny")
     skillFamily(id: ID! @eq): SkillFamily @find
     skillFamilies: [SkillFamily]! @all
@@ -1011,6 +1016,17 @@ input CreatePoolCandidateAsAdminInput {
     user: ConnectOrCreateBelongsTo! # TODO: This should be switched to UserBelongsTo as soon as possible. Permission to create a PoolCandidate shouldn't imply permission to create a User. See https://github.com/GCTC-NTGC/gc-digital-talent/issues/2356
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: ClassificationBelongsToMany
+    cmoAssets: CmoAssetBelongsToMany
     status: PoolCandidateStatus = NEW_APPLICATION
         @rename(attribute: "pool_candidate_status")
     notes: String
@@ -1019,7 +1035,7 @@ input CreatePoolCandidateAsAdminInput {
 input CreatePoolInput {
     owner: UserBelongsTo! @rename(attribute: "user")
     name: LocalizedStringInput!
-    key: KeyString!
+    key: KeyString
     description: LocalizedStringInput
     classifications: ClassificationBelongsToMany
     assetCriteria: CmoAssetBelongsToMany
@@ -1044,6 +1060,17 @@ input UpdateCmoAssetInput {
 input UpdatePoolCandidateAsAdminInput {
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: ClassificationBelongsToMany
+    cmoAssets: CmoAssetBelongsToMany
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
     notes: String
 }
@@ -1254,7 +1281,6 @@ input GenericJobTitleBelongsToMany {
 }
 
 input CreatePoolAdvertisementInput {
-    key: KeyString!
     classifications: ClassificationBelongsToMany
 }
 
@@ -1334,6 +1360,4 @@ type Mutation {
     createApplication(userId:ID!, poolId:ID!): PoolCandidate
     deleteApplication(id: ID!): Boolean @guard @can(ability: "deleteApplication", find: "id", model: "PoolCandidate")
     submitApplication(id: ID!, signature: String!): PoolCandidate
-
-    testPoolCandidateSnapshot(id:ID!): PoolCandidate @guard @can(ability: "update", find: "id")
 }

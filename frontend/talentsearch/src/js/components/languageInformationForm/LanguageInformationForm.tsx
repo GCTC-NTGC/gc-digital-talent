@@ -305,7 +305,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
             intl,
             application.poolAdvertisement,
           ),
-          href: directIntakePaths.poolApply(application.pool.id),
+          href: directIntakePaths.pool(application.pool.id),
         },
         {
           href: directIntakePaths.reviewApplication(application.id),

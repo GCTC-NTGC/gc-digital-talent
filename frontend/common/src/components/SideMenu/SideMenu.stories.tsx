@@ -2,7 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { HomeIcon } from "@heroicons/react/24/outline";
 
-import { LoginIcon } from "@heroicons/react/24/solid";
+import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/solid";
 import SideMenuComponent from "./SideMenu";
 import SideMenuItem from "./SideMenuItem";
 
@@ -40,7 +40,7 @@ const TemplateSideMenu: Story = (args) => {
         isOpen={isOpen}
         onToggle={handleToggle}
         footer={
-          <SideMenuItem as="button" icon={LoginIcon}>
+          <SideMenuItem as="button" icon={ArrowRightOnRectangleIcon}>
             Login
           </SideMenuItem>
         }

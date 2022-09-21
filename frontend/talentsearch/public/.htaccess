@@ -34,6 +34,5 @@ AddOutputFilter INCLUDES .shtml .sjs
 # Make certain environment variables available for SSI
 PassEnv OAUTH_POST_LOGOUT_REDIRECT
 PassEnv OAUTH_LOGOUT_URI
-PassEnv FEATURE_APPLICANTPROFILE
 PassEnv FEATURE_DIRECTINTAKE
 PassEnv FEATURE_APPLICANTSEARCH

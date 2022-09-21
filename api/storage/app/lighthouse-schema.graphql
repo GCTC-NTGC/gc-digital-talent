@@ -262,7 +262,6 @@ input CreateDepartmentInput {
 }
 
 input CreatePoolAdvertisementInput {
-  key: KeyString!
   classifications: ClassificationBelongsToMany
 }
 
@@ -271,6 +270,17 @@ input CreatePoolCandidateAsAdminInput {
   user: ConnectOrCreateBelongsTo!
   cmoIdentifier: ID
   expiryDate: Date
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
 }
@@ -299,7 +309,7 @@ input CreatePoolCandidateSearchRequestInput {
 input CreatePoolInput {
   owner: UserBelongsTo!
   name: LocalizedStringInput!
-  key: KeyString!
+  key: KeyString
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   assetCriteria: CmoAssetBelongsToMany
@@ -619,7 +629,6 @@ type Mutation {
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): Boolean
   submitApplication(id: ID!, signature: String!): PoolCandidate
-  testPoolCandidateSnapshot(id: ID!): PoolCandidate
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -698,6 +707,10 @@ type PageInfo {
 
   """Index of the last available page."""
   lastPage: Int!
+}
+
+input PaginatedPoolCandidateFilterInput {
+  pools: [IdInput]
 }
 
 """Information about pagination using a fully featured paginator."""
@@ -860,6 +873,15 @@ input PoolCandidateFilterInput {
   pools: [IdInput]
 }
 
+"""A paginated list of PoolCandidate items."""
+type PoolCandidatePaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of PoolCandidate items."""
+  data: [PoolCandidate!]!
+}
+
 type PoolCandidateSearchRequest {
   id: ID!
   fullName: String
@@ -945,7 +967,7 @@ type Query {
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: ID!): PoolCandidate
-  poolCandidates: [PoolCandidate]!
+  poolCandidates(includeIds: [ID]): [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
   searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [PoolCandidate]!
   classification(id: ID!): Classification
@@ -977,6 +999,15 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): UserPaginator
+  poolCandidatesPaginated(
+    where: PaginatedPoolCandidateFilterInput
+
+    """Limits number of fetched items. Maximum allowed value: 1000."""
+    first: Int = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): PoolCandidatePaginator
 }
 
 enum Role {
@@ -1182,6 +1213,17 @@ input UpdatePoolAdvertisementInput {
 input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID
   expiryDate: Date
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus
   notes: String
 }

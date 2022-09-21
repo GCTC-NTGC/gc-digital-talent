@@ -71,13 +71,6 @@ const ExperienceAndSkillsPage = React.lazy(
 
 /** Direct Intake */
 const BrowsePoolsPage = React.lazy(() => import("./browse/BrowsePoolsPage"));
-const BrowseIndividualPoolApi = React.lazy(
-  () => import("./browse/BrowseIndividualPool"),
-);
-const PoolApplyPage = React.lazy(() => import("./pool/PoolApplyPage"));
-const PoolApplicationThanksPage = React.lazy(
-  () => import("./pool/PoolApplicationThanksPage"),
-);
 const PoolAdvertisementPage = React.lazy(
   () => import("./pool/PoolAdvertisementPage"),
 );
@@ -414,36 +407,6 @@ const directIntakeRoutes = (
     action: (context) => {
       const poolId = context.params.id as string;
       return {
-        component: <BrowseIndividualPoolApi poolId={poolId} />,
-        authorizedRoles: [Role.Applicant],
-      };
-    },
-  },
-  {
-    path: directIntakePaths.poolApply(":id"),
-    action: (context) => {
-      const poolId = context.params.id as string;
-      return {
-        component: <PoolApplyPage id={poolId} />,
-        authorizedRoles: [Role.Applicant],
-      };
-    },
-  },
-  {
-    path: directIntakePaths.poolApplyThanks(":id"),
-    action: (context) => {
-      const poolId = context.params.id as string;
-      return {
-        component: <PoolApplicationThanksPage id={poolId} />,
-        authorizedRoles: [Role.Applicant],
-      };
-    },
-  },
-  {
-    path: directIntakePaths.poolAdvertisement(":id"),
-    action: (context) => {
-      const poolId = context.params.id as string;
-      return {
         component: <PoolAdvertisementPage id={poolId} />,
       };
     },
@@ -504,15 +467,6 @@ export const Router: React.FC = () => {
         description: "Label displayed on the Search menu item.",
       })}
     />,
-    <MenuLink
-      key="request"
-      href={talentPaths.request()}
-      text={intl.formatMessage({
-        defaultMessage: "Request",
-        id: "i7hOcw",
-        description: "Label displayed on the Request menu item.",
-      })}
-    />,
   ];
 
   if (featureFlags.directIntake) {
@@ -544,7 +498,7 @@ export const Router: React.FC = () => {
     }
   }
 
-  if (featureFlags.applicantProfile && loggedIn && data?.me?.id) {
+  if (loggedIn && data?.me?.id) {
     menuItems.push(
       <MenuLink
         key="myProfile"
@@ -605,9 +559,7 @@ export const Router: React.FC = () => {
         contentRoutes={[
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),
-          ...(featureFlags.applicantProfile
-            ? profileRoutes(profilePaths, data?.me?.id)
-            : []),
+          ...profileRoutes(profilePaths, data?.me?.id),
           ...(featureFlags.directIntake
             ? directIntakeRoutes(directIntakePaths)
             : []),
