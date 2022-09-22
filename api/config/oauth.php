@@ -71,7 +71,7 @@ return [
     /**
      * When this request parameter is present, the authorization endpoint implementation should satisfy one of them in authenticating the end-user.
      * gckeymfa for MFA on (production)
-     * gckey for MFA off (for testing purposes on DEV or UAT: NOT FOR PRODUCTION!)
+     * gckey for MFA off (for testing purposes on local, dev, or uat: cannot be overridden in production)
      */
     'acr_values' => env('OAUTH_ACR_VALUES', 'gckeymfa'),
 
