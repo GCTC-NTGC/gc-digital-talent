@@ -122,7 +122,7 @@ const ThemeSwitcher: React.FunctionComponent = () => {
           data-h2-display="base(flex) base:children[>button](block)"
           data-h2-gap="base(.25rem)"
           data-h2-cursor="base:children[>button](pointer)"
-          data-h2-background-color="base:children[>button](transparent) base:children[>button]:focus-visible(focus)"
+          data-h2-background-color="base:children[>button](transparent) base:children[>button:focus-visible](focus)"
           data-h2-outline="base:children[>button](none)"
           data-h2-height="base:children[>button](1.75rem)"
           data-h2-width="base:children[>button](1.75rem)"

@@ -27,11 +27,10 @@ const CallToAction: React.FC<CallToActionProps> = ({
   if (context === "job") {
     buttonStyles = {
       "data-h2-background-color":
-        "base(white) base:children[div:first-child](tm-yellow) base:children[div:first-child]:hover(tm-yellow.5)",
+        "base(white) base:children[div:first-child](tm-yellow) base:children[div:first-child]:hover(tm-yellow.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
       "data-h2-border":
-        "base:children[div:first-child](all, 3px, solid, tm-yellow)",
-      "data-h2-color":
-        "base:children[*:not(:first-child)](black) base:children[div:first-child](white) base:children[div:first-child]:hover(tm-yellow)",
+        "base:children[div:first-child](all, 3px, solid, tm-yellow) base:children[div:not(:first-child)](all, 3px, solid, white) base:focus-visible:children[div:not(:first-child)](all, 3px, solid, focus)",
+      "data-h2-color": "base:children[*](black)",
     };
     icon = (
       <svg
@@ -52,11 +51,10 @@ const CallToAction: React.FC<CallToActionProps> = ({
   } else if (context === "hire") {
     buttonStyles = {
       "data-h2-background-color":
-        "base(white) base:children[div:first-child](tm-blue) base:children[div:first-child]:hover(tm-blue.5)",
+        "base(white) base:children[div:first-child](tm-blue) base:children[div:first-child]:hover(tm-blue.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
       "data-h2-border":
-        "base:children[div:first-child](all, 3px, solid, tm-blue)",
-      "data-h2-color":
-        "base:children[*:not(:first-child)](black) base:children[div:first-child](white) base:children[div:first-child]:hover(tm-blue)",
+        "base:children[div:first-child](all, 3px, solid, tm-blue) base:children[div:not(:first-child)](all, 3px, solid, white) base:focus-visible:children[div:not(:first-child)](all, 3px, solid, focus)",
+      "data-h2-color": "base:children[*](black)",
     };
     icon = (
       <svg
@@ -77,11 +75,10 @@ const CallToAction: React.FC<CallToActionProps> = ({
   } else if (context === "profile") {
     buttonStyles = {
       "data-h2-background-color":
-        "base(white) base:children[div:first-child](tm-green) base:children[div:first-child]:hover(tm-green.5)",
+        "base(white) base:children[div:first-child](tm-green) base:children[div:first-child]:hover(tm-green.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
       "data-h2-border":
-        "base:children[div:first-child](all, 3px, solid, tm-green)",
-      "data-h2-color":
-        "base:children[*:not(:first-child)](black) base:children[div:first-child](white) base:children[div:first-child]:hover(tm-green)",
+        "base:children[div:first-child](all, 3px, solid, tm-green) base:children[div:not(:first-child)](all, 3px, solid, white) base:focus-visible:children[div:not(:first-child)](all, 3px, solid, focus)",
+      "data-h2-color": "base:children[*](black)",
     };
     icon = (
       <svg
@@ -124,11 +121,7 @@ const CallToAction: React.FC<CallToActionProps> = ({
           >
             {icon}
           </div>
-          <div
-            data-h2-background-color="base(white)"
-            data-h2-border="base(all, 3px, solid, white)"
-            data-h2-padding="base(x.5, x1)"
-          >
+          <div data-h2-padding="base(x.5, x1)">
             <span
               data-h2-font-weight="base(700)"
               data-h2-text-decoration="base(underline)"
@@ -159,11 +152,7 @@ const CallToAction: React.FC<CallToActionProps> = ({
           >
             {icon}
           </div>
-          <div
-            data-h2-background-color="base(white)"
-            data-h2-border="base(all, 3px, solid, white)"
-            data-h2-padding="base(x.5, x1)"
-          >
+          <div data-h2-padding="base(x.5, x1)">
             <span
               data-h2-font-weight="base(700)"
               data-h2-text-decoration="base(underline)"

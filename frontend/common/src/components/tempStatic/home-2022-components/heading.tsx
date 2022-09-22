@@ -11,7 +11,7 @@ export interface HeadingProps {
   size: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   label: string;
   id: string;
-  icon?: string;
+  Icon?: React.FC<React.HTMLAttributes<HTMLOrSVGElement>>;
   color?: string;
 }
 
@@ -21,7 +21,7 @@ const Heading: React.FC<HeadingProps> = ({
   size,
   label,
   id,
-  icon,
+  Icon,
   color,
 }): React.ReactElement => {
   let headingSize = {};
@@ -83,13 +83,13 @@ const Heading: React.FC<HeadingProps> = ({
           {...headingSize}
           id={id}
         >
-          {icon ? (
+          {Icon ? (
             <div
               {...iconColor}
               {...iconDefaults}
               data-h2-width="base:children[svg](var(--h2-font-size-h1))"
             >
-              {icon}
+              <Icon />
             </div>
           ) : null}
           {label}
@@ -101,13 +101,13 @@ const Heading: React.FC<HeadingProps> = ({
           {...headingSize}
           id={id}
         >
-          {icon ? (
+          {Icon ? (
             <div
               {...iconColor}
               {...iconDefaults}
               data-h2-width="base:children[svg](var(--h2-font-size-h2))"
             >
-              {icon}
+              <Icon />
             </div>
           ) : null}
           {label}
@@ -115,13 +115,13 @@ const Heading: React.FC<HeadingProps> = ({
       )}
       {type === "h3" && (
         <h3 {...headingSize} id={id}>
-          {icon ? (
+          {Icon ? (
             <div
               {...iconColor}
               {...iconDefaults}
               data-h2-width="base:children[svg](var(--h2-font-size-h3))"
             >
-              {icon}
+              <Icon />
             </div>
           ) : null}
           {label}
@@ -129,13 +129,13 @@ const Heading: React.FC<HeadingProps> = ({
       )}
       {type === "h4" && (
         <h4 {...headingSize} id={id}>
-          {icon ? (
+          {Icon ? (
             <div
               {...iconColor}
               {...iconDefaults}
               data-h2-width="base:children[svg](var(--h2-font-size-h4))"
             >
-              {icon}
+              <Icon />
             </div>
           ) : null}
           {label}
@@ -143,13 +143,13 @@ const Heading: React.FC<HeadingProps> = ({
       )}
       {type === "h5" && (
         <h5 {...headingSize} id={id}>
-          {icon ? (
+          {Icon ? (
             <div
               {...iconColor}
               {...iconDefaults}
               data-h2-width="base:children[svg](var(--h2-font-size-h5))"
             >
-              {icon}
+              <Icon />
             </div>
           ) : null}
           {label}
@@ -157,13 +157,13 @@ const Heading: React.FC<HeadingProps> = ({
       )}
       {type === "h6" && (
         <h6 {...headingSize} id={id}>
-          {icon ? (
+          {Icon ? (
             <div
               {...iconColor}
               {...iconDefaults}
               data-h2-width="base:children[svg](var(--h2-font-size-h6))"
             >
-              {icon}
+              <Icon />
             </div>
           ) : null}
           {label}

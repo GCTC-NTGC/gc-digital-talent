@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
   if (color === "yellow") {
     buttonStyles = {
       "data-h2-background-color":
-        "base(tm-yellow) base:hover(tm-yellow.5) base:focus-visible(focus) base:active(transparent)",
+        "base(tm-yellow) base:hover(tm-yellow.lighter) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
         "base(all, 3px, solid, tm-yellow) base:focus-visible(all, 3px, solid, focus)",
       "data-h2-color": "base(black)",
@@ -34,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
   } else if (color === "red") {
     buttonStyles = {
       "data-h2-background-color":
-        "base(tm-red) base:hover(tm-red.5) base:focus-visible(focus) base:active(transparent)",
+        "base(tm-red) base:hover(tm-red.lighter) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
         "base(all, 3px, solid, tm-red) base:focus-visible(all, 3px, solid, focus)",
       "data-h2-color": "base(black)",
@@ -42,7 +42,7 @@ const Button: React.FC<ButtonProps> = ({
   } else if (color === "blue") {
     buttonStyles = {
       "data-h2-background-color":
-        "base(tm-blue) base:hover(tm-blue.5) base:focus-visible(focus) base:active(transparent)",
+        "base(tm-blue) base:hover(tm-blue.lighter) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
         "base(all, 3px, solid, tm-blue) base:focus-visible(all, 3px, solid, focus)",
       "data-h2-color": "base(black)",
@@ -50,11 +50,11 @@ const Button: React.FC<ButtonProps> = ({
   } else if (color === "black") {
     buttonStyles = {
       "data-h2-background-color":
-        "base(black) base:hover(black.5) base:focus-visible(focus) base:active(transparent)",
+        "base(black) base:hover(black.lighter) base:focus-visible(focus) base:active(transparent)",
       "data-h2-border":
         "base(all, 3px, solid, black) base:focus-visible(all, 3px, solid, focus)",
       "data-h2-color":
-        "base(tm-blue) base:active(black) base:focus-visible(black)",
+        "base(white) base:active(black) base:focus-visible(black)",
     };
   }
   return (

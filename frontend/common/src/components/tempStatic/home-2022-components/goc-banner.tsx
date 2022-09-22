@@ -1,10 +1,14 @@
+// GC Digital Talent / Common workspace / Static homepage / GoC banner
+
 // Vendor dependencies
 import React from "react";
 
 // Local helper dependencies
 
 // Local assets
+// @ts-ignore
 import logoLight from "../images/goc-logo-light.svg";
+// @ts-ignore
 import logoDark from "../images/goc-logo-dark.svg";
 
 // Local component dependencies
@@ -18,6 +22,7 @@ const Navigation: React.FunctionComponent = () => {
       data-h2-border="base(bottom, 1px, solid, black.2) base:dark(bottom, 1px, solid, white.2)"
       data-h2-padding="base(x1, 0) p-tablet(x.5, 0)"
     >
+      {/* Content container with a grid layout */}
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <div
           data-h2-display="base(grid)"
@@ -25,29 +30,31 @@ const Navigation: React.FunctionComponent = () => {
           data-h2-gap="base(x.5) p-tablet(x2)"
           data-h2-align-items="base(center)"
         >
+          {/* First grid item containing the GoC logo */}
           <div data-h2-text-align="base(center) p-tablet(left)">
             <a
               href="https://canada.ca"
               target="_blank"
-              title="Open canada.ca in a new tab."
+              title="Open canada.ca in a new tab." // Translated string required
               rel="noopener noreferrer"
             >
               <div data-h2-display="base(block) base:dark(none)">
                 <img
                   src={logoLight}
-                  alt="Government of Canada"
+                  alt="Government of Canada" // Translated string required
                   data-h2-max-width="base(x12) p-tablet(x15)"
                 />
               </div>
               <div data-h2-display="base(none) base:dark(block)">
                 <img
                   src={logoDark}
-                  alt="Government of Canada"
+                  alt="Government of Canada" // Translated string required
                   data-h2-max-width="base(x12) p-tablet(x15)"
                 />
               </div>
             </a>
           </div>
+          {/* Second grid item with flex children for the theme switcher and language toggle */}
           <div
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column) p-tablet(row)"
@@ -56,18 +63,20 @@ const Navigation: React.FunctionComponent = () => {
             data-h2-justify-content="base(center) p-tablet(flex-end)"
             data-h2-text-align="base(center) p-tablet(left)"
           >
+            {/* Light/dark mode theme switcher */}
             <div>
               <ThemeSwitcher />
             </div>
+            {/* Language toggle */}
             <div>
               <a
                 href="https://google.com"
-                title="Visitez cette page en français."
+                title="Visitez cette page en français." // Translated string required
                 data-h2-background-color="base:focus-visible(focus)"
                 data-h2-outline="base(none)"
                 data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
               >
-                Français
+                Français {/* Translated string required */}
               </a>
             </div>
           </div>

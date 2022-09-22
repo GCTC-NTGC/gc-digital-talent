@@ -4,7 +4,9 @@ import React from "react";
 // Local helper dependencies
 
 // Local assets
+// @ts-ignore
 import logoLight from "../images/canada-logo-light.svg";
+// @ts-ignore
 import logoDark from "../images/canada-logo-dark.svg";
 
 // Local component dependencies
@@ -68,7 +70,7 @@ const Footer: React.FunctionComponent = () => {
             </div>
             <div data-h2-margin="base(x2, 0, x1, 0) p-tablet(x1, 0, 0, 0)">
               <p
-                data-h2-color="base(black.5) base:dark(white.5)"
+                data-h2-color="base(black.7) base:dark(white.7)"
                 data-h2-font-size="base(caption)"
               >
                 Last modified: September 16th, 2022

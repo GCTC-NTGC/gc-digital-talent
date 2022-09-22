@@ -7,6 +7,26 @@ import React from "react";
 import Heading from "./heading";
 import OpportunityBlock from "./opportunity-block";
 
+const SectionIcon: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (
+  props,
+) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth="2"
+    stroke="currentColor"
+    className="w-6 h-6"
+    {...props}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"
+    />
+  </svg>
+);
+
 // Create the page component
 const About: React.FunctionComponent = () => {
   const opportunities = [
@@ -44,22 +64,6 @@ const About: React.FunctionComponent = () => {
       },
     },
   ];
-  const sectionIcon = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth="2"
-      stroke="currentColor"
-      className="w-6 h-6"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"
-      />
-    </svg>
-  );
   return (
     <div
       data-h2-background-color="base(tm-linear-footer)"
@@ -77,12 +81,12 @@ const About: React.FunctionComponent = () => {
               size="h2"
               label="Learn more"
               id=""
-              icon={sectionIcon}
+              Icon={SectionIcon}
               color="black"
             />
             <div
               data-h2-display="base(grid)"
-              data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr) l-tablet(1fr 1fr 1fr)"
+              data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
               data-h2-gap="base(x2) p-tablet(x3)"
               data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)"
             >

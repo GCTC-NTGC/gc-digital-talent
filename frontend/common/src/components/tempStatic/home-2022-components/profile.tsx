@@ -3,6 +3,12 @@ import React from "react";
 
 // Local helper dependencies
 
+// Local assets
+// @ts-ignore
+import hero1Landscape from "../images/Profile hero.png";
+// @ts-ignore
+import "./profile.css";
+
 // Local component dependencies
 import CallToAction from "./call-to-action";
 
@@ -27,22 +33,19 @@ const Profile: React.FunctionComponent = () => {
       <div
         data-h2-height="base(100%)"
         data-h2-width="base(100%)"
+        data-h2-background-color="base(black)"
         data-h2-position="base(absolute)"
         data-h2-transform="base(skewY(-3deg))"
         data-h2-overflow="base(hidden)"
       >
         <div
-          data-h2-height="base(200%)"
-          data-h2-width="base(100%)"
           data-h2-position="base(absolute)"
           data-h2-transform="base(skewY(3deg))"
-          data-h2-overlay="base(tm-linear-text)"
+          data-h2-height="base(100%)"
+          data-h2-width="base(100%)"
+          className="profile-bg-image"
           style={{
-            transformOrigin: "100%",
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
+            backgroundImage: `url('${hero1Landscape}')`,
           }}
         />
         <div
@@ -64,7 +67,7 @@ const Profile: React.FunctionComponent = () => {
         data-h2-position="base(relative)"
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
       >
-        <div data-h2-padding="base(x4, 0) p-tablet(x5, 0, x4, 0) l-tablet(x7, 0, x6, 0)">
+        <div data-h2-padding="base(x4, 0, 50vh, 0) p-tablet(x5, 0, 60vh, 0) l-tablet(x7, 0, x6, 0)">
           <p
             data-h2-font-size="base(h6, 1.4)"
             data-h2-font-weight="base(300)"
