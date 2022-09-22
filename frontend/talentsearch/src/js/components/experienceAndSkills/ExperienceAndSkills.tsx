@@ -153,7 +153,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
       },
       {
         title: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
-        href: directIntakePaths.poolApply(poolAdvertisement.id),
+        href: directIntakePaths.pool(poolAdvertisement.id),
       },
       {
         href: directIntakePaths.reviewApplication(applicantId),

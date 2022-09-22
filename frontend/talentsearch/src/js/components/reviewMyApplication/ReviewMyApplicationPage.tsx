@@ -68,7 +68,7 @@ export const ReviewMyApplication: React.FunctionComponent<
         },
         {
           title: jobTitle,
-          href: directIntakePaths.poolApply(poolAdvertisement.id),
+          href: directIntakePaths.pool(poolAdvertisement.id),
         },
         {
           title: intl.formatMessage(navigationMessages.stepOne),

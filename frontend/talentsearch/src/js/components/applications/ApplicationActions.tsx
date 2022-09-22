@@ -70,7 +70,7 @@ const SeeAdvertisementAction = ({
   }
 
   return (
-    <Link href={paths.poolAdvertisement(advertisement.id)}>
+    <Link href={paths.pool(advertisement.id)}>
       {intl.formatMessage(
         {
           defaultMessage: "See advertisement<hidden> {name}</hidden>",

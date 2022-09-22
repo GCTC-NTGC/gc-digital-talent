@@ -9,6 +9,7 @@ import {
   localizePath,
   oppositeLocale,
 } from "@common/helpers/localize";
+import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { Helmet } from "react-helmet";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import ClientProvider from "./ClientProvider";
@@ -44,12 +45,14 @@ const routes = (
 export const Router: React.FC = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const aiConnectionString = getRuntimeVariable(
+    "APPLICATIONINSIGHTS_CONNECTION_STRING",
+  );
   const indigenousApprenticeshipPaths = useIndigenousApprenticeshipRoutes();
-
-  if (process.env.APPLICATIONINSIGHTS_CONNECTION_STRING) {
+  if (aiConnectionString) {
     const appInsights = new ApplicationInsights({
       config: {
-        connectionString: process.env.APPLICATIONINSIGHTS_CONNECTION_STRING,
+        connectionString: aiConnectionString,
       },
     });
     appInsights.loadAppInsights();

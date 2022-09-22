@@ -9,7 +9,7 @@ import {
   fakePoolCandidates,
 } from "@common/fakeData";
 import { OperationalRequirementV1 } from "@common/constants/localizedConstants";
-import PoolCandidatesTable from "../components/poolCandidate/PoolCandidatesTable";
+import PoolCandidatesTable from "./PoolCandidatesTable";
 import {
   CreatePoolCandidateAsAdminInput,
   User,
@@ -23,17 +23,41 @@ import {
   WorkRegion,
   LanguageAbility,
   SalaryRange,
-} from "../api/generated";
-import { CreatePoolCandidateForm } from "../components/poolCandidate/CreatePoolCandidate";
-import { UpdatePoolCandidateForm } from "../components/poolCandidate/UpdatePoolCandidate";
+} from "../../api/generated";
+import { CreatePoolCandidateForm } from "./CreatePoolCandidate";
+import { UpdatePoolCandidateForm } from "./UpdatePoolCandidate";
 
 const poolCandidateData = fakePoolCandidates();
 
+const mockPaginatorInfo = {
+  count: 1,
+  currentPage: 1,
+  firstItem: 1,
+  hasMorePages: true,
+  lastItem: 1,
+  lastPage: 1,
+  perPage: 5,
+  total: 100,
+};
+
 const stories = storiesOf("Pool Candidates", module);
 
-stories.add("Pool Candidates Table", () => (
-  <PoolCandidatesTable poolCandidates={poolCandidateData} />
-));
+stories.add(
+  "Pool Candidates Table",
+  () => <PoolCandidatesTable poolId="123" />,
+  {
+    apiResponses: {
+      GetPoolCandidatesPaginated: {
+        data: {
+          poolCandidatesPaginated: {
+            data: poolCandidateData,
+            paginatorInfo: mockPaginatorInfo,
+          },
+        },
+      },
+    },
+  },
+);
 
 stories.add("Create Pool Candidate Form", () => (
   <CreatePoolCandidateForm

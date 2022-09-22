@@ -31,4 +31,4 @@ AddType text/javascript .sjs
 AddOutputFilter INCLUDES .shtml .sjs
 
 # Make certain environment variables available for SSI
-#PassEnv ENV_NAME_HERE
+PassEnv APPLICATIONINSIGHTS_CONNECTION_STRING

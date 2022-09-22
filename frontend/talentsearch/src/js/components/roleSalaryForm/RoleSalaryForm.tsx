@@ -179,7 +179,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
             intl,
             application.poolAdvertisement,
           ),
-          href: directIntakePaths.poolApply(application.pool.id),
+          href: directIntakePaths.pool(application.pool.id),
         },
         {
           href: directIntakePaths.reviewApplication(application.id),
