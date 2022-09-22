@@ -4,9 +4,7 @@ parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 source ${parent_path}/lib/common.sh
 
 cd /var/www/html/frontend
-npm install
-
-cd /var/www/html/frontend/indigenousapprenticeship
-npm run codegen
-npm run intl-compile
-npm run dev
+npm install --workspace=indigenousapprenticeship
+npm run codegen --workspace=indigenousapprenticeship
+npm run intl-compile --workspace=indigenousapprenticeship
+npm run dev --workspace=indigenousapprenticeship
