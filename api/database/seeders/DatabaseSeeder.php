@@ -86,7 +86,7 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         $applicant = User::where('email', 'applicant@test.com')->first();
-        $pool = Pool::inRandomOrder()->first();
+        $pool =  Pool::factory()->create();
         $this->seedPoolCandidate($applicant, $pool);
 
         // add experiences to all the users
