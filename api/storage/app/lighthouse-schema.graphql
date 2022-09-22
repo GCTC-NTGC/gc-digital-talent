@@ -317,6 +317,7 @@ input CreatePoolInput {
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
   status: PoolStatus = NOT_TAKING_APPLICATIONS
+  priorityNumber: String
 }
 
 input CreateSkillFamilyInput {
@@ -782,6 +783,7 @@ type Pool {
   keyTasks: LocalizedString
   status: PoolStatus
   stream: PoolStream
+  processNumber: String
 }
 
 type PoolAdvertisement {
@@ -1228,6 +1230,7 @@ input UpdatePoolAdvertisementInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   stream: PoolStream
+  processNumber: String
   expiryDate: DateTimeTz
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
@@ -1273,6 +1276,7 @@ input UpdatePoolInput {
   keyTasks: LocalizedStringInput
   status: PoolStatus
   stream: PoolStream
+  processNumber: String
 }
 
 input UpdateSkillFamilyInput {
