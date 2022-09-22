@@ -191,58 +191,31 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   }, [currentPage, pageSize]);
 
   // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
-  // this function smooths the table sort value into appropriate API calls
-  const updateAPIQuery = () => {
+  // this smooths the table sort value into appropriate API calls
+  useEffect(() => {
     if (sortingRule?.column.sortColumnName === "submitted_at") {
       setSortOrder({
         column: sortingRule.column.sortColumnName,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
         user: undefined,
       });
-    } else if (sortingRule?.column.sortColumnName === "job_looking_status") {
+    } else if (
+      sortingRule?.column.sortColumnName &&
+      [
+        "JOB_LOOKING_STATUS",
+        "FIRST_NAME",
+        "EMAIL",
+        "PREFERRED_LANG",
+        "CURRENT_CITY",
+      ].includes(sortingRule.column.sortColumnName)
+    ) {
       setSortOrder({
         column: undefined,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
         user: {
           aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-          column:
-            QueryPoolCandidatesPaginatedOrderByUserColumn.JobLookingStatus,
-        },
-      });
-    } else if (sortingRule?.column.sortColumnName === "first_name") {
-      setSortOrder({
-        column: undefined,
-        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-        user: {
-          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-          column: QueryPoolCandidatesPaginatedOrderByUserColumn.FirstName,
-        },
-      });
-    } else if (sortingRule?.column.sortColumnName === "email") {
-      setSortOrder({
-        column: undefined,
-        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-        user: {
-          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-          column: QueryPoolCandidatesPaginatedOrderByUserColumn.Email,
-        },
-      });
-    } else if (sortingRule?.column.sortColumnName === "preferred_lang") {
-      setSortOrder({
-        column: undefined,
-        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-        user: {
-          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-          column: QueryPoolCandidatesPaginatedOrderByUserColumn.PreferredLang,
-        },
-      });
-    } else if (sortingRule?.column.sortColumnName === "current_city") {
-      setSortOrder({
-        column: undefined,
-        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-        user: {
-          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-          column: QueryPoolCandidatesPaginatedOrderByUserColumn.CurrentCity,
+          column: sortingRule.column
+            .sortColumnName as QueryPoolCandidatesPaginatedOrderByUserColumn,
         },
       });
     } else {
@@ -252,10 +225,6 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         user: undefined,
       });
     }
-  };
-
-  useEffect(() => {
-    updateAPIQuery();
   }, [sortingRule]);
 
   const [result] = useGetPoolCandidatesPaginatedQuery({
@@ -348,7 +317,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         id: "availability",
         accessor: ({ user }) =>
           availabilityAccessor(user.jobLookingStatus, intl),
-        sortColumnName: "job_looking_status",
+        sortColumnName: "JOB_LOOKING_STATUS",
       },
       {
         label: intl.formatMessage({
@@ -371,7 +340,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         }),
         id: "candidateName",
         accessor: ({ user }) => `${user?.firstName} ${user?.lastName}`,
-        sortColumnName: "first_name",
+        sortColumnName: "FIRST_NAME",
       },
       {
         label: intl.formatMessage({
@@ -382,7 +351,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         }),
         id: "email",
         accessor: ({ user }) => user?.email,
-        sortColumnName: "email",
+        sortColumnName: "EMAIL",
       },
       {
         label: intl.formatMessage({
@@ -394,7 +363,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         id: "preferredLang",
         accessor: ({ user }) =>
           preferredLanguageAccessor(user?.preferredLang, intl),
-        sortColumnName: "preferred_lang",
+        sortColumnName: "PREFERRED_LANG",
       },
       {
         label: intl.formatMessage({
@@ -409,7 +378,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             user?.currentProvince,
             intl,
           )}`,
-        sortColumnName: "current_city",
+        sortColumnName: "CURRENT_CITY",
       },
       {
         label: intl.formatMessage({
