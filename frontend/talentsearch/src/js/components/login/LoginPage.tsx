@@ -8,6 +8,7 @@ import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
+import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 const keyRegistrationLink = (path: string, ...chunks: React.ReactNode[]) => (
   <a href={path}>{chunks}</a>
@@ -17,6 +18,7 @@ const LoginPage: React.FC = () => {
   const intl = useIntl();
   const paths = useApiRoutes();
   const profilePaths = useApplicantProfileRoutes();
+  const searchPaths = useTalentSearchRoutes();
   const loginPath = paths.login(profilePaths.myProfile(), getLocale(intl));
 
   return (
@@ -85,7 +87,8 @@ const LoginPage: React.FC = () => {
           >
             <p>
               <Link
-                href={loginPath}
+                href={searchPaths.home()}
+                external
                 mode="outline"
                 color="secondary"
                 type="button"
