@@ -17,11 +17,13 @@ import printStyles from "@common/constants/printStyles";
 import {
   JobLookingStatus,
   Language,
+  OrderByRelationWithColumnAggregateFunction,
   PoolCandidate,
   PoolCandidatePaginator,
   PoolCandidateStatus,
   ProvinceOrTerritory,
   QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
+  QueryPoolCandidatesPaginatedOrderByUserColumn,
   SortOrder,
   useGetPoolCandidatesPaginatedQuery,
   useGetSelectedPoolCandidatesQuery,
@@ -182,17 +184,66 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       order: SortOrder.Asc,
       user: undefined,
     });
+  // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause, therefore default is a redundant sort
 
   useEffect(() => {
     setSelectedRows([]);
   }, [currentPage, pageSize]);
 
+  // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
+  // this function smooths the table sort value into appropriate API calls
   const updateAPIQuery = () => {
     if (sortingRule?.column.sortColumnName === "submitted_at") {
       setSortOrder({
         column: sortingRule.column.sortColumnName,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
         user: undefined,
+      });
+    } else if (sortingRule?.column.sortColumnName === "job_looking_status") {
+      setSortOrder({
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column:
+            QueryPoolCandidatesPaginatedOrderByUserColumn.JobLookingStatus,
+        },
+      });
+    } else if (sortingRule?.column.sortColumnName === "first_name") {
+      setSortOrder({
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column: QueryPoolCandidatesPaginatedOrderByUserColumn.FirstName,
+        },
+      });
+    } else if (sortingRule?.column.sortColumnName === "email") {
+      setSortOrder({
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column: QueryPoolCandidatesPaginatedOrderByUserColumn.Email,
+        },
+      });
+    } else if (sortingRule?.column.sortColumnName === "preferred_lang") {
+      setSortOrder({
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column: QueryPoolCandidatesPaginatedOrderByUserColumn.PreferredLang,
+        },
+      });
+    } else if (sortingRule?.column.sortColumnName === "current_city") {
+      setSortOrder({
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column: QueryPoolCandidatesPaginatedOrderByUserColumn.CurrentCity,
+        },
       });
     } else {
       setSortOrder({
