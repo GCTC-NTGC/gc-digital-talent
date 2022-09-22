@@ -16,7 +16,7 @@ class ClassificationSeeder extends Seeder
     {
         $itGroup = [
             'group' => 'IT',
-            'name' => ['en' => 'Information Technology', 'fr' => 'Technologie de l\'information']
+            'name' => ['en' => 'Information Technology ', 'fr' => 'Technologie de l\'information']
         ];
         $asGroup = [
             'group' => 'AS',
