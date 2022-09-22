@@ -21,6 +21,8 @@ import {
   PoolCandidatePaginator,
   PoolCandidateStatus,
   ProvinceOrTerritory,
+  QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
+  SortOrder,
   useGetPoolCandidatesPaginatedQuery,
   useGetSelectedPoolCandidatesQuery,
 } from "../../api/generated";
@@ -31,6 +33,7 @@ import {
   handleColumnHiddenChange,
   handleRowSelectedChange,
   rowSelectionColumn,
+  SortingRule,
 } from "../apiManagedTable/basicTableHelpers";
 import BasicTable from "../apiManagedTable/BasicTable";
 import TableFooter from "../apiManagedTable/TableFooter";
@@ -172,16 +175,44 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   const [pageSize, setPageSize] = useState(10);
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
   const [selectedRows, setSelectedRows] = useState<PoolCandidate[]>([]);
+  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
+  const [sortOrder, setSortOrder] =
+    useState<QueryPoolCandidatesPaginatedOrderByRelationOrderByClause>({
+      column: "status_weight",
+      order: SortOrder.Asc,
+      user: undefined,
+    });
 
   useEffect(() => {
     setSelectedRows([]);
   }, [currentPage, pageSize]);
+
+  const updateAPIQuery = () => {
+    if (sortingRule?.column.sortColumnName === "submitted_at") {
+      setSortOrder({
+        column: sortingRule.column.sortColumnName,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: undefined,
+      });
+    } else {
+      setSortOrder({
+        column: "status_weight",
+        order: SortOrder.Asc,
+        user: undefined,
+      });
+    }
+  };
+
+  useEffect(() => {
+    updateAPIQuery();
+  }, [sortingRule]);
 
   const [result] = useGetPoolCandidatesPaginatedQuery({
     variables: {
       where: { pools: [{ id: poolId }] },
       page: currentPage,
       first: pageSize,
+      sortingInput: sortOrder,
     },
   });
 
@@ -266,6 +297,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         id: "availability",
         accessor: ({ user }) =>
           availabilityAccessor(user.jobLookingStatus, intl),
+        sortColumnName: "job_looking_status",
       },
       {
         label: intl.formatMessage({
@@ -288,6 +320,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         }),
         id: "candidateName",
         accessor: ({ user }) => `${user?.firstName} ${user?.lastName}`,
+        sortColumnName: "first_name",
       },
       {
         label: intl.formatMessage({
@@ -298,6 +331,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         }),
         id: "email",
         accessor: ({ user }) => user?.email,
+        sortColumnName: "email",
       },
       {
         label: intl.formatMessage({
@@ -309,6 +343,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         id: "preferredLang",
         accessor: ({ user }) =>
           preferredLanguageAccessor(user?.preferredLang, intl),
+        sortColumnName: "preferred_lang",
       },
       {
         label: intl.formatMessage({
@@ -323,6 +358,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             user?.currentProvince,
             intl,
           )}`,
+        sortColumnName: "current_city",
       },
       {
         label: intl.formatMessage({
@@ -333,6 +369,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         }),
         id: "dateReceived",
         accessor: (d) => d.submittedAt,
+        sortColumnName: "submitted_at",
       },
     ],
     [intl, selectedRows, filteredData, adminRoutes],
@@ -407,9 +444,8 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             data={filteredData}
             columns={columns}
             hiddenColumnIds={hiddenColumnIds}
-            onSortingRuleChange={() => {
-              /* Implement this later if desired */
-            }}
+            onSortingRuleChange={setSortingRule}
+            sortingRule={sortingRule}
           />
         </Pending>
         <TableFooter
