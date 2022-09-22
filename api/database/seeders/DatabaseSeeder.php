@@ -190,6 +190,10 @@ class DatabaseSeeder extends Seeder
             // match arrays from the user
             $candidate->expectedClassifications()->sync($user->expectedClassifications()->pluck('classifications.id')->toArray());
             $candidate->cmoAssets()->sync($user->cmoAssets()->pluck('cmo_assets.id')->toArray());
+
+            if ($candidate->submitted_at) {
+                $candidate->createSnapshot();
+            }
         })->create();
     }
 }

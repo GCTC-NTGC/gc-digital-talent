@@ -69,6 +69,13 @@ return [
     'redirect_uri' => env('OAUTH_REDIRECT_URI', config('app.url') . '/auth-callback'),
 
     /**
+     * When this request parameter is present, the authorization endpoint implementation should satisfy one of them in authenticating the end-user.
+     * gckeymfa for MFA on (production)
+     * gckey for MFA off (for testing purposes on local, dev, or uat: cannot be overridden in production)
+     */
+    'acr_values' => env('OAUTH_ACR_VALUES', 'gckeymfa'),
+
+    /**
      * This server's client id and secret, known to the OAuth server.
      */
     'client_id' => env('OAUTH_API_CLIENT_ID', ''),
