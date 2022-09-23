@@ -26,6 +26,7 @@ type FormValues = {
   stream?: PoolStream;
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
+  processNumber?: string;
 };
 
 export type PoolNameSubmitData = Pick<
@@ -64,6 +65,7 @@ export const PoolNameSection = ({
     stream: initialData.stream ?? undefined,
     specificTitleEn: initialData.name?.en ?? "",
     specificTitleFr: initialData.name?.fr ?? "",
+    processNumber: initialData.processNumber ?? "",
   });
 
   const methods = useForm<FormValues>({
@@ -81,6 +83,9 @@ export const PoolNameSection = ({
         en: formValues.specificTitleEn,
         fr: formValues.specificTitleFr,
       },
+      processNumber: formValues.processNumber
+        ? formValues.processNumber
+        : undefined,
     };
 
     onSave(data);
@@ -187,6 +192,29 @@ export const PoolNameSection = ({
                 disabled={formDisabled}
               />
             </Spacer>
+          </div>
+          <div data-h2-display="base(flex)">
+            <Spacer style={{ flex: 1 }}>
+              <Input
+                id="processNumber"
+                name="processNumber"
+                type="text"
+                label={intl.formatMessage({
+                  defaultMessage: "Process Number",
+                  id: "1E0RiD",
+                  description: "Label for a pools process number",
+                })}
+                context={intl.formatMessage({
+                  defaultMessage:
+                    "This process number is obtained from your HR shop",
+                  id: "Ao/+Ba",
+                  description:
+                    "Additional context describing the pools process number.",
+                })}
+                disabled={formDisabled}
+              />
+            </Spacer>
+            <Spacer style={{ flex: 1 }} />
           </div>
 
           {!formDisabled && (

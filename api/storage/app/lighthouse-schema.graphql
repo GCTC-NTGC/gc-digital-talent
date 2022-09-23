@@ -803,6 +803,7 @@ type PoolAdvertisement {
   essentialSkills: [Skill!]
   nonessentialSkills: [Skill!]
   stream: PoolStream
+  processNumber: String
 }
 
 enum PoolAdvertisementLanguage {
