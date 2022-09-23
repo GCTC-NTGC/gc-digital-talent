@@ -1,9 +1,9 @@
 import { getLocale } from "@common/helpers/localize";
+import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { ADMIN_APP_DIR } from "./adminConstants";
-import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 
 export type AdminRoutes = ReturnType<typeof adminRoutes>;
 
