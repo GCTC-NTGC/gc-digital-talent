@@ -8,6 +8,7 @@ import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { Helmet } from "react-helmet";
 import { getLocale } from "@common/helpers/localize";
 import Pending from "@common/components/Pending";
+import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import PageContainer, { MenuLink } from "./PageContainer";
 import {
   useTalentSearchRoutes,
@@ -24,6 +25,7 @@ import {
 } from "../directIntakeRoutes";
 import { ExperienceType } from "./experienceForm/types";
 import { Role, useGetAboutMeQuery } from "../api/generated";
+import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 
 /** Search */
 const SearchPage = React.lazy(() => import("./search/SearchPage"));
@@ -456,7 +458,18 @@ export const Router: React.FC = () => {
 
   const [result] = useGetAboutMeQuery();
   const { data, fetching, error } = result;
-
+  const aiConnectionString = getRuntimeVariable(
+    "APPLICATIONINSIGHTS_CONNECTION_STRING",
+  );
+  if (aiConnectionString) {
+    const appInsights = new ApplicationInsights({
+      config: {
+        connectionString: aiConnectionString,
+      },
+    });
+    appInsights.loadAppInsights();
+    appInsights.trackPageView();
+  }
   const menuItems = [
     <MenuLink
       key="search"
