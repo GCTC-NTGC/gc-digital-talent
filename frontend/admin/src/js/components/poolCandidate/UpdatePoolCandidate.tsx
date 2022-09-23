@@ -180,7 +180,10 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h3 data-h2-margin="base(x2, 0, x1, 0)">
+            <h3
+              data-h2-font-size="base(h4)"
+              data-h2-margin="base(x2, 0, x1, 0)"
+            >
               {intl.formatMessage({
                 description: "Heading for the user information section",
                 defaultMessage: "User Information",
@@ -256,7 +259,10 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 label: intl.formatMessage(getLanguage(value)),
               }))}
             />
-            <h3 data-h2-margin="base(x2, 0, x1, 0)">
+            <h3
+              data-h2-font-size="base(h4)"
+              data-h2-margin="base(x2, 0, x1, 0)"
+            >
               {intl.formatMessage({
                 description: "Heading for the candidate information section",
                 defaultMessage: "Candidate Information",

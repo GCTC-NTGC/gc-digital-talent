@@ -212,7 +212,11 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading as="h2" icon={LightBulbIcon}>
+                <TableOfContents.Heading
+                  as="h2"
+                  data-h2-font-size="base(h3)"
+                  icon={LightBulbIcon}
+                >
                   {intl.formatMessage({
                     defaultMessage: "My Status",
                     id: "Cx3s+E",
@@ -248,7 +252,11 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading as="h2" icon={UserGroupIcon}>
+                <TableOfContents.Heading
+                  as="h2"
+                  data-h2-font-size="base(h3)"
+                  icon={UserGroupIcon}
+                >
                   {intl.formatMessage({
                     defaultMessage: "My hiring pools",
                     id: "fNOekV",
@@ -289,7 +297,11 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading as="h2" icon={UserIcon}>
+                <TableOfContents.Heading
+                  as="h2"
+                  data-h2-font-size="base(h3)"
+                  icon={UserIcon}
+                >
                   {intl.formatMessage({
                     defaultMessage: "About Me",
                     id: "CnB8IO",
@@ -333,7 +345,11 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading as="h2" icon={ChatBubbleLeftRightIcon}>
+                <TableOfContents.Heading
+                  as="h2"
+                  data-h2-font-size="base(h3)"
+                  icon={ChatBubbleLeftRightIcon}
+                >
                   {intl.formatMessage({
                     defaultMessage: "Language Information",
                     id: "1pk/7X",
@@ -378,7 +394,11 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading as="h2" icon={BuildingLibraryIcon}>
+                <TableOfContents.Heading
+                  as="h2"
+                  data-h2-font-size="base(h3)"
+                  icon={BuildingLibraryIcon}
+                >
                   {intl.formatMessage({
                     defaultMessage: "Government Information",
                     id: "l1cou8",
@@ -423,7 +443,11 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading as="h2" icon={MapPinIcon}>
+                <TableOfContents.Heading
+                  as="h2"
+                  data-h2-font-size="base(h3)"
+                  icon={MapPinIcon}
+                >
                   {intl.formatMessage({
                     defaultMessage: "Work Location",
                     id: "F9R74z",
@@ -467,7 +491,11 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading as="h2" icon={HandThumbUpIcon}>
+                <TableOfContents.Heading
+                  as="h2"
+                  data-h2-font-size="base(h3)"
+                  icon={HandThumbUpIcon}
+                >
                   {intl.formatMessage({
                     defaultMessage: "Work Preferences",
                     id: "V89Ryn",
@@ -512,7 +540,11 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading as="h2" icon={UserCircleIcon}>
+                <TableOfContents.Heading
+                  as="h2"
+                  data-h2-font-size="base(h3)"
+                  icon={UserCircleIcon}
+                >
                   {intl.formatMessage({
                     defaultMessage: "Diversity, equity and inclusion",
                     id: "inzzdo",
@@ -557,7 +589,11 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading as="h2" icon={CurrencyDollarIcon}>
+                <TableOfContents.Heading
+                  as="h2"
+                  data-h2-font-size="base(h3)"
+                  icon={CurrencyDollarIcon}
+                >
                   {intl.formatMessage({
                     defaultMessage: "Role and salary expectations",
                     id: "uMzeiF",
@@ -602,7 +638,11 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading as="h2" icon={BoltIcon}>
+                <TableOfContents.Heading
+                  as="h2"
+                  data-h2-font-size="base(h3)"
+                  icon={BoltIcon}
+                >
                   {intl.formatMessage({
                     defaultMessage: "My skills and experience",
                     id: "Eui2Wf",
