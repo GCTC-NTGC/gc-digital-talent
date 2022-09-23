@@ -154,6 +154,7 @@ export const PageContainer: React.FC<{
           data-h2-flex-direction="base(column)"
           data-h2-height="base(100vh)"
           data-h2-margin="base(0)"
+          data-h2-color="base(black) base:dark(white)"
         >
           <div>
             <Header baseUrl={TALENTSEARCH_APP_DIR} />
