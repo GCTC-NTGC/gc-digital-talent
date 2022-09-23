@@ -603,10 +603,6 @@
     "defaultMessage": "Erreur : utilisateur introuvable",
     "description": "Message displayed to user if user is not found"
   },
-  "4xzq2Y": {
-    "defaultMessage": "(Nom manquant)",
-    "description": "Message for Missing names in profile"
-  },
   "5FFRV2": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'utilisateur",
     "description": "Message displayed to user after user fails to get updated."

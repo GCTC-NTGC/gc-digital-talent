@@ -14,8 +14,8 @@ import {
 import { commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
-import { isEmpty } from "lodash";
 import Heading from "@common/components/Heading";
+import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -37,15 +37,6 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
     description: "Title for the page when viewing an individual user.",
   });
 
-  let userName = `${user?.firstName} ${user?.lastName}`;
-  if (isEmpty(user?.firstName) && isEmpty(user?.firstName)) {
-    userName = intl.formatMessage({
-      defaultMessage: "(Missing name)",
-      id: "4xzq2Y",
-      description: "Message for Missing names in profile",
-    });
-  }
-
   const links = [
     {
       title: intl.formatMessage({
@@ -64,7 +55,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
       href: adminPaths.userTable(),
     },
     {
-      title: userName,
+      title: getFullNameHtml(user, intl),
     },
   ] as BreadcrumbsProps["links"];
 
@@ -88,11 +79,9 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
       <div data-h2-margin="base(x2, 0, x1, 0)">
         <div data-h2-flex-grid="base(center, x1)">
           <div data-h2-flex-item="base(1of1) p-tablet(fill)">
-            {userName !== " " && (
-              <Heading level="h2" data-h2-margin="base(x.5, 0) l-tablet(0)">
-                {userName}
-              </Heading>
-            )}
+            <Heading level="h2" data-h2-margin="base(x.5, 0) l-tablet(0)">
+              {getFullNameHtml(user, intl)}
+            </Heading>
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(content)">
             <UserProfilePrintButton userId={user.id}>
