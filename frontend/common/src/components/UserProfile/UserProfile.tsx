@@ -215,6 +215,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 <TableOfContents.Heading
                   as="h2"
                   data-h2-font-size="base(h3)"
+                  data-h2-font-weight="base(400)"
+                  data-h2-margin="base(x1.5, 0, x.25, 0)"
                   icon={LightBulbIcon}
                 >
                   {intl.formatMessage({
@@ -255,6 +257,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 <TableOfContents.Heading
                   as="h2"
                   data-h2-font-size="base(h3)"
+                  data-h2-font-weight="base(400)"
+                  data-h2-margin="base(x1.5, 0, x.25, 0)"
                   icon={UserGroupIcon}
                 >
                   {intl.formatMessage({
@@ -300,6 +304,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 <TableOfContents.Heading
                   as="h2"
                   data-h2-font-size="base(h3)"
+                  data-h2-font-weight="base(400)"
+                  data-h2-margin="base(x1.5, 0, x.25, 0)"
                   icon={UserIcon}
                 >
                   {intl.formatMessage({
@@ -348,6 +354,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 <TableOfContents.Heading
                   as="h2"
                   data-h2-font-size="base(h3)"
+                  data-h2-font-weight="base(400)"
+                  data-h2-margin="base(x1.5, 0, x.25, 0)"
                   icon={ChatBubbleLeftRightIcon}
                 >
                   {intl.formatMessage({
@@ -397,6 +405,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 <TableOfContents.Heading
                   as="h2"
                   data-h2-font-size="base(h3)"
+                  data-h2-font-weight="base(400)"
+                  data-h2-margin="base(x1.5, 0, x.25, 0)"
                   icon={BuildingLibraryIcon}
                 >
                   {intl.formatMessage({
@@ -446,6 +456,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 <TableOfContents.Heading
                   as="h2"
                   data-h2-font-size="base(h3)"
+                  data-h2-font-weight="base(400)"
+                  data-h2-margin="base(x1.5, 0, x.25, 0)"
                   icon={MapPinIcon}
                 >
                   {intl.formatMessage({
@@ -494,6 +506,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 <TableOfContents.Heading
                   as="h2"
                   data-h2-font-size="base(h3)"
+                  data-h2-font-weight="base(400)"
+                  data-h2-margin="base(x1.5, 0, x.25, 0)"
                   icon={HandThumbUpIcon}
                 >
                   {intl.formatMessage({
@@ -543,6 +557,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 <TableOfContents.Heading
                   as="h2"
                   data-h2-font-size="base(h3)"
+                  data-h2-font-weight="base(400)"
+                  data-h2-margin="base(x1.5, 0, x.25, 0)"
                   icon={UserCircleIcon}
                 >
                   {intl.formatMessage({
@@ -592,6 +608,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 <TableOfContents.Heading
                   as="h2"
                   data-h2-font-size="base(h3)"
+                  data-h2-font-weight="base(400)"
+                  data-h2-margin="base(x1.5, 0, x.25, 0)"
                   icon={CurrencyDollarIcon}
                 >
                   {intl.formatMessage({
@@ -641,6 +659,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 <TableOfContents.Heading
                   as="h2"
                   data-h2-font-size="base(h3)"
+                  data-h2-font-weight="base(400)"
+                  data-h2-margin="base(x1.5, 0, x.25, 0)"
                   icon={BoltIcon}
                 >
                   {intl.formatMessage({

@@ -365,6 +365,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
           <form onSubmit={handleSubmit(onSubmit)}>
             <h3
               data-h2-font-size="base(h4)"
+              data-h2-font-weight="base(300)"
               data-h2-margin="base(x2, 0, x1, 0)"
             >
               {intl.formatMessage({
@@ -404,6 +405,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
             <UserFormSection control={control} userOptions={userOptions} />
             <h3
               data-h2-font-size="base(h4)"
+              data-h2-font-weight="base(300)"
               data-h2-margin="base(x2, 0, x1, 0)"
             >
               {intl.formatMessage({
