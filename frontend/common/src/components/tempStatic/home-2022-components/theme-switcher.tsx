@@ -1,5 +1,5 @@
 // Vendor dependencies
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, useEffect } from "react";
 
 // Local helper dependencies
 
@@ -7,6 +7,82 @@ import React, { MouseEventHandler } from "react";
 
 // Create the page component
 const ThemeSwitcher: React.FunctionComponent = () => {
+  useEffect(() => {
+    function testDark() {
+      const hydrogen = document.querySelectorAll("[data-h2]");
+      if (
+        (window.matchMedia("(prefers-color-scheme: dark)").matches &&
+          (localStorage.theme === undefined ||
+            localStorage.theme !== "light")) ||
+        (localStorage.theme !== undefined && localStorage.theme === "dark")
+      ) {
+        hydrogen.forEach(function (item) {
+          if (item instanceof HTMLElement) {
+            item.dataset.h2 = "dark";
+          }
+        });
+      } else {
+        hydrogen.forEach(function (item) {
+          if (item instanceof HTMLElement) {
+            item.dataset.h2 = "";
+          }
+        });
+      }
+    }
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (e) => e.matches && testDark());
+    window
+      .matchMedia("(prefers-color-scheme: light)")
+      .addEventListener("change", (e) => e.matches && testDark());
+
+    if (localStorage.theme !== undefined) {
+      if (localStorage.theme === "dark") {
+        const hydrogen = document.querySelectorAll("[data-h2]");
+        const switcher = document.querySelector("#switcher");
+        if (switcher) {
+          switcher.classList.remove("light");
+          switcher.classList.add("dark");
+          switcher.classList.remove("pref");
+          hydrogen.forEach(function (item) {
+            if (item instanceof HTMLElement) {
+              item.dataset.h2 = "dark";
+            }
+          });
+        }
+      } else if (localStorage.theme === "light") {
+        const hydrogen = document.querySelectorAll("[data-h2]");
+        const switcher = document.querySelector("#switcher");
+        if (switcher) {
+          switcher.classList.add("light");
+          switcher.classList.remove("dark");
+          switcher.classList.remove("pref");
+          hydrogen.forEach(function (item) {
+            if (item instanceof HTMLElement) {
+              item.dataset.h2 = "";
+            }
+          });
+        }
+      }
+    } else if (
+      localStorage.theme === undefined &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      const hydrogen = document.querySelectorAll("[data-h2]");
+      const switcher = document.querySelector("#switcher");
+      if (switcher) {
+        switcher.classList.remove("light");
+        switcher.classList.remove("dark");
+        switcher.classList.remove("pref");
+        hydrogen.forEach(function (item) {
+          if (item instanceof HTMLElement) {
+            item.dataset.h2 = "dark";
+          }
+        });
+      }
+    }
+  }, []);
+
   const enablePref: MouseEventHandler = () => {
     const hydrogen = document.querySelectorAll("[data-h2]");
     const switcher = document.querySelector("#switcher");
@@ -66,22 +142,22 @@ const ThemeSwitcher: React.FunctionComponent = () => {
     <div
       id="switcher"
       data-h2-fill="
-    base:children[#icon_pref *](tm-yellow.light)
-    base:class[light]:children[#icon_pref *](black.lighter)
-    base:class[dark]:children[#icon_pref *](white.dark)
-    base:dark:children[#icon_pref *](tm-yellow.dark)
-    base:children[#icon_sun *](black.lighter)
-    base:class[light]:children[#icon_sun *](tm-yellow.light)
-    base:class[dark]:children[#icon_sun *](white.dark)
-    base:children[#icon_moon *](black.lighter)
-    base:class[dark]:children[#icon_moon *](tm-yellow.dark)
-    base:children[button:focus-visible #icon_pref *](black)
-    base:children[button:focus-visible #icon_sun *](black)
-    base:children[button:focus-visible #icon_moon *](black)"
+        base:children[#icon_pref *](tm-yellow.light)
+        base:class[light]:children[#icon_pref *](black.lighter)
+        base:class[dark]:children[#icon_pref *](white.dark)
+        base:dark:children[#icon_pref *](tm-yellow.dark)
+        base:children[#icon_sun *](black.lighter)
+        base:class[light]:children[#icon_sun *](tm-yellow.light)
+        base:class[dark]:children[#icon_sun *](white.dark)
+        base:children[#icon_moon *](black.lighter)
+        base:class[dark]:children[#icon_moon *](tm-yellow.dark)
+        base:children[button:focus-visible #icon_pref *](black)
+        base:children[button:focus-visible #icon_sun *](black)
+        base:children[button:focus-visible #icon_moon *](black)"
       data-h2-transform="
-    base:class[pref]:children[#highlight](translate(0, 0))
-    base:class[light]:children[#highlight](translate(2rem, 0))
-    base:class[dark]:children[#highlight](translate(4rem, 0))"
+        base:class[pref]:children[#highlight](translate(0, 0))
+        base:class[light]:children[#highlight](translate(2rem, 0))
+        base:class[dark]:children[#highlight](translate(4rem, 0))"
     >
       <div
         data-h2-border="base(all, 1px, solid, black.darker.2) base:dark(all, 1px, solid, white.2)"
@@ -132,7 +208,7 @@ const ThemeSwitcher: React.FunctionComponent = () => {
         >
           <button
             type="button"
-            title="{{ switcher.preference_toggle.title[locale] }}"
+            title="Allow your browser preferences to dictate the website's theme." // Requires a translated string.
             onClick={enablePref}
           >
             <svg
@@ -167,7 +243,7 @@ const ThemeSwitcher: React.FunctionComponent = () => {
           </button>
           <button
             type="button"
-            title="{{ switcher.light_toggle.title[locale] }}"
+            title="Activate light mode." // Requires a translated string
             onClick={enableLight}
           >
             <svg
@@ -231,7 +307,7 @@ const ThemeSwitcher: React.FunctionComponent = () => {
           </button>
           <button
             type="button"
-            title="{{ switcher.dark_toggle.title[locale] }}"
+            title="Activate dark mode." // Requires a translated string
             onClick={enableDark}
           >
             <svg
