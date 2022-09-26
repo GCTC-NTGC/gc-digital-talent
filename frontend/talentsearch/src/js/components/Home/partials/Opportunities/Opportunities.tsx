@@ -1,6 +1,7 @@
 // Vendor dependencies
 import React from "react";
 import { useIntl } from "react-intl";
+import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 
 // Local assets
 import Heading from "@common/components/Heading";
@@ -8,7 +9,6 @@ import useLocale from "@common/hooks/useLocale";
 import { imageUrl } from "@common/helpers/router";
 
 import Block from "./Block";
-import SectionIcon from "./SectionIcon";
 
 import TALENTSEARCH_APP_DIR from "../../../../talentSearchConstants";
 import { useDirectIntakeRoutes } from "../../../../directIntakeRoutes";
@@ -18,82 +18,6 @@ const Opportunities = () => {
   const intl = useIntl();
   const diPaths = useDirectIntakeRoutes();
   const locale = useLocale();
-  // This array is just a temporary data object representing the content required by the opportunity entries. This data will need to be migrated to wherever makes sense, and we'll also need dynamic routes and translated strings
-  const opportunities = [
-    {
-      key: "digital",
-      color: "yellow",
-      title: intl.formatMessage({
-        defaultMessage: "Jobs in digital government",
-        id: "+cBKDC",
-        description: "Heading for the digital government job opportunities",
-      }),
-      summary: intl.formatMessage({
-        defaultMessage:
-          "Check out the latest GC opportunities in digital and tech, from entry level to management. Find a team, make a difference, and be inspired.",
-        id: "951Oju",
-        description: "Description for the digital government job opportunities",
-      }),
-      link: {
-        path: diPaths.allPools(),
-        label: intl.formatMessage({
-          defaultMessage: "Browse IT jobs",
-          id: "zNvXSs",
-          description: "Link text for IT jobs in government call to action",
-        }),
-      },
-    },
-    {
-      key: "iap",
-      color: "blue",
-      title: intl.formatMessage({
-        defaultMessage: "Indigenous Apprenticeship Program",
-        id: "XR37x0",
-        description:
-          "Heading for the Indigenous Apprenticeship Program on home page",
-      }),
-      summary: intl.formatMessage({
-        defaultMessage:
-          "Designed by the Indigenous community for the Indigenous community, this program recruits entry-level applicants for learning and development IT opportunities across government.",
-        id: "f3Qqop",
-        description:
-          "Description for the Indigenous Apprenticeship Program on home page",
-      }),
-      link: {
-        path: `${locale}/indigenous-it-apprentice`,
-        label: intl.formatMessage({
-          defaultMessage:
-            "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
-          description:
-            "Link text to apply for the Indigenous Apprenticeship Program",
-          id: "w3Kkk2",
-        }),
-      },
-    },
-    {
-      key: "exec",
-      color: "red",
-      title: intl.formatMessage({
-        defaultMessage: "Executives in digital government",
-        id: "9KOwXq",
-        description: "Heading for executive jobs in government",
-      }),
-      summary: intl.formatMessage({
-        defaultMessage:
-          "From entry-level executives to CIO opportunities across the GC, this is the place to come if you’re ready to take on a digital leadership role making a difference for Canadians.",
-        id: "pDGY5P",
-        description: "Description for executive jobs in government",
-      }),
-      link: {
-        path: "https://google.com", // TO DO: Get new path
-        label: intl.formatMessage({
-          defaultMessage: "Browse exec jobs",
-          id: "QcrDDA",
-          description: "Link text to find executive jobs in government",
-        }),
-      },
-    },
-  ];
   return (
     <div data-h2-margin="base(-3%, 0, 0, 0)" data-h2-layer="base(2, relative)">
       <div
@@ -142,7 +66,7 @@ const Opportunities = () => {
           {/* Requires an ID and a translated text string */}
           <Heading
             level="h2"
-            Icon={SectionIcon}
+            Icon={MagnifyingGlassCircleIcon}
             color="yellow"
             data-h2-margin="base(0, 0, x0.5, 0)"
           >
@@ -158,9 +82,86 @@ const Opportunities = () => {
             data-h2-gap="base(x2) p-tablet(x3)"
             data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)"
           >
-            {opportunities.map((item) => (
-              <Block key={item.key} content={item} />
-            ))}
+            <Block
+              content={{
+                color: "yellow",
+                title: intl.formatMessage({
+                  defaultMessage: "Jobs in digital government",
+                  id: "+cBKDC",
+                  description:
+                    "Heading for the digital government job opportunities",
+                }),
+                summary: intl.formatMessage({
+                  defaultMessage:
+                    "Check out the latest GC opportunities in digital and tech, from entry level to management. Find a team, make a difference, and be inspired.",
+                  id: "951Oju",
+                  description:
+                    "Description for the digital government job opportunities",
+                }),
+                link: {
+                  path: diPaths.allPools(),
+                  label: intl.formatMessage({
+                    defaultMessage: "Browse IT jobs",
+                    id: "zNvXSs",
+                    description:
+                      "Link text for IT jobs in government call to action",
+                  }),
+                },
+              }}
+            />
+            <Block
+              content={{
+                color: "blue",
+                title: intl.formatMessage({
+                  defaultMessage: "Indigenous Apprenticeship Program",
+                  id: "XR37x0",
+                  description:
+                    "Heading for the Indigenous Apprenticeship Program on home page",
+                }),
+                summary: intl.formatMessage({
+                  defaultMessage:
+                    "Designed by the Indigenous community for the Indigenous community, this program recruits entry-level applicants for learning and development IT opportunities across government.",
+                  id: "f3Qqop",
+                  description:
+                    "Description for the Indigenous Apprenticeship Program on home page",
+                }),
+                link: {
+                  path: `${locale}/indigenous-it-apprentice`,
+                  label: intl.formatMessage({
+                    defaultMessage:
+                      "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
+                    description:
+                      "Link text to apply for the Indigenous Apprenticeship Program",
+                    id: "w3Kkk2",
+                  }),
+                },
+              }}
+            />
+            <Block
+              content={{
+                color: "red",
+                title: intl.formatMessage({
+                  defaultMessage: "Executives in digital government",
+                  id: "9KOwXq",
+                  description: "Heading for executive jobs in government",
+                }),
+                summary: intl.formatMessage({
+                  defaultMessage:
+                    "From entry-level executives to CIO opportunities across the GC, this is the place to come if you’re ready to take on a digital leadership role making a difference for Canadians.",
+                  id: "pDGY5P",
+                  description: "Description for executive jobs in government",
+                }),
+                link: {
+                  path: "https://google.com", // TO DO: Get new path
+                  label: intl.formatMessage({
+                    defaultMessage: "Browse exec jobs",
+                    id: "QcrDDA",
+                    description:
+                      "Link text to find executive jobs in government",
+                  }),
+                },
+              }}
+            />
           </div>
         </div>
       </div>

@@ -1,89 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { NewspaperIcon } from "@heroicons/react/24/outline";
 
 import Heading from "@common/components/Heading";
 
 import Block from "../Opportunities/Block";
-import SectionIcon from "./SectionIcon";
 
 const About = () => {
   const intl = useIntl();
-  const opportunities = [
-    {
-      key: "OCIO",
-      color: "black",
-      title: intl.formatMessage({
-        defaultMessage: "Office of the Chief Information Officer",
-        id: "i9cA5V",
-        description: "Title for the Office of the Chief Information Officer",
-      }),
-      summary: intl.formatMessage({
-        defaultMessage:
-          "GC Digital Talent is only one of the many initiatives being led by the Office of the Chief Information Officer of Canada (OCIO). Learn more about OCIO’s role in the Government of Canada. Check out the GC Digital Ambition to see where OCIO is heading in the future.",
-        id: "jVoHKZ",
-        description:
-          "Description of the Office of the Chief Information Officer",
-      }),
-      link: {
-        path: "https://google.com", // TO DO: Get actual link
-        label: intl.formatMessage({
-          defaultMessage:
-            "Learn more<hidden> about the Office of the Chief Information Officer</hidden>",
-          id: "NjHXGh",
-          description:
-            "Link text for the Office of the Chief Information Officer",
-        }),
-      },
-    },
-    {
-      key: "DCMO",
-      color: "black",
-      title: intl.formatMessage({
-        defaultMessage: "Digital Community Management Office",
-        id: "LDzKSs",
-        description: "Title for the Digital Community Management Office",
-      }),
-      summary: intl.formatMessage({
-        defaultMessage:
-          "Behind the GC Digital Talent platform is a whole team of people designing, developing, screening applicants, talent managing employees, placing executives, and helping managers find the talent they need to deliver services to Canadians. ",
-        id: "+6+eor",
-        description: "Description for the Digital Community Management Office",
-      }),
-      link: {
-        path: "https://google.com", // TO DO: Get actual link
-        label: intl.formatMessage({
-          defaultMessage:
-            "Learn more<hidden> about the Digital Community Management Office</hidden>",
-          id: "CgK0u0",
-          description: "Link text for the Digital Community Management Office",
-        }),
-      },
-    },
-    {
-      key: "conceptCode",
-      color: "black",
-      title: intl.formatMessage({
-        defaultMessage: "From Concept to Code",
-        id: "ABRg6N",
-        description: "Title for how the platform was created",
-      }),
-      summary: intl.formatMessage({
-        defaultMessage:
-          "Curious about how the GC Digital Talent platform was developed? Want to learn more about the ideas, designs, and philosophy going on behind the scenes? Check out the path from Talent Cloud’s experimental pilot to today’s full-scale platform.",
-        id: "wSQmDk",
-        description: "Description of how the platform was created.",
-      }),
-      link: {
-        path: "https://google.com", // TO DO: Get the actual link
-        label: intl.formatMessage({
-          defaultMessage:
-            "Learn more<hidden> about how the platform was created</hidden>",
-          id: "jDv8lx",
-          description: "Link text to learn more about the platform creation",
-        }),
-      },
-    },
-  ];
   return (
     <div
       data-h2-background-color="base(tm-linear-footer)"
@@ -98,7 +22,7 @@ const About = () => {
           <div data-h2-color="base(black)">
             <Heading
               level="h2"
-              Icon={SectionIcon}
+              Icon={NewspaperIcon}
               data-h2-margin="base(0, 0, x0.5, 0)"
             >
               {intl.formatMessage({
@@ -113,9 +37,88 @@ const About = () => {
               data-h2-gap="base(x2) p-tablet(x3)"
               data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)"
             >
-              {opportunities.map((item) => (
-                <Block key={item.key} content={item} />
-              ))}
+              <Block
+                content={{
+                  color: "black",
+                  title: intl.formatMessage({
+                    defaultMessage: "Office of the Chief Information Officer",
+                    id: "i9cA5V",
+                    description:
+                      "Title for the Office of the Chief Information Officer",
+                  }),
+                  summary: intl.formatMessage({
+                    defaultMessage:
+                      "GC Digital Talent is only one of the many initiatives being led by the Office of the Chief Information Officer of Canada (OCIO). Learn more about OCIO’s role in the Government of Canada. Check out the GC Digital Ambition to see where OCIO is heading in the future.",
+                    id: "jVoHKZ",
+                    description:
+                      "Description of the Office of the Chief Information Officer",
+                  }),
+                  link: {
+                    path: "https://google.com", // TO DO: Get actual link
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        "Learn more<hidden> about the Office of the Chief Information Officer</hidden>",
+                      id: "NjHXGh",
+                      description:
+                        "Link text for the Office of the Chief Information Officer",
+                    }),
+                  },
+                }}
+              />
+              <Block
+                content={{
+                  color: "black",
+                  title: intl.formatMessage({
+                    defaultMessage: "Digital Community Management Office",
+                    id: "LDzKSs",
+                    description:
+                      "Title for the Digital Community Management Office",
+                  }),
+                  summary: intl.formatMessage({
+                    defaultMessage:
+                      "Behind the GC Digital Talent platform is a whole team of people designing, developing, screening applicants, talent managing employees, placing executives, and helping managers find the talent they need to deliver services to Canadians. ",
+                    id: "+6+eor",
+                    description:
+                      "Description for the Digital Community Management Office",
+                  }),
+                  link: {
+                    path: "https://google.com", // TO DO: Get actual link
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        "Learn more<hidden> about the Digital Community Management Office</hidden>",
+                      id: "CgK0u0",
+                      description:
+                        "Link text for the Digital Community Management Office",
+                    }),
+                  },
+                }}
+              />
+              <Block
+                content={{
+                  color: "black",
+                  title: intl.formatMessage({
+                    defaultMessage: "From Concept to Code",
+                    id: "ABRg6N",
+                    description: "Title for how the platform was created",
+                  }),
+                  summary: intl.formatMessage({
+                    defaultMessage:
+                      "Curious about how the GC Digital Talent platform was developed? Want to learn more about the ideas, designs, and philosophy going on behind the scenes? Check out the path from Talent Cloud’s experimental pilot to today’s full-scale platform.",
+                    id: "wSQmDk",
+                    description: "Description of how the platform was created.",
+                  }),
+                  link: {
+                    path: "https://google.com", // TO DO: Get the actual link
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        "Learn more<hidden> about how the platform was created</hidden>",
+                      id: "jDv8lx",
+                      description:
+                        "Link text to learn more about the platform creation",
+                    }),
+                  },
+                }}
+              />
             </div>
           </div>
         </div>

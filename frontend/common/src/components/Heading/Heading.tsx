@@ -28,7 +28,7 @@ const Heading: React.FC<HeadingProps> = ({
         <span
           data-h2-display="p-tablet(inline-block)"
           data-h2-vertical-align="base(middle)"
-          data-h2-margin="base(0, 0, x.5, 0) p-tablet(0, x1, 0, 0)"
+          data-h2-margin="base(0, 0, x.25, 0) p-tablet(0, x0.5, 0, 0)"
           data-h2-width="base:children[svg](var(--h2-font-size-h2))"
           {...(color ? iconStyles[color] : {})}
         >
