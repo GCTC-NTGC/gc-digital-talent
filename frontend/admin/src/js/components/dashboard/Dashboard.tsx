@@ -1,5 +1,7 @@
 import React, { useRef } from "react";
 import { useIntl } from "react-intl";
+import { Bars3Icon } from "@heroicons/react/24/outline";
+
 import { useRouter, RouterResult } from "@common/helpers/router";
 import { Routes } from "universal-router";
 import { Button } from "@common/components";
@@ -8,11 +10,9 @@ import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
-
-import { Bars3Icon } from "@heroicons/react/24/outline";
 import NotAuthorized from "@common/components/NotAuthorized";
+
 import AdminSideMenu from "../menu/AdminSideMenu";
-import { ADMIN_APP_DIR } from "../../adminConstants";
 
 const AdminNotFound: React.FC = () => {
   const intl = useIntl();
