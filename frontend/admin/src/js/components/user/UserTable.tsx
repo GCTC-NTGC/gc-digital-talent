@@ -3,6 +3,7 @@ import { IntlShape, useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
+import { getFullNameHtml, getFullNameLabel } from "@common/helpers/nameUtils";
 import { getLanguage } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import printStyles from "@common/constants/printStyles";
@@ -36,8 +37,6 @@ import useUserCsvData from "./useUserCsvData";
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
-const fullName = (u: User): string => `${u.firstName} ${u.lastName}`;
-
 // callbacks extracted to separate function to stabilize memoized component
 const languageAccessor = (
   language: Language | null | undefined,
@@ -50,8 +49,8 @@ const languageAccessor = (
 
 const profileLinkAccessor = (
   profileLink: string,
-  email: string,
   intl: IntlShape,
+  email: string | null,
 ) => {
   return (
     <Link
@@ -62,7 +61,15 @@ const profileLinkAccessor = (
         description: "Descriptive title for an anchor link",
       })}
     >
-      {email}
+      {email || (
+        <span data-h2-font-style="base(italic)">
+          {intl.formatMessage({
+            defaultMessage: "No email provided",
+            id: "1JCjTP",
+            description: "Fallback for email value",
+          })}
+        </span>
+      )}
     </Link>
   );
 };
@@ -159,7 +166,8 @@ export const UserTable: React.FC = () => {
           description:
             "Title displayed on the User table Candidate Name column.",
         }),
-        accessor: (user) => fullName(user),
+        accessor: (user) =>
+          getFullNameHtml(user.firstName, user.lastName, intl),
         id: "candidateName",
         sortColumnName: "first_name",
       },
@@ -172,8 +180,8 @@ export const UserTable: React.FC = () => {
         accessor: (user) =>
           profileLinkAccessor(
             paths.userView(user.id),
-            user.email ?? "email",
             intl,
+            user.email || null,
           ),
         id: "email",
         sortColumnName: "email",
@@ -205,7 +213,12 @@ export const UserTable: React.FC = () => {
           id: "qYH0du",
           description: "Title displayed for the User table Edit column.",
         }),
-        accessor: (d) => tableEditButtonAccessor(d.id, pathname, fullName(d)), // callback extracted to separate function to stabilize memoized component
+        accessor: (d) =>
+          tableEditButtonAccessor(
+            d.id,
+            pathname,
+            getFullNameLabel(d.firstName, d.lastName, intl),
+          ), // callback extracted to separate function to stabilize memoized component
         id: "edit",
       },
     ],

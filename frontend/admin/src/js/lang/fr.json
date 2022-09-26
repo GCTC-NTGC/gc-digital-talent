@@ -1154,10 +1154,6 @@
     "defaultMessage": "Familles de compétences",
     "description": "Label displayed on the skill families menu item."
   },
-  "4xzq2Y": {
-    "defaultMessage": "(Nom manquant)",
-    "description": "Message for Missing names in profile"
-  },
   "59EwWA": {
     "defaultMessage": "Afficher la demande<hidden>{name}</hidden>",
     "description": "Link text for the view action of the latests requests table on the admin portal dashboard."
