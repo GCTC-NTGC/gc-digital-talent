@@ -1,3 +1,7 @@
+/**
+ * Note: We should probably move the state management
+ * to context to simplify the logic in this component
+ */
 import React, { MouseEventHandler, useEffect } from "react";
 
 const ThemeSwitcher = () => {
@@ -7,9 +11,6 @@ const ThemeSwitcher = () => {
   const isSet = localStorage.theme !== undefined;
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const isSetDark = localStorage.theme === "dark";
-  const prefersLight = window.matchMedia(
-    "(prefers-color-scheme: light)",
-  ).matches;
   const isSetLight = localStorage.theme === "light";
 
   const isDark =

@@ -1,3 +1,13 @@
+/**
+ * Deprecated: This is an example of a working theme switcher
+ * A new version was created but cannot guarantee it is working.
+ *
+ * Please, delete this file once we add dark mode and confirm
+ * The new switcher is working
+ */
+/* eslint-disable no-param-reassign */
+/* eslint-disable func-names */
+/* eslint-disable consistent-return */
 // Vendor dependencies
 import React, { MouseEventHandler, useEffect } from "react";
 
