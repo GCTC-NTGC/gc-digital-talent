@@ -22,7 +22,6 @@ import {
   PoolCandidatePaginator,
   PoolCandidateStatus,
   ProvinceOrTerritory,
-  QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
   QueryPoolCandidatesPaginatedOrderByUserColumn,
   SortOrder,
   useGetPoolCandidatesPaginatedQuery,
@@ -178,28 +177,18 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
   const [selectedRows, setSelectedRows] = useState<PoolCandidate[]>([]);
   const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
-  const [sortOrder, setSortOrder] =
-    useState<QueryPoolCandidatesPaginatedOrderByRelationOrderByClause>({
-      column: "status_weight",
-      order: SortOrder.Asc,
-      user: undefined,
-    });
-  // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause, therefore default is a redundant sort
-
-  useEffect(() => {
-    setSelectedRows([]);
-  }, [currentPage, pageSize]);
 
   // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
   // this smooths the table sort value into appropriate API calls
-  useEffect(() => {
+  const sortOrder = useMemo(() => {
     if (sortingRule?.column.sortColumnName === "submitted_at") {
-      setSortOrder({
+      return {
         column: sortingRule.column.sortColumnName,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
         user: undefined,
-      });
-    } else if (
+      };
+    }
+    if (
       sortingRule?.column.sortColumnName &&
       [
         "JOB_LOOKING_STATUS",
@@ -209,7 +198,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         "CURRENT_CITY",
       ].includes(sortingRule.column.sortColumnName)
     ) {
-      setSortOrder({
+      return {
         column: undefined,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
         user: {
@@ -217,15 +206,19 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
           column: sortingRule.column
             .sortColumnName as QueryPoolCandidatesPaginatedOrderByUserColumn,
         },
-      });
-    } else {
-      setSortOrder({
-        column: "status_weight",
-        order: SortOrder.Asc,
-        user: undefined,
-      });
+      };
     }
+    return {
+      column: "status_weight",
+      order: SortOrder.Asc,
+      user: undefined,
+    };
   }, [sortingRule]);
+  // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause, therefore default is a redundant sort
+
+  useEffect(() => {
+    setSelectedRows([]);
+  }, [currentPage, pageSize]);
 
   const [result] = useGetPoolCandidatesPaginatedQuery({
     variables: {
