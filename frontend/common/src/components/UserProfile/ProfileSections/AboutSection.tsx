@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { getFullNameHtml } from "../../../helpers/nameUtils";
 import messages from "../../../messages/commonMessages";
 import {
   getProvinceOrTerritory,
@@ -58,7 +59,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               })}
               <br />
               <span data-h2-font-weight="base(700)">
-                {firstName} {lastName}
+                {getFullNameHtml(firstName, lastName, intl)}
               </span>
             </p>
           </div>

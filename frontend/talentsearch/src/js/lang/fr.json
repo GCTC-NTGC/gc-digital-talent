@@ -231,8 +231,8 @@
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres : ",
     "description": "Heading for total matching candidates in results section of search page."
   },
-  "/quEXs": {
-    "defaultMessage": "Propriétaire du bassin : {firstName} {lastName}",
+  "o+a0IN": {
+    "defaultMessage": "Propriétaire du bassin : {name}",
     "description": "Text showing the owner of the HR pool."
   },
   "m+d9ls": {
