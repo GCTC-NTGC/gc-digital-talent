@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
@@ -15,6 +15,7 @@ import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import { OperationContext } from "urql";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
@@ -356,7 +357,15 @@ const ExperienceFormContainer: React.FunctionComponent<
   const { data: experienceData, fetching: fetchingExperience } =
     experiencesResult;
 
-  const [skillResults] = useGetSkillsQuery();
+  const context = useMemo<Partial<OperationContext>>(
+    () => ({
+      requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
+    }),
+    [],
+  );
+  const [skillResults] = useGetSkillsQuery({
+    context,
+  });
   const {
     data: skillsData,
     fetching: fetchingSkills,

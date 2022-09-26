@@ -13,6 +13,8 @@ import { notEmpty } from "@common/helpers/util";
 import mapValues from "lodash/mapValues";
 import { useIntl } from "react-intl";
 import useLocale from "@common/hooks/useLocale";
+import { useMemo } from "react";
+import { OperationContext } from "urql";
 import {
   WorkRegion,
   EducationType,
@@ -31,8 +33,18 @@ export default function useFilterOptions(enableEducationType = false) {
   // TODO: Implement way to return `fetching` states from hook, so that can pass
   // to react-select's `isLoading` prop on <Select />.
   // See: https://react-select.com/props#select-props
-  const [skillsRes] = useAllSkillsQuery();
-  const [classificationsRes] = useGetClassificationsQuery();
+  const context = useMemo<Partial<OperationContext>>(
+    () => ({
+      requestPolicy: "cache-first", // The list of skills and classifications will rarely change, so we override default request policy to avoid unnecessary cache updates.
+    }),
+    [],
+  );
+  const [skillsRes] = useAllSkillsQuery({
+    context,
+  });
+  const [classificationsRes] = useGetClassificationsQuery({
+    context,
+  });
   const [poolsRes] = useGetPoolsQuery();
 
   const yesOption = {

@@ -5,6 +5,7 @@ import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import Pending from "@common/components/Pending";
+import { OperationContext } from "urql";
 import {
   GetClassificationsQuery,
   useGetClassificationsQuery,
@@ -112,7 +113,15 @@ export const ClassificationTable: React.FC<
 };
 
 export const ClassificationTableApi: React.FunctionComponent = () => {
-  const [result] = useGetClassificationsQuery();
+  const context = useMemo<Partial<OperationContext>>(
+    () => ({
+      requestPolicy: "cache-first", // The list of classifications will rarely change, so we override default request policy to avoid unnecessary cache updates.
+    }),
+    [],
+  );
+  const [result] = useGetClassificationsQuery({
+    context,
+  });
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
