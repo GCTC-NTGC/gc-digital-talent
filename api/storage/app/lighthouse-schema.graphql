@@ -317,7 +317,7 @@ input CreatePoolInput {
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
   status: PoolStatus = NOT_TAKING_APPLICATIONS
-  priorityNumber: String
+  processNumber: String
 }
 
 input CreateSkillFamilyInput {

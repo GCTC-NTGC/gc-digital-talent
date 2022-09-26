@@ -1045,7 +1045,7 @@ input CreatePoolInput {
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
     status: PoolStatus = NOT_TAKING_APPLICATIONS @rename(attribute: "pool_status")
-    priorityNumber: String
+    processNumber: String @rename(attribute: "process_number")
 }
 
 input UpdateClassificationInput {
