@@ -15,7 +15,7 @@ import type {
 } from "./basicTableHelpers";
 import UserTableFilterDialog from "../user/UserTableFilterDialog";
 import type { FormValues } from "../user/UserTableFilterDialog";
-import { UserFilterInput, FakeType } from "../../api/generated";
+import { UserFilterInput } from "../../api/generated";
 import {
   stringToEnumJobLooking,
   stringToEnumLanguage,
