@@ -2,6 +2,7 @@ import {
   getArmedForcesStatusesAdmin,
   getCitizenshipStatusesAdmin,
 } from "@common/constants/localizedConstants";
+import { getFullNameHtml } from "@common/helpers/nameUtils";
 import React from "react";
 import { useIntl } from "react-intl";
 
@@ -34,7 +35,7 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
               description: "Name label and colon",
             })}{" "}
             <span data-h2-font-weight="base(700)">
-              {firstName} {lastName}
+              {getFullNameHtml(firstName, lastName, intl)}
             </span>
           </p>
         )}
