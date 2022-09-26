@@ -9,6 +9,7 @@ import { InputError, InputWrapper } from "@common/components/inputPartials";
 import { toast } from "react-toastify";
 import { UserMinusIcon } from "@heroicons/react/24/solid";
 import { isEmpty } from "lodash";
+import { getFullNameHtml } from "@common/helpers/nameUtils";
 import {
   CreatePoolCandidateAsAdminInput,
   Pool,
@@ -173,9 +174,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
             "First section of text on the change candidate status dialog",
         })}
       </p>
-      <p>
-        - {user.firstName} {user.lastName}
-      </p>
+      <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "From the following pool:",
@@ -363,9 +362,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
             "First section of text on the change candidate expiry date dialog",
         })}
       </p>
-      <p>
-        - {user.firstName} {user.lastName}
-      </p>
+      <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "Set an expiry date for this candidate on this pool:",
@@ -514,9 +511,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
             "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
         })}
       </p>
-      <p>
-        - {user.firstName} {user.lastName}
-      </p>
+      <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "From the following pool:",
@@ -664,9 +659,7 @@ export const AddToPoolDialog: React.FC<{
           description: "First section of text on the add user to pool dialog",
         })}
       </p>
-      <p>
-        - {user.firstName} {user.lastName}
-      </p>
+      <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage: "Choose pool:",

@@ -25,6 +25,7 @@ import { BasicForm, TextArea } from "@common/components/form";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import { toast } from "react-toastify";
 import Heading from "@common/components/Heading";
+import { getFullNameHtml } from "@common/helpers/nameUtils";
 import {
   AddToPoolDialog,
   ChangeDateDialog,
@@ -235,9 +236,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
               description: "Display text for the name field on users",
             })}
           </p>
-          <p>
-            {user.firstName} {user.lastName}
-          </p>
+          <p>{getFullNameHtml(user.firstName, user.lastName, intl)}</p>
         </div>
         {/* Email */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">

@@ -75,12 +75,7 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
                 {link.title}
               </Link>
             ) : (
-              <span
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
-                data-h2-font-weight="base(700)"
-                key={link.title}
-              >
+              <span data-h2-font-weight="base(700)" key={link.title}>
                 {link.title}
               </span>
             )}
