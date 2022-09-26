@@ -115,6 +115,7 @@ export const ClassificationTable: React.FC<
 export const ClassificationTableApi: React.FunctionComponent = () => {
   const context = useMemo<Partial<OperationContext>>(
     () => ({
+      additionalTypenames: ["Classification"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
       requestPolicy: "cache-first", // The list of classifications will rarely change, so we override default request policy to avoid unnecessary cache updates.
     }),
     [],
