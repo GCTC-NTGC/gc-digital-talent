@@ -138,7 +138,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
           >
-            <Header baseUrl={ADMIN_APP_DIR} width="full" />
+            <Header baseUrl="/" width="full" />
             <main
               id="main"
               data-h2-flex-grow="base(1)"
@@ -146,7 +146,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
             >
               {content}
             </main>
-            <Footer baseUrl={ADMIN_APP_DIR} width="full" />
+            <Footer baseUrl="/" width="full" />
           </div>
         </SideMenuContentWrapper>
       </div>
