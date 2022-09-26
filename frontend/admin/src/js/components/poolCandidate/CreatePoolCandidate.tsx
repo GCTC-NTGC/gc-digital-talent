@@ -363,13 +363,17 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h4 data-h2-margin="base(x2, 0, x1, 0)">
+            <h3
+              data-h2-font-size="base(h4)"
+              data-h2-font-weight="base(300)"
+              data-h2-margin="base(x2, 0, x1, 0)"
+            >
               {intl.formatMessage({
                 description: "Heading for the user information section",
                 defaultMessage: "User Information",
                 id: "mv+9jt",
               })}
-            </h4>
+            </h3>
             <RadioGroup
               idPrefix="userMode"
               legend="User Assignment"
@@ -399,13 +403,17 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               }}
             />
             <UserFormSection control={control} userOptions={userOptions} />
-            <h4 data-h2-margin="base(x2, 0, x1, 0)">
+            <h3
+              data-h2-font-size="base(h4)"
+              data-h2-font-weight="base(300)"
+              data-h2-margin="base(x2, 0, x1, 0)"
+            >
               {intl.formatMessage({
                 description: "Heading for the candidate information section",
                 defaultMessage: "Candidate Information",
                 id: "1THfui",
               })}
-            </h4>
+            </h3>
             <Select
               id="pool"
               label={intl.formatMessage({
