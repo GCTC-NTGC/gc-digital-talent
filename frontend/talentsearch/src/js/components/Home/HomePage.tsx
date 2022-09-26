@@ -2,7 +2,7 @@ import React from "react";
 
 import { About, Featured, Hero, Opportunities, Profile } from "./partials";
 
-const Home = () => (
+const HomePage = () => (
   <>
     <Hero />
     <Opportunities />
@@ -12,4 +12,4 @@ const Home = () => (
   </>
 );
 
-export default Home;
+export default HomePage;
