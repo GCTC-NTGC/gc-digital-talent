@@ -1,12 +1,11 @@
 import { getLocale } from "@common/helpers/localize";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
-import TALENTSEARCH_APP_DIR from "./talentSearchConstants";
 
 export type TalentSearchRoutes = ReturnType<typeof talentSearchRoutes>;
 
 const talentSearchRoutes = (lang: string) => {
-  const home = (): string => path.join("/", lang, TALENTSEARCH_APP_DIR); // leading slash in case empty base url
+  const home = (): string => path.join("/", lang); // leading slash in case empty base url
   return {
     home,
     search: (): string => path.join("/", lang, "search"),

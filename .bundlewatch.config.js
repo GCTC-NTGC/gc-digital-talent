@@ -19,7 +19,7 @@ module.exports = {
     },
     {
       path: "frontend/indigenousapprenticeship/dist/app.js",
-      maxSize: "140 kB",
+      maxSize: "250 kB",
     },
   ]
 };
