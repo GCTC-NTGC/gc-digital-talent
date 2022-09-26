@@ -55,7 +55,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
       href: adminPaths.userTable(),
     },
     {
-      title: getFullNameHtml(user, intl),
+      title: getFullNameHtml(user.firstName, user.lastName, intl),
     },
   ] as BreadcrumbsProps["links"];
 
@@ -80,7 +80,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         <div data-h2-flex-grid="base(center, x1)">
           <div data-h2-flex-item="base(1of1) p-tablet(fill)">
             <Heading level="h2" data-h2-margin="base(x.5, 0) l-tablet(0)">
-              {getFullNameHtml(user, intl)}
+              {getFullNameHtml(user.firstName, user.lastName, intl)}
             </Heading>
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(content)">

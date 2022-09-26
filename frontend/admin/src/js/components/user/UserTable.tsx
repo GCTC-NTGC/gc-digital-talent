@@ -166,7 +166,8 @@ export const UserTable: React.FC = () => {
           description:
             "Title displayed on the User table Candidate Name column.",
         }),
-        accessor: (user) => getFullNameHtml(user, intl),
+        accessor: (user) =>
+          getFullNameHtml(user.firstName, user.lastName, intl),
         id: "candidateName",
         sortColumnName: "first_name",
       },
@@ -213,7 +214,11 @@ export const UserTable: React.FC = () => {
           description: "Title displayed for the User table Edit column.",
         }),
         accessor: (d) =>
-          tableEditButtonAccessor(d.id, pathname, getFullNameLabel(d, intl)), // callback extracted to separate function to stabilize memoized component
+          tableEditButtonAccessor(
+            d.id,
+            pathname,
+            getFullNameLabel(d.firstName, d.lastName, intl),
+          ), // callback extracted to separate function to stabilize memoized component
         id: "edit",
       },
     ],
