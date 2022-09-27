@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";

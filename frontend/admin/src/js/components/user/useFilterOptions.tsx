@@ -13,7 +13,6 @@ import { notEmpty } from "@common/helpers/util";
 import mapValues from "lodash/mapValues";
 import { useIntl } from "react-intl";
 import useLocale from "@common/hooks/useLocale";
-import { useMemo } from "react";
 import { OperationContext } from "urql";
 import {
   WorkRegion,
