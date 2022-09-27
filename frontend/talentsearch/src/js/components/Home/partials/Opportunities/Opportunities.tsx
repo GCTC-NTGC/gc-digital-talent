@@ -147,8 +147,8 @@ const Opportunities = () => {
                 }),
                 summary: intl.formatMessage({
                   defaultMessage:
-                    "From entry-level executives to CIO opportunities across the GC, this is the place to come if you’re ready to take on a digital leadership role making a difference for Canadians.",
-                  id: "pDGY5P",
+                    "From entry-level executives to CIO opportunities across the GC, this is the place to come if you're ready to take on a digital leadership role making a difference for Canadians.",
+                  id: "EWCP4t",
                   description: "Description for executive jobs in government",
                 }),
                 link: {

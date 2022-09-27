@@ -75,8 +75,8 @@ const Profile = () => {
           >
             {intl.formatMessage({
               defaultMessage:
-                "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you’re hunting for a job now or just thinking about the future, your profile is your path to getting found by hiring managers.",
-              id: "X5Y/wy",
+                "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job now or just thinking about the future, your profile is your path to getting found by hiring managers.",
+              id: "xggOcb",
               description: "Description of how application profiles work.",
             })}
           </p>
