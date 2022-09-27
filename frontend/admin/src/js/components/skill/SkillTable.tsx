@@ -86,7 +86,8 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
           id: "X4nVv/",
           description: "Title displayed for the skill table Edit column.",
         }),
-        accessor: (skill) => tableEditButtonAccessor(skill.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
+        accessor: (skill) =>
+          tableEditButtonAccessor(skill.id, editUrlRoot, skill.name?.[locale]), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl, locale],
