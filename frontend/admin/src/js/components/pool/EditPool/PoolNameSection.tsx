@@ -83,9 +83,7 @@ export const PoolNameSection = ({
         en: formValues.specificTitleEn,
         fr: formValues.specificTitleFr,
       },
-      processNumber: formValues.processNumber
-        ? formValues.processNumber
-        : undefined,
+      processNumber: formValues.processNumber ? formValues.processNumber : null,
     };
 
     onSave(data);
