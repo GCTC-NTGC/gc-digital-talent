@@ -1,13 +1,15 @@
+import * as React from "react";
+import { useIntl } from "react-intl";
+import { useForm, useWatch } from "react-hook-form";
+import { TrashIcon } from "@heroicons/react/24/solid";
+
 import { Button } from "@common/components";
 import { TextArea } from "@common/components/form";
+import Well from "@common/components/Well";
 import WordCounter from "@common/components/WordCounter/WordCounter";
 import { countNumberOfWords } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { errorMessages } from "@common/messages";
-import { TrashIcon } from "@heroicons/react/24/solid";
-import * as React from "react";
-import { useForm, useWatch } from "react-hook-form";
-import { useIntl } from "react-intl";
 
 import type { FormSkills } from "../../experienceForm/types";
 
@@ -92,11 +94,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
           })}
         </li>
       </ul>
-      <div
-        data-h2-padding="base(x1, x1, 1px, x1)"
-        data-h2-background-color="base(light.dt-gray)"
-        data-h2-radius="base(s)"
-      >
+      <Well>
         {skills.length > 0 ? (
           skills.map(({ id, name, skillId }, index) => (
             <React.Fragment key={id}>
@@ -193,7 +191,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
             })}
           </p>
         )}
-      </div>
+      </Well>
     </section>
   );
 };

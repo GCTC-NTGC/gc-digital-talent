@@ -219,11 +219,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
   const intl = useIntl();
 
   return (
-    <div
-      data-h2-background-color="base(light.dt-gray)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       <div data-h2-flex-grid="base(normal, x1, x.5)">
         {/* Name */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
@@ -329,7 +325,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
           </p>
         </div>
       </div>
-    </div>
+    </Well>
   );
 };
 
