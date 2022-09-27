@@ -1401,5 +1401,17 @@
   "rcI/H3": {
     "defaultMessage": "Cette compétence possède les expériences connexes suivantes :",
     "description": "An introduction to a list of experiences associated with a skill"
+  },
+  "xdojyj": {
+    "defaultMessage": "Politique et rétroaction",
+    "description": "Label for the policy, conditions and feedback navigation"
+  },
+  "SY1LIh": {
+    "defaultMessage": "Menu principal",
+    "description": "Label for the main navigation"
+  },
+  "HkzjEV": {
+    "defaultMessage": "Utilitaire",
+    "description": "Label for the utility link navigation"
   }
 }

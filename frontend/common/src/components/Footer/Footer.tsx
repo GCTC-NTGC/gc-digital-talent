@@ -68,7 +68,14 @@ const Footer: React.FunctionComponent<{
             data-h2-flex-item="base(1of1) l-tablet(1of2)"
             data-h2-text-align="base(center) l-tablet(left)"
           >
-            <nav>
+            <nav
+              aria-label={intl.formatMessage({
+                defaultMessage: "Policy and feedback",
+                id: "xdojyj",
+                description:
+                  "Label for the policy, conditions and feedback navigation",
+              })}
+            >
               <ul style={{ gap: "1rem" }} className="reset-ul">
                 {links.map(({ route, label }) => (
                   <li
