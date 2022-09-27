@@ -26,7 +26,7 @@ const Featured = () => {
         path: "https://images.unsplash.com/photo-1513677341490-f92c141c9d7c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       },
       link: {
-        path: "https://google.com",
+        path: "#", // TO DO: Update link when page created
         label: intl.formatMessage({
           defaultMessage: "Learn more<hidden> about pride in tech</hidden>",
           id: "jefAOX",
@@ -47,7 +47,7 @@ const Featured = () => {
         path: "https://images.unsplash.com/photo-1571844305128-244233caa679?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
       },
       link: {
-        path: "https://google.com",
+        path: "#", // TO DO: Update link when page created
         label: intl.formatMessage({
           defaultMessage: "Learn more<hidden> about women in STEM</hidden>",
           id: "MUpqIp",

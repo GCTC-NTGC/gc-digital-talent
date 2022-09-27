@@ -3,11 +3,13 @@ import { useIntl } from "react-intl";
 import { NewspaperIcon } from "@heroicons/react/24/outline";
 
 import Heading from "@common/components/Heading";
+import useLocale from "@common/hooks/useLocale";
 
 import Block from "../Opportunities/Block";
 
 const About = () => {
   const intl = useIntl();
+  const locale = useLocale();
   return (
     <div
       data-h2-background-color="base(tm-linear-footer)"
@@ -54,7 +56,10 @@ const About = () => {
                       "Description of the Office of the Chief Information Officer",
                   }),
                   link: {
-                    path: "https://google.com", // TO DO: Get actual link
+                    path:
+                      locale === "en"
+                        ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/mandate/chief-information-officer.html"
+                        : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/mandat/dirigeante-principale-information.html",
                     label: intl.formatMessage({
                       defaultMessage:
                         "Learn more<hidden> about the Office of the Chief Information Officer</hidden>",
@@ -82,7 +87,10 @@ const About = () => {
                       "Description for the Digital Community Management Office",
                   }),
                   link: {
-                    path: "https://google.com", // TO DO: Get actual link
+                    path:
+                      locale === "en"
+                        ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/gcdigital-community-about-us.html#dcmo"
+                        : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/collectivite-gcnumerique-a-propos.html#dcmo",
                     label: intl.formatMessage({
                       defaultMessage:
                         "Learn more<hidden> about the Digital Community Management Office</hidden>",
@@ -108,7 +116,7 @@ const About = () => {
                     description: "Description of how the platform was created.",
                   }),
                   link: {
-                    path: "https://google.com", // TO DO: Get the actual link
+                    path: "#", // TO DO: Update link when page is created
                     label: intl.formatMessage({
                       defaultMessage:
                         "Learn more<hidden> about how the platform was created</hidden>",
