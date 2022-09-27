@@ -1426,8 +1426,8 @@
     "defaultMessage": "Bassins",
     "description": "Label displayed on the pools field of the add user to pool dialog"
   },
-  "aYYb0w": {
-    "defaultMessage": "Afficher les candidats",
+  "6R9N+h": {
+    "defaultMessage": "Voir les candidats<hidden> pour {label}</hidden>",
     "description": "Text for a link to the Pool Candidates table"
   },
   "aa7B7S": {
