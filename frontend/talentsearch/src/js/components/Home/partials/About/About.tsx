@@ -97,8 +97,8 @@ const About = () => {
                 content={{
                   color: "black",
                   title: intl.formatMessage({
-                    defaultMessage: "From Concept to Code",
-                    id: "ABRg6N",
+                    defaultMessage: "From concept to code",
+                    id: "kHypfJ",
                     description: "Title for how the platform was created",
                   }),
                   summary: intl.formatMessage({
