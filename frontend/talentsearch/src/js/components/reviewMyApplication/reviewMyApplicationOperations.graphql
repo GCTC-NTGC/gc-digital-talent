@@ -2,7 +2,7 @@ query getReviewMyApplicationPageData($id: ID!) {
   poolCandidate(id: $id) {
     id
     user {
-     	id
+      id
       firstName
       lastName
       email
