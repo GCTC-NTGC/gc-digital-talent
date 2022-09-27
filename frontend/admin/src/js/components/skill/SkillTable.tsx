@@ -6,6 +6,7 @@ import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { Pill } from "@common/components";
 import Pending from "@common/components/Pending";
+import { OperationContext } from "urql";
 import { AllSkillsQuery, useAllSkillsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -109,8 +110,15 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
+};
+
 export const SkillTableApi: React.FunctionComponent = () => {
-  const [result] = useAllSkillsQuery();
+  const [result] = useAllSkillsQuery({
+    context,
+  });
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
