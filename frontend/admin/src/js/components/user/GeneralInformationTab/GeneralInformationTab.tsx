@@ -476,7 +476,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
 
   return (
     <>
-      <p>
+      <p data-h2-margin="base(x1, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "These notes are shared between all managers of this pool, but not to candidates.",
