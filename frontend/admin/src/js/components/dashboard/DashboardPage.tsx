@@ -9,6 +9,7 @@ import {
 import { IconLink } from "@common/components/Link";
 import PageHeader from "@common/components/PageHeader";
 import Pending from "@common/components/Pending";
+import { getFullNameHtml } from "@common/helpers/nameUtils";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { User, useMeQuery } from "../../api/generated";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -35,7 +36,11 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
           },
           {
             name: currentUser
-              ? `${currentUser.firstName} ${currentUser.lastName}`
+              ? getFullNameHtml(
+                  currentUser.firstName,
+                  currentUser.lastName,
+                  intl,
+                )
               : intl.formatMessage({
                   defaultMessage: "N/A",
                   id: "AauSuA",

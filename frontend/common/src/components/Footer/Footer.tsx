@@ -76,9 +76,10 @@ const Footer: React.FunctionComponent<{
               data-h2-flex-direction="base(column) p-tablet(row)"
               data-h2-flex-wrap="p-tablet(wrap)"
               aria-label={intl.formatMessage({
-                defaultMessage: "Policy, Conditions and Feedback",
-                id: "xklV8D",
-                description: "Navigation label for footer links",
+                defaultMessage: "Policy and feedback",
+                id: "xdojyj",
+                description:
+                  "Label for the policy, conditions and feedback navigation",
               })}
             >
               {links.map(({ route, label }) => (

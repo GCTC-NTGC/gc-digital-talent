@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { useIntl } from "react-intl";
 
 export interface NavMenuProps {
   mainItems: ReactElement[];
@@ -21,6 +22,7 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
   mainItems,
   utilityItems,
 }) => {
+  const intl = useIntl();
   return (
     <div
       data-h2-background-color="base(white) base:dark(black.light)"
@@ -29,7 +31,13 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <div data-h2-flex-grid="base(center, x3, 0)">
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-            <nav>
+            <nav
+              aria-label={intl.formatMessage({
+                defaultMessage: "Main menu",
+                id: "SY1LIh",
+                description: "Label for the main navigation",
+              })}
+            >
               <ul
                 data-h2-list-style="base(none)"
                 data-h2-flex-grid="base(flex-start, x1, 0)"
@@ -43,7 +51,13 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
           </div>
           {utilityItems && utilityItems.length > 0 ? (
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <nav>
+              <nav
+                aria-label={intl.formatMessage({
+                  defaultMessage: "Utility",
+                  id: "HkzjEV",
+                  description: "Label for the utility link navigation",
+                })}
+              >
                 <ul
                   data-h2-list-style="base(none)"
                   data-h2-flex-grid="base(flex-start, x1, 0)"

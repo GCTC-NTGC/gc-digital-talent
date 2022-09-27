@@ -4,13 +4,13 @@ import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { imageUrl } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
+import { getFullNameHtml } from "@common/helpers/nameUtils";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 
 import UserProfile from "@common/components/UserProfile";
 import type { Applicant } from "@common/api/generated";
 
 import { commonMessages } from "@common/messages";
-import { isEmpty } from "lodash";
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
@@ -29,7 +29,7 @@ export function redText(msg: string) {
 export const ProfileForm: React.FC<ProfilePageProps> = ({
   profileDataInput,
 }) => {
-  const { id: userId, firstName, lastName, experiences } = profileDataInput;
+  const { id: userId, experiences } = profileDataInput;
   const paths = useApplicantProfileRoutes();
 
   const experienceEditPaths = {
@@ -39,19 +39,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
     personalUrl: (id: string) => paths.editExperience(userId, "personal", id),
     workUrl: (id: string) => paths.editExperience(userId, "work", id),
   };
-  let userName = `${firstName} ${lastName}`;
   const intl = useIntl();
-
-  if (
-    (firstName === null || isEmpty(firstName)) &&
-    (lastName === null || isEmpty(firstName))
-  ) {
-    userName = intl.formatMessage({
-      defaultMessage: "(Missing name)",
-      id: "4xzq2Y",
-      description: "Message for Missing names in profile",
-    });
-  }
 
   return (
     <>
@@ -77,7 +65,11 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
             textShadow: "0 3px 3px rgba(10, 10, 10, .3)",
           }}
         >
-          {userName}
+          {getFullNameHtml(
+            profileDataInput.firstName,
+            profileDataInput.lastName,
+            intl,
+          )}
         </h1>
       </div>
 
