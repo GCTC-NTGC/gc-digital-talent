@@ -1769,8 +1769,8 @@
     "defaultMessage": "Utilisateurs",
     "description": "Title for users page on the admin portal."
   },
-  "9flpmN": {
-    "defaultMessage": "Éditer <hidden>{label}</hidden>",
+  "i9ND/M": {
+    "defaultMessage": "Éditer<hidden> {label}</hidden>",
     "description": "Title displayed for the Edit column."
   },
   "A2VzLX": {
