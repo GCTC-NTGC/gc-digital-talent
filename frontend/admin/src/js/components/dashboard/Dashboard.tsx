@@ -13,6 +13,7 @@ import { SideMenuContentWrapper } from "@common/components/SideMenu";
 import NotAuthorized from "@common/components/NotAuthorized";
 
 import AdminSideMenu from "../menu/AdminSideMenu";
+import { ADMIN_APP_DIR } from "../../adminConstants";
 
 const AdminNotFound: React.FC = () => {
   const intl = useIntl();
@@ -138,7 +139,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
           >
-            <Header baseUrl="/" width="full" />
+            <Header baseUrl={ADMIN_APP_DIR} width="full" />
             <main
               id="main"
               data-h2-flex-grow="base(1)"
@@ -146,7 +147,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
             >
               {content}
             </main>
-            <Footer baseUrl="/" width="full" />
+            <Footer baseUrl={ADMIN_APP_DIR} width="full" />
           </div>
         </SideMenuContentWrapper>
       </div>
