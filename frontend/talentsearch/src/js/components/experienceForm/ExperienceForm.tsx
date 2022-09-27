@@ -280,6 +280,11 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
+};
+
 export interface ExperienceFormContainerProps {
   userId: string;
   experienceType: ExperienceType;
@@ -357,13 +362,6 @@ const ExperienceFormContainer: React.FunctionComponent<
   const { data: experienceData, fetching: fetchingExperience } =
     experiencesResult;
 
-  const context = useMemo<Partial<OperationContext>>(
-    () => ({
-      additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
-      requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
-    }),
-    [],
-  );
   const [skillResults] = useGetSkillsQuery({
     context,
   });
