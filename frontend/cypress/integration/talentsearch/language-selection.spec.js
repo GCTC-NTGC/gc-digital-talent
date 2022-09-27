@@ -2,12 +2,12 @@ describe('Language selection', () => {
 
   const visitLang = (lang) => {
     cy.setLocale(lang);
-    cy.visit("/");
+    cy.visit("/search");
   }
 
   it('has French link', () => {
     visitLang("en")
-    cy.findByRole('banner').within(() => {
+    cy.get('header').within(() => {
       cy.findByRole('link', { name: /français/i }).should('exist');
     })
   })
@@ -17,7 +17,7 @@ describe('Language selection', () => {
 
     cy.get("html").should('have.attr', 'lang', 'fr');
 
-    cy.findByRole('banner').within(() => {
+    cy.get('header').within(() => {
       cy.findByRole('link', { name: /english/i }).should('exist').click();
     })
 
@@ -26,7 +26,7 @@ describe('Language selection', () => {
 
   it("has English link", () => {
     visitLang("fr")
-    cy.findByRole("banner").within(() => {
+    cy.get("header").within(() => {
       cy.findByRole('link', { name: /english/i }).should('exist');
     })
   })
@@ -36,7 +36,7 @@ describe('Language selection', () => {
 
     cy.get("html").should('have.attr', 'lang', 'en');
 
-    cy.findByRole('banner').within(() => {
+    cy.get('header').within(() => {
       cy.findByRole('link', { name: /français/i }).should('exist').click();
     })
 
