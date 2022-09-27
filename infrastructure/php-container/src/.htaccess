@@ -94,8 +94,8 @@ DirectorySlash off
     # PHP Info page for debugging
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
 
-    # Send all other requests to talentsearch
-    RewriteRule ^(.*)/?$ frontend/talentsearch/dist/$1 [L]
+    # Send all other requests to /tc-report
+    RewriteRule ^(.*)/?$ tc-report/$1 [L]
 </IfModule>
 
 <IfModule mod_headers.c>
