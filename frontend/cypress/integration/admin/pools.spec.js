@@ -117,6 +117,34 @@ describe("Pools", () => {
   });
 
   /**
+   * Update the Pool
+   */
+   it("should update the pool", () => {
+    // Navigate to edit pool page
+    cy.findByRole("link", { name: /edit test pool en/i })
+      .click();
+
+    cy.wait("@gqlgetEditPoolDataQuery");
+
+    // Set a process number
+    const processNumber = "process 123";
+    cy.findByRole("textbox", { name: /process number/i })
+      .type(processNumber);
+
+    // Submit the form
+    cy.findByRole("button", { name: /save pool name/i }).click();
+    expectUpdate();
+
+    // Navigate to view pool page
+    cy.findByRole("link", { name: /pool id #/i })
+      .click();
+
+    // Confirm process number has new value
+    cy.findByRole("textbox", { name: /process number/i })
+      .should("have.value", processNumber);
+  });
+
+  /**
    * Delete the Pool
    */
   it("should delete the pool", () => {

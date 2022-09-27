@@ -259,6 +259,7 @@ type Pool {
     keyTasks: LocalizedString @rename(attribute: "key_tasks")
     status: PoolStatus @rename(attribute: "pool_status")
     stream: PoolStream
+    processNumber: String @rename(attribute: "process_number")
 }
 
 enum PoolStatus {
@@ -294,6 +295,7 @@ type PoolAdvertisement {
     essentialSkills: [Skill!] @belongsToMany
     nonessentialSkills: [Skill!] @belongsToMany
     stream: PoolStream
+    processNumber: String @rename(attribute: "process_number")
 }
 
 enum AdvertisementStatus {
@@ -1043,6 +1045,7 @@ input CreatePoolInput {
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
     status: PoolStatus = NOT_TAKING_APPLICATIONS @rename(attribute: "pool_status")
+    processNumber: String @rename(attribute: "process_number")
 }
 
 input UpdateClassificationInput {
@@ -1086,6 +1089,7 @@ input UpdatePoolInput {
     keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
     status: PoolStatus @rename(attribute: "pool_status")
     stream: PoolStream
+    processNumber: String @rename(attribute: "process_number")
 }
 
 input CreateDepartmentInput {
@@ -1289,6 +1293,7 @@ input UpdatePoolAdvertisementInput {
     name: LocalizedStringInput
     classifications: ClassificationBelongsToMany
     stream: PoolStream
+    processNumber: String @rename(attribute: "process_number")
     # Closing date
     expiryDate: DateTimeTz @rename(attribute: "expiry_date") @rules(apply: ["after:today"])
     # Your impact
