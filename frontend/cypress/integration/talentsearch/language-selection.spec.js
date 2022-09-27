@@ -1,11 +1,45 @@
 describe('Language selection', () => {
-  beforeEach(() => cy.visit('/'))
 
-  it('has English and French buttons', () => {
-    cy.findByRole('main').within(() => {
-      cy.findByRole('link', { name: 'English' }).should('exist')
-      cy.findByRole('link', { name: 'Français' }).should('exist')
-      cy.findByRole('link', { name: 'Toki Pona' }).should('not.exist')
+  const visitLang = (lang) => {
+    cy.setLocale(lang);
+    cy.visit("/");
+  }
+
+  it('has French link', () => {
+    visitLang("en")
+    cy.findByRole('banner').within(() => {
+      cy.findByRole('link', { name: /français/i }).should('exist');
     })
+  })
+
+  it("should change from French to English", () => {
+    visitLang("fr")
+
+    cy.get("html").should('have.attr', 'lang', 'fr');
+
+    cy.findByRole('banner').within(() => {
+      cy.findByRole('link', { name: /english/i }).should('exist').click();
+    })
+
+    cy.get("html").should('have.attr', 'lang', 'en');
+  })
+
+  it("has English link", () => {
+    visitLang("fr")
+    cy.findByRole("banner").within(() => {
+      cy.findByRole('link', { name: /english/i }).should('exist');
+    })
+  })
+
+  it("should change from English to French", () => {
+    visitLang("en")
+
+    cy.get("html").should('have.attr', 'lang', 'en');
+
+    cy.findByRole('banner').within(() => {
+      cy.findByRole('link', { name: /français/i }).should('exist').click();
+    })
+
+    cy.get("html").should('have.attr', 'lang', 'fr');
   })
 })

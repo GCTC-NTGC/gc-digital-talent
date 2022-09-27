@@ -205,8 +205,8 @@
     "defaultMessage": "Modification de la date : {modifiedDate}",
     "description": "Header for the sites last date modification found in the footer."
   },
-  "GowrkB": {
-    "defaultMessage": "Changer la langue",
+  "BJi10o": {
+    "defaultMessage": "<hidden>Change language to </hidden>{lang}",
     "description": "Title for the language toggle link."
   },
   "Gyey3L": {

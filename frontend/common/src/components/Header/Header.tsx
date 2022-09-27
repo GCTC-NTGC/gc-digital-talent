@@ -1,5 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
+
+import Link from "../Link";
 import {
   getLocale,
   localizePath,
@@ -80,20 +82,23 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl, width }) => {
           >
             <div>{/* <ThemeSwitcher /> */}</div>
             <div>
-              <a
+              <Link
                 data-h2-background-color="base:focus-visible(focus)"
                 data-h2-outline="base(none)"
                 data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
                 href={languageTogglePath}
                 lang={changeToLang === "en" ? "en" : "fr"}
-                title={intl.formatMessage({
-                  defaultMessage: "Change language",
-                  id: "GowrkB",
-                  description: "Title for the language toggle link.",
-                })}
               >
-                {changeToLang === "en" ? "English" : "Français"}
-              </a>
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "<hidden>Changer la langue en </hidden>{lang}",
+                    id: "BJi10o",
+                    description: "Title for the language toggle link.",
+                  },
+                  { lang: changeToLang === "en" ? "English" : "Français" },
+                )}
+              </Link>
             </div>
           </div>
         </div>
