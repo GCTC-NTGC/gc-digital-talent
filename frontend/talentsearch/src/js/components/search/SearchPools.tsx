@@ -1,5 +1,6 @@
 import { Button } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
+import { getFullNameHtml } from "@common/helpers/nameUtils";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Pool, UserPublicProfile } from "../../api/generated";
@@ -45,13 +46,18 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage(
           {
-            defaultMessage: "Pool Owner: {firstName} {lastName}",
-            id: "/quEXs",
+            defaultMessage: "Pool Owner: {name}",
+            id: "o+a0IN",
             description: "Text showing the owner of the HR pool.",
           },
           {
-            firstName: poolOwner?.firstName,
-            lastName: poolOwner?.lastName,
+            name: poolOwner
+              ? getFullNameHtml(poolOwner.firstName, poolOwner.lastName, intl)
+              : intl.formatMessage({
+                  defaultMessage: "N/A",
+                  id: "AauSuA",
+                  description: "Not available message.",
+                }),
           },
         )}
       </p>
