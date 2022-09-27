@@ -14,6 +14,7 @@ const data = new Map([
     ["OAUTH_LOGOUT_URI", filterEmpty("<!--#echo var="OAUTH_LOGOUT_URI" -->")],
     ["FEATURE_DIRECTINTAKE", filterEmpty("<!--#echo var="FEATURE_DIRECTINTAKE" -->")],
     ["FEATURE_APPLICANTSEARCH", filterEmpty("<!--#echo var="FEATURE_APPLICANTSEARCH" -->")],
+    ["APPLICATIONINSIGHTS_CONNECTION_STRING", filterEmpty("<!--#echo var="APPLICATIONINSIGHTS_CONNECTION_STRING" -->")],
 ]);
 
 window.__SERVER_CONFIG__ = data;

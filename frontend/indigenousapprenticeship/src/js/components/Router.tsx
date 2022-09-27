@@ -48,7 +48,6 @@ export const Router: React.FC = () => {
   const aiConnectionString = getRuntimeVariable(
     "APPLICATIONINSIGHTS_CONNECTION_STRING",
   );
-  const indigenousApprenticeshipPaths = useIndigenousApprenticeshipRoutes();
   if (aiConnectionString) {
     const appInsights = new ApplicationInsights({
       config: {
@@ -58,6 +57,7 @@ export const Router: React.FC = () => {
     appInsights.loadAppInsights();
     appInsights.trackPageView();
   }
+  const indigenousApprenticeshipPaths = useIndigenousApprenticeshipRoutes();
 
   const menuItems = [
     <MenuLink
