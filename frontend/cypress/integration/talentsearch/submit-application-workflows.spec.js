@@ -169,8 +169,8 @@ describe("Submit Application Workflow Tests", () => {
     cy.wait("@gqlsubmitApplicationMutation");
 
     // Confirmation page
-    cy.wait("@gqlMyApplicationsQuery");
     cy.expectToast(/Application submitted successfully/i);
+    cy.wait("@gqlMyApplicationsQuery");
     cy.findByRole("heading", { name: /My applications/i })
       .should("exist")
       .and("be.visible");
