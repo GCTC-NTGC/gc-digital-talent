@@ -12,7 +12,7 @@ export default {
   title: "Home Page",
 } as Meta;
 
-const Template: Story = () => <Home />;
+const Template: Story = () => <Home defaultImage={0} />;
 
 const VIEWPORTS = [
   widthOf(INITIAL_VIEWPORTS.iphonex), // Modern iPhone

@@ -12,17 +12,21 @@ import TALENTSEARCH_APP_DIR from "../../../../talentSearchConstants";
 
 import "./hero.css";
 
-const landscapeRandomize = () => {
+const landscapeRandomize = (index?: number | undefined) => {
   const items = [
     imageUrl(TALENTSEARCH_APP_DIR, "hero-1-landscape.jpg"),
     imageUrl(TALENTSEARCH_APP_DIR, "hero-2-landscape.jpg"),
     imageUrl(TALENTSEARCH_APP_DIR, "hero-3-landscape.jpg"),
     imageUrl(TALENTSEARCH_APP_DIR, "hero-4-landscape.jpg"),
   ];
-  return items[Math.floor(Math.random() * items.length)];
+  return items[index ?? Math.floor(Math.random() * items.length)];
 };
 
-const Hero = () => {
+export interface HeroProps {
+  defaultImage?: number;
+}
+
+const Hero = ({ defaultImage }: HeroProps) => {
   const intl = useIntl();
   const tsPaths = useTalentSearchRoutes();
   const diPaths = useDirectIntakeRoutes();
@@ -37,7 +41,7 @@ const Hero = () => {
       l-tablet(calc((6rem * var(--h2-line-height-copy)) + 3%))"
       className="hero-bg-image"
       style={{
-        backgroundImage: `url('${landscapeRandomize()}')`,
+        backgroundImage: `url('${landscapeRandomize(defaultImage)}')`,
       }}
     >
       <div
