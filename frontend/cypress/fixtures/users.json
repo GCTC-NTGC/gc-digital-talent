@@ -4,6 +4,7 @@
     "first": "Test Admin",
     "last": "Test Admin",
     "email": "admin@test.com",
+    "subject": "admin@test.com",
     "password": "Test123!"
   },
   "applicant": {
@@ -11,6 +12,7 @@
     "first": "Test Applicant",
     "last": "Test Applicant",
     "email": "applicant@test.com",
+    "subject": "applicant@test.com",
     "password": "testpassword"
   },
   "noroles": {
@@ -18,6 +20,7 @@
     "first": "Test NoRoles",
     "last": "Test NoRoles",
     "email": "noroles@test.com",
+    "subject": "noroles@test.com",
     "password": "testpassword"
   },
   "noemail": {
@@ -25,6 +28,7 @@
     "first": "Test NoEmail",
     "last": "Test NoEmail",
     "email": null,
+    "subject": null,
     "password": "testpassword"
   }
 }

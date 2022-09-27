@@ -24,7 +24,7 @@ describe("Talentsearch Direct Intake Page", () => {
   })
 
   context('logged in but no applicant role', () => {
-    beforeEach(() => cy.login('noroles'))
+    beforeEach(() => cy.loginByRole('noroles'))
 
     it('displays not authorized', () => {
       [
@@ -38,7 +38,7 @@ describe("Talentsearch Direct Intake Page", () => {
   })
 
   context('logged in as applicant', () => {
-    beforeEach(() => cy.login('applicant'))
+    beforeEach(() => cy.loginByRole('applicant'))
 
     it("allows an applicant to apply to a pool", () => {
       cy.visit('/en/browse/pools')
@@ -60,7 +60,7 @@ describe("Talentsearch Direct Intake Page", () => {
   })
 
   context('logged in with no email', () => {
-    beforeEach(() => cy.login('noemail'));
+    beforeEach(() => cy.loginByRole('noemail'));
 
     it("redirects to create account", () => {
       cy.visit('/en/browse/pools');
