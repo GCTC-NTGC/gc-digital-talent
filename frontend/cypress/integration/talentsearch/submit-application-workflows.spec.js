@@ -123,7 +123,6 @@ describe("Submit Application Workflow Tests", () => {
 
   it("Submits an application to a new pool", () => {
     cy.get("@testUserSub").then((sub) => {
-      cy.log(sub);
       cy.loginBySubject(sub);
     });
     cy.visit("/en/browse/pools");
