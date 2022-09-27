@@ -1,10 +1,12 @@
+import React from "react";
+import { useIntl } from "react-intl";
+
+import Well from "@common/components/Well";
 import {
   getJobLookingStatus,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
 } from "@common/constants/localizedConstants";
-import React from "react";
-import { useIntl } from "react-intl";
 
 import { PoolCandidate } from "../../api/generated";
 
@@ -24,11 +26,7 @@ const PoolCandidateDetailsSection: React.FC<
 
   return (
     <div data-h2-flex-item="base(1of1) p-tablet(3of4)">
-      <div
-        data-h2-background-color="base(light.dt-gray)"
-        data-h2-padding="base(x1)"
-        data-h2-radius="base(s)"
-      >
+      <Well>
         <p>
           {intl.formatMessage({
             defaultMessage: "Status:",
@@ -101,7 +99,7 @@ const PoolCandidateDetailsSection: React.FC<
           })}{" "}
           <span data-h2-font-weight="base(700)">{archivedAt || ""}</span>
         </p>
-      </div>
+      </Well>
     </div>
   );
 };

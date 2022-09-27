@@ -1,5 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
+
+import Well from "../../Well";
 import { Applicant, BilingualEvaluation } from "../../../api/generated";
 import messages from "../../../messages/commonMessages";
 import {
@@ -35,11 +37,7 @@ const LanguageInformationSection: React.FunctionComponent<{
   } = applicant;
 
   return (
-    <div
-      data-h2-background-color="base(light.dt-gray)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
         {lookingForEnglish && !lookingForFrench && !lookingForBilingual && (
           <div data-h2-flex-item="base(1of1)">
@@ -225,7 +223,7 @@ const LanguageInformationSection: React.FunctionComponent<{
           </div>
         )}
       </div>
-    </div>
+    </Well>
   );
 };
 
