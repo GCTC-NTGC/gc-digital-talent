@@ -355,8 +355,8 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               name="lastName"
               type="text"
               label={intl.formatMessage({
-                defaultMessage: "Last Name(s)",
-                id: "rGNWy6",
+                defaultMessage: "Last Name",
+                id: "wrHSMx",
                 description: "Label for last name field in About Me form",
               })}
               rules={{

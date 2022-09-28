@@ -1208,10 +1208,6 @@
     "defaultMessage": "Toute autre chose au sujet de cette expérience que vous aimeriez partager.",
     "description": "Description blurb for additional information on Experience form"
   },
-  "h9q52R": {
-    "defaultMessage": "Nom(s) de famille",
-    "description": "Label displayed for the last name field in create account form."
-  },
   "hCgrxA": {
     "defaultMessage": "Il y a deux types d'employés du TI-03 : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
     "description": "IT-03 description precursor"
@@ -1367,10 +1363,6 @@
   "r4PFx0": {
     "defaultMessage": "Province ou territoire actuel",
     "description": "Label for current province or territory field in About Me form"
-  },
-  "rGNWy6": {
-    "defaultMessage": "Nom(s) de famille",
-    "description": "Label for last name field in About Me form"
   },
   "rJMWiV": {
     "defaultMessage": "<strong>Non</strong>, je ne suis pas un(e) employé(e) du gouvernement du Canada",
@@ -1939,5 +1931,13 @@
   "btydLe": {
     "defaultMessage": "Prénom",
     "description": "Label for first name field in About Me form"
+  },
+  "UxF291": {
+    "defaultMessage": "Nom de famille",
+    "description": "Label displayed for the last name field in create account form."
+  },
+  "wrHSMx": {
+    "defaultMessage": "Nom de famille",
+    "description": "Label for last name field in About Me form"
   }
 }
