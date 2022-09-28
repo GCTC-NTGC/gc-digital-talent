@@ -24,11 +24,30 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
     description:
       "Error message that the given skill family key is already in use.",
   },
-  "validator:archived_at.prohibited": {
-    defaultMessage: "already archived",
-    id: "OtOIXG",
-    description: "Error message that the given model is already archived.",
+  // application validation
+  AlreadyArchived: {
+    defaultMessage: "Application is already archived.",
+    id: "A+dFlE",
+    description:
+      "Error message that the given application is already archived.",
   },
+  AlreadySubmitted: {
+    defaultMessage: "Application was already submitted.",
+    id: "x/wHOH",
+    description:
+      "Error message that the given application is already submitted.",
+  },
+  "pool candidates status InvalidValueArchival": {
+    defaultMessage: "This application may not yet be archived.",
+    id: "TITln/",
+    description: "Error message that the application cannot be archived.",
+  },
+  "pool candidates status InvalidValueDeletion": {
+    defaultMessage: "This application may not be deleted.",
+    id: "YUM0Mo",
+    description: "Error message that the application cannot be deleted.",
+  },
+
   "validator:expiry_date.after": {
     defaultMessage: "Expiry Date must be after today.",
     id: "sfr5Pa",
