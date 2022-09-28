@@ -156,8 +156,8 @@ export const CreateAccountForm: React.FunctionComponent<
                     name="firstName"
                     type="text"
                     label={intl.formatMessage({
-                      defaultMessage: "Given name(s)",
-                      id: "WpRB7Z",
+                      defaultMessage: "First Name",
+                      id: "IEkhMc",
                       description:
                         "Label displayed for the first name field in create account form.",
                     })}

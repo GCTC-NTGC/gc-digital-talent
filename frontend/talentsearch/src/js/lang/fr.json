@@ -1022,10 +1022,6 @@
     "defaultMessage": "Niveau 3 : Conseillers techniques",
     "description": "title for IT-03 advisor dialog"
   },
-  "WpRB7Z": {
-    "defaultMessage": "Prénom(s)",
-    "description": "Label displayed for the first name field in create account form."
-  },
   "WyKJsK": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
     "description": "Message displayed to user after experience fails to be updated."
@@ -1187,10 +1183,6 @@
   },
   "fOCbBa": {
     "defaultMessage": "Résultats pour les compétences fréquentes"
-  },
-  "g097KT": {
-    "defaultMessage": "Prénom et second prénom",
-    "description": "Label for first and middle name field in About Me form"
   },
   "gBWsuB": {
     "defaultMessage": "Téléphone",
@@ -1939,5 +1931,13 @@
   "HHEQgM": {
     "defaultMessage": "Sélectionnez une classification",
     "description": "Placeholder for classification filter in search form."
+  },
+  "IEkhMc": {
+    "defaultMessage": "Prénom",
+    "description": "Label displayed for the first name field in create account form."
+  },
+  "btydLe": {
+    "defaultMessage": "Prénom",
+    "description": "Label for first name field in About Me form"
   }
 }
