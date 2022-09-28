@@ -89,14 +89,12 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl, width }) => {
                 href={languageTogglePath}
                 lang={changeToLang === "en" ? "en" : "fr"}
               >
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "<hidden>Changer la langue en </hidden>Français",
-                    id: "BJi10o",
-                    description: "Title for the language toggle link.",
-                  },
-                )}
+                {intl.formatMessage({
+                  defaultMessage:
+                    "<hidden>Changer la langue en </hidden>Français",
+                  id: "Z3h103",
+                  description: "Title for the language toggle link.",
+                })}
               </Link>
             </div>
           </div>
