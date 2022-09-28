@@ -8,7 +8,7 @@ import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
-import { emptyToNull, emptyToUndefined } from "@common/helpers/util";
+import { emptyToNull } from "@common/helpers/util";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -243,7 +243,7 @@ const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
       id,
       user: {
         id,
-        email: emptyToUndefined(data.email),
+        email: emptyToNull(data.email),
         ...pick(data, [
           "firstName",
           "lastName",

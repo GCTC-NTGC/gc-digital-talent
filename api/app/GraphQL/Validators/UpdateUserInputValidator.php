@@ -17,6 +17,7 @@ final class UpdateUserInputValidator extends Validator
         return [
             'email' => [
                 'sometimes',
+                'nullable',
                 /**
                  * Note: Ignore the email for the user passed
                  * in when executing the mutation so it is not

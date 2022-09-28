@@ -15,7 +15,7 @@ import {
 import { SubmitHandler } from "react-hook-form";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
-import { emptyToUndefined } from "@common/helpers/util";
+import { emptyToNull } from "@common/helpers/util";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
@@ -86,7 +86,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
     return {
       ...data,
       id: initialUser.id,
-      email: emptyToUndefined(data.email),
+      email: emptyToNull(data.email),
     };
   };
 
