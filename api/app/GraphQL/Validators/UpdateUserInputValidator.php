@@ -28,6 +28,11 @@ final class UpdateUserInputValidator extends Validator
                  * REF: https://laravel.com/docs/9.x/validation#rule-unique
                  */
                 Rule::unique('users', 'email')->ignore($this->arg('id'), 'id'),
+            ],
+            'sub' => [
+                'sometimes',
+                'nullable',
+                Rule::unique('users', 'sub')->ignore($this->arg('id'), 'id'),
             ]
         ];
     }
@@ -38,7 +43,8 @@ final class UpdateUserInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'email.unique' => 'This email address is already in use',
+            'email.unique' => 'EmailAddressInUse',
+            'sub.unique' => 'SubInUse',
         ];
     }
 }

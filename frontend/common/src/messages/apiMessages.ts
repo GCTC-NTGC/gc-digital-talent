@@ -5,13 +5,14 @@ import { defineMessages, MessageDescriptor } from "react-intl";
 // The object keys match their source in the api by convention but are not actually used for anything
 
 export const messages: { [key: string]: MessageDescriptor } = defineMessages({
-  "unique:users,sub": {
+  // users validation
+  SubInUse: {
     defaultMessage: "This user identifier (sub) is already in use",
     id: "l8p1el",
     description:
       "Error message that the given user identifier is already in use.",
   },
-  "unique:users,email": {
+  EmailAddressInUse: {
     defaultMessage: "This email address is already in use",
     id: "nDaEgr",
     description:
