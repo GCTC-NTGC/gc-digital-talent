@@ -15,6 +15,7 @@ query GetLanguageInformation {
 
 mutation UpdateLanguageInformation($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
+    id
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
