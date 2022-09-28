@@ -29,7 +29,7 @@ import {
   rowSelectionColumn,
   handleRowSelectedChange,
 } from "../apiManagedTable/basicTableHelpers";
-import { tableEditButtonAccessor } from "../Table";
+import { tableEditButtonAccessor, tableViewItemButtonAccessor } from "../Table";
 import TableFooter from "../apiManagedTable/TableFooter";
 import TableHeader from "../apiManagedTable/TableHeader";
 import UserProfileDocument from "./UserProfileDocument";
@@ -47,30 +47,29 @@ const languageAccessor = (
   </span>
 );
 
-const profileLinkAccessor = (
-  profileLink: string,
-  intl: IntlShape,
-  email: string | null,
-) => {
+const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
+  if (email) {
+    return (
+      <Link
+        href={`mailto:${email}`}
+        title={intl.formatMessage({
+          defaultMessage: "Link to user email",
+          id: "/8fQ9Y",
+          description: "Descriptive title for an anchor link",
+        })}
+      >
+        {email}
+      </Link>
+    );
+  }
   return (
-    <Link
-      href={profileLink}
-      title={intl.formatMessage({
-        defaultMessage: "Link to user profile",
-        id: "dizg6V",
-        description: "Descriptive title for an anchor link",
+    <span data-h2-font-style="base(italic)">
+      {intl.formatMessage({
+        defaultMessage: "No email provided",
+        id: "1JCjTP",
+        description: "Fallback for email value",
       })}
-    >
-      {email || (
-        <span data-h2-font-style="base(italic)">
-          {intl.formatMessage({
-            defaultMessage: "No email provided",
-            id: "1JCjTP",
-            description: "Fallback for email value",
-          })}
-        </span>
-      )}
-    </Link>
+    </span>
   );
 };
 
@@ -178,11 +177,7 @@ export const UserTable: React.FC = () => {
           description: "Title displayed for the User table Email column.",
         }),
         accessor: (user) =>
-          profileLinkAccessor(
-            paths.userView(user.id),
-            intl,
-            user.email || null,
-          ),
+          emailLinkAccessor(user.email ? user.email : "", intl),
         id: "email",
         sortColumnName: "email",
       },
@@ -220,6 +215,20 @@ export const UserTable: React.FC = () => {
             getFullNameLabel(d.firstName, d.lastName, intl),
           ), // callback extracted to separate function to stabilize memoized component
         id: "edit",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "View",
+          id: "hci1jW",
+          description: "Title displayed for the User table View column.",
+        }),
+        accessor: (user) =>
+          tableViewItemButtonAccessor(
+            paths.userView(user.id),
+            "",
+            getFullNameLabel(user.firstName, user.lastName, intl),
+          ),
+        id: "view",
       },
     ],
     [intl, selectedRows, setSelectedRows, filteredData, paths, pathname],

@@ -1446,10 +1446,6 @@
     "defaultMessage": "Aucune donnée sur le candidat",
     "description": "No candidate data was found"
   },
-  "dizg6V": {
-    "defaultMessage": "Lien vers le profil de l'utilisateur",
-    "description": "Descriptive title for an anchor link"
-  },
   "eMXL0K": {
     "defaultMessage": "Utilisateurs",
     "description": "Breadcrumb title for the all users table link."
