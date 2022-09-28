@@ -7,23 +7,40 @@ import { defineMessages, MessageDescriptor } from "react-intl";
 export const messages: { [key: string]: MessageDescriptor } = defineMessages({
   // users validation
   SubInUse: {
-    defaultMessage: "This user identifier (sub) is already in use",
-    id: "l8p1el",
+    defaultMessage:
+      "Cannot update - this user identifier (sub) is already in use.",
+    id: "6O1sjV",
     description:
-      "Error message that the given user identifier is already in use.",
+      "Error message that the given user identifier is already in use when updating.",
   },
   EmailAddressInUse: {
-    defaultMessage: "This email address is already in use",
-    id: "nDaEgr",
+    defaultMessage: "Cannot update - this email address is already in use.",
+    id: "VqrVpT",
     description:
-      "Error message that the given email address is already in use.",
+      "Error message that the given email address is already in use when updating.",
   },
-  "unique:skill_families,key": {
+  CreateUserSubInUse: {
+    defaultMessage:
+      "Cannot create - this user identifier (sub) is already in use",
+    id: "CVmEkf",
+    description:
+      "Error message that the given user identifier is already in use when creating.",
+  },
+  CreateUserEmailInUse: {
+    defaultMessage: "Cannot create - this email address is already in use.",
+    id: "WUAAr1",
+    description:
+      "Error message that the given user identifier is already in use when creating.",
+  },
+
+  // skill validation
+  SkillFamilyKeyStringInUse: {
     defaultMessage: "This skill family key string is already in use",
     id: "XTuwjA",
     description:
       "Error message that the given skill family key is already in use.",
   },
+
   // application validation
   AlreadyArchived: {
     defaultMessage: "Application is already archived.",
@@ -53,6 +70,13 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
     id: "sfr5Pa",
     description:
       "Error message that the given skill expiry date must be after today.",
+  },
+
+  // pool updating
+  UpdatePoolExpiryDate: {
+    defaultMessage: "The pool must have an expiry date after today.",
+    id: "gU/2O6",
+    description: "Error message that pool expiry isn't in the future.",
   },
 
   // pool publishing validation
