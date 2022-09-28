@@ -17,6 +17,15 @@ final class UpdateUserInputValidator extends Validator
         return [
             'email' => [
                 'sometimes',
+                /**
+                 * Note: Ignore the email for the user passed
+                 * in when executing the mutation so it is not
+                 * included in the unique check. This is required
+                 * for allowing a user to be updated while the email
+                 * remains the same.
+                 *
+                 * REF: https://laravel.com/docs/9.x/validation#rule-unique
+                 */
                 Rule::unique('users', 'email')->ignore($this->arg('id'), 'id'),
             ]
         ];
