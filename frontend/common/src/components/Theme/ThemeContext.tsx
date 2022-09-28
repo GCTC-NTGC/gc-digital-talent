@@ -22,7 +22,9 @@ export interface ThemeProviderProps {
 }
 
 const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const [mode, setMode] = React.useState<ThemeMode>(localStorage.theme || null);
+  const [mode, setMode] = React.useState<ThemeMode>(
+    localStorage.theme || "pref",
+  );
 
   const setCurrentMode = React.useCallback(
     (newMode: ThemeMode) => {
