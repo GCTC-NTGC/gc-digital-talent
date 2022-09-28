@@ -1,0 +1,75 @@
+---
+title: "Les compétences au lieu de l’expérience, et l’importance de ce choix."
+layout: post
+lang: fr
+lang-ref: 304-skills-instead-of-experience
+section: 3
+category: 
+  - diversity
+hero:
+  image:
+    src: 3.4-tx-heading.jpg
+    alt: Une photo de bonbons colorés en forme d'étoile.
+blocks:
+  - type: title
+    label: Le problème
+  - Les critères de sélection (ou exigences d’emploi) sont au cœur du système fondé sur le mérite qui constitue le bassin de personnes compétentes pour le gouvernement. C’est un rôle important pour ce qui pourrait autrement être une petite partie de la publication d’offres d’emploi. Néanmoins, cette petite section sert principalement à décider qui le gouvernement du Canada embauchera et qui il n’embauchera pas.
+  - Au gouvernement du Canada, il est pratique courante de rédiger des critères qui comportent plusieurs phrases décrivant souvent l’expérience qui, selon le gestionnaire et le conseiller en RH, permettra aux candidats d’acquérir les compétences nécessaires pour faire le travail. Le problème avec cette approche, c’est qu’elle limite les voies par lesquelles les gens auraient pu acquérir les compétences. Si les personnes qui ont participé à la création de l’offre d’emploi ignorent qu’un travail semblable est effectué dans d’autres secteurs, elles pourraient même limiter l’expérience « au gouvernement ».
+  - À grande échelle, ce type de dotation fondée sur l’expérience ou les antécédents professionnels peut entraîner une énorme incidence sur les expériences de vie des personnes qui entrent au gouvernement. Autrement dit, le type de critères de sélection que nous utilisons peut directement façonner la diversité des gens compétents que nous embauchons.
+  - Pour tenir compte de cette limite d’expérience, le nuage de talents a décidé de passer exclusivement aux compétences (et à l’occasion aux connaissances) comme critères dans nos offres d’emploi. L’expérience joue toujours un rôle clé dans le processus de demande. Les candidats sont encouragés à présenter leur expérience comme preuve qu’ils possèdent les compétences demandées dans l’offre. Mais en utilisant les compétences plutôt que l’expérience comme critère, nous ne limitons pas l’expérience qui a mené à l’acquisition et à la démonstration de ces compétences.
+  - type: subtitle
+    label: Un problème qui nous est propre
+  - Étant donné que le nuage de talents n’a pas accès au serveur Protégé B, l’équipe n’a pas été en mesure de recueillir des données sur l’équité en matière d’emploi sur la plateforme, ce qui a sérieusement réduit notre capacité de prouver (ou de réfuter) la validité du modèle sur le plan statistique.
+  - Pour régler ce problème, nous avons pris des précautions supplémentaires pour effectuer une analyse qualitative et interviewer les candidats et les gestionnaires dans la mesure du possible. Nous avons également pu faire une analyse plus approfondie d’une poignée de postes sur la plateforme. Mais une étude statistique plus vaste sera nécessaire avant que l’on puisse tirer des conclusions définitives.
+  - type: title
+    label: Les hypothèses
+  - "L’idée générale : Le fait de modifier la définition des exigences dans les critères de sélection pour l’offre d’emploi changera finalement qui sera embauché. En remplaçant une énumération d’expériences détaillées requises par une liste de compétences, et en élargissant ce qui est considéré comme une preuve de compétence, un plus grand nombre de personnes sont susceptibles d’avoir les antécédents qui leur permettront de revendiquer et de démontrer cette compétence, ce qui mènera à une plus grande diversité dans le bassin de candidats."
+  - "Le nouveau modèle sera en mesure de travailler dans l’écosystème d’embauche actuel du gouvernement pour relever des éléments de valeur et influencer la prise de décisions à des moments cruciaux du processus de dotation :"
+  - type: list
+    style: ordered
+    items:
+      - "<strong style=\"letter-spacing: -1px;\" data-h2-font-weight=\"b(800)\" data-h2-font-color=\"b(purple)\">Création de l’offre d’emploi :</strong> Les gestionnaires seront en mesure d’exprimer leurs besoins en matière d’embauche en termes de compétences plutôt qu’en termes d’expérience antérieure lorsqu’ils élaboreront l’offre d’emploi."
+      - "<strong style=\"letter-spacing: -1px;\" data-h2-font-weight=\"b(800)\" data-h2-font-color=\"b(purple)\">Décision de postuler :</strong> L’utilisation des compétences dans l’offre d’emploi, au lieu de l’expérience, attirera un groupe de candidats plus diversifié, car un plus grand nombre de personnes se considéreront comme potentiellement qualifiées pour le poste."
+      - "<strong style=\"letter-spacing: -1px;\" data-h2-font-weight=\"b(800)\" data-h2-font-color=\"b(purple)\">Demande d’emploi :</strong> Les candidats pourront présenter des preuves suffisantes dans leur demande d’emploi pour démontrer qu’ils possèdent les compétences requises."
+      - "<strong style=\"letter-spacing: -1px;\" data-h2-font-weight=\"b(800)\" data-h2-font-color=\"b(purple)\">Présélection initiale :</strong> Les gestionnaires et les conseillers en RH seront en mesure de comprendre la valeur de ces données probantes afin qu’ils puissent décider des candidats qu’ils inviteront à passer d’autres examens et ceux dont ils écarteront la candidature."
+      - "<strong style=\"letter-spacing: -1px;\" data-h2-font-weight=\"b(800)\" data-h2-font-color=\"b(purple)\">Décision d’embauche finale :</strong> Un résultat final montrera une plus grande diversité, en tirant parti de ce qui est, espérons-le, un pourcentage plus élevé de candidats qui tendent vers l’équité dans le bassin de candidats initiaux et après l’étape de présélection des demandes."
+  - type: image
+    src: 3.4-tx-compass.jfif
+    alt: Une photo d'une main tenant une boussole avec en toile de fond un petit village de pêcheurs et des montagnes enneigées.
+    route: section1
+  - type: title
+    label: L’expérience
+  - Il s’agissait d’un projet pluriannuel comportant plusieurs étapes de mise à l’essai et de développement.
+  - Au départ, le Nuage de talents a travaillé sur le modèle de dotation axé sur les incidences (voir la section 2). Cela a aidé les gestionnaires à décrire clairement les exigences du poste en se concentrant d’abord sur l’incidence de l’embauche, puis sur les tâches stratégiques à faire pour produire l’incidence voulue, ainsi que sur les compétences nécessaires pour accomplir ces tâches. Cette démarche a mené à la mise à l’essai de nombreux types de cadres de compétences et de méthodologies (lesquelles, à elles seules, suffisaient à établir un rapport).
+  - Après le choix d’un cadre d’élaboration d’exigences claires en matière de compétences, en fonction des essais effectués par les utilisateurs auprès des gestionnaires d’embauche, une version de document MS Word de l’enchaînement a été remise aux gestionnaires pour qu’ils le mettent à l’essai sur des offres d’emploi réelles. À la suite de la réussite de ces premiers essais, le cadre a été codé dans la plateforme dans le cadre de l’outil d’élaboration des offres d’emploi.
+  - On a également effectué des essais auprès des candidats pour découvrir si la conception des compétences était attrayante, tout en leur donnant la possibilité de soulever des lacunes. Les essais ont été menés en direct dans la première version de l’offre d’emploi et du processus de demande d’emploi, où les candidats ont pu revendiquer des compétences à certains niveaux, puis fournir des explications et joindre de la documentation à l’appui (comme des contacts de référence rapide et des portfolios). 
+  - L’équipe du nuage de talents a ensuite surveillé attentivement comment les gestionnaires et les conseillers en RH traitaient l’information dans les formulaires de demande. L’équipe a également fait le suivi, dans la mesure du possible, de la façon dont les candidats étaient perçus pendant le processus d’embauche.
+  - L’équipe a également interviewé de nombreux gestionnaires et candidats, puis elle a mené un sondage auprès des candidats sur leur expérience dans la plateforme.
+  - type: title
+    label: Les résultats
+  - Bien que l’approche semblait produire le résultat escompté en termes de diversité dans le bassin de candidats (dans la mesure où nous avons été en mesure de le déterminer), le processus de demande précoce s’est avéré être une pierre d’achoppement dans le processus. Certains gestionnaires et conseillers en RH ont eu beaucoup de difficulté à évaluer des candidats qui n’avaient pas d’expérience plus traditionnelle, et de nombreux candidats n’ont pas fourni les justificatifs nécessaires pour les compétences requises lorsque la demande leur a donné l’occasion de le faire. Ce problème a persisté avec la conception initiale, même après que plusieurs interventions plus modestes et des encouragements eurent été ajoutés du demandeur et du côté du gestionnaire.
+  - Fait intéressant, malgré les difficultés à l’étape de la présélection, les gestionnaires se sont quand même retrouvés avec des embauches diversifiées, et bon nombre d’entre eux ont déclaré avoir trouvé des gens compétents qu’ils n’auraient normalement jamais réussi à attirer ou qu’ils n’auraient jamais pu embaucher. Les candidats qui ont été embauchés régulièrement ont également déclaré que leur candidature n’avait pas été retenue lors d’un processus de recrutement antérieur au gouvernement ou qu’ils n’avaient pas voulu poser leur candidature, et que les critères de sélection fondés sur les compétences avaient influencé leur perception de leurs qualifications au moment de voir l’offre d’emploi initiale.
+  - Donc, le problème avec le modèle se situait clairement à l’étape de la présélection, et non à l’étape de l’attraction des candidats ou de la décision finale des gestionnaires. Le nuage de talents a établi qu’il fallait un meilleur « calculateur de valeur » pour que les gestionnaires soient en mesure de reconnaître et d’accepter de la part des candidats une grande variété de documents d’attestation de leurs compétences. De plus, les candidats allaient devoir être mieux équipés pour donner aux gestionnaires ce qu’ils cherchaient au moment de prendre la décision.
+  - "Cela a mené à la mise au point d’un système de balisage qui permet aux candidats de relever des expériences dans l’une des cinq catégories suivantes :"
+  - type: list
+    style: unordered
+    items:
+      - Études
+      - Expérience professionnelle
+      - Expérience communautaire
+      - Expérience personnelle
+      - Prix
+  - Une fois qu’une expérience est balisée, on demande aux candidats d’établir un lien entre les compétences et l’expérience, puis d’expliquer comment la compétence a été utilisée pendant cette expérience particulière. La plateforme produit ensuite une description de l’expérience des compétences qu’il est possible de voir en ordre chronologique ou par compétence. Les candidats reçoivent une idée de ce que les gestionnaires voient lorsqu’ils évaluent si un candidat possède ou non les compétences nécessaires. De plus, les gestionnaires reçoivent l’information dont ils ont besoin d’une manière qui met en valeur les compétences acquises dans le cadre de cheminements professionnels et scolaires non traditionnels.
+  - En particulier, cette conception a été fortement influencée par des essais menés auprès d’utilisateurs autochtones et d’autres personnes appartenant à des groupes sous-représentés qui ont souligné qu’il devait y avoir une meilleure façon de reconnaître la valeur de leur expérience vécue.
+  - "Au cours des essais menés auprès des utilisateurs tout au long de 2020, et au cours des essais en direct très limités en 2021, cette nouvelle conception a donné des résultats spectaculaires. C’est l’une des interventions les plus réussies de notre équipe, et l’un des éléments théoriques et conceptuels les plus difficiles sur lesquels l’équipe a travaillé. Nous espérons sincèrement que quelqu’un pourra poursuivre cette recherche avec un échantillon suffisamment important sur le plan statistique. <strong style=\"letter-spacing: -1px;\" data-h2-font-weight=\"b(800)\" data-h2-font-color=\"b(purple)\">Si cette méthodologie devient éprouvée, cela pourrait avoir une incidence sur la conception de nombreuses démarches d’inclusion et de diversité au sein du gouvernement du Canada, bien au-delà du recrutement.</strong>"
+  - type: title
+    label: Perspectives
+  - L’établissement des compétences en tant que critères essentiels (plutôt que comme expérience biographique) s’est avéré une intervention très précieuse pour faire progresser la diversité. Toutefois, il ne s’agit pas d’une intervention qui fonctionne seule. 
+  - "Lorsqu’il est question de promouvoir la diversité et l’inclusion, c’est l’ensemble de l’écosystème qui compte. En d’autres termes, il faut appuyer structurellement la diversité et l’inclusion à chaque étape, de l’attrait initial d’une plateforme de recrutement à la conception de l’offre d’emploi, en passant par la présélection initiale et l’évaluation finale. <strong style=\"letter-spacing: -1px;\" data-h2-font-weight=\"b(800)\" data-h2-font-color=\"b(purple)\">Faire reposer les processus sur les compétences a certes amélioré les choses, mais ce gain aurait été annulé si nous n’avions pas trouvé une méthodologie grâce à laquelle les gestionnaires pouvaient voir et traduire la valeur des diverses expériences vécues en une reconnaissance de ces compétences.</strong>"
+  - type: callout
+    title: Évaluation des compétences générales
+    content: 
+      - Dans nos essais menés auprès des utilisateurs, les gestionnaires voulaient valider les compétences générales (compétences transférables) en les mettant à l’essai directement ou par la vérification des références. Peu d’entre eux ont même tenu compte de l’information sur les compétences générales fournie dans les demandes d’emploi des candidats. D’ailleurs, la preuve de compétences générales était l’un des éléments d’une demande d’emploi que les gens avaient le plus de difficulté à écrire.
+      - Comme il faut beaucoup de temps pour postuler à des emplois, et que nous voulons éviter de demander des choses qui ne sont pas nécessaires, dans le nouveau modèle de demande fondé sur l’échéancier, les candidats n’ont plus à rédiger de description sur la façon dont ils ont satisfait aux exigences en matière de compétences générales. Ainsi, les gestionnaires et les candidats économisent temps et énergie, et mettent davantage l’accent sur la présentation de preuves solides et claires de compétences professionnelles dans la demande d’emploi initiale.
+  - "En fin de compte, il ne suffira pas de simplement réécrire les critères essentiels. Néanmoins, remplacer les critères détaillés de l’expérience par les compétences requises est un grand pas en avant lorsqu’ils sont jumelés à une conception de demande d’emploi qui relie divers cheminements de vie à la représentation structurelle des capacités du candidat."
+---

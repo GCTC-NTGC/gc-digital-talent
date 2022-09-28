@@ -1,0 +1,51 @@
+---
+title: "Réponses des gestionnaires et des employés"
+layout: post
+lang: fr
+lang-ref: 205-manager-employee-responses
+section: 2
+category: 
+  - hiring
+hero:
+  image:
+    src: 2.5-tx-heading.jpg
+    alt: Une photo de parapluies colorés disposés en grille sur un ciel bleu.
+blocks:
+  - type: callout
+    title: "L’équipe du Nuage de talents a pu demander à environ 55 % des gestionnaires où étaient rendues leurs recrues un an ou deux plus tard. Voici ce que nous avons appris :"
+    content:
+      - "<ul data-h2-font-color=\"b(purple)\"><li>environ 95 % des recrues travaillaient toujours au sein du gouvernement du Canada;</li><li>environ 80 % des recrues travaillaient toujours au sein de la même équipe;</li><li>la période de nomination de 50 % des recrues qui travaillaient toujours au sein de la même équipe avait été prolongée :<ul><li>la nomination pour une période déterminée d’environ 30 % des recrues avait été prolongée;</li><li>environ 20 % des recrues avaient accédé à un poste doté pour une période indéterminée.</li></ul></li></ul>"
+  - type: title
+    label: Point de vue des employés
+  - Nous avons interviewé environ 33 % des employés embauchés par l’entremise du Nuage de talents. Certains d’entre eux occupaient encore le poste pour lequel ils avaient été embauchés, tandis que d’autres occupaient de nouveaux postes au sein du gouvernement. 
+  - Les répondants ont postulé un emploi en utilisant le Nuage de talents pour diverses raisons. Certains d’entre eux cherchaient simplement un emploi en général, tandis que d’autres cherchaient intentionnellement des occasions de se joindre à la fonction publique. Il y avait également des employés qui naviguaient passivement, mais certains renseignements dans l’annonce d’emploi les ont incités à postuler. En particulier, l’énoncé des incidences, l’information sur l’équipe et le profil du gestionnaire ont été cités comme étant des facteurs de motivation qui ont influencé leur décision de postuler.
+  - type: pullquote
+    content:
+      - "[TRADUCTION] « Le fait de voir la composition de l'équipe m’a aidé à savoir dans quoi je m'embarquais. Ce n'était pas une décision prise à la légère. La plateforme me donne vraiment beaucoup d'information afin de prendre une décision. »"
+      - "— Employé"
+  - type: pullquote
+    content:
+      - "[TRADUCTION] « La description du gestionnaire était très importante, et l'information sur le style de travail de l'équipe était importante. Je n'étais pas un candidat motivé (je ne m'attendais pas à quitter mon emploi précédent). Ces renseignements m'ont certainement convaincu de présenter une demande. »"
+      - "— Employé"
+  - Bon nombre des répondants ont réfléchi à la façon dont le fait de lire sur la culture de l’équipe les a aidés à prendre une décision éclairée.
+  - Les profils des gestionnaires ont également contribué à créer un contact entre ces employés et leurs gestionnaires potentiels avant même leur première rencontre à l’entrevue. Le fait d’être en mesure d’apprendre à connaître la personne avec qui ils allaient travailler constitue l’une des expériences positives les plus mentionnées vécues lors de l’utilisation du Nuage de talents.
+  - Tous les répondants (à l’exception d’un répondant possédant un si vaste lot de compétences qu’il a été embauché par une autre équipe avec laquelle il a interagi pendant le processus d’évaluation, de sorte qu’il n’a jamais pu travailler à l’emploi pour lequel il a posé sa candidature) ont déclaré qu’une fois en poste, ils ont constaté que l’équipe et les tâches étaient fidèlement représentées au sein de l’information fournie dans l’annonce d’emploi. Ils ont également déclaré être un bon candidat pour l’équipe. 
+  - L’histoire d’un employé met en lumière divers détails qui aident les candidats à décider si l’emploi leur convient et s’ils représentent un bon candidat pour le poste.
+  - type: callout
+    content:
+      - "[TRADUCTION]"
+      - « Je n’étais pas activement à la recherche d’un emploi lorsque j’ai trouvé l’annonce d’emploi dans le Nuage de talents. J’étais curieux de connaître les types d’emplois offerts aux gens possédant des compétences similaires aux miennes, alors j’ai fouillé en ligne en utilisant une compétence comme terme de recherche. Ma curiosité a été piquée lorsque cette compétence est apparue dans le titre de poste gouvernemental. J’ai toujours eu un intérêt envers le gouvernement et j’ai été surpris de tomber sur un poste aussi précis destiné au grand public.
+      - "Je me souviens avoir lu les tâches et les compétences dans l’annonce d’emploi et avoir été impressionné par la clarté des informations présentées. À ce moment-là, j’étais très enthousiaste, car j’avais l’impression que l’offre m’était destinée! J’ai été agréablement surpris de trouver de l’information sur le gestionnaire recruteur et son style de leadership, ainsi qu’une description de la culture d’équipe. Lorsque j’ai terminé de lire l’annonce, je comprenais exactement en quoi le poste consistait, j’avais une bonne idée des compétences nécessaires pour exceller dans ce poste ainsi que de la façon dont ma personnalité s’intégrerait dans l’équipe, et j’étais convaincu que je souhaitais vraiment décrocher ce poste. Il n’y avait qu’un seul problème : j’habitais à Toronto, et l’équipe était basée à Ottawa. J’ai relu l’annonce et remarqué qu’un détail m’avait échappé : le travail à distance était possible! J’étais donc convaincu, et j’ai décidé de tenter ma chance."
+      - J’occupe maintenant ce poste depuis près de deux ans et j’en suis plus heureux! J’aime vraiment le travail que je fais, et j’adore pouvoir le faire avec un groupe de gens aimables, amusants et talentueux. J’ai beaucoup de chance d’être tombé sur cette annonce, et je suis reconnaissant qu’elle ait facilité ma décision de poser ma candidature. »
+  - type: title
+    label: Point de vue des gestionnaires
+  - L’équipe du Nuage de talents a été en mesure d’interviewer 55 % des gestionnaires qui ont été embauchés grâce à la plateforme. Ces gestionnaires provenaient de huit ministères différents et ont embauché 18 employés par l’entremise de la plateforme du Nuage de talents (nous n’étions pas au courant de certains cas avant d’y retourner pour mener des entrevues. Il s’avère que bon nombre de nos gestionnaires y sont retournés pour recruter davantage après que nous ayons recueilli les données du processus initial.)
+  - Ces gestionnaires ont couvert tout le laps de temps qui s’est écoulé entre le lancement de la plateforme et la diffusion de la plus récente version majeure en 2020. (Aucun n’avait utilisé la version de 2021 de la fonction avancée de Présélection du calendrier du demandeur.) Bien que certains d’entre eux se soient d’abord portés volontaires pour participer au projet pilote du Nuage de talents, d’autres l’ont fait à la demande de leur ministère (on leur demandé de prendre part à ce projet d’innovation du Nuage de talents financé par leur ministère). Le groupe de personnes interrogées comprenait également des gestionnaires qui ont exécuté le processus d’un bout à l’autre, des gestionnaires qui ont continué le processus débuté par un autre gestionnaire, et des gestionnaires qui n’étaient pas du tout impliqués (dont l’équipe des RH s’était occupée de la présélection et de la sélection des candidats) et à qui on avait affecté un employé à la fin du processus.
+  - Tous les gestionnaires, sauf un, ont déclaré que leurs employés convenaient bien à l’équipe. Bien que certains aient dû traverser des courbes d’apprentissage et des périodes d’adaptation, en particulier ceux qui provenaient d’autres secteurs ou qui se sont joints à l’équipe pendant la pandémie, les gestionnaires ont déclaré que leurs employés travaillaient bien au sein de l’équipe.
+  - type: title
+    label: Les comportements imprévus ont donné lieu à des observations inattendues
+  - Parmi les gestionnaires que nous avons interviewés, certains ont fini par faire une embauche qui n’était pas prévue lorsque le poste a été annoncé.
+  - Comme les offres d’emploi dans le Nuage de talents ont été conçues pour être adaptées à un emploi et à une équipe en particulier (pour en savoir plus sur Appariement à cinq facteurs), nous leur avons demandé d’annoncer les emplois séparément s’ils voulaient doter deux postes ayant des responsabilités différentes ou faisant partie d’équipes différentes, même si les postes étaient de la même classification et du même niveau.
+  - Toutefois, si les postes étaient identiques, les gestionnaires pouvaient embaucher plusieurs candidats lors du même processus. En fait, un gestionnaire a réalisé quatre embauches (et plus encore) dans le cadre d’un seul processus, et il a déclaré que tous les candidats correspondaient à ses attentes. (Une cinquième embauche dans le cadre du même processus a été signalée pendant l’entrevue, mais elle est encore en cours de finalisation.) Apprenez-en davantage sur son histoire dans l'article suivant.
+  - Par ailleurs, dans certains cas, les gestionnaires ont trouvé au cours du processus d’évaluation un candidat qui, selon eux, pourrait aider à répondre à d’autres besoins vacants dans leur organisation. Le candidat a finalement été embauché pour un poste différent de celui pour lequel il avait posé sa candidature. Il est important de noter que dans les cas où des candidats ont été choisis pour des postes autres que celui annoncé, les gestionnaires ont indiqué que les candidats ne convenaient pas. Cela concorde avec ce qu’ont affirmé les gestionnaires qui ont d’abord signalé qu’il était difficile de trouver un bon candidat lors de l’utilisation de bassins génériques. Cette constatation rappelle l’importance des autres facteurs pour améliorer l’aptitude à travailler en équipe, en plus des exigences du poste et des qualifications de la personne. Il s’agit d’un cas où l’échec confirme la théorie, c’est-à-dire que le jumelage à cinq facteurs est un élément important pour produire des jumelages entre talents et équipes solides et très performants. 
+---

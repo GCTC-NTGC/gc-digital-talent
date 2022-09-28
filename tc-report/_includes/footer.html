@@ -1,0 +1,54 @@
+<footer section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)" data-h2-padding="b(all, l)">
+  <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+    <div
+      data-h2-flex-item="b(1of1) m(1of2)"
+      data-h2-padding="b(left, xl)"
+      data-h2-text-align="b(center) m(left)">
+      {% if page.pageKey == "switch" %}
+      {% else %}
+        <nav>
+          <ul
+            style="gap: 1rem;"
+            class="reset-ul"
+            data-h2-display="b(flex)"
+            data-h2-flex-wrap="b(wrap)"
+            data-h2-justify-content="b(center) m(flex-start)"
+            data-h2-margin="b(bottom, xs)">
+            {% for item in site.data.translations.footer[page.lang] %}
+            <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+              {% if item.type == "absolute" %}                  
+                <a href="{{ item.route }}" title="{{ item.title }}">{{ item.label }}</a>
+              {% else %}
+                <a href="{{ site.baseurl }}/{{ page.lang }}/{{ item.route }}" title="{{ item.title }}">{{ item.label }}</a>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+        <p 
+          data-h2-font-size="b(caption)"
+          data-h2-font-color="b(black)" 
+          data-h2-margin="b(bottom, none) b(top, m)">
+          {{ site.data.translations.footerDate[page.lang].dateLabel }}: {{
+          site.data.translations.footerDate[page.lang].date }}
+        </p>
+      {% endif %}
+    </div>
+    <div
+      data-h2-flex-item="b(1of1) m(1of2)"
+      data-h2-padding="b(right, xl)"
+      data-h2-text-align="b(center) m(right)">
+      <a
+        href="{{ site.data.translations.footerLogo[page.lang].route }}"
+        title="{{ site.data.translations.footerLogo[page.lang].title }}"
+        target="_blank"
+        rel="noopener noreferrer">
+        <img
+          class="canada-logo"
+          src="{{ '/assets/img/ui-canada.png' | prepend: site.baseurl }}"
+          alt="{{ site.data.translations.footerLogo[page.lang].alt }}"/>
+      </a>
+    </div>
+  </div>
+</footer>
+

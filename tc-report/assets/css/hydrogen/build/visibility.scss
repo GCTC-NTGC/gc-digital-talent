@@ -1,0 +1,10 @@
+@use 'sass:color';
+
+@use '../maps/map-states' as stateMap;
+
+@use '../utilities/utility-visibility' as visibilityStyles;
+
+@include visibilityStyles.h2-utility-visibility(
+  $mediaKey: 'MEDIAKEY',
+  $stateMap: stateMap.$h2-map-states
+);
