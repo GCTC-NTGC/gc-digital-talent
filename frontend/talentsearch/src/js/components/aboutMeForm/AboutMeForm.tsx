@@ -82,7 +82,10 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   });
 
   const formValuesToSubmitData = (data: FormValues): UpdateUserAsUserInput => {
-    return data;
+    return {
+      ...data,
+      id: initialUser.id,
+    };
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {

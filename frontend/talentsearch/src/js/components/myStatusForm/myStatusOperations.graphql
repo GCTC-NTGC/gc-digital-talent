@@ -8,6 +8,7 @@ query getMyStatus {
 
 mutation UpdateMyStatus($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
+    id
     jobLookingStatus
   }
 }

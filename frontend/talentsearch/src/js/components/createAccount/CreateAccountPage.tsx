@@ -304,7 +304,10 @@ const CreateAccount: React.FunctionComponent = () => {
   const handleCreateAccount = (id: string, data: UpdateUserAsUserInput) =>
     executeMutation({
       id,
-      user: data,
+      user: {
+        ...data,
+        id,
+      },
     }).then((result) => {
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
