@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Validators;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -15,9 +14,6 @@ final class UpdateUserInputValidator extends Validator
      */
     public function rules(): array
     {
-
-        Log::debug($this->args->toArray());
-
         return [
             'email' => [
                 'sometimes',
