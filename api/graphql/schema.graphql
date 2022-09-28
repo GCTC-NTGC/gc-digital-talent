@@ -855,7 +855,13 @@ input CreateUserInput {
 When updating a User, all fields are optional
 """
 input UpdateUserAsAdminInput {
-    email: Email
+    email: Email @rules(
+        apply: ["sometimes","unique:users,email"],
+        messages: [{
+            rule: "unique"
+            message: "This email address is already in use"
+        }]
+    )
     sub: String
     roles: [Role]
 
@@ -917,7 +923,13 @@ input UpdateUserAsAdminInput {
 
 input UpdateUserAsUserInput {
     # Personal info
-    email: Email
+    email: Email @rules(
+        apply: ["sometimes","unique:users,email"],
+        messages: [{
+            rule: "unique"
+            message: "This email address is already in use"
+        }]
+    )
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
