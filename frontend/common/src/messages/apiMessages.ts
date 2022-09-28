@@ -34,13 +34,6 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
     description:
       "Error message that the given skill expiry date must be after today.",
   },
-  "validator:advertisement_location.*.required_if": {
-    defaultMessage:
-      "You must enter advertisement_location if advertisement is not remote.",
-    id: "bhuMGL",
-    description:
-      "Error message that the pool advertisement must have a location if it is not for remote work.",
-  },
 
   // pool publishing validation
   EnglishWorkTasksRequired: {
