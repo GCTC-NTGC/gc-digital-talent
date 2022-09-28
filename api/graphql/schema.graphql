@@ -909,7 +909,7 @@ input CreateUserInput {
   lastName: String! @rename(attribute: "last_name")
   email: Email
     @rules(
-      apply: ["unique:users,email"]
+      apply: ["sometimes", "unique:users,email"]
       messages: [
         { rule: "unique", message: "This email address is already in use" }
       ]
