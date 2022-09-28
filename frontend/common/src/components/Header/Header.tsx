@@ -2,19 +2,21 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import Link from "../Link";
+
+import { GocLogo, GocLogoWhite } from "../Svg";
+
 import {
   getLocale,
   localizePath,
   oppositeLocale,
 } from "../../helpers/localize";
-import { imageUrl, useLocation } from "../../helpers/router";
+import { useLocation } from "../../helpers/router";
 
 export interface HeaderProps {
-  baseUrl: string;
   width?: string;
 }
 
-const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl, width }) => {
+const Header = ({ width }: HeaderProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -48,28 +50,22 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl, width }) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img
+              <GocLogo
                 data-h2-max-width="base(x12) p-tablet(x15)"
                 data-h2-display="base(block) base:dark(none)"
-                src={imageUrl(baseUrl, "goc-logo-light.svg")}
-                alt={intl.formatMessage({
-                  defaultMessage: "Canada.ca",
-                  id: "gpcHeU",
-                  description:
-                    "Alt text for the Canada logo link in the Header.",
-                })}
               />
-              <img
+              <GocLogoWhite
                 data-h2-max-width="base(x12) p-tablet(x15)"
                 data-h2-display="base(none) base:dark(block)"
-                src={imageUrl(baseUrl, "goc-logo-dark.svg")}
-                alt={intl.formatMessage({
+              />
+              <span data-h2-visibility="base(invisible)">
+                {intl.formatMessage({
                   defaultMessage: "Canada.ca",
                   id: "gpcHeU",
                   description:
                     "Alt text for the Canada logo link in the Header.",
                 })}
-              />
+              </span>
             </a>
           </div>
           <div

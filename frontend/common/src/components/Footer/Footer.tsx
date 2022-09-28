@@ -1,12 +1,15 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { imageUrl } from "../../helpers/router";
 
-const Footer: React.FunctionComponent<{
-  baseUrl: string;
+import { CanadaLogo, CanadaLogoWhite } from "../Svg";
+
+interface FooterProps {
   width?: string;
-}> = ({ baseUrl, width }) => {
+}
+
+const Footer = ({ width }: FooterProps) => {
   const intl = useIntl();
+
   const links = [
     {
       route: "mailto:GCTalentGC@tbs-sct.gc.ca",
@@ -123,28 +126,22 @@ const Footer: React.FunctionComponent<{
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img
+              <CanadaLogo
                 data-h2-display="base(block) base:dark(none)"
                 data-h2-max-width="base(x10)"
-                src={imageUrl(baseUrl, "canada-logo-light.svg")}
-                alt={intl.formatMessage({
-                  defaultMessage: "Canada.ca",
-                  id: "m1eQrS",
-                  description:
-                    "Alt text for the Canada logo link in the Footer.",
-                })}
               />
-              <img
+              <CanadaLogoWhite
                 data-h2-display="base(none) base:dark(block)"
                 data-h2-max-width="base(x10)"
-                src={imageUrl(baseUrl, "canada-logo-dark.svg")}
-                alt={intl.formatMessage({
+              />
+              <span data-h2-visibility="base(invisible)">
+                {intl.formatMessage({
                   defaultMessage: "Canada.ca",
                   id: "m1eQrS",
                   description:
                     "Alt text for the Canada logo link in the Footer.",
                 })}
-              />
+              </span>
             </a>
           </div>
         </div>
