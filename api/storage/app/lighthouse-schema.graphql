@@ -1301,9 +1301,10 @@ input UpdateSkillInput {
 
 """When updating a User, all fields are optional"""
 input UpdateUserAsAdminInput {
-  email: Email
+  id: ID
   sub: String
   roles: [Role]
+  email: Email
   firstName: String
   lastName: String
   telephone: PhoneNumber
@@ -1349,6 +1350,7 @@ input UpdateUserAsAdminInput {
 }
 
 input UpdateUserAsUserInput {
+  id: ID
   email: Email
   firstName: String
   lastName: String

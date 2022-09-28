@@ -97,6 +97,7 @@ mutation CreateUser($user: CreateUserInput!) {
 
 mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
+    id
     sub
     firstName
     lastName
@@ -167,6 +168,7 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
 
 mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
   updateUserAsAdmin(id: $id, user: $user) {
+    id
     sub
     roles
 

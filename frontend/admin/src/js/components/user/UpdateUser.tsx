@@ -53,6 +53,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
     values: FormValues,
   ): UpdateUserAsAdminInput => ({
     ...values,
+    id: initialUser.id,
     // empty string isn't valid according to API validation regex pattern, but null is valid.
     telephone: emptyToNull(values.telephone),
     // empty string will violate uniqueness constraints
@@ -240,15 +241,18 @@ const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
        graphql operation to fail. */
     executeMutation({
       id,
-      user: pick(data, [
-        "email",
-        "firstName",
-        "lastName",
-        "telephone",
-        "preferredLang",
-        "sub",
-        "roles",
-      ]),
+      user: {
+        id,
+        email: emptyToNull(data.email),
+        ...pick(data, [
+          "firstName",
+          "lastName",
+          "telephone",
+          "preferredLang",
+          "sub",
+          "roles",
+        ]),
+      },
     }).then((result) => {
       if (result.data?.updateUserAsAdmin) {
         return result.data.updateUserAsAdmin;
@@ -258,7 +262,6 @@ const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
 
   return (
     <Pending fetching={fetching} error={error}>
-      {" "}
       <DashboardContentContainer>
         {userData?.user ? (
           <UpdateUserForm
