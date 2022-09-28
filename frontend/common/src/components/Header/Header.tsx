@@ -92,11 +92,10 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl, width }) => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "<hidden>Changer la langue en </hidden>{lang}",
+                      "<hidden>Changer la langue en </hidden>Français",
                     id: "BJi10o",
                     description: "Title for the language toggle link.",
                   },
-                  { lang: changeToLang === "en" ? "English" : "Français" },
                 )}
               </Link>
             </div>
