@@ -13,6 +13,7 @@ import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import Well from "@common/components/Well";
 import {
   DialogLevelOne,
   DialogLevelTwo,
@@ -341,34 +342,31 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
             },
           ]}
         />
-        <div
-          data-h2-background-color="base(light.dt-gray)"
-          data-h2-margin="base(x1, 0, 0, 0)"
-          data-h2-radius="base(s)"
-        >
-          <p data-h2-padding="base(x1, 0, x1, x.5)">
-            <span>
-              <InformationCircleIcon style={{ width: "0.9rem" }} />{" "}
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "<link>Click here to learn more about classifications in the Government of Canada's Digital Community.</link>",
-                  id: "KT3jUW",
-                  description: "Link to learn more about classifications",
-                },
-                {
-                  link: (msg: string) =>
-                    link(
-                      msg,
-                      intl.locale === "en"
-                        ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html"
-                        : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/carriere-domaine-numerique.html",
-                    ),
-                },
-              )}
-            </span>
+        <Well data-h2-margin="base(x.5, 0, x1, 0)">
+          <p data-h2-display="base(flex)" data-h2-align-items="base(center)">
+            <InformationCircleIcon
+              data-h2-margin="base(0, x.25, 0, 0)"
+              style={{ width: "0.9rem" }}
+            />
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "<link>Click here to learn more about classifications in the Government of Canada's Digital Community.</link>",
+                id: "KT3jUW",
+                description: "Link to learn more about classifications",
+              },
+              {
+                link: (msg: string) =>
+                  link(
+                    msg,
+                    intl.locale === "en"
+                      ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html"
+                      : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/carriere-domaine-numerique.html",
+                  ),
+              },
+            )}
           </p>
-        </div>
+        </Well>
         <ProfileFormFooter
           mode="saveButton"
           cancelLink={{ href: returnRoute }}
