@@ -10,7 +10,7 @@ import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage } from "@common/constants";
 import { getLocale } from "@common/helpers/localize";
-import { notEmpty } from "@common/helpers/util";
+import { emptyToUndefined, notEmpty } from "@common/helpers/util";
 import Pending from "@common/components/Pending";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import {
@@ -307,6 +307,7 @@ const CreateAccount: React.FunctionComponent = () => {
       user: {
         ...data,
         id,
+        email: emptyToUndefined(data.email),
       },
     }).then((result) => {
       if (result.data?.updateUserAsUser) {
