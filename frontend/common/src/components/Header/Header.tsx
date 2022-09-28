@@ -7,6 +7,7 @@ import {
   oppositeLocale,
 } from "../../helpers/localize";
 import { imageUrl, useLocation } from "../../helpers/router";
+import { ThemeSwitcher } from "../Theme";
 
 export interface HeaderProps {
   baseUrl: string;
@@ -60,6 +61,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl, width }) => {
             data-h2-flex-item="base(1of1) p-tablet(1of2)"
             data-h2-text-align="base(center) p-tablet(right)"
           >
+            <ThemeSwitcher />
             <Link
               href={languageTogglePath}
               lang={changeToLang === "en" ? "en" : "fr"}
