@@ -295,13 +295,20 @@ RAWSQL2;
 
     public function filterByGeneralSearch(Builder $query, ?string $search): Builder
     {
+        // used App\\Models\\User@filterByPools as reference
         if ($search) {
-            $query->where(function ($query) use ($search) {
-                $query->where('first_name', "ilike", "%{$search}%")
-                    ->orWhere('last_name', "ilike", "%{$search}%")
-                    ->orWhere('email', "ilike", "%{$search}%");
+            $query->whereExists(function ($query) use ($search) {
+                $query->select('id')
+                    ->from('users')
+                    ->whereColumn('users.id', 'pool_candidates.user_id')
+                    ->where(function ($query) use ($search) {
+                        $query->where('users.first_name', "ilike", $search)
+                            ->orWhere('users.last_name', "ilike", "%{$search}%")
+                            ->orWhere('users.email', "ilike", "%{$search}%");
+                    });
             });
         }
+
         return $query;
     }
 
