@@ -2,7 +2,7 @@ import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Admin Workflow Tests", () => {
   const loginAndGoToDashboard = () => {
-    cy.login("admin");
+    cy.loginByRole("admin");
     cy.visit("/en/admin");
 
     // make sure we end up on the dashboard

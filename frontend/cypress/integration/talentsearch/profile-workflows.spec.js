@@ -2,7 +2,7 @@ import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
 describe("User Profile Workflow Tests", () => {
   const loginAndGoToProfile = () => {
-    cy.login("applicant");
+    cy.loginByRole("applicant");
     cy.visit("/en/users/test-applicant/profile");
 
     // make sure we end up on the profile page

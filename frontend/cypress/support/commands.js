@@ -46,7 +46,7 @@ Cypress.Commands.add('setLocale', (locale) => {
   window.localStorage.setItem('stored_locale', locale)
 })
 
-Cypress.Commands.add('login', (...args) => {
+Cypress.Commands.add('loginByRole', (...args) => {
   let userRole, email, password, rest
   switch (args.length) {
     // If no arg, assume we're using non-interactive login for admin user.
@@ -69,6 +69,29 @@ Cypress.Commands.add('login', (...args) => {
   }
 })
 
+Cypress.Commands.add('loginBySubject', (...args) => {
+  let subject, password, rest
+  switch (args.length) {
+    // If no arg, assume we're using non-interactive login for admin user.
+    case 0:
+      loginNonInteractive()
+      break
+    // If arg provided, assume it's a subject.
+    case 1:
+      [subject, ...rest] = args
+      loginBySubject(subject)
+      break
+    // No-op for password login with our mock server.
+    case 2:
+    default:
+      [email, password] = args
+      // See: https://www.cypress.io/blog/2021/08/04/authenticate-faster-in-tests-cy-session-command/
+      cy.session([email, password], () => {
+        loginByPassword(email, password)
+      })
+  }
+})
+
 // Logs in with no user specified, assuming no login page.
 // Works only when mock-oauth2-server.json has set interactiveLogin:FALSE
 const loginNonInteractive = () => _login()
@@ -79,16 +102,21 @@ const loginNonInteractive = () => _login()
 const loginByRole = (userRole = 'admin') => {
   cy.fixture('users.json').then(users => {
     const user = users[userRole]
+    loginBySubject(user.subject)
+  })
+}
 
+// Logs in by subject
+// Works only when mock-oauth2-server.json has set interactiveLogin:TRUE
+const loginBySubject = (subject) => {
     const authorizeReqOptions = {
       method: 'POST',
       form: true,
       body: {
-        username: user.email
+        username: subject
       },
     }
     _login(authorizeReqOptions)
-  })
 }
 
 const _login = (authorizeReqOptions = {}) => {

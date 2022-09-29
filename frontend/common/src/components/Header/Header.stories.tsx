@@ -7,13 +7,8 @@ export default {
   title: "Components/Header",
 } as Meta;
 
-const TemplateHeader: Story = (args) => {
-  const { baseUrl } = args;
-  return <HeaderComponent baseUrl={baseUrl} />;
+const TemplateHeader: Story = () => {
+  return <HeaderComponent />;
 };
 
 export const Header = TemplateHeader.bind({});
-
-Header.args = {
-  baseUrl: "/talent",
-};
