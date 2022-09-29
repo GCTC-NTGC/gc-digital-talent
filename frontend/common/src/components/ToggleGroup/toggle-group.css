@@ -1,0 +1,17 @@
+.ToggleGroup__Item {
+  background: none;
+}
+
+.ToggleGroup > [data-state="on"].ToggleGroup__Item {
+  background-color: var(--h2-color-white);
+  color: var(--h2-color-dt-black);
+}
+
+.ToggleGroup.ToggleGroup--white > [data-state="on"].ToggleGroup__Item {
+  background-color: var(--h2-color-dt-black);
+  color: var(--h2-color-white);
+}
+
+.ToggleGroup > [data-state="off"].ToggleGroup__Item {
+  text-decoration: underline;
+}
