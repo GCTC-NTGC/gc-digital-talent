@@ -29,7 +29,7 @@ const TableEditButton: React.FC<{
   return (
     <Link
       type="button"
-      color="primary"
+      color="black"
       mode="inline"
       href={paths.poolCandidateUpdate(poolId || "", poolCandidateId || "")}
     >
