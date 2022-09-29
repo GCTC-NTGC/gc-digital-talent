@@ -48,7 +48,12 @@ export const SearchRequestTable: React.FunctionComponent<
         accessor: ({ id, fullName }) =>
           tableViewItemButtonAccessor(
             paths.searchRequestView(id),
-            "request",
+            intl.formatMessage({
+              defaultMessage: "request",
+              id: "dKtPxj",
+              description:
+                "Text displayed on the search request table view buttons.",
+            }),
             fullName || "",
           ),
       },
