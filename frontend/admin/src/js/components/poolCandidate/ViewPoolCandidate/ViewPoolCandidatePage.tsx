@@ -10,10 +10,10 @@ import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { getLocalizedName } from "@common/helpers/localize";
 import UserProfile from "@common/components/UserProfile";
-import { useAdminRoutes } from "admin/src/js/adminRoutes";
 import { useState } from "react";
 import { Applicant } from "@common/api/generated";
 import TableOfContents from "@common/components/TableOfContents";
+import { useAdminRoutes } from "../../../adminRoutes";
 import {
   Scalars,
   useGetPoolCandidateSnapshotQuery,

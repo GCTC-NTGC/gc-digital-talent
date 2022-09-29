@@ -45,6 +45,7 @@ class PoolFactory extends Factory
             'advertisement_location' => !$isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
             'is_remote' => $isRemote,
             'stream' => $this->faker->optional->randomElement(ApiEnums::poolStreams()),
+            'process_number' => $this->faker->optional->word(),
         ];
     }
 

@@ -13,6 +13,7 @@ import { notEmpty } from "@common/helpers/util";
 import mapValues from "lodash/mapValues";
 import { useIntl } from "react-intl";
 import useLocale from "@common/hooks/useLocale";
+import { OperationContext } from "urql";
 import {
   WorkRegion,
   EducationType,
@@ -23,6 +24,11 @@ import {
   useGetPoolsQuery,
 } from "../../api/generated";
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
+};
+
 // TODO: Remove this toggle after data model settles.
 // See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
 export default function useFilterOptions(enableEducationType = false) {
@@ -31,8 +37,12 @@ export default function useFilterOptions(enableEducationType = false) {
   // TODO: Implement way to return `fetching` states from hook, so that can pass
   // to react-select's `isLoading` prop on <Select />.
   // See: https://react-select.com/props#select-props
-  const [skillsRes] = useAllSkillsQuery();
-  const [classificationsRes] = useGetClassificationsQuery();
+  const [skillsRes] = useAllSkillsQuery({
+    context,
+  });
+  const [classificationsRes] = useGetClassificationsQuery({
+    context,
+  });
   const [poolsRes] = useGetPoolsQuery();
 
   const yesOption = {

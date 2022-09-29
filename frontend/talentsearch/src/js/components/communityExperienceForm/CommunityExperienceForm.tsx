@@ -7,6 +7,7 @@ import { errorMessages } from "@common/messages";
 
 export const CommunityExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
+  const todayDate = Date();
 
   // to toggle whether endDate is required, the state of the current-role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch({ name: "currentRole" });
@@ -108,6 +109,12 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
                   type="date"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
+                    max: {
+                      value: todayDate,
+                      message: intl.formatMessage(
+                        errorMessages.mustNotBeFuture,
+                      ),
+                    },
                   }}
                 />
               </div>

@@ -76,7 +76,8 @@ export const SkillFamilyTable: React.FC<
           description:
             "Title displayed for the Skill Family table Edit column.",
         }),
-        accessor: (sf) => tableEditButtonAccessor(sf.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
+        accessor: (sf) =>
+          tableEditButtonAccessor(sf.id, editUrlRoot, sf.name?.[locale]), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl, locale],

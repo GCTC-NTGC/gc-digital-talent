@@ -1,5 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
+
+import Well from "../../Well";
 import { getEmploymentEquityStatement } from "../../../constants";
 import { Applicant } from "../../../api/generated";
 
@@ -17,11 +19,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
     isWoman || isIndigenous || isVisibleMinority || hasDisability;
 
   return (
-    <div
-      data-h2-background-color="base(light.dt-gray)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
         {!anyCriteriaSelected && editPath && (
           <div data-h2-flex-item="base(1of1)">
@@ -102,7 +100,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
           </div>
         )}
       </div>
-    </div>
+    </Well>
   );
 };
 

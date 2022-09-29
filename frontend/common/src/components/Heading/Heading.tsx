@@ -1,52 +1,40 @@
 import React from "react";
 
+import { headingStyles, iconStyles } from "./styles";
+
 export type HeadingLevel = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+export type Color = "yellow" | "blue" | "red";
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   level?: HeadingLevel;
+  size?: HeadingLevel;
+  color?: Color;
+  Icon?: React.FC<React.HTMLAttributes<HTMLOrSVGElement>>;
 }
-
-const styleMap: Record<HeadingLevel, Record<string, string>> = {
-  h1: {
-    "data-h2-font-weight": "base(300)",
-    "data-h2-font-size": "base(h1)",
-  },
-  h2: {
-    "data-h2-font-weight": "base(700)",
-    "data-h2-font-size": "base(h2)",
-    "data-h2-margin": "base(x2, 0, x.5, 0)",
-  },
-  h3: {
-    "data-h2-font-weight": "base(400)",
-    "data-h2-font-size": "base(h3)",
-    "data-h2-margin": "base(x1.5, 0, x.25, 0)",
-  },
-  h4: {
-    "data-h2-font-weight": "base(300)",
-    "data-h2-font-size": "base(h4)",
-    "data-h2-margin": "base(x1.5, 0, x.25, 0)",
-  },
-  h5: {
-    "data-h2-font-weight": "base(700)",
-    "data-h2-font-size": "base(h5)",
-    "data-h2-margin": "base(x1, 0, x.25, 0)",
-  },
-  h6: {
-    "data-h2-font-weight": "base(700)",
-    "data-h2-font-size": "base(h6)",
-    "data-h2-margin": "base(x1, 0, x.25, 0)",
-  },
-};
 
 const Heading: React.FC<HeadingProps> = ({
   level = "h2",
+  size = "h2",
+  Icon,
+  color,
   children,
   ...rest
 }) => {
   const El = level;
 
   return (
-    <El {...styleMap[level]} {...rest}>
+    <El {...headingStyles[size || level]} {...rest}>
+      {Icon && (
+        <span
+          data-h2-display="p-tablet(inline-block)"
+          data-h2-vertical-align="base(middle)"
+          data-h2-margin="base(0, 0, x.25, 0) p-tablet(0, x0.5, 0, 0)"
+          data-h2-width="base:children[svg](var(--h2-font-size-h2))"
+          {...(color ? iconStyles[color] : {})}
+        >
+          <Icon />
+        </span>
+      )}
       {children}
     </El>
   );
