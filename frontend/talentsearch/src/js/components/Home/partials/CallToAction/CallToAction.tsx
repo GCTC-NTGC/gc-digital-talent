@@ -70,6 +70,7 @@ const CallToAction: React.FC<CallToActionProps> = ({
             data-h2-display="base(flex)"
             data-h2-height="base(100%)"
             data-h2-padding="base(x.5) p-tablet(x.25, x.4)"
+            data-h2-radius="base(6px 0 0 6px)"
             data-h2-width="base:children[svg](var(--h2-font-size-h5))"
           >
             {icon}
