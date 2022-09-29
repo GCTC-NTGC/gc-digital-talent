@@ -10,6 +10,13 @@ const ThemeSwitcher = () => {
 
   return (
     <div
+      role="group"
+      aria-label={intl.formatMessage({
+        defaultMessage: "Theme colour mode switcher",
+        id: "Wwb8Lb",
+        description:
+          "Label for the group of buttons to change the current colour mode",
+      })}
       className={mode}
       data-h2-fill="
         base:children[#icon_pref *](tm-yellow.light)
