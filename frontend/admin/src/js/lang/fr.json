@@ -2276,5 +2276,13 @@
   "Qp6B20": {
     "defaultMessage": "Votre travail",
     "description": "Title for pool advertisement work text section"
+  },
+  "/8fQ9Y": {
+    "defaultMessage": "Lien vers le courriel de l'utilisateur",
+    "description": "Descriptive title for an anchor link"
+  },
+  "hci1jW": {
+    "defaultMessage": "Voir",
+    "description": "Title displayed for the User table View column."
   }
 }
