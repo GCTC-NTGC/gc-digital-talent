@@ -2,6 +2,7 @@ import {
   JobLookingStatus,
   LanguageAbility,
   OperationalRequirement,
+  PoolCandidateStatus,
   WorkRegion,
 } from "../../api/generated";
 
@@ -42,6 +43,19 @@ export function stringToEnumJobLooking(
 ): JobLookingStatus | undefined {
   if (Object.values(JobLookingStatus).includes(selection as JobLookingStatus)) {
     return selection as JobLookingStatus;
+  }
+  return undefined;
+}
+
+export function stringToEnumStatus(
+  selection: string,
+): PoolCandidateStatus | undefined {
+  if (
+    Object.values(PoolCandidateStatus).includes(
+      selection as PoolCandidateStatus,
+    )
+  ) {
+    return selection as PoolCandidateStatus;
   }
   return undefined;
 }
