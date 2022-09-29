@@ -15,6 +15,12 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import './userCommands'
+import './poolAdvertisementCommands'
+import './classificationCommands'
+import './skillCommands'
+import './genericJobTitleCommands'
+
 before(() => {
   cy.log('Need to run something before each test file? Add it to `cypress/support/index.js`')
 
