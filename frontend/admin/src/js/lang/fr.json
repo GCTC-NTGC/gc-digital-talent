@@ -2284,5 +2284,9 @@
   "hci1jW": {
     "defaultMessage": "Voir",
     "description": "Title displayed for the User table View column."
+  },
+  "+wG2Ap": {
+    "defaultMessage": "Voir {name} <hidden>{hiddenLabel}</hidden>",
+    "description": "Title displayed for the User table View column."
   }
 }
