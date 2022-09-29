@@ -7,15 +7,18 @@ import {
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
+
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { IconLink } from "@common/components/Link";
-import { notEmpty } from "@common/helpers/util";
 import MissingSkills from "@common/components/skills/MissingSkills";
+import Well from "@common/components/Well";
+import { notEmpty } from "@common/helpers/util";
 import { navigationMessages } from "@common/messages";
 import { useQueryParams } from "@common/helpers/router";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+
 import {
   AwardExperience,
   CommunityExperience,
@@ -250,11 +253,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
         </div>
       )}
       {!hasExperiences ? (
-        <div
-          data-h2-radius="base(s)"
-          data-h2-background-color="base(light.dt-gray)"
-          data-h2-padding="base(x1)"
-        >
+        <Well>
           <p data-h2-font-style="base(italic)">
             {intl.formatMessage({
               defaultMessage:
@@ -264,7 +263,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
                 "Message to user when no experiences have been attached to profile.",
             })}
           </p>
-        </div>
+        </Well>
       ) : (
         <ExperienceSection
           experiences={experiences}

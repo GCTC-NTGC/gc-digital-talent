@@ -2,7 +2,7 @@ import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Pools", () => {
   const loginAndGoToPoolsPage = () => {
-    cy.login("admin");
+    cy.loginByRole("admin");
     cy.visit("/en/admin/pools");
 
     cy.findByRole("heading", { name: /pools/i })

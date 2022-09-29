@@ -136,7 +136,9 @@ describe("DiversityEquityInclusionForm", () => {
   });
 
   it("should update on save", async () => {
-    const mockSave = jest.fn(() => Promise.resolve({ data: {} }));
+    const mockSave = jest.fn(() =>
+      Promise.resolve({ id: "", data: { id: "" } }),
+    );
     renderDiversityEquityInclusionForm({
       user: {
         ...mockUser,

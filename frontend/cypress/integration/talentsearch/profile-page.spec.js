@@ -18,7 +18,7 @@ describe("Talentsearch Profile Page", () => {
   })
 
   context('logged in but no applicant role', () => {
-    beforeEach(() => cy.login('noroles'))
+    beforeEach(() => cy.loginByRole('noroles'))
 
     it('displays not authorized', () => {
       [
@@ -41,7 +41,7 @@ describe("Talentsearch Profile Page", () => {
   })
 
   context('logged in as applicant', () => {
-    beforeEach(() => cy.login('applicant'))
+    beforeEach(() => cy.loginByRole('applicant'))
 
     it("loads page successfully", () => {
       cy.visit('/en/users/test-applicant/profile')

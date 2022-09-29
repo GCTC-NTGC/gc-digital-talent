@@ -16,6 +16,7 @@ query getAboutMe {
 
 mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
+    id
     preferredLang
     currentProvince
     currentCity

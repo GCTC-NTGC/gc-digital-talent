@@ -14,6 +14,7 @@ import { EducationType, EducationStatus } from "../../api/generated";
 
 export const EducationExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
+  const todayDate = Date();
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
@@ -127,6 +128,12 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
                   type="date"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
+                    max: {
+                      value: todayDate,
+                      message: intl.formatMessage(
+                        errorMessages.mustNotBeFuture,
+                      ),
+                    },
                   }}
                 />
               </div>

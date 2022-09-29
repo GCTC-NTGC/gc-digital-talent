@@ -44,11 +44,11 @@ describe("Create Account Form tests", () => {
     });
 
     expect(
-      screen.getByRole("textbox", { name: /given name/i }),
+      screen.getByRole("textbox", { name: /first name/i }),
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole("textbox", { name: /surname/i }),
+      screen.getByRole("textbox", { name: /last name/i }),
     ).toBeInTheDocument();
 
     expect(screen.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
@@ -85,10 +85,10 @@ describe("Create Account Form tests", () => {
       handleCreateAccount: mockSave,
     });
 
-    const firstName = screen.getByRole("textbox", { name: /given name/i });
+    const firstName = screen.getByRole("textbox", { name: /first name/i });
     fireEvent.change(firstName, { target: { value: "FirstName" } });
 
-    const lastName = screen.getByRole("textbox", { name: /surname/i });
+    const lastName = screen.getByRole("textbox", { name: /last name/i });
     fireEvent.change(lastName, { target: { value: "LastName" } });
 
     const email = screen.getByRole("textbox", { name: /email/i });
