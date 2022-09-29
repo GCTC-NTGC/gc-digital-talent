@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import Link from "../Link";
-
 import { GocLogo, GocLogoWhite } from "../Svg";
 
 import {
