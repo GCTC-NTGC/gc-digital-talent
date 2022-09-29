@@ -12,7 +12,6 @@ describe("Talent Search Workflow Tests", () => {
   });
 
   const searchReturnsGreaterThanZeroApplicants = () => {
-    cy.wait("@gqlcountApplicantsQuery");
     cy.findByRole("heading", {
       name: /Results: [1-9][0-9]* matching candidate/i,
     });
@@ -26,16 +25,19 @@ describe("Talent Search Workflow Tests", () => {
     searchReturnsGreaterThanZeroApplicants();
 
     cy.findByRole("combobox", { name: /Classification/i }).select(1);
+    cy.wait("@gqlcountApplicantsQuery");
+
+    cy.findByRole("radio", {
+      name: /Required diploma from post-secondary institution/i,
+    }).click();
+    cy.wait("@gqlcountApplicantsQuery");
 
     cy.findByRole("combobox", { name: /Region/i })
       .type("Telework{enter}{enter}")
       .type("Ontario{enter}{enter}")
       .type("National Capital{enter}{enter}")
       .type("Atlantic{enter}{enter}");
-
-    cy.findByRole("radio", {
-      name: /Required diploma from post-secondary institution/i,
-    }).click();
+    cy.wait("@gqlcountApplicantsQuery");
 
     searchReturnsGreaterThanZeroApplicants();
 
