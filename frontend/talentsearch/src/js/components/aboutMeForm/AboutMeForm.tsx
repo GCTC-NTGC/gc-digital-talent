@@ -347,10 +347,9 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               name="firstName"
               type="text"
               label={intl.formatMessage({
-                defaultMessage: "First Name and Middle Name",
-                id: "g097KT",
-                description:
-                  "Label for first and middle name field in About Me form",
+                defaultMessage: "First Name",
+                id: "btydLe",
+                description: "Label for first name field in About Me form",
               })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -361,8 +360,8 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               name="lastName"
               type="text"
               label={intl.formatMessage({
-                defaultMessage: "Last Name(s)",
-                id: "rGNWy6",
+                defaultMessage: "Last Name",
+                id: "wrHSMx",
                 description: "Label for last name field in About Me form",
               })}
               rules={{
