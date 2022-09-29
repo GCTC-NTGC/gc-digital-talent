@@ -7,13 +7,18 @@ export type Color =
   | "white"
   | "black"
   | "ia-primary"
-  | "ia-secondary";
+  | "ia-secondary"
+  | "yellow"
+  | "red"
+  | "blue";
+
+export type ButtonMode = "solid" | "outline" | "inline" | "tableHeader";
 
 export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   /** The style type of the element. */
   color?: Color;
   /** The style mode of the element. */
-  mode?: "solid" | "outline" | "inline" | "tableHeader";
+  mode?: ButtonMode;
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
   type?: "button" | "submit" | "reset";
@@ -22,7 +27,7 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
 
 export const colorMap: Record<
   Color,
-  Record<"solid" | "outline" | "inline" | "tableHeader", Record<string, string>>
+  Record<ButtonMode, Record<string, string>>
 > = {
   primary: {
     solid: {
@@ -158,6 +163,72 @@ export const colorMap: Record<
     },
     tableHeader: {},
   },
+  yellow: {
+    solid: {
+      "data-h2-background-color":
+        "base(tm-yellow) base:hover(tm-yellow.lighter) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(all, 3px, solid, tm-yellow) base:focus-visible(all, 3px, solid, focus)",
+      "data-h2-color": "base(black)",
+    },
+    outline: {
+      "data-h2-border":
+        "base(all, 3px, solid, tm-yellow) base:focus-visible(all, 3px, solid, focus)",
+      "data-h2-background-color":
+        "base(tm-yellow.lighter) base:hover(tm-yellow) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-color": "base(black)",
+    },
+    inline: {
+      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-background-color": "base(transparent)",
+      "data-h2-color": "base(tm-yellow)",
+    },
+    tableHeader: {},
+  },
+  red: {
+    solid: {
+      "data-h2-background-color":
+        "base(tm-red) base:hover(tm-red.lighter) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(all, 3px, solid, tm-red) base:focus-visible(all, 3px, solid, focus)",
+      "data-h2-color": "base(black)",
+    },
+    outline: {
+      "data-h2-border":
+        "base(all, 3px, solid, tm-red) base:focus-visible(all, 3px, solid, focus)",
+      "data-h2-background-color":
+        "base(tm-red.lighter) base:hover(tm-red) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-color": "base(black)",
+    },
+    inline: {
+      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-background-color": "base(transparent)",
+      "data-h2-color": "base(tm-red)",
+    },
+    tableHeader: {},
+  },
+  blue: {
+    solid: {
+      "data-h2-background-color":
+        "base(tm-blue) base:hover(tm-blue.lighter) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(all, 3px, solid, tm-blue) base:focus-visible(all, 3px, solid, focus)",
+      "data-h2-color": "base(black)",
+    },
+    outline: {
+      "data-h2-border":
+        "base(all, 3px, solid, tm-blue) base:focus-visible(all, 3px, solid, focus)",
+      "data-h2-background-color":
+        "base(tm-blue.lighter) base:hover(tm-blue) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-color": "base(black)",
+    },
+    inline: {
+      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-background-color": "base(transparent)",
+      "data-h2-color": "base(tm-blue)",
+    },
+    tableHeader: {},
+  },
 };
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -193,6 +264,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled}
         data-h2-radius="base(s)"
         data-h2-font-size="base(copy)"
+        data-h2-font-weight="base(700)"
         data-h2-transition="base:hover(background, .2s, ease, 0s)"
         {...(block
           ? { "data-h2-display": "base(block)" }

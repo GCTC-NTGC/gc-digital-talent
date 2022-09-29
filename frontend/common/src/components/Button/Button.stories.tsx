@@ -34,6 +34,9 @@ const colors: Array<Color> = [
   "black",
   "ia-primary",
   "ia-secondary",
+  "yellow",
+  "red",
+  "blue",
 ];
 
 const Template: Story<Omit<ButtonProps, "color"> & { label: string }> = (

@@ -7,13 +7,8 @@ export default {
   title: "Components/Footer",
 } as Meta;
 
-const TemplateFooter: Story = (args) => {
-  const { baseUrl } = args;
-  return <FooterComponent baseUrl={baseUrl} />;
+const TemplateFooter: Story = () => {
+  return <FooterComponent />;
 };
 
 export const Footer = TemplateFooter.bind({});
-
-Footer.args = {
-  baseUrl: "/talent",
-};
