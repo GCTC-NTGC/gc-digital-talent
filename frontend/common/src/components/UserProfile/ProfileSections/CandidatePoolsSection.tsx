@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import Well from "../../Well";
 import { unpackMaybes } from "../../../helpers/formUtils";
 import type { Applicant } from "../../../api/generated";
 import { getLocale } from "../../../helpers/localize";
@@ -15,12 +16,9 @@ const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const poolCandidates = unpackMaybes(applicant.poolCandidates);
+
   return (
-    <div
-      data-h2-background-color="base(light.dt-gray)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       {(!poolCandidates || poolCandidates.length === 0) && (
         <p data-h2-color="base(dt-gray.dark)">
           {intl.formatMessage({
@@ -65,7 +63,7 @@ const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
             </div>
           </div>
         ))}
-    </div>
+    </Well>
   );
 };
 

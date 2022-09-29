@@ -31,7 +31,11 @@ describe("Pool Candidates", () => {
     cy.findAllByRole("link", { name: /view candidates/i })
       .eq(0)
       .click();
+    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 
+    cy.findAllByRole("button", { name: /availability/i })
+    .eq(0)
+    .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 
     cy.findAllByRole("link", { name: /view application/i })

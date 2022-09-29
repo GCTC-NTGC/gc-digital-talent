@@ -291,6 +291,7 @@ query GetPoolCandidatesPaginated(
   $where: PaginatedPoolCandidateFilterInput
   $first: Int
   $page: Int
+  $sortingInput: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!
 ) {
   poolCandidatesPaginated(
     where: $where
@@ -299,6 +300,7 @@ query GetPoolCandidatesPaginated(
     orderBy: [
       { column: "status_weight", order: ASC }
       { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+      $sortingInput
     ]
   ) {
     data {

@@ -212,6 +212,7 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
       client ??
       createClient({
         url: apiUri,
+        requestPolicy: "cache-and-network",
         exchanges: [
           /**
            * Commented out to stop urql errors being displayed in toasts

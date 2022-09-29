@@ -62,5 +62,3 @@ mutation submitApplication($id: ID!, $signature: String!) {
     signature
   }
 }
-
-

@@ -84,9 +84,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
     };
 
     return {
-      wouldAcceptTemporary: data.wouldAcceptTemporary
-        ? boolToString(data.wouldAcceptTemporary)
-        : undefined,
+      wouldAcceptTemporary:
+        typeof data.wouldAcceptTemporary === "boolean"
+          ? boolToString(data.wouldAcceptTemporary)
+          : undefined,
       acceptedOperationalRequirements: data.acceptedOperationalRequirements,
     };
   };

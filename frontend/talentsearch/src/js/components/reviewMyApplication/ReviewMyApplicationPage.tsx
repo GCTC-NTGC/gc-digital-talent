@@ -1,16 +1,19 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
+
 import UserProfile from "@common/components/UserProfile";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
-import { commonMessages, navigationMessages } from "@common/messages";
 import MissingSkills from "@common/components/skills/MissingSkills";
-import { notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
+import Well from "@common/components/Well";
+import { commonMessages, navigationMessages } from "@common/messages";
+import { notEmpty } from "@common/helpers/util";
 import { Link } from "@common/components";
-import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { getMissingSkills } from "@common/helpers/skillUtils";
+
 import {
   Applicant,
   PoolAdvertisement,
@@ -178,11 +181,7 @@ export const ReviewMyApplication: React.FunctionComponent<
                     />
                   )}
                   {!hasExperiences && (
-                    <div
-                      data-h2-radius="base(s)"
-                      data-h2-background-color="base(light.dt-gray)"
-                      data-h2-padding="base(x1)"
-                    >
+                    <Well>
                       <p data-h2-font-style="base(italic)">
                         {intl.formatMessage({
                           id: "XzUzZz",
@@ -192,7 +191,7 @@ export const ReviewMyApplication: React.FunctionComponent<
                             "Message to user when no experiences have been attached to profile.",
                         })}
                       </p>
-                    </div>
+                    </Well>
                   )}
                 </div>
                 {hasExperiences && (

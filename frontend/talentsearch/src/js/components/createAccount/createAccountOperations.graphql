@@ -25,6 +25,7 @@ query getCreateAccountFormData {
 
 mutation CreateAccount($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
+    id
     email
     firstName
     lastName

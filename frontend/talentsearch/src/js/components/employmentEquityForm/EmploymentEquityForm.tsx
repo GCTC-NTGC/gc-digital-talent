@@ -1,9 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { BriefcaseIcon } from "@heroicons/react/24/solid";
+
+import Well from "@common/components/Well";
 import { navigationMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import { BriefcaseIcon } from "@heroicons/react/24/solid";
+
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import EquityOptions from "./EquityOptions";
 import type { EmploymentEquityUpdateHandler, EquityKeys } from "./types";
@@ -120,12 +123,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
           description: "List of the employment equity categories",
         })}
       </p>
-      <div
-        data-h2-background-color="base(light.dt-gray)"
-        data-h2-margin="base(x2, 0, 0, 0)"
-        data-h2-radius="base(s)"
-        data-h2-padding="base(x1)"
-      >
+      <Well data-h2-margin="base(x2, 0, 0, 0)">
         <p data-h2-margin="base(0, 0, x.5, 0)">
           {intl.formatMessage({
             defaultMessage:
@@ -155,7 +153,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
             })}
           </li>
         </ul>
-      </div>
+      </Well>
       <h2 data-h2-font-size="base(h5, 1)" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "How will this data be used?",

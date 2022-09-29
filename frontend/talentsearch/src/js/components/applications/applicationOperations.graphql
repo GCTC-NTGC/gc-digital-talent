@@ -37,7 +37,6 @@ query MyApplications {
   }
 }
 
-
 mutation DeleteApplication($id: ID!) {
   deleteApplication(id: $id)
 }
