@@ -47,6 +47,10 @@ jobs:
       # This uses GitHub Action cache for docker container layers
       # See: https://github.com/marketplace/actions/docker-layer-caching
       - uses: satackey/action-docker-layer-caching@v0.0.11
+        # Disable for now, to avoid storage space error.
+        # #TODO investigate how to run this without error.
+        # See: https://github.com/GCTC-NTGC/gc-digital-talent/issues/4035#issuecomment-1261116699
+        if: false
         # Ignore a failure of this step and avoid terminating the job.
         continue-on-error: true
         # By default, this cache is keyed to the workflow name. We ar
