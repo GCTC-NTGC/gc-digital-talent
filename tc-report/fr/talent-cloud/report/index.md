@@ -20,7 +20,7 @@ hero:
       style: white
       label: Télécharger le rapport
       title: éléchargez l'ensemble du rapport sur votre ordinateur. Pour votre information, le rapport est très volumineux. Nous vous recommandons donc de le télécharger via une connexion WiFi.
-      route: /assets/talent-cloud-report-fr.pdf
+      route: /tc-report/assets/talent-cloud-report-fr.pdf
   subsection:
     title: Sautez dans l'action
     subtitle: Il s'agit d'un long rapport. La table des matières présente tout en détail. Mais pour ceux qui savent ce qu'ils veulent et qui espèrent aller plus loin, nous avons pensé laisser à nos utilisateurs un plan rapide pour trouver ce qu'ils cherchent.
