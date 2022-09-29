@@ -7,11 +7,13 @@ import {
   getJobLookingStatus,
   EmploymentDuration,
   OperationalRequirementV2,
+  getEmploymentEquityGroup,
+  getPoolCandidateStatus,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { notEmpty } from "@common/helpers/util";
 import mapValues from "lodash/mapValues";
-import { useIntl } from "react-intl";
+import { MessageDescriptor, useIntl } from "react-intl";
 import useLocale from "@common/hooks/useLocale";
 import { OperationContext } from "urql";
 import {
@@ -22,6 +24,8 @@ import {
   useAllSkillsQuery,
   useGetClassificationsQuery,
   useGetPoolsQuery,
+  useGetCmoAssetsQuery,
+  PoolCandidateStatus,
 } from "../../api/generated";
 
 const context: Partial<OperationContext> = {
@@ -45,12 +49,19 @@ export default function useFilterOptions(enableEducationType = false) {
   });
   const [poolsRes] = useGetPoolsQuery();
 
+  const [cmoAssetsRes] = useGetCmoAssetsQuery();
+
   const yesOption = {
     // Values expected to be strings or numbers.
     value: "true",
     // No description since common term that can be de-duplicated by FormatJS.
     label: intl.formatMessage({ defaultMessage: "Yes", id: "a5msuh" }),
   };
+
+  const equityOption = (value: string, message: MessageDescriptor) => ({
+    value,
+    label: intl.formatMessage(message),
+  });
 
   const optionsData = {
     pools: poolsRes.data?.pools.filter(notEmpty).map(({ id, name }) => ({
@@ -98,8 +109,26 @@ export default function useFilterOptions(enableEducationType = false) {
       // TODO: Must name and translations be optional in types?
       label: name[locale] || "Error: name not loaded",
     })),
+    cmoAssets: cmoAssetsRes.data?.cmoAssets
+      .filter(notEmpty)
+      .map(({ key, name }) => ({
+        value: key,
+        // TODO: Must name and translations be optional in types?
+        label: name?.[locale] || "Error: name not loaded",
+      })),
+    equity: [
+      equityOption("isWoman", getEmploymentEquityGroup("woman")),
+      equityOption("hasDisability", getEmploymentEquityGroup("disability")),
+      equityOption("isIndigenous", getEmploymentEquityGroup("indigenous")),
+      equityOption("isVisibleMinority", getEmploymentEquityGroup("minority")),
+    ],
+    status: enumToOptions(PoolCandidateStatus).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getPoolCandidateStatus(value)),
+    })),
     profileComplete: [yesOption],
     govEmployee: [yesOption],
+    hasDiploma: [yesOption],
   };
 
   // Creates an object keyed with all fields, each with empty array.

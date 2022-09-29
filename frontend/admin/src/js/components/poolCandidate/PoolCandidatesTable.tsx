@@ -14,11 +14,14 @@ import { IdType } from "react-table";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
+import { SubmitHandler } from "react-hook-form";
 import {
+  InputMaybe,
   JobLookingStatus,
   Language,
   OrderByRelationWithColumnAggregateFunction,
   PoolCandidate,
+  PoolCandidateFilterInput,
   PoolCandidatePaginator,
   PoolCandidateStatus,
   ProvinceOrTerritory,
@@ -41,6 +44,15 @@ import TableFooter from "../apiManagedTable/TableFooter";
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import PoolCandidateDocument from "./PoolCandidateDocument";
 import { tableViewItemButtonAccessor } from "../Table";
+import PoolCandidateTableFilterDialog, {
+  FormValues,
+} from "./PoolCandidateTableFilterDialog";
+import {
+  stringToEnumLanguage,
+  stringToEnumLocation,
+  stringToEnumOperational,
+  stringToEnumStatus,
+} from "../user/util";
 
 type Data = NonNullable<FromArray<PoolCandidatePaginator["data"]>>;
 
@@ -172,11 +184,17 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   const intl = useIntl();
   const adminRoutes = useAdminRoutes();
 
+  const [poolCandidateFilterInput, setPoolCandidateFilterInput] =
+    useState<PoolCandidateFilterInput>();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
   const [selectedRows, setSelectedRows] = useState<PoolCandidate[]>([]);
   const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
+  const [searchState, setSearchState] = useState<{
+    term: string | undefined;
+    type: string | undefined;
+  }>();
 
   // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
   // this smooths the table sort value into appropriate API calls
@@ -216,13 +234,83 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   }, [sortingRule]);
   // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause, therefore default is a redundant sort
 
+  // merge search bar input with fancy filter state
+  const addSearchToPoolCandidateFilterInput = (
+    fancyFilterState: PoolCandidateFilterInput | undefined,
+    searchBarTerm: string | undefined,
+    searchType: string | undefined,
+  ): InputMaybe<PoolCandidateFilterInput> => {
+    if (
+      fancyFilterState === undefined &&
+      searchBarTerm === undefined &&
+      searchType === undefined
+    ) {
+      return undefined;
+    }
+
+    return {
+      // search bar
+      generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+
+      // from fancy filter
+      pools: [{ id: poolId }],
+      languageAbility: fancyFilterState?.languageAbility,
+      classifications: fancyFilterState?.classifications,
+      operationalRequirements: fancyFilterState?.operationalRequirements,
+      workRegions: fancyFilterState?.workRegions,
+      cmoAssets: fancyFilterState?.cmoAssets,
+      hasDiploma: fancyFilterState?.hasDiploma,
+      equity: fancyFilterState?.equity,
+      status: fancyFilterState?.status,
+    };
+  };
+
+  const handlePoolCandidateFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    setPoolCandidateFilterInput({
+      languageAbility: data.languageAbility[0]
+        ? stringToEnumLanguage(data.languageAbility[0])
+        : undefined,
+      classifications: data.classifications.map((classification) => {
+        const splitString = classification.split("-");
+        return { group: splitString[0], level: Number(splitString[1]) };
+      }),
+      operationalRequirements: data.operationalRequirement.map(
+        (requirement) => {
+          return stringToEnumOperational(requirement);
+        },
+      ),
+      workRegions: data.workRegion.map((region) => {
+        return stringToEnumLocation(region);
+      }),
+      cmoAssets: data.cmoAssets.map((cmoAsset) => {
+        return { key: cmoAsset };
+      }),
+      hasDiploma: data.hasDiploma[0] ? true : undefined,
+      equity: {
+        ...(data.equity.includes("isWoman") && { isWoman: true }),
+        ...(data.equity.includes("hasDisability") && { hasDisability: true }),
+        ...(data.equity.includes("isIndigenous") && { isIndigenous: true }),
+        ...(data.equity.includes("isVisibleMinority") && {
+          isVisibleMinority: true,
+        }),
+      },
+      status: data.status.map((status) => {
+        return stringToEnumStatus(status);
+      }),
+    });
+  };
+
   useEffect(() => {
     setSelectedRows([]);
-  }, [currentPage, pageSize]);
+  }, [currentPage, pageSize, searchState, sortingRule]);
 
   const [result] = useGetPoolCandidatesPaginatedQuery({
     variables: {
-      where: { pools: [{ id: poolId }] },
+      where: addSearchToPoolCandidateFilterInput(
+        poolCandidateFilterInput,
+        searchState?.term,
+        searchState?.type,
+      ),
       page: currentPage,
       first: pageSize,
       sortingInput: sortOrder,
@@ -360,6 +448,40 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       },
       {
         label: intl.formatMessage({
+          defaultMessage: "Language Ability",
+          id: "TXH6vD",
+          description:
+            "Title displayed on the Pool Candidates table Language Ability column.",
+        }),
+        id: "languageAbility",
+        accessor: ({ languageAbility }) => languageAbility,
+        sortColumnName: "LANGUAGE_ABILITY",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Classifications",
+          id: "EECyWx",
+          description:
+            "Title displayed on the Pool Candidates table Classifications column.",
+        }),
+        id: "classifications",
+        accessor: ({ expectedClassifications }) =>
+          expectedClassifications?.map((c) => `${c?.group}-${c?.level}`),
+        sortColumnName: "CLASSIFICATIONS",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Has Diploma",
+          id: "GFbVhO",
+          description:
+            "Title displayed on the Pool Candidates table diploma column.",
+        }),
+        id: "hasDiploma",
+        accessor: ({ hasDiploma }) => (hasDiploma ? "YES" : "NO"),
+        sortColumnName: "HAS_DIPLOMA",
+      },
+      {
+        label: intl.formatMessage({
           defaultMessage: "Current Location",
           id: "1sPszf",
           description:
@@ -418,18 +540,27 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
     <div data-h2-margin="base(x1, 0)">
       <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
         {intl.formatMessage({
-          defaultMessage: "All Users",
-          id: "VlI1K4",
-          description: "Title for the admin users table",
+          defaultMessage: "All Pool Candidates",
+          id: "z0QI6A",
+          description: "Title for the admin pool candidates table",
         })}
       </h2>
       <TableHeader
         columns={columns}
-        onFilterChange={() => {
-          /* TODO: Implement this later */
-        }}
-        onSearchChange={() => {
-          /* TODO: Implement this later */
+        filterButton={
+          <PoolCandidateTableFilterDialog.Button
+            onSubmit={handlePoolCandidateFilterSubmit}
+          />
+        }
+        onSearchChange={(
+          term: string | undefined,
+          type: string | undefined,
+        ) => {
+          setCurrentPage(1);
+          setSearchState({
+            term,
+            type,
+          });
         }}
         addBtn={{
           label: intl.formatMessage({
