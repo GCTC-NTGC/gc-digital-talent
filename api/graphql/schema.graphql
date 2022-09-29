@@ -692,7 +692,7 @@ input UserPoolFilterInput {
 }
 
 input PoolCandidateFilterInput {
-    classifications: [ClassificationFilterInput] @scope
+    classifications: [ClassificationFilterInput] @scope(name: "classifications")
     cmoAssets: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
     hasDiploma: Boolean @scope
     equity: EquitySelectionsInput @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
@@ -700,10 +700,8 @@ input PoolCandidateFilterInput {
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
     pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
-}
-
-input PaginatedPoolCandidateFilterInput {
-    pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
+    status: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
+    generalSearch: String @builder(method: "App\\Models\\PoolCandidate@filterByGeneralSearch")
 }
 
 input UserFilterInput {
@@ -745,7 +743,7 @@ type Query {
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
     poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]! @all @guard @can(ability: "viewAny")
-    poolCandidatesPaginated(where: PaginatedPoolCandidateFilterInput, orderBy: _ @orderBy(relations: [ {relation: "user", columns: ["priority_weight", "job_looking_status", "first_name", "email", "preferred_lang", "current_city"] }])): [PoolCandidate]! @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft"] ) @guard @can(ability: "viewAny")
+    poolCandidatesPaginated(where: PoolCandidateFilterInput, orderBy: _ @orderBy(relations: [ {relation: "user", columns: ["priority_weight", "job_looking_status", "first_name", "email", "preferred_lang", "current_city"] }])): [PoolCandidate]! @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft"] ) @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
     countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants") @count(model: "PoolCandidate" scopes: ["expiryFilter", "available"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.

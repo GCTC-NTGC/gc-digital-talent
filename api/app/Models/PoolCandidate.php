@@ -293,6 +293,18 @@ RAWSQL2;
         return $query;
     }
 
+    public function filterByGeneralSearch(Builder $query, ?string $search): Builder
+    {
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('first_name', "ilike", "%{$search}%")
+                    ->orWhere('last_name', "ilike", "%{$search}%")
+                    ->orWhere('email', "ilike", "%{$search}%");
+            });
+        }
+        return $query;
+    }
+
     public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
     {
         if (empty($poolCandidateStatuses)) {
