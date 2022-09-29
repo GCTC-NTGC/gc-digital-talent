@@ -28,6 +28,7 @@ const ThemeSwitcher = () => {
         base:class[pref]:children[#highlight](translate(0, 0))
         base:class[light]:children[#highlight](translate(2rem, 0))
         base:class[dark]:children[#highlight](translate(4rem, 0))"
+      data-h2-display="base(flex)"
     >
       <div
         data-h2-border="base(all, 1px, solid, black.darker.2) base:dark(all, 1px, solid, white.2)"
