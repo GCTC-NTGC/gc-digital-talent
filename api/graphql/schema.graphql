@@ -711,7 +711,7 @@ input UserPoolFilterInput {
 }
 
 input PoolCandidateFilterInput {
-  classifications: [ClassificationFilterInput] @scope
+  classifications: [ClassificationFilterInput] @scope(name: "classifications")
   cmoAssets: [KeyFilterInput]
     @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
   hasDiploma: Boolean @scope
@@ -726,10 +726,8 @@ input PoolCandidateFilterInput {
   workRegions: [WorkRegion]
     @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
   pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
-}
-
-input PaginatedPoolCandidateFilterInput {
-  pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
+  status: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
+  generalSearch: String @builder(method: "App\\Models\\PoolCandidate@filterByGeneralSearch")
 }
 
 input UserFilterInput {
@@ -804,7 +802,7 @@ type Query {
     @guard
     @can(ability: "viewAny")
   poolCandidatesPaginated(
-    where: PaginatedPoolCandidateFilterInput
+    where: PoolCandidateFilterInput
     orderBy: _
       @orderBy(
         relations: [
