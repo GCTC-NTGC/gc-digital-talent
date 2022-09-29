@@ -177,8 +177,10 @@
       "label": "Rebuild tc-report with Jekyll",
       "type": "shell",
       "command": "docker",
+      "options": {
+        "cwd": "${workspaceFolder}/tc-report"
+      },
       "args": ["run", "--rm", "--volume=\"${PWD}:/srv/jekyll\"", "-it", "jekyll/jekyll", "jekyll", "build"],
-
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -193,8 +195,10 @@
       "label": "Rebuild and watch tc-report with Jekyll",
       "type": "shell",
       "command": "docker",
+      "options": {
+        "cwd": "${workspaceFolder}/tc-report"
+      },
       "args": ["run", "--rm", "--volume=\"${PWD}:/srv/jekyll\"", "-it", "jekyll/jekyll", "jekyll", "build", "--watch"],
-
       "presentation": {
         "echo": true,
         "reveal": "always",
