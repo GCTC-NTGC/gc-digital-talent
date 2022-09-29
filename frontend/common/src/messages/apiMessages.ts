@@ -2,7 +2,7 @@ import { defineMessages, MessageDescriptor } from "react-intl";
 
 // The messages in this object correspond to error messages emitted by the API.
 // Ideally, this could be automatically extracted from the schema but for now we do it manually.
-// The object keys match their source in the api by convention but are not actually used for anything
+// The object keys match their source in the api and return a MessageDescriptor object
 
 export const messages: { [key: string]: MessageDescriptor } = defineMessages({
   // users validation
