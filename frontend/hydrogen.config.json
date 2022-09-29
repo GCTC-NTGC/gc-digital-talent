@@ -18,7 +18,7 @@
   "output": "common/src/css",
   "build": {
     "base_query_key": "base",
-    "dark_mode": "preference",
+    "dark_mode": "toggle",
     "logs": false,
     "minification": true,
     "prefixing": true,
@@ -54,20 +54,68 @@
       "typography": [
         {
           "size": "100%",
-          "line_height": "1.3",
+          "line_height": "1.4",
           "query_key": "base",
           "type_scale": "1.2"
         },
         {
           "size": "112.5%",
-          "line_height": "1.3",
+          "line_height": "1.4",
           "query_key": "desktop",
-          "type_scale": "1.2"
+          "type_scale": "1.25"
         }
       ]
     },
     "tokens": {
       "colors": [
+        {
+          "key": "black",
+          "color": "#010101",
+          "modifiers": [
+            {
+              "key": "light",
+              "color": "#2F313D"
+            },
+            {
+              "key": "lighter",
+              "color": "#474a59"
+            },
+            {
+              "key": "darker",
+              "color": "#1b1c22"
+            }
+          ]
+        },
+        {
+          "key": "white",
+          "color": "#FFFFFF",
+          "modifiers": []
+        },
+        {
+          "key": "tm-yellow",
+          "color": "#FFAD31",
+          "modifiers": []
+        },
+        {
+          "key": "tm-green",
+          "color": "#52C765",
+          "modifiers": []
+        },
+        {
+          "key": "tm-blue",
+          "color": "#27C9BC",
+          "modifiers": []
+        },
+        {
+          "key": "tm-red",
+          "color": "#FF5958",
+          "modifiers": []
+        },
+        {
+          "key": "focus",
+          "color": "#6492ff",
+          "modifiers": []
+        },
         {
           "key": "dt-black",
           "color": "#1E1E23",
@@ -221,7 +269,7 @@
         },
         {
           "key": "large",
-          "max_width": "80rem"
+          "max_width": "70rem"
         },
         {
           "key": "full",
@@ -251,6 +299,21 @@
         }
       ],
       "gradients": [
+        {
+          "key": "tm-linear-divider",
+          "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+          "fallback": "#FFAD31"
+        },
+        {
+          "key": "tm-linear-text",
+          "gradient": "linear-gradient(to right, rgba(0, 0, 0, 1) 33%, rgba(0, 0, 0, 0))",
+          "fallback": "transparent"
+        },
+        {
+          "key": "tm-linear-footer",
+          "gradient": "linear-gradient(135deg, #27C9BC, #52C765, #FFAD31 110%)",
+          "fallback": "transparent"
+        },
         {
           "key": "dt-linear",
           "gradient": "linear-gradient(#674C90, #1D2C4C)",
@@ -297,6 +360,14 @@
         {
           "key": "iap-home-card",
           "radius": "20px"
+        },
+        {
+          "key": "rounded",
+          "radius": "5px"
+        },
+        {
+          "key": "circle",
+          "radius": "100%"
         }
       ],
       "shadows": [
@@ -305,7 +376,15 @@
           "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2)"
         },
         {
+          "key": "small",
+          "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2)"
+        },
+        {
           "key": "m",
+          "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2)"
+        },
+        {
+          "key": "medium",
           "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2)"
         },
         {
@@ -313,11 +392,23 @@
           "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .2)"
         },
         {
+          "key": "large",
+          "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .2)"
+        },
+        {
           "key": "xl",
           "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .2)"
         },
         {
+          "key": "larger",
+          "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .2)"
+        },
+        {
           "key": "xxl",
+          "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2)"
+        },
+        {
+          "key": "largest",
           "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2)"
         }
       ],

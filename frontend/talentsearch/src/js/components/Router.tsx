@@ -27,6 +27,9 @@ import {
 import { ExperienceType } from "./experienceForm/types";
 import { Role, useGetAboutMeQuery } from "../api/generated";
 
+/** Home */
+const HomePage = React.lazy(() => import("./Home/HomePage"));
+
 /** Search */
 const SearchPage = React.lazy(() => import("./search/SearchPage"));
 const RequestPage = React.lazy(() => import("./request/RequestPage"));
@@ -89,6 +92,12 @@ const ReviewMyApplicationPage = React.lazy(
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
 ): Routes<RouterResult> => [
+  {
+    path: talentPaths.home(),
+    action: () => ({
+      component: <HomePage />,
+    }),
+  },
   {
     path: talentPaths.search(),
     action: () => ({

@@ -57,7 +57,7 @@ describe('Auth flows (development)', () => {
       expect(localStorage.getItem('access_token')).not.to.exist
       expect(localStorage.getItem('refresh_token')).not.to.exist
 
-      cy.login('admin').then(() => {
+      cy.loginByRole('admin').then(() => {
         expect(localStorage.getItem('id_token')).to.exist
         expect(localStorage.getItem('access_token')).to.exist
         expect(localStorage.getItem('refresh_token')).to.exist
@@ -116,7 +116,7 @@ describe('Auth flows (development)', () => {
   })
 
   context('Authenticated as admin', () => {
-    beforeEach(() => cy.login('admin'))
+    beforeEach(() => cy.loginByRole('admin'))
 
     it('redirects by default to dashboard', () => {
       const onDashboard = () => {
@@ -165,7 +165,7 @@ describe('Auth flows (development)', () => {
   })
 
   context('Authenticated as applicant', () => {
-    beforeEach(() => cy.login('applicant'))
+    beforeEach(() => cy.loginByRole('applicant'))
 
     it('displays a not authorized message if logged in without the admin role', () => {
       [
