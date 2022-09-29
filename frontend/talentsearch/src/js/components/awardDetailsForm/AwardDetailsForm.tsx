@@ -12,6 +12,7 @@ import { AwardedTo, AwardedScope } from "../../api/generated";
 
 export const AwardDetailsForm: React.FunctionComponent = () => {
   const intl = useIntl();
+  const todayDate = Date();
 
   return (
     <div>
@@ -62,7 +63,13 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
               })}
               name="awardedDate"
               type="date"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                max: {
+                  value: todayDate,
+                  message: intl.formatMessage(errorMessages.mustNotBeFuture),
+                },
+              }}
             />
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">

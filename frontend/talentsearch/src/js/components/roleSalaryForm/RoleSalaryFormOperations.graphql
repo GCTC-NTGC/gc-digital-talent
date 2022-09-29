@@ -19,6 +19,7 @@ query getRoleSalaryInfo {
 
 mutation UpdateRoleSalary($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
+    id
     expectedGenericJobTitles {
       id
       key

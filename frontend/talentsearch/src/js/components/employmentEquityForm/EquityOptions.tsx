@@ -2,12 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 
-import type { Maybe } from "@common/api/generated";
-
+import Well from "@common/components/Well";
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
 } from "@common/constants";
+import type { Maybe } from "@common/api/generated";
+
 import profileMessages from "../profile/profileMessages";
 import Spinner from "../Spinner";
 import EquityOption from "./EquityOption";
@@ -137,11 +138,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                 )}
               </div>
             ) : (
-              <div
-                data-h2-background-color="base(light.dt-gray)"
-                data-h2-radius="base(s)"
-                data-h2-padding="base(x1)"
-              >
+              <Well>
                 <p data-h2-margin="base(0)">
                   {intl.formatMessage({
                     defaultMessage:
@@ -151,7 +148,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                       "Message displayed when a user has no employment equity information.",
                   })}
                 </p>
-              </div>
+              </Well>
             )}
           </div>
           <div data-h2-flex-item="l-tablet(1of2)">
@@ -209,11 +206,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                 )}
               </div>
             ) : (
-              <div
-                data-h2-background-color="base(light.dt-gray)"
-                data-h2-radius="base(s)"
-                data-h2-padding="base(x1)"
-              >
+              <Well>
                 <p data-h2-margin="base(0)">
                   {intl.formatMessage({
                     defaultMessage:
@@ -223,7 +216,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                       "Message displayed when there are no employment equity categories available to be added.",
                   })}
                 </p>
-              </div>
+              </Well>
             )}
           </div>
         </div>

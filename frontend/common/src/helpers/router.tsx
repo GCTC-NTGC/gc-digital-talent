@@ -131,12 +131,14 @@ export const useRouter = (
          *  - User Logged in
          *  - Authorization query is not loading
          *  - User has no email associated with account
+         *  - User is not trying to go to the welcome page directly already
          */
         if (
           welcomeRoute &&
           loggedIn &&
           authorizationLoaded &&
-          empty(loggedInEmail)
+          empty(loggedInEmail) &&
+          pathName !== welcomeRoute
         ) {
           navigate(welcomeRoute);
         }

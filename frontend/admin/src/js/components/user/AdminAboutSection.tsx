@@ -1,10 +1,12 @@
+import React from "react";
+import { useIntl } from "react-intl";
+
+import Well from "@common/components/Well";
 import {
   getArmedForcesStatusesAdmin,
   getCitizenshipStatusesAdmin,
 } from "@common/constants/localizedConstants";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
-import React from "react";
-import { useIntl } from "react-intl";
 
 import { Applicant } from "../../api/generated";
 
@@ -22,11 +24,7 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
 
   return (
     <div data-h2-flex-item="base(1of1) p-tablet(3of4)">
-      <div
-        data-h2-background-color="base(light.dt-gray)"
-        data-h2-padding="base(x1)"
-        data-h2-radius="base(s)"
-      >
+      <Well>
         {(!!firstName || !!lastName) && (
           <p>
             {intl.formatMessage({
@@ -77,7 +75,7 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
         ) : (
           ""
         )}
-      </div>
+      </Well>
     </div>
   );
 };

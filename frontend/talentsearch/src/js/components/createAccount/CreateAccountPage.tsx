@@ -10,7 +10,7 @@ import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage } from "@common/constants";
 import { getLocale } from "@common/helpers/localize";
-import { notEmpty } from "@common/helpers/util";
+import { emptyToNull, notEmpty } from "@common/helpers/util";
 import Pending from "@common/components/Pending";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import {
@@ -304,7 +304,11 @@ const CreateAccount: React.FunctionComponent = () => {
   const handleCreateAccount = (id: string, data: UpdateUserAsUserInput) =>
     executeMutation({
       id,
-      user: data,
+      user: {
+        ...data,
+        id,
+        email: emptyToNull(data.email),
+      },
     }).then((result) => {
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
