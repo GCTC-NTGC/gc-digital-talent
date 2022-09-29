@@ -6,6 +6,7 @@ import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
 import { FromArray } from "@common/types/utilityTypes";
 import Pending from "@common/components/Pending";
+import { getAdvertisementStatus } from "@common/constants/localizedConstants";
 import { GetPoolsQuery, Maybe, useGetPoolsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -125,7 +126,8 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           id: "ioqFVF",
           description: "Title displayed for the Pool table status column.",
         }),
-        accessor: "status",
+        accessor: ({ advertisementStatus }) =>
+          intl.formatMessage(getAdvertisementStatus(advertisementStatus || "")),
       },
       {
         Header: intl.formatMessage({

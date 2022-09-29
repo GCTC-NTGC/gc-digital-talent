@@ -781,7 +781,8 @@ type Pool {
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
-  status: PoolStatus
+  status: PoolStatus @deprecated(reason: "Replaced by advertisementStatus")
+  advertisementStatus: AdvertisementStatus
   stream: PoolStream
   processNumber: String
 }
