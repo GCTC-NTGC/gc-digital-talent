@@ -317,6 +317,7 @@ input CreatePoolInput {
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
   status: PoolStatus = NOT_TAKING_APPLICATIONS
+  processNumber: String
 }
 
 input CreateSkillFamilyInput {
@@ -782,6 +783,7 @@ type Pool {
   keyTasks: LocalizedString
   status: PoolStatus
   stream: PoolStream
+  processNumber: String
 }
 
 type PoolAdvertisement {
@@ -801,6 +803,7 @@ type PoolAdvertisement {
   essentialSkills: [Skill!]
   nonessentialSkills: [Skill!]
   stream: PoolStream
+  processNumber: String
 }
 
 enum PoolAdvertisementLanguage {
@@ -1233,6 +1236,7 @@ input UpdatePoolAdvertisementInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   stream: PoolStream
+  processNumber: String
   expiryDate: DateTimeTz
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
@@ -1278,6 +1282,7 @@ input UpdatePoolInput {
   keyTasks: LocalizedStringInput
   status: PoolStatus
   stream: PoolStream
+  processNumber: String
 }
 
 input UpdateSkillFamilyInput {
@@ -1296,9 +1301,10 @@ input UpdateSkillInput {
 
 """When updating a User, all fields are optional"""
 input UpdateUserAsAdminInput {
-  email: Email
+  id: ID
   sub: String
   roles: [Role]
+  email: Email
   firstName: String
   lastName: String
   telephone: PhoneNumber
@@ -1344,6 +1350,7 @@ input UpdateUserAsAdminInput {
 }
 
 input UpdateUserAsUserInput {
+  id: ID
   email: Email
   firstName: String
   lastName: String

@@ -1,19 +1,19 @@
 import React from "react";
-import { getLocale } from "@common/helpers/localize";
 import { useIntl } from "react-intl";
-import { PoolCandidate } from "talentsearch/src/js/api/generated";
+
+import Well from "@common/components/Well";
+import { getLocale } from "@common/helpers/localize";
+
+import { PoolCandidate } from "../../../api/generated";
 
 const CandidatePoolsSection: React.FunctionComponent<{
   poolCandidates: PoolCandidate[];
 }> = ({ poolCandidates }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
   return (
-    <div
-      data-h2-background-color="base(light.dt-gray)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       {(!poolCandidates || poolCandidates.length === 0) && (
         <p data-h2-color="base(dt-gray.dark)">
           {intl.formatMessage({
@@ -58,7 +58,7 @@ const CandidatePoolsSection: React.FunctionComponent<{
             </div>
           </div>
         ))}
-    </div>
+    </Well>
   );
 };
 

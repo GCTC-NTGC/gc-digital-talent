@@ -44,6 +44,7 @@ const generatePool = (
     },
     status: faker.helpers.arrayElement<PoolStatus>(Object.values(PoolStatus)),
     stream: faker.helpers.arrayElement<PoolStream>(Object.values(PoolStream)),
+    processNumber: faker.helpers.maybe(() => faker.lorem.word()),
   };
 };
 

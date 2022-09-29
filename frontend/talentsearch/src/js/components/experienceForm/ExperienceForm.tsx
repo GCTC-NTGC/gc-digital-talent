@@ -15,6 +15,7 @@ import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import { OperationContext } from "urql";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
@@ -279,6 +280,11 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
+};
+
 export interface ExperienceFormContainerProps {
   userId: string;
   experienceType: ExperienceType;
@@ -356,7 +362,9 @@ const ExperienceFormContainer: React.FunctionComponent<
   const { data: experienceData, fetching: fetchingExperience } =
     experiencesResult;
 
-  const [skillResults] = useGetSkillsQuery();
+  const [skillResults] = useGetSkillsQuery({
+    context,
+  });
   const {
     data: skillsData,
     fetching: fetchingSkills,

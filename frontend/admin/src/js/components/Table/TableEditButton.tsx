@@ -29,8 +29,8 @@ function TableEditButton({
     >
       {intl.formatMessage(
         {
-          defaultMessage: "Edit <hidden>{label}</hidden>",
-          id: "9flpmN",
+          defaultMessage: "Edit<hidden> {label}</hidden>",
+          id: "i9ND/M",
           description: "Title displayed for the Edit column.",
         },
         { label },

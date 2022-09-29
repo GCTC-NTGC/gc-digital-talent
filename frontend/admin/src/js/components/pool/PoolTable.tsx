@@ -6,7 +6,7 @@ import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
 import { FromArray } from "@common/types/utilityTypes";
 import Pending from "@common/components/Pending";
-import { GetPoolsQuery, useGetPoolsQuery } from "../../api/generated";
+import { GetPoolsQuery, Maybe, useGetPoolsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
 
@@ -16,6 +16,7 @@ type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
 function poolCandidatesLinkAccessor(
   poolCandidatesTableUrl: string,
   intl: IntlShape,
+  label?: Maybe<string>,
 ) {
   return (
     <Link
@@ -25,11 +26,14 @@ function poolCandidatesLinkAccessor(
       color="primary"
       data-h2-padding="base(0)"
     >
-      {intl.formatMessage({
-        defaultMessage: "View Candidates",
-        id: "aYYb0w",
-        description: "Text for a link to the Pool Candidates table",
-      })}
+      {intl.formatMessage(
+        {
+          defaultMessage: "View Candidates<hidden> for {label}</hidden>",
+          id: "6R9N+h",
+          description: "Text for a link to the Pool Candidates table",
+        },
+        { label },
+      )}
     </Link>
   );
 }
@@ -72,7 +76,11 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
             "Header for the View Candidates column of the Pools table",
         }),
         accessor: (pool) =>
-          poolCandidatesLinkAccessor(paths.poolCandidateTable(pool.id), intl),
+          poolCandidatesLinkAccessor(
+            paths.poolCandidateTable(pool.id),
+            intl,
+            pool.name ? pool.name[locale] : "",
+          ),
       },
       {
         Header: intl.formatMessage({

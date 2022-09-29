@@ -10,6 +10,7 @@ query getMyDiversityInfo {
 
 mutation updateMyDiversityInfo($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
+    id
     isWoman
     isIndigenous
     isVisibleMinority

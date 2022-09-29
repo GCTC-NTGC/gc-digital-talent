@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import Well from "../../Well";
 import { getFullNameHtml } from "../../../helpers/nameUtils";
 import messages from "../../../messages/commonMessages";
 import {
@@ -43,11 +44,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
 }) => {
   const intl = useIntl();
   return (
-    <div
-      data-h2-background-color="base(light.dt-gray)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
         {(!!firstName || !!lastName) && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
@@ -222,7 +219,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           </div>
         </div>
       )}
-    </div>
+    </Well>
   );
 };
 

@@ -1,6 +1,8 @@
 import { getLocale } from "@common/helpers/localize";
+import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
+import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { ADMIN_APP_DIR } from "./adminConstants";
 
 export type AdminRoutes = ReturnType<typeof adminRoutes>;
@@ -84,5 +86,17 @@ export default adminRoutes;
 export const useAdminRoutes = (): AdminRoutes => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const aiConnectionString = getRuntimeVariable(
+    "APPLICATIONINSIGHTS_CONNECTION_STRING",
+  );
+  if (aiConnectionString) {
+    const appInsights = new ApplicationInsights({
+      config: {
+        connectionString: aiConnectionString,
+      },
+    });
+    appInsights.loadAppInsights();
+    appInsights.trackPageView();
+  }
   return adminRoutes(locale);
 };
