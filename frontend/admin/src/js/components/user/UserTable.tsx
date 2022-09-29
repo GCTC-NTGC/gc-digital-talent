@@ -3,12 +3,12 @@ import { IntlShape, useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
-import { getFullNameHtml, getFullNameLabel } from "@common/helpers/nameUtils";
 import { getLanguage } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import printStyles from "@common/constants/printStyles";
 import { useReactToPrint } from "react-to-print";
 import { Link } from "@common/components";
+import { SubmitHandler } from "react-hook-form";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   InputMaybe,
@@ -34,8 +34,17 @@ import TableFooter from "../apiManagedTable/TableFooter";
 import TableHeader from "../apiManagedTable/TableHeader";
 import UserProfileDocument from "./UserProfileDocument";
 import useUserCsvData from "./useUserCsvData";
+import UserTableFilterDialog, { FormValues } from "./UserTableFilterDialog";
+import {
+  stringToEnumJobLooking,
+  stringToEnumLanguage,
+  stringToEnumLocation,
+  stringToEnumOperational,
+} from "./util";
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
+
+const fullName = (u: User): string => `${u.firstName} ${u.lastName}`;
 
 // callbacks extracted to separate function to stabilize memoized component
 const languageAccessor = (
@@ -49,8 +58,8 @@ const languageAccessor = (
 
 const profileLinkAccessor = (
   profileLink: string,
+  email: string,
   intl: IntlShape,
-  email: string | null,
 ) => {
   return (
     <Link
@@ -61,15 +70,7 @@ const profileLinkAccessor = (
         description: "Descriptive title for an anchor link",
       })}
     >
-      {email || (
-        <span data-h2-font-style="base(italic)">
-          {intl.formatMessage({
-            defaultMessage: "No email provided",
-            id: "1JCjTP",
-            description: "Fallback for email value",
-          })}
-        </span>
-      )}
+      {email}
     </Link>
   );
 };
@@ -120,6 +121,45 @@ export const UserTable: React.FC = () => {
     };
   };
 
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
+    setUserFilterInput({
+      applicantFilter: {
+        expectedClassifications: data.classifications.map((classification) => {
+          const splitString = classification.split("-");
+          return { group: splitString[0], level: Number(splitString[1]) };
+        }),
+        languageAbility: data.languageAbility[0]
+          ? stringToEnumLanguage(data.languageAbility[0])
+          : undefined,
+        locationPreferences: data.workRegion.map((region) => {
+          return stringToEnumLocation(region);
+        }),
+        operationalRequirements: data.operationalRequirement.map(
+          (requirement) => {
+            return stringToEnumOperational(requirement);
+          },
+        ),
+        skills: data.skills.map((skill) => {
+          const skillString = skill;
+          return { id: skillString };
+        }),
+        wouldAcceptTemporary: data.employmentDuration[0]
+          ? data.employmentDuration[0] === "TERM"
+          : undefined,
+      },
+      isGovEmployee: data.govEmployee[0] ? true : undefined,
+      isProfileComplete: data.profileComplete[0] ? true : undefined,
+      jobLookingStatus: data.jobLookingStatus.map((status) => {
+        return stringToEnumJobLooking(status);
+      }),
+      poolFilters: data.pools.map((pool) => {
+        const poolString = pool;
+        return { poolId: poolString };
+      }),
+    });
+  };
+
   useEffect(() => {
     setSelectedRows([]);
   }, [currentPage, pageSize, searchState, sortingRule]);
@@ -166,8 +206,7 @@ export const UserTable: React.FC = () => {
           description:
             "Title displayed on the User table Candidate Name column.",
         }),
-        accessor: (user) =>
-          getFullNameHtml(user.firstName, user.lastName, intl),
+        accessor: (user) => fullName(user),
         id: "candidateName",
         sortColumnName: "first_name",
       },
@@ -180,8 +219,8 @@ export const UserTable: React.FC = () => {
         accessor: (user) =>
           profileLinkAccessor(
             paths.userView(user.id),
+            user.email ?? "email",
             intl,
-            user.email || null,
           ),
         id: "email",
         sortColumnName: "email",
@@ -213,12 +252,7 @@ export const UserTable: React.FC = () => {
           id: "qYH0du",
           description: "Title displayed for the User table Edit column.",
         }),
-        accessor: (d) =>
-          tableEditButtonAccessor(
-            d.id,
-            pathname,
-            getFullNameLabel(d.firstName, d.lastName, intl),
-          ), // callback extracted to separate function to stabilize memoized component
+        accessor: (d) => tableEditButtonAccessor(d.id, pathname, fullName(d)), // callback extracted to separate function to stabilize memoized component
         id: "edit",
       },
     ],
@@ -316,7 +350,9 @@ export const UserTable: React.FC = () => {
           )
         }
         hiddenColumnIds={hiddenColumnIds}
-        onFilterChange={setUserFilterInput}
+        filterButton={
+          <UserTableFilterDialog.Button onSubmit={handleFilterSubmit} />
+        }
       />
       <div data-h2-radius="base(s)">
         <Pending fetching={fetching} error={error} inline>
