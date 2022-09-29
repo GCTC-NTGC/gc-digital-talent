@@ -16,7 +16,7 @@
             data-h2-margin="b(bottom, xs)">
             {% for item in site.data.translations.footer[page.lang] %}
             <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-              {% if item.type == "absolute" %}                  
+              {% if item.type == "absolute" %}
                 <a href="{{ item.route }}" title="{{ item.title }}">{{ item.label }}</a>
               {% else %}
                 <a href="{{ site.baseurl }}/{{ page.lang }}/{{ item.route }}" title="{{ item.title }}">{{ item.label }}</a>
@@ -25,9 +25,9 @@
             {% endfor %}
           </ul>
         </nav>
-        <p 
+        <p
           data-h2-font-size="b(caption)"
-          data-h2-font-color="b(black)" 
+          data-h2-font-color="b(black)"
           data-h2-margin="b(bottom, none) b(top, m)">
           {{ site.data.translations.footerDate[page.lang].dateLabel }}: {{
           site.data.translations.footerDate[page.lang].date }}
@@ -45,7 +45,7 @@
         rel="noopener noreferrer">
         <img
           class="canada-logo"
-          src="{{ '/assets/img/ui-canada.png' | prepend: site.baseurl }}"
+          src="{{ '/img/ui-canada.png' | prepend: site.asset_url }}"
           alt="{{ site.data.translations.footerLogo[page.lang].alt }}"/>
       </a>
     </div>

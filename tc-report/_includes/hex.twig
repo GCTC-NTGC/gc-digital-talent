@@ -1,8 +1,8 @@
 <div data-h2-position="b(absolute)" data-h2-location="b(top-left, none)" data-h2-width="b(100)">
   {% if include.orientation == "normal" %}
-    <img src="{{ '/assets/img/ui-hex.svg' | prepend: site.baseurl }}" data-h2-width="b(100)">
+    <img src="{{ '/img/ui-hex.svg' | prepend: site.asset_url }}" data-h2-width="b(100)">
   {% elsif include.orientation == "inverse" %}
-    <img src="{{ '/assets/img/ui-hex-inverse.svg' | prepend: site.baseurl }}" data-h2-width="b(100)">
+    <img src="{{ '/img/ui-hex-inverse.svg' | prepend: site.asset_url }}" data-h2-width="b(100)">
   {% else %}
     <p>Please specify an orientation for the wave image.</p>
   {% endif %}

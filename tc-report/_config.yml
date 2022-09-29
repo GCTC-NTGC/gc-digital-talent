@@ -23,6 +23,7 @@ email: GCTalentGC@tbs-sct.gc.ca
 description: >- # this means to ignore newlines until "baseurl:"
   Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!
 baseurl: "" # the subpath of your site, e.g. /blog
+asset_url: "/assets" # the subpath for the assets of your site, including css, images and js, e.g. /assets
 url: "talent.canada.ca" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username: jekyll

@@ -1,4 +1,4 @@
-<div 
+<div
   data-h2-bg-color="b(white[.2])"
   data-h2-border="b(white, all, solid, s)"
   data-h2-display="b(inline-block)"
@@ -8,11 +8,11 @@
   style="line-height: 1;">
   {% for standard in site.data.translations.standards[page.lang] %}
     {% if include.key == standard.key %}
-      <img 
+      <img
         data-h2-display="b(inline-block)"
         data-h2-margin="b(right, xxs)"
         style="vertical-align: middle; width: .8rem;"
-        src="{{ site.baseurl }}/assets/img/{{ standard.icon }}" aria-hidden="true">
+        src="{{ site.asset_url }}/img/{{ standard.icon }}" aria-hidden="true">
       <span data-h2-font-size="b(caption)">{{ standard.label }}</span>
     {% endif %}
   {% endfor %}

@@ -1,5 +1,5 @@
 <section>
-  <div data-h2-position="b(relative)"> 
+  <div data-h2-position="b(relative)">
     {% include gradient-bg.html %}
     <div
       data-h2-container="b(center, full)"
@@ -12,7 +12,7 @@
         data-h2-radius="b(s)"
         data-h2-shadow="b(s)"
       >
-        <img src="{{ '/assets/img/ui-leaf.svg' | prepend: site.baseurl }}" alt="A textural icon of a red maple leaf.">
+        <img src="{{ '/img/ui-leaf.svg' | prepend: site.asset_url }}" alt="A textural icon of a red maple leaf.">
         <div
           data-h2-display="b(flex)"
           data-h2-text-align="b(center) m(left)"
@@ -26,7 +26,7 @@
           <p>{{ item }}</p>
         {% endfor %}
         <div data-h2-text-align="b(center) m(right)">
-          <a 
+          <a
             href="{{ site.baseurl }}/{{ page.lang }}/talent-cloud/report/"
             title="{{ page.section4.links.report.label }}"
             data-h2-display="b(block) m(inline-block)"
@@ -37,7 +37,7 @@
             data-h2-radius="b(s)"
             data-h2-padding="b(top-bottom, xs) b(right-left, s)"
             style="transition: all .2s ease;">{{ page.section4.links.report.label }}</a>
-          <a 
+          <a
             href="{{ site.baseurl }}/{{page.lang}}/communities/digital-talent"
             title="{{ page.section4.links.talent.label }}"
             data-h2-display="b(block) m(inline-block)"
@@ -48,7 +48,7 @@
             data-h2-radius="b(s)"
             data-h2-padding="b(top-bottom, xs) b(right-left, s)"
             style="transition: all .2s ease;">{{ page.section4.links.talent.label }}</a>
-          <a 
+          <a
             href="{{ site.baseurl }}/{{page.lang}}/communities/indigenous-talent"
             title="{{ page.section4.links.itp.label }}"
             data-h2-display="b(block) m(inline-block)"
