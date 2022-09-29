@@ -280,15 +280,20 @@ RAWSQL2;
         };
 
         // then return queries depending on above array count, special query syntax needed for multiple ORs to ensure proper SQL query formed
-        $query->where(function ($query) use ($equityVars) {
-            foreach ($equityVars as $index => $equityInstance) {
-                if ($index === 0) {
-                    // First iteration must use where instead of orWhere, as seen in filterWorkRegions
-                    $query->where($equityVars[$index], true);
-                } else {
-                    $query->orWhere($equityVars[$index], true);
-                }
-            }
+        $query->whereExists(function ($query) use ($equityVars) {
+            $query->select('id')
+                ->from('users')
+                ->whereColumn('users.id', 'pool_candidates.user_id')
+                ->where(function ($query) use ($equityVars) {
+                    foreach ($equityVars as $index => $equityInstance) {
+                        if ($index === 0) {
+                            // First iteration must use where instead of orWhere, as seen in filterWorkRegions
+                            $query->where($equityVars[$index], true);
+                        } else {
+                            $query->orWhere($equityVars[$index], true);
+                        }
+                    }
+                });
         });
         return $query;
     }
