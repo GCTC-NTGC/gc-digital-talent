@@ -49,19 +49,21 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
       "Error message that the given application is already archived.",
   },
   AlreadySubmitted: {
-    defaultMessage: "Application was already submitted.",
-    id: "x/wHOH",
+    defaultMessage: "Application is already submitted.",
+    id: "76QTNv",
     description:
       "Error message that the given application is already submitted.",
   },
   "pool candidates status InvalidValueArchival": {
-    defaultMessage: "This application may not yet be archived.",
-    id: "TITln/",
+    defaultMessage:
+      "This application cannot be archived. You can only archive expired applications.",
+    id: "TjeaLS",
     description: "Error message that the application cannot be archived.",
   },
   "pool candidates status InvalidValueDeletion": {
-    defaultMessage: "This application may not be deleted.",
-    id: "YUM0Mo",
+    defaultMessage:
+      "This application cannot be deleted. You can only delete applications before submission.",
+    id: "/I9tx9",
     description: "Error message that the application cannot be deleted.",
   },
 
@@ -81,23 +83,23 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
 
   // pool publishing validation
   EnglishWorkTasksRequired: {
-    defaultMessage: "English - Work Tasks is required.",
-    id: "sWfvhe",
+    defaultMessage: "You are missing a required field: English - Your work",
+    id: "tW4k56",
     description: "Error message that Work Tasks in English must be filled",
   },
   FrenchWorkTasksRequired: {
-    defaultMessage: "French - Work Tasks is required.",
-    id: "/75c61",
+    defaultMessage: "You are missing a required field: French - Your work",
+    id: "euwgms",
     description: "Error message that Work Tasks in French must be filled",
   },
   EnglishYourImpactRequired: {
-    defaultMessage: "English - Your Impact is required.",
-    id: "sE3hl+",
+    defaultMessage: "You are missing a required field: English - Your impact",
+    id: "juklNA",
     description: "Error message that Your Impact in English must be filled",
   },
   FrenchYourImpactRequired: {
-    defaultMessage: "French - Your Impact is required.",
-    id: "hxs++x",
+    defaultMessage: "You are missing a required field: French - Your impact",
+    id: "kg28xx",
     description: "Error message that Your Impact in French must be filled",
   },
   EssentialSkillRequired: {
@@ -107,32 +109,32 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
   },
   AdvertisementLocationRequired: {
     defaultMessage:
-      "You must enter Advertisement Location in both languages if advertisement is not remote.",
-    id: "m/pEFY",
+      "You must fill Specific Location in English and French if advertisement is not remote.",
+    id: "aMkZ80",
     description:
-      "Error message that advertisement locations must both be filled.",
+      "Error message that advertisement locations must be filled in English and French.",
   },
   "expiry date required": {
-    defaultMessage: "An Expiry Date is required.",
-    id: "+jrWEb",
+    defaultMessage: "You are missing a required field: End Date",
+    id: "XNDPQM",
     description:
       "Error message that the pool advertisement must have an expiry date.",
   },
   "stream required": {
-    defaultMessage: "A Stream selection is required.",
-    id: "KWkTXZ",
+    defaultMessage: "You are missing a required field: Stream/Job Titles",
+    id: "w2tWfH",
     description:
       "Error message that the pool advertisement must have a stream.",
   },
   "advertisement language required": {
-    defaultMessage: "An Advertisement Language selection is required.",
-    id: "EFH6Pt",
+    defaultMessage: "You are missing a required field: Language requirement",
+    id: "J2V3XI",
     description:
       "Error message that the pool advertisement must have an advertisement language.",
   },
   "security clearance required": {
-    defaultMessage: "A Security Clearance selection is required.",
-    id: "QAvKyg",
+    defaultMessage: "You are missing a required field: Security requirement",
+    id: "t4F/0R",
     description:
       "Error message that the pool advertisement must have a security clearance.",
   },
