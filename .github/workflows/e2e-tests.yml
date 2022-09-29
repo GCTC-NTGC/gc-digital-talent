@@ -44,18 +44,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.0.2
 
-      # This uses GitHub Action cache for docker container layers
-      # See: https://github.com/marketplace/actions/docker-layer-caching
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        # Ignore a failure of this step and avoid terminating the job.
-        continue-on-error: true
-        # By default, this cache is keyed to the workflow name. We ar
-        # setting a shared key for the docker cache to be shared
-        # across multiple workflows.
-        with:
-          key: docker-{hash}
-          restore-keys: |
-            docker-
+      # We no longer user docker layer caching as it made runs take longer.
+      # See: https://github.com/satackey/action-docker-layer-caching/issues/305
 
       - name: Serve app via docker-compose
         # Need to include --build as we're caching layers.

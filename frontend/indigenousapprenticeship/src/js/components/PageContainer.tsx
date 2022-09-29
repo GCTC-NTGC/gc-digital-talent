@@ -13,7 +13,6 @@ import {
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import NotAuthorized from "@common/components/NotAuthorized";
-import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../indigenousApprenticeshipConstants";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 
@@ -128,12 +127,12 @@ export const PageContainer: React.FC<{
           style={{ height: "100vh", margin: "0" }}
         >
           <div>
-            <Header baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
+            <Header />
             <NavMenu mainItems={menuItems} />
           </div>
           <main id="main">{content}</main>
           <div style={{ marginTop: "auto" }}>
-            <Footer baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
+            <Footer />
           </div>
         </div>
       </>

@@ -1,5 +1,7 @@
 import React, { useRef } from "react";
 import { useIntl } from "react-intl";
+import { Bars3Icon } from "@heroicons/react/24/outline";
+
 import { useRouter, RouterResult } from "@common/helpers/router";
 import { Routes } from "universal-router";
 import { Button } from "@common/components";
@@ -8,11 +10,9 @@ import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
-
-import { Bars3Icon } from "@heroicons/react/24/outline";
 import NotAuthorized from "@common/components/NotAuthorized";
+
 import AdminSideMenu from "../menu/AdminSideMenu";
-import { ADMIN_APP_DIR } from "../../adminConstants";
 
 const AdminNotFound: React.FC = () => {
   const intl = useIntl();
@@ -138,7 +138,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
           >
-            <Header baseUrl={ADMIN_APP_DIR} width="full" />
+            <Header width="full" />
             <main
               id="main"
               data-h2-flex-grow="base(1)"
@@ -146,7 +146,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
             >
               {content}
             </main>
-            <Footer baseUrl={ADMIN_APP_DIR} width="full" />
+            <Footer width="full" />
           </div>
         </SideMenuContentWrapper>
       </div>

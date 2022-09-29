@@ -14,6 +14,7 @@ darknavy
 darkpink
 darkpurple
 datetime
+DCMO
 dedup
 DIRECTINTAKE
 Gatineau
@@ -33,6 +34,7 @@ Métis
 noninteractive
 nuage
 Nuwave
+OCIO
 pgsql
 Queueable
 recruitmentimit
