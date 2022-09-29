@@ -25,7 +25,9 @@ describe('Footer', () => {
 
     it('links to Canada.ca', () => {
       cy.findByRole('contentinfo').within(() => {
-        cy.findAllByRole('link', { name: /canada.ca/i }).eq(0).should('have.attr', 'href', 'https://www.canada.ca/en.html')
+        cy.findAllByRole('link', { name: /canada.ca/i }).each((item) => {
+          cy.wrap(item).should('have.attr', 'href', 'https://www.canada.ca/en.html');
+        });
       })
     })
   })
