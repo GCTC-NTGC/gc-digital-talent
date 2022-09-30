@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import Well from "@common/components/Well";
+import { ExternalLink } from "@common/components/Link";
 import {
   DialogLevelOne,
   DialogLevelTwo,
@@ -147,7 +148,11 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
 
   // intl styling functions section
   function link(msg: string, url: string) {
-    return <a href={url}>{msg}</a>;
+    return (
+      <ExternalLink newTab href={url}>
+        {msg}
+      </ExternalLink>
+    );
   }
 
   function openModal(msg: string, setOpenStateFn: (state: boolean) => void) {
