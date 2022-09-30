@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
-import Accordion from "../../../Accordions/deprecated";
+import Accordion from "../../../Accordion/deprecated";
 import { Link } from "../../..";
 import { CommunityExperience } from "../../../../api/generated";
 import { getLocale } from "../../../../helpers/localize";

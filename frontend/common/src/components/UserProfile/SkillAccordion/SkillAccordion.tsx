@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { getLocale } from "../../../helpers/localize";
-import Accordion from "../../Accordions/deprecated";
+import Accordion from "../../Accordion/deprecated";
 import {
   getAwardedScope,
   getAwardedTo,

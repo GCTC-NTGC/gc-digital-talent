@@ -1,7 +1,7 @@
 import React from "react";
 import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
 import { useIntl } from "react-intl";
-import Accordion from "../../../Accordions/deprecated";
+import Accordion from "../../../Accordion/deprecated";
 import { Link } from "../../..";
 import { EducationExperience } from "../../../../api/generated";
 import {

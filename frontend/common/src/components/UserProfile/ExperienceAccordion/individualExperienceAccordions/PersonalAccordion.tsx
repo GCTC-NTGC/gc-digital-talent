@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
-import Accordion from "../../../Accordions/deprecated";
+import Accordion from "../../../Accordion/deprecated";
 import { Link } from "../../..";
 import { getLocale } from "../../../../helpers/localize";
 import { getDateRange } from "../../../../helpers/dateUtils";

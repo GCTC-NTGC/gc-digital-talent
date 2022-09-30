@@ -1,7 +1,7 @@
 import React from "react";
 import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import { useIntl } from "react-intl";
-import Accordion from "../../../Accordions/deprecated";
+import Accordion from "../../../Accordion/deprecated";
 import { Link } from "../../..";
 import {
   getAwardedTo,
