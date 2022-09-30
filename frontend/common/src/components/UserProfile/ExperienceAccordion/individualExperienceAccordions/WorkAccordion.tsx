@@ -1,7 +1,7 @@
 import React from "react";
 import BriefCaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
 import { useIntl } from "react-intl";
-import Accordion from "../../../accordion/Accordion";
+import Accordion from "../../../Accordion/deprecated";
 import { Link } from "../../..";
 import { getLocale } from "../../../../helpers/localize";
 import { getDateRange } from "../../../../helpers/dateUtils";

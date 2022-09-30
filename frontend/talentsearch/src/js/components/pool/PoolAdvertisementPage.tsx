@@ -21,7 +21,7 @@ import {
   CpuChipIcon,
   CloudIcon,
 } from "@heroicons/react/24/outline";
-import Accordion from "@common/components/accordion";
+import Accordion from "@common/components/Accordion/deprecated";
 import {
   getLanguageRequirement,
   getSecurityClearance,
