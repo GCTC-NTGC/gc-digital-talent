@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from "react";
 import { useIntl } from "react-intl";
-import Accordion from "../../Accordion/deprecated";
+import Accordion from "../../Accordions/deprecated";
 import AwardAccordion from "./individualExperienceAccordions/AwardAccordion";
 import CommunityAccordion from "./individualExperienceAccordions/CommunityAccordion";
 import EducationAccordion from "./individualExperienceAccordions/EducationAccordion";
