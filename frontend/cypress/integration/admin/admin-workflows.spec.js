@@ -49,7 +49,7 @@ describe("Admin Workflow Tests", () => {
 
     cy.findByRole("table")
       .findByRole("row", { name: /applicant test/i })
-      .findByText("applicant@test.com") // findByRole link doesn't work here
+      .findByRole("link", {name: /view applicant test/i}) // findByRole link doesn't work here
       .click();
 
     // exercise profile page
