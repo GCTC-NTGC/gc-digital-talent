@@ -5,7 +5,7 @@ import type { Color } from "../Button";
 
 import "./toggle-group.css";
 
-export const colorMap: Record<Color, Record<string, string>> = {
+const colorMap: Record<Color, Record<string, string>> = {
   primary: {
     "data-h2-background-color": "base(dt-primary)",
     "data-h2-color": "base:children[*](white)",
