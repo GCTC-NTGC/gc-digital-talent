@@ -41,6 +41,7 @@ describe("Talent Search Workflow Tests", () => {
 
     searchReturnsGreaterThanZeroApplicants();
 
+    cy.findByRole("button", { name: /Request Candidates/i }).should("exist").and("be.visible");
     cy.findByRole("button", { name: /Request Candidates/i }).click();
 
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
