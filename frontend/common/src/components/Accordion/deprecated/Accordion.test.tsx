@@ -13,7 +13,7 @@ function renderAccordion() {
   return render(<Accordion title="Test Accordion" />);
 }
 
-describe("Accordion", () => {
+describe("DeprecatedAccordion", () => {
   it("should not have accessibility errors", async () => {
     const { container } = renderAccordion();
     const results = await axe(container);
