@@ -65,7 +65,7 @@ const ToggleGroupItem = React.forwardRef<
 ));
 
 type ToggleGroupType = typeof ToggleGroupPrimitive.Root;
-interface ToggleGroupProps extends ToggleGroupType {
+export interface ToggleGroupProps extends ToggleGroupType {
   color?: Color;
 }
 
