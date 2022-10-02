@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import { fireEvent, screen } from "@testing-library/react";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { render } from "../../helpers/testUtils";
+import { render } from "../../../helpers/testUtils";
 import AlertDialog from "./AlertDialog";
 import type { AlertDialogProps } from "./AlertDialog";
 
