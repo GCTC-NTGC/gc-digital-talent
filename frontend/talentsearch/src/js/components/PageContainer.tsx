@@ -1,8 +1,8 @@
-import React, { forwardRef, ReactElement, useRef } from "react";
+import React, { ReactElement, useRef } from "react";
 import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
-import { Button, Link } from "@common/components";
+import { Link } from "@common/components";
 import NotFound from "@common/components/NotFound";
 import {
   RouterResult,

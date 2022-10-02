@@ -76,8 +76,6 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   edit,
   poolAdvertisement,
 }) => {
-  const [isDialogOpen, setDialogOpen] = React.useState<boolean>(false);
-  const cancelDeleteRef = React.useRef(null);
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
