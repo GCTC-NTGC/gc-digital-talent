@@ -6,10 +6,9 @@ import type { HeadingRank } from "../../types/primitiveTypes";
 
 import "./accordion.css";
 
-type AccordionRootType = typeof AccordionPrimitive.Root;
 const AccordionRoot = React.forwardRef<
-  React.ElementRef<AccordionRootType>,
-  React.ComponentPropsWithoutRef<AccordionRootType>
+  React.ElementRef<typeof AccordionPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
 >((props, forwardedRef) => (
   <AccordionPrimitive.Root
     className="Accordion"
@@ -20,10 +19,9 @@ const AccordionRoot = React.forwardRef<
   />
 ));
 
-type AccordionItemType = typeof AccordionPrimitive.Item;
 const AccordionItem = React.forwardRef<
-  React.ElementRef<AccordionItemType>,
-  React.ComponentPropsWithoutRef<AccordionItemType>
+  React.ElementRef<typeof AccordionPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >((props, forwardedRef) => (
   <AccordionPrimitive.Item
     className="Accordion__Item"
@@ -36,10 +34,9 @@ const AccordionItem = React.forwardRef<
   />
 ));
 
-type AccordionHeaderType = typeof AccordionPrimitive.Header;
 const StyledAccordionHeader = React.forwardRef<
-  React.ElementRef<AccordionHeaderType>,
-  React.ComponentPropsWithoutRef<AccordionHeaderType>
+  React.ElementRef<typeof AccordionPrimitive.Header>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Header>
 >((props, forwardedRef) => (
   <AccordionPrimitive.Header
     className="Accordion__Header"
@@ -48,10 +45,9 @@ const StyledAccordionHeader = React.forwardRef<
   />
 ));
 
-type AccordionTriggerType = typeof AccordionPrimitive.Trigger;
 const StyledAccordionTrigger = React.forwardRef<
-  React.ElementRef<AccordionTriggerType>,
-  React.ComponentPropsWithoutRef<AccordionTriggerType>
+  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >((props, forwardedRef) => (
   <AccordionPrimitive.Trigger
     className="Accordion__Trigger"
@@ -68,8 +64,9 @@ const StyledAccordionTrigger = React.forwardRef<
   />
 ));
 
-type AccordionTriggerPrimitivePropsWithoutRef =
-  React.ComponentPropsWithoutRef<AccordionTriggerType>;
+type AccordionTriggerPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
+  typeof AccordionPrimitive.Trigger
+>;
 export interface AccordionTriggerProps
   extends AccordionTriggerPrimitivePropsWithoutRef {
   Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -79,7 +76,7 @@ export interface AccordionTriggerProps
 }
 
 const AccordionTrigger = React.forwardRef<
-  React.ElementRef<AccordionTriggerType>,
+  React.ElementRef<typeof AccordionPrimitive.Trigger>,
   AccordionTriggerProps
 >(
   (
@@ -140,10 +137,9 @@ const AccordionTrigger = React.forwardRef<
   },
 );
 
-type AccordionContentType = typeof AccordionPrimitive.Content;
 const AccordionContent = React.forwardRef<
-  React.ElementRef<AccordionContentType>,
-  React.ComponentPropsWithoutRef<AccordionContentType>
+  React.ElementRef<typeof AccordionPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({ children, ...rest }, forwardedRef) => (
   <AccordionPrimitive.Content
     className="Accordion__Content"
