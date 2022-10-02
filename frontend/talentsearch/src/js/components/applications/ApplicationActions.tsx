@@ -93,11 +93,7 @@ interface DeleteActionProps extends ActionProps {
 
 const DeleteAction = ({ show, application }: DeleteActionProps) => {
   const intl = useIntl();
-  const cancelRef = React.useRef(null);
-  const [isOpen, setOpen] = React.useState<boolean>(false);
   const [, executeMutation] = useDeleteApplicationMutation();
-
-  const onDismiss = () => setOpen(false);
 
   const onDelete = () => {
     executeMutation({
@@ -135,60 +131,58 @@ const DeleteAction = ({ show, application }: DeleteActionProps) => {
     : "";
 
   return (
-    <>
-      <Button mode="inline" color="black" onClick={() => setOpen(true)}>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Delete<hidden> application {name}</hidden>",
-            id: "1lmME7",
-            description: "Link text to continue a specific application",
-          },
-          {
-            name,
-          },
-        )}
-      </Button>
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onDismiss={onDismiss}
-        title={intl.formatMessage(
-          {
-            defaultMessage: "Delete Application",
-            id: "FFD16/",
-            description:
-              "Title for the modal that appears when a user attempts to delete an application",
-          },
-          { name },
-        )}
-      >
-        <AlertDialog.Description>
+    <AlertDialog.Root>
+      <AlertDialog.Trigger>
+        <Button mode="inline" color="black" data-h2-font-weight="base(400)">
           {intl.formatMessage(
             {
-              defaultMessage:
-                "Are you sure you would like to delete application {name}?",
-              id: "5pZFQ3",
+              defaultMessage: "Delete<hidden> application {name}</hidden>",
+              id: "1lmME7",
+              description: "Link text to continue a specific application",
+            },
+            {
+              name,
+            },
+          )}
+        </Button>
+      </AlertDialog.Trigger>
+      <AlertDialog.Content>
+        <AlertDialog.Title>
+          {intl.formatMessage(
+            {
+              defaultMessage: "Delete Application",
+              id: "FFD16/",
               description:
-                "Question displayed when user attempts to delete an application",
+                "Title for the modal that appears when a user attempts to delete an application",
             },
             { name },
           )}
+        </AlertDialog.Title>
+        <AlertDialog.Description>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Are you sure you would like to delete application {name}?",
+                id: "5pZFQ3",
+                description:
+                  "Question displayed when user attempts to delete an application",
+              },
+              { name },
+            )}
+          </p>
         </AlertDialog.Description>
         <AlertDialog.Footer>
-          <Button
-            mode="outline"
-            color="primary"
-            type="button"
-            ref={cancelRef}
-            onClick={onDismiss}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Cancel",
-              id: "/JLaO5",
-              description: "Link text to cancel deleting application.",
-            })}
-          </Button>
-          <span data-h2-margin="base(0, 0, 0, x.5)">
+          <AlertDialog.Cancel>
+            <Button mode="outline" color="primary" type="button">
+              {intl.formatMessage({
+                defaultMessage: "Cancel",
+                id: "/JLaO5",
+                description: "Link text to cancel deleting application.",
+              })}
+            </Button>
+          </AlertDialog.Cancel>
+          <AlertDialog.Action>
             <Button mode="solid" color="cta" type="button" onClick={onDelete}>
               {intl.formatMessage({
                 defaultMessage: "Delete",
@@ -196,10 +190,10 @@ const DeleteAction = ({ show, application }: DeleteActionProps) => {
                 description: "Link text to delete.",
               })}
             </Button>
-          </span>
+          </AlertDialog.Action>
         </AlertDialog.Footer>
-      </AlertDialog>
-    </>
+      </AlertDialog.Content>
+    </AlertDialog.Root>
   );
 };
 
@@ -209,11 +203,7 @@ interface ArchiveActionProps extends ActionProps {
 
 const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
   const intl = useIntl();
-  const cancelRef = React.useRef(null);
-  const [isOpen, setOpen] = React.useState<boolean>(false);
   const [, executeMutation] = useArchiveApplicationMutation();
-
-  const onDismiss = () => setOpen(false);
 
   const onArchive = () => {
     executeMutation({
@@ -251,57 +241,55 @@ const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
     : "";
 
   return (
-    <>
-      <Button mode="inline" color="black" onClick={() => setOpen(true)}>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Archive<hidden> application {name}</hidden>",
-            id: "6B7e8/",
-            description: "Link text to continue a specific application",
-          },
-          {
-            name,
-          },
-        )}
-      </Button>
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onDismiss={onDismiss}
-        title={intl.formatMessage({
-          defaultMessage: "Archive Application",
-          id: "yiJYdP",
-          description:
-            "Title for the modal that appears when a user attempts to archive an application",
-        })}
-      >
-        <AlertDialog.Description>
+    <AlertDialog.Root>
+      <AlertDialog.Trigger>
+        <Button mode="inline" color="black">
           {intl.formatMessage(
             {
-              defaultMessage:
-                "Are you sure you would like to archive application {name}?",
-              id: "Z0PCOW",
-              description:
-                "Question displayed when user attempts to archive an application",
+              defaultMessage: "Archive<hidden> application {name}</hidden>",
+              id: "6B7e8/",
+              description: "Link text to continue a specific application",
             },
-            { name },
+            {
+              name,
+            },
           )}
+        </Button>
+      </AlertDialog.Trigger>
+      <AlertDialog.Content>
+        <AlertDialog.Title>
+          {intl.formatMessage({
+            defaultMessage: "Archive Application",
+            id: "yiJYdP",
+            description:
+              "Title for the modal that appears when a user attempts to archive an application",
+          })}
+        </AlertDialog.Title>
+        <AlertDialog.Description>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Are you sure you would like to archive application {name}?",
+                id: "Z0PCOW",
+                description:
+                  "Question displayed when user attempts to archive an application",
+              },
+              { name },
+            )}
+          </p>
         </AlertDialog.Description>
         <AlertDialog.Footer>
-          <Button
-            mode="outline"
-            color="primary"
-            type="button"
-            ref={cancelRef}
-            onClick={onDismiss}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Cancel",
-              id: "r6DZ71",
-              description: "Link text to cancel archiving application.",
-            })}
-          </Button>
-          <span data-h2-margin="base(0, 0, 0, x.5)">
+          <AlertDialog.Cancel>
+            <Button mode="outline" color="primary" type="button">
+              {intl.formatMessage({
+                defaultMessage: "Cancel",
+                id: "r6DZ71",
+                description: "Link text to cancel archiving application.",
+              })}
+            </Button>
+          </AlertDialog.Cancel>
+          <AlertDialog.Action>
             <Button mode="solid" color="cta" type="button" onClick={onArchive}>
               {intl.formatMessage({
                 defaultMessage: "Archive",
@@ -309,10 +297,10 @@ const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
                 description: "Link text to archive application.",
               })}
             </Button>
-          </span>
+          </AlertDialog.Action>
         </AlertDialog.Footer>
-      </AlertDialog>
-    </>
+      </AlertDialog.Content>
+    </AlertDialog.Root>
   );
 };
 

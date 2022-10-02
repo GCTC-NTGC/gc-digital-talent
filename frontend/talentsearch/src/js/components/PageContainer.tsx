@@ -1,8 +1,8 @@
-import React, { ReactElement, useRef } from "react";
+import React, { forwardRef, ReactElement, useRef } from "react";
 import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
-import { Link } from "@common/components";
+import { Button, Link } from "@common/components";
 import NotFound from "@common/components/NotFound";
 import {
   RouterResult,
@@ -71,6 +71,28 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
     </El>
   );
 };
+
+interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
+  children: React.ReactNode;
+}
+export const LogoutButton = React.forwardRef<
+  HTMLButtonElement,
+  LogoutButtonProps
+>(({ children, ...rest }, forwardedRef) => (
+  <button
+    data-h2-color="base(dt-primary)"
+    data-h2-font-size="base(normal)"
+    data-h2-text-decoration="base(underline)"
+    style={{
+      background: "none",
+    }}
+    ref={forwardedRef}
+    {...rest}
+    type="button"
+  >
+    {children}
+  </button>
+));
 
 const TalentSearchNotFound: React.FC = () => {
   const intl = useIntl();
