@@ -10,7 +10,7 @@ import {
   Tab,
   TabPanels,
   TabPanel,
-} from "@common/components/Tabs";
+} from "@common/components/Tabs/deprecated";
 import { commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";

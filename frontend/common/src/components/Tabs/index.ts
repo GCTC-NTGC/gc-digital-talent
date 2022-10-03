@@ -1,6 +1,3 @@
-import { Tabs, TabList } from "@reach/tabs";
-import Tab from "./Tab";
-import TabPanel from "./TabPanel";
-import TabPanels from "./TabPanels";
+import * as Tabs from "./Tabs";
 
-export { Tabs, TabList, Tab, TabPanels, TabPanel };
+export default Tabs;

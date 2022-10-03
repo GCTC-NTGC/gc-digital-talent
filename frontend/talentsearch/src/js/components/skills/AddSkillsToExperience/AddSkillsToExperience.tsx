@@ -7,7 +7,7 @@ import {
   Tab,
   TabPanels,
   TabPanel,
-} from "@common/components/Tabs";
+} from "@common/components/Tabs/deprecated";
 import Pagination, { usePaginationVars } from "@common/components/Pagination";
 import {
   filterSkillsByNameOrKeywords,

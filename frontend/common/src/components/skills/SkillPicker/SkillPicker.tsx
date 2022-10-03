@@ -5,7 +5,7 @@ import Pagination, { usePaginationVars } from "../../Pagination";
 import SearchBar from "../SearchBar";
 import SkillResults from "../SkillResults";
 import SkillFamilyPicker from "../SkillFamilyPicker";
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "../../Tabs";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "../../Tabs/deprecated";
 import { SkillCategory } from "../../../api/generated";
 import type { Skill, SkillFamily } from "../../../api/generated";
 

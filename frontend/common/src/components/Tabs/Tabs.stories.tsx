@@ -1,35 +1,38 @@
 import React from "react";
-import type { Story, Meta } from "@storybook/react";
+import type { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from ".";
+import Tabs from ".";
 
 export default {
-  component: Tabs,
+  component: Tabs.Root,
   title: "Components/Tabs",
-} as Meta;
+} as ComponentMeta<typeof Tabs.Root>;
 
-const Template: Story = () => {
-  return (
-    <Tabs>
-      <TabList>
-        <Tab index={0}>One</Tab>
-        <Tab index={1}>Two</Tab>
-        <Tab index={2}>Three</Tab>
-      </TabList>
+const Template: ComponentStory<typeof Tabs.Root> = (args) => (
+  <Tabs.Root {...args}>
+    <Tabs.List aria-label="Tabs Nav">
+      <Tabs.Trigger value="one">One</Tabs.Trigger>
+      <Tabs.Trigger value="two">Two</Tabs.Trigger>
+      <Tabs.Trigger value="three">Three</Tabs.Trigger>
+    </Tabs.List>
+    <Tabs.Content value="one">
+      <p>One</p>
+    </Tabs.Content>
+    <Tabs.Content value="two">
+      <p>Two</p>
+    </Tabs.Content>
+    <Tabs.Content value="three">
+      <p>Three</p>
+    </Tabs.Content>
+  </Tabs.Root>
+);
 
-      <TabPanels>
-        <TabPanel>
-          <p>one!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>two!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>three!</p>
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
-  );
+export const Default = Template.bind({});
+Default.args = {
+  defaultValue: "one",
 };
 
-export const HorizontalTabs = Template.bind({});
+export const SecondTabOpen = Template.bind({});
+SecondTabOpen.args = {
+  defaultValue: "two",
+};
