@@ -8,7 +8,12 @@ import { IntlProvider } from "react-intl";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { waitFor } from "@testing-library/react";
-import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
+import {
+  fakeSkills,
+  fakePools,
+  fakeClassifications,
+  fakeCmoAssets,
+} from "@common/fakeData";
 import useFilterOptions from "./useFilterOptions";
 
 describe("useFilterOptions", () => {
@@ -67,19 +72,20 @@ describe("useFilterOptions", () => {
   describe("rawGraphqlResults", () => {
     it("shows as fetching before response arrives", () => {
       const result = renderHookWithProviders({ msDelay: 100 });
-      expect(Object.keys(result.current.rawGraphqlResults)).toHaveLength(3);
+      expect(Object.keys(result.current.rawGraphqlResults)).toHaveLength(4);
       expect(result.current.rawGraphqlResults.pools.fetching).toBe(true);
       expect(result.current.rawGraphqlResults.classifications.fetching).toBe(
         true,
       );
       expect(result.current.rawGraphqlResults.skills.fetching).toBe(true);
+      expect(result.current.rawGraphqlResults.cmoAssets.fetching).toBe(true);
     });
   });
 
   describe("simple fields", () => {
     it("returns static optionsData of appropriate length for non-async fields", () => {
       const result = renderHookWithProviders({});
-      const [countSimple, countAsync] = [7, 3];
+      const [countSimple, countAsync] = [10, 4];
       const countTotal = countSimple + countAsync;
       expect(Object.keys(result.current.optionsData)).toHaveLength(countTotal);
 
@@ -88,10 +94,13 @@ describe("useFilterOptions", () => {
       expect(result.current.optionsData.languageAbility).toHaveLength(3);
       expect(result.current.optionsData.operationalRequirement).toHaveLength(7);
       expect(result.current.optionsData.workRegion).toHaveLength(8);
+      expect(result.current.optionsData.equity).toHaveLength(4);
+      expect(result.current.optionsData.status).toHaveLength(15);
 
       // Boolean filters
       expect(result.current.optionsData.govEmployee).toHaveLength(1);
       expect(result.current.optionsData.profileComplete).toHaveLength(1);
+      expect(result.current.optionsData.hasDiploma).toHaveLength(1);
     });
   });
 
@@ -102,6 +111,7 @@ describe("useFilterOptions", () => {
       expect(result.current.optionsData.classifications).toBeUndefined();
       expect(result.current.optionsData.pools).toBeUndefined();
       expect(result.current.optionsData.skills).toBeUndefined();
+      expect(result.current.optionsData.cmoAssets).toBeUndefined();
     });
 
     it.skip("performs 3 API client queries", () => {
@@ -118,6 +128,7 @@ describe("useFilterOptions", () => {
             pools: [],
             skills: [],
             classifications: fakeClassifications(),
+            cmoAssets: [],
           },
         },
       });
@@ -134,6 +145,7 @@ describe("useFilterOptions", () => {
             pools: fakePools(),
             skills: [],
             classifications: [],
+            cmoAssets: [],
           },
         },
       });
@@ -150,6 +162,7 @@ describe("useFilterOptions", () => {
             pools: [],
             skills: fakeSkills(10),
             classifications: [],
+            cmoAssets: [],
           },
         },
       });
@@ -157,6 +170,23 @@ describe("useFilterOptions", () => {
         expect(result.current.optionsData.skills).not.toBeUndefined(),
       );
       expect(result.current.optionsData.skills).toHaveLength(10);
+    });
+
+    it("generates appropriate number of options after response: cmoAssets", async () => {
+      const result = renderHookWithProviders({
+        responseData: {
+          data: {
+            pools: [],
+            skills: [],
+            classifications: [],
+            cmoAssets: fakeCmoAssets(),
+          },
+        },
+      });
+      await waitFor(() =>
+        expect(result.current.optionsData.cmoAssets).not.toBeUndefined(),
+      );
+      expect(result.current.optionsData.cmoAssets).toHaveLength(9);
     });
   });
 });

@@ -21,11 +21,8 @@ import {
   EducationType,
   JobLookingStatus,
   LanguageAbility,
-  useAllSkillsQuery,
-  useGetClassificationsQuery,
-  useGetPoolsQuery,
-  useGetCmoAssetsQuery,
   PoolCandidateStatus,
+  useGetFilterDataQuery,
 } from "../../api/generated";
 
 const context: Partial<OperationContext> = {
@@ -41,15 +38,9 @@ export default function useFilterOptions(enableEducationType = false) {
   // TODO: Implement way to return `fetching` states from hook, so that can pass
   // to react-select's `isLoading` prop on <Select />.
   // See: https://react-select.com/props#select-props
-  const [skillsRes] = useAllSkillsQuery({
+  const [filterRes] = useGetFilterDataQuery({
     context,
   });
-  const [classificationsRes] = useGetClassificationsQuery({
-    context,
-  });
-  const [poolsRes] = useGetPoolsQuery();
-
-  const [cmoAssetsRes] = useGetCmoAssetsQuery();
 
   const yesOption = {
     // Values expected to be strings or numbers.
@@ -64,7 +55,7 @@ export default function useFilterOptions(enableEducationType = false) {
   });
 
   const optionsData = {
-    pools: poolsRes.data?.pools.filter(notEmpty).map(({ id, name }) => ({
+    pools: filterRes.data?.pools.filter(notEmpty).map(({ id, name }) => ({
       value: id,
       // TODO: Must name and translations be optional in types?
       label: name?.[locale] || "Error: name not loaded",
@@ -73,7 +64,7 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getLanguageAbility(value)),
     })),
-    classifications: classificationsRes.data?.classifications
+    classifications: filterRes.data?.classifications
       .filter(notEmpty)
       .map(({ group, level }) => ({
         value: `${group}-${level}`,
@@ -104,12 +95,12 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getJobLookingStatus(value, "short")),
     })),
-    skills: skillsRes.data?.skills.filter(notEmpty).map(({ id, name }) => ({
+    skills: filterRes.data?.skills.filter(notEmpty).map(({ id, name }) => ({
       value: id,
       // TODO: Must name and translations be optional in types?
       label: name[locale] || "Error: name not loaded",
     })),
-    cmoAssets: cmoAssetsRes.data?.cmoAssets
+    cmoAssets: filterRes.data?.cmoAssets
       .filter(notEmpty)
       .map(({ key, name }) => ({
         value: key,
@@ -139,9 +130,10 @@ export default function useFilterOptions(enableEducationType = false) {
     optionsData,
     emptyFormValues,
     rawGraphqlResults: {
-      skills: skillsRes,
-      classifications: classificationsRes,
-      pools: poolsRes,
+      skills: filterRes,
+      classifications: filterRes,
+      pools: filterRes,
+      cmoAssets: filterRes,
     },
   };
 }

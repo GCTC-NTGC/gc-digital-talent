@@ -9,7 +9,7 @@ import "../user/UserTableFilterDialog.css";
 import { useFormContext } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { AdjustmentsVerticalIcon } from "@heroicons/react/24/outline";
-import useFilterOptions from "../user/useFilterOptions";
+import useFilterOptions from "../apiManagedTable/useFilterOptions";
 import { ButtonIcon } from "../Table/tableComponents";
 
 type Option = { value: string; label: string };
@@ -161,6 +161,7 @@ const PoolCandidateTableFilterDialog = ({
                 id: "SPXifX",
               })}
               options={optionsData.cmoAssets}
+              isLoading={rawGraphqlResults.classifications.fetching}
             />
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">

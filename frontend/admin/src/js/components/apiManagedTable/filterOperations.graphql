@@ -1,0 +1,71 @@
+query getFilterData {
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    families {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+  classifications {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+    minSalary
+    maxSalary
+  }
+  pools {
+    id
+    owner {
+      id
+      email
+    }
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    classifications {
+      group
+      level
+    }
+    status
+    stream
+    processNumber
+  }
+  cmoAssets {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+  }
+}
