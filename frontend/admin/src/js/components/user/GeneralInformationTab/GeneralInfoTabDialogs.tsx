@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
-import { DeprecatedDialog } from "@common/components/Dialog";
+import Dialog from "@common/components/Dialog";
 import Button from "@common/components/Button";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions } from "@common/helpers/formUtils";
@@ -25,25 +25,37 @@ import {
 export interface TableDialogProps {
   selectedCandidate: PoolCandidate | null;
   user: User;
-  onDismiss: () => void;
 }
 
-interface CloseDialogButtonProps {
-  close: () => void;
-}
+const ModalTableButton = React.forwardRef<
+  React.ElementRef<typeof Button>,
+  React.ComponentPropsWithoutRef<typeof Button>
+>(({ children, ...rest }, forwardedRef) => (
+  <Button
+    ref={forwardedRef}
+    {...rest}
+    color="black"
+    mode="inline"
+    data-h2-padding="base(0)"
+  >
+    <span data-h2-text-decoration="base(underline)">{children}</span>
+  </Button>
+));
 
-const CloseDialogButton: React.FC<CloseDialogButtonProps> = ({ close }) => {
+const CloseDialogButton = () => {
   const intl = useIntl();
   return (
-    <Button type="button" mode="outline" color="secondary" onClick={close}>
-      <span data-h2-text-decoration="base(underline)">
-        {intl.formatMessage({
-          defaultMessage: "Cancel and go back",
-          id: "tiF/jI",
-          description: "Close dialog button",
-        })}
-      </span>
-    </Button>
+    <Dialog.Close>
+      <Button type="button" mode="outline" color="secondary">
+        <span data-h2-text-decoration="base(underline)">
+          {intl.formatMessage({
+            defaultMessage: "Cancel and go back",
+            id: "tiF/jI",
+            description: "Close dialog button",
+          })}
+        </span>
+      </Button>
+    </Dialog.Close>
   );
 };
 
@@ -63,36 +75,37 @@ const ConfirmDialogButton: React.FC<ConfirmDialogButtonProps> = ({
   const Icon = icon || null;
 
   return (
-    <Button
-      type="button"
-      mode="solid"
-      color="secondary"
-      disabled={disabled}
-      onClick={onConfirm}
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-    >
-      {Icon ? (
-        <>
-          <Icon style={{ width: "1.5rem" }} />
-          <span
-            data-h2-padding="base(0, 0, 0, x.25)"
-            data-h2-text-decoration="base(underline)"
-          >
-            {title}
-          </span>
-        </>
-      ) : (
-        <span data-h2-text-decoration="base(underline)">{title}</span>
-      )}
-    </Button>
+    <Dialog.Close>
+      <Button
+        type="button"
+        mode="solid"
+        color="secondary"
+        disabled={disabled}
+        onClick={onConfirm}
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(center)"
+      >
+        {Icon ? (
+          <>
+            <Icon style={{ width: "1.5rem" }} />
+            <span
+              data-h2-padding="base(0, 0, 0, x.25)"
+              data-h2-text-decoration="base(underline)"
+            >
+              {title}
+            </span>
+          </>
+        ) : (
+          <span data-h2-text-decoration="base(underline)">{title}</span>
+        )}
+      </Button>
+    </Dialog.Close>
   );
 };
 
 export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
   selectedCandidate,
   user,
-  onDismiss,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -107,8 +120,6 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
     setSelectedStatus("");
     setShowErrorMessage(false);
     setSubmitting(false);
-
-    onDismiss();
   };
 
   const handleUpdateCandidate = async (
@@ -156,129 +167,140 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
   };
 
   return (
-    <DeprecatedDialog
-      title={intl.formatMessage({
-        defaultMessage: "Change status",
-        id: "SARjte",
-        description: "title for change status dialog on view-user page",
-      })}
-      color="ts-primary"
-      isOpen={selectedCandidate !== null}
-      onDismiss={resetAndClose}
-    >
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "You're about to change status for this user:",
-          id: "p+YRN1",
-          description:
-            "First section of text on the change candidate status dialog",
-        })}
-      </p>
-      <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
-      <p data-h2-margin="base(x1, 0, 0, 0)">
-        {intl.formatMessage({
-          defaultMessage: "From the following pool:",
-          id: "FUxE8S",
-          description:
-            "Second section of text on the change candidate status dialog",
-        })}
-      </p>
-      <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
-      <p data-h2-margin="base(x1, 0, 0, 0)">
-        {intl.formatMessage({
-          defaultMessage: "Choose status:",
-          id: "Zbk4zf",
-          description:
-            "Third section of text on the change candidate status dialog",
-        })}
-      </p>
-      <div data-h2-margin="base(x.5, 0, x.125, 0)">
-        <InputWrapper
-          inputId="status"
-          label={intl.formatMessage({
-            defaultMessage: "Pool status",
-            id: "n9YPWe",
+    <Dialog.Root>
+      <Dialog.Trigger>
+        <ModalTableButton>
+          {intl.formatMessage({
+            defaultMessage: "Change status",
+            id: "bl7pCx",
             description:
-              "Label displayed on the status field of the change candidate status dialog",
+              "Button to change a users status in a pool - located in the table on view-user page",
           })}
-          required
-        >
-          <select
-            data-h2-radius="base(s)"
-            data-h2-padding="base(x.25)"
-            data-h2-font-size="base(copy)"
-            data-h2-width="base(100%)"
-            id="status"
-            defaultValue=""
-            onChange={(e) => setSelectedStatus(e.target.value)}
-          >
-            <option value="" disabled>
-              {intl.formatMessage({
-                defaultMessage: "Select a pool status...",
-                id: "usNShh",
-                description:
-                  "Placeholder displayed on the status field of the change candidate status dialog.",
-              })}
-            </option>
-            {enumToOptions(PoolCandidateStatus).map(({ value }) => (
-              <option
-                data-h2-font-family="base(sans)"
-                key={value}
-                value={value}
-              >
-                {intl.formatMessage(getPoolCandidateStatus(value))}
-              </option>
-            ))}
-          </select>
-        </InputWrapper>
-        <div
-          data-h2-display="base(block)"
-          data-h2-margin="base(x.125, 0, 0, 0)"
-        >
-          <InputError
-            isVisible={showErrorMessage}
-            error={intl.formatMessage({
-              defaultMessage: "Please select a status",
-              id: "eaHqS2",
+        </ModalTableButton>
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Header color="ts-primary">
+          {intl.formatMessage({
+            defaultMessage: "Change status",
+            id: "SARjte",
+            description: "title for change status dialog on view-user page",
+          })}
+        </Dialog.Header>
+
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "You're about to change status for this user:",
+            id: "p+YRN1",
+            description:
+              "First section of text on the change candidate status dialog",
+          })}
+        </p>
+        <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
+        <p data-h2-margin="base(x1, 0, 0, 0)">
+          {intl.formatMessage({
+            defaultMessage: "From the following pool:",
+            id: "FUxE8S",
+            description:
+              "Second section of text on the change candidate status dialog",
+          })}
+        </p>
+        <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
+        <p data-h2-margin="base(x1, 0, 0, 0)">
+          {intl.formatMessage({
+            defaultMessage: "Choose status:",
+            id: "Zbk4zf",
+            description:
+              "Third section of text on the change candidate status dialog",
+          })}
+        </p>
+        <div data-h2-margin="base(x.5, 0, x.125, 0)">
+          <InputWrapper
+            inputId="status"
+            label={intl.formatMessage({
+              defaultMessage: "Pool status",
+              id: "n9YPWe",
               description:
-                "Error displayed on the change candidate status dialog if no status selected",
+                "Label displayed on the status field of the change candidate status dialog",
             })}
-          />
+            required
+          >
+            <select
+              data-h2-radius="base(s)"
+              data-h2-padding="base(x.25)"
+              data-h2-font-size="base(copy)"
+              data-h2-width="base(100%)"
+              id="status"
+              defaultValue=""
+              onChange={(e) => setSelectedStatus(e.target.value)}
+            >
+              <option value="" disabled>
+                {intl.formatMessage({
+                  defaultMessage: "Select a pool status...",
+                  id: "usNShh",
+                  description:
+                    "Placeholder displayed on the status field of the change candidate status dialog.",
+                })}
+              </option>
+              {enumToOptions(PoolCandidateStatus).map(({ value }) => (
+                <option
+                  data-h2-font-family="base(sans)"
+                  key={value}
+                  value={value}
+                >
+                  {intl.formatMessage(getPoolCandidateStatus(value))}
+                </option>
+              ))}
+            </select>
+          </InputWrapper>
+          <div
+            data-h2-display="base(block)"
+            data-h2-margin="base(x.125, 0, 0, 0)"
+          >
+            <InputError
+              isVisible={showErrorMessage}
+              error={intl.formatMessage({
+                defaultMessage: "Please select a status",
+                id: "eaHqS2",
+                description:
+                  "Error displayed on the change candidate status dialog if no status selected",
+              })}
+            />
+          </div>
         </div>
-      </div>
-      <DeprecatedDialog.Footer>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(space-between)"
-        >
-          <CloseDialogButton close={resetAndClose} />
-          <ConfirmDialogButton
-            onConfirm={handleSubmit}
-            title={
-              submitting
-                ? intl.formatMessage({
-                    defaultMessage: "Submitting",
-                    id: "gCbb9X",
-                    description: "Text on submit button when submitting",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Change status",
-                    id: "iuve97",
-                    description: "Confirmation button for change status dialog",
-                  })
-            }
-            disabled={submitting}
-          />
-        </div>
-      </DeprecatedDialog.Footer>
-    </DeprecatedDialog>
+        <Dialog.Footer>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(space-between)"
+          >
+            <CloseDialogButton />
+            <ConfirmDialogButton
+              onConfirm={handleSubmit}
+              title={
+                submitting
+                  ? intl.formatMessage({
+                      defaultMessage: "Submitting",
+                      id: "gCbb9X",
+                      description: "Text on submit button when submitting",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Change status",
+                      id: "iuve97",
+                      description:
+                        "Confirmation button for change status dialog",
+                    })
+              }
+              disabled={submitting}
+            />
+          </div>
+        </Dialog.Footer>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 };
 
 export const ChangeDateDialog: React.FC<TableDialogProps> = ({
   selectedCandidate,
   user,
-  onDismiss,
 }) => {
   const intl = useIntl();
 
@@ -292,8 +314,6 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
     setSelectedDate("");
     setShowErrorMessage(false);
     setSubmitting(false);
-
-    onDismiss();
   };
 
   const handleUpdateCandidate = async (
@@ -343,98 +363,103 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
   };
 
   return (
-    <DeprecatedDialog
-      title={intl.formatMessage({
-        defaultMessage: "Expiry Date",
-        id: "zDO6tt",
-        description: "title for change expiry date dialog on view-user page",
-      })}
-      color="ts-primary"
-      isOpen={selectedCandidate !== null}
-      onDismiss={resetAndClose}
-    >
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "You're about to change the expiry date for this user:",
-          id: "JjTGYe",
-          description:
-            "First section of text on the change candidate expiry date dialog",
-        })}
-      </p>
-      <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
-      <p data-h2-margin="base(x1, 0, 0, 0)">
-        {intl.formatMessage({
-          defaultMessage: "Set an expiry date for this candidate on this pool:",
-          id: "n+d6QE",
-          description:
-            "Second section of text on the change candidate expiry date dialog",
-        })}
-      </p>
-      <div data-h2-margin="base(x.5, 0, x.125, 0)">
-        <InputWrapper
-          inputId="date"
-          label={intl.formatMessage({
-            defaultMessage: "Expiry date",
-            id: "WAO4vD",
+    <Dialog.Root>
+      <Dialog.Trigger>
+        <ModalTableButton>{selectedCandidate?.expiryDate}</ModalTableButton>
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Header color="ts-primary">
+          {intl.formatMessage({
+            defaultMessage: "Expiry Date",
+            id: "zDO6tt",
             description:
-              "Label displayed on the date field of the change candidate expiry date dialog",
+              "title for change expiry date dialog on view-user page",
           })}
-          required
-        >
-          <input
-            data-h2-radius="base(s)"
-            data-h2-padding="base(x.25)"
-            data-h2-width="base(100%)"
-            data-h2-font-size="base(copy)"
-            data-h2-font-family="base(sans)"
-            id="date"
-            type="date"
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
-        </InputWrapper>
-        <div
-          data-h2-display="base(block)"
-          data-h2-margin="base(x.125, 0, 0, 0)"
-        >
-          <InputError
-            isVisible={showErrorMessage}
-            error={intl.formatMessage({
-              defaultMessage: "Please select a date",
-              id: "Cbo1no",
+        </Dialog.Header>
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "You're about to change the expiry date for this user:",
+            id: "JjTGYe",
+            description:
+              "First section of text on the change candidate expiry date dialog",
+          })}
+        </p>
+        <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
+        <p data-h2-margin="base(x1, 0, 0, 0)">
+          {intl.formatMessage({
+            defaultMessage:
+              "Set an expiry date for this candidate on this pool:",
+            id: "n+d6QE",
+            description:
+              "Second section of text on the change candidate expiry date dialog",
+          })}
+        </p>
+        <div data-h2-margin="base(x.5, 0, x.125, 0)">
+          <InputWrapper
+            inputId="date"
+            label={intl.formatMessage({
+              defaultMessage: "Expiry date",
+              id: "WAO4vD",
               description:
-                "Error displayed on the change candidate expiry date dialog if no date selected",
+                "Label displayed on the date field of the change candidate expiry date dialog",
             })}
-          />
+            required
+          >
+            <input
+              data-h2-radius="base(s)"
+              data-h2-padding="base(x.25)"
+              data-h2-width="base(100%)"
+              data-h2-font-size="base(copy)"
+              data-h2-font-family="base(sans)"
+              id="date"
+              type="date"
+              onChange={(e) => setSelectedDate(e.target.value)}
+            />
+          </InputWrapper>
+          <div
+            data-h2-display="base(block)"
+            data-h2-margin="base(x.125, 0, 0, 0)"
+          >
+            <InputError
+              isVisible={showErrorMessage}
+              error={intl.formatMessage({
+                defaultMessage: "Please select a date",
+                id: "Cbo1no",
+                description:
+                  "Error displayed on the change candidate expiry date dialog if no date selected",
+              })}
+            />
+          </div>
         </div>
-      </div>
-      <DeprecatedDialog.Footer>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(space-between)"
-        >
-          <CloseDialogButton close={resetAndClose} />
-          <ConfirmDialogButton
-            onConfirm={handleSubmit}
-            title={
-              submitting
-                ? intl.formatMessage({
-                    defaultMessage: "Submitting",
-                    id: "gCbb9X",
-                    description: "Text on submit button when submitting",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Change date",
-                    id: "gvomlw",
-                    description:
-                      "Confirmation button for change expiry date dialog",
-                  })
-            }
-            disabled={submitting}
-          />
-        </div>
-      </DeprecatedDialog.Footer>
-    </DeprecatedDialog>
+        <Dialog.Footer>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(space-between)"
+          >
+            <CloseDialogButton />
+            <ConfirmDialogButton
+              onConfirm={handleSubmit}
+              title={
+                submitting
+                  ? intl.formatMessage({
+                      defaultMessage: "Submitting",
+                      id: "gCbb9X",
+                      description: "Text on submit button when submitting",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Change date",
+                      id: "gvomlw",
+                      description:
+                        "Confirmation button for change expiry date dialog",
+                    })
+              }
+              disabled={submitting}
+            />
+          </div>
+        </Dialog.Footer>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 };
 
@@ -442,7 +467,6 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
 export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
   selectedCandidate,
   user,
-  onDismiss,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -476,7 +500,6 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
               "Toast for successful removal of candidate from pool on view-user page",
           }),
         );
-        onDismiss();
       })
       .catch(() => {
         setSubmitting(false);
@@ -492,72 +515,81 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
   };
 
   return (
-    <DeprecatedDialog
-      title={intl.formatMessage({
-        defaultMessage: "Remove from pool",
-        id: "KyMCYC",
-        description: "title for change expiry date dialog on view-user page",
-      })}
-      color="ts-primary"
-      isOpen={selectedCandidate !== null}
-      onDismiss={onDismiss}
-    >
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "You're about to <strong>remove the following user:</strong>",
-          id: "0cEmmG",
-          description:
-            "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
-        })}
-      </p>
-      <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
-      <p data-h2-margin="base(x1, 0, 0, 0)">
-        {intl.formatMessage({
-          defaultMessage: "From the following pool:",
-          id: "vyJpp2",
-          description:
-            "Second section of text on the remove candidate from pool dialog",
-        })}
-      </p>
-      <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
-      <DeprecatedDialog.Footer>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(space-between)"
-        >
-          <CloseDialogButton close={onDismiss} />
-          <ConfirmDialogButton
-            onConfirm={handleSubmit}
-            title={
-              submitting
-                ? intl.formatMessage({
-                    defaultMessage: "Submitting",
-                    id: "gCbb9X",
-                    description: "Text on submit button when submitting",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Remove from pool",
-                    id: "98PjUH",
-                    description:
-                      "Confirmation button for removing candidate from pool dialog",
-                  })
-            }
-            disabled={submitting}
-            icon={UserMinusIcon}
-          />
-        </div>
-      </DeprecatedDialog.Footer>
-    </DeprecatedDialog>
+    <Dialog.Root>
+      <Dialog.Trigger>
+        <ModalTableButton>
+          {intl.formatMessage({
+            defaultMessage: "Remove from pool",
+            id: "KyMCYC",
+            description:
+              "title for change expiry date dialog on view-user page",
+          })}
+        </ModalTableButton>
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Header color="ts-primary">
+          {intl.formatMessage({
+            defaultMessage: "Remove from pool",
+            id: "KyMCYC",
+            description:
+              "title for change expiry date dialog on view-user page",
+          })}
+        </Dialog.Header>
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "You're about to <strong>remove the following user:</strong>",
+            id: "0cEmmG",
+            description:
+              "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
+          })}
+        </p>
+        <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
+        <p data-h2-margin="base(x1, 0, 0, 0)">
+          {intl.formatMessage({
+            defaultMessage: "From the following pool:",
+            id: "vyJpp2",
+            description:
+              "Second section of text on the remove candidate from pool dialog",
+          })}
+        </p>
+        <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
+        <Dialog.Footer>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(space-between)"
+          >
+            <CloseDialogButton />
+            <ConfirmDialogButton
+              onConfirm={handleSubmit}
+              title={
+                submitting
+                  ? intl.formatMessage({
+                      defaultMessage: "Submitting",
+                      id: "gCbb9X",
+                      description: "Text on submit button when submitting",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Remove from pool",
+                      id: "98PjUH",
+                      description:
+                        "Confirmation button for removing candidate from pool dialog",
+                    })
+              }
+              disabled={submitting}
+              icon={UserMinusIcon}
+            />
+          </div>
+        </Dialog.Footer>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 };
 
 export const AddToPoolDialog: React.FC<{
   user: User;
   pools: Pool[];
-  isVisible: boolean;
-  onDismiss: () => void;
-}> = ({ isVisible, user, pools, onDismiss }) => {
+}> = ({ user, pools }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -582,8 +614,6 @@ export const AddToPoolDialog: React.FC<{
     setShowPoolErrorMessage(false);
     setShowDateErrorMessage(false);
     setSubmitting(false);
-
-    onDismiss();
   };
 
   const handleCreateCandidate = async (
@@ -642,163 +672,177 @@ export const AddToPoolDialog: React.FC<{
   };
 
   return (
-    <DeprecatedDialog
-      title={intl.formatMessage({
-        defaultMessage: "Add to different pool",
-        id: "CTWpfa",
-        description: "title for add to pool dialog on view-user page",
-      })}
-      color="ts-primary"
-      isOpen={isVisible}
-      onDismiss={resetAndClose}
-    >
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "You're about to add this user to a different pool:",
-          id: "8Y+eEc",
-          description: "First section of text on the add user to pool dialog",
-        })}
-      </p>
-      <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
-      <p data-h2-margin="base(x1, 0, 0, 0)">
-        {intl.formatMessage({
-          defaultMessage: "Choose pool:",
-          id: "K3LEpl",
-          description: "Second section of text on the add user to pool dialog",
-        })}
-      </p>
-      <div data-h2-margin="base(x.5, 0, x.125, 0)">
-        <InputWrapper
-          inputId="pool"
-          label={intl.formatMessage({
-            defaultMessage: "Pools",
-            id: "aJVlIF",
-            description:
-              "Label displayed on the pools field of the add user to pool dialog",
+    <Dialog.Root>
+      <Dialog.Trigger>
+        <Button color="primary" mode="outline">
+          <span data-h2-text-decoration="base(underline)">
+            {intl.formatMessage({
+              defaultMessage: "Add user to pool",
+              id: "4Irijj",
+              description: "Button to add user to pool on the view-user page",
+            })}
+          </span>
+        </Button>
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Header color="ts-primary">
+          {intl.formatMessage({
+            defaultMessage: "Add to different pool",
+            id: "CTWpfa",
+            description: "title for add to pool dialog on view-user page",
           })}
-          required
-        >
-          <select
-            data-h2-radius="base(s)"
-            data-h2-padding="base(x.25)"
-            data-h2-font-size="base(copy)"
-            data-h2-width="base(100%)"
-            id="pool"
-            defaultValue=""
-            onChange={(e) => setSelectedPool(e.target.value)}
+        </Dialog.Header>
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "You're about to add this user to a different pool:",
+            id: "8Y+eEc",
+            description: "First section of text on the add user to pool dialog",
+          })}
+        </p>
+        <p>- {getFullNameHtml(user.firstName, user.lastName, intl)}</p>
+        <p data-h2-margin="base(x1, 0, 0, 0)">
+          {intl.formatMessage({
+            defaultMessage: "Choose pool:",
+            id: "K3LEpl",
+            description:
+              "Second section of text on the add user to pool dialog",
+          })}
+        </p>
+        <div data-h2-margin="base(x.5, 0, x.125, 0)">
+          <InputWrapper
+            inputId="pool"
+            label={intl.formatMessage({
+              defaultMessage: "Pools",
+              id: "aJVlIF",
+              description:
+                "Label displayed on the pools field of the add user to pool dialog",
+            })}
+            required
           >
-            <option value="" disabled>
-              {intl.formatMessage({
-                defaultMessage: "Select a pool...",
-                id: "X198m3",
-                description:
-                  "Placeholder displayed on the pool field of the add user to pool dialog.",
+            <select
+              data-h2-radius="base(s)"
+              data-h2-padding="base(x.25)"
+              data-h2-font-size="base(copy)"
+              data-h2-width="base(100%)"
+              id="pool"
+              defaultValue=""
+              onChange={(e) => setSelectedPool(e.target.value)}
+            >
+              <option value="" disabled>
+                {intl.formatMessage({
+                  defaultMessage: "Select a pool...",
+                  id: "X198m3",
+                  description:
+                    "Placeholder displayed on the pool field of the add user to pool dialog.",
+                })}
+              </option>
+              {pools.map((pool) => {
+                if (
+                  isEmpty(pool?.name?.[locale]) ||
+                  currentPools.includes(pool.id)
+                ) {
+                  return null;
+                }
+                return (
+                  <option
+                    data-h2-font-family="base(sans)"
+                    key={pool?.id}
+                    value={pool?.id}
+                  >
+                    {pool?.name?.[locale]}
+                  </option>
+                );
               })}
-            </option>
-            {pools.map((pool) => {
-              if (
-                isEmpty(pool?.name?.[locale]) ||
-                currentPools.includes(pool.id)
-              ) {
-                return null;
-              }
-              return (
-                <option
-                  data-h2-font-family="base(sans)"
-                  key={pool?.id}
-                  value={pool?.id}
-                >
-                  {pool?.name?.[locale]}
-                </option>
-              );
-            })}
-          </select>
-        </InputWrapper>
-        <div
-          data-h2-display="base(block)"
-          data-h2-margin="base(x.125, 0, 0, 0)"
-        >
-          <InputError
-            isVisible={showPoolErrorMessage}
-            error={intl.formatMessage({
-              defaultMessage: "Please select a pool",
-              id: "uJSvlo",
-              description:
-                "Error displayed on the add user to pool dialog if no pool selected",
-            })}
-          />
+            </select>
+          </InputWrapper>
+          <div
+            data-h2-display="base(block)"
+            data-h2-margin="base(x.125, 0, 0, 0)"
+          >
+            <InputError
+              isVisible={showPoolErrorMessage}
+              error={intl.formatMessage({
+                defaultMessage: "Please select a pool",
+                id: "uJSvlo",
+                description:
+                  "Error displayed on the add user to pool dialog if no pool selected",
+              })}
+            />
+          </div>
         </div>
-      </div>
-      <p data-h2-margin="base(x1, 0, 0, 0)">
-        {intl.formatMessage({
-          defaultMessage: "Set an expiry date for this candidate on this pool:",
-          id: "9NDM+k",
-          description: "Third section of text on the add user to pool dialog",
-        })}
-      </p>
-      <div data-h2-margin="base(x.5, 0, x.125, 0)">
-        <InputWrapper
-          inputId="date"
-          label={intl.formatMessage({
-            defaultMessage: "Expiry date",
-            id: "sICXeM",
-            description:
-              "Label displayed on the date field of the add user to pool dialog",
+        <p data-h2-margin="base(x1, 0, 0, 0)">
+          {intl.formatMessage({
+            defaultMessage:
+              "Set an expiry date for this candidate on this pool:",
+            id: "9NDM+k",
+            description: "Third section of text on the add user to pool dialog",
           })}
-          required
-        >
-          <input
-            data-h2-radius="base(s)"
-            data-h2-padding="base(x.25)"
-            data-h2-width="base(100%)"
-            data-h2-font-size="base(copy)"
-            data-h2-font-family="base(sans)"
-            data-h2-border="base(all, 1px, solid, dark.dt-gray)"
-            id="date"
-            type="date"
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
-        </InputWrapper>
-        <div
-          data-h2-display="base(block)"
-          data-h2-margin="base(x.125, 0, 0, 0)"
-        >
-          <InputError
-            isVisible={showDateErrorMessage}
-            error={intl.formatMessage({
-              defaultMessage: "Please select an expiry date",
-              id: "k2FnXH",
+        </p>
+        <div data-h2-margin="base(x.5, 0, x.125, 0)">
+          <InputWrapper
+            inputId="date"
+            label={intl.formatMessage({
+              defaultMessage: "Expiry date",
+              id: "sICXeM",
               description:
-                "Error displayed on the add user to pool dialog if no date selected",
+                "Label displayed on the date field of the add user to pool dialog",
             })}
-          />
+            required
+          >
+            <input
+              data-h2-radius="base(s)"
+              data-h2-padding="base(x.25)"
+              data-h2-width="base(100%)"
+              data-h2-font-size="base(copy)"
+              data-h2-font-family="base(sans)"
+              data-h2-border="base(all, 1px, solid, dark.dt-gray)"
+              id="date"
+              type="date"
+              onChange={(e) => setSelectedDate(e.target.value)}
+            />
+          </InputWrapper>
+          <div
+            data-h2-display="base(block)"
+            data-h2-margin="base(x.125, 0, 0, 0)"
+          >
+            <InputError
+              isVisible={showDateErrorMessage}
+              error={intl.formatMessage({
+                defaultMessage: "Please select an expiry date",
+                id: "k2FnXH",
+                description:
+                  "Error displayed on the add user to pool dialog if no date selected",
+              })}
+            />
+          </div>
         </div>
-      </div>
-      <DeprecatedDialog.Footer>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(space-between)"
-        >
-          <CloseDialogButton close={resetAndClose} />
-          <ConfirmDialogButton
-            onConfirm={handleSubmit}
-            title={
-              submitting
-                ? intl.formatMessage({
-                    defaultMessage: "Submitting",
-                    id: "gCbb9X",
-                    description: "Text on submit button when submitting",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Add to new pool",
-                    id: "yypk6/",
-                    description: "Confirmation button for add to pool dialog",
-                  })
-            }
-            disabled={submitting}
-          />
-        </div>
-      </DeprecatedDialog.Footer>
-    </DeprecatedDialog>
+        <Dialog.Footer>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(space-between)"
+          >
+            <CloseDialogButton />
+            <ConfirmDialogButton
+              onConfirm={handleSubmit}
+              title={
+                submitting
+                  ? intl.formatMessage({
+                      defaultMessage: "Submitting",
+                      id: "gCbb9X",
+                      description: "Text on submit button when submitting",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Add to new pool",
+                      id: "yypk6/",
+                      description: "Confirmation button for add to pool dialog",
+                    })
+              }
+              disabled={submitting}
+            />
+          </div>
+        </Dialog.Footer>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 };
