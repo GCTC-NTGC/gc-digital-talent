@@ -1,0 +1,66 @@
+<div 
+  class="accordion"
+  data-h2-border="b(purple, left, solid, m)"
+  data-h2-margin="b(top-bottom, xs)"
+  data-h2-radius="b(square, s, s, square)"
+  data-h2-shadow="b(xs)"
+  id={{ include.id }}>
+  <button 
+    aria-expanded="false" 
+    class="accordion-trigger" 
+    tabindex="0" 
+    type="button"
+    data-h2-font-family="b(sans)"
+    data-h2-padding="b(top-bottom, m)">
+    <span class="accordion-trigger-label">{{ site.data.translations.accordion[page.lang].accessibilityLabel }}</span>
+    <span 
+      aria-hidden="true" 
+      class="accordion-trigger-icon-add"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg></span>
+    <span 
+      aria-hidden="true" 
+      class="accordion-trigger-icon-remove"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg></span>
+    <div class="accordion-trigger-content">
+      {% if include.section %}
+        <h3
+          data-h2-font-size="b(h4)" data-h2-font-weight="b(100)">{{ include.title }}</h3>
+      {% elsif include.category %}
+        <h3
+          data-h2-font-size="b(h4)" data-h2-font-weight="b(200)">"{{ include.title }}"</h3>
+      {% else %}
+        <span data-h2-font-family="b(sans)">{{ include.title }}</span>
+      {% endif %}
+      {% if include.subtitle %}
+        <span data-h2-font-family="b(sans)">{{ include.subtitle }}</span>
+      {% endif %}
+    </div>
+  </button>
+  <div 
+    aria-hidden="true" 
+    class="accordion-content"
+    data-h2-padding="b(right, l) b(bottom, m)">
+    {% if include.section %}
+      <hr data-h2-margin="b(top, none) b(bottom, m)">
+      {% assign posts = site.posts | where: "lang", page.lang | sort: lang-ref %}
+      {% assign sectionItems = posts | where: "section", include.section %}
+      {% for post in sectionItems %}
+        <p><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></p>
+      {% endfor %}
+    {% elsif include.category %}
+      <hr data-h2-margin="b(top, none) b(bottom, m)">
+      {% assign posts = site.posts | where: "lang", page.lang | sort: lang-ref %}
+      {% for post in posts %}
+        {% for postCategory in post.categories %}
+          {% if postCategory == include.category %}
+            <p><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></p>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    {% else %}
+      {{ include.content }}
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,151 @@
+---
+layout: boilerplate
+---
+
+{% assign home = site.data.translations.gctalenthome %}
+
+<header>
+  {% include goc.html %}
+  <div style="background-position: center; background-size: cover; background-image: url('https://images.unsplash.com/photo-1632260260864-caf7fde5ec36?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=735&q=80'); padding-bottom: 5rem; z-index: 1;"
+  class="gct-overlay">
+    {% include navigation.html style="light" %}
+    <div data-h2-container="b(center, full)">
+      {% assign translatedSiteTitle = home.title[page.lang] %}
+      {% assign padding = "data-h2-padding='b(top, xxl) b(bottom, xs)'" %}
+      <span data-h2-text-align="b(center) m(left)">
+        {% include title-h1.html title=translatedSiteTitle color="white" padding=padding %}
+      </span>
+    </div>
+  </div>
+</header>
+
+<main
+  id="mainContent"
+  data-h2-position="b(relative)"
+  style="margin: -5rem 0; z-index: 2;">
+  <div data-h2-container="b(center, full)">
+    <div data-h2-flex-grid="b(stretch, expanded, flush, l)">
+      <div data-h2-flex-item="b(1of1) m(1of2)">
+        {% capture aboutContent %}
+          <div
+            data-h2-display="b(flex)"
+            data-h2-align-items="b(center)"
+            data-h2-text-align="b(center) m(left)"
+            data-h2-padding="b(bottom, s) m(bottom, m)">
+            {% include parallelogram.html color="purple" %}
+            {% assign aboutTitle = home.about.title[page.lang] %}
+            {% include title-h2.html title=aboutTitle %}
+          </div>
+          <p>{{ home.about.content.intro[page.lang] }}</p>
+          <p>{{ home.about.content.listLabel[page.lang] }}</p>
+          <ul>
+            {% for item in home.about.content.list[page.lang] %}
+              <li>{{ item.item }}</li>
+            {% endfor %}
+          </ul>
+          <p>{{ home.about.content.subscribe[page.lang] }}</p>
+        {% endcapture %}
+        {% include card.html content=aboutContent grid="stretch" %}
+      </div>
+      <div data-h2-flex-item="b(1of1) m(1of2)">
+        <div data-h2-flex-grid="b(top, expanded, flush, l)">
+          <div data-h2-flex-item="b(1of1)">
+            {% assign partnerLabel = home.partner[page.lang] %}
+            {% capture digitalContent %}
+              <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+                <div
+                  data-h2-flex-item="b(1of1) m(2of3)"
+                  data-h2-text-align="b(center) m(left)">
+                  <span data-h2-font-style="b(underline)">
+                    {% assign digitalTalentTitle = home.digitalTalent.title[page.lang] %}
+                    {% include title-h3.html title=digitalTalentTitle %}
+                  </span>
+                </div>
+                <div
+                  data-h2-flex-item="b(1of1) m(1of3)"
+                  data-h2-text-align="b(center) m(right)">
+                  {% include pill.html label=partnerLabel color="white" %}
+                </div>
+              </div>
+              {% for item in home.digitalTalent.content[page.lang] %}
+                <p data-h2-margin="b(bottom, none) b(top, s)">
+                  {{ item.item }}
+                </p>
+              {% endfor %}
+            {% endcapture %}
+            {% assign digitalCardRoute = site.baseurl | append: "/" | append: page.lang | append: "/communities/digital-talent" %}
+            {% include card.html content=digitalContent color="gradient-ps" route=digitalCardRoute title=digitalCardTitle type="link" %}
+          </div>
+          <div data-h2-flex-item="b(1of1)">
+            {% capture indigenousContent %}
+              <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+                <div
+                  data-h2-flex-item="b(1of1) m(2of3)"
+                  data-h2-text-align="b(center) m(left)">
+                  <span data-h2-font-style="b(underline)">
+                    {% assign indigenousTalentTitle = home.indigenousTalent.title[page.lang] %}
+                    {% include title-h3.html title=indigenousTalentTitle %}
+                  </span>
+                </div>
+                <div
+                  data-h2-flex-item="b(1of1) m(1of3)"
+                  data-h2-text-align="b(center) m(right)">
+                  {% include pill.html label=partnerLabel color="white" %}
+                </div>
+              </div>
+              {% for item in home.indigenousTalent.content[page.lang] %}
+                <p data-h2-margin="b(bottom, none) b(top, s)">
+                  {{ item.item }}
+                </p>
+              {% endfor %}
+            {% endcapture %}
+            {% assign indigenousCardRoute = site.baseurl | append: "/" | append: page.lang | append: "/communities/indigenous-talent" %}
+            <div
+              data-h2-radius="b(s)"
+              data-h2-shadow="b(s)"
+              data-h2-padding="b(all, xxl)"
+              style="background-image: url('{{ '/img/ui-home-placeholder.jpg' | prepend: site.asset_url }}'); background-position: center; background-size: cover; min-height: 35vh">
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-h2-flex-item="b(1of1)">
+        {% capture communityContent %}
+          <div
+            data-h2-display="b(flex)"
+            data-h2-align-items="b(center)"
+            data-h2-text-align="b(center) m(left)"
+            data-h2-padding="b(bottom, s) m(bottom, m)">
+            {% include parallelogram.html color="purple" %}
+            {% assign tcTitle = home.talentCloud.title[page.lang] %}
+            {% include title-h2.html title=tcTitle %}
+          </div>
+          {% for item in home.talentCloud.content[page.lang] %}
+            <p>{{ item.item }}</p>
+          {% endfor %}
+          <p
+            data-h2-text-align="b(center) m(right)"
+            data-h2-margin="b(top, l) b(bottom, none)">
+            {% assign tcRoute = site.baseurl | append: "/" | append: page.lang | append: "/talent-cloud" %}
+            {% assign tcTitle = home.talentCloud.tcLink[page.lang].title %}
+            {% assign tcLabel = home.talentCloud.tcLink[page.lang].label %}
+            {% include button.html type="link" style="secondary" route=tcRoute title=tcTitle label=tcLabel %}
+            {% assign reportRoute = site.baseurl | append: "/" | append: page.lang | append: "/talent-cloud/report" %}
+            {% assign reportTitle = home.talentCloud.reportLink[page.lang].title %}
+            {% assign reportLabel = home.talentCloud.reportLink[page.lang].label %}
+            {% include button.html type="link" style="secondary" route=reportRoute title=reportTitle label=reportLabel %}
+          </p>
+        {% endcapture %}
+        {% include card.html content=communityContent grid="stretch" %}
+      </div>
+    </div>
+  </div>
+</main>
+
+<section
+  style="background-position: center; background-size: cover; background-image: url('{{ '/img/ui-home-footer.jpg' | prepend: site.asset_url }}'); padding: 5rem 0 5rem 0; z-index: 1;"
+  class="gct-overlay">
+</section>
+
+{% include footer.html %}

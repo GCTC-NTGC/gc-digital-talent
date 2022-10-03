@@ -1,0 +1,30 @@
+// Radius
+// SIZE
+// SIZE, SIZE, SIZE, SIZE
+// e.g. data-h2-radius="base(s)"
+// e.g. data-h2-radius="base(s, none, m, s)"
+@mixin h2-utility-radius($mediaKey, $stateMap, $radiusMap) {
+  @each $stateKey, $stateValue in $stateMap {
+    @each $radiusKey, $radiusValue in $radiusMap {
+      [data-h2-radius*='#{$mediaKey}#{$stateKey}(#{$radiusKey})']#{$stateValue} {
+        border-radius: #{$radiusValue};
+      }
+    }
+  }
+  @each $stateKey, $stateValue in $stateMap {
+    @each $radiusKey1, $radiusValue1 in $radiusMap {
+      @each $radiusKey2, $radiusValue2 in $radiusMap {
+        @each $radiusKey3, $radiusValue3 in $radiusMap {
+          @each $radiusKey4, $radiusValue4 in $radiusMap {
+            [data-h2-radius*='#{$mediaKey}#{$stateKey}(#{$radiusKey1}, #{$radiusKey2}, #{$radiusKey3}, #{$radiusKey4})']#{$stateValue} {
+              border-radius: #{$radiusValue1}
+                #{$radiusValue2}
+                #{$radiusValue3}
+                #{$radiusValue4};
+            }
+          }
+        }
+      }
+    }
+  }
+}

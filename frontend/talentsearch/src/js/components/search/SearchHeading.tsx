@@ -6,7 +6,7 @@ import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 const SearchHeading: React.FunctionComponent = () => {
   const intl = useIntl();
   return (
-    <header data-h2-background-color="base(dt-gray.15)">
+    <header>
       <div
         data-h2-padding="base(x2.5, 0, x4, 0) p-tablet(x4, 0, x6, 0)"
         style={{

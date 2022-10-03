@@ -1,0 +1,36 @@
+---
+layout: boilerplate
+---
+{% include goc.html %}
+{% include navigation.html %}
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    {% include title-h1.html title=page.title padding="data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'" %}
+    {% include breadcrumbs.html %}
+  </div>
+</section>
+<!-- <section id="mainContent">
+  <div data-h2-position="b(relative)">
+    {% include gradient-bg.html %}
+    <div 
+      data-h2-container="b(center, full)"
+      data-h2-padding="b(bottom, xl)"
+      data-h2-position="b(relative)">
+      <div
+        data-h2-bg-color="b(white)"
+        data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xl)"
+        data-h2-radius="b(s)"
+        data-h2-shadow="b(s)">
+        <p>Stuff! Neato!</p>
+      </div>
+    </div>
+  </div>
+</section> -->
+<main data-h2-padding="b(top, l) b(bottom, xl) l(bottom, xxl)">
+  <div data-h2-container="b(center, s)">
+    {{ content }}
+  </div>
+</main>
+{% include footer.html %}

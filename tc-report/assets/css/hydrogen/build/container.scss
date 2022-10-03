@@ -1,0 +1,10 @@
+@use 'sass:color';
+
+@use '../maps/map-containers' as containerMap;
+
+@use '../utilities/utility-container' as containerStyles;
+
+@include containerStyles.h2-utility-container(
+  $mediaKey: 'MEDIAKEY',
+  $containerMap: containerMap.$h2-map-containers
+);

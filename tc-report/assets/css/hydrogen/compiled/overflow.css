@@ -1,0 +1,239 @@
+[data-h2-overflow*="MEDIAKEY(all, visible)"] {
+  overflow: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY(x, visible)"] {
+  overflow-x: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY(y, visible)"] {
+  overflow-y: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY(all, hidden)"] {
+  overflow: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY(x, hidden)"] {
+  overflow-x: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY(y, hidden)"] {
+  overflow-y: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY(all, scroll)"] {
+  overflow: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY(x, scroll)"] {
+  overflow-x: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY(y, scroll)"] {
+  overflow-y: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY(all, auto)"] {
+  overflow: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY(x, auto)"] {
+  overflow-x: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY(y, auto)"] {
+  overflow-y: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY:a(all, visible)"]:active {
+  overflow: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY:a(x, visible)"]:active {
+  overflow-x: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY:a(y, visible)"]:active {
+  overflow-y: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY:a(all, hidden)"]:active {
+  overflow: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY:a(x, hidden)"]:active {
+  overflow-x: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY:a(y, hidden)"]:active {
+  overflow-y: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY:a(all, scroll)"]:active {
+  overflow: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY:a(x, scroll)"]:active {
+  overflow-x: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY:a(y, scroll)"]:active {
+  overflow-y: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY:a(all, auto)"]:active {
+  overflow: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY:a(x, auto)"]:active {
+  overflow-x: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY:a(y, auto)"]:active {
+  overflow-y: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY:h(all, visible)"]:hover {
+  overflow: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY:h(x, visible)"]:hover {
+  overflow-x: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY:h(y, visible)"]:hover {
+  overflow-y: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY:h(all, hidden)"]:hover {
+  overflow: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY:h(x, hidden)"]:hover {
+  overflow-x: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY:h(y, hidden)"]:hover {
+  overflow-y: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY:h(all, scroll)"]:hover {
+  overflow: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY:h(x, scroll)"]:hover {
+  overflow-x: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY:h(y, scroll)"]:hover {
+  overflow-y: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY:h(all, auto)"]:hover {
+  overflow: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY:h(x, auto)"]:hover {
+  overflow-x: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY:h(y, auto)"]:hover {
+  overflow-y: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY:f(all, visible)"]:focus {
+  overflow: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY:f(x, visible)"]:focus {
+  overflow-x: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY:f(y, visible)"]:focus {
+  overflow-y: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY:f(all, hidden)"]:focus {
+  overflow: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY:f(x, hidden)"]:focus {
+  overflow-x: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY:f(y, hidden)"]:focus {
+  overflow-y: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY:f(all, scroll)"]:focus {
+  overflow: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY:f(x, scroll)"]:focus {
+  overflow-x: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY:f(y, scroll)"]:focus {
+  overflow-y: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY:f(all, auto)"]:focus {
+  overflow: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY:f(x, auto)"]:focus {
+  overflow-x: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY:f(y, auto)"]:focus {
+  overflow-y: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY:d(all, visible)"]:disabled {
+  overflow: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY:d(x, visible)"]:disabled {
+  overflow-x: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY:d(y, visible)"]:disabled {
+  overflow-y: visible;
+}
+
+[data-h2-overflow*="MEDIAKEY:d(all, hidden)"]:disabled {
+  overflow: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY:d(x, hidden)"]:disabled {
+  overflow-x: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY:d(y, hidden)"]:disabled {
+  overflow-y: hidden;
+}
+
+[data-h2-overflow*="MEDIAKEY:d(all, scroll)"]:disabled {
+  overflow: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY:d(x, scroll)"]:disabled {
+  overflow-x: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY:d(y, scroll)"]:disabled {
+  overflow-y: scroll;
+}
+
+[data-h2-overflow*="MEDIAKEY:d(all, auto)"]:disabled {
+  overflow: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY:d(x, auto)"]:disabled {
+  overflow-x: auto;
+}
+
+[data-h2-overflow*="MEDIAKEY:d(y, auto)"]:disabled {
+  overflow-y: auto;
+}
