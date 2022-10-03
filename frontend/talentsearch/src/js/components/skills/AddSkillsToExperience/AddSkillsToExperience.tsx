@@ -1,13 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 import { Scalars, Skill, SkillFamily } from "@common/api/generated";
-import {
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-} from "@common/components/Tabs/deprecated";
+import Tabs from "@common/components/Tabs";
 import Pagination, { usePaginationVars } from "@common/components/Pagination";
 import {
   filterSkillsByNameOrKeywords,
@@ -125,126 +119,130 @@ const AddSkillsToExperience: React.FunctionComponent<
           description: "Section header for adding skills to this experience",
         })}
       </h4>
-      <Tabs>
-        <TabList>
+      <Tabs.Root defaultValue="0">
+        <Tabs.List
+          aria-label={intl.formatMessage({
+            defaultMessage: "Skill selection",
+            id: "cNxH+L",
+            description: "Title for the skill tabs",
+          })}
+        >
           {tabs.map((tab, index) => (
-            <Tab key={tab} index={index}>
+            <Tabs.Trigger key={tab} value={`${index}`}>
               {tab}
-            </Tab>
+            </Tabs.Trigger>
           ))}
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            <SkillResults
-              title={intl.formatMessage(
-                {
-                  defaultMessage: "Frequently used skills ({skillCount})",
-                  id: "EYCY8j",
-                  description:
-                    "Section header for a list of frequently used skills",
-                },
-                {
-                  skillCount: frequentSkills.length,
-                },
-              )}
-              skills={frequentSkillsPagination.currentTableData}
-              addedSkills={addedSkills || []}
-              onAddSkill={onAddSkill}
-              onRemoveSkill={onRemoveSkill}
-            />
-            <Pagination
-              ariaLabel={intl.formatMessage({
-                defaultMessage: "Frequent skills results",
-                id: "Y+d/yO",
-              })}
-              color="primary"
-              mode="outline"
-              currentPage={frequentSkillsPagination.currentPage}
-              pageSize={resultsPaginationPageSize}
-              totalCount={frequentSkills.length}
-              onPageSizeChange={(page) =>
-                frequentSkillsPagination.setCurrentPage(page)
-              }
-              onCurrentPageChange={frequentSkillsPagination.setPageSize}
-            />
-          </TabPanel>
-          <TabPanel>
-            <SkillChecklist
-              skillFamilies={allSkillFamilies}
-              callback={handleSkillFamilyChange}
-            />
-            <SkillResults
-              title={intl.formatMessage(
-                {
-                  defaultMessage: "Results ({skillCount})",
-                  id: "l0IDWf",
-                  description: "A title for a skill list of results",
-                },
-                {
-                  skillCount: familyFilteredSkills.length,
-                },
-              )}
-              skills={mainstreamSkillsPagination.currentTableData}
-              addedSkills={addedSkills || []}
-              onAddSkill={onAddSkill}
-              onRemoveSkill={onRemoveSkill}
-            />
-            <Pagination
-              ariaLabel={intl.formatMessage({
-                defaultMessage: "Mainstream skills results",
-                id: "s4DN3G",
+        </Tabs.List>
+        <Tabs.Content value="0">
+          <SkillResults
+            title={intl.formatMessage(
+              {
+                defaultMessage: "Frequently used skills ({skillCount})",
+                id: "EYCY8j",
                 description:
-                  "Accessibility label for a result set of skills, filtered to mainstream skills",
-              })}
-              color="primary"
-              mode="outline"
-              currentPage={mainstreamSkillsPagination.currentPage}
-              pageSize={resultsPaginationPageSize}
-              totalCount={familyFilteredSkills.length}
-              onCurrentPageChange={(page) =>
-                mainstreamSkillsPagination.setCurrentPage(page)
-              }
-              onPageSizeChange={mainstreamSkillsPagination.setPageSize}
-            />
-          </TabPanel>
-          <TabPanel>
-            <SearchBar handleSearch={handleSearch} />
-            <SkillResults
-              title={intl.formatMessage(
-                {
-                  defaultMessage: "Results ({skillCount})",
-                  id: "nr62lc",
-                  description: "A title for a list of results",
-                },
-                {
-                  skillCount: searchFilteredSkills.length,
-                },
-              )}
-              skills={keywordSearchPagination.currentTableData}
-              addedSkills={addedSkills || []}
-              onAddSkill={onAddSkill}
-              onRemoveSkill={onRemoveSkill}
-            />
-            <Pagination
-              ariaLabel={intl.formatMessage({
-                defaultMessage: "keyword search skills results",
-                id: "wziEOM",
-                description:
-                  "Accessibility label for a result set of skills, searched by keyword",
-              })}
-              color="primary"
-              mode="outline"
-              currentPage={keywordSearchPagination.currentPage}
-              pageSize={resultsPaginationPageSize}
-              totalCount={searchFilteredSkills.length}
-              onCurrentPageChange={(page) =>
-                keywordSearchPagination.setCurrentPage(page)
-              }
-              onPageSizeChange={keywordSearchPagination.setPageSize}
-            />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+                  "Section header for a list of frequently used skills",
+              },
+              {
+                skillCount: frequentSkills.length,
+              },
+            )}
+            skills={frequentSkillsPagination.currentTableData}
+            addedSkills={addedSkills || []}
+            onAddSkill={onAddSkill}
+            onRemoveSkill={onRemoveSkill}
+          />
+          <Pagination
+            ariaLabel={intl.formatMessage({
+              defaultMessage: "Frequent skills results",
+              id: "Y+d/yO",
+            })}
+            color="primary"
+            mode="outline"
+            currentPage={frequentSkillsPagination.currentPage}
+            pageSize={resultsPaginationPageSize}
+            totalCount={frequentSkills.length}
+            onPageSizeChange={(page) =>
+              frequentSkillsPagination.setCurrentPage(page)
+            }
+            onCurrentPageChange={frequentSkillsPagination.setPageSize}
+          />
+        </Tabs.Content>
+        <Tabs.Content value="1">
+          <SkillChecklist
+            skillFamilies={allSkillFamilies}
+            callback={handleSkillFamilyChange}
+          />
+          <SkillResults
+            title={intl.formatMessage(
+              {
+                defaultMessage: "Results ({skillCount})",
+                id: "l0IDWf",
+                description: "A title for a skill list of results",
+              },
+              {
+                skillCount: familyFilteredSkills.length,
+              },
+            )}
+            skills={mainstreamSkillsPagination.currentTableData}
+            addedSkills={addedSkills || []}
+            onAddSkill={onAddSkill}
+            onRemoveSkill={onRemoveSkill}
+          />
+          <Pagination
+            ariaLabel={intl.formatMessage({
+              defaultMessage: "Mainstream skills results",
+              id: "s4DN3G",
+              description:
+                "Accessibility label for a result set of skills, filtered to mainstream skills",
+            })}
+            color="primary"
+            mode="outline"
+            currentPage={mainstreamSkillsPagination.currentPage}
+            pageSize={resultsPaginationPageSize}
+            totalCount={familyFilteredSkills.length}
+            onCurrentPageChange={(page) =>
+              mainstreamSkillsPagination.setCurrentPage(page)
+            }
+            onPageSizeChange={mainstreamSkillsPagination.setPageSize}
+          />
+        </Tabs.Content>
+        <Tabs.Content value="2">
+          <SearchBar handleSearch={handleSearch} />
+          <SkillResults
+            title={intl.formatMessage(
+              {
+                defaultMessage: "Results ({skillCount})",
+                id: "nr62lc",
+                description: "A title for a list of results",
+              },
+              {
+                skillCount: searchFilteredSkills.length,
+              },
+            )}
+            skills={keywordSearchPagination.currentTableData}
+            addedSkills={addedSkills || []}
+            onAddSkill={onAddSkill}
+            onRemoveSkill={onRemoveSkill}
+          />
+          <Pagination
+            ariaLabel={intl.formatMessage({
+              defaultMessage: "keyword search skills results",
+              id: "wziEOM",
+              description:
+                "Accessibility label for a result set of skills, searched by keyword",
+            })}
+            color="primary"
+            mode="outline"
+            currentPage={keywordSearchPagination.currentPage}
+            pageSize={resultsPaginationPageSize}
+            totalCount={searchFilteredSkills.length}
+            onCurrentPageChange={(page) =>
+              keywordSearchPagination.setCurrentPage(page)
+            }
+            onPageSizeChange={keywordSearchPagination.setPageSize}
+          />
+        </Tabs.Content>
+      </Tabs.Root>
     </>
   );
 };

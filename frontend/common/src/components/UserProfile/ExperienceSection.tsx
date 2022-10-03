@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "../Tabs/deprecated";
+import Tabs from "../Tabs";
 import { invertSkillExperienceTree } from "../../helpers/skillUtils";
 import ExperienceAccordion, {
   ExperiencePaths,
@@ -127,37 +127,35 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
   ];
 
   return isExperience ? (
-    <Tabs>
-      <TabList>
+    <Tabs.Root defaultValue="0">
+      <Tabs.List>
         {tabs.map((tab, index) => (
-          <Tab key={tab} index={index}>
+          <Tabs.Trigger key={tab} value={`${index}`}>
             {tab}
-          </Tab>
+          </Tabs.Trigger>
         ))}
-      </TabList>
-      <TabPanels>
-        <TabPanel>
-          {sortedByDate.map((experience) => (
-            <ExperienceAccordion
-              key={experience.id}
-              experience={experience}
-              editPaths={experienceEditPaths}
-            />
-          ))}
-        </TabPanel>
-        <TabPanel>
-          <ExperienceByTypeListing
-            experiences={experiences}
+      </Tabs.List>
+      <Tabs.Content value="0">
+        {sortedByDate.map((experience) => (
+          <ExperienceAccordion
+            key={experience.id}
+            experience={experience}
             editPaths={experienceEditPaths}
           />
-        </TabPanel>
-        <TabPanel>
-          {sortedBySkills.map((skill) => (
-            <SkillAccordion key={skill.id} skill={skill} />
-          ))}
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+        ))}
+      </Tabs.Content>
+      <Tabs.Content value="1">
+        <ExperienceByTypeListing
+          experiences={experiences}
+          editPaths={experienceEditPaths}
+        />
+      </Tabs.Content>
+      <Tabs.Content value="2">
+        {sortedBySkills.map((skill) => (
+          <SkillAccordion key={skill.id} skill={skill} />
+        ))}
+      </Tabs.Content>
+    </Tabs.Root>
   ) : (
     <div
       data-h2-background-color="base(dt-gray.light)"

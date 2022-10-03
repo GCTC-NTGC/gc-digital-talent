@@ -5,7 +5,7 @@ import Pagination, { usePaginationVars } from "../../Pagination";
 import SearchBar from "../SearchBar";
 import SkillResults from "../SkillResults";
 import SkillFamilyPicker from "../SkillFamilyPicker";
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "../../Tabs/deprecated";
+import Tabs from "../../Tabs";
 import { SkillCategory } from "../../../api/generated";
 import type { Skill, SkillFamily } from "../../../api/generated";
 
@@ -133,181 +133,181 @@ const SkillPicker = ({
   return (
     <>
       {!disabled && (
-        <Tabs>
-          <TabList>
+        <Tabs.Root defaultValue="0">
+          <Tabs.List
+            aria-label={intl.formatMessage({
+              defaultMessage: "Skill selection",
+              id: "cNxH+L",
+              description: "Title for the skill tabs",
+            })}
+          >
             {tabs.map((tab, index) => (
-              <Tab key={tab} index={index}>
+              <Tabs.Trigger key={tab} value={`${index}`}>
                 {tab}
-              </Tab>
+              </Tabs.Trigger>
             ))}
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <SkillFamilyPicker
-                title={intl.formatMessage({
-                  defaultMessage: "Skill groups",
-                  id: "J3779Q",
-                  description: "A title for a list of skill families",
-                })}
-                nullSelectionLabel={intl.formatMessage({
-                  defaultMessage: "All technical skills",
-                  id: "vZgTKh",
-                  description:
-                    "The option label for 'no filter' on the list of occupational skills",
-                })}
-                skillFamilies={allSkillFamilies.filter(
-                  (sf) => sf.category === SkillCategory.Technical,
-                )}
-                onSelectSkillFamily={(id) => {
-                  setSelectedTechnicalSkillFamilyId(id || null);
-                  technicalSkillsFamilySkillsPagination.setCurrentPage(1);
-                }}
-                idPrefix={`${idPrefix}-technical`}
-              />
-              <SkillResults
-                title={intl.formatMessage(
-                  {
-                    defaultMessage: "Results ({skillCount})",
-                    id: "l0IDWf",
-                    description: "A title for a skill list of results",
-                  },
-                  {
-                    skillCount: technicalSkillFamilyFilteredSkills.length,
-                  },
-                )}
-                skills={technicalSkillsFamilySkillsPagination.currentTableData}
-                addedSkills={selectedSkills}
-                onAddSkill={(id) => handleAddSkill(id)}
-                onRemoveSkill={(id) => handleRemoveSkill(id)}
-              />
-              <Pagination
-                ariaLabel={intl.formatMessage({
-                  defaultMessage: "Mainstream skills results",
-                  id: "s4DN3G",
-                  description:
-                    "Accessibility label for a result set of skills, filtered to mainstream skills",
-                })}
-                color="primary"
-                mode="outline"
-                currentPage={technicalSkillsFamilySkillsPagination.currentPage}
-                pageSize={PAGE_SIZE}
-                totalCount={technicalSkillFamilyFilteredSkills.length}
-                onCurrentPageChange={(page) =>
-                  technicalSkillsFamilySkillsPagination.setCurrentPage(page)
-                }
-                onPageSizeChange={
-                  technicalSkillsFamilySkillsPagination.setPageSize
-                }
-              />
-            </TabPanel>
-            <TabPanel>
-              <SkillFamilyPicker
-                title={intl.formatMessage({
-                  defaultMessage: "Skill groups",
-                  id: "J3779Q",
-                  description: "A title for a list of skill families",
-                })}
-                nullSelectionLabel={intl.formatMessage({
-                  defaultMessage: "All behavioural skills",
-                  id: "Sx/Pzn",
-                  description:
-                    "The option label for 'no filter' on the list of behavioural skills",
-                })}
-                skillFamilies={allSkillFamilies.filter(
-                  (sf) => sf.category === SkillCategory.Behavioural,
-                )}
-                onSelectSkillFamily={(id) => {
-                  setSelectedBehaviouralSkillFamilyId(id || null);
-                  behaviouralSkillsFamilySkillsPagination.setCurrentPage(1);
-                }}
-                idPrefix={`${idPrefix}-behavioural`}
-              />
-              <SkillResults
-                title={intl.formatMessage(
-                  {
-                    defaultMessage: "Results ({skillCount})",
-                    id: "l0IDWf",
-                    description: "A title for a skill list of results",
-                  },
-                  {
-                    skillCount: behaviouralSkillFamilyFilteredSkills.length,
-                  },
-                )}
-                skills={
-                  behaviouralSkillsFamilySkillsPagination.currentTableData
-                }
-                addedSkills={selectedSkills}
-                onAddSkill={(id) => handleAddSkill(id)}
-                onRemoveSkill={(id) => handleRemoveSkill(id)}
-              />
-              <Pagination
-                ariaLabel={intl.formatMessage({
-                  defaultMessage: "Mainstream skills results",
-                  id: "s4DN3G",
-                  description:
-                    "Accessibility label for a result set of skills, filtered to mainstream skills",
-                })}
-                color="primary"
-                mode="outline"
-                currentPage={
-                  behaviouralSkillsFamilySkillsPagination.currentPage
-                }
-                pageSize={PAGE_SIZE}
-                totalCount={behaviouralSkillFamilyFilteredSkills.length}
-                onCurrentPageChange={(page) =>
-                  behaviouralSkillsFamilySkillsPagination.setCurrentPage(page)
-                }
-                onPageSizeChange={
-                  behaviouralSkillsFamilySkillsPagination.setPageSize
-                }
-              />
-            </TabPanel>
-            <TabPanel>
-              <p data-h2-font-weight="base(700)">
-                {intl.formatMessage({
-                  defaultMessage: "Search by keyword",
-                  id: "hm95fj",
-                  description:
-                    "A label to show that this tab for searching by keyword",
-                })}
-              </p>
-              <SearchBar handleSearch={handleSearch} />
-              <SkillResults
-                title={intl.formatMessage(
-                  {
-                    defaultMessage: "Results ({skillCount})",
-                    id: "nr62lc",
-                    description: "A title for a list of results",
-                  },
-                  {
-                    skillCount: searchFilteredSkills.length,
-                  },
-                )}
-                skills={searchSkillsPagination.currentTableData}
-                addedSkills={selectedSkills}
-                onAddSkill={(id) => handleAddSkill(id)}
-                onRemoveSkill={(id) => handleRemoveSkill(id)}
-              />
-              <Pagination
-                ariaLabel={intl.formatMessage({
-                  defaultMessage: "keyword search skills results",
-                  id: "wziEOM",
-                  description:
-                    "Accessibility label for a result set of skills, searched by keyword",
-                })}
-                color="primary"
-                mode="outline"
-                currentPage={searchSkillsPagination.currentPage}
-                pageSize={PAGE_SIZE}
-                totalCount={searchFilteredSkills.length}
-                onCurrentPageChange={(page) =>
-                  searchSkillsPagination.setCurrentPage(page)
-                }
-                onPageSizeChange={searchSkillsPagination.setPageSize}
-              />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+          </Tabs.List>
+          <Tabs.Content value="0">
+            <SkillFamilyPicker
+              title={intl.formatMessage({
+                defaultMessage: "Skill groups",
+                id: "J3779Q",
+                description: "A title for a list of skill families",
+              })}
+              nullSelectionLabel={intl.formatMessage({
+                defaultMessage: "All technical skills",
+                id: "vZgTKh",
+                description:
+                  "The option label for 'no filter' on the list of occupational skills",
+              })}
+              skillFamilies={allSkillFamilies.filter(
+                (sf) => sf.category === SkillCategory.Technical,
+              )}
+              onSelectSkillFamily={(id) => {
+                setSelectedTechnicalSkillFamilyId(id || null);
+                technicalSkillsFamilySkillsPagination.setCurrentPage(1);
+              }}
+              idPrefix={`${idPrefix}-technical`}
+            />
+            <SkillResults
+              title={intl.formatMessage(
+                {
+                  defaultMessage: "Results ({skillCount})",
+                  id: "l0IDWf",
+                  description: "A title for a skill list of results",
+                },
+                {
+                  skillCount: technicalSkillFamilyFilteredSkills.length,
+                },
+              )}
+              skills={technicalSkillsFamilySkillsPagination.currentTableData}
+              addedSkills={selectedSkills}
+              onAddSkill={(id) => handleAddSkill(id)}
+              onRemoveSkill={(id) => handleRemoveSkill(id)}
+            />
+            <Pagination
+              ariaLabel={intl.formatMessage({
+                defaultMessage: "Mainstream skills results",
+                id: "s4DN3G",
+                description:
+                  "Accessibility label for a result set of skills, filtered to mainstream skills",
+              })}
+              color="primary"
+              mode="outline"
+              currentPage={technicalSkillsFamilySkillsPagination.currentPage}
+              pageSize={PAGE_SIZE}
+              totalCount={technicalSkillFamilyFilteredSkills.length}
+              onCurrentPageChange={(page) =>
+                technicalSkillsFamilySkillsPagination.setCurrentPage(page)
+              }
+              onPageSizeChange={
+                technicalSkillsFamilySkillsPagination.setPageSize
+              }
+            />
+          </Tabs.Content>
+          <Tabs.Content value="1">
+            <SkillFamilyPicker
+              title={intl.formatMessage({
+                defaultMessage: "Skill groups",
+                id: "J3779Q",
+                description: "A title for a list of skill families",
+              })}
+              nullSelectionLabel={intl.formatMessage({
+                defaultMessage: "All behavioural skills",
+                id: "Sx/Pzn",
+                description:
+                  "The option label for 'no filter' on the list of behavioural skills",
+              })}
+              skillFamilies={allSkillFamilies.filter(
+                (sf) => sf.category === SkillCategory.Behavioural,
+              )}
+              onSelectSkillFamily={(id) => {
+                setSelectedBehaviouralSkillFamilyId(id || null);
+                behaviouralSkillsFamilySkillsPagination.setCurrentPage(1);
+              }}
+              idPrefix={`${idPrefix}-behavioural`}
+            />
+            <SkillResults
+              title={intl.formatMessage(
+                {
+                  defaultMessage: "Results ({skillCount})",
+                  id: "l0IDWf",
+                  description: "A title for a skill list of results",
+                },
+                {
+                  skillCount: behaviouralSkillFamilyFilteredSkills.length,
+                },
+              )}
+              skills={behaviouralSkillsFamilySkillsPagination.currentTableData}
+              addedSkills={selectedSkills}
+              onAddSkill={(id) => handleAddSkill(id)}
+              onRemoveSkill={(id) => handleRemoveSkill(id)}
+            />
+            <Pagination
+              ariaLabel={intl.formatMessage({
+                defaultMessage: "Mainstream skills results",
+                id: "s4DN3G",
+                description:
+                  "Accessibility label for a result set of skills, filtered to mainstream skills",
+              })}
+              color="primary"
+              mode="outline"
+              currentPage={behaviouralSkillsFamilySkillsPagination.currentPage}
+              pageSize={PAGE_SIZE}
+              totalCount={behaviouralSkillFamilyFilteredSkills.length}
+              onCurrentPageChange={(page) =>
+                behaviouralSkillsFamilySkillsPagination.setCurrentPage(page)
+              }
+              onPageSizeChange={
+                behaviouralSkillsFamilySkillsPagination.setPageSize
+              }
+            />
+          </Tabs.Content>
+          <Tabs.Content value="2">
+            <p data-h2-font-weight="base(700)">
+              {intl.formatMessage({
+                defaultMessage: "Search by keyword",
+                id: "hm95fj",
+                description:
+                  "A label to show that this tab for searching by keyword",
+              })}
+            </p>
+            <SearchBar handleSearch={handleSearch} />
+            <SkillResults
+              title={intl.formatMessage(
+                {
+                  defaultMessage: "Results ({skillCount})",
+                  id: "nr62lc",
+                  description: "A title for a list of results",
+                },
+                {
+                  skillCount: searchFilteredSkills.length,
+                },
+              )}
+              skills={searchSkillsPagination.currentTableData}
+              addedSkills={selectedSkills}
+              onAddSkill={(id) => handleAddSkill(id)}
+              onRemoveSkill={(id) => handleRemoveSkill(id)}
+            />
+            <Pagination
+              ariaLabel={intl.formatMessage({
+                defaultMessage: "keyword search skills results",
+                id: "wziEOM",
+                description:
+                  "Accessibility label for a result set of skills, searched by keyword",
+              })}
+              color="primary"
+              mode="outline"
+              currentPage={searchSkillsPagination.currentPage}
+              pageSize={PAGE_SIZE}
+              totalCount={searchFilteredSkills.length}
+              onCurrentPageChange={(page) =>
+                searchSkillsPagination.setCurrentPage(page)
+              }
+              onPageSizeChange={searchSkillsPagination.setPageSize}
+            />
+          </Tabs.Content>
+        </Tabs.Root>
       )}
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage(

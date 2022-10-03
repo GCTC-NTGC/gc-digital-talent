@@ -58,7 +58,6 @@
     "@radix-ui/react-tabs": "^1.0.0",
     "@reach/dialog": "^0.16.0",
     "@reach/menu-button": "^0.16.0",
-    "@reach/tabs": "^0.16.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@urql/exchange-auth": "^0.1.7",
     "date-fns": "^2.29.3",
