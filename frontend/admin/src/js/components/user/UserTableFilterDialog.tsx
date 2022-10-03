@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import { Button } from "@common/components";
 import { useIntl } from "react-intl";
 import { BasicForm } from "@common/components/form";
@@ -79,7 +79,7 @@ const UserTableFilterDialog = ({
     useFilterOptions(enableEducationType);
 
   return (
-    <Dialog
+    <DeprecatedDialog
       {...{ isOpen, onDismiss }}
       color="ts-secondary"
       id="user-table-filter-dialog"
@@ -222,11 +222,11 @@ const UserTableFilterDialog = ({
             />
           </div>
         </div>
-        <Dialog.Footer>
+        <DeprecatedDialog.Footer>
           <Footer />
-        </Dialog.Footer>
+        </DeprecatedDialog.Footer>
       </BasicForm>
-    </Dialog>
+    </DeprecatedDialog>
   );
 };
 

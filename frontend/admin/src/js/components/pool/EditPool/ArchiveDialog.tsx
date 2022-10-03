@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import { Button } from "@common/components";
 
 type ArchiveDialogProps = {
@@ -49,7 +49,7 @@ const ArchiveDialog = ({
     [intl, onDismiss, onArchive],
   );
   return (
-    <Dialog
+    <DeprecatedDialog
       centered
       isOpen={isOpen}
       onDismiss={onDismiss}
@@ -61,8 +61,8 @@ const ArchiveDialog = ({
       })}
     >
       {/* todo */}
-      <Dialog.Footer>{Footer}</Dialog.Footer>
-    </Dialog>
+      <DeprecatedDialog.Footer>{Footer}</DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 

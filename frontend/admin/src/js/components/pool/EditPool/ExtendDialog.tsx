@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useIntl } from "react-intl";
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import { PoolAdvertisement } from "@common/api/generated";
 import { Button } from "@common/components";
 import { FormProvider, useForm } from "react-hook-form";
@@ -79,7 +79,7 @@ const ExtendDialog = ({
     [handleExtend, intl, methods, onDismiss],
   );
   return (
-    <Dialog
+    <DeprecatedDialog
       centered
       isOpen={isOpen}
       onDismiss={onDismiss}
@@ -119,8 +119,8 @@ const ExtendDialog = ({
           />
         </form>
       </FormProvider>
-      <Dialog.Footer>{Footer}</Dialog.Footer>
-    </Dialog>
+      <DeprecatedDialog.Footer>{Footer}</DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 

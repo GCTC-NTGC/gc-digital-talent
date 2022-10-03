@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import { InputWrapper } from "@common/components/inputPartials";
 import { PoolAdvertisement } from "@common/api/generated";
 import { relativeExpiryDate } from "@common/helpers/dateUtils";
@@ -53,7 +53,7 @@ const CloseDialog = ({
     [intl, onDismiss, onClose],
   );
   return (
-    <Dialog
+    <DeprecatedDialog
       centered
       isOpen={isOpen}
       onDismiss={onDismiss}
@@ -107,8 +107,8 @@ const CloseDialog = ({
           description: "Third paragraph for Close pool dialog",
         })}
       </p>
-      <Dialog.Footer>{Footer}</Dialog.Footer>
-    </Dialog>
+      <DeprecatedDialog.Footer>{Footer}</DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 

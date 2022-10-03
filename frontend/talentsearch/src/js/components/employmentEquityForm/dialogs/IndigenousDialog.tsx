@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import { Checkbox } from "@common/components/form";
 
 import {
@@ -65,7 +65,7 @@ const IndigenousDialog: React.FC<EquityDialogProps> = ({
   const intl = useIntl();
 
   return (
-    <Dialog
+    <DeprecatedDialog
       isOpen={isOpen}
       onDismiss={onDismiss}
       color="ts-secondary"
@@ -87,12 +87,12 @@ const IndigenousDialog: React.FC<EquityDialogProps> = ({
           description: "Definition of accepted ways to identify as indigenous.",
         })}
       </p>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <IndigenousDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogFooter onDismiss={onDismiss} />
         </IndigenousDialogFooter>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import Button from "@common/components/Button";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions } from "@common/helpers/formUtils";
@@ -156,7 +156,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
   };
 
   return (
-    <Dialog
+    <DeprecatedDialog
       title={intl.formatMessage({
         defaultMessage: "Change status",
         id: "SARjte",
@@ -246,7 +246,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
           />
         </div>
       </div>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(space-between)"
@@ -270,8 +270,8 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
             disabled={submitting}
           />
         </div>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 
@@ -343,7 +343,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
   };
 
   return (
-    <Dialog
+    <DeprecatedDialog
       title={intl.formatMessage({
         defaultMessage: "Expiry Date",
         id: "zDO6tt",
@@ -408,7 +408,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
           />
         </div>
       </div>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(space-between)"
@@ -433,8 +433,8 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
             disabled={submitting}
           />
         </div>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 
@@ -492,7 +492,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
   };
 
   return (
-    <Dialog
+    <DeprecatedDialog
       title={intl.formatMessage({
         defaultMessage: "Remove from pool",
         id: "KyMCYC",
@@ -521,7 +521,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
         })}
       </p>
       <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(space-between)"
@@ -547,8 +547,8 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
             icon={UserMinusIcon}
           />
         </div>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 
@@ -642,7 +642,7 @@ export const AddToPoolDialog: React.FC<{
   };
 
   return (
-    <Dialog
+    <DeprecatedDialog
       title={intl.formatMessage({
         defaultMessage: "Add to different pool",
         id: "CTWpfa",
@@ -774,7 +774,7 @@ export const AddToPoolDialog: React.FC<{
           />
         </div>
       </div>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(space-between)"
@@ -798,7 +798,7 @@ export const AddToPoolDialog: React.FC<{
             disabled={submitting}
           />
         </div>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import { Button } from "@common/components";
 
 type DeleteDialogProps = {
@@ -49,7 +49,7 @@ const DeleteDialog = ({
     [intl, onDismiss, onDelete],
   );
   return (
-    <Dialog
+    <DeprecatedDialog
       centered
       isOpen={isOpen}
       onDismiss={onDismiss}
@@ -74,8 +74,8 @@ const DeleteDialog = ({
           description: "Second paragraph for Delete pool dialog",
         })}
       </p>
-      <Dialog.Footer>{Footer}</Dialog.Footer>
-    </Dialog>
+      <DeprecatedDialog.Footer>{Footer}</DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 

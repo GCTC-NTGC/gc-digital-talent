@@ -13,7 +13,7 @@ import {
 import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
 import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
@@ -148,7 +148,7 @@ function Table<T extends Record<string, unknown>>({
                       })}
                     </span>
                   </Button>
-                  <Dialog
+                  <DeprecatedDialog
                     color="ts-primary"
                     isOpen={showList}
                     onDismiss={() => setShowList(false)}
@@ -187,7 +187,7 @@ function Table<T extends Record<string, unknown>>({
                         </div>
                       ))}
                     </Fieldset>
-                  </Dialog>
+                  </DeprecatedDialog>
                 </div>
               </div>
             </div>

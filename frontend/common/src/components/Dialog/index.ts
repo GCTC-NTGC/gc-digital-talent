@@ -1,5 +1,5 @@
-import Dialog from "./Dialog";
-import type { DialogProps } from "./Dialog";
+import * as Dialog from "./Dialog";
+import DeprecatedDialog from "./deprecated";
 
 export default Dialog;
-export type { DialogProps };
+export { DeprecatedDialog };

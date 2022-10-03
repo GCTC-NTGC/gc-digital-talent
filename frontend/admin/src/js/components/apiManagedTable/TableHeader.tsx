@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { Button, Link } from "@common/components";
 import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
 import { SubmitHandler } from "react-hook-form";
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import SearchForm from "./SearchForm";
 import { ButtonIcon, IndeterminateCheckbox } from "../Table/tableComponents";
@@ -131,7 +131,7 @@ function TableHeader<T extends Record<string, unknown>>({
                         })}
                       </span>
                     </Button>
-                    <Dialog
+                    <DeprecatedDialog
                       color="ts-primary"
                       isOpen={showList}
                       onDismiss={() => setShowList(false)}
@@ -189,7 +189,7 @@ function TableHeader<T extends Record<string, unknown>>({
                           </div>
                         ))}
                       </Fieldset>
-                    </Dialog>
+                    </DeprecatedDialog>
                   </div>
                 </div>
               </div>

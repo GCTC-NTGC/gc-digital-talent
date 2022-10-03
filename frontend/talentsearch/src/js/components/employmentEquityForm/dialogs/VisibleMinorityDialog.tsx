@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import { Checkbox } from "@common/components/form";
 
 import {
@@ -63,7 +63,7 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
   const intl = useIntl();
 
   return (
-    <Dialog
+    <DeprecatedDialog
       isOpen={isOpen}
       onDismiss={onDismiss}
       color="ts-secondary"
@@ -86,12 +86,12 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
             "Definition of accepted ways to identify as a visible minority",
         })}
       </p>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <VisibleMinorityDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogFooter onDismiss={onDismiss} />
         </VisibleMinorityDialogFooter>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 

@@ -4,7 +4,7 @@
 import "@testing-library/jest-dom";
 import { screen, fireEvent } from "@testing-library/react";
 import React from "react";
-import { render } from "../../helpers/testUtils";
+import { render } from "../../../helpers/testUtils";
 import Dialog from "./Dialog";
 import type { DialogProps, Color } from "./Dialog";
 

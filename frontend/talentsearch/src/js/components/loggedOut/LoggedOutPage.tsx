@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import TileLink from "@common/components/TileLink";
 import { imageUrl, navigate } from "@common/helpers/router";
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
 import { BellIcon } from "@heroicons/react/24/outline";
@@ -122,7 +122,7 @@ const LoggedOutPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <Dialog
+      <DeprecatedDialog
         confirmation
         centered
         isOpen={loggedIn}
@@ -144,7 +144,7 @@ const LoggedOutPage: React.FC = () => {
               "Question displayed when authenticated user lands on /logged-out.",
           })}
         </p>
-        <Dialog.Footer>
+        <DeprecatedDialog.Footer>
           <div
             data-h2-display="base(flex)"
             data-h2-align-items="base(center)"
@@ -180,8 +180,8 @@ const LoggedOutPage: React.FC = () => {
               </Button>
             </span>
           </div>
-        </Dialog.Footer>
-      </Dialog>
+        </DeprecatedDialog.Footer>
+      </DeprecatedDialog>
     </>
   );
 };

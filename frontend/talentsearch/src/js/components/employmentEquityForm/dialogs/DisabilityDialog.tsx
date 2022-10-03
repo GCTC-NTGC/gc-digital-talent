@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import { Checkbox } from "@common/components/form";
 
 import {
@@ -65,7 +65,7 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
   const intl = useIntl();
 
   return (
-    <Dialog
+    <DeprecatedDialog
       isOpen={isOpen}
       onDismiss={onDismiss}
       color="ts-secondary"
@@ -88,12 +88,12 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
             "Definition of accepted ways to identify as person with a disability.",
         })}
       </p>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <DisabilityDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogFooter onDismiss={onDismiss} />
         </DisabilityDialogFooter>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 

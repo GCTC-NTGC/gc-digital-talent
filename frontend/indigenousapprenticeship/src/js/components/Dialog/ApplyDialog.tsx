@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import CloseButton from "./CloseButton";
 
 import type { BasicDialogProps } from "./types";
@@ -22,7 +22,7 @@ const ApplyDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
     [onDismiss],
   );
   return (
-    <Dialog
+    <DeprecatedDialog
       centered
       isOpen={isOpen}
       onDismiss={onDismiss}
@@ -62,8 +62,8 @@ const ApplyDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
           description: "Third paragraph for apply now dialog",
         })}
       </p>
-      <Dialog.Footer>{Close}</Dialog.Footer>
-    </Dialog>
+      <DeprecatedDialog.Footer>{Close}</DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 

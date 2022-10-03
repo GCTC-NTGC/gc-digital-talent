@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import Heading from "../Heading/Heading";
 import CloseButton from "./CloseButton";
 
@@ -14,7 +14,7 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
     [onDismiss],
   );
   return (
-    <Dialog
+    <DeprecatedDialog
       isOpen={isOpen}
       onDismiss={onDismiss}
       color="ia-secondary"
@@ -267,8 +267,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
           description: "Learn more dialog question twelve paragraph one",
         })}
       </p>
-      <Dialog.Footer>{Close}</Dialog.Footer>
-    </Dialog>
+      <DeprecatedDialog.Footer>{Close}</DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 

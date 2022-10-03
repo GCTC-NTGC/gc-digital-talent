@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import Button from "@common/components/Button";
 
 export interface DialogLevelsProps {
@@ -31,7 +31,7 @@ export const DialogLevelOne: React.FC<DialogLevelsProps> = ({
   const intl = useIntl();
 
   return (
-    <Dialog
+    <DeprecatedDialog
       title={intl.formatMessage({
         defaultMessage: "Level 1: Technicians",
         id: "aLMroa",
@@ -80,7 +80,7 @@ export const DialogLevelOne: React.FC<DialogLevelsProps> = ({
           })}
         </li>
       </ul>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(center)"
@@ -93,8 +93,8 @@ export const DialogLevelOne: React.FC<DialogLevelsProps> = ({
             })}
           </CloseDialogButton>
         </div>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 
@@ -105,7 +105,7 @@ export const DialogLevelTwo: React.FC<DialogLevelsProps> = ({
   const intl = useIntl();
 
   return (
-    <Dialog
+    <DeprecatedDialog
       title={intl.formatMessage({
         defaultMessage: "Level 2: Analysts",
         id: "MNVv3A",
@@ -123,7 +123,7 @@ export const DialogLevelTwo: React.FC<DialogLevelsProps> = ({
           description: "blurb describing IT-02",
         })}
       </p>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(center)"
@@ -136,8 +136,8 @@ export const DialogLevelTwo: React.FC<DialogLevelsProps> = ({
             })}
           </CloseDialogButton>
         </div>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 
@@ -148,7 +148,7 @@ export const DialogLevelThreeLead: React.FC<DialogLevelsProps> = ({
   const intl = useIntl();
 
   return (
-    <Dialog
+    <DeprecatedDialog
       title={intl.formatMessage({
         defaultMessage: "Level 3: Teams Leads",
         id: "mTlHta",
@@ -175,7 +175,7 @@ export const DialogLevelThreeLead: React.FC<DialogLevelsProps> = ({
             "IT-03 team lead path description, ignore things in <> tags please",
         })}
       </p>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(center)"
@@ -188,8 +188,8 @@ export const DialogLevelThreeLead: React.FC<DialogLevelsProps> = ({
             })}
           </CloseDialogButton>
         </div>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 
@@ -200,7 +200,7 @@ export const DialogLevelThreeAdvisor: React.FC<DialogLevelsProps> = ({
   const intl = useIntl();
 
   return (
-    <Dialog
+    <DeprecatedDialog
       title={intl.formatMessage({
         defaultMessage: "Level 3: Technical Advisors",
         id: "WE0OGe",
@@ -227,7 +227,7 @@ export const DialogLevelThreeAdvisor: React.FC<DialogLevelsProps> = ({
             "IT-03 advisor description, ignore things in <> tags please",
         })}
       </p>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(center)"
@@ -240,8 +240,8 @@ export const DialogLevelThreeAdvisor: React.FC<DialogLevelsProps> = ({
             })}
           </CloseDialogButton>
         </div>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 
@@ -252,7 +252,7 @@ export const DialogLevelFourLead: React.FC<DialogLevelsProps> = ({
   const intl = useIntl();
 
   return (
-    <Dialog
+    <DeprecatedDialog
       title={intl.formatMessage({
         defaultMessage: "Level 4: Manager",
         id: "2KjiDn",
@@ -279,7 +279,7 @@ export const DialogLevelFourLead: React.FC<DialogLevelsProps> = ({
             "IT-04 manager path description, ignore things in <> tags please",
         })}
       </p>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(center)"
@@ -292,8 +292,8 @@ export const DialogLevelFourLead: React.FC<DialogLevelsProps> = ({
             })}
           </CloseDialogButton>
         </div>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 
@@ -304,7 +304,7 @@ export const DialogLevelFourAdvisor: React.FC<DialogLevelsProps> = ({
   const intl = useIntl();
 
   return (
-    <Dialog
+    <DeprecatedDialog
       title={intl.formatMessage({
         defaultMessage: "Level 4: Senior Advisor",
         id: "2VprXV",
@@ -375,7 +375,7 @@ export const DialogLevelFourAdvisor: React.FC<DialogLevelsProps> = ({
           })}
         </li>
       </ul>
-      <Dialog.Footer>
+      <DeprecatedDialog.Footer>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(center)"
@@ -388,7 +388,7 @@ export const DialogLevelFourAdvisor: React.FC<DialogLevelsProps> = ({
             })}
           </CloseDialogButton>
         </div>
-      </Dialog.Footer>
-    </Dialog>
+      </DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };

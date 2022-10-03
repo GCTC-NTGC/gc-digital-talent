@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Dialog from "@common/components/Dialog";
+import { DeprecatedDialog } from "@common/components/Dialog";
 import CloseButton from "./CloseButton";
 
 import type { BasicDialogProps } from "./types";
@@ -17,7 +17,7 @@ const RequirementDialog: React.FC<BasicDialogProps> = ({
   );
 
   return (
-    <Dialog
+    <DeprecatedDialog
       isOpen={isOpen}
       onDismiss={onDismiss}
       color="ia-secondary"
@@ -75,8 +75,8 @@ const RequirementDialog: React.FC<BasicDialogProps> = ({
           })}
         </li>
       </ul>
-      <Dialog.Footer>{Close}</Dialog.Footer>
-    </Dialog>
+      <DeprecatedDialog.Footer>{Close}</DeprecatedDialog.Footer>
+    </DeprecatedDialog>
   );
 };
 
