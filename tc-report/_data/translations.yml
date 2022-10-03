@@ -1,0 +1,373 @@
+site-title:
+  en: GC Talent
+  fr: GC Talent
+navigation:
+  en:
+    - label: Home
+      title: Visit the GC Talent homepage.
+      route: /en/
+    - label: Talent Cloud
+      title: Learn more about the Talent Cloud project.
+      route: /en/talent-cloud/
+    - label: Digital Talent
+      title: Learn more about the Digital Talent community.
+      route: /en/communities/digital-talent/
+  fr:
+    - label: Accueil
+      title: Visitez la page d'accueil de GC Talent.
+      route: /fr/
+    - label: Nuage de talents
+      title: En savoir plus sur le projet Nuage de talents.
+      route: /fr/talent-cloud/
+    - label: Talent numérique
+      title: En savoir plus sur la communauté des talents numériques.
+      route: /fr/communities/digital-talent/
+breadcrumbs:
+  home:
+    title:
+      en: Return to the homepage.
+      fr: Retour à la page d'accueil.
+  talentCloud:
+    title:
+      en: Return to the Talent Cloud page.
+      fr: Retournez à la page de Nuage de talents.
+    report:
+      title:
+        en: Return to the Talent Cloud results report.
+        fr: Retournez au rapport des résultats de Nuage de talents.
+gctalenthome:
+  title:
+    en: Welcome to GC Talent
+    fr: Bienvenue chez le Talent GC
+  about:
+    title:
+      en: About GC Talent
+      fr: À propos du Talent GC
+    content:
+      intro:
+        en: GC Talent connects people looking for career and development opportunities to Government of Canada equity-based and functional communities. These communities manage talent pools and organize development and mobility opportunities for those with key skill sets, working in various types of roles.
+        fr: Le Talent GC met en relation les personnes à la recherche de possibilités de carrière et de perfectionnement avec les collectivités fonctionnelles et axées sur l’équité au sein du gouvernement du Canada. Ces collectivités gèrent des bassins de talents et organisent des possibilités de perfectionnement et de mobilité pour les personnes qui possèdent des compétences clés, et qui occupent divers types de rôles.
+      listLabel:
+        en: 'In this ecosystem, users can:'
+        fr: 'Dans cet écosystème, les utilisateurs peuvent :'
+      list:
+        en:
+          - item: Create a reusable profile that showcases their unique set of skills
+          - item: Curate their list of skills in a way that is recognized and valued by Government of Canada managers
+          - item: Learn about equity-based and functional communities within the Public Service that align with their expertise or identity
+          - item: Browse opportunities within the entire platform ecosystem or choose to focus on opportunities offered by specific communities
+          - item: Get found by Government of Canada managers looking to add new talent to their teams
+        fr:
+          - item: créer un profil réutilisable qui présente leurs compétences uniques;
+          - item: organiser leur liste de compétences de sorte qu’elle soit reconnue et valorisée par les gestionnaires du gouvernement du Canada;
+          - item: prendre connaissance des collectivités fonctionnelles et axées sur l’équité au sein de la fonction publique qui correspondent à leur expertise ou à leur identité;
+          - item: parcourir les possibilités dans l’ensemble de l’écosystème de la plateforme ou choisir de se concentrer sur les possibilités offertes par des collectivités particulières;
+          - item: être sélectionnés par les gestionnaires du gouvernement du Canada qui cherchent à ajouter de nouveaux talents à leur équipe.
+      subscribe:
+        en: 'Both portals are still in development. <a href="mailto:GCTalentGC@tbs-sct.gc.ca" title="Email GC Talent.">Subscribe to our mailing list</a> to be notified when the portals go live.'
+        fr: 'Les deux portails sont toujours en cours d’élaboration. <a href="mailto:GCTalentGC@tbs-sct.gc.ca" title="Envoyer un courriel au Talent GC.">Inscrivez-vous à notre liste de diffusion</a> pour être informé de la mise en service des portails.'
+  partner:
+    en: Community Partner
+    fr: Partenaire communautaire
+  digitalTalent:
+    link:
+      title:
+        en: Learn more about the Digital Talent Community.
+        fr: En savoir plus sur la communauté des talents numériques.
+    title:
+      en: Digital Talent
+      fr: Talents numériques
+    content:
+      en:
+        - item: Connecting Government of Canada managers with digital talent across the country.
+        - item: Play a role in the Government of Canada’s digital journey. Get found by GC Managers, and join a team where you can use your unique skill set to make a difference in the lives of Canadians.
+        - item: 'Be a part of <span data-h2-font-weight="b(bold)">#GCDigital</span>.'
+      fr:
+        - item: Mettre en relation les gestionnaires du gouvernement du Canada avec des talents numériques de tout le pays.
+        - item: Jouer un rôle dans le parcours numérique du gouvernement du Canada. Faites-vous repérer par les directeurs généraux et joignez-vous à une équipe où vous pourrez utiliser vos compétences uniques pour faire une différence dans la vie des Canadiens.
+        - item: 'Faire partie du <span data-h2-font-weight="b(bold)">#GCNumérique</span>.'
+  indigenousTalent:
+    link:
+      title:
+        en: Learn more about the Indigenous Talent Community.
+        fr:
+    title:
+      en: Indigenous Talent
+      fr: Talents autochtones
+    content:
+      en:
+        - item: Built for the Indigenous community, under the guidance and efforts of Indigenous public servants, with the involvement of Indigenous voices from inside and outside government.
+        - item: A portal designed for Indigenous talent to showcase their unique set of skills and share their stories according to their own teachings and beliefs.
+      fr:
+        - item: Conçu pour la communauté autochtone, sous la direction et les efforts de fonctionnaires autochtones, avec la participation des voix autochtones de l’intérieur et de l’extérieur du gouvernement.
+        - item: Un portail conçu pour que les talents autochtones puissent présenter leurs compétences uniques et partager leurs histoires selon leurs propres enseignements et croyances.
+  talentCloud:
+    title:
+      en: 'Research-Driven Innovation: The Talent Cloud Experiment'
+      fr: 'Innovation axée sur la recherche : L’expérience du Nuage de talents'
+    content:
+      en:
+        - item: Talent Cloud was a 3-year experimental project that explored new approaches to talent recruitment and mobility in the Government of Canada. The project concluded in Spring 2021.
+        - item: A comprehensive record of the project, including the goals, structure, process, and outcomes, can be found in the Talent Cloud Results Report.
+      fr:
+        - item: Le Nuage de talents était un projet expérimental de trois ans qui a exploré de nouvelles approches en matière de recrutement de talents et de mobilité au gouvernement du Canada. Le projet a pris fin au printemps 2021.
+        - item: Un dossier complet du projet, y compris les objectifs, la structure, le processus et les résultats, se trouve dans le Rapport sur les résultats du Nuage de talents.
+    tcLink:
+      en:
+        title: Learn more about the Talent Cloud project.
+        label: Learn More About Talent Cloud
+      fr:
+        title: En savoir plus sur le projet nuage de talents.
+        label: En savoir plus sur le Nuage de talents.
+    reportLink:
+      en:
+        title: Read the full Talent Cloud Results Report.
+        label: Read the Report
+      fr:
+        title: Lisez le rapport complet sur les résultats du Nuage de talents.
+        label: Lire le rapport
+talentCloud:
+  title:
+    en: Talent Cloud
+    fr: Nuage de talents
+reportTitle:
+  en: Talent Cloud Results Report
+  fr: Rapport sur les résultats de Nuage de talents
+reportSections:
+  title:
+    en: Section
+    fr: Section
+  en:
+    - key: "0"
+      title: Introductions
+    - key: "1"
+      title: Operations and Overview
+    - key: "2"
+      title: Research Results on Optimizing Talent-to-team Match
+    - key: "3"
+      title: Research Results on Diversity and Inclusion
+    - key: "4"
+      title: Research Results on Reducing Time-to-staff
+    - key: "5"
+      title: At the Intersection of Today's Challenges and Tomorrow's Potential
+    - key: "6"
+      title: Appendices
+  fr:
+    - key: "0"
+      title: Introductions
+    - key: "1"
+      title: Fonctionnement et aperçu
+    - key: "2"
+      title: Résultats de la recherche sur Optimiser l’appariement entre les talents et les équipes
+    - key: "3"
+      title: Résultats de la recherche sur la diversité et l’inclusion
+    - key: "4"
+      title: Résultats de la recherche sur la réduction du temps de dotation
+    - key: "5"
+      title: À l’intersection des défis d’aujourd’hui et du potentiel de demain
+    - key: "6"
+      title: Annexes
+reportCategories:
+  en:
+    - title: The Project Vision
+      key: vision
+      slogan: I'm interested in the project vision and ideas for the future.
+      target:
+        label: see the list
+        title: Scroll down to the links that discuss the project vision and ideas for the future.
+    - title: Diversity and Inclusion
+      key: diversity
+      slogan: I'm interested in diversity and inclusion.
+      target:
+        label: see the list
+        title: Scroll down to the links that discuss diversity and inclusion.
+    - title: Set Up Similar Projects
+      key: projects
+      slogan: I'm interested in how to set up similar projects in government.
+      target:
+        label: see the list
+        title: Scroll down to the links that discuss setting up similar projects in government.
+    - title: Streamlining the Hiring Process
+      key: hiring
+      slogan: I'm interested in how to streamline the hiring process.
+      target:
+        label: see the list
+        title: Scroll down to the links that discuss the hiring process.
+  fr:
+    - title: La vision du projet
+      key: vision
+      slogan: Je suis intéressé par la vision du projet et les idées pour l'avenir.
+      target:
+        label: voir la liste
+        title: Faites défiler vers le bas les liens qui traitent de la vision du projet et des idées pour l'avenir.
+    - title: Diversité et inclusion
+      key: diversity
+      slogan: Je suis intéressé par la diversité et l'inclusion.
+      target:
+        label: voir la liste
+        title: Faites défiler vers le bas les liens qui traitent de la diversité et de l'inclusion.
+    - title: Créez des projets similaires
+      key: projects
+      slogan: Je m'intéresse à la manière de mettre en place des projets similaires au sein du gouvernement.
+      target:
+        label: voir la liste
+        title: Faites défiler vers le bas les liens qui traitent de la mise en place de projets similaires au sein du gouvernement.
+    - title: Rationaliser le processus d'embauche
+      key: hiring
+      slogan: Je suis intéressé par la façon de rationaliser le processus d'embauche.
+      target:
+        label: voir la liste
+        title: Faites défiler vers le bas les liens qui traitent du processus d'embauche.
+standards:
+  en:
+    - key: iterate
+      label: Iterate and Improve
+      icon: ds-iterate.svg
+    - key: open-work
+      label: Work in the Open
+      icon: ds-open-work.svg
+    - key: open-standards
+      label: Open Standards & Solutions
+      icon: ds-open-standards.svg
+    - key: security
+      label: Security and Privacy
+      icon: ds-security.svg
+    - key: data
+      label: Data Stewardship
+      icon: ds-data.svg
+    - key: ethics
+      label: Ethical Services
+      icon: ds-ethics.svg
+    - key: empower-staff
+      label: Empower Service Delivery
+      icon: ds-empower-staff.svg
+    - key: users
+      label: Design with Users
+      icon: ds-users.svg
+    - key: accessibility
+      label: Accessible by Design
+      icon: ds-accessibility.svg
+    - key: collaboration
+      label: Collaboration
+      icon: ds-collaboration.svg
+  fr:
+    - key: iterate
+      label: Répéter et améliorer
+      icon: ds-iterate.svg
+    - key: open-work
+      label: Travailler ouvertement
+      icon: ds-open-work.svg
+    - key: open-standards
+      label: Normes et solutions ouvertes
+      icon: ds-open-standards.svg
+    - key: security
+      label: Sécurité et protection de la vie privée
+      icon: ds-security.svg
+    - key: data
+      label: Gérance des données
+      icon: ds-data.svg
+    - key: ethics
+      label: Services éthiques
+      icon: ds-ethics.svg
+    - key: empower-staff
+      label: Renforcer la prestation de services
+      icon: ds-empower-staff.svg
+    - key: users
+      label: Concevoir avec les utilisateurs
+      icon: ds-users.svg
+    - key: accessibility
+      label: Conception accessible
+      icon: ds-accessibility.svg
+    - key: collaboration
+      label: Collaboration
+      icon: ds-collaboration.svg
+tocButton:
+  en: Return to Table of Contents
+  fr: Retour à la table des matières
+prevArticleButton:
+  en: Previous Article
+  fr: Article précédent
+  title:
+    en: Go to the previous article in the series.
+    fr: Allez à l'article précédent de la série.
+nextArticleButton:
+  en: Next Article
+  fr: Article suivant
+  title:
+    en: Go to the next article in the series.
+    fr: Passez à l'article suivant de la série.
+accordion:
+  en:
+    accessibilityLabel: Click to view...
+  fr:
+    accessibilityLabel: Cliquez pour voir...
+articleContinue:
+  en: Article continues below
+  fr: L'article se poursuit ci-dessous
+articleContinueAlt:
+  en: Click here to scroll past the image break to the next section of the article.
+  fr: Cliquez ici pour faire défiler l'image et passer à la section suivante de l'article.
+processLabel:
+  en: "Process Interventions:"
+  fr: "Interventions liées au processus :"
+footer:
+  en:
+    - route: mailto:GCTalentGC@tbs-sct.gc.ca
+      type: absolute
+      title: Submit feedback to GC Talent Cloud via email.
+      label: Feedback
+    - route: terms-and-conditions
+      title: View our terms and conditions.
+      label: Terms & Conditions
+    - route: privacy-notice
+      title: View our privacy policy.
+      label: Privacy Policy
+    - route: https://www.canada.ca/en.html
+      type: absolute
+      title: Visit Canada.ca.
+      label: Canada.ca
+  fr:
+    - route: mailto:GCTalentGC@tbs-sct.gc.ca
+      type: absolute
+      title: Soumettre des commentaires au Nuage de talents du GC par courriel.
+      label: Retour d'information
+    - route: terms-and-conditions
+      title: Voir nos avis.
+      label: Avis
+    - route: privacy-notice
+      title: Voir notre politique de confidentialité.
+      label: Confidentialité
+    - route: https://www.canada.ca/fr.html
+      type: absolute
+      title: Visiter Canada.ca.
+      label: Canada.ca
+coming:
+  en: Coming soon!
+  fr: Bientôt disponible !
+footerLogo:
+  en:
+    route: https://www.canada.ca/en.html
+    title: Visit Canada.ca.
+    alt: Canada's Logo.
+  fr:
+    route: https://www.canada.ca/fr.html
+    title: Visiter Canada.ca.
+    alt: Symbole du gouvernement du Canada.
+footerDate:
+  en:
+    dateLabel: Date Modified
+    date: July 07, 2021
+  fr:
+    dateLabel: Date de modification
+    date: July 07, 2021
+auth:
+  en:
+    - label: Login      
+      route: https://talent.canada.ca/login?locale=en
+    - label: Register      
+      route: https://talent.canada.ca/register?locale=en
+  fr:
+    - label: Connexion      
+      route: https://talent.canada.ca/login?locale=fr
+    - label: S'inscrire
+      route: https://talent.canada.ca/register?locale=fr

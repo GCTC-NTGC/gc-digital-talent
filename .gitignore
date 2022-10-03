@@ -7,3 +7,5 @@ frontend/cypress/screenshots
 frontend/cypress/videos
 frontend/cypress/reporters
 frontend/cypress/downloads
+
+.jekyll-cache

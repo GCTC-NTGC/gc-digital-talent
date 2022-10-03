@@ -1,0 +1,12 @@
+@use 'sass:color';
+
+@use '../maps/map-radius' as radiusMap;
+@use '../maps/map-states' as stateMap;
+
+@use '../utilities/utility-radius' as radiusStyles;
+
+@include radiusStyles.h2-utility-radius(
+  $mediaKey: 'MEDIAKEY',
+  $stateMap: stateMap.$h2-map-states,
+  $radiusMap: radiusMap.$h2-map-radius
+);

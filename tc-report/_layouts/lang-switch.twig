@@ -1,0 +1,31 @@
+---
+layout: boilerplate
+key: switch
+---
+<header>
+{% include goc.html %}
+</header>
+<main id="mainContent">
+  <div data-h2-position="b(relative)"
+  data-h2-overflow="b(all, hidden)">
+    <div
+      data-h2-position="b(absolute)"
+      style="height: 110%;width: 110%;filter: blur(8px); background-image: url('{{ '/img/ui-home-placeholder.jpg' | prepend: site.asset_url }}'); background-position: center;background-size: cover;position: absolute;top: -5%;left: -5%;" ></div>
+    <section data-h2-padding="b(top-bottom, l) m(top-bottom, xxl)" data-h2-position="b(relative)">
+      <div
+        data-h2-bg-color="b(white)"
+        data-h2-radius="b(s)"
+        data-h2-shadow="b(m)"
+        data-h2-padding="b(top-bottom, l) b(right-left, m) m(top-bottom, xxl)"
+        data-h2-container="b(center, s)"
+        data-h2-text-align="b(center)">
+        <h1 data-h2-font-weight="b(200)" data-h2-font-size="b(h2)" data-h2-padding="b(bottom, m) m(bottom, xl)">Welcome to GC Talent<br>Bienvenue chez le Talent GC</h1>
+        {% assign enLink = '/en' | prepend: site.baseurl %}
+        {% include button.html type="link" style="secondary" route=enLink label="English" %}
+        {% assign frLink = '/fr' | prepend: site.baseurl %}
+        {% include button.html type="link" style="secondary" route=frLink label="Français" %}
+      </div>
+    </section>
+  </div>
+</main>
+{% include footer.html %}

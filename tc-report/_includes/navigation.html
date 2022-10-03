@@ -1,0 +1,41 @@
+<div
+  data-h2-container="b(center, full)"
+  data-h2-flex-grid="b(middle, contained, flush, none)"
+  data-h2-padding="b(top-bottom, m)"
+   {% if include.color == "white" %}data-h2-font-color="b(white)"{% endif %}
+>
+
+  
+  
+    <nav id="main-navigation" aria-label="main-navigation" data-h2-text-align="b(center) m(left)" data-h2-flex-item="b(1of1) m(1of2)">
+      <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" style="margin-left: -.7rem;">
+        {% for item in site.data.translations.navigation[page.lang] %}
+          <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+            <a href="{{ item.route | prepend: site.baseurl }}" title="{{ item.title }}"
+              {% if include.style == "light" %}
+                data-h2-font-color="b(white)"
+              {% endif %}
+              data-h2-display="b(block)"
+              data-h2-padding="b(all, xs) m(right-left, s)">{{ item.label }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <nav id="login-navigation" aria-label="login-navigation" data-h2-text-align="b(center) m(right)" data-h2-flex-item="b(1of1) m(1of2)">
+      <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" style="margin-right: -.7rem;">
+        {% for item in site.data.translations.auth[page.lang] %}
+          <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+            <a href="{{ item.route | prepend: site.baseurl }}" title="{{ item.title }}"
+              {% if include.style == "light" %}
+                data-h2-font-color="b(white)"
+              {% endif %}
+              data-h2-display="b(block)"
+              data-h2-padding="b(all, xs) m(right-left, s)">{{ item.label }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+    
+  
+</div>
