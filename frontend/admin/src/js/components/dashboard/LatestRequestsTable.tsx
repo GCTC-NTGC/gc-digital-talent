@@ -64,9 +64,9 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
           paths.searchRequestView(id),
           intl.formatMessage({
             defaultMessage: "request",
-            id: "dKtPxj",
+            id: "u9JHS9",
             description:
-              "Text displayed on the search request table view buttons.",
+              "Text displayed after View text for Latest Request table view action",
           }),
           fullName || undefined,
         ),

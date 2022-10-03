@@ -50,9 +50,9 @@ export const SearchRequestTable: React.FunctionComponent<
             paths.searchRequestView(id),
             intl.formatMessage({
               defaultMessage: "request",
-              id: "dKtPxj",
+              id: "gLtTaW",
               description:
-                "Text displayed on the search request table view buttons.",
+                "Text displayed after View text for Search Request table view action",
             }),
             fullName || "",
           ),
