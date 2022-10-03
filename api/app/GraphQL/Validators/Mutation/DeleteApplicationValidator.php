@@ -26,7 +26,7 @@ final class DeleteApplicationValidator extends Validator
     public function messages(): array
     {
         return  [
-            'in' => ':attribute does not contain a valid value.',
+            'in' => ':attribute InvalidValueDeletion',
         ];
     }
 }
