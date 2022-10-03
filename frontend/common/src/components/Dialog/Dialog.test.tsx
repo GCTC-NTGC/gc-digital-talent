@@ -69,7 +69,7 @@ describe("Dialog", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("should not render when opened", async () => {
+  it("should render when opened", async () => {
     renderDialog({
       children: <DefaultChildren />,
     });

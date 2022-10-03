@@ -68,7 +68,7 @@ describe("AlertDialog", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("should not render when opened", async () => {
+  it("should render when opened", async () => {
     renderAlertDialog({
       children: <DefaultChildren />,
     });
