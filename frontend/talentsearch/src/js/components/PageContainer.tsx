@@ -13,7 +13,6 @@ import {
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import NotAuthorized from "@common/components/NotAuthorized";
-import TALENTSEARCH_APP_DIR from "../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../applicantProfileRoutes";
 
 export const exactMatch = (ref: string | null, test: string): boolean =>
@@ -154,14 +153,15 @@ export const PageContainer: React.FC<{
           data-h2-flex-direction="base(column)"
           data-h2-height="base(100vh)"
           data-h2-margin="base(0)"
+          data-h2-color="base(black) base:dark(white)"
         >
           <div>
-            <Header baseUrl={TALENTSEARCH_APP_DIR} />
+            <Header />
             <NavMenu mainItems={menuItems} utilityItems={authLinks} />
           </div>
           <main id="main">{content}</main>
           <div style={{ marginTop: "auto" }}>
-            <Footer baseUrl={TALENTSEARCH_APP_DIR} />
+            <Footer />
           </div>
         </div>
       </>
