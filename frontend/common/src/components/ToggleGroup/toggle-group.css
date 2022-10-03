@@ -2,6 +2,11 @@
   background: none;
 }
 
+.ToggleGroup__Item > svg,
+.ToggleGroup__Item > svg > * {
+  color: inherit !important;
+}
+
 .ToggleGroup > [data-state="on"].ToggleGroup__Item {
   background-color: var(--h2-color-white);
   color: var(--h2-color-dt-black);
