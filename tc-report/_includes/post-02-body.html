@@ -1,0 +1,269 @@
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    {% for item in page.blocks %}
+      {% if item.type == null or item.type == "title" or item.type == "subtitle" or item.type == "pullquote" or item.type == "callout" or item.type == "list" or item.type == "graphic" or item.type == "image-group" or item.type == "standards" or item.type == "days" or item.type == "five" %}
+        {% if item.type == null %}
+          <!-- Basic Content -->
+          <p>{{ item }}</p>
+        {% elsif item.type == "title" %}
+          <!-- Titles -->
+          {% include title-h3.html title=item.label padding="data-h2-margin='b(top, xl) b(bottom, s)'" %}
+        {% elsif item.type == "subtitle" %}
+          <!-- Subtitles -->
+          {% include title-h4.html title=item.label padding="data-h2-margin='b(top, xl) b(bottom, s)'" %}
+        {% elsif item.type == "list" %}
+          {% if item.style == "ordered" %}
+            <ol>
+              {% for i in item.items %}
+                <li>{{ i }}</li>
+              {% endfor %}
+            </ol>
+          {% else %}
+            <ul>
+              {% for i in item.items %}
+                <li>{{ i }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% elsif item.type == "pullquote" %}
+          <!-- Pullquotes -->
+          <blockquote
+            data-h2-border="b(red, left, solid, m)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(left, m)">
+            {% if item.title %}
+              <p
+                data-h2-font-color="b(red)"
+                data-h2-font-weight="b(bold)">{{ item.title }}</p>
+            {% endif %}
+            {% for paragraph in item.content %}
+              <p data-h2-font-color="b(red)">{{ paragraph }}</p>
+            {% endfor %}
+          </blockquote>
+        {% elsif item.type == "callout" %}
+          <!-- Callout -->
+          <blockquote
+            data-h2-bg-color="b(purple[.1])"
+            data-h2-border="b(purple, all, solid, s)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(right-left, m)"
+            data-h2-radius="b(s)">
+            {% if item.title %}
+              <p
+                data-h2-font-color="b(purple)"
+                data-h2-font-weight="b(bold)">{{ item.title }}</p>
+            {% endif %}
+            {% for paragraph in item.content %}
+              <p data-h2-font-color="b(purple)">{{ paragraph }}</p>
+            {% endfor %}
+          </blockquote>
+        {% elsif item.type == "graphic" %}
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            {% if item.size == 100 %}
+              <img
+                src="{{ site.asset_url }}/img/{{ item.src }}"
+                alt="{{ item.alt }}"
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                {% if item.caption %}
+                  <figcaption data-h2-font-size="b(caption)" data-h2-font-color="b(red)" data-h2-display="b(block)" data-h2-margin="b(top, s) b(right-left, auto)" style="width: 100%;">{{ item.caption }}</figcaption>
+                {% endif %}
+            {% elsif item.size == 50 %}
+              <img
+                src="{{ site.asset_url }}/img/{{ item.src }}"
+                alt="{{ item.alt }}"
+                style="width: 50%;"
+                data-h2-display="b(block)"
+                data-h2-margin="b(right-left, auto)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                {% if item.caption %}
+                  <figcaption data-h2-font-size="b(caption)" data-h2-font-color="b(red)" data-h2-display="b(block)" data-h2-margin="b(top, s) b(right-left, auto)" style="width: 50%;">{{ item.caption }}</figcaption>
+                {% endif %}
+            {% elsif item.size == 60 %}
+              <img
+                src="{{ site.asset_url }}/img/{{ item.src }}"
+                alt="{{ item.alt }}"
+                style="width: 60%;"
+                data-h2-display="b(block)"
+                data-h2-margin="b(right-left, auto)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                {% if item.caption %}
+                  <figcaption data-h2-font-size="b(caption)" data-h2-font-color="b(red)" data-h2-display="b(block)" data-h2-margin="b(top, s) b(right-left, auto)" style="width: 60%;">{{ item.caption }}</figcaption>
+                {% endif %}
+            {% elsif item.size == 80 %}
+              <img
+                src="{{ site.asset_url }}/img/{{ item.src }}"
+                alt="{{ item.alt }}"
+                style="width: 80%;"
+                data-h2-display="b(block)"
+                data-h2-margin="b(right-left, auto)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                {% if item.caption %}
+                  <figcaption data-h2-font-size="b(caption)" data-h2-font-color="b(red)" data-h2-display="b(block)" data-h2-margin="b(top, s) b(right-left, auto)" style="width: 80%;">{{ item.caption }}</figcaption>
+                {% endif %}
+            {% endif %}
+          </figure>
+        {% elsif item.type == "image-group" %}
+          <br>
+          <div data-h2-flex-grid="b(top, expanded, flush, m)">
+            {% for i in item.graphics %}
+              <div data-h2-flex-item="b(1of1) m(1of2)">
+                <img
+                  src="{{ site.asset_url }}/img/{{ i.src }}"
+                  alt="{{ i.alt }}"
+                  style="width: 100%;"
+                  data-h2-display="b(block)">
+              </div>
+            {% endfor %}
+          </div>
+        {% elsif item.type == "standards" %}
+          <!-- Digital Standards -->
+          {% for standard in item.items %}
+            <p data-h2-margin="b(top, xl) b(bottom, s)" data-h2-font-size="b(h4)" data-h2-font-weight="b(800)" data-h2-font-color="b(red)"><img data-h2-margin="b(right, xs)" style="vertical-align: middle; width: 1.8rem;" src="{{ site.asset_url }}/img/{{ standard.icon }}" aria-hidden="true">{{ standard.name }}</p>
+            {% for i in standard.context %}
+              <p>{{ i }}</p>
+            {% endfor %}
+          {% endfor %}
+        {% elsif item.type == "days" %}
+          <div data-h2-flex-grid="b(top, expanded, flush, l)">
+            {% for stat in item.items %}
+              <div data-h2-flex-item="b(1of1) m(1of3)" data-h2-text-align="b(center)">
+                <p data-h2-font-weight="b(800)" data-h2-font-size="b(h4)" data-h2-font-color="b(purple)">{{ stat.number }}</p>
+                <p>{{ stat.content }}</p>
+              </div>
+            {% endfor %}
+          </div>
+        {% elsif item.type == "five" %}
+          <div data-h2-flex-grid="b(top, expanded, flush, l)">
+            {% for i in item.items %}
+              <div data-h2-flex-item="b(1of1) m(1of2)">
+                <span data-h2-font-color="b(wine)" data-h2-font-weight="b(800)">#{{ i.key }}</span> {{ i.thought }}
+              </div>
+              <div data-h2-flex-item="b(1of1) m(1of2)">
+                {{ i.turns }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% elsif item.type == "image" %}
+        </div>
+        <!-- Images -->
+        <div
+          data-h2-margin="b(top, xxl) b(bottom, l) l(top-bottom, xxl)"
+          style="background-image: url('{{ site.asset_url }}/img/{{ item.src }}'); background-position: center; background-size: cover; min-height: 60vh; position: relative;"
+          title="{{ item.alt }}">
+          <a
+            href="#{{ item.route }}"
+            title="{{ site.data.translations.articleContinueAlt[page.lang] }}"
+            data-h2-bg-color="b(white)"
+            data-h2-display="b(inline-block)"
+            data-h2-font-size="b(caption)"
+            data-h2-text-align="b(center)"
+            data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+            data-h2-radius="b(m)"
+            data-h2-shadow="b(m)"
+            style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); min-width: 15rem;">
+            <svg
+              data-h2-margin="b(right, xxs)"
+              style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7" />
+            </svg>{{ site.data.translations.articleContinue[page.lang] }}</a>
+        </div>
+        <span id="{{ item.route }}"></span>
+        <div data-h2-container="b(center, s)">
+      {% elsif item.type == "process" %}
+        </div>
+        <div data-h2-container="b(center, full)" data-h2-padding="b(top, xxl)">
+          <div data-h2-flex-grid="b(top, expanded, flush, xxl)">
+            {% for chunk in item.chunks %}
+              <div data-h2-flex-item="b(1of1) m(1of2)">
+                <h3 data-h2-text-align="b(center)" data-h2-font-size="b(h5)" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)" data-h2-margin="b(bottom, m)">{{ chunk.name }}</h3>
+                <img
+                  src="{{ site.asset_url }}/img/{{ chunk.graphic.src }}"
+                  alt="{{ chunk.graphic.alt }}"
+                  style="display: block; height: 40vh; margin: 0 auto; max-width: 100%;"
+                  data-h2-margin="b(top-bottom, l)">
+                <div data-h2-flex-grid="b(top, contained, flush, s)">
+                  {% for step in chunk.steps %}
+                    <div data-h2-flex-item="b(1of1) m(1of3)">
+                      <p data-h2-font-weight="b(600)">{{ step.key }}: {{ step.name }}</p>
+                      <p data-h2-font-color="b(wine)" data-h2-margin="b(bottom, xxs)">{{ site.data.translations.processLabel[page.lang] }}</p>
+                      <ul>
+                        {% for i in step.items %}
+                          <li>{{ i }}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div data-h2-container="b(center, s)">
+      {% elsif item.type == "roads" %}
+        </div>
+        <div data-h2-container="b(center, full)">
+          <div data-h2-flex-grid="b(top, expanded, flush, xxl)">
+            {% for road in item.roads %}
+              <div data-h2-flex-item="b(1of1) m(1of2)">
+                <h3 data-h2-text-align="b(center)" data-h2-font-size="b(h5)" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">{{ road.key }}: {{ road.name }}</h3>
+                <img
+                  src="{{ site.asset_url }}/img/{{ road.graphic.src }}"
+                  alt="{{ road.graphic.alt }}"
+                  style="width: 100%;"
+                  data-h2-margin="b(top-bottom, l)">
+                {% for i in road.items %}
+                  <p>{{ i }}</p>
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div data-h2-container="b(center, s)">
+      {% elsif item.type == "5-factor" %}
+        <div data-h2-padding="b(top-bottom, l)">
+          <div data-h2-flex-grid="b(top, expanded, flush, l)">
+            {% for section in item.sections %}
+              <div data-h2-flex-item="b(1of1) m(1of2)">
+                <p data-h2-text-align="b(center)">{{ section.title }}</p>
+                <img
+                  src="{{ site.asset_url }}/img/{{ section.graphic.src }}"
+                  alt="{{ road.graphic.alt }}"
+                  style="width: 100%;"
+                  data-h2-margin="b(top-bottom, l)">
+                <p data-h2-text-align="b(center)">{{ section.subtitle }}</p>
+                <ul>
+                  {% for i in section.list %}
+                    <li>{{ i }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% elsif item.type == "large-graphic" %}
+        </div>
+        <div data-h2-container="b(center, m)" data-h2-margin="b(top-bottom, m)">
+          <img
+            src="{{ site.asset_url }}/img/{{ item.src }}"
+            alt="{{ item.alt }}"
+            style="width: 100%;"
+            data-h2-display="b(block)"
+            data-h2-margin="b(right-left, auto)">
+            {% if item.caption %}
+              <figcaption data-h2-font-size="b(caption)" data-h2-font-color="b(red)" data-h2-display="b(block)" data-h2-margin="b(top, s) b(right-left, auto)" style="width: 100%;">{{ item.caption }}</figcaption>
+            {% endif %}
+        </div>
+        <div data-h2-container="b(center, s)">
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% include post-03-actions.html %}
+</main>

@@ -1,0 +1,12 @@
+@use 'sass:color';
+
+@use '../maps/map-states' as stateMap;
+@use '../maps/map-opacity' as opacityMap;
+
+@use '../utilities/utility-opacity' as opacityStyles;
+
+@include opacityStyles.h2-utility-opacity(
+  $mediaKey: 'MEDIAKEY',
+  $stateMap: stateMap.$h2-map-states,
+  $opacityMap: opacityMap.$h2-map-opacity
+);

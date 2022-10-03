@@ -1,0 +1,49 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | {{ page.title | replace: "<br>", " " | strip_html }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ '/apple-touch-icon.png' | prepend: site.baseurl }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ '/favicon-32x32.png' | prepend: site.baseurl }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ '/favicon-16x16.png' | prepend: site.baseurl }}">
+  <link rel="manifest" href="{{ '/site.webmanifest' | prepend: site.baseurl }}">
+  <link rel="mask-icon" href="{{ '/safari-pinned-tab.svg' | prepend: site.baseurl }}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  {% if page.h2 == "home" %}
+    <link rel="stylesheet" href="{{ '/css/hydrogen.css' | prepend: site.asset_url }}">
+  {% else %}
+    <!-- <link rel="stylesheet" href="{{ '/css/hydrogen-tc.css' | prepend: site.asset_url }}"> -->
+    <link rel="stylesheet" href="{{ '/css/hydrogen.css' | prepend: site.asset_url }}">
+  {% endif %}
+  <!-- App CSS -->
+  <link rel="stylesheet" href="{{ '/css/app.css' | prepend: site.asset_url }}">
+</head>

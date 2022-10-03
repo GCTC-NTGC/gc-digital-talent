@@ -1,0 +1,152 @@
+<section id="mainContent">
+  <div
+    data-h2-text-align="b(center)"
+    data-h2-padding="b(top, xxl) b(bottom, xl)"
+    data-h2-container="b(center, m)">
+    {% assign translatedSiteTitle = page.title %} 
+    {% include title-h1.html title=translatedSiteTitle %}
+  </div>
+  <div data-h2-position="b(relative)" data-h2-padding="b(top, xxl)">
+    {% if page.key == "iap" %}
+      {% include wave.twig orientation="normal" %}
+    {% elsif page.key == "dt" %}
+      {% include hex.twig orientation="normal" %}
+    {% endif %}
+    <div
+      data-h2-container="b(center, l)"
+      data-h2-padding="b(bottom, xl)"
+      data-h2-position="b(relative)"
+      style="align-items: normal">
+      <div
+        data-h2-flex-grid="b(stretch, expanded, flush, m) m(stretch, expanded, flush, xl)">
+        <div data-h2-flex-item="b(1of1)">
+          <div
+            data-h2-bg-color="b(white)"
+            data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xl)"
+            data-h2-radius="b(s)"
+            data-h2-shadow="b(s)">
+            <div
+              data-h2-display="b(flex)"
+              data-h2-align-items="b(center)"
+              data-h2-text-align="b(center) m(left)"
+              data-h2-padding="b(bottom, s) m(bottom, m)">
+              {% if page.key == "iap" %}
+                {% include itp-icon.html %}
+                {% assign applicationImageClass = "bg-image-wolves" %}
+                {% assign managerImageClass = "bg-image-dogwood" %}
+                {% assign blackColor = "itpBlack" %}
+                {% assign hydrogenBlack = "data-h2-bg-color='b(itpBlack)'" %}
+                {% assign primaryColor = "itpSecondary" %}
+                {% assign hydrogenPrimary = "data-h2-bg-color='b(itpSecondary)'" %}
+                {% assign hydrogenPrimaryFont = "data-h2-font-color='b(itpSecondary)'" %}
+              {% elsif page.key == "dt" %}
+                {% include dt-icon.html %}
+                {% assign applicationImageClass = "bg-image-test1" %}
+                {% assign managerImageClass = "bg-image-test2" %}
+                {% assign blackColor = "black" %}
+                {% assign hydrogenBlack = "data-h2-bg-color='b(black)'" %}
+                {% assign primaryColor = "primary" %}
+                {% assign hydrogenPrimary = "data-h2-bg-color='b(primary)'" %}
+                {% assign hydrogenPrimaryFont = "data-h2-font-color='b(primary)'" %}
+              {% endif %} 
+              {% include title-h2.html title=page.hero.what.title %}
+            </div>
+            <div>
+              {% for i in page.hero.what.whatContent %}
+                <p>{{ i }}</p>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div data-h2-flex-item="b(1of1) m(1of2)">
+          <div
+            class={{ applicationImageClass }}
+            data-h2-bg-color="b(white)"
+            data-h2-radius="b(s)"
+            data-h2-shadow="b(s)"
+            data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xxl)"
+            data-h2-text-align="b(center)"
+            data-h2-font-color="b(white)"
+            data-h2-display="b(flex)"
+            data-h2-justify-content="b(center)"
+            data-h2-flex-direction="b(column)"
+            style="height: 100%; min-height: 50vh;">
+            <span>
+              {% include title-h2.html title=page.hero.application.title %}
+            </span>
+            <span>
+              <p>{{ page.hero.application.subtitle }}</p>
+            </span>
+            <span>
+              {% assign contactRoute = page.hero.application.button.route %} 
+              {% include button.html type="link" route=contactRoute title=page.hero.application.button.title style=primaryColor label=page.hero.application.button.label %}
+            </span>
+          </div>
+        </div>
+        <div data-h2-flex-item="b(1of1) m(1of2)">
+          <div
+            class={{ managerImageClass }}
+            data-h2-bg-color="b(white)"
+            data-h2-radius="b(s)"
+            data-h2-shadow="b(s)"
+            data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xxl)"
+            data-h2-text-align="b(center)"
+            data-h2-font-color="b(white)"
+            data-h2-display="b(flex)"
+            data-h2-justify-content="b(center)"
+            data-h2-flex-direction="b(column)"
+            style="height: 100%; min-height: 50vh;">
+            <span>
+              {% include title-h2.html title=page.build.manager.title %}
+            </span>
+            <span>
+              <p>{{ page.build.manager.subtitle }}</p>
+            </span>
+            <span>
+              {% assign contactRoute = page.build.manager.button.route %} 
+              {% include button.html type="link" route=contactRoute title=page.build.manager.button.title style=primaryColor label=page.build.manager.button.label %}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-h2-position="b(relative)">
+    <div
+      {{ hydrogenBlack }}
+      data-h2-position="b(absolute)"
+      data-h2-location="b(bottom-left, none)"
+      data-h2-width="b(100)"
+      style="height: 50%"></div>
+    <div
+      data-h2-container="b(center, l)"
+      data-h2-padding="b(bottom, xl)"
+      data-h2-position="b(relative)"
+      style="align-items: normal">
+      <div data-h2-flex-grid="b(stretch, expanded, flush, m) m(stretch, expanded, flush, xl)">
+        <div data-h2-flex-item="b(1of1)">
+          {% capture aboutContent %}
+            <div
+              data-h2-display="b(flex)"
+              data-h2-align-items="b(center)"
+              data-h2-text-align="b(center) m(left)"
+              data-h2-padding="b(bottom, s) m(bottom, m)">
+              {% if page.key == "iap" %}
+                {% include itp-icon.html %}
+              {% elsif page.key == "dt" %}
+                {% include dt-icon.html %}
+              {% endif %}  
+              {% include title-h2.html title=page.hero.about.title %}
+            </div>
+            <div>
+              {% for i in page.hero.about.aboutContent %}
+                <p>{{ i }}</p>
+              {% endfor %}
+            </div>
+          {% endcapture %} 
+          {% include card.html content=aboutContent %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

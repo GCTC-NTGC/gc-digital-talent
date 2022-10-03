@@ -1,0 +1,19 @@
+---
+layout: boilerplate
+---
+
+{% include goc.html %} 
+{% include navigation.html %} 
+{% if page.key == "" or page.key == "dt" %}
+  {% include community-01-hero.twig %} 
+  {% include community-02-stats.twig %} 
+  {% include community-03-build.twig %} 
+{% else %}
+  <main id="mainContent">
+    <div data-h2-container="b(center, s)" data-h2-padding="b(top-bottom, xxl)" data-h2-text-align="b(center)">
+      {% assign coming = site.data.translations.coming[page.lang] %}
+      {% include title-h2.html title=coming %}
+    </div>
+  </main>
+{% endif %}
+{% include footer.html %}

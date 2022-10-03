@@ -1,0 +1,10 @@
+@use 'sass:color';
+
+@use '../maps/map-states' as stateMap;
+
+@use '../utilities/utility-layers' as layerStyles;
+
+@include layerStyles.h2-utility-layer(
+  $mediaKey: 'MEDIAKEY',
+  $stateMap: stateMap.$h2-map-states
+);

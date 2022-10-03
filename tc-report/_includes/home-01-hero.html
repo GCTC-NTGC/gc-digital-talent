@@ -1,0 +1,82 @@
+<div data-h2-text-align="b(center)" data-h2-padding="b(top, xxl) b(bottom, xl)">
+  {% assign translatedSiteTitle = page.title %} 
+  {% include title-h1.html title=translatedSiteTitle %}
+</div>
+<div data-h2-position="b(relative)">
+  {% include gradient-bg.html %}
+  <div 
+    data-h2-container="b(center, full)"
+    data-h2-padding="b(bottom, xl)"
+    data-h2-position="b(relative)">
+    <div
+      data-h2-flex-grid="b(top, expanded, flush, m) m(top, expanded, flush, xl)"
+      style="align-items: normal"
+    >
+      <div data-h2-flex-item="b(1of1) l(2of3)">
+        <div
+          data-h2-bg-color="b(white)"
+          data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xl)"
+          data-h2-radius="b(s)"
+          data-h2-shadow="b(s)"
+        >
+          <div
+            data-h2-display="b(flex)"
+            data-h2-align-items="b(center)"
+            data-h2-text-align="b(center) m(left)"
+            data-h2-padding="b(bottom, s) m(bottom, m)"
+          >
+            {% include parallelogram.html %} 
+            {% include title-h2.html title=page.section1.title flourish="true" %}
+          </div>
+          <div data-h2-flex-grid="b(top, expanded, flush, s) m(top, expanded, flush, m)">
+            {% for subsection in page.section1.subsections %}
+            <div data-h2-flex-item="b(1of1) m(1of3)">
+              <p data-h2-font-size="b(h5)" data-h2-font-color="b(purple)" data-h2-font-weight="b(400)" data-h2-margin="b(bottom, xs)">
+                {{ subsection.title }}
+              </p>
+              <p data-h2-margin="b(top-bottom, none)">{{ subsection.content }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div data-h2-flex-item="b(1of1) l(1of3)">
+        <div
+          class="bg-image-woman-walking"
+          data-h2-bg-color="b(white)"
+          data-h2-radius="b(s)"
+          data-h2-shadow="b(s)"
+          data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xl) l(right-left, l)"
+          data-h2-text-align="b(center)"
+          data-h2-font-color="b(white)"
+          data-h2-display="b(flex)"
+          data-h2-justify-content="b(center)"
+          data-h2-flex-direction="b(column)"
+          style="height: 100%"
+        >
+          <span>
+            {% include title-h2.html title=page.section2.title %}
+          </span>
+          <span>
+            <p>{{ page.section2.subtitle }}</p>
+          </span>
+          <span>
+            <a
+              href="{{ page.section2.button.route | prepend: site.baseurl }}"
+              title="{{ page.section2.button.title }}"
+              data-h2-display="b(inline-block)"
+              data-h2-font-color="b(white) b:h(hover) b:f(hover)"
+              data-h2-border="b(red, all, solid, s) b:h(hover, all, solid, s) b:f(hover, all, solid, s)"
+              data-h2-bg-color="b(red) b:h([light]hover) b:f([light]hover)"
+              data-h2-radius="b(s)"
+              data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+              style="transition: all .2s ease;"
+            >
+              {{ page.section2.button.label }}
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
