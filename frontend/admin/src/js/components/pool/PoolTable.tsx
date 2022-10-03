@@ -7,6 +7,7 @@ import { getLocale } from "@common/helpers/localize";
 import { FromArray } from "@common/types/utilityTypes";
 import Pending from "@common/components/Pending";
 import { getAdvertisementStatus } from "@common/constants/localizedConstants";
+import { commonMessages } from "@common/messages";
 import { GetPoolsQuery, Maybe, useGetPoolsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -127,7 +128,11 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Title displayed for the Pool table status column.",
         }),
         accessor: ({ advertisementStatus }) =>
-          intl.formatMessage(getAdvertisementStatus(advertisementStatus || "")),
+          intl.formatMessage(
+            advertisementStatus
+              ? getAdvertisementStatus(advertisementStatus)
+              : commonMessages.notFound,
+          ),
       },
       {
         Header: intl.formatMessage({
