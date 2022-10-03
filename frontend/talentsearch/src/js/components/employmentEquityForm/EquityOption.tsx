@@ -3,19 +3,34 @@ import { useIntl } from "react-intl";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 import { Button } from "@common/components";
+import { getEmploymentEquityGroup } from "@common/constants/localizedConstants";
+import {
+  DisabilityDialog,
+  IndigenousDialog,
+  VisibleMinorityDialog,
+  WomanDialog,
+} from "./dialogs";
+import { EquityDialogProps } from "./types";
+
+type EquityGroup = "woman" | "indigenous" | "minority" | "disability";
 
 interface EquityOptionProps {
   isAdded: boolean;
-  title: string;
-  onOpen: () => void;
+  option: EquityGroup;
+  onSave: (value: boolean) => void;
 }
 
-const EquityOption: React.FC<EquityOptionProps> = ({
-  isAdded,
-  onOpen,
-  title,
-}) => {
+const dialogMap: Record<EquityGroup, React.FC<EquityDialogProps>> = {
+  disability: DisabilityDialog,
+  indigenous: IndigenousDialog,
+  minority: VisibleMinorityDialog,
+  woman: WomanDialog,
+};
+
+const EquityOption = ({ isAdded, option, onSave }: EquityOptionProps) => {
   const intl = useIntl();
+  const title = intl.formatMessage(getEmploymentEquityGroup(option));
+  const Dialog = dialogMap[option];
 
   const removeText = intl.formatMessage(
     {
@@ -60,20 +75,24 @@ const EquityOption: React.FC<EquityOptionProps> = ({
     >
       <span>{title}</span>
       <span style={{ flexShrink: 0 }}>
-        <Button
-          onClick={onOpen}
-          type="button"
-          mode="outline"
-          color={isAdded ? "secondary" : "primary"}
-        >
-          <span data-h2-display="base(flex)" data-h2-align-items="base(center)">
-            <Icon
-              style={{ height: iconSize, width: iconSize }}
-              data-h2-margin="base(0, x.125, 0, 0)"
-            />
-            <span>{isAdded ? removeText : addText}</span>
-          </span>
-        </Button>
+        <Dialog isAdded={isAdded} onSave={onSave}>
+          <Button
+            type="button"
+            mode="outline"
+            color={isAdded ? "secondary" : "primary"}
+          >
+            <span
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(center)"
+            >
+              <Icon
+                style={{ height: iconSize, width: iconSize }}
+                data-h2-margin="base(0, x.125, 0, 0)"
+              />
+              <span>{isAdded ? removeText : addText}</span>
+            </span>
+          </Button>
+        </Dialog>
       </span>
     </div>
   );

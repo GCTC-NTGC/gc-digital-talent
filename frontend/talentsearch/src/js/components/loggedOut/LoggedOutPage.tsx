@@ -2,8 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import TileLink from "@common/components/TileLink";
-import { imageUrl, navigate } from "@common/helpers/router";
-import { DeprecatedDialog } from "@common/components/Dialog";
+import { imageUrl } from "@common/helpers/router";
+import AlertDialog from "@common/components/AlertDialog";
 import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
 import { BellIcon } from "@heroicons/react/24/outline";
@@ -122,48 +122,41 @@ const LoggedOutPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <DeprecatedDialog
-        confirmation
-        centered
-        isOpen={loggedIn}
-        onDismiss={() => {
-          navigate(profilePaths.myProfile());
-        }}
-        title={intl.formatMessage({
-          defaultMessage: "Logout",
-          id: "Hiv/2m",
-          description:
-            "Title for the modal that appears when an authenticated user lands on /logged-out.",
-        })}
-      >
-        <p data-h2-font-size="base(h5, 1)">
-          {intl.formatMessage({
-            defaultMessage: "Are you sure you would like to logout?",
-            id: "Zx3BVC",
-            description:
-              "Question displayed when authenticated user lands on /logged-out.",
-          })}
-        </p>
-        <DeprecatedDialog.Footer>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(center)"
-            data-h2-justify-content="base(flex-end)"
-          >
-            <Link
-              mode="outline"
-              color="primary"
-              type="button"
-              href={profilePaths.myProfile()}
-              external
-            >
-              {intl.formatMessage({
-                defaultMessage: "Cancel",
-                id: "AhNR6n",
-                description: "Link text to cancel logging out.",
-              })}
-            </Link>
-            <span data-h2-margin="base(0, 0, 0, x.5)">
+      <AlertDialog.Root open={loggedIn}>
+        <AlertDialog.Content>
+          <AlertDialog.Title>
+            {intl.formatMessage({
+              defaultMessage: "Logout",
+              id: "Hiv/2m",
+              description:
+                "Title for the modal that appears when an authenticated user lands on /logged-out.",
+            })}
+          </AlertDialog.Title>
+          <p data-h2-font-size="base(h5, 1)">
+            {intl.formatMessage({
+              defaultMessage: "Are you sure you would like to logout?",
+              id: "Zx3BVC",
+              description:
+                "Question displayed when authenticated user lands on /logged-out.",
+            })}
+          </p>
+          <AlertDialog.Footer>
+            <AlertDialog.Cancel>
+              <Link
+                mode="outline"
+                color="primary"
+                type="button"
+                href={profilePaths.myProfile()}
+                external
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Cancel",
+                  id: "AhNR6n",
+                  description: "Link text to cancel logging out.",
+                })}
+              </Link>
+            </AlertDialog.Cancel>
+            <AlertDialog.Action>
               <Button
                 mode="solid"
                 color="primary"
@@ -178,10 +171,10 @@ const LoggedOutPage: React.FC = () => {
                   description: "Link text to logout.",
                 })}
               </Button>
-            </span>
-          </div>
-        </DeprecatedDialog.Footer>
-      </DeprecatedDialog>
+            </AlertDialog.Action>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>
+      </AlertDialog.Root>
     </>
   );
 };

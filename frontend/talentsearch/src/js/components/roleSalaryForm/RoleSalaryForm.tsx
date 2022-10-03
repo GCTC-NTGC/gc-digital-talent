@@ -6,7 +6,6 @@ import {
   InformationCircleIcon,
 } from "@heroicons/react/24/solid";
 import { errorMessages, navigationMessages } from "@common/messages";
-import Button from "@common/components/Button";
 import { notEmpty } from "@common/helpers/util";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
@@ -39,25 +38,6 @@ import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle
 
 export type FormValues = {
   expectedGenericJobTitles: GenericJobTitleKey[];
-};
-
-// accessible button for modals - generate clickable inline elements resembling <a>
-interface ModalButtonProps {
-  click: (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
-  children?: React.ReactNode;
-}
-const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
-  return (
-    <Button
-      color="black"
-      mode="inline"
-      data-h2-padding="base(0)"
-      data-h2-font-size="base(caption)"
-      onClick={click}
-    >
-      <span data-h2-text-decoration="base(underline)">{children}</span>
-    </Button>
-  );
 };
 
 const dataToFormValues = (data: GetRoleSalaryInfoQuery): FormValues => {
@@ -131,36 +111,9 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
       });
   };
 
-  // modal logic section
-  const [isDialogLevel1Open, setDialogLevel1Open] =
-    React.useState<boolean>(false);
-  const [isDialogLevel2Open, setDialogLevel2Open] =
-    React.useState<boolean>(false);
-  const [isDialogLevel3LeadOpen, setDialogLevel3LeadOpen] =
-    React.useState<boolean>(false);
-  const [isDialogLevel3AdvisorOpen, setDialogLevel3AdvisorOpen] =
-    React.useState<boolean>(false);
-  const [isDialogLevel4ManagerOpen, setDialogLevel4ManagerOpen] =
-    React.useState<boolean>(false);
-  const [isDialogLevel4AdvisorOpen, setDialogLevel4AdvisorOpen] =
-    React.useState<boolean>(false);
-
   // intl styling functions section
   function link(msg: string, url: string) {
     return <a href={url}>{msg}</a>;
-  }
-
-  function openModal(msg: string, setOpenStateFn: (state: boolean) => void) {
-    return (
-      <ModalButton
-        click={(e) => {
-          setOpenStateFn(true);
-          e?.preventDefault();
-        }}
-      >
-        {msg}
-      </ModalButton>
-    );
   }
 
   const applicationBreadcrumbs = application
@@ -255,8 +208,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-01 selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (msg: string) =>
-                    openModal(msg, setDialogLevel1Open),
+                  openModal: (msg: React.ReactNode) =>
+                    DialogLevelOne({ children: msg }),
                 },
               ),
             },
@@ -271,8 +224,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-02 selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (msg: string) =>
-                    openModal(msg, setDialogLevel2Open),
+                  openModal: (msg: React.ReactNode) =>
+                    DialogLevelTwo({ children: msg }),
                 },
               ),
             },
@@ -287,8 +240,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (msg: string) =>
-                    openModal(msg, setDialogLevel3LeadOpen),
+                  openModal: (msg: React.ReactNode) =>
+                    DialogLevelThreeLead({ children: msg }),
                 },
               ),
             },
@@ -303,8 +256,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (msg: string) =>
-                    openModal(msg, setDialogLevel3AdvisorOpen),
+                  openModal: (msg: React.ReactNode) =>
+                    DialogLevelThreeAdvisor({ children: msg }),
                 },
               ),
             },
@@ -319,8 +272,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (msg: string) =>
-                    openModal(msg, setDialogLevel4AdvisorOpen),
+                  openModal: (msg: React.ReactNode) =>
+                    DialogLevelFourAdvisor({ children: msg }),
                 },
               ),
             },
@@ -335,8 +288,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (msg: string) =>
-                    openModal(msg, setDialogLevel4ManagerOpen),
+                  openModal: (msg: React.ReactNode) =>
+                    DialogLevelFourLead({ children: msg }),
                 },
               ),
             },
@@ -372,31 +325,6 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           cancelLink={{ href: returnRoute }}
         />
       </BasicForm>
-
-      <DialogLevelOne
-        isOpen={isDialogLevel1Open}
-        onDismiss={() => setDialogLevel1Open(false)}
-      />
-      <DialogLevelTwo
-        isOpen={isDialogLevel2Open}
-        onDismiss={() => setDialogLevel2Open(false)}
-      />
-      <DialogLevelThreeLead
-        isOpen={isDialogLevel3LeadOpen}
-        onDismiss={() => setDialogLevel3LeadOpen(false)}
-      />
-      <DialogLevelThreeAdvisor
-        isOpen={isDialogLevel3AdvisorOpen}
-        onDismiss={() => setDialogLevel3AdvisorOpen(false)}
-      />
-      <DialogLevelFourAdvisor
-        isOpen={isDialogLevel4AdvisorOpen}
-        onDismiss={() => setDialogLevel4AdvisorOpen(false)}
-      />
-      <DialogLevelFourLead
-        isOpen={isDialogLevel4ManagerOpen}
-        onDismiss={() => setDialogLevel4ManagerOpen(false)}
-      />
     </ProfileFormWrapper>
   );
 };
