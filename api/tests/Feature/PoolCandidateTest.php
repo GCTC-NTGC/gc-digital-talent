@@ -378,44 +378,54 @@ class PoolCandidateTest extends TestCase
 
     // Create initial data.
     PoolCandidate::factory()->count(5)->create([
-      'has_disability' => false,
-      'is_indigenous' => false,
-      'is_visible_minority' => false,
-      'is_woman' => false,
+      'user_id' => User::factory([
+        'has_disability' => false,
+        'is_indigenous' => false,
+        'is_visible_minority' => false,
+        'is_woman' => false,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
 
     // Create one new candidate for each EmploymentEquity filter
     PoolCandidate::factory()->create([
-      'has_disability' => true,
-      'is_indigenous' => false,
-      'is_visible_minority' => false,
-      'is_woman' => false,
+      'user_id' => User::factory([
+        'has_disability' => true,
+        'is_indigenous' => false,
+        'is_visible_minority' => false,
+        'is_woman' => false,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
-      'has_disability' => false,
-      'is_indigenous' => true,
-      'is_visible_minority' => false,
-      'is_woman' => false,
+      'user_id' => User::factory([
+        'has_disability' => false,
+        'is_indigenous' => true,
+        'is_visible_minority' => false,
+        'is_woman' => false,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
-      'has_disability' => false,
-      'is_indigenous' => false,
-      'is_visible_minority' => true,
-      'is_woman' => false,
+      'user_id' => User::factory([
+        'has_disability' => false,
+        'is_indigenous' => false,
+        'is_visible_minority' => true,
+        'is_woman' => false,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
-      'has_disability' => false,
-      'is_indigenous' => false,
-      'is_visible_minority' => false,
-      'is_woman' => true,
+      'user_id' => User::factory([
+        'has_disability' => false,
+        'is_indigenous' => false,
+        'is_visible_minority' => false,
+        'is_woman' => true,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
