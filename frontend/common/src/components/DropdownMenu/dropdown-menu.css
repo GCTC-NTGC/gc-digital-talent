@@ -1,12 +1,7 @@
-[data-reach-menu-list],
-[data-reach-menu-items] {
-  padding: 0.5rem 0;
+.DropdownMenu__Item {
+  background-color: var(--h2-color-dt-transparent);
 }
 
-[data-reach-menu-item] {
-  font-family: "Open Sans", sans-serif;
-}
-
-[data-reach-menu-item][data-selected] {
-  background-color: #674c90;
+.DropdownMenu__Item[data-disabled] {
+  color: var(--h2-color-dt-gray);
 }
