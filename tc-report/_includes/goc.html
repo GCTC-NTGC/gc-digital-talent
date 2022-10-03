@@ -1,0 +1,31 @@
+<div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
+        >
+          <img data-h2- alt="goc logo" src="{{ '/img/ui-goc.svg' | prepend: site.asset_url }}"
+        /></a>
+      </div>
+      {% if page.url == "/" %}
+        <!-- DO NOTHING -->
+      {% else %}
+        <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+          {% if page.lang == "en" %} {% assign pageURL = page.url | replace:
+          "/en/", "/fr/" %}
+          <a href="{{ pageURL | prepend: site.baseurl }}" title="Voir ce contenu en français.">Français</a>
+          {% elsif page.lang == "fr" %} {% assign pageURL = page.url | replace:
+          "/fr/", "/en/" %}
+          <a href="{{ pageURL | prepend: site.baseurl }}" title="View this content in English.">English</a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

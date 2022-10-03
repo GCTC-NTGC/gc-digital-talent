@@ -1,0 +1,1899 @@
+[data-h2-bg-color*="MEDIAKEY(white)"] {
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]white)"] {
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]white)"] {
+  background-color: #d9d9d9;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(white[.1])"] {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]white[.1])"] {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]white[.1])"] {
+  background-color: rgba(217, 217, 217, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(white[.2])"] {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]white[.2])"] {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]white[.2])"] {
+  background-color: rgba(217, 217, 217, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(black)"] {
+  background-color: #141423;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]black)"] {
+  background-color: #3d3d6b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]black)"] {
+  background-color: #12121d;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(black[.8])"] {
+  background-color: rgba(20, 20, 35, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]black[.8])"] {
+  background-color: rgba(61, 61, 107, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]black[.8])"] {
+  background-color: rgba(18, 18, 29, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(itpBlack)"] {
+  background-color: #221f1f;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]itpBlack)"] {
+  background-color: #5c5454;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]itpBlack)"] {
+  background-color: #1d1a1a;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(itpSecondary)"] {
+  background-color: #daba27;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]itpSecondary)"] {
+  background-color: #e3cb5d;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]itpSecondary)"] {
+  background-color: #b39a28;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(gray)"] {
+  background-color: #969696;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]gray)"] {
+  background-color: #b0b0b0;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]gray)"] {
+  background-color: gray;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(hover)"] {
+  background-color: #1c4aa5;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]hover)"] {
+  background-color: #d3dff7;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]hover)"] {
+  background-color: #1e4186;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(primary)"] {
+  background-color: #674C90;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]primary)"] {
+  background-color: #8b71b4;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]primary)"] {
+  background-color: #584378;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(primary[.1])"] {
+  background-color: rgba(103, 76, 144, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]primary[.1])"] {
+  background-color: rgba(139, 113, 180, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]primary[.1])"] {
+  background-color: rgba(88, 67, 120, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(primary[.2])"] {
+  background-color: rgba(103, 76, 144, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]primary[.2])"] {
+  background-color: rgba(139, 113, 180, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]primary[.2])"] {
+  background-color: rgba(88, 67, 120, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(secondary)"] {
+  background-color: #1D2C4C;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]secondary)"] {
+  background-color: #395695;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]secondary)"] {
+  background-color: #1b263f;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(secondary[.1])"] {
+  background-color: rgba(29, 44, 76, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]secondary[.1])"] {
+  background-color: rgba(57, 86, 149, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]secondary[.1])"] {
+  background-color: rgba(27, 38, 63, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(secondary[.2])"] {
+  background-color: rgba(29, 44, 76, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]secondary[.2])"] {
+  background-color: rgba(57, 86, 149, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]secondary[.2])"] {
+  background-color: rgba(27, 38, 63, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(tc)"] {
+  background-color: #96043e;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]tc)"] {
+  background-color: #ed0662;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]tc)"] {
+  background-color: #790a36;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(go)"] {
+  background-color: green;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]go)"] {
+  background-color: #00e000;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]go)"] {
+  background-color: #056705;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(slow)"] {
+  background-color: orange;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]slow)"] {
+  background-color: #ffbc40;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]slow)"] {
+  background-color: #ce890b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(stop)"] {
+  background-color: red;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]stop)"] {
+  background-color: #ff4040;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]stop)"] {
+  background-color: #ce0b0b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(purple)"] {
+  background-color: #5b1647;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]purple)"] {
+  background-color: #ab2985;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]purple)"] {
+  background-color: #4a163b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(purple[.1])"] {
+  background-color: rgba(91, 22, 71, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]purple[.1])"] {
+  background-color: rgba(171, 41, 133, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]purple[.1])"] {
+  background-color: rgba(74, 22, 59, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(purple[.2])"] {
+  background-color: rgba(91, 22, 71, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]purple[.2])"] {
+  background-color: rgba(171, 41, 133, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]purple[.2])"] {
+  background-color: rgba(74, 22, 59, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(wine)"] {
+  background-color: #96043e;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]wine)"] {
+  background-color: #ed0662;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]wine)"] {
+  background-color: #790a36;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(red)"] {
+  background-color: #c90035;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([light]red)"] {
+  background-color: #ff1754;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY([dark]red)"] {
+  background-color: #a20931;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(white)"]:active {
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]white)"]:active {
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]white)"]:active {
+  background-color: #d9d9d9;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(white[.1])"]:active {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]white[.1])"]:active {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]white[.1])"]:active {
+  background-color: rgba(217, 217, 217, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(white[.2])"]:active {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]white[.2])"]:active {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]white[.2])"]:active {
+  background-color: rgba(217, 217, 217, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(black)"]:active {
+  background-color: #141423;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]black)"]:active {
+  background-color: #3d3d6b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]black)"]:active {
+  background-color: #12121d;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(black[.8])"]:active {
+  background-color: rgba(20, 20, 35, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]black[.8])"]:active {
+  background-color: rgba(61, 61, 107, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]black[.8])"]:active {
+  background-color: rgba(18, 18, 29, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(itpBlack)"]:active {
+  background-color: #221f1f;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]itpBlack)"]:active {
+  background-color: #5c5454;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]itpBlack)"]:active {
+  background-color: #1d1a1a;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(itpSecondary)"]:active {
+  background-color: #daba27;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]itpSecondary)"]:active {
+  background-color: #e3cb5d;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]itpSecondary)"]:active {
+  background-color: #b39a28;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(gray)"]:active {
+  background-color: #969696;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]gray)"]:active {
+  background-color: #b0b0b0;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]gray)"]:active {
+  background-color: gray;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(hover)"]:active {
+  background-color: #1c4aa5;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]hover)"]:active {
+  background-color: #d3dff7;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]hover)"]:active {
+  background-color: #1e4186;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(primary)"]:active {
+  background-color: #674C90;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]primary)"]:active {
+  background-color: #8b71b4;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]primary)"]:active {
+  background-color: #584378;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(primary[.1])"]:active {
+  background-color: rgba(103, 76, 144, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]primary[.1])"]:active {
+  background-color: rgba(139, 113, 180, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]primary[.1])"]:active {
+  background-color: rgba(88, 67, 120, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(primary[.2])"]:active {
+  background-color: rgba(103, 76, 144, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]primary[.2])"]:active {
+  background-color: rgba(139, 113, 180, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]primary[.2])"]:active {
+  background-color: rgba(88, 67, 120, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(secondary)"]:active {
+  background-color: #1D2C4C;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]secondary)"]:active {
+  background-color: #395695;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]secondary)"]:active {
+  background-color: #1b263f;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(secondary[.1])"]:active {
+  background-color: rgba(29, 44, 76, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]secondary[.1])"]:active {
+  background-color: rgba(57, 86, 149, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]secondary[.1])"]:active {
+  background-color: rgba(27, 38, 63, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(secondary[.2])"]:active {
+  background-color: rgba(29, 44, 76, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]secondary[.2])"]:active {
+  background-color: rgba(57, 86, 149, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]secondary[.2])"]:active {
+  background-color: rgba(27, 38, 63, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(tc)"]:active {
+  background-color: #96043e;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]tc)"]:active {
+  background-color: #ed0662;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]tc)"]:active {
+  background-color: #790a36;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(go)"]:active {
+  background-color: green;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]go)"]:active {
+  background-color: #00e000;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]go)"]:active {
+  background-color: #056705;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(slow)"]:active {
+  background-color: orange;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]slow)"]:active {
+  background-color: #ffbc40;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]slow)"]:active {
+  background-color: #ce890b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(stop)"]:active {
+  background-color: red;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]stop)"]:active {
+  background-color: #ff4040;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]stop)"]:active {
+  background-color: #ce0b0b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(purple)"]:active {
+  background-color: #5b1647;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]purple)"]:active {
+  background-color: #ab2985;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]purple)"]:active {
+  background-color: #4a163b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(purple[.1])"]:active {
+  background-color: rgba(91, 22, 71, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]purple[.1])"]:active {
+  background-color: rgba(171, 41, 133, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]purple[.1])"]:active {
+  background-color: rgba(74, 22, 59, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(purple[.2])"]:active {
+  background-color: rgba(91, 22, 71, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]purple[.2])"]:active {
+  background-color: rgba(171, 41, 133, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]purple[.2])"]:active {
+  background-color: rgba(74, 22, 59, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(wine)"]:active {
+  background-color: #96043e;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]wine)"]:active {
+  background-color: #ed0662;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]wine)"]:active {
+  background-color: #790a36;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(red)"]:active {
+  background-color: #c90035;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([light]red)"]:active {
+  background-color: #ff1754;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a([dark]red)"]:active {
+  background-color: #a20931;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(white)"]:hover {
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]white)"]:hover {
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]white)"]:hover {
+  background-color: #d9d9d9;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(white[.1])"]:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]white[.1])"]:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]white[.1])"]:hover {
+  background-color: rgba(217, 217, 217, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(white[.2])"]:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]white[.2])"]:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]white[.2])"]:hover {
+  background-color: rgba(217, 217, 217, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(black)"]:hover {
+  background-color: #141423;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]black)"]:hover {
+  background-color: #3d3d6b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]black)"]:hover {
+  background-color: #12121d;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(black[.8])"]:hover {
+  background-color: rgba(20, 20, 35, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]black[.8])"]:hover {
+  background-color: rgba(61, 61, 107, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]black[.8])"]:hover {
+  background-color: rgba(18, 18, 29, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(itpBlack)"]:hover {
+  background-color: #221f1f;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]itpBlack)"]:hover {
+  background-color: #5c5454;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]itpBlack)"]:hover {
+  background-color: #1d1a1a;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(itpSecondary)"]:hover {
+  background-color: #daba27;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]itpSecondary)"]:hover {
+  background-color: #e3cb5d;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]itpSecondary)"]:hover {
+  background-color: #b39a28;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(gray)"]:hover {
+  background-color: #969696;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]gray)"]:hover {
+  background-color: #b0b0b0;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]gray)"]:hover {
+  background-color: gray;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(hover)"]:hover {
+  background-color: #1c4aa5;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]hover)"]:hover {
+  background-color: #d3dff7;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]hover)"]:hover {
+  background-color: #1e4186;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(primary)"]:hover {
+  background-color: #674C90;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]primary)"]:hover {
+  background-color: #8b71b4;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]primary)"]:hover {
+  background-color: #584378;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(primary[.1])"]:hover {
+  background-color: rgba(103, 76, 144, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]primary[.1])"]:hover {
+  background-color: rgba(139, 113, 180, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]primary[.1])"]:hover {
+  background-color: rgba(88, 67, 120, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(primary[.2])"]:hover {
+  background-color: rgba(103, 76, 144, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]primary[.2])"]:hover {
+  background-color: rgba(139, 113, 180, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]primary[.2])"]:hover {
+  background-color: rgba(88, 67, 120, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(secondary)"]:hover {
+  background-color: #1D2C4C;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]secondary)"]:hover {
+  background-color: #395695;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]secondary)"]:hover {
+  background-color: #1b263f;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(secondary[.1])"]:hover {
+  background-color: rgba(29, 44, 76, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]secondary[.1])"]:hover {
+  background-color: rgba(57, 86, 149, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]secondary[.1])"]:hover {
+  background-color: rgba(27, 38, 63, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(secondary[.2])"]:hover {
+  background-color: rgba(29, 44, 76, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]secondary[.2])"]:hover {
+  background-color: rgba(57, 86, 149, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]secondary[.2])"]:hover {
+  background-color: rgba(27, 38, 63, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(tc)"]:hover {
+  background-color: #96043e;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]tc)"]:hover {
+  background-color: #ed0662;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]tc)"]:hover {
+  background-color: #790a36;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(go)"]:hover {
+  background-color: green;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]go)"]:hover {
+  background-color: #00e000;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]go)"]:hover {
+  background-color: #056705;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(slow)"]:hover {
+  background-color: orange;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]slow)"]:hover {
+  background-color: #ffbc40;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]slow)"]:hover {
+  background-color: #ce890b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(stop)"]:hover {
+  background-color: red;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]stop)"]:hover {
+  background-color: #ff4040;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]stop)"]:hover {
+  background-color: #ce0b0b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(purple)"]:hover {
+  background-color: #5b1647;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]purple)"]:hover {
+  background-color: #ab2985;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]purple)"]:hover {
+  background-color: #4a163b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(purple[.1])"]:hover {
+  background-color: rgba(91, 22, 71, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]purple[.1])"]:hover {
+  background-color: rgba(171, 41, 133, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]purple[.1])"]:hover {
+  background-color: rgba(74, 22, 59, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(purple[.2])"]:hover {
+  background-color: rgba(91, 22, 71, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]purple[.2])"]:hover {
+  background-color: rgba(171, 41, 133, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]purple[.2])"]:hover {
+  background-color: rgba(74, 22, 59, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(wine)"]:hover {
+  background-color: #96043e;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]wine)"]:hover {
+  background-color: #ed0662;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]wine)"]:hover {
+  background-color: #790a36;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(red)"]:hover {
+  background-color: #c90035;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([light]red)"]:hover {
+  background-color: #ff1754;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h([dark]red)"]:hover {
+  background-color: #a20931;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(white)"]:focus {
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]white)"]:focus {
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]white)"]:focus {
+  background-color: #d9d9d9;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(white[.1])"]:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]white[.1])"]:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]white[.1])"]:focus {
+  background-color: rgba(217, 217, 217, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(white[.2])"]:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]white[.2])"]:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]white[.2])"]:focus {
+  background-color: rgba(217, 217, 217, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(black)"]:focus {
+  background-color: #141423;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]black)"]:focus {
+  background-color: #3d3d6b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]black)"]:focus {
+  background-color: #12121d;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(black[.8])"]:focus {
+  background-color: rgba(20, 20, 35, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]black[.8])"]:focus {
+  background-color: rgba(61, 61, 107, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]black[.8])"]:focus {
+  background-color: rgba(18, 18, 29, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(itpBlack)"]:focus {
+  background-color: #221f1f;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]itpBlack)"]:focus {
+  background-color: #5c5454;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]itpBlack)"]:focus {
+  background-color: #1d1a1a;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(itpSecondary)"]:focus {
+  background-color: #daba27;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]itpSecondary)"]:focus {
+  background-color: #e3cb5d;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]itpSecondary)"]:focus {
+  background-color: #b39a28;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(gray)"]:focus {
+  background-color: #969696;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]gray)"]:focus {
+  background-color: #b0b0b0;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]gray)"]:focus {
+  background-color: gray;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(hover)"]:focus {
+  background-color: #1c4aa5;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]hover)"]:focus {
+  background-color: #d3dff7;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]hover)"]:focus {
+  background-color: #1e4186;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(primary)"]:focus {
+  background-color: #674C90;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]primary)"]:focus {
+  background-color: #8b71b4;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]primary)"]:focus {
+  background-color: #584378;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(primary[.1])"]:focus {
+  background-color: rgba(103, 76, 144, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]primary[.1])"]:focus {
+  background-color: rgba(139, 113, 180, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]primary[.1])"]:focus {
+  background-color: rgba(88, 67, 120, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(primary[.2])"]:focus {
+  background-color: rgba(103, 76, 144, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]primary[.2])"]:focus {
+  background-color: rgba(139, 113, 180, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]primary[.2])"]:focus {
+  background-color: rgba(88, 67, 120, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(secondary)"]:focus {
+  background-color: #1D2C4C;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]secondary)"]:focus {
+  background-color: #395695;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]secondary)"]:focus {
+  background-color: #1b263f;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(secondary[.1])"]:focus {
+  background-color: rgba(29, 44, 76, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]secondary[.1])"]:focus {
+  background-color: rgba(57, 86, 149, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]secondary[.1])"]:focus {
+  background-color: rgba(27, 38, 63, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(secondary[.2])"]:focus {
+  background-color: rgba(29, 44, 76, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]secondary[.2])"]:focus {
+  background-color: rgba(57, 86, 149, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]secondary[.2])"]:focus {
+  background-color: rgba(27, 38, 63, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(tc)"]:focus {
+  background-color: #96043e;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]tc)"]:focus {
+  background-color: #ed0662;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]tc)"]:focus {
+  background-color: #790a36;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(go)"]:focus {
+  background-color: green;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]go)"]:focus {
+  background-color: #00e000;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]go)"]:focus {
+  background-color: #056705;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(slow)"]:focus {
+  background-color: orange;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]slow)"]:focus {
+  background-color: #ffbc40;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]slow)"]:focus {
+  background-color: #ce890b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(stop)"]:focus {
+  background-color: red;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]stop)"]:focus {
+  background-color: #ff4040;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]stop)"]:focus {
+  background-color: #ce0b0b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(purple)"]:focus {
+  background-color: #5b1647;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]purple)"]:focus {
+  background-color: #ab2985;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]purple)"]:focus {
+  background-color: #4a163b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(purple[.1])"]:focus {
+  background-color: rgba(91, 22, 71, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]purple[.1])"]:focus {
+  background-color: rgba(171, 41, 133, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]purple[.1])"]:focus {
+  background-color: rgba(74, 22, 59, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(purple[.2])"]:focus {
+  background-color: rgba(91, 22, 71, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]purple[.2])"]:focus {
+  background-color: rgba(171, 41, 133, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]purple[.2])"]:focus {
+  background-color: rgba(74, 22, 59, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(wine)"]:focus {
+  background-color: #96043e;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]wine)"]:focus {
+  background-color: #ed0662;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]wine)"]:focus {
+  background-color: #790a36;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(red)"]:focus {
+  background-color: #c90035;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([light]red)"]:focus {
+  background-color: #ff1754;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f([dark]red)"]:focus {
+  background-color: #a20931;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(white)"]:disabled {
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]white)"]:disabled {
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]white)"]:disabled {
+  background-color: #d9d9d9;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(white[.1])"]:disabled {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]white[.1])"]:disabled {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]white[.1])"]:disabled {
+  background-color: rgba(217, 217, 217, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(white[.2])"]:disabled {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]white[.2])"]:disabled {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]white[.2])"]:disabled {
+  background-color: rgba(217, 217, 217, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(black)"]:disabled {
+  background-color: #141423;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]black)"]:disabled {
+  background-color: #3d3d6b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]black)"]:disabled {
+  background-color: #12121d;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(black[.8])"]:disabled {
+  background-color: rgba(20, 20, 35, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]black[.8])"]:disabled {
+  background-color: rgba(61, 61, 107, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]black[.8])"]:disabled {
+  background-color: rgba(18, 18, 29, 0.8);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(itpBlack)"]:disabled {
+  background-color: #221f1f;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]itpBlack)"]:disabled {
+  background-color: #5c5454;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]itpBlack)"]:disabled {
+  background-color: #1d1a1a;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(itpSecondary)"]:disabled {
+  background-color: #daba27;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]itpSecondary)"]:disabled {
+  background-color: #e3cb5d;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]itpSecondary)"]:disabled {
+  background-color: #b39a28;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(gray)"]:disabled {
+  background-color: #969696;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]gray)"]:disabled {
+  background-color: #b0b0b0;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]gray)"]:disabled {
+  background-color: gray;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(hover)"]:disabled {
+  background-color: #1c4aa5;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]hover)"]:disabled {
+  background-color: #d3dff7;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]hover)"]:disabled {
+  background-color: #1e4186;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(primary)"]:disabled {
+  background-color: #674C90;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]primary)"]:disabled {
+  background-color: #8b71b4;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]primary)"]:disabled {
+  background-color: #584378;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(primary[.1])"]:disabled {
+  background-color: rgba(103, 76, 144, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]primary[.1])"]:disabled {
+  background-color: rgba(139, 113, 180, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]primary[.1])"]:disabled {
+  background-color: rgba(88, 67, 120, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(primary[.2])"]:disabled {
+  background-color: rgba(103, 76, 144, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]primary[.2])"]:disabled {
+  background-color: rgba(139, 113, 180, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]primary[.2])"]:disabled {
+  background-color: rgba(88, 67, 120, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(secondary)"]:disabled {
+  background-color: #1D2C4C;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]secondary)"]:disabled {
+  background-color: #395695;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]secondary)"]:disabled {
+  background-color: #1b263f;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(secondary[.1])"]:disabled {
+  background-color: rgba(29, 44, 76, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]secondary[.1])"]:disabled {
+  background-color: rgba(57, 86, 149, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]secondary[.1])"]:disabled {
+  background-color: rgba(27, 38, 63, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(secondary[.2])"]:disabled {
+  background-color: rgba(29, 44, 76, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]secondary[.2])"]:disabled {
+  background-color: rgba(57, 86, 149, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]secondary[.2])"]:disabled {
+  background-color: rgba(27, 38, 63, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(tc)"]:disabled {
+  background-color: #96043e;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]tc)"]:disabled {
+  background-color: #ed0662;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]tc)"]:disabled {
+  background-color: #790a36;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(go)"]:disabled {
+  background-color: green;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]go)"]:disabled {
+  background-color: #00e000;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]go)"]:disabled {
+  background-color: #056705;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(slow)"]:disabled {
+  background-color: orange;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]slow)"]:disabled {
+  background-color: #ffbc40;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]slow)"]:disabled {
+  background-color: #ce890b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(stop)"]:disabled {
+  background-color: red;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]stop)"]:disabled {
+  background-color: #ff4040;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]stop)"]:disabled {
+  background-color: #ce0b0b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(purple)"]:disabled {
+  background-color: #5b1647;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]purple)"]:disabled {
+  background-color: #ab2985;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]purple)"]:disabled {
+  background-color: #4a163b;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(purple[.1])"]:disabled {
+  background-color: rgba(91, 22, 71, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]purple[.1])"]:disabled {
+  background-color: rgba(171, 41, 133, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]purple[.1])"]:disabled {
+  background-color: rgba(74, 22, 59, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(purple[.2])"]:disabled {
+  background-color: rgba(91, 22, 71, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]purple[.2])"]:disabled {
+  background-color: rgba(171, 41, 133, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]purple[.2])"]:disabled {
+  background-color: rgba(74, 22, 59, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(wine)"]:disabled {
+  background-color: #96043e;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]wine)"]:disabled {
+  background-color: #ed0662;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]wine)"]:disabled {
+  background-color: #790a36;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(red)"]:disabled {
+  background-color: #c90035;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([light]red)"]:disabled {
+  background-color: #ff1754;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d([dark]red)"]:disabled {
+  background-color: #a20931;
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(linear-45[primary][secondary])"] {
+  background-image: linear-gradient(45deg,#674C90,#1D2C4C);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(linear-45[accprimary][accsecondary])"] {
+  background-image: linear-gradient(45deg,#9eaa55,#3ea1b5);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(linear-45[itpprimary][itpsecondary])"] {
+  background-image: linear-gradient(45deg,#BF362D,#6a221d);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY(linear-85[purple][red])"] {
+  background-image: linear-gradient(85deg,#5b1647,#c90035);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(linear-45[primary][secondary])"]:active {
+  background-image: linear-gradient(45deg,#674C90,#1D2C4C);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(linear-45[accprimary][accsecondary])"]:active {
+  background-image: linear-gradient(45deg,#9eaa55,#3ea1b5);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(linear-45[itpprimary][itpsecondary])"]:active {
+  background-image: linear-gradient(45deg,#BF362D,#6a221d);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:a(linear-85[purple][red])"]:active {
+  background-image: linear-gradient(85deg,#5b1647,#c90035);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(linear-45[primary][secondary])"]:hover {
+  background-image: linear-gradient(45deg,#674C90,#1D2C4C);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(linear-45[accprimary][accsecondary])"]:hover {
+  background-image: linear-gradient(45deg,#9eaa55,#3ea1b5);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(linear-45[itpprimary][itpsecondary])"]:hover {
+  background-image: linear-gradient(45deg,#BF362D,#6a221d);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:h(linear-85[purple][red])"]:hover {
+  background-image: linear-gradient(85deg,#5b1647,#c90035);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(linear-45[primary][secondary])"]:focus {
+  background-image: linear-gradient(45deg,#674C90,#1D2C4C);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(linear-45[accprimary][accsecondary])"]:focus {
+  background-image: linear-gradient(45deg,#9eaa55,#3ea1b5);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(linear-45[itpprimary][itpsecondary])"]:focus {
+  background-image: linear-gradient(45deg,#BF362D,#6a221d);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:f(linear-85[purple][red])"]:focus {
+  background-image: linear-gradient(85deg,#5b1647,#c90035);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(linear-45[primary][secondary])"]:disabled {
+  background-image: linear-gradient(45deg,#674C90,#1D2C4C);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(linear-45[accprimary][accsecondary])"]:disabled {
+  background-image: linear-gradient(45deg,#9eaa55,#3ea1b5);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(linear-45[itpprimary][itpsecondary])"]:disabled {
+  background-image: linear-gradient(45deg,#BF362D,#6a221d);
+  transition: background-color 0.2s ease;
+}
+
+[data-h2-bg-color*="MEDIAKEY:d(linear-85[purple][red])"]:disabled {
+  background-image: linear-gradient(85deg,#5b1647,#c90035);
+  transition: background-color 0.2s ease;
+}

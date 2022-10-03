@@ -1,0 +1,16 @@
+<section id="toc">
+  <div data-h2-container="b(center, full)" data-h2-margin="b(top-bottom, xl) l(top-bottom, xxl)">
+    <div data-h2-text-align="b(center) l(left)">
+      {% include title-h2.html title=page.toc.title flourish="true" color="data-h2-font-color='b(purple)'" %}
+      <p>{{ page.toc.subtitle }}</p>
+    </div>
+    {% for section in site.data.translations.reportSections[page.lang] %}
+      {% if section.key != "0" and section.key != "6" %}
+        {% assign sectionWithNumber = section.key | append: ": " | append: section.title %}
+        {% include accordion.html title=sectionWithNumber section=section.key %}
+      {% else %}
+        {% include accordion.html title=section.title section=section.key %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>

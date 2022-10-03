@@ -1,0 +1,10 @@
+en:
+  label: English
+  code: en
+  thing1: thing1
+  thing2: thing2
+fr:
+  label: Francais
+  code: fr
+  thing1: chose1
+  thing2: chose2
