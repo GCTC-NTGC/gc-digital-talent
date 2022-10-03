@@ -32,35 +32,35 @@ describe("ThemeSwitcher", () => {
     renderThemeSwitcher();
 
     fireEvent.click(
-      await screen.getByRole("button", { name: /activate light mode/i }),
+      await screen.getByRole("radio", { name: /activate light mode/i }),
     );
 
     expect(window.localStorage.setItem).toHaveBeenCalledWith("theme", "light");
 
     expect(
-      await screen.getByRole("group", { name: /theme colour mode switcher/i }),
-    ).toHaveClass("light");
+      await screen.getByRole("radio", { name: /activate light mode/i }),
+    ).toHaveAttribute("data-state", "on");
   });
 
   it("should change theme to dark mode", async () => {
     renderThemeSwitcher();
 
     fireEvent.click(
-      await screen.getByRole("button", { name: /activate dark mode/i }),
+      await screen.getByRole("radio", { name: /activate dark mode/i }),
     );
 
     expect(window.localStorage.setItem).toHaveBeenCalledWith("theme", "dark");
 
     expect(
-      await screen.getByRole("group", { name: /theme colour mode switcher/i }),
-    ).toHaveClass("dark");
+      await screen.getByRole("radio", { name: /activate dark mode/i }),
+    ).toHaveAttribute("data-state", "on");
   });
 
   it("should change theme to pref mode", async () => {
     renderThemeSwitcher();
 
     fireEvent.click(
-      await screen.getByRole("button", {
+      await screen.getByRole("radio", {
         name: /allow your browser preferences to dictate/i,
       }),
     );
@@ -68,7 +68,9 @@ describe("ThemeSwitcher", () => {
     expect(window.localStorage.removeItem).toHaveBeenCalledWith("theme");
 
     expect(
-      await screen.getByRole("group", { name: /theme colour mode switcher/i }),
-    ).toHaveClass("pref");
+      await screen.getByRole("radio", {
+        name: /allow your browser preferences to dictate/i,
+      }),
+    ).toHaveAttribute("data-state", "on");
   });
 });
