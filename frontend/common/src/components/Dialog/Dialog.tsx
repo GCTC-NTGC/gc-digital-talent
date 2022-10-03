@@ -9,7 +9,9 @@ const StyledDialogOverlay = React.forwardRef<
 >((props, forwardedRef) => (
   <DialogPrimitive.Overlay
     data-h2-position="base(fixed)"
-    style={{ backgroundColor: `rgba(1,1,1,0.85)`, inset: 0 }}
+    data-h2-background-color="base(black.85)"
+    data-h2-offset="base(0)"
+    style={{ zIndex: 9998 }}
     ref={forwardedRef}
     {...props}
   />
@@ -36,6 +38,7 @@ const StyledDialogContent = React.forwardRef<
       maxWidth: 768,
       transform: "translateX(-50%)",
       width: "90vw",
+      zIndex: 9999,
     }}
     ref={forwardedRef}
     {...props}
@@ -70,16 +73,15 @@ const DialogContent = React.forwardRef<
         <StyledDialogClose>
           <button
             type="button"
+            data-h2-background-color="base(transparent) base:hover(dt-white.15)"
             data-h2-border="base(none)"
-            data-h2-radius="base(circle)"
             data-h2-color="base(dt-white)"
             data-h2-cursor="base(pointer)"
-            data-h2-opacity="base(0) base:hover(.6)"
-            data-h2-padding="base(x.5)"
-            data-h2-position="base(absolute)"
             data-h2-line-height="base(0)"
             data-h2-offset="base(x.5, x.5, auto, auto)"
-            style={{ background: "none", lineHeight: 0 }}
+            data-h2-padding="base(x.5)"
+            data-h2-position="base(absolute)"
+            data-h2-radius="base(circle)"
             aria-label={intl.formatMessage({
               defaultMessage: "Close dialog",
               id: "g2X8Fx",

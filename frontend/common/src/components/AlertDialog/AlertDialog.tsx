@@ -7,7 +7,9 @@ const StyledAlertDialogOverlay = React.forwardRef<
 >((props, forwardedRef) => (
   <AlertDialogPrimitive.Overlay
     data-h2-position="base(fixed)"
-    style={{ backgroundColor: `rgba(1,1,1,0.85)`, inset: 0 }}
+    data-h2-background-color="base(black.85)"
+    data-h2-offset="base(0)"
+    style={{ zIndex: 9998 }}
     ref={forwardedRef}
     {...props}
   />
@@ -34,6 +36,7 @@ const StyledAlertDialogContent = React.forwardRef<
       maxWidth: 768,
       transform: "translateX(-50%)",
       width: "90vw",
+      zIndex: 9999,
     }}
     ref={forwardedRef}
     {...props}
