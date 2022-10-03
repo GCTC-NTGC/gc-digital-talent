@@ -1,0 +1,5 @@
+@use 'sass:color';
+
+@use '../utilities/utility-flex-grid' as flexGridStyles;
+
+@include flexGridStyles.h2-utility-flex-grid($mediaKey: 'MEDIAKEY');

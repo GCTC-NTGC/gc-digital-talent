@@ -1,0 +1,78 @@
+<header>
+  {% include goc.html %}
+  {% include navigation.html %}
+  <section id="mainContent" data-h2-bg-color="b(linear-85[purple][red])" data-h2-margin="b(bottom, xl)">
+    <div data-h2-container="b(center, full)" data-h2-padding="b(top, m) b(bottom, xl) l(bottom, xxl)">
+      <div data-h2-flex-grid="b(middle, contained, flush, xl)" data-h2-padding="b(top-bottom, xl) l(top, m) l(bottom, l)" data-h2-margin="b(bottom, xl)" data-h2-border="b(white, bottom, solid, s)" data-h2-text-align="b(center) l(left)">
+        <div data-h2-flex-item="b(1of1) l(2of3)" style="padding: 0;" data-h2-font-color="b(white)">
+          {% include title-h1.html title=page.title %}
+          <p data-h2-margin="b(bottom, l)">{{ page.hero.subtitle }}</p>
+          {% for button in page.hero.buttons %}
+            {% assign linkRoute = site.baseurl | append: button.route %}
+            {% include button.html style=button.style margin="data-h2-margin='b(top, s)'" type=button.type label=button.label title=button.title route=linkRoute %}
+          {% endfor %}
+        </div>
+        <div data-h2-flex-item="b(1of1) l(1of3)" style="padding: 0;">
+          <img
+            aria-hidden="true"
+            data-h2-display="b(none) l(block)"
+            style="margin: 0 auto; width: 25vw;"
+            src="{{ site.asset_url }}/img/ui-report-flourish.png" alt="A graphic containing a lightbulb inside of a thunder cloud surrounded by a starburst design.">
+        </div>
+      </div>
+      <div data-h2-text-align="b(center) l(left)">
+        {% include title-h2.html title=page.hero.subsection.title id="jumpin" flourish="false" color="data-h2-font-color='b(white)'" %}
+        <p data-h2-font-color="b(white)">{{ page.hero.subsection.subtitle }}</p>
+      </div>
+      <div data-h2-flex-grid="b(top, expanded, flush, m)" style="align-items: normal;">
+        {% for category in site.data.translations.reportCategories[page.lang] %}
+          <div data-h2-flex-item="b(1of1) m(1of3) l(1of5)">
+            <div
+              data-h2-bg-color="b(white)"
+              data-h2-padding="b(all, m) l(all, l)"
+              data-h2-radius="b(s)"
+              data-h2-shadow="b(s)"
+              style="height: 100%;"
+            >
+              <hr
+                data-h2-margin="b(bottom, s)"
+                style="margin-left: 0; width: 60%">
+              <p data-h2-font-size="b(h5)">"{{ category.slogan }}"</p>
+              <p
+                data-h2-margin="b(bottom, none)"
+                data-h2-text-align="b(right)">
+                <a href="#{{ category.key }}" title="{{ category.target.title }}">{{ category.target.label }}<svg
+                  data-h2-margin="b(left, xxs)"
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg></a>
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+        <div data-h2-flex-item="b(1of1) m(1of3) l(1of5)">
+          <div
+            data-h2-bg-color="b(white)"
+            data-h2-padding="b(all, m) l(all, l)"
+            data-h2-radius="b(s)"
+            data-h2-shadow="b(s)"
+            style="height: 100%;"
+            >
+
+            <hr
+              data-h2-margin="b(bottom, s)"
+              style="margin-left: 0; width: 60%">
+            <p data-h2-font-size="b(h5)">"{{ page.hero.subsection.reportcard.slogan }}"<p>
+            <p data-h2-text-align="b(right)">
+              <a href="{{ page.hero.subsection.reportcard.target.route }}" title="{{ page.hero.subsection.reportcard.target.title }}">{{ page.hero.subsection.reportcard.target.label }}<svg
+                data-h2-margin="b(left, xxs)"
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>

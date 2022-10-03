@@ -61,7 +61,7 @@ class PoolCandidateFactory extends Factory
                 3
             ),
             'pool_candidate_status' => $this->faker->boolean() ?
-                                                            ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE :
+                                                            $this->faker->randomElement([ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])  :
                                                             ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
             'user_id' => User::factory(),
             'pool_id' => Pool::factory(),

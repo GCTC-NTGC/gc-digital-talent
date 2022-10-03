@@ -1370,4 +1370,28 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
   }
+
+  public function testAllStatuses(): void
+  {
+    // Create initial data.
+    foreach(ApiEnums::candidateStatuses() as $candidateStatus) {
+      PoolCandidate::factory()->create([
+        'expiry_date' => config('constants.far_future_date'), // ensure no candidates are expired for this test
+        'pool_candidate_status' => $candidateStatus,
+      ]);
+    }
+
+    // Assert query with no explicit filter will return only 2 candidates: Placed - Casual and Qualified - Available
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => []
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 2
+      ]
+    ]);
+  }
 }

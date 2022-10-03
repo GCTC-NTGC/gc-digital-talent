@@ -184,7 +184,7 @@ const SelectFieldV2 = ({
 
               // For WCAG-compliant contrasts.
               const accessibleTextStyle = {
-                color: "#646464",
+                color: "#595959",
               };
 
               return (
