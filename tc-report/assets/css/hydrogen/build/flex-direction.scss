@@ -1,0 +1,5 @@
+@use 'sass:color';
+
+@use '../utilities/utility-flex-direction' as flexDirectionStyles;
+
+@include flexDirectionStyles.h2-utility-flex-direction($mediaKey: 'MEDIAKEY');

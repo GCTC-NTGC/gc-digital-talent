@@ -1,0 +1,34 @@
+{% if include.type == "link" %}
+  <a href="{{ include.route }}" title="{{ include.title }}" data-h2-font-style="b(reset)" data-h2-shadow="b(s)" data-h2-display="b(block)"
+{% else %}
+  <div data-h2-shadow="b(s)"
+{% endif %}
+  {% if include.color == "red" or include.color == "tc" %}
+    data-h2-bg-color="b(tc)"
+    data-h2-font-color="b(white)"
+  {% elsif include.color == "purple" or include.color == "primary" %}
+    data-h2-bg-color="b(primary)"
+    data-h2-font-color="b(white)"
+  {% elsif include.color == "blue" or include.color == "secondary" %}
+    data-h2-bg-color="b(secondary)"
+    data-h2-font-color="b(white)"
+  {% elsif include.color == "gradient-ps" %}
+    data-h2-bg-color="b(linear-45[primary][secondary])"
+    data-h2-font-color="b(white)"
+  {% elsif include.color == "gradient-itp" %}
+    data-h2-bg-color="b(linear-45[itpprimary][itpsecondary])"
+    data-h2-font-color="b(white)"
+  {% else %}
+    data-h2-bg-color="b(white)"
+  {% endif %}
+  data-h2-padding="b(all, m) m(all, xl)"
+  data-h2-radius="b(s)"
+  {% if include.grid == "stretch" %}
+    style="height: 100%;"
+  {% endif %}>
+  {{ include.content }}
+{% if include.type == "link" %}
+  </a>
+{% else %}
+  </div>
+{% endif %}

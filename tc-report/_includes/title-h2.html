@@ -1,0 +1,15 @@
+<h2
+  {% if include.id %}
+    id="{{ include.id }}"
+  {% endif %}
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  {% if include.color %}
+    {{ include.color }}
+  {% endif %}
+  {{ include.padding }}
+  {{ include.flex }}
+  {{ include.color }}
+  style="letter-spacing: -2px;">
+  {{ include.title }}
+</h2>

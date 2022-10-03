@@ -62,7 +62,12 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
       accessor: ({ id, fullName }) =>
         tableViewItemButtonAccessor(
           paths.searchRequestView(id),
-          "request",
+          intl.formatMessage({
+            defaultMessage: "request",
+            id: "u9JHS9",
+            description:
+              "Text displayed after View text for Latest Request table view action",
+          }),
           fullName || undefined,
         ),
     },

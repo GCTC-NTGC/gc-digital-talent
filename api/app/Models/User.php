@@ -276,7 +276,7 @@ class User extends Model implements Authenticatable
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE]
+                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]
             ];
         }
         return $this->filterByPools($query, $poolFilters);
