@@ -24,7 +24,7 @@ function TableEditButton({
       href={href}
       type="button"
       mode="inline"
-      color="primary"
+      color="black"
       data-h2-padding="base(0)"
     >
       {intl.formatMessage(
