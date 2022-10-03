@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from "react";
 import { useIntl } from "react-intl";
-import Accordion from "../../Accordion/deprecated";
+import Accordion from "../../Accordion";
 import AwardAccordion from "./individualExperienceAccordions/AwardAccordion";
 import CommunityAccordion from "./individualExperienceAccordions/CommunityAccordion";
 import EducationAccordion from "./individualExperienceAccordions/EducationAccordion";
@@ -28,13 +28,11 @@ export interface ExperiencePaths {
 export interface AccordionProps {
   experience: AnyExperience;
   editPaths?: ExperiencePaths;
-  defaultOpen?: boolean;
 }
 
 const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
   experience,
   editPaths,
-  defaultOpen = false,
 }) => {
   const intl = useIntl();
 
@@ -45,7 +43,6 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return AwardAccordion({
       ...experience,
       editUrl,
-      defaultOpen,
     });
   }
   if (isCommunityExperience(experience)) {
@@ -55,7 +52,6 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return CommunityAccordion({
       ...experience,
       editUrl,
-      defaultOpen,
     });
   }
   if (isEducationExperience(experience)) {
@@ -65,7 +61,6 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return EducationAccordion({
       ...experience,
       editUrl,
-      defaultOpen,
     });
   }
   if (isPersonalExperience(experience)) {
@@ -75,7 +70,6 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return PersonalAccordion({
       ...experience,
       editUrl,
-      defaultOpen,
     });
   }
   if (isWorkExperience(experience)) {
@@ -83,19 +77,20 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return WorkAccordion({
       ...experience,
       editUrl,
-      defaultOpen,
     });
   }
 
   // not one of the 5 experience types
   return (
-    <Accordion
-      title={intl.formatMessage({
-        defaultMessage: "Unknown Experience",
-        id: "U/Lv8i",
-        description: "Title for unknown experiences",
-      })}
-    />
+    <Accordion.Item value="none">
+      <Accordion.Trigger>
+        {intl.formatMessage({
+          defaultMessage: "Unknown Experience",
+          id: "U/Lv8i",
+          description: "Title for unknown experiences",
+        })}
+      </Accordion.Trigger>
+    </Accordion.Item>
   );
 };
 

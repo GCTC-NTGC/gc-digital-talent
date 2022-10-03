@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import Accordion from "../Accordion";
 import Tabs from "../Tabs";
 import { invertSkillExperienceTree } from "../../helpers/skillUtils";
 import ExperienceAccordion, {
@@ -136,13 +137,15 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
         ))}
       </Tabs.List>
       <Tabs.Content value="0">
-        {sortedByDate.map((experience) => (
-          <ExperienceAccordion
-            key={experience.id}
-            experience={experience}
-            editPaths={experienceEditPaths}
-          />
-        ))}
+        <Accordion.Root type="single" collapsible>
+          {sortedByDate.map((experience) => (
+            <ExperienceAccordion
+              key={experience.id}
+              experience={experience}
+              editPaths={experienceEditPaths}
+            />
+          ))}
+        </Accordion.Root>
       </Tabs.Content>
       <Tabs.Content value="1">
         <ExperienceByTypeListing
@@ -151,9 +154,11 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
         />
       </Tabs.Content>
       <Tabs.Content value="2">
-        {sortedBySkills.map((skill) => (
-          <SkillAccordion key={skill.id} skill={skill} />
-        ))}
+        <Accordion.Root type="multiple">
+          {sortedBySkills.map((skill) => (
+            <SkillAccordion key={skill.id} skill={skill} />
+          ))}
+        </Accordion.Root>
       </Tabs.Content>
     </Tabs.Root>
   ) : (

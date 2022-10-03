@@ -21,7 +21,7 @@ import {
   CpuChipIcon,
   CloudIcon,
 } from "@heroicons/react/24/outline";
-import Accordion from "@common/components/Accordion/deprecated";
+import Accordion from "@common/components/Accordion";
 import {
   getLanguageRequirement,
   getSecurityClearance,
@@ -466,13 +466,20 @@ const PoolAdvertisement = ({
                       "Explanation of a pools optional transferrable skills",
                   })}
                 </Text>
-                {nonEssentialSkills[SkillCategory.Technical]?.map((skill) => (
-                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <Text>
-                      {skill.description ? skill.description[locale] : ""}
-                    </Text>
-                  </Accordion>
-                ))}
+                <Accordion.Root type="single" collapsible>
+                  {nonEssentialSkills[SkillCategory.Technical]?.map((skill) => (
+                    <Accordion.Item value={skill.id} key={skill.id}>
+                      <Accordion.Trigger>
+                        {skill.name[locale] || ""}
+                      </Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>
+                          {skill.description ? skill.description[locale] : ""}
+                        </Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  ))}
+                </Accordion.Root>
               </>
             ) : null}
             {nonEssentialSkills[SkillCategory.Behavioural]?.length ? (
@@ -485,13 +492,22 @@ const PoolAdvertisement = ({
                       "Title for transferrable skills on a pool advertisement",
                   })}
                 </IconTitle>
-                {nonEssentialSkills[SkillCategory.Behavioural]?.map((skill) => (
-                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <Text>
-                      {skill.description ? skill.description[locale] : ""}
-                    </Text>
-                  </Accordion>
-                ))}
+                <Accordion.Root type="single" collapsible>
+                  {nonEssentialSkills[SkillCategory.Behavioural]?.map(
+                    (skill) => (
+                      <Accordion.Item value={skill.id} key={skill.id}>
+                        <Accordion.Trigger>
+                          {skill.name[locale] || ""}
+                        </Accordion.Trigger>
+                        <Accordion.Content>
+                          <Text>
+                            {skill.description ? skill.description[locale] : ""}
+                          </Text>
+                        </Accordion.Content>
+                      </Accordion.Item>
+                    ),
+                  )}
+                </Accordion.Root>
               </>
             ) : null}
           </TableOfContents.Section>

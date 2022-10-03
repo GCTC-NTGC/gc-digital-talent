@@ -240,7 +240,6 @@ export const UserProfileDocument = React.forwardRef<
                   </HeadingWrapper>
                   <ExperienceByTypeListing
                     experiences={applicant.experiences?.filter(notEmpty)}
-                    defaultOpen
                   />
                 </div>
               );
