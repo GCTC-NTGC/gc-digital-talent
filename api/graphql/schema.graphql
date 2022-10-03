@@ -262,7 +262,11 @@ type Pool {
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
-  status: PoolStatus @rename(attribute: "pool_status")
+  status: PoolStatus
+    @rename(attribute: "pool_status")
+    @deprecated(reason: "Replaced by advertisementStatus")
+  advertisementStatus: AdvertisementStatus
+    @rename(attribute: "advertisement_status")
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
 }

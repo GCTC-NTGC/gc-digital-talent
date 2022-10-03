@@ -162,7 +162,7 @@ query getPools {
       group
       level
     }
-    status
+    advertisementStatus
     stream
     processNumber
   }
