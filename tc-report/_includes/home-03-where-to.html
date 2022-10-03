@@ -1,0 +1,66 @@
+<section>
+  <div data-h2-position="b(relative)">
+    {% include gradient-bg.html %}
+    <div
+      data-h2-container="b(center, full)"
+      data-h2-padding="b(bottom, xl)"
+      data-h2-position="b(relative)">
+      <div
+        class="bg-image-maple-leaf"
+        data-h2-bg-color="b(white)"
+        data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xl)"
+        data-h2-radius="b(s)"
+        data-h2-shadow="b(s)"
+      >
+        <img src="{{ '/img/ui-leaf.svg' | prepend: site.asset_url }}" alt="A textural icon of a red maple leaf.">
+        <div
+          data-h2-display="b(flex)"
+          data-h2-text-align="b(center) m(left)"
+          data-h2-align-items="b(center)"
+          data-h2-padding="b(bottom, s) m(bottom, m)"
+        >
+          {% include parallelogram.html %} {% include title-h2.html
+          title=page.section4.title flourish="true" %}
+        </div>
+        {% for item in page.section4.content %}
+          <p>{{ item }}</p>
+        {% endfor %}
+        <div data-h2-text-align="b(center) m(right)">
+          <a
+            href="{{ site.baseurl }}/{{ page.lang }}/talent-cloud/report/"
+            title="{{ page.section4.links.report.label }}"
+            data-h2-display="b(block) m(inline-block)"
+            data-h2-font-color="b(white) b:h(hover) b:f(hover)"
+            data-h2-border="b(purple, all, solid, s) b:h(hover, all, solid, s) b:f(hover, all, solid, s)"
+            data-h2-bg-color="b(purple) b:h([light]hover) b:f([light]hover)"
+            data-h2-margin="b(top, xxs)"
+            data-h2-radius="b(s)"
+            data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+            style="transition: all .2s ease;">{{ page.section4.links.report.label }}</a>
+          <a
+            href="{{ site.baseurl }}/{{page.lang}}/communities/digital-talent"
+            title="{{ page.section4.links.talent.label }}"
+            data-h2-display="b(block) m(inline-block)"
+            data-h2-font-color="b(white) b:h(hover) b:f(hover)"
+            data-h2-border="b(purple, all, solid, s) b:h(hover, all, solid, s) b:f(hover, all, solid, s)"
+            data-h2-bg-color="b(purple) b:h([light]hover) b:f([light]hover)"
+            data-h2-margin="b(top, xxs)"
+            data-h2-radius="b(s)"
+            data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+            style="transition: all .2s ease;">{{ page.section4.links.talent.label }}</a>
+          <a
+            href="{{ site.baseurl }}/{{page.lang}}/communities/indigenous-talent"
+            title="{{ page.section4.links.itp.label }}"
+            data-h2-display="b(block) m(inline-block)"
+            data-h2-font-color="b(white) b:h(hover) b:f(hover)"
+            data-h2-border="b(purple, all, solid, s) b:h(hover, all, solid, s) b:f(hover, all, solid, s)"
+            data-h2-bg-color="b(purple) b:h([light]hover) b:f([light]hover)"
+            data-h2-margin="b(top, xxs)"
+            data-h2-radius="b(s)"
+            data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+            style="transition: all .2s ease;">{{ page.section4.links.itp.label }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

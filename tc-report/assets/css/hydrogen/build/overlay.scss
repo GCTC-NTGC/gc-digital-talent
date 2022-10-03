@@ -1,0 +1,14 @@
+@use 'sass:color';
+
+@use '../maps/map-states' as stateMap;
+@use '../maps/map-color' as colorMap;
+@use '../maps/map-gradient' as gradientMap;
+
+@use '../utilities/utility-overlay' as overlayStyles;
+
+@include overlayStyles.h2-utility-overlay(
+  $mediaKey: 'MEDIAKEY',
+  $stateMap: stateMap.$h2-map-states,
+  $colorMap: colorMap.$h2-map-color,
+  $gradientMap: gradientMap.$h2-map-gradient
+);

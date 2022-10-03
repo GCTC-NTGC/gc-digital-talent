@@ -1,0 +1,81 @@
+---
+layout: boilerplate
+---
+<header>
+  {% include goc.html %}
+  <div data-h2-overlay="b(black[.8])"
+  style="background-image: url('{{ page.heading-image }}'); background-position: center; background-size: cover;">
+    {% include navigation.html color="white" %}
+    <div
+      data-h2-container="b(center, full)"
+      data-h2-text-align="b(center)"
+      data-h2-padding="b(bottom, l)">
+      {% include title-h1.html title=page.title color="white" padding="data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'" %}
+      {% include breadcrumbs.html color="white" %}
+    </div>
+  </div>
+</header>
+{% capture pageContent %}
+    {% for i in page.pageContent %}
+      {% if i.type == "title" %}
+        {% include title-h2.html title=i.title id=i.id padding="data-h2-padding='b(top, xl)'" %}
+      {% elsif i.type == "copy" %}
+        <p>{{ i.copy }}</p>
+      {% elsif i.type == "list" %}
+        <ul>
+          {% for li in i.list %}
+            <li>{{ li }}</li>
+          {% endfor %}
+        </ul>
+      {% elsif i.type == "section" %}
+        {% for i in i.items %}
+          {% if i.type == "title" %}
+            {% include title-h3.html title=i.title id=i.id padding="data-h2-padding='b(top, l)'" %}
+          {% elsif i.type == "copy" %}
+            <p>{{ i.copy }}</p>
+          {% elsif i.type == "list" %}
+            <ul>
+              {% for li in i.list %}
+                <li>{{ li }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+{% endcapture %}
+<main id="mainContent" data-h2-padding="b(top, l) b(bottom, xl) l(bottom, xxl)">
+  {% if page.sidebar == "false" %}
+    <div data-h2-container="b(center, s)">
+      {{ pageContent }}
+    </div>
+  {% elsif page.sidebar == "true" %}
+    <div data-h2-container="b(center, full)">
+      <div data-h2-flex-grid="b(stretch, expanded, flush, l) m(stretch, expanded, flush, xxl)">
+        <div data-h2-flex-item="b(1of1) m(1of4)" data-h2-position="b(relative)">
+          <div data-h2-padding="m(top, l)"></div>
+          <div data-h2-position="m(sticky)" data-h2-location="m(top, xl)">
+            <p data-h2-font-weight="b(bold)">On this page</p>
+            <ul>
+              {% for i in page.pageContent %}
+                {% if i.type == "title" %}
+                  <li>
+                    <a href="#{{ i.id }}" title="Visit this section.">{{ i.title }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div data-h2-flex-item="b(1of1) m(3of4)">
+          <div data-h2-container="b(left, s)">
+            {{ pageContent }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <p data-h2-text-align="b(center)">Please specify whether this page requires a sidebar in the page's front matter.</p>
+  {% endif %}
+</main>
+{% include footer.html %}
