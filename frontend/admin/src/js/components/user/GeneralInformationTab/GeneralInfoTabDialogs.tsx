@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { UserMinusIcon } from "@heroicons/react/24/solid";
 import { isEmpty } from "lodash";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { refresh } from "@common/helpers/router";
 import {
   CreatePoolCandidateAsAdminInput,
   Pool,
@@ -116,12 +117,6 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
 
   const [, executeMutation] = useUpdatePoolCandidateMutation();
 
-  const resetAndClose = () => {
-    setSelectedStatus("");
-    setShowErrorMessage(false);
-    setSubmitting(false);
-  };
-
   const handleUpdateCandidate = async (
     id: string,
     values: UpdatePoolCandidateAsAdminInput,
@@ -152,7 +147,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
             description: "Toast for successful status update on view-user page",
           }),
         );
-        resetAndClose();
+        refresh();
       })
       .catch(() => {
         setSubmitting(false);
@@ -268,30 +263,24 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
           </div>
         </div>
         <Dialog.Footer>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(space-between)"
-          >
-            <CloseDialogButton />
-            <ConfirmDialogButton
-              onConfirm={handleSubmit}
-              title={
-                submitting
-                  ? intl.formatMessage({
-                      defaultMessage: "Submitting",
-                      id: "gCbb9X",
-                      description: "Text on submit button when submitting",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "Change status",
-                      id: "iuve97",
-                      description:
-                        "Confirmation button for change status dialog",
-                    })
-              }
-              disabled={submitting}
-            />
-          </div>
+          <CloseDialogButton />
+          <ConfirmDialogButton
+            onConfirm={handleSubmit}
+            title={
+              submitting
+                ? intl.formatMessage({
+                    defaultMessage: "Submitting",
+                    id: "gCbb9X",
+                    description: "Text on submit button when submitting",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Change status",
+                    id: "iuve97",
+                    description: "Confirmation button for change status dialog",
+                  })
+            }
+            disabled={submitting}
+          />
         </Dialog.Footer>
       </Dialog.Content>
     </Dialog.Root>
@@ -309,12 +298,6 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
   const [submitting, setSubmitting] = useState(false);
 
   const [, executeMutation] = useUpdatePoolCandidateMutation();
-
-  const resetAndClose = () => {
-    setSelectedDate("");
-    setShowErrorMessage(false);
-    setSubmitting(false);
-  };
 
   const handleUpdateCandidate = async (
     id: string,
@@ -347,7 +330,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
               "Toast for successful expiry date update on view-user page",
           }),
         );
-        resetAndClose();
+        refresh();
       })
       .catch(() => {
         setSubmitting(false);
@@ -433,30 +416,25 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
           </div>
         </div>
         <Dialog.Footer>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(space-between)"
-          >
-            <CloseDialogButton />
-            <ConfirmDialogButton
-              onConfirm={handleSubmit}
-              title={
-                submitting
-                  ? intl.formatMessage({
-                      defaultMessage: "Submitting",
-                      id: "gCbb9X",
-                      description: "Text on submit button when submitting",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "Change date",
-                      id: "gvomlw",
-                      description:
-                        "Confirmation button for change expiry date dialog",
-                    })
-              }
-              disabled={submitting}
-            />
-          </div>
+          <CloseDialogButton />
+          <ConfirmDialogButton
+            onConfirm={handleSubmit}
+            title={
+              submitting
+                ? intl.formatMessage({
+                    defaultMessage: "Submitting",
+                    id: "gCbb9X",
+                    description: "Text on submit button when submitting",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Change date",
+                    id: "gvomlw",
+                    description:
+                      "Confirmation button for change expiry date dialog",
+                  })
+            }
+            disabled={submitting}
+          />
         </Dialog.Footer>
       </Dialog.Content>
     </Dialog.Root>
@@ -555,31 +533,26 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
         </p>
         <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
         <Dialog.Footer>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(space-between)"
-          >
-            <CloseDialogButton />
-            <ConfirmDialogButton
-              onConfirm={handleSubmit}
-              title={
-                submitting
-                  ? intl.formatMessage({
-                      defaultMessage: "Submitting",
-                      id: "gCbb9X",
-                      description: "Text on submit button when submitting",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "Remove from pool",
-                      id: "98PjUH",
-                      description:
-                        "Confirmation button for removing candidate from pool dialog",
-                    })
-              }
-              disabled={submitting}
-              icon={UserMinusIcon}
-            />
-          </div>
+          <CloseDialogButton />
+          <ConfirmDialogButton
+            onConfirm={handleSubmit}
+            title={
+              submitting
+                ? intl.formatMessage({
+                    defaultMessage: "Submitting",
+                    id: "gCbb9X",
+                    description: "Text on submit button when submitting",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Remove from pool",
+                    id: "98PjUH",
+                    description:
+                      "Confirmation button for removing candidate from pool dialog",
+                  })
+            }
+            disabled={submitting}
+            icon={UserMinusIcon}
+          />
         </Dialog.Footer>
       </Dialog.Content>
     </Dialog.Root>
@@ -607,14 +580,6 @@ export const AddToPoolDialog: React.FC<{
       currentPools.push(candidate?.pool?.id);
     }
   });
-
-  const resetAndClose = () => {
-    setSelectedPool("");
-    setSelectedDate("");
-    setShowPoolErrorMessage(false);
-    setShowDateErrorMessage(false);
-    setSubmitting(false);
-  };
 
   const handleCreateCandidate = async (
     values: CreatePoolCandidateAsAdminInput,
@@ -657,7 +622,7 @@ export const AddToPoolDialog: React.FC<{
               "Toast for successful add user to pool on view-user page",
           }),
         );
-        resetAndClose();
+        refresh();
       })
       .catch(() => {
         setSubmitting(false);
@@ -818,29 +783,24 @@ export const AddToPoolDialog: React.FC<{
           </div>
         </div>
         <Dialog.Footer>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(space-between)"
-          >
-            <CloseDialogButton />
-            <ConfirmDialogButton
-              onConfirm={handleSubmit}
-              title={
-                submitting
-                  ? intl.formatMessage({
-                      defaultMessage: "Submitting",
-                      id: "gCbb9X",
-                      description: "Text on submit button when submitting",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "Add to new pool",
-                      id: "yypk6/",
-                      description: "Confirmation button for add to pool dialog",
-                    })
-              }
-              disabled={submitting}
-            />
-          </div>
+          <CloseDialogButton />
+          <ConfirmDialogButton
+            onConfirm={handleSubmit}
+            title={
+              submitting
+                ? intl.formatMessage({
+                    defaultMessage: "Submitting",
+                    id: "gCbb9X",
+                    description: "Text on submit button when submitting",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Add to new pool",
+                    id: "yypk6/",
+                    description: "Confirmation button for add to pool dialog",
+                  })
+            }
+            disabled={submitting}
+          />
         </Dialog.Footer>
       </Dialog.Content>
     </Dialog.Root>
