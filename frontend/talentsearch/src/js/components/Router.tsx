@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet";
 import { Routes } from "universal-router";
 import { AuthenticationContext } from "@common/components/Auth";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
-import Pending from "@common/components/Pending";
 import { RouterResult } from "@common/helpers/router";
 import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { getLocale } from "@common/helpers/localize";
@@ -466,7 +465,7 @@ export const Router: React.FC = () => {
     React.useState<boolean>(false);
 
   const [result] = useGetAboutMeQuery();
-  const { data, fetching, error } = result;
+  const { data } = result;
   const aiConnectionString = getRuntimeVariable(
     "APPLICATIONINSIGHTS_CONNECTION_STRING",
   );
@@ -574,7 +573,7 @@ export const Router: React.FC = () => {
   }
 
   return (
-    <Pending fetching={fetching} error={error}>
+    <>
       <PageContainer
         menuItems={menuItems}
         authLinks={authLinks}
@@ -597,7 +596,7 @@ export const Router: React.FC = () => {
           onLogout={() => logout()}
         />
       )}
-    </Pending>
+    </>
   );
 };
 
