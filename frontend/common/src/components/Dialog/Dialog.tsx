@@ -146,7 +146,7 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
 };
 
-interface DialogHeaderProps {
+export interface DialogHeaderProps {
   subtitle?: React.ReactNode;
   children: React.ReactNode;
   color: Color;
