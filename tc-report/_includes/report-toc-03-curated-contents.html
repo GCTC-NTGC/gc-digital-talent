@@ -1,0 +1,17 @@
+<section id="curated-contents">
+  <div data-h2-container="b(center, full)">
+    <div data-h2-text-align="b(center) l(left)">
+      {% include title-h2.html title=page.curated.title flourish="true" color="data-h2-font-color='b(purple)'" %}
+      <p>{{ page.curated.subtitle }}</p>
+    </div>
+  </div>
+  <div data-h2-margin="b(bottom, xl) l(bottom, xxl)">
+    {% for category in site.data.translations.reportCategories[page.lang] %}
+      <section>
+        <div data-h2-container="b(center, full)">
+          {% include accordion.html title=category.slogan id=category.key category=category.key %}
+        </div>
+      </section>
+    {% endfor %}
+  </div>
+</section>

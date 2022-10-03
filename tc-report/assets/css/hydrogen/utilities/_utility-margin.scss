@@ -1,0 +1,114 @@
+// Margins
+// SIDE, SIZE
+// e.g. data-h2-margin="b(top, s)"
+// e.g. data-h2-margin="b(right-left, xxl)"
+@mixin h2-utility-margin($mediaKey, $stateMap, $sideMap, $whitespaceMap) {
+  @each $stateKey, $stateValue in $stateMap {
+    @each $sideKey, $sideValue in $sideMap {
+      @each $whitespaceKey, $whitespaceValue in $whitespaceMap {
+        [data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, #{$whitespaceKey})']#{$stateValue},
+        p[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, #{$whitespaceKey})']#{$stateValue},
+        p
+          + p[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, #{$whitespaceKey})']#{$stateValue},
+        h1[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, #{$whitespaceKey})']#{$stateValue},
+        h2[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, #{$whitespaceKey})']#{$stateValue},
+        h3[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, #{$whitespaceKey})']#{$stateValue},
+        h4[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, #{$whitespaceKey})']#{$stateValue},
+        h5[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, #{$whitespaceKey})']#{$stateValue},
+        h6[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, #{$whitespaceKey})']#{$stateValue},
+        ul[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, #{$whitespaceKey})']#{$stateValue},
+        li[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, #{$whitespaceKey})']#{$stateValue} {
+          @if $sideKey == 'top-bottom' or $sideKey == 'tb' {
+            margin-top: #{$whitespaceValue};
+            margin-bottom: #{$whitespaceValue};
+          } @else if $sideKey == 'right-left' or $sideKey == 'rl' {
+            margin-right: #{$whitespaceValue};
+            margin-left: #{$whitespaceValue};
+          } @else if $sideKey == 'top-right' {
+            margin-top: #{$whitespaceValue};
+            margin-right: #{$whitespaceValue};
+          } @else if $sideKey == 'top-left' {
+            margin-top: #{$whitespaceValue};
+            margin-left: #{$whitespaceValue};
+          } @else if $sideKey == 'bottom-right' {
+            margin-bottom: #{$whitespaceValue};
+            margin-right: #{$whitespaceValue};
+          } @else if $sideKey == 'bottom-left' {
+            margin-bottom: #{$whitespaceValue};
+            margin-left: #{$whitespaceValue};
+          } @else {
+            margin#{$sideValue}: #{$whitespaceValue};
+          }
+        }
+        [data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, -#{$whitespaceKey})']#{$stateValue},
+        p[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, -#{$whitespaceKey})']#{$stateValue},
+        p
+          + p[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, -#{$whitespaceKey})']#{$stateValue},
+        h1[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, -#{$whitespaceKey})']#{$stateValue},
+        h2[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, -#{$whitespaceKey})']#{$stateValue},
+        h3[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, -#{$whitespaceKey})']#{$stateValue},
+        h4[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, -#{$whitespaceKey})']#{$stateValue},
+        h5[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, -#{$whitespaceKey})']#{$stateValue},
+        h6[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, -#{$whitespaceKey})']#{$stateValue},
+        ul[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, -#{$whitespaceKey})']#{$stateValue},
+        li[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, -#{$whitespaceKey})']#{$stateValue} {
+          @if $sideKey == 'top-bottom' or $sideKey == 'tb' {
+            margin-top: -#{$whitespaceValue};
+            margin-bottom: -#{$whitespaceValue};
+          } @else if $sideKey == 'right-left' or $sideKey == 'rl' {
+            margin-right: -#{$whitespaceValue};
+            margin-left: -#{$whitespaceValue};
+          } @else if $sideKey == 'top-right' {
+            margin-top: -#{$whitespaceValue};
+            margin-right: -#{$whitespaceValue};
+          } @else if $sideKey == 'top-left' {
+            margin-top: -#{$whitespaceValue};
+            margin-left: -#{$whitespaceValue};
+          } @else if $sideKey == 'bottom-right' {
+            margin-bottom: -#{$whitespaceValue};
+            margin-right: -#{$whitespaceValue};
+          } @else if $sideKey == 'bottom-left' {
+            margin-bottom: -#{$whitespaceValue};
+            margin-left: -#{$whitespaceValue};
+          } @else {
+            margin#{$sideValue}: -#{$whitespaceValue};
+          }
+        }
+      }
+      [data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, auto)']#{$stateValue},
+      p[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, auto)']#{$stateValue},
+      p
+        + p[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, auto)']#{$stateValue},
+      h1[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, auto)']#{$stateValue},
+      h2[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, auto)']#{$stateValue},
+      h3[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, auto)']#{$stateValue},
+      h4[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, auto)']#{$stateValue},
+      h5[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, auto)']#{$stateValue},
+      h6[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, auto)']#{$stateValue},
+      ul[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, auto)']#{$stateValue},
+      li[data-h2-margin*='#{$mediaKey}#{$stateKey}(#{$sideKey}, auto)']#{$stateValue} {
+        @if $sideKey == 'top-bottom' or $sideKey == 'tb' {
+          margin-top: auto;
+          margin-bottom: auto;
+        } @else if $sideKey == 'right-left' or $sideKey == 'rl' {
+          margin-right: auto;
+          margin-left: auto;
+        } @else if $sideKey == 'top-right' {
+          margin-top: auto;
+          margin-right: auto;
+        } @else if $sideKey == 'top-left' {
+          margin-top: auto;
+          margin-left: auto;
+        } @else if $sideKey == 'bottom-right' {
+          margin-bottom: auto;
+          margin-right: auto;
+        } @else if $sideKey == 'bottom-left' {
+          margin-bottom: auto;
+          margin-left: auto;
+        } @else {
+          margin#{$sideValue}: auto;
+        }
+      }
+    }
+  }
+}

@@ -13,6 +13,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import { strToFormDate } from "@common/helpers/dateUtils";
 import { commonMessages } from "@common/messages";
+import { emptyToNull } from "@common/helpers/util";
 import {
   PoolCandidateStatus,
   Scalars,
@@ -55,7 +56,7 @@ export const ApplicationStatusForm = ({
     onSubmit({
       status: values.status,
       notes: values.notes,
-      expiryDate: values.expiryDate,
+      expiryDate: values.expiryDate || emptyToNull(values.expiryDate),
     });
   };
 

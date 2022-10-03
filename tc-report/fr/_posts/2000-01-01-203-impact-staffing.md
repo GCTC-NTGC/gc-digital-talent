@@ -1,0 +1,51 @@
+---
+title: "Dotation axée sur les incidences"
+layout: post
+lang: fr
+lang-ref: 203-impact-staffing
+section: 2
+category: 
+  - hiring
+hero:
+  image:
+    src: 2.3-tx-heading.jpg
+    alt: Une photo d'un pendule de Newton.
+blocks:
+  - type: title
+    label: Le problème
+  - "À l’heure actuelle, le système de RH du gouvernement du Canada repose sur un modèle de dotation basé sur la classification. Ce modèle se fonde sur le raisonnement suivant : les ministères et organismes ont des mandats et ils établissent une hiérarchie pour permettre l’obtention des résultats associés à leur mandat. Les emplois sont classifiés et intégrés dans la hiérarchie à l’aide de descriptions de travail génériques (ou, dans de rares cas, de descriptions de travail spécialisées). Les gestionnaires remplissent des « cases » ou pourvoient des postes vacants dans l’organigramme de leur unité en utilisant la classification du poste et la description de travail connexe pour énoncer l’expérience nécessaire." 
+  - Cette approche, qui constitue la norme au GC, est optimale pour un effectif qui est principalement formé d’employés nommés pour une période indéterminée. Elle ne l’est pas lorsqu’il est question de recruter des personnes talentueuses pour des postes axés sur un projet en particulier où des ensembles de compétences sont exigés et où le résultat visé du poste est circonscrit dans le temps.
+  - Au moment du lancement de la plateforme du Nuage de talents, en 2018, les énoncés des incidences et les tâches principales ne figuraient que rarement dans les offres d’emploi du GC – les deux sollicitaient des candidats à la recherche d’un nouvel emploi. (Bien qu’en 2019 et en 2020, nous ayons remarqué quelques offres d’emploi sur le site Emplois GC qui contenaient cette information.) Les conclusions préliminaires de nos ateliers indiquaient que l’inclusion des énoncés des incidences et des tâches principales serait avantageuse pour attirer des personnes talentueuses à rendement élevé. Mais comment les gestionnaires seraient-ils formés pour rédiger un type d’offre d’emploi complètement différent? Et est-ce que les conseillers en RH seraient favorables à cette nouvelle orientation?
+  - type: title
+    label: Les hypothèses
+  - type: list
+    style: unordered
+    items:
+      - L’inclusion d’un énoncé des incidences et des tâches principales dans une offre d’emploi aiderait à attirer des personnes talentueuses à rendement élevé.
+      - Les gestionnaires étaient habitués à produire des offres d’emploi d’une façon en particulier. Pour que les gestionnaires rédigent efficacement un nouveau type d’offre d’emploi, il faudrait élaborer un nouveau type de flux de travaux pour la création de telles offres d’emploi.
+      - Afin que les gestionnaires adoptent un nouveau comportement, les outils devraient être associés à un flux logique et être faciles à utiliser.
+      - La méthode que le gouvernement du Canada utilisait pour promouvoir les résultats et l’exécution pourrait être utilisée pour concevoir le nouveau flux logique et optimiser les offres d’emploi.
+  - type: title
+    label: L’expérience
+  - "Le Nuage de talents explorait l’idée que le même modèle logique sous-tendant les structures ministérielles pourrait être utilisé, en microcosme, pour aider les gestionnaires à déterminer les retombées que des candidats produiraient pour les Canadiens et les Canadiennes. À grande échelle, les ministères ont un mandat, et de ce mandat découlent des résultats visés. La hiérarchie et la structure de la classification des emplois sont ensuite organisées dans l’objectif d’obtenir ces résultats. <strong style=\"letter-spacing: -1px;\" data-h2-font-weight=\"b(800)\" data-h2-font-color=\"b(purple)\">Afin de mettre au point un système de recrutement optimisé pour le travail axé sur les projets, le Nuage de talents utilisait le même modèle logique en cascade observé dans la structure générale du gouvernement du Canada, mais nous l’avons diminué pour qu’il soit axé exclusivement sur le contexte local du poste visé par une offre d’emploi.</strong>"
+  - type: pullquote
+    title: Associer la dotation aux résultats et à l’exécution
+    content: L’un des moments les plus marquants du projet est survenu lors de l’exercice visant à recentrer le recrutement sur l’incidence visée. Lors de l’un des ateliers, une gestionnaire a dit qu’elle n’était pas en mesure d’énoncer l’incidence associée à l’embauche qu’elle avait planifiée – pourvoir un poste vacant courant dont elle n’avait jamais remis en question la nécessité. Elle a dit qu’elle allait consulter son équipe de direction pour discuter de l’idée de revoir les besoins en dotation à venir en mettant l’accent dorénavant sur l’harmonisation du plan de recrutement aux résultats et à l’exécution.
+  - Pour comprendre comment les gestionnaires et les candidats utiliseraient le modèle proposé, le Nuage de talents a tenu une série d’ateliers au cours de l’été et de l’automne de 2017 où les gestionnaires ont réalisé un exercice sur papier concernant un processus pour un poste fictif et un processus pour un poste réel qu’ils avaient planifiés en vue de tester un nouveau modèle d’élaboration des offres d’emploi.
+  - Les gestionnaires devaient tout d’abord déterminer quelles étaient les retombées pour les Canadiens et les Canadiennes associées au recrutement qu’ils comptaient effectuer. Nous les avons ensuite soumis à un exercice visant à énoncer et à classer par ordre de priorité les tâches principales qui seraient nécessaires à l’obtention de ces retombées. Une fois que les tâches principales avaient été établies, nous avons demandé aux gestionnaires d’énoncer quelles compétences seraient nécessaires de la part d’un employé pour exécuter chacune de ces tâches. Ces compétences étaient ensuite résumées et classées par ordre de priorité et elles formaient la base d’une nouvelle manière d’en arriver à des critères essentiels et à des critères constituant un atout pour une offre d’emploi du gouvernement du Canada.
+  - Lors des ateliers, nous avons vérifié si les gestionnaires étaient en mesure d’effectuer la tâche avec peu d’instructions et nous avons vérifié si ce qu’ils produisaient était sensé aux yeux des conseillers en RH.
+  - Après la mise à l’essai réussie du nouveau flux logique lors des ateliers, notre équipe a créé un document Word qui a été utilisé par des gestionnaires en vue de produire des offres d’emploi pour des processus de travail actifs diffusés sur la plateforme au cours de l’automne et de l’hiver de 2018. Des améliorations ont été apportées, et le nouveau processus a été programmé, puis intégré à l’outil d’élaboration d’offres d’emploi dans le portail des gestionnaires (voir le compte rendu à ce sujet dans la section 4 du rapport). Les gestionnaires ont participé à des entrevues pour faire part de leurs impressions concernant le flux logique et les outils, et leurs commentaires sur l’approche étaient positifs.
+  - Le Nuage de talents a également testé le flux des offres d’emploi avec des candidats, et des entrevues ont été réalisées avec des personnes concernant leurs impressions sur l’utilité et le flux des renseignements fournis.
+  - type: title
+    label: Interventions sur la plateforme
+  - "Jetez un coup d’œil aux modèles dans l’outil d’élaboration d’offres d’emploi dans la section 4 de la recherche, Réduction du temps de dotation, pour en apprendre davantage sur ce à quoi ressemblait le flux des incidences, des tâches principales et des compétences sur la plateforme."
+  - type: title
+    label: Les résultats
+  - "<strong style=\"letter-spacing: -1px;\" data-h2-font-weight=\"b(800)\" data-h2-font-color=\"b(purple)\">Du point de vue de la gestion des changements, ce volet du projet de Nuage de talents a connu un énorme succès.</strong> Les gestionnaires ont dit que la nouvelle approche était facile à utiliser. Cette refonte des offres d’emploi a permis aux gestionnaires de produire une offre d’emploi de qualité élevée en une à deux heures. En particulier, cela était vrai pour les gestionnaires expérimentés qui avaient appris l’approche courante au GC pour la création d’offres d’emplois et les nouveaux gestionnaires qui n’avaient jamais eu à pourvoir un poste au gouvernement. Cela a prouvé que le nouveau modèle logique pouvait non seulement être utilisé pour changer l’approche des gestionnaires expérimentés, mais aussi être adopté par de nouveaux utilisateurs."
+  - En plus de pouvoir être effectué rapidement et facilement par les gestionnaires, ce nouveau processus a obtenu l’approbation des conseillers en RH. Les offres d’emploi dans le Nuage de talents étaient habituellement approuvées avec très peu d’interventions de la part des conseillers en RH. 
+  - Les candidats ont indiqué que l’inclusion des énoncés d’incidences et des tâches principales avait influé de manière positive sur leur décision de soumettre leur candidature lorsqu’ils croyaient être une bonne personne pour le poste.
+  - type: title
+    label: Perspectives
+  - L’une des constatations les plus intéressantes par rapport à cette intervention avec la plateforme était la manière dont les gestionnaires étaient en mesure de considérablement changer leurs comportements, s’adaptant facilement à un nouveau flux de travaux pour créer une offre d’emploi.
+  - Le Nuage de talents a mis au point ce nouveau processus afin d’optimiser les offres d’emploi pour le travail axé sur les projets, mais il n’y a pas de raison pour qu’il ne soit pas utilisé pour n’importe quelle offre d’emploi au gouvernement du Canada. Bien que la plateforme du Nuage de talents automatise les mesures liées à l’optimisation du nombre de tâches principales et de compétences pour une offre d’emploi, rien n’empêche que ces leçons soient adaptées manuellement par un gestionnaire sur une quelconque plateforme qui cherche à créer un nouveau type d’offre d’emploi. (Ceci étant dit, pour favoriser un changement soutenu dans les comportements des gestionnaires et le contenu des offres d’emploi, le Nuage de talents a conclu que des solutions de plateformes uniformisées et automatisées constituaient un élément important pour ce qui est de l’obtention de résultats.)
+---

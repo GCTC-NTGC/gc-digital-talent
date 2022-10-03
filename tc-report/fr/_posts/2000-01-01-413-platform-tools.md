@@ -1,0 +1,16 @@
+---
+title: "Comment le Nuage de talents crée des outils de plateforme"
+layout: post
+lang: fr
+lang-ref: 413-platform-tools
+section: 4
+category: 
+hero:
+  image:
+    src: 4.13-tx-heading.jpg
+    alt: Photo de haut en bas d'une personne créant des prototypes de produits numériques.
+blocks:
+  - type: large-graphic
+    src: 4.13-fr-tools.png
+    alt: "Un graphique montrant comment le Nuage des talents construit ses outils de plateforme. Le processus comporte quatre étapes, et bien que le processus puisse être linéaire des étapes 1 à 4, le graphique contient diverses flèches qui indiquent que le processus implique de revenir aux étapes précédentes, lorsque cela est nécessaire, afin de veiller à ce que l’outil réponde aux besoins des utilisateurs. La première étape consiste à planifier l’outil, où des ateliers, une définition du cheminement et des entretiens ont lieu. C’est là que nous bâtissons des outils hypothétiques à l’aide de tableaux blancs, de papier ou de prototypes numériques, et que nous demandons aux gestionnaires et aux candidats d’utiliser les outils dans des processus simulés. La deuxième étape est le test en contexte réel et à faible fidélité. C’est là que les prototypes sur papier deviennent des documents Excel et Microsoft Word et sont utilisés pour de véritables processus de travail. Les gestionnaires et les conseillers en RH utilisent ces outils hors plateforme pour vérifier leur utilité et affiner la façon dont notre théorie du changement se rattache aux réalités pratiques de la dotation réelle. Cette étape indique que l’équipe peut revenir à l’étape 1 (planification) si des tests indiquent que c’est nécessaire. La troisième étape est le premier tour de test sur la plateforme, où les conceptions de fonctionnalités des ateliers et des tests hors plateforme finissent par être codées et se transforment en portails. Pour les candidats, la plupart des outils sont introduits et testés ici d’abord pour les processus en contexte réel. Pour les gestionnaires et les conseillers en RH, les nouveaux outils sur leurs portails ont généralement connu plusieurs phases de développement en contexte réel et hors plateforme. Cette étape indique que l’équipe peut revenir à l’étape 2 (test en contexte réel et à faible fidélité) si nécessaire pour mieux comprendre la fonction. La quatrième et dernière étape est la mise à niveau des outils de plateforme, où les grandes choses deviennent des parties « permanentes » de la plateforme. Cependant, il y a toujours des améliorations que nous ne découvrons que par des tests en contexte réel. Dans certains cas, des outils entiers sont reconstruits afin de fournir de meilleurs résultats comportementaux ou de processus. Les outils de notre plateforme sont également interconnectés, donc peu importe la qualité d’un outil lorsqu’il est publié, il doit encore être mis à jour lorsque d’autres outils sont modifiés ou ajoutés. Cette étape indique que l’équipe peut revenir à l’étape trois (premier tour de test sur la plateforme) ou même à l’étape deux (test en contexte réel et à faible fidélité) si la recherche le requiert."
+---
