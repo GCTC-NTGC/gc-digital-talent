@@ -19,6 +19,7 @@ const mockClient = {
         classifications: [{ id: "IT_3", group: "IT", level: "3" }],
         pools: [{ id: "BAR", name: { en: "Bar Pool" } }],
         skills: [{ id: "BAZ", name: { en: "Baz Skill" } }],
+        cmoAssets: [],
       },
     }),
 } as any; // eslint-disable-line
@@ -34,6 +35,10 @@ const emptyFormValues = {
   profileComplete: [],
   skills: [],
   workRegion: [],
+  cmoAssets: [],
+  equity: [],
+  hasDiploma: [],
+  status: [],
 };
 
 interface ProvidersProps {
@@ -171,7 +176,7 @@ describe("UserTableFilterDialog", () => {
         expect(mockSubmit).toHaveBeenCalledTimes(1);
 
         const activeFilter = mockSubmit.mock.lastCall[0];
-        expect(Object.keys(activeFilter)).toHaveLength(10);
+        expect(Object.keys(activeFilter)).toHaveLength(14);
         // Static filters.
         expect(activeFilter.workRegion).toHaveLength(1);
         expect(activeFilter.employmentDuration).toHaveLength(1);
