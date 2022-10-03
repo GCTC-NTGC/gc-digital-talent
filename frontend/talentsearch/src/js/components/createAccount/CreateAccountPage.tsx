@@ -139,8 +139,8 @@ export const CreateAccountForm: React.FunctionComponent<
             <p data-h2-padding="base(0, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage:
-                  "Before we take you to your profile, we need to collect some required information to complete your account set up. ",
-                id: "bYg+MM",
+                  "Before we take you to your profile, we need to collect some required information to complete your account set up.",
+                id: "x6saT3",
                 description:
                   "Message after main heading in create account page.",
               })}

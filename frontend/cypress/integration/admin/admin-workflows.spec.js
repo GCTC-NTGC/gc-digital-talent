@@ -2,7 +2,7 @@ import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Admin Workflow Tests", () => {
   const loginAndGoToDashboard = () => {
-    cy.login("admin");
+    cy.loginByRole("admin");
     cy.visit("/en/admin");
 
     // make sure we end up on the dashboard
@@ -49,7 +49,7 @@ describe("Admin Workflow Tests", () => {
 
     cy.findByRole("table")
       .findByRole("row", { name: /applicant test/i })
-      .findByText("applicant@test.com") // findByRole link doesn't work here
+      .findByRole("link", {name: /view applicant test/i})
       .click();
 
     // exercise profile page
