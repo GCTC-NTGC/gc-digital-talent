@@ -33,9 +33,9 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
           {
             defaultMessage:
               "There are <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> matching candidates in this pool",
-            id: "Ba4Y8a",
+            id: "ICPJ8D",
             description:
-              "Message for total estimated candidates box next to search form.",
+              "Message for total estimated matching candidates in pool",
           },
           {
             testId,
