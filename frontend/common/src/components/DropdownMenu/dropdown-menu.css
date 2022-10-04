@@ -1,7 +1,3 @@
-.DropdownMenu__Item {
-  background-color: var(--h2-color-dt-transparent);
-}
-
 .DropdownMenu__Item[data-disabled] {
   color: var(--h2-color-dt-gray);
 }

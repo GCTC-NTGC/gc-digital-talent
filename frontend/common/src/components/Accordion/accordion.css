@@ -1,21 +1,5 @@
-.Accordion > .Accordion__Item {
-  border-left: calc(var(--h2-base-whitespace) / 2 * 1rem) solid
-    var(--h2-color-dt-secondary);
-  transition: all 100ms ease-in;
-}
-
 .Accordion > .Accordion__Item[data-state="open"] {
   border-left-color: var(--h2-color-dt-primary);
-}
-
-.Accordion__Trigger {
-  padding: calc(var(--h2-base-whitespace) * 0.75rem);
-  padding-left: calc(var(--h2-base-whitespace) * 0.5rem);
-}
-
-.Accordion__Trigger__Chevron {
-  transform: rotate(0deg);
-  transition: all 100ms ease-in;
 }
 
 .Accordion__Trigger[data-state="open"] .Accordion__Trigger__Chevron {
