@@ -13,7 +13,7 @@ import type {
   IdType,
   SearchColumn,
 } from "./basicTableHelpers";
-import UserTableFilterDialog from "../user/UserTableFilterDialog";
+import UserTableFilters from "../user/UserTableFilterDialog";
 import type { FormValues } from "../user/UserTableFilterDialog";
 import { UserFilterInput } from "../../api/generated";
 import {
@@ -109,7 +109,7 @@ function TableHeader<T extends Record<string, unknown>>({
                   <SearchForm onChange={onSearchChange} searchBy={searchBy} />
                 </div>
                 <div data-h2-flex-item="base(content)">
-                  <UserTableFilterDialog.Button onSubmit={handleFilterSubmit} />
+                  <UserTableFilters onSubmit={handleFilterSubmit} />
                 </div>
                 <div data-h2-flex-item="base(content)">
                   <div data-h2-position="base(relative)">
