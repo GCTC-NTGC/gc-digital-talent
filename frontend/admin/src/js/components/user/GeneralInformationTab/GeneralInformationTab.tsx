@@ -36,7 +36,6 @@ import {
 import {
   User,
   JobLookingStatus,
-  PoolCandidate,
   useGetGeneralInfoQuery,
   Pool,
   useUpdatePoolCandidateMutation,
@@ -57,11 +56,6 @@ interface SectionWithPoolsProps {
 const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-
-  const [changeStatusDialogTarget, setChangeStatusDialogTarget] =
-    React.useState<PoolCandidate | null>(null);
-  const [changeDateDialogTarget, setChangeDateDialogTarget] =
-    React.useState<PoolCandidate | null>(null);
 
   if (isEmpty(user.poolCandidates)) {
     return (
@@ -289,8 +283,6 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
   pools,
 }) => {
   const intl = useIntl();
-
-  const [showAddToPoolDialog, setShowAddToPoolDialog] = React.useState(false);
 
   return (
     <>

@@ -9,7 +9,7 @@ import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
 } from "@common/constants";
-import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
+import type { EquityDialogProps } from "../types";
 
 import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
