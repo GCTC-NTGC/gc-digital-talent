@@ -29,7 +29,7 @@ const renderDiversityEquityInclusionForm = ({
     />,
   );
 
-describe("DiversityEquityInclusionForm", () => {
+describe("EmploymentEquityForm", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderDiversityEquityInclusionForm({
       user: mockUser,
@@ -44,7 +44,7 @@ describe("DiversityEquityInclusionForm", () => {
    * Checks to see if the proper add/remove buttons
    * are rendered based on the users EE info.
    */
-  it("should render proper buttons", () => {
+  it("should render remove buttons", () => {
     const mockSave = jest.fn();
     renderDiversityEquityInclusionForm({
       user: mockUser,
@@ -56,7 +56,7 @@ describe("DiversityEquityInclusionForm", () => {
       name: /add person with a disability to profile/i,
     });
     const removeDisability = screen.queryByRole("button", {
-      name: /remove "I identify as a person with a disability" from profile/i,
+      name: /remove person with a disability from profile/i,
     });
 
     if (mockUser.hasDisability) {
@@ -71,7 +71,7 @@ describe("DiversityEquityInclusionForm", () => {
       name: /add indigenous identity to profile/i,
     });
     const removeIndigenous = screen.queryByRole("button", {
-      name: /remove "I am Indigenous" from profile/i,
+      name: /remove indigenous identity from profile/i,
     });
 
     if (mockUser.isIndigenous) {
@@ -86,7 +86,7 @@ describe("DiversityEquityInclusionForm", () => {
       name: /add member of a visible minority to profile/i,
     });
     const removeVisibleMinority = screen.queryByRole("button", {
-      name: /remove "I identify as a member of a visible minority" from profile/i,
+      name: /remove member of a visible minority from profile/i,
     });
 
     if (mockUser.isVisibleMinority) {
@@ -101,7 +101,7 @@ describe("DiversityEquityInclusionForm", () => {
       name: /add woman to profile/i,
     });
     const removeWoman = screen.queryByRole("button", {
-      name: /remove "i identify as a woman" from profile/i,
+      name: /remove woman from profile/i,
     });
 
     if (mockUser.isWoman) {
