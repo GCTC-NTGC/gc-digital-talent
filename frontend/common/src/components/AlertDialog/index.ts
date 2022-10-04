@@ -1,3 +1,3 @@
-import * as AlertDialog from "./AlertDialog";
+import AlertDialog from "./AlertDialog";
 
 export default AlertDialog;

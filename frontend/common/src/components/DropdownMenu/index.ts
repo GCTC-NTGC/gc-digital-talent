@@ -1,3 +1,3 @@
-import * as DropdownMenu from "./DropdownMenu";
+import DropdownMenu from "./DropdownMenu";
 
 export default DropdownMenu;

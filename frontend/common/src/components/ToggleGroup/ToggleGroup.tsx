@@ -95,4 +95,24 @@ const Root = React.forwardRef<
   );
 });
 
-export { Item, Root };
+/**
+ * @name Toggle Group
+ * @desc A set of two-state buttons that can be toggled on or off.
+ * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/toggle-group)
+ */
+const ToggleGroup = {
+  /**
+   * @name Root
+   * @desc Contains all the parts of a toggle group.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/toggle-group#root)
+   */
+  Root,
+  /**
+   * @name Item
+   * @desc An item in the group.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/toggle-group#item)
+   */
+  Item,
+};
+
+export default ToggleGroup;

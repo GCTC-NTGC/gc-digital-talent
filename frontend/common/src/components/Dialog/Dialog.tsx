@@ -62,6 +62,7 @@ interface DialogProps extends DialogPrimitiveContentProps {
 type DialogPrimitiveContentProps = React.ComponentPropsWithoutRef<
   typeof DialogPrimitive.Content
 >;
+
 const Content = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   DialogProps
@@ -199,4 +200,38 @@ const Footer = ({ children }: DialogFooterProps) => (
 const { Root } = DialogPrimitive;
 const Close = StyledClose;
 
-export { Root, Close, Content, Trigger, Header, Footer };
+/**
+ * @name Dialog
+ * @desc A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.
+ * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dialog)
+ */
+const Dialog = {
+  /**
+   * @name Root
+   * @desc Contains all the parts of a dialog.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dialog#root)
+   */
+  Root,
+  /**
+   * @name Close
+   * @desc The button that closes the dialog.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dialog#close)
+   */
+  Close,
+  /**
+   * @name Content
+   * @desc Contains content to be rendered in the open dialog.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dialog#content)
+   */
+  Content,
+  /**
+   * @name Trigger
+   * @desc The button that opens the dialog.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dialog#trigger)
+   */
+  Trigger,
+  Header,
+  Footer,
+};
+
+export default Dialog;

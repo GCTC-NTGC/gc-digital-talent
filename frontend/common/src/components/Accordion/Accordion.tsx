@@ -11,7 +11,8 @@ import "./accordion.css";
 
 const Root = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
+  | AccordionPrimitive.AccordionMultipleProps
+  | AccordionPrimitive.AccordionSingleProps
 >((props, forwardedRef) => (
   <AccordionPrimitive.Root
     className="Accordion"
@@ -168,4 +169,31 @@ const Content = React.forwardRef<
   </AccordionPrimitive.Content>
 ));
 
-export { Root, Item, Trigger, Content };
+/**
+ * @name Accordion
+ * @desc A vertically stacked set of interactive headings that each reveal an associated section of content.
+ * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion)
+ */
+const Accordion = {
+  /**
+   * @name Root
+   * @desc Contains all the parts of an accordion.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#root)
+   */
+  Root,
+  /**
+   * @name Item
+   * @desc Contains all the parts of a collapsible section.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#item)
+   */
+  Item,
+  Trigger,
+  /**
+   * @name Content
+   * @desc Contains the collapsible content for an item.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#content)
+   */
+  Content,
+};
+
+export default Accordion;

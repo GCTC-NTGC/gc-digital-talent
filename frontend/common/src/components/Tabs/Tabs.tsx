@@ -54,4 +54,36 @@ const Content = React.forwardRef<
   />
 ));
 
-export { Root, List, Trigger, Content };
+/**
+ * @name Tabs
+ * @desc A set of layered sections of content—known as tab panels—that are displayed one at a time.
+ * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/tabs)
+ */
+const Tabs = {
+  /**
+   * @name Root
+   * @desc An item in the group.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/toggle-group#item)
+   */
+  Root,
+  /**
+   * @name List
+   * @desc Contains the triggers that are aligned along the edge of the active content.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/tabs#list)
+   */
+  List,
+  /**
+   * @name Trigger
+   * @desc The button that activates its associated content.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/tabs#trigger)
+   */
+  Trigger,
+  /**
+   * @name Content
+   * @desc Contains the content associated with each trigger.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/tabs#content)
+   */
+  Content,
+};
+
+export default Tabs;

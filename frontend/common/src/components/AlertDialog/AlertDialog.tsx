@@ -133,4 +133,55 @@ const Footer = ({ children }: AlertDialogFooterProps) => (
 
 const { Root } = AlertDialogPrimitive;
 
-export { Root, Content, Trigger, Title, Description, Footer, Cancel, Action };
+/**
+ * @name Alert Dialog
+ * @desc A modal dialog that interrupts the user with important content and expects a response.
+ * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/alert-dialog)
+ */
+const AlertDialog = {
+  /**
+   * @name Root
+   * @desc Contains all the parts of an alert dialog.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/alert-dialog#root)
+   */
+  Root,
+  /**
+   * @name Content
+   * @desc Contains content to be rendered when the dialog is open.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/alert-dialog#content)
+   */
+  Content,
+  /**
+   * @name Trigger
+   * @desc A button that opens the dialog.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/alert-dialog#trigger)
+   */
+  Trigger,
+  /**
+   * @name Title
+   * @desc An accessible name to be announced when the dialog is opened.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/alert-dialog#title)
+   */
+  Title,
+  /**
+   * @name Description
+   * @desc An accessible description to be announced when the dialog is opened.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/alert-dialog#description)
+   */
+  Description,
+  Footer,
+  /**
+   * @name Cancel
+   * @desc A button that closes the dialog.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/alert-dialog#cancel)
+   */
+  Cancel,
+  /**
+   * @name Action
+   * @desc A button that closes the dialog.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/alert-dialog#action)
+   */
+  Action,
+};
+
+export default AlertDialog;

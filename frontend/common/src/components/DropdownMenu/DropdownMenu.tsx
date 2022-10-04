@@ -173,16 +173,74 @@ const ItemIndicator = React.forwardRef<
 ));
 
 const { Root, RadioGroup } = DropdownMenuPrimitive;
-export {
+
+/**
+ * @name DropdownMenu
+ * @desc Displays a menu to the user—such as a set of actions or functions—triggered by a button.
+ * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu)
+ */
+const DropdownMenu = {
+  /**
+   * @name Root
+   * @desc Contains all the parts of a dropdown menu.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#root)
+   */
   Root,
+  /**
+   * @name Trigger
+   * @desc The button that toggles the dropdown menu.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#trigger)
+   */
   Trigger,
+  /**
+   * @name Content
+   * @desc The component that pops out when the dropdown menu is open.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#content)
+   */
   Content,
   SubContent,
+  /**
+   * @name Item
+   * @desc The component that contains the dropdown menu items.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#item)
+   */
   Item,
+  /**
+   * @name ItemIndicator
+   * @desc Renders when the parent `DropdownMenu.CheckboxItem` or `DropdownMenu.RadioItem` is checked.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#itemindicator)
+   */
   ItemIndicator,
+  /**
+   * @name RadioGroup
+   * @desc Used to group multiple `DropdownMenu.RadioItem`s.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#radiogroup)
+   */
   RadioGroup,
+  /**
+   * @name CheckboxItem
+   * @desc An item that can be controlled and rendered like a checkbox.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#checkboxitem)
+   */
   CheckboxItem,
+  /**
+   * @name RadioItem
+   * @desc An item that can be controlled and rendered like a radio.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#radioitem)
+   */
   RadioItem,
+  /**
+   * @name Label
+   * @desc Used to render a label. It won't be focusable using arrow keys.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#label)
+   */
   Label,
+  /**
+   * @name Separator
+   * @desc Used to visually separate items in the dropdown menu.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#separator)
+   */
   Separator,
 };
+
+export default DropdownMenu;
