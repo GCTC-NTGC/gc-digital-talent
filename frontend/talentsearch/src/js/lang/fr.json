@@ -1532,9 +1532,9 @@
     "defaultMessage": "Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères",
     "description": "Heading for total matching candidates in results section of search page."
   },
-  "thdckE": {
-    "defaultMessage": "Il y a <strong>{candidateCount}</strong> candidats qui répondent à vos critères dans ce bassin",
-    "description": "Message for total estimated candidates box next to search form."
+  "ICPJ8D": {
+    "defaultMessage": "Il y a <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> candidats qui répondent à vos critères dans ce bassin",
+    "description": "Message for total estimated matching candidates in pool"
   },
   "pak8ye": {
     "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>FRANÇAIS</strong>",
