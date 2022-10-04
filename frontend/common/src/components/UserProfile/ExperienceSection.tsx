@@ -21,7 +21,7 @@ import ExperienceByTypeListing from "./ExperienceByTypeListing";
 
 export interface ExperienceSectionProps {
   experiences?: Experience[];
-  experienceEditPaths?: ExperiencePaths; // If experienceEditPaths is not defined, links to edit experiences will not appear.
+  experienceEditPaths?: ExperiencePaths; //  If experienceEditPaths is not defined, links to edit experiences will not appear.
   editPath?: string;
 }
 
@@ -94,12 +94,12 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
   );
   const skillIds = allSkills.map(({ id }) => id);
   const sortedBySkills = allSkills
-    .filter(({ id }, index) => !skillIds.includes(id, index + 1)) // Remove duplicate skills
+    .filter(({ id }, index) => !skillIds.includes(id, index + 1)) //  Remove duplicate skills
     .sort((skill1, skill2) => {
       const skill1Name: string = skill1.name[locale] || "";
       const skill2Name: string = skill2.name[locale] || "";
       return skill1Name.localeCompare(skill2Name);
-    }); // Sort skills alphabetically
+    }); //  Sort skills alphabetically
 
   let isExperience = false;
   if (allExperiences.length >= 1) {

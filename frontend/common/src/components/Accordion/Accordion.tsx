@@ -1,3 +1,6 @@
+/**
+ * Documentation: https://www.radix-ui.com/docs/primitives/components/accordion
+ */
 import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
@@ -6,7 +9,7 @@ import type { HeadingRank } from "../../types/primitiveTypes";
 
 import "./accordion.css";
 
-const AccordionRoot = React.forwardRef<
+const Root = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
 >((props, forwardedRef) => (
@@ -19,7 +22,7 @@ const AccordionRoot = React.forwardRef<
   />
 ));
 
-const AccordionItem = React.forwardRef<
+const Item = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >((props, forwardedRef) => (
@@ -34,7 +37,7 @@ const AccordionItem = React.forwardRef<
   />
 ));
 
-const StyledAccordionHeader = React.forwardRef<
+const StyledHeader = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Header>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Header>
 >((props, forwardedRef) => (
@@ -45,7 +48,7 @@ const StyledAccordionHeader = React.forwardRef<
   />
 ));
 
-const StyledAccordionTrigger = React.forwardRef<
+const StyledTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >((props, forwardedRef) => (
@@ -75,7 +78,7 @@ export interface AccordionTriggerProps
   headerAs?: HeadingRank;
 }
 
-const AccordionTrigger = React.forwardRef<
+const Trigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   AccordionTriggerProps
 >(
@@ -85,9 +88,9 @@ const AccordionTrigger = React.forwardRef<
   ) => {
     const Header = headerAs;
     return (
-      <StyledAccordionHeader asChild>
+      <StyledHeader asChild>
         <Header data-h2-line-height="base(1)">
-          <StyledAccordionTrigger ref={forwardedRef} {...rest}>
+          <StyledTrigger ref={forwardedRef} {...rest}>
             <div data-h2-margin="base(0, x.25, 0, 0)" style={{ flexShrink: 0 }}>
               <ChevronRightIcon
                 className="Accordion__Trigger__Chevron"
@@ -130,14 +133,14 @@ const AccordionTrigger = React.forwardRef<
                 </span>
               )}
             </div>
-          </StyledAccordionTrigger>
+          </StyledTrigger>
         </Header>
-      </StyledAccordionHeader>
+      </StyledHeader>
     );
   },
 );
 
-const AccordionContent = React.forwardRef<
+const Content = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({ children, ...rest }, forwardedRef) => (
@@ -159,10 +162,5 @@ const AccordionContent = React.forwardRef<
     </div>
   </AccordionPrimitive.Content>
 ));
-
-const Root = AccordionRoot;
-const Item = AccordionItem;
-const Trigger = AccordionTrigger;
-const Content = AccordionContent;
 
 export { Root, Item, Trigger, Content };

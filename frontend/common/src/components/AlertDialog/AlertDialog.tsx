@@ -1,7 +1,10 @@
+/**
+ * Documentation: https://www.radix-ui.com/docs/primitives/components/alert-dialog
+ */
 import React from "react";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 
-const StyledAlertDialogOverlay = React.forwardRef<
+const StyledOverlay = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
 >((props, forwardedRef) => (
@@ -15,7 +18,7 @@ const StyledAlertDialogOverlay = React.forwardRef<
   />
 ));
 
-const StyledAlertDialogContent = React.forwardRef<
+const StyledContent = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
 >((props, forwardedRef) => (
@@ -43,7 +46,7 @@ const StyledAlertDialogContent = React.forwardRef<
   />
 ));
 
-const AlertDialogTrigger = React.forwardRef<
+const Trigger = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Trigger>
 >(({ asChild = true, ...rest }, forwardedRef) => (
@@ -62,17 +65,17 @@ interface AlertDialogProps extends AlertDialogPrimitiveContentProps {
   container?: HTMLElement;
 }
 
-const AlertDialogContent = React.forwardRef<
+const Content = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Content>,
   AlertDialogProps
 >(({ container, ...props }, forwardedRef) => (
   <AlertDialogPrimitive.Portal container={container}>
-    <StyledAlertDialogOverlay />
-    <StyledAlertDialogContent ref={forwardedRef} {...props} />
+    <StyledOverlay />
+    <StyledContent ref={forwardedRef} {...props} />
   </AlertDialogPrimitive.Portal>
 ));
 
-const AlertDialogTitle = React.forwardRef<
+const Title = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
 >((props, forwardedRef) => (
@@ -85,7 +88,7 @@ const AlertDialogTitle = React.forwardRef<
   />
 ));
 
-const AlertDialogDescription = React.forwardRef<
+const Description = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
 >((props, forwardedRef) => (
@@ -96,14 +99,14 @@ const AlertDialogDescription = React.forwardRef<
   />
 ));
 
-const AlertDialogCancel = React.forwardRef<
+const Cancel = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Cancel>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>
 >(({ asChild = true, ...rest }, forwardedRef) => (
   <AlertDialogPrimitive.Cancel ref={forwardedRef} asChild={asChild} {...rest} />
 ));
 
-const AlertDialogAction = React.forwardRef<
+const Action = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Action>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>
 >(({ asChild = true, ...rest }, forwardedRef) => (
@@ -114,7 +117,7 @@ interface AlertDialogFooterProps {
   children: React.ReactNode;
 }
 
-const AlertDialogFooter = ({ children }: AlertDialogFooterProps) => (
+const Footer = ({ children }: AlertDialogFooterProps) => (
   <div
     data-h2-align-items="base(center)"
     data-h2-border="base(top, 1px, solid, dt-gray.dark)"
@@ -129,12 +132,5 @@ const AlertDialogFooter = ({ children }: AlertDialogFooterProps) => (
 );
 
 const { Root } = AlertDialogPrimitive;
-const Content = AlertDialogContent;
-const Trigger = AlertDialogTrigger;
-const Title = AlertDialogTitle;
-const Description = AlertDialogDescription;
-const Footer = AlertDialogFooter;
-const Cancel = AlertDialogCancel;
-const Action = AlertDialogAction;
 
 export { Root, Content, Trigger, Title, Description, Footer, Cancel, Action };

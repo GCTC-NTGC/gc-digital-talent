@@ -1,3 +1,6 @@
+/**
+ * Documentation: https://www.radix-ui.com/docs/primitives/components/tabs
+ */
 import React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 

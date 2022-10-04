@@ -1,3 +1,6 @@
+/**
+ * Documentation: https://www.radix-ui.com/docs/primitives/components/toggle-group
+ */
 import React from "react";
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
 
@@ -48,7 +51,7 @@ const colorMap: Record<Color, Record<string, string>> = {
   },
 };
 
-const ToggleGroupItem = React.forwardRef<
+const Item = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>
 >((props, forwardedRef) => (
@@ -71,7 +74,7 @@ export interface ToggleGroupProps extends ToggleGroupType {
   color?: Color;
 }
 
-const ToggleGroup = React.forwardRef<
+const Root = React.forwardRef<
   React.ElementRef<ToggleGroupType>,
   React.ComponentPropsWithoutRef<ToggleGroupProps>
 >(({ color = "primary", ...rest }, forwardedRef) => {
@@ -88,8 +91,5 @@ const ToggleGroup = React.forwardRef<
     />
   );
 });
-
-const Item = ToggleGroupItem;
-const Root = ToggleGroup;
 
 export { Item, Root };

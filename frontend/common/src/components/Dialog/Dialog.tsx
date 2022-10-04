@@ -1,9 +1,12 @@
+/**
+ * Documentation: https://www.radix-ui.com/docs/primitives/components/dialog
+ */
 import React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 
-const StyledDialogOverlay = React.forwardRef<
+const StyledOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >((props, forwardedRef) => (
@@ -17,7 +20,7 @@ const StyledDialogOverlay = React.forwardRef<
   />
 ));
 
-const StyledDialogContent = React.forwardRef<
+const StyledContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >((props, forwardedRef) => (
@@ -45,7 +48,7 @@ const StyledDialogContent = React.forwardRef<
   />
 ));
 
-const StyledDialogClose = React.forwardRef<
+const StyledClose = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Close>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
 >((props, forwardedRef) => (
@@ -59,7 +62,7 @@ interface DialogProps extends DialogPrimitiveContentProps {
 type DialogPrimitiveContentProps = React.ComponentPropsWithoutRef<
   typeof DialogPrimitive.Content
 >;
-const DialogContent = React.forwardRef<
+const Content = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   DialogProps
 >(({ container, children, ...props }, forwardedRef) => {
@@ -67,10 +70,10 @@ const DialogContent = React.forwardRef<
 
   return (
     <DialogPrimitive.Portal container={container}>
-      <StyledDialogOverlay />
-      <StyledDialogContent ref={forwardedRef} {...props}>
+      <StyledOverlay />
+      <StyledContent ref={forwardedRef} {...props}>
         {children}
-        <StyledDialogClose>
+        <StyledClose>
           <button
             type="button"
             data-h2-background-color="base(transparent) base:hover(dt-white.15)"
@@ -90,20 +93,20 @@ const DialogContent = React.forwardRef<
           >
             <XMarkIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
           </button>
-        </StyledDialogClose>
-      </StyledDialogContent>
+        </StyledClose>
+      </StyledContent>
     </DialogPrimitive.Portal>
   );
 });
 
-const DialogTrigger = React.forwardRef<
+const Trigger = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger>
 >(({ asChild = true, ...rest }, forwardedRef) => (
   <DialogPrimitive.Trigger ref={forwardedRef} asChild={asChild} {...rest} />
 ));
 
-const StyledDialogTitle = React.forwardRef<
+const StyledTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >((props, forwardedRef) => (
@@ -116,7 +119,7 @@ const StyledDialogTitle = React.forwardRef<
   />
 ));
 
-const StyledDialogDescription = React.forwardRef<
+const StyledDescription = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >((props, forwardedRef) => (
@@ -154,7 +157,7 @@ export interface DialogHeaderProps {
   color: Color;
 }
 
-const DialogHeader = ({
+const Header = ({
   subtitle,
   children,
   color = "ia-primary",
@@ -169,8 +172,8 @@ const DialogHeader = ({
     {...colorMap[color]}
   >
     <div data-h2-position="base(relative)">
-      <StyledDialogTitle>{children}</StyledDialogTitle>
-      <StyledDialogDescription>{subtitle}</StyledDialogDescription>
+      <StyledTitle>{children}</StyledTitle>
+      <StyledDescription>{subtitle}</StyledDescription>
     </div>
   </div>
 );
@@ -179,7 +182,7 @@ interface DialogFooterProps {
   children: React.ReactNode;
 }
 
-const DialogFooter = ({ children }: DialogFooterProps) => (
+const Footer = ({ children }: DialogFooterProps) => (
   <div
     data-h2-align-items="base(center)"
     data-h2-border="base(top, 1px, solid, dt-gray.dark)"
@@ -194,10 +197,6 @@ const DialogFooter = ({ children }: DialogFooterProps) => (
 );
 
 const { Root } = DialogPrimitive;
-const Close = StyledDialogClose;
-const Content = DialogContent;
-const Trigger = DialogTrigger;
-const Header = DialogHeader;
-const Footer = DialogFooter;
+const Close = StyledClose;
 
 export { Root, Close, Content, Trigger, Header, Footer };
