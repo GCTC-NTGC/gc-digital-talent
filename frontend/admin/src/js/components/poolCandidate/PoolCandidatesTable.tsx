@@ -448,40 +448,6 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Language Ability",
-          id: "TXH6vD",
-          description:
-            "Title displayed on the Pool Candidates table Language Ability column.",
-        }),
-        id: "languageAbility",
-        accessor: ({ languageAbility }) => languageAbility,
-        sortColumnName: "LANGUAGE_ABILITY",
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Classifications",
-          id: "EECyWx",
-          description:
-            "Title displayed on the Pool Candidates table Classifications column.",
-        }),
-        id: "classifications",
-        accessor: ({ expectedClassifications }) =>
-          expectedClassifications?.map((c) => `${c?.group}-${c?.level}`),
-        sortColumnName: "CLASSIFICATIONS",
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Has Diploma",
-          id: "GFbVhO",
-          description:
-            "Title displayed on the Pool Candidates table diploma column.",
-        }),
-        id: "hasDiploma",
-        accessor: ({ hasDiploma }) => (hasDiploma ? "YES" : "NO"),
-        sortColumnName: "HAS_DIPLOMA",
-      },
-      {
-        label: intl.formatMessage({
           defaultMessage: "Current Location",
           id: "1sPszf",
           description:
