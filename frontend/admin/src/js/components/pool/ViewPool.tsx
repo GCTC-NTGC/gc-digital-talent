@@ -113,8 +113,8 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
   );
 
   const relativeToAbsoluteURL = (path: string): string => {
-    const { host } = window.location;
-    return `${host}${path}`;
+    const { host, protocol } = window.location;
+    return `${protocol}//${host}${path}`;
   };
 
   const links = [
