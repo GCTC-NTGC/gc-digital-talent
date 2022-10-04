@@ -4,12 +4,12 @@ import { action } from "@storybook/addon-actions";
 import type { SubmitHandler } from "react-hook-form";
 import OverlayOrDialogDecorator from "@common/../.storybook/decorators/OverlayOrDialogDecorator";
 import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
-import UserTableFilterDialog from "./UserTableFilterDialog";
+import UserTableFilters from "./UserTableFilterDialog";
 import type { FormValues } from "./UserTableFilterDialog";
 
 export default {
-  title: "Users/UserTableFilterDialog.Button",
-  component: UserTableFilterDialog.Button,
+  title: "Users/UserTableFilters",
+  component: UserTableFilters,
   decorators: [OverlayOrDialogDecorator],
   args: {
     isOpenDefault: true,
@@ -33,16 +33,14 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof UserTableFilterDialog.Button>;
+} as ComponentMeta<typeof UserTableFilters>;
 
-const Template: ComponentStory<typeof UserTableFilterDialog.Button> = (
-  args,
-) => {
+const Template: ComponentStory<typeof UserTableFilters> = (args) => {
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
     action("Update filter")(data);
   };
 
-  return <UserTableFilterDialog.Button {...args} onSubmit={handleSubmit} />;
+  return <UserTableFilters {...args} onSubmit={handleSubmit} />;
 };
 
 export const Default = Template.bind({});

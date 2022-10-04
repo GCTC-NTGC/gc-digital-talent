@@ -48,15 +48,13 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
           id: "uC0YPE",
         })}
       </Button>
-      <Dialog.Close>
-        <Button type="submit" color="cta">
-          {formatMessage({
-            description: "Submit button within the search filter dialog",
-            defaultMessage: "Show results",
-            id: "V4+lDw",
-          })}
-        </Button>
-      </Dialog.Close>
+      <Button type="submit" color="cta">
+        {formatMessage({
+          description: "Submit button within the search filter dialog",
+          defaultMessage: "Show results",
+          id: "V4+lDw",
+        })}
+      </Button>
     </>
   );
 };
