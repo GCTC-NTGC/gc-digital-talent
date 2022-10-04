@@ -60,7 +60,8 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
 };
 
 interface UserTableFilterDialogProps {
-  isOpenDefault?: boolean;
+  isOpen?: boolean;
+  onOpenChange: (open: boolean) => void;
   onSubmit: SubmitHandler<FormValues>;
   activeFilters: FormValues;
   enableEducationType?: boolean;
@@ -69,7 +70,8 @@ interface UserTableFilterDialogProps {
 const UserTableFilterDialog = ({
   onSubmit,
   activeFilters,
-  isOpenDefault = false,
+  isOpen,
+  onOpenChange,
   enableEducationType = false,
 }: UserTableFilterDialogProps): JSX.Element => {
   const { formatMessage } = useIntl();
@@ -77,7 +79,7 @@ const UserTableFilterDialog = ({
     useFilterOptions(enableEducationType);
 
   return (
-    <Dialog.Root defaultOpen={isOpenDefault}>
+    <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Trigger>
         <Button
           mode="solid"
@@ -262,6 +264,7 @@ const UserTableFilters = ({
   enableEducationType,
   ...rest
 }: UserTableFiltersProps) => {
+  const [isOpen, setOpen] = React.useState<boolean>(isOpenDefault);
   const { emptyFormValues } = useFilterOptions(enableEducationType);
   const [activeFilters, setActiveFilters] =
     useState<FormValues>(emptyFormValues);
@@ -269,12 +272,14 @@ const UserTableFilters = ({
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
     onSubmit(data);
     setActiveFilters(data);
+    setOpen(false);
   };
 
   return (
     <UserTableFilterDialog
-      {...{ activeFilters, isOpenDefault, enableEducationType }}
+      {...{ activeFilters, isOpenDefault, enableEducationType, isOpen }}
       {...rest}
+      onOpenChange={setOpen}
       onSubmit={handleSubmit}
     />
   );

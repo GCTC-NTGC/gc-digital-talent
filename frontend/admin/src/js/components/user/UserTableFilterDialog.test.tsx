@@ -208,7 +208,6 @@ describe("UserTableFilterDialog", () => {
       renderButton({ isOpenDefault: true });
       selectFilterOption(/work locations/i, "Atlantic");
       await submitFilters();
-
       openDialog();
       expect(screen.getByText("Atlantic")).toBeVisible();
     });
