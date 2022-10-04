@@ -59,7 +59,7 @@ class AuthServiceProviderTest extends TestCase
                                         ->andThrow(new Exception);
 
         try {
-            $resolvedUser = $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
+            $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
             $this->fail('HttpException was not thrown');
         } catch (HttpException $e) {
             $this->assertEquals(401, $e->getStatusCode(), 'Unexpected status code on HttpException');
@@ -79,7 +79,7 @@ class AuthServiceProviderTest extends TestCase
                                         ->andThrow(new Error);
 
         try {
-            $resolvedUser = $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
+            $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
             $this->fail('HttpException was not thrown');
         } catch (HttpException $e) {
             $this->assertEquals(401, $e->getStatusCode(), 'Unexpected status code on HttpException');
