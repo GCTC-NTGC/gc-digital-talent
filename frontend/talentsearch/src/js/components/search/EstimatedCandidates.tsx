@@ -78,13 +78,6 @@ const EstimatedCandidates: React.FunctionComponent<
             {candidateCount > 0 && (
               <a
                 href="#results"
-                title={intl.formatMessage({
-                  defaultMessage:
-                    "View the pools that contain matching talent.",
-                  id: "7/Bn8u",
-                  description:
-                    "The title for a link to view the pools that contain matching talent.",
-                })}
                 data-h2-color="base(dt-black) base:hover(dt-primary)"
                 data-h2-transition="base:hover(color, .2s, ease, 0s)"
                 data-h2-display="base(inline-block)"
