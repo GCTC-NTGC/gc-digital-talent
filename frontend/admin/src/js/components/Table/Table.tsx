@@ -13,7 +13,7 @@ import {
 import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
 import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
-import { DeprecatedDialog } from "@common/components/Dialog";
+import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
@@ -114,7 +114,6 @@ function Table<T extends Record<string, unknown>>({
     usePagination,
   );
 
-  const [showList, setShowList] = useState(false);
   const intl = useIntl();
 
   return (
@@ -130,64 +129,65 @@ function Table<T extends Record<string, unknown>>({
                   <SearchForm onChange={setGlobalFilter} />
                 </div>
                 <div data-h2-flex-item="base(content)">
-                  <Button
-                    mode="solid"
-                    color="secondary"
-                    type="button"
-                    data-h2-display="base(inline-flex)"
-                    data-h2-align-items="base(center)"
-                    onClick={() => setShowList(!showList)}
-                  >
-                    <ButtonIcon icon={TableCellsIcon} />
-                    <span>
-                      {intl.formatMessage({
-                        defaultMessage: "Columns",
-                        id: "xcBl1q",
-                        description:
-                          "Label displayed on the Table Columns toggle button.",
-                      })}
-                    </span>
-                  </Button>
-                  <DeprecatedDialog
-                    color="ts-primary"
-                    isOpen={showList}
-                    onDismiss={() => setShowList(false)}
-                    title={intl.formatMessage({
-                      defaultMessage: "Table columns",
-                      id: "YH6bFU",
-                      description:
-                        "Dialog title for the admin tables columns toggle.",
-                    })}
-                  >
-                    <Fieldset
-                      legend={intl.formatMessage({
-                        defaultMessage: "Visible columns",
-                        id: "H9rxOR",
-                        description:
-                          "Legend for the column toggle in admin tables.",
-                      })}
-                    >
-                      <div data-h2-margin="base(x.125, 0)">
-                        <IndeterminateCheckbox
-                          {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                            typeof IndeterminateCheckbox
-                          >)}
-                        />
-                      </div>
-                      {allColumns.map((column) => (
-                        <div key={column.id} data-h2-margin="base(x.125, 0)">
-                          <label htmlFor={column.Header?.toString()}>
-                            <input
-                              id={column.Header?.toString()}
-                              type="checkbox"
-                              {...column.getToggleHiddenProps()}
-                            />{" "}
-                            {column.Header}
-                          </label>
+                  <Dialog.Root>
+                    <Dialog.Trigger>
+                      <Button
+                        mode="solid"
+                        color="secondary"
+                        type="button"
+                        data-h2-display="base(inline-flex)"
+                        data-h2-align-items="base(center)"
+                      >
+                        <ButtonIcon icon={TableCellsIcon} />
+                        <span>
+                          {intl.formatMessage({
+                            defaultMessage: "Columns",
+                            id: "xcBl1q",
+                            description:
+                              "Label displayed on the Table Columns toggle button.",
+                          })}
+                        </span>
+                      </Button>
+                    </Dialog.Trigger>
+                    <Dialog.Content>
+                      <Dialog.Header color="ts-primary">
+                        {intl.formatMessage({
+                          defaultMessage: "Table columns",
+                          id: "YH6bFU",
+                          description:
+                            "Dialog title for the admin tables columns toggle.",
+                        })}
+                      </Dialog.Header>
+                      <Fieldset
+                        legend={intl.formatMessage({
+                          defaultMessage: "Visible columns",
+                          id: "H9rxOR",
+                          description:
+                            "Legend for the column toggle in admin tables.",
+                        })}
+                      >
+                        <div data-h2-margin="base(x.125, 0)">
+                          <IndeterminateCheckbox
+                            {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                              typeof IndeterminateCheckbox
+                            >)}
+                          />
                         </div>
-                      ))}
-                    </Fieldset>
-                  </DeprecatedDialog>
+                        {allColumns.map((column) => (
+                          <div key={column.id} data-h2-margin="base(x.125, 0)">
+                            <label htmlFor={column.Header?.toString()}>
+                              <input
+                                id={column.Header?.toString()}
+                                type="checkbox"
+                                {...column.getToggleHiddenProps()}
+                              />{" "}
+                              {column.Header}
+                            </label>
+                          </div>
+                        ))}
+                      </Fieldset>
+                    </Dialog.Content>
+                  </Dialog.Root>
                 </div>
               </div>
             </div>
