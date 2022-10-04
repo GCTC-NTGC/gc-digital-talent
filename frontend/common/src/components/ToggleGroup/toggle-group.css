@@ -12,6 +12,11 @@
   color: var(--h2-color-dt-black);
 }
 
+[data-h2="dark"] .ToggleGroup > [data-state="on"].ToggleGroup__Item {
+  background-color: var(--h2-color-black);
+  color: var(--h2-color-dt-white);
+}
+
 .ToggleGroup.ToggleGroup--white > [data-state="on"].ToggleGroup__Item {
   background-color: var(--h2-color-dt-black);
   color: var(--h2-color-white);

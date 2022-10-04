@@ -11,7 +11,8 @@ const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-color": "base:children[*](white)",
   },
   secondary: {
-    "data-h2-background-color": "base(dt-secondary)",
+    "data-h2-background-color":
+      "base(dt-secondary) base:dark(lighter.dt-secondary)",
     "data-h2-color": "base:children[*](white)",
   },
   cta: {
@@ -19,11 +20,11 @@ const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-color": "base:children[*](dt-black)",
   },
   white: {
-    "data-h2-background-color": "base(white)",
+    "data-h2-background-color": "base(white) base:dark(lighter.black)",
     "data-h2-color": "base:children[*](dt-black)",
   },
   black: {
-    "data-h2-background-color": "base(dt-black)",
+    "data-h2-background-color": "base(dt-black) base:dark(lighter.dt-black)",
     "data-h2-color": "base:children[*](white)",
   },
   "ia-primary": {
@@ -59,7 +60,7 @@ const ToggleGroupItem = React.forwardRef<
     data-h2-line-height="base(1)"
     data-h2-padding="base(x.25, x.5)"
     data-h2-radius="base(m)"
-    data-h2-background-color="base:hover(white.15)"
+    data-h2-background-color="base:hover(white.15) base:dark:hover(black.15)"
     data-h2-cursor="base:hover(pointer)"
     data-h2-width="base:children[svg](var(--h2-font-size-copy))"
     ref={forwardedRef}

@@ -24,6 +24,7 @@ const ThemeSwitcher = () => {
   return (
     <ToggleGroup.Root
       type="single"
+      color="secondary"
       value={mode}
       onValueChange={(newMode: string) =>
         setMode((newMode as ThemeMode) || "pref")

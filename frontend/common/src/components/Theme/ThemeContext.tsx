@@ -26,13 +26,29 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
     localStorage.theme || "pref",
   );
 
+  const setDOMTheme = (mode: ThemeMode) => {
+    const hydrogen = document.querySelectorAll("[data-h2]");
+    hydrogen.forEach((item) => {
+      if (item instanceof HTMLElement) {
+        //  NOTE: We are setting DOM attrs here so it should be fine
+        // eslint-disable-next-line no-param-reassign
+        item.dataset.h2 = mode;
+      }
+    });
+  };
+
   const setCurrentMode = React.useCallback(
     (newMode: ThemeMode) => {
       setMode(newMode);
       if (newMode !== "pref") {
         localStorage.setItem("theme", String(newMode));
+        setDOMTheme(newMode);
       } else {
         localStorage.removeItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        setDOMTheme(prefersDark ? "dark" : "light");
       }
     },
     [setMode],
