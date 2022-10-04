@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useIntl } from "react-intl";
-import { DeprecatedDialog } from "@common/components/Dialog";
+import Dialog from "@common/components/Dialog";
 import { PoolAdvertisement } from "@common/api/generated";
 import { Button } from "@common/components";
 import { FormProvider, useForm } from "react-hook-form";
@@ -17,15 +17,11 @@ type FormValues = {
 export type ExtendSubmitData = Pick<UpdatePoolAdvertisementInput, "expiryDate">;
 
 type ExtendDialogProps = {
-  isOpen: boolean;
-  onDismiss: () => void;
   expiryDate: NonNullable<PoolAdvertisement["expiryDate"]>;
   onExtend: (submitData: ExtendSubmitData) => void;
 };
 
 const ExtendDialog = ({
-  isOpen,
-  onDismiss,
   expiryDate,
   onExtend,
 }: ExtendDialogProps): JSX.Element => {
@@ -36,9 +32,8 @@ const ExtendDialog = ({
       onExtend({
         expiryDate: strToDateTimeTz(formValues.endDate),
       });
-      onDismiss();
     },
-    [onDismiss, onExtend],
+    [onExtend],
   );
 
   const methods = useForm<FormValues>({
@@ -48,79 +43,85 @@ const ExtendDialog = ({
   const { handleSubmit } = methods;
   const Footer = React.useMemo(
     () => (
-      <div data-h2-display="base(flex)">
+      <>
         <div style={{ flexGrow: 2 } /* push other div to the right */}>
-          <Button onClick={onDismiss} mode="outline" color="secondary">
-            {intl.formatMessage({
-              defaultMessage: "Cancel and go back",
-              id: "tiF/jI",
-              description: "Close dialog button",
-            })}
-          </Button>
+          <Dialog.Close>
+            <Button mode="outline" color="secondary">
+              {intl.formatMessage({
+                defaultMessage: "Cancel and go back",
+                id: "tiF/jI",
+                description: "Close dialog button",
+              })}
+            </Button>
+          </Dialog.Close>
         </div>
         <div>
-          {/* Can't use regular Submit component since this isn't inside the form provider */}
-          <Button
-            onClick={methods.handleSubmit(handleExtend)}
-            mode="solid"
-            color="secondary"
-            type="submit"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Extend closing date",
-              id: "OIk63O",
-              description:
-                "Button to extend the pool closing date in the extend pool closing date dialog",
-            })}
-          </Button>
+          <Dialog.Close>
+            <Button mode="solid" color="secondary" type="submit">
+              {intl.formatMessage({
+                defaultMessage: "Extend closing date",
+                id: "OIk63O",
+                description:
+                  "Button to extend the pool closing date in the extend pool closing date dialog",
+              })}
+            </Button>
+          </Dialog.Close>
         </div>
-      </div>
+      </>
     ),
-    [handleExtend, intl, methods, onDismiss],
+    [intl],
   );
   return (
-    <DeprecatedDialog
-      centered
-      isOpen={isOpen}
-      onDismiss={onDismiss}
-      color="ts-secondary"
-      title={intl.formatMessage({
-        defaultMessage: "Extend Closing Date",
-        id: "3mrTn5",
-        description: "Heading for the extend pool closing date dialog",
-      })}
-    >
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Write a new closing date:",
-          id: "BQsJSG",
-          description: "First paragraph for extend pool closing date dialog",
-        })}
-      </p>
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(handleExtend)}>
-          <Input
-            id="extendDialog-endDate"
-            label={intl.formatMessage({
-              defaultMessage: "End Date",
-              id: "80DOGy",
-              description:
-                "Label displayed on the pool candidate form end date field.",
-            })}
-            type="date"
-            name="endDate"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              min: {
-                value: currentDate(),
-                message: intl.formatMessage(errorMessages.futureDate),
-              },
-            }}
-          />
-        </form>
-      </FormProvider>
-      <DeprecatedDialog.Footer>{Footer}</DeprecatedDialog.Footer>
-    </DeprecatedDialog>
+    <Dialog.Root>
+      <Dialog.Trigger>
+        <Button color="secondary" mode="solid">
+          {intl.formatMessage({
+            defaultMessage: "Extend the date",
+            id: "jiUwae",
+            description: "Text on a button to extend the expiry date the pool",
+          })}
+        </Button>
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Header color="ts-secondary">
+          {intl.formatMessage({
+            defaultMessage: "Extend Closing Date",
+            id: "3mrTn5",
+            description: "Heading for the extend pool closing date dialog",
+          })}
+        </Dialog.Header>
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "Write a new closing date:",
+            id: "BQsJSG",
+            description: "First paragraph for extend pool closing date dialog",
+          })}
+        </p>
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(handleExtend)}>
+            <Input
+              id="extendDialog-endDate"
+              label={intl.formatMessage({
+                defaultMessage: "End Date",
+                id: "80DOGy",
+                description:
+                  "Label displayed on the pool candidate form end date field.",
+              })}
+              type="date"
+              name="endDate"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                min: {
+                  value: currentDate(),
+                  message: intl.formatMessage(errorMessages.futureDate),
+                },
+              }}
+            />
+            <Dialog.Footer>{Footer}</Dialog.Footer>
+          </form>
+        </FormProvider>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 };
 

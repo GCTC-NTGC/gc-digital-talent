@@ -25,7 +25,7 @@ const renderWithReactIntl = (
   );
 };
 
-describe("Edit Pool tests", () => {
+describe("EditPool", () => {
   // This test is prone to going beyond the 5s default timeout.
   const extendedTimeout = 10 * 1000;
   it(

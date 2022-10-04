@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
-import React, { HTMLAttributes, ReactElement, useState } from "react";
+import React, { HTMLAttributes, ReactElement } from "react";
 import { useIntl } from "react-intl";
 
 import {
