@@ -6,6 +6,7 @@ import { screen } from "@testing-library/react";
 import React from "react";
 import { axeTest, render } from "@common/helpers/testUtils";
 import { fakePoolCandidates } from "@common/fakeData";
+import { FAR_PAST_DATE } from "@common/helpers/dateUtils";
 
 import ApplicationCard, { type ApplicationCardProps } from "./ApplicationCard";
 import { PoolCandidateStatus } from "../../api/generated";
@@ -65,6 +66,7 @@ describe("ApplicationCard", () => {
       application: {
         ...mockApplication,
         status: PoolCandidateStatus.ScreenedOutApplication,
+        archivedAt: null,
       },
     });
 
@@ -80,6 +82,7 @@ describe("ApplicationCard", () => {
       application: {
         ...mockApplication,
         status: PoolCandidateStatus.ScreenedOutAssessment,
+        archivedAt: null,
       },
     });
 
@@ -95,6 +98,7 @@ describe("ApplicationCard", () => {
       application: {
         ...mockApplication,
         status: PoolCandidateStatus.Expired,
+        archivedAt: null,
       },
     });
 
@@ -103,5 +107,21 @@ describe("ApplicationCard", () => {
     });
 
     expect(archiveLink).toBeInTheDocument();
+  });
+
+  it("should not show archive link if already archived", () => {
+    renderApplicationCard({
+      application: {
+        ...mockApplication,
+        status: PoolCandidateStatus.Expired,
+        archivedAt: FAR_PAST_DATE,
+      },
+    });
+
+    const archiveLink = screen.queryByRole("button", {
+      name: /archive/i,
+    });
+
+    expect(archiveLink).toBeNull();
   });
 });
