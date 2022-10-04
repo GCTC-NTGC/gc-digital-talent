@@ -26,13 +26,13 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
     localStorage.theme || "pref",
   );
 
-  const setDOMTheme = (mode: ThemeMode) => {
+  const setDOMTheme = (newMode: ThemeMode) => {
     const hydrogen = document.querySelectorAll("[data-h2]");
     hydrogen.forEach((item) => {
       if (item instanceof HTMLElement) {
         //  NOTE: We are setting DOM attrs here so it should be fine
         // eslint-disable-next-line no-param-reassign
-        item.dataset.h2 = mode;
+        item.dataset.h2 = newMode;
       }
     });
   };
