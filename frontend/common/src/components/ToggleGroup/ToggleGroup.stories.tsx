@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 import { defineMessages, useIntl } from "react-intl";
-import * as ToggleGroup from "./ToggleGroup";
+import ToggleGroup from ".";
 
 const messages = defineMessages({
   one: {
