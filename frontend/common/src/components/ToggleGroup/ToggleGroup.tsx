@@ -59,13 +59,13 @@ const Item = React.forwardRef<
   <ToggleGroupPrimitive.Item
     className="ToggleGroup__Item"
     data-h2-align-items="base(center)"
+    data-h2-background-color="base(transparent) base:hover(white.15) base:dark:hover(black.15) base:focus-visible(focus)"
+    data-h2-cursor="base:hover(pointer)"
     data-h2-display="base(flex)"
     data-h2-line-height="base(1)"
     data-h2-outline="base(none)"
     data-h2-padding="base(x.25, x.5)"
     data-h2-radius="base(m)"
-    data-h2-background-color="base:hover(white.15) base:dark:hover(black.15) base:focus-visible(focus)"
-    data-h2-cursor="base:hover(pointer)"
     data-h2-width="base:children[svg](var(--h2-font-size-copy))"
     ref={forwardedRef}
     {...props}

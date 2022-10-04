@@ -1,7 +1,3 @@
-.ToggleGroup__Item {
-  background: none;
-}
-
 .ToggleGroup__Item > svg,
 .ToggleGroup__Item > svg > * {
   color: inherit !important;
