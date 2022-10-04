@@ -14,6 +14,7 @@ import { IdType } from "react-table";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import {
   JobLookingStatus,
   Language,
@@ -119,6 +120,22 @@ const viewAccessor = (
   adminRoutes: AdminRoutes,
   intl: IntlShape,
 ) => {
+  if (!checkFeatureFlag("FEATURE_APPLICANTSEARCH")) {
+    return (
+      <span data-h2-font-weight="base(700)">
+        {tableViewItemButtonAccessor(
+          adminRoutes.poolCandidateUpdate(candidate.pool.id, candidate.id),
+          intl.formatMessage({
+            defaultMessage: "Edit",
+            id: "aGEisH",
+            description:
+              "Title displayed for the Pool Candidates table Edit column.",
+          }),
+        )}
+      </span>
+    );
+  }
+
   const isQualified =
     candidate.status !== PoolCandidateStatus.NewApplication &&
     candidate.status !== PoolCandidateStatus.ApplicationReview &&
@@ -388,7 +405,9 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             description:
               "Text label for link to create new pool candidate on admin table",
           }),
-          path: adminRoutes.userCreate(),
+          path: checkFeatureFlag("FEATURE_APPLICANTSEARCH")
+            ? adminRoutes.userCreate()
+            : adminRoutes.poolCandidateCreate(poolId),
         }}
         onColumnHiddenChange={(event) =>
           handleColumnHiddenChange(
