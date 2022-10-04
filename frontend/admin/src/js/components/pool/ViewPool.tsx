@@ -112,6 +112,11 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
     getSecurityClearance(pool.securityClearance ?? ""),
   );
 
+  const relativeToAbsoluteURL = (path: string): string => {
+    const { host } = window.location;
+    return `${host}${path}`;
+  };
+
   const links = [
     {
       title: intl.formatMessage({
@@ -215,7 +220,9 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 readOnly
-                value={pool.id}
+                value={relativeToAbsoluteURL(
+                  adminPaths.poolAdvertisement(pool.id),
+                )}
                 hideOptional
                 id="poolUrl"
                 name="poolUrl"
@@ -239,8 +246,11 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 disabled={linkCopied}
                 icon={linkCopied ? CheckIcon : ClipboardIcon}
                 onClick={() => {
-                  // TO DO: Update with real URL once we get it
-                  navigator.clipboard.writeText(pool.id);
+                  navigator.clipboard.writeText(
+                    relativeToAbsoluteURL(
+                      adminPaths.poolAdvertisement(pool.id),
+                    ),
+                  );
                   setLinkCopied(true);
                 }}
               >
@@ -264,10 +274,11 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 mode="outline"
                 color="secondary"
                 type="button"
-                href="#"
+                href={adminPaths.poolAdvertisement(pool.id)}
                 target="_blank"
                 rel="noopener noreferrer"
                 icon={ArrowTopRightOnSquareIcon}
+                external
               >
                 {intl.formatMessage({
                   defaultMessage: "View pool advertisement",
