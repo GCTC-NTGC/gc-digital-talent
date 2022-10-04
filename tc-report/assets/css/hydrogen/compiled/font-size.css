@@ -1,0 +1,39 @@
+[data-h2-font-size*="MEDIAKEY(h1)"] {
+  font-size: calc(calc(calc(calc(calc(1rem*1.25)*1.25)*1.25)*1.25)*1.25);
+}
+
+[data-h2-font-size*="MEDIAKEY(h2)"] {
+  font-size: calc(calc(calc(calc(1rem*1.25)*1.25)*1.25)*1.25);
+}
+
+[data-h2-font-size*="MEDIAKEY(h3)"] {
+  font-size: calc(calc(calc(1rem*1.25)*1.25)*1.25);
+}
+
+[data-h2-font-size*="MEDIAKEY(h4)"] {
+  font-size: calc(calc(1rem*1.25)*1.25);
+}
+
+[data-h2-font-size*="MEDIAKEY(h5)"] {
+  font-size: calc(1rem*1.25);
+}
+
+[data-h2-font-size*="MEDIAKEY(h6)"] {
+  font-size: 1rem;
+}
+
+[data-h2-font-size*="MEDIAKEY(normal)"] {
+  font-size: 1rem;
+}
+
+[data-h2-font-size*="MEDIAKEY(default)"] {
+  font-size: 1rem;
+}
+
+[data-h2-font-size*="MEDIAKEY(copy)"] {
+  font-size: 1rem;
+}
+
+[data-h2-font-size*="MEDIAKEY(caption)"] {
+  font-size: calc(1rem/1.25);
+}

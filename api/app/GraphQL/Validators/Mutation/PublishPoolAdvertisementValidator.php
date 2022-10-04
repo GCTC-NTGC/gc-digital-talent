@@ -52,13 +52,17 @@ final class PublishPoolAdvertisementValidator extends Validator
     public function messages(): array
     {
         return  [
-            'required' => ':attribute is required.',
+            'required' => ':attribute required',
             'exists' => ':attribute does not exist.',
             'expiry_date.after' => 'Expiry Date must be after today.',
-            'advertisement_location.*.required_if' => 'You must enter advertisement_location if advertisement is not remote.',
+            'advertisement_location.*.required_if' => 'AdvertisementLocationRequired',
             'advertisement_location.*.required_with' => 'You must enter both french and english fields for the advertisement_location',
             'in' => ':attribute does not contain a valid value.',
-            'essential_skills.required' => 'You must have at least 1 one essential skill.'
+            'essential_skills.required' => 'EssentialSkillRequired',
+            'key_tasks.en.required' => 'EnglishWorkTasksRequired',
+            'key_tasks.fr.required' => 'FrenchWorkTasksRequired',
+            'your_impact.en.required' => 'EnglishYourImpactRequired',
+            'your_impact.fr.required' => 'FrenchYourImpactRequired',
         ];
     }
 }

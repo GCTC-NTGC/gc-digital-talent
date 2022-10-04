@@ -8,6 +8,7 @@ export function formattedDate(date: Scalars["Date"], locale: Locales) {
   const formatter = new Intl.DateTimeFormat(locale, {
     year: "numeric",
     month: "short",
+    timeZone: "UTC",
   });
   const formatDate = formatter.format(new Date(date));
   const formattedMonth = formatDate.substring(0, 4).toUpperCase();

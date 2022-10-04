@@ -1413,5 +1413,17 @@
   "HkzjEV": {
     "defaultMessage": "Utilitaire",
     "description": "Label for the utility link navigation"
+  },
+  "R7CBRQ": {
+    "defaultMessage": "Un",
+    "description": "Placeholder text for first toggle group option"
+  },
+  "w6ZMZl": {
+    "defaultMessage": "Deux",
+    "description": "Placeholder text for second toggle group option"
+  },
+  "L2BR/I": {
+    "defaultMessage": "Trois",
+    "description": "Placeholder text for third toggle group option"
   }
 }

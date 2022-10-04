@@ -1,0 +1,19 @@
+<div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" {% if include.color == "white" %}data-h2-font-color="b(white)"{% endif %}>
+  {% assign crumbs = page.url | remove:'/index.html' | split: '/' %}
+  <a href="{{ site.baseurl }}/{{page.lang}}" title="{{ site.data.translations.breadcrumbs.home.title[page.lang] }}">{{ site.data.translations.site-title[page.lang] }}</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  {% if page.layout == "post" %}
+    / <a href="{{ site.baseurl }}/{{ page.lang }}/talent-cloud" title="{{ site.data.translations.breadcrumbs.talentCloud.title[page.lang] }}">{{ site.data.translations.talentCloud.title[page.lang] }}</a>
+    / <a href="{{ site.baseurl }}/{{page.lang}}/talent-cloud/report" title="{{ site.data.translations.breadcrumbs.talentCloud.report.title[page.lang] }}">{{ site.data.translations.reportTitle[page.lang] | truncate: 20 }}</a>
+    / <span>{{ site.data.translations.reportSections.title[page.lang] }} {{page.section}}</span>
+    / <span data-h2-font-weight="b(800)">{{ page.title | truncate: 20 }}</span>
+  {% else %}
+    {% for crumb in crumbs offset: 2 %}
+      {% if forloop.last %}
+        / <span data-h2-font-weight="b(800)">{{ page.title | truncate: 20 }}</span>
+      {% else %}
+        / <a href="{% assign crumb_limit = forloop.index | plus: 1 %}{% for crumb in crumbs limit: crumb_limit %}{{ crumb | append: '/' | replace:'without-plugin/','without-plugins/' }}{% endfor %}">{{ crumb | replace:'-',' ' | remove:'.html' | capitalize }}</a>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+</div>

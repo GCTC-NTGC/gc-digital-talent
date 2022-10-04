@@ -1,0 +1,24 @@
+// Layering (z-index)
+// LAYER, POSITION
+// e.g. data-h2-layer="b(1, relative)"
+$h2LayerCount: 5;
+$h2-map-position: (
+  'relative': relative,
+  'fixed': fixed,
+  'absolute': absolute,
+  'sticky': sticky,
+);
+@mixin h2-utility-layer($mediaKey, $stateMap) {
+  @for $i from 1 through $h2LayerCount {
+    @each $stateKey, $stateValue in $stateMap {
+      @each $positionKey, $positionValue in $h2-map-position {
+        [data-h2-layer*='#{$mediaKey}#{$stateKey}(#{$i}, #{$positionKey})']#{$stateValue},
+        [data-h2-layer*='#{$mediaKey}#{$stateKey}(#{$i}, #{$positionKey})'][data-h2-position]#{$stateValue},
+        [data-h2-layer*='#{$mediaKey}#{$stateKey}(#{$i}, #{$positionKey})'][data-h2-visibility]#{$stateValue} {
+          position: #{$positionValue};
+          z-index: #{$i};
+        }
+      }
+    }
+  }
+}

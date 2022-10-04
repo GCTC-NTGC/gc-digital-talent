@@ -28,7 +28,7 @@ export const hidden = (text: React.ReactNode): React.ReactNode => (
  * @param text text to wrap.
  */
 export const heavyPrimary = (text: React.ReactNode): React.ReactNode => (
-  <span data-h2-color="base(dt-primary.light)" data-h2-font-weight="base(700)">
+  <span data-h2-color="base(dt-primary)" data-h2-font-weight="base(700)">
     {text}
   </span>
 );
@@ -38,7 +38,7 @@ export const heavyPrimary = (text: React.ReactNode): React.ReactNode => (
  * @param text text to wrap.
  */
 export const primary = (text: React.ReactNode): React.ReactNode => (
-  <span data-h2-color="base(dt-primary.light)">{text}</span>
+  <span data-h2-color="base(dt-primary)">{text}</span>
 );
 
 /**
@@ -46,7 +46,7 @@ export const primary = (text: React.ReactNode): React.ReactNode => (
  * @param text  text to wrap
  */
 export const red = (text: React.ReactNode): React.ReactNode => (
-  <span data-h2-color="base(dt-error)">{text}</span>
+  <span data-h2-color="base(dark.dt-error)">{text}</span>
 );
 
 /**

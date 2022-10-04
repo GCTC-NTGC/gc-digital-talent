@@ -1,0 +1,38 @@
+<section data-h2-position="b(relative)" data-h2-padding="b(top-bottom, xxl)">
+  {% if page.key == "iap" %}
+  {% elsif page.key == "dt" %}
+  {% endif %}
+  <div
+      {{ hydrogenBlack }}
+      data-h2-position="b(absolute)"
+      data-h2-location="b(top-left, none)"
+      data-h2-width="b(100)"
+      style="height: 50%"></div>
+  <div
+    data-h2-position="b(relative)"
+    data-h2-container="b(center, l)"
+    data-h2-padding="b(top, m)">
+    <div data-h2-flex-grid="b(stretch, expanded, flush, xl) m(stretch, expanded, flush, xl)">
+      <div data-h2-flex-item="b(1of1)">
+        {% capture modularContent %}
+          <div
+            data-h2-display="b(flex)"
+            data-h2-align-items="b(center)"
+            data-h2-text-align="b(center) m(left)"
+            data-h2-padding="b(bottom, s) m(bottom, m)">
+            {% if page.key == "iap" %}
+              {% include itp-icon.html %}
+            {% elsif page.key == "dt" %}
+              {% include dt-icon.html %}
+            {% endif %}
+            {% include title-h2.html title=page.build.builds.title %}
+          </div>
+          {% for i in page.build.builds.buildContent %}
+            <p>{{ i }}</p>
+          {% endfor %}
+        {% endcapture %} 
+        {% include card.html content=modularContent grid="stretch" %}
+      </div>
+    </div>
+  </div>
+</section>

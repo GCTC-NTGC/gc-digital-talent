@@ -1,0 +1,14 @@
+@use 'sass:color';
+
+@use '../maps/map-color' as colorMap;
+@use '../maps/map-gradient' as gradientMap;
+@use '../maps/map-states' as stateMap;
+
+@use '../utilities/utility-bg-color' as bgColorStyles;
+
+@include bgColorStyles.h2-utility-bg-color(
+  $mediaKey: 'MEDIAKEY',
+  $stateMap: stateMap.$h2-map-states,
+  $colorMap: colorMap.$h2-map-color,
+  $gradientMap: gradientMap.$h2-map-gradient
+);

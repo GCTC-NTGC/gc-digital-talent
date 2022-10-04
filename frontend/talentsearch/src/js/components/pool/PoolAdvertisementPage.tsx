@@ -409,8 +409,8 @@ const PoolAdvertisement = ({
                 <Text>
                   {intl.formatMessage({
                     defaultMessage:
-                      "To be admitted into this process, you will need to submit sufficient information to verify your experience in <strong>all of these  skills (Need to have - Occupational)</strong> with your application.",
-                    id: "Y7AKYP",
+                      "To be admitted into this process, you will need to submit sufficient information to verify your experience in <strong>all of these skills (Need to have - Occupational)</strong> with your application.",
+                    id: "mbtf3h",
                     description:
                       "Explanation of a pools required occupational skills",
                   })}
@@ -444,8 +444,8 @@ const PoolAdvertisement = ({
                 <Text>
                   {intl.formatMessage({
                     defaultMessage:
-                      "To be admitted into this process, you will need to display  capability in these skills during the assessment process.",
-                    id: "7n838F",
+                      "To be admitted into this process, you will need to display capability in these skills during the assessment process.",
+                    id: "0FjYi+",
                     description:
                       "Explanation of a pools required transferrable skills",
                   })}

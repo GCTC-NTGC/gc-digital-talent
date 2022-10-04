@@ -1,0 +1,13 @@
+<h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  {{
+  include.padding
+  }}
+  style="letter-spacing: -3px"
+  {% if include.color == "white" %}
+    data-h2-font-color="b(white)"
+  {% endif %}
+>
+  {{ include.title }}
+</h1>

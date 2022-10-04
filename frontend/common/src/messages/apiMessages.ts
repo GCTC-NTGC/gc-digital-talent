@@ -2,50 +2,147 @@ import { defineMessages, MessageDescriptor } from "react-intl";
 
 // The messages in this object correspond to error messages emitted by the API.
 // Ideally, this could be automatically extracted from the schema but for now we do it manually.
-// The object keys match their source in the api by convention but are not actually used for anything
+// The object keys match their source in the api and return a MessageDescriptor object
 
 export const messages: { [key: string]: MessageDescriptor } = defineMessages({
-  "unique:users,sub": {
-    defaultMessage: "This user identifier (sub) is already in use",
-    id: "l8p1el",
+  // users validation
+  SubInUse: {
+    defaultMessage:
+      "Cannot update - this user identifier (sub) is already in use.",
+    id: "6O1sjV",
     description:
-      "Error message that the given user identifier is already in use.",
+      "Error message that the given user identifier is already in use when updating.",
   },
-  "unique:users,email": {
-    defaultMessage: "This email address is already in use",
-    id: "nDaEgr",
+  EmailAddressInUse: {
+    defaultMessage: "Cannot update - this email address is already in use.",
+    id: "VqrVpT",
     description:
-      "Error message that the given email address is already in use.",
+      "Error message that the given email address is already in use when updating.",
   },
-  "unique:skill_families,key": {
+  CreateUserSubInUse: {
+    defaultMessage:
+      "Cannot create - this user identifier (sub) is already in use",
+    id: "CVmEkf",
+    description:
+      "Error message that the given user identifier is already in use when creating.",
+  },
+  CreateUserEmailInUse: {
+    defaultMessage: "Cannot create - this email address is already in use.",
+    id: "WUAAr1",
+    description:
+      "Error message that the given user identifier is already in use when creating.",
+  },
+
+  // skill validation
+  SkillFamilyKeyStringInUse: {
     defaultMessage: "This skill family key string is already in use",
     id: "XTuwjA",
     description:
       "Error message that the given skill family key is already in use.",
   },
-  "validator:archived_at.prohibited": {
-    defaultMessage: "already archived",
-    id: "OtOIXG",
-    description: "Error message that the given model is already archived.",
+
+  // application validation
+  AlreadyArchived: {
+    defaultMessage: "Application is already archived.",
+    id: "A+dFlE",
+    description:
+      "Error message that the given application is already archived.",
   },
+  AlreadySubmitted: {
+    defaultMessage: "Application is already submitted.",
+    id: "76QTNv",
+    description:
+      "Error message that the given application is already submitted.",
+  },
+  "pool candidates status InvalidValueArchival": {
+    defaultMessage:
+      "This application cannot be archived. You can only archive expired applications.",
+    id: "TjeaLS",
+    description: "Error message that the application cannot be archived.",
+  },
+  "pool candidates status InvalidValueDeletion": {
+    defaultMessage:
+      "This application cannot be deleted. You can only delete applications before submission.",
+    id: "/I9tx9",
+    description: "Error message that the application cannot be deleted.",
+  },
+
   "validator:expiry_date.after": {
     defaultMessage: "Expiry Date must be after today.",
     id: "sfr5Pa",
     description:
       "Error message that the given skill expiry date must be after today.",
   },
-  "validator:advertisement_location.*.required_if": {
-    defaultMessage:
-      "You must enter advertisement_location if advertisement is not remote.",
-    id: "bhuMGL",
-    description:
-      "Error message that the pool advertisement must have a location if it is not for remote work.",
+
+  // pool updating
+  UpdatePoolExpiryDate: {
+    defaultMessage: "The pool must have an expiry date after today.",
+    id: "gU/2O6",
+    description: "Error message that pool expiry isn't in the future.",
   },
-  "validator:essential_skills.required": {
-    defaultMessage: "You must have at least 1 one essential skill.",
-    id: "3GT1s/",
+
+  // pool publishing validation
+  EnglishWorkTasksRequired: {
+    defaultMessage: "You are missing a required field: English - Your work",
+    id: "tW4k56",
+    description: "Error message that Work Tasks in English must be filled",
+  },
+  FrenchWorkTasksRequired: {
+    defaultMessage: "You are missing a required field: French - Your work",
+    id: "euwgms",
+    description: "Error message that Work Tasks in French must be filled",
+  },
+  EnglishYourImpactRequired: {
+    defaultMessage: "You are missing a required field: English - Your impact",
+    id: "juklNA",
+    description: "Error message that Your Impact in English must be filled",
+  },
+  FrenchYourImpactRequired: {
+    defaultMessage: "You are missing a required field: French - Your impact",
+    id: "kg28xx",
+    description: "Error message that Your Impact in French must be filled",
+  },
+  EssentialSkillRequired: {
+    defaultMessage: "You must have at least one Essential Skill.",
+    id: "Mco0Km",
+    description: "Error message that at least one Essential Skill is required",
+  },
+  AdvertisementLocationRequired: {
+    defaultMessage:
+      "You must fill Specific Location in English and French if advertisement is not remote.",
+    id: "aMkZ80",
     description:
-      "Error message that at least one essential skill must be selected.",
+      "Error message that advertisement locations must be filled in English and French.",
+  },
+  "expiry date required": {
+    defaultMessage: "You are missing a required field: End Date",
+    id: "XNDPQM",
+    description:
+      "Error message that the pool advertisement must have an expiry date.",
+  },
+  "stream required": {
+    defaultMessage: "You are missing a required field: Stream/Job Titles",
+    id: "w2tWfH",
+    description:
+      "Error message that the pool advertisement must have a stream.",
+  },
+  "advertisement language required": {
+    defaultMessage: "You are missing a required field: Language requirement",
+    id: "J2V3XI",
+    description:
+      "Error message that the pool advertisement must have an advertisement language.",
+  },
+  "security clearance required": {
+    defaultMessage: "You are missing a required field: Security requirement",
+    id: "t4F/0R",
+    description:
+      "Error message that the pool advertisement must have a security clearance.",
+  },
+  "is remote required": {
+    defaultMessage: "Location must be filled in or the Remote option selected",
+    id: "3e4sM7",
+    description:
+      "Error message that the pool advertisement must have location filled.",
   },
 });
 
@@ -53,7 +150,7 @@ export const tryFindMessageDescriptor = (
   defaultMessage: string,
 ): MessageDescriptor | null => {
   const matchedKey = Object.keys(messages).find(
-    (key) => messages[key].defaultMessage === defaultMessage,
+    (key) => key === defaultMessage,
   );
 
   if (!matchedKey) return null;

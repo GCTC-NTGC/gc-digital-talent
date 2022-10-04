@@ -10,6 +10,7 @@ DirectorySlash off
     RewriteCond %{REQUEST_URI} ^/(.+)/$
     RewriteCond %{REQUEST_URI} !/public/$
     RewriteCond %{REQUEST_URI} !/dist/$
+    RewriteCond %{REQUEST_URI} !/tc-report/_site/.*
     RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
 
     # For configuration of local development proxy at "/oxauth", see site
@@ -94,8 +95,18 @@ DirectorySlash off
     # PHP Info page for debugging
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
 
-    # Send all other requests to /tc-report
-    RewriteRule ^(.*)/?$ tc-report/$1 [L]
+    # Direct static site requests to index files
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} /tc-report/_site/(.+)/?$
+    RewriteRule ^ tc-report/_site/%1/index.html [L]
+
+    # Send tc-report/assets requests to correct folder
+    RewriteCond %{REQUEST_URI} /tc-report/assets/
+    RewriteRule ^tc-report/assets/(.*)$ tc-report/_site/assets/$1 [L]
+
+    # Send all other requests to /tc-report/_site
+    RewriteCond %{REQUEST_URI} !/tc-report/_site
+    RewriteRule ^(.*)/?$ tc-report/_site/$1 [L]
 </IfModule>
 
 <IfModule mod_headers.c>

@@ -28,8 +28,8 @@ final class ArchiveApplicationValidator extends Validator
     public function messages(): array
     {
         return  [
-            'in' => ':attribute does not contain a valid value.',
-            'archived_at.prohibited' => 'already archived',
+            'in' => ':attribute InvalidValueArchival',
+            'archived_at.prohibited' => 'AlreadyArchived',
         ];
     }
 }
