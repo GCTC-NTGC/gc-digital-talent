@@ -189,7 +189,7 @@ class PoolApplicationTest extends TestCase
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
         ])->assertJson([
             'errors' => [[
-                'message' => 'already archived',
+                'message' => 'AlreadyArchived',
             ]]
         ]);
     }
@@ -307,7 +307,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateOne->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueArchival',
             ]]
         ]);
         $this->graphQL(
@@ -322,7 +322,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateTwo->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueArchival',
             ]]
         ]);
 
@@ -338,7 +338,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateThree->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueArchival',
             ]]
         ]);
 
@@ -354,7 +354,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateFour->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueArchival',
             ]]
         ]);
 
@@ -370,7 +370,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateFive->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueArchival',
             ]]
         ]);
 
@@ -386,7 +386,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateSix->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueArchival',
             ]]
         ]);
         $this->graphQL(
@@ -401,7 +401,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateSeven->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueArchival',
             ]]
         ]);
 
@@ -417,7 +417,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateEight->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueArchival',
             ]]
         ]);
 
@@ -433,7 +433,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateNine->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueArchival',
             ]]
         ]);
 
@@ -449,7 +449,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateTen->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueArchival',
             ]]
         ]);
 
@@ -465,7 +465,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateEleven->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueArchival',
             ]]
         ]);
 
@@ -481,7 +481,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateTwelve->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueArchival',
             ]]
         ]);
     }
@@ -575,7 +575,7 @@ class PoolApplicationTest extends TestCase
             'sig' => 'SIGNED',
         ])->assertJson([
             'errors' => [[
-                'message' => 'already submitted',
+                'message' => 'AlreadySubmitted',
             ]]
         ]);
     }
@@ -983,7 +983,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateOne->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
         $this->graphQL(
@@ -996,7 +996,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateTwo->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
 
@@ -1010,7 +1010,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateThree->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
 
@@ -1024,7 +1024,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateFour->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
 
@@ -1038,7 +1038,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateFive->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
 
@@ -1052,7 +1052,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateSix->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
 
@@ -1066,7 +1066,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateSeven->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
 
@@ -1080,7 +1080,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateEight->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
 
@@ -1094,7 +1094,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateNine->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
 
@@ -1108,7 +1108,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateTen->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
 
@@ -1122,7 +1122,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateEleven->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
 
@@ -1136,7 +1136,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateTwelve->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
 
@@ -1150,7 +1150,7 @@ class PoolApplicationTest extends TestCase
             'id' => $candidateThirteen->id,
         ])->assertJson([
             'errors' => [[
-                'message' => 'pool candidate status does not contain a valid value.',
+                'message' => 'pool candidate status InvalidValueDeletion',
             ]]
         ]);
     }
