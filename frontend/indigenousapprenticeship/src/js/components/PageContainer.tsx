@@ -111,32 +111,31 @@ export const PageContainer: React.FC<{
     notAuthorizedComponent.current,
   );
   return (
-    <ScrollToTop>
-      <>
-        <a href="#main" data-h2-visibility="base(hidden)">
-          {intl.formatMessage({
-            defaultMessage: "Skip to main content",
-            id: "Srs7a4",
-            description: "Assistive technology skip link",
-          })}
-        </a>
-        <div
-          className="container"
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          style={{ height: "100vh", margin: "0" }}
-        >
-          <div>
-            <Header />
-            <NavMenu mainItems={menuItems} />
-          </div>
-          <main id="main">{content}</main>
-          <div style={{ marginTop: "auto" }}>
-            <Footer />
-          </div>
+    <>
+      <ScrollToTop />
+      <a href="#main" data-h2-visibility="base(hidden)">
+        {intl.formatMessage({
+          defaultMessage: "Skip to main content",
+          id: "Srs7a4",
+          description: "Assistive technology skip link",
+        })}
+      </a>
+      <div
+        className="container"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        style={{ height: "100vh", margin: "0" }}
+      >
+        <div>
+          <Header />
+          <NavMenu mainItems={menuItems} />
         </div>
-      </>
-    </ScrollToTop>
+        <main id="main">{content}</main>
+        <div style={{ marginTop: "auto" }}>
+          <Footer />
+        </div>
+      </div>
+    </>
   );
 };
 
