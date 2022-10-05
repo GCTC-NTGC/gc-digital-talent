@@ -1,5 +1,5 @@
 import React from "react";
-import { HISTORY } from "../../helpers/router";
+import { navigate } from "../../helpers/router";
 
 export interface ScrollToLinkProps
   extends Omit<React.HTMLProps<HTMLAnchorElement>, "href" | "onClick"> {
@@ -19,7 +19,7 @@ const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (targetSection) {
       e.preventDefault();
-      HISTORY.push(`#${to}`);
+      navigate(`#${to}`);
       targetSection.scrollIntoView({
         behavior: "smooth",
         block: "start",
