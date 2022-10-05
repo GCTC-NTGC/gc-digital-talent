@@ -3,12 +3,12 @@ import { useIntl } from "react-intl";
 
 import Sidebar from "./Sidebar";
 
-const Navigation: React.FC = ({ children }) => {
+const Navigation: React.FC = ({ children, ...rest }) => {
   const intl = useIntl();
 
   return (
     <Sidebar>
-      <div data-h2-text-align="base(left) l-tablet(right)">
+      <div data-h2-text-align="base(left) l-tablet(right)" {...rest}>
         <p
           id="toc-heading"
           data-h2-font-size="base(h5, 1)"

@@ -284,7 +284,7 @@ const PoolAdvertisement = ({
         </div>
       </div>
       <TableOfContents.Wrapper>
-        <TableOfContents.Navigation>
+        <TableOfContents.Navigation data-h2-padding="base(0, x2, 0, x2) l-tablet(0, 0, 0, 0)">
           <TableOfContents.AnchorLink id={sections.about.id}>
             {sections.about.title}
           </TableOfContents.AnchorLink>
@@ -304,7 +304,7 @@ const PoolAdvertisement = ({
             {sections.apply.title}
           </TableOfContents.AnchorLink>
         </TableOfContents.Navigation>
-        <TableOfContents.Content>
+        <TableOfContents.Content data-h2-padding="base(0, x2, 0, x2) l-tablet(0, x2, 0, 0)">
           <TableOfContents.Section id={sections.about.id}>
             <TableOfContents.Heading>
               {sections.about.title}
