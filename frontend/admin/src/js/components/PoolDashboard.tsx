@@ -456,7 +456,7 @@ export const PoolDashboard: React.FC = () => {
   const paths = useAdminRoutes();
   const intl = useIntl();
   return (
-    <Pending loading={false}>
+    <Pending fetching={false}>
       <Dashboard contentRoutes={routes(paths, loggedIn)} />
       <Helmet>
         <html lang={getLocale(intl)} />
