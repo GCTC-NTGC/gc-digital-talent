@@ -45,7 +45,7 @@ describe("Talent Search Workflow Tests", () => {
       .should("exist")
       .and("be.visible")
       .and("not.be.disabled");
-    cy.findByRole("button", { name: /Request Candidates/i }).click();
+    cy.findByRole("button", { name: /Request Candidates/i }).click({ force: true });
 
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
 
