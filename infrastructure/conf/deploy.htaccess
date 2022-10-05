@@ -12,6 +12,10 @@ DirectorySlash off
     RewriteCond %{REQUEST_URI} !/dist/$
     RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
 
+    # Historical permanent redirects
+    RewriteRule ^talent/search %{ENV:APP_URL}/search [L,R=301]
+    RewriteRule ^(en|fr)/talent/search %{ENV:APP_URL}/$1/search [L,R=301]
+
     # Rewrite api requests
     RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
     RewriteRule ^graphql$ api/public/graphql [L]

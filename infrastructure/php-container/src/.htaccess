@@ -15,6 +15,10 @@ DirectorySlash off
     # For configuration of local development proxy at "/oxauth", see site
     # config at "mock-auth-proxy.apache-site.conf"
 
+    # Historical permanent redirects
+    RewriteRule ^talent/search %{ENV:APP_URL}/search [L,R=301]
+    RewriteRule ^(en|fr)/talent/search %{ENV:APP_URL}/$1/search [L,R=301]
+
     # Rewrite api requests
     RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
     RewriteRule ^graphql$ api/public/graphql [L]
