@@ -8,7 +8,6 @@ import { AuthenticationContext } from "@common/components/Auth";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 
-import Pending from "@common/components/Pending";
 import { AdminRoutes, useAdminRoutes } from "../adminRoutes";
 import { Role } from "../api/generated";
 
