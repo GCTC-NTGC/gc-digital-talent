@@ -22,7 +22,7 @@ use App\Policies\PoolPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\ExperiencePolicy;
 use App\Services\OpenIdBearerTokenService;
-use Exception;
+use Throwable;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
@@ -87,7 +87,7 @@ class AuthServiceProvider extends ServiceProvider
                 }
                 Log::notice('Authorization token not valid: ', $violations);
                 return abort(401, 'Authorization token not valid.');
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Log::notice('Error while validating authorization token: ' . $e->getMessage());
                 return abort(401, 'Error while validating authorization token.');
             }
