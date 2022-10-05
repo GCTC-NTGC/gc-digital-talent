@@ -5,6 +5,7 @@ import { pushToStateThenNavigate } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import pick from "lodash/pick";
 import { unpackMaybes } from "@common/helpers/formUtils";
+import Pending from "@common/components/Pending";
 import {
   Classification,
   CountApplicantsQueryVariables,
@@ -211,7 +212,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 };
 
 const SearchContainerApi: React.FC = () => {
-  const [{ data }] = useGetSearchFormDataQuery({
+  const [{ data, fetching, error }] = useGetSearchFormDataQuery({
     variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
   });
   const pool = data?.poolByKey;
@@ -243,17 +244,19 @@ const SearchContainerApi: React.FC = () => {
   };
 
   return (
-    <SearchContainer
-      classifications={pool?.classifications?.filter(notEmpty) ?? []}
-      pool={pool ?? undefined}
-      skills={skills as Skill[]}
-      poolOwner={pool?.owner ?? undefined}
-      applicantFilter={applicantFilter}
-      candidateCount={candidateCount}
-      updatePending={countFetching}
-      onUpdateApplicantFilter={setApplicantFilter}
-      onSubmit={onSubmit}
-    />
+    <Pending {...{ fetching, error }}>
+      <SearchContainer
+        classifications={pool?.classifications?.filter(notEmpty) ?? []}
+        pool={pool ?? undefined}
+        skills={skills as Skill[]}
+        poolOwner={pool?.owner ?? undefined}
+        applicantFilter={applicantFilter}
+        candidateCount={candidateCount}
+        updatePending={countFetching}
+        onUpdateApplicantFilter={setApplicantFilter}
+        onSubmit={onSubmit}
+      />
+    </Pending>
   );
 };
 
