@@ -1,13 +1,28 @@
 import React from "react";
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
 
-import type { Color } from "../Button";
-
 import "./toggle-group.css";
+
+export type Color =
+  | "primary"
+  | "primary.dark"
+  | "secondary"
+  | "cta"
+  | "white"
+  | "black"
+  | "ia-primary"
+  | "ia-secondary"
+  | "yellow"
+  | "red"
+  | "blue";
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
     "data-h2-background-color": "base(dt-primary)",
+    "data-h2-color": "base:children[*](white)",
+  },
+  "primary.dark": {
+    "data-h2-background-color": "base(dt-primary.dark)",
     "data-h2-color": "base:children[*](white)",
   },
   secondary: {
