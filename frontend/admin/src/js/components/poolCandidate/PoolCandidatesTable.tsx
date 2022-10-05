@@ -14,7 +14,7 @@ import { IdType } from "react-table";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { getFeatureFlags } from "@common/helpers/runtimeVariable";
 import {
   JobLookingStatus,
   Language,
@@ -120,7 +120,7 @@ const viewAccessor = (
   adminRoutes: AdminRoutes,
   intl: IntlShape,
 ) => {
-  if (!checkFeatureFlag("FEATURE_APPLICANTSEARCH")) {
+  if (!getFeatureFlags().applicantSearch) {
     return (
       <span data-h2-font-weight="base(700)">
         {tableViewItemButtonAccessor(
@@ -405,7 +405,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             description:
               "Text label for link to create new pool candidate on admin table",
           }),
-          path: checkFeatureFlag("FEATURE_APPLICANTSEARCH")
+          path: getFeatureFlags().applicantSearch
             ? adminRoutes.userCreate()
             : adminRoutes.poolCandidateCreate(poolId),
         }}
