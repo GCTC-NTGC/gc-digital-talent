@@ -8,7 +8,6 @@ import { AuthenticationContext } from "@common/components/Auth";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 
-import Pending from "@common/components/Pending";
 import { AdminRoutes, useAdminRoutes } from "../adminRoutes";
 import { Role } from "../api/generated";
 
@@ -456,12 +455,12 @@ export const PoolDashboard: React.FC = () => {
   const paths = useAdminRoutes();
   const intl = useIntl();
   return (
-    <Pending fetching={false}>
+    <>
       <Dashboard contentRoutes={routes(paths, loggedIn)} />
       <Helmet>
-        <html lang={getLocale(intl)} data-h2 />
+        <html lang={getLocale(intl)} />
       </Helmet>
-    </Pending>
+    </>
   );
 };
 
