@@ -281,7 +281,6 @@ export const ScrollToTop = () => {
       waitForElm(hash).then((el) => {
         if (el) {
           el.scrollIntoView({
-            behavior: "smooth",
             block: "start",
           });
         }
