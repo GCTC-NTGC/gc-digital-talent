@@ -32,8 +32,7 @@ describe("Talent Search Workflow Tests", () => {
     }).click();
     cy.wait("@gqlcountApplicantsQuery");
 
-    // Wait for each request, so that button doesn't become detached from DOM
-    // while requests "catch up".
+    // Wait for each request to finish, to minimize inconsistent state.
     cy.findByRole("combobox", { name: /Region/i }).then($input => {
       cy.wrap($input).type("Telework{enter}{enter}")
       cy.wait("@gqlcountApplicantsQuery");
@@ -54,8 +53,8 @@ describe("Talent Search Workflow Tests", () => {
       .should("exist")
       .and("be.visible")
       .and("not.be.disabled");
-    //cy.findByRole("button", { name: /Request Candidates/i }).click();
-    // findByRole fails due to detached DOM element.
+    // Use cy.contains because cy.findByRole mysteriously fails due to detached DOM element.
+    // Alternative: cy.findByRole( ... ).click({ force: true })
     cy.contains("button", "Request Candidates").click();
 
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
