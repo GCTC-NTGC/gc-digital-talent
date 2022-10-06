@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import pick from "lodash/pick";
 import { pushToStateThenNavigate } from "@common/helpers/router";
 import { unpackMaybes } from "@common/helpers/formUtils";
+import Pending from "@common/components/Pending";
 import {
   Classification,
   CmoAsset,
@@ -265,7 +266,7 @@ const candidateFilterToQueryArgs = (
 
 export const SearchContainerApi: React.FC = () => {
   const [initialValues, setInitialValues] = useState<FormValues | null>(null);
-  const [{ data }] = useGetSearchFormDataQuery({
+  const [{ data, fetching, error }] = useGetSearchFormDataQuery({
     variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
   });
   const pool = data?.poolByKey;
@@ -294,17 +295,19 @@ export const SearchContainerApi: React.FC = () => {
   };
 
   return (
-    <SearchContainer
-      classifications={pool?.classifications?.filter(notEmpty) ?? []}
-      cmoAssets={pool?.assetCriteria?.filter(notEmpty) ?? []}
-      pool={pool ?? undefined}
-      poolOwner={pool?.owner ?? undefined}
-      candidateFilter={candidateFilter}
-      candidateCount={candidateCount}
-      updatePending={countFetching}
-      updateCandidateFilter={setCandidateFilter}
-      updateInitialValues={setInitialValues}
-      handleSubmit={onSubmit}
-    />
+    <Pending {...{ fetching, error }}>
+      <SearchContainer
+        classifications={pool?.classifications?.filter(notEmpty) ?? []}
+        cmoAssets={pool?.assetCriteria?.filter(notEmpty) ?? []}
+        pool={pool ?? undefined}
+        poolOwner={pool?.owner ?? undefined}
+        candidateFilter={candidateFilter}
+        candidateCount={candidateCount}
+        updatePending={countFetching}
+        updateCandidateFilter={setCandidateFilter}
+        updateInitialValues={setInitialValues}
+        handleSubmit={onSubmit}
+      />
+    </Pending>
   );
 };

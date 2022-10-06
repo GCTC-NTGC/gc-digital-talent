@@ -2,7 +2,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import { fakeUsers } from "@common/fakeData";
-import { pick } from "lodash";
+import pick from "lodash/pick";
 import { UpdateUserAsUserInput } from "@common/api/generated";
 import { LanguageInformationForm } from "./LanguageInformationForm";
 

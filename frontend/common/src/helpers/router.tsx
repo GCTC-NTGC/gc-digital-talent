@@ -238,17 +238,60 @@ export function useQueryParams() {
   return parseUrlQueryParameters(location);
 }
 
-export const ScrollToTop: React.FC<{ children: React.ReactElement }> = ({
-  children,
-}): React.ReactElement => {
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto",
+/**
+ * Wait for Element
+ *
+ * @param {string} selector The element sector
+ * @returns {Promise<Element | null>}  A promise containing the element if found, null if not
+ */
+const waitForElm = (selector: string): Promise<Element | null> => {
+  return new Promise((resolve) => {
+    // Return element if found without need of mutation observer
+    if (document.querySelector(selector)) {
+      resolve(document.querySelector(selector));
+    }
+
+    /**
+     * Create a mutation observer that waits for element to
+     * appear in the DOM, returning it and then disconnecting
+     * the observer
+     */
+    const observer = new MutationObserver(() => {
+      if (document.querySelector(selector)) {
+        resolve(document.querySelector(selector));
+        observer.disconnect();
+      }
     });
-  }, [children]);
-  return children;
+
+    // Start observing the body and its children
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+  });
+};
+
+export const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const { hash } = window.location;
+    // Scroll to hash if it exists
+    if (hash) {
+      waitForElm(hash).then((el) => {
+        if (el) {
+          el.scrollIntoView({
+            block: "start",
+          });
+        }
+      });
+    } else {
+      // If no has is present, just scroll to the top
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
+
+  return null;
 };
 
 export function refresh() {

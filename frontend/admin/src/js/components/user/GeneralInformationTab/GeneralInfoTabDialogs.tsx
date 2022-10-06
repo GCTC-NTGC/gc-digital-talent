@@ -8,7 +8,7 @@ import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import { InputError, InputWrapper } from "@common/components/inputPartials";
 import { toast } from "react-toastify";
 import { UserMinusIcon } from "@heroicons/react/24/solid";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import {
   CreatePoolCandidateAsAdminInput,

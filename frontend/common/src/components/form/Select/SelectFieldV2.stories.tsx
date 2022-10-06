@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { uniqueId } from "lodash";
+import uniqueId from "lodash/uniqueId";
 import React from "react";
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";

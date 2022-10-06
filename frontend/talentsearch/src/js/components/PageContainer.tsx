@@ -135,37 +135,36 @@ export const PageContainer: React.FC<{
     paths.createAccount(),
   );
   return (
-    <ScrollToTop>
-      <>
-        <a
-          href="#main"
-          data-h2-visibility="base(invisible) base:focus-visible(visible)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Skip to main content",
-            id: "Srs7a4",
-            description: "Assistive technology skip link",
-          })}
-        </a>
-        <div
-          className="container"
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-height="base(100vh)"
-          data-h2-margin="base(0)"
-          data-h2-color="base(black) base:dark(white)"
-        >
-          <div>
-            <Header />
-            <NavMenu mainItems={menuItems} utilityItems={authLinks} />
-          </div>
-          <main id="main">{content}</main>
-          <div style={{ marginTop: "auto" }}>
-            <Footer />
-          </div>
+    <>
+      <ScrollToTop />
+      <a
+        href="#main"
+        data-h2-visibility="base(invisible) base:focus-visible(visible)"
+      >
+        {intl.formatMessage({
+          defaultMessage: "Skip to main content",
+          id: "Srs7a4",
+          description: "Assistive technology skip link",
+        })}
+      </a>
+      <div
+        className="container"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-height="base(100vh)"
+        data-h2-margin="base(0)"
+        data-h2-color="base(black) base:dark(white)"
+      >
+        <div>
+          <Header />
+          <NavMenu mainItems={menuItems} utilityItems={authLinks} />
         </div>
-      </>
-    </ScrollToTop>
+        <main id="main">{content}</main>
+        <div style={{ marginTop: "auto" }}>
+          <Footer />
+        </div>
+      </div>
+    </>
   );
 };
 
