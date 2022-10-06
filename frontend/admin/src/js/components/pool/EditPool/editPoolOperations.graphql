@@ -85,6 +85,7 @@ query getEditPoolData($poolId: ID!) {
     }
     stream
     processNumber
+    publishingGroup
   }
 
   # all classifications to populate form dropdown
