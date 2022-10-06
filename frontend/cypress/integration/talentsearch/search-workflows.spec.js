@@ -32,12 +32,21 @@ describe("Talent Search Workflow Tests", () => {
     }).click();
     cy.wait("@gqlcountApplicantsQuery");
 
-    cy.findByRole("combobox", { name: /Region/i })
-      .type("Telework{enter}{enter}")
-      .type("Ontario{enter}{enter}")
-      .type("National Capital{enter}{enter}")
-      .type("Atlantic{enter}{enter}");
-    cy.wait("@gqlcountApplicantsQuery");
+    // Wait for each request, so that button doesn't become detached from DOM
+    // while requests "catch up".
+    cy.findByRole("combobox", { name: /Region/i }).then($input => {
+      cy.wrap($input).type("Telework{enter}{enter}")
+      cy.wait("@gqlcountApplicantsQuery");
+
+      cy.wrap($input).type("Ontario{enter}{enter}")
+      cy.wait("@gqlcountApplicantsQuery");
+
+      cy.wrap($input).type("National Capital{enter}{enter}")
+      cy.wait("@gqlcountApplicantsQuery");
+
+      cy.wrap($input).type("Atlantic{enter}{enter}");
+      cy.wait("@gqlcountApplicantsQuery");
+    })
 
     searchReturnsGreaterThanZeroApplicants();
 
@@ -45,7 +54,7 @@ describe("Talent Search Workflow Tests", () => {
       .should("exist")
       .and("be.visible")
       .and("not.be.disabled");
-    cy.findByRole("button", { name: /Request Candidates/i }).click({ force: true });
+    cy.findByRole("button", { name: /Request Candidates/i }).click();
 
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
 
