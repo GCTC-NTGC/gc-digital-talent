@@ -290,7 +290,7 @@ enum PoolStream {
 type PoolAdvertisement {
   id: ID!
   expiryDate: DateTimeTz @rename(attribute: "expiry_date")
-  isPublished: Boolean @rename(attribute: "is_published")
+  isPublished: DateTimeTz @rename(attribute: "published_at")
   name: LocalizedString
   description: LocalizedString
   classifications: [Classification] @belongsToMany
