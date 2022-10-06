@@ -3,7 +3,7 @@ import { getPoolStream } from "@common/constants/localizedConstants";
 import React from "react";
 import { useIntl } from "react-intl";
 import Chip, { Chips } from "@common/components/Chip";
-import { getLocalizedName } from "@common/helpers/localize";
+import { getLocale, getLocalizedName } from "@common/helpers/localize";
 import { formattedDateMonthDayYear } from "@common/helpers/dateUtils";
 import { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -14,6 +14,7 @@ export interface CardProps {
 
 const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useDirectIntakeRoutes();
 
   const poolClassificationString = (): string | null => {
@@ -82,7 +83,9 @@ const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
           {pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : ""}
         </h6>
 
-        <p data-h2-padding="base(0, 0, x0.75, 0)">Text Blurb</p>
+        <p data-h2-padding="base(0, 0, x0.75, 0)">
+          {pool.description ? pool.description[locale] : ""}
+        </p>
         <p data-h2-padding="base(0, 0, x0.75, 0)">
           <span
             data-h2-font-weight="base(700)"

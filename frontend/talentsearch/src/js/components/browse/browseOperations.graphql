@@ -5,6 +5,10 @@ query browsePoolAdvertisements {
       en
       fr
     }
+    description {
+      en
+      fr
+    }
     expiryDate
     advertisementStatus
     advertisementLanguage
