@@ -89,8 +89,8 @@ const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
             data-h2-padding="base(0, x0.25, 0, 0)"
           >
             {intl.formatMessage({
-              defaultMessage: "Salary Range",
-              id: "/5lp8d",
+              defaultMessage: "Salary range",
+              id: "MKyZVJ",
             })}
             :{" "}
           </span>{" "}
@@ -108,9 +108,9 @@ const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
             data-h2-padding="base(0, x0.25, 0, 0)"
           >
             {intl.formatMessage({
-              defaultMessage: "Key Skills",
+              defaultMessage: "Key skills",
               description: "key skills",
-              id: "tGpdy6",
+              id: "ppuSbM",
             })}
             :{" "}
           </span>{" "}
