@@ -38,7 +38,7 @@ const generatePoolAdvertisement = (
       .between(FAR_PAST_DATE, FAR_FUTURE_DATE)
       .toISOString(),
     id: faker.datatype.uuid(),
-    isPublished: faker.datatype.boolean(),
+    publishedAt: faker.date.between(FAR_PAST_DATE, "now").toISOString(),
     keyTasks: toLocalizedString(faker.lorem.paragraphs()),
     name: toLocalizedString(faker.company.catchPhrase()),
     nonessentialSkills: faker.helpers.arrayElements(
