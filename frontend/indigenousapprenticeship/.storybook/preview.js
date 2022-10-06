@@ -4,6 +4,7 @@ import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import defaultRichTextElements from "../../common/src/helpers/format";
 import IndigenousApprenticeshipFrench from "../src/js/lang/frCompiled.json";
 import CommonFrench from "../../common/src/lang";
+import withThemeProvider, { theme } from "../../common/.storybook/decorators/ThemeDecorator"
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
 export const parameters = {
@@ -25,19 +26,24 @@ export const parameters = {
   },
 }
 
-const messages = {en: null, fr: {...IndigenousApprenticeshipFrench, ...CommonFrench} };
+const messages = { en: null, fr: { ...IndigenousApprenticeshipFrench, ...CommonFrench } };
 setIntlConfig({
-    locales: ["en", "fr"],
-    defaultLocale: "en",
-    getMessages: (locale) => messages[locale],
-    defaultRichTextElements
+  locales: ["en", "fr"],
+  defaultLocale: "en",
+  getMessages: (locale) => messages[locale],
+  defaultRichTextElements
 })
 
+export const globalTypes = {
+  theme
+}
+
 export const decorators = [
-    withIntl,
-    (Story) => (
-      <div data-h2-font-family="base(sans)">
-        <Story />
-      </div>
-    ),
-  ];
+  withIntl,
+  withThemeProvider,
+  (Story) => (
+    <div data-h2-font-family="base(sans)">
+      <Story />
+    </div>
+  ),
+];
