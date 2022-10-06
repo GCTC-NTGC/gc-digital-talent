@@ -19,9 +19,10 @@ export const ThemeContext = React.createContext<ThemeState>(defaultThemeState);
 
 export interface ThemeProviderProps {
   children: React.ReactNode;
+  override?: ThemeMode;
 }
 
-const ThemeProvider = ({ children }: ThemeProviderProps) => {
+const ThemeProvider = ({ children, override }: ThemeProviderProps) => {
   const [mode, setMode] = React.useState<ThemeMode>(
     localStorage.theme || "pref",
   );
@@ -86,6 +87,12 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
       window.removeEventListener("load", testDark);
     };
   }, [setCurrentMode]);
+
+  React.useEffect(() => {
+    if (override) {
+      setCurrentMode(override);
+    }
+  }, [override, setCurrentMode]);
 
   const theme = React.useMemo(
     () => ({
