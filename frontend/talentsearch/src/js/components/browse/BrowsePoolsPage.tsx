@@ -1,22 +1,21 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
 import Pending from "@common/components/Pending";
-
 import NotFound from "@common/components/NotFound";
 import { commonMessages } from "@common/messages";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
-import { useBrowsePoolsQuery } from "../../api/generated";
-import type { Pool } from "../../api/generated";
+import {
+  PoolAdvertisement,
+  useBrowsePoolAdvertisementsQuery,
+} from "../../api/generated";
+import PoolCard from "./PoolCard";
 
 interface BrowsePoolsProps {
-  pools?: Array<Pick<Pool, "__typename" | "id" | "name">>;
+  poolAdvertisements?: PoolAdvertisement[];
 }
 
-const BrowsePools: React.FC<BrowsePoolsProps> = ({ pools }) => {
+const BrowsePools: React.FC<BrowsePoolsProps> = ({ poolAdvertisements }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+
   return (
     <>
       <h1>
@@ -26,13 +25,15 @@ const BrowsePools: React.FC<BrowsePoolsProps> = ({ pools }) => {
           description: "Page title for the direct intake browse pools page.",
         })}
       </h1>
-      {pools && pools.length ? (
+      {poolAdvertisements && poolAdvertisements.length ? (
         <ul>
-          {pools.map((pool) => (
-            <li key={pool.id}>
-              <a href={paths.pool(pool.id)}>
-                {pool.name ? pool.name[locale] : pool.id}
-              </a>
+          {poolAdvertisements.map((poolAdvertisement) => (
+            <li
+              data-h2-list-style="base(none)"
+              key={poolAdvertisement.id}
+              data-h2-margin="base(x0.5, 0, x0.5, 0)"
+            >
+              <PoolCard pool={poolAdvertisement} />
             </li>
           ))}
         </ul>
@@ -53,15 +54,16 @@ const BrowsePools: React.FC<BrowsePoolsProps> = ({ pools }) => {
 };
 
 const BrowsePoolsApi: React.FC = () => {
-  const [{ data, fetching, error }] = useBrowsePoolsQuery();
+  const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery();
 
-  const filteredPools = data?.pools.filter(
-    (pool) => typeof pool !== undefined && !!pool,
-  ) as Pool[];
+  const filteredPoolAdvertisements = data?.poolAdvertisements.filter(
+    (poolAdvertisement) =>
+      typeof poolAdvertisement !== undefined && !!poolAdvertisement,
+  ) as PoolAdvertisement[];
 
   return (
     <Pending fetching={fetching} error={error}>
-      <BrowsePools pools={filteredPools} />
+      <BrowsePools poolAdvertisements={filteredPoolAdvertisements} />
     </Pending>
   );
 };

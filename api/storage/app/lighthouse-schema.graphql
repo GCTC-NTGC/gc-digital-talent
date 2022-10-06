@@ -968,6 +968,7 @@ type Query {
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: ID!): Pool
   poolAdvertisement(id: ID!): PoolAdvertisement
+  poolAdvertisements: [PoolAdvertisement]!
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: ID!): PoolCandidate
