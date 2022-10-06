@@ -4,6 +4,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import Chip, { Chips } from "@common/components/Chip";
 import { getLocalizedName } from "@common/helpers/localize";
+import { formattedDateMonthDayYear } from "@common/helpers/dateUtils";
 import { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
@@ -132,13 +133,16 @@ const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
               description: "Apply by",
               id: "gh4VQv",
             })}
-            : {pool.expiryDate ? pool.expiryDate.toString() : ""}
+            :{" "}
+            {pool.expiryDate
+              ? formattedDateMonthDayYear(new Date(pool.expiryDate), intl)
+              : ""}
           </span>
           <Link
             href={pool.id ? paths.pool(pool.id) : "#"}
             type="button"
             mode="outline"
-            color="primary"
+            color="black"
           >
             {intl.formatMessage({
               defaultMessage: "Apply to this recruitment",
