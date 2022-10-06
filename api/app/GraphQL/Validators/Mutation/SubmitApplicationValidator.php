@@ -21,7 +21,7 @@ final class SubmitApplicationValidator extends Validator
     public function messages(): array
     {
         return  [
-            'submitted_at.prohibited' => 'already submitted',
+            'submitted_at.prohibited' => 'AlreadySubmitted',
         ];
     }
 }

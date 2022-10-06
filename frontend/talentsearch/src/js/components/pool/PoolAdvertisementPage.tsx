@@ -284,7 +284,7 @@ const PoolAdvertisement = ({
         </div>
       </div>
       <TableOfContents.Wrapper>
-        <TableOfContents.Navigation>
+        <TableOfContents.Navigation data-h2-padding="base(0, x2, 0, x2) l-tablet(0, 0, 0, 0)">
           <TableOfContents.AnchorLink id={sections.about.id}>
             {sections.about.title}
           </TableOfContents.AnchorLink>
@@ -304,7 +304,7 @@ const PoolAdvertisement = ({
             {sections.apply.title}
           </TableOfContents.AnchorLink>
         </TableOfContents.Navigation>
-        <TableOfContents.Content>
+        <TableOfContents.Content data-h2-padding="base(0, x2, 0, x2) l-tablet(0, x2, 0, 0)">
           <TableOfContents.Section id={sections.about.id}>
             <TableOfContents.Heading>
               {sections.about.title}
@@ -399,8 +399,8 @@ const PoolAdvertisement = ({
                 <Text>
                   {intl.formatMessage({
                     defaultMessage:
-                      "To be admitted into this process, you will need to submit sufficient information to verify your experience in <strong>all of these  skills (Need to have - Occupational)</strong> with your application.",
-                    id: "Y7AKYP",
+                      "To be admitted into this process, you will need to submit sufficient information to verify your experience in <strong>all of these skills (Need to have - Occupational)</strong> with your application.",
+                    id: "mbtf3h",
                     description:
                       "Explanation of a pools required occupational skills",
                   })}
@@ -427,8 +427,8 @@ const PoolAdvertisement = ({
                 <Text>
                   {intl.formatMessage({
                     defaultMessage:
-                      "To be admitted into this process, you will need to display  capability in these skills during the assessment process.",
-                    id: "7n838F",
+                      "To be admitted into this process, you will need to display capability in these skills during the assessment process.",
+                    id: "0FjYi+",
                     description:
                       "Explanation of a pools required transferrable skills",
                   })}

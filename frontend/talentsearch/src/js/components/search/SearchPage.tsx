@@ -10,7 +10,7 @@ const SearchPage: React.FunctionComponent = () => {
     ? SearchContainerApi
     : OldSearchContainerApi;
   return (
-    <section>
+    <section data-h2-background-color="base(dt-gray.15)">
       <SearchHeading />
       <SearchContainer />
     </section>

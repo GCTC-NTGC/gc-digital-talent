@@ -459,7 +459,7 @@ export const PoolDashboard: React.FC = () => {
     <Pending fetching={false}>
       <Dashboard contentRoutes={routes(paths, loggedIn)} />
       <Helmet>
-        <html lang={getLocale(intl)} data-h2 />
+        <html lang={getLocale(intl)} />
       </Helmet>
     </Pending>
   );

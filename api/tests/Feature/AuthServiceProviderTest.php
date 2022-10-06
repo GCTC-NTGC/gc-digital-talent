@@ -59,7 +59,27 @@ class AuthServiceProviderTest extends TestCase
                                         ->andThrow(new Exception);
 
         try {
-            $resolvedUser = $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
+            $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
+            $this->fail('HttpException was not thrown');
+        } catch (HttpException $e) {
+            $this->assertEquals(401, $e->getStatusCode(), 'Unexpected status code on HttpException');
+        }
+    }
+
+    /**
+     * @test
+     * The test checks a an HttpException with status 401 is thrown if an error occurs during token validation
+     */
+    public function test401IfError()
+    {
+        $fakeToken = 'fake-token';
+        $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
+        $mockTokenService->shouldReceive('validateAndGetClaims')
+                                        ->with($fakeToken)
+                                        ->andThrow(new Error);
+
+        try {
+            $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
             $this->fail('HttpException was not thrown');
         } catch (HttpException $e) {
             $this->assertEquals(401, $e->getStatusCode(), 'Unexpected status code on HttpException');
