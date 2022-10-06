@@ -4,7 +4,7 @@
   "requestTimeout": 5000,
   "responseTimeout": 30000,
   "retries": {
-    "runMode": 5
+    "runMode": 3
   },
   "experimentalSessionAndOrigin": true,
   "reporter": "cypress-multi-reporters",
