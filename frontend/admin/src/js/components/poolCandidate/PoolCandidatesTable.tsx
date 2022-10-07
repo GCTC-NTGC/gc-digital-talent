@@ -255,13 +255,14 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       // from fancy filter
       pools: [{ id: poolId }],
       languageAbility: fancyFilterState?.languageAbility,
-      classifications: fancyFilterState?.classifications,
+      expectedClassifications: fancyFilterState?.expectedClassifications,
       operationalRequirements: fancyFilterState?.operationalRequirements,
-      workRegions: fancyFilterState?.workRegions,
+      locationPreferences: fancyFilterState?.locationPreferences,
       cmoAssets: fancyFilterState?.cmoAssets,
       hasDiploma: fancyFilterState?.hasDiploma,
       equity: fancyFilterState?.equity,
       status: fancyFilterState?.status,
+      priorityWeight: fancyFilterState?.priorityWeight,
     };
   };
 
@@ -270,7 +271,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       languageAbility: data.languageAbility[0]
         ? stringToEnumLanguage(data.languageAbility[0])
         : undefined,
-      classifications: data.classifications.map((classification) => {
+      expectedClassifications: data.classifications.map((classification) => {
         const splitString = classification.split("-");
         return { group: splitString[0], level: Number(splitString[1]) };
       }),
@@ -279,7 +280,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
           return stringToEnumOperational(requirement);
         },
       ),
-      workRegions: data.workRegion.map((region) => {
+      locationPreferences: data.workRegion.map((region) => {
         return stringToEnumLocation(region);
       }),
       cmoAssets: data.cmoAssets.map((cmoAsset) => {
@@ -296,6 +297,9 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       },
       status: data.status.map((status) => {
         return stringToEnumStatus(status);
+      }),
+      priorityWeight: data.priorityWeight.map((priority) => {
+        return Number(priority);
       }),
     });
   };

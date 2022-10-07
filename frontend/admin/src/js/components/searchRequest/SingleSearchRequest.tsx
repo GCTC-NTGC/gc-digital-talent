@@ -207,7 +207,7 @@ export const SingleSearchRequest: React.FunctionComponent<
   // TODO: data filter data from applicantFilter instead of poolCandidateFilter if possible.
 
   const poolCandidateFilterInput: PoolCandidateFilterInput = {
-    classifications: [
+    expectedClassifications: [
       ...(poolCandidateFilter?.classifications
         ? poolCandidateFilter.classifications
             .filter(notEmpty)
@@ -246,7 +246,7 @@ export const SingleSearchRequest: React.FunctionComponent<
       isWoman: poolCandidateFilter?.equity?.isWoman,
     },
     languageAbility: poolCandidateFilter?.languageAbility || undefined,
-    workRegions: poolCandidateFilter?.workRegions,
+    locationPreferences: poolCandidateFilter?.workRegions,
   };
 
   return (

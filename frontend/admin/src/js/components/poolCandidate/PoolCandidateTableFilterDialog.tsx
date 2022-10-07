@@ -23,6 +23,7 @@ export type FormValues = {
   hasDiploma: Option["value"][];
   equity: Option["value"][];
   status: Option["value"][];
+  priorityWeight: Option["value"][];
 };
 
 type FooterProps = Pick<
@@ -182,6 +183,16 @@ const PoolCandidateTableFilterDialog = ({
                 id: "tzMNF3",
               })}
               options={optionsData.status}
+            />
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
+            <MultiSelectFieldV2
+              id="priorityWeight"
+              label={formatMessage({
+                defaultMessage: "Priority",
+                id: "8lCjAM",
+              })}
+              options={optionsData.priorityWeight}
             />
           </div>
         </div>

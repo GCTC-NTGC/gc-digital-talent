@@ -9,6 +9,7 @@ import {
   OperationalRequirementV2,
   getEmploymentEquityGroup,
   getPoolCandidateStatus,
+  poolCandidatePriorities,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { notEmpty } from "@common/helpers/util";
@@ -116,6 +117,14 @@ export default function useFilterOptions(enableEducationType = false) {
     status: enumToOptions(PoolCandidateStatus).map(({ value }) => ({
       value,
       label: intl.formatMessage(getPoolCandidateStatus(value)),
+    })),
+    priorityWeight: Object.keys(poolCandidatePriorities).map((key) => ({
+      value: Number(key),
+      label: intl.formatMessage(
+        poolCandidatePriorities[
+          Number(key) as keyof typeof poolCandidatePriorities
+        ],
+      ),
     })),
     profileComplete: [yesOption],
     govEmployee: [yesOption],
