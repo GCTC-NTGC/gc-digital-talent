@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
 import Button from "../Button";
+import Collapsible from "../Collapsible";
 
 import useLocale from "../../hooks/useLocale";
 import { getLocalizedName } from "../../helpers/localize";
@@ -26,9 +27,12 @@ const SkillBlock = ({
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const definition = description ? description[locale] : null;
+  const skillName = getLocalizedName(name, intl);
+
+  const Wrapper = definition ? Collapsible.Root : "div";
 
   return (
-    <div>
+    <Wrapper>
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column) l-tablet(row)"
@@ -53,13 +57,11 @@ const SkillBlock = ({
                 data-h2-display="base(block)"
                 data-h2-padding="base(0, 0, 0, x1)"
               >
-                {getLocalizedName(name, intl)}
+                {skillName}
               </span>
             </span>
           ) : (
-            <span data-h2-display="base(block)">
-              {getLocalizedName(name, intl)}
-            </span>
+            <span data-h2-display="base(block)">{skillName}</span>
           )}
         </div>
         <div
@@ -69,34 +71,6 @@ const SkillBlock = ({
           style={{ flexShrink: 0 }}
         >
           <div>
-            {definition ? (
-              <Button
-                color="primary"
-                mode="inline"
-                type="button"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                {isOpen
-                  ? intl.formatMessage({
-                      defaultMessage: "Hide definition",
-                      id: "VDZ6zw",
-                      description: "Text displayed when skill block is open.",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "See definition",
-                      id: "BjRuMw",
-                      description: "Text displayed when skill block is open.",
-                    })}
-              </Button>
-            ) : (
-              intl.formatMessage({
-                defaultMessage: "No definition provided",
-                id: "YRhYqm",
-                description: "Message displayed when a skill has no definition",
-              })
-            )}
-          </div>
-          <div>
             <Button
               color="primary"
               mode="inline"
@@ -104,37 +78,93 @@ const SkillBlock = ({
               onClick={isAdded ? () => onRemoveSkill(id) : () => onAddSkill(id)}
             >
               {isAdded
-                ? intl.formatMessage({
-                    defaultMessage: "Remove skill",
-                    id: "ItRgwA",
-                    description:
-                      "Button label to remove skill on skill result block.",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Add skill",
-                    id: "ZOQ9ih",
-                    description:
-                      "Button label to add skill on skill result block.",
-                  })}
+                ? intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "Remove skill<hidden> {skillName}</hidden>",
+                      id: "p5GbCr",
+                      description:
+                        "Button label to remove skill on skill result block.",
+                    },
+                    {
+                      skillName,
+                    },
+                  )
+                : intl.formatMessage(
+                    {
+                      defaultMessage: "Add skill<hidden> {skillName}</hidden>",
+                      id: "HB2yOT",
+                      description:
+                        "Button label to add skill on skill result block.",
+                    },
+                    { skillName },
+                  )}
             </Button>
+          </div>
+          <div>
+            {definition ? (
+              <Collapsible.Trigger asChild>
+                <Button
+                  color="primary"
+                  mode="inline"
+                  type="button"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  {isOpen
+                    ? intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "Hide definition<hidden> for {skillName}</hidden>",
+                          id: "SGcina",
+                          description:
+                            "Text displayed when skill block is open.",
+                        },
+                        { skillName },
+                      )
+                    : intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "See definition<hidden> for {skillName}</hidden>",
+                          id: "WtwED/",
+                          description:
+                            "Text displayed when skill block is closed.",
+                        },
+                        { skillName },
+                      )}
+                </Button>
+              </Collapsible.Trigger>
+            ) : (
+              intl.formatMessage(
+                {
+                  defaultMessage:
+                    "No definition provided<hidden> for {skillName}</hidden>",
+                  id: "QXYMUG",
+                  description:
+                    "Message displayed when a skill has no definition",
+                },
+                { skillName },
+              )
+            )}
           </div>
         </div>
       </div>
-      <div aria-live="polite">
-        {definition && isOpen && (
-          <div
-            data-h2-padding="base(x.75)"
-            data-h2-border="base(all, 1px, solid, dt-primary)"
-            data-h2-color="base(dt-primary)"
-            data-h2-background-color="base(dt-primary.15)"
-            data-h2-margin="base(x.25, 0)"
-            data-h2-radius="base(s)"
-          >
-            <p data-h2-font-size="base(caption)">{definition}</p>
-          </div>
-        )}
-      </div>
-    </div>
+      {definition && (
+        <div aria-live="polite">
+          <Collapsible.Content>
+            <div
+              data-h2-padding="base(x.75)"
+              data-h2-border="base(all, 1px, solid, dt-primary)"
+              data-h2-color="base(dt-primary)"
+              data-h2-background-color="base(dt-primary.15)"
+              data-h2-margin="base(x.25, 0)"
+              data-h2-radius="base(s)"
+            >
+              <p data-h2-font-size="base(caption)">{definition}</p>
+            </div>
+          </Collapsible.Content>
+        </div>
+      )}
+    </Wrapper>
   );
 };
 

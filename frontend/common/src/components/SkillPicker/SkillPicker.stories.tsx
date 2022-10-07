@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import type { Skill } from "../../../api/generated";
-import { fakeSkills, fakeSkillFamilies } from "../../../fakeData";
+import type { Skill } from "../../api/generated";
+import { fakeSkills, fakeSkillFamilies } from "../../fakeData";
 import SkillPicker from "./SkillPicker";
 
 type ComponentType = typeof SkillPicker;

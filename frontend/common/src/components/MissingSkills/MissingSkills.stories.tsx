@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import MissingSkills from "./MissingSkills";
 
-import { fakeSkills } from "../../../fakeData";
+import { fakeSkills } from "../../fakeData";
 
 type MissingSkillsComponent = typeof MissingSkills;
 

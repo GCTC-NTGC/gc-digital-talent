@@ -1002,8 +1002,8 @@
     "defaultMessage": "Vous devez saisir un terme de recherche avant d'appuyer sur la touche « Entrée »",
     "description": "Error message displayed when the search term length is less then 2 characters."
   },
-  "ItRgwA": {
-    "defaultMessage": "Retirer une compétence",
+  "p5GbCr": {
+    "defaultMessage": "Retirer une compétence<hidden> {skillName}</hidden>",
     "description": "Button label to remove skill on skill result block."
   },
   "JY6WhU": {
@@ -1014,12 +1014,8 @@
     "defaultMessage": "p. ex. Python, JavaScript, etc.",
     "description": "Placeholder for the skills search bar."
   },
-  "VDZ6zw": {
-    "defaultMessage": "Masquer la définition",
-    "description": "Text displayed when skill block is open."
-  },
-  "ZOQ9ih": {
-    "defaultMessage": "Ajouter une compétence",
+  "HB2yOT": {
+    "defaultMessage": "Ajouter une compétence<hidden> {skillName}</hidden>",
     "description": "Button label to add skill on skill result block."
   },
   "BnnVAv": {
@@ -1082,8 +1078,12 @@
     "defaultMessage": "Déconnexion",
     "description": "Link text to logout."
   },
-  "BjRuMw": {
-    "defaultMessage": "Voir la définition",
+  "WtwED/": {
+    "defaultMessage": "Voir la définition<hidden> pour {skillName}</hidden>",
+    "description": "Text displayed when skill block is open."
+  },
+  "SGcina": {
+    "defaultMessage": "Masquer la définition<hidden> pour {skillName}</hidden>",
     "description": "Text displayed when skill block is open."
   },
   "+6TuVe": {
@@ -1386,8 +1386,8 @@
     "defaultMessage": "Taille de la page",
     "description": "Label for the number of items to display on each page."
   },
-  "YRhYqm": {
-    "defaultMessage": "Aucune définition fournie",
+  "QXYMUG": {
+    "defaultMessage": "Aucune définition fournie<hidden> pour {skillName}</hidden>",
     "description": "Message displayed when a skill has no definition"
   },
   "hm95fj": {
