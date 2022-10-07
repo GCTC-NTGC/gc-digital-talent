@@ -103,10 +103,21 @@ class Pool extends Model
     public function getAdvertisementStatusAttribute()
     {
         // given database is functioning in UTC, all backend should consistently enforce the same timezone
-        $isPublished = $this->published_at != null;
+        $publishedDate = $this->published_at;
         $expiryDate = $this->expiry_date;
         $currentTime = date("Y-m-d H:i:s");
-        $isExpired = $currentTime > $expiryDate ? true : false;
+        if ($expiryDate != null) {
+            $isExpired = $currentTime > $expiryDate ? true : false;
+        }
+        else {
+            $isExpired = false;
+        }
+        if ($publishedDate != null) {
+            $isPublished = $currentTime > $publishedDate ? true : false;
+        }
+        else {
+            $isPublished = false;
+        }
 
         if(!$isPublished){
             return ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT;
