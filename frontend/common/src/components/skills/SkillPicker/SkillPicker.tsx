@@ -52,38 +52,27 @@ const SkillPicker = ({
     mode: "onChange",
     defaultValues,
   });
-  const {
-    handleSubmit,
-    watch,
-    formState: { isValid, isValidating },
-  } = methods;
-
-  const onSubmit = React.useCallback((newData: FormValues) => {
-    const { query, skillFamilies } = newData;
-    setValidData({
-      query: query ?? "",
-      skillFamilies: skillFamilies ? skillFamilies?.filter(notEmpty) : [],
-    });
-  }, []);
+  const { watch } = methods;
 
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamilies }) => {
-      if (isValid && !isValidating) {
-        setValidData({
-          query: query ?? "",
-          skillFamilies: skillFamilies ? skillFamilies?.filter(notEmpty) : [],
-        });
-      }
+      setValidData({
+        query: query ?? "",
+        skillFamilies: skillFamilies ? skillFamilies?.filter(notEmpty) : [],
+      });
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, isValid, isValidating, setValidData]);
+  }, [watch]);
 
-  React.useEffect(() => {
-    if (onUpdateSelectedSkills) {
-      onUpdateSelectedSkills(selectedSkills);
-    }
-  }, [selectedSkills, onUpdateSelectedSkills]);
+  const handleSkillUpdate = React.useCallback(
+    (newSkills: Skills) => {
+      if (onUpdateSelectedSkills) {
+        onUpdateSelectedSkills(newSkills);
+      }
+    },
+    [onUpdateSelectedSkills],
+  );
 
   const allSkillFamilies = React.useMemo(
     () => invertSkillSkillFamilyTree(skills),
@@ -94,11 +83,9 @@ const SkillPicker = ({
     return filterSkillsByNameOrKeywords(skills, validData.query, intl).filter(
       (skill) => {
         if (validData.skillFamilies.length) {
-          const toAdd = skill?.families?.some((family) =>
+          return skill?.families?.some((family) =>
             validData.skillFamilies.includes(family.id),
           );
-          console.log(toAdd);
-          return toAdd;
         }
 
         return true;
@@ -111,12 +98,14 @@ const SkillPicker = ({
     if (skillToAdd) {
       const newSkills = [...selectedSkills, skillToAdd];
       setSelectedSkills(newSkills);
+      handleSkillUpdate(newSkills);
     }
   };
 
   const handleRemoveSkill = (id: Skill["id"]) => {
     const newSkills = selectedSkills.filter((selected) => selected.id !== id);
     setSelectedSkills(newSkills);
+    handleSkillUpdate(newSkills);
   };
 
   /**
@@ -156,36 +145,34 @@ const SkillPicker = ({
   return (
     <>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            id="query"
-            name="query"
-            type="text"
-            label={intl.formatMessage({
-              defaultMessage: "Search for specific skill...",
-              id: "JY6WhU",
-              description: "Label for the skills search bar.",
-            })}
-            placeholder={intl.formatMessage({
-              defaultMessage: "e.g. Python, JavaScript, etc.",
-              id: "PF4ya+",
-              description: "Placeholder for the skills search bar.",
-            })}
-          />
-          <MultiSelectFieldV2
-            id="skillFamilies"
-            name="skillFamilies"
-            label={intl.formatMessage({
-              defaultMessage: "Skill families",
-              description: "Label for the skills families dropdown",
-              id: "U6Zf0K",
-            })}
-            options={allSkillFamilies.map((family) => ({
-              value: family.id,
-              label: getLocalizedName(family.name, intl),
-            }))}
-          />
-        </form>
+        <Input
+          id="query"
+          name="query"
+          type="text"
+          label={intl.formatMessage({
+            defaultMessage: "Search for specific skill...",
+            id: "JY6WhU",
+            description: "Label for the skills search bar.",
+          })}
+          placeholder={intl.formatMessage({
+            defaultMessage: "e.g. Python, JavaScript, etc.",
+            id: "PF4ya+",
+            description: "Placeholder for the skills search bar.",
+          })}
+        />
+        <MultiSelectFieldV2
+          id="skillFamilies"
+          name="skillFamilies"
+          label={intl.formatMessage({
+            defaultMessage: "Skill families",
+            description: "Label for the skills families dropdown",
+            id: "U6Zf0K",
+          })}
+          options={allSkillFamilies.map((family) => ({
+            value: family.id,
+            label: getLocalizedName(family.name, intl),
+          }))}
+        />
       </FormProvider>
       <p
         aria-live="polite"
