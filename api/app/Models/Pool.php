@@ -62,7 +62,7 @@ class Pool extends Model
      * The attributes that can be filled using mass-assignment.
      *
      * @var array
-    */
+     */
     protected $fillable = [
         'is_remote',
         'expiry_date',
@@ -120,18 +120,14 @@ class Pool extends Model
             $isPublished = false;
         }
 
-        if(!$isPublished){
+        if (!$isPublished) {
             return ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT;
-
-        } elseif($isPublished && !$isExpired){
+        } elseif ($isPublished && !$isExpired) {
             return ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED;
-
-        } elseif($isPublished && $isExpired){
+        } elseif ($isPublished && $isExpired) {
             return ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED;
-
-        } else{
+        } else {
             return null;
-
         }
     }
 }
