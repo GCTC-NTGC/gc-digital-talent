@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 /**
  * Class Pool
@@ -129,5 +131,11 @@ class Pool extends Model
         } else {
             return null;
         }
+    }
+
+    public function scopeWasPublished(Builder $query, ?array $args)
+    {
+        $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+        return $query;
     }
 }
