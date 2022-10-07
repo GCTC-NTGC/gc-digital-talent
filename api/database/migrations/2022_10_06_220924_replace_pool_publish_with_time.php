@@ -21,8 +21,8 @@ class ReplacePoolPublishWithTime extends Migration
             update pools
                 set published_at =
                     case is_published
-                        when 'true' then TIMESTAMP '2022-10-01 00:00:00'
-                        when 'false' then null
+                        when true then TIMESTAMP 'now'
+                        when false then null
                         else null
                     end
         ");
@@ -44,8 +44,8 @@ class ReplacePoolPublishWithTime extends Migration
         DB::statement("
         update pools
             set is_published =
-                case published_at
-                    when null then false
+                case when published_at
+                    is null then false
                     else true
                 end
         ");
