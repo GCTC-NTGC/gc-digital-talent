@@ -49,7 +49,7 @@ const withThemeProvider = (
    */
   const showDark = parameters.hasDarkMode && isChromatic();
 
-  return showDark || parameters.hasDarkMode ? (
+  return showDark ? (
     <>
       <div id="override-theme-light" data-h2>
         <ThemeProvider
