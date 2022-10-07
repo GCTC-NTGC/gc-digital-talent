@@ -3,7 +3,7 @@ import { useState } from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
-import SkillPicker from "@common/components/skills/SkillPicker/deprecated";
+import SkillPicker from "@common/components/SkillPicker";
 import {
   AdvertisementStatus,
   PoolAdvertisement,
@@ -72,9 +72,7 @@ export const AssetSkillsSection = ({
       <SkillPicker
         selectedSkills={selectedSkills}
         skills={skills}
-        onChange={handleChangeSelectedSkills}
-        idPrefix="asset"
-        disabled={formDisabled}
+        onUpdateSelectedSkills={handleChangeSelectedSkills}
       />
 
       {!formDisabled && (

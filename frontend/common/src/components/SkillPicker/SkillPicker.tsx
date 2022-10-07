@@ -2,21 +2,21 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import type { HeadingLevel } from "../../Heading";
-import Chip, { Chips } from "../../Chip";
-import Separator from "../../Separator";
-import ScrollArea from "../../ScrollArea";
-import { getLocalizedName } from "../../../helpers/localize";
-import { notEmpty } from "../../../helpers/util";
-import { Input } from "../../form";
-import { SkillBlock } from "../SkillResults/SkillResults";
-import MultiSelectFieldV2 from "../../form/MultiSelect/MultiSelectFieldV2";
-import { Scalars, Skill } from "../../../api/generated";
+import type { HeadingLevel } from "../Heading";
+import Chip, { Chips } from "../Chip";
+import Separator from "../Separator";
+import ScrollArea from "../ScrollArea";
+import { Input } from "../form";
+import MultiSelectFieldV2 from "../form/MultiSelect/MultiSelectFieldV2";
+import SkillBlock from "./SkillBlock";
 
+import { Scalars, Skill } from "../../api/generated";
+import { getLocalizedName } from "../../helpers/localize";
+import { notEmpty } from "../../helpers/util";
 import {
   filterSkillsByNameOrKeywords,
   invertSkillSkillFamilyTree,
-} from "../../../helpers/skillUtils";
+} from "../../helpers/skillUtils";
 
 type Skills = Array<Skill>;
 
@@ -31,7 +31,7 @@ const defaultValues: FormValues = {
 };
 export interface SkillPickerProps {
   skills: Skills;
-  defaultSelectedSkills?: Skills;
+  selectedSkills?: Skills;
   onUpdateSelectedSkills?: (newSkills: Skills) => void;
   headingLevel?: HeadingLevel;
 }
@@ -39,14 +39,11 @@ export interface SkillPickerProps {
 const SkillPicker = ({
   skills,
   onUpdateSelectedSkills,
-  defaultSelectedSkills = [],
+  selectedSkills = [],
   headingLevel = "h4",
 }: SkillPickerProps) => {
   const intl = useIntl();
   const Heading = headingLevel;
-  const [selectedSkills, setSelectedSkills] = React.useState<Skills>(
-    defaultSelectedSkills,
-  );
   const [validData, setValidData] = React.useState<FormValues>(defaultValues);
   const methods = useForm<FormValues>({
     mode: "onChange",
@@ -97,14 +94,12 @@ const SkillPicker = ({
     const skillToAdd = skills.find((skill) => skill.id === id);
     if (skillToAdd) {
       const newSkills = [...selectedSkills, skillToAdd];
-      setSelectedSkills(newSkills);
       handleSkillUpdate(newSkills);
     }
   };
 
   const handleRemoveSkill = (id: Skill["id"]) => {
     const newSkills = selectedSkills.filter((selected) => selected.id !== id);
-    setSelectedSkills(newSkills);
     handleSkillUpdate(newSkills);
   };
 
@@ -199,7 +194,7 @@ const SkillPicker = ({
         <ScrollArea.Viewport data-h2-background-color="base(white)">
           <div data-h2-padding="base(x.5, x1, x.5, x.5)">
             {filteredSkills.length > 0 ? (
-              filteredSkills.map((skill, index) => (
+              filteredSkills.map((skill, index: number) => (
                 <React.Fragment key={skill.id}>
                   <SkillBlock
                     skill={skill}

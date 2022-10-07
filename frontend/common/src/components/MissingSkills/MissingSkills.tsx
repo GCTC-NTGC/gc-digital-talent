@@ -1,9 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { getMissingSkills } from "../../../helpers/skillUtils";
-import { getLocale } from "../../../helpers/localize";
-import type { Maybe, Skill } from "../../../api/generated";
-import Chip, { Chips } from "../../Chip";
+
+import Chip, { Chips } from "../Chip";
+
+import { getMissingSkills } from "../../helpers/skillUtils";
+import { getLocale } from "../../helpers/localize";
+import type { Maybe, Skill } from "../../api/generated";
 
 export interface MissingSkillsProps {
   requiredSkills?: Skill[];
@@ -51,7 +53,7 @@ const MissingSkills = ({
             })}
           </p>
           <Chips>
-            {missingRequiredSkills.map((skill) => (
+            {missingRequiredSkills.map((skill: Skill) => (
               <Chip
                 key={skill.id}
                 color="primary"
@@ -74,7 +76,7 @@ const MissingSkills = ({
             })}
           </p>
           <Chips>
-            {missingOptionalSkills.map((skill) => (
+            {missingOptionalSkills.map((skill: Skill) => (
               <Chip
                 key={skill.id}
                 color="primary"

@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import type { Skill } from "@common/api/generated";
-import SkillPicker from "@common/components/skills/SkillPicker";
+import SkillPicker from "@common/components/SkillPicker";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { notEmpty } from "@common/helpers/util";
 
@@ -77,7 +77,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
       <SkillPicker
         skills={allSkills || []}
         onUpdateSelectedSkills={handleChange}
-        defaultSelectedSkills={addedSkills}
+        selectedSkills={addedSkills}
       />
     </div>
   );

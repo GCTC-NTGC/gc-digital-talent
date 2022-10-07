@@ -1,22 +1,31 @@
-import React, { useState } from "react";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import React from "react";
 import { useIntl } from "react-intl";
-import { getLocale } from "../../../helpers/localize";
-import { Button } from "../..";
-import { Skill } from "../../../api/generated";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
-export const SkillBlock: React.FunctionComponent<{
+import Button from "../Button";
+
+import useLocale from "../../hooks/useLocale";
+import { getLocalizedName } from "../../helpers/localize";
+import type { Skill } from "../../api/generated";
+
+interface SkillBlockProps {
   skill: Skill;
   isAdded: boolean;
   onAddSkill: (id: string) => void;
   onRemoveSkill: (id: string) => void;
-}> = ({ skill, isAdded, onAddSkill, onRemoveSkill }) => {
-  const intl = useIntl();
-  const locale = getLocale(intl);
-  const { id, name, description } = skill;
-  const [isOpen, setIsOpen] = useState(false);
+}
 
-  const definition = description?.[locale];
+const SkillBlock = ({
+  skill: { id, name, description },
+  isAdded,
+  onAddSkill,
+  onRemoveSkill,
+}: SkillBlockProps) => {
+  const intl = useIntl();
+  const locale = useLocale();
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+
+  const definition = description ? description[locale] : null;
 
   return (
     <div>
@@ -44,11 +53,13 @@ export const SkillBlock: React.FunctionComponent<{
                 data-h2-display="base(block)"
                 data-h2-padding="base(0, 0, 0, x1)"
               >
-                {name[locale]}
+                {getLocalizedName(name, intl)}
               </span>
             </span>
           ) : (
-            <span data-h2-display="base(block)">{name[locale]}</span>
+            <span data-h2-display="base(block)">
+              {getLocalizedName(name, intl)}
+            </span>
           )}
         </div>
         <div
@@ -127,48 +138,4 @@ export const SkillBlock: React.FunctionComponent<{
   );
 };
 
-export interface SkillResultsProps {
-  title: string;
-  skills: Skill[];
-  addedSkills: Skill[];
-  onAddSkill: (id: string) => void;
-  onRemoveSkill: (id: string) => void;
-}
-
-export const SkillResults: React.FunctionComponent<SkillResultsProps> = ({
-  title,
-  skills,
-  addedSkills,
-  onAddSkill,
-  onRemoveSkill,
-}) => {
-  const addedIds = addedSkills.map((skill) => skill?.id);
-  return (
-    <section data-h2-margin="base(0, 0, x1, 0)">
-      <p
-        data-h2-font-size="base(copy, 1)"
-        data-h2-border="base(top, 1px, solid, dt-gray)"
-        data-h2-font-weight="base(700)"
-        data-h2-padding="base(x1.5, 0, 0, 0)"
-        data-h2-margin="base(x1.5, 0, x.65, 0)"
-      >
-        {title}
-      </p>
-      {skills.map((skill) => {
-        // Check if the poolCandidate has added the skill already.
-        const isAdded = addedIds.includes(skill?.id);
-        return (
-          <SkillBlock
-            key={skill?.id}
-            skill={skill}
-            isAdded={isAdded}
-            onAddSkill={onAddSkill}
-            onRemoveSkill={onRemoveSkill}
-          />
-        );
-      })}
-    </section>
-  );
-};
-
-export default SkillResults;
+export default SkillBlock;

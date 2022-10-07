@@ -2,10 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-import SkillPicker from "@common/components/skills/SkillPicker/deprecated";
+import SkillPicker from "@common/components/SkillPicker";
 import { notEmpty } from "@common/helpers/util";
 import type { Skill } from "../../api/generated";
-
 import SkillsInDetail from "../skills/SkillsInDetail/SkillsInDetail";
 
 import type { FormSkill, FormSkills } from "./types";
@@ -80,7 +79,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
       </p>
       <SkillPicker
         skills={skills || []}
-        onChange={handleChange}
+        onUpdateSelectedSkills={handleChange}
         selectedSkills={addedSkills || []}
       />
       <SkillsInDetail
