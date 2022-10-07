@@ -4,6 +4,7 @@ import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import frCompiled from "../src/lang/frCompiled.json";
 import defaultRichTextElements from "../src/helpers/format";
 import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
+import withThemeProvider, { theme } from "./decorators/ThemeDecorator";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
 export const parameters = {
@@ -33,9 +34,14 @@ setIntlConfig({
   defaultRichTextElements
 })
 
+export const globalTypes = {
+  theme
+}
+
 export const decorators = [
   MockGraphqlDecorator,
   withIntl,
+  withThemeProvider,
   (Story) => (
     <div data-h2-font-family="base(sans)">
       <Story />
