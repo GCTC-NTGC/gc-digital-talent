@@ -13,5 +13,8 @@
   "chromeWebSecurity": true,
   "ignoreTestFiles": "**/examples/*.spec.js",
   "authServerRoot": "http://localhost:8000/oxauth",
-  "baseUrl": "http://localhost:8000"
+  "baseUrl": "http://localhost:8000",
+  "env": {
+    "FEATURE_APPLICANTSEARCH": false
+  }
 }
