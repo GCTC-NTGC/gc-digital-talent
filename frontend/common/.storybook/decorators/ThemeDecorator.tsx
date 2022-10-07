@@ -31,10 +31,6 @@ export const theme = {
   },
 };
 
-interface ThemeBlockProps {
-  children: React.ReactNode;
-}
-
 const withThemeProvider = (
   Story: StoryFn,
   { globals, parameters }: StoryContext,
