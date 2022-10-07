@@ -1,29 +1,17 @@
 /**
  * @jest-environment jsdom
  */
-import { currentDate } from "@common/helpers/formUtils";
 import "@testing-library/jest-dom";
-import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import React from "react";
-import { IntlProvider, MessageFormatElement } from "react-intl";
+import { act, fireEvent, screen, within } from "@testing-library/react";
+import { currentDate } from "@common/helpers/formUtils";
+import { render } from "@common/helpers/testUtils";
 import { EditPoolFormProps } from "./EditPool";
 import EditPoolStory, {
   DraftAdvertisement,
   PublishedAdvertisement,
   ExpiredAdvertisement,
 } from "./EditPool.stories";
-
-const renderWithReactIntl = (
-  component: React.ReactNode,
-  locale?: "en" | "fr",
-  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
-) => {
-  return render(
-    <IntlProvider locale={locale || "en"} messages={messages}>
-      {component}
-    </IntlProvider>,
-  );
-};
 
 describe("Edit Pool tests", () => {
   // This test is prone to going beyond the 5s default timeout.
@@ -39,7 +27,7 @@ describe("Edit Pool tests", () => {
       } as EditPoolFormProps;
 
       await act(async () => {
-        renderWithReactIntl(<DraftAdvertisement {...props} />);
+        render(<DraftAdvertisement {...props} />);
       });
 
       await act(async () => {
@@ -81,7 +69,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithReactIntl(<DraftAdvertisement {...props} />);
+      render(<DraftAdvertisement {...props} />);
       fireEvent.click(screen.getByRole("button", { name: /publish/i }));
     });
 
@@ -111,7 +99,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithReactIntl(<DraftAdvertisement {...props} />);
+      render(<DraftAdvertisement {...props} />);
       fireEvent.click(screen.getByRole("button", { name: /publish/i }));
     });
 
@@ -141,7 +129,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithReactIntl(<DraftAdvertisement {...props} />);
+      render(<DraftAdvertisement {...props} />);
       fireEvent.click(screen.getByRole("button", { name: /delete/i }));
     });
 
@@ -165,7 +153,7 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     await act(async () => {
-      renderWithReactIntl(<DraftAdvertisement {...props} />);
+      render(<DraftAdvertisement {...props} />);
     });
 
     expect(
@@ -189,7 +177,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithReactIntl(<PublishedAdvertisement {...props} />);
+      render(<PublishedAdvertisement {...props} />);
       fireEvent.click(screen.getByRole("button", { name: /close/i }));
     });
 
@@ -218,7 +206,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithReactIntl(<PublishedAdvertisement {...props} />);
+      render(<PublishedAdvertisement {...props} />);
       fireEvent.click(screen.getByRole("button", { name: /extend the date/i }));
     });
 
@@ -244,7 +232,7 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     await act(async () => {
-      renderWithReactIntl(<PublishedAdvertisement {...props} />);
+      render(<PublishedAdvertisement {...props} />);
     });
 
     expect(
@@ -268,7 +256,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithReactIntl(<ExpiredAdvertisement {...props} />);
+      render(<ExpiredAdvertisement {...props} />);
       fireEvent.click(screen.getByRole("button", { name: /extend the date/i }));
     });
 
@@ -297,7 +285,7 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     await act(async () => {
-      renderWithReactIntl(<ExpiredAdvertisement {...props} />);
+      render(<ExpiredAdvertisement {...props} />);
     });
 
     expect(
