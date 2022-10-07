@@ -46,6 +46,7 @@ final class PublishPoolAdvertisementValidator extends Validator
             'is_remote' => ['required', 'boolean'],
             'advertisement_location.en' => ['required_if:is_remote,false', 'required_with:advertisement_location.fr', 'string'],
             'advertisement_location.fr' => ['required_if:is_remote,false', 'required_with:advertisement_location.en', 'string'],
+            'publishing_group' => ['required', Rule::in(ApiEnums::publishingGroups())],
         ];
     }
 

@@ -26,6 +26,7 @@ import {
   ArmedForcesStatus,
   BilingualEvaluation,
   PoolStream,
+  PublishingGroup,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -1520,4 +1521,31 @@ export const getPoolCandidatePriorities = (
     poolCandidatePriorities,
     priorityWeight,
     `Invalid Candidate Priority Weight '${priorityWeight}'`,
+  );
+
+export const publishingGroups = defineMessages({
+  [PublishingGroup.ExecutiveJobs]: {
+    defaultMessage: "Executive Jobs",
+    id: "Mixlw/",
+    description: "The publishing group called Executive Jobs",
+  },
+  [PublishingGroup.ItJobs]: {
+    defaultMessage: "IT Jobs",
+    id: "C8nrGM",
+    description: "The publishing group called IT Jobs",
+  },
+  [PublishingGroup.Other]: {
+    defaultMessage: "Other",
+    id: "mv7JO3",
+    description: "The publishing group called Other",
+  },
+});
+
+export const getPublishingGroup = (
+  publishingGroup: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    publishingGroups,
+    publishingGroup,
+    `Invalid publishing group '${publishingGroup}'`,
   );

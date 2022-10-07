@@ -4,6 +4,7 @@ import {
   PoolAdvertisementLanguage,
   PoolStream,
   ProvinceOrTerritory,
+  PublishingGroup,
   SecurityStatus,
   WorkRegion,
 } from "../../../admin/src/js/api/generated";
@@ -112,6 +113,7 @@ describe("Submit Application Workflow Tests", () => {
                     fr: "test location FR",
                   },
                   isRemote: true,
+                  publishingGroup: PublishingGroup.Other,
                 }).then(() => {
                   cy.publishPoolAdvertisement(testPoolAdvertisementId);
                 });

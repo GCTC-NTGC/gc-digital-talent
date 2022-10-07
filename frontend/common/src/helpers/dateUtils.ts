@@ -132,6 +132,7 @@ export const relativeExpiryDate = (
 };
 export const FAR_FUTURE_DATE = "2999-12-31";
 export const FAR_PAST_DATE = "2000-01-01";
+export const PAST_DATE = "2020-01-01";
 
 export const strToDateTimeTz = (value: string) => {
   const parsed = parseISO(value);

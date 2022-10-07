@@ -1,16 +1,18 @@
 import React from "react";
+import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
 
 import Sidebar from "./Sidebar";
 
 const Navigation: React.FC = ({ children, ...rest }) => {
   const intl = useIntl();
+  const id = uniqueId();
 
   return (
     <Sidebar>
       <div data-h2-text-align="base(left) l-tablet(right)" {...rest}>
         <p
-          id="toc-heading"
+          id={`toc-heading-${id}`}
           data-h2-font-size="base(h5, 1)"
           data-h2-font-weight="base(700)"
           data-h2-padding="base(x3, 0, x1, 0)"
@@ -22,7 +24,7 @@ const Navigation: React.FC = ({ children, ...rest }) => {
           })}
         </p>
         <nav
-          aria-labelledby="toc-heading"
+          aria-labelledby={`toc-heading-${id}`}
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
           data-h2-align-items="base(flex-start) l-tablet(flex-end)"

@@ -85,6 +85,7 @@ query getEditPoolData($poolId: ID!) {
     }
     stream
     processNumber
+    publishingGroup
   }
 
   # all classifications to populate form dropdown
@@ -141,7 +142,7 @@ mutation updatePoolAdvertisement(
 
 mutation publishPoolAdvertisement($id: ID!) {
   publishPoolAdvertisement(id: $id) {
-    isPublished
+    publishedAt
   }
 }
 mutation closePoolAdvertisement($id: ID!) {

@@ -8,6 +8,7 @@ import TalentFrench from "../../talentsearch/src/js/lang/frCompiled.json";
 import IndigenousFrench from "../../indigenousapprenticeship/src/js/lang/frCompiled.json";
 import defaultRichTextElements from "../../common/src/helpers/format";
 import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
+import withThemeProvider, { theme } from "../../common/.storybook/decorators/ThemeDecorator"
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
 // CSS files required for building with `MERGE_STORYBOOKS=true`.
@@ -45,18 +46,23 @@ const messages = {
 };
 
 setIntlConfig({
-    locales: ["en", "fr"],
-    defaultLocale: "en",
-    getMessages: (locale) => messages[locale],
-    defaultRichTextElements
+  locales: ["en", "fr"],
+  defaultLocale: "en",
+  getMessages: (locale) => messages[locale],
+  defaultRichTextElements
 })
 
+export const globalTypes = {
+  theme
+}
+
 export const decorators = [
-    MockGraphqlDecorator,
-    withIntl,
-    (Story) => (
-      <div data-h2-font-family="base(sans)">
-        <Story />
-      </div>
-    ),
-  ];
+  MockGraphqlDecorator,
+  withIntl,
+  withThemeProvider,
+  (Story) => (
+    <div data-h2-font-family="base(sans)">
+      <Story />
+    </div>
+  ),
+];
