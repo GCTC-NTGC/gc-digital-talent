@@ -68,7 +68,6 @@ const Pill: React.FC<PillProps> = ({
       data-h2-radius="base(m)"
       data-h2-font-size="base(caption)"
       {...colorMap[color][mode]}
-      data-h2-margin="base(x.125)"
       data-h2-text-align="base(center)"
       {...rest}
     >

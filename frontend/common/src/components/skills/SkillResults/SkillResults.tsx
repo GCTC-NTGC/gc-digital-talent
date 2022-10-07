@@ -19,12 +19,15 @@ export const SkillBlock: React.FunctionComponent<{
   const definition = description?.[locale];
 
   return (
-    <div data-h2-padding="base(0, 0, x.25, 0)">
+    <div>
       <div
-        data-h2-flex-grid="base(flex-start, x1, 0)"
-        data-h2-align-items="base(center)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-align-items="base(flex-start) l-tablet(center)"
+        data-h2-justify-content="base(space-between)"
+        data-h2-gap="base(0, x.25) l-tablet(x.5, 0)"
       >
-        <div data-h2-flex-item="base(1of2)">
+        <div data-h2-flex-grow="base(1)">
           {isAdded ? (
             <span
               data-h2-color="base(dt-primary)"
@@ -45,76 +48,78 @@ export const SkillBlock: React.FunctionComponent<{
               </span>
             </span>
           ) : (
-            <span
-              data-h2-display="base(block)"
-              data-h2-margin="base(0, 0, 0, x1)"
-            >
-              {name[locale]}
-            </span>
+            <span data-h2-display="base(block)">{name[locale]}</span>
           )}
         </div>
-        <div data-h2-flex-item="base(1of4)" data-h2-text-align="base(center)">
-          {definition ? (
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(flex-end)"
+          data-h2-gap="base(x.5, 0)"
+          style={{ flexShrink: 0 }}
+        >
+          <div>
+            {definition ? (
+              <Button
+                color="primary"
+                mode="inline"
+                type="button"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                {isOpen
+                  ? intl.formatMessage({
+                      defaultMessage: "Hide definition",
+                      id: "VDZ6zw",
+                      description: "Text displayed when skill block is open.",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "See definition",
+                      id: "BjRuMw",
+                      description: "Text displayed when skill block is open.",
+                    })}
+              </Button>
+            ) : (
+              intl.formatMessage({
+                defaultMessage: "No definition provided",
+                id: "YRhYqm",
+                description: "Message displayed when a skill has no definition",
+              })
+            )}
+          </div>
+          <div>
             <Button
               color="primary"
               mode="inline"
               type="button"
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={isAdded ? () => onRemoveSkill(id) : () => onAddSkill(id)}
             >
-              {isOpen
+              {isAdded
                 ? intl.formatMessage({
-                    defaultMessage: "Hide definition",
-                    id: "VDZ6zw",
-                    description: "Text displayed when skill block is open.",
+                    defaultMessage: "Remove skill",
+                    id: "ItRgwA",
+                    description:
+                      "Button label to remove skill on skill result block.",
                   })
                 : intl.formatMessage({
-                    defaultMessage: "See definition",
-                    id: "BjRuMw",
-                    description: "Text displayed when skill block is open.",
+                    defaultMessage: "Add skill",
+                    id: "ZOQ9ih",
+                    description:
+                      "Button label to add skill on skill result block.",
                   })}
             </Button>
-          ) : (
-            intl.formatMessage({
-              defaultMessage: "No definition provided",
-              id: "YRhYqm",
-              description: "Message displayed when a skill has no definition",
-            })
-          )}
+          </div>
         </div>
-        <div data-h2-flex-item="base(1of4)" data-h2-text-align="base(center)">
-          <Button
-            color="primary"
-            mode="inline"
-            type="button"
-            onClick={isAdded ? () => onRemoveSkill(id) : () => onAddSkill(id)}
-          >
-            {isAdded
-              ? intl.formatMessage({
-                  defaultMessage: "Remove skill",
-                  id: "ItRgwA",
-                  description:
-                    "Button label to remove skill on skill result block.",
-                })
-              : intl.formatMessage({
-                  defaultMessage: "Add skill",
-                  id: "ZOQ9ih",
-                  description:
-                    "Button label to add skill on skill result block.",
-                })}
-          </Button>
-        </div>
+      </div>
+      <div aria-live="polite">
         {definition && isOpen && (
-          <div data-h2-flex-item="base(1of1)">
-            <div
-              data-h2-padding="base(x.75)"
-              data-h2-border="base(all, 1px, solid, dt-primary)"
-              data-h2-color="base(dt-primary)"
-              data-h2-background-color="base(dt-primary.15)"
-              data-h2-margin="base(x.25, 0, x.25, x1)"
-              data-h2-radius="base(s)"
-            >
-              <p data-h2-font-size="base(caption)">{definition}</p>
-            </div>
+          <div
+            data-h2-padding="base(x.75)"
+            data-h2-border="base(all, 1px, solid, dt-primary)"
+            data-h2-color="base(dt-primary)"
+            data-h2-background-color="base(dt-primary.15)"
+            data-h2-margin="base(x.25, 0)"
+            data-h2-radius="base(s)"
+          >
+            <p data-h2-font-size="base(caption)">{definition}</p>
           </div>
         )}
       </div>

@@ -2,6 +2,9 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
+import type { HeadingLevel } from "../../Heading";
+import Chip, { Chips } from "../../Chip";
+import Separator from "../../Separator";
 import ScrollArea from "../../ScrollArea";
 import { getLocalizedName } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/util";
@@ -30,14 +33,17 @@ export interface SkillPickerProps {
   skills: Skills;
   defaultSelectedSkills?: Skills;
   onUpdateSelectedSkills?: (newSkills: Skills) => void;
+  headingLevel?: HeadingLevel;
 }
 
 const SkillPicker = ({
   skills,
   onUpdateSelectedSkills,
   defaultSelectedSkills = [],
+  headingLevel = "h4",
 }: SkillPickerProps) => {
   const intl = useIntl();
+  const Heading = headingLevel;
   const [selectedSkills, setSelectedSkills] = React.useState<Skills>(
     defaultSelectedSkills,
   );
@@ -49,15 +55,19 @@ const SkillPicker = ({
   const {
     handleSubmit,
     watch,
-    formState: { isSubmitting, isValid, isValidating },
+    formState: { isValid, isValidating },
   } = methods;
 
   const onSubmit = React.useCallback((newData: FormValues) => {
-    console.log(newData);
+    const { query, skillFamilies } = newData;
+    setValidData({
+      query: query ?? "",
+      skillFamilies: skillFamilies ? skillFamilies?.filter(notEmpty) : [],
+    });
   }, []);
 
   React.useEffect(() => {
-    const subscription = watch(({ query, skillFamilies }, args) => {
+    const subscription = watch(({ query, skillFamilies }) => {
       if (isValid && !isValidating) {
         setValidData({
           query: query ?? "",
@@ -180,8 +190,8 @@ const SkillPicker = ({
       <p
         aria-live="polite"
         data-h2-font-size="base(h4)"
-        data-h2-font-weight="base(800)"
-        data-h2-margin="base(x1, 0)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x.5, 0)"
       >
         {intl.formatMessage(
           {
@@ -215,10 +225,9 @@ const SkillPicker = ({
                     onRemoveSkill={handleRemoveSkill}
                   />
                   {index + 1 !== filteredSkills.length ? (
-                    <hr
-                      data-h2-background-color="base(light.dt-gray)"
-                      data-h2-border="base(all, 0, solid, transparent)"
-                      data-h2-height="base(1px)"
+                    <Separator
+                      data-h2-margin="base(x.5, 0)"
+                      orientation="horizontal"
                     />
                   ) : null}
                 </React.Fragment>
@@ -246,6 +255,32 @@ const SkillPicker = ({
           <ScrollArea.Thumb />
         </ScrollArea.Scrollbar>
       </ScrollArea.Root>
+      {selectedSkills.length > 0 ? (
+        <>
+          <Heading
+            data-h2-font-size="base(copy, 1)"
+            data-h2-font-weight="base(700)"
+            data-h2-margin="base(x.75, 0, x.5, 0)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Selected skills",
+              id: "l7Hif/",
+              description: "Section header for a list of skills selected",
+            })}
+          </Heading>
+          <Chips>
+            {selectedSkills.map((skill) => (
+              <Chip
+                key={skill.id}
+                label={getLocalizedName(skill.name, intl)}
+                color="primary"
+                mode="outline"
+                onDismiss={() => handleRemoveSkill(skill.id)}
+              />
+            ))}
+          </Chips>
+        </>
+      ) : null}
     </>
   );
 };
