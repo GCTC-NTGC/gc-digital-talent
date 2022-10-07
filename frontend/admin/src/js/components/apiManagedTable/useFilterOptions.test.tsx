@@ -85,7 +85,7 @@ describe("useFilterOptions", () => {
   describe("simple fields", () => {
     it("returns static optionsData of appropriate length for non-async fields", () => {
       const result = renderHookWithProviders({});
-      const [countSimple, countAsync] = [10, 4];
+      const [countSimple, countAsync] = [11, 4];
       const countTotal = countSimple + countAsync;
       expect(Object.keys(result.current.optionsData)).toHaveLength(countTotal);
 
@@ -96,6 +96,7 @@ describe("useFilterOptions", () => {
       expect(result.current.optionsData.workRegion).toHaveLength(8);
       expect(result.current.optionsData.equity).toHaveLength(4);
       expect(result.current.optionsData.status).toHaveLength(15);
+      expect(result.current.optionsData.priorityWeight).toHaveLength(4);
 
       // Boolean filters
       expect(result.current.optionsData.govEmployee).toHaveLength(1);
