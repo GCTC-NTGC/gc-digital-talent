@@ -61,21 +61,17 @@ describe("Talent Search Workflow Tests", () => {
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
 
     cy.findByRole("textbox", { name: /Full Name/i })
-      .clear()
       .type("Test Full Name");
 
     cy.findByRole("textbox", { name: /Government e-mail/i })
-      .clear()
       .type("test@tbs-sct.gc.ca");
 
     cy.findByRole("textbox", {
       name: /What is the job title for this position\?/i,
     })
-      .clear()
       .type("Test Job Title");
 
     cy.findByRole("textbox", { name: /Additional Comments/i })
-      .clear()
       .type("Test Comments");
 
     cy.findByRole("combobox", { name: /Department/i }).select(
