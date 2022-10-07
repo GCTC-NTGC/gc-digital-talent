@@ -92,7 +92,7 @@ class PoolCandidate extends Model
     }
 
 
-    public function scopeClassifications(Builder $query, array $classifications): Builder
+    public function scopeClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -298,24 +298,6 @@ RAWSQL2;
         return $query;
     }
 
-    public function filterByGeneralSearch(Builder $query, ?string $search): Builder
-    {
-        // used App\\Models\\User@filterByPools as reference
-        if ($search) {
-            $query->whereExists(function ($query) use ($search) {
-                $query->select('id')
-                    ->from('users')
-                    ->whereColumn('users.id', 'pool_candidates.user_id')
-                    ->where(function ($query) use ($search) {
-                        $query->where('users.first_name', "ilike", $search)
-                            ->orWhere('users.last_name', "ilike", "%{$search}%")
-                            ->orWhere('users.email', "ilike", "%{$search}%");
-                    });
-            });
-        }
-
-        return $query;
-    }
 
     public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
     {
@@ -409,5 +391,26 @@ RAWSQL2;
 
         $this->profile_snapshot = $profile;
         $this->save();
+    }
+
+    public function scopePriorityWeight(Builder $query, ?array $priorityWeights): Builder
+    {
+
+        $query->whereExists(function ($query) use ($priorityWeights) {
+            $query->select('id')
+                ->from('users')
+                ->whereColumn('users.id', 'pool_candidates.user_id')
+                ->where(function ($query) use ($priorityWeights) {
+                    foreach ($priorityWeights as $index => $priorityWeight) {
+                        if ($index === 0) {
+                            // First iteration must use where instead of orWhere, as seen in filterWorkRegions
+                            $query->where("priority_weight", $priorityWeight);
+                        } else {
+                            $query->orWhere("priority_weight", $priorityWeight);
+                        }
+                    }
+                });
+        });
+        return $query;
     }
 }
