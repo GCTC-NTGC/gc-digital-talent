@@ -1,12 +1,16 @@
 import React from "react";
 
-export interface PillProps extends React.HTMLProps<HTMLSpanElement> {
+type PillSize = "sm" | "md" | "lg";
+
+export interface PillProps
+  extends Omit<React.HTMLProps<HTMLSpanElement>, "size"> {
   /** The style type of the element. */
   color: "primary" | "secondary" | "neutral";
   /** The style mode of the element. */
   mode: "solid" | "outline";
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
+  size?: PillSize;
 }
 
 const colorMap: Record<
@@ -52,22 +56,38 @@ const colorMap: Record<
   },
 };
 
+const sizeMap: Record<PillSize, Record<string, string>> = {
+  sm: {
+    "data-h2-font-size": "base(0.6rem)",
+    "data-h2-padding": "base(x.1, x.25)",
+  },
+  md: {
+    "data-h2-padding": "base(x.25, x.75)",
+    "data-h2-font-size": "base(caption)",
+  },
+  lg: {
+    "data-h2-font-size": "base(copy)",
+    "data-h2-padding": "base(x.5, x1)",
+  },
+};
+
 const Pill: React.FC<PillProps> = ({
   children,
   color,
   mode,
+  size = "md",
   block = false,
   ...rest
 }): React.ReactElement => {
   return (
     <span
-      data-h2-padding="base(x.25, x.75)"
       {...(block
         ? { "data-h2-display": "base(block)" }
         : { "data-h2-display": "base(inline-block)" })}
       data-h2-radius="base(m)"
       data-h2-font-size="base(caption)"
       {...colorMap[color][mode]}
+      {...sizeMap[size]}
       data-h2-text-align="base(center)"
       {...rest}
     >
