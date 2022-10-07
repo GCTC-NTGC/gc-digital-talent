@@ -49,13 +49,14 @@ describe("Talent Search Workflow Tests", () => {
 
     searchReturnsGreaterThanZeroApplicants();
 
-    cy.findByRole("button", { name: /Request Candidates/i })
-      .should("exist")
-      .and("be.visible")
-      .and("not.be.disabled");
-    // Use cy.contains because cy.findByRole mysteriously fails due to detached DOM element.
-    // Alternative: cy.findByRole( ... ).click({ force: true })
-    cy.contains("button", "Request Candidates").click();
+    cy.findByRole("button", { name: /Request Candidates/i }).then($button => {
+      cy.wrap($button)
+        .should("exist")
+        .and("be.visible")
+        .and("not.be.disabled");
+      // Force click because mysteriously fails due to detached DOM element.
+      cy.wrap($button).click({ force: true });
+    });
 
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
 
