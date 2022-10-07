@@ -210,7 +210,7 @@ const SkillPicker = ({
         data-h2-max-height="base(50vh)"
       >
         <ScrollArea.Viewport data-h2-background-color="base(white)">
-          <div data-h2-padding="base(x.5)">
+          <div data-h2-padding="base(x.5, x1, x.5, x.5)">
             {filteredSkills.length > 0 ? (
               filteredSkills.map((skill, index) => (
                 <React.Fragment key={skill.id}>
