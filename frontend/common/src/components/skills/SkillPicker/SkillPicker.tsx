@@ -191,7 +191,7 @@ const SkillPicker = ({
         aria-live="polite"
         data-h2-font-size="base(h4)"
         data-h2-font-weight="base(700)"
-        data-h2-margin="base(x.5, 0)"
+        data-h2-margin="base(x.5, 0, x.25, 0)"
       >
         {intl.formatMessage(
           {
