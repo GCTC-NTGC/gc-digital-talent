@@ -107,7 +107,9 @@ export const OtherRequirementsSection = ({
           : null,
       isRemote: formValues.locationOption === LocationOption.RemoteOptional,
       securityClearance: formValues.securityRequirement,
-      publishingGroup: formValues.publishingGroup,
+      publishingGroup: formValues.publishingGroup
+        ? formValues.publishingGroup
+        : undefined, // can't be set to null, assume not updating if empty
     });
   };
 
