@@ -792,7 +792,7 @@ type Pool {
 type PoolAdvertisement {
   id: ID!
   expiryDate: DateTimeTz
-  isPublished: Boolean
+  publishedAt: DateTime
   name: LocalizedString
   description: LocalizedString
   classifications: [Classification]

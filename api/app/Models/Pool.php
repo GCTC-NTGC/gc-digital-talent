@@ -25,13 +25,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property array $advertisement_location
  * @property string $security_clearance
  * @property string $advertisement_language
- * @property boolean $is_published
  * @property string $stream
  * @property string $process_number
  * @property string $publishing_group
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $expiry_date
+ * @property Illuminate\Support\Carbon $published_at
  */
 
 class Pool extends Model
@@ -54,6 +54,7 @@ class Pool extends Model
         'advertisement_location' => 'array',
         'your_impact' => 'array',
         'expiry_date' => 'datetime',
+        'published_at' => 'datetime',
         'is_remote' => 'boolean'
     ];
 
@@ -63,9 +64,9 @@ class Pool extends Model
      * @var array
     */
     protected $fillable = [
-        'is_published',
         'is_remote',
-        'expiry_date'
+        'expiry_date',
+        'published_at',
     ];
 
     public function user(): BelongsTo
@@ -103,10 +104,21 @@ class Pool extends Model
     public function getAdvertisementStatusAttribute()
     {
         // given database is functioning in UTC, all backend should consistently enforce the same timezone
-        $isPublished = $this->is_published;
+        $publishedDate = $this->published_at;
         $expiryDate = $this->expiry_date;
         $currentTime = date("Y-m-d H:i:s");
-        $isExpired = $currentTime > $expiryDate ? true : false;
+        if ($expiryDate != null) {
+            $isExpired = $currentTime > $expiryDate ? true : false;
+        }
+        else {
+            $isExpired = false;
+        }
+        if ($publishedDate != null) {
+            $isPublished = $currentTime > $publishedDate ? true : false;
+        }
+        else {
+            $isPublished = false;
+        }
 
         if(!$isPublished){
             return ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT;
