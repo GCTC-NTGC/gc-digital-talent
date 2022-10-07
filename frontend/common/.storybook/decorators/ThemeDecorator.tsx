@@ -27,9 +27,6 @@ export const theme = {
         title: "Dark",
       },
     ],
-    // Property that specifies if the name of the item will be displayed
-    showName: true,
-    // Change title based on selected value
     dynamicTitle: true,
   },
 };
@@ -52,14 +49,24 @@ const withThemeProvider = (
    */
   const showDark = parameters.hasDarkMode && isChromatic();
 
-  return showDark ? (
+  return showDark || parameters.hasDarkMode ? (
     <>
-      <ThemeProvider override="light">
-        <Story />
-      </ThemeProvider>
-      <ThemeProvider override="dark">
-        <Story />
-      </ThemeProvider>
+      <div id="override-theme-light" data-h2>
+        <ThemeProvider
+          override="light"
+          themeSelector="#override-theme-light[data-h2]"
+        >
+          <Story />
+        </ThemeProvider>
+      </div>
+      <div id="override-theme-dark" data-h2>
+        <ThemeProvider
+          override="dark"
+          themeSelector="#override-theme-dark[data-h2]"
+        >
+          <Story />
+        </ThemeProvider>
+      </div>
     </>
   ) : (
     <ThemeProvider override={theme}>

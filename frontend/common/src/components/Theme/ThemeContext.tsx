@@ -20,23 +20,31 @@ export const ThemeContext = React.createContext<ThemeState>(defaultThemeState);
 export interface ThemeProviderProps {
   children: React.ReactNode;
   override?: ThemeMode;
+  themeSelector?: string;
 }
 
-const ThemeProvider = ({ children, override }: ThemeProviderProps) => {
+const ThemeProvider = ({
+  children,
+  override,
+  themeSelector,
+}: ThemeProviderProps) => {
   const [mode, setMode] = React.useState<ThemeMode>(
     localStorage.theme || "pref",
   );
 
-  const setDOMTheme = (newMode: ThemeMode) => {
-    const hydrogen = document.querySelectorAll("[data-h2]");
-    hydrogen.forEach((item) => {
-      if (item instanceof HTMLElement) {
-        //  NOTE: We are setting DOM attrs here so it should be fine
-        // eslint-disable-next-line no-param-reassign
-        item.dataset.h2 = newMode;
-      }
-    });
-  };
+  const setDOMTheme = React.useCallback(
+    (newMode: ThemeMode) => {
+      const hydrogen = document.querySelectorAll(themeSelector || "[data-h2]");
+      hydrogen.forEach((item) => {
+        if (item instanceof HTMLElement) {
+          //  NOTE: We are setting DOM attrs here so it should be fine
+          // eslint-disable-next-line no-param-reassign
+          item.dataset.h2 = newMode;
+        }
+      });
+    },
+    [themeSelector],
+  );
 
   const setCurrentMode = React.useCallback(
     (newMode: ThemeMode) => {
@@ -52,7 +60,7 @@ const ThemeProvider = ({ children, override }: ThemeProviderProps) => {
         setDOMTheme(prefersDark ? "dark" : "light");
       }
     },
-    [setMode],
+    [setMode, setDOMTheme],
   );
 
   React.useEffect(() => {
