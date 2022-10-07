@@ -40,6 +40,7 @@ const OpportunityBlock = ({ content }: OpportunityBlockProps) => (
         color={content.color}
         mode="solid"
         type="button"
+        weight="bold"
         href={content.link.path}
       >
         {content.link.label}

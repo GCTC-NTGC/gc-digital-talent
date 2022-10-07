@@ -318,6 +318,7 @@ input CreatePoolInput {
   keyTasks: LocalizedStringInput
   status: PoolStatus = NOT_TAKING_APPLICATIONS
   processNumber: String
+  publishingGroup: PublishingGroup
 }
 
 input CreateSkillFamilyInput {
@@ -785,6 +786,7 @@ type Pool {
   advertisementStatus: AdvertisementStatus
   stream: PoolStream
   processNumber: String
+  publishingGroup: PublishingGroup
 }
 
 type PoolAdvertisement {
@@ -805,6 +807,7 @@ type PoolAdvertisement {
   nonessentialSkills: [Skill!]
   stream: PoolStream
   processNumber: String
+  publishingGroup: PublishingGroup
 }
 
 enum PoolAdvertisementLanguage {
@@ -957,6 +960,12 @@ enum ProvinceOrTerritory {
   YUKON
   NORTHWEST_TERRITORIES
   NUNAVUT
+}
+
+enum PublishingGroup {
+  IT_JOBS
+  EXECUTIVE_JOBS
+  OTHER
 }
 
 type Query {
@@ -1247,6 +1256,7 @@ input UpdatePoolAdvertisementInput {
   securityClearance: SecurityStatus
   advertisementLocation: LocalizedStringInput
   isRemote: Boolean
+  publishingGroup: PublishingGroup
 }
 
 input UpdatePoolCandidateAsAdminInput {
@@ -1284,6 +1294,7 @@ input UpdatePoolInput {
   status: PoolStatus
   stream: PoolStream
   processNumber: String
+  publishingGroup: PublishingGroup
 }
 
 input UpdateSkillFamilyInput {

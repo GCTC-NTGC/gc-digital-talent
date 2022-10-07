@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $advertisement_language
  * @property string $stream
  * @property string $process_number
+ * @property string $publishing_group
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $expiry_date
