@@ -35,10 +35,10 @@ const SkillBlock = ({
     <Wrapper>
       <div
         data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-align-items="base(flex-start) l-tablet(center)"
+        data-h2-flex-direction="base(column) p-tablet(row)"
+        data-h2-align-items="base(flex-start) p-tablet(center)"
         data-h2-justify-content="base(space-between)"
-        data-h2-gap="base(0, x.25) l-tablet(x.5, 0)"
+        data-h2-gap="base(0, x.25) p-tablet(x.5, 0)"
       >
         <div data-h2-flex-grow="base(1)">
           {isAdded ? (
