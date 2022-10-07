@@ -69,7 +69,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'classifications' => [['group' => 'ZZ', 'level' => 1 ]],
+        'expectedClassifications' => [['group' => 'ZZ', 'level' => 1 ]],
       ]
     ])->assertJson([
       'data' => [
@@ -84,7 +84,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'classifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+        'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
       ]
     ])->assertJson([
       'data' => [
@@ -378,54 +378,44 @@ class PoolCandidateTest extends TestCase
 
     // Create initial data.
     PoolCandidate::factory()->count(5)->create([
-      'user_id' => User::factory([
-        'has_disability' => false,
-        'is_indigenous' => false,
-        'is_visible_minority' => false,
-        'is_woman' => false,
-      ]),
+      'has_disability' => false,
+      'is_indigenous' => false,
+      'is_visible_minority' => false,
+      'is_woman' => false,
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
 
     // Create one new candidate for each EmploymentEquity filter
     PoolCandidate::factory()->create([
-      'user_id' => User::factory([
-        'has_disability' => true,
-        'is_indigenous' => false,
-        'is_visible_minority' => false,
-        'is_woman' => false,
-      ]),
+      'has_disability' => true,
+      'is_indigenous' => false,
+      'is_visible_minority' => false,
+      'is_woman' => false,
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
-      'user_id' => User::factory([
-        'has_disability' => false,
-        'is_indigenous' => true,
-        'is_visible_minority' => false,
-        'is_woman' => false,
-      ]),
+      'has_disability' => false,
+      'is_indigenous' => true,
+      'is_visible_minority' => false,
+      'is_woman' => false,
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
-      'user_id' => User::factory([
-        'has_disability' => false,
-        'is_indigenous' => false,
-        'is_visible_minority' => true,
-        'is_woman' => false,
-      ]),
+      'has_disability' => false,
+      'is_indigenous' => false,
+      'is_visible_minority' => true,
+      'is_woman' => false,
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
-      'user_id' => User::factory([
-        'has_disability' => false,
-        'is_indigenous' => false,
-        'is_visible_minority' => false,
-        'is_woman' => true,
-      ]),
+      'has_disability' => false,
+      'is_indigenous' => false,
+      'is_visible_minority' => false,
+      'is_woman' => true,
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
@@ -785,7 +775,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'workRegions' => ["TELEWORK"],
+        'locationPreferences' => ["TELEWORK"],
       ]
     ])->assertJson([
       'data' => [
@@ -800,7 +790,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'workRegions' => [],
+        'locationPreferences' => [],
       ]
     ])->assertJson([
       'data' => [
@@ -903,7 +893,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'classifications' => [['group' => 'ZZ', 'level' => 1 ]],
+        'expectedClassifications' => [['group' => 'ZZ', 'level' => 1 ]],
       ]
     ])->assertJson([
       'data' => [
@@ -918,7 +908,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'classifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+        'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
       ]
     ])->assertJson([
       'data' => [
@@ -1025,7 +1015,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'pools' => [['id' => $myPool->id ]],
-        'classifications' => [['group' => 'ZZ', 'level' => 1 ]],
+        'expectedClassifications' => [['group' => 'ZZ', 'level' => 1 ]],
       ]
     ])->assertJson([
       'data' => [
@@ -1041,7 +1031,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'pools' => [['id' => $myPool->id ]],
-        'classifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+        'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
       ]
     ])->assertJson([
       'data' => [

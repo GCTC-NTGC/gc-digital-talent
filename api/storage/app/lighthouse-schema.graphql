@@ -872,8 +872,8 @@ input PoolCandidateFilterInput {
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
   pools: [IdInput]
-  status: [PoolCandidateStatus]
   priorityWeight: [Int]
+  status: [PoolCandidateStatus]
 }
 
 """A paginated list of PoolCandidate items."""
