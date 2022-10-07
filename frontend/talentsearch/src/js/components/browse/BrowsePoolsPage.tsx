@@ -4,17 +4,33 @@ import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { commonMessages } from "@common/messages";
 import {
+  AdvertisementStatus,
+  PublishingGroup,
   PoolAdvertisement,
   useBrowsePoolAdvertisementsQuery,
 } from "../../api/generated";
 import PoolCard from "./PoolCard";
 
-interface BrowsePoolsProps {
-  poolAdvertisements?: PoolAdvertisement[];
+export interface BrowsePoolsProps {
+  poolAdvertisements: PoolAdvertisement[];
 }
 
-const BrowsePools: React.FC<BrowsePoolsProps> = ({ poolAdvertisements }) => {
+export const BrowsePools: React.FC<BrowsePoolsProps> = ({
+  poolAdvertisements,
+}) => {
   const intl = useIntl();
+
+  const filteredPoolAdvertisements = poolAdvertisements
+    .filter(
+      (p) =>
+        p.advertisementStatus === AdvertisementStatus.Published && // list jobs which have the PUBLISHED AdvertisementStatus
+        p.publishingGroup === PublishingGroup.ItJobs, // and which are meant to be published on the IT Jobs page
+    )
+    .sort(
+      (p1, p2) =>
+        (p1.expiryDate ?? "").localeCompare(p2.expiryDate ?? "") || // first level sort: by expiry date whichever one expires first should appear first on the list
+        (p1.publishedAt ?? "").localeCompare(p2.publishedAt ?? ""), // second level sort: whichever one was published first should appear first
+    );
 
   return (
     <>
@@ -25,9 +41,9 @@ const BrowsePools: React.FC<BrowsePoolsProps> = ({ poolAdvertisements }) => {
           description: "Page title for the direct intake browse pools page.",
         })}
       </h1>
-      {poolAdvertisements && poolAdvertisements.length ? (
+      {filteredPoolAdvertisements.length ? (
         <ul>
-          {poolAdvertisements.map((poolAdvertisement) => (
+          {filteredPoolAdvertisements.map((poolAdvertisement) => (
             <li
               data-h2-list-style="base(none)"
               key={poolAdvertisement.id}
@@ -56,7 +72,7 @@ const BrowsePools: React.FC<BrowsePoolsProps> = ({ poolAdvertisements }) => {
 const BrowsePoolsApi: React.FC = () => {
   const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery();
 
-  const filteredPoolAdvertisements = data?.poolAdvertisements.filter(
+  const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(
     (poolAdvertisement) =>
       typeof poolAdvertisement !== undefined && !!poolAdvertisement,
   ) as PoolAdvertisement[];
