@@ -76,9 +76,9 @@ const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
           {poolClassificationString()
             ? poolClassificationString()
             : intl.formatMessage({
-                defaultMessage: "No Classification",
+                defaultMessage: "(No Classification)",
                 description: "No Classification",
-                id: "NCvLjF",
+                id: "y+OZjx",
               })}{" "}
           {pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : ""}
         </h6>
@@ -97,7 +97,13 @@ const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
             })}
             :{" "}
           </span>{" "}
-          {poolClassificationSalary() ? poolClassificationSalary() : ""}
+          {poolClassificationSalary()
+            ? poolClassificationSalary()
+            : intl.formatMessage({
+                defaultMessage: "(Needs classification)",
+                description: "Needs classification",
+                id: "nTGIfl",
+              })}
         </p>
 
         <div
@@ -119,7 +125,13 @@ const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
           </span>{" "}
           <span>
             <Chips>
-              {poolEssentialSkillKeys() ? poolEssentialSkillKeys() : ""}
+              {poolEssentialSkillKeys()
+                ? poolEssentialSkillKeys()
+                : intl.formatMessage({
+                    defaultMessage: "(No skills required)",
+                    description: "No skills required",
+                    id: "WbET08",
+                  })}
             </Chips>
           </span>
         </div>
@@ -139,7 +151,11 @@ const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
             :{" "}
             {pool.expiryDate
               ? formattedDateMonthDayYear(new Date(pool.expiryDate), intl)
-              : ""}
+              : intl.formatMessage({
+                  defaultMessage: "(To be determined)",
+                  description: "To be determined",
+                  id: "3ozZky",
+                })}
           </span>
           <Link
             href={pool.id ? paths.pool(pool.id) : "#"}
