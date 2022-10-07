@@ -6,13 +6,16 @@ import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";
 import {
   getLanguageRequirement,
+  getPublishingGroup,
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import {
   AdvertisementStatus,
   LocalizedString,
+  Maybe,
   PoolAdvertisement,
   PoolAdvertisementLanguage,
+  PublishingGroup,
   SecurityStatus,
   UpdatePoolAdvertisementInput,
 } from "../../../api/generated";
@@ -30,6 +33,7 @@ type FormValues = {
   locationOption: LocationOption;
   specificLocationEn?: LocalizedString["en"];
   specificLocationFr?: LocalizedString["fr"];
+  publishingGroup: Maybe<PublishingGroup>;
 };
 
 export type OtherRequirementsSubmitData = Pick<
@@ -38,6 +42,7 @@ export type OtherRequirementsSubmitData = Pick<
   | "advertisementLocation"
   | "securityClearance"
   | "isRemote"
+  | "publishingGroup"
 >;
 
 interface OtherRequirementsSectionProps {
@@ -62,6 +67,7 @@ export const OtherRequirementsSection = ({
       : LocationOption.SpecificLocation,
     specificLocationEn: initialData.advertisementLocation?.en,
     specificLocationFr: initialData.advertisementLocation?.fr,
+    publishingGroup: initialData.publishingGroup,
   });
 
   const methods = useForm<FormValues>({
@@ -101,6 +107,9 @@ export const OtherRequirementsSection = ({
           : null,
       isRemote: formValues.locationOption === LocationOption.RemoteOptional,
       securityClearance: formValues.securityRequirement,
+      publishingGroup: formValues.publishingGroup
+        ? formValues.publishingGroup
+        : undefined, // can't be set to null, assume not updating if empty
     });
   };
 
@@ -247,6 +256,26 @@ export const OtherRequirementsSection = ({
               </div>
             </>
           ) : undefined}
+          <div data-h2-display="base(flex)">
+            <Spacer style={{ flex: 1 }}>
+              <Select
+                id="publishingGroup"
+                label={intl.formatMessage({
+                  defaultMessage: "Publishing group",
+                  id: "tQ674x",
+                  description:
+                    "Label displayed on the edit pool form publishing group field.",
+                })}
+                name="publishingGroup"
+                options={enumToOptions(PublishingGroup).map(({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getPublishingGroup(value)),
+                }))}
+                disabled={formDisabled}
+              />
+            </Spacer>
+            <Spacer style={{ flex: 1 }} />
+          </div>
 
           {!formDisabled && (
             <Submit

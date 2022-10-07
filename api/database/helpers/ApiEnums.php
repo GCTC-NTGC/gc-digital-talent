@@ -321,4 +321,20 @@ class ApiEnums
             self::ARMED_FORCES_NON_CAF,
         ];
     }
+
+     /**
+     * Publishing Groups
+     */
+    const PUBLISHING_GROUP_IT_JOBS = 'IT_JOBS';
+    const PUBLISHING_GROUP_EXECUTIVE_JOBS = 'EXECUTIVE_JOBS';
+    const PUBLISHING_GROUP_OTHER = 'OTHER';
+
+    public static function publishingGroups() : array
+    {
+        return [
+            self::PUBLISHING_GROUP_IT_JOBS,
+            self::PUBLISHING_GROUP_EXECUTIVE_JOBS,
+            self::PUBLISHING_GROUP_OTHER,
+        ];
+    }
 }

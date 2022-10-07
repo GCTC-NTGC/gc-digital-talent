@@ -31,6 +31,7 @@ class PoolSeeder extends Seeder
                 'is_published' => true,
                 'expiry_date' => config('constants.far_future_date'),
                 'pool_status' => ApiEnums::POOL_STATUS_TAKING_APPLICATIONS,
+                'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS,
             ],
             [
                 'name' => [
@@ -39,6 +40,7 @@ class PoolSeeder extends Seeder
                 ],
                 'key' => 'indigenous_apprenticeship',
                 'user_id' => User::where('email', 'admin@test.com')->first()->id,
+                'publishing_group' => ApiEnums::PUBLISHING_GROUP_OTHER,
             ],
         ];
 
