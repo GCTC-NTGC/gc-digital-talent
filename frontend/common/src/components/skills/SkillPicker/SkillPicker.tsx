@@ -166,8 +166,9 @@ const SkillPicker = ({
             id="skillFamilies"
             name="skillFamilies"
             label={intl.formatMessage({
-              defaultMessage: "Pools",
-              id: "mjyHeP",
+              defaultMessage: "Skill families",
+              description: "Label for the skills families dropdown",
+              id: "U6Zf0K",
             })}
             options={allSkillFamilies.map((family) => ({
               value: family.id,
@@ -176,24 +177,69 @@ const SkillPicker = ({
           />
         </form>
       </FormProvider>
+      <p
+        aria-live="polite"
+        data-h2-font-size="base(h4)"
+        data-h2-font-weight="base(800)"
+        data-h2-margin="base(x1, 0)"
+      >
+        {intl.formatMessage(
+          {
+            defaultMessage: "Found <primary>{skillCount}</primary> skills.",
+            id: "2Ckihd",
+            description: "The number of skills found within the skill picker.",
+          },
+          {
+            skillCount: filteredSkills.length,
+          },
+        )}
+      </p>
       <ScrollArea.Root
         data-h2-width="base(100%)"
-        data-h2-height="base(500px)"
+        data-h2-height="base(320px)"
         data-h2-max-height="base(50vh)"
       >
         <ScrollArea.Viewport data-h2-background-color="base(white)">
-          <div data-h2-padding="base(x.25, x.5)">
-            {filteredSkills.map((skill) => (
-              <SkillBlock
-                key={skill.id}
-                skill={skill}
-                isAdded={
-                  !!selectedSkills.find((selected) => selected.id === skill.id)
-                }
-                onAddSkill={handleAddSkill}
-                onRemoveSkill={handleRemoveSkill}
-              />
-            ))}
+          <div data-h2-padding="base(x.5)">
+            {filteredSkills.length > 0 ? (
+              filteredSkills.map((skill, index) => (
+                <React.Fragment key={skill.id}>
+                  <SkillBlock
+                    skill={skill}
+                    isAdded={
+                      !!selectedSkills.find(
+                        (selected) => selected.id === skill.id,
+                      )
+                    }
+                    onAddSkill={handleAddSkill}
+                    onRemoveSkill={handleRemoveSkill}
+                  />
+                  {index + 1 !== filteredSkills.length ? (
+                    <hr
+                      data-h2-background-color="base(light.dt-gray)"
+                      data-h2-border="base(all, 0, solid, transparent)"
+                      data-h2-height="base(1px)"
+                    />
+                  ) : null}
+                </React.Fragment>
+              ))
+            ) : (
+              <p
+                data-h2-align-self="base(center)"
+                data-h2-font-size="base(h4)"
+                data-h2-margin="base(x2, 0)"
+                data-h2-text-align="base(center)"
+                data-h2-font-style="base(italic)"
+                data-h2-color="base(dt-gray)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "No skills found.",
+                  id: "9CkDfr",
+                  description:
+                    "Message displayed when no skills were found in skill picker search",
+                })}
+              </p>
+            )}
           </div>
         </ScrollArea.Viewport>
         <ScrollArea.Scrollbar orientation="vertical">
