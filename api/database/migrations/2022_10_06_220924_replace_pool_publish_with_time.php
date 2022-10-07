@@ -15,13 +15,13 @@ class ReplacePoolPublishWithTime extends Migration
     public function up()
     {
         Schema::table('pools', function (Blueprint $table) {
-            $table->timestamptz('published_at')->nullable();
+            $table->timestamp('published_at')->nullable();
         });
         DB::statement("
             update pools
                 set published_at =
                     case is_published
-                        when 'true' then TIMESTAMP '2022-10-01 00:00:00+00'
+                        when 'true' then TIMESTAMP '2022-10-01 00:00:00'
                         when 'false' then null
                         else null
                     end
