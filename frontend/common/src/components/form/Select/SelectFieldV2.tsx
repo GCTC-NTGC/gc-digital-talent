@@ -176,7 +176,11 @@ const SelectFieldV2 = ({
                     }) || []
                   );
                 }
-                return flattenedOptions.find((o) => "value" in o || null);
+                return (
+                  flattenedOptions.find((o) => {
+                    return "value" in o && val === o.value;
+                  }) || null
+                );
               };
 
               /** Converts react-select's Option type storage formats into state
@@ -195,7 +199,7 @@ const SelectFieldV2 = ({
 
                 // Stores SingleValue as array of one value, or null as empty array.
                 if (forceArrayFormValue) {
-                  field.onChange(
+                  return field.onChange(
                     newValue
                       ? ["value" in newValue ? newValue?.value : newValue]
                       : [],
