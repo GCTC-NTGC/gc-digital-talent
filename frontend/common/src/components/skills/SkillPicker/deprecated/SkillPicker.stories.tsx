@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import type { Skill } from "../../../api/generated";
-import { fakeSkills, fakeSkillFamilies } from "../../../fakeData";
+import type { Skill } from "../../../../api/generated";
+import { fakeSkills, fakeSkillFamilies } from "../../../../fakeData";
 import SkillPicker from "./SkillPicker";
 
 type ComponentType = typeof SkillPicker;
@@ -13,7 +13,7 @@ const mockSkills = fakeSkills(30, mockFamilies);
 
 export default {
   component: SkillPicker,
-  title: "Components/Skill Picker",
+  title: "Components/Skill Picker/Deprecated",
   args: {
     skills: mockSkills,
   },
@@ -30,10 +30,10 @@ const Template: Story = (args) => {
   return (
     <SkillPicker
       skills={skills}
-      defaultSelectedSkills={addedSkills}
-      onUpdateSelectedSkills={handleChange}
+      selectedSkills={addedSkills}
+      onChange={handleChange}
     />
   );
 };
 
-export const Default = Template.bind({});
+export const BasicSkillPicker = Template.bind({});

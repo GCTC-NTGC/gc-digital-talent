@@ -3,7 +3,7 @@ import { useState } from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
-import SkillPicker from "@common/components/skills/SkillPicker";
+import SkillPicker from "@common/components/skills/SkillPicker/deprecated";
 import {
   AdvertisementStatus,
   PoolAdvertisement,

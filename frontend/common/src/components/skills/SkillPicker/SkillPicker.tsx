@@ -1,343 +1,205 @@
 import React from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import Chip, { Chips } from "../../Chip";
-import Pagination, { usePaginationVars } from "../../Pagination";
-import SearchBar from "../SearchBar";
-import SkillResults from "../SkillResults";
-import SkillFamilyPicker from "../SkillFamilyPicker";
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "../../Tabs";
-import { SkillCategory } from "../../../api/generated";
-import type { Skill, SkillFamily } from "../../../api/generated";
+
+import ScrollArea from "../../ScrollArea";
+import { getLocalizedName } from "../../../helpers/localize";
+import { notEmpty } from "../../../helpers/util";
+import { Input } from "../../form";
+import { SkillBlock } from "../SkillResults/SkillResults";
+import MultiSelectFieldV2 from "../../form/MultiSelect/MultiSelectFieldV2";
+import { Scalars, Skill } from "../../../api/generated";
 
 import {
   filterSkillsByNameOrKeywords,
   invertSkillSkillFamilyTree,
 } from "../../../helpers/skillUtils";
-import { getLocalizedName } from "../../../helpers/localize";
 
-const PAGE_SIZE = 5;
+type Skills = Array<Skill>;
 
+interface FormValues {
+  query: string;
+  skillFamilies: Array<Scalars["ID"]>;
+}
+
+const defaultValues: FormValues = {
+  query: "",
+  skillFamilies: [],
+};
 export interface SkillPickerProps {
-  selectedSkills: Array<Skill>;
-  skills: Array<Skill>;
-  onChange: (newSkills: Array<Skill>) => void;
-  idPrefix?: string;
-  disabled?: boolean;
+  skills: Skills;
+  defaultSelectedSkills?: Skills;
+  onUpdateSelectedSkills?: (newSkills: Skills) => void;
 }
 
 const SkillPicker = ({
-  selectedSkills,
   skills,
-  onChange,
-  idPrefix,
-  disabled,
-}: SkillPickerProps): JSX.Element => {
+  onUpdateSelectedSkills,
+  defaultSelectedSkills = [],
+}: SkillPickerProps) => {
   const intl = useIntl();
+  const [selectedSkills, setSelectedSkills] = React.useState<Skills>(
+    defaultSelectedSkills,
+  );
+  const [validData, setValidData] = React.useState<FormValues>(defaultValues);
+  const methods = useForm<FormValues>({
+    mode: "onChange",
+    defaultValues,
+  });
+  const {
+    handleSubmit,
+    watch,
+    formState: { isSubmitting, isValid, isValidating },
+  } = methods;
 
-  const [selectedTechnicalSkillFamilyId, setSelectedTechnicalSkillFamilyId] =
-    React.useState<SkillFamily["id"] | null>(null);
-  const [
-    selectedBehaviouralSkillFamilyId,
-    setSelectedBehaviouralSkillFamilyId,
-  ] = React.useState<SkillFamily["id"] | null>(null);
-  const [searchQuery, setSearchQuery] = React.useState<string>("");
+  const onSubmit = React.useCallback((newData: FormValues) => {
+    console.log(newData);
+  }, []);
 
-  // this function can be a bit heavy
+  React.useEffect(() => {
+    const subscription = watch(({ query, skillFamilies }, args) => {
+      if (isValid && !isValidating) {
+        setValidData({
+          query: query ?? "",
+          skillFamilies: skillFamilies ? skillFamilies?.filter(notEmpty) : [],
+        });
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, isValid, isValidating, setValidData]);
+
+  React.useEffect(() => {
+    if (onUpdateSelectedSkills) {
+      onUpdateSelectedSkills(selectedSkills);
+    }
+  }, [selectedSkills, onUpdateSelectedSkills]);
+
   const allSkillFamilies = React.useMemo(
     () => invertSkillSkillFamilyTree(skills),
     [skills],
   );
 
-  const technicalSkillFamilyFilteredSkills = selectedTechnicalSkillFamilyId
-    ? // we have a skill family Id to check
-      skills.filter((skill) =>
-        skill?.families?.some(
-          (family) => family.id === selectedTechnicalSkillFamilyId,
-        ),
-      )
-    : // no skill family id to check -> match any technical skill family
-      skills.filter((skill) =>
-        skill?.families?.some(
-          (family) => family.category === SkillCategory.Technical,
-        ),
-      );
-  const behaviouralSkillFamilyFilteredSkills = selectedBehaviouralSkillFamilyId
-    ? // we have a skill family Id to check
-      skills.filter((skill) =>
-        skill?.families?.some(
-          (family) => family.id === selectedBehaviouralSkillFamilyId,
-        ),
-      )
-    : // no skill family id to check -> match any behavioural skill family
-      skills.filter((skill) =>
-        skill?.families?.some(
-          (family) => family.category === SkillCategory.Behavioural,
-        ),
-      );
-  const searchFilteredSkills = searchQuery
-    ? // we have a search query to check
-      filterSkillsByNameOrKeywords(skills, searchQuery, intl)
-    : // no search query -> match all skills
-      skills;
+  const filteredSkills = React.useMemo(() => {
+    return filterSkillsByNameOrKeywords(skills, validData.query, intl).filter(
+      (skill) => {
+        if (validData.skillFamilies.length) {
+          const toAdd = skill?.families?.some((family) =>
+            validData.skillFamilies.includes(family.id),
+          );
+          console.log(toAdd);
+          return toAdd;
+        }
 
-  const technicalSkillsFamilySkillsPagination = usePaginationVars<Skill>(
-    PAGE_SIZE,
-    technicalSkillFamilyFilteredSkills,
-  );
-  const behaviouralSkillsFamilySkillsPagination = usePaginationVars<Skill>(
-    PAGE_SIZE,
-    behaviouralSkillFamilyFilteredSkills,
-  );
-  const searchSkillsPagination = usePaginationVars<Skill>(
-    PAGE_SIZE,
-    searchFilteredSkills,
-  );
+        return true;
+      },
+    );
+  }, [validData, skills, intl]);
 
   const handleAddSkill = (id: Skill["id"]) => {
     const skillToAdd = skills.find((skill) => skill.id === id);
     if (skillToAdd) {
-      onChange([...selectedSkills, skillToAdd]);
+      const newSkills = [...selectedSkills, skillToAdd];
+      setSelectedSkills(newSkills);
     }
   };
 
   const handleRemoveSkill = (id: Skill["id"]) => {
-    onChange(selectedSkills.filter((skill) => skill.id !== id));
+    const newSkills = selectedSkills.filter((selected) => selected.id !== id);
+    setSelectedSkills(newSkills);
   };
 
-  const tabs = [
-    intl.formatMessage({
-      defaultMessage: "Technical skills",
-      id: "kxseH4",
-      description: "Tab name for a list of technical skills",
-    }),
-    intl.formatMessage({
-      defaultMessage: "Behavioural skills",
-      id: "LjkK5G",
-      description: "Tab name for a list of behavioural skills",
-    }),
-    intl.formatMessage({
-      defaultMessage: "By keyword",
-      id: "LfNNe4",
-      description: "Tab name for a box to search for skills",
-    }),
-  ];
-
-  const handleSearch = (newSearchQuery: string): Promise<void> => {
-    return new Promise<void>((resolve) => {
-      setSearchQuery(newSearchQuery);
-      searchSkillsPagination.setCurrentPage(1); // just in case the new list of matched skills requires fewer pages
-      resolve();
-    });
-  };
+  /**
+   * TO DO: Figure out how to support optgroup in MultiSelect
+   */
+  // const skillFamilyOptions = React.useMemo(() => {
+  //   return [
+  //     {
+  //       label: intl.formatMessage({
+  //         defaultMessage: "Technical skills",
+  //         id: "kxseH4",
+  //         description: "Tab name for a list of technical skills",
+  //       }),
+  //       options: allSkillFamilies
+  //         .filter((sf) => sf.category === SkillCategory.Technical)
+  //         .map((family) => ({
+  //           value: family.id,
+  //           label: getLocalizedName(family.name, intl),
+  //         })),
+  //     },
+  //     {
+  //       label: intl.formatMessage({
+  //         defaultMessage: "Behavioural skills",
+  //         id: "LjkK5G",
+  //         description: "Tab name for a list of behavioural skills",
+  //       }),
+  //       options: allSkillFamilies
+  //         .filter((sf) => sf.category === SkillCategory.Behavioural)
+  //         .map((family) => ({
+  //           value: family.id,
+  //           label: getLocalizedName(family.name, intl),
+  //         })),
+  //     },
+  //   ];
+  // }, [allSkillFamilies, intl]);
 
   return (
     <>
-      {!disabled && (
-        <Tabs>
-          <TabList>
-            {tabs.map((tab, index) => (
-              <Tab key={tab} index={index}>
-                {tab}
-              </Tab>
-            ))}
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <SkillFamilyPicker
-                title={intl.formatMessage({
-                  defaultMessage: "Skill groups",
-                  id: "J3779Q",
-                  description: "A title for a list of skill families",
-                })}
-                nullSelectionLabel={intl.formatMessage({
-                  defaultMessage: "All technical skills",
-                  id: "vZgTKh",
-                  description:
-                    "The option label for 'no filter' on the list of occupational skills",
-                })}
-                skillFamilies={allSkillFamilies.filter(
-                  (sf) => sf.category === SkillCategory.Technical,
-                )}
-                onSelectSkillFamily={(id) => {
-                  setSelectedTechnicalSkillFamilyId(id || null);
-                  technicalSkillsFamilySkillsPagination.setCurrentPage(1);
-                }}
-                idPrefix={`${idPrefix}-technical`}
-              />
-              <SkillResults
-                title={intl.formatMessage(
-                  {
-                    defaultMessage: "Results ({skillCount})",
-                    id: "l0IDWf",
-                    description: "A title for a skill list of results",
-                  },
-                  {
-                    skillCount: technicalSkillFamilyFilteredSkills.length,
-                  },
-                )}
-                skills={technicalSkillsFamilySkillsPagination.currentTableData}
-                addedSkills={selectedSkills}
-                onAddSkill={(id) => handleAddSkill(id)}
-                onRemoveSkill={(id) => handleRemoveSkill(id)}
-              />
-              <Pagination
-                ariaLabel={intl.formatMessage({
-                  defaultMessage: "Mainstream skills results",
-                  id: "s4DN3G",
-                  description:
-                    "Accessibility label for a result set of skills, filtered to mainstream skills",
-                })}
-                color="primary"
-                mode="outline"
-                currentPage={technicalSkillsFamilySkillsPagination.currentPage}
-                pageSize={PAGE_SIZE}
-                totalCount={technicalSkillFamilyFilteredSkills.length}
-                onCurrentPageChange={(page) =>
-                  technicalSkillsFamilySkillsPagination.setCurrentPage(page)
-                }
-                onPageSizeChange={
-                  technicalSkillsFamilySkillsPagination.setPageSize
-                }
-              />
-            </TabPanel>
-            <TabPanel>
-              <SkillFamilyPicker
-                title={intl.formatMessage({
-                  defaultMessage: "Skill groups",
-                  id: "J3779Q",
-                  description: "A title for a list of skill families",
-                })}
-                nullSelectionLabel={intl.formatMessage({
-                  defaultMessage: "All behavioural skills",
-                  id: "Sx/Pzn",
-                  description:
-                    "The option label for 'no filter' on the list of behavioural skills",
-                })}
-                skillFamilies={allSkillFamilies.filter(
-                  (sf) => sf.category === SkillCategory.Behavioural,
-                )}
-                onSelectSkillFamily={(id) => {
-                  setSelectedBehaviouralSkillFamilyId(id || null);
-                  behaviouralSkillsFamilySkillsPagination.setCurrentPage(1);
-                }}
-                idPrefix={`${idPrefix}-behavioural`}
-              />
-              <SkillResults
-                title={intl.formatMessage(
-                  {
-                    defaultMessage: "Results ({skillCount})",
-                    id: "l0IDWf",
-                    description: "A title for a skill list of results",
-                  },
-                  {
-                    skillCount: behaviouralSkillFamilyFilteredSkills.length,
-                  },
-                )}
-                skills={
-                  behaviouralSkillsFamilySkillsPagination.currentTableData
-                }
-                addedSkills={selectedSkills}
-                onAddSkill={(id) => handleAddSkill(id)}
-                onRemoveSkill={(id) => handleRemoveSkill(id)}
-              />
-              <Pagination
-                ariaLabel={intl.formatMessage({
-                  defaultMessage: "Mainstream skills results",
-                  id: "s4DN3G",
-                  description:
-                    "Accessibility label for a result set of skills, filtered to mainstream skills",
-                })}
-                color="primary"
-                mode="outline"
-                currentPage={
-                  behaviouralSkillsFamilySkillsPagination.currentPage
-                }
-                pageSize={PAGE_SIZE}
-                totalCount={behaviouralSkillFamilyFilteredSkills.length}
-                onCurrentPageChange={(page) =>
-                  behaviouralSkillsFamilySkillsPagination.setCurrentPage(page)
-                }
-                onPageSizeChange={
-                  behaviouralSkillsFamilySkillsPagination.setPageSize
-                }
-              />
-            </TabPanel>
-            <TabPanel>
-              <p data-h2-font-weight="base(700)">
-                {intl.formatMessage({
-                  defaultMessage: "Search by keyword",
-                  id: "hm95fj",
-                  description:
-                    "A label to show that this tab for searching by keyword",
-                })}
-              </p>
-              <SearchBar handleSearch={handleSearch} />
-              <SkillResults
-                title={intl.formatMessage(
-                  {
-                    defaultMessage: "Results ({skillCount})",
-                    id: "nr62lc",
-                    description: "A title for a list of results",
-                  },
-                  {
-                    skillCount: searchFilteredSkills.length,
-                  },
-                )}
-                skills={searchSkillsPagination.currentTableData}
-                addedSkills={selectedSkills}
-                onAddSkill={(id) => handleAddSkill(id)}
-                onRemoveSkill={(id) => handleRemoveSkill(id)}
-              />
-              <Pagination
-                ariaLabel={intl.formatMessage({
-                  defaultMessage: "keyword search skills results",
-                  id: "wziEOM",
-                  description:
-                    "Accessibility label for a result set of skills, searched by keyword",
-                })}
-                color="primary"
-                mode="outline"
-                currentPage={searchSkillsPagination.currentPage}
-                pageSize={PAGE_SIZE}
-                totalCount={searchFilteredSkills.length}
-                onCurrentPageChange={(page) =>
-                  searchSkillsPagination.setCurrentPage(page)
-                }
-                onPageSizeChange={searchSkillsPagination.setPageSize}
-              />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      )}
-      <p data-h2-margin="base(x1, 0)">
-        {intl.formatMessage(
-          {
-            defaultMessage: "Selected skills ({skillCount})",
-            id: "BiSzNu",
-            description: "A title for an skill list",
-          },
-          {
-            skillCount: selectedSkills.length,
-          },
-        )}
-      </p>
-      <div data-h2-margin="base(x1, 0)">
-        <Chips>
-          {selectedSkills.map((skill) => {
-            return (
-              <Chip
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            id="query"
+            name="query"
+            type="text"
+            label={intl.formatMessage({
+              defaultMessage: "Search for specific skill...",
+              id: "JY6WhU",
+              description: "Label for the skills search bar.",
+            })}
+            placeholder={intl.formatMessage({
+              defaultMessage: "e.g. Python, JavaScript, etc.",
+              id: "PF4ya+",
+              description: "Placeholder for the skills search bar.",
+            })}
+          />
+          <MultiSelectFieldV2
+            id="skillFamilies"
+            name="skillFamilies"
+            label={intl.formatMessage({
+              defaultMessage: "Pools",
+              id: "mjyHeP",
+            })}
+            options={allSkillFamilies.map((family) => ({
+              value: family.id,
+              label: getLocalizedName(family.name, intl),
+            }))}
+          />
+        </form>
+      </FormProvider>
+      <ScrollArea.Root
+        data-h2-width="base(100%)"
+        data-h2-height="base(500px)"
+        data-h2-max-height="base(50vh)"
+      >
+        <ScrollArea.Viewport data-h2-background-color="base(white)">
+          <div data-h2-padding="base(x.25, x.5)">
+            {filteredSkills.map((skill) => (
+              <SkillBlock
                 key={skill.id}
-                label={getLocalizedName(skill.name, intl)}
-                color="primary"
-                mode="outline"
-                onDismiss={
-                  !disabled ? () => handleRemoveSkill(skill.id) : undefined
+                skill={skill}
+                isAdded={
+                  !!selectedSkills.find((selected) => selected.id === skill.id)
                 }
+                onAddSkill={handleAddSkill}
+                onRemoveSkill={handleRemoveSkill}
               />
-            );
-          })}
-        </Chips>
-      </div>
+            ))}
+          </div>
+        </ScrollArea.Viewport>
+        <ScrollArea.Scrollbar orientation="vertical">
+          <ScrollArea.Thumb />
+        </ScrollArea.Scrollbar>
+      </ScrollArea.Root>
     </>
   );
 };

@@ -3,8 +3,8 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
-import { fakeSkills, fakeSkillFamilies } from "../../../fakeData";
-import { axeTest, fireEvent, render } from "../../../helpers/testUtils";
+import { fakeSkills, fakeSkillFamilies } from "../../../../fakeData";
+import { axeTest, fireEvent, render } from "../../../../helpers/testUtils";
 
 import SkillPicker, { type SkillPickerProps } from "./SkillPicker";
 
