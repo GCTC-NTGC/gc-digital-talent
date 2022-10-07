@@ -1,8 +1,8 @@
 import React from "react";
 
-import { HireIcon, JobIcon, ProfileIcon } from "./Icons";
+import { HireIcon, JobIcon, ProfileIcon, HomeIcon, SupportIcon } from "./Icons";
 
-type CallToActionContext = "hire" | "job" | "profile";
+type CallToActionContext = "hire" | "job" | "profile" | "home" | "support";
 export interface CallToActionProps {
   type: string;
   context: CallToActionContext;
@@ -34,12 +34,28 @@ const stylesMap: Record<CallToActionContext, Record<string, string>> = {
       "base:children[div:first-child](all, 3px, solid, tm-green) base:children[div:not(:first-child)](all, 3px, solid, white) base:focus-visible:children[div:not(:first-child)](all, 3px, solid, focus)",
     "data-h2-color": "base:children[*](black)",
   },
+  home: {
+    "data-h2-background-color":
+      "base(white) base:children[div:first-child](tm-green) base:children[div:first-child]:hover(tm-green.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
+    "data-h2-border":
+      "base:children[div:first-child](all, 3px, solid, tm-green) base:children[div:not(:first-child)](all, 3px, solid, white) base:focus-visible:children[div:not(:first-child)](all, 3px, solid, focus)",
+    "data-h2-color": "base:children[*](black)",
+  },
+  support: {
+    "data-h2-background-color":
+      "base(white) base:children[div:first-child](tm-purple) base:children[div:first-child]:hover(tm-purple.lighter) base:focus-visible(focus) base:focus-visible:children[div:not(:first-child)](focus)",
+    "data-h2-border":
+      "base:children[div:first-child](all, 3px, solid, tm-purple) base:children[div:not(:first-child)](all, 3px, solid, white) base:focus-visible:children[div:not(:first-child)](all, 3px, solid, focus)",
+    "data-h2-color": "base:children[*](black)",
+  },
 };
 
 const iconMap: Record<CallToActionContext, React.ReactNode> = {
   hire: <HireIcon />,
   job: <JobIcon />,
   profile: <ProfileIcon />,
+  home: <HomeIcon />,
+  support: <SupportIcon />,
 };
 
 // Create the page component
