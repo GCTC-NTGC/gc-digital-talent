@@ -20,6 +20,7 @@ use App\Models\EducationExperience;
 use App\Models\GenericJobTitle;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
+use Database\Factories\PoolFactory;
 use Faker;
 use Database\Helpers\ApiEnums;
 
@@ -45,6 +46,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SkillSeeder::class);
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
+
+        Pool::factory()->count(10)->create();
 
         User::factory([
             'roles' => [ApiEnums::ROLE_APPLICANT]
