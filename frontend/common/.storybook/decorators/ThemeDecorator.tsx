@@ -1,5 +1,6 @@
 import React from "react";
 import type { StoryContext, StoryFn } from "@storybook/react";
+import isChromatic from "chromatic/isChromatic";
 import ThemeProvider from "../../src/components/Theme";
 
 export const theme = {
@@ -33,10 +34,34 @@ export const theme = {
   },
 };
 
-const withThemeProvider = (Story: StoryFn, context: StoryContext) => (
-  <ThemeProvider override={context.globals.theme}>
-    <Story />
-  </ThemeProvider>
-);
+interface ThemeBlockProps {
+  children: React.ReactNode;
+}
+
+const withThemeProvider = (
+  Story: StoryFn,
+  { globals, parameters }: StoryContext,
+) => {
+  const theme =
+    globals.theme || parameters.theme || (isChromatic() ? "stacked" : "light");
+
+  if (theme === "stacked") {
+    return (
+      <>
+        <ThemeProvider override="light">
+          <Story />
+        </ThemeProvider>
+        <ThemeProvider override="dark">
+          <Story />
+        </ThemeProvider>
+      </>
+    );
+  }
+  return (
+    <ThemeProvider override={theme}>
+      <Story />
+    </ThemeProvider>
+  );
+};
 
 export default withThemeProvider;
