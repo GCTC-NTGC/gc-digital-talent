@@ -10,7 +10,7 @@ import { Input } from "../form";
 import MultiSelectFieldV2 from "../form/MultiSelect/MultiSelectFieldV2";
 import SkillBlock from "./SkillBlock";
 
-import { Scalars, Skill } from "../../api/generated";
+import { Scalars, Skill, SkillCategory } from "../../api/generated";
 import { getLocalizedName } from "../../helpers/localize";
 import { notEmpty } from "../../helpers/util";
 import {
@@ -103,39 +103,36 @@ const SkillPicker = ({
     handleSkillUpdate(newSkills);
   };
 
-  /**
-   * TO DO: Figure out how to support optgroup in MultiSelect
-   */
-  // const skillFamilyOptions = React.useMemo(() => {
-  //   return [
-  //     {
-  //       label: intl.formatMessage({
-  //         defaultMessage: "Technical skills",
-  //         id: "kxseH4",
-  //         description: "Tab name for a list of technical skills",
-  //       }),
-  //       options: allSkillFamilies
-  //         .filter((sf) => sf.category === SkillCategory.Technical)
-  //         .map((family) => ({
-  //           value: family.id,
-  //           label: getLocalizedName(family.name, intl),
-  //         })),
-  //     },
-  //     {
-  //       label: intl.formatMessage({
-  //         defaultMessage: "Behavioural skills",
-  //         id: "LjkK5G",
-  //         description: "Tab name for a list of behavioural skills",
-  //       }),
-  //       options: allSkillFamilies
-  //         .filter((sf) => sf.category === SkillCategory.Behavioural)
-  //         .map((family) => ({
-  //           value: family.id,
-  //           label: getLocalizedName(family.name, intl),
-  //         })),
-  //     },
-  //   ];
-  // }, [allSkillFamilies, intl]);
+  const skillFamilyOptions = React.useMemo(() => {
+    return [
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Technical skills",
+          id: "kxseH4",
+          description: "Tab name for a list of technical skills",
+        }),
+        options: allSkillFamilies
+          .filter((sf) => sf.category === SkillCategory.Technical)
+          .map((family) => ({
+            value: family.id,
+            label: getLocalizedName(family.name, intl),
+          })),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Behavioural skills",
+          id: "LjkK5G",
+          description: "Tab name for a list of behavioural skills",
+        }),
+        options: allSkillFamilies
+          .filter((sf) => sf.category === SkillCategory.Behavioural)
+          .map((family) => ({
+            value: family.id,
+            label: getLocalizedName(family.name, intl),
+          })),
+      },
+    ];
+  }, [allSkillFamilies, intl]);
 
   return (
     <>
@@ -163,10 +160,7 @@ const SkillPicker = ({
             description: "Label for the skills families dropdown",
             id: "U6Zf0K",
           })}
-          options={allSkillFamilies.map((family) => ({
-            value: family.id,
-            label: getLocalizedName(family.name, intl),
-          }))}
+          options={skillFamilyOptions}
         />
       </FormProvider>
       <p
