@@ -1,13 +1,8 @@
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import type { RegisterOptions } from "react-hook-form";
-import ReactSelect, { components } from "react-select";
-import type {
-  NoticeProps,
-  PropsValue,
-  GroupBase,
-  OptionsOrGroups,
-} from "react-select";
+import ReactSelect, { components, MultiValue, SingleValue } from "react-select";
+import type { NoticeProps, GroupBase, OptionsOrGroups } from "react-select";
 import camelCase from "lodash/camelCase";
 import flatMap from "lodash/flatMap";
 import { useIntl } from "react-intl";
@@ -167,7 +162,7 @@ const SelectFieldV2 = ({
               /** Converts our react-hook-form state to Option or Option[]
                * format that react-select understands. */
               const convertValueToOption = (
-                val: Option["value"] | Option["value"][] | Options,
+                val: Option["value"] | Option["value"][],
               ) => {
                 const hasGroups = options.some((option) => "options" in option);
                 const flattenedOptions = hasGroups
@@ -189,21 +184,27 @@ const SelectFieldV2 = ({
                * works whether react-select is storing a MultiValue (Option[]))
                * or SingleValue (Option). */
               const convertSingleOrMultiOptionsToValues = (
-                singleOrMulti: PropsValue<Option>,
+                newValue:
+                  | MultiValue<Option | Group<Option>>
+                  | SingleValue<Option | Group<Option>>,
               ) => {
                 // Stores MultiValue as array of values.
-                if (isArray<Option>(singleOrMulti)) {
-                  return field.onChange(singleOrMulti.map((o) => o.value));
+                if (isArray<Option>(newValue)) {
+                  return field.onChange(newValue.map((o) => o.value));
                 }
 
                 // Stores SingleValue as array of one value, or null as empty array.
                 if (forceArrayFormValue) {
-                  field.onChange(singleOrMulti ? [singleOrMulti?.value] : []);
+                  field.onChange(
+                    newValue
+                      ? ["value" in newValue ? newValue?.value : newValue]
+                      : [],
+                  );
                 }
 
                 // Stores SingleValue as value or null
                 return field.onChange(
-                  singleOrMulti ? singleOrMulti?.value : null,
+                  newValue && "value" in newValue ? newValue.value : null,
                 );
               };
 
