@@ -42,22 +42,26 @@ const withThemeProvider = (
   Story: StoryFn,
   { globals, parameters }: StoryContext,
 ) => {
-  const theme =
-    globals.theme || parameters.theme || (isChromatic() ? "stacked" : "light");
+  const theme = globals.theme || parameters.theme;
 
-  if (theme === "stacked") {
-    return (
-      <>
-        <ThemeProvider override="light">
-          <Story />
-        </ThemeProvider>
-        <ThemeProvider override="dark">
-          <Story />
-        </ThemeProvider>
-      </>
-    );
-  }
-  return (
+  /**
+   * HACK: Since we have only one dark mode story
+   * We need to set the parameter for it. Once we
+   * have more dark mode stories, we should remove
+   * The parameter from usage
+   */
+  const showDark = parameters.hasDarkMode && isChromatic();
+
+  return showDark ? (
+    <>
+      <ThemeProvider override="light">
+        <Story />
+      </ThemeProvider>
+      <ThemeProvider override="dark">
+        <Story />
+      </ThemeProvider>
+    </>
+  ) : (
     <ThemeProvider override={theme}>
       <Story />
     </ThemeProvider>
