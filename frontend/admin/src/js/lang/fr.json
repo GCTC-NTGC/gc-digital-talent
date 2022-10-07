@@ -1154,10 +1154,6 @@
     "defaultMessage": "Familles de compétences",
     "description": "Label displayed on the skill families menu item."
   },
-  "4xzq2Y": {
-    "defaultMessage": "(Nom manquant)",
-    "description": "Message for Missing names in profile"
-  },
   "59EwWA": {
     "defaultMessage": "Afficher la demande<hidden>{name}</hidden>",
     "description": "Link text for the view action of the latests requests table on the admin portal dashboard."
@@ -1430,8 +1426,8 @@
     "defaultMessage": "Bassins",
     "description": "Label displayed on the pools field of the add user to pool dialog"
   },
-  "aYYb0w": {
-    "defaultMessage": "Afficher les candidats",
+  "6R9N+h": {
+    "defaultMessage": "Voir les candidats<hidden> pour {label}</hidden>",
     "description": "Text for a link to the Pool Candidates table"
   },
   "aa7B7S": {
@@ -1449,10 +1445,6 @@
   "dAxaVL": {
     "defaultMessage": "Aucune donnée sur le candidat",
     "description": "No candidate data was found"
-  },
-  "dizg6V": {
-    "defaultMessage": "Lien vers le profil de l'utilisateur",
-    "description": "Descriptive title for an anchor link"
   },
   "eMXL0K": {
     "defaultMessage": "Utilisateurs",
@@ -1773,8 +1765,8 @@
     "defaultMessage": "Utilisateurs",
     "description": "Title for users page on the admin portal."
   },
-  "9flpmN": {
-    "defaultMessage": "Éditer <hidden>{label}</hidden>",
+  "i9ND/M": {
+    "defaultMessage": "Éditer<hidden> {label}</hidden>",
     "description": "Title displayed for the Edit column."
   },
   "A2VzLX": {
@@ -2284,5 +2276,25 @@
   "Qp6B20": {
     "defaultMessage": "Votre travail",
     "description": "Title for pool advertisement work text section"
+  },
+  "/8fQ9Y": {
+    "defaultMessage": "Lien vers le courriel de l'utilisateur",
+    "description": "Descriptive title for an anchor link"
+  },
+  "hci1jW": {
+    "defaultMessage": "Voir",
+    "description": "Title displayed for the User table View column."
+  },
+  "+wG2Ap": {
+    "defaultMessage": "Voir {name} <hidden>{hiddenLabel}</hidden>",
+    "description": "Title displayed for the User table View column."
+  },
+  "u9JHS9": {
+    "defaultMessage": "demande",
+    "description": "Text displayed after View text for Latest Request table view action"
+  },
+  "gLtTaW": {
+    "defaultMessage": "demande",
+    "description": "Text displayed after View text for Search Request table view action"
   }
 }

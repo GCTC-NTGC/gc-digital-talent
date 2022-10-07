@@ -1,6 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
+
+import Well from "../../Well";
 import messages from "../../../messages/commonMessages";
 import { getOperationalRequirement } from "../../../constants/localizedConstants";
 import { Applicant, OperationalRequirement } from "../../../api/generated";
@@ -60,11 +62,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
     : null;
 
   return (
-    <div
-      data-h2-background-color="base(light.dt-gray)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
         {wouldAcceptTemporary === null && (
           <div data-h2-flex-item="base(1of1)">
@@ -214,7 +212,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
           </div>
         )}
       </div>
-    </div>
+    </Well>
   );
 };
 

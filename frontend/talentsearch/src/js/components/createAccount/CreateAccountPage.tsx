@@ -10,7 +10,7 @@ import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage } from "@common/constants";
 import { getLocale } from "@common/helpers/localize";
-import { notEmpty } from "@common/helpers/util";
+import { emptyToNull, notEmpty } from "@common/helpers/util";
 import Pending from "@common/components/Pending";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import {
@@ -139,8 +139,8 @@ export const CreateAccountForm: React.FunctionComponent<
             <p data-h2-padding="base(0, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage:
-                  "Before we take you to your profile, we need to collect some required information to complete your account set up. ",
-                id: "bYg+MM",
+                  "Before we take you to your profile, we need to collect some required information to complete your account set up.",
+                id: "x6saT3",
                 description:
                   "Message after main heading in create account page.",
               })}
@@ -156,8 +156,8 @@ export const CreateAccountForm: React.FunctionComponent<
                     name="firstName"
                     type="text"
                     label={intl.formatMessage({
-                      defaultMessage: "Given name(s)",
-                      id: "WpRB7Z",
+                      defaultMessage: "First Name",
+                      id: "IEkhMc",
                       description:
                         "Label displayed for the first name field in create account form.",
                     })}
@@ -178,8 +178,8 @@ export const CreateAccountForm: React.FunctionComponent<
                     name="lastName"
                     type="text"
                     label={intl.formatMessage({
-                      defaultMessage: "Surname(s)",
-                      id: "h9q52R",
+                      defaultMessage: "Last Name",
+                      id: "UxF291",
                       description:
                         "Label displayed for the last name field in create account form.",
                     })}
@@ -304,7 +304,11 @@ const CreateAccount: React.FunctionComponent = () => {
   const handleCreateAccount = (id: string, data: UpdateUserAsUserInput) =>
     executeMutation({
       id,
-      user: data,
+      user: {
+        ...data,
+        id,
+        email: emptyToNull(data.email),
+      },
     }).then((result) => {
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;

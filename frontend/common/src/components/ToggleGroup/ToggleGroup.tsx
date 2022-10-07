@@ -1,0 +1,113 @@
+import React from "react";
+import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
+
+import "./toggle-group.css";
+
+export type Color =
+  | "primary"
+  | "primary.dark"
+  | "secondary"
+  | "cta"
+  | "white"
+  | "black"
+  | "ia-primary"
+  | "ia-secondary"
+  | "yellow"
+  | "red"
+  | "blue";
+
+const colorMap: Record<Color, Record<string, string>> = {
+  primary: {
+    "data-h2-background-color": "base(dt-primary)",
+    "data-h2-color": "base:children[*](white)",
+  },
+  "primary.dark": {
+    "data-h2-background-color": "base(dt-primary.dark)",
+    "data-h2-color": "base:children[*](white)",
+  },
+  secondary: {
+    "data-h2-background-color":
+      "base(dt-secondary) base:dark(lighter.dt-secondary)",
+    "data-h2-color": "base:children[*](white)",
+  },
+  cta: {
+    "data-h2-background-color": "base(dt-accent)",
+    "data-h2-color": "base:children[*](dt-black)",
+  },
+  white: {
+    "data-h2-background-color": "base(white) base:dark(lighter.black)",
+    "data-h2-color": "base:children[*](dt-black)",
+  },
+  black: {
+    "data-h2-background-color": "base(dt-black) base:dark(lighter.dt-black)",
+    "data-h2-color": "base:children[*](white)",
+  },
+  "ia-primary": {
+    "data-h2-background-color": "base(ia-primary)",
+    "data-h2-color": "base:children[*](white)",
+  },
+  "ia-secondary": {
+    "data-h2-background-color": "base(ia-secondary)",
+    "data-h2-color": "base:children[*](white)",
+  },
+  yellow: {
+    "data-h2-background-color": "base(tm-yellow)",
+    "data-h2-color": "base:children[*](black)",
+  },
+  red: {
+    "data-h2-background-color": "base(tm-red)",
+    "data-h2-color": "base:children[*](black)",
+  },
+  blue: {
+    "data-h2-background-color": "base(tm-blue)",
+    "data-h2-color": "base:children[*](black)",
+  },
+};
+
+const ToggleGroupItem = React.forwardRef<
+  React.ElementRef<typeof ToggleGroupPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>
+>((props, forwardedRef) => (
+  <ToggleGroupPrimitive.Item
+    className="ToggleGroup__Item"
+    data-h2-align-items="base(center)"
+    data-h2-display="base(flex)"
+    data-h2-line-height="base(1)"
+    data-h2-outline="base(none)"
+    data-h2-padding="base(x.25, x.5)"
+    data-h2-radius="base(m)"
+    data-h2-background-color="base:hover(white.15) base:dark:hover(black.15) base:focus-visible(focus)"
+    data-h2-cursor="base:hover(pointer)"
+    data-h2-width="base:children[svg](var(--h2-font-size-copy))"
+    ref={forwardedRef}
+    {...props}
+  />
+));
+
+type ToggleGroupType = typeof ToggleGroupPrimitive.Root;
+export interface ToggleGroupProps extends ToggleGroupType {
+  color?: Color;
+}
+
+const ToggleGroup = React.forwardRef<
+  React.ElementRef<ToggleGroupType>,
+  React.ComponentPropsWithoutRef<ToggleGroupProps>
+>(({ color = "primary", ...rest }, forwardedRef) => {
+  return (
+    <ToggleGroupPrimitive.Root
+      className={`ToggleGroup ToggleGroup--${color}`}
+      {...colorMap[color as Color]}
+      data-h2-display="base(inline-flex)"
+      data-h2-padding="base(x.25)"
+      data-h2-radius="base(m)"
+      data-h2-gap="base(x.25, 0)"
+      ref={forwardedRef}
+      {...rest}
+    />
+  );
+});
+
+const Item = ToggleGroupItem;
+const Root = ToggleGroup;
+
+export { Item, Root };

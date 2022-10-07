@@ -2,7 +2,8 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import { fakeUsers } from "@common/fakeData";
-import { pick } from "lodash";
+import pick from "lodash/pick";
+import { UpdateUserAsUserInput } from "@common/api/generated";
 import { LanguageInformationForm } from "./LanguageInformationForm";
 
 export default {
@@ -19,9 +20,9 @@ const TemplateLangInfoForm: Story = (args) => {
   return (
     <LanguageInformationForm
       initialData={initialData}
-      submitHandler={async (id, data) => {
+      submitHandler={async (id: string, data: UpdateUserAsUserInput) => {
         action("Update Language Information")(id, data);
-        return Promise.resolve(data);
+        return Promise.resolve(null);
       }}
     />
   );

@@ -317,6 +317,7 @@ input CreatePoolInput {
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
   status: PoolStatus = NOT_TAKING_APPLICATIONS
+  processNumber: String
 }
 
 input CreateSkillFamilyInput {
@@ -780,8 +781,10 @@ type Pool {
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
-  status: PoolStatus
+  status: PoolStatus @deprecated(reason: "Replaced by advertisementStatus")
+  advertisementStatus: AdvertisementStatus
   stream: PoolStream
+  processNumber: String
 }
 
 type PoolAdvertisement {
@@ -801,6 +804,7 @@ type PoolAdvertisement {
   essentialSkills: [Skill!]
   nonessentialSkills: [Skill!]
   stream: PoolStream
+  processNumber: String
 }
 
 enum PoolAdvertisementLanguage {
@@ -1037,6 +1041,11 @@ input QueryPoolCandidatesPaginatedOrderByUser {
 """Allowed column names for Query.poolCandidatesPaginated.orderBy."""
 enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   PRIORITY_WEIGHT
+  JOB_LOOKING_STATUS
+  FIRST_NAME
+  EMAIL
+  PREFERRED_LANG
+  CURRENT_CITY
 }
 
 enum Role {
@@ -1228,6 +1237,7 @@ input UpdatePoolAdvertisementInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   stream: PoolStream
+  processNumber: String
   expiryDate: DateTimeTz
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
@@ -1273,6 +1283,7 @@ input UpdatePoolInput {
   keyTasks: LocalizedStringInput
   status: PoolStatus
   stream: PoolStream
+  processNumber: String
 }
 
 input UpdateSkillFamilyInput {
@@ -1291,9 +1302,10 @@ input UpdateSkillInput {
 
 """When updating a User, all fields are optional"""
 input UpdateUserAsAdminInput {
-  email: Email
+  id: ID
   sub: String
   roles: [Role]
+  email: Email
   firstName: String
   lastName: String
   telephone: PhoneNumber
@@ -1339,6 +1351,7 @@ input UpdateUserAsAdminInput {
 }
 
 input UpdateUserAsUserInput {
+  id: ID
   email: Email
   firstName: String
   lastName: String

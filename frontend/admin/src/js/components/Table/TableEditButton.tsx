@@ -24,13 +24,13 @@ function TableEditButton({
       href={href}
       type="button"
       mode="inline"
-      color="primary"
+      color="black"
       data-h2-padding="base(0)"
     >
       {intl.formatMessage(
         {
-          defaultMessage: "Edit <hidden>{label}</hidden>",
-          id: "9flpmN",
+          defaultMessage: "Edit<hidden> {label}</hidden>",
+          id: "i9ND/M",
           description: "Title displayed for the Edit column.",
         },
         { label },

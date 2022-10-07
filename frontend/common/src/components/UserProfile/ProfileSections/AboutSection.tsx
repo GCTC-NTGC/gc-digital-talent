@@ -1,6 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import Well from "../../Well";
+import { getFullNameHtml } from "../../../helpers/nameUtils";
 import messages from "../../../messages/commonMessages";
 import {
   getProvinceOrTerritory,
@@ -42,11 +44,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
 }) => {
   const intl = useIntl();
   return (
-    <div
-      data-h2-background-color="base(light.dt-gray)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
         {(!!firstName || !!lastName) && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
@@ -58,7 +56,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               })}
               <br />
               <span data-h2-font-weight="base(700)">
-                {firstName} {lastName}
+                {getFullNameHtml(firstName, lastName, intl)}
               </span>
             </p>
           </div>
@@ -191,37 +189,35 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         !currentProvince ||
         !citizenship ||
         armedForcesStatus === null) && (
-        <div data-h2-flex-grid="base(flex-start, x2, x1)">
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {editPath && (
-                <>
-                  {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
-                  <a href={editPath}>
-                    {intl.formatMessage({
-                      defaultMessage: "Edit your about me options.",
-                      id: "L9AGk7",
-                      description:
-                        "Link text to edit about me section on profile.",
-                    })}
-                  </a>
-                </>
-              )}
-              {!editPath && (
-                <>
+        <div data-h2-margin="base(x1, 0, 0, 0)">
+          <p>
+            {editPath && (
+              <>
+                {intl.formatMessage(messages.requiredFieldsMissing)}{" "}
+                <a href={editPath}>
                   {intl.formatMessage({
-                    defaultMessage: "No information has been provided.",
-                    id: "NIEIAC",
+                    defaultMessage: "Edit your about me options.",
+                    id: "L9AGk7",
                     description:
-                      "Message on Admin side when user not filled about me section.",
+                      "Link text to edit about me section on profile.",
                   })}
-                </>
-              )}
-            </p>
-          </div>
+                </a>
+              </>
+            )}
+            {!editPath && (
+              <>
+                {intl.formatMessage({
+                  defaultMessage: "No information has been provided.",
+                  id: "NIEIAC",
+                  description:
+                    "Message on Admin side when user not filled about me section.",
+                })}
+              </>
+            )}
+          </p>
         </div>
       )}
-    </div>
+    </Well>
   );
 };
 

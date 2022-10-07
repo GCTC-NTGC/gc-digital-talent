@@ -3,6 +3,7 @@
   "pageLoadTimeout": 60000,
   "requestTimeout": 5000,
   "responseTimeout": 30000,
+  "experimentalSessionAndOrigin": true,
   "reporter": "cypress-multi-reporters",
   "reporterOptions": {
     "configFile": "cypress/reporters-config.json"

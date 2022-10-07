@@ -6,6 +6,7 @@ import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
+import { getFullNameLabel } from "@common/helpers/nameUtils";
 import {
   SearchPoolCandidatesQuery,
   useSearchPoolCandidatesQuery,
@@ -21,27 +22,41 @@ type Data = NonNullable<
 const TableEditButton: React.FC<{
   poolCandidateId?: string;
   poolId?: string;
-}> = ({ poolCandidateId, poolId }) => {
+  label?: string;
+}> = ({ poolCandidateId, poolId, label }) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
   return (
     <Link
       type="button"
-      color="primary"
+      color="black"
       mode="inline"
       href={paths.poolCandidateUpdate(poolId || "", poolCandidateId || "")}
     >
-      {intl.formatMessage({
-        defaultMessage: "Edit",
-        id: "srzf65",
-        description: "Title displayed for the Edit column.",
-      })}
+      {intl.formatMessage(
+        {
+          defaultMessage: "Edit<hidden> {label}</hidden>",
+          id: "i9ND/M",
+          description: "Title displayed for the Edit column.",
+        },
+        { label },
+      )}
     </Link>
   );
 };
 
-function tableEditButtonAccessor(poolCandidateId?: string, poolId?: string) {
-  return <TableEditButton poolCandidateId={poolCandidateId} poolId={poolId} />;
+function tableEditButtonAccessor(
+  poolCandidateId?: string,
+  poolId?: string,
+  label?: string,
+) {
+  return (
+    <TableEditButton
+      poolCandidateId={poolCandidateId}
+      poolId={poolId}
+      label={label}
+    />
+  );
 }
 
 export const SingleSearchRequestTable: React.FunctionComponent<
@@ -213,7 +228,12 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed for the single search request table edit column.",
         }),
-        accessor: ({ id, pool }) => tableEditButtonAccessor(id, pool?.id),
+        accessor: ({ id, pool, user }) =>
+          tableEditButtonAccessor(
+            id,
+            pool?.id,
+            getFullNameLabel(user.firstName, user.lastName, intl),
+          ),
       },
     ],
     [intl, locale],

@@ -112,6 +112,11 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
     getSecurityClearance(pool.securityClearance ?? ""),
   );
 
+  const relativeToAbsoluteURL = (path: string): string => {
+    const { host, protocol } = window.location;
+    return `${protocol}//${host}${path}`;
+  };
+
   const links = [
     {
       title: intl.formatMessage({
@@ -215,7 +220,9 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 readOnly
-                value={pool.id}
+                value={relativeToAbsoluteURL(
+                  adminPaths.poolAdvertisement(pool.id),
+                )}
                 hideOptional
                 id="poolUrl"
                 name="poolUrl"
@@ -239,8 +246,11 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 disabled={linkCopied}
                 icon={linkCopied ? CheckIcon : ClipboardIcon}
                 onClick={() => {
-                  // TO DO: Update with real URL once we get it
-                  navigator.clipboard.writeText(pool.id);
+                  navigator.clipboard.writeText(
+                    relativeToAbsoluteURL(
+                      adminPaths.poolAdvertisement(pool.id),
+                    ),
+                  );
                   setLinkCopied(true);
                 }}
               >
@@ -264,10 +274,11 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 mode="outline"
                 color="secondary"
                 type="button"
-                href="#"
+                href={adminPaths.poolAdvertisement(pool.id)}
                 target="_blank"
                 rel="noopener noreferrer"
                 icon={ArrowTopRightOnSquareIcon}
+                external
               >
                 {intl.formatMessage({
                   defaultMessage: "View pool advertisement",
@@ -354,7 +365,22 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             </div>
           ) : null}
           <div data-h2-flex-grid="base(flex-start, x1, 0)">
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
+              <Input
+                id="processNumber"
+                name="processNumber"
+                type="text"
+                readOnly
+                hideOptional
+                value={pool.processNumber ?? ""}
+                label={intl.formatMessage({
+                  defaultMessage: "Process Number",
+                  id: "1E0RiD",
+                  description: "Label for a pools process number",
+                })}
+              />
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
               <Input
                 id="expiryDate"
                 name="expiryDate"
@@ -371,7 +397,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 })}
               />
             </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
               <Input
                 id="status"
                 name="status"
@@ -388,6 +414,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 })}
               />
             </div>
+
             <div data-h2-flex-item="base(1of1)">
               <h2
                 data-h2-margin="base(x2, 0, 0, 0)"

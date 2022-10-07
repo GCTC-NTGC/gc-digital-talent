@@ -1,0 +1,12 @@
+---
+layout: boilerplate
+---
+{% include goc.html %}
+{% include navigation.html %}
+<main id="mainContent">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(top-bottom, xxl)" data-h2-text-align="b(center)">
+    {% assign coming = site.data.translations.coming[page.lang] %}
+    {% include title-h2.html title=coming %}
+  </div>
+</main>
+{% include footer.html %}

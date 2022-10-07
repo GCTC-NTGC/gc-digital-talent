@@ -22,7 +22,10 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
   const intl = useIntl();
 
   const applicationIsDraft = isDraft(application.status);
-  const applicationCanBeArchived = canBeArchived(application.status);
+  const applicationCanBeArchived = canBeArchived(
+    application.status,
+    application.archivedAt,
+  );
   const applicationCanBeDeleted = canBeDeleted(application.status);
 
   let borderKey: BorderMapKey = "dt-gray";

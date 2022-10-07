@@ -2,7 +2,7 @@ import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Pools", () => {
   const loginAndGoToPoolsPage = () => {
-    cy.login("admin");
+    cy.loginByRole("admin");
     cy.visit("/en/admin/pools");
 
     cy.findByRole("heading", { name: /pools/i })
@@ -114,6 +114,34 @@ describe("Pools", () => {
 
     cy.findByRole("button", { name: /save other requirements/i }).click();
     expectUpdate();
+  });
+
+  /**
+   * Update the Pool
+   */
+   it("should update the pool", () => {
+    // Navigate to edit pool page
+    cy.findByRole("link", { name: /edit test pool en/i })
+      .click();
+
+    cy.wait("@gqlgetEditPoolDataQuery");
+
+    // Set a process number
+    const processNumber = "process 123";
+    cy.findByRole("textbox", { name: /process number/i })
+      .type(processNumber);
+
+    // Submit the form
+    cy.findByRole("button", { name: /save pool name/i }).click();
+    expectUpdate();
+
+    // Navigate to view pool page
+    cy.findByRole("link", { name: /pool id #/i })
+      .click();
+
+    // Confirm process number has new value
+    cy.findByRole("textbox", { name: /process number/i })
+      .should("have.value", processNumber);
   });
 
   /**

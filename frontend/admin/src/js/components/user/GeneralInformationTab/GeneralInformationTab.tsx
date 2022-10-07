@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import TableOfContents from "@common/components/TableOfContents";
+import isEmpty from "lodash/isEmpty";
+import { toast } from "react-toastify";
 import {
   CalculatorIcon,
   InformationCircleIcon,
@@ -8,6 +9,9 @@ import {
   UserIcon,
   CheckIcon,
 } from "@heroicons/react/24/outline";
+
+import TableOfContents from "@common/components/TableOfContents";
+import Well from "@common/components/Well";
 import {
   getArmedForcesStatusesAdmin,
   getCitizenshipStatusesAdmin,
@@ -16,15 +20,14 @@ import {
   getProvinceOrTerritory,
 } from "@common/constants/localizedConstants";
 import { getLocale } from "@common/helpers/localize";
-import { isEmpty } from "lodash";
 import { Button } from "@common/components";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { commonMessages } from "@common/messages";
 import { BasicForm, TextArea } from "@common/components/form";
 import { unpackMaybes } from "@common/helpers/formUtils";
-import { toast } from "react-toastify";
 import Heading from "@common/components/Heading";
+import { getFullNameHtml } from "@common/helpers/nameUtils";
 import {
   AddToPoolDialog,
   ChangeDateDialog,
@@ -81,18 +84,14 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
 
   if (isEmpty(user.poolCandidates)) {
     return (
-      <div
-        data-h2-background-color="base(light.dt-gray)"
-        data-h2-padding="base(x1)"
-        data-h2-radius="base(s)"
-      >
+      <Well>
         {intl.formatMessage({
           defaultMessage: "This user is not in any pools yet",
           id: "W58QTT",
           description:
             "Message on view-user page that the user is not in any pools",
         })}
-      </div>
+      </Well>
     );
   }
   return (
@@ -220,11 +219,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
   const intl = useIntl();
 
   return (
-    <div
-      data-h2-background-color="base(light.dt-gray)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       <div data-h2-flex-grid="base(normal, x1, x.5)">
         {/* Name */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
@@ -235,9 +230,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
               description: "Display text for the name field on users",
             })}
           </p>
-          <p>
-            {user.firstName} {user.lastName}
-          </p>
+          <p>{getFullNameHtml(user.firstName, user.lastName, intl)}</p>
         </div>
         {/* Email */}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
@@ -332,7 +325,7 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
           </p>
         </div>
       </div>
-    </div>
+    </Well>
   );
 };
 
@@ -354,11 +347,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
             "Title of the 'Personal status' section of the view-user page",
         })}
       </Heading>
-      <div
-        data-h2-background-color="base(light.dt-gray)"
-        data-h2-padding="base(x1)"
-        data-h2-radius="base(s)"
-      >
+      <Well>
         {user.jobLookingStatus === JobLookingStatus.ActivelyLooking &&
           intl.formatMessage({
             defaultMessage:
@@ -383,7 +372,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
             description:
               "Text in view user page saying they currently have the 'Inactive' status, ignore things in <> tags please",
           })}
-      </div>
+      </Well>
       <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Pool status",
@@ -487,7 +476,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
 
   return (
     <>
-      <p>
+      <p data-h2-margin="base(x1, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "These notes are shared between all managers of this pool, but not to candidates.",
@@ -497,19 +486,14 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
         })}
       </p>
       {isEmpty(user.poolCandidates) ? (
-        <div
-          data-h2-margin="base(x1, 0)"
-          data-h2-background-color="base(light.dt-gray)"
-          data-h2-padding="base(x.5)"
-          data-h2-radius="base(s)"
-        >
+        <Well>
           {intl.formatMessage({
             defaultMessage: "This user is not in any pools yet",
             id: "W58QTT",
             description:
               "Message on view-user page that the user is not in any pools",
           })}
-        </div>
+        </Well>
       ) : (
         <BasicForm onSubmit={handleSubmit}>
           {user?.poolCandidates?.map((candidate) => {
@@ -558,11 +542,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
   const intl = useIntl();
 
   return (
-    <div
-      data-h2-background-color="base(light.dt-gray)"
-      data-h2-padding="base(x.125, x.5)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       {!user.isIndigenous &&
         !user.hasDisability &&
         !user.isVisibleMinority &&
@@ -620,7 +600,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
           })}
         </div>
       )}
-    </div>
+    </Well>
   );
 };
 

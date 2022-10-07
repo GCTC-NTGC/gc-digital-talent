@@ -1,0 +1,47 @@
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        {% assign posts = site.posts | where: "lang", page.lang | sort: lang-ref %}
+        {% for post in posts %}
+          {% if post.lang-ref == page.lang-ref %}
+            {% if post == posts.first %}
+
+            {% else %}
+              <a class="prev" href="{{ post.previous.url | prepend: site.baseurl }}" title="{{ site.data.translations.prevArticleButton.title[page.lang] }}">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>{{ site.data.translations.prevArticleButton[page.lang] }}</a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        {% assign posts = site.posts | where: "lang", page.lang | sort: lang-ref %}
+        {% for post in posts %}
+          {% if post.lang-ref == page.lang-ref %}
+            {% if post == posts.last %}
+
+            {% else %}
+              <a class="next" href="{{ post.next.url | prepend: site.baseurl }}" title="{{ site.data.translations.nextArticleButton.title[page.lang] }}">{{ site.data.translations.nextArticleButton[page.lang] }}<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="{{ site.baseurl }}/{{ page.lang }}/talent-cloud/report/#toc" title="{{ site.data.translations.tocButton[page.lang] }}">{{ site.data.translations.tocButton[page.lang] }}</a>
+    </p>
+  </div>
+</section>

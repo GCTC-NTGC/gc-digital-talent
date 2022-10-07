@@ -49,6 +49,7 @@ query getGovInfoFormLookupData {
 
 mutation UpdateGovAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
+    id
     isGovEmployee
     govEmployeeType
     hasPriorityEntitlement

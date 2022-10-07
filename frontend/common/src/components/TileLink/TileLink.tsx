@@ -26,6 +26,15 @@ const colorMap: Record<Color, Record<string, string>> = {
   "ia-secondary": {
     "data-h2-border": "base(left, .5rem, solid, ia-secondary)",
   },
+  yellow: {
+    "data-h2-border": "base(left, .5rem, solid, tm-yellow)",
+  },
+  red: {
+    "data-h2-border": "base(left, .5rem, solid, tm-red)",
+  },
+  blue: {
+    "data-h2-border": "base(left, .5rem, solid, tm-blue)",
+  },
 };
 
 export interface TileLinkProps extends React.HTMLProps<HTMLAnchorElement> {

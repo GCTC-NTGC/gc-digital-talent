@@ -13,7 +13,6 @@ import {
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import NotAuthorized from "@common/components/NotAuthorized";
-import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../indigenousApprenticeshipConstants";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 
@@ -112,32 +111,31 @@ export const PageContainer: React.FC<{
     notAuthorizedComponent.current,
   );
   return (
-    <ScrollToTop>
-      <>
-        <a href="#main" data-h2-visibility="base(hidden)">
-          {intl.formatMessage({
-            defaultMessage: "Skip to main content",
-            id: "Srs7a4",
-            description: "Assistive technology skip link",
-          })}
-        </a>
-        <div
-          className="container"
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          style={{ height: "100vh", margin: "0" }}
-        >
-          <div>
-            <Header baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
-            <NavMenu mainItems={menuItems} />
-          </div>
-          <main id="main">{content}</main>
-          <div style={{ marginTop: "auto" }}>
-            <Footer baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
-          </div>
+    <>
+      <ScrollToTop />
+      <a href="#main" data-h2-visibility="base(hidden)">
+        {intl.formatMessage({
+          defaultMessage: "Skip to main content",
+          id: "Srs7a4",
+          description: "Assistive technology skip link",
+        })}
+      </a>
+      <div
+        className="container"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        style={{ height: "100vh", margin: "0" }}
+      >
+        <div>
+          <Header />
+          <NavMenu mainItems={menuItems} />
         </div>
-      </>
-    </ScrollToTop>
+        <main id="main">{content}</main>
+        <div style={{ marginTop: "auto" }}>
+          <Footer />
+        </div>
+      </div>
+    </>
   );
 };
 

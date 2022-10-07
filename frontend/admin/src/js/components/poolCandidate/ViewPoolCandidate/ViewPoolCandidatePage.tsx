@@ -3,17 +3,18 @@ import { useIntl } from "react-intl";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
-import { Button, Link } from "@common/components";
+import { Link } from "@common/components";
+import ToggleGroup from "@common/components/ToggleGroup";
 import PageHeader from "@common/components/PageHeader";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { getLocalizedName } from "@common/helpers/localize";
 import UserProfile from "@common/components/UserProfile";
-import { useAdminRoutes } from "admin/src/js/adminRoutes";
 import { useState } from "react";
 import { Applicant } from "@common/api/generated";
 import TableOfContents from "@common/components/TableOfContents";
+import { useAdminRoutes } from "../../../adminRoutes";
 import {
   Scalars,
   useGetPoolCandidateSnapshotQuery,
@@ -76,21 +77,51 @@ export const ViewPoolCandidate = ({
   const snapshotUserPropertyExists = !!parsedSnapshot;
 
   const subTitle = (
-    <h2 data-h2-margin="base(x1, 0, 0, 0)">
-      {intl.formatMessage({
-        defaultMessage: "Application’s profile snapshot",
-        id: "rqXJfW",
-        description: "Title for the application's profile snapshot.",
-      })}
+    <div data-h2-flex-grid="base(center, x2, x1)">
+      <div
+        data-h2-flex-item="base(1of1) p-tablet(fill)"
+        data-h2-text-align="base(center) p-tablet(left)"
+      >
+        <h2 data-h2-margin="base(x1, 0, 0, 0)">
+          {intl.formatMessage({
+            defaultMessage: "Application’s profile snapshot",
+            id: "rqXJfW",
+            description: "Title for the application's profile snapshot.",
+          })}
+        </h2>
+      </div>
       {snapshotUserPropertyExists && (
-        <>
-          &nbsp;
-          <Button onClick={() => setPreferRichView(!preferRichView)}>
-            Toggle View
-          </Button>
-        </>
+        <div
+          data-h2-flex-item="base(1of1) p-tablet(content)"
+          data-h2-text-align="base(center) p-tablet(right)"
+          data-h2-padding="base(x1, 0, 0, 0)"
+        >
+          <ToggleGroup.Root
+            type="single"
+            color="primary.dark"
+            value={preferRichView ? "text" : "code"}
+            onValueChange={(value) => {
+              if (value) setPreferRichView(value === "text");
+            }}
+          >
+            <ToggleGroup.Item value="text">
+              {intl.formatMessage({
+                defaultMessage: "Text",
+                id: "Ude1JQ",
+                description: "Title for the application's profile snapshot.",
+              })}
+            </ToggleGroup.Item>
+            <ToggleGroup.Item value="code">
+              {intl.formatMessage({
+                defaultMessage: "Code",
+                id: "m0JFE/",
+                description: "Title for the application's profile snapshot.",
+              })}
+            </ToggleGroup.Item>
+          </ToggleGroup.Root>
+        </div>
       )}
-    </h2>
+    </div>
   );
 
   let mainContent: React.ReactNode;

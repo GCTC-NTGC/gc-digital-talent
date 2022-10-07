@@ -1,13 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { Helmet } from "react-helmet";
 import { Routes } from "universal-router";
-import { RouterResult } from "@common/helpers/router";
-import useFeatureFlags from "@common/hooks/useFeatureFlags";
 import { AuthenticationContext } from "@common/components/Auth";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
-import { Helmet } from "react-helmet";
+import { RouterResult } from "@common/helpers/router";
+import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { getLocale } from "@common/helpers/localize";
-import Pending from "@common/components/Pending";
+import useFeatureFlags from "@common/hooks/useFeatureFlags";
+import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import PageContainer, { MenuLink } from "./PageContainer";
 import {
   useTalentSearchRoutes,
@@ -24,6 +25,9 @@ import {
 } from "../directIntakeRoutes";
 import { ExperienceType } from "./experienceForm/types";
 import { Role, useGetAboutMeQuery } from "../api/generated";
+
+/** Home */
+const HomePage = React.lazy(() => import("./Home/HomePage"));
 
 /** Search */
 const SearchPage = React.lazy(() => import("./search/SearchPage"));
@@ -87,6 +91,12 @@ const ReviewMyApplicationPage = React.lazy(
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
 ): Routes<RouterResult> => [
+  {
+    path: talentPaths.home(),
+    action: () => ({
+      component: <HomePage />,
+    }),
+  },
   {
     path: talentPaths.search(),
     action: () => ({
@@ -455,8 +465,19 @@ export const Router: React.FC = () => {
     React.useState<boolean>(false);
 
   const [result] = useGetAboutMeQuery();
-  const { data, fetching, error } = result;
-
+  const { data } = result;
+  const aiConnectionString = getRuntimeVariable(
+    "APPLICATIONINSIGHTS_CONNECTION_STRING",
+  );
+  if (aiConnectionString) {
+    const appInsights = new ApplicationInsights({
+      config: {
+        connectionString: aiConnectionString,
+      },
+    });
+    appInsights.loadAppInsights();
+    appInsights.trackPageView();
+  }
   const menuItems = [
     <MenuLink
       key="search"
@@ -552,7 +573,7 @@ export const Router: React.FC = () => {
   }
 
   return (
-    <Pending fetching={fetching} error={error}>
+    <>
       <PageContainer
         menuItems={menuItems}
         authLinks={authLinks}
@@ -575,7 +596,7 @@ export const Router: React.FC = () => {
           onLogout={() => logout()}
         />
       )}
-    </Pending>
+    </>
   );
 };
 

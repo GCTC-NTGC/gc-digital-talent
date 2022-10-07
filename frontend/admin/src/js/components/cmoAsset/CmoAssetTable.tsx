@@ -58,7 +58,8 @@ export const CmoAssetTable: React.FC<
           id: "z2m2Gp",
           description: "Title displayed for the CMO Asset table Edit column.",
         }),
-        accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
+        accessor: (d) =>
+          tableEditButtonAccessor(d.id, editUrlRoot, d.name?.[locale]), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl, locale],

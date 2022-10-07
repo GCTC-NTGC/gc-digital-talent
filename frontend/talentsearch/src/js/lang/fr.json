@@ -231,8 +231,8 @@
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres : ",
     "description": "Heading for total matching candidates in results section of search page."
   },
-  "/quEXs": {
-    "defaultMessage": "Propriétaire du bassin : {firstName} {lastName}",
+  "o+a0IN": {
+    "defaultMessage": "Propriétaire du bassin : {name}",
     "description": "Text showing the owner of the HR pool."
   },
   "m+d9ls": {
@@ -602,10 +602,6 @@
   "4bjh8X": {
     "defaultMessage": "Erreur : utilisateur introuvable",
     "description": "Message displayed to user if user is not found"
-  },
-  "4xzq2Y": {
-    "defaultMessage": "(Nom manquant)",
-    "description": "Message for Missing names in profile"
   },
   "5FFRV2": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'utilisateur",
@@ -1026,10 +1022,6 @@
     "defaultMessage": "Niveau 3 : Conseillers techniques",
     "description": "title for IT-03 advisor dialog"
   },
-  "WpRB7Z": {
-    "defaultMessage": "Prénom(s)",
-    "description": "Label displayed for the first name field in create account form."
-  },
   "WyKJsK": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
     "description": "Message displayed to user after experience fails to be updated."
@@ -1192,10 +1184,6 @@
   "fOCbBa": {
     "defaultMessage": "Résultats pour les compétences fréquentes"
   },
-  "g097KT": {
-    "defaultMessage": "Prénom et second prénom",
-    "description": "Label for first and middle name field in About Me form"
-  },
   "gBWsuB": {
     "defaultMessage": "Téléphone",
     "description": "Label for telephone field in About Me form"
@@ -1219,10 +1207,6 @@
   "h1wsiL": {
     "defaultMessage": "Toute autre chose au sujet de cette expérience que vous aimeriez partager.",
     "description": "Description blurb for additional information on Experience form"
-  },
-  "h9q52R": {
-    "defaultMessage": "Nom(s) de famille",
-    "description": "Label displayed for the last name field in create account form."
   },
   "hCgrxA": {
     "defaultMessage": "Il y a deux types d'employés du TI-03 : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
@@ -1379,10 +1363,6 @@
   "r4PFx0": {
     "defaultMessage": "Province ou territoire actuel",
     "description": "Label for current province or territory field in About Me form"
-  },
-  "rGNWy6": {
-    "defaultMessage": "Nom(s) de famille",
-    "description": "Label for last name field in About Me form"
   },
   "rJMWiV": {
     "defaultMessage": "<strong>Non</strong>, je ne suis pas un(e) employé(e) du gouvernement du Canada",
@@ -1552,9 +1532,9 @@
     "defaultMessage": "Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères",
     "description": "Heading for total matching candidates in results section of search page."
   },
-  "thdckE": {
-    "defaultMessage": "Il y a <strong>{candidateCount}</strong> candidats qui répondent à vos critères dans ce bassin",
-    "description": "Message for total estimated candidates box next to search form."
+  "ICPJ8D": {
+    "defaultMessage": "Il y a <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> candidats qui répondent à vos critères dans ce bassin",
+    "description": "Message for total estimated matching candidates in pool"
   },
   "pak8ye": {
     "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>FRANÇAIS</strong>",
@@ -1825,7 +1805,7 @@
     "description": "Label for pool advertisement salary range"
   },
   "m5hjaz": {
-    "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occations précises dans le domaine du développement d'applications.",
+    "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occasions précises dans le domaine du développement d'applications.",
     "description": "Description of pool recruitment, paragraph two"
   },
   "mNWpoy": {
@@ -1943,5 +1923,21 @@
   "HHEQgM": {
     "defaultMessage": "Sélectionnez une classification",
     "description": "Placeholder for classification filter in search form."
+  },
+  "IEkhMc": {
+    "defaultMessage": "Prénom",
+    "description": "Label displayed for the first name field in create account form."
+  },
+  "btydLe": {
+    "defaultMessage": "Prénom",
+    "description": "Label for first name field in About Me form"
+  },
+  "UxF291": {
+    "defaultMessage": "Nom de famille",
+    "description": "Label displayed for the last name field in create account form."
+  },
+  "wrHSMx": {
+    "defaultMessage": "Nom de famille",
+    "description": "Label for last name field in About Me form"
   }
 }

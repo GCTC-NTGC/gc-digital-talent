@@ -46,6 +46,7 @@ fragment pool on Pool {
   }
   operationalRequirements
   stream
+  processNumber
 }
 
 query getPool($id: ID!) {
@@ -138,6 +139,7 @@ query getPoolAdvertisement($id: ID!) {
       fr
     }
     stream
+    processNumber
   }
 }
 
@@ -160,8 +162,9 @@ query getPools {
       group
       level
     }
-    status
+    advertisementStatus
     stream
+    processNumber
   }
 }
 
@@ -198,6 +201,7 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
     }
     operationalRequirements
     stream
+    processNumber
   }
 }
 

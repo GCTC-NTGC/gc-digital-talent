@@ -18,10 +18,13 @@ import { getFeatureFlags } from "@common/helpers/runtimeVariable";
 import {
   JobLookingStatus,
   Language,
+  OrderByRelationWithColumnAggregateFunction,
   PoolCandidate,
   PoolCandidatePaginator,
   PoolCandidateStatus,
   ProvinceOrTerritory,
+  QueryPoolCandidatesPaginatedOrderByUserColumn,
+  SortOrder,
   useGetPoolCandidatesPaginatedQuery,
   useGetSelectedPoolCandidatesQuery,
 } from "../../api/generated";
@@ -32,6 +35,7 @@ import {
   handleColumnHiddenChange,
   handleRowSelectedChange,
   rowSelectionColumn,
+  SortingRule,
 } from "../apiManagedTable/basicTableHelpers";
 import BasicTable from "../apiManagedTable/BasicTable";
 import TableFooter from "../apiManagedTable/TableFooter";
@@ -189,6 +193,45 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   const [pageSize, setPageSize] = useState(10);
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
   const [selectedRows, setSelectedRows] = useState<PoolCandidate[]>([]);
+  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
+
+  // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
+  // this smooths the table sort value into appropriate API calls
+  const sortOrder = useMemo(() => {
+    if (sortingRule?.column.sortColumnName === "submitted_at") {
+      return {
+        column: sortingRule.column.sortColumnName,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: undefined,
+      };
+    }
+    if (
+      sortingRule?.column.sortColumnName &&
+      [
+        "JOB_LOOKING_STATUS",
+        "FIRST_NAME",
+        "EMAIL",
+        "PREFERRED_LANG",
+        "CURRENT_CITY",
+      ].includes(sortingRule.column.sortColumnName)
+    ) {
+      return {
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column: sortingRule.column
+            .sortColumnName as QueryPoolCandidatesPaginatedOrderByUserColumn,
+        },
+      };
+    }
+    return {
+      column: "status_weight",
+      order: SortOrder.Asc,
+      user: undefined,
+    };
+  }, [sortingRule]);
+  // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause, therefore default is a redundant sort
 
   useEffect(() => {
     setSelectedRows([]);
@@ -199,6 +242,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       where: { pools: [{ id: poolId }] },
       page: currentPage,
       first: pageSize,
+      sortingInput: sortOrder,
     },
   });
 
@@ -283,6 +327,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         id: "availability",
         accessor: ({ user }) =>
           availabilityAccessor(user.jobLookingStatus, intl),
+        sortColumnName: "JOB_LOOKING_STATUS",
       },
       {
         label: intl.formatMessage({
@@ -305,6 +350,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         }),
         id: "candidateName",
         accessor: ({ user }) => `${user?.firstName} ${user?.lastName}`,
+        sortColumnName: "FIRST_NAME",
       },
       {
         label: intl.formatMessage({
@@ -315,6 +361,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         }),
         id: "email",
         accessor: ({ user }) => user?.email,
+        sortColumnName: "EMAIL",
       },
       {
         label: intl.formatMessage({
@@ -326,6 +373,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         id: "preferredLang",
         accessor: ({ user }) =>
           preferredLanguageAccessor(user?.preferredLang, intl),
+        sortColumnName: "PREFERRED_LANG",
       },
       {
         label: intl.formatMessage({
@@ -340,6 +388,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             user?.currentProvince,
             intl,
           )}`,
+        sortColumnName: "CURRENT_CITY",
       },
       {
         label: intl.formatMessage({
@@ -350,6 +399,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         }),
         id: "dateReceived",
         accessor: (d) => d.submittedAt,
+        sortColumnName: "submitted_at",
       },
     ],
     [intl, selectedRows, filteredData, adminRoutes],
@@ -426,9 +476,8 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             data={filteredData}
             columns={columns}
             hiddenColumnIds={hiddenColumnIds}
-            onSortingRuleChange={() => {
-              /* Implement this later if desired */
-            }}
+            onSortingRuleChange={setSortingRule}
+            sortingRule={sortingRule}
           />
         </Pending>
         <TableFooter

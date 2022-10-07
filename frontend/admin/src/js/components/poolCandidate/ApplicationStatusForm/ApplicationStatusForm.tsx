@@ -6,12 +6,14 @@ import { Input, Select, Submit, TextArea } from "@common/components/form";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import Heading from "@common/components/Heading";
+import Well from "@common/components/Well";
 import { CalendarIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import { getLocalizedName } from "@common/helpers/localize";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import { strToFormDate } from "@common/helpers/dateUtils";
 import { commonMessages } from "@common/messages";
+import { emptyToNull } from "@common/helpers/util";
 import {
   PoolCandidateStatus,
   Scalars,
@@ -54,7 +56,7 @@ export const ApplicationStatusForm = ({
     onSubmit({
       status: values.status,
       notes: values.notes,
-      expiryDate: values.expiryDate,
+      expiryDate: values.expiryDate || emptyToNull(values.expiryDate),
     });
   };
 
@@ -82,11 +84,7 @@ export const ApplicationStatusForm = ({
           description: "Title for admins to edit an applications status.",
         })}
       </Heading>
-      <div
-        data-h2-background-color="base(light.dt-gray)"
-        data-h2-radius="base(x1)"
-        data-h2-padding="base(x1, x1, x1, x1)"
-      >
+      <Well>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(handleFormSubmit)}>
             <Heading
@@ -203,7 +201,7 @@ export const ApplicationStatusForm = ({
             />
           </form>
         </FormProvider>
-      </div>
+      </Well>
     </div>
   );
 };
