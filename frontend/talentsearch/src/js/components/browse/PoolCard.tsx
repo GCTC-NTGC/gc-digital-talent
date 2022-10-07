@@ -32,10 +32,10 @@ const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
         return null;
       }
       if (classification.minSalary && !classification.maxSalary) {
-        return `${classification.minSalary}`;
+        return `$${classification.minSalary} -`;
       }
       if (!classification.minSalary && classification.maxSalary) {
-        return `${classification.maxSalary}`;
+        return `- $${classification.maxSalary}`;
       }
       return `$${classification.minSalary} - $${classification.maxSalary}`;
     }
