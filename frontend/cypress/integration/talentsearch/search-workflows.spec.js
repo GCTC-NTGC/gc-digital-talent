@@ -54,7 +54,8 @@ describe("Talent Search Workflow Tests", () => {
         .should("exist")
         .and("be.visible")
         .and("not.be.disabled");
-      // Force click because mysteriously fails due to detached DOM element.
+      // Force click to mitigate async re-render of button that detaches its DOM element.
+      // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
       cy.wrap($button).click({ force: true });
     });
 
