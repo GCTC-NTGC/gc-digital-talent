@@ -7,6 +7,7 @@ import {
   UserPublicProfile,
   PoolStatus,
   PoolStream,
+  PublishingGroup,
 } from "../api/generated";
 import fakeUsers from "./fakeUsers";
 import fakeClassifications from "./fakeClassifications";
@@ -45,6 +46,9 @@ const generatePool = (
     status: faker.helpers.arrayElement<PoolStatus>(Object.values(PoolStatus)),
     stream: faker.helpers.arrayElement<PoolStream>(Object.values(PoolStream)),
     processNumber: faker.helpers.maybe(() => faker.lorem.word()),
+    publishingGroup: faker.helpers.maybe(() =>
+      faker.helpers.arrayElement(Object.values(PublishingGroup)),
+    ),
   };
 };
 

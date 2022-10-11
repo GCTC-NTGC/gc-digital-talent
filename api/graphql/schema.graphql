@@ -269,6 +269,7 @@ type Pool {
     @rename(attribute: "advertisement_status")
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
+  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
 
 enum PoolStatus {
@@ -290,7 +291,7 @@ enum PoolStream {
 type PoolAdvertisement {
   id: ID!
   expiryDate: DateTimeTz @rename(attribute: "expiry_date")
-  isPublished: Boolean @rename(attribute: "is_published")
+  publishedAt: DateTime @rename(attribute: "published_at")
   name: LocalizedString
   description: LocalizedString
   classifications: [Classification] @belongsToMany
@@ -308,6 +309,7 @@ type PoolAdvertisement {
   nonessentialSkills: [Skill!] @belongsToMany
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
+  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
 
 enum AdvertisementStatus {
@@ -347,6 +349,12 @@ enum PoolAdvertisementLanguage {
   VARIOUS
   BILINGUAL_INTERMEDIATE
   BILINGUAL_ADVANCED
+}
+
+enum PublishingGroup {
+  IT_JOBS
+  EXECUTIVE_JOBS
+  OTHER
 }
 
 type PoolCandidate {
@@ -1176,6 +1184,7 @@ input CreatePoolInput {
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
   status: PoolStatus = NOT_TAKING_APPLICATIONS @rename(attribute: "pool_status")
   processNumber: String @rename(attribute: "process_number")
+  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
 
 input UpdateClassificationInput {
@@ -1222,6 +1231,7 @@ input UpdatePoolInput {
   status: PoolStatus @rename(attribute: "pool_status")
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
+  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
 
 input CreateDepartmentInput {
@@ -1450,6 +1460,7 @@ input UpdatePoolAdvertisementInput {
   advertisementLocation: LocalizedStringInput
     @rename(attribute: "advertisement_location")
   isRemote: Boolean @rename(attribute: "is_remote")
+  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
 
 type Mutation {

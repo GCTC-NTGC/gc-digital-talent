@@ -39,7 +39,7 @@ export const DraftAdvertisement = TemplateEditPoolForm.bind({});
 DraftAdvertisement.args = {
   poolAdvertisement: {
     ...poolAdvertisement,
-    isPublished: false,
+    publishedAt: null,
     advertisementStatus: AdvertisementStatus.Draft,
   },
 };
@@ -48,7 +48,7 @@ export const PublishedAdvertisement = TemplateEditPoolForm.bind({});
 PublishedAdvertisement.args = {
   poolAdvertisement: {
     ...poolAdvertisement,
-    isPublished: true,
+    publishedAt: FAR_PAST_DATE,
     advertisementStatus: AdvertisementStatus.Published,
     expiryDate: FAR_FUTURE_DATE,
   },
@@ -58,7 +58,7 @@ export const ExpiredAdvertisement = TemplateEditPoolForm.bind({});
 ExpiredAdvertisement.args = {
   poolAdvertisement: {
     ...poolAdvertisement,
-    isPublished: true,
+    publishedAt: FAR_PAST_DATE,
     advertisementStatus: AdvertisementStatus.Expired,
     expiryDate: FAR_PAST_DATE,
   },
