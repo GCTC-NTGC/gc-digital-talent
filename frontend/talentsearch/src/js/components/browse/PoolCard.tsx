@@ -33,6 +33,7 @@ const PoolCard = ({
     }
     return null;
   };
+  const classificationResult = poolClassificationString();
 
   const poolClassificationSalary = (): string | undefined => {
     if (pool.classifications && pool.classifications[0]) {
@@ -45,6 +46,7 @@ const PoolCard = ({
     }
     return undefined;
   };
+  const salaryResult = poolClassificationSalary();
 
   const poolEssentialSkillKeys = (): JSX.Element[] | null => {
     if (pool.essentialSkills && pool.essentialSkills[0]) {
@@ -60,6 +62,7 @@ const PoolCard = ({
     }
     return null;
   };
+  const skillResults = poolEssentialSkillKeys();
 
   return (
     <div
@@ -79,13 +82,12 @@ const PoolCard = ({
           data-h2-padding="base(0, 0, x0.75, 0)"
           data-h2-font-weight="base(700)"
         >
-          {poolClassificationString()
-            ? poolClassificationString()
-            : intl.formatMessage({
-                defaultMessage: "(No Classification)",
-                description: "No Classification",
-                id: "y+OZjx",
-              })}{" "}
+          {classificationResult ||
+            intl.formatMessage({
+              defaultMessage: "(No Classification)",
+              description: "No Classification",
+              id: "y+OZjx",
+            })}{" "}
           {pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : ""}
         </Heading>
 
@@ -103,13 +105,12 @@ const PoolCard = ({
             })}
             :{" "}
           </span>{" "}
-          {poolClassificationSalary()
-            ? poolClassificationSalary()
-            : intl.formatMessage({
-                defaultMessage: "(Needs classification)",
-                description: "Needs classification",
-                id: "nTGIfl",
-              })}
+          {salaryResult ||
+            intl.formatMessage({
+              defaultMessage: "(Needs classification)",
+              description: "Needs classification",
+              id: "nTGIfl",
+            })}
         </p>
 
         <div
@@ -130,15 +131,12 @@ const PoolCard = ({
             :{" "}
           </span>{" "}
           <span>
-            <Chips>
-              {poolEssentialSkillKeys()
-                ? poolEssentialSkillKeys()
-                : intl.formatMessage({
-                    defaultMessage: "(No skills required)",
-                    description: "No skills required",
-                    id: "WbET08",
-                  })}
-            </Chips>
+            {<Chips>{skillResults}</Chips> ||
+              intl.formatMessage({
+                defaultMessage: "(No skills required)",
+                description: "No skills required",
+                id: "WbET08",
+              })}
           </span>
         </div>
 
