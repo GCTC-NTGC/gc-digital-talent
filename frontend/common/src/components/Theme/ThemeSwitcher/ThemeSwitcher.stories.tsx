@@ -1,6 +1,5 @@
 import React from "react";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
-import ThemeDecorator from "../../../../.storybook/decorators/ThemeDecorator";
 import OverlayDecorator from "../../../../.storybook/decorators/OverlayOrDialogDecorator";
 
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -12,7 +11,7 @@ type Story = ComponentStory<ComponentType>;
 export default {
   component: ThemeSwitcher,
   title: "Components/ThemeSwitcher",
-  decorators: [ThemeDecorator, OverlayDecorator],
+  decorators: [OverlayDecorator],
 } as Meta;
 
 const Template: Story = () => (

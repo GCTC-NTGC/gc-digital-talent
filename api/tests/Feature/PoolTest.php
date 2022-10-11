@@ -24,22 +24,22 @@ class PoolTest extends TestCase
     // Create new pools and attach to new pool candidates.
     $pool1 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-        'is_published' => true,
+        'published_at' => config('constants.past_date'),
         'expiry_date' => config('constants.far_future_date'),
     ]);
     $pool2 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-        'is_published' => true,
+        'published_at' => config('constants.past_date'),
         'expiry_date' => config('constants.past_date'),
     ]);
     $pool3 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
-        'is_published' => false,
+        'published_at' => null,
         'expiry_date' => config('constants.far_future_date'),
     ]);
     $pool4 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
-        'is_published' => false,
+        'published_at' => null,
         'expiry_date' => config('constants.past_date'),
     ]);
 
@@ -112,12 +112,12 @@ class PoolTest extends TestCase
 
     $pool1 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-        'is_published' => true,
+        'published_at' => config('constants.past_date'),
         'expiry_date' => $expireInHour,
     ]);
     $pool2 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-        'is_published' => true,
+        'published_at' => config('constants.past_date'),
         'expiry_date' => $expiredLastHour,
     ]);
 
