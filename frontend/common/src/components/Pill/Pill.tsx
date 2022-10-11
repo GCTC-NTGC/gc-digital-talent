@@ -62,8 +62,8 @@ const sizeMap: Record<PillSize, Record<string, string>> = {
     "data-h2-padding": "base(x.1, x.25)",
   },
   md: {
-    "data-h2-padding": "base(x.25, x.75)",
     "data-h2-font-size": "base(caption)",
+    "data-h2-padding": "base(x.25, x.75)",
   },
   lg: {
     "data-h2-font-size": "base(copy)",
