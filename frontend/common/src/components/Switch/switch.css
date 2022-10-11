@@ -1,0 +1,20 @@
+.Switch {
+  all: unset;
+  background-color: var(--h2-color-dt-gray);
+  border-radius: 9999px;
+  will-change: background-color;
+}
+
+.Switch[data-state="checked"] {
+  background-color: var(--h2-color-dt-primary);
+}
+
+.Switch__Thumb {
+  border-radius: 9999px;
+  transform: translate(-0.1rem, -50%);
+  will-change: transform;
+}
+
+.Switch__Thumb[data-state="checked"] {
+  transform: translate(calc(100% + 0.1rem), -50%);
+}
