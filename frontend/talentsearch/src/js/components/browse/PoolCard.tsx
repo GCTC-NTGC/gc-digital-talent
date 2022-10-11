@@ -167,12 +167,16 @@ const PoolCard = ({
             mode="outline"
             color="black"
           >
-            {intl.formatMessage({
-              defaultMessage: "Apply to this recruitment",
-              description:
-                "Message on link that say to apply to a recruitment advertisement",
-              id: "zvn+Gu",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Apply to this recruitment<hidden> {name}</hidden>",
+                description:
+                  "Message on link that say to apply to a recruitment advertisement",
+                id: "1zkApr",
+              },
+              { name: classificationResult },
+            )}
           </Link>
         </div>
       </div>
