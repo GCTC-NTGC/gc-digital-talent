@@ -3,7 +3,11 @@ import { getPoolStream } from "@common/constants/localizedConstants";
 import React from "react";
 import { useIntl } from "react-intl";
 import Chip, { Chips } from "@common/components/Chip";
-import { getLocale, getLocalizedName } from "@common/helpers/localize";
+import {
+  getLocale,
+  getLocalizedName,
+  localizeSalaryRange,
+} from "@common/helpers/localize";
 import { formattedDateMonthDayYear } from "@common/helpers/dateUtils";
 import { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -25,21 +29,16 @@ const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
     return null;
   };
 
-  const poolClassificationSalary = (): string | null => {
+  const poolClassificationSalary = (): string | undefined => {
     if (pool.classifications && pool.classifications[0]) {
       const classification = pool.classifications[0];
-      if (!classification.minSalary && !classification.maxSalary) {
-        return null;
-      }
-      if (classification.minSalary && !classification.maxSalary) {
-        return `$${classification.minSalary} -`;
-      }
-      if (!classification.minSalary && classification.maxSalary) {
-        return `- $${classification.maxSalary}`;
-      }
-      return `$${classification.minSalary} - $${classification.maxSalary}`;
+      return localizeSalaryRange(
+        classification.minSalary,
+        classification.maxSalary,
+        locale,
+      );
     }
-    return null;
+    return undefined;
   };
 
   const poolEssentialSkillKeys = (): JSX.Element[] | null => {
