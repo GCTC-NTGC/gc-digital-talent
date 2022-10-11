@@ -109,7 +109,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.11",
+    "@heroicons/react": "^2.0.12",
     "@microsoft/applicationinsights-react-js": "^3.4.0",
     "@microsoft/applicationinsights-web": "^2.8.8",
     "core-js": "^3.25.4",

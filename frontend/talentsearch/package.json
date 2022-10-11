@@ -110,7 +110,7 @@
     "webpack-shell-plugin-next": "^2.2.2"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.11",
+    "@heroicons/react": "^2.0.12",
     "core-js": "^3.25.4",
     "debounce": "^1.2.1",
     "dotenv": "^16.0.3",
