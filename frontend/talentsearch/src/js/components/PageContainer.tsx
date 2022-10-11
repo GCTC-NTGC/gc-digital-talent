@@ -14,6 +14,7 @@ import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import NotAuthorized from "@common/components/NotAuthorized";
 import { useApplicantProfileRoutes } from "../applicantProfileRoutes";
+import { useTalentSearchRoutes } from "../talentSearchRoutes";
 
 export const exactMatch = (ref: string | null, test: string): boolean =>
   ref === test;
@@ -118,6 +119,9 @@ const TalentSearchNotAuthorized: React.FC = () => {
   );
 };
 
+const notFound = <TalentSearchNotFound />;
+const notAuthorized = <TalentSearchNotAuthorized />;
+
 export const PageContainer: React.FC<{
   menuItems: ReactElement[];
   authLinks: ReactElement[];
@@ -125,15 +129,18 @@ export const PageContainer: React.FC<{
 }> = ({ menuItems, contentRoutes, authLinks }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
-  // stabilize components that will not change during life of app, avoid render loops in router
-  const notFoundComponent = useRef(<TalentSearchNotFound />);
-  const notAuthorizedComponent = useRef(<TalentSearchNotAuthorized />);
-  const content = useRouter(
-    contentRoutes,
-    notFoundComponent.current,
-    notAuthorizedComponent.current,
-    paths.createAccount(),
-  );
+  const tsPaths = useTalentSearchRoutes();
+  const content = useRouter({
+    routes: contentRoutes,
+    components: {
+      notAuthorized,
+      notFound,
+    },
+    paths: {
+      welcomeRoute: paths.createAccount(),
+      notFoundRoute: tsPaths.notFound(),
+    },
+  });
   return (
     <>
       <ScrollToTop />

@@ -95,18 +95,20 @@ interface DashboardProps {
   contentRoutes: Routes<RouterResult>;
 }
 
+const notFound = <AdminNotFound />;
+const notAuthorized = <AdminNotAuthorized />;
+
 const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
   const isSmallScreen = useIsSmallScreen();
   const [isMenuOpen, setMenuOpen] = React.useState(!isSmallScreen);
   const intl = useIntl();
-  // stabilize component that will not change during life of app, avoid render loops in router
-  const notFoundComponent = useRef(<AdminNotFound />);
-  const notAuthorizedComponent = useRef(<AdminNotAuthorized />);
-  const content = useRouter(
-    contentRoutes,
-    notFoundComponent.current,
-    notAuthorizedComponent.current,
-  );
+  const content = useRouter({
+    routes: contentRoutes,
+    components: {
+      notFound,
+      notAuthorized,
+    },
+  });
 
   const handleMenuToggle = () => {
     setMenuOpen(!isMenuOpen);
