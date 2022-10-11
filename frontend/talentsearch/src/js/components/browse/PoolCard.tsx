@@ -9,14 +9,19 @@ import {
   localizeSalaryRange,
 } from "@common/helpers/localize";
 import { formattedDateMonthDayYear } from "@common/helpers/dateUtils";
+import Heading, { type HeadingLevel } from "@common/components/Heading";
 import { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
 export interface CardProps {
   pool: PoolAdvertisement;
+  headingLevel?: HeadingLevel;
 }
 
-const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
+const PoolCard = ({
+  pool,
+  headingLevel = "h3",
+}: CardProps & React.HTMLProps<HTMLDivElement>) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useDirectIntakeRoutes();
@@ -68,9 +73,11 @@ const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
         data-h2-background-color="base(dt-white)"
         data-h2-padding="base(x.75)"
       >
-        <h6
-          data-h2-font-weight="base(700)"
+        <Heading
+          level={headingLevel}
+          size="h6"
           data-h2-padding="base(0, 0, x0.75, 0)"
+          data-h2-font-weight="base(700)"
         >
           {poolClassificationString()
             ? poolClassificationString()
@@ -80,7 +87,7 @@ const PoolCard = ({ pool }: CardProps & React.HTMLProps<HTMLDivElement>) => {
                 id: "y+OZjx",
               })}{" "}
           {pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : ""}
-        </h6>
+        </Heading>
 
         <p data-h2-padding="base(0, 0, x0.75, 0)">
           {pool.description ? pool.description[locale] : ""}
