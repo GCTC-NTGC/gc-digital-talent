@@ -69,12 +69,12 @@ const PoolCard = ({
       className="card"
       data-h2-display="base(block)"
       data-h2-shadow="base(s)"
-      data-h2-max-width="base(40rem)"
+      data-h2-max-width="base(50rem)"
     >
       <div
         className="card__body"
         data-h2-background-color="base(dt-white)"
-        data-h2-padding="base(x.75)"
+        data-h2-padding="base(x0.25, x0.75, x0.75, x0.75)"
       >
         <Heading
           level={headingLevel}
@@ -131,12 +131,15 @@ const PoolCard = ({
             :{" "}
           </span>{" "}
           <span>
-            {<Chips>{skillResults}</Chips> ||
+            {skillResults ? (
+              <Chips>{skillResults}</Chips>
+            ) : (
               intl.formatMessage({
                 defaultMessage: "(No skills required)",
                 description: "No skills required",
                 id: "WbET08",
-              })}
+              })
+            )}
           </span>
         </div>
 
