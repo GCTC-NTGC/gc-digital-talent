@@ -7,7 +7,7 @@ import { PugDark, PugLight } from "./Icons";
 const Error404 = () => {
   const intl = useIntl();
   return (
-    <div>
+    <>
       <div
         data-h2-background-color="base(tm-linear-divider)"
         data-h2-display="base(block)"
@@ -22,7 +22,6 @@ const Error404 = () => {
           data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-text-align="base(center)"
         >
-          {/* Needs translation strings */}
           <h1 data-h2-font-size="base(h4, 1.4)" data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage:
@@ -86,7 +85,7 @@ const Error404 = () => {
         data-h2-display="base(block)"
         data-h2-height="base(x1)"
       />
-    </div>
+    </>
   );
 };
 
