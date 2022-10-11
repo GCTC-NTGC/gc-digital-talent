@@ -179,10 +179,10 @@ describe("ExperienceForm", () => {
       screen.getByRole("textbox", { name: /experience description/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", { name: /i agree/i }),
+      screen.getByRole("checkbox", { name: /disclaimer/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", { name: /currently active/i }),
+      screen.getByRole("checkbox", { name: /current experience/i }),
     ).toBeInTheDocument();
 
     expect(screen.getByLabelText("Start Date")).toBeInTheDocument();
@@ -208,7 +208,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("textbox", { name: /team/i })).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", { name: /currently active/i }),
+      screen.getByRole("checkbox", { name: /current role/i }),
     ).toBeInTheDocument();
 
     expect(screen.getByLabelText("Start Date")).toBeInTheDocument();
