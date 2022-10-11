@@ -21,7 +21,7 @@ mutation updatePoolAdvertisement(
 
 mutation publishPoolAdvertisement($id: ID!) {
   publishPoolAdvertisement(id: $id) {
-    isPublished
+    publishedAt
   }
 }
 

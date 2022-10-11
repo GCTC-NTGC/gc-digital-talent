@@ -6,6 +6,7 @@ use App\GraphQL\Validators\Mutation\PublishPoolAdvertisementValidator;
 use App\Models\Pool;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
+use Carbon\Carbon;
 
 final class PublishPoolAdvertisement
 {
@@ -23,7 +24,8 @@ final class PublishPoolAdvertisement
         if ($validator->fails()) {
             throw new ValidationException($validator->errors()->first(), $validator);
         }
-        $poolAdvertisement->update(['is_published' => true]);
+        $dateNow = Carbon::now();
+        $poolAdvertisement->update(['published_at' => $dateNow]);
         return $poolAdvertisement;
     }
 }

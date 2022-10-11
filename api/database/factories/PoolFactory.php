@@ -38,7 +38,7 @@ class PoolFactory extends Factory
             'key_tasks' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
             'your_impact' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
             'pool_status' => $this->faker->randomElement(ApiEnums::poolStatuses()),
-            'is_published' => $this->faker->boolean(),
+            'published_at' => $this->faker->boolean() ? $this->faker->dateTimeBetween('-30 days', '-1 days') : null,
             'expiry_date' => $this->faker->dateTimeBetween('-1 months', '1 months', 'America/Vancouver'),
             'security_clearance' => $this->faker->randomElement(ApiEnums::poolAdvertisementSecurity()),
             'advertisement_language' => $this->faker->randomElement(ApiEnums::poolAdvertisementLanguages()),
@@ -46,6 +46,7 @@ class PoolFactory extends Factory
             'is_remote' => $isRemote,
             'stream' => $this->faker->optional->randomElement(ApiEnums::poolStreams()),
             'process_number' => $this->faker->optional->word(),
+            'publishing_group' => $this->faker->optional->randomElement(ApiEnums::publishingGroups()),
         ];
     }
 

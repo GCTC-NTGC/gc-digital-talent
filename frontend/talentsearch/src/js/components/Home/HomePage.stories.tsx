@@ -22,4 +22,5 @@ const VIEWPORTS = [
 export const Default = Template.bind({});
 Default.parameters = {
   chromatic: { viewports: VIEWPORTS },
+  hasDarkMode: true,
 };
