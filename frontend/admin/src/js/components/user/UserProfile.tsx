@@ -23,6 +23,7 @@ const UserProfileApi: React.FunctionComponent<{
       {userData?.applicant ? (
         <UserProfile
           applicant={userData.applicant}
+          headingLevel="h3"
           sections={{
             about: {
               isVisible: true,
