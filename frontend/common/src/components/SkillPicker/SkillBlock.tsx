@@ -4,13 +4,10 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
 import Button from "../Button";
 import Collapsible from "../Collapsible";
-import Pill from "../Pill";
 
 import useLocale from "../../hooks/useLocale";
 import { getLocalizedName } from "../../helpers/localize";
-import type { Skill, SkillCategory } from "../../api/generated";
-import { notEmpty, uniqueItems } from "../../helpers/util";
-import { getSkillCategory } from "../../constants/localizedConstants";
+import type { Skill } from "../../api/generated";
 
 interface SkillLabelWrapperProps {
   children: React.ReactNode;
@@ -26,40 +23,21 @@ const SkillLabelWrapper = ({ children }: SkillLabelWrapperProps) => (
     data-h2-font-weight="base(700)"
   >
     <CheckCircleIcon data-h2-width="base(x.75)" />
-    {children}
+    <span>{children}</span>
   </span>
 );
 
 interface SkillLabelProps {
   children: React.ReactNode;
-  categories: Array<SkillCategory>;
   isAdded: boolean;
 }
 
-const SkillLabel = ({ children, categories, isAdded }: SkillLabelProps) => {
-  const intl = useIntl();
+const SkillLabel = ({ children, isAdded }: SkillLabelProps) => {
   const Wrapper = isAdded ? SkillLabelWrapper : React.Fragment;
 
   return (
     <Wrapper>
-      <span
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-gap="base(x.5, 0)"
-      >
-        <span>{children}</span>
-        {categories.map((category) => (
-          <Pill
-            color={isAdded ? "primary" : "neutral"}
-            mode="outline"
-            size="sm"
-            data-h2-font-weight="base(400)"
-            key={category}
-          >
-            {intl.formatMessage(getSkillCategory(category))}
-          </Pill>
-        ))}
-      </span>
+      <span>{children}</span>
     </Wrapper>
   );
 };
@@ -72,7 +50,7 @@ interface SkillBlockProps {
 }
 
 const SkillBlock = ({
-  skill: { id, name, description, families },
+  skill: { id, name, description },
   isAdded,
   onAddSkill,
   onRemoveSkill,
@@ -83,10 +61,6 @@ const SkillBlock = ({
 
   const definition = description ? description[locale] : null;
   const skillName = getLocalizedName(name, intl);
-  const allCategories = families
-    ?.map((family) => family.category)
-    .filter(notEmpty);
-  const categories = uniqueItems<SkillCategory>(allCategories || []);
 
   const Wrapper = definition ? Collapsible.Root : "div";
 
@@ -99,9 +73,7 @@ const SkillBlock = ({
         data-h2-justify-content="base(space-between)"
         data-h2-gap="base(0, x.25) p-tablet(x.5, 0)"
       >
-        <SkillLabel categories={categories} isAdded={isAdded}>
-          {skillName}
-        </SkillLabel>
+        <SkillLabel isAdded={isAdded}>{skillName}</SkillLabel>
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(flex-end)"
