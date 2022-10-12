@@ -13,51 +13,49 @@ import EditPoolStory, {
   ExpiredAdvertisement,
 } from "./EditPool.stories";
 
+jest.setTimeout(30 * 1000);
+
 describe("Edit Pool tests", () => {
-  // This test is prone to going beyond the 5s default timeout.
-  const extendedTimeout = 10 * 1000;
-  it(
-    "should have save buttons that emit a save event when the status is draft",
-    async () => {
-      const handleSave = jest.fn();
-      const props = {
-        ...EditPoolStory.args,
-        ...DraftAdvertisement.args,
-        onSave: handleSave,
-      } as EditPoolFormProps;
+  it("should have save buttons that emit a save event when the status is draft", async () => {
+    const handleSave = jest.fn();
+    const props = {
+      ...EditPoolStory.args,
+      ...DraftAdvertisement.args,
+      onSave: handleSave,
+    } as EditPoolFormProps;
 
-      await act(async () => {
-        render(<DraftAdvertisement {...props} />);
-      });
+    await act(async () => {
+      render(<DraftAdvertisement {...props} />);
+    });
 
-      await act(async () => {
-        fireEvent.click(
-          screen.getByRole("button", { name: /save pool name/i }),
-        );
-        fireEvent.click(
-          screen.getByRole("button", { name: /save closing date/i }),
-        );
-        fireEvent.click(
-          screen.getByRole("button", { name: /save introduction/i }),
-        );
-        fireEvent.click(
-          screen.getByRole("button", { name: /save work tasks/i }),
-        );
-        fireEvent.click(
-          screen.getByRole("button", { name: /save essential skills/i }),
-        );
-        fireEvent.click(
-          screen.getByRole("button", { name: /save asset skills/i }),
-        );
-        fireEvent.click(
-          screen.getByRole("button", { name: /save other requirements/i }),
-        );
-      });
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save pool name/i }),
+      );
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save closing date/i }),
+      );
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save introduction/i }),
+      );
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save work tasks/i }),
+      );
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save essential skills/i }),
+      );
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save asset skills/i }),
+      );
+      fireEvent.click(
+        await screen.getByRole("button", {
+          name: /save other requirements/i,
+        }),
+      );
+    });
 
-      expect(handleSave).toHaveBeenCalledTimes(7);
-    },
-    extendedTimeout,
-  );
+    expect(handleSave).toHaveBeenCalledTimes(7);
+  });
 
   it("should have a publish button that pops a modal and emits an event when the status is draft", async () => {
     const handleEvent = jest.fn();
