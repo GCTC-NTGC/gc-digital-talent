@@ -184,11 +184,7 @@ class DatabaseSeeder extends Seeder
         PoolCandidate::factory()->count(1)->sequence(fn () => [
             'pool_id' => $pool->id,
             'user_id' => $user->id,
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-            // match arrays from the user
-            $candidate->expectedClassifications()->sync($user->expectedClassifications()->pluck('classifications.id')->toArray());
-            $candidate->cmoAssets()->sync($user->cmoAssets()->pluck('cmo_assets.id')->toArray());
-
+        ])->for($user)->afterCreating(function (PoolCandidate $candidate) {
             if ($candidate->submitted_at) {
                 $candidate->createSnapshot();
             }
