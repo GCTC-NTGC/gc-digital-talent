@@ -30,42 +30,11 @@ class PoolCandidateFactory extends Factory
         return [
             'cmo_identifier' => $this->faker->word(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
-            'is_woman' => $this->faker->boolean(),
-            'has_disability' => $this->faker->boolean(),
-            'is_indigenous' => $this->faker->boolean(),
-            'is_visible_minority' => $this->faker->boolean(),
-            'has_diploma' => $this->faker->boolean(),
-            'language_ability' => $this->faker->randomElement(['FRENCH', 'ENGLISH', 'BILINGUAL']),
-            'location_preferences' => $this->faker->randomElements(
-                [
-                    'TELEWORK',
-                    'NATIONAL_CAPITAL',
-                    'ATLANTIC',
-                    'QUEBEC',
-                    'ONTARIO',
-                    'PRAIRIE',
-                    'BRITISH_COLUMBIA',
-                    'NORTH',
-                ],
-                3
-            ),
-            'expected_salary' => $this->faker->randomElements(
-                [
-                    '_50_59K',
-                    '_60_69K',
-                    '_70_79K',
-                    '_80_89K',
-                    '_90_99K',
-                    '_100K_PLUS',
-                ],
-                3
-            ),
             'pool_candidate_status' => $this->faker->boolean() ?
                                                             $this->faker->randomElement([ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])  :
                                                             ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
             'user_id' => User::factory(),
             'pool_id' => Pool::factory(),
-            'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'notes' => $this->faker->paragraphs(3, true),
             'submitted_at' => null,
             'signature' => null,
