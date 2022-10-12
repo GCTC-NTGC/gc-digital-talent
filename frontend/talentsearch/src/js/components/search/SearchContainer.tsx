@@ -175,9 +175,11 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           >
             {intl.formatMessage(
               {
-                defaultMessage:
-                  "Results: <primary><testId>{candidateCount}</testId></primary> matching candidates",
-                id: "1xRst5",
+                defaultMessage: `{candidateCount, plural,
+                  one {Results: <primary><testId>{candidateCount}</testId></primary> matching candidate}
+                  other {Results: <primary><testId>{candidateCount}</testId></primary> matching candidates}
+                }`,
+                id: "vj4Q0V",
                 description:
                   "Heading for total matching candidates in results section of search page.",
               },
