@@ -30,8 +30,7 @@ module.exports = {
   "addons": [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "storybook-addon-intl",
-    "storybook-addon-mock",
+    "storybook-addon-intl"
   ],
   "core": {
     "builder": "webpack5"
