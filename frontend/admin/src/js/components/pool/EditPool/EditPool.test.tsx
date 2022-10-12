@@ -13,7 +13,7 @@ import EditPoolStory, {
   ExpiredAdvertisement,
 } from "./EditPool.stories";
 
-jest.setTimeout(1000 * 1000);
+jest.setTimeout(500 * 1000);
 
 describe("Edit Pool tests", () => {
   it("should have save buttons that emit a save event when the status is draft", async () => {
