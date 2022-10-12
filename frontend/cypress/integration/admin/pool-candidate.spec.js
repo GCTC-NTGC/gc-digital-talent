@@ -30,7 +30,7 @@ describe("Pool Candidates", () => {
   });
 
   if (Cypress.env("FEATURE_APPLICANTSEARCH")) {
-    it("should update pool candidate status", () => {
+    it("should update pool candidate status (FEATURE_APPLICANTSEARCH:on)", () => {
       cy.wait("@gqlgetPoolsQuery");
 
       cy.findAllByRole("link", { name: /view candidates/i })
