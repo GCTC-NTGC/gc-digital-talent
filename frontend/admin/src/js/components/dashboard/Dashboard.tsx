@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 
