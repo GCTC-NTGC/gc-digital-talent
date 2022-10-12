@@ -1425,5 +1425,17 @@
   "L2BR/I": {
     "defaultMessage": "Trois",
     "description": "Placeholder text for third toggle group option"
+  },
+  "ARqO1j": {
+    "defaultMessage": "Chercher les compétences par mot-clé",
+    "description": "Label for the skills search bar."
+  },
+  "SwsGvU": {
+    "defaultMessage": "Filter skills by type/Filtrer les compétences par type",
+    "description": "Label for the skills families dropdown"
+  },
+  "2Ckihd": {
+    "defaultMessage": "Trouvé <primary>{skillCount}</primary> compétences.",
+    "description": "The number of skills found within the skill picker."
   }
 }

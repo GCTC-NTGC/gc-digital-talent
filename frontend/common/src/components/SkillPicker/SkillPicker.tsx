@@ -142,8 +142,8 @@ const SkillPicker = ({
           name="query"
           type="text"
           label={intl.formatMessage({
-            defaultMessage: "Search for specific skill...",
-            id: "JY6WhU",
+            defaultMessage: "Search skills by keyword",
+            id: "ARqO1j",
             description: "Label for the skills search bar.",
           })}
           placeholder={intl.formatMessage({
@@ -156,9 +156,9 @@ const SkillPicker = ({
           id="skillFamilies"
           name="skillFamilies"
           label={intl.formatMessage({
-            defaultMessage: "Skill families",
+            defaultMessage: "Filter skills by type",
             description: "Label for the skills families dropdown",
-            id: "U6Zf0K",
+            id: "SwsGvU",
           })}
           options={skillFamilyOptions}
         />
