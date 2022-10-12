@@ -40,7 +40,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
 
   const labelStyles = {
     "data-h2-margin": "base(0, x.125, 0, 0)",
-    "data-h2-flex-grow": appendLabel ? "base(1)" : undefined,
+    "data-h2-flex-grow": appendLabel ? undefined : "base(1)",
     ...labelSize,
   };
 
