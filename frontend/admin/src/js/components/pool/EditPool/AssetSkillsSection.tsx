@@ -76,18 +76,20 @@ export const AssetSkillsSection = ({
       />
 
       {!formDisabled && (
-        <Button
-          onClick={handleSave}
-          color="cta"
-          mode="solid"
-          disabled={isSubmitting}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Save asset skills",
-            id: "j4G/wv",
-            description: "Text on a button to save the pool asset skills",
-          })}
-        </Button>
+        <p data-h2-margin="base(x1, 0)">
+          <Button
+            onClick={handleSave}
+            color="cta"
+            mode="solid"
+            disabled={isSubmitting}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Save asset skills",
+              id: "j4G/wv",
+              description: "Text on a button to save the pool asset skills",
+            })}
+          </Button>
+        </p>
       )}
     </TableOfContents.Section>
   );

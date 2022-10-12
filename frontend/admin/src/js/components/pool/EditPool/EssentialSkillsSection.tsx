@@ -76,18 +76,20 @@ export const EssentialSkillsSection = ({
       />
 
       {!formDisabled && (
-        <Button
-          onClick={handleSave}
-          color="cta"
-          mode="solid"
-          disabled={isSubmitting}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Save essential skills",
-            id: "2asU3k",
-            description: "Text on a button to save the pool essential skills",
-          })}
-        </Button>
+        <p data-h2-margin="base(x1, 0)">
+          <Button
+            onClick={handleSave}
+            color="cta"
+            mode="solid"
+            disabled={isSubmitting}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Save essential skills",
+              id: "2asU3k",
+              description: "Text on a button to save the pool essential skills",
+            })}
+          </Button>
+        </p>
       )}
     </TableOfContents.Section>
   );
