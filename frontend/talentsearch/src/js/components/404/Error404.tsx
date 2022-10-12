@@ -1,11 +1,17 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import useTheme from "@common/hooks/useTheme";
 
+import Heading from "@common/components/Heading";
 import CallToAction from "../CallToAction";
 import { PugDark, PugLight } from "./Icons";
 
 const Error404 = () => {
   const intl = useIntl();
+  const { mode } = useTheme();
+
+  const Image = mode === "dark" ? PugDark : PugLight;
+
   return (
     <>
       <div
@@ -22,20 +28,23 @@ const Error404 = () => {
           data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-text-align="base(center)"
         >
-          <h1 data-h2-font-size="base(h4, 1.4)" data-h2-font-weight="base(700)">
+          <Heading
+            level="h1"
+            data-h2-font-size="base(h4, 1.4)"
+            data-h2-font-weight="base(700)"
+            data-h2-margin="base(0)"
+          >
             {intl.formatMessage({
               defaultMessage:
-                "Sorry eh! We can't find the page you were looking for.",
-              id: "85bL9g",
+                "Sorry, eh! We can't find the page you were looking for.",
+              id: "yExs/j",
               description: "Title for the 404 page not found page.",
             })}
-          </h1>
-          <PugLight
-            data-h2-display="base(inline-block) base:dark(none)"
-            data-h2-width="base(70%)"
-          />
-          <PugDark
-            data-h2-display="base(none) base:dark(inline-block)"
+          </Heading>
+          <Image
+            data-h2-display="base(inline-block)"
+            data-h2-height="base(auto)"
+            data-h2-margin="base(x2, 0)"
             data-h2-width="base(70%)"
           />
           <p data-h2-margin="base(x1, 0) p-tablet(0, 0, x3, 0)">
