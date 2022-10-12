@@ -104,7 +104,7 @@ describe("Pool Candidates", () => {
       cy.expectToast(/pool candidate status updated successfully/i);
     });
   } else {
-    it("should edit and update pool candidate", () => {
+    it("should edit and update pool candidate (FEATURE_APPLICANTSEARCH:off)", () => {
       cy.wait("@gqlgetPoolsQuery");
 
       cy.findAllByRole("link", { name: /view candidates/i })
