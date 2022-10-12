@@ -6,7 +6,7 @@ import React from "react";
 import { act, fireEvent, screen, within } from "@testing-library/react";
 import { currentDate } from "@common/helpers/formUtils";
 import { render } from "@common/helpers/testUtils";
-import { EditPoolFormProps } from "./EditPool";
+import { EditPoolForm, EditPoolFormProps } from "./EditPool";
 import EditPoolStory, {
   DraftAdvertisement,
   PublishedAdvertisement,
@@ -25,7 +25,7 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     await act(async () => {
-      render(<DraftAdvertisement {...props} />);
+      render(<EditPoolForm {...props} />);
     });
 
     await act(async () => {
@@ -34,7 +34,31 @@ describe("Edit Pool tests", () => {
       );
     });
 
-    expect(handleSave).toHaveBeenCalledTimes(1);
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save closing date/i }),
+      );
+    });
+
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save introduction/i }),
+      );
+    });
+
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save work tasks/i }),
+      );
+    });
+
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save other requirements/i }),
+      );
+    });
+
+    expect(handleSave).toHaveBeenCalledTimes(5);
   });
 
   it("should have a publish button that pops a modal and emits an event when the status is draft", async () => {
