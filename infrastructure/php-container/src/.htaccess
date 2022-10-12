@@ -104,16 +104,19 @@ DirectorySlash off
 
     # Direct static site requests to index files
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_URI} /tc-report/_site/(.+)/?$
+    RewriteCond %{REQUEST_URI} ^/tc-report/_site/(.+)/?$
+    RewriteCond %{REQUEST_URI} !\.html$
     RewriteRule ^ tc-report/_site/%1/index.html [L]
 
     # Send tc-report/assets requests to correct folder
-    RewriteCond %{REQUEST_URI} /tc-report/assets/
+    RewriteCond %{REQUEST_URI} ^/tc-report/assets/
     RewriteRule ^tc-report/assets/(.*)$ tc-report/_site/assets/$1 [L]
 
     # Send all other requests to /tc-report/_site
-    RewriteCond %{REQUEST_URI} !/tc-report/_site
+    RewriteCond %{REQUEST_URI} !^/tc-report/_site
     RewriteRule ^(.*)/?$ tc-report/_site/$1 [L]
+
+    ErrorDocument 404 /404
 </IfModule>
 
 <IfModule mod_headers.c>
