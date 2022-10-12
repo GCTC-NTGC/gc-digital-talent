@@ -37,28 +37,6 @@ describe("Talentsearch Direct Intake Page", () => {
     })
   })
 
-  context('logged in as applicant', () => {
-    beforeEach(() => cy.loginByRole('applicant'))
-
-    it("allows an applicant to apply to a pool", () => {
-      cy.visit('/en/browse/pools')
-      cy.contains("Browse Pools")
-
-      cy.findByRole('link', { name: 'CMO Digital Careers' })
-        .should('exist').and('be.visible')
-        .click()
-
-      cy.wait("@gqlgetPoolAdvertisementQuery");
-
-      cy.findAllByRole('button', { name: /Apply for this process/i })
-        .should('exist')
-        .and('be.visible')
-        .click({multiple: true});
-
-      // TODO: need to fill this out once it is possible to apply a pool in the app
-    });
-  })
-
   context('logged in with no email', () => {
     beforeEach(() => cy.loginByRole('noemail'));
 

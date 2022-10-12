@@ -806,6 +806,7 @@ type Query {
     @count(model: "User", scopes: ["availableForOpportunities"])
   pool(id: ID! @eq): Pool @find
   poolAdvertisement(id: ID! @eq): PoolAdvertisement @find(model: "Pool")
+  poolAdvertisements: [PoolAdvertisement]! @all(model: "Pool")
   poolByKey(key: String! @eq): Pool @find
   pools: [Pool]! @all
   poolCandidate(id: ID! @eq): PoolCandidate
