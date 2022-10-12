@@ -54,11 +54,23 @@ describe("Edit Pool tests", () => {
 
     await act(async () => {
       fireEvent.click(
+        await screen.getByRole("button", { name: /save essential skills/i }),
+      );
+    });
+
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save asset skills/i }),
+      );
+    });
+
+    await act(async () => {
+      fireEvent.click(
         await screen.getByRole("button", { name: /save other requirements/i }),
       );
     });
 
-    expect(handleSave).toHaveBeenCalledTimes(5);
+    expect(handleSave).toHaveBeenCalledTimes(7);
   });
 
   it("should have a publish button that pops a modal and emits an event when the status is draft", async () => {
