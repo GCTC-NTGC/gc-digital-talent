@@ -42,7 +42,10 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   const error = get(errors, name)?.message;
 
   return (
-    <div data-h2-margin="base(0, 0, x.125, 0)">
+    <div
+      data-h2-position="base(relative)"
+      data-h2-margin="base(0, 0, x.125, 0)"
+    >
       {!boundingBox ? (
         <InputWrapper
           inputId={id}
@@ -72,6 +75,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           required={!!rules.required}
           context={context}
           error={error}
+          fillLabel
         >
           <div
             data-h2-background-color="base(dt-white)"
