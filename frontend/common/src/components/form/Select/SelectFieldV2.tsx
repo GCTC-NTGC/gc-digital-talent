@@ -1,14 +1,20 @@
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import type { RegisterOptions } from "react-hook-form";
-import ReactSelect, { components } from "react-select";
-import type { NoticeProps, PropsValue, GroupBase, Options } from "react-select";
+import ReactSelect, { components, MultiValue, SingleValue } from "react-select";
+import type { NoticeProps, GroupBase, OptionsOrGroups } from "react-select";
 import camelCase from "lodash/camelCase";
+import flatMap from "lodash/flatMap";
 import { useIntl } from "react-intl";
 import { errorMessages } from "../../../messages";
 import { InputWrapper } from "../../inputPartials";
 
 export type Option = { value: string | number; label: string };
+export type Group<T> = {
+  label: string;
+  options: Array<T>;
+};
+export type Options = OptionsOrGroups<Option, Group<Option>>;
 
 // TODO: Eventually extend react-select's Select Props, so that anything extra is passed through.
 export interface SelectFieldV2Props {
@@ -21,7 +27,7 @@ export interface SelectFieldV2Props {
   /** Optional string specifying a name for the input control. Default: `id` value. */
   name?: string;
   /** List of options for the select element. */
-  options?: Options<Option>;
+  options?: Options;
   /** Object set of validation rules to impose on input. */
   rules?: RegisterOptions;
   /** Default message shown on select input. */
@@ -43,9 +49,9 @@ function isArray<T>(arg: unknown): arg is readonly T[] {
 const LocalizedLoadingMessage = <
   Option_,
   IsMulti extends boolean,
-  Group extends GroupBase<Option_>,
+  Group_ extends GroupBase<Option_>,
 >(
-  props: NoticeProps<Option_, IsMulti, Group>,
+  props: NoticeProps<Option_, IsMulti, Group_>,
 ) => {
   const { formatMessage } = useIntl();
 
@@ -65,9 +71,9 @@ const LocalizedLoadingMessage = <
 const LocalizedNoOptionsMessage = <
   Option_,
   IsMulti extends boolean,
-  Group extends GroupBase<Option_>,
+  Group_ extends GroupBase<Option_>,
 >(
-  props: NoticeProps<Option_, IsMulti, Group>,
+  props: NoticeProps<Option_, IsMulti, Group_>,
 ) => {
   const { formatMessage } = useIntl();
 
@@ -157,30 +163,54 @@ const SelectFieldV2 = ({
                * format that react-select understands. */
               const convertValueToOption = (
                 val: Option["value"] | Option["value"][],
-              ) =>
-                isArray<Option["value"]>(val)
-                  ? // Converts to Option[] for MultiSelect.
-                    options.filter((o) => val?.includes(o.value)) || []
-                  : // Converts to Option or null for single Select.
-                    options.find((o) => val === o.value) || null;
+              ) => {
+                const hasGroups = options.some((option) => "options" in option);
+                const flattenedOptions = hasGroups
+                  ? flatMap(options, (o) => ("options" in o ? o.options : o))
+                  : options;
+
+                if (isArray<Option["value"] | Options>(val)) {
+                  return (
+                    flattenedOptions.filter((o) => {
+                      return "value" in o ? val?.includes(o.value) : false;
+                    }) || []
+                  );
+                }
+                return (
+                  flattenedOptions.find((o) => {
+                    return "value" in o && val === o.value;
+                  }) || null
+                );
+              };
 
               /** Converts react-select's Option type storage formats into state
                * we want in react-hook-form: a value or array of values. This
                * works whether react-select is storing a MultiValue (Option[]))
                * or SingleValue (Option). */
               const convertSingleOrMultiOptionsToValues = (
-                singleOrMulti: PropsValue<Option>,
-              ) =>
-                /* eslint-disable no-nested-ternary, prettier/prettier */
-                isArray<Option>(singleOrMulti)
-                  ? // Stores MultiValue as array of values.
-                    field.onChange(singleOrMulti.map((o) => o.value))
-                  : forceArrayFormValue
-                  ? // Stores SingleValue as array of one value, or null as empty array.
-                    field.onChange(singleOrMulti ? [singleOrMulti?.value] : [])
-                  : // Stores SingleValue as value or null
-                    field.onChange(singleOrMulti?.value || null);
-              /* eslint-enable no-nested-ternary, prettier/prettier */
+                newValue:
+                  | MultiValue<Option | Group<Option>>
+                  | SingleValue<Option | Group<Option>>,
+              ) => {
+                // Stores MultiValue as array of values.
+                if (isArray<Option>(newValue)) {
+                  return field.onChange(newValue.map((o) => o.value));
+                }
+
+                // Stores SingleValue as array of one value, or null as empty array.
+                if (forceArrayFormValue) {
+                  return field.onChange(
+                    newValue
+                      ? ["value" in newValue ? newValue?.value : newValue]
+                      : [],
+                  );
+                }
+
+                // Stores SingleValue as value or null
+                return field.onChange(
+                  newValue && "value" in newValue ? newValue.value : null,
+                );
+              };
 
               // For WCAG-compliant contrasts.
               const accessibleTextStyle = {

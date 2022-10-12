@@ -10,7 +10,7 @@ import { useIntl } from "react-intl";
 
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { IconLink } from "@common/components/Link";
-import MissingSkills from "@common/components/skills/MissingSkills";
+import MissingSkills from "@common/components/MissingSkills";
 import Well from "@common/components/Well";
 import { notEmpty } from "@common/helpers/util";
 import { navigationMessages } from "@common/messages";

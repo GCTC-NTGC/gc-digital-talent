@@ -3,8 +3,8 @@
  */
 
 import React from "react";
-import { axeTest, render, within } from "../../../helpers/testUtils";
-import { fakeSkills } from "../../../fakeData";
+import { axeTest, render, within } from "../../helpers/testUtils";
+import { fakeSkills } from "../../fakeData";
 
 import MissingSkills, { type MissingSkillsProps } from "./MissingSkills";
 

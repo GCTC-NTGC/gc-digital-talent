@@ -1,75 +1,77 @@
 /**
  * @jest-environment jsdom
  */
-import { currentDate } from "@common/helpers/formUtils";
 import "@testing-library/jest-dom";
-import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import React from "react";
-import { IntlProvider, MessageFormatElement } from "react-intl";
-import { EditPoolFormProps } from "./EditPool";
+import { act, fireEvent, screen, within } from "@testing-library/react";
+import { currentDate } from "@common/helpers/formUtils";
+import { render } from "@common/helpers/testUtils";
+import { EditPoolForm, EditPoolFormProps } from "./EditPool";
 import EditPoolStory, {
   DraftAdvertisement,
   PublishedAdvertisement,
   ExpiredAdvertisement,
 } from "./EditPool.stories";
 
-const renderWithReactIntl = (
-  component: React.ReactNode,
-  locale?: "en" | "fr",
-  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
-) => {
-  return render(
-    <IntlProvider locale={locale || "en"} messages={messages}>
-      {component}
-    </IntlProvider>,
-  );
-};
+jest.setTimeout(500 * 1000);
 
 describe("Edit Pool tests", () => {
-  // This test is prone to going beyond the 5s default timeout.
-  const extendedTimeout = 10 * 1000;
-  it(
-    "should have save buttons that emit a save event when the status is draft",
-    async () => {
-      const handleSave = jest.fn();
-      const props = {
-        ...EditPoolStory.args,
-        ...DraftAdvertisement.args,
-        onSave: handleSave,
-      } as EditPoolFormProps;
+  it("should have save buttons that emit a save event when the status is draft", async () => {
+    const handleSave = jest.fn();
+    const props = {
+      ...EditPoolStory.args,
+      ...DraftAdvertisement.args,
+      onSave: handleSave,
+    } as EditPoolFormProps;
 
-      await act(async () => {
-        renderWithReactIntl(<DraftAdvertisement {...props} />);
-      });
+    await act(async () => {
+      render(<EditPoolForm {...props} />);
+    });
 
-      await act(async () => {
-        fireEvent.click(
-          screen.getByRole("button", { name: /save pool name/i }),
-        );
-        fireEvent.click(
-          screen.getByRole("button", { name: /save closing date/i }),
-        );
-        fireEvent.click(
-          screen.getByRole("button", { name: /save introduction/i }),
-        );
-        fireEvent.click(
-          screen.getByRole("button", { name: /save work tasks/i }),
-        );
-        fireEvent.click(
-          screen.getByRole("button", { name: /save essential skills/i }),
-        );
-        fireEvent.click(
-          screen.getByRole("button", { name: /save asset skills/i }),
-        );
-        fireEvent.click(
-          screen.getByRole("button", { name: /save other requirements/i }),
-        );
-      });
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save pool name/i }),
+      );
+    });
 
-      expect(handleSave).toHaveBeenCalledTimes(7);
-    },
-    extendedTimeout,
-  );
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save closing date/i }),
+      );
+    });
+
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save introduction/i }),
+      );
+    });
+
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save work tasks/i }),
+      );
+    });
+
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save essential skills/i }),
+      );
+    });
+
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save asset skills/i }),
+      );
+    });
+
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /save other requirements/i }),
+      );
+    });
+
+    expect(handleSave).toHaveBeenCalledTimes(7);
+  });
 
   it("should have a publish button that pops a modal and emits an event when the status is draft", async () => {
     const handleEvent = jest.fn();
@@ -81,7 +83,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithReactIntl(<DraftAdvertisement {...props} />);
+      render(<DraftAdvertisement {...props} />);
       fireEvent.click(screen.getByRole("button", { name: /publish/i }));
     });
 
@@ -111,7 +113,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithReactIntl(<DraftAdvertisement {...props} />);
+      render(<DraftAdvertisement {...props} />);
       fireEvent.click(screen.getByRole("button", { name: /publish/i }));
     });
 
@@ -141,7 +143,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithReactIntl(<DraftAdvertisement {...props} />);
+      render(<DraftAdvertisement {...props} />);
       fireEvent.click(screen.getByRole("button", { name: /delete/i }));
     });
 
@@ -165,7 +167,7 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     await act(async () => {
-      renderWithReactIntl(<DraftAdvertisement {...props} />);
+      render(<DraftAdvertisement {...props} />);
     });
 
     expect(
@@ -189,7 +191,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithReactIntl(<PublishedAdvertisement {...props} />);
+      render(<PublishedAdvertisement {...props} />);
       fireEvent.click(screen.getByRole("button", { name: /close/i }));
     });
 
@@ -218,7 +220,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithReactIntl(<PublishedAdvertisement {...props} />);
+      render(<PublishedAdvertisement {...props} />);
       fireEvent.click(screen.getByRole("button", { name: /extend the date/i }));
     });
 
@@ -244,7 +246,7 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     await act(async () => {
-      renderWithReactIntl(<PublishedAdvertisement {...props} />);
+      render(<PublishedAdvertisement {...props} />);
     });
 
     expect(
@@ -268,7 +270,7 @@ describe("Edit Pool tests", () => {
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithReactIntl(<ExpiredAdvertisement {...props} />);
+      render(<ExpiredAdvertisement {...props} />);
       fireEvent.click(screen.getByRole("button", { name: /extend the date/i }));
     });
 
@@ -297,7 +299,7 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     await act(async () => {
-      renderWithReactIntl(<ExpiredAdvertisement {...props} />);
+      render(<ExpiredAdvertisement {...props} />);
     });
 
     expect(
