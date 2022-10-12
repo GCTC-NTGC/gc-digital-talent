@@ -13,6 +13,7 @@ export interface LinkProps extends React.HTMLProps<HTMLAnchorElement> {
   type?: "button" | "link";
   /** For use when linking to a domain outside of the application */
   external?: boolean;
+  weight?: "bold";
 }
 
 const Link: React.FC<LinkProps> = ({
@@ -21,6 +22,7 @@ const Link: React.FC<LinkProps> = ({
   color,
   disabled,
   external,
+  weight,
   mode = "solid",
   block = false,
   type = "link",
@@ -32,7 +34,14 @@ const Link: React.FC<LinkProps> = ({
   const clickHandler = useLinkClickHandler({
     to: url || "#",
   });
-  const styles = useCommonLinkStyles({ color, disabled, mode, block, type });
+  const styles = useCommonLinkStyles({
+    color,
+    disabled,
+    mode,
+    block,
+    type,
+    weight,
+  });
   return (
     <a
       href={url}

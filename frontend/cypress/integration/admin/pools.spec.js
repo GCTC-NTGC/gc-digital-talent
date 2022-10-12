@@ -112,6 +112,14 @@ describe("Pools", () => {
           .should('have.text', securityRequirement);
       });
 
+    const publishingGroup = "Other"
+    cy.findByRole("combobox", { name: /publishing group/i })
+      .select(publishingGroup)
+      .within(() => {
+        cy.get("option:selected")
+          .should('have.text', publishingGroup);
+      });
+
     cy.findByRole("button", { name: /save other requirements/i }).click();
     expectUpdate();
   });

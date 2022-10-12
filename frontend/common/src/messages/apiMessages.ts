@@ -144,6 +144,12 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
     description:
       "Error message that the pool advertisement must have location filled.",
   },
+  "publishing group required": {
+    defaultMessage: "You are missing a required field: Publishing group",
+    id: "nPKPFa",
+    description:
+      "Error message that the pool advertisement must have publishing group filled.",
+  },
 });
 
 export const tryFindMessageDescriptor = (

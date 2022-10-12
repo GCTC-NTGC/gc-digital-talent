@@ -23,6 +23,7 @@ import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
 import RoleSalarySection from "./ProfileSections/RoleSalarySection";
 import ExperienceSection from "./ExperienceSection";
+import type { HeadingLevel } from "../Heading";
 
 import { notEmpty } from "../../helpers/util";
 import type { Applicant } from "../../api/generated";
@@ -51,6 +52,7 @@ export interface UserProfileProps {
   };
   isNavigationVisible?: boolean;
   subTitle?: React.ReactNode;
+  headingLevel?: HeadingLevel;
 }
 
 const HeadingWrapper: React.FC<{ show: boolean }> = ({ children, show }) => {
@@ -93,6 +95,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
   applicant,
   sections,
   subTitle,
+  headingLevel = "h2",
   isNavigationVisible = true,
 }) => {
   const intl = useIntl();
@@ -212,13 +215,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading
-                  as="h2"
-                  data-h2-font-size="base(h3)"
-                  data-h2-font-weight="base(400)"
-                  data-h2-margin="base(x1.5, 0, x.25, 0)"
-                  icon={LightBulbIcon}
-                >
+                <TableOfContents.Heading as={headingLevel} icon={LightBulbIcon}>
                   {intl.formatMessage({
                     defaultMessage: "My Status",
                     id: "Cx3s+E",
@@ -254,13 +251,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading
-                  as="h2"
-                  data-h2-font-size="base(h3)"
-                  data-h2-font-weight="base(400)"
-                  data-h2-margin="base(x1.5, 0, x.25, 0)"
-                  icon={UserGroupIcon}
-                >
+                <TableOfContents.Heading as={headingLevel} icon={UserGroupIcon}>
                   {intl.formatMessage({
                     defaultMessage: "My hiring pools",
                     id: "fNOekV",
@@ -301,13 +292,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading
-                  as="h2"
-                  data-h2-font-size="base(h3)"
-                  data-h2-font-weight="base(400)"
-                  data-h2-margin="base(x1.5, 0, x.25, 0)"
-                  icon={UserIcon}
-                >
+                <TableOfContents.Heading as={headingLevel} icon={UserIcon}>
                   {intl.formatMessage({
                     defaultMessage: "About Me",
                     id: "CnB8IO",
@@ -352,10 +337,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-text-align="base(center) p-tablet(left)"
               >
                 <TableOfContents.Heading
-                  as="h2"
-                  data-h2-font-size="base(h3)"
-                  data-h2-font-weight="base(400)"
-                  data-h2-margin="base(x1.5, 0, x.25, 0)"
+                  as={headingLevel}
                   icon={ChatBubbleLeftRightIcon}
                 >
                   {intl.formatMessage({
@@ -403,10 +385,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-text-align="base(center) p-tablet(left)"
               >
                 <TableOfContents.Heading
-                  as="h2"
-                  data-h2-font-size="base(h3)"
-                  data-h2-font-weight="base(400)"
-                  data-h2-margin="base(x1.5, 0, x.25, 0)"
+                  as={headingLevel}
                   icon={BuildingLibraryIcon}
                 >
                   {intl.formatMessage({
@@ -453,13 +432,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading
-                  as="h2"
-                  data-h2-font-size="base(h3)"
-                  data-h2-font-weight="base(400)"
-                  data-h2-margin="base(x1.5, 0, x.25, 0)"
-                  icon={MapPinIcon}
-                >
+                <TableOfContents.Heading as={headingLevel} icon={MapPinIcon}>
                   {intl.formatMessage({
                     defaultMessage: "Work Location",
                     id: "F9R74z",
@@ -504,10 +477,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-text-align="base(center) p-tablet(left)"
               >
                 <TableOfContents.Heading
-                  as="h2"
-                  data-h2-font-size="base(h3)"
-                  data-h2-font-weight="base(400)"
-                  data-h2-margin="base(x1.5, 0, x.25, 0)"
+                  as={headingLevel}
                   icon={HandThumbUpIcon}
                 >
                   {intl.formatMessage({
@@ -555,10 +525,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-text-align="base(center) p-tablet(left)"
               >
                 <TableOfContents.Heading
-                  as="h2"
-                  data-h2-font-size="base(h3)"
-                  data-h2-font-weight="base(400)"
-                  data-h2-margin="base(x1.5, 0, x.25, 0)"
+                  as={headingLevel}
                   icon={UserCircleIcon}
                 >
                   {intl.formatMessage({
@@ -606,10 +573,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-text-align="base(center) p-tablet(left)"
               >
                 <TableOfContents.Heading
-                  as="h2"
-                  data-h2-font-size="base(h3)"
-                  data-h2-font-weight="base(400)"
-                  data-h2-margin="base(x1.5, 0, x.25, 0)"
+                  as={headingLevel}
                   icon={CurrencyDollarIcon}
                 >
                   {intl.formatMessage({
@@ -656,13 +620,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading
-                  as="h2"
-                  data-h2-font-size="base(h3)"
-                  data-h2-font-weight="base(400)"
-                  data-h2-margin="base(x1.5, 0, x.25, 0)"
-                  icon={BoltIcon}
-                >
+                <TableOfContents.Heading as={headingLevel} icon={BoltIcon}>
                   {intl.formatMessage({
                     defaultMessage: "My skills and experience",
                     id: "Eui2Wf",

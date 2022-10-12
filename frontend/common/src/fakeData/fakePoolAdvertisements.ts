@@ -1,5 +1,9 @@
 import { faker } from "@faker-js/faker";
-import { FAR_FUTURE_DATE, FAR_PAST_DATE } from "../helpers/dateUtils";
+import {
+  FAR_FUTURE_DATE,
+  FAR_PAST_DATE,
+  PAST_DATE,
+} from "../helpers/dateUtils";
 import { toLocalizedString } from "../helpers/fake";
 import {
   AdvertisementStatus,
@@ -38,7 +42,7 @@ const generatePoolAdvertisement = (
       .between(FAR_PAST_DATE, FAR_FUTURE_DATE)
       .toISOString(),
     id: faker.datatype.uuid(),
-    isPublished: faker.datatype.boolean(),
+    publishedAt: faker.date.between(FAR_PAST_DATE, PAST_DATE).toISOString(),
     keyTasks: toLocalizedString(faker.lorem.paragraphs()),
     name: toLocalizedString(faker.company.catchPhrase()),
     nonessentialSkills: faker.helpers.arrayElements(
