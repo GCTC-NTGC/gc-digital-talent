@@ -49,7 +49,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
               key={poolAdvertisement.id}
               data-h2-margin="base(x0.5, 0, x0.5, 0)"
             >
-              <PoolCard pool={poolAdvertisement} />
+              <PoolCard pool={poolAdvertisement} headingLevel="h2" />
             </li>
           ))}
         </ul>
