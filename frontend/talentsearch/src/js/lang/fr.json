@@ -1528,12 +1528,12 @@
     "defaultMessage": "Groupes visés par l’équité en matière d’emploi",
     "description": "Legend for the employment equity checklist"
   },
-  "1xRst5": {
-    "defaultMessage": "Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères",
+   "vj4Q0V": {
+    "defaultMessage": "{candidateCount, plural, one {Résultats : <primary><testId>{candidateCount}</testId></primary> candidat correspondants à vos critères} other {Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères}}",
     "description": "Heading for total matching candidates in results section of search page."
   },
-  "ICPJ8D": {
-    "defaultMessage": "Il y a <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> candidats qui répondent à vos critères dans ce bassin",
+  "Y2DS//": {
+    "defaultMessage": "{candidateCount, plural, one {Il y a <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> candidat qui répondent à vos critères dans ce bassin} other {Il y a <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> candidats qui répondent à vos critères dans ce bassin}}",
     "description": "Message for total estimated matching candidates in pool"
   },
   "pak8ye": {
