@@ -8,3 +8,6 @@ export const DIRECTINTAKE_APP_DIR =
 export const TALENTSEARCH_RECRUITMENT_EMAIL =
   (process.env.TALENTSEARCH_RECRUITMENT_EMAIL as string) ??
   "recruitmentimit-recrutementgiti@tbs-sct.gc.ca";
+export const FRESHDESK_TICKETS_ENDPOINT =
+  (process.env.FRESHDESK_TICKETS_ENDPOINT as string) ?? "";
+export const FRESHDESK_APIKEY = (process.env.FRESHDESK_APIKEY as string) ?? "";
