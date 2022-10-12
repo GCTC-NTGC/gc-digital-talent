@@ -67,7 +67,7 @@ module.exports = {
         TALENTSEARCH_APP_DIR: JSON.stringify(process.env.TALENTSEARCH_APP_DIR),
         BUILD_DATE: JSON.stringify(new Date()),
         FRESHDESK_API_TICKETS_ENDPOINT: JSON.stringify(process.env.FRESHDESK_API_TICKETS_ENDPOINT),
-        FRESHDESK_APIKEY: JSON.stringify(process.env.FRESHDESK_APIKEY),
+        FRESHDESK_API_KEY: JSON.stringify(process.env.FRESHDESK_API_KEY),
       },
     }),
 
