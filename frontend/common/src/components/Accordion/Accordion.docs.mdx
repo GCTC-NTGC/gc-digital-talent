@@ -1,3 +1,5 @@
+import { Story } from "@storybook/addon-docs";
+
 # Accordion
 
 > A vertically stacked set of interactive headings that each reveal an associated section of content.
@@ -14,6 +16,9 @@ This is a styled version of [@radix-ui/accordion](https://www.radix-ui.com/docs/
 ## Usage
 
 There are two main types of `Accordion` which are defined by the `type` prop. Those are, single and multiple.
+
+<Story id="components-accordion--default" />
+<div style={{height: "1rem"}} />
 
 ### Single
 
@@ -67,18 +72,6 @@ const ExampleAccordionMultipleOpen = () => (
 
 ## Props
 
-### Root
-
-All props from the `@radix-ui/accordion` `Root` component.
-
-See: [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#root)
-
-### Item
-
-All props from the `@radix-ui/accordion` `Item` component.
-
-See: [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#item)
-
 ### Trigger
 
 All props from the `@radix-ui/accordion` `Trigger` component as well as additional style props.
@@ -103,8 +96,7 @@ interface AccordionTriggerProps
  - `headerAs`: Defines the heading rank for the trigger
    - See: [WAI Headings](https://www.w3.org/WAI/tutorials/page-structure/headings/)
 
-### Content
+## Links
 
-All props from the `@radix-ui/accordion` `Content` component.
-
-See: [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#content)
+ - [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion
+ - [Accessibility](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/)
