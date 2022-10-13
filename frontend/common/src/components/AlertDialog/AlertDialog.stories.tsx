@@ -5,19 +5,24 @@ import OverlayOrDialogDecorator from "../../../.storybook/decorators/OverlayOrDi
 
 import Button from "../Button";
 
+import AlertDialogDocs from "./AlertDialog.docs.mdx";
 import AlertDialog from ".";
 
 export default {
   component: AlertDialog.Root,
   title: "Components/Alert Dialog",
-  decorators: [OverlayOrDialogDecorator],
+  parameters: {
+    docs: {
+      page: AlertDialogDocs,
+    },
+  },
 } as ComponentMeta<typeof AlertDialog.Root>;
 
-const Template: ComponentStory<typeof AlertDialog.Root> = () => {
+const Template: ComponentStory<typeof AlertDialog.Root> = ({ defaultOpen }) => {
   const [container, setContainer] = React.useState<HTMLElement | null>(null);
   return (
     <>
-      <AlertDialog.Root defaultOpen>
+      <AlertDialog.Root defaultOpen={defaultOpen}>
         <AlertDialog.Trigger>
           <Button>Open Alert Dialog</Button>
         </AlertDialog.Trigger>
@@ -47,3 +52,19 @@ const Template: ComponentStory<typeof AlertDialog.Root> = () => {
 };
 
 export const Default = Template.bind({});
+Default.decorators = [OverlayOrDialogDecorator];
+Default.args = {
+  defaultOpen: true,
+};
+
+export const NotOpen = Template.bind({});
+NotOpen.decorators = [
+  (Story) => (
+    <div style={{ width: "100%", height: "auto", margin: "1rem 0" }}>
+      <Story />
+    </div>
+  ),
+];
+NotOpen.args = {
+  defaultOpen: false,
+};
