@@ -101,25 +101,26 @@ class PoolCandidate extends Model
 
         // Classifications act as an OR filter. The query should return candidates with any of the classifications.
         // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
-
-        // group these in a subquery to properly handle "OR" condition
+        // mirroring functionality of the classification scope on the User model
         $query->where(function ($query) use ($classifications) {
-            $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
-                foreach ($classifications as $index => $classification) {
-                    if ($index === 0) {
-                        // First iteration must use where instead of orWhere
-                        $query->where(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
-                    } else {
-                        $query->orWhere(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
+            $query->whereHas('user', function ($query) use ($classifications) {
+                $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
+                    foreach ($classifications as $index => $classification) {
+                        if ($index === 0) {
+                            // First iteration must use where instead of orWhere
+                            $query->where(function ($query) use ($classification) {
+                                $query->where('group', $classification['group'])->where('level', $classification['level']);
+                            });
+                        } else {
+                            $query->orWhere(function ($query) use ($classification) {
+                                $query->where('group', $classification['group'])->where('level', $classification['level']);
+                            });
+                        }
                     }
-                }
-            });
-            $query->orWhere(function ($query) use ($classifications) {
-                $this->filterByClassificationToSalary($query, $classifications);
+                });
+                $query->orWhere(function ($query) use ($classifications) {
+                    $this->filterByClassificationToSalary($query, $classifications);
+                });
             });
         });
 
@@ -196,21 +197,22 @@ RAWSQL2;
 
     public function filterByCmoAssets(Builder $query, array $cmoAssets): Builder
     {
-        $query->whereExists(function ($query) use ($cmoAssets) {
-            $query->select('id')
-                ->from('users')
-                ->whereColumn('users.id', 'pool_candidates.user_id')
-                ->whereColumn('users.id', 'pool_candidates.user_id')
-                ->from(function ($query) use ($cmoAssets) {
-                    foreach ($cmoAssets as $cmoAsset) {
-                        $query->from('cmo_assets', function ($query) use ($cmoAsset) {
-                            // $query->where('key', $cmoAsset['key']);
-                        });
-                    }
-                });
-        });
+        // $query->whereExists(function ($query) use ($cmoAssets) {
+        //     $query->select('id')
+        //         ->from('users')
+        //         ->whereColumn('users.id', 'pool_candidates.user_id')
+        //         ->whereColumn('users.id', 'pool_candidates.user_id')
+        //         ->from(function ($query) use ($cmoAssets) {
+        //             foreach ($cmoAssets as $cmoAsset) {
+        //                 $query->from('cmo_assets', function ($query) use ($cmoAsset) {
+        //                     // $query->where('key', $cmoAsset['key']);
+        //                 });
+        //             }
+        //         });
+        // });
         return $query;
     }
+
     public function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         // if no filters provided then return query unchanged
@@ -330,7 +332,7 @@ RAWSQL2;
                     ->from('users')
                     ->whereColumn('users.id', 'pool_candidates.user_id')
                     ->where(function ($query) use ($search) {
-                        $query->where('users.first_name', "ilike", $search)
+                        $query->where('users.first_name', "ilike", "%{$search}%")
                             ->orWhere('users.last_name', "ilike", "%{$search}%")
                             ->orWhere('users.email', "ilike", "%{$search}%");
                     });
