@@ -2,11 +2,68 @@ fragment poolCandidateTable on PoolCandidate {
   id
   pool {
     id
-    name {
-      en
-      fr
+  }
+  user {
+    # Personal info
+    id
+    email
+    firstName
+    lastName
+    telephone
+    preferredLang
+    currentCity
+    currentProvince
+    citizenship
+    armedForcesStatus
+
+    # Language
+    languageAbility
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+
+    # Gov info
+    isGovEmployee
+    govEmployeeType
+    currentClassification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
     }
-    classifications {
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    hasPriorityEntitlement
+    priorityNumber
+
+    # Employment equity
+    isWoman
+    isIndigenous
+    isVisibleMinority
+    hasDisability
+
+    # Applicant info
+    jobLookingStatus
+    hasDiploma
+    locationPreferences
+    locationExemptions
+    acceptedOperationalRequirements
+    expectedSalary
+    expectedClassifications {
       id
       name {
         en
@@ -15,49 +72,23 @@ fragment poolCandidateTable on PoolCandidate {
       group
       level
     }
-  }
-  user {
-    id
-    firstName
-    lastName
-    email
-    preferredLang
-    telephone
+    wouldAcceptTemporary
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
     priorityWeight
-    jobLookingStatus
-    currentCity
-    currentProvince
   }
   cmoIdentifier
   expiryDate
-  isWoman
-  hasDisability
-  isIndigenous
-  isVisibleMinority
-  hasDiploma
-  languageAbility
-  locationPreferences
-  acceptedOperationalRequirements
-  expectedSalary
-  expectedClassifications {
-    id
-    name {
-      en
-      fr
-    }
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
   status
   submittedAt
+  notes
+  archivedAt
 }
 
 fragment poolCandidateForm on PoolCandidate {
