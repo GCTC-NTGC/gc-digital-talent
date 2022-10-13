@@ -9,15 +9,15 @@ import RecruitmentCard from "./RecruitmentCard";
 import UpcomingRecruitmentCard from "./UpcomingRecruitmentCard";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 
-const FlourishTopLight = imageUrl(TALENTSEARCH_APP_DIR, "browse_top_light.svg");
+const FlourishTopLight = imageUrl(TALENTSEARCH_APP_DIR, "browse_top_light.png");
 const FlourishBottomLight = imageUrl(
   TALENTSEARCH_APP_DIR,
-  "browse_bottom_light.svg",
+  "browse_bottom_light.png",
 );
-const FlourishTopDark = imageUrl(TALENTSEARCH_APP_DIR, "browse_top_dark.svg");
+const FlourishTopDark = imageUrl(TALENTSEARCH_APP_DIR, "browse_top_dark.png");
 const FlourishBottomDark = imageUrl(
   TALENTSEARCH_APP_DIR,
-  "browse_bottom_dark.svg",
+  "browse_bottom_dark.png",
 );
 
 // Example recruitments
@@ -64,7 +64,7 @@ const Recruitment = () => {
         data-h2-display="base(block) base:dark(none)"
         data-h2-position="base(absolute)"
         data-h2-offset="base(0, 0, auto, auto)"
-        data-h2-width="base(30vw)"
+        data-h2-width="base(25vw)"
       />
       <img
         // Alt text? Pretty sure these can be ignored by SRs as they serve no informational purpose
@@ -73,7 +73,7 @@ const Recruitment = () => {
         data-h2-display="base(block) base:dark(none)"
         data-h2-position="base(absolute)"
         data-h2-offset="base(auto, auto, 0, 0)"
-        data-h2-width="base(30vw)"
+        data-h2-width="base(25vw)"
       />
       <img
         // Alt text? Pretty sure these can be ignored by SRs as they serve no informational purpose
@@ -82,7 +82,7 @@ const Recruitment = () => {
         data-h2-display="base(none) base:dark(block)"
         data-h2-position="base(absolute)"
         data-h2-offset="base(0, 0, auto, auto)"
-        data-h2-width="base(30vw)"
+        data-h2-width="base(25vw)"
       />
       <img
         // Alt text? Pretty sure these can be ignored by SRs as they serve no informational purpose
@@ -91,7 +91,7 @@ const Recruitment = () => {
         data-h2-display="base(none) base:dark(block)"
         data-h2-position="base(absolute)"
         data-h2-offset="base(auto, auto, 0, 0)"
-        data-h2-width="base(30vw)"
+        data-h2-width="base(25vw)"
       />
       <div
         data-h2-position="base(relative)"

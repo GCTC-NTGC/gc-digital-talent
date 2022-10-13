@@ -4,7 +4,11 @@
 import React from "react";
 
 // Local assets
+import { imageUrl } from "@common/helpers/router";
 import Flourish from "./Flourish";
+import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
+
+const Chevron = imageUrl(TALENTSEARCH_APP_DIR, "chevron-right.svg");
 
 // Example crumb data
 const crumbs = [
@@ -69,7 +73,13 @@ const Breadcrumbs = () => {
                     data-h2-display="base(inline-block)"
                     data-h2-margin="base(0, 0, 0, x.5)"
                   >
-                    /
+                    <img
+                      src={Chevron}
+                      // Alt text?
+                      alt=""
+                      data-h2-width="base(x1)"
+                      data-h2-vertical-align="base(middle)"
+                    />
                   </span>
                 ) : (
                   ""
