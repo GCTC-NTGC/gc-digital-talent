@@ -34,6 +34,7 @@ const ThemeProvider = ({
 
   const setDOMTheme = React.useCallback(
     (newMode: ThemeMode) => {
+      setMode(newMode);
       const hydrogen = document.querySelectorAll(themeSelector || "[data-h2]");
       hydrogen.forEach((item) => {
         if (item instanceof HTMLElement) {
@@ -43,24 +44,23 @@ const ThemeProvider = ({
         }
       });
     },
-    [themeSelector],
+    [themeSelector, setMode],
   );
 
   const setCurrentMode = React.useCallback(
     (newMode: ThemeMode) => {
-      setMode(newMode);
       if (newMode !== "pref") {
         localStorage.setItem("theme", String(newMode));
         setDOMTheme(newMode);
       } else {
-        localStorage.removeItem("theme");
         const prefersDark = window.matchMedia(
           "(prefers-color-scheme: dark)",
         ).matches;
+        localStorage.removeItem("theme");
         setDOMTheme(prefersDark ? "dark" : "light");
       }
     },
-    [setMode, setDOMTheme],
+    [setDOMTheme],
   );
 
   React.useEffect(() => {
