@@ -1,4 +1,5 @@
 import React from "react";
+import { defineMessages, useIntl } from "react-intl";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 import {
   AcademicCapIcon,
@@ -6,7 +7,7 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 
-import { defineMessages, useIntl } from "react-intl";
+import ToggleGroupDocs from "./ToggleGroup.docs.mdx";
 import ToggleGroup from ".";
 
 const messages = defineMessages({
@@ -37,6 +38,11 @@ export default {
     type: {
       control: "select",
       options: ["single", "multiple"],
+    },
+  },
+  parameters: {
+    docs: {
+      page: ToggleGroupDocs,
     },
   },
 } as ComponentMeta<typeof ToggleGroup.Root>;
