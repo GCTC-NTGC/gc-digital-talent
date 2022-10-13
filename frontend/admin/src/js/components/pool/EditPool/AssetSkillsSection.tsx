@@ -3,7 +3,7 @@ import { useState } from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
-import SkillPicker from "@common/components/skills/SkillPicker";
+import SkillPicker from "@common/components/SkillPicker";
 import {
   AdvertisementStatus,
   PoolAdvertisement,
@@ -72,24 +72,24 @@ export const AssetSkillsSection = ({
       <SkillPicker
         selectedSkills={selectedSkills}
         skills={skills}
-        onChange={handleChangeSelectedSkills}
-        idPrefix="asset"
-        disabled={formDisabled}
+        onUpdateSelectedSkills={handleChangeSelectedSkills}
       />
 
       {!formDisabled && (
-        <Button
-          onClick={handleSave}
-          color="cta"
-          mode="solid"
-          disabled={isSubmitting}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Save asset skills",
-            id: "j4G/wv",
-            description: "Text on a button to save the pool asset skills",
-          })}
-        </Button>
+        <p data-h2-margin="base(x1, 0)">
+          <Button
+            onClick={handleSave}
+            color="cta"
+            mode="solid"
+            disabled={isSubmitting}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Save asset skills",
+              id: "j4G/wv",
+              description: "Text on a button to save the pool asset skills",
+            })}
+          </Button>
+        </p>
       )}
     </TableOfContents.Section>
   );

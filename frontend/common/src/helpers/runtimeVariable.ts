@@ -34,3 +34,11 @@ export const checkFeatureFlag = (name: string): boolean => {
   // We use isStringTrue here because an ENV variable which is left undefined may show up as a runtime variable as a string (eg "false" or "(none)") instead of false or undefined.
   return isStringTrue(getRuntimeVariable(name));
 };
+
+/**
+ * A convenience function which makes explicit all expected feature flags.
+ */
+export const getFeatureFlags = () => ({
+  applicantSearch: checkFeatureFlag("FEATURE_APPLICANTSEARCH"),
+  directIntake: checkFeatureFlag("FEATURE_DIRECTINTAKE"),
+});

@@ -13,6 +13,7 @@ export interface InputWrapperProps {
   context?: string;
   hideOptional?: boolean;
   hideBottomMargin?: boolean;
+  fillLabel?: boolean;
 }
 
 const InputWrapper: React.FC<InputWrapperProps> = ({
@@ -26,6 +27,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   hideOptional,
   children,
   hideBottomMargin,
+  fillLabel = false,
   ...rest
 }) => {
   const [contextVisible, setContextVisible] = useState(false);
@@ -45,6 +47,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
           inputId={inputId}
           label={label}
           labelSize={fontSize}
+          fillLabel={fillLabel}
           required={required}
           contextIsVisible={context !== undefined && context !== ""}
           contextToggleHandler={setContextVisible}
