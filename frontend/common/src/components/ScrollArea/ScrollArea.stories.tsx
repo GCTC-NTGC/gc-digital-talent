@@ -1,11 +1,17 @@
 import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 
+import ScrollAreaDocs from "./ScrollArea.docs.mdx";
 import ScrollArea from ".";
 
 export default {
   component: ScrollArea.Root,
   title: "Components/ScrollArea",
+  parameters: {
+    docs: {
+      page: ScrollAreaDocs,
+    },
+  },
 } as ComponentMeta<typeof ScrollArea.Root>;
 
 const ITEMS = Array.from({ length: 50 }).map(
@@ -16,7 +22,7 @@ const Template: ComponentStory<typeof ScrollArea.Root> = (args) => {
   return (
     <ScrollArea.Root
       style={{
-        height: 500,
+        height: 250,
         width: 320,
       }}
       {...args}
