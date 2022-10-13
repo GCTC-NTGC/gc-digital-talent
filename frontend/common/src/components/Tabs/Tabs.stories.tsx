@@ -1,11 +1,17 @@
 import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 
+import TabsDocs from "./Tabs.docs.mdx";
 import Tabs from ".";
 
 export default {
   component: Tabs.Root,
   title: "Components/Tabs",
+  parameters: {
+    docs: {
+      page: TabsDocs,
+    },
+  },
 } as ComponentMeta<typeof Tabs.Root>;
 
 const Template: ComponentStory<typeof Tabs.Root> = (args) => (
