@@ -1,12 +1,18 @@
 import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 
+import SwitchDocs from "./Switch.docs.mdx";
 import Switch from ".";
 
 export default {
   component: Switch.Root,
   name: "Components/Switch",
   subComponents: [Switch.Root, Switch.Thumb],
+  parameters: {
+    docs: {
+      page: SwitchDocs,
+    },
+  },
 } as ComponentMeta<typeof Switch.Root>;
 
 const Template: ComponentStory<typeof Switch.Root> = () => (
