@@ -12,7 +12,7 @@ import { ThemeMode } from "../ThemeContext";
 
 const ThemeSwitcher = () => {
   const intl = useIntl();
-  const { mode, setMode } = useTheme();
+  const { isPref, mode, setMode } = useTheme();
 
   const groupLabel = intl.formatMessage({
     defaultMessage: "Theme colour mode switcher",
@@ -25,7 +25,7 @@ const ThemeSwitcher = () => {
     <ToggleGroup.Root
       type="single"
       color="secondary"
-      value={mode}
+      value={isPref ? "pref" : mode}
       onValueChange={(newMode: string) =>
         setMode((newMode as ThemeMode) || "pref")
       }

@@ -5,11 +5,13 @@ export type SetModeFunc = (newMode: ThemeMode) => void;
 
 export interface ThemeState {
   mode: ThemeMode;
+  isPref: boolean;
   setMode: SetModeFunc;
 }
 
 export const defaultThemeState = {
   mode: "pref" as ThemeMode,
+  isPref: true,
   setMode: () => {
     // PASS
   },
@@ -28,6 +30,7 @@ const ThemeProvider = ({
   override,
   themeSelector,
 }: ThemeProviderProps) => {
+  const [isPref, setPref] = React.useState<boolean>(!localStorage.theme);
   const [mode, setMode] = React.useState<ThemeMode>(
     localStorage.theme || "pref",
   );
@@ -49,6 +52,7 @@ const ThemeProvider = ({
 
   const setCurrentMode = React.useCallback(
     (newMode: ThemeMode) => {
+      setPref(newMode === "pref");
       if (newMode !== "pref") {
         localStorage.setItem("theme", String(newMode));
         setDOMTheme(newMode);
@@ -60,7 +64,7 @@ const ThemeProvider = ({
         setDOMTheme(prefersDark ? "dark" : "light");
       }
     },
-    [setDOMTheme],
+    [setDOMTheme, setPref],
   );
 
   React.useEffect(() => {
@@ -106,8 +110,9 @@ const ThemeProvider = ({
     () => ({
       mode,
       setMode: setCurrentMode,
+      isPref,
     }),
-    [mode, setCurrentMode],
+    [mode, setCurrentMode, isPref],
   );
 
   return (
