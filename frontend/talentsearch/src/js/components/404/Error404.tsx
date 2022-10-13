@@ -5,9 +5,11 @@ import useTheme from "@common/hooks/useTheme";
 import Heading from "@common/components/Heading";
 import CallToAction from "../CallToAction";
 import { PugDark, PugLight } from "./Icons";
+import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 const Error404 = () => {
   const intl = useIntl();
+  const paths = useTalentSearchRoutes();
   const { mode } = useTheme();
 
   const Image = mode === "dark" ? PugDark : PugLight;
@@ -50,8 +52,8 @@ const Error404 = () => {
           <p data-h2-margin="base(x1, 0) p-tablet(0, 0, x3, 0)">
             {intl.formatMessage({
               defaultMessage:
-                " It looks like you've landed on a page that either doesn't exist or has moved.",
-              id: "WuVY2X",
+                "It looks like you've landed on a page that either doesn't exist or has moved.",
+              id: "Q6ws0E",
               description: "Body text for the 404 page not found page.",
             })}
           </p>
@@ -65,7 +67,7 @@ const Error404 = () => {
               type="link"
               context="home"
               content={{
-                path: "path/to/home",
+                path: paths.home(),
                 label: intl.formatMessage({
                   defaultMessage: "Go to the homepage",
                   id: "i9E0ka",
