@@ -739,7 +739,7 @@ class PoolCandidateTest extends TestCase
     ]);
   }
 
-  public function testFilterByWorkRegions(): void
+  public function testFilterByLocationPreferences(): void
   {
     // Create 5 new pool candidates with a ONTARIO location preference.
     PoolCandidate::factory()->count(5)->create([
