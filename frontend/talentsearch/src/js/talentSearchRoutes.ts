@@ -8,6 +8,8 @@ const talentSearchRoutes = (lang: string) => {
   const home = (): string => path.join("/", lang); // leading slash in case empty base url
   return {
     home,
+    notFound: (): string => path.join("/", lang, "404"),
+    support: (): string => path.join("/", lang, "support"),
     search: (): string => path.join("/", lang, "search"),
     request: (): string => path.join("/", lang, "search", "request"),
   };
