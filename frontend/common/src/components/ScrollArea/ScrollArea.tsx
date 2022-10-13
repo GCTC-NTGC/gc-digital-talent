@@ -1,3 +1,6 @@
+/**
+ * Documentation: https://www.radix-ui.com/docs/primitives/components/scroll-area
+ */
 import React from "react";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 
@@ -74,10 +77,42 @@ const Corner = React.forwardRef<
   />
 ));
 
-export default {
+/**
+ * @name Scroll Area
+ * @desc Augments native scroll functionality for custom, cross-browser styling.
+ * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/scroll-area)
+ */
+const ScrollArea = {
+  /**
+   * @name Root
+   * @desc Contains all the parts of a scroll area.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/scroll-area#root)
+   */
   Root,
+  /**
+   * @name Viewport
+   * @desc The viewport area of the scroll area.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/scroll-area#viewport)
+   */
   Viewport,
+  /**
+   * @name Scrollbar
+   * @desc The vertical scrollbar. Add a second Scrollbar with an orientation prop to enable horizontal scrolling.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/scroll-area#scrollbar)
+   */
   Scrollbar,
+  /**
+   * @name Thumb
+   * @desc The thumb to be used in ScrollArea.Scrollbar.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/scroll-area#thumb)
+   */
   Thumb,
+  /**
+   * @name Corner
+   * @desc The corner where both vertical and horizontal scrollbars meet.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/scroll-area#corner)
+   */
   Corner,
 };
+
+export default ScrollArea;

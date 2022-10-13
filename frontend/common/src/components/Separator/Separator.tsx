@@ -46,6 +46,11 @@ export interface SeparatorProps extends SeparatorPrimitiveRootProps {
   color?: Color;
 }
 
+/**
+ * @name Separator
+ * @desc Visually or semantically separates content.
+ * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/separator)
+ */
 const Separator = React.forwardRef<
   React.ElementRef<typeof SeparatorPrimitive.Root>,
   SeparatorProps
