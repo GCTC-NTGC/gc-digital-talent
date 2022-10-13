@@ -54,6 +54,23 @@ export function getDateRange({
 const DAY_IN_SECONDS = 86400;
 
 /**
+ * @param date
+ * @param intl
+ * @returns String in the format of MONTH DAY, YEAR localized
+ */
+export const formattedDateMonthDayYear = (
+  date: Date,
+  intl: IntlShape,
+): string => {
+  const strLocale = getLocale(intl);
+  const locale = strLocale === "fr" ? fr : undefined;
+  const day = format(date, `MMMM d, yyyy`, {
+    locale,
+  });
+  return `${day}`;
+};
+
+/**
  *
  * @param date The date you would like to format
  * @param intl react-intl object
@@ -115,6 +132,7 @@ export const relativeExpiryDate = (
 };
 export const FAR_FUTURE_DATE = "2999-12-31";
 export const FAR_PAST_DATE = "2000-01-01";
+export const PAST_DATE = "2020-01-01";
 
 export const strToDateTimeTz = (value: string) => {
   const parsed = parseISO(value);

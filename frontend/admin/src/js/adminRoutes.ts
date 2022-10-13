@@ -74,6 +74,10 @@ const adminRoutes = (lang: string) => {
       path.join(home(), "settings", "departments", "create"),
     departmentUpdate: (id: string): string =>
       path.join(home(), "settings", "departments", id, "edit"),
+
+    // links to talentsearch
+    poolAdvertisement: (id: string): string =>
+      path.join("/", lang, "browse", "pools", id),
   };
 };
 

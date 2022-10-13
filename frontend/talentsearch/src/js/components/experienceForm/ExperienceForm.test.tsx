@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, fireEvent, waitFor, within } from "@testing-library/react";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
 import { fakeSkills } from "@common/fakeData";
 import { act } from "react-dom/test-utils";
@@ -179,10 +179,10 @@ describe("ExperienceForm", () => {
       screen.getByRole("textbox", { name: /experience description/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", { name: /i agree/i }),
+      screen.getByRole("checkbox", { name: /disclaimer/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", { name: /currently active/i }),
+      screen.getByRole("checkbox", { name: /current experience/i }),
     ).toBeInTheDocument();
 
     expect(screen.getByLabelText("Start Date")).toBeInTheDocument();
@@ -208,7 +208,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("textbox", { name: /team/i })).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", { name: /currently active/i }),
+      screen.getByRole("checkbox", { name: /current role/i }),
     ).toBeInTheDocument();
 
     expect(screen.getByLabelText("Start Date")).toBeInTheDocument();
@@ -233,16 +233,6 @@ describe("ExperienceForm", () => {
     expect(
       screen.getByRole("heading", { name: /skills in detail/i }),
     ).toBeInTheDocument();
-
-    const technicalSkills = screen.getByRole("tab", {
-      name: /technical skills/i,
-    });
-    expect(technicalSkills).toBeInTheDocument();
-
-    fireEvent.click(technicalSkills);
-    expect(
-      await screen.getByRole("tabpanel", { name: /technical skills/i }),
-    ).toHaveStyle("display:block;");
   });
 
   it("should render additional information", () => {
@@ -321,32 +311,11 @@ describe("ExperienceForm", () => {
       skills: mockSkills,
     });
 
-    const technicalSkills = screen.getByRole("tab", {
-      name: /technical skills/i,
-    });
-    expect(technicalSkills).toBeInTheDocument();
-
-    fireEvent.click(technicalSkills);
-    const skillChecklist = await screen.getByRole("group");
-    const checklistParent = skillChecklist.parentElement;
-    expect(checklistParent).toHaveStyle("display:block;");
-
-    if (checklistParent) {
-      const checkboxes = await within(checklistParent).queryAllByRole(
-        "checkbox",
-      );
-      if (checkboxes.length) {
-        const checkbox = checkboxes[0] as HTMLInputElement;
-        fireEvent.click(checkboxes[0]);
-        await expect(checkbox.checked).toEqual(true);
-
-        const skillResults = screen.getAllByRole("button", { name: /save/i });
-        fireEvent.click(skillResults[0]);
-        expect(
-          await screen.findByRole("textbox", { name: /skill in details/i }),
-        ).toBeInTheDocument();
-      }
-    }
+    const skillResults = screen.getAllByRole("button", { name: /add skill/i });
+    fireEvent.click(skillResults[0]);
+    expect(
+      await screen.findByRole("textbox", { name: /skill in detail/i }),
+    ).toBeInTheDocument();
   });
 });
 

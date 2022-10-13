@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
 
 import Well from "../../Well";
 import messages from "../../../messages/commonMessages";

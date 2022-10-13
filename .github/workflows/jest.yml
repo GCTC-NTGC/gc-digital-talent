@@ -19,6 +19,10 @@ jobs:
       NPM_VERSION: "8.3.0"
 
     steps:
+      - name: Get number of CPU cores
+        uses: SimenB/github-actions-cpu-cores@v1
+        id: cpu-cores
+
       - uses: actions/checkout@v2.4.0
       - name: Use Node.js
         uses: actions/setup-node@v3
@@ -43,4 +47,4 @@ jobs:
 
       - name: "Run Unit Tests: all workspaces"
         working-directory: frontend
-        run: npm run test --workspaces --if-present
+        run: npm run test --workspaces --if-present -- --max-workers ${{ steps.cpu-cores.outputs.count }}

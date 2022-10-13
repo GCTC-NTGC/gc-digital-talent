@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { Input, Submit } from "@common/components/form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useDeepCompareEffect } from "@common/hooks/useDeepCompareEffect";
-import { strToDateTimeTz } from "@common/helpers/dateUtils";
+import { strToDateTimeTz, strToFormDate } from "@common/helpers/dateUtils";
 import {
   AdvertisementStatus,
   PoolAdvertisement,
@@ -36,8 +36,11 @@ export const ClosingDateSection = ({
   const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => {
-    const parsedDate = new Date(initialData.expiryDate);
-    return { endDate: parsedDate.toISOString().split("T")[0] };
+    return {
+      endDate: initialData.expiryDate
+        ? strToFormDate(initialData.expiryDate.split("T")[0]) // don't need time and offset for this form
+        : null,
+    };
   };
 
   const suppliedValues = dataToFormValues(poolAdvertisement);
@@ -62,8 +65,8 @@ export const ClosingDateSection = ({
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
-      <TableOfContents.Heading>
-        <h2 data-h2-margin="base(x3, 0, 0, 0)">{sectionMetadata.title}</h2>
+      <TableOfContents.Heading data-h2-margin="base(x3, 0, 0, 0)">
+        {sectionMetadata.title}
       </TableOfContents.Heading>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleSave)}>

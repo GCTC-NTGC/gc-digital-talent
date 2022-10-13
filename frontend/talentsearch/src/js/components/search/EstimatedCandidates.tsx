@@ -1,5 +1,8 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+
+import { ScrollToLink } from "@common/components/Link";
+
 import Spinner from "../Spinner";
 
 interface EstimatedCandidatesProps {
@@ -76,8 +79,8 @@ const EstimatedCandidates: React.FunctionComponent<
               )}
             </p>
             {candidateCount > 0 && (
-              <a
-                href="#results"
+              <ScrollToLink
+                to="results"
                 data-h2-color="base(dt-black) base:hover(dt-primary)"
                 data-h2-transition="base:hover(color, .2s, ease, 0s)"
                 data-h2-display="base(inline-block)"
@@ -89,7 +92,7 @@ const EstimatedCandidates: React.FunctionComponent<
                   description:
                     "A link to view the pools that contain matching talent.",
                 })}
-              </a>
+              </ScrollToLink>
             )}
           </div>
         </div>

@@ -4,12 +4,12 @@ import { Helmet } from "react-helmet";
 import { Routes } from "universal-router";
 import { AuthenticationContext } from "@common/components/Auth";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
-import Pending from "@common/components/Pending";
 import { RouterResult } from "@common/helpers/router";
 import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { getLocale } from "@common/helpers/localize";
 import useFeatureFlags from "@common/hooks/useFeatureFlags";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
+import Pending from "@common/components/Pending";
 import PageContainer, { LogoutButton, MenuLink } from "./PageContainer";
 import {
   useTalentSearchRoutes,
