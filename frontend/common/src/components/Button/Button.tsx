@@ -10,7 +10,8 @@ export type Color =
   | "ia-secondary"
   | "yellow"
   | "red"
-  | "blue";
+  | "blue"
+  | "purple";
 
 export type ButtonMode = "solid" | "outline" | "inline" | "tableHeader";
 
@@ -183,6 +184,28 @@ export const colorMap: Record<
       "data-h2-border": "base(all, 1px, solid, transparent)",
       "data-h2-background-color": "base(transparent)",
       "data-h2-color": "base(tm-yellow)",
+    },
+    tableHeader: {},
+  },
+  purple: {
+    solid: {
+      "data-h2-background-color":
+        "base(tm-purple) base:hover(tm-purple.lighter) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-border":
+        "base(all, 3px, solid, tm-purple) base:focus-visible(all, 3px, solid, focus)",
+      "data-h2-color": "base(black)",
+    },
+    outline: {
+      "data-h2-border":
+        "base(all, 3px, solid, tm-purple) base:focus-visible(all, 3px, solid, focus)",
+      "data-h2-background-color":
+        "base(tm-purple.lighter) base:hover(tm-purple) base:focus-visible(focus) base:active(transparent)",
+      "data-h2-color": "base(black)",
+    },
+    inline: {
+      "data-h2-border": "base(all, 1px, solid, transparent)",
+      "data-h2-background-color": "base(transparent)",
+      "data-h2-color": "base(tm-purple)",
     },
     tableHeader: {},
   },

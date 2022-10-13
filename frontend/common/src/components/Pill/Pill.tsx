@@ -5,7 +5,7 @@ type PillSize = "sm" | "md" | "lg";
 export interface PillProps
   extends Omit<React.HTMLProps<HTMLSpanElement>, "size"> {
   /** The style type of the element. */
-  color: "primary" | "secondary" | "neutral";
+  color: "primary" | "secondary" | "neutral" | "blue";
   /** The style mode of the element. */
   mode: "solid" | "outline";
   /** Determines whether the element should be block level and 100% width. */
@@ -14,7 +14,7 @@ export interface PillProps
 }
 
 const colorMap: Record<
-  "primary" | "secondary" | "neutral",
+  "primary" | "secondary" | "neutral" | "blue",
   Record<"solid" | "outline", Record<string, string>>
 > = {
   primary: {
@@ -39,6 +39,18 @@ const colorMap: Record<
       "data-h2-border": "base(all, 1px, solid, dark.dt-secondary)",
       "data-h2-background-color": "base(light.dt-secondary.1)",
       "data-h2-color": "base(dark.dt-secondary)",
+    },
+  },
+  blue: {
+    solid: {
+      "data-h2-border": "base(all, 1px, solid, dark.tm-blue)",
+      "data-h2-background-color": "base(light.tm-blue)",
+      "data-h2-color": "base(dt-white)",
+    },
+    outline: {
+      "data-h2-border": "base(all, 1px, solid, dark.tm-blue)",
+      "data-h2-background-color": "base(light.tm-blue.1)",
+      "data-h2-color": "base(dark.tm-blue)",
     },
   },
   neutral: {

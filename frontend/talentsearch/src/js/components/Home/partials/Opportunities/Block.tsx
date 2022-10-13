@@ -12,6 +12,7 @@ export interface OpportunityBlockProps {
     summary: string;
     link: {
       path: string;
+      mode?: "outline" | "solid";
       label: string;
     };
   };
@@ -38,7 +39,7 @@ const OpportunityBlock = ({ content }: OpportunityBlockProps) => (
     <div>
       <Link
         color={content.color}
-        mode="solid"
+        mode={content.link.mode ? content.link.mode : "solid"}
         type="button"
         weight="bold"
         href={content.link.path}

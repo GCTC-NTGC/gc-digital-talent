@@ -112,6 +112,11 @@
           "modifiers": []
         },
         {
+          "key": "tm-purple",
+          "color": "#9747FF",
+          "modifiers": []
+        },
+        {
           "key": "focus",
           "color": "#6492ff",
           "modifiers": []
