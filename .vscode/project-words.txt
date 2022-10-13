@@ -17,6 +17,8 @@ datetime
 DCMO
 dedup
 DIRECTINTAKE
+Freshdesk
+FRESHDESK
 Gatineau
 gctalent
 heroicons
