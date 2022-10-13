@@ -725,20 +725,20 @@ input UserPoolFilterInput {
 input PoolCandidateFilterInput {
   # Most fields use builders from corresponding User model fields (excluding: priority and status).
   cmoAssets: [KeyFilterInput]
-    @builder(method: "App\\Models\\User@filterByCmoAssets")
+    @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
   equity: EquitySelectionsInput
-    @builder(method: "App\\Models\\User@filterByEquity")
+    @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
   expectedClassifications: [ClassificationFilterInput]
     @scope(name: "classifications")
-  generalSearch: String @builder(method: "App\\Models\\User@filterByGeneralSearch")
+  generalSearch: String @builder(method: "App\\Models\\PoolCandidate@filterByGeneralSearch")
   hasDiploma: Boolean @scope
   languageAbility: LanguageAbility
-    @builder(method: "App\\Models\\User@filterByLanguageAbility")
+    @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
   locationPreferences: [WorkRegion]
-    @builder(method: "App\\Models\\User@filterByLocationPreferences")
+    @builder(method: "App\\Models\\PoolCandidate@filterByLocationPreferences")
   operationalRequirements: [OperationalRequirement]
     @builder(
-      method: "App\\Models\\User@filterByOperationalRequirements"
+      method: "App\\Models\\PoolCandidate@filterByOperationalRequirements"
     )
   pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
   priorityWeight: [Int] @scope(name: "priorityWeight")
