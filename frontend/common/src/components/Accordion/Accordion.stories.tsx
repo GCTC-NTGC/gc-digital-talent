@@ -2,11 +2,25 @@ import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 import { AcademicCapIcon } from "@heroicons/react/24/solid";
 
+import AccordionDocs from "./Accordion.docs.mdx";
 import Accordion from ".";
+
+const { Item, Trigger, Content, Root } = Accordion;
 
 export default {
   component: Accordion.Root,
   title: "Components/Accordion",
+  subcomponents: {
+    Root,
+    Item,
+    Trigger,
+    Content,
+  },
+  parameters: {
+    docs: {
+      page: AccordionDocs,
+    },
+  },
 } as ComponentMeta<typeof Accordion.Root>;
 
 const Template: ComponentStory<typeof Accordion.Root> = ({

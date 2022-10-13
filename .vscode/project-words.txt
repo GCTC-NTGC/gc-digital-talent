@@ -41,6 +41,7 @@ recruitmentimit
 recruitments
 recrutementgiti
 resumé
+subcomponents
 subquery
 TALENTSEARCH
 TELEWORK
