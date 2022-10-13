@@ -24,6 +24,7 @@ describe("Pool Candidates", () => {
       // Only used if FEATURE_APPLICANTSEARCH is false
       aliasQuery(req, "getUpdatePoolCandidateData");
       aliasMutation(req, "updatePoolCandidate");
+      aliasMutation(req, "updatePoolCandidateAsAdmin");
     });
 
     loginAndGoToPoolsPage();
@@ -129,7 +130,7 @@ describe("Pool Candidates", () => {
 
       cy.findByRole("button", { name: /submit/i }).click();
 
-      cy.wait("@gqlupdatePoolCandidateMutation");
+      cy.wait("@gqlupdatePoolCandidateAsAdminMutation");
 
       cy.expectToast(/pool candidate updated successfully/i);
     });
