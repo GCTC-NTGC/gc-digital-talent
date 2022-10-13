@@ -206,10 +206,7 @@ export const EditPoolForm = ({
       <Breadcrumbs links={links} />
       <div data-h2-container="base(left, large, 0)">
         <TableOfContents.Wrapper>
-          <TableOfContents.Navigation
-            data-h2-background-color="base(dt-gray.light)"
-            data-h2-radius="base(s)"
-          >
+          <TableOfContents.Navigation>
             <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
               {sectionMetadata.poolName.title}
             </TableOfContents.AnchorLink>

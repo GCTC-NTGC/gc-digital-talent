@@ -43,8 +43,9 @@ export const colorMap: Record<
     },
     inline: {
       "data-h2-border": "base(all, 1px, solid, transparent)",
-      "data-h2-background-color": "base(transparent)",
-      "data-h2-color": "base(dt-primary)",
+      "data-h2-background-color":
+        "base(transparent) base:focus-visible(light.dt-primary.15)",
+      "data-h2-color": "base(dt-primary) base:focus-visible(dark.dt-primary)",
     },
     tableHeader: {},
   },
@@ -273,6 +274,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...padding}
         {...underline}
         style={{
+          outlineOffset: 4,
           opacity: disabled ? "0.6" : undefined,
           width: block ? "100%" : "auto",
         }}

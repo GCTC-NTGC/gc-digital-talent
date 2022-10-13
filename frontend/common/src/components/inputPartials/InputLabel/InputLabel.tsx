@@ -3,6 +3,8 @@ import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 import { commonMessages } from "../../../messages";
 
+import "./input-label.css";
+
 export interface InputLabelProps {
   inputId: string;
   label: string | React.ReactNode;
@@ -12,12 +14,14 @@ export interface InputLabelProps {
   contextToggleHandler?: (contextIsActive: boolean) => void;
   hideOptional?: boolean;
   hideBottomMargin?: boolean;
+  fillLabel?: boolean;
 }
 
 const InputLabel: React.FC<InputLabelProps> = ({
   inputId,
   label,
   labelSize,
+  fillLabel = false,
   required,
   contextToggleHandler = () => {
     /* returns nothing */
@@ -34,6 +38,12 @@ const InputLabel: React.FC<InputLabelProps> = ({
   const intl = useIntl();
   const appendLabel = required || !hideOptional || contextIsVisible;
 
+  const labelStyles = {
+    "data-h2-margin": "base(0, x.125, 0, 0)",
+    "data-h2-flex-grow": appendLabel ? undefined : "base(1)",
+    ...labelSize,
+  };
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -44,19 +54,24 @@ const InputLabel: React.FC<InputLabelProps> = ({
       {...(!hideBottomMargin && {
         "data-h2-margin": "base(0, 0, x.125, 0)",
       })}
+      {...(!hideBottomMargin && {
+        "data-h2-margin": "base(0, 0, x.125, 0)",
+      })}
     >
       <label
-        {...labelSize}
-        data-h2-margin="base(0, x.125, 0, 0)"
-        {...(!appendLabel && {
-          "data-h2-flex-grow": "base(1)",
-        })}
+        className={`InputLabel${fillLabel ? " InputLabel--fill" : ""}`}
+        {...labelStyles}
         htmlFor={inputId}
       >
         {label}
       </label>
       {appendLabel && (
-        <div data-h2-display="base(flex)" data-h2-align-items="base(center)">
+        <div
+          data-h2-position="base(relative)"
+          data-h2-display="base(flex)"
+          data-h2-align-items="base(center)"
+          style={{ zIndex: 10 }}
+        >
           {
             /** If hideOptional is true, only show text if required is true. */
             (required || !hideOptional) && (

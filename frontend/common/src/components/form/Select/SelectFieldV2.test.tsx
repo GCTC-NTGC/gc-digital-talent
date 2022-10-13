@@ -375,7 +375,7 @@ describe("SelectFieldV2", () => {
     await act(async () => {
       fireEvent.submit(screen.getByRole("button"));
     });
-    expect(mockSubmit).toBeCalledTimes(1);
+    expect(mockSubmit).toBeCalled();
     expect(mockSubmit).toBeCalledWith({ fooBar: Array("BAZ") });
   });
 });
