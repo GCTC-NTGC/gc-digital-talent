@@ -1,29 +1,32 @@
-import React from "react";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { CheckIcon } from "@heroicons/react/24/solid";
+import { Story } from "@storybook/addon-docs";
 
-import Button from "../Button";
+# Dropdown Menu
 
-import DropdownMenuDocs from "./DropdownMenu.docs.mdx";
-import DropdownMenu from ".";
+> Displays a menu to the user—such as a set of actions or functions—triggered by a button.
 
-export default {
-  component: DropdownMenu.Root,
-  title: "Components/Dropdown Menu",
-  parameters: {
-    docs: {
-      page: DropdownMenuDocs,
-    },
-  },
-} as ComponentMeta<typeof DropdownMenu.Root>;
+This is a styled version of [@radix-ui/dropdown-menu](https://www.radix-ui.com/docs/primitives/components/dropdown-menu).
 
-const Check = () => (
-  <DropdownMenu.ItemIndicator>
-    <CheckIcon />
-  </DropdownMenu.ItemIndicator>
-);
+## Subcomponents
 
-const Template: ComponentStory<typeof DropdownMenu.Root> = () => {
+ - `DropdownMenu.Root`
+ - `DropdownMenu.Trigger`
+ - `DropdownMenu.Content`
+ - `DropdownMenu.SubContent`
+ - `DropdownMenu.Item`
+ - `DropdownMenu.ItemIndicator`
+ - `DropdownMenu.RadioGroup`
+ - `DropdownMenu.RadioItem`
+ - `DropdownMenu.Label`
+ - `DropdownMenu.Separator`
+
+## Usage
+
+<Story id="components-dropdown-menu--default" />
+
+```tsx
+import DropdownMenu from "@common/components/DropdownMenu";
+
+const DropdownMenuExample = () => {
   const [value, setValue] = React.useState<string>("");
   return (
     <DropdownMenu.Root>
@@ -33,7 +36,7 @@ const Template: ComponentStory<typeof DropdownMenu.Root> = () => {
       <DropdownMenu.Content>
         <DropdownMenu.Label>Basic Items</DropdownMenu.Label>
         <DropdownMenu.Item>Item One</DropdownMenu.Item>
-        <DropdownMenu.Item disabled>Item Two</DropdownMenu.Item>
+        <DropdownMenu.Item>Item Two</DropdownMenu.Item>
         <DropdownMenu.Separator />
         <DropdownMenu.Label>Form Items</DropdownMenu.Label>
         <DropdownMenu.CheckboxItem>
@@ -56,6 +59,10 @@ const Template: ComponentStory<typeof DropdownMenu.Root> = () => {
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );
-};
+}
+```
 
-export const Default = Template.bind({});
+## Links
+
+ - [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu)
+ - [Accessibility](https://www.w3.org/WAI/ARIA/apg/patterns/menubutton/)

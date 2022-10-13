@@ -31,6 +31,7 @@ const StyledContent = React.forwardRef<
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Content
     {...contentStyles}
+    style={{ zIndex: 99 }}
     ref={forwardedRef}
     {...props}
   />
