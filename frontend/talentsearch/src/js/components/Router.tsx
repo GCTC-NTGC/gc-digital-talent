@@ -105,6 +105,17 @@ const talentRoutes = (
     }),
   },
   {
+    path: talentPaths.support(),
+    action: () => ({
+      /**
+       * TO DO: Update with support page #4282
+       *
+       * REF: https://github.com/GCTC-NTGC/gc-digital-talent/issues/4282
+       */
+      component: <div />,
+    }),
+  },
+  {
     path: talentPaths.search(),
     action: () => ({
       component: <SearchPage />,

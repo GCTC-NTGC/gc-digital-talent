@@ -9,6 +9,7 @@ const talentSearchRoutes = (lang: string) => {
   return {
     home,
     notFound: (): string => path.join("/", lang, "404"),
+    support: (): string => path.join("/", lang, "support"),
     search: (): string => path.join("/", lang, "search"),
     request: (): string => path.join("/", lang, "search", "request"),
   };

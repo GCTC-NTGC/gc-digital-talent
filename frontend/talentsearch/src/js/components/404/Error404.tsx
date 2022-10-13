@@ -79,7 +79,7 @@ const Error404 = () => {
               type="link"
               context="support"
               content={{
-                path: "path/to/support",
+                path: paths.support(),
                 label: intl.formatMessage({
                   defaultMessage: "Report a missing page",
                   id: "kfzKrV",

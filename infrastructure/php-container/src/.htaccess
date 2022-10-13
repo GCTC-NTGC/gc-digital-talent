@@ -75,6 +75,13 @@ DirectorySlash off
     # Send localized 404 requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/404(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
+    # Send support requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^support/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^support(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized support requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/support(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
     # Send localized create account requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/create-account(/(.*))?$ frontend/talentsearch/dist/$2 [L]
 
