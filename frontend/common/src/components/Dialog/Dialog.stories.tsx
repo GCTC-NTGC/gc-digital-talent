@@ -5,12 +5,18 @@ import OverlayOrDialogDecorator from "../../../.storybook/decorators/OverlayOrDi
 
 import Button from "../Button";
 
+import DialogDocs from "./Dialog.docs.mdx";
 import Dialog from ".";
 
 export default {
   component: Dialog.Root,
   title: "Components/Dialog",
   decorators: [OverlayOrDialogDecorator],
+  parameters: {
+    docs: {
+      page: DialogDocs,
+    },
+  },
 } as ComponentMeta<typeof Dialog.Header>;
 
 const Template: ComponentStory<typeof Dialog.Header> = (args) => {
