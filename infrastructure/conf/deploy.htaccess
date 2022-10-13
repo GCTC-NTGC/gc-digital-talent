@@ -1,4 +1,4 @@
-# This htaccess file is used when deployed to the dev, UAT, and production servers
+# This file is mounted in the php docker container for local testing.  Any changes to this file that need to be deployed to the servers (dev, UAT, prod) should be manually made in infrastructure/conf/deploy.htaccess also.
 
 # Don't automatically add slash (with 301 redirect) if path matches a directory
 DirectorySlash off
@@ -12,6 +12,9 @@ DirectorySlash off
     RewriteCond %{REQUEST_URI} !/dist/$
     RewriteCond %{REQUEST_URI} !/tc-report/_site/.*
     RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
+
+    # For configuration of local development proxy at "/oxauth", see site
+    # config at "mock-auth-proxy.apache-site.conf"
 
     # Rewrite api requests
     RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
@@ -65,6 +68,13 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/browse(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
+    # Send 404s to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^404/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^404(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized 404 requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/404(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
     # Send localized create account requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/create-account(/(.*))?$ frontend/talentsearch/dist/$2 [L]
 
@@ -90,20 +100,23 @@ DirectorySlash off
     RewriteRule ^(en|fr)/indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$3 [L]
 
     # PHP Info page for debugging
-    #RewriteRule ^phpinfo.php$ phpinfo.php [L]
+    RewriteRule ^phpinfo.php$ phpinfo.php [L]
 
     # Direct static site requests to index files
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_URI} /tc-report/_site/(.+)/?$
+    RewriteCond %{REQUEST_URI} ^/tc-report/_site/(.+)/?$
+    RewriteCond %{REQUEST_URI} !\.html$
     RewriteRule ^ tc-report/_site/%1/index.html [L]
 
     # Send tc-report/assets requests to correct folder
-    RewriteCond %{REQUEST_URI} /tc-report/assets/
+    RewriteCond %{REQUEST_URI} ^/tc-report/assets/
     RewriteRule ^tc-report/assets/(.*)$ tc-report/_site/assets/$1 [L]
 
     # Send all other requests to /tc-report/_site
-    RewriteCond %{REQUEST_URI} !/tc-report/_site
+    RewriteCond %{REQUEST_URI} !^/tc-report/_site
     RewriteRule ^(.*)/?$ tc-report/_site/$1 [L]
+
+    ErrorDocument 404 /404
 </IfModule>
 
 <IfModule mod_headers.c>
