@@ -1939,5 +1939,21 @@
   "wrHSMx": {
     "defaultMessage": "Nom de famille",
     "description": "Label for last name field in About Me form"
+  },
+  "yExs/j": {
+    "defaultMessage": "Nous sommes désolés, mais nous ne pouvons pas trouver la page que vous cherchez.",
+    "description": "Title for the 404 page not found page."
+  },
+  "Q6ws0E": {
+    "defaultMessage": "Il semblerait que vous soyez sur une page qui n'existe pas ou qui a été déplacée.",
+    "description": "Body text for the 404 page not found page."
+  },
+  "i9E0ka": {
+    "defaultMessage": "Aller à la page d'accueil",
+    "description": "Link text to go to the homepage from a 404"
+  },
+  "kfzKrV": {
+    "defaultMessage": "Signaler une page manquante",
+    "description": "Link text to go report a missing page on the 404"
   }
 }

@@ -1,5 +1,5 @@
 query browsePoolAdvertisements {
-  poolAdvertisements {
+  publishedPoolAdvertisements {
     id
     name {
       en
@@ -89,6 +89,8 @@ query browsePoolAdvertisements {
     }
     stream
     processNumber
+    publishedAt
+    publishingGroup
   }
 }
 

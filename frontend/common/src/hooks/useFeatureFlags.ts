@@ -1,10 +1,7 @@
-import { checkFeatureFlag } from "../helpers/runtimeVariable";
+import { getFeatureFlags } from "../helpers/runtimeVariable";
 
 const useFeatureFlags = () => {
-  return {
-    applicantSearch: checkFeatureFlag("FEATURE_APPLICANTSEARCH"),
-    directIntake: checkFeatureFlag("FEATURE_DIRECTINTAKE"),
-  };
+  return getFeatureFlags();
 };
 
 export default useFeatureFlags;

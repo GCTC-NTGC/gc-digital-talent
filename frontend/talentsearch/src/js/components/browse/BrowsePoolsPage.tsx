@@ -10,6 +10,8 @@ import { commonMessages } from "@common/messages";
 import { imageUrl } from "@common/helpers/router";
 import Heading from "@common/components/Heading";
 import {
+  AdvertisementStatus,
+  PublishingGroup,
   PoolAdvertisement,
   useBrowsePoolAdvertisementsQuery,
 } from "../../api/generated";
@@ -18,11 +20,13 @@ import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import useBreadcrumbs from "../../hooks/useBreadcrumbs";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
-interface BrowsePoolsProps {
-  poolAdvertisements?: PoolAdvertisement[];
+export interface BrowsePoolsProps {
+  poolAdvertisements: PoolAdvertisement[];
 }
 
-const BrowsePools: React.FC<BrowsePoolsProps> = ({ poolAdvertisements }) => {
+export const BrowsePools: React.FC<BrowsePoolsProps> = ({
+  poolAdvertisements,
+}) => {
   const intl = useIntl();
   const paths = useDirectIntakeRoutes();
 
@@ -39,6 +43,18 @@ const BrowsePools: React.FC<BrowsePoolsProps> = ({ poolAdvertisements }) => {
     },
   ]);
 
+  const filteredPoolAdvertisements = poolAdvertisements
+    .filter(
+      (p) =>
+        p.advertisementStatus === AdvertisementStatus.Published && // list jobs which have the PUBLISHED AdvertisementStatus
+        p.publishingGroup === PublishingGroup.ItJobs, // and which are meant to be published on the IT Jobs page
+    )
+    .sort(
+      (p1, p2) =>
+        (p1.expiryDate ?? "").localeCompare(p2.expiryDate ?? "") || // first level sort: by expiry date whichever one expires first should appear first on the list
+        (p1.publishedAt ?? "").localeCompare(p2.publishedAt ?? ""), // second level sort: whichever one was published first should appear first
+    );
+
   return (
     <>
       <Hero
@@ -52,7 +68,7 @@ const BrowsePools: React.FC<BrowsePoolsProps> = ({ poolAdvertisements }) => {
         })}
         crumbs={crumbs}
       />
-      {poolAdvertisements && poolAdvertisements.length ? (
+      {filteredPoolAdvertisements.length ? (
         <div
           data-h2-background-color="base(black.03) base:dark(black.9)"
           data-h2-border="base(bottom, 1px, solid, black.50)"
@@ -99,7 +115,7 @@ const BrowsePools: React.FC<BrowsePoolsProps> = ({ poolAdvertisements }) => {
                 data-h2-margin="base(0)"
                 data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)"
               >
-                {poolAdvertisements.map((poolAdvertisement) => (
+                {filteredPoolAdvertisements.map((poolAdvertisement) => (
                   <li key={poolAdvertisement.id}>
                     <PoolCard pool={poolAdvertisement} />
                   </li>
@@ -127,7 +143,7 @@ const BrowsePools: React.FC<BrowsePoolsProps> = ({ poolAdvertisements }) => {
 const BrowsePoolsApi: React.FC = () => {
   const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery();
 
-  const filteredPoolAdvertisements = data?.poolAdvertisements.filter(
+  const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(
     (poolAdvertisement) =>
       typeof poolAdvertisement !== undefined && !!poolAdvertisement,
   ) as PoolAdvertisement[];

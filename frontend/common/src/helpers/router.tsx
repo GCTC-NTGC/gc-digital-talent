@@ -99,12 +99,23 @@ export interface RouterResult {
   authorizedRoles?: Array<Role>;
 }
 
-export const useRouter = (
-  routes: Routes<RouterResult>,
-  missingRouteComponent: ReactElement,
-  notAuthorizedComponent: ReactElement,
-  welcomeRoute?: string,
-): React.ReactElement | null => {
+export interface RouterArgs {
+  routes: Routes<RouterResult>;
+  components: {
+    notFound: React.ReactElement;
+    notAuthorized: React.ReactElement;
+  };
+  paths?: {
+    welcomeRoute?: string;
+    notFoundRoute?: string;
+  };
+}
+
+export const useRouter = ({
+  routes,
+  components: { notAuthorized, notFound },
+  paths = {},
+}: RouterArgs): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
@@ -117,6 +128,7 @@ export const useRouter = (
     loggedInEmail,
     isLoaded: authorizationLoaded,
   } = React.useContext(AuthorizationContext);
+  const { welcomeRoute, notFoundRoute } = paths;
   // Render the result of routing
   useEffect((): void => {
     router
@@ -179,13 +191,21 @@ export const useRouter = (
           if (isAuthorized) {
             setComponent(route.component);
           } else {
-            setComponent(notAuthorizedComponent);
+            setComponent(notAuthorized);
           }
+        } else if (notFoundRoute) {
+          navigate(notFoundRoute);
+        } else {
+          setComponent(notFound);
         }
         return null;
       })
       .catch(async () => {
-        setComponent(missingRouteComponent);
+        if (notFoundRoute) {
+          navigate(notFoundRoute);
+        } else {
+          setComponent(notFound);
+        }
       });
   }, [
     apiRoutes,
@@ -193,11 +213,12 @@ export const useRouter = (
     locale,
     loggedInUserRoles,
     loggedInEmail,
-    missingRouteComponent,
-    notAuthorizedComponent,
+    notFound,
+    notAuthorized,
     pathName,
     router,
     welcomeRoute,
+    notFoundRoute,
     authorizationLoaded,
   ]);
 

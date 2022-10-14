@@ -68,6 +68,20 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/browse(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
+    # Send 404s to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^404/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^404(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized 404 requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/404(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
+    # Send support requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^support/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^support(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized support requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/support(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
     # Send localized create account requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/create-account(/(.*))?$ frontend/talentsearch/dist/$2 [L]
 
@@ -97,16 +111,19 @@ DirectorySlash off
 
     # Direct static site requests to index files
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_URI} /tc-report/_site/(.+)/?$
+    RewriteCond %{REQUEST_URI} ^/tc-report/_site/(.+)/?$
+    RewriteCond %{REQUEST_URI} !\.html$
     RewriteRule ^ tc-report/_site/%1/index.html [L]
 
     # Send tc-report/assets requests to correct folder
-    RewriteCond %{REQUEST_URI} /tc-report/assets/
+    RewriteCond %{REQUEST_URI} ^/tc-report/assets/
     RewriteRule ^tc-report/assets/(.*)$ tc-report/_site/assets/$1 [L]
 
     # Send all other requests to /tc-report/_site
-    RewriteCond %{REQUEST_URI} !/tc-report/_site
+    RewriteCond %{REQUEST_URI} !^/tc-report/_site
     RewriteRule ^(.*)/?$ tc-report/_site/$1 [L]
+
+    ErrorDocument 404 /404
 </IfModule>
 
 <IfModule mod_headers.c>

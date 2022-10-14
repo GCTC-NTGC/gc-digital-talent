@@ -12,7 +12,6 @@ describe("Talent Search Workflow Tests", () => {
   });
 
   const searchReturnsGreaterThanZeroApplicants = () => {
-    cy.wait("@gqlcountApplicantsQuery");
     cy.findByRole("heading", {
       name: /Results: [1-9][0-9]* matching candidate/i,
     });
@@ -26,39 +25,54 @@ describe("Talent Search Workflow Tests", () => {
     searchReturnsGreaterThanZeroApplicants();
 
     cy.findByRole("combobox", { name: /Classification/i }).select(1);
-
-    cy.findByRole("combobox", { name: /Region/i })
-      .type("Telework{enter}{enter}")
-      .type("Ontario{enter}{enter}")
-      .type("National Capital{enter}{enter}")
-      .type("Atlantic{enter}{enter}");
+    cy.wait("@gqlcountApplicantsQuery");
 
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,
     }).click();
+    cy.wait("@gqlcountApplicantsQuery");
+
+    // Wait for each request to finish, to minimize inconsistent state.
+    cy.findByRole("combobox", { name: /Region/i }).then($input => {
+      cy.wrap($input).type("Telework{enter}{enter}")
+      cy.wait("@gqlcountApplicantsQuery");
+
+      cy.wrap($input).type("Ontario{enter}{enter}")
+      cy.wait("@gqlcountApplicantsQuery");
+
+      cy.wrap($input).type("National Capital{enter}{enter}")
+      cy.wait("@gqlcountApplicantsQuery");
+
+      cy.wrap($input).type("Atlantic{enter}{enter}");
+      cy.wait("@gqlcountApplicantsQuery");
+    })
 
     searchReturnsGreaterThanZeroApplicants();
 
-    cy.findByRole("button", { name: /Request Candidates/i }).click();
+    cy.findByRole("button", { name: /Request Candidates/i }).then($button => {
+      cy.wrap($button)
+        .should("exist")
+        .and("be.visible")
+        .and("not.be.disabled");
+      // Force click to mitigate async re-render of button that detaches its DOM element.
+      // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
+      cy.wrap($button).click({ force: true });
+    });
 
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
 
     cy.findByRole("textbox", { name: /Full Name/i })
-      .clear()
       .type("Test Full Name");
 
     cy.findByRole("textbox", { name: /Government e-mail/i })
-      .clear()
       .type("test@tbs-sct.gc.ca");
 
     cy.findByRole("textbox", {
       name: /What is the job title for this position\?/i,
     })
-      .clear()
       .type("Test Job Title");
 
     cy.findByRole("textbox", { name: /Additional Comments/i })
-      .clear()
       .type("Test Comments");
 
     cy.findByRole("combobox", { name: /Department/i }).select(
