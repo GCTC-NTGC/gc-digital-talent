@@ -2,10 +2,10 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { render, screen, act } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
-import { axeTest } from "@common/helpers/testUtils";
+import { axeTest, render } from "@common/helpers/testUtils";
 import { BrowsePools, BrowsePoolsProps } from "./BrowsePoolsPage";
 import {
   AdvertisementStatus,
@@ -37,20 +37,8 @@ const publishedExecJobsPool: PoolAdvertisement = {
   advertisementStatus: AdvertisementStatus.Published,
 };
 
-const renderWithReactIntl = (
-  component: React.ReactNode,
-  locale?: "en" | "fr",
-  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
-) => {
-  return render(
-    <IntlProvider locale={locale || "en"} messages={messages}>
-      {component}
-    </IntlProvider>,
-  );
-};
-
 const renderBrowsePoolsPage = ({ poolAdvertisements }: BrowsePoolsProps) =>
-  renderWithReactIntl(<BrowsePools poolAdvertisements={poolAdvertisements} />);
+  render(<BrowsePools poolAdvertisements={poolAdvertisements} />);
 
 describe("BrowsePoolsPage", () => {
   it("should have no accessibility errors", async () => {
