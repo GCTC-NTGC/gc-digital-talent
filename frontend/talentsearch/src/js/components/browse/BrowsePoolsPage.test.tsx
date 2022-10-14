@@ -4,7 +4,6 @@
 import "@testing-library/jest-dom";
 import { screen, act } from "@testing-library/react";
 import React from "react";
-import { IntlProvider, MessageFormatElement } from "react-intl";
 import { axeTest, render } from "@common/helpers/testUtils";
 import { BrowsePools, BrowsePoolsProps } from "./BrowsePoolsPage";
 import {
