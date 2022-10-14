@@ -113,7 +113,7 @@ describe("Submit Application Workflow Tests", () => {
                     fr: "test location FR",
                   },
                   isRemote: true,
-                  publishingGroup: PublishingGroup.Other,
+                  publishingGroup: PublishingGroup.ItJobs,
                 }).then(() => {
                   cy.publishPoolAdvertisement(testPoolAdvertisementId);
                 });

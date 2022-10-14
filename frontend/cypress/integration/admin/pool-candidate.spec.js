@@ -104,6 +104,7 @@ describe("Pool Candidates", () => {
 
       cy.expectToast(/pool candidate status updated successfully/i);
     });
+
   } else {
     it("should edit and update pool candidate (FEATURE_APPLICANTSEARCH:off)", () => {
       cy.wait("@gqlgetPoolsQuery");
@@ -125,6 +126,8 @@ describe("Pool Candidates", () => {
         .and("be.visible");
 
       cy.findByLabelText(/expiry date/i).type("2023-12-01");
+
+      cy.findByLabelText(/language ability/i).select("English only");
 
       cy.findByLabelText(/status/i).select("Placed Casual");
 

@@ -151,4 +151,34 @@ class PoolTest extends TestCase
         ]
     ]);
   }
+
+  // The publishedPoolAdvertisements query should only return pools that have been published
+  public function testPoolAdvertisementQueryReturnsOnlyPublished(): void
+  {
+    // this pool has been published so it should be returned in the publishedPool query
+    $publishedPool = Pool::factory()->create([
+        'published_at' => config('constants.past_date'),
+    ]);
+    // this pool is still a draft so it should not be returned in the publishedPool query
+    $draftPool = Pool::factory()->create([
+        'published_at' => null,
+    ]);
+
+    // Assert query will return only the published pool
+    $this->graphQL(/** @lang Graphql */ '
+        query browsePools {
+            publishedPoolAdvertisements {
+              id
+            }
+          }
+    ')->assertJson([
+         "data" => [
+            "publishedPoolAdvertisements" => [
+               [
+                   "id" => $publishedPool->id,
+               ],
+            ]
+        ]
+    ]);
+  }
 }
