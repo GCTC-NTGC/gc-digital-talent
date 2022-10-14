@@ -372,7 +372,7 @@ export const UserTable: React.FC = () => {
           )
         }
         hiddenColumnIds={hiddenColumnIds}
-        filterButton={
+        filterButtonComponent={
           <UserTableFilterDialog.Button onSubmit={handleFilterSubmit} />
         }
       />
