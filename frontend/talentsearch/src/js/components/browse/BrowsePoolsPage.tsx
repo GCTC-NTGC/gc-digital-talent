@@ -8,21 +8,23 @@ import NotFound from "@common/components/NotFound";
 import Flourish from "@common/components/Flourish";
 
 import { commonMessages } from "@common/messages";
-import { imageUrl } from "@common/helpers/router";
 import Heading from "@common/components/Heading";
-import useTheme from "@common/hooks/useTheme";
 import { Link } from "@common/components";
+import { imageUrl } from "@common/helpers/router";
+import useTheme from "@common/hooks/useTheme";
+
+import PoolCard from "./PoolCard";
+import Block from "../Home/partials/Opportunities/Block";
+
 import {
   AdvertisementStatus,
   PublishingGroup,
   PoolAdvertisement,
   useBrowsePoolAdvertisementsQuery,
 } from "../../api/generated";
-import PoolCard from "./PoolCard/PoolCard";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import useBreadcrumbs from "../../hooks/useBreadcrumbs";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
-import Block from "../Home/partials/Opportunities/Block";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 const flourishTopLight = imageUrl(TALENTSEARCH_APP_DIR, "browse_top_light.png");
