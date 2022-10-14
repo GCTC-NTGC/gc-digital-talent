@@ -67,7 +67,7 @@ describe("useFilterOptions", () => {
   describe("rawGraphqlResults", () => {
     it("shows as fetching before response arrives", () => {
       const result = renderHookWithProviders({ msDelay: 100 });
-      expect(Object.keys(result.current.rawGraphqlResults)).toHaveLength(4);
+      expect(Object.keys(result.current.rawGraphqlResults)).toHaveLength(3);
       expect(result.current.rawGraphqlResults.pools.fetching).toBe(true);
       expect(result.current.rawGraphqlResults.classifications.fetching).toBe(
         true,
@@ -79,7 +79,7 @@ describe("useFilterOptions", () => {
   describe("simple fields", () => {
     it("returns static optionsData of appropriate length for non-async fields", () => {
       const result = renderHookWithProviders({});
-      const [countSimple, countAsync] = [11, 4];
+      const [countSimple, countAsync] = [11, 3];
       const countTotal = countSimple + countAsync;
       expect(Object.keys(result.current.optionsData)).toHaveLength(countTotal);
 
