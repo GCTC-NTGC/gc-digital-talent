@@ -195,24 +195,6 @@ RAWSQL2;
         return $query->whereRaw('EXISTS (' . $sql . ')', $parameters);
     }
 
-    public function filterByCmoAssets(Builder $query, array $cmoAssets): Builder
-    {
-        // $query->whereExists(function ($query) use ($cmoAssets) {
-        //     $query->select('id')
-        //         ->from('users')
-        //         ->whereColumn('users.id', 'pool_candidates.user_id')
-        //         ->whereColumn('users.id', 'pool_candidates.user_id')
-        //         ->from(function ($query) use ($cmoAssets) {
-        //             foreach ($cmoAssets as $cmoAsset) {
-        //                 $query->from('cmo_assets', function ($query) use ($cmoAsset) {
-        //                     // $query->where('key', $cmoAsset['key']);
-        //                 });
-        //             }
-        //         });
-        // });
-        return $query;
-    }
-
     public function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         // if no filters provided then return query unchanged

@@ -8,12 +8,7 @@ import { IntlProvider } from "react-intl";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { waitFor } from "@testing-library/react";
-import {
-  fakeSkills,
-  fakePools,
-  fakeClassifications,
-  fakeCmoAssets,
-} from "@common/fakeData";
+import { fakeSkills, fakePools, fakeClassifications } from "@common/fakeData";
 import useFilterOptions from "./useFilterOptions";
 
 describe("useFilterOptions", () => {
@@ -78,7 +73,6 @@ describe("useFilterOptions", () => {
         true,
       );
       expect(result.current.rawGraphqlResults.skills.fetching).toBe(true);
-      expect(result.current.rawGraphqlResults.cmoAssets.fetching).toBe(true);
     });
   });
 
@@ -112,7 +106,6 @@ describe("useFilterOptions", () => {
       expect(result.current.optionsData.classifications).toBeUndefined();
       expect(result.current.optionsData.pools).toBeUndefined();
       expect(result.current.optionsData.skills).toBeUndefined();
-      expect(result.current.optionsData.cmoAssets).toBeUndefined();
     });
 
     it.skip("performs 3 API client queries", () => {
@@ -129,7 +122,6 @@ describe("useFilterOptions", () => {
             pools: [],
             skills: [],
             classifications: fakeClassifications(),
-            cmoAssets: [],
           },
         },
       });
@@ -146,7 +138,6 @@ describe("useFilterOptions", () => {
             pools: fakePools(),
             skills: [],
             classifications: [],
-            cmoAssets: [],
           },
         },
       });
@@ -163,7 +154,6 @@ describe("useFilterOptions", () => {
             pools: [],
             skills: fakeSkills(10),
             classifications: [],
-            cmoAssets: [],
           },
         },
       });
@@ -171,23 +161,6 @@ describe("useFilterOptions", () => {
         expect(result.current.optionsData.skills).not.toBeUndefined(),
       );
       expect(result.current.optionsData.skills).toHaveLength(10);
-    });
-
-    it("generates appropriate number of options after response: cmoAssets", async () => {
-      const result = renderHookWithProviders({
-        responseData: {
-          data: {
-            pools: [],
-            skills: [],
-            classifications: [],
-            cmoAssets: fakeCmoAssets(),
-          },
-        },
-      });
-      await waitFor(() =>
-        expect(result.current.optionsData.cmoAssets).not.toBeUndefined(),
-      );
-      expect(result.current.optionsData.cmoAssets).toHaveLength(9);
     });
   });
 });

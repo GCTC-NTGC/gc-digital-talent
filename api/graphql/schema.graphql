@@ -723,7 +723,6 @@ input UserPoolFilterInput {
 }
 
 input PoolCandidateFilterInput {
-  # Most fields use builders from corresponding User model fields (excluding: priority and status).
   cmoAssets: [KeyFilterInput]
     @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
   equity: EquitySelectionsInput

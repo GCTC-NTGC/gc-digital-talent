@@ -73,14 +73,6 @@ fragment poolCandidateTable on PoolCandidate {
       level
     }
     wouldAcceptTemporary
-    cmoAssets {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
     priorityWeight
   }
   cmoIdentifier

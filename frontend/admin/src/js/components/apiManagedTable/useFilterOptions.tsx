@@ -101,13 +101,6 @@ export default function useFilterOptions(enableEducationType = false) {
       // TODO: Must name and translations be optional in types?
       label: name[locale] || "Error: name not loaded",
     })),
-    cmoAssets: filterRes.data?.cmoAssets
-      .filter(notEmpty)
-      .map(({ key, name }) => ({
-        value: key,
-        // TODO: Must name and translations be optional in types?
-        label: name?.[locale] || "Error: name not loaded",
-      })),
     equity: [
       equityOption("isWoman", getEmploymentEquityGroup("woman")),
       equityOption("hasDisability", getEmploymentEquityGroup("disability")),
@@ -142,7 +135,6 @@ export default function useFilterOptions(enableEducationType = false) {
       skills: filterRes,
       classifications: filterRes,
       pools: filterRes,
-      cmoAssets: filterRes,
     },
   };
 }

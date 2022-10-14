@@ -626,16 +626,4 @@ RAWSQL2;
         $query->whereIn('job_looking_status', [ApiEnums::USER_STATUS_ACTIVELY_LOOKING, ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES]);
         return $query;
     }
-
-    public function filterByCmoAssets(Builder $query, array $cmoAssets): Builder
-    {
-        // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
-        // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
-        foreach ($cmoAssets as $cmoAsset) {
-            $query->whereHas('cmoAssets', function ($query) use ($cmoAsset) {
-                $query->where('key', $cmoAsset['key']);
-            });
-        }
-        return $query;
-    }
 }

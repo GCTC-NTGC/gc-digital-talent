@@ -19,7 +19,6 @@ export type FormValues = {
   classifications: Option["value"][];
   operationalRequirement: Option["value"][];
   workRegion: Option["value"][];
-  cmoAssets: Option["value"][];
   hasDiploma: Option["value"][];
   equity: Option["value"][];
   status: Option["value"][];
@@ -152,17 +151,6 @@ const PoolCandidateTableFilterDialog = ({
                 id: "+tzO5t",
               })}
               options={optionsData.hasDiploma}
-            />
-          </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-            <MultiSelectFieldV2
-              id="cmoAssets"
-              label={formatMessage({
-                defaultMessage: "Cmo Assets",
-                id: "SPXifX",
-              })}
-              options={optionsData.cmoAssets}
-              isLoading={rawGraphqlResults.classifications.fetching}
             />
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">

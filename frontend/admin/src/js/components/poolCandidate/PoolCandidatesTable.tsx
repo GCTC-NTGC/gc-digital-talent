@@ -275,7 +275,6 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       expectedClassifications: fancyFilterState?.expectedClassifications,
       operationalRequirements: fancyFilterState?.operationalRequirements,
       locationPreferences: fancyFilterState?.locationPreferences,
-      cmoAssets: fancyFilterState?.cmoAssets,
       hasDiploma: fancyFilterState?.hasDiploma,
       equity: fancyFilterState?.equity,
       status: fancyFilterState?.status,
@@ -299,9 +298,6 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       ),
       locationPreferences: data.workRegion.map((region) => {
         return stringToEnumLocation(region);
-      }),
-      cmoAssets: data.cmoAssets.map((cmoAsset) => {
-        return { key: cmoAsset };
       }),
       hasDiploma: data.hasDiploma[0] ? true : undefined,
       equity: {
