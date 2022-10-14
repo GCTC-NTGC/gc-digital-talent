@@ -1,13 +1,20 @@
 import React from "react";
 import { useIntl } from "react-intl";
+
+import Hero from "@common/components/Hero";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+
 import { commonMessages } from "@common/messages";
+import { imageUrl } from "@common/helpers/router";
 import {
   PoolAdvertisement,
   useBrowsePoolAdvertisementsQuery,
 } from "../../api/generated";
 import PoolCard from "./PoolCard";
+import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
+import useBreadcrumbs from "../../hooks/useBreadcrumbs";
+import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
 interface BrowsePoolsProps {
   poolAdvertisements?: PoolAdvertisement[];
@@ -15,16 +22,34 @@ interface BrowsePoolsProps {
 
 const BrowsePools: React.FC<BrowsePoolsProps> = ({ poolAdvertisements }) => {
   const intl = useIntl();
+  const paths = useDirectIntakeRoutes();
+
+  const title = intl.formatMessage({
+    defaultMessage: "Browse IT jobs",
+    id: "J2WrFI",
+    description: "Page title for the direct intake browse pools page.",
+  });
+
+  const crumbs = useBreadcrumbs([
+    {
+      label: title,
+      url: paths.allPools(),
+    },
+  ]);
 
   return (
     <>
-      <h1>
-        {intl.formatMessage({
-          defaultMessage: "Browse Pools",
-          id: "oG9dAi",
-          description: "Page title for the direct intake browse pools page.",
+      <Hero
+        imgPath={imageUrl(TALENTSEARCH_APP_DIR, "browse_header.png")}
+        title={title}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "Find and apply to digital talent opportunities in the Government of Canada.",
+          id: "2UDONd",
+          description: "Subtitle for the browse IT jobs page",
         })}
-      </h1>
+        crumbs={crumbs}
+      />
       {poolAdvertisements && poolAdvertisements.length ? (
         <ul>
           {poolAdvertisements.map((poolAdvertisement) => (
