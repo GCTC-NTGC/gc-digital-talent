@@ -202,7 +202,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   const adminRoutes = useAdminRoutes();
 
   const [poolCandidateFilterInput, setPoolCandidateFilterInput] =
-    useState<PoolCandidateFilterInput>();
+    useState<PoolCandidateFilterInput>({ pools: [{ id: poolId }] });
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
