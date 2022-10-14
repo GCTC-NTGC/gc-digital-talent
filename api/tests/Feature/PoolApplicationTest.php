@@ -110,6 +110,87 @@ class PoolApplicationTest extends TestCase
         $this->assertEquals(1, $applicationCollectionCount);
     }
 
+    public function testApplicationCreationAlreadyApplied(): void
+    {
+        // the user applying
+        // default, the test is run by Admin, auth_default_user in phpunit.xml
+        $newUser = new User;
+        $newUser->email = 'admin@test.com';
+        $newUser->sub = 'admin@test.com';
+        $newUser->roles = ['ADMIN'];
+        $newUser->id = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
+        $newUser->save();
+
+        // create an unexpired Pool instance
+        Pool::factory()->create([
+            'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+            'expiry_date' => config('constants.far_future_date'),
+        ]);
+
+        // Assert creating a pool application succeeds
+        // returns DRAFT as a result of pool_candidate_status Accessor and unexpired pool
+        $this->graphQL(
+        /** @lang Graphql */
+        '
+      mutation createApplication {
+        createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
+          user {
+            id
+          }
+          pool {
+            id
+          }
+          status
+        }
+      }
+    ')->assertJson([
+            'data' => [
+                'createApplication' => [
+                    'user' => [
+                        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+                    ],
+                    'pool' => [
+                        'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+                    ],
+                    'status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+                ]
+            ]
+        ]);
+
+      // grab the pool application and change its status so as to pretend it was submitted
+      $poolCandidateId = $newUser->poolCandidates()->first()->toArray()['id'];
+      $application = PoolCandidate::find($poolCandidateId);
+      $application->submitted_at = config('constants.past_date');
+      $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
+      $application->save();
+
+       // rerun the query above, it should error as the application is now neither being created or returning a Draft
+       $this->graphQL(
+        /** @lang Graphql */
+        '
+      mutation createApplication {
+        createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
+          user {
+            id
+          }
+          pool {
+            id
+          }
+          status
+        }
+      }
+    ')->assertJson([
+        'errors' => [[
+          'message' => 'The given data was invalid.',
+          'extensions' => [
+              'validation' => [
+                ['you have already applied to this pool',]
+              ],
+          ]
+        ]]
+      ]);
+    }
+
     public function testArchivingApplication(): void
     {
         // Create pool candidates
