@@ -5,11 +5,13 @@ export type SetModeFunc = (newMode: ThemeMode) => void;
 
 export interface ThemeState {
   mode: ThemeMode;
+  isPref: boolean;
   setMode: SetModeFunc;
 }
 
 export const defaultThemeState = {
   mode: "pref" as ThemeMode,
+  isPref: true,
   setMode: () => {
     // PASS
   },
@@ -28,12 +30,14 @@ const ThemeProvider = ({
   override,
   themeSelector,
 }: ThemeProviderProps) => {
+  const [isPref, setPref] = React.useState<boolean>(!localStorage.theme);
   const [mode, setMode] = React.useState<ThemeMode>(
     localStorage.theme || "pref",
   );
 
   const setDOMTheme = React.useCallback(
     (newMode: ThemeMode) => {
+      setMode(newMode);
       const hydrogen = document.querySelectorAll(themeSelector || "[data-h2]");
       hydrogen.forEach((item) => {
         if (item instanceof HTMLElement) {
@@ -43,24 +47,24 @@ const ThemeProvider = ({
         }
       });
     },
-    [themeSelector],
+    [themeSelector, setMode],
   );
 
   const setCurrentMode = React.useCallback(
     (newMode: ThemeMode) => {
-      setMode(newMode);
+      setPref(newMode === "pref");
       if (newMode !== "pref") {
         localStorage.setItem("theme", String(newMode));
         setDOMTheme(newMode);
       } else {
-        localStorage.removeItem("theme");
         const prefersDark = window.matchMedia(
           "(prefers-color-scheme: dark)",
         ).matches;
+        localStorage.removeItem("theme");
         setDOMTheme(prefersDark ? "dark" : "light");
       }
     },
-    [setMode, setDOMTheme],
+    [setDOMTheme, setPref],
   );
 
   React.useEffect(() => {
@@ -106,8 +110,9 @@ const ThemeProvider = ({
     () => ({
       mode,
       setMode: setCurrentMode,
+      isPref,
     }),
-    [mode, setCurrentMode],
+    [mode, setCurrentMode, isPref],
   );
 
   return (

@@ -6,7 +6,7 @@ import { CreateTicketInput, SupportForm } from "./SupportForm";
 
 export default {
   component: SupportForm,
-  title: "Support Form",
+  title: "Support/Support Form",
 } as ComponentMeta<typeof SupportForm>;
 
 const Template: ComponentStory<typeof SupportForm> = (args) => {

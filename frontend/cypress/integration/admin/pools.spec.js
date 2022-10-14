@@ -129,8 +129,12 @@ describe("Pools", () => {
    */
    it("should update the pool", () => {
     // Navigate to edit pool page
-    cy.findByRole("link", { name: /edit test pool en/i })
-      .click();
+    cy.findByRole("textbox", { name: /search/i })
+      .clear()
+      .type("test");
+
+    const editLinks = cy.findAllByRole("link", { name: /edit test pool en/i });
+    editLinks.first().click();
 
     cy.wait("@gqlgetEditPoolDataQuery");
 
@@ -156,8 +160,13 @@ describe("Pools", () => {
    * Delete the Pool
    */
   it("should delete the pool", () => {
-    cy.findByRole("link", { name: /edit test pool en/i })
-      .click();
+    // Navigate to edit pool page
+    cy.findByRole("textbox", { name: /search/i })
+      .clear()
+      .type("test");
+
+    const editLinks = cy.findAllByRole("link", { name: /edit test pool en/i });
+    editLinks.first().click();
 
     cy.wait("@gqlgetEditPoolDataQuery");
 
