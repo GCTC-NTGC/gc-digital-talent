@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 /**
  * Class Pool
@@ -62,7 +64,7 @@ class Pool extends Model
      * The attributes that can be filled using mass-assignment.
      *
      * @var array
-    */
+     */
     protected $fillable = [
         'is_remote',
         'expiry_date',
@@ -120,18 +122,20 @@ class Pool extends Model
             $isPublished = false;
         }
 
-        if(!$isPublished){
+        if (!$isPublished) {
             return ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT;
-
-        } elseif($isPublished && !$isExpired){
+        } elseif ($isPublished && !$isExpired) {
             return ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED;
-
-        } elseif($isPublished && $isExpired){
+        } elseif ($isPublished && $isExpired) {
             return ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED;
-
-        } else{
+        } else {
             return null;
-
         }
+    }
+
+    public function scopeWasPublished(Builder $query, ?array $args)
+    {
+        $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+        return $query;
     }
 }

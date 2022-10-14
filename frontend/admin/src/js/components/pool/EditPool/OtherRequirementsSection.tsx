@@ -97,7 +97,9 @@ export const OtherRequirementsSection = ({
 
   const handleSave = (formValues: FormValues) => {
     onSave({
-      advertisementLanguage: formValues.languageRequirement,
+      advertisementLanguage: formValues.languageRequirement
+        ? formValues.languageRequirement
+        : undefined, // can't be set to null, assume not updating if empty
       advertisementLocation:
         formValues.locationOption !== LocationOption.RemoteOptional
           ? {
@@ -106,7 +108,9 @@ export const OtherRequirementsSection = ({
             }
           : null,
       isRemote: formValues.locationOption === LocationOption.RemoteOptional,
-      securityClearance: formValues.securityRequirement,
+      securityClearance: formValues.securityRequirement
+        ? formValues.securityRequirement
+        : undefined, // can't be set to null, assume not updating if empty
       publishingGroup: formValues.publishingGroup
         ? formValues.publishingGroup
         : undefined, // can't be set to null, assume not updating if empty

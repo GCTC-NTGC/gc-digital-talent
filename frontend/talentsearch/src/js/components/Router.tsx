@@ -28,6 +28,7 @@ import { Role, useGetAboutMeQuery } from "../api/generated";
 
 /** Home */
 const HomePage = React.lazy(() => import("./Home/HomePage"));
+const NotFoundPage = React.lazy(() => import("./404/Error404"));
 
 /** Search */
 const SearchPage = React.lazy(() => import("./search/SearchPage"));
@@ -95,6 +96,23 @@ const talentRoutes = (
     path: talentPaths.home(),
     action: () => ({
       component: <HomePage />,
+    }),
+  },
+  {
+    path: talentPaths.notFound(),
+    action: () => ({
+      component: <NotFoundPage />,
+    }),
+  },
+  {
+    path: talentPaths.support(),
+    action: () => ({
+      /**
+       * TO DO: Update with support page #4282
+       *
+       * REF: https://github.com/GCTC-NTGC/gc-digital-talent/issues/4282
+       */
+      component: <div />,
     }),
   },
   {
