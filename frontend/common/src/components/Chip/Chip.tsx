@@ -16,38 +16,6 @@ export interface ChipProps extends React.HTMLProps<HTMLElement> {
   label: string;
 }
 
-type ChipColor = "primary" | "secondary" | "neutral";
-
-const colorMap: Record<
-  ChipColor,
-  Record<"solid" | "outline", Record<string, string>>
-> = {
-  primary: {
-    solid: {
-      "data-h2-color": "base(dt-white)",
-    },
-    outline: {
-      "data-h2-color": "base(dark.dt-primary)",
-    },
-  },
-  secondary: {
-    solid: {
-      "data-h2-color": "base(dt-white)",
-    },
-    outline: {
-      "data-h2-color": "base(dark.dt-secondary)",
-    },
-  },
-  neutral: {
-    solid: {
-      "data-h2-color": "base(dt-white)",
-    },
-    outline: {
-      "data-h2-color": "base(dark.dt-gray)",
-    },
-  },
-};
-
 const ChipDismiss = (props: React.ComponentProps<"button">) => (
   <button
     type="button"
