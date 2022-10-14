@@ -99,8 +99,8 @@ const SignatureForm = ({
   const confirmations = [
     intl.formatMessage({
       defaultMessage: `"I've reviewed everything written in my
-        application`,
-      id: "aeI64y",
+        application"`,
+      id: "voTvve",
       description: "Signature list item on sign and submit page.",
     }),
     intl.formatMessage({
