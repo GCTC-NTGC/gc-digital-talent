@@ -3,6 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
+import { act } from "react-dom/test-utils";
 import { render, axeTest, screen, fireEvent } from "../../../helpers/testUtils";
 
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -24,16 +25,19 @@ describe("ThemeSwitcher", () => {
   Object.setPrototypeOf(window.localStorage.removeItem, jest.fn());
 
   it("should have no accessibility errors", async () => {
-    const { container } = renderThemeSwitcher();
-    await axeTest(container);
+    await act(async () => {
+      const { container } = renderThemeSwitcher();
+      await axeTest(container);
+    });
   });
 
   it("should change theme to light mode", async () => {
-    renderThemeSwitcher();
-
-    fireEvent.click(
-      await screen.getByRole("radio", { name: /activate light mode/i }),
-    );
+    await act(async () => {
+      renderThemeSwitcher();
+      fireEvent.click(
+        await screen.getByRole("radio", { name: /activate light mode/i }),
+      );
+    });
 
     expect(window.localStorage.setItem).toHaveBeenCalledWith("theme", "light");
 
@@ -43,11 +47,12 @@ describe("ThemeSwitcher", () => {
   });
 
   it("should change theme to dark mode", async () => {
-    renderThemeSwitcher();
-
-    fireEvent.click(
-      await screen.getByRole("radio", { name: /activate dark mode/i }),
-    );
+    await act(async () => {
+      renderThemeSwitcher();
+      fireEvent.click(
+        await screen.getByRole("radio", { name: /activate dark mode/i }),
+      );
+    });
 
     expect(window.localStorage.setItem).toHaveBeenCalledWith("theme", "dark");
 
@@ -57,13 +62,14 @@ describe("ThemeSwitcher", () => {
   });
 
   it("should change theme to pref mode", async () => {
-    renderThemeSwitcher();
-
-    fireEvent.click(
-      await screen.getByRole("radio", {
-        name: /allow your browser preferences to dictate/i,
-      }),
-    );
+    await act(async () => {
+      renderThemeSwitcher();
+      fireEvent.click(
+        await screen.getByRole("radio", {
+          name: /allow your browser preferences to dictate/i,
+        }),
+      );
+    });
 
     expect(window.localStorage.removeItem).toHaveBeenCalledWith("theme");
 
