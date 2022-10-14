@@ -10,6 +10,7 @@ import {
 } from "@common/helpers/localize";
 import { formattedDateMonthDayYear } from "@common/helpers/dateUtils";
 import Heading, { type HeadingLevel } from "@common/components/Heading";
+import { hidden } from "@common/helpers/format";
 import { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
@@ -178,7 +179,7 @@ const PoolCard = ({
                   "Message on link that say to apply to a recruitment advertisement",
                 id: "1zkApr",
               },
-              { name: classificationResult },
+              { name: classificationResult, hidden },
             )}
           </Link>
         </div>
