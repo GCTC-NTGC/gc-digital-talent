@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
 import { imageUrl } from "@common/helpers/router";
 
-import CallToAction from "../CallToAction";
+import CallToAction from "../../../CallToAction";
 
 import TALENTSEARCH_APP_DIR from "../../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../../applicantProfileRoutes";

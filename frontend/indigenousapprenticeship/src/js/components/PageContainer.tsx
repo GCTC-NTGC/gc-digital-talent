@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from "react";
+import React, { ReactElement } from "react";
 import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
@@ -94,22 +94,22 @@ const IndigenousApprenticeshipNotAuthorized: React.FC = () => {
   );
 };
 
+const notFound = <IndigenousApprenticeshipNotFound />;
+const notAuthorized = <IndigenousApprenticeshipNotAuthorized />;
+
 export const PageContainer: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const intl = useIntl();
+  const content = useRouter({
+    routes: contentRoutes,
+    components: {
+      notFound,
+      notAuthorized,
+    },
+  });
 
-  // stabilize components that will not change during life of app, avoid render loops in router
-  const notFoundComponent = useRef(<IndigenousApprenticeshipNotFound />);
-  const notAuthorizedComponent = useRef(
-    <IndigenousApprenticeshipNotAuthorized />,
-  );
-  const content = useRouter(
-    contentRoutes,
-    notFoundComponent.current,
-    notAuthorizedComponent.current,
-  );
   return (
     <>
       <ScrollToTop />

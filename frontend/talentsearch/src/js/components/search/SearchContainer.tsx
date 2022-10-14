@@ -103,6 +103,10 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 
   const searchRef = useRef<SearchFormRef>(null);
 
+  // This seems to lead to unexpected behavior with submit button re-rendering
+  // at the very end, in a way that confuses Cypress. Caution advised before
+  // re-producing this pattern elsewhere.
+  // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
   const tryHandleSubmit = async () => {
     if (classificationFilterCount === 0 || locationPreferencesCount === 0) {
       // Validate all fields, and focus on the first one that is invalid.
