@@ -58,6 +58,7 @@ const RecruitmentCard: React.FC<RecruitmentCardProps> = ({
           </span>
         </div>
       </div>
+
       <div data-h2-position="base(relative)">
         <div
           data-h2-padding="base(x.75, 0, 0, x3.5) p-tablet(0)"

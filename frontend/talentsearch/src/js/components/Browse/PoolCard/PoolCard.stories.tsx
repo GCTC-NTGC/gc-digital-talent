@@ -2,7 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { fakePoolAdvertisements } from "@common/fakeData";
 import PoolCard from "./PoolCard";
-import { PoolAdvertisement } from "../../api/generated";
+import { PoolAdvertisement } from "../../../api/generated";
 
 const fakedPool = fakePoolAdvertisements()[0];
 const fakedPool2 = fakePoolAdvertisements()[1];
