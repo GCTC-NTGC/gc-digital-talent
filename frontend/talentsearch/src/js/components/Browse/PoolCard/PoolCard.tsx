@@ -24,6 +24,8 @@ import { useDirectIntakeRoutes } from "../../../directIntakeRoutes";
 
 import IconLabel from "./IconLabel";
 
+import "./pool-card.css";
+
 const getClassificationStrings = (pool: PoolAdvertisement) => {
   if (!pool.classifications) return null;
 
@@ -80,9 +82,13 @@ const PoolCard = ({ pool, headingLevel = "h3" }: CardProps) => {
           data-h2-offset="base(0, auto, auto, x.5) p-tablet(0, auto, auto, x2)"
         >
           <div
+            className="recruitment-flag"
             data-h2-background-color="base(tm-blue)"
             data-h2-padding="base(x2, x.5, x1, x.5)"
-            className="recruitment-flag"
+            // data-h2-padding="base(x2, x.5, x2.5, x.5)"
+            // style={{
+            //   clipPath: `polygon(0% 0%, 0% 100%, 50% calc(100% - 2rem), 100% 100%, 100% 0)`,
+            // }}
           >
             <span
               data-h2-color="base(black)"
