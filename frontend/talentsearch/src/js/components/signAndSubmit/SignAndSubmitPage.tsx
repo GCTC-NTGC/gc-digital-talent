@@ -110,9 +110,9 @@ const SignatureForm = ({
       description: "Signature list item on sign and submit page.",
     }),
     intl.formatMessage({
-      defaultMessage: `"I promise that the information Ive provided is
+      defaultMessage: `"I promise that the information I've provided is
         true"`,
-      id: "Lgo2iQ",
+      id: "9Eke1a",
       description: "Signature list item on sign and submit page.",
     }),
   ];
