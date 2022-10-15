@@ -21,7 +21,7 @@ final class CreateApplication
             'pool_id' => $args['poolId'],
           ]);
 
-        if (in_array($application->pool_candidate_status, ApiEnums::candidateStatusesNoDraft())) {
+        if ($application->submitted_at != null) {
             throw ValidationException::withMessages(['you have already applied to this pool']);
         }
 

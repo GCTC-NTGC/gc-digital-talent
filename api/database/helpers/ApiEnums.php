@@ -148,25 +148,6 @@ class ApiEnums
         ];
     }
 
-    public static function candidateStatusesNoDraft() : array
-    {
-        return [
-            self::CANDIDATE_STATUS_NEW_APPLICATION,
-            self::CANDIDATE_STATUS_APPLICATION_REVIEW,
-            self::CANDIDATE_STATUS_SCREENED_IN,
-            self::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
-            self::CANDIDATE_STATUS_UNDER_ASSESSMENT,
-            self::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
-            self::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            self::CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE,
-            self::CANDIDATE_STATUS_QUALIFIED_WITHDREW,
-            self::CANDIDATE_STATUS_PLACED_CASUAL,
-            self::CANDIDATE_STATUS_PLACED_TERM,
-            self::CANDIDATE_STATUS_PLACED_INDETERMINATE,
-            self::CANDIDATE_STATUS_EXPIRED,
-        ];
-    }
-
     const USER_STATUS_ACTIVELY_LOOKING = 'ACTIVELY_LOOKING';
     const USER_STATUS_OPEN_TO_OPPORTUNITIES = 'OPEN_TO_OPPORTUNITIES';
     const USER_STATUS_INACTIVE = 'INACTIVE';
