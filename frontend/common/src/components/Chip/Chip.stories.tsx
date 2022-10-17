@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import Chip from "./Chip";
+import Chips from "./Chips";
 import type { ChipProps } from "./Chip";
 
 export default {
@@ -36,13 +37,13 @@ const TemplateNoDismissChip: Story<ChipProps> = (args) => {
 
 const TemplateMultiChip: Story<ChipProps> = (args) => {
   return (
-    <>
+    <Chips>
       <Chip {...args} />
       <Chip {...args} />
       <Chip {...args} />
       <Chip {...args} />
       <Chip {...args} />
-    </>
+    </Chips>
   );
 };
 

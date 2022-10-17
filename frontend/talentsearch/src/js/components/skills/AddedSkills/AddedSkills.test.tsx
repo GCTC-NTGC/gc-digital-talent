@@ -56,9 +56,8 @@ describe("AddedSkills tests", () => {
     const onDismiss = jest.fn();
     const skill = fakeSkills()[0];
     renderContainer([skill], onDismiss);
-    const chip = screen.getByRole("listitem");
-    const dismissButton = chip.querySelector("[role='button']"); // not sure why getByRole doesn't work here
-    if (dismissButton) fireEvent.click(dismissButton);
+    const chip = screen.getByRole("button");
+    if (chip) fireEvent.click(chip);
     expect(onDismiss).toHaveBeenCalledWith(skill.id);
   });
 });
