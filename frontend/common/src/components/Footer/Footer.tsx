@@ -12,16 +12,11 @@ const Footer = ({ width }: FooterProps) => {
 
   const links = [
     {
-      route: "mailto:GCTalentGC@tbs-sct.gc.ca",
-      title: intl.formatMessage({
-        defaultMessage: "Submit feedback to GC Talent Cloud via email.",
-        id: "mZMdKM",
-        description: "Title for the feedback link in the Footer.",
-      }),
+      route: `/${intl.locale}/support`,
       label: intl.formatMessage({
-        defaultMessage: "Feedback",
-        id: "1J4e+j",
-        description: "Label for the feedback link in the Footer.",
+        defaultMessage: "Contact Us",
+        id: "AWiMVP",
+        description: "Label for the support link in the Footer.",
       }),
     },
     {
