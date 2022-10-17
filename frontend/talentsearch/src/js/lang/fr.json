@@ -1528,7 +1528,11 @@
     "defaultMessage": "Groupes visés par l’équité en matière d’emploi",
     "description": "Legend for the employment equity checklist"
   },
-   "vj4Q0V": {
+   "Fjikio": {
+    "defaultMessage": "{candidateCount, plural, =0 {Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères} =1 {Résultats : <primary><testId>{candidateCount}</testId></primary> candidat correspondants à vos critères} other {Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères}}",
+    "description": "Heading for total matching candidates in results section of search page."
+  },
+  "7Eg+38": {
     "defaultMessage": "{candidateCount, plural, =0 {Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères} =1 {Résultats : <primary><testId>{candidateCount}</testId></primary> candidat correspondants à vos critères} other {Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères}}",
     "description": "Heading for total matching candidates in results section of search page."
   },

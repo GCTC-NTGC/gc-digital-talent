@@ -180,10 +180,10 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             {intl.formatMessage(
               {
                 defaultMessage: `{candidateCount, plural,
-                  one {Results: <primary><testId>{candidateCount}</testId></primary> matching candidate}
-                  other {Results: <primary><testId>{candidateCount}</testId></primary> matching candidates}
+                  one {Results: <testId>{candidateCount}</testId> matching candidate}
+                  other {Results: <testId>{candidateCount}</testId> matching candidates}
                 }`,
-                id: "vj4Q0V",
+                id: "Fjikio",
                 description:
                   "Heading for total matching candidates in results section of search page.",
               },
