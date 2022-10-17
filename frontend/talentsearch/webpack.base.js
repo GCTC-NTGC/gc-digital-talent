@@ -68,6 +68,7 @@ module.exports = {
         BUILD_DATE: JSON.stringify(new Date()),
         FRESHDESK_API_TICKETS_ENDPOINT: JSON.stringify(process.env.FRESHDESK_API_TICKETS_ENDPOINT),
         FRESHDESK_API_KEY: JSON.stringify(process.env.FRESHDESK_API_KEY),
+        FRESHDESK_API_TICKET_TAG: JSON.stringify(process.env.FRESHDESK_API_TICKET_TAG),
       },
     }),
 
