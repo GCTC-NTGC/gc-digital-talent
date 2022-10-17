@@ -29,7 +29,7 @@ describe("PoolCard", () => {
   it("should render the card", async () => {
     renderPoolCard({ pool: fakedPool });
 
-    expect(screen.getByText(/key skills/i)).toBeInTheDocument();
+    expect(screen.getByText(/required skills/i)).toBeInTheDocument();
     expect(screen.getByText(/salary range/i)).toBeInTheDocument();
     expect(screen.getByText(/apply by/i)).toBeInTheDocument();
     expect(screen.getByText(/apply to this recruitment/i)).toBeInTheDocument();
@@ -50,14 +50,16 @@ describe("PoolCard", () => {
   it("should render the null state correctly", async () => {
     renderPoolCard({ pool: nullPool });
 
-    expect(screen.getByText(/(No Classification)/i)).toBeInTheDocument();
-    expect(screen.getByText(/(Needs classification)/i)).toBeInTheDocument();
+    expect(
+      await screen.getByText(/Salary range/i).closest("p"),
+    ).toHaveTextContent(/salary range:n\/a/i);
     expect(screen.getByText(/(No skills required)/i)).toBeInTheDocument();
     expect(screen.getByText(/(To be determined)/i)).toBeInTheDocument();
 
-    const applyLink = screen.getByRole("link", {
-      name: /apply to this recruitment/i,
-    });
-    expect(applyLink).toHaveAttribute("href", `#`);
+    expect(
+      await screen.queryByRole("link", {
+        name: /apply to this recruitment/i,
+      }),
+    ).not.toBeInTheDocument();
   });
 });

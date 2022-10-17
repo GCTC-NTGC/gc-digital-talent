@@ -1,13 +1,15 @@
 import React from "react";
 
-type PillSize = "sm" | "md" | "lg";
+export type PillSize = "sm" | "md" | "lg";
+export type PillColor = "primary" | "secondary" | "neutral" | "blue";
+export type PillMode = "solid" | "outline";
 
 export interface PillProps
   extends Omit<React.HTMLProps<HTMLSpanElement>, "size"> {
   /** The style type of the element. */
-  color: "primary" | "secondary" | "neutral" | "blue";
+  color: PillColor;
   /** The style mode of the element. */
-  mode: "solid" | "outline";
+  mode: PillMode;
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
   size?: PillSize;

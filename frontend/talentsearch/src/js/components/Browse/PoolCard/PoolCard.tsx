@@ -8,7 +8,7 @@ import {
 
 import Heading, { type HeadingLevel } from "@common/components/Heading";
 import Link from "@common/components/Link";
-import Pill from "@common/components/Pill";
+import Chip, { Chips } from "@common/components/Chip";
 
 import { getPoolStream } from "@common/constants/localizedConstants";
 import { formattedDateMonthDayYear } from "@common/helpers/dateUtils";
@@ -18,6 +18,7 @@ import {
   localizeSalaryRange,
 } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
+import { commonMessages } from "@common/messages";
 
 import { PoolAdvertisement } from "../../../api/generated";
 import { useDirectIntakeRoutes } from "../../../directIntakeRoutes";
@@ -65,7 +66,9 @@ const PoolCard = ({ pool, headingLevel = "h3" }: CardProps) => {
   const paths = useDirectIntakeRoutes();
 
   const classifications = getClassificationStrings(pool);
+  const classification = classifications?.length ? classifications[0] : null;
   const salaryRanges = getSalaryRanges(pool, locale);
+  const nullMessage = intl.formatMessage(commonMessages.notAvailable);
 
   return (
     <div
@@ -76,31 +79,29 @@ const PoolCard = ({ pool, headingLevel = "h3" }: CardProps) => {
       data-h2-position="base(relative)"
       data-h2-radius="base(rounded)"
     >
-      {classifications && classifications.length > 0 ? (
+      <div
+        data-h2-position="base(absolute)"
+        data-h2-offset="base(0, auto, auto, x.5) p-tablet(0, auto, auto, x2)"
+      >
         <div
-          data-h2-position="base(absolute)"
-          data-h2-offset="base(0, auto, auto, x.5) p-tablet(0, auto, auto, x2)"
+          className="recruitment-flag"
+          data-h2-background-color="base(tm-blue)"
+          data-h2-padding="base(x2, x.5, x1, x.5)"
+          // data-h2-padding="base(x2, x.5, x2.5, x.5)"
+          // style={{
+          //   clipPath: `polygon(0% 0%, 0% 100%, 50% calc(100% - 2rem), 100% 100%, 100% 0)`,
+          // }}
         >
-          <div
-            className="recruitment-flag"
-            data-h2-background-color="base(tm-blue)"
-            data-h2-padding="base(x2, x.5, x1, x.5)"
-            // data-h2-padding="base(x2, x.5, x2.5, x.5)"
-            // style={{
-            //   clipPath: `polygon(0% 0%, 0% 100%, 50% calc(100% - 2rem), 100% 100%, 100% 0)`,
-            // }}
+          <span
+            data-h2-color="base(black)"
+            data-h2-font-weight="base(700)"
+            data-h2-font-size="base(h6) l-tablet(h4, 1.2)"
+            data-h2-layer="base(2, relative)"
           >
-            <span
-              data-h2-color="base(black)"
-              data-h2-font-weight="base(700)"
-              data-h2-font-size="base(h6) l-tablet(h4, 1.2)"
-              data-h2-layer="base(2, relative)"
-            >
-              {classifications[0]}
-            </span>
-          </div>
+            {classification || nullMessage}
+          </span>
         </div>
-      ) : null}
+      </div>
 
       <div data-h2-position="base(relative)">
         <div
@@ -145,19 +146,17 @@ const PoolCard = ({ pool, headingLevel = "h3" }: CardProps) => {
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
           >
-            {salaryRanges ? (
-              <IconLabel
-                icon={CurrencyDollarIcon}
-                label={intl.formatMessage({
-                  id: "TrO4uL",
-                  defaultMessage: "Salary range: ",
-                  description:
-                    "Label for the range of salary expected for a classification",
-                })}
-              >
-                {salaryRanges[0]}
-              </IconLabel>
-            ) : null}
+            <IconLabel
+              icon={CurrencyDollarIcon}
+              label={intl.formatMessage({
+                id: "TrO4uL",
+                defaultMessage: "Salary range: ",
+                description:
+                  "Label for the range of salary expected for a classification",
+              })}
+            >
+              {salaryRanges ? salaryRanges[0] : nullMessage}
+            </IconLabel>
             <IconLabel
               icon={BoltIcon}
               label={intl.formatMessage({
@@ -166,35 +165,33 @@ const PoolCard = ({ pool, headingLevel = "h3" }: CardProps) => {
                 description: "Label for the skills required for a pool",
               })}
             />
-            {pool.essentialSkills && pool.essentialSkills.length > 0 ? (
-              <div
-                data-h2-padding="base(0, 0, 0, x1.5)"
-                data-h2-display="base(flex)"
-                data-h2-margin="base(-x.5, 0, x1, 0)"
-                data-h2-gap="base(x.25)"
-                data-h2-flex-wrap="base(wrap)"
-              >
-                {pool.essentialSkills.map((skill) => (
-                  <Pill
-                    key={skill.id}
-                    color="blue"
-                    mode="outline"
-                    style={{ whiteSpace: "nowrap" }}
-                  >
-                    {getLocalizedName(skill.name, intl)}
-                  </Pill>
-                ))}
-              </div>
-            ) : (
-              <>
-                {intl.formatMessage({
-                  id: "hL7Y6p",
-                  defaultMessage: "(No skills required)",
-                  description:
-                    "Message displayed when no skills are required for a pool",
-                })}
-              </>
-            )}
+            <div
+              data-h2-padding="base(0, 0, 0, x1.5)"
+              data-h2-margin="base(0, 0, x1, 0)"
+            >
+              {pool.essentialSkills?.length ? (
+                <Chips>
+                  {pool.essentialSkills.map((skill) => (
+                    <Chip
+                      key={skill.id}
+                      color="blue"
+                      mode="outline"
+                      style={{ whiteSpace: "nowrap" }}
+                      label={getLocalizedName(skill.name, intl)}
+                    />
+                  ))}
+                </Chips>
+              ) : (
+                <p>
+                  {intl.formatMessage({
+                    id: "hL7Y6p",
+                    defaultMessage: "(No skills required)",
+                    description:
+                      "Message displayed when no skills are required for a pool",
+                  })}
+                </p>
+              )}
+            </div>
             <IconLabel
               icon={CalendarDaysIcon}
               label={intl.formatMessage({
@@ -213,28 +210,30 @@ const PoolCard = ({ pool, headingLevel = "h3" }: CardProps) => {
                   })}
             </IconLabel>
           </div>
-          <p>
-            <Link
-              color="blue"
-              mode="solid"
-              type="button"
-              weight="bold"
-              href={paths.pool(pool.id)}
-              data-h2-text-align="base(center)"
-              data-h2-display="base(inline-block)"
-            >
-              {intl.formatMessage(
-                {
-                  id: "1zkApr",
-                  defaultMessage:
-                    "Apply to this recruitment<hidden> {name}</hidden>",
-                  description:
-                    "Message on link that say to apply to a recruitment advertisement",
-                },
-                { name: classifications ? classifications[0] : "" },
-              )}
-            </Link>
-          </p>
+          {pool.id && (
+            <p>
+              <Link
+                color="blue"
+                mode="solid"
+                type="button"
+                weight="bold"
+                href={paths.pool(pool.id)}
+                data-h2-text-align="base(center)"
+                data-h2-display="base(inline-block)"
+              >
+                {intl.formatMessage(
+                  {
+                    id: "1zkApr",
+                    defaultMessage:
+                      "Apply to this recruitment<hidden> {name}</hidden>",
+                    description:
+                      "Message on link that say to apply to a recruitment advertisement",
+                  },
+                  { name: classifications ? classifications[0] : "" },
+                )}
+              </Link>
+            </p>
+          )}
         </div>
       </div>
     </div>

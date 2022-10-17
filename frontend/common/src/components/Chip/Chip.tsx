@@ -1,22 +1,20 @@
 import React from "react";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import Pill from "../Pill";
+import type { PillColor, PillMode } from "../Pill";
 
 export interface ChipProps extends React.HTMLProps<HTMLElement> {
   /** The style type of the element. */
-  color: "primary" | "secondary" | "neutral";
+  color: PillColor;
   /** The style mode of the element. */
-  mode: "solid" | "outline";
+  mode: PillMode;
   /** Handler for clicking the dismiss button in the chip */
   onDismiss?: React.MouseEventHandler<Element>;
   /** Text for inside the chip */
   label: string;
 }
 
-const colorMap: Record<
-  "primary" | "secondary" | "neutral",
-  Record<"solid" | "outline", Record<string, string>>
-> = {
+const colorMap: Record<PillColor, Record<PillMode, Record<string, string>>> = {
   primary: {
     solid: {
       "data-h2-color": "base(dt-white)",
@@ -39,6 +37,14 @@ const colorMap: Record<
     },
     outline: {
       "data-h2-color": "base(dark.dt-gray)",
+    },
+  },
+  blue: {
+    solid: {
+      "data-h2-color": "base(dt-white)",
+    },
+    outline: {
+      "data-h2-color": "base(dark.tm-blue)",
     },
   },
 };
