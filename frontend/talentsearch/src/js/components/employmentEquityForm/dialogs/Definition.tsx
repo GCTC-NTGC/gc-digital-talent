@@ -3,9 +3,9 @@ import { useIntl } from "react-intl";
 
 import { ExternalLink } from "@common/components/Link";
 
-const statCanLink = (href: string, chunks: string[]) => (
+const statCanLink = (href: string, chunks: string[]): React.ReactNode => (
   <ExternalLink newTab href={href}>
-    {...chunks}
+    {chunks}
   </ExternalLink>
 );
 

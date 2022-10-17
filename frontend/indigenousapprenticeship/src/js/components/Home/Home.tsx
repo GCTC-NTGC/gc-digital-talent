@@ -25,7 +25,7 @@ import CTAButtons from "../CallToAction/CTAButtons";
 
 import "./home.css";
 
-const mailLink = (...chunks: string[]) => (
+const mailLink = (chunks: string[]): React.ReactNode => (
   <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">{chunks}</a>
 );
 

@@ -91,10 +91,8 @@ const IconTitle = ({ children, icon }: IconTitleProps) => {
   );
 };
 
-// NOTE: Not entirely sure why this is failing?
-const anchorTag = (chunks: string[]) => (
-  // eslint-disable-next-line jsx-a11y/anchor-has-content
-  <a href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>{...chunks}</a>
+const anchorTag = (chunks: string[]): React.ReactNode => (
+  <a href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>{chunks}</a>
 );
 
 interface PoolAdvertisementProps {
