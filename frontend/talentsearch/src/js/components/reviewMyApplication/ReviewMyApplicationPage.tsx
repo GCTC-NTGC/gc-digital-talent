@@ -81,7 +81,7 @@ export const ReviewMyApplication: React.FunctionComponent<
         currentStep: 1,
         steps: [
           {
-            path: directIntakePaths.reviewApplication(applicant.id),
+            path: directIntakePaths.reviewApplication(applicationId),
             label: intl.formatMessage({
               id: "LUEVdb",
               defaultMessage: "Step 1: Review my profile",
@@ -89,7 +89,7 @@ export const ReviewMyApplication: React.FunctionComponent<
             }),
           },
           {
-            path: directIntakePaths.signAndSubmit(applicant.id),
+            path: directIntakePaths.signAndSubmit(applicationId),
             label: intl.formatMessage({
               id: "LOh+c5",
               defaultMessage: "Step 2: Sign and submit",
