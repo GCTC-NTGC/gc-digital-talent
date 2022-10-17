@@ -55,12 +55,12 @@ const getSalaryRanges = (pool: PoolAdvertisement, locale: string) => {
     .filter(notEmpty);
 };
 
-export interface CardProps {
+export interface PoolCardProps {
   pool: PoolAdvertisement;
   headingLevel?: HeadingLevel;
 }
 
-const PoolCard = ({ pool, headingLevel = "h3" }: CardProps) => {
+const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useDirectIntakeRoutes();
