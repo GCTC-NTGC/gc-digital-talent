@@ -51,7 +51,7 @@
   ],
   "dependencies": {
     "@heroicons/react": "^2.0.12",
-    "@radix-ui/react-collapsible": "^1.0.0",
+    "@radix-ui/react-collapsible": "^1.0.1",
     "@radix-ui/react-scroll-area": "^1.0.0",
     "@radix-ui/react-separator": "^1.0.0",
     "@radix-ui/react-toggle-group": "^1.0.0",
