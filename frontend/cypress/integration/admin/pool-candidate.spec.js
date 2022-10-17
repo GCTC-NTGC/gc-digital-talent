@@ -21,7 +21,7 @@ describe("Pool Candidates", () => {
 
       aliasMutation(req, "UpdatePoolCandidateStatus");
 
-      // Only used if FEATURE_APPLICANTSEARCH is false
+      // Only used if CY_FEATURE_APPLICANTSEARCH is false
       aliasQuery(req, "getUpdatePoolCandidateData");
       aliasMutation(req, "updatePoolCandidate");
     });
@@ -29,8 +29,8 @@ describe("Pool Candidates", () => {
     loginAndGoToPoolsPage();
   });
 
-  if (Cypress.env("FEATURE_APPLICANTSEARCH")) {
-    it("should update pool candidate status (FEATURE_APPLICANTSEARCH:on)", () => {
+  if (Cypress.env("CY_FEATURE_APPLICANTSEARCH")) {
+    it("should update pool candidate status (CY_FEATURE_APPLICANTSEARCH:on)", () => {
       cy.wait("@gqlgetPoolsQuery");
 
       cy.findAllByRole("link", { name: /view candidates/i })
@@ -105,7 +105,7 @@ describe("Pool Candidates", () => {
     });
 
   } else {
-    it("should edit and update pool candidate (FEATURE_APPLICANTSEARCH:off)", () => {
+    it("should edit and update pool candidate (CY_FEATURE_APPLICANTSEARCH:off)", () => {
       cy.wait("@gqlgetPoolsQuery");
 
       cy.findAllByRole("link", { name: /view candidates/i })
