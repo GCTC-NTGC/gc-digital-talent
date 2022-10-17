@@ -131,7 +131,7 @@ describe("Submit Application Workflow Tests", () => {
 
     // Browse pools page - placeholder so it could change
     cy.wait("@gqlbrowsePoolAdvertisementsQuery");
-    cy.findByRole("heading", { name: /Browse Pools/i })
+    cy.findByRole("heading", { name: /browse it jobs/i })
       .should("exist")
       .and("be.visible");
     cy.get("@testPoolAdvertisementId").then((testPoolAdvertisementId) => {
