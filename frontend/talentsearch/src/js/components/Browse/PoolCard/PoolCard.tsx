@@ -176,7 +176,6 @@ const PoolCard = ({ pool, headingLevel = "h3" }: CardProps) => {
                       key={skill.id}
                       color="blue"
                       mode="outline"
-                      style={{ whiteSpace: "nowrap" }}
                       label={getLocalizedName(skill.name, intl)}
                     />
                   ))}

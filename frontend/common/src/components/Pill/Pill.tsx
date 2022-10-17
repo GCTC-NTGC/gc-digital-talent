@@ -103,10 +103,10 @@ const Pill: React.FC<PillProps> = ({
       {...colorMap[color][mode]}
       {...sizeMap[size]}
       data-h2-text-align="base(center)"
+      data-h2-max-width="base(100%)"
       {...rest}
     >
-      {/* parent span already has a display style */}
-      <span>{children}</span>
+      {children}
     </span>
   );
 };
