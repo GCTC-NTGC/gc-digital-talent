@@ -14,7 +14,7 @@ import { commonMessages } from "@common/messages";
 import { imageUrl } from "@common/helpers/router";
 import useTheme from "@common/hooks/useTheme";
 
-import PoolCard from "./PoolCard/index";
+import PoolCard from "./PoolCard";
 
 import {
   AdvertisementStatus,
