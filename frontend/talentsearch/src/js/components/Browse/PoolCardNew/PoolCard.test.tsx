@@ -6,7 +6,7 @@ import { screen } from "@testing-library/react";
 import React from "react";
 import { axeTest, render } from "@common/helpers/testUtils";
 import { fakePoolAdvertisements } from "@common/fakeData";
-import PoolCard, { CardProps } from "./PoolCard";
+import PoolCard, { PoolCardProps } from "./PoolCard";
 
 const fakedPool = fakePoolAdvertisements()[0];
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -15,7 +15,8 @@ Object.keys(fakedPool).forEach((key) => {
   nullPool[key] = null;
 });
 
-const renderPoolCard = (props: CardProps) => render(<PoolCard {...props} />);
+const renderPoolCard = (props: PoolCardProps) =>
+  render(<PoolCard {...props} />);
 
 describe("PoolCard", () => {
   it("should have no accessibility errors", async () => {
