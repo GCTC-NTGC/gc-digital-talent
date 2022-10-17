@@ -1532,10 +1532,6 @@
     "defaultMessage": "{candidateCount, plural, =0 {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{candidateCount}</testId> candidat correspondants à vos critères} other {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères}}",
     "description": "Heading for total matching candidates in results section of search page."
   },
-  "7Eg+38": {
-    "defaultMessage": "{candidateCount, plural, =0 {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{candidateCount}</testId> candidat correspondants à vos critères} other {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères}}",
-    "description": "Heading for total matching candidates in results section of search page."
-  },
   "bbso+7": {
     "defaultMessage": "{candidateCount, plural, one {Il y a <strong><testId>{candidateCount}</testId></strong> candidat qui répondent à vos critères dans ce bassin} other {Il y a <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères dans ce bassin}}",
     "description": "Message for total estimated matching candidates in pool"
