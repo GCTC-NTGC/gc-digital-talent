@@ -206,7 +206,7 @@ const SignatureForm = ({
             disabled={!isApplicationComplete}
           />
           <Link
-            href="#REPLACEWITHREVIEWAPPLICATIONROUTE" // TODO: Replace with review my application route.
+            href={paths.reviewApplication(applicationId)}
             color="black"
             mode="inline"
             type="button"
@@ -311,7 +311,7 @@ export const SignAndSubmitForm = ({
         currentStep: 2,
         steps: [
           {
-            path: "#REPLACEWITHREVIEWAPPLICATIONROUTE", // TODO: Replace with review my application route.
+            path: paths.reviewApplication(applicationId),
             label: intl.formatMessage({
               defaultMessage: "Step 1: Review my profile",
               id: "LUEVdb",
