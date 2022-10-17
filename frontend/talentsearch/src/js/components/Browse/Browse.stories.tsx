@@ -2,17 +2,27 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 import { widthOf, heightOf } from "@common/helpers/storybookUtils";
-import Browse from "./Browse";
+import { fakePoolAdvertisements } from "@common/fakeData";
+import { BrowsePools } from "./BrowsePoolsPage";
+import { AdvertisementStatus, PublishingGroup } from "../../api/generated";
 
-type Meta = ComponentMeta<typeof Browse>;
-type Story = ComponentStory<typeof Browse>;
+const mockAdvertisements = fakePoolAdvertisements(3).map((advert) => ({
+  ...advert,
+  publishingGroup: PublishingGroup.ItJobs,
+  advertisementStatus: AdvertisementStatus.Published,
+}));
+
+type Meta = ComponentMeta<typeof BrowsePools>;
+type Story = ComponentStory<typeof BrowsePools>;
 
 export default {
-  component: Browse,
-  title: "Browse Page",
+  component: BrowsePools,
+  title: "Pages/Browse Page",
 } as Meta;
 
-const Template: Story = () => <Browse />;
+const Template: Story = () => (
+  <BrowsePools poolAdvertisements={mockAdvertisements} />
+);
 
 const VIEWPORTS = [
   widthOf(INITIAL_VIEWPORTS.iphonex), // Modern iPhone

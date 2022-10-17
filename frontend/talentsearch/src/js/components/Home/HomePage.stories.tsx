@@ -9,7 +9,7 @@ type Story = ComponentStory<typeof Home>;
 
 export default {
   component: Home,
-  title: "Home Page",
+  title: "Pages/Home Page",
 } as Meta;
 
 const Template: Story = () => <Home defaultImage={0} />;
