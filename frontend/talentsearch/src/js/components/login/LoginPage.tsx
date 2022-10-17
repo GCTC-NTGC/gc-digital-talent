@@ -12,7 +12,7 @@ import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 const keyRegistrationLink = (
   path: string,
-  chunks: React.ReactNode[],
+  chunks: React.ReactNode,
 ): React.ReactNode => <a href={path}>{chunks}</a>;
 
 const LoginPage: React.FC = () => {

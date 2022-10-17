@@ -24,7 +24,7 @@ const useQuote = (): Quote => {
           description: "testimonial number one",
         },
         {
-          b: (chunks): React.ReactNode => (
+          b: (chunks: React.ReactNode): React.ReactNode => (
             <span style={{ color: "#FFDCA7" }}>{chunks}</span>
           ),
         },

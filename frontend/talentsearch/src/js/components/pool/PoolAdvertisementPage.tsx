@@ -91,7 +91,7 @@ const IconTitle = ({ children, icon }: IconTitleProps) => {
   );
 };
 
-const anchorTag = (chunks: string[]): React.ReactNode => (
+const anchorTag = (chunks: React.ReactNode): React.ReactNode => (
   <a href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>{chunks}</a>
 );
 

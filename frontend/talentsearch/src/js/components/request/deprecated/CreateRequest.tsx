@@ -181,8 +181,8 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
         }),
     }));
 
-  function span(msg: string): JSX.Element {
-    return <span data-h2-color="base(dt-primary.light)">{msg}</span>;
+  function span(chunks: React.ReactNode): React.ReactNode {
+    return <span data-h2-color="base(dt-primary.light)">{chunks}</span>;
   }
 
   return (

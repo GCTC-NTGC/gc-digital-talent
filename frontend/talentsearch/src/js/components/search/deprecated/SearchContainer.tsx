@@ -27,8 +27,8 @@ import SearchPools from "../SearchPools";
 import Spinner from "../../Spinner";
 import { useTalentSearchRoutes } from "../../../talentSearchRoutes";
 
-const testId = (text: React.ReactNode) => (
-  <span data-testid="candidateCount">{text}</span>
+const testId = (chunks: React.ReactNode): React.ReactNode => (
+  <span data-testid="candidateCount">{chunks}</span>
 );
 
 export interface SearchContainerProps {
@@ -65,13 +65,13 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     candidateFilter?.operationalRequirements?.length ?? 0;
   const workRegionFilterCount = candidateFilter?.workRegions?.length ?? 0;
 
-  function a(msg: string) {
+  function a(chunks: React.ReactNode): React.ReactNode {
     return (
       <a
         href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}
         data-h2-font-weight="base(700)"
       >
-        {msg}
+        {chunks}
       </a>
     );
   }

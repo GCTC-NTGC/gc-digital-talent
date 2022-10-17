@@ -11,7 +11,7 @@ import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 const keyRegistrationLink = (
   path: string,
-  chunks: React.ReactNode[],
+  chunks: React.ReactNode,
 ): React.ReactNode => <a href={path}>{chunks}</a>;
 
 const RegisterPage: React.FC = () => {
