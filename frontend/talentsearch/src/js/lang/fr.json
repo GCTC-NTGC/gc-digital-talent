@@ -1529,11 +1529,11 @@
     "description": "Legend for the employment equity checklist"
   },
    "Fjikio": {
-    "defaultMessage": "{candidateCount, plural, =0 {Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères} =1 {Résultats : <primary><testId>{candidateCount}</testId></primary> candidat correspondants à vos critères} other {Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères}}",
+    "defaultMessage": "{candidateCount, plural, =0 {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{candidateCount}</testId> candidat correspondants à vos critères} other {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères}}",
     "description": "Heading for total matching candidates in results section of search page."
   },
   "7Eg+38": {
-    "defaultMessage": "{candidateCount, plural, =0 {Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères} =1 {Résultats : <primary><testId>{candidateCount}</testId></primary> candidat correspondants à vos critères} other {Résultats : <primary><testId>{candidateCount}</testId></primary> candidats correspondants à vos critères}}",
+    "defaultMessage": "{candidateCount, plural, =0 {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{candidateCount}</testId> candidat correspondants à vos critères} other {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères}}",
     "description": "Heading for total matching candidates in results section of search page."
   },
   "bbso+7": {
