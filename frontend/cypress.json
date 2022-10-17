@@ -19,6 +19,6 @@
   "authServerRoot": "http://localhost:8000/oxauth",
   "baseUrl": "http://localhost:8000",
   "env": {
-    "FEATURE_APPLICANTSEARCH": false
+    "CY_FEATURE_APPLICANTSEARCH": true
   }
 }
