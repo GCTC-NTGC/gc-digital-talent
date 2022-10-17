@@ -78,7 +78,7 @@ export const BasicApplicationPageWrapper = Template.bind({});
 BasicApplicationPageWrapper.args = {
   title: "Basic Application Page Wrapper",
   subtitle: "Subtitle for Page Wrapper",
-  closingDate: new Date(FAR_FUTURE_DATE),
+  closingDate: FAR_FUTURE_DATE,
   crumbs: [{ title: "Pool Name" }, { title: "About Me" }],
   navigation: {
     currentStep: 1,
@@ -99,7 +99,7 @@ export const NoNavigationApplicationPageWrapper = Template.bind({});
 NoNavigationApplicationPageWrapper.args = {
   title: "Basic Application Page Wrapper",
   subtitle: "Subtitle for Page Wrapper",
-  closingDate: new Date(FAR_FUTURE_DATE),
+  closingDate: FAR_FUTURE_DATE,
   crumbs: [{ title: "Pool Name" }, { title: "About Me" }],
 };
 
@@ -107,6 +107,6 @@ export const ExpiredApplicationPageWrapper = Template.bind({});
 ExpiredApplicationPageWrapper.args = {
   title: "Basic Application Page Wrapper",
   subtitle: "Subtitle for Page Wrapper",
-  closingDate: new Date(FAR_PAST_DATE),
+  closingDate: FAR_PAST_DATE,
   crumbs: [{ title: "Pool Name" }, { title: "About Me" }],
 };

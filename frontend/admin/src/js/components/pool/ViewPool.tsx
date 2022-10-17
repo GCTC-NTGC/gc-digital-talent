@@ -28,6 +28,10 @@ import {
   getLanguageRequirement,
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
+import {
+  formattedDateMonthDayYear,
+  parseDateTimeUtc,
+} from "@common/helpers/dateUtils";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   SkillCategory,
@@ -387,9 +391,15 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 type="text"
                 readOnly
                 hideOptional
-                value={new Date(pool.expiryDate).toLocaleString(locale, {
-                  dateStyle: "medium",
-                })}
+                value={
+                  pool.expiryDate
+                    ? formattedDateMonthDayYear(
+                        parseDateTimeUtc(pool.expiryDate),
+                        intl,
+                        "Canada/Pacific",
+                      )
+                    : ""
+                }
                 label={intl.formatMessage({
                   defaultMessage: "Closing date",
                   id: "VWz3+d",
