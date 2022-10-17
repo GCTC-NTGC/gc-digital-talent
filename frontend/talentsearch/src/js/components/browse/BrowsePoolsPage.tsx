@@ -2,19 +2,19 @@ import React from "react";
 import { RocketLaunchIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 
+import { CardFlat } from "@common/components/Card";
+import Flourish from "@common/components/Flourish";
 import Hero from "@common/components/Hero";
+import Heading from "@common/components/Heading";
+import Link from "@common/components/Link";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
-import Flourish from "@common/components/Flourish";
 
 import { commonMessages } from "@common/messages";
-import Heading from "@common/components/Heading";
-import { Link } from "@common/components";
 import { imageUrl } from "@common/helpers/router";
 import useTheme from "@common/hooks/useTheme";
 
 import PoolCard from "./PoolCard";
-import Block from "../Home/partials/Opportunities/Block";
 
 import {
   AdvertisementStatus,
@@ -241,64 +241,66 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
             data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr)))"
             data-h2-gap="base(x2) p-tablet(x3)"
           >
-            <Block
-              content={{
-                color: "purple",
-                title: intl.formatMessage({
+            <CardFlat
+              color="purple"
+              title={intl.formatMessage({
+                defaultMessage:
+                  "Browse IT opportunities for the Indigenous community",
+                id: "GZrICV",
+                description:
+                  "Title for Indigenous community job opportunities on Browse IT jobs page",
+              })}
+              link={{
+                href: `${paths.home()}/indigenous-apprentice`,
+                mode: "outline",
+                label: intl.formatMessage({
                   defaultMessage:
-                    "Browse IT opportunities for the Indigenous community",
-                  id: "GZrICV",
+                    "<hidden>Learn more about </hidden>Indigenous IT apprenticeship<hidden> opportunities</hidden>",
+                  id: "xgocDD",
                   description:
-                    "Title for Indigenous community job opportunities on Browse IT jobs page",
+                    "Link text to go to IAP homepage on browse IT jobs page",
                 }),
-                summary: intl.formatMessage({
+              }}
+            >
+              <p>
+                {intl.formatMessage({
                   defaultMessage:
                     "Designed by, with, and for the Indigenous community, the program recruits First Nations, Inuit, and Métis applicants who have a passion for IT, for entry level employment, learning and development opportunities.",
                   id: "+6QgII",
                   description:
                     "Summary for Indigenous community job opportunities on Browse IT jobs page",
-                }),
-                link: {
-                  path: `${paths.home()}/indigenous-apprentice`,
-                  mode: "outline",
-                  label: intl.formatMessage({
-                    defaultMessage:
-                      "<hidden>Learn more about </hidden>Indigenous IT apprenticeship<hidden> opportunities</hidden>",
-                    id: "xgocDD",
-                    description:
-                      "Link text to go to IAP homepage on browse IT jobs page",
-                  }),
-                },
-              }}
-            />
-            <Block
-              content={{
-                color: "purple",
-                title: intl.formatMessage({
-                  defaultMessage: "Hire talent for your team",
-                  id: "jTN0bg",
+                })}
+              </p>
+            </CardFlat>
+            <CardFlat
+              color="purple"
+              title={intl.formatMessage({
+                defaultMessage: "Hire talent for your team",
+                id: "jTN0bg",
+                description:
+                  "Title for to go to the search page on Browse IT jobs page",
+              })}
+              link={{
+                href: `${paths.home()}/indigenous-apprentice`,
+                mode: "outline",
+                label: intl.formatMessage({
+                  defaultMessage: "Visit the talent search page",
+                  id: "BhfG7a",
                   description:
-                    "Title for to go to the search page on Browse IT jobs page",
+                    "Link text to go to the search page on browse IT jobs page",
                 }),
-                summary: intl.formatMessage({
+              }}
+            >
+              <p>
+                {intl.formatMessage({
                   defaultMessage:
                     "Let our team save you time and energy by matching your needs to pre-qualified IT professionals with the right skills for the job. All the talent in our pools has been qualified through a competitive process, so you can jump straight to the interview and decide if they are a good fit for your team.",
                   id: "Ms6O4W",
                   description:
                     "Summary for to go to the search page on Browse IT jobs page",
-                }),
-                link: {
-                  path: `${paths.home()}/indigenous-apprentice`,
-                  mode: "outline",
-                  label: intl.formatMessage({
-                    defaultMessage: "Visit the talent search page",
-                    id: "BhfG7a",
-                    description:
-                      "Link text to go to the search page on browse IT jobs page",
-                  }),
-                },
-              }}
-            />
+                })}
+              </p>
+            </CardFlat>
           </div>
         </div>
       </div>
