@@ -79,7 +79,9 @@ export interface SearchContainerProps {
   onSubmit: () => Promise<void>;
 }
 
-const testId = (msg: string) => <span data-testid="candidateCount">{msg}</span>;
+const testId = (chunks: React.ReactNode): React.ReactNode => (
+  <span data-testid="candidateCount">{chunks}</span>
+);
 
 export const SearchContainer: React.FC<SearchContainerProps> = ({
   classifications,

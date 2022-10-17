@@ -9,9 +9,10 @@ import { useApiRoutes } from "@common/hooks/useApiRoutes";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
-const keyRegistrationLink = (path: string, ...chunks: React.ReactNode[]) => (
-  <a href={path}>{chunks}</a>
-);
+const keyRegistrationLink = (
+  path: string,
+  chunks: React.ReactNode,
+): React.ReactNode => <a href={path}>{chunks}</a>;
 
 const RegisterPage: React.FC = () => {
   const intl = useIntl();
@@ -73,7 +74,7 @@ const RegisterPage: React.FC = () => {
                   "Instruction on what to do if user does not have a GC Key.",
               },
               {
-                a: (...chunks) => keyRegistrationLink(loginPath, chunks),
+                a: (chunks) => keyRegistrationLink(loginPath, chunks),
               },
             )}
           </p>
