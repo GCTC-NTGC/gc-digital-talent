@@ -173,42 +173,41 @@ export const LanguageInformationForm: React.FunctionComponent<{
     : [];
 
   return (
-    <BasicForm
-      cacheKey="lang-info-form"
-      onSubmit={handleSubmit}
-      options={{
-        defaultValues: dataToFormValues(initialData),
+    <ProfileFormWrapper
+      description={intl.formatMessage({
+        defaultMessage:
+          "Use the form below to help us better understand your language preferences and capabilities",
+        id: "TGCq/w",
+        description:
+          "Description text for Profile Form wrapper in Language Information Form",
+      })}
+      title={intl.formatMessage({
+        defaultMessage: "Language Information",
+        id: "R5aTZ9",
+        description:
+          "Title for Profile Form wrapper in Language Information Form",
+      })}
+      cancelLink={{
+        href: returnRoute,
       }}
+      crumbs={[
+        ...applicationBreadcrumbs,
+        {
+          title: intl.formatMessage({
+            defaultMessage: "Language Information",
+            id: "/k21MP",
+            description: "Display Text for Language Information Form Page Link",
+          }),
+        },
+      ]}
+      prefixBreadcrumbs={!application}
     >
-      <ProfileFormWrapper
-        description={intl.formatMessage({
-          defaultMessage:
-            "Use the form below to help us better understand your language preferences and capabilities",
-          id: "TGCq/w",
-          description:
-            "Description text for Profile Form wrapper in Language Information Form",
-        })}
-        title={intl.formatMessage({
-          defaultMessage: "Language Information",
-          id: "R5aTZ9",
-          description:
-            "Title for Profile Form wrapper in Language Information Form",
-        })}
-        cancelLink={{
-          href: returnRoute,
+      <BasicForm
+        cacheKey="lang-info-form"
+        onSubmit={handleSubmit}
+        options={{
+          defaultValues: dataToFormValues(initialData),
         }}
-        crumbs={[
-          ...applicationBreadcrumbs,
-          {
-            title: intl.formatMessage({
-              defaultMessage: "Language Information",
-              id: "/k21MP",
-              description:
-                "Display Text for Language Information Form Page Link",
-            }),
-          },
-        ]}
-        prefixBreadcrumbs={!application}
       >
         <div data-h2-padding="base(0, 0, x2, 0)">
           <div
@@ -237,8 +236,8 @@ export const LanguageInformationForm: React.FunctionComponent<{
           mode="saveButton"
           cancelLink={{ href: returnRoute }}
         />
-      </ProfileFormWrapper>
-    </BasicForm>
+      </BasicForm>
+    </ProfileFormWrapper>
   );
 };
 
