@@ -99,8 +99,8 @@ const SignatureForm = ({
   const confirmations = [
     intl.formatMessage({
       defaultMessage: `"I've reviewed everything written in my
-        application`,
-      id: "aeI64y",
+        application"`,
+      id: "voTvve",
       description: "Signature list item on sign and submit page.",
     }),
     intl.formatMessage({
@@ -110,9 +110,9 @@ const SignatureForm = ({
       description: "Signature list item on sign and submit page.",
     }),
     intl.formatMessage({
-      defaultMessage: `"I promise that the information Ive provided is
+      defaultMessage: `"I promise that the information I've provided is
         true"`,
-      id: "Lgo2iQ",
+      id: "9Eke1a",
       description: "Signature list item on sign and submit page.",
     }),
   ];
@@ -206,7 +206,7 @@ const SignatureForm = ({
             disabled={!isApplicationComplete}
           />
           <Link
-            href="#REPLACEWITHREVIEWAPPLICATIONROUTE" // TODO: Replace with review my application route.
+            href={paths.reviewApplication(applicationId)}
             color="black"
             mode="inline"
             type="button"
@@ -311,7 +311,7 @@ export const SignAndSubmitForm = ({
         currentStep: 2,
         steps: [
           {
-            path: "#REPLACEWITHREVIEWAPPLICATIONROUTE", // TODO: Replace with review my application route.
+            path: paths.reviewApplication(applicationId),
             label: intl.formatMessage({
               defaultMessage: "Step 1: Review my profile",
               id: "LUEVdb",

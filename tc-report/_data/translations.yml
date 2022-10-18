@@ -312,10 +312,8 @@ processLabel:
   fr: "Interventions liées au processus :"
 footer:
   en:
-    - route: mailto:GCTalentGC@tbs-sct.gc.ca
-      type: absolute
-      title: Submit feedback to GC Talent Cloud via email.
-      label: Feedback
+    - route: support
+      label: Contact Us
     - route: terms-and-conditions
       title: View our terms and conditions.
       label: Terms & Conditions
@@ -327,10 +325,8 @@ footer:
       title: Visit Canada.ca.
       label: Canada.ca
   fr:
-    - route: mailto:GCTalentGC@tbs-sct.gc.ca
-      type: absolute
-      title: Soumettre des commentaires au Nuage de talents du GC par courriel.
-      label: Retour d'information
+    - route: support
+      label: Contactez-nous
     - route: terms-and-conditions
       title: Voir nos avis.
       label: Avis
@@ -362,12 +358,12 @@ footerDate:
     date: July 07, 2021
 auth:
   en:
-    - label: Login      
+    - label: Login
       route: https://talent.canada.ca/login?locale=en
-    - label: Register      
+    - label: Register
       route: https://talent.canada.ca/register?locale=en
   fr:
-    - label: Connexion      
+    - label: Connexion
       route: https://talent.canada.ca/login?locale=fr
     - label: S'inscrire
       route: https://talent.canada.ca/register?locale=fr

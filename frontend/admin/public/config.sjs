@@ -13,6 +13,7 @@ const data = new Map([
     ["OAUTH_LOGOUT_URI", filterEmpty("<!--#echo var="OAUTH_LOGOUT_URI" -->")],
     ["OAUTH_POST_LOGOUT_REDIRECT", filterEmpty("<!--#echo var="OAUTH_POST_LOGOUT_REDIRECT" -->")],
     ["FEATURE_DIRECTINTAKE", filterEmpty("<!--#echo var="FEATURE_DIRECTINTAKE" -->")],
+    ["FEATURE_APPLICANTSEARCH", filterEmpty("<!--#echo var="FEATURE_APPLICANTSEARCH" -->")],
     ["APPLICATIONINSIGHTS_CONNECTION_STRING", filterEmpty("<!--#echo var="APPLICATIONINSIGHTS_CONNECTION_STRING" -->")],
 ]);
 

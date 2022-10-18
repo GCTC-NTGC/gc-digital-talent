@@ -113,10 +113,10 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   };
 
   // intl styling functions section
-  function link(msg: string, url: string) {
+  function link(chunks: React.ReactNode, url: string): React.ReactNode {
     return (
       <ExternalLink newTab href={url}>
-        {msg}
+        {chunks}
       </ExternalLink>
     );
   }
@@ -314,9 +314,9 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 description: "Link to learn more about classifications",
               },
               {
-                link: (msg: string) =>
+                link: (chunks: React.ReactNode): React.ReactNode =>
                   link(
-                    msg,
+                    chunks,
                     intl.locale === "en"
                       ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html"
                       : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/carriere-domaine-numerique.html",

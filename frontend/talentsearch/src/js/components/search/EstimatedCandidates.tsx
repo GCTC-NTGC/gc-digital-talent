@@ -10,7 +10,9 @@ interface EstimatedCandidatesProps {
   updatePending?: boolean;
 }
 
-const testId = (msg: string) => <span data-testid="candidateCount">{msg}</span>;
+const testId = (chunks: React.ReactNode): React.ReactNode => (
+  <span data-testid="candidateCount">{chunks}</span>
+);
 
 const EstimatedCandidates: React.FunctionComponent<
   EstimatedCandidatesProps

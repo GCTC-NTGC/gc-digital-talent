@@ -12,3 +12,5 @@ export const FRESHDESK_API_TICKETS_ENDPOINT =
   (process.env.FRESHDESK_API_TICKETS_ENDPOINT as string) ?? "";
 export const FRESHDESK_API_KEY =
   (process.env.FRESHDESK_API_KEY as string) ?? "";
+export const FRESHDESK_API_TICKET_TAG =
+  (process.env.FRESHDESK_API_TICKET_TAG as string) ?? "";

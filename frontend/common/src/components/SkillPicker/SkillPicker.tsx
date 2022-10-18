@@ -151,6 +151,7 @@ const SkillPicker = ({
             id: "PF4ya+",
             description: "Placeholder for the skills search bar.",
           })}
+          autoComplete="off"
         />
         <MultiSelectFieldV2
           id="skillFamilies"

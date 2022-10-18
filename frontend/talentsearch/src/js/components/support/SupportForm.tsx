@@ -13,6 +13,7 @@ import { useGetMeQuery, User } from "../../api/generated";
 import {
   FRESHDESK_API_KEY,
   FRESHDESK_API_TICKETS_ENDPOINT,
+  FRESHDESK_API_TICKET_TAG,
 } from "../../talentSearchConstants";
 
 type FormValues = {
@@ -29,6 +30,7 @@ export type CreateTicketInput = {
   subject: string;
   priority: number;
   status: number;
+  tags?: string[];
 };
 
 interface SupportFormProps {
@@ -118,6 +120,7 @@ export const SupportForm = ({
       ...data,
       priority: 1, // Required by Freshdesk API. Priority of the ticket. The default value is 1.
       status: 2, // Required by Freshdesk API. Status of the ticket. The default Value is 2.
+      tags: [FRESHDESK_API_TICKET_TAG],
     };
     return handleCreateTicket(ticketInput).then(() => {
       onFormToggle(false);
