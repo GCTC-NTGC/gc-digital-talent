@@ -25,7 +25,7 @@ mutation publishPoolAdvertisement($id: ID!) {
   }
 }
 
-mutation changePoolExpiryDate($id: ID!, $newExpiryDate: DateTimeTz!) {
+mutation changePoolExpiryDate($id: ID!, $newExpiryDate: DateTime!) {
   changePoolExpiryDate(id: $id, newExpiryDate: $newExpiryDate) {
     expiryDate
   }

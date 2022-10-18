@@ -147,15 +147,18 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
     React.useState<boolean>(false);
 
   // intl styling functions section
-  function link(msg: string, url: string) {
+  function link(chunks: React.ReactNode, url: string): React.ReactNode {
     return (
       <ExternalLink newTab href={url}>
-        {msg}
+        {chunks}
       </ExternalLink>
     );
   }
 
-  function openModal(msg: string, setOpenStateFn: (state: boolean) => void) {
+  function openModal(
+    chunks: React.ReactNode,
+    setOpenStateFn: (state: boolean) => void,
+  ): React.ReactNode {
     return (
       <ModalButton
         click={(e) => {
@@ -163,7 +166,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           e?.preventDefault();
         }}
       >
-        {msg}
+        {chunks}
       </ModalButton>
     );
   }
@@ -260,8 +263,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-01 selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (msg: string) =>
-                    openModal(msg, setDialogLevel1Open),
+                  openModal: (chunks: string) =>
+                    openModal(chunks, setDialogLevel1Open),
                 },
               ),
             },
@@ -276,8 +279,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-02 selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (msg: string) =>
-                    openModal(msg, setDialogLevel2Open),
+                  openModal: (chunks: React.ReactNode): React.ReactNode =>
+                    openModal(chunks, setDialogLevel2Open),
                 },
               ),
             },
@@ -292,8 +295,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (msg: string) =>
-                    openModal(msg, setDialogLevel3LeadOpen),
+                  openModal: (chunks: React.ReactNode): React.ReactNode =>
+                    openModal(chunks, setDialogLevel3LeadOpen),
                 },
               ),
             },
@@ -308,8 +311,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (msg: string) =>
-                    openModal(msg, setDialogLevel3AdvisorOpen),
+                  openModal: (chunks: React.ReactNode): React.ReactNode =>
+                    openModal(chunks, setDialogLevel3AdvisorOpen),
                 },
               ),
             },
@@ -324,8 +327,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (msg: string) =>
-                    openModal(msg, setDialogLevel4AdvisorOpen),
+                  openModal: (chunks: React.ReactNode): React.ReactNode =>
+                    openModal(chunks, setDialogLevel4AdvisorOpen),
                 },
               ),
             },
@@ -340,8 +343,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (msg: string) =>
-                    openModal(msg, setDialogLevel4ManagerOpen),
+                  openModal: (chunks: string) =>
+                    openModal(chunks, setDialogLevel4ManagerOpen),
                 },
               ),
             },
@@ -361,9 +364,9 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                 description: "Link to learn more about classifications",
               },
               {
-                link: (msg: string) =>
+                link: (chunks: React.ReactNode): React.ReactNode =>
                   link(
-                    msg,
+                    chunks,
                     intl.locale === "en"
                       ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html"
                       : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/carriere-domaine-numerique.html",
