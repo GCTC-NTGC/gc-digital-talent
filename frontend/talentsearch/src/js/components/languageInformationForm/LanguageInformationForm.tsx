@@ -152,7 +152,8 @@ export const LanguageInformationForm: React.FunctionComponent<{
       </a>
     );
   };
-  const selfAssessmentLink = (msg: string) => {
+
+  const selfAssessmentLink = (msg: React.ReactNode): React.ReactNode => {
     return (
       <a
         target="_blank"
