@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations;
 use App\Models\PoolCandidate;
 use App\Models\Pool;
 use Database\Helpers\ApiEnums;
-use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class CreateApplication
 {
@@ -20,10 +19,6 @@ final class CreateApplication
             'user_id' => $args['userId'],
             'pool_id' => $args['poolId'],
           ]);
-
-        if ($application->submitted_at != null) {
-            throw ValidationException::withMessages(['you have already applied to this pool']);
-        }
 
         // draft expiry date is the same as the expiry of the pool it is attached to
         $poolExpiry = Pool::find($application->pool_id)->expiry_date;

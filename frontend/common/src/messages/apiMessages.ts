@@ -42,13 +42,6 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
   },
 
   // application validation
-  "you have already applied to this pool": {
-    defaultMessage:
-      "You have already submitted an application to this opportunity.",
-    id: "IRbs5U",
-    description:
-      "Error message that the user already submitted an application to a posting",
-  },
   AlreadyArchived: {
     defaultMessage: "Application is already archived.",
     id: "A+dFlE",
