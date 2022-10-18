@@ -226,6 +226,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
       prefixBreadcrumbs={!application}
     >
       <BasicForm
+        cacheKey="role-salary-form"
         onSubmit={handleSubmit}
         options={{
           defaultValues: dataToFormValues(initialData),

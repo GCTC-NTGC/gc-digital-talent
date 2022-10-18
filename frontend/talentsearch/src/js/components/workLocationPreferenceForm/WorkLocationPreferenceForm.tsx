@@ -1,4 +1,4 @@
-import { Checklist, TextArea } from "@common/components/form";
+import { BasicForm, Checklist, TextArea } from "@common/components/form";
 import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
@@ -7,7 +7,7 @@ import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { errorMessages, navigationMessages } from "@common/messages";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import React from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import {
@@ -61,12 +61,8 @@ export const WorkLocationPreferenceForm: React.FC<
     locationPreferences: values.locationPreferences,
     locationExemptions: values.locationExemptions,
   });
-  const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(initialData),
-  });
-  const { handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+  const handleSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleWorkLocationPreference(
       initialData.id,
       formValuesToSubmitData(data),
@@ -137,91 +133,92 @@ export const WorkLocationPreferenceForm: React.FC<
       ]}
       prefixBreadcrumbs={!application}
     >
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <div
-              data-h2-flex-item="base(1of1)"
-              data-h2-padding="base(x1, 0, 0, 0)"
-            >
-              <div
-                data-h2-padding="base(0, x2, 0, 0)"
-                data-testid="workLocation"
-              >
-                <Checklist
-                  idPrefix="work-location"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Work location",
-                    id: "nueuS8",
-                    description:
-                      "Legend for optional work preferences check list in work preferences form",
-                  })}
-                  name="locationPreferences"
-                  items={enumToOptions(WorkRegion).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getWorkRegionsDetailed(value)),
-                  }))}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
-            </div>
-            <div
-              data-h2-flex-item="base(1of1)"
-              data-h2-padding="base(x1, 0, 0, 0)"
-            >
-              <div data-h2-padding="base(0, x2, 0, 0)">
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Indicate if there is a city that you would like to exclude from a region.",
-                    id: "1CuGS6",
-                    description:
-                      "Explanation text for Location exemptions field in work location preference form",
-                  })}
-                </p>
-                <p data-h2-color="base(dark.dt-gray)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
-                    id: "2K7dVp",
-                    description:
-                      "Example for Location exemptions field in work location preference form",
-                  })}
-                </p>
-              </div>
-            </div>
-            <div
-              data-h2-flex-item="base(1of2)"
-              data-h2-padding="base(x1, 0, 0, 0)"
-            >
-              <div data-h2-padding="base(0, x2, 0, 0)">
-                <TextArea
-                  id="location-exemptions"
-                  label={intl.formatMessage({
-                    defaultMessage: "Location exemptions",
-                    id: "0qNkIp",
-                    description:
-                      "Location Exemptions field label for work location preference form",
-                  })}
-                  name="locationExemptions"
-                  placeholder={intl.formatMessage({
-                    defaultMessage: "Optionally, add a city or village here...",
-                    id: "OH5tTS",
-                    description:
-                      "Location Exemptions field placeholder for work location preference form",
-                  })}
-                />
-              </div>
+      <BasicForm
+        cacheKey="work-location-preference-form"
+        onSubmit={handleSubmit}
+        options={{
+          defaultValues: dataToFormValues(initialData),
+        }}
+      >
+        <div>
+          <div
+            data-h2-flex-item="base(1of1)"
+            data-h2-padding="base(x1, 0, 0, 0)"
+          >
+            <div data-h2-padding="base(0, x2, 0, 0)" data-testid="workLocation">
+              <Checklist
+                idPrefix="work-location"
+                legend={intl.formatMessage({
+                  defaultMessage: "Work location",
+                  id: "nueuS8",
+                  description:
+                    "Legend for optional work preferences check list in work preferences form",
+                })}
+                name="locationPreferences"
+                items={enumToOptions(WorkRegion).map(({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getWorkRegionsDetailed(value)),
+                }))}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
             </div>
           </div>
-          <ProfileFormFooter
-            mode="saveButton"
-            cancelLink={{ href: returnRoute }}
-          />
-        </form>
-      </FormProvider>
+          <div
+            data-h2-flex-item="base(1of1)"
+            data-h2-padding="base(x1, 0, 0, 0)"
+          >
+            <div data-h2-padding="base(0, x2, 0, 0)">
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Indicate if there is a city that you would like to exclude from a region.",
+                  id: "1CuGS6",
+                  description:
+                    "Explanation text for Location exemptions field in work location preference form",
+                })}
+              </p>
+              <p data-h2-color="base(dark.dt-gray)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
+                  id: "2K7dVp",
+                  description:
+                    "Example for Location exemptions field in work location preference form",
+                })}
+              </p>
+            </div>
+          </div>
+          <div
+            data-h2-flex-item="base(1of2)"
+            data-h2-padding="base(x1, 0, 0, 0)"
+          >
+            <div data-h2-padding="base(0, x2, 0, 0)">
+              <TextArea
+                id="location-exemptions"
+                label={intl.formatMessage({
+                  defaultMessage: "Location exemptions",
+                  id: "0qNkIp",
+                  description:
+                    "Location Exemptions field label for work location preference form",
+                })}
+                name="locationExemptions"
+                placeholder={intl.formatMessage({
+                  defaultMessage: "Optionally, add a city or village here...",
+                  id: "OH5tTS",
+                  description:
+                    "Location Exemptions field placeholder for work location preference form",
+                })}
+              />
+            </div>
+          </div>
+        </div>
+        <ProfileFormFooter
+          mode="saveButton"
+          cancelLink={{ href: returnRoute }}
+        />
+      </BasicForm>
     </ProfileFormWrapper>
   );
 };

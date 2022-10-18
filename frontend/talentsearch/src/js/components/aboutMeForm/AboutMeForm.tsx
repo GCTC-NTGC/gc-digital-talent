@@ -170,6 +170,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
       ]}
     >
       <BasicForm
+        cacheKey="about-me-form"
         onSubmit={handleSubmit}
         options={{
           defaultValues: initialDataToFormValues(initialUser),

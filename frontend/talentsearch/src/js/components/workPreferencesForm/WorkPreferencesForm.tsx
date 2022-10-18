@@ -1,12 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { errorMessages, navigationMessages } from "@common/messages";
-import { Checklist, RadioGroup } from "@common/components/form";
+import { BasicForm, Checklist, RadioGroup } from "@common/components/form";
 import {
   getOperationalRequirement,
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
@@ -108,12 +108,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
     };
   };
 
-  const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(initialData),
-  });
-  const { handleSubmit } = methods;
-
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+  const handleSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleWorkPreferences(initialData.id, formValuesToSubmitData(data))
       .then(() => {
         navigate(returnRoute);
@@ -179,97 +174,101 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
       ]}
       prefixBreadcrumbs={!application}
     >
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <div
-              data-h2-flex-item="base(1of1)"
-              data-h2-padding="base(x1, 0, 0, 0)"
-            >
-              <div data-h2-padding="base(0, x2, 0, 0)">
-                <RadioGroup
-                  idPrefix="required-work-preferences"
-                  legend={intl.formatMessage({
-                    defaultMessage:
-                      "I would consider accepting a job that lasts for:",
-                    id: "GNtu/7",
-                    description:
-                      "Legend Text for required work preferences options in work preferences form",
-                  })}
-                  name="wouldAcceptTemporary"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  items={[
-                    {
-                      value: "true",
-                      label: (
-                        <WithEllipsisPrefix>
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "any duration. (short term, long term, or indeterminate duration)",
-                            id: "uHx3G7",
-                            description:
-                              "Label displayed on Work Preferences form for any duration option",
-                          })}
-                        </WithEllipsisPrefix>
-                      ),
-                    },
-                    {
-                      value: "false",
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "...indeterminate duration only. (permanent only)",
-                        id: "sYqIp5",
-                        description:
-                          "Label displayed on Work Preferences form for indeterminate duration option.",
-                      }),
-                    },
-                  ]}
-                />
-              </div>
-            </div>
-            <div
-              data-h2-flex-item="base(1of1)"
-              data-h2-padding="base(x1, 0, 0, 0)"
-            >
-              <div data-h2-padding="base(0, x2, 0, 0)">
-                <Checklist
-                  idPrefix="optional-work-preferences"
-                  legend={intl.formatMessage({
-                    defaultMessage: "I would consider accepting a job that:",
-                    id: "Vvb8tu",
-                    description:
-                      "Legend for optional work preferences check list in work preferences form",
-                  })}
-                  name="acceptedOperationalRequirements"
-                  items={OperationalRequirementV2.map((value) => ({
-                    value,
+      <BasicForm
+        cacheKey="work-preferences-form"
+        onSubmit={handleSubmit}
+        options={{
+          defaultValues: dataToFormValues(initialData),
+        }}
+      >
+        <div>
+          <div
+            data-h2-flex-item="base(1of1)"
+            data-h2-padding="base(x1, 0, 0, 0)"
+          >
+            <div data-h2-padding="base(0, x2, 0, 0)">
+              <RadioGroup
+                idPrefix="required-work-preferences"
+                legend={intl.formatMessage({
+                  defaultMessage:
+                    "I would consider accepting a job that lasts for:",
+                  id: "GNtu/7",
+                  description:
+                    "Legend Text for required work preferences options in work preferences form",
+                })}
+                name="wouldAcceptTemporary"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                items={[
+                  {
+                    value: "true",
                     label: (
                       <WithEllipsisPrefix>
-                        {intl.formatMessage(
-                          getOperationalRequirement(value, "firstPerson"),
-                        )}
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "any duration. (short term, long term, or indeterminate duration)",
+                          id: "uHx3G7",
+                          description:
+                            "Label displayed on Work Preferences form for any duration option",
+                        })}
                       </WithEllipsisPrefix>
                     ),
-                  }))}
-                />
-              </div>
-            </div>
-            <div
-              data-h2-flex-item="base(1of1)"
-              data-h2-padding="base(x1, 0, 0, 0)"
-            >
-              <div data-h2-padding="base(0, x2, 0, 0)">
-                <ProfileFormFooter
-                  mode="saveButton"
-                  cancelLink={{ href: returnRoute }}
-                />
-              </div>
+                  },
+                  {
+                    value: "false",
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        "...indeterminate duration only. (permanent only)",
+                      id: "sYqIp5",
+                      description:
+                        "Label displayed on Work Preferences form for indeterminate duration option.",
+                    }),
+                  },
+                ]}
+              />
             </div>
           </div>
-        </form>
-      </FormProvider>
+          <div
+            data-h2-flex-item="base(1of1)"
+            data-h2-padding="base(x1, 0, 0, 0)"
+          >
+            <div data-h2-padding="base(0, x2, 0, 0)">
+              <Checklist
+                idPrefix="optional-work-preferences"
+                legend={intl.formatMessage({
+                  defaultMessage: "I would consider accepting a job that:",
+                  id: "Vvb8tu",
+                  description:
+                    "Legend for optional work preferences check list in work preferences form",
+                })}
+                name="acceptedOperationalRequirements"
+                items={OperationalRequirementV2.map((value) => ({
+                  value,
+                  label: (
+                    <WithEllipsisPrefix>
+                      {intl.formatMessage(
+                        getOperationalRequirement(value, "firstPerson"),
+                      )}
+                    </WithEllipsisPrefix>
+                  ),
+                }))}
+              />
+            </div>
+          </div>
+          <div
+            data-h2-flex-item="base(1of1)"
+            data-h2-padding="base(x1, 0, 0, 0)"
+          >
+            <div data-h2-padding="base(0, x2, 0, 0)">
+              <ProfileFormFooter
+                mode="saveButton"
+                cancelLink={{ href: returnRoute }}
+              />
+            </div>
+          </div>
+        </div>
+      </BasicForm>
     </ProfileFormWrapper>
   );
 };
