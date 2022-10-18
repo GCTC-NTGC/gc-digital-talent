@@ -172,7 +172,7 @@ const PoolAdvertisement = ({
         id: "NSuNSA",
         description: "Breadcrumb title for the browse pools page.",
       }),
-      href: paths.home(),
+      href: paths.allPools(),
     },
     {
       title: fullTitle,
