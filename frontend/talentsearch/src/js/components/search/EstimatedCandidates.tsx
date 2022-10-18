@@ -65,10 +65,11 @@ const EstimatedCandidates: React.FunctionComponent<
                   {intl.formatMessage(
                     {
                       defaultMessage: `{candidateCount, plural,
-                        one {There is approximately <strong><testId>{candidateCount}</testId></strong> candidate right now who meets your criteria.}
+                        =0 {There are approximately <strong><testId>{candidateCount}</testId></strong> candidates right now who meet your criteria.}
+                        =1 {There is approximately <strong><testId>{candidateCount}</testId></strong> candidate right now who meets your criteria.}
                         other {There are approximately <strong><testId>{candidateCount}</testId></strong> candidates right now who meet your criteria.}
                       }`,
-                      id: "ID8FNk",
+                      id: "Bp3HEe",
                       description:
                         "Message for total estimated candidates box next to search form.",
                     },
