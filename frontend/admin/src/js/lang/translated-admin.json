@@ -1,6 +1,6 @@
 {
   "+wG2Ap": {
-    "defaultMessage": "Vue {nom} <hidden>{hiddenLabel}</hidden>",
+    "defaultMessage": "Vue {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
   "/pHz5L": {
@@ -28,9 +28,7 @@
     "description": "Fallback for email value"
   },
   "1XyQqX": {
-    "
-
-defaultMessage": "Préférences de travail"
+    "defaultMessage": "Préférences de travail"
   },
   "1sPszf": {
     "defaultMessage": "Emplacement actuel",
