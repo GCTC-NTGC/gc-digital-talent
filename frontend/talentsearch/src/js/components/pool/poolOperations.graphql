@@ -8,6 +8,17 @@ query getPool($id: ID!) {
   }
 }
 
+query getMePoolCandidates {
+  me {
+    poolCandidates {
+      pool {
+        id
+      }
+      submittedAt
+    }
+  }
+}
+
 query getPoolAdvertisement($id: ID!) {
   me {
     roles

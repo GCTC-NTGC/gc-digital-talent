@@ -33,6 +33,7 @@ import {
   Role,
   useGetPoolAdvertisementQuery,
   useCreateApplicationMutation,
+  useGetMePoolCandidatesQuery,
 } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -62,6 +63,20 @@ const ApplyButton = ({ disabled, onClick }: ApplyButtonProps) => {
         defaultMessage: "Apply for this process",
         id: "W2YIEA",
         description: "Link text to apply for a pool advertisement",
+      })}
+    </Button>
+  );
+};
+
+const AlreadyAppliedButton = () => {
+  const intl = useIntl();
+  return (
+    <Button type="button" color="primary" mode="solid" disabled>
+      {intl.formatMessage({
+        defaultMessage: "You have already applied to this.",
+        id: "mwEGU+",
+        description:
+          "Disabled button when a user already applied to a pool opportunity",
       })}
     </Button>
   );
@@ -100,11 +115,13 @@ const anchorTag = (chunks: string[]) => (
 interface PoolAdvertisementProps {
   poolAdvertisement: PoolAdvertisement;
   userId: string;
+  hasUserApplied?: boolean;
 }
 
 const PoolAdvertisement = ({
   poolAdvertisement,
   userId,
+  hasUserApplied,
 }: PoolAdvertisementProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -163,7 +180,9 @@ const PoolAdvertisement = ({
         return Promise.reject(result.error);
       });
 
-  const applyBtn = (
+  const applyBtn = hasUserApplied ? (
+    <AlreadyAppliedButton />
+  ) : (
     <ApplyButton disabled={!canApply} onClick={handleCreateApplication} />
   );
 
@@ -770,6 +789,23 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
     visible = true;
   }
 
+  // grab pool candidates of Me, then check whether a pool candidate exists that matches the advertisement AND is submitted
+  const meDataResponse = useGetMePoolCandidatesQuery();
+  const meData = meDataResponse[0]?.data;
+  let hasUserApplied = false;
+  if (meData?.me?.poolCandidates) {
+    const mePoolCandidates = meData.me.poolCandidates;
+    mePoolCandidates.map((candidate) => {
+      if (
+        candidate?.pool.id === data?.poolAdvertisement?.id &&
+        candidate?.submittedAt
+      ) {
+        hasUserApplied = true;
+      }
+      return candidate;
+    });
+  }
+
   // enforce type of userId as String
   const dataMe = data?.me ? data.me : undefined;
   const userId = dataMe?.id ? dataMe.id : "";
@@ -780,6 +816,7 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
         <PoolAdvertisement
           poolAdvertisement={data?.poolAdvertisement}
           userId={userId}
+          hasUserApplied={hasUserApplied}
         />
       ) : (
         <NotFound
