@@ -1,8 +1,8 @@
 import React from "react";
 
-import Heading from "../Heading";
-import type { Color } from "../Button";
-import Link, { type LinkProps } from "../Link";
+import Heading from "../../Heading";
+import type { Color } from "../../Button";
+import Link, { type LinkProps } from "../../Link";
 
 type CardColor = Extract<Color, "yellow" | "red" | "blue" | "black" | "purple">;
 
