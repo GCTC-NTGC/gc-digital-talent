@@ -1441,5 +1441,347 @@
   "rsxrMs": {
     "defaultMessage": "Retirer {label}",
     "description": "Button text for a dismissible chip"
+  },
+  "+tKl71": {
+    "defaultMessage": "J’ai un droit de priorité",
+    "description": "affirm possession of priority entitlement"
+  },
+  "0LjLgD": {
+    "defaultMessage": "Pas dans les FAC",
+    "description": "user is not in the CAF"
+  },
+  "0T3NB0": {
+    "defaultMessage": "Erreur : nom de compétence non trouvé",
+    "description": "Error message when skill name is not found on request page."
+  },
+  "0xf5TR": {
+    "defaultMessage": "Je suis un vétéran des FAC",
+    "description": "declare self to be a CAF veteran"
+  },
+  "159+n7": {
+    "defaultMessage": "Compétences sélectionnées ({numOfSkills})",
+    "description": "Title for skills section on summary of filters section"
+  },
+  "1pMCyl": {
+    "defaultMessage": "Simple",
+    "description": "Sélection simple pour le type d’employé du gouvernement."
+  },
+  "3GT1s/": {
+    "defaultMessage": "Vous devez avoir au moins une compétence essentielle.",
+    "description": "Error message that at least one essential skill must be selected."
+  },
+  "48qVi9": {
+    "defaultMessage": "Autre",
+    "description": "user is neither a citizen or permanent resident of Canada"
+  },
+  "5vrCDC": {
+    "defaultMessage": "Je suis un citoyen canadien",
+    "description": "declaring one to be a Canadian citizen"
+  },
+  "92hwzj": {
+    "defaultMessage": "Statut de citoyenneté:",
+    "description": "Citizenship status label"
+  },
+  "BiSzNu": {
+    "defaultMessage": "Compétences sélectionnées ({skillCount})",
+    "description": "A title for a skill list"
+  },
+  "CO50a/": {
+    "defaultMessage": "Durée (court terme, long terme ou durée indéterminée)"
+  },
+  "CX/qKY": {
+    "defaultMessage": "à {institution}",
+    "description": "Study at institution"
+  },
+  "Ekwul3": {
+    "defaultMessage": "Durée (permanente)"
+  },
+  "FEfWEH": {
+    "defaultMessage": "Ébauche",
+    "description": "The pool candidate's status is Draft."
+  },
+  "FqsPMv": {
+    "defaultMessage": "Indéterminé",
+    "description": "Duration that is permanent (short-form for limited space)"
+  },
+  "FrIl8e": {
+    "defaultMessage": "Je suis un résident permanent du Canada",
+    "description": "declaring one to be a permanent resident"
+  },
+  "HMXnoR": {
+    "defaultMessage": "Retourner à ma demande",
+    "description": "Link text for button to return to user application"
+  },
+  "HWRZ/z": {
+    "defaultMessage": "Décerné à:",
+    "description": "The award was given to"
+  },
+  "IfsigK": {
+    "defaultMessage": "Portée:",
+    "description": "The scope of the award given"
+  },
+  "J3779Q": {
+    "defaultMessage": "Groupes de compétences",
+    "description": "A title for a list of skill families"
+  },
+  "JHgARn": {
+    "defaultMessage": "Vous avez dépassé la limite de mots, {wordLimit}.",
+    "description": "Text read out to assistive technology when over the word limit."
+  },
+  "K80psp": {
+    "defaultMessage": "Autre",
+    "description": "Priority text for users with no priority"
+  },
+  "LfNNe4": {
+    "defaultMessage": "Par mot-clé",
+    "description": "Tab name for a box to search for skills"
+  },
+  "LjkK5G": {
+    "defaultMessage": "Compétences comportementales",
+    "description": "Tab name for a list of behavioural skills"
+  },
+  "LwZY5H": {
+    "defaultMessage": "Qualifié non disponible",
+    "description": "The pool candidate's status is Qualified Unavailable."
+  },
+  "M/6+SI": {
+    "defaultMessage": "Inactif",
+    "description": "Job Looking Status described as Actively looking."
+  },
+  "Md/cQS": {
+    "defaultMessage": "Membre des FAC :",
+    "description": "Veteran/member label"
+  },
+  "NIEIAC": {
+    "defaultMessage": "Aucun renseignement n’a été fourni.",
+    "description": "Message on Admin side when user not filled about me section."
+  },
+  "OMmTA4": {
+    "defaultMessage": "Nouvelle candidature",
+    "description": "The pool candidate's status is New Application."
+  },
+  "OtOIXG": {
+    "defaultMessage": "déjà archivé",
+    "description": "Error message that the given model is already archived."
+  },
+  "PmMr9l": {
+    "defaultMessage": "Durée de l’emploi",
+    "description": "Title for work language on summary of filters section"
+  },
+  "QVdubF": {
+    "defaultMessage": "Membre",
+    "description": "user is a CAF member"
+  },
+  "QrKbH+": {
+    "defaultMessage": "Durée",
+    "description": "Simple term selection for government employee type."
+  },
+  "R2BWry": {
+    "defaultMessage": "Candidature rejetée",
+    "description": "The pool candidate's status is Screened Out Application"
+  },
+  "Rwh/Ld": {
+    "defaultMessage": "Indéterminé",
+    "description": "Simple indeterminate selection for government employee type."
+  },
+  "S9BRBL": {
+    "defaultMessage": "Durée (court terme, long terme)",
+    "description": "Duration of a non-permanent length"
+  },
+  "Sx/Pzn": {
+    "defaultMessage": "Toutes les compétences comportementales",
+    "description": "The option label for 'no filter' on the list of behavioural skills"
+  },
+  "T49QiO": {
+    "defaultMessage": "Type d’emploi :",
+    "description": "Label for applicant's employment type"
+  },
+  "UOO1gW": {
+    "defaultMessage": "Oui",
+    "description": "Message for when a value is true"
+  },
+  "XTuwjA": {
+    "defaultMessage": "Cette chaîne de clés de famille de compétences est déjà utilisée",
+    "description": "Error message that the given skill family key is already in use."
+  },
+  "XerShr": {
+    "defaultMessage": "Recherche active",
+    "description": "Job Looking Status described as Actively looking."
+  },
+  "Y87WVR": {
+    "defaultMessage": "Je ne suis pas membre des FAC",
+    "description": "declare self to not be in the CAF"
+  },
+  "Yq2EZj": {
+    "defaultMessage": "Examen des candidatures",
+    "description": "The pool candidate's status is Application Review."
+  },
+  "ZEsIZi": {
+    "defaultMessage": "Non",
+    "description": "No, did not complete a language evaluation"
+  },
+  "ZLPqdF": {
+    "defaultMessage": "Aucun prénom fourni",
+    "description": "Fallback for first name value"
+  },
+  "ZUO1OX": {
+    "defaultMessage": "Numéro de priorité :",
+    "description": "Label for applicant's priority number value"
+  },
+  "ad4CnG": {
+    "defaultMessage": "Ébauche expirée",
+    "description": "The pool candidate's status is Expired Draft."
+  },
+  "bhuMGL": {
+    "defaultMessage": "Vous devez saisir advertisement_location si l’annonce n’est pas à distance.",
+    "description": "Error message that the pool advertisement must have a location if it is not for remote work."
+  },
+  "dnGlXQ": {
+    "defaultMessage": "Accepté",
+    "description": "The pool candidate's status is Screened In."
+  },
+  "g08hvq": {
+    "defaultMessage": "Étape 1",
+    "description": "Breadcrumb back to review application page."
+  },
+  "j1p7LR": {
+    "defaultMessage": "Droit de priorité",
+    "description": "Priority text for users with priority entitlement"
+  },
+  "jwPlv1": {
+    "defaultMessage": "Durée",
+    "description": "Duration of a non-permanent length (short-form for limited space)"
+  },
+  "kwaeXP": {
+    "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (à court terme)",
+    "description": "The operational requirement described as occasional overtime."
+  },
+  "kxseH4": {
+    "defaultMessage": "Compétences techniques",
+    "description": "Tab name for a list of technical skills"
+  },
+  "l0IDWf": {
+    "defaultMessage": "Résultats ({skillCount})",
+    "description": "A title for a skill list of results"
+  },
+  "l8p1el": {
+    "defaultMessage": "Cet identifiant d’utilisateur (sub) est déjà utilisé",
+    "description": "Error message that the given user identifier is already in use."
+  },
+  "lr2+2R": {
+    "defaultMessage": "Autre",
+    "description": "declaring one to be neither a citizen or permanent resident of Canada"
+  },
+  "lx9NFI": {
+    "defaultMessage": "Qualifié disponible",
+    "description": "The pool candidate's status is Qualified Available"
+  },
+  "m4v2w3": {
+    "defaultMessage": "Ouvert aux possibilités",
+    "description": "Job Looking Status described as Actively looking."
+  },
+  "n80lVV": {
+    "defaultMessage": "Aucun nom fourni",
+    "description": "Fallback for name value"
+  },
+  "nDaEgr": {
+    "defaultMessage": "Cette adresse courriel est déjà utilisée",
+    "description": "Error message that the given email address is already in use."
+  },
+  "nV57as": {
+    "defaultMessage": "Département :",
+    "description": "Label for applicants department"
+  },
+  "nr62lc": {
+    "defaultMessage": "Résultats ({skillCount})",
+    "description": "Un titre pour une liste de résultats"
+  },
+  "oMyc4e": {
+    "defaultMessage": "Citoyen ou résident",
+    "description": "Priority text for citizens of canada"
+  },
+  "oU8C65": {
+    "defaultMessage": "Vétéran",
+    "description": "Priority text for veterans"
+  },
+  "pLlu65": {
+    "defaultMessage": "Évaluation rejetée",
+    "description": "The pool candidate's status is Screened Out Assessment."
+  },
+  "q7bz0J": {
+    "defaultMessage": "Non",
+    "description": "Message for when a value is false"
+  },
+  "r7lf0k": {
+    "defaultMessage": "Aucun nom de famille fourni",
+    "description": "Fallback for last name value"
+  },
+  "rYodJu": {
+    "defaultMessage": "Durée indéterminée (permanente)",
+    "description": "Duration that is permanent"
+  },
+  "s4DN3G": {
+    "defaultMessage": "Résultats des compétences générales",
+    "description": "Accessibility label for a result set of skills, filtered to mainstream skills"
+  },
+  "sfr5Pa": {
+    "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui.",
+    "description": "Error message that the given skill expiry date must be after today."
+  },
+  "swTjNd": {
+    "defaultMessage": "Citoyen canadien",
+    "description": "user is a Canadian citizen"
+  },
+  "swugkW": {
+    "defaultMessage": "Droit de priorité :",
+    "description": "Label for applicant's priority entitlement status"
+  },
+  "u+NuHm": {
+    "defaultMessage": "Retourner à mon profil",
+    "description": "Link text for button to return to user profile"
+  },
+  "uj33ws": {
+    "defaultMessage": "Je suis un membre actif des FAC",
+    "description": "declare self to be a CAF member"
+  },
+  "v6T4Y0": {
+    "defaultMessage": "Ce champ ne peut pas utiliser de dates dans le futur.",
+    "description": "Error message that the date cannot be in the future."
+  },
+  "vZgTKh": {
+    "defaultMessage": "Toutes les compétences techniques",
+    "description": "The option label for 'no filter' on the list of occupational skills"
+  },
+  "vgxxk0": {
+    "defaultMessage": "Vétéran",
+    "description": "user is a CAF veteran"
+  },
+  "w2Jpt8": {
+    "defaultMessage": "Étudiant",
+    "description": "Simple student selection for government employee type."
+  },
+  "wziEOM": {
+    "defaultMessage": "résultats des compétences de recherche par mot-clé",
+    "description": "Accessibility label for a result set of skills, searched by keyword"
+  },
+  "x0FRH/": {
+    "defaultMessage": "Je n’ai pas de droit de priorité",
+    "description": "affirm no entitlement"
+  },
+  "xCBinq": {
+    "defaultMessage": "Résident permanent",
+    "description": "user is a permanent resident"
+  },
+  "y5u8P0": {
+    "defaultMessage": "En cours d’évaluation",
+    "description": "The pool candidate's status is Under Assessment."
+  },
+  "yRxy3a": {
+    "defaultMessage": "Retrait qualifié",
+    "description": "The pool candidate's status is Qualified Withdrew."
+  },
+  "z/J4uL": {
+    "defaultMessage": "Statut de l’employé :",
+    "description": "Label for applicant's employee status"
   }
 }

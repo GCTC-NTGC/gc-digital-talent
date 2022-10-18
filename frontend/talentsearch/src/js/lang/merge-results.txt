@@ -1,0 +1,360 @@
+Entries from ../talentsearch/src/js/lang/newTranslations.json merged into ../talentsearch/src/js/lang/fr.json
+These values are missing translations: {
+  '094835': {
+    defaultMessage: "I'm looking to...",
+    description: 'Support form subject field label'
+  },
+  '1zkApr': {
+    defaultMessage: 'Apply to this recruitment<hidden> {name}</hidden>',
+    description: 'Message on link that say to apply to a recruitment advertisement'
+  },
+  '3ozZky': {
+    defaultMessage: '(To be determined)',
+    description: 'To be determined'
+  },
+  '3wbcnZ': {
+    defaultMessage: 'View results',
+    description: 'A link to view the pools that contain matching talent.'
+  },
+  '5r5XSh': {
+    defaultMessage: 'Please check your email for a summary of your submission.',
+    description: 'Support form success paragraph two'
+  },
+  '86Y8lx': {
+    defaultMessage: 'Your name',
+    description: 'Support form name field label'
+  },
+  '9Eke1a': {
+    defaultMessage: `"I promise that the information I've provided is true"`,
+    description: 'Signature list item on sign and submit page.'
+  },
+  AwIGg0: {
+    defaultMessage: 'Have a specific question? Want to provide feedback or report a bug? Send us a message using this form.',
+    description: 'Support form paragraph one'
+  },
+  C3Lv2t: {
+    defaultMessage: 'Error: creating ticket failed (code {errorCode})',
+    description: 'Support form toast message error'
+  },
+  CZ3wxJ: {
+    defaultMessage: 'Submit a new message',
+    description: 'Support form success action'
+  },
+  MKyZVJ: { defaultMessage: 'Salary range' },
+  OdjW9z: {
+    defaultMessage: "We'll do our best to get back to you with a response within the next two business days.",
+    description: 'Support form success paragraph one'
+  },
+  'QX1l/C': {
+    defaultMessage: 'In the meantime, feel free to check out our FAQs for further information.',
+    description: 'Support form success paragraph three'
+  },
+  WbET08: {
+    defaultMessage: '(No skills required)',
+    description: 'No skills required'
+  },
+  fVAMSw: {
+    defaultMessage: 'Submit feedback',
+    description: 'Support form subject field feedback option label'
+  },
+  gh4VQv: { defaultMessage: 'Apply by', description: 'Apply by' },
+  iiEGjW: {
+    defaultMessage: "We've received your message.",
+    description: 'Support form success title'
+  },
+  jHuiRm: {
+    defaultMessage: 'Ticket created successfully!',
+    description: 'Support form toast message success'
+  },
+  msn4mz: {
+    defaultMessage: 'Ask a question',
+    description: 'Support form subject field question option label'
+  },
+  nTGIfl: {
+    defaultMessage: '(Needs classification)',
+    description: 'Needs classification'
+  },
+  oXYnZN: {
+    defaultMessage: 'Reach out to us',
+    description: 'Support form title'
+  },
+  ppuSbM: { defaultMessage: 'Key skills', description: 'key skills' },
+  szLvj0: {
+    defaultMessage: 'Your email',
+    description: 'Support form email field label'
+  },
+  voTvve: {
+    defaultMessage: `"I've reviewed everything written in my application"`,
+    description: 'Signature list item on sign and submit page.'
+  },
+  wIccbA: {
+    defaultMessage: 'Submit a bug',
+    description: 'Support form subject field bug option label'
+  },
+  'y+OZjx': {
+    defaultMessage: '(No Classification)',
+    description: 'No Classification'
+  },
+  ywkgJx: {
+    defaultMessage: 'Details',
+    description: 'Support form details field label'
+  }
+}
+These values are identical in en and fr: {
+  Ledr63: {
+    defaultMessage: 'Signature',
+    description: 'Toc navigation item on sign and submit page.'
+  },
+  YZyNUJ: {
+    defaultMessage: 'Signature',
+    description: 'Label displayed for signature input in sign and submit page.'
+  }
+}
+Output untranslated entries to ../talentsearch/src/js/lang/untranslated.json
+These values are present in fr but not in en: {
+  '086Xpp': {
+    defaultMessage: 'Personne handicapée',
+    description: 'Checklist option for employment equity filter in search form.'
+  },
+  '7FKma8': {
+    defaultMessage: 'Femme',
+    description: 'Checklist option for employment equity filter in search form.'
+  },
+  'AvBSV+': {
+    defaultMessage: 'Oh non...',
+    description: 'Title displayed for a table error loading state.'
+  },
+  Avs6Xw: {
+    defaultMessage: 'Membre d’un groupe minoritaire visible',
+    description: 'Checklist option for employment equity filter in search form.'
+  },
+  B7fcr5: {
+    defaultMessage: 'Chargement...',
+    description: 'Title displayed for a table initial loading state.'
+  },
+  cQNacY: {
+    defaultMessage: '{type} {id} introuvable.',
+    description: 'Message displayed for when requested data fails to load.'
+  },
+  iNsxYi: {
+    defaultMessage: 'Sélectionnez une ou plusieurs classifications',
+    description: 'Placeholder for classification filter in search form.'
+  },
+  GJ95sc: {
+    defaultMessage: 'Autochtone',
+    description: 'Checklist option for employment equity filter in search form.'
+  },
+  '2SNKYg': {
+    defaultMessage: 'Ajouter des compétences',
+    description: 'Section header for adding skills to this experience'
+  },
+  EYCY8j: {
+    defaultMessage: 'Compétences utilisées fréquemment ({skillCount})',
+    description: 'Section header for a list of frequently used skills'
+  },
+  QYqjUQ: {
+    defaultMessage: 'Compétences se rapportant à cette expérience',
+    description: 'Section header for a list of skills attached to this experience'
+  },
+  RKdRiG: {
+    defaultMessage: 'Compétences générales',
+    description: 'Tab name for a list of mainstream skills'
+  },
+  WjREkG: {
+    defaultMessage: 'Rechercher par mot clé',
+    description: 'Tab name for a box to search for skills'
+  },
+  fUQPUr: {
+    defaultMessage: 'Mes compétences fréquentes',
+    description: 'Tab name for a list of frequently used skills'
+  },
+  gy2UWG: {
+    defaultMessage: 'Il n’y a encore aucune compétence se rapportant à cette expérience. Vous pouvez en ajouter à l’aide des liens ci-dessous.',
+    description: "Invitation to add skills when there aren't any added yet."
+  },
+  l0IDWf: {
+    defaultMessage: 'Résultats ({skillCount})',
+    description: 'A title for a skill list of results'
+  },
+  nr62lc: {
+    defaultMessage: ' Résultats ({skillCount})',
+    description: 'A title for a list of results'
+  },
+  '1Yqt8K': {
+    defaultMessage: 'Vous êtes sur le point de supprimer une expérience de votre profil. Vous perdrez tous les renseignements qui y sont rattachés. Voulez-vous vraiment supprimer cette expérience?',
+    description: 'Warning prior to experience deletion'
+  },
+  '6H4uc8': {
+    defaultMessage: `"Je m'identifie comme une personne handicapée"`,
+    description: 'Title for when someone indicates they have a disability on their profile'
+  },
+  '6l1+3n': {
+    defaultMessage: 'résultats des compétences de la recherche par mot clé'
+  },
+  '8/aBOG': {
+    defaultMessage: 'Postuler',
+    description: 'Breadcrumb title for the pool application link.'
+  },
+  'DGnBW+': {
+    defaultMessage: 'Personnes handicapées',
+    description: 'Title for button to learn more information about disabled equity definition'
+  },
+  EzgYXr: {
+    defaultMessage: 'Peuples autochtones',
+    description: 'Title for equity dialog to add/remove indigenous category to profile'
+  },
+  FTMoH9: {
+    defaultMessage: 'Femmes',
+    description: 'Title for button to learn more information about women equity definition'
+  },
+  Fj5UsM: {
+    defaultMessage: 'Personnes handicapées',
+    description: 'Title for equity dialog to add/remove having a disability category to profile'
+  },
+  HZB4iF: {
+    defaultMessage: `"Je m'identifie comme une femme"`,
+    description: 'Title for when someone indicates they are a woman on their profile'
+  },
+  IU0lH8: {
+    defaultMessage: 'Membre des minorités visibles',
+    description: 'Title for button to learn more information about visible minority equity definition'
+  },
+  'N+S2bh': {
+    defaultMessage: 'Vous aimeriez être pris(e) en considération pour les possibilités offertes aux groupes sous-représentés.',
+    description: 'Instruction on when to fill out equity information, item two'
+  },
+  RdrUZz: {
+    defaultMessage: 'Retour à la liste des bassins',
+    description: 'Label for button to the browse pools page'
+  },
+  Uyo9WO: {
+    defaultMessage: "Merci d'avoir postulé",
+    description: "Breadcrumb title for the pools 'thanks for applying page' link."
+  },
+  XkrePe: {
+    defaultMessage: 'Identité autochtone',
+    description: 'Title for button to learn more information about indigenous equity definition'
+  },
+  'Y+d/yO': { defaultMessage: 'Résultats fréquents des compétences' },
+  ZodXqQ: {
+    defaultMessage: 'Femme (Elle/Elle)',
+    description: 'Title for equity dialog to add/remove women category to profile'
+  },
+  bUeJy1: {
+    defaultMessage: `"Je m'identifie comme membre d'une minorité visible"`,
+    description: 'Title for when someone indicates they are a visible minority on their profile'
+  },
+  fCQ4aB: {
+    defaultMessage: 'Utilisateur{applicantId} introuvable.',
+    description: 'Message displayed for user not found.'
+  },
+  fOCbBa: { defaultMessage: 'Résultats pour les compétences fréquentes' },
+  hDSk9d: {
+    defaultMessage: "Merci d'avoir postulé au {poolName}",
+    description: 'Title for page thanking user for applying to a pool'
+  },
+  iCb9eG: {
+    defaultMessage: 'Les techniciens en TI se retrouvent principalement dans trois volets de travail :',
+    description: 'Preceding list description'
+  },
+  jF5ZYY: {
+    defaultMessage: 'Membres des minorités visibles',
+    description: 'Title for equity dialog to add/remove visible minority category to profile'
+  },
+  mMGycA: {
+    defaultMessage: 'Postuler',
+    description: 'Apply label for button to apply to pool'
+  },
+  oEFd6y: {
+    defaultMessage: '"Je suis autochtone"',
+    description: 'Title for when someone indicates they are indigenous on their profile'
+  },
+  sifjUN: {
+    defaultMessage: "Il n'y a pas encore d'expérience sur votre profil. Vous pouvez en ajouter quelques-unes en utilisant les liens ci-dessus.",
+    description: 'Message to user when no experiences have been attached to profile.'
+  },
+  '/h+Ub4': {
+    defaultMessage: "Je m'identifie comme une femme.",
+    description: 'Label for the checkbox to identify as a woman under employment equity'
+  },
+  '07bCT2': {
+    defaultMessage: "Je m'identifie comme une personne handicapée.",
+    description: 'Label for the checkbox to identify as a person with a disability under employment equity'
+  },
+  Jtz3yb: {
+    defaultMessage: 'Je suis autochtone.',
+    description: 'Label for the checkbox to identify as indigenous under employment equity'
+  },
+  sdUnnh: {
+    defaultMessage: "Je m'identifie comme faisant partie d'un ou de plusieurs groupes de minorités visibles.",
+    description: 'Label for the checkbox to identify as a visible minority under employment equity'
+  },
+  '+pWIcS': {
+    defaultMessage: 'Compétences techniques',
+    description: 'Button text for the technical skills tab on skills filter'
+  },
+  '6OJhwM': {
+    defaultMessage: 'Trouver et sélectionner les compétences',
+    description: 'Subtitle for the skills filter on the search form.'
+  },
+  GR1ZQH: {
+    defaultMessage: 'Résultats des compétences transférables',
+    description: 'Title for transferable skills pagination'
+  },
+  PBnlYi: {
+    defaultMessage: 'Possibilités de navigation',
+    description: 'Breadcrumb from applicant profile wrapper.'
+  },
+  QJQS42: {
+    defaultMessage: 'Pourquoi y a-t-il un nombre limité de compétences? Il est important que les candidats et les gestionnaires puisent dans la même liste de compétences afin de créer des correspondances.',
+    description: 'Describing how to use the skill filters on search page, paragraph two.'
+  },
+  S9BRBL: {
+    defaultMessage: 'Durée du terme (court terme, long terme)',
+    description: 'Duration of a non-permanent length'
+  },
+  Sb95gs: {
+    defaultMessage: 'Compétences transférables',
+    description: 'Button text for the transferable skills tab on skills filter'
+  },
+  'f/JJR5': {
+    defaultMessage: 'Résultats des compétences techniques',
+    description: 'Title for technical skills pagination'
+  },
+  rYodJu: {
+    defaultMessage: 'Durée indéterminée (permanente)',
+    description: 'Duration that is permanent'
+  },
+  vmyStM: {
+    defaultMessage: 'Par mot-clé',
+    description: 'Button text for the search skills tab on skills filter'
+  },
+  s4DN3G: {
+    defaultMessage: 'Résultats des compétences générales',
+    description: 'Accessibility label for a result set of skills, filtered to mainstream skills'
+  },
+  wziEOM: {
+    defaultMessage: 'résultats des compétences, recherche par mot-clé',
+    description: 'Accessibility label for a result set of skills, searched by keyword'
+  },
+  '7n838F': {
+    defaultMessage: 'Pour être admis dans ce processus, vous devrez faire preuve de capacités dans ces compétences au cours du processus d’évaluation',
+    description: 'Explanation of a pool required transferrable skills'
+  },
+  Ba4Y8a: {
+    defaultMessage: 'Il y a des <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> candidats correspondants dans ce bassin',
+    description: 'Message for total estimated candidates box next to search form.'
+  },
+  Lgo2iQ: {
+    defaultMessage: '"J’atteste que les renseignements que j’ai fournis sont vrais"',
+    description: 'Signature list item on sign and submit page.'
+  },
+  Y7AKYP: {
+    defaultMessage: 'Pour être admis dans ce processus, vous devrez soumettre des renseignements suffisants pour vérifier votre expérience dans <strong>toutes ces compétences (Obligatoire - Professionnel)</strong> avec votre candidature',
+    description: 'Explanation of a pools required occupational skills'
+  },
+  aeI64y: {
+    defaultMessage: '"J’ai passé en revue tout ce qui est écrit dans ma candidature',
+    description: 'Signature list item on sign and submit page.'
+  }
+}

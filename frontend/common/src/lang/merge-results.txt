@@ -1,0 +1,243 @@
+
+Entries from src/lang/newTranslations.json merged into src/lang/fr.json
+These values are missing translations: {
+  '/I9tx9': {
+    defaultMessage: 'This application cannot be deleted. You can only delete applications before submission.',
+    description: 'Error message that the application cannot be deleted.'
+  },
+  '3e4sM7': {
+    defaultMessage: 'Location must be filled in or the Remote option selected',
+    description: 'Error message that the pool advertisement must have location filled.'
+  },
+  '56WpMU': {
+    defaultMessage: "Allow your browser preferences to dictate the website's theme.",
+    description: 'Button text to set no theme mode'
+  },
+  '6O1sjV': {
+    defaultMessage: 'Cannot update - this user identifier (sub) is already in use.',
+    description: 'Error message that the given user identifier is already in use when updating.'
+  },
+  '6wCHq2': {
+    defaultMessage: 'Activate dark mode',
+    description: 'Button text to set theme mode to dark'
+  },
+  '76QTNv': {
+    defaultMessage: 'Application is already submitted.',
+    description: 'Error message that the given application is already submitted.'
+  },
+  '9CkDfr': {
+    defaultMessage: 'No skills found.',
+    description: 'Message displayed when no skills were found in skill picker search'
+  },
+  '9nJi0W': {
+    defaultMessage: 'Activate light mode',
+    description: 'Button text to set theme mode to light'
+  },
+  'A+dFlE': {
+    defaultMessage: 'Application is already archived.',
+    description: 'Error message that the given application is already archived.'
+  },
+  C8nrGM: {
+    defaultMessage: 'IT Jobs',
+    description: 'The publishing group called IT Jobs'
+  },
+  CVmEkf: {
+    defaultMessage: 'Cannot create - this user identifier (sub) is already in use',
+    description: 'Error message that the given user identifier is already in use when creating.'
+  },
+  J2V3XI: {
+    defaultMessage: 'You are missing a required field: Language requirement',
+    description: 'Error message that the pool advertisement must have an advertisement language.'
+  },
+  Mco0Km: {
+    defaultMessage: 'You must have at least one Essential Skill.',
+    description: 'Error message that at least one Essential Skill is required'
+  },
+  'Mixlw/': {
+    defaultMessage: 'Executive Jobs',
+    description: 'The publishing group called Executive Jobs'
+  },
+  TjeaLS: {
+    defaultMessage: 'This application cannot be archived. You can only archive expired applications.',
+    description: 'Error message that the application cannot be archived.'
+  },
+  VqrVpT: {
+    defaultMessage: 'Cannot update - this email address is already in use.',
+    description: 'Error message that the given email address is already in use when updating.'
+  },
+  WUAAr1: {
+    defaultMessage: 'Cannot create - this email address is already in use.',
+    description: 'Error message that the given user identifier is already in use when creating.'
+  },
+  Wwb8Lb: {
+    defaultMessage: 'Theme colour mode switcher',
+    description: 'Label for the group of buttons to change the current colour mode'
+  },
+  XNDPQM: {
+    defaultMessage: 'You are missing a required field: End Date',
+    description: 'Error message that the pool advertisement must have an expiry date.'
+  },
+  aMkZ80: {
+    defaultMessage: 'You must fill Specific Location in English and French if advertisement is not remote.',
+    description: 'Error message that advertisement locations must be filled in English and French.'
+  },
+  euwgms: {
+    defaultMessage: 'You are missing a required field: French - Your work',
+    description: 'Error message that Work Tasks in French must be filled'
+  },
+  'gU/2O6': {
+    defaultMessage: 'The pool must have an expiry date after today.',
+    description: "Error message that pool expiry isn't in the future."
+  },
+  juklNA: {
+    defaultMessage: 'You are missing a required field: English - Your impact',
+    description: 'Error message that Your Impact in English must be filled'
+  },
+  kg28xx: {
+    defaultMessage: 'You are missing a required field: French - Your impact',
+    description: 'Error message that Your Impact in French must be filled'
+  },
+  'l7Hif/': {
+    defaultMessage: 'Selected skills',
+    description: 'Section header for a list of skills selected'
+  },
+  mv7JO3: {
+    defaultMessage: 'Other',
+    description: 'The publishing group called Other'
+  },
+  nPKPFa: {
+    defaultMessage: 'You are missing a required field: Publishing group',
+    description: 'Error message that the pool advertisement must have publishing group filled.'
+  },
+  't4F/0R': {
+    defaultMessage: 'You are missing a required field: Security requirement',
+    description: 'Error message that the pool advertisement must have a security clearance.'
+  },
+  tW4k56: {
+    defaultMessage: 'You are missing a required field: English - Your work',
+    description: 'Error message that Work Tasks in English must be filled'
+  },
+  w2tWfH: {
+    defaultMessage: 'You are missing a required field: Stream/Job Titles',
+    description: 'Error message that the pool advertisement must have a stream.'
+  }
+}
+Output untranslated entries to src/lang/untranslated.json
+These values are present in fr but not in en: {
+  mZMdKM: {
+    defaultMessage: 'Soumettre des commentaires au Nuage de talents du GC par courriel.',
+    description: 'Title for the feedback link in the Footer.'
+  },
+  '9iOaI4': {
+    defaultMessage: 'Plus intéressé',
+    description: "The pool candidate's status is No Longer Interested."
+  },
+  z9Gr7V: {
+    defaultMessage: 'Accessibles',
+    description: "The pool candidate's status is Available."
+  },
+  cQnjsM: {
+    defaultMessage: 'Non Disponible',
+    description: "The pool candidate's status is Unavailable."
+  },
+  KFGBmb: {
+    defaultMessage: 'Octroyé à :',
+    description: 'The award was given to'
+  },
+  OocJKH: {
+    defaultMessage: 'Portée :',
+    description: 'The scope of the award given'
+  },
+  PJhCQn: {
+    defaultMessage: 'à {institution}',
+    description: 'Study at institution'
+  },
+  SZZeHq: {
+    defaultMessage: 'Non',
+    description: 'No, did not completed a language evaluation'
+  },
+  cIHjFT: {
+    defaultMessage: 'Ministère : <strong>{department}</strong>',
+    description: 'Message to state what department user is in.'
+  },
+  FRyIG2: {
+    defaultMessage: "Vous devez saisir un terme de recherche avant d'appuyer sur la touche « Entrée »",
+    description: 'Error message displayed when the search term length is less then 2 characters.'
+  },
+  JY6WhU: {
+    defaultMessage: 'Rechercher une compétence précise...',
+    description: 'Label for the skills search bar.'
+  },
+  GuMTqQ: {
+    defaultMessage: 'Familles de compétences',
+    description: 'Radio group legend for a list of skill families'
+  },
+  IfCvm5: {
+    defaultMessage: '{fieldLabel}: Ce champ est obligatoire',
+    description: 'Error message that this field must filled for the form to be valid.'
+  },
+  'vO/SlS': {
+    defaultMessage: 'Disponibilité, volonté et capacité à faire des heures supplémentaires (dernière minute)',
+    description: 'The operational requirement described as short notice overtime.'
+  },
+  hm95fj: {
+    defaultMessage: 'Chercher par mot-clé',
+    description: 'A label to show that this tab for searching by keyword'
+  },
+  '3GT1s/': {
+    defaultMessage: 'Vous devez avoir au moins une compétence essentielle.',
+    description: 'Error message that at least one essential skill must be selected.'
+  },
+  BiSzNu: {
+    defaultMessage: 'Compétences sélectionnées ({skillCount})',
+    description: 'A title for a skill list'
+  },
+  J3779Q: {
+    defaultMessage: 'Groupes de compétences',
+    description: 'A title for a list of skill families'
+  },
+  LfNNe4: {
+    defaultMessage: 'Par mot-clé',
+    description: 'Tab name for a box to search for skills'
+  },
+  OtOIXG: {
+    defaultMessage: 'déjà archivé',
+    description: 'Error message that the given model is already archived.'
+  },
+  'Sx/Pzn': {
+    defaultMessage: 'Toutes les compétences comportementales',
+    description: "The option label for 'no filter' on the list of behavioural skills"
+  },
+  bhuMGL: {
+    defaultMessage: 'Vous devez saisir advertisement_location si l’annonce n’est pas à distance.',
+    description: 'Error message that the pool advertisement must have a location if it is not for remote work.'
+  },
+  l0IDWf: {
+    defaultMessage: 'Résultats ({skillCount})',
+    description: 'A title for a skill list of results'
+  },
+  l8p1el: {
+    defaultMessage: 'Cet identifiant d’utilisateur (sub) est déjà utilisé',
+    description: 'Error message that the given user identifier is already in use.'
+  },
+  nDaEgr: {
+    defaultMessage: 'Cette adresse courriel est déjà utilisée',
+    description: 'Error message that the given email address is already in use.'
+  },
+  nr62lc: {
+    defaultMessage: 'Résultats ({skillCount})',
+    description: 'Un titre pour une liste de résultats'
+  },
+  s4DN3G: {
+    defaultMessage: 'Résultats des compétences générales',
+    description: 'Accessibility label for a result set of skills, filtered to mainstream skills'
+  },
+  vZgTKh: {
+    defaultMessage: 'Toutes les compétences techniques',
+    description: "The option label for 'no filter' on the list of occupational skills"
+  },
+  wziEOM: {
+    defaultMessage: 'résultats des compétences de recherche par mot-clé',
+    description: 'Accessibility label for a result set of skills, searched by keyword'
+  }
+}

@@ -1955,5 +1955,433 @@
   "kfzKrV": {
     "defaultMessage": "Signaler une page manquante",
     "description": "Link text to go report a missing page on the 404"
+  },
+  "+5cxyT": {
+    "defaultMessage": "Emplacement : À distance",
+    "description": "Pool advertisement location requirement, Remote option"
+  },
+  "+6+eor": {
+    "defaultMessage": "Derrière la plateforme des talents numériques du GC, il y a toute une équipe de personnes qui conçoivent, développent, sélectionnent les candidats, gèrent les talents des employés, placent les cadres et aident les gestionnaires à trouver les talents dont ils ont besoin pour offrir des services aux Canadiens.",
+    "description": "Description for the Digital Community Management Office"
+  },
+  "+cBKDC": {
+    "defaultMessage": "Emplois dans le gouvernement numérique",
+    "description": "Heading for the digital government job opportunities"
+  },
+  "/JLaO5": {
+    "defaultMessage": "Annuler",
+    "description": "Link text to cancel deleting application."
+  },
+  "/Mb8b6": {
+    "defaultMessage": "Renseignements importants",
+    "description": "Toc navigation item on sign and submit page."
+  },
+  "/ooPqb": {
+    "defaultMessage": "Mon profil de candidature",
+    "description": "Title for review application page."
+  },
+  "0+hcuo": {
+    "defaultMessage": "Erreur, la candidature ne peut pas être chargée",
+    "description": "Error message, placeholder"
+  },
+  "0qNkIp": {
+    "defaultMessage": "Exemptions de lieux",
+    "description": "Location Exemptions field label for work location preference form"
+  },
+  "1lmME7": {
+    "defaultMessage": "Supprimer<hidden> la candidature {name}</hidden>",
+    "description": "Link text to continue a specific application"
+  },
+  "1q/MmU": {
+    "defaultMessage": "Vérifier",
+    "description": "Heading for featured items on the homepage"
+  },
+  "1wFFIx": {
+    "defaultMessage": "Vous cherchez des employés?",
+    "description": "Link text for hiring manager call to action"
+  },
+  "4NzbMZ": {
+    "defaultMessage": "Les modifications apportées à votre profil après l’envoi ne seront pas mises à jour sur cette copie",
+    "description": "Important info list item on sign and submit page."
+  },
+  "5pZFQ3": {
+    "defaultMessage": "Êtes-vous certain de vouloir supprimer la candidature {name}?",
+    "description": "Question displayed when user attempts to delete an application"
+  },
+  "60Ee78": {
+    "defaultMessage": "Continuer ma candidature<hidden> {name}</hidden>",
+    "description": "Link text to continue a specific application"
+  },
+  "6B7e8/": {
+    "defaultMessage": "Archiver<hidden> la candidature{name}</hidden>",
+    "description": "Link text to continue a specific application"
+  },
+  "6p6syC": {
+    "defaultMessage": "Mon profil de candidature",
+    "description": "Title for sign and submit page."
+  },
+  "78ITuW": {
+    "defaultMessage": "Candidature non trouvée.",
+    "description": "Text displayed when a user application does not exist."
+  },
+  "7hUWc+": {
+    "defaultMessage": "Créer un profil",
+    "description": "Link text for users to create a profile"
+  },
+  "7n838F": {
+    "defaultMessage": "Pour être admis dans ce processus, vous devrez faire preuve de capacités dans ces compétences au cours du processus d’évaluation",
+    "description": "Explanation of a pool required transferrable skills"
+  },
+  "87FqAO": {
+    "defaultMessage": "En savoir plus",
+    "description": "Heading for the about section of the homepage"
+  },
+  "951Oju": {
+    "defaultMessage": "Découvrez les dernières perspectives d’emploi du GC dans le domaine du numérique et de la technologie, du premier échelon à la direction. Trouvez une équipe, apportez votre contribution, et soyez inspirés.",
+    "description": "Description for the digital government job opportunities"
+  },
+  "9KOwXq": {
+    "defaultMessage": "Les cadres dans le gouvernement numérique",
+    "description": "Vers des emplois de cadres dans le gouvernement"
+  },
+  "AauSuA": {
+    "defaultMessage": "s. o.",
+    "description": "Not available message."
+  },
+  "BQ7cf/": {
+    "defaultMessage": "Pourquoi y a-t-il un nombre limité de compétences? Il est important que les candidats et les gestionnaires puisent dans la même liste de compétences afin de créer des correspondances.",
+    "description": "Describing how to use the skill filters on search page, paragraph two."
+  },
+  "Ba4Y8a": {
+    "defaultMessage": "Il y a des <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> candidats correspondants dans ce bassin",
+    "description": "Message for total estimated candidates box next to search form."
+  },
+  "Boze7x": {
+    "defaultMessage": "Mes candidatures",
+    "description": "Title for page that displays current users applications."
+  },
+  "CgK0u0": {
+    "defaultMessage": "En savoir plus<hidden> sur le Bureau de gestion de la collectivité numérique</hidden>",
+    "description": "Link text for the Digital Community Management Office"
+  },
+  "D0bpvq": {
+    "defaultMessage": "Candidatures archivées",
+    "description": "Title for a users archived applications"
+  },
+  "D91nGW": {
+    "defaultMessage": "Titre du poste non trouvé.",
+    "description": "Message shown to user when pool name or classification are not found."
+  },
+  "DZwVvi": {
+    "defaultMessage": "Membre des Forces armées canadiennes (FAC)",
+    "description": "Legend text for required Canadian Armed Forces selection in About Me form"
+  },
+  "EVGeHh": {
+    "defaultMessage": "Continuer vers l’étape 2",
+    "description": "Button message on footer of review my application page."
+  },
+  "EWCP4t": {
+    "defaultMessage": "Des possibilités pour les cadres de premier échelon aux DPI à travers le GC, c’est l’endroit si vous êtes prêt à assumer un rôle de leadership numérique en agissant concrètement pour les Canadiens.",
+    "description": "Description for executive jobs in government"
+  },
+  "FFD16/": {
+    "defaultMessage": "Supprimer la candidature",
+    "description": "Title for the modal that appears when a user attempts to delete an application"
+  },
+  "FqXo5j": {
+    "defaultMessage": "Droit de priorité",
+    "description": "Priority Entitlement Status in Government Info Form"
+  },
+  "HXNJ6Z": {
+    "defaultMessage": "Voir publicité<hidden> {name}</hidden>",
+    "description": "Link text to see an applications advertisement"
+  },
+  "IUQGA0": {
+    "defaultMessage": "Supprimer",
+    "description": "Link text to delete."
+  },
+  "KEhCJX": {
+    "defaultMessage": "Candidature archivée!",
+    "description": "Message displayed to user after application is archived successfully."
+  },
+  "Knr0yc": {
+    "defaultMessage": "Présenter ma candidature",
+    "description": "Submit button label on sign and submit page."
+  },
+  "LDzKSs": {
+    "defaultMessage": "Bureau de gestion de la collectivité numérique",
+    "description": "Title for the Digital Community Management Office"
+  },
+  "LOh+c5": {
+    "defaultMessage": "Étape 2 : Signer et présenter",
+    "description": "Navigation step in sign and submit page."
+  },
+  "LUEVdb": {
+    "defaultMessage": "Étape 1 : Examiner mon profil",
+    "description": "Navigation step in sign and submit page."
+  },
+  "Ledr63": {
+    "defaultMessage": "Signature",
+    "description": "Toc navigation item on sign and submit page."
+  },
+  "Lgo2iQ": {
+    "defaultMessage": "\"J’atteste que les renseignements que j’ai fournis sont vrais\"",
+    "description": "Signature list item on sign and submit page."
+  },
+  "M3c9Yo": {
+    "defaultMessage": "Erreur : la suppression de la candidature a échoué",
+    "description": "Message displayed to user after application fails to get deleted."
+  },
+  "MS9dB9": {
+    "defaultMessage": "Talents numériques du GC",
+    "description": "Application title"
+  },
+  "MUpqIp": {
+    "defaultMessage": "En savoir plus<hidden> sur les femmes dans les STIM</hidden>",
+    "description": "Link text to learn more about women in STEM"
+  },
+  "NjHXGh": {
+    "defaultMessage": "En savoir plus<hidden> sur le Bureau du directeur principal de l’information</hidden>",
+    "description": "Link text for the Office of the Chief Information Officer"
+  },
+  "OH5tTS": {
+    "defaultMessage": "En option, ajoutez une ville ou un village ici...",
+    "description": "Location Exemptions field placeholder for work location preference form"
+  },
+  "P+UY4i": {
+    "defaultMessage": "Numéro de priorité",
+    "description": "label for priority number input"
+  },
+  "PXfQOZ": {
+    "defaultMessage": "Archiver",
+    "description": "Link text to archive application."
+  },
+  "Q7yh4j": {
+    "defaultMessage": "Erreur, les candidatures ne peuvent pas être chargées",
+    "description": "My applications error message, placeholder"
+  },
+  "QcrDDA": {
+    "defaultMessage": "Parcourir les emplois de cadres",
+    "description": "Link text to find executive jobs in government"
+  },
+  "SDQWZf": {
+    "defaultMessage": "Retour à l’étape précédente",
+    "description": "Label for return link on sign and submit page."
+  },
+  "Tk2HJy": {
+    "defaultMessage": "Vous cherchez un emploi?",
+    "description": "Link text for applicant call to action"
+  },
+  "U/ji+A": {
+    "defaultMessage": "Candidature créée",
+    "description": "Application created successfully"
+  },
+  "Uaew4x": {
+    "defaultMessage": "Mes candidatures",
+    "description": "Breadcrumb for review application page."
+  },
+  "Vfxtz/": {
+    "defaultMessage": "Vous n’avez actuellement aucune candidature archivée.",
+    "description": "Messaged displayed when a user has no archived applications."
+  },
+  "WZwXDb": {
+    "defaultMessage": "Vous souhaitez être pris en considération pour les perspectives d’emploi adressées aux groupes sous-représentés.",
+    "description": "Instruction on when to fill out equity information, item two"
+  },
+  "XF8DsD": {
+    "defaultMessage": "Page actuelle :",
+    "description": "Message read to users with screen reader when page is active."
+  },
+  "XR37x0": {
+    "defaultMessage": "Programme d’apprentissage destiné aux Autochtones",
+    "description": "Heading for the Indigenous Apprenticeship Program on home page"
+  },
+  "Y7AKYP": {
+    "defaultMessage": "Pour être admis dans ce processus, vous devrez soumettre des renseignements suffisants pour vérifier votre expérience dans <strong>toutes ces compétences (Obligatoire - Professionnel)</strong> avec votre candidature",
+    "description": "Explanation of a pools required occupational skills"
+  },
+  "YZyNUJ": {
+    "defaultMessage": "Signature",
+    "description": "Label displayed for signature input in sign and submit page."
+  },
+  "Z0PCOW": {
+    "defaultMessage": "Êtes-vous certain de vouloir archiver la candidature {name}?",
+    "description": "Question displayed when user attempts to archive an application"
+  },
+  "Zx0ylN": {
+    "defaultMessage": "Candidature présentée!",
+    "description": "Message displayed to user after application is submitted successfully."
+  },
+  "aeI64y": {
+    "defaultMessage": "\"J’ai passé en revue tout ce qui est écrit dans ma candidature",
+    "description": "Signature list item on sign and submit page."
+  },
+  "brQu7D": {
+    "defaultMessage": "Je n’ai pas de droit de priorité",
+    "description": "Label displayed for does not have priority entitlement option"
+  },
+  "dIZPra": {
+    "defaultMessage": "\"Je comprends que je fais partie d’une communauté qui se fait confiance\"",
+    "description": "Signature list item on sign and submit page."
+  },
+  "da8nDk": {
+    "defaultMessage": "Afficher les candidatures archivées",
+    "description": "Button text to show a users archived applications."
+  },
+  "f3Qqop": {
+    "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats de premier échelon pour des possibilités d’apprentissage et de développement des TI dans l’ensemble du gouvernement.",
+    "description": "Description for the Indigenous Apprenticeship Program on home page"
+  },
+  "fI6Hjf": {
+    "defaultMessage": "La préférence sera accordée aux citoyens canadiens et aux résidents permanents du Canada",
+    "description": "Context text for required citizenship status section in About Me form, explaining preference"
+  },
+  "hEXXG0": {
+    "defaultMessage": "Numéro d’identification : {id}",
+    "description": "Label for application ID"
+  },
+  "i3IjQt": {
+    "defaultMessage": "Erreur : l’archivage de la candidature a échoué",
+    "description": "Message displayed to user after application fails to get archived."
+  },
+  "i4CKlO": {
+    "defaultMessage": "Vous avez réussi! En signant votre nom ci-dessous, vous confirmez que :",
+    "description": "Confirmation message before signature form on sign and submit page."
+  },
+  "i9cA5V": {
+    "defaultMessage": "Bureau du directeur principal de l’information",
+    "description": "Title for the Office of the Chief Information Officer"
+  },
+  "iilT16": {
+    "defaultMessage": "Erreur : la présentation de la candidature a échoué",
+    "description": "Message displayed to user after application fails to submit."
+  },
+  "jDv8lx": {
+    "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
+    "description": "Link text to learn more about the platform creation"
+  },
+  "jVoHKZ": {
+    "defaultMessage": "Talents numériques du GC n’est qu’une des nombreuses initiatives menées par le Bureau du dirigeant principal de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du GC pour voir où le BCIO se dirige à l’avenir.",
+    "description": "Description of the Office of the Chief Information Officer"
+  },
+  "jcl2s9": {
+    "defaultMessage": "Erreur, le candidat du bassin n’a pas pu être chargé",
+    "description": "Error message, placeholder"
+  },
+  "jefAOX": {
+    "defaultMessage": "Apprenez-en plus<hidden> sur la fierté dans la technologie</hidden>",
+    "description": "Link text to learn about pride in tech"
+  },
+  "kHypfJ": {
+    "defaultMessage": "Du concept au code",
+    "description": "Title for how the platform was created"
+  },
+  "kjtiha": {
+    "defaultMessage": "Mes candidatures",
+    "description": "Breadcrumb for sign and submit page."
+  },
+  "mq4G8h": {
+    "defaultMessage": "Mes candidatures",
+    "description": "'My Applications' breadcrumb from applicant profile wrapper."
+  },
+  "muwFhL": {
+    "defaultMessage": "La fierté dans la technologie",
+    "description": "Title for the pride in tech featured item"
+  },
+  "nEMeaQ": {
+    "defaultMessage": "Recrutement en cours",
+    "description": "Heading for the recruitment opportunities"
+  },
+  "o5pks7": {
+    "defaultMessage": "Statut de citoyenneté",
+    "description": "Legend text for required citizenship status in About Me form"
+  },
+  "oDyHaL": {
+    "defaultMessage": "Erreur, titre du poste non trouvé.",
+    "description": "Error message when job title isn't found."
+  },
+  "oMSsJd": {
+    "defaultMessage": "Les femmes dans les STIM",
+    "description": "Title for the Women in STEM feature item"
+  },
+  "oOR4Rd": {
+    "defaultMessage": "Étape 2",
+    "description": "Breadcrumb for sign and submit page."
+  },
+  "q04FCp": {
+    "defaultMessage": "Mes candidatures",
+    "description": "Link text for breadcrumb to user applications page."
+  },
+  "qDYcDP": {
+    "defaultMessage": "Vous êtes toujours encouragé à maintenir votre profil à jour, les versions actualisées seront utilisées lors des étapes ultérieures du processus d’embauche.",
+    "description": "Important info list item on sign and submit page."
+  },
+  "r6DZ71": {
+    "defaultMessage": "Annuler",
+    "description": "Link text to cancel archiving application."
+  },
+  "rw05Jq": {
+    "defaultMessage": "Vous n’avez actuellement aucune candidature.",
+    "description": "Messaged displayed when a user has no applications."
+  },
+  "sOmB9g": {
+    "defaultMessage": "Masquer les candidatures archivées",
+    "description": "Button text to hide a users archived applications."
+  },
+  "tlAiJm": {
+    "defaultMessage": "La création de la candidature a échoué",
+    "description": "Application creation failed"
+  },
+  "uQ8Tss": {
+    "defaultMessage": "J’ai un droit de priorité",
+    "description": "Label displayed does have priority entitlement option"
+  },
+  "v0JyBd": {
+    "defaultMessage": "Avez-vous un droit de priorité pour les candidatures du gouvernement du Canada?",
+    "description": "Sentence asking whether the user possesses priority entitlement"
+  },
+  "vQzmUH": {
+    "defaultMessage": "Les techniciens en TI se retrouvent principalement dans trois filières de travail :",
+    "description": "Preceding list description"
+  },
+  "w3Kkk2": {
+    "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
+    "description": "Link text to apply for the Indigenous Apprenticeship Program"
+  },
+  "wSQmDk": {
+    "defaultMessage": "Curieux de savoir comment la plateforme Talents numériques du GC a été développée? Vous voulez en savoir plus sur les idées, les conceptions et la philosophie de celle-ci? Découvrez le chemin parcouru depuis le pilote expérimental du Nuage de talents du GC jusqu’à la plateforme complète d’aujourd’hui.",
+    "description": "Description of how the platform was created."
+  },
+  "ww86SN": {
+    "defaultMessage": "Lorsque vous présentez votre candidature, une copie de votre profil sera créée.",
+    "description": "Important info list item on sign and submit page."
+  },
+  "wyxpjm": {
+    "defaultMessage": "Cette copie sera utilisée pour l’examen initial de la candidature.",
+    "description": "Important info list item on sign and submit page."
+  },
+  "xdGPxT": {
+    "defaultMessage": "Candidature supprimée!",
+    "description": "Message displayed to user after application is deleted successfully."
+  },
+  "xggOcb": {
+    "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez développé vos compétences et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, votre profil est votre voie pour être trouvé par les responsables du recrutement.",
+    "description": "Description du fonctionnement des profils de candidature"
+  },
+  "yiJYdP": {
+    "defaultMessage": "Archiver la candidature",
+    "description": "Titre du modèle qui apparaît lorsqu’un utilisateur tente d’archiver une candidature"
+  },
+  "zNvXSs": {
+    "defaultMessage": "Parcourir les emplois en TI",
+    "description": "Texte du lien pour les emplois en TI dans l’appel à l’action du gouvernement"
+  },
+  "zmV99R": {
+    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous espériez embaucher ou que vous envisagiez un rôle de direction, c’est l’endroit où venir pour faire partie de la communauté numérique du GC.",
+    "description": "Description de la candidature sur la page d’accueil"
+  },
+  "zqIEuu": {
+    "defaultMessage": "Retournez à mes candidatures",
+    "description": "Button message on footer of review my application page."
   }
 }
