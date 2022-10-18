@@ -22,6 +22,7 @@ import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
 import {
+  PoolAdvertisement,
   SubmitApplicationMutation,
   useGetApplicationDataQuery,
   useSubmitApplicationMutation,
@@ -227,7 +228,7 @@ export interface SignAndSubmitFormProps {
   applicationId: string;
   poolAdvertisementId: string;
   userId: string;
-  closingDate: Date;
+  closingDate: PoolAdvertisement["expiryDate"];
   jobTitle: string;
   isApplicationComplete: boolean;
   handleSubmitApplication: (
