@@ -2,20 +2,24 @@ import React from "react";
 import { useIntl } from "react-intl";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { imageUrl } from "@common/helpers/router";
-import { relativeExpiryDate } from "@common/helpers/dateUtils";
+import {
+  parseDateTimeUtc,
+  relativeExpiryDate,
+} from "@common/helpers/dateUtils";
 
 import { CalendarIcon } from "@heroicons/react/24/outline";
 import ApplicationNavigation, {
   type ApplicationNavigationProps,
 } from "./ApplicationNavigation";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
+import { PoolAdvertisement } from "../../api/generated";
 
 export interface ApplicationPageWrapperProps {
   title: string;
   subtitle?: string;
   crumbs?: BreadcrumbsProps["links"];
   navigation?: ApplicationNavigationProps;
-  closingDate: Date;
+  closingDate: PoolAdvertisement["expiryDate"];
   children: React.ReactNode;
 }
 
@@ -108,7 +112,9 @@ const ApplicationPageWrapper = ({
                     "Label for a pool advertisements closing date on the application",
                 })}
                 <br />
-                {relativeExpiryDate(new Date(closingDate), intl)}
+                {closingDate
+                  ? relativeExpiryDate(parseDateTimeUtc(closingDate), intl)
+                  : ""}
               </p>
             </div>
           </div>

@@ -2,7 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
-import { relativeExpiryDate } from "@common/helpers/dateUtils";
+import {
+  parseDateTimeUtc,
+  relativeExpiryDate,
+} from "@common/helpers/dateUtils";
 
 import { notEmpty } from "@common/helpers/util";
 import { type PoolCandidate, PoolCandidateStatus } from "../../api/generated";
@@ -78,10 +81,14 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
                 data-h2-font-weight="base(800)"
                 data-h2-color="base(dt-primary)"
               >
-                {relativeExpiryDate(
-                  new Date(application.poolAdvertisement.expiryDate),
-                  intl,
-                )}
+                {application.poolAdvertisement.expiryDate
+                  ? relativeExpiryDate(
+                      parseDateTimeUtc(
+                        application.poolAdvertisement.expiryDate,
+                      ),
+                      intl,
+                    )
+                  : ""}
               </p>
             ) : (
               <p>

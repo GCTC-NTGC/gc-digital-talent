@@ -7,7 +7,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Input } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
-import { strToDateTimeTz } from "@common/helpers/dateUtils";
+import { convertDateTimeZone } from "@common/helpers/dateUtils";
 import { type UpdatePoolAdvertisementInput } from "../../../api/generated";
 
 type FormValues = {
@@ -17,7 +17,7 @@ type FormValues = {
 export type ExtendSubmitData = Pick<UpdatePoolAdvertisementInput, "expiryDate">;
 
 type ExtendDialogProps = {
-  expiryDate: NonNullable<PoolAdvertisement["expiryDate"]>;
+  expiryDate: PoolAdvertisement["expiryDate"];
   onExtend: (submitData: ExtendSubmitData) => void;
 };
 
@@ -29,8 +29,16 @@ const ExtendDialog = ({
 
   const handleExtend = useCallback(
     (formValues: FormValues) => {
+      const expiryDateInUtc = formValues.endDate
+        ? convertDateTimeZone(
+            `${formValues.endDate} 23:59:59`,
+            "Canada/Pacific",
+            "UTC",
+          )
+        : null;
+
       onExtend({
-        expiryDate: strToDateTimeTz(formValues.endDate),
+        expiryDate: expiryDateInUtc,
       });
     },
     [onExtend],

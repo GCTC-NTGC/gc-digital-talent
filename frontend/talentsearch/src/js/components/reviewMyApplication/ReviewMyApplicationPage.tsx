@@ -28,7 +28,7 @@ interface ReviewMyApplicationProps {
   applicant: Applicant;
   poolAdvertisement: PoolAdvertisement;
   applicationId: string;
-  closingDate: Date;
+  closingDate: PoolAdvertisement["expiryDate"];
 }
 
 export const ReviewMyApplication: React.FunctionComponent<
