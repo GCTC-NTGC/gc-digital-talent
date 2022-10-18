@@ -1528,12 +1528,12 @@
     "defaultMessage": "Groupes visés par l’équité en matière d’emploi",
     "description": "Legend for the employment equity checklist"
   },
-   "Fjikio": {
-    "defaultMessage": "{candidateCount, plural, =0 {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{candidateCount}</testId> candidat correspondants à vos critères} other {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères}}",
+   "aWLo7o": {
+    "defaultMessage": "{candidateCount, plural, =0 {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{candidateCount}</testId> candidat correspondant à vos critères} other {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères}}",
     "description": "Heading for total matching candidates in results section of search page."
   },
   "bbso+7": {
-    "defaultMessage": "{candidateCount, plural, one {Il y a <strong><testId>{candidateCount}</testId></strong> candidat qui répondent à vos critères dans ce bassin} other {Il y a <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères dans ce bassin}}",
+    "defaultMessage": "{candidateCount, plural, one {Il y a <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères dans ce bassin} other {Il y a <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères dans ce bassin}}",
     "description": "Message for total estimated matching candidates in pool"
   },
   "pak8ye": {
@@ -1568,7 +1568,7 @@
     "defaultMessage": "<strong>Vous n'avez pas de compte de CléGC?</strong> <a>Inscrivez-vous.</a>",
     "description": "Instruction on what to do if user does not have a GC Key."
   },
-  "ID8FNk": {
+  "Bp3HEe": {
     "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} =1 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} }",
     "description": "Message for total estimated candidates box next to search form."
   },
