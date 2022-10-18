@@ -3,9 +3,8 @@ import { imageUrl, navigate } from "@common/helpers/router";
 import { useIntl } from "react-intl";
 import { Alert } from "@common/components";
 import { BellIcon } from "@heroicons/react/24/outline";
-import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Input, RadioGroup, Submit } from "@common/components/form";
+import { BasicForm, Input, RadioGroup, Submit } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage } from "@common/constants";
@@ -43,6 +42,7 @@ type FormValues = Pick<
 };
 
 export interface CreateAccountFormProps {
+  cacheKey?: string;
   departments: Department[];
   classifications: Classification[];
   handleCreateAccount: (data: UpdateUserAsUserInput) => Promise<void>;
@@ -50,12 +50,10 @@ export interface CreateAccountFormProps {
 
 export const CreateAccountForm: React.FunctionComponent<
   CreateAccountFormProps
-> = ({ departments, classifications, handleCreateAccount }) => {
+> = ({ cacheKey, departments, classifications, handleCreateAccount }) => {
   const intl = useIntl();
 
-  const methods = useForm<FormValues>();
-  const { handleSubmit } = methods;
-  const onSubmit = (values: FormValues) =>
+  const handleSubmit = (values: FormValues) =>
     handleCreateAccount({
       firstName: values.firstName,
       lastName: values.lastName,
@@ -63,18 +61,6 @@ export const CreateAccountForm: React.FunctionComponent<
       preferredLang: values.preferredLang,
       ...formValuesToSubmitData(values, classifications),
     });
-  // hooks to watch, needed for conditional rendering
-  const [
-    govEmployee,
-    govEmployeeStatus,
-    groupSelection,
-    hasPriorityEntitlement,
-  ] = methods.watch([
-    "govEmployeeYesNo",
-    "govEmployeeType",
-    "currentClassificationGroup",
-    "priorityEntitlementYesNo",
-  ]);
 
   return (
     <section>
@@ -127,89 +113,41 @@ export const CreateAccountForm: React.FunctionComponent<
           type="success"
           data-h2-margin="base(x3, 0, 0, 0)"
         />
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <h2 data-h2-margin="base(x2, 0, x1, 0)">
-              {intl.formatMessage({
-                defaultMessage: "Getting started",
-                id: "o/YTo0",
-                description: "Main heading in create account page.",
-              })}
-            </h2>
-            <p data-h2-padding="base(0, 0, x1, 0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Before we take you to your profile, we need to collect some required information to complete your account set up.",
-                id: "x6saT3",
-                description:
-                  "Message after main heading in create account page.",
-              })}
-            </p>
-            <div>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-margin="base(0, 0, x1, 0)"
-              >
-                <div style={{ flex: 1 }} data-h2-padding="base(0, x1, 0, 0)">
-                  <Input
-                    id="firstName"
-                    name="firstName"
-                    type="text"
-                    label={intl.formatMessage({
-                      defaultMessage: "First Name",
-                      id: "IEkhMc",
-                      description:
-                        "Label displayed for the first name field in create account form.",
-                    })}
-                    placeholder={intl.formatMessage({
-                      defaultMessage: "e.g. Thomas",
-                      id: "H1J8wl",
-                      description:
-                        "Placeholder displayed for the first name field in create account form.",
-                    })}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                </div>
-                <div style={{ flex: 1 }} data-h2-padding="base(0, 0, 0, x1)">
-                  <Input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                    label={intl.formatMessage({
-                      defaultMessage: "Last Name",
-                      id: "UxF291",
-                      description:
-                        "Label displayed for the last name field in create account form.",
-                    })}
-                    placeholder={intl.formatMessage({
-                      defaultMessage: "e.g. Edison",
-                      id: "X9IdZQ",
-                      description:
-                        "Placeholder displayed for the first name field in create account form.",
-                    })}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                </div>
-              </div>
-              <div data-h2-margin="base(0, 0, x1, 0)">
+        <BasicForm onSubmit={handleSubmit} cacheKey={cacheKey}>
+          <h2 data-h2-margin="base(x2, 0, x1, 0)">
+            {intl.formatMessage({
+              defaultMessage: "Getting started",
+              id: "o/YTo0",
+              description: "Main heading in create account page.",
+            })}
+          </h2>
+          <p data-h2-padding="base(0, 0, x1, 0)">
+            {intl.formatMessage({
+              defaultMessage:
+                "Before we take you to your profile, we need to collect some required information to complete your account set up.",
+              id: "x6saT3",
+              description: "Message after main heading in create account page.",
+            })}
+          </p>
+          <div>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-margin="base(0, 0, x1, 0)"
+            >
+              <div style={{ flex: 1 }} data-h2-padding="base(0, x1, 0, 0)">
                 <Input
-                  id="email"
-                  type="email"
-                  name="email"
+                  id="firstName"
+                  name="firstName"
+                  type="text"
                   label={intl.formatMessage({
-                    defaultMessage:
-                      "Which email do you like to be contacted at?",
-                    id: "MTwQ3S",
+                    defaultMessage: "First Name",
+                    id: "IEkhMc",
                     description:
-                      "Label displayed for the email field in create account form.",
+                      "Label displayed for the first name field in create account form.",
                   })}
                   placeholder={intl.formatMessage({
-                    defaultMessage: "e.g. thomas.edison@example.com",
-                    id: "UIkTbl",
+                    defaultMessage: "e.g. Thomas",
+                    id: "H1J8wl",
                     description:
                       "Placeholder displayed for the first name field in create account form.",
                   })}
@@ -218,69 +156,109 @@ export const CreateAccountForm: React.FunctionComponent<
                   }}
                 />
               </div>
-              <RadioGroup
-                idPrefix="required-lang-preferences"
-                legend={intl.formatMessage({
-                  defaultMessage: "What is your preferred contact language?",
-                  id: "0ScnOT",
-                  description:
-                    "Legend text for required language preference in create account form",
-                })}
-                name="preferredLang"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-                items={enumToOptions(Language).map(({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getLanguage(value)),
-                }))}
-                defaultSelected={Language.En}
-              />
-              <p data-h2-margin="base(x2, 0, x1, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Below we’d like to know if you’re already an employee with the Government of Canada. We collect this information because it helps us understand, at an aggregate level, how digital skills are distributed amongst departments.",
-                  id: "XijxiY",
-                  description:
-                    "First message before is a government of canada radio group in create account form.",
-                })}
-              </p>
-              <p data-h2-margin="base(0, 0, x1, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "We also use this information to provide you with more contextualized opportunities and suggestions based on your employment status.",
-                  id: "5U4C61",
-                  description:
-                    "Second message before is a government of canada radio group in create account form.",
-                })}
-              </p>
-              <GovernmentInfoForm
-                departments={departments}
-                classifications={classifications}
-                govEmployee={govEmployee}
-                govEmployeeStatus={govEmployeeStatus}
-                groupSelection={groupSelection}
-                priorityEntitlement={hasPriorityEntitlement}
-              />
-              <div
-                data-h2-margin="base(x2, 0)"
-                data-h2-padding="base(x2, 0)"
-                data-h2-border="base(top, 1px, solid, light.dt-gray)"
-                data-h2-display="base(flex)"
-                data-h2-justify-content="base(flex-end)"
-              >
-                <Submit
-                  mode="solid"
-                  color="primary"
-                  text={intl.formatMessage({
-                    defaultMessage: "Save and go to my profile",
-                    id: "H3Za3e",
+              <div style={{ flex: 1 }} data-h2-padding="base(0, 0, 0, x1)">
+                <Input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  label={intl.formatMessage({
+                    defaultMessage: "Last Name",
+                    id: "UxF291",
                     description:
-                      "Button label for submit button on create account form.",
+                      "Label displayed for the last name field in create account form.",
                   })}
+                  placeholder={intl.formatMessage({
+                    defaultMessage: "e.g. Edison",
+                    id: "X9IdZQ",
+                    description:
+                      "Placeholder displayed for the first name field in create account form.",
+                  })}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
-          </form>
-        </FormProvider>
+            <div data-h2-margin="base(0, 0, x1, 0)">
+              <Input
+                id="email"
+                type="email"
+                name="email"
+                label={intl.formatMessage({
+                  defaultMessage: "Which email do you like to be contacted at?",
+                  id: "MTwQ3S",
+                  description:
+                    "Label displayed for the email field in create account form.",
+                })}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "e.g. thomas.edison@example.com",
+                  id: "UIkTbl",
+                  description:
+                    "Placeholder displayed for the first name field in create account form.",
+                })}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            </div>
+            <RadioGroup
+              idPrefix="required-lang-preferences"
+              legend={intl.formatMessage({
+                defaultMessage: "What is your preferred contact language?",
+                id: "0ScnOT",
+                description:
+                  "Legend text for required language preference in create account form",
+              })}
+              name="preferredLang"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              items={enumToOptions(Language).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getLanguage(value)),
+              }))}
+              defaultSelected={Language.En}
+            />
+            <p data-h2-margin="base(x2, 0, x1, 0)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "Below we’d like to know if you’re already an employee with the Government of Canada. We collect this information because it helps us understand, at an aggregate level, how digital skills are distributed amongst departments.",
+                id: "XijxiY",
+                description:
+                  "First message before is a government of canada radio group in create account form.",
+              })}
+            </p>
+            <p data-h2-margin="base(0, 0, x1, 0)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "We also use this information to provide you with more contextualized opportunities and suggestions based on your employment status.",
+                id: "5U4C61",
+                description:
+                  "Second message before is a government of canada radio group in create account form.",
+              })}
+            </p>
+            <GovernmentInfoForm
+              departments={departments}
+              classifications={classifications}
+            />
+            <div
+              data-h2-margin="base(x2, 0)"
+              data-h2-padding="base(x2, 0)"
+              data-h2-border="base(top, 1px, solid, light.dt-gray)"
+              data-h2-display="base(flex)"
+              data-h2-justify-content="base(flex-end)"
+            >
+              <Submit
+                mode="solid"
+                color="primary"
+                text={intl.formatMessage({
+                  defaultMessage: "Save and go to my profile",
+                  id: "H3Za3e",
+                  description:
+                    "Button label for submit button on create account form.",
+                })}
+              />
+            </div>
+          </div>
+        </BasicForm>
       </div>
     </section>
   );
@@ -354,6 +332,7 @@ const CreateAccount: React.FunctionComponent = () => {
   return (
     <Pending fetching={fetching} error={error}>
       <CreateAccountForm
+        cacheKey={`create-account-${meId}`}
         departments={departments}
         classifications={classifications}
         handleCreateAccount={onSubmit}

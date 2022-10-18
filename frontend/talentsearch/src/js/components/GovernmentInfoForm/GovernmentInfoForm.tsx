@@ -1,8 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import {
+  useForm,
+  FormProvider,
+  SubmitHandler,
+  useFormContext,
+} from "react-hook-form";
 import { errorMessages, navigationMessages } from "@common/messages";
-import { Input, RadioGroup, Select } from "@common/components/form";
+import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
 import { empty } from "@common/helpers/util";
 import { getGovEmployeeType } from "@common/constants/localizedConstants";
 import {
@@ -164,24 +169,23 @@ const dataToFormValues = (
 export interface GovernmentInfoFormProps {
   departments: Department[];
   classifications: Classification[];
-  govEmployee: Maybe<string>;
-  govEmployeeStatus: Maybe<GovEmployeeType>;
-  groupSelection: Maybe<string>;
-  priorityEntitlement: Maybe<string>;
 }
 
 // inner component
 export const GovernmentInfoForm: React.FunctionComponent<
   GovernmentInfoFormProps
-> = ({
-  departments,
-  classifications,
-  govEmployee,
-  govEmployeeStatus,
-  groupSelection,
-  priorityEntitlement,
-}) => {
+> = ({ departments, classifications }) => {
   const intl = useIntl();
+  const { watch } = useFormContext();
+  // hooks to watch, needed for conditional rendering
+  const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =
+    watch([
+      "govEmployeeYesNo",
+      "govEmployeeType",
+      "currentClassificationGroup",
+      "priorityEntitlementYesNo",
+    ]);
+
   // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
   // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
   const classGroupsWithDupes: { value: string; label: string }[] =
@@ -462,13 +466,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
       ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialData.id);
 
-  const defaultValues = dataToFormValues(initialData);
-
-  const methods = useForm({
-    defaultValues,
-  });
-
-  const onSubmit: SubmitHandler<FormValues> = async (formValues) => {
+  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     await submitHandler(formValuesToSubmitData(formValues, classifications))
       .then(() => {
         navigate(returnRoute);
@@ -478,15 +476,6 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
         toast.error(intl.formatMessage(profileMessages.updatingFailed));
       });
   };
-
-  // hooks to watch, needed for conditional rendering
-  const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =
-    methods.watch([
-      "govEmployeeYesNo",
-      "govEmployeeType",
-      "currentClassificationGroup",
-      "priorityEntitlementYesNo",
-    ]);
 
   const applicationBreadcrumbs = application
     ? [
@@ -545,22 +534,22 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
       ]}
       prefixBreadcrumbs={!application}
     >
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <GovernmentInfoForm
-            departments={departments}
-            classifications={classifications}
-            govEmployee={govEmployee}
-            govEmployeeStatus={govEmployeeStatus}
-            groupSelection={groupSelection}
-            priorityEntitlement={priorityEntitlement}
-          />
-          <ProfileFormFooter
-            mode="saveButton"
-            cancelLink={{ href: returnRoute }}
-          />
-        </form>
-      </FormProvider>
+      <BasicForm
+        cacheKey="gov-info-form"
+        onSubmit={handleSubmit}
+        options={{
+          defaultValues: dataToFormValues(initialData),
+        }}
+      >
+        <GovernmentInfoForm
+          departments={departments}
+          classifications={classifications}
+        />
+        <ProfileFormFooter
+          mode="saveButton"
+          cancelLink={{ href: returnRoute }}
+        />
+      </BasicForm>
     </ProfileFormWrapper>
   );
 };
