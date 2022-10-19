@@ -10,7 +10,7 @@ export interface CardFlatProps {
   color: CardColor;
   title: React.ReactNode;
   children?: React.ReactNode;
-  link?: Pick<LinkProps, "href" | "label" | "mode">;
+  link?: Pick<LinkProps, "href" | "label" | "mode" | "external">;
 }
 
 const colorMap: Record<CardColor, Record<string, string>> = {

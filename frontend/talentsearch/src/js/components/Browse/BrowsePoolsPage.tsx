@@ -26,6 +26,7 @@ import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import useBreadcrumbs from "../../hooks/useBreadcrumbs";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
+import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 const flourishTopLight = imageUrl(TALENTSEARCH_APP_DIR, "browse_top_light.png");
 const flourishBottomLight = imageUrl(
@@ -54,6 +55,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
   const { mode } = useTheme();
   const intl = useIntl();
   const paths = useDirectIntakeRoutes();
+  const tsPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
 
   const title = intl.formatMessage({
@@ -251,8 +253,9 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                   "Title for Indigenous community job opportunities on Browse IT jobs page",
               })}
               link={{
-                href: `${paths.home()}/indigenous-apprentice`,
+                href: `${tsPaths.home()}/indigenous-it-apprentice`,
                 mode: "outline",
+                external: true,
                 label: intl.formatMessage({
                   defaultMessage:
                     "<hidden>Learn more about </hidden>Indigenous IT apprenticeship<hidden> opportunities</hidden>",
@@ -281,7 +284,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                   "Title for to go to the search page on Browse IT jobs page",
               })}
               link={{
-                href: `${paths.home()}/indigenous-apprentice`,
+                href: tsPaths.search(),
                 mode: "outline",
                 label: intl.formatMessage({
                   defaultMessage: "Visit the talent search page",
