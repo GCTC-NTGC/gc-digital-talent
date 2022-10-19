@@ -1,8 +1,16 @@
 import type { IntlShape } from "react-intl";
-import { format, formatDistance, formatISO, parseISO } from "date-fns";
+import { format, formatDistance, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
+import { formatInTimeZone, zonedTimeToUtc } from "date-fns-tz";
 import { Maybe, Scalars } from "../api/generated";
 import { getLocale, Locales } from "./localize";
+
+// https://date-fns.org/docs/format
+// Date scalar formatting string
+export const DATE_FORMAT_STRING = "yyyy-MM-dd";
+// DateTime scalar formatting string
+export const DATETIME_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";
+export const LONG_DAY_FORMAT_STRING = "EEEE, d MMMM yyyy";
 
 export function formattedDate(date: Scalars["Date"], locale: Locales) {
   const formatter = new Intl.DateTimeFormat(locale, {
@@ -61,12 +69,18 @@ const DAY_IN_SECONDS = 86400;
 export const formattedDateMonthDayYear = (
   date: Date,
   intl: IntlShape,
+  timeZone?: string,
 ): string => {
   const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
-  const day = format(date, `MMMM d, yyyy`, {
-    locale,
-  });
+  const formatString = `MMMM d, yyyy`;
+  const day = timeZone
+    ? formatInTimeZone(date, timeZone, formatString, {
+        locale,
+      })
+    : format(date, formatString, {
+        locale,
+      });
   return `${day}`;
 };
 
@@ -134,14 +148,35 @@ export const FAR_FUTURE_DATE = "2999-12-31";
 export const FAR_PAST_DATE = "2000-01-01";
 export const PAST_DATE = "2020-01-01";
 
-export const strToDateTimeTz = (value: string) => {
-  const parsed = parseISO(value);
-
-  return formatISO(parsed);
-};
-
 export const strToFormDate = (value: string) => {
   const parsed = parseISO(value);
 
-  return format(parsed, "yyyy-MM-dd");
+  return format(parsed, DATE_FORMAT_STRING);
 };
+
+// Convert a DateTime from one zone to another
+export const convertDateTimeZone = (
+  sourceDateTime: Scalars["DateTime"],
+  sourceTimeZone: string,
+  targetTimeZone: string,
+  targetFormatString?: string,
+): Scalars["DateTime"] => {
+  const nativeDate = zonedTimeToUtc(sourceDateTime, sourceTimeZone);
+  const scalarDateTime = formatInTimeZone(
+    nativeDate,
+    targetTimeZone,
+    targetFormatString ?? DATETIME_FORMAT_STRING,
+  );
+  return scalarDateTime;
+};
+
+// Convert a DateTime scalar to a Date by stripping off the time
+export const convertDateTimeToDate = (
+  d: Scalars["DateTime"],
+): Scalars["Date"] => {
+  return d.substring(0, DATE_FORMAT_STRING.length);
+};
+
+// Parse an API scalar DateTime as UTC to a native Date object
+export const parseDateTimeUtc = (d: Scalars["DateTime"]): Date =>
+  zonedTimeToUtc(d, "UTC");

@@ -86,9 +86,9 @@
     "defaultMessage": "Erreur : Nom de la compétence introuvable",
     "description": "Error message when cmo asset name is not found on request page."
   },
-  "1J4e+j": {
-    "defaultMessage": "Commentaires",
-    "description": "Label for the feedback link in the Footer."
+  "AWiMVP": {
+    "defaultMessage": "Contactez-nous",
+    "description": "Label for the support link in the Footer."
   },
   "VcOlXA": {
     "defaultMessage": "Énoncé de confidentialité",
@@ -1437,5 +1437,9 @@
   "2Ckihd": {
     "defaultMessage": "Trouvé <primary>{skillCount}</primary> compétences.",
     "description": "The number of skills found within the skill picker."
+  },
+  "rsxrMs": {
+    "defaultMessage": "Retirer {label}",
+    "description": "Button text for a dismissible chip"
   }
 }

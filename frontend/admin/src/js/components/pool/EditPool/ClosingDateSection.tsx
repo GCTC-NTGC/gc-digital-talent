@@ -4,7 +4,10 @@ import { useIntl } from "react-intl";
 import { Input, Submit } from "@common/components/form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useDeepCompareEffect } from "@common/hooks/useDeepCompareEffect";
-import { strToDateTimeTz, strToFormDate } from "@common/helpers/dateUtils";
+import {
+  convertDateTimeToDate,
+  convertDateTimeZone,
+} from "@common/helpers/dateUtils";
 import {
   AdvertisementStatus,
   PoolAdvertisement,
@@ -36,10 +39,14 @@ export const ClosingDateSection = ({
   const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => {
+    const expiryDateInPacific = initialData.expiryDate
+      ? convertDateTimeToDate(
+          convertDateTimeZone(initialData.expiryDate, "UTC", "Canada/Pacific"),
+        )
+      : null;
+
     return {
-      endDate: initialData.expiryDate
-        ? strToFormDate(initialData.expiryDate.split("T")[0]) // don't need time and offset for this form
-        : null,
+      endDate: expiryDateInPacific,
     };
   };
 
@@ -54,8 +61,16 @@ export const ClosingDateSection = ({
   }, [suppliedValues, reset]);
 
   const handleSave = (formValues: FormValues) => {
+    const expiryDateInUtc = formValues.endDate
+      ? convertDateTimeZone(
+          `${formValues.endDate} 23:59:59`,
+          "Canada/Pacific",
+          "UTC",
+        )
+      : null;
+
     onSave({
-      expiryDate: strToDateTimeTz(formValues.endDate),
+      expiryDate: expiryDateInUtc,
     });
   };
 

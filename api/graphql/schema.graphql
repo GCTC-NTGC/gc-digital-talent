@@ -5,10 +5,6 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar DateTime
   @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
-"A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sP`, e.g. `2020-04-20T13:53:12+02:00`."
-scalar DateTimeTz
-  @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
-
 "A RFC 5321 compliant email."
 scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
 
@@ -290,7 +286,7 @@ enum PoolStream {
 
 type PoolAdvertisement {
   id: ID!
-  expiryDate: DateTimeTz @rename(attribute: "expiry_date")
+  expiryDate: DateTime @rename(attribute: "expiry_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   name: LocalizedString
   description: LocalizedString
@@ -1442,7 +1438,7 @@ input UpdatePoolAdvertisementInput {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   # Closing date
-  expiryDate: DateTimeTz
+  expiryDate: DateTime
     @rename(attribute: "expiry_date")
     @rules(
       apply: ["after:today"]
@@ -1647,7 +1643,7 @@ type Mutation {
     @can(ability: "publish", find: "id", model: "Pool")
   changePoolExpiryDate(
     id: ID!
-    newExpiryDate: DateTimeTz!
+    newExpiryDate: DateTime!
       @rename(attribute: "new_expiry_date")
       @rules(
         apply: ["after:today"]

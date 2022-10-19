@@ -11,7 +11,9 @@ export interface AddedSkillsProps {
   showHighAlert?: boolean;
 }
 
-const strong = (child: HTMLElement) => <strong>{child}</strong>;
+const strong = (chunks: React.ReactNode): React.ReactNode => (
+  <strong>{chunks}</strong>
+);
 
 const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
   skills,

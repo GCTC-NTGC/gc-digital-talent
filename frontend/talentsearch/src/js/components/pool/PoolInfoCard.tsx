@@ -3,12 +3,15 @@ import { useIntl } from "react-intl";
 import { CalendarIcon, CurrencyDollarIcon } from "@heroicons/react/24/solid";
 
 import { getLocale, localizeSalaryRange } from "@common/helpers/localize";
-import { relativeExpiryDate } from "@common/helpers/dateUtils";
+import {
+  parseDateTimeUtc,
+  relativeExpiryDate,
+} from "@common/helpers/dateUtils";
 
-import type { Maybe } from "../../api/generated";
+import type { Maybe, PoolAdvertisement } from "../../api/generated";
 
 export interface PoolInfoCardProps {
-  closingDate: Date;
+  closingDate: PoolAdvertisement["expiryDate"];
   classification: string;
   salary: {
     min: Maybe<number>;
@@ -53,7 +56,9 @@ const PoolInfoCard = ({
             id: "ojN4Si",
             description: "Label for pool advertisement closing date",
           })}{" "}
-          {relativeExpiryDate(new Date(closingDate), intl)}
+          {closingDate
+            ? relativeExpiryDate(parseDateTimeUtc(closingDate), intl)
+            : ""}
         </span>
       </P>
       <P>

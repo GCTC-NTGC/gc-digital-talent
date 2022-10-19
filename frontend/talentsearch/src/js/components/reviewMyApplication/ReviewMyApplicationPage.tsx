@@ -28,7 +28,7 @@ interface ReviewMyApplicationProps {
   applicant: Applicant;
   poolAdvertisement: PoolAdvertisement;
   applicationId: string;
-  closingDate: Date;
+  closingDate: PoolAdvertisement["expiryDate"];
 }
 
 export const ReviewMyApplication: React.FunctionComponent<
@@ -67,7 +67,7 @@ export const ReviewMyApplication: React.FunctionComponent<
             defaultMessage: "My applications",
             description: "Breadcrumb for review application page.",
           }),
-          href: directIntakePaths.allPools(),
+          href: directIntakePaths.applications(applicant.id),
         },
         {
           title: jobTitle,
@@ -81,7 +81,7 @@ export const ReviewMyApplication: React.FunctionComponent<
         currentStep: 1,
         steps: [
           {
-            path: directIntakePaths.reviewApplication(applicant.id),
+            path: directIntakePaths.reviewApplication(applicationId),
             label: intl.formatMessage({
               id: "LUEVdb",
               defaultMessage: "Step 1: Review my profile",
@@ -89,7 +89,7 @@ export const ReviewMyApplication: React.FunctionComponent<
             }),
           },
           {
-            path: directIntakePaths.signAndSubmit(applicant.id),
+            path: directIntakePaths.signAndSubmit(applicationId),
             label: intl.formatMessage({
               id: "LOh+c5",
               defaultMessage: "Step 2: Sign and submit",

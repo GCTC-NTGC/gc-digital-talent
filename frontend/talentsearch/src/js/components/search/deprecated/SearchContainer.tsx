@@ -27,8 +27,8 @@ import SearchPools from "../SearchPools";
 import Spinner from "../../Spinner";
 import { useTalentSearchRoutes } from "../../../talentSearchRoutes";
 
-const testId = (text: React.ReactNode) => (
-  <span data-testid="candidateCount">{text}</span>
+const testId = (chunks: React.ReactNode): React.ReactNode => (
+  <span data-testid="candidateCount">{chunks}</span>
 );
 
 export interface SearchContainerProps {
@@ -66,13 +66,13 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   const workRegionFilterCount =
     candidateFilter?.locationPreferences?.length ?? 0;
 
-  function a(msg: string) {
+  function a(chunks: React.ReactNode): React.ReactNode {
     return (
       <a
         href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}
         data-h2-font-weight="base(700)"
       >
-        {msg}
+        {chunks}
       </a>
     );
   }
@@ -200,9 +200,12 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           >
             {intl.formatMessage(
               {
-                defaultMessage:
-                  "Results: <primary><testId>{candidateCount}</testId></primary> matching candidates",
-                id: "1xRst5",
+                defaultMessage: `{candidateCount, plural,
+                  =0 {Results: <testId>{candidateCount}</testId> matching candidates}
+                  =1 {Results: <testId>{candidateCount}</testId> matching candidate}
+                  other {Results: <testId>{candidateCount}</testId> matching candidates}
+                }`,
+                id: "aWLo7o",
                 description:
                   "Heading for total matching candidates in results section of search page.",
               },
