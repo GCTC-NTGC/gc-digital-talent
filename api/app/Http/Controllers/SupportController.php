@@ -29,9 +29,13 @@ class SupportController extends Controller
                 $parameters
         );
         if( $response->status() == 201){ // status code 201 = created.
-            return response()->json($response->body(), 200);
+            return response([
+                'serviceResponse' => $response->json()
+            ], 200);
         } else {
-            return response()->json($response->body(), 400);
+            return response([
+                'serviceResponse' => $response->json()
+            ], 400);
         }
     }
 }
