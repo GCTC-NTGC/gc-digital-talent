@@ -99,6 +99,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
       {filteredPoolAdvertisements.length ? (
         <div
           data-h2-background-color="base(black.03) base:dark(black.9)"
+          data-h2-color="base(black) base:dark(white)"
           data-h2-border="base(bottom, 1px, solid, black.50)"
           data-h2-position="base(relative)"
         >
@@ -158,6 +159,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                 </ul>
                 <div
                   data-h2-background-color="base(white) base:dark(black.light)"
+                  data-h2-color="base(black) base:dark(white)"
                   data-h2-shadow="base(large)"
                   data-h2-padding="base(x1) p-tablet(x2)"
                   data-h2-radius="base(rounded)"
@@ -232,6 +234,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
       )}
       <div
         data-h2-background-color="base:dark(black.light)"
+        data-h2-color="base(black) base:dark(white)"
         data-h2-padding="base(x3, 0) p-tablet(x4, 0) l-tablet(x6, 0)"
       >
         <div
