@@ -1,11 +1,12 @@
 import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
+import { useFieldStateStyles } from "../../../helpers/formUtils";
 import { commonMessages } from "../../../messages";
 import InputContext from "../InputContext/InputContext";
 import InputError from "../InputError/InputError";
 
-export interface FieldsetProps {
+export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** The text for the legend element. */
   legend: string;
   /** The name of this form control. */
@@ -34,9 +35,11 @@ const Fieldset: React.FC<FieldsetProps> = ({
   hideOptional,
   hideLegend,
   children,
+  ...rest
 }) => {
   const [contextIsActive, setContextIsActive] = useState(false);
   const intl = useIntl();
+  const stateStyles = useFieldStateStyles(name ?? "");
   return (
     <fieldset
       name={name}
@@ -46,6 +49,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
         padding: "0",
       }}
       data-h2-margin="base(0, 0, x.125, 0)"
+      {...rest}
     >
       <legend data-h2-visibility="base(invisible)">{legend}</legend>
       <div
@@ -119,8 +123,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
         </div>
       </div>
       <div
-        data-h2-border="base(all, 1px, solid, dt-gray)"
-        data-h2-background-color="base(dt-white)"
+        {...stateStyles}
         data-h2-radius="base(input)"
         data-h2-padding="base(x.5, x.75, x.75, x.75)"
       >

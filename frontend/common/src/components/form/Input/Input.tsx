@@ -1,6 +1,7 @@
 import * as React from "react";
 import get from "lodash/get";
 import { RegisterOptions, useFormContext } from "react-hook-form";
+import { useFieldStateStyles } from "../../../helpers/formUtils";
 import { InputWrapper } from "../../inputPartials";
 
 export interface InputProps
@@ -42,11 +43,12 @@ const Input: React.FunctionComponent<InputProps> = ({
 }) => {
   const {
     register,
-    formState: { errors },
     setValue,
+    formState: { errors },
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message;
+  const stateStyles = useFieldStateStyles(name);
 
   const whitespaceTrimmer = (e: React.FocusEvent<HTMLInputElement>) => {
     if (whitespaceTrim) {
@@ -69,7 +71,7 @@ const Input: React.FunctionComponent<InputProps> = ({
         <input
           data-h2-padding="base(x.25, x.5)"
           data-h2-radius="base(input)"
-          data-h2-border="base(all, 1px, solid, dt-gray)"
+          {...stateStyles}
           style={{ width: "100%" }}
           id={id}
           {...register(name, rules)}

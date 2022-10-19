@@ -1,4 +1,6 @@
 import { IntlShape } from "react-intl";
+import get from "lodash/get";
+import { useFormState } from "react-hook-form";
 import { LocalizedString, Maybe, Scalars } from "../api/generated";
 import { getLocale } from "./localize";
 import { getId, notEmpty } from "./util";
@@ -156,4 +158,58 @@ export const objectsToSortedOptions = (
           description: "Error message when name is not found on listed item.",
         }),
     }));
+};
+
+export type FieldState = "unset" | "invalid" | "dirty";
+
+/**
+ * Determines the fields current state
+ *
+ * NOTE: Must be used within a FormProvider
+ *
+ * @param isDirty
+ * @param error
+ * @returns FieldState
+ */
+export const useFieldState = (name: string): FieldState => {
+  const { errors, dirtyFields } = useFormState();
+  const isDirty = get(dirtyFields, name, false);
+  const isInvalid = get(errors, errors, false);
+
+  if (isDirty) {
+    return "dirty";
+  }
+
+  return isInvalid ? "invalid" : "unset";
+};
+
+export const stateStyleMap: Record<FieldState, Record<string, string>> = {
+  unset: {
+    "data-h2-border": "base(all, 1px, solid, dt-gray)",
+    "data-h2-background-color": "base(dt-white)",
+  },
+  invalid: {
+    "data-h2-border": "base(all, 1px, solid, dt-error)",
+    "data-h2-background-color": "base(light.dt-error.1)",
+  },
+  dirty: {
+    "data-h2-border": "base(all, 1px, solid, tm-yellow)",
+    "data-h2-background-color": "base(light.tm-yellow.1)",
+  },
+};
+
+/**
+ * Gets hydrogen styles for a form input
+ * based on its current state
+ *
+ * NOTE: Must be used within a FormProvider
+ *
+ * @param isDirty
+ * @param error
+ * @returns Record<string, string>
+ */
+export const useFieldStateStyles = (name: string) => {
+  const fieldState = useFieldState(name ?? "");
+
+  return stateStyleMap[fieldState] || {};
 };

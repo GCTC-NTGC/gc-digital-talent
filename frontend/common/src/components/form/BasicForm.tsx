@@ -2,56 +2,76 @@ import React, { PropsWithChildren, ReactElement } from "react";
 import {
   FieldValues,
   FormProvider,
+  Path,
   SubmitHandler,
   useForm,
   UseFormProps,
 } from "react-hook-form";
 import {
   getFromSessionStorage,
-  removeFromSessionStorage,
   setInSessionStorage,
 } from "../../helpers/storageUtils";
-import { useHistory } from "../../helpers/router";
+import UnsavedChanges from "./UnsavedChanges";
 
-type BasicFormProps<TFieldValues extends FieldValues> = PropsWithChildren<{
-  onSubmit: SubmitHandler<TFieldValues>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  options?: UseFormProps<TFieldValues, any>; // FieldValues deals in "any"
-  cacheKey?: string; // If included, will cache form values in local storage and retrieve from there if possible.
-}>;
+export type FieldLabels = Record<string, React.ReactNode>;
+
+export type BasicFormProps<TFieldValues extends FieldValues> =
+  PropsWithChildren<{
+    onSubmit: SubmitHandler<TFieldValues>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    options?: UseFormProps<TFieldValues, any>; // FieldValues deals in "any"
+    cacheKey?: string; // If included, will cache form values in local storage and retrieve from there if possible.
+    labels?: FieldLabels;
+  }>;
 
 export function BasicForm<TFieldValues extends FieldValues>({
   onSubmit,
   children,
   options,
   cacheKey,
+  labels,
 }: BasicFormProps<TFieldValues>): ReactElement {
-  const history = useHistory();
-  const cacheValues = cacheKey
-    ? getFromSessionStorage(cacheKey, options?.defaultValues)
-    : options?.defaultValues;
-
   const methods = useForm({
     ...options,
-    defaultValues: cacheValues,
+    defaultValues: options?.defaultValues,
   });
-  const { handleSubmit, watch } = methods;
+  const { handleSubmit, watch, setValue } = methods;
   if (cacheKey) {
     // Whenever form values change, update cache.
     watch((values: unknown) => setInSessionStorage(cacheKey, values));
   }
 
   React.useEffect(() => {
-    return history.listen(() => {
-      if (cacheKey) {
-        removeFromSessionStorage(cacheKey);
+    if (cacheKey) {
+      const cachedValues = getFromSessionStorage(
+        cacheKey,
+        options?.defaultValues,
+      ) as TFieldValues;
+
+      if (cachedValues) {
+        Object.keys(cachedValues).forEach((field) => {
+          // Hack: Type our field name
+          const typedFieldName = field as Path<TFieldValues>;
+          const value = cachedValues[field];
+          const defaultValue = options?.defaultValues
+            ? options?.defaultValues[field]
+            : null;
+          if (value) {
+            if (!defaultValue || value !== defaultValue) {
+              setValue(typedFieldName, value, { shouldDirty: true });
+            }
+          }
+        });
       }
-    });
-  }, [cacheKey, history]);
+    }
+  }, [cacheKey, options, setValue]);
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>{children}</form>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {cacheKey && <UnsavedChanges labels={labels} />}
+        {children}
+      </form>
     </FormProvider>
   );
 }

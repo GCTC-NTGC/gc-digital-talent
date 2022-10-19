@@ -2,6 +2,7 @@ import React from "react";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 import { InputWrapper } from "../../inputPartials";
+import { useFieldStateStyles } from "../../../helpers/formUtils";
 
 export interface Option {
   value: string | number;
@@ -41,6 +42,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
     register,
     formState: { errors },
   } = useFormContext();
+  const stateStyles = useFieldStateStyles(name);
 
   const error = get(errors, name)?.message;
   return (
@@ -53,10 +55,9 @@ const Select: React.FunctionComponent<SelectProps> = ({
         error={error}
       >
         <select
-          data-h2-background-color="base(dt-white)"
           data-h2-padding="base(x.25, x.5)"
           data-h2-radius="base(input)"
-          data-h2-border="base(all, 1px, solid, dt-gray)"
+          {...stateStyles}
           id={id}
           style={{ width: "100%", paddingTop: "4.5px", paddingBottom: "4.5px" }}
           {...register(name, rules)}

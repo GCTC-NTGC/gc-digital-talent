@@ -70,6 +70,58 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
       ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialUser.id);
 
+  const labelMap = {
+    preferredLang: intl.formatMessage({
+      defaultMessage: "Language preference for communication",
+      id: "D8IMp7",
+      description:
+        "Legend text for required language preference in About Me form",
+    }),
+    currentProvince: intl.formatMessage({
+      defaultMessage: "Current province or territory",
+      id: "r4PFx0",
+      description:
+        "Label for current province or territory field in About Me form",
+    }),
+    currentCity: intl.formatMessage({
+      defaultMessage: "Current city",
+      id: "de/Vcy",
+      description: "Label for current city field in About Me form",
+    }),
+    telephone: intl.formatMessage({
+      defaultMessage: "Telephone",
+      id: "gBWsuB",
+      description: "Label for telephone field in About Me form",
+    }),
+    firstName: intl.formatMessage({
+      defaultMessage: "First Name",
+      id: "btydLe",
+      description: "Label for first name field in About Me form",
+    }),
+    lastName: intl.formatMessage({
+      defaultMessage: "Last Name",
+      id: "wrHSMx",
+      description: "Label for last name field in About Me form",
+    }),
+    email: intl.formatMessage({
+      defaultMessage: "Email",
+      id: "i5xxbe",
+      description: "Label for email field in About Me form",
+    }),
+    citizenship: intl.formatMessage({
+      defaultMessage: "Citizenship Status",
+      id: "o5pks7",
+      description:
+        "Legend text for required citizenship status in About Me form",
+    }),
+    armedForcesStatus: intl.formatMessage({
+      defaultMessage: "Member of the Canadian Armed Forces (CAF)",
+      id: "DZwVvi",
+      description:
+        "Legend text for required Canadian Armed Forces selection in About Me form",
+    }),
+  };
+
   const initialDataToFormValues = (data?: User | null): FormValues => ({
     preferredLang: data?.preferredLang,
     currentProvince: data?.currentProvince,
@@ -170,9 +222,11 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
       ]}
     >
       <BasicForm
+        labels={labelMap}
         cacheKey="about-me-form"
         onSubmit={handleSubmit}
         options={{
+          mode: "onChange",
           defaultValues: initialDataToFormValues(initialUser),
         }}
       >
@@ -200,13 +254,9 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
         <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
           <div>
             <RadioGroup
+              id="preferredLang"
               idPrefix="required-lang-preferences"
-              legend={intl.formatMessage({
-                defaultMessage: "Language preference for communication",
-                id: "D8IMp7",
-                description:
-                  "Legend text for required language preference in About Me form",
-              })}
+              legend={labelMap.preferredLang}
               name="preferredLang"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
               items={enumToOptions(Language).map(({ value }) => ({
@@ -217,12 +267,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
             <Select
               id="currentProvince"
               name="currentProvince"
-              label={intl.formatMessage({
-                defaultMessage: "Current province or territory",
-                id: "r4PFx0",
-                description:
-                  "Label for current province or territory field in About Me form",
-              })}
+              label={labelMap.currentProvince}
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a province or territory...",
                 id: "M6PbPI",
@@ -241,11 +286,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               id="currentCity"
               name="currentCity"
               type="text"
-              label={intl.formatMessage({
-                defaultMessage: "Current city",
-                id: "de/Vcy",
-                description: "Label for current city field in About Me form",
-              })}
+              label={labelMap.currentCity}
               placeholder={intl.formatMessage({
                 defaultMessage: "Start writing here...",
                 id: "xq6TbG",
@@ -260,11 +301,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               id="telephone"
               name="telephone"
               type="tel"
-              label={intl.formatMessage({
-                defaultMessage: "Telephone",
-                id: "gBWsuB",
-                description: "Label for telephone field in About Me form",
-              })}
+              label={labelMap.telephone}
               placeholder={intl.formatMessage({
                 defaultMessage: "+123243234",
                 id: "FmN1eN",
@@ -277,13 +314,9 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
             />
             <RadioGroup
               idPrefix="armedForcesStatus"
-              legend={intl.formatMessage({
-                defaultMessage: "Member of the Canadian Armed Forces (CAF)",
-                id: "DZwVvi",
-                description:
-                  "Legend text for required Canadian Armed Forces selection in About Me form",
-              })}
+              legend={labelMap.armedForcesStatus}
               name="armedForcesStatus"
+              id="armedForcesStatus"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
               items={armedForcesStatusOrdered.map((status) => ({
                 value: status,
@@ -295,13 +328,9 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
             <div data-h2-margin="base(x1, 0, 0, 0)">
               <RadioGroup
                 idPrefix="citizenship"
-                legend={intl.formatMessage({
-                  defaultMessage: "Citizenship Status",
-                  id: "o5pks7",
-                  description:
-                    "Legend text for required citizenship status in About Me form",
-                })}
+                legend={labelMap.citizenship}
                 name="citizenship"
+                id="citizenship"
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 items={citizenshipStatusesOrdered.map((status) => ({
                   value: status,
@@ -347,11 +376,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               id="firstName"
               name="firstName"
               type="text"
-              label={intl.formatMessage({
-                defaultMessage: "First Name",
-                id: "btydLe",
-                description: "Label for first name field in About Me form",
-              })}
+              label={labelMap.firstName}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -360,11 +385,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               id="lastName"
               name="lastName"
               type="text"
-              label={intl.formatMessage({
-                defaultMessage: "Last Name",
-                id: "wrHSMx",
-                description: "Label for last name field in About Me form",
-              })}
+              label={labelMap.lastName}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -373,11 +394,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               id="email"
               name="email"
               type="email"
-              label={intl.formatMessage({
-                defaultMessage: "Email",
-                id: "i5xxbe",
-                description: "Label for email field in About Me form",
-              })}
+              label={labelMap.email}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}

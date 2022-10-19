@@ -102,17 +102,20 @@ export const CreateAccountForm: React.FunctionComponent<
             description:
               "Title for successful login alert in create account page.",
           })}
-          message={intl.formatMessage({
-            defaultMessage:
-              "Welcome to the Digital Talent platform. Moving forward, you can log into your profile using the same GC Key username and password.",
-            id: "0O/eV0",
-            description:
-              "Message for successful login alert in create account page.",
-          })}
-          icon={<BellIcon style={{ width: "1.4rem" }} />}
+          icon={BellIcon}
           type="success"
           data-h2-margin="base(x3, 0, 0, 0)"
-        />
+        >
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Welcome to the Digital Talent platform. Moving forward, you can log into your profile using the same GC Key username and password.",
+              id: "0O/eV0",
+              description:
+                "Message for successful login alert in create account page.",
+            })}
+          </p>
+        </Alert>
         <BasicForm onSubmit={handleSubmit} cacheKey={cacheKey}>
           <h2 data-h2-margin="base(x2, 0, x1, 0)">
             {intl.formatMessage({

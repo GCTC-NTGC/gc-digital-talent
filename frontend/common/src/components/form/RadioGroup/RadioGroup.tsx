@@ -6,7 +6,7 @@ import { InputWrapper, Fieldset } from "../../inputPartials";
 
 export type Radio = { value: string | number; label: string | React.ReactNode };
 
-export interface RadioGroupProps {
+export interface RadioGroupProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
   idPrefix: string;
   /** Holds text for the legend associated with the RadioGroup fieldset. */
@@ -49,6 +49,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   defaultSelected,
   columns = 1,
   hideLegend,
+  ...rest
 }) => {
   const {
     register,
@@ -73,6 +74,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
       disabled={disabled}
       hideOptional={hideOptional}
       hideLegend={hideLegend}
+      {...rest}
     >
       <div data-h2-flex-grid="base(flex-start, x1, 0)">
         {items.map(({ value, label }) => {

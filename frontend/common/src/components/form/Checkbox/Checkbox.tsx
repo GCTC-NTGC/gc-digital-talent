@@ -2,6 +2,19 @@ import React from "react";
 import get from "lodash/get";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import { InputWrapper } from "../../inputPartials";
+import { FieldState, useFieldState } from "../../../helpers/formUtils";
+
+const stateStyleMap: Record<FieldState, Record<string, string>> = {
+  unset: {
+    "data-h2-border": "base(all, 1px, solid, dt-gray)",
+  },
+  invalid: {
+    "data-h2-border": "base(all, 1px, solid, dt-error)",
+  },
+  dirty: {
+    "data-h2-border": "base(all, 1px, solid, tm-yellow)",
+  },
+};
 
 export interface CheckboxProps
   extends Omit<
@@ -38,6 +51,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
     register,
     formState: { errors },
   } = useFormContext();
+  const fieldState = useFieldState(name);
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message;
 
@@ -79,7 +93,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
         >
           <div
             data-h2-background-color="base(dt-white)"
-            data-h2-border="base(all, 1px, solid, dt-gray)"
+            {...stateStyleMap[fieldState]}
             data-h2-radius="base(input)"
             data-h2-padding="base(x.25, x.5)"
             data-h2-display="base(flex)"
