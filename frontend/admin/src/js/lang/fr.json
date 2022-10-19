@@ -2300,5 +2300,13 @@
   "Thf4og": {
     "defaultMessage": "Profil du candidat",
     "description": "Document title for printing User profile"
+  },
+  "UmTNmR": {
+    "defaultMessage": "Profils des candidats",
+    "description": "Document title for printing Pool Candidate table results"
+  },
+  "IE82VM": {
+    "defaultMessage": "Profils des candidats",
+    "description": "Document title for printing User table results"
   }
 }
