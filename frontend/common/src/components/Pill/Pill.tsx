@@ -1,20 +1,22 @@
 import React from "react";
 
-type PillSize = "sm" | "md" | "lg";
+export type PillSize = "sm" | "md" | "lg";
+export type PillColor = "primary" | "secondary" | "neutral" | "blue";
+export type PillMode = "solid" | "outline";
 
 export interface PillProps
   extends Omit<React.HTMLProps<HTMLSpanElement>, "size"> {
   /** The style type of the element. */
-  color: "primary" | "secondary" | "neutral";
+  color: PillColor;
   /** The style mode of the element. */
-  mode: "solid" | "outline";
+  mode: PillMode;
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
   size?: PillSize;
 }
 
 const colorMap: Record<
-  "primary" | "secondary" | "neutral",
+  "primary" | "secondary" | "neutral" | "blue",
   Record<"solid" | "outline", Record<string, string>>
 > = {
   primary: {
@@ -39,6 +41,18 @@ const colorMap: Record<
       "data-h2-border": "base(all, 1px, solid, dark.dt-secondary)",
       "data-h2-background-color": "base(light.dt-secondary.1)",
       "data-h2-color": "base(dark.dt-secondary)",
+    },
+  },
+  blue: {
+    solid: {
+      "data-h2-border": "base(all, 1px, solid, dark.tm-blue)",
+      "data-h2-background-color": "base(light.tm-blue)",
+      "data-h2-color": "base(dt-white)",
+    },
+    outline: {
+      "data-h2-border": "base(all, 1px, solid, dark.tm-blue)",
+      "data-h2-background-color": "base(light.tm-blue.1)",
+      "data-h2-color": "base(dark.tm-blue)",
     },
   },
   neutral: {
@@ -89,10 +103,10 @@ const Pill: React.FC<PillProps> = ({
       {...colorMap[color][mode]}
       {...sizeMap[size]}
       data-h2-text-align="base(center)"
+      data-h2-max-width="base(100%)"
       {...rest}
     >
-      {/* parent span already has a display style */}
-      <span>{children}</span>
+      {children}
     </span>
   );
 };

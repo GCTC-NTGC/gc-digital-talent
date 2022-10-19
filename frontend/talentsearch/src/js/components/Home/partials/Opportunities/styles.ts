@@ -2,7 +2,7 @@ import type { Color } from "@common/components/Button";
 
 export type HomeButtonColor = Extract<
   Color,
-  "yellow" | "red" | "blue" | "black"
+  "yellow" | "red" | "blue" | "black" | "purple"
 >;
 
 export const colorMap: Record<HomeButtonColor, Record<string, string>> = {
@@ -17,5 +17,8 @@ export const colorMap: Record<HomeButtonColor, Record<string, string>> = {
   },
   black: {
     "data-h2-border": "base(left, x.25, solid, black)",
+  },
+  purple: {
+    "data-h2-border": "base(left, x.25, solid, tm-purple)",
   },
 };

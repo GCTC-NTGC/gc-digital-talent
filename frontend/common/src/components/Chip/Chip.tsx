@@ -2,14 +2,15 @@ import React from "react";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 import Pill from "../Pill";
+import type { PillColor, PillMode, PillProps } from "../Pill";
 
 import "./chip.css";
 
-export interface ChipProps extends React.HTMLProps<HTMLElement> {
+export interface ChipProps extends PillProps {
   /** The style type of the element. */
-  color: "primary" | "secondary" | "neutral";
+  color: PillColor;
   /** The style mode of the element. */
-  mode: "solid" | "outline";
+  mode: PillMode;
   /** Handler for clicking the dismiss button in the chip */
   onDismiss?: React.MouseEventHandler<Element>;
   /** Text for inside the chip */
@@ -34,6 +35,7 @@ const Chip: React.FC<ChipProps> = ({
   mode,
   onDismiss,
   label,
+  ...rest
 }): React.ReactElement => {
   const intl = useIntl();
   const wrapperProps = onDismiss
@@ -62,6 +64,7 @@ const Chip: React.FC<ChipProps> = ({
         mode={mode}
         role="listitem"
         data-h2-padding="base(x.25, x.5)"
+        {...rest}
       >
         {label}
         {onDismiss && (
