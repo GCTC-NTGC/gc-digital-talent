@@ -129,6 +129,8 @@ describe("Pools", () => {
    */
    it("should update the pool", () => {
     // Navigate to edit pool page
+    cy.findByRole("button", { name: /goto page 2/i }).click();
+
     const editLinks = cy.findAllByRole("link", { name: /edit test pool en/i });
     editLinks.first().click();
 
@@ -157,6 +159,8 @@ describe("Pools", () => {
    */
   it("should delete the pool", () => {
     // Navigate to edit pool page
+    cy.findByRole("button", { name: /goto page 2/i }).click();
+
     const editLinks = cy.findAllByRole("link", { name: /edit test pool en/i });
     editLinks.first().click();
 
