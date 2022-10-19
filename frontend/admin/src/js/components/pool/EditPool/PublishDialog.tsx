@@ -3,13 +3,16 @@ import { useIntl } from "react-intl";
 import Dialog from "@common/components/Dialog";
 import { InputWrapper } from "@common/components/inputPartials";
 import { PoolAdvertisement } from "@common/api/generated";
-import { relativeExpiryDate } from "@common/helpers/dateUtils";
+import {
+  formattedDateMonthDayYear,
+  parseDateTimeUtc,
+} from "@common/helpers/dateUtils";
 import { Button } from "@common/components";
 
 type PublishDialogProps = {
   isOpen: boolean;
   onDismiss: () => void;
-  expiryDate: NonNullable<PoolAdvertisement["expiryDate"]>;
+  expiryDate: PoolAdvertisement["expiryDate"];
   onPublish: () => void;
 };
 
@@ -105,7 +108,13 @@ const PublishDialog = ({
           data-h2-padding="base(x.5)"
           data-h2-radius="base(s)"
         >
-          {relativeExpiryDate(new Date(expiryDate), intl)}
+          {expiryDate
+            ? formattedDateMonthDayYear(
+                parseDateTimeUtc(expiryDate),
+                intl,
+                "Canada/Pacific",
+              )
+            : ""}
         </div>
       </InputWrapper>
       <Dialog.Footer>{Footer}</Dialog.Footer>

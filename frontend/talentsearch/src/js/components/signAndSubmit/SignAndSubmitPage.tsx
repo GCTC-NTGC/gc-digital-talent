@@ -22,6 +22,7 @@ import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
 import {
+  PoolAdvertisement,
   SubmitApplicationMutation,
   useGetApplicationDataQuery,
   useSubmitApplicationMutation,
@@ -206,7 +207,7 @@ const SignatureForm = ({
             disabled={!isApplicationComplete}
           />
           <Link
-            href="#REPLACEWITHREVIEWAPPLICATIONROUTE" // TODO: Replace with review my application route.
+            href={paths.reviewApplication(applicationId)}
             color="black"
             mode="inline"
             type="button"
@@ -227,7 +228,7 @@ export interface SignAndSubmitFormProps {
   applicationId: string;
   poolAdvertisementId: string;
   userId: string;
-  closingDate: Date;
+  closingDate: PoolAdvertisement["expiryDate"];
   jobTitle: string;
   isApplicationComplete: boolean;
   handleSubmitApplication: (
@@ -311,7 +312,7 @@ export const SignAndSubmitForm = ({
         currentStep: 2,
         steps: [
           {
-            path: "#REPLACEWITHREVIEWAPPLICATIONROUTE", // TODO: Replace with review my application route.
+            path: paths.reviewApplication(applicationId),
             label: intl.formatMessage({
               defaultMessage: "Step 1: Review my profile",
               id: "LUEVdb",

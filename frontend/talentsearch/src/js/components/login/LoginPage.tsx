@@ -10,9 +10,10 @@ import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
-const keyRegistrationLink = (path: string, ...chunks: React.ReactNode[]) => (
-  <a href={path}>{chunks}</a>
-);
+const keyRegistrationLink = (
+  path: string,
+  chunks: React.ReactNode,
+): React.ReactNode => <a href={path}>{chunks}</a>;
 
 const LoginPage: React.FC = () => {
   const intl = useIntl();
@@ -74,7 +75,7 @@ const LoginPage: React.FC = () => {
                   "Instruction on what to do if user does not have a GC Key.",
               },
               {
-                a: (...chunks) => keyRegistrationLink(loginPath, chunks),
+                a: (chunks) => keyRegistrationLink(loginPath, chunks),
               },
             )}
           </p>
