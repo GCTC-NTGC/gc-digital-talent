@@ -253,7 +253,11 @@ export const UserTable: React.FC = () => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     pageStyle: printStyles,
-    documentTitle: "Candidate Profiles",
+    documentTitle: intl.formatMessage({
+      defaultMessage: "Candidate Profiles",
+      id: "IE82VM",
+      description: "Document title for printing User table results",
+    }),
   });
   const selectedApplicants =
     selectedUsersData?.applicants.filter(notEmpty) ?? [];
