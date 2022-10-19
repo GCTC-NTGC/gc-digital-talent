@@ -61,7 +61,10 @@ class DatabaseSeeder extends Seeder
                 $user->expectedGenericJobTitles()->sync($genericJobTitles);
 
                 // pick a pool in which to place this user
-                $pool = Pool::inRandomOrder()->limit(1)->first();
+                // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
+                $randomPool = Pool::inRandomOrder()->limit(1)->first();
+                $digitalTalentPool = Pool::where('key', "digital_careers")->first();
+                $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
 
                 // are they a government user?
                 if (rand(0, 1)) {
