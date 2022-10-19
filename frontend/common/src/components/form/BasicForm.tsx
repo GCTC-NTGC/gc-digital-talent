@@ -8,8 +8,10 @@ import {
 } from "react-hook-form";
 import {
   getFromSessionStorage,
+  removeFromSessionStorage,
   setInSessionStorage,
 } from "../../helpers/storageUtils";
+import { useHistory } from "../../helpers/router";
 
 type BasicFormProps<TFieldValues extends FieldValues> = PropsWithChildren<{
   onSubmit: SubmitHandler<TFieldValues>;
@@ -24,6 +26,7 @@ export function BasicForm<TFieldValues extends FieldValues>({
   options,
   cacheKey,
 }: BasicFormProps<TFieldValues>): ReactElement {
+  const history = useHistory();
   const cacheValues = cacheKey
     ? getFromSessionStorage(cacheKey, options?.defaultValues)
     : options?.defaultValues;
@@ -37,6 +40,15 @@ export function BasicForm<TFieldValues extends FieldValues>({
     // Whenever form values change, update cache.
     watch((values: unknown) => setInSessionStorage(cacheKey, values));
   }
+
+  React.useEffect(() => {
+    return history.listen(() => {
+      if (cacheKey) {
+        removeFromSessionStorage(cacheKey);
+      }
+    });
+  }, [cacheKey, history]);
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>{children}</form>

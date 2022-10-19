@@ -319,3 +319,7 @@ export function refresh() {
   const history = HISTORY;
   history.go(0);
 }
+
+export function useHistory() {
+  return HISTORY;
+}
