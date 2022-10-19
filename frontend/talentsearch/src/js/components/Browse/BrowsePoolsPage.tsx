@@ -186,13 +186,21 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                         })}
                       </Heading>
                       <p>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "We're posting new opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
-                          id: "sehm2K",
-                          description:
-                            "Text describing upcoming opportunities instructing users to create a profile",
-                        })}
+                        {loggedIn
+                          ? intl.formatMessage({
+                              defaultMessage:
+                                "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to, you'll be able to submit applications lightning fast when the time comes.",
+                              id: "//WIjo",
+                              description:
+                                "Text describing upcoming opportunities instructing users to update a profile when logged in",
+                            })
+                          : intl.formatMessage({
+                              defaultMessage:
+                                "We're posting new opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
+                              id: "3sbLPV",
+                              description:
+                                "Text describing upcoming opportunities instructing users to create a profile when anonymous",
+                            })}
                       </p>
                     </div>
                     <div data-h2-margin="base(x1, 0, 0, 0) p-tablet(0)">
