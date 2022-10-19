@@ -1,7 +1,7 @@
 import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
-import { useFieldStateStyles } from "../../../helpers/formUtils";
+import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import { commonMessages } from "../../../messages";
 import InputContext from "../InputContext/InputContext";
 import InputError from "../InputError/InputError";
@@ -39,6 +39,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
 }) => {
   const [contextIsActive, setContextIsActive] = useState(false);
   const intl = useIntl();
+  const fieldState = useFieldState(name ?? "");
   const stateStyles = useFieldStateStyles(name ?? "");
   return (
     <fieldset
@@ -90,6 +91,14 @@ const Fieldset: React.FC<FieldsetProps> = ({
               </span>
             )
           }
+          {fieldState === "dirty" && (
+            <span
+              data-h2-font-size="base(caption)"
+              data-h2-margin="base(0, 0, 0, x.125)"
+            >
+              {intl.formatMessage(commonMessages.unSaved)}
+            </span>
+          )}
           {context && (
             <button
               type="button"

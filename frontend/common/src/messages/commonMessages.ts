@@ -21,6 +21,12 @@ const messages = defineMessages({
     id: "WUC9pX",
     description: "Displayed next to optional form inputs.",
   },
+  unSaved: {
+    defaultMessage: "Unsaved changes",
+    id: "rsrNSC",
+    description:
+      "Displayed next to form inputs when they have been changed but not saved.",
+  },
   notFound: {
     defaultMessage: "Not found",
     id: "ufSiRU",

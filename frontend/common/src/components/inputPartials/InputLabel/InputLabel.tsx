@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 import { commonMessages } from "../../../messages";
+import { useFieldState } from "../../../helpers/formUtils";
 
 import "./input-label.css";
 
@@ -36,7 +37,9 @@ const InputLabel: React.FC<InputLabelProps> = ({
     setContextIsActive((currentState) => !currentState);
   };
   const intl = useIntl();
-  const appendLabel = required || !hideOptional || contextIsVisible;
+  const fieldState = useFieldState(inputId);
+  const appendLabel =
+    required || !hideOptional || contextIsVisible || fieldState !== "unset";
 
   const labelStyles = {
     "data-h2-margin": "base(0, x.125, 0, 0)",
@@ -91,6 +94,15 @@ const InputLabel: React.FC<InputLabelProps> = ({
               </span>
             )
           }
+          {fieldState === "dirty" && (
+            <span
+              data-h2-font-size="base(caption)"
+              data-h2-display="base(inline-block)"
+              data-h2-margin="base(0, 0, 0, x.125)"
+            >
+              {intl.formatMessage(commonMessages.unSaved)}
+            </span>
+          )}
           {contextIsVisible && (
             <button
               type="button"
