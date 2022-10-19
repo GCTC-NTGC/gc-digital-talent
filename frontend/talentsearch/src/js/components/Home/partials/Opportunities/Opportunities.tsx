@@ -5,10 +5,9 @@ import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 
 // Local assets
 import Heading from "@common/components/Heading";
+import { CardFlat } from "@common/components/Card";
 import useLocale from "@common/hooks/useLocale";
 import { imageUrl } from "@common/helpers/router";
-
-import Block from "./Block";
 
 import TALENTSEARCH_APP_DIR from "../../../../talentSearchConstants";
 import { useDirectIntakeRoutes } from "../../../../directIntakeRoutes";
@@ -82,86 +81,88 @@ const Opportunities = () => {
             data-h2-gap="base(x2) p-tablet(x3)"
             data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)"
           >
-            <Block
-              content={{
-                color: "yellow",
-                title: intl.formatMessage({
-                  defaultMessage: "Jobs in digital government",
-                  id: "+cBKDC",
+            <CardFlat
+              color="yellow"
+              title={intl.formatMessage({
+                defaultMessage: "Jobs in digital government",
+                id: "+cBKDC",
+                description:
+                  "Heading for the digital government job opportunities",
+              })}
+              link={{
+                href: diPaths.allPools(),
+                label: intl.formatMessage({
+                  defaultMessage: "Browse IT jobs",
+                  id: "zNvXSs",
                   description:
-                    "Heading for the digital government job opportunities",
+                    "Link text for IT jobs in government call to action",
                 }),
-                summary: intl.formatMessage({
+              }}
+            >
+              <p>
+                {intl.formatMessage({
                   defaultMessage:
                     "Check out the latest GC opportunities in digital and tech, from entry level to management. Find a team, make a difference, and be inspired.",
                   id: "951Oju",
                   description:
                     "Description for the digital government job opportunities",
-                }),
-                link: {
-                  path: diPaths.allPools(),
-                  label: intl.formatMessage({
-                    defaultMessage: "Browse IT jobs",
-                    id: "zNvXSs",
-                    description:
-                      "Link text for IT jobs in government call to action",
-                  }),
-                },
-              }}
-            />
-            <Block
-              content={{
-                color: "blue",
-                title: intl.formatMessage({
-                  defaultMessage: "Indigenous Apprenticeship Program",
-                  id: "XR37x0",
+                })}
+              </p>
+            </CardFlat>
+            <CardFlat
+              color="blue"
+              title={intl.formatMessage({
+                defaultMessage: "Indigenous Apprenticeship Program",
+                id: "XR37x0",
+                description:
+                  "Heading for the Indigenous Apprenticeship Program on home page",
+              })}
+              link={{
+                href: `${locale}/indigenous-it-apprentice`,
+                label: intl.formatMessage({
+                  defaultMessage:
+                    "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
                   description:
-                    "Heading for the Indigenous Apprenticeship Program on home page",
+                    "Link text to apply for the Indigenous Apprenticeship Program",
+                  id: "w3Kkk2",
                 }),
-                summary: intl.formatMessage({
+              }}
+            >
+              <p>
+                {intl.formatMessage({
                   defaultMessage:
                     "Designed by the Indigenous community for the Indigenous community, this program recruits entry-level applicants for learning and development IT opportunities across government.",
                   id: "f3Qqop",
                   description:
                     "Description for the Indigenous Apprenticeship Program on home page",
+                })}
+              </p>
+            </CardFlat>
+            <CardFlat
+              color="red"
+              title={intl.formatMessage({
+                defaultMessage: "Executives in digital government",
+                id: "9KOwXq",
+                description: "Heading for executive jobs in government",
+              })}
+              link={{
+                href: "#", // TO DO: Get new path
+                label: intl.formatMessage({
+                  defaultMessage: "Browse exec jobs",
+                  id: "QcrDDA",
+                  description: "Link text to find executive jobs in government",
                 }),
-                link: {
-                  path: `${locale}/indigenous-it-apprentice`,
-                  label: intl.formatMessage({
-                    defaultMessage:
-                      "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
-                    description:
-                      "Link text to apply for the Indigenous Apprenticeship Program",
-                    id: "w3Kkk2",
-                  }),
-                },
               }}
-            />
-            <Block
-              content={{
-                color: "red",
-                title: intl.formatMessage({
-                  defaultMessage: "Executives in digital government",
-                  id: "9KOwXq",
-                  description: "Heading for executive jobs in government",
-                }),
-                summary: intl.formatMessage({
+            >
+              <p>
+                {intl.formatMessage({
                   defaultMessage:
                     "From entry-level executives to CIO opportunities across the GC, this is the place to come if you're ready to take on a digital leadership role making a difference for Canadians.",
                   id: "EWCP4t",
                   description: "Description for executive jobs in government",
-                }),
-                link: {
-                  path: "https://google.com", // TO DO: Get new path
-                  label: intl.formatMessage({
-                    defaultMessage: "Browse exec jobs",
-                    id: "QcrDDA",
-                    description:
-                      "Link text to find executive jobs in government",
-                  }),
-                },
-              }}
-            />
+                })}
+              </p>
+            </CardFlat>
           </div>
         </div>
       </div>
