@@ -28,8 +28,9 @@ const messages = defineMessages({
   },
   notAvailable: {
     defaultMessage: "N/A",
-    id: "A2Wa7Z",
-    description: "Message displayed when specific information is not available",
+    id: "r7x5H3",
+    description:
+      "Message displayed when specific information is not applicable",
   },
   requiredFieldsMissing: {
     defaultMessage: "There are <red>required</red> fields missing.",
