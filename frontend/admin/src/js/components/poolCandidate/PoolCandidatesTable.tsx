@@ -52,7 +52,7 @@ import {
   stringToEnumLanguage,
   stringToEnumLocation,
   stringToEnumOperational,
-  stringToEnumStatus,
+  stringToEnumPoolCandidateStatus,
 } from "../user/util";
 
 type Data = NonNullable<FromArray<PoolCandidatePaginator["data"]>>;
@@ -309,7 +309,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
         }),
       },
       status: data.status.map((status) => {
-        return stringToEnumStatus(status);
+        return stringToEnumPoolCandidateStatus(status);
       }),
       priorityWeight: data.priorityWeight.map((priority) => {
         return Number(priority);

@@ -47,7 +47,7 @@ export function stringToEnumJobLooking(
   return undefined;
 }
 
-export function stringToEnumStatus(
+export function stringToEnumPoolCandidateStatus(
   selection: string,
 ): PoolCandidateStatus | undefined {
   if (
