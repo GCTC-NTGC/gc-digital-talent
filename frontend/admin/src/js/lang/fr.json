@@ -2416,7 +2416,7 @@
     "description": "CSV Header, Current City column"
   },
   "D24NyA": {
-    "defaultMessage": "Ceci est le profil soumis le {submisAt} pour le bassin : {poolName}",
+    "defaultMessage": "Ceci est le profil soumis le {submittedAt} pour le bassin : {poolName}",
     "description": "Snapshot details displayed above the pool candidate application page."
   },
   "DHfumB": {
