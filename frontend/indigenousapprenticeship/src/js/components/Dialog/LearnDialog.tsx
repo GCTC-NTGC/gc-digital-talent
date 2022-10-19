@@ -59,8 +59,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "The program is 24 months in length, with supports  available to apprentices during their time in the program.",
-          id: "Y8noAF",
+            "The program is 24 months in length, with supports available to apprentices during their time in the program.",
+          id: "YGM/D5",
           description: "Learn more dialog question two paragraph one",
         })}
       </p>

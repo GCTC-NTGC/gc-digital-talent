@@ -2286,8 +2286,8 @@
     "description": "Title displayed for the User table View column."
   },
   "+wG2Ap": {
-    "defaultMessage": "Voir {name} <hidden>{hiddenLabel}</hidden>",
-    "description": "Title displayed for the User table View column."
+    "defaultMessage": "Vue {name} <hidden>{hiddenLabel}</hidden>",
+    "description": "Title displayed for the View Item column."
   },
   "u9JHS9": {
     "defaultMessage": "demande",
@@ -2296,5 +2296,481 @@
   "gLtTaW": {
     "defaultMessage": "demande",
     "description": "Text displayed after View text for Search Request table view action"
+  },
+  "/pHz5L": {
+    "defaultMessage": "Statut du bassin de candidats",
+    "description": "Label for the current applications pool status"
+  },
+  "/s66sg": {
+    "defaultMessage": "Statut de la demande",
+    "description": "Title for admins to edit an applications status."
+  },
+  "0Y4Dt4": {
+    "defaultMessage": "Mes bassins",
+    "description": "Breadcrumb title for the pools page link."
+  },
+  "114gjj": {
+    "defaultMessage": "Préférences de lieux",
+    "description": "CSV Header, Location Preferences column"
+  },
+  "1E0RiD": {
+    "defaultMessage": "Numéro du processus",
+    "description": "Label for a pools process number"
+  },
+  "1JCjTP": {
+    "defaultMessage": "Aucun courriel fourni",
+    "description": "Fallback for email value"
+  },
+  "1XyQqX": {
+    "defaultMessage": "Préférences de travail"
+  },
+  "1sPszf": {
+    "defaultMessage": "Emplacement actuel",
+    "description": "Title displayed on the Pool Candidates table Current Location column."
+  },
+  "1vVbe3": {
+    "defaultMessage": "Minorité visible",
+    "description": "CSV Header, Visible Minority column"
+  },
+  "2TrYLI": {
+    "defaultMessage": "Erreur : la mise à jour du bassin a échoué",
+    "description": "Message displayed to user after pool fails to get updated."
+  },
+  "3IAJad": {
+    "defaultMessage": "Compétences",
+    "description": "CSV Header, Skills column"
+  },
+  "3OfvwW": {
+    "defaultMessage": "Emplacement : Option à distance",
+    "description": "Label for a pool advertisement that has remote option."
+  },
+  "3eNQnt": {
+    "defaultMessage": "Date de réception",
+    "description": "Title displayed on the Pool Candidates table Date Received column."
+  },
+  "4Czd5U": {
+    "defaultMessage": "Sauvegarder...",
+    "description": "Text displayed on the pool candidate application submit button while saving"
+  },
+  "5R2iR2": {
+    "defaultMessage": "Niveau verbal",
+    "description": "CSV Header, Verbal Level column"
+  },
+  "5TVKj1": {
+    "defaultMessage": "Classifications"
+  },
+  "5iNcHS": {
+    "defaultMessage": "Candidature",
+    "description": "Title displayed for the Pool Candidates table View Application link."
+  },
+  "69/cNW": {
+    "defaultMessage": "Renseignements sur le candidat",
+    "description": "Heading displayed above the pool candidate application page."
+  },
+  "7OQHcx": {
+    "defaultMessage": "Date de clôture",
+    "description": "Closing Date field label for close pool dialog"
+  },
+  "7SOo+L": {
+    "defaultMessage": "Volets/Titres de postes",
+    "description": "Label displayed on the edit pool form stream/job title field."
+  },
+  "83v9YH": {
+    "defaultMessage": "Autochtones",
+    "description": "CSV Header, Indigenous column"
+  },
+  "8mt/5/": {
+    "defaultMessage": "Exemptions de lieux",
+    "description": "CSV Header, Location Exemptions column"
+  },
+  "93AuFS": {
+    "defaultMessage": "Bassin supprimé!",
+    "description": "Message displayed to user after pool is deleted"
+  },
+  "A1QU9O": {
+    "defaultMessage": "Statut des forces armées",
+    "description": "CSV Header, Armed Forces column"
+  },
+  "AijsNM": {
+    "defaultMessage": "Désactivé",
+    "description": "CSV Header, Disabled column"
+  },
+  "Ao/+Ba": {
+    "defaultMessage": "Ce numéro de processus est obtenu auprès de votre atelier RH",
+    "description": "Additional context describing the pools process number."
+  },
+  "BNEY8G": {
+    "defaultMessage": "Date d'expiration",
+    "description": "CSV Header, Expiry Date column"
+  },
+  "BSVnmg": {
+    "defaultMessage": "Courriel",
+    "description": "Title displayed for the Pool Candidates table Email column."
+  },
+  "C0ABZu": {
+    "defaultMessage": "Statut",
+    "description": "CSV Header, Status column"
+  },
+  "CLOuJF": {
+    "defaultMessage": "Ville actuelle",
+    "description": "CSV Header, Current City column"
+  },
+  "D24NyA": {
+    "defaultMessage": "Ceci est le profil soumis le {submittedAt} pour le bassin : {poolName}",
+    "description": "Snapshot details displayed above the pool candidate application page."
+  },
+  "DHfumB": {
+    "defaultMessage": "Employé du gouvernement",
+    "description": "CSV Header, Government Employee column"
+  },
+  "DlBusi": {
+    "defaultMessage": "Nom de famille",
+    "description": "CSV Header, Last Name column"
+  },
+  "DwTEsB": {
+    "defaultMessage": "Type d'employé",
+    "description": "CSV Header, Employee Type column"
+  },
+  "EHVt0j": {
+    "defaultMessage": "Candidats du bassin",
+    "description": "Title displayed above the Pool Candidate Table component."
+  },
+  "ETrCOq": {
+    "defaultMessage": "Statut du candidat",
+    "description": "Title for admin editing a pool candidates status"
+  },
+  "EZQ9Dj": {
+    "defaultMessage": "Priorité",
+    "description": "Title displayed for the Pool Candidates table Priority column."
+  },
+  "EkBES+": {
+    "defaultMessage": "Membre des FAC :",
+    "description": "label for CAF status"
+  },
+  "FSlrKF": {
+    "defaultMessage": "Erreur : Impossible de mettre à jour le statut du candidat du bassin",
+    "description": "Message displayed when an error occurs while an admin updates a pool candidate"
+  },
+  "FWftu5": {
+    "defaultMessage": "Citoyenneté",
+    "description": "CSV Header, Citizenship column"
+  },
+  "GGaxMx": {
+    "defaultMessage": "Filtre de compétences"
+  },
+  "GiODgs": {
+    "defaultMessage": "Citoyenneté :",
+    "description": "Citizenship label"
+  },
+  "GrfidX": {
+    "defaultMessage": "Candidat {poolCandidateId} non trouvé.",
+    "description": "Message displayed for pool candidate not found."
+  },
+  "GsBRWL": {
+    "defaultMessage": "Langues"
+  },
+  "H02JZe": {
+    "defaultMessage": "Courriel",
+    "description": "CSV Header, Email column"
+  },
+  "HGMl3y": {
+    "defaultMessage": "Nom du bassin non trouvé",
+    "description": "Breadcrumb to pool page if pool name not found"
+  },
+  "JH2+tK": {
+    "defaultMessage": "Instantané de profil non trouvé.",
+    "description": "Message displayed for profile snapshot not found."
+  },
+  "JIpjuA": {
+    "defaultMessage": "Détails du candidat du bassin",
+    "description": "Title of the pool candidate details content section"
+  },
+  "JJB5Yd": {
+    "defaultMessage": "Bassin fermé avec succès!",
+    "description": "Message displayed to user after pool is closed"
+  },
+  "K+roYh": {
+    "defaultMessage": "Date de clôture",
+    "description": "Closing Date field label for publish pool dialog"
+  },
+  "LOhcO4": {
+    "defaultMessage": "Citoyenneté :",
+    "description": "label for citizenship status"
+  },
+  "M9ij/0": {
+    "defaultMessage": "Évaluation bilingue",
+    "description": "CSV Header, Bilingual Evaluation column"
+  },
+  "Md/cQS": {
+    "defaultMessage": "Membre des FAC :",
+    "description": "Veteran/member label"
+  },
+  "OJbrJJ": {
+    "defaultMessage": "Statut :",
+    "description": "Status label and colon"
+  },
+  "OPG1Q0": {
+    "defaultMessage": "Profil complet"
+  },
+  "OunUSG": {
+    "defaultMessage": "Enregistrer les modifications",
+    "description": "Text for the pool candidate application status submit button"
+  },
+  "Ox+Gj/": {
+    "defaultMessage": "Créer un candidat de bassin",
+    "description": "Text label for link to create new pool candidate on admin table"
+  },
+  "P5+9Wy": {
+    "defaultMessage": "Bassin publié avec succès!",
+    "description": "Message displayed to user after pool is published"
+  },
+  "P9SZBZ": {
+    "defaultMessage": "Sélectionner les filtres",
+    "description": "Candidate search filter dialog: title"
+  },
+  "Q/clLF": {
+    "defaultMessage": "Langue",
+    "description": "CSV Header, Language column"
+  },
+  "QIh0q7": {
+    "defaultMessage": "Niveau de compréhension",
+    "description": "CSV Header, Comprehension Level column"
+  },
+  "RDgQ0h": {
+    "defaultMessage": "De {poolName}",
+    "description": "Subtitle on pool candidates page indicating which pool candidates are from"
+  },
+  "RXoZOS": {
+    "defaultMessage": "Erreur : la fermeture du bassin a échoué",
+    "description": "Message displayed to user after pool fails to get deleted."
+  },
+  "SoKPAb": {
+    "defaultMessage": "Date d'expiration du candidat",
+    "description": "Label displayed on the pool candidate application form expiry date field."
+  },
+  "TDTE1c": {
+    "defaultMessage": "Action",
+    "description": "Title displayed for the search request table edit column."
+  },
+  "TkTpzk": {
+    "defaultMessage": "Erreur : le bassin de publication a échoué",
+    "description": "Message displayed to user after pool fails to get publish."
+  },
+  "UmNhUa": {
+    "defaultMessage": "Priorité :",
+    "description": "Priority label and colon"
+  },
+  "V4+lDw": {
+    "defaultMessage": "Afficher les résultats",
+    "description": "Submit button within the search filter dialog"
+  },
+  "VDP17+": {
+    "defaultMessage": "Date d'archivage :",
+    "description": "Archival Date label and colon"
+  },
+  "VMhVyJ": {
+    "defaultMessage": "Sélectionnez un statut",
+    "description": "Placeholder text for the pool status field"
+  },
+  "VhBuJ/": {
+    "defaultMessage": "Affichage",
+    "description": "Title displayed for the Pool Candidates table View column."
+  },
+  "XYLd6G": {
+    "defaultMessage": "Mes bassins",
+    "description": "Breadcrumb for the My Pools page"
+  },
+  "Xo0M3N": {
+    "defaultMessage": "Province actuelle",
+    "description": "CSV Header, Current Province column"
+  },
+  "YojrdC": {
+    "defaultMessage": "Employé du gouvernement"
+  },
+  "Yr4DW5": {
+    "defaultMessage": "Notes - {poolName}",
+    "description": "Label for the notes field on the pool candidate application"
+  },
+  "Z2KhWS": {
+    "defaultMessage": "Retourner à tous les candidats",
+    "description": "Navigation link back to All candidates."
+  },
+  "a5msuh": {
+    "defaultMessage": "Oui"
+  },
+  "aGaaPi": {
+    "defaultMessage": "Femme",
+    "description": "CSV Header, Woman column"
+  },
+  "aWsXoR": {
+    "defaultMessage": "bassin_candidats_{date}.csv",
+    "description": "Filename for pool candidate CSV file download"
+  },
+  "atniLV": {
+    "defaultMessage": "Candidat du bassin {id} non trouvé.",
+    "description": "Message displayed for pool candidate not found."
+  },
+  "bKixM0": {
+    "defaultMessage": "Disponibilité :",
+    "description": "Availability label and colon"
+  },
+  "crrqFg": {
+    "defaultMessage": "Date d'expiration :",
+    "description": "Expiry Date label and colon"
+  },
+  "dYBwCh": {
+    "defaultMessage": "Erreur : la fermeture du bassin a échoué",
+    "description": "Message displayed to user after pool fails to get closed."
+  },
+  "drwKS5": {
+    "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce bassin. Utilisez le bouton de révision pour gérer un candidat.",
+    "description": "Descriptive text about the list of pool candidates in the admin portal."
+  },
+  "e9FNqp": {
+    "defaultMessage": "Tous les candidats",
+    "description": "Breadcrumb title for the All Candidates page link."
+  },
+  "eCK3Ng": {
+    "defaultMessage": "Accepter les temporaires",
+    "description": "CSV Header, Accept Temporary column"
+  },
+  "ev6HnY": {
+    "defaultMessage": "Notes",
+    "description": "CSV Header, Notes column"
+  },
+  "fLSDYW": {
+    "defaultMessage": "Disponibilité",
+    "description": "Title displayed for the Pool Candidates table Availability column."
+  },
+  "gDSeKw": {
+    "defaultMessage": "Date de réception :",
+    "description": "Date Received label and colon"
+  },
+  "gKXZaj": {
+    "defaultMessage": "Numéro de priorité",
+    "description": "CSV Header, Priority Number column"
+  },
+  "h9dLBX": {
+    "defaultMessage": "Droit de priorité",
+    "description": "CSV Header, Priority Entitlement column"
+  },
+  "hMRpmG": {
+    "defaultMessage": "Classification actuelle",
+    "description": "CSV Header, Current Classification column"
+  },
+  "hOxIeP": {
+    "defaultMessage": "Disponibilité"
+  },
+  "hmfQmT": {
+    "defaultMessage": "Préférences de durée"
+  },
+  "hqZfyb": {
+    "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
+    "description": "Candidate search filter dialog: subtitle"
+  },
+  "iIZS1K": {
+    "defaultMessage": "Attente en matière de poste/salaire",
+    "description": "CSV Header, Role/Salary Expectation column"
+  },
+  "j9m5qA": {
+    "defaultMessage": "Date de réception",
+    "description": "En-tête CSV, colonne Date de réception"
+  },
+  "jtygmI": {
+    "defaultMessage": "Éducation"
+  },
+  "l+cu8R": {
+    "defaultMessage": "Statut",
+    "description": "Title displayed for the Pool Candidates table Status column."
+  },
+  "l62TJM": {
+    "defaultMessage": "Disponibilité",
+    "description": "CSV Header, Availability column"
+  },
+  "lkZ+Zt": {
+    "defaultMessage": "Notes :",
+    "description": "Notes label and colon"
+  },
+  "mRQ/uk": {
+    "defaultMessage": "Profil",
+    "description": "Title displayed for the Pool Candidates table View Profile link."
+  },
+  "mYuXWF": {
+    "defaultMessage": "utilisateurs_{date}.csv",
+    "description": "Filename for user CSV file download"
+  },
+  "mjyHeP": {
+    "defaultMessage": "Bassins"
+  },
+  "nPUAz5": {
+    "defaultMessage": "Bassin mis à jour!",
+    "description": "Message displayed to user after pool is updated"
+  },
+  "nRtrPx": {
+    "defaultMessage": "Compétence linguistique estimée",
+    "description": "CSV Header, Estimated Language Ability column"
+  },
+  "npC3bT": {
+    "defaultMessage": "Notes",
+    "description": "Title for admin editing a pool candidates notes"
+  },
+  "nxsvto": {
+    "defaultMessage": "Date d'archivage",
+    "description": "CSV Header, Archival Date column"
+  },
+  "oCX5SP": {
+    "defaultMessage": "Ministère",
+    "description": "CSV Header, Department column"
+  },
+  "p/Qp/u": {
+    "defaultMessage": "Nom du candidat",
+    "description": "Title displayed on the Pool Candidates table name column."
+  },
+  "p0e6Y5": {
+    "defaultMessage": "Langue préférée",
+    "description": "CSV Header, Preferred Language column"
+  },
+  "qhhPj5": {
+    "defaultMessage": "Lieux de travail"
+  },
+  "qs/dFw": {
+    "defaultMessage": "Exigences de fonctionnement acceptées",
+    "description": "CSV Header, Accepted Operation Requirements column"
+  },
+  "rqXJfW": {
+    "defaultMessage": "Instantané du profil de la candidature",
+    "description": "Title for the application's profile snapshot."
+  },
+  "uC0YPE": {
+    "defaultMessage": "Effacer les filtres",
+    "description": "Clear button within the search filter dialog"
+  },
+  "uSdcX4": {
+    "defaultMessage": "Le statut de candidat du bassin a été mis à jour avec succès",
+    "description": "Message displayed when a pool candidate has been updated by and admin"
+  },
+  "ukL9do": {
+    "defaultMessage": "Prénom",
+    "description": "CSV Header, First Name column"
+  },
+  "v8vbWP": {
+    "defaultMessage": "Tous les candidats",
+    "description": "Breadcrumb for the All Candidates page"
+  },
+  "vgOfaa": {
+    "defaultMessage": "Sélectionnez un volet/un titre de poste...",
+    "description": "Placeholder displayed on the pool form classification field."
+  },
+  "w/v77x": {
+    "defaultMessage": "Niveau d’écriture",
+    "description": "CSV Header, Written Level column"
+  },
+  "w9RqOI": {
+    "defaultMessage": "Priorité",
+    "description": "CSV Header, Priority column"
+  },
+  "zLvpBy": {
+    "defaultMessage": "Ces notes sont partagées entre tous les gestionnaires de ce bassin, mais pas avec les candidats",
+    "description": "Description of the pool candidate notes field."
   }
 }
