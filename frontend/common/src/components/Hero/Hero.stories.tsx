@@ -1,6 +1,5 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { imageUrl } from "../../helpers/router";
 import Hero from "./Hero";
 
 export default {
