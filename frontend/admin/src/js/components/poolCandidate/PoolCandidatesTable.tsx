@@ -424,7 +424,11 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     pageStyle: printStyles,
-    documentTitle: "Candidate Profiles",
+    documentTitle: intl.formatMessage({
+      defaultMessage: "Candidate Profiles",
+      id: "UmTNmR",
+      description: "Document title for printing Pool Candidate table results",
+    }),
   });
   const selectedCandidates =
     selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];

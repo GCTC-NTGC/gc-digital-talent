@@ -25,7 +25,11 @@ export const UserProfilePrintButton: React.FunctionComponent<{
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     pageStyle: printStyles,
-    documentTitle: "Candidate Profile",
+    documentTitle: intl.formatMessage({
+      defaultMessage: "Candidate Profile",
+      id: "Thf4og",
+      description: "Document title for printing User profile",
+    }),
   });
 
   const userData = initialData;
