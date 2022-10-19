@@ -12,6 +12,12 @@ query getPoolAdvertisement($id: ID!) {
   me {
     roles
     id
+    poolCandidates {
+      pool {
+        id
+      }
+      submittedAt
+    }
   }
   poolAdvertisement(id: $id) {
     id

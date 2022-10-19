@@ -67,6 +67,20 @@ const ApplyButton = ({ disabled, onClick }: ApplyButtonProps) => {
   );
 };
 
+const AlreadyAppliedButton = () => {
+  const intl = useIntl();
+  return (
+    <Button type="button" color="primary" mode="solid" disabled>
+      {intl.formatMessage({
+        defaultMessage: "You have already applied to this.",
+        id: "mwEGU+",
+        description:
+          "Disabled button when a user already applied to a pool opportunity",
+      })}
+    </Button>
+  );
+};
+
 const Text = ({ children }: { children: React.ReactNode }) => (
   <p data-h2-margin="base(x0.5, 0, x.5, 0)">{children}</p>
 );
@@ -98,11 +112,13 @@ const anchorTag = (chunks: React.ReactNode): React.ReactNode => (
 interface PoolAdvertisementProps {
   poolAdvertisement: PoolAdvertisement;
   userId: string;
+  hasUserApplied?: boolean;
 }
 
 const PoolAdvertisement = ({
   poolAdvertisement,
   userId,
+  hasUserApplied,
 }: PoolAdvertisementProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -161,7 +177,9 @@ const PoolAdvertisement = ({
         return Promise.reject(result.error);
       });
 
-  const applyBtn = (
+  const applyBtn = hasUserApplied ? (
+    <AlreadyAppliedButton />
+  ) : (
     <ApplyButton disabled={!canApply} onClick={handleCreateApplication} />
   );
 
@@ -768,6 +786,22 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
     visible = true;
   }
 
+  // grab pool candidates of Me, then check whether a pool candidate exists that matches the advertisement AND is submitted
+  const meDataResponse = data?.me;
+  let hasUserApplied = false;
+  if (meDataResponse?.poolCandidates) {
+    const mePoolCandidates = meDataResponse.poolCandidates;
+    mePoolCandidates.map((candidate) => {
+      if (
+        candidate?.pool.id === data?.poolAdvertisement?.id &&
+        candidate?.submittedAt
+      ) {
+        hasUserApplied = true;
+      }
+      return candidate;
+    });
+  }
+
   // enforce type of userId as String
   const dataMe = data?.me ? data.me : undefined;
   const userId = dataMe?.id ? dataMe.id : "";
@@ -778,6 +812,7 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
         <PoolAdvertisement
           poolAdvertisement={data?.poolAdvertisement}
           userId={userId}
+          hasUserApplied={hasUserApplied}
         />
       ) : (
         <NotFound
