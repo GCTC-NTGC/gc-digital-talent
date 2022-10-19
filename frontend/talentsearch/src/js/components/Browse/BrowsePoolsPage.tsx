@@ -13,7 +13,9 @@ import NotFound from "@common/components/NotFound";
 import { commonMessages } from "@common/messages";
 import { imageUrl } from "@common/helpers/router";
 import useTheme from "@common/hooks/useTheme";
+import { AuthenticationContext } from "@common/components/Auth";
 
+import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
 import PoolCard from "./PoolCard";
 
 import {
@@ -54,6 +56,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
 }) => {
   const { mode } = useTheme();
   const intl = useIntl();
+  const { loggedIn } = React.useContext(AuthenticationContext);
   const paths = useDirectIntakeRoutes();
   const tsPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
@@ -201,12 +204,19 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                         href={profilePaths.myProfile()}
                         style={{ whiteSpace: "nowrap" }}
                       >
-                        {intl.formatMessage({
-                          defaultMessage: "Create a profile",
-                          id: "obSyWw",
-                          description:
-                            "Link text to direct users to the profile page",
-                        })}
+                        {loggedIn
+                          ? intl.formatMessage({
+                              defaultMessage: "Update my profile",
+                              id: "/vsOxF",
+                              description:
+                                "Link text to direct users to the profile page when logged in",
+                            })
+                          : intl.formatMessage({
+                              defaultMessage: "Create a profile",
+                              id: "wPpvvm",
+                              description:
+                                "Link text to direct users to the profile page when anonymous",
+                            })}
                       </Link>
                     </div>
                   </div>
