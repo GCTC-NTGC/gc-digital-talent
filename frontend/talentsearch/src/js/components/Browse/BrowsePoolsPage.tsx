@@ -15,7 +15,6 @@ import { imageUrl } from "@common/helpers/router";
 import useTheme from "@common/hooks/useTheme";
 import { AuthenticationContext } from "@common/components/Auth";
 
-import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
 import PoolCard from "./PoolCard";
 
 import {
