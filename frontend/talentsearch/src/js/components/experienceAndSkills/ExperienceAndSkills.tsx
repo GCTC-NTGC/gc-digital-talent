@@ -85,24 +85,6 @@ export const ExperienceAndSkills: React.FunctionComponent<
 
   const links = [
     {
-      href: `${paths.createPersonal(applicantId)}${applicationParam}`,
-      title: intl.formatMessage({
-        defaultMessage: "Personal",
-        id: "nuP1BG",
-        description: "Title for personal experience form button.",
-      }),
-      icon: LightBulbIcon,
-    },
-    {
-      href: `${paths.createCommunity(applicantId)}${applicationParam}`,
-      title: intl.formatMessage({
-        defaultMessage: "Community",
-        id: "mrhpJS",
-        description: "Title for community experience form button.",
-      }),
-      icon: UserGroupIcon,
-    },
-    {
       href: `${paths.createWork(applicantId)}${applicationParam}`,
       title: intl.formatMessage({
         defaultMessage: "Work",
@@ -119,6 +101,24 @@ export const ExperienceAndSkills: React.FunctionComponent<
         description: "Title for education experience form button.",
       }),
       icon: BookOpenIcon,
+    },
+    {
+      href: `${paths.createCommunity(applicantId)}${applicationParam}`,
+      title: intl.formatMessage({
+        defaultMessage: "Community",
+        id: "mrhpJS",
+        description: "Title for community experience form button.",
+      }),
+      icon: UserGroupIcon,
+    },
+    {
+      href: `${paths.createPersonal(applicantId)}${applicationParam}`,
+      title: intl.formatMessage({
+        defaultMessage: "Personal",
+        id: "nuP1BG",
+        description: "Title for personal experience form button.",
+      }),
+      icon: LightBulbIcon,
     },
     {
       href: `${paths.createAward(applicantId)}${applicationParam}`,
