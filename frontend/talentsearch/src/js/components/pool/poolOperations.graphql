@@ -8,21 +8,16 @@ query getPool($id: ID!) {
   }
 }
 
-query getMePoolCandidates {
+query getPoolAdvertisement($id: ID!) {
   me {
+    roles
+    id
     poolCandidates {
       pool {
         id
       }
       submittedAt
     }
-  }
-}
-
-query getPoolAdvertisement($id: ID!) {
-  me {
-    roles
-    id
   }
   poolAdvertisement(id: $id) {
     id

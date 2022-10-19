@@ -33,7 +33,6 @@ import {
   Role,
   useGetPoolAdvertisementQuery,
   useCreateApplicationMutation,
-  useGetMePoolCandidatesQuery,
 } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -788,11 +787,10 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
   }
 
   // grab pool candidates of Me, then check whether a pool candidate exists that matches the advertisement AND is submitted
-  const meDataResponse = useGetMePoolCandidatesQuery();
-  const meData = meDataResponse[0]?.data;
+  const meDataResponse = data?.me;
   let hasUserApplied = false;
-  if (meData?.me?.poolCandidates) {
-    const mePoolCandidates = meData.me.poolCandidates;
+  if (meDataResponse?.poolCandidates) {
+    const mePoolCandidates = meDataResponse.poolCandidates;
     mePoolCandidates.map((candidate) => {
       if (
         candidate?.pool.id === data?.poolAdvertisement?.id &&
