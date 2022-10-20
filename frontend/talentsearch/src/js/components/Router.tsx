@@ -77,7 +77,7 @@ const ExperienceAndSkillsPage = React.lazy(
 );
 
 /** Direct Intake */
-const BrowsePoolsPage = React.lazy(() => import("./browse/BrowsePoolsPage"));
+const BrowsePoolsPage = React.lazy(() => import("./Browse/BrowsePoolsPage"));
 const PoolAdvertisementPage = React.lazy(
   () => import("./pool/PoolAdvertisementPage"),
 );

@@ -6,7 +6,7 @@ import ThemeProvider from "../../src/components/Theme";
 export const theme = {
   name: "Theme",
   description: "Global theme for components",
-  defaultValue: "light",
+  defaultValue: "pref",
   toolbar: {
     icon: "circlehollow",
     // Array of plain string values or MenuItem shape (see below)

@@ -67,7 +67,7 @@ export const ReviewMyApplication: React.FunctionComponent<
             defaultMessage: "My applications",
             description: "Breadcrumb for review application page.",
           }),
-          href: directIntakePaths.allPools(),
+          href: directIntakePaths.applications(applicant.id),
         },
         {
           title: jobTitle,

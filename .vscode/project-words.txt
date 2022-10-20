@@ -17,6 +17,7 @@ datetime
 DCMO
 dedup
 DIRECTINTAKE
+freshdesk
 Freshdesk
 FRESHDESK
 Gatineau

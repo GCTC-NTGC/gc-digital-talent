@@ -36,6 +36,9 @@ const colorMap: Record<Color, Record<string, string>> = {
   blue: {
     "data-h2-background-color": "base(tm-blue.5)",
   },
+  purple: {
+    "data-h2-background-color": "base(tm-purple.5)",
+  },
 };
 
 type SeparatorPrimitiveRootProps = React.ComponentPropsWithoutRef<
