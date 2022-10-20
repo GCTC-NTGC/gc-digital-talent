@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { FormProvider, useForm } from "react-hook-form";
 import InputLabel from "./InputLabel";
 import type { InputLabelProps } from "./InputLabel";
 
@@ -18,8 +19,9 @@ export default {
 
 const TemplateInputLabel: Story<InputLabelProps> = (args) => {
   const { inputId } = args;
+  const methods = useForm();
   return (
-    <div>
+    <FormProvider {...methods}>
       <div>
         <InputLabel
           {...args}
@@ -29,7 +31,7 @@ const TemplateInputLabel: Story<InputLabelProps> = (args) => {
       <div>
         <input id={inputId} type="text" style={{ minWidth: "100%" }} />
       </div>
-    </div>
+    </FormProvider>
   );
 };
 
