@@ -5,6 +5,7 @@ const getExperienceFormLabels = (
   intl: IntlShape,
   experienceType: ExperienceType,
 ) => {
+  console.log(experienceType);
   let currentRole = intl.formatMessage({
     defaultMessage: "Current Role",
     id: "4f5qcw",
@@ -38,7 +39,7 @@ const getExperienceFormLabels = (
       break;
   }
 
-  const organization = intl.formatMessage({
+  let organization = intl.formatMessage({
     defaultMessage: "Organization",
     id: "9UZ/eS",
     description:
@@ -46,7 +47,7 @@ const getExperienceFormLabels = (
   });
 
   if (experienceType === "community") {
-    intl.formatMessage({
+    organization = intl.formatMessage({
       defaultMessage: "Group / Organization / Community",
       id: "Badvbb",
       description:
