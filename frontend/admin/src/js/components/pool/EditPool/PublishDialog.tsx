@@ -8,6 +8,7 @@ import {
   parseDateTimeUtc,
 } from "@common/helpers/dateUtils";
 import { Button } from "@common/components";
+import { FormProvider, useForm } from "react-hook-form";
 
 type PublishDialogProps = {
   isOpen: boolean;
@@ -23,6 +24,7 @@ const PublishDialog = ({
   onPublish,
 }: PublishDialogProps): JSX.Element => {
   const intl = useIntl();
+  const methods = useForm();
   const Footer = React.useMemo(
     () => (
       <div data-h2-display="base(flex)">
@@ -90,33 +92,35 @@ const PublishDialog = ({
           description: "Third paragraph for publish pool dialog",
         })}
       </p>
-      <InputWrapper
-        inputId="closingDate"
-        label={intl.formatMessage({
-          defaultMessage: "Closing Date",
-          id: "K+roYh",
-          description: "Closing Date field label for publish pool dialog",
-        })}
-        hideOptional
-        required={false}
-      >
-        <div
-          data-h2-display="base(flex)"
-          data-h2-width="base(100%)"
-          data-h2-gap="base(.5rem)"
-          data-h2-background-color="base(dt-gray.light)"
-          data-h2-padding="base(x.5)"
-          data-h2-radius="base(s)"
+      <FormProvider {...methods}>
+        <InputWrapper
+          inputId="closingDate"
+          label={intl.formatMessage({
+            defaultMessage: "Closing Date",
+            id: "K+roYh",
+            description: "Closing Date field label for publish pool dialog",
+          })}
+          hideOptional
+          required={false}
         >
-          {expiryDate
-            ? formattedDateMonthDayYear(
-                parseDateTimeUtc(expiryDate),
-                intl,
-                "Canada/Pacific",
-              )
-            : ""}
-        </div>
-      </InputWrapper>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-width="base(100%)"
+            data-h2-gap="base(.5rem)"
+            data-h2-background-color="base(dt-gray.light)"
+            data-h2-padding="base(x.5)"
+            data-h2-radius="base(s)"
+          >
+            {expiryDate
+              ? formattedDateMonthDayYear(
+                  parseDateTimeUtc(expiryDate),
+                  intl,
+                  "Canada/Pacific",
+                )
+              : ""}
+          </div>
+        </InputWrapper>
+      </FormProvider>
       <Dialog.Footer>{Footer}</Dialog.Footer>
     </Dialog>
   );
