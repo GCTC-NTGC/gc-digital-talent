@@ -185,16 +185,16 @@ export const useFieldState = (name: string): FieldState => {
 
 export const stateStyleMap: Record<FieldState, Record<string, string>> = {
   unset: {
-    "data-h2-border": "base(all, 1px, solid, dt-gray)",
+    "data-h2-border": "base(all, 2px, solid, dt-gray)",
     "data-h2-background-color": "base(dt-white)",
   },
   invalid: {
-    "data-h2-border": "base(all, 1px, solid, dt-error)",
+    "data-h2-border": "base(all, 2px, solid, dt-error)",
     "data-h2-background-color": "base(light.dt-error.1)",
   },
   dirty: {
-    "data-h2-border": "base(all, 1px, solid, tm-blue)",
-    "data-h2-background-color": "base(light.tm-blue.1)",
+    "data-h2-border": "base(all, 2px, solid, tm-yellow)",
+    "data-h2-background-color": "base(light.tm-yellow.1)",
   },
 };
 

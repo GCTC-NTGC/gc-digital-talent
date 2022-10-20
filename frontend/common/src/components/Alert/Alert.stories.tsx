@@ -31,4 +31,12 @@ const TemplateAlert: Story<AlertProps> = (args) => {
   );
 };
 
-export const Default = TemplateAlert.bind({});
+export const BasicAlert = TemplateAlert.bind({});
+BasicAlert.args = {
+  mode: "basic",
+};
+
+export const LargeAlert = TemplateAlert.bind({});
+LargeAlert.args = {
+  mode: "large",
+};

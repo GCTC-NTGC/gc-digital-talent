@@ -1,65 +1,52 @@
 import * as React from "react";
+import BasicAlert from "./BasicAlert";
+import LargeAlert from "./LargeAlert";
+
+import "./alert.css";
 
 export type Color = "success" | "warning" | "info";
+export type AlertMode = "basic" | "large";
 
 export interface AlertProps {
   title: React.ReactNode | string;
   children: React.ReactNode;
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
   type: Color;
+  mode?: AlertMode;
 }
 
-const typeMap: Record<Color, Record<string, string>> = {
+export type SubAlertProps = Omit<AlertProps, "mode">;
+
+export const typeMap: Record<Color, Record<string, string>> = {
   success: {
-    "data-h2-border": "base(all, 1px, solid, dt-success)",
+    "data-h2-border": "base(all, 0.25rem, solid, dark.dt-success)",
     "data-h2-background-color": "base(light.dt-success.1)",
-    "data-h2-color": "base(dt-success)",
+    "data-h2-color": "base(black)",
   },
   warning: {
-    "data-h2-border": "base(all, 1px, solid, tm-yellow)",
-    "data-h2-background-color": "base(light.tm-yellow.1)",
-    "data-h2-color": "base(darker.tm-yellow)",
+    "data-h2-border": "base(all, 0.25rem, solid, dark.tm-yellow)",
+    "data-h2-background-color": "base(light.tm-yellow)",
+    "data-h2-color": "base(black)",
   },
   info: {
-    "data-h2-border": "base(all, 1px, solid, tm-blue)",
+    "data-h2-border": "base(all, 0.25rem, solid, dark.tm-blue)",
     "data-h2-background-color": "base(light.tm-blue.1)",
-    "data-h2-color": "base(darker.tm-blue)",
+    "data-h2-color": "base(black)",
   },
 };
 
 const Alert: React.FunctionComponent<AlertProps> = ({
-  title,
-  children,
-  icon,
-  type,
+  mode = "basic",
   ...rest
 }) => {
-  const Icon = icon;
-  return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-radius="base(input)"
-      data-h2-padding="base(x1)"
-      data-h2-margin="base(x1, 0)"
-      {...typeMap[type]}
-      {...rest}
-    >
-      <p
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-font-weight="base(600)"
-      >
-        <Icon
-          data-h2-vertical-align="base(top)"
-          data-h2-margin="base(0, x.25, 0, 0)"
-          style={{ height: "1em", width: "1em" }}
-        />
-        <span>{title}</span>
-      </p>
-      <div data-h2-margin="base(0, 0, 0, 0)">{children}</div>
-    </div>
-  );
+  const alertMap: Record<AlertMode, React.FC<SubAlertProps>> = {
+    basic: BasicAlert,
+    large: LargeAlert,
+  };
+
+  const SubAlert = alertMap[mode];
+
+  return <SubAlert {...rest} />;
 };
 
 export default Alert;
