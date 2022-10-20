@@ -29,7 +29,6 @@ import {
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import {
-  formattedDateMonthDayYear,
   parseDateTimeUtc,
   relativeExpiryDate,
 } from "@common/helpers/dateUtils";
