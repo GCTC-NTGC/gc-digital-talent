@@ -3,7 +3,7 @@ import { FieldError } from "react-hook-form";
 
 export interface InputErrorProps {
   isVisible: boolean;
-  error: FieldError;
+  error: FieldError | React.ReactNode;
 }
 
 const InputError: React.FC<InputErrorProps> = ({ error, isVisible }) => {
