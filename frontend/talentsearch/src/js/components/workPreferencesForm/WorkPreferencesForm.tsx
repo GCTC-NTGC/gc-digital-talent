@@ -78,6 +78,21 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
       ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialData.id);
 
+  const labels = {
+    wouldAcceptTemporary: intl.formatMessage({
+      defaultMessage: "I would consider accepting a job that lasts for:",
+      id: "GNtu/7",
+      description:
+        "Legend Text for required work preferences options in work preferences form",
+    }),
+    acceptedOperationalRequirements: intl.formatMessage({
+      defaultMessage: "I would consider accepting a job that:",
+      id: "Vvb8tu",
+      description:
+        "Legend for optional work preferences check list in work preferences form",
+    }),
+  };
+
   const dataToFormValues = (data: User): FormValues => {
     const boolToString = (boolVal: boolean | null | undefined): string => {
       return boolVal ? "true" : "false";
@@ -177,6 +192,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
       <BasicForm
         cacheKey="work-preferences-form"
         onSubmit={handleSubmit}
+        labels={labels}
         options={{
           defaultValues: dataToFormValues(initialData),
         }}
@@ -189,13 +205,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             <div data-h2-padding="base(0, x2, 0, 0)">
               <RadioGroup
                 idPrefix="required-work-preferences"
-                legend={intl.formatMessage({
-                  defaultMessage:
-                    "I would consider accepting a job that lasts for:",
-                  id: "GNtu/7",
-                  description:
-                    "Legend Text for required work preferences options in work preferences form",
-                })}
+                legend={labels.wouldAcceptTemporary}
                 name="wouldAcceptTemporary"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
@@ -236,12 +246,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             <div data-h2-padding="base(0, x2, 0, 0)">
               <Checklist
                 idPrefix="optional-work-preferences"
-                legend={intl.formatMessage({
-                  defaultMessage: "I would consider accepting a job that:",
-                  id: "Vvb8tu",
-                  description:
-                    "Legend for optional work preferences check list in work preferences form",
-                })}
+                legend={labels.acceptedOperationalRequirements}
                 name="acceptedOperationalRequirements"
                 items={OperationalRequirementV2.map((value) => ({
                   value,
