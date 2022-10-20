@@ -6,6 +6,7 @@ import { RadioGroup, Select } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import useLocale from "@common/hooks/useLocale";
 import { enumToOptions } from "@common/helpers/formUtils";
+import { FieldLabels } from "@common/components/form/BasicForm";
 import {
   BilingualEvaluation,
   EstimatedLanguageAbility,
@@ -21,7 +22,11 @@ const EvaluatedAbilityItemsSortOrder = [
   EvaluatedLanguageAbility.P,
 ];
 
-const ConsideredLanguages = () => {
+interface ConsideredLanguagesProps {
+  labels: FieldLabels;
+}
+
+const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   const intl = useIntl();
   const locale = useLocale();
   const { watch } = useFormContext();
@@ -158,12 +163,7 @@ const ConsideredLanguages = () => {
       <div data-h2-padding="base(x.5, 0, 0, 0)">
         <RadioGroup
           idPrefix="bilingualEvaluation"
-          legend={intl.formatMessage({
-            defaultMessage: "Bilingual evaluation",
-            id: "X354at",
-            description:
-              "Legend bilingual evaluation status in language information form",
-          })}
+          legend={labels.bilingualEvaluation}
           name="bilingualEvaluation"
           rules={{
             required: intl.formatMessage(errorMessages.required),
@@ -187,12 +187,7 @@ const ConsideredLanguages = () => {
               <Select
                 id="comprehensionLevel"
                 name="comprehensionLevel"
-                label={intl.formatMessage({
-                  defaultMessage: "Comprehension",
-                  id: "W4Svkd",
-                  description:
-                    "Label displayed on the language information form comprehension field.",
-                })}
+                label={labels.comprehensionLevel}
                 nullSelection={intl.formatMessage({
                   defaultMessage: "Select a level...",
                   id: "8QN6ZC",
@@ -209,12 +204,7 @@ const ConsideredLanguages = () => {
               <Select
                 id="writtenLevel"
                 name="writtenLevel"
-                label={intl.formatMessage({
-                  defaultMessage: "Written",
-                  id: "x5C9Ab",
-                  description:
-                    "Label displayed on the language information form written field.",
-                })}
+                label={labels.writtenLevel}
                 nullSelection={intl.formatMessage({
                   defaultMessage: "Select a level...",
                   id: "aQJOd0",
@@ -231,12 +221,7 @@ const ConsideredLanguages = () => {
               <Select
                 id="verbalLevel"
                 name="verbalLevel"
-                label={intl.formatMessage({
-                  defaultMessage: "Verbal",
-                  id: "rywI3C",
-                  description:
-                    "Label displayed on the language information form verbal field.",
-                })}
+                label={labels.verbalLevel}
                 nullSelection={intl.formatMessage({
                   defaultMessage: "Select a level...",
                   id: "Y7jEXr",
@@ -269,12 +254,7 @@ const ConsideredLanguages = () => {
           </p>
           <RadioGroup
             idPrefix="estimatedLanguageAbility"
-            legend={intl.formatMessage({
-              defaultMessage: "Second language proficiency level",
-              id: "T1TKNL",
-              description:
-                "Legend for second language proficiency level in language information form",
-            })}
+            legend={labels.estimatedLanguageAbility}
             name="estimatedLanguageAbility"
             items={estimatedAbilityItems}
           />

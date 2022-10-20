@@ -108,6 +108,46 @@ export const LanguageInformationForm: React.FunctionComponent<{
       ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialData.id);
 
+  const labels = {
+    consideredPositionLanguages: intl.formatMessage({
+      defaultMessage:
+        "Select the positions you would like to be considered for",
+      id: "ntUOoz",
+      description:
+        "Legend for considered position languages check list in language information form",
+    }),
+    bilingualEvaluation: intl.formatMessage({
+      defaultMessage: "Bilingual evaluation",
+      id: "X354at",
+      description:
+        "Legend bilingual evaluation status in language information form",
+    }),
+    comprehensionLevel: intl.formatMessage({
+      defaultMessage: "Comprehension",
+      id: "W4Svkd",
+      description:
+        "Label displayed on the language information form comprehension field.",
+    }),
+    writtenLevel: intl.formatMessage({
+      defaultMessage: "Written",
+      id: "x5C9Ab",
+      description:
+        "Label displayed on the language information form written field.",
+    }),
+    verbalLevel: intl.formatMessage({
+      defaultMessage: "Verbal",
+      id: "rywI3C",
+      description:
+        "Label displayed on the language information form verbal field.",
+    }),
+    estimatedLanguageAbility: intl.formatMessage({
+      defaultMessage: "Second language proficiency level",
+      id: "T1TKNL",
+      description:
+        "Legend for second language proficiency level in language information form",
+    }),
+  };
+
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     await submitHandler(initialData.id, formValuesToSubmitData(formValues))
       .then(() => {
@@ -203,6 +243,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
       prefixBreadcrumbs={!application}
     >
       <BasicForm
+        labels={labels}
         cacheKey="lang-info-form"
         onSubmit={handleSubmit}
         options={{
@@ -216,13 +257,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
           >
             <Checklist
               idPrefix="considered-position-languages"
-              legend={intl.formatMessage({
-                defaultMessage:
-                  "Select the positions you would like to be considered for",
-                id: "ntUOoz",
-                description:
-                  "Legend for considered position languages check list in language information form",
-              })}
+              legend={labels.consideredPositionLanguages}
               name="consideredPositionLanguages"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -230,7 +265,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
               items={ConsideredLangItems}
             />
           </div>
-          <ConsideredLanguages />
+          <ConsideredLanguages labels={labels} />
         </div>
         <ProfileFormFooter
           mode="saveButton"
