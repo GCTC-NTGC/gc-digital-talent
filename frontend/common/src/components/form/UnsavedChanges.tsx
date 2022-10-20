@@ -7,6 +7,7 @@ import type { FieldLabels } from "./BasicForm";
 
 import Alert from "../Alert";
 import { ScrollToLink } from "../Link";
+import { notEmpty } from "../../helpers/util";
 
 interface UnsavedChangesProps {
   labels?: FieldLabels;
@@ -19,6 +20,19 @@ const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
   // Don;t show if the form is clean
   if (!isDirty) return null;
 
+  const unsavedFields = Object.keys(dirtyFields)
+    .map((field) => {
+      if (labels && field in labels) {
+        return {
+          name: field,
+          label: labels[field],
+        };
+      }
+
+      return undefined;
+    })
+    .filter(notEmpty);
+
   return (
     <Alert
       icon={ExclamationTriangleIcon}
@@ -30,11 +44,9 @@ const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
       })}
     >
       <ul data-h2-margin="base(x.5, 0, 0, 0)">
-        {Object.keys(dirtyFields).map((field) => (
-          <li key={field}>
-            <ScrollToLink to={field}>
-              {labels ? labels[field] : field}
-            </ScrollToLink>
+        {unsavedFields.map((field) => (
+          <li key={field.name}>
+            <ScrollToLink to={field.name}>{field.label}</ScrollToLink>
           </li>
         ))}
       </ul>
