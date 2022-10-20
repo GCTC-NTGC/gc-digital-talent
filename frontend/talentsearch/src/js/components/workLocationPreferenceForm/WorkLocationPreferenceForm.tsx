@@ -50,6 +50,21 @@ export const WorkLocationPreferenceForm: React.FC<
       ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialData.id);
 
+  const labels = {
+    locationPreferences: intl.formatMessage({
+      defaultMessage: "Work location",
+      id: "nueuS8",
+      description:
+        "Legend for optional work preferences check list in work preferences form",
+    }),
+    locationExemptions: intl.formatMessage({
+      defaultMessage: "Location exemptions",
+      id: "0qNkIp",
+      description:
+        "Location Exemptions field label for work location preference form",
+    }),
+  };
+
   const dataToFormValues = (data: User): FormValues => ({
     ...data,
     locationPreferences: data.locationPreferences,
@@ -136,6 +151,7 @@ export const WorkLocationPreferenceForm: React.FC<
       <BasicForm
         cacheKey="work-location-preference-form"
         onSubmit={handleSubmit}
+        labels={labels}
         options={{
           defaultValues: dataToFormValues(initialData),
         }}
@@ -148,12 +164,7 @@ export const WorkLocationPreferenceForm: React.FC<
             <div data-h2-padding="base(0, x2, 0, 0)" data-testid="workLocation">
               <Checklist
                 idPrefix="work-location"
-                legend={intl.formatMessage({
-                  defaultMessage: "Work location",
-                  id: "nueuS8",
-                  description:
-                    "Legend for optional work preferences check list in work preferences form",
-                })}
+                legend={labels.locationPreferences}
                 name="locationPreferences"
                 items={enumToOptions(WorkRegion).map(({ value }) => ({
                   value,
@@ -197,12 +208,7 @@ export const WorkLocationPreferenceForm: React.FC<
             <div data-h2-padding="base(0, x2, 0, 0)">
               <TextArea
                 id="location-exemptions"
-                label={intl.formatMessage({
-                  defaultMessage: "Location exemptions",
-                  id: "0qNkIp",
-                  description:
-                    "Location Exemptions field label for work location preference form",
-                })}
+                label={labels.locationExemptions}
                 name="locationExemptions"
                 placeholder={intl.formatMessage({
                   defaultMessage: "Optionally, add a city or village here...",
