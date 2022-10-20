@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { useFormContext, useFormState } from "react-hook-form";
+import { useFormState } from "react-hook-form";
 
 import type { FieldLabels } from "./BasicForm";
 
