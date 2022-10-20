@@ -1,5 +1,5 @@
 import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, FieldError, useFormContext } from "react-hook-form";
 import type { RegisterOptions } from "react-hook-form";
 import ReactSelect, { components, MultiValue, SingleValue } from "react-select";
 import type { NoticeProps, GroupBase, OptionsOrGroups } from "react-select";
@@ -140,7 +140,7 @@ const SelectFieldV2 = ({
     // TODO: Set explicit TFieldValues. Defaults to Record<string, any>
   } = useFormContext();
 
-  const error = errors[name]?.message;
+  const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
   // react-hook-form has no way to set default messages when `{ required: true }`,
   // so that's handled here. (It's a hook because it uses react-intl hook.)

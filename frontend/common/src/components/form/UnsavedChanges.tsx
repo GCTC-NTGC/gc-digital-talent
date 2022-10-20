@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { useFormState } from "react-hook-form";
+import { useFormContext, useFormState } from "react-hook-form";
 
 import type { FieldLabels } from "./BasicForm";
 
@@ -17,7 +17,7 @@ const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
   const intl = useIntl();
   const { isDirty, dirtyFields } = useFormState();
 
-  // Don;t show if the form is clean
+  // Don't show if the form is clean
   if (!isDirty) return null;
 
   const unsavedFields = Object.keys(dirtyFields)

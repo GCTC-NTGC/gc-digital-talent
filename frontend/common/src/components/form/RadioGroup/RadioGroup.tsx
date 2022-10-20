@@ -1,6 +1,6 @@
 import * as React from "react";
 import get from "lodash/get";
-import { RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import Radio from "../Radio";
 import { InputWrapper, Fieldset } from "../../inputPartials";
 
@@ -56,7 +56,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
     formState: { errors },
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message;
+  const error = get(errors, name)?.message as FieldError;
   const required = !!rules.required;
 
   let columnValue = { "data-h2-flex-item": "base(1of1)" };

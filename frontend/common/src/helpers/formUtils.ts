@@ -174,7 +174,7 @@ export type FieldState = "unset" | "invalid" | "dirty";
 export const useFieldState = (name: string): FieldState => {
   const { errors, dirtyFields } = useFormState();
   const isDirty = get(dirtyFields, name, false);
-  const isInvalid = get(errors, errors, false);
+  const isInvalid = get(errors, name, false);
 
   if (isDirty) {
     return "dirty";

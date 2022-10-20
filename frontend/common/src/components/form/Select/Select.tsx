@@ -1,5 +1,5 @@
 import React from "react";
-import { RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 import { InputWrapper } from "../../inputPartials";
 import { useFieldStateStyles } from "../../../helpers/formUtils";
@@ -44,7 +44,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
   } = useFormContext();
   const stateStyles = useFieldStateStyles(name);
 
-  const error = get(errors, name)?.message;
+  const error = get(errors, name)?.message as FieldError;
   return (
     <div data-h2-margin="base(x1, 0)">
       <InputWrapper

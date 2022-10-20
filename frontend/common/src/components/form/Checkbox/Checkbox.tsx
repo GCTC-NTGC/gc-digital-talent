@@ -1,6 +1,6 @@
 import React from "react";
 import get from "lodash/get";
-import { RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import { InputWrapper } from "../../inputPartials";
 import { FieldState, useFieldState } from "../../../helpers/formUtils";
 
@@ -53,7 +53,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   } = useFormContext();
   const fieldState = useFieldState(name);
   // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message;
+  const error = get(errors, name)?.message as FieldError;
 
   return (
     <div

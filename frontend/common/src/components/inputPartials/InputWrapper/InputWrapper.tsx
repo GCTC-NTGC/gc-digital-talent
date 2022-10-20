@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import InputContext from "../InputContext/InputContext";
 import InputError from "../InputError/InputError";
 import InputLabel from "../InputLabel/InputLabel";
@@ -8,7 +9,7 @@ export interface InputWrapperProps {
   label: string | React.ReactNode;
   labelSize?: string;
   required: boolean;
-  error?: string;
+  error?: FieldError;
   errorPosition?: "top" | "bottom";
   context?: string;
   hideOptional?: boolean;

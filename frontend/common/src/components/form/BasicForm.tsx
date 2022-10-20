@@ -32,13 +32,13 @@ export function BasicForm<TFieldValues extends FieldValues>({
   labels,
 }: BasicFormProps<TFieldValues>): ReactElement {
   const methods = useForm({
+    mode: "onChange",
     ...options,
     defaultValues: options?.defaultValues,
   });
-  const { handleSubmit, watch, setValue } = methods;
   if (cacheKey) {
     // Whenever form values change, update cache.
-    watch((values: unknown) => setInSessionStorage(cacheKey, values));
+    methods.watch((values: unknown) => setInSessionStorage(cacheKey, values));
   }
 
   React.useEffect(() => {
@@ -58,17 +58,20 @@ export function BasicForm<TFieldValues extends FieldValues>({
             : null;
           if (value) {
             if (!defaultValue || value !== defaultValue) {
-              setValue(typedFieldName, value, { shouldDirty: true });
+              methods.setValue(typedFieldName, value, {
+                shouldDirty: true,
+                shouldTouch: true,
+              });
             }
           }
         });
       }
     }
-  }, [cacheKey, options, setValue]);
+  }, [cacheKey, options, methods]);
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
         {cacheKey && <UnsavedChanges labels={labels} />}
         {children}
       </form>
