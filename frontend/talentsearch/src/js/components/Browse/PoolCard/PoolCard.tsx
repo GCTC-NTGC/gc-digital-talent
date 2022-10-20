@@ -11,7 +11,10 @@ import Link from "@common/components/Link";
 import Chip, { Chips } from "@common/components/Chip";
 
 import { getPoolStream } from "@common/constants/localizedConstants";
-import { formattedDateMonthDayYear } from "@common/helpers/dateUtils";
+import {
+  formattedDateMonthDayYear,
+  parseDateTimeUtc,
+} from "@common/helpers/dateUtils";
 import {
   getLocale,
   getLocalizedName,
@@ -200,7 +203,10 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
               })}
             >
               {pool.expiryDate
-                ? formattedDateMonthDayYear(new Date(pool.expiryDate), intl)
+                ? formattedDateMonthDayYear(
+                    parseDateTimeUtc(pool.expiryDate),
+                    intl,
+                  )
                 : intl.formatMessage({
                     defaultMessage: "(To be determined)",
                     description:

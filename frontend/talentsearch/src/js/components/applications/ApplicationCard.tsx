@@ -82,12 +82,12 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
                 data-h2-color="base(dt-primary)"
               >
                 {application.poolAdvertisement.expiryDate
-                  ? relativeExpiryDate(
-                      parseDateTimeUtc(
+                  ? relativeExpiryDate({
+                      expiryDate: parseDateTimeUtc(
                         application.poolAdvertisement.expiryDate,
                       ),
                       intl,
-                    )
+                    })
                   : ""}
               </p>
             ) : (

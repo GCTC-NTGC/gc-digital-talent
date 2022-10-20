@@ -1,7 +1,7 @@
 import type { IntlShape } from "react-intl";
 import { format, formatDistance, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
-import { formatInTimeZone, zonedTimeToUtc } from "date-fns-tz";
+import { formatInTimeZone, toDate } from "date-fns-tz";
 import { Maybe, Scalars } from "../api/generated";
 import { getLocale, Locales } from "./localize";
 
@@ -10,7 +10,14 @@ import { getLocale, Locales } from "./localize";
 export const DATE_FORMAT_STRING = "yyyy-MM-dd";
 // DateTime scalar formatting string
 export const DATETIME_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";
-export const LONG_DAY_FORMAT_STRING = "EEEE, d MMMM yyyy";
+
+// https://stackoverflow.com/a/563442/18246559
+const addDays = (startDate: Date, days: number) => {
+  // not really const since setDate changes the value in place
+  const date = new Date(startDate.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+};
 
 export function formattedDate(date: Scalars["Date"], locale: Locales) {
   const formatter = new Intl.DateTimeFormat(locale, {
@@ -59,8 +66,6 @@ export function getDateRange({
       );
 }
 
-const DAY_IN_SECONDS = 86400;
-
 /**
  * @param date
  * @param intl
@@ -84,33 +89,45 @@ export const formattedDateMonthDayYear = (
   return `${day}`;
 };
 
+// parameters for the relativeExpiryDate function
+export type relativeExpiryDateOptions = {
+  expiryDate: Date;
+  now?: Date;
+  intl: IntlShape;
+  timeZone?: string;
+};
+
 /**
- *
- * @param date The date you would like to format
- * @param intl react-intl object
- * @returns Boolean if in past otherwise, string of formatted date
+ * Calculate a friendly date/time string, optionally in a different time zone
+ * @returns string of formatted date
  */
-export const relativeExpiryDate = (
-  date: Date,
-  intl: IntlShape,
-): string | boolean => {
+export const relativeExpiryDate = ({
+  expiryDate,
+  now = new Date(),
+  intl,
+  timeZone,
+}: relativeExpiryDateOptions): string => {
+  // A date formatting function that can use time zones optionally
+  const myFormatFunc = timeZone
+    ? (date: Date, formatPattern: string, options?: { locale?: Locale }) =>
+        formatInTimeZone(date, timeZone, formatPattern, options)
+    : (date: Date, formatPattern: string, options?: { locale?: Locale }) =>
+        format(date, formatPattern, options);
+
   const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
-  const now = new Date();
-  const diff = date.getTime() / 1000 - now.getTime() / 1000;
-  const roundedDiff = Math.round(diff);
-  const time = format(date, `ppp`, {
+  const time = myFormatFunc(expiryDate, `pp`, {
     locale,
   });
-  const day = format(date, `EEEE, d MMMM yyyy`, {
+  const day = myFormatFunc(expiryDate, `EEEE, d MMMM yyyy`, {
     locale,
   });
-  const days = formatDistance(date, now, {
+  const days = formatDistance(expiryDate, now, {
     locale,
     addSuffix: false,
   });
 
-  if (roundedDiff < 0) {
+  if (now > expiryDate) {
     return intl.formatMessage({
       defaultMessage: "The deadline for submission has passed.",
       id: "PzyMeM",
@@ -118,7 +135,10 @@ export const relativeExpiryDate = (
     });
   }
 
-  if (roundedDiff < DAY_IN_SECONDS) {
+  if (
+    myFormatFunc(now, DATE_FORMAT_STRING) ===
+    myFormatFunc(expiryDate, DATE_FORMAT_STRING)
+  ) {
     return intl.formatMessage(
       {
         defaultMessage: "Closes today at {time}",
@@ -131,7 +151,10 @@ export const relativeExpiryDate = (
     );
   }
 
-  if (roundedDiff < DAY_IN_SECONDS * 2) {
+  if (
+    myFormatFunc(addDays(now, 1), DATE_FORMAT_STRING) ===
+    myFormatFunc(expiryDate, DATE_FORMAT_STRING)
+  ) {
     return intl.formatMessage(
       {
         defaultMessage: "Closes tomorrow at {time}",
@@ -161,9 +184,9 @@ export const convertDateTimeZone = (
   targetTimeZone: string,
   targetFormatString?: string,
 ): Scalars["DateTime"] => {
-  const nativeDate = zonedTimeToUtc(sourceDateTime, sourceTimeZone);
+  const dateObject = toDate(sourceDateTime, { timeZone: sourceTimeZone });
   const scalarDateTime = formatInTimeZone(
-    nativeDate,
+    dateObject,
     targetTimeZone,
     targetFormatString ?? DATETIME_FORMAT_STRING,
   );
@@ -179,4 +202,4 @@ export const convertDateTimeToDate = (
 
 // Parse an API scalar DateTime as UTC to a native Date object
 export const parseDateTimeUtc = (d: Scalars["DateTime"]): Date =>
-  zonedTimeToUtc(d, "UTC");
+  toDate(d, { timeZone: "UTC" });
