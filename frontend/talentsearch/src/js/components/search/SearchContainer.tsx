@@ -67,7 +67,7 @@ const applicantFilterToQueryArgs = (
 };
 
 export interface SearchContainerProps {
-  classifications: Classification[];
+  classifications: Pick<Classification, "group" | "level">[];
   pool?: Pick<Pool, "name" | "description">;
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   skills?: Skill[];
@@ -245,7 +245,7 @@ const SearchContainerApi: React.FC = () => {
   return (
     <Pending {...{ fetching, error }}>
       <SearchContainer
-        classifications={NonExecutiveITClassifications() as Classification[]}
+        classifications={NonExecutiveITClassifications()}
         skills={skills as Skill[]}
         applicantFilter={applicantFilter}
         candidateCount={candidateCount}
