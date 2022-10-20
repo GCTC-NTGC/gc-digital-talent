@@ -193,8 +193,8 @@ export const stateStyleMap: Record<FieldState, Record<string, string>> = {
     "data-h2-background-color": "base(light.dt-error.1)",
   },
   dirty: {
-    "data-h2-border": "base(all, 1px, solid, tm-yellow)",
-    "data-h2-background-color": "base(light.tm-yellow.1)",
+    "data-h2-border": "base(all, 1px, solid, tm-blue)",
+    "data-h2-background-color": "base(light.tm-blue.1)",
   },
 };
 

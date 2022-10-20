@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export type Color = "success" | "warning";
+export type Color = "success" | "warning" | "info";
 
 export interface AlertProps {
   title: React.ReactNode | string;
@@ -19,6 +19,11 @@ const typeMap: Record<Color, Record<string, string>> = {
     "data-h2-border": "base(all, 1px, solid, tm-yellow)",
     "data-h2-background-color": "base(light.tm-yellow.1)",
     "data-h2-color": "base(darker.tm-yellow)",
+  },
+  info: {
+    "data-h2-border": "base(all, 1px, solid, tm-blue)",
+    "data-h2-background-color": "base(light.tm-blue.1)",
+    "data-h2-color": "base(darker.tm-blue)",
   },
 };
 

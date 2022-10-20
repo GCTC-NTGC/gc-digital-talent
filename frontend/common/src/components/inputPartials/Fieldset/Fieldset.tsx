@@ -95,6 +95,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
             <span
               data-h2-font-size="base(caption)"
               data-h2-margin="base(0, 0, 0, x.125)"
+              data-h2-color="base(darker.tm-blue)"
             >
               {intl.formatMessage(commonMessages.unSaved)}
             </span>

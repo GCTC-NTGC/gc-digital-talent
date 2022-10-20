@@ -22,7 +22,7 @@ const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
   return (
     <Alert
       icon={ExclamationTriangleIcon}
-      type="warning"
+      type="info"
       title={intl.formatMessage({
         defaultMessage: "You have unsaved changes",
         id: "9hjEsr",
