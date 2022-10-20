@@ -5,7 +5,6 @@ const getExperienceFormLabels = (
   intl: IntlShape,
   experienceType: ExperienceType,
 ) => {
-  console.log(experienceType);
   let currentRole = intl.formatMessage({
     defaultMessage: "Current Role",
     id: "4f5qcw",
