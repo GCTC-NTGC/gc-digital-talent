@@ -57,6 +57,30 @@ export const CreateAccountForm: React.FunctionComponent<
 
   const labels = {
     ...govInfoLabels,
+    firstName: intl.formatMessage({
+      defaultMessage: "First Name",
+      id: "IEkhMc",
+      description:
+        "Label displayed for the first name field in create account form.",
+    }),
+    lastName: intl.formatMessage({
+      defaultMessage: "Last Name",
+      id: "UxF291",
+      description:
+        "Label displayed for the last name field in create account form.",
+    }),
+    email: intl.formatMessage({
+      defaultMessage: "Which email do you like to be contacted at?",
+      id: "MTwQ3S",
+      description:
+        "Label displayed for the email field in create account form.",
+    }),
+    preferredLang: intl.formatMessage({
+      defaultMessage: "What is your preferred contact language?",
+      id: "0ScnOT",
+      description:
+        "Legend text for required language preference in create account form",
+    }),
   };
 
   const handleSubmit = (values: FormValues) =>
@@ -148,12 +172,7 @@ export const CreateAccountForm: React.FunctionComponent<
                   id="firstName"
                   name="firstName"
                   type="text"
-                  label={intl.formatMessage({
-                    defaultMessage: "First Name",
-                    id: "IEkhMc",
-                    description:
-                      "Label displayed for the first name field in create account form.",
-                  })}
+                  label={labels.firstName}
                   placeholder={intl.formatMessage({
                     defaultMessage: "e.g. Thomas",
                     id: "H1J8wl",
@@ -170,12 +189,7 @@ export const CreateAccountForm: React.FunctionComponent<
                   id="lastName"
                   name="lastName"
                   type="text"
-                  label={intl.formatMessage({
-                    defaultMessage: "Last Name",
-                    id: "UxF291",
-                    description:
-                      "Label displayed for the last name field in create account form.",
-                  })}
+                  label={labels.lastName}
                   placeholder={intl.formatMessage({
                     defaultMessage: "e.g. Edison",
                     id: "X9IdZQ",
@@ -193,12 +207,7 @@ export const CreateAccountForm: React.FunctionComponent<
                 id="email"
                 type="email"
                 name="email"
-                label={intl.formatMessage({
-                  defaultMessage: "Which email do you like to be contacted at?",
-                  id: "MTwQ3S",
-                  description:
-                    "Label displayed for the email field in create account form.",
-                })}
+                label={labels.email}
                 placeholder={intl.formatMessage({
                   defaultMessage: "e.g. thomas.edison@example.com",
                   id: "UIkTbl",
@@ -212,12 +221,7 @@ export const CreateAccountForm: React.FunctionComponent<
             </div>
             <RadioGroup
               idPrefix="required-lang-preferences"
-              legend={intl.formatMessage({
-                defaultMessage: "What is your preferred contact language?",
-                id: "0ScnOT",
-                description:
-                  "Legend text for required language preference in create account form",
-              })}
+              legend={labels.preferredLang}
               name="preferredLang"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
               items={enumToOptions(Language).map(({ value }) => ({
@@ -245,6 +249,7 @@ export const CreateAccountForm: React.FunctionComponent<
               })}
             </p>
             <GovernmentInfoForm
+              labels={labels}
               departments={departments}
               classifications={classifications}
             />
