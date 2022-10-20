@@ -23,6 +23,7 @@ import {
 } from "../../api/generated";
 import {
   formValuesToSubmitData,
+  getGovernmentInfoLabels,
   GovernmentInfoForm,
 } from "../GovernmentInfoForm/GovernmentInfoForm";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
@@ -52,6 +53,11 @@ export const CreateAccountForm: React.FunctionComponent<
   CreateAccountFormProps
 > = ({ cacheKey, departments, classifications, handleCreateAccount }) => {
   const intl = useIntl();
+  const govInfoLabels = getGovernmentInfoLabels(intl);
+
+  const labels = {
+    ...govInfoLabels,
+  };
 
   const handleSubmit = (values: FormValues) =>
     handleCreateAccount({
@@ -116,7 +122,7 @@ export const CreateAccountForm: React.FunctionComponent<
             })}
           </p>
         </Alert>
-        <BasicForm onSubmit={handleSubmit} cacheKey={cacheKey}>
+        <BasicForm onSubmit={handleSubmit} cacheKey={cacheKey} labels={labels}>
           <h2 data-h2-margin="base(x2, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage: "Getting started",
