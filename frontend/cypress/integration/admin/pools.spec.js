@@ -129,9 +129,7 @@ describe("Pools", () => {
    */
    it("should update the pool", () => {
     // Navigate to edit pool page
-    cy.findByRole("textbox", { name: /search/i })
-      .clear()
-      .type("test");
+    cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
 
     const editLinks = cy.findAllByRole("link", { name: /edit test pool en/i });
     editLinks.first().click();
@@ -161,9 +159,7 @@ describe("Pools", () => {
    */
   it("should delete the pool", () => {
     // Navigate to edit pool page
-    cy.findByRole("textbox", { name: /search/i })
-      .clear()
-      .type("test");
+    cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
 
     const editLinks = cy.findAllByRole("link", { name: /edit test pool en/i });
     editLinks.first().click();

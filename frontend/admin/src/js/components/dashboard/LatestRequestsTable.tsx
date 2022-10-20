@@ -174,7 +174,8 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
       <Table
         labelledBy="latest-requests-heading"
         data={tableData || []}
-        filter={false}
+        filterColumns={false}
+        search={false}
         pagination={false}
         columns={columns}
       />
