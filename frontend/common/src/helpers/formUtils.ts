@@ -167,8 +167,7 @@ export type FieldState = "unset" | "invalid" | "dirty";
  *
  * NOTE: Must be used within a FormProvider
  *
- * @param isDirty
- * @param error
+ * @param string name The inputs name
  * @returns FieldState
  */
 export const useFieldState = (name: string): FieldState => {
