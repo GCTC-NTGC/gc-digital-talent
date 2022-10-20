@@ -52,6 +52,7 @@ import {
 } from "./mutations";
 import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+import getExperienceFormLabels from "./labels";
 
 export interface ExperienceFormProps {
   userId: string;
@@ -144,6 +145,8 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
     ];
   }
 
+  const labels = getExperienceFormLabels(intl, experienceType);
+
   return (
     <ProfileFormWrapper
       title={intl.formatMessage({
@@ -165,16 +168,23 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
     >
       <BasicForm
         onSubmit={handleSubmit}
+        cacheKey={cacheKey}
+        labels={labels}
         options={{
           defaultValues,
         }}
-        cacheKey={cacheKey}
       >
-        {experienceType === "award" && <AwardDetailsForm />}
-        {experienceType === "community" && <CommunityExperienceForm />}
-        {experienceType === "education" && <EducationExperienceForm />}
-        {experienceType === "personal" && <PersonalExperienceForm />}
-        {experienceType === "work" && <WorkExperienceForm />}
+        {experienceType === "award" && <AwardDetailsForm labels={labels} />}
+        {experienceType === "community" && (
+          <CommunityExperienceForm labels={labels} />
+        )}
+        {experienceType === "education" && (
+          <EducationExperienceForm labels={labels} />
+        )}
+        {experienceType === "personal" && (
+          <PersonalExperienceForm labels={labels} />
+        )}
+        {experienceType === "work" && <WorkExperienceForm labels={labels} />}
         <ExperienceSkills skills={skills} />
         <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
           {intl.formatMessage({
@@ -192,16 +202,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
               "Description blurb for additional information on Experience form",
           })}
         </p>
-        <TextArea
-          id="details"
-          label={intl.formatMessage({
-            defaultMessage: "Additional Information",
-            id: "KmKbA6",
-            description:
-              "Label displayed on experience form for additional information input",
-          })}
-          name="details"
-        />
+        <TextArea id="details" label={labels.details} name="details" />
         {edit && (
           <Button
             onClick={() => setDialogOpen(true)}

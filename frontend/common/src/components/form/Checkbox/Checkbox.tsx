@@ -34,7 +34,7 @@ export interface CheckboxProps
   /** Wrap input in bounding box. */
   boundingBox?: boolean;
   /** Label for the bounding box. */
-  boundingBoxLabel?: string;
+  boundingBoxLabel?: React.ReactNode;
 }
 
 export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
