@@ -9,7 +9,7 @@ import InputError from "../InputError/InputError";
 
 export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** The text for the legend element. */
-  legend: string;
+  legend: React.ReactNode;
   /** The name of this form control. */
   name?: string;
   /** Controls whether Required or Optional text appears above the fieldset. */
