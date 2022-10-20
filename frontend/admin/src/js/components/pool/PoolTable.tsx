@@ -158,6 +158,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       data={data}
       columns={columns}
       hiddenCols={["id", "description"]}
+      search={false}
       addBtn={{
         path: paths.poolCreate(),
         label: intl.formatMessage({

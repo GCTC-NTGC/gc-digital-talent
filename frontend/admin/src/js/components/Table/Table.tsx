@@ -30,7 +30,8 @@ export interface TableProps<
     path: string;
     label: React.ReactNode;
   };
-  filter?: boolean;
+  filterColumns?: boolean;
+  search?: boolean;
   pagination?: boolean;
   hiddenCols?: string[];
   labelledBy?: string;
@@ -84,7 +85,8 @@ function Table<T extends Record<string, unknown>>({
   labelledBy,
   title,
   addBtn,
-  filter = true,
+  filterColumns = true,
+  search = true,
   pagination = true,
   hiddenCols = [],
 }: TableProps<T>): ReactElement {
@@ -119,76 +121,83 @@ function Table<T extends Record<string, unknown>>({
   return (
     <div>
       {/* Table header */}
-      {filter && (
+      {(filterColumns || search || addBtn) && (
         <div data-h2-margin="base(x2, 0, x.5, 0)">
           <p>{title && <span data-h2-font-weight="base(700)">{title}</span>}</p>
           <div data-h2-flex-grid="base(center, x1)">
             <div data-h2-flex-item="base(1of1) l-tablet(fill)">
               <div data-h2-flex-grid="base(center, x.5)">
-                <div data-h2-flex-item="base(content)">
-                  <SearchForm onChange={setGlobalFilter} />
-                </div>
-                <div data-h2-flex-item="base(content)">
-                  <Dialog.Root>
-                    <Dialog.Trigger>
-                      <Button
-                        mode="solid"
-                        color="secondary"
-                        type="button"
-                        data-h2-display="base(inline-flex)"
-                        data-h2-align-items="base(center)"
-                      >
-                        <ButtonIcon icon={TableCellsIcon} />
-                        <span>
+                {search && (
+                  <div data-h2-flex-item="base(content)">
+                    <SearchForm onChange={setGlobalFilter} />
+                  </div>
+                )}
+                {filterColumns && (
+                  <div data-h2-flex-item="base(content)">
+                    <Dialog.Root>
+                      <Dialog.Trigger>
+                        <Button
+                          mode="solid"
+                          color="secondary"
+                          type="button"
+                          data-h2-display="base(inline-flex)"
+                          data-h2-align-items="base(center)"
+                        >
+                          <ButtonIcon icon={TableCellsIcon} />
+                          <span>
+                            {intl.formatMessage({
+                              defaultMessage: "Columns",
+                              id: "xcBl1q",
+                              description:
+                                "Label displayed on the Table Columns toggle button.",
+                            })}
+                          </span>
+                        </Button>
+                      </Dialog.Trigger>
+                      <Dialog.Content>
+                        <Dialog.Header color="ts-primary">
                           {intl.formatMessage({
-                            defaultMessage: "Columns",
-                            id: "xcBl1q",
+                            defaultMessage: "Table columns",
+                            id: "YH6bFU",
                             description:
-                              "Label displayed on the Table Columns toggle button.",
+                              "Dialog title for the admin tables columns toggle.",
                           })}
-                        </span>
-                      </Button>
-                    </Dialog.Trigger>
-                    <Dialog.Content>
-                      <Dialog.Header color="ts-primary">
-                        {intl.formatMessage({
-                          defaultMessage: "Table columns",
-                          id: "YH6bFU",
-                          description:
-                            "Dialog title for the admin tables columns toggle.",
-                        })}
-                      </Dialog.Header>
-                      <Fieldset
-                        legend={intl.formatMessage({
-                          defaultMessage: "Visible columns",
-                          id: "H9rxOR",
-                          description:
-                            "Legend for the column toggle in admin tables.",
-                        })}
-                      >
-                        <div data-h2-margin="base(x.125, 0)">
-                          <IndeterminateCheckbox
-                            {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                              typeof IndeterminateCheckbox
-                            >)}
-                          />
-                        </div>
-                        {allColumns.map((column) => (
-                          <div key={column.id} data-h2-margin="base(x.125, 0)">
-                            <label htmlFor={column.Header?.toString()}>
-                              <input
-                                id={column.Header?.toString()}
-                                type="checkbox"
-                                {...column.getToggleHiddenProps()}
-                              />{" "}
-                              {column.Header}
-                            </label>
+                        </Dialog.Header>
+                        <Fieldset
+                          legend={intl.formatMessage({
+                            defaultMessage: "Visible columns",
+                            id: "H9rxOR",
+                            description:
+                              "Legend for the column toggle in admin tables.",
+                          })}
+                        >
+                          <div data-h2-margin="base(x.125, 0)">
+                            <IndeterminateCheckbox
+                              {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                                typeof IndeterminateCheckbox
+                              >)}
+                            />
                           </div>
-                        ))}
-                      </Fieldset>
-                    </Dialog.Content>
-                  </Dialog.Root>
-                </div>
+                          {allColumns.map((column) => (
+                            <div
+                              key={column.id}
+                              data-h2-margin="base(x.125, 0)"
+                            >
+                              <label htmlFor={column.Header?.toString()}>
+                                <input
+                                  id={column.Header?.toString()}
+                                  type="checkbox"
+                                  {...column.getToggleHiddenProps()}
+                                />{" "}
+                                {column.Header}
+                              </label>
+                            </div>
+                          ))}
+                        </Fieldset>
+                      </Dialog.Content>
+                    </Dialog.Root>
+                  </div>
+                )}
               </div>
             </div>
             <div data-h2-flex-item="base(1of1) l-tablet(content)">
