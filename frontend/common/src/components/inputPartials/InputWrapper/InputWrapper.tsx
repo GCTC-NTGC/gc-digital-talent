@@ -9,7 +9,7 @@ export interface InputWrapperProps {
   label: string | React.ReactNode;
   labelSize?: string;
   required: boolean;
-  error?: FieldError;
+  error?: FieldError | string;
   errorPosition?: "top" | "bottom";
   context?: string;
   hideOptional?: boolean;

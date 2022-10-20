@@ -15,7 +15,7 @@ export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** Controls whether Required or Optional text appears above the fieldset. */
   required?: boolean;
   /** If an error string is provided, it will appear below the fieldset inputs. */
-  error?: FieldError;
+  error?: FieldError | string;
   /** If a context string is provided, a small button will appear which, when toggled, shows the context string. */
   context?: string | React.ReactNode;
   /** If true, all input elements in this fieldset will be disabled. */
