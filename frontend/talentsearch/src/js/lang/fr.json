@@ -2383,5 +2383,9 @@
   "zqIEuu": {
     "defaultMessage": "Retournez à mes candidatures",
     "description": "Button message on footer of review my application page."
+  },
+  "jRmRd+": {
+    "defaultMessage": "Talent numérique du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
+    "description": "Meta tag description for Talent Search site"
   }
 }
