@@ -34,6 +34,10 @@ const emptyFormValues = {
   profileComplete: [],
   skills: [],
   workRegion: [],
+  equity: [],
+  hasDiploma: [],
+  status: [],
+  priorityWeight: [],
 };
 
 interface ProvidersProps {
@@ -168,7 +172,7 @@ describe("UserTableFilterDialog", () => {
         expect(mockSubmit).toHaveBeenCalledTimes(1);
 
         const activeFilter = mockSubmit.mock.lastCall[0];
-        expect(Object.keys(activeFilter)).toHaveLength(10);
+        expect(Object.keys(activeFilter)).toHaveLength(14);
         // Static filters.
         expect(activeFilter.workRegion).toHaveLength(1);
         expect(activeFilter.employmentDuration).toHaveLength(1);

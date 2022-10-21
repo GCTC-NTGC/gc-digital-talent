@@ -9,7 +9,7 @@ import "./UserTableFilterDialog.css";
 import { useFormContext } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { AdjustmentsVerticalIcon } from "@heroicons/react/24/outline";
-import useFilterOptions from "./useFilterOptions";
+import useFilterOptions from "../apiManagedTable/useFilterOptions";
 import { ButtonIcon } from "../Table/tableComponents";
 
 type Option = { value: string; label: string };

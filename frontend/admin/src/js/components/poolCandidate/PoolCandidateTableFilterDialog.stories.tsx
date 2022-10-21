@@ -9,12 +9,12 @@ import {
   fakeClassifications,
   fakeCmoAssets,
 } from "@common/fakeData";
-import UserTableFilterDialog from "./UserTableFilterDialog";
-import type { FormValues } from "./UserTableFilterDialog";
+import PoolCandidateTableFilterDialog from "./PoolCandidateTableFilterDialog";
+import type { FormValues } from "./PoolCandidateTableFilterDialog";
 
 export default {
-  title: "Users/UserTableFilters",
-  component: UserTableFilterDialog,
+  title: "PoolCandidates/PoolCandidateTableFilterDialog.Button",
+  component: PoolCandidateTableFilterDialog.Button,
   decorators: [OverlayOrDialogDecorator],
   args: {
     isOpenDefault: true,
@@ -31,14 +31,18 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof UserTableFilterDialog>;
+} as ComponentMeta<typeof PoolCandidateTableFilterDialog.Button>;
 
-const Template: ComponentStory<typeof UserTableFilterDialog> = (args) => {
+const Template: ComponentStory<typeof PoolCandidateTableFilterDialog.Button> = (
+  args,
+) => {
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
     action("Update filter")(data);
   };
 
-  return <UserTableFilterDialog {...args} onSubmit={handleSubmit} />;
+  return (
+    <PoolCandidateTableFilterDialog.Button {...args} onSubmit={handleSubmit} />
+  );
 };
 
 export const Default = Template.bind({});
@@ -52,9 +56,4 @@ RandomLatency.parameters = {
     },
   },
   chromatic: { disableSnapshot: true },
-};
-
-export const WithEducationSelect = Template.bind({});
-WithEducationSelect.args = {
-  enableEducationType: true,
 };

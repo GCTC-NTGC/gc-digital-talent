@@ -706,10 +706,6 @@ type PageInfo {
   lastPage: Int!
 }
 
-input PaginatedPoolCandidateFilterInput {
-  pools: [IdInput]
-}
-
 """Information about pagination using a fully featured paginator."""
 type PaginatorInfo {
   """Number of items in the current page."""
@@ -865,14 +861,17 @@ input PoolCandidateFilterBelongsTo {
 }
 
 input PoolCandidateFilterInput {
-  classifications: [ClassificationFilterInput]
   cmoAssets: [KeyFilterInput]
-  hasDiploma: Boolean
   equity: EquitySelectionsInput
+  expectedClassifications: [ClassificationFilterInput]
+  generalSearch: String
+  hasDiploma: Boolean
   languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
-  workRegions: [WorkRegion]
   pools: [IdInput]
+  priorityWeight: [Int]
+  status: [PoolCandidateStatus]
 }
 
 """A paginated list of PoolCandidate items."""
@@ -1010,7 +1009,7 @@ type Query {
     page: Int
   ): UserPaginator
   poolCandidatesPaginated(
-    where: PaginatedPoolCandidateFilterInput
+    where: PoolCandidateFilterInput
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     """Limits number of fetched items. Maximum allowed value: 1000."""
