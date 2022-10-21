@@ -542,6 +542,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
         cacheKey="gov-info-form"
         onSubmit={handleSubmit}
         options={{
+          mode: "onBlur",
           defaultValues: dataToFormValues(initialData),
         }}
       >
