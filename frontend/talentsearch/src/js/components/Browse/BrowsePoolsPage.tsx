@@ -188,8 +188,8 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                         {loggedIn
                           ? intl.formatMessage({
                               defaultMessage:
-                                "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to, you'll be able to submit applications lightning fast when the time comes.",
-                              id: "//WIjo",
+                                "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
+                              id: "Jorewd",
                               description:
                                 "Text describing upcoming opportunities instructing users to update a profile when logged in",
                             })
