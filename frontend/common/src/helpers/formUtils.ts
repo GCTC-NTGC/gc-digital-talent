@@ -4,7 +4,7 @@ import { useFormState } from "react-hook-form";
 import { LocalizedString, Maybe, Scalars } from "../api/generated";
 import { getLocale } from "./localize";
 import { getId, notEmpty } from "./util";
-import { fieldStateStyles, fieldsetStateStyles } from "../styles/formStyles";
+import { fieldStateStyles } from "../styles/formStyles";
 
 /**
  * Filters out empty data from data response.
@@ -197,20 +197,4 @@ export const useFieldStateStyles = (name: string) => {
   const fieldState = useFieldState(name ?? "");
 
   return fieldStateStyles[fieldState] || {};
-};
-
-/**
- * Gets hydrogen styles for a form input
- * based on its current state
- *
- * NOTE: Must be used within a FormProvider
- *
- * @param isDirty
- * @param error
- * @returns Record<string, string>
- */
-export const useFieldsetStateStyles = (name: string) => {
-  const fieldState = useFieldState(name ?? "");
-
-  return fieldsetStateStyles[fieldState] || {};
 };
