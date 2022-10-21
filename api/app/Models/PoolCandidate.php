@@ -92,7 +92,7 @@ class PoolCandidate extends Model
     }
 
 
-    public function scopeClassifications(Builder $query, array $classifications): Builder
+    public function scopeClassifications(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -101,25 +101,26 @@ class PoolCandidate extends Model
 
         // Classifications act as an OR filter. The query should return candidates with any of the classifications.
         // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
-
-        // group these in a subquery to properly handle "OR" condition
+        // mirroring functionality of the classification scope on the User model
         $query->where(function ($query) use ($classifications) {
-            $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
-                foreach ($classifications as $index => $classification) {
-                    if ($index === 0) {
-                        // First iteration must use where instead of orWhere
-                        $query->where(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
-                    } else {
-                        $query->orWhere(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
+            $query->whereHas('user', function ($query) use ($classifications) {
+                $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
+                    foreach ($classifications as $index => $classification) {
+                        if ($index === 0) {
+                            // First iteration must use where instead of orWhere
+                            $query->where(function ($query) use ($classification) {
+                                $query->where('group', $classification['group'])->where('level', $classification['level']);
+                            });
+                        } else {
+                            $query->orWhere(function ($query) use ($classification) {
+                                $query->where('group', $classification['group'])->where('level', $classification['level']);
+                            });
+                        }
                     }
-                }
-            });
-            $query->orWhere(function ($query) use ($classifications) {
-                $this->filterByClassificationToSalary($query, $classifications);
+                });
+                $query->orWhere(function ($query) use ($classifications) {
+                    $this->filterByClassificationToSalary($query, $classifications);
+                });
             });
         });
 
@@ -194,17 +195,6 @@ RAWSQL2;
         return $query->whereRaw('EXISTS (' . $sql . ')', $parameters);
     }
 
-    public function filterByCmoAssets(Builder $query, array $cmoAssets): Builder
-    {
-        // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
-        // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
-        foreach ($cmoAssets as $cmoAsset) {
-            $query->whereHas('cmoAssets', function ($query) use ($cmoAsset) {
-                $query->where('key', $cmoAsset['key']);
-            });
-        }
-        return $query;
-    }
     public function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         // if no filters provided then return query unchanged
@@ -213,32 +203,49 @@ RAWSQL2;
         }
 
         // OperationalRequirements act as an AND filter. The query should only return candidates willing to accept ALL of the requirements.
-        $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
+        $query->whereExists(function ($query) use ($operationalRequirements) {
+            $query->select('id')
+            ->from('users')
+            ->whereColumn('users.id', 'pool_candidates.user_id')
+            ->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
+        });
+
         return $query;
     }
-    public function filterByWorkRegions(Builder $query, array $workRegions): Builder
+    public function filterByLocationPreferences(Builder $query, array $workRegions): Builder
     {
         // WorkRegion acts as an OR filter. The query should return candidates willing to work in ANY of the regions.
-        $query->where(function ($query) use ($workRegions) {
-            foreach ($workRegions as $index => $region) {
-                if ($index === 0) {
-                    // First iteration must use where instead of orWhere
-                    $query->whereJsonContains('location_preferences', $region);
-                } else {
-                    $query->orWhereJsonContains('location_preferences', $region);
+        $query->whereExists(function ($query) use ($workRegions) {
+            $query->select('id')
+            ->from('users')
+            ->whereColumn('users.id', 'pool_candidates.user_id')
+            ->where(function ($query) use ($workRegions) {
+                foreach ($workRegions as $index => $region) {
+                    if ($index === 0) {
+                        // First iteration must use where instead of orWhere
+                        $query->whereJsonContains('location_preferences', $region);
+                    } else {
+                        $query->orWhereJsonContains('location_preferences', $region);
+                    }
                 }
-            }
+            });
         });
         return $query;
     }
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         // If filtering for a specific language the query should return candidates of that language OR bilingual.
-        $query->where(function ($query) use ($languageAbility) {
-            $query->where('language_ability', $languageAbility);
-            if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
-                $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
-            }
+        $query->whereExists(function ($query) use ($languageAbility) {
+            $query->select('id')
+            ->from('users')
+            ->whereColumn('users.id', 'pool_candidates.user_id')
+            ->where(function ($query) use ($languageAbility) {
+                $query->where('language_ability', $languageAbility);
+                if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
+                    $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
+                }
+            });
+
         });
         return $query;
     }
@@ -280,18 +287,43 @@ RAWSQL2;
         };
 
         // then return queries depending on above array count, special query syntax needed for multiple ORs to ensure proper SQL query formed
-        $query->where(function ($query) use ($equityVars) {
-            foreach ($equityVars as $index => $equityInstance) {
-                if ($index === 0) {
-                    // First iteration must use where instead of orWhere, as seen in filterWorkRegions
-                    $query->where($equityVars[$index], true);
-                } else {
-                    $query->orWhere($equityVars[$index], true);
-                }
-            }
+        $query->whereExists(function ($query) use ($equityVars) {
+            $query->select('id')
+                ->from('users')
+                ->whereColumn('users.id', 'pool_candidates.user_id')
+                ->where(function ($query) use ($equityVars) {
+                    foreach ($equityVars as $index => $equityInstance) {
+                        if ($index === 0) {
+                            // First iteration must use where instead of orWhere, as seen in filterWorkRegions
+                            $query->where($equityVars[$index], true);
+                        } else {
+                            $query->orWhere($equityVars[$index], true);
+                        }
+                    }
+                });
         });
         return $query;
     }
+
+    public function filterByGeneralSearch(Builder $query, ?string $search): Builder
+    {
+        // used App\\Models\\User@filterByPools as reference
+        if ($search) {
+            $query->whereExists(function ($query) use ($search) {
+                $query->select('id')
+                    ->from('users')
+                    ->whereColumn('users.id', 'pool_candidates.user_id')
+                    ->where(function ($query) use ($search) {
+                        $query->where('users.first_name', "ilike", "%{$search}%")
+                            ->orWhere('users.last_name', "ilike", "%{$search}%")
+                            ->orWhere('users.email', "ilike", "%{$search}%");
+                    });
+            });
+        }
+
+        return $query;
+    }
+
 
     public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
     {
@@ -311,7 +343,14 @@ RAWSQL2;
     public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder
     {
         if ($hasDiploma) {
-            $query->where('has_diploma', true);
+            $query->whereExists(function ($query) {
+                $query->select('id')
+                    ->from('users')
+                    ->whereColumn('users.id', 'pool_candidates.user_id')
+                    ->where(function ($query) {
+                        $query->where('has_diploma', true);
+                    });
+                });
         }
         return $query;
     }
@@ -385,5 +424,39 @@ RAWSQL2;
 
         $this->profile_snapshot = $profile;
         $this->save();
+    }
+
+    public function scopePriorityWeight(Builder $query, ?array $priorityWeights): Builder
+    {
+
+        $query->whereExists(function ($query) use ($priorityWeights) {
+            $query->select('id')
+                ->from('users')
+                ->whereColumn('users.id', 'pool_candidates.user_id')
+                ->where(function ($query) use ($priorityWeights) {
+                    foreach ($priorityWeights as $index => $priorityWeight) {
+                        if ($index === 0) {
+                            // First iteration must use where instead of orWhere, as seen in filterWorkRegions
+                            $query->where("priority_weight", $priorityWeight);
+                        } else {
+                            $query->orWhere("priority_weight", $priorityWeight);
+                        }
+                    }
+                });
+        });
+        return $query;
+    }
+
+    // TODO: Deprecate CMO Assets filter after FEATURE_APPLICANTSEARCH flag is turned on.
+    public function filterByCmoAssets(Builder $query, array $cmoAssets): Builder
+    {
+        // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
+        // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
+        foreach ($cmoAssets as $cmoAsset) {
+            $query->whereHas('cmoAssets', function ($query) use ($cmoAsset) {
+                $query->where('key', $cmoAsset['key']);
+            });
+        }
+        return $query;
     }
 }
