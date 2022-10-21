@@ -776,6 +776,16 @@ input ApplicantFilterInput {
     @builder(method: "App\\Models\\User@filterByAvailableInPools") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
 }
 
+type CountApplicantsResultsSinglePool {
+  poolId: ID
+  poolTotal: Int
+}
+
+type CountApplicantsResults {
+  total: Int
+  byPool: [CountApplicantsResultsSinglePool]
+}
+
 type Query {
   me: User @auth
   user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
@@ -797,8 +807,9 @@ type Query {
     @guard
     @can(ability: "viewAnyApplicants", model: "User")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
-  countApplicants(where: ApplicantFilterInput): Int!
-    @count(model: "User", scopes: ["availableForOpportunities"])
+  countApplicants(where: ApplicantFilterInput): CountApplicantsResults!
+  # countApplicants(where: ApplicantFilterInput): Int!
+  #   @count(model: "User", scopes: ["availableForOpportunities"])
   pool(id: ID! @eq): Pool @find
   poolAdvertisement(id: ID! @eq): PoolAdvertisement @find(model: "Pool")
   poolAdvertisements: [PoolAdvertisement]! @all(model: "Pool")

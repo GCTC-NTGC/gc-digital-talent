@@ -228,6 +228,16 @@ input ConnectOrCreateBelongsTo {
   create: CreateUserInput
 }
 
+type CountApplicantsResults {
+  total: Int
+  byPool: [CountApplicantsResultsSinglePool]
+}
+
+type CountApplicantsResultsSinglePool {
+  poolId: ID
+  poolTotal: Int
+}
+
 input CreateApplicantFilterInput {
   hasDiploma: Boolean
   equity: EquitySelectionsInput
@@ -969,7 +979,7 @@ type Query {
   users: [User]!
   applicant(id: ID!): Applicant
   applicants(includeIds: [ID]!): [Applicant]!
-  countApplicants(where: ApplicantFilterInput): Int!
+  countApplicants(where: ApplicantFilterInput): CountApplicantsResults!
   pool(id: ID!): Pool
   poolAdvertisement(id: ID!): PoolAdvertisement
   poolAdvertisements: [PoolAdvertisement]!
