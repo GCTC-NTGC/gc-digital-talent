@@ -1,7 +1,7 @@
 import React from "react";
 import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import { useIntl } from "react-intl";
-import LineBreaks from "@common/components/LineBreaks/LineBreaks";
+import LineBreaks from "../../../LineBreaks/LineBreaks";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
 import {

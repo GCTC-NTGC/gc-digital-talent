@@ -1,7 +1,7 @@
 import React from "react";
 import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
 import { useIntl } from "react-intl";
-import LineBreaks from "@common/components/LineBreaks/LineBreaks";
+import LineBreaks from "../../../LineBreaks/LineBreaks";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
 import { EducationExperience } from "../../../../api/generated";

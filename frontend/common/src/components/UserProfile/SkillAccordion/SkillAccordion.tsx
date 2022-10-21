@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as React from "react";
 import { useIntl } from "react-intl";
-import LineBreaks from "@common/components/LineBreaks/LineBreaks";
+import LineBreaks from "../../LineBreaks/LineBreaks";
 import { getLocale } from "../../../helpers/localize";
 import Accordion from "../../accordion";
 import {
