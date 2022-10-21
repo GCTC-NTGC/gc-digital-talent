@@ -1,5 +1,5 @@
 import type { IntlShape } from "react-intl";
-import { add, format, formatDistance, parseISO } from "date-fns";
+import { add, format, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import { formatInTimeZone, toDate } from "date-fns-tz";
 import { Maybe, Scalars } from "../api/generated";
@@ -111,12 +111,8 @@ export const relativeExpiryDate = ({
   const time = myFormatFunc(expiryDate, `pp`, {
     locale,
   });
-  const day = myFormatFunc(expiryDate, `EEEE, d MMMM yyyy`, {
+  const dateTime = myFormatFunc(expiryDate, `PPP p`, {
     locale,
-  });
-  const days = formatDistance(expiryDate, now, {
-    locale,
-    addSuffix: false,
   });
 
   if (now > expiryDate) {
@@ -157,7 +153,7 @@ export const relativeExpiryDate = ({
     );
   }
 
-  return `${day} (${days})`;
+  return dateTime;
 };
 export const FAR_FUTURE_DATE = "2999-12-31";
 export const FAR_PAST_DATE = "2000-01-01";
