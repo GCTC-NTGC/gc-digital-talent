@@ -253,6 +253,13 @@ export const GovernmentInfoForm: React.FunctionComponent<
       };
     });
 
+  const isGovEmployee = govEmployee === "yes";
+  const isPlaced =
+    isGovEmployee &&
+    (govEmployeeStatus === GovEmployeeType.Term ||
+      govEmployeeStatus === GovEmployeeType.Indeterminate ||
+      govEmployeeStatus === GovEmployeeType.Casual);
+
   // render the actual form
   return (
     <div>
@@ -288,7 +295,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
           ]}
         />
       </div>
-      {govEmployee === "yes" && (
+      {isGovEmployee && (
         <>
           <div data-h2-padding="base(x1, 0)">
             <Select
@@ -326,10 +333,8 @@ export const GovernmentInfoForm: React.FunctionComponent<
           </div>
         </>
       )}
-      {govEmployee === "yes" &&
-        (govEmployeeStatus === GovEmployeeType.Term ||
-          govEmployeeStatus === GovEmployeeType.Indeterminate ||
-          govEmployeeStatus === GovEmployeeType.Casual) && (
+      {isPlaced && (
+        <>
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -339,15 +344,10 @@ export const GovernmentInfoForm: React.FunctionComponent<
                 "Text blurb, asking about classification and level in the government info form",
             })}
           </p>
-        )}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-      >
-        {govEmployee === "yes" &&
-          (govEmployeeStatus === GovEmployeeType.Term ||
-            govEmployeeStatus === GovEmployeeType.Indeterminate ||
-            govEmployeeStatus === GovEmployeeType.Casual) && (
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column) p-tablet(row)"
+          >
             <div
               data-h2-padding="p-tablet(0, x2, 0, 0)"
               data-h2-width="base(100%)"
@@ -367,30 +367,27 @@ export const GovernmentInfoForm: React.FunctionComponent<
                 options={groupOptions}
               />
             </div>
-          )}
-        {govEmployee === "yes" &&
-          (govEmployeeStatus === GovEmployeeType.Term ||
-            govEmployeeStatus === GovEmployeeType.Indeterminate ||
-            govEmployeeStatus === GovEmployeeType.Casual) &&
-          groupSelection !== "Choose Department" && (
-            <div style={{ width: "100%" }}>
-              <Select
-                id="currentClassificationLevel"
-                label={labels.currentClassificationLevel}
-                name="currentClassificationLevel"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Choose Level",
-                  id: "e/ez/m",
-                  description: "Null selection for form.",
-                })}
-                options={levelOptions}
-              />
-            </div>
-          )}
-      </div>
+            {groupSelection !== "Choose Department" && (
+              <div style={{ width: "100%" }}>
+                <Select
+                  id="currentClassificationLevel"
+                  label={labels.currentClassificationLevel}
+                  name="currentClassificationLevel"
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  nullSelection={intl.formatMessage({
+                    defaultMessage: "Choose Level",
+                    id: "e/ez/m",
+                    description: "Null selection for form.",
+                  })}
+                  options={levelOptions}
+                />
+              </div>
+            )}
+          </div>
+        </>
+      )}
       <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of6) desktop(1of12)">
         <p data-h2-padding="base(x1, 0)">
           {intl.formatMessage({
