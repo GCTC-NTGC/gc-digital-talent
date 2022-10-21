@@ -15,12 +15,20 @@ import UnsavedChanges from "./UnsavedChanges";
 
 export type FieldLabels = Record<string, React.ReactNode>;
 
+/**
+ * Basic Form Props
+ *
+ * @typeParam TFieldValues - The form values being registered
+ * @param onSubmit - Callback ran when form is submitted
+ * @param options<TFieldValues, unknown> - Options forwarded to react-hook-form
+ * @param cacheKey - If included, will cache form values in local storage and retrieve from there if possible.
+ * @param labels - Used to map field names to human readable labels (errors, unsaved changes)
+ */
 export type BasicFormProps<TFieldValues extends FieldValues> =
   PropsWithChildren<{
     onSubmit: SubmitHandler<TFieldValues>;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    options?: UseFormProps<TFieldValues, any>; // FieldValues deals in "any"
-    cacheKey?: string; // If included, will cache form values in local storage and retrieve from there if possible.
+    options?: UseFormProps<TFieldValues, unknown>; // FieldValues deals in "any"
+    cacheKey?: string;
     labels?: FieldLabels;
   }>;
 
@@ -49,6 +57,10 @@ export function BasicForm<TFieldValues extends FieldValues>({
       ) as TFieldValues;
 
       if (cachedValues) {
+        /**
+         * Iterates through all cached values touching and dirtying the fields
+         * so we can display any errors and unsaved changes
+         */
         Object.keys(cachedValues).forEach((field) => {
           // Hack: Type our field name
           const typedFieldName = field as Path<TFieldValues>;
@@ -59,7 +71,7 @@ export function BasicForm<TFieldValues extends FieldValues>({
           if (value) {
             if (!defaultValue || value !== defaultValue) {
               methods.setValue(typedFieldName, value, {
-                shouldDirty: true,
+                shouldDirty: true, // Need to dirty it for error/unsaved change tracking
                 shouldTouch: true,
               });
             }

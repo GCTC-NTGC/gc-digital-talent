@@ -9,7 +9,7 @@
   "temp": ["../*/src/views/*.html"],
   "input": [
     "common/src/components",
-    "common/src/helpers",
+    "common/src/styles",
     "admin/src/js/components",
     "talentsearch/src/js/components",
     "indigenousapprenticeship/src/js/components"
