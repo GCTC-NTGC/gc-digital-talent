@@ -112,7 +112,16 @@
         {
           "key": "tm-blue",
           "color": "#27C9BC",
-          "modifiers": []
+          "modifiers": [
+            {
+              "key": "light",
+              "color": "#D8F7F5"
+            },
+            {
+              "key": "dark",
+              "color": "#215D62"
+            }
+          ]
         },
         {
           "key": "tm-red",

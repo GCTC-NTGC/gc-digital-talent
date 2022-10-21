@@ -30,7 +30,7 @@ export const typeMap: Record<Color, Record<string, string>> = {
   },
   info: {
     "data-h2-border": "base(all, 0.25rem, solid, dark.tm-blue)",
-    "data-h2-background-color": "base(light.tm-blue.1)",
+    "data-h2-background-color": "base(light.tm-blue)",
     "data-h2-color": "base(black)",
   },
 };

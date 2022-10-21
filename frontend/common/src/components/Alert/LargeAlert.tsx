@@ -5,12 +5,15 @@ import { typeMap } from "./Alert";
 const iconStyleMap: Record<Color, Record<string, string>> = {
   success: {
     "data-h2-background-color": "base(dt-success)",
+    "data-h2-color": "base(black)",
   },
   warning: {
     "data-h2-background-color": "base(tm-yellow)",
+    "data-h2-color": "base(black)",
   },
   info: {
     "data-h2-background-color": "base(tm-blue)",
+    "data-h2-color": "base(black)",
   },
 };
 
