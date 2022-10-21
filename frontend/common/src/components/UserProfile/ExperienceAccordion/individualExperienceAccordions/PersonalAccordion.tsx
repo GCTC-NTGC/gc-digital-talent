@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
+import LineBreaks from "@common/components/LineBreaks/LineBreaks";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
 import { getLocale } from "../../../../helpers/localize";
@@ -40,13 +41,17 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
               </p>
             )}
             {skill.description && skill.description[locale] && (
-              <p data-h2-margin="base(0, 0, x.25, 0)">
-                {skill.description[locale]}
-              </p>
+              <LineBreaks>
+                <p data-h2-margin="base(0, 0, x.25, 0)">
+                  {skill.description[locale]}
+                </p>
+              </LineBreaks>
             )}
             {skill.experienceSkillRecord &&
               skill.experienceSkillRecord.details && (
-                <p>{skill.experienceSkillRecord.details}</p>
+                <LineBreaks>
+                  <p>{skill.experienceSkillRecord.details}</p>
+                </LineBreaks>
               )}
           </li>
         </ul>

@@ -1,6 +1,7 @@
 import React from "react";
 import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import { useIntl } from "react-intl";
+import LineBreaks from "@common/components/LineBreaks/LineBreaks";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
 import {
@@ -46,13 +47,17 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
               </p>
             )}
             {skill.description && skill.description[locale] && (
-              <p data-h2-margin="base(0, 0, x.25, 0)">
-                {skill.description[locale]}
-              </p>
+              <LineBreaks>
+                <p data-h2-margin="base(0, 0, x.25, 0)">
+                  {skill.description[locale]}
+                </p>
+              </LineBreaks>
             )}
             {skill.experienceSkillRecord &&
               skill.experienceSkillRecord.details && (
-                <p>{skill.experienceSkillRecord.details}</p>
+                <LineBreaks>
+                  <p>{skill.experienceSkillRecord.details}</p>
+                </LineBreaks>
               )}
           </li>
         </ul>
