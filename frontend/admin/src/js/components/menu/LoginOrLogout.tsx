@@ -36,6 +36,7 @@ const LoginOrLogout = () => {
     <SideMenuItem
       icon={ArrowRightOnRectangleIcon}
       href={apiRoutes.login(location.pathname, getLocale(intl))}
+      external
     >
       {intl.formatMessage({
         defaultMessage: "Login",

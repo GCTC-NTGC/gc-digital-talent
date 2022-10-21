@@ -50,12 +50,14 @@ export interface SideMenuItemProps extends SideMenuItemChildProps {
   as?: "a" | "button";
   isActive?: boolean;
   href?: string;
+  external?: boolean;
   onClick?: MouseEventHandler<HTMLAnchorElement> &
     MouseEventHandler<HTMLButtonElement>;
 }
 
 const SideMenuItem = ({
   as = "a",
+  external = false,
   icon,
   children,
   isActive,
@@ -73,6 +75,7 @@ const SideMenuItem = ({
       className={`side-menu__item${isActive ? ` side-menu__item--active` : ``}`}
       {...commonStyles}
       onClick={(e) => {
+        if (external) return;
         if (as === "a" && !onClick) {
           clickHandler(e as React.MouseEvent<HTMLAnchorElement>);
         } else if (onClick) {
