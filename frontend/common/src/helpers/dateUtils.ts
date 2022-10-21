@@ -1,5 +1,5 @@
 import type { IntlShape } from "react-intl";
-import { format, formatDistance, parseISO } from "date-fns";
+import { add, format, formatDistance, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import { formatInTimeZone, toDate } from "date-fns-tz";
 import { Maybe, Scalars } from "../api/generated";
@@ -10,14 +10,6 @@ import { getLocale, Locales } from "./localize";
 export const DATE_FORMAT_STRING = "yyyy-MM-dd";
 // DateTime scalar formatting string
 export const DATETIME_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";
-
-// https://stackoverflow.com/a/563442/18246559
-const addDays = (startDate: Date, days: number) => {
-  // not really const since setDate changes the value in place
-  const date = new Date(startDate.valueOf());
-  date.setDate(date.getDate() + days);
-  return date;
-};
 
 export function formattedDate(date: Scalars["Date"], locale: Locales) {
   const formatter = new Intl.DateTimeFormat(locale, {
@@ -152,7 +144,7 @@ export const relativeExpiryDate = ({
   }
 
   if (
-    myFormatFunc(addDays(now, 1), DATE_FORMAT_STRING) ===
+    myFormatFunc(add(now, { days: 1 }), DATE_FORMAT_STRING) ===
     myFormatFunc(expiryDate, DATE_FORMAT_STRING)
   ) {
     return intl.formatMessage(
