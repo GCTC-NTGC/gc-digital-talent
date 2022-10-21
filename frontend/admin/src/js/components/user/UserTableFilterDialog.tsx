@@ -258,6 +258,7 @@ export type UserTableFiltersProps = Pick<
 > & {
   isOpenDefault?: boolean;
 };
+
 const UserTableFilters = ({
   onSubmit,
   isOpenDefault = false,

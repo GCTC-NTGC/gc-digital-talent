@@ -28,7 +28,7 @@ export interface TableHeaderProps<T extends Record<string, unknown>> {
   title?: string;
   onColumnHiddenChange?: (e: ColumnHiddenEvent<T>) => void;
   hiddenColumnIds: Array<IdType<T>>;
-  filterButtonComponent: React.ReactNode;
+  filterComponent: React.ReactNode;
 }
 
 function TableHeader<T extends Record<string, unknown>>({
@@ -40,7 +40,7 @@ function TableHeader<T extends Record<string, unknown>>({
   title,
   onColumnHiddenChange,
   hiddenColumnIds,
-  filterButtonComponent,
+  filterComponent,
 }: TableHeaderProps<T>): ReactElement {
   const intl = useIntl();
 
@@ -56,9 +56,7 @@ function TableHeader<T extends Record<string, unknown>>({
                 <div data-h2-flex-item="base(content)">
                   <SearchForm onChange={onSearchChange} searchBy={searchBy} />
                 </div>
-                <div data-h2-flex-item="base(content)">
-                  {filterButtonComponent}
-                </div>
+                <div data-h2-flex-item="base(content)">{filterComponent}</div>
                 <div data-h2-flex-item="base(content)">
                   <div data-h2-position="base(relative)">
                     <Dialog.Root>

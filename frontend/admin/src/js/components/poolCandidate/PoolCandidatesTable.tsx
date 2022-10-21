@@ -534,8 +534,8 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       </h2>
       <TableHeader
         columns={columns}
-        filterButtonComponent={
-          <PoolCandidateTableFilterDialog.Button
+        filterComponent={
+          <PoolCandidateTableFilterDialog
             onSubmit={handlePoolCandidateFilterSubmit}
           />
         }
