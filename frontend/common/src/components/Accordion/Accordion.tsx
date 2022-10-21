@@ -56,7 +56,7 @@ const StyledTrigger = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >((props, forwardedRef) => (
   <AccordionPrimitive.Trigger
-    classNameName="Accordion__Trigger"
+    className="Accordion__Trigger"
     data-h2-align-items="base(center)"
     data-h2-background-color="base(dt-white)"
     data-h2-cursor="base(pointer)"
