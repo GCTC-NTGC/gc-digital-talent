@@ -1,5 +1,6 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
+import Accordion from "../../Accordion";
 import { fakeSkills } from "../../../fakeData";
 import { generators as experienceGenerator } from "../../../fakeData/fakeExperiences";
 import SkillAccordion, { SkillAccordionProps } from "./SkillAccordion";
@@ -14,7 +15,11 @@ export default {
 } as Meta;
 
 const TemplateSkillAccordion: Story<SkillAccordionProps> = (args) => {
-  return <SkillAccordion {...args} />;
+  return (
+    <Accordion.Root type="single">
+      <SkillAccordion {...args} />
+    </Accordion.Root>
+  );
 };
 
 export const AccordionAwardExample = TemplateSkillAccordion.bind({});

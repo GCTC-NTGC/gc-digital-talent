@@ -85,7 +85,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     <Accordion.Item value="none">
       <Accordion.Trigger>
         {intl.formatMessage({
-          defaultMessage: "Unknown Experience",
+          default Message: "Unknown Experience",
           id: "U/Lv8i",
           description: "Title for unknown experiences",
         })}
