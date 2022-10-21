@@ -428,8 +428,8 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                     hideOptional
                     value={closingStringPacific}
                     label={intl.formatMessage({
-                      defaultMessage: "Closing date (Pacific)",
-                      id: "KMnpyk",
+                      defaultMessage: "Closing date (Pacific time zone)",
+                      id: "j6V32h",
                       description:
                         "Label for a pool advertisements expiry date in the Pacific time zone",
                     })}

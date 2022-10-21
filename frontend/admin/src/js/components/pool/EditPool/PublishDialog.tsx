@@ -131,8 +131,8 @@ const PublishDialog = ({
         <InputWrapper
           inputId="closingDatePacific"
           label={intl.formatMessage({
-            defaultMessage: "Closing Date (Pacific)",
-            id: "84j3HB",
+            defaultMessage: "Closing Date (Pacific time zone)",
+            id: "hGlM9B",
             description:
               "Closing Date field label for publish pool dialog in the Pacific time zone",
           })}
