@@ -80,6 +80,16 @@ export const Router: React.FC = () => {
       />
       <Helmet>
         <html lang={locale} />
+        <meta
+          name="description"
+          content={intl.formatMessage({
+            defaultMessage:
+              "Apply now to get started on your IT career journey.",
+            id: "Oh1/Gc",
+            description:
+              "Meta tag description for Indigenous Apprenticeship Program site",
+          })}
+        />
       </Helmet>
       <Toast />
     </ClientProvider>
