@@ -253,6 +253,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              trackUnsaved={false}
             />
           </FilterBlock>
           <FilterBlock
@@ -303,6 +304,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   }),
                 },
               ]}
+              trackUnsaved={false}
             />
           </FilterBlock>
           <FilterBlock
@@ -335,6 +337,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 value,
                 label: intl.formatMessage(getOperationalRequirement(value)),
               }))}
+              trackUnsaved={false}
             />
           </FilterBlock>
           <FilterBlock
@@ -417,6 +420,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   label: intl.formatMessage(getLanguageAbility(value)),
                 })),
               ]}
+              trackUnsaved={false}
             />
           </FilterBlock>
           <FilterBlock
@@ -464,6 +468,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   ),
                 },
               ]}
+              trackUnsaved={false}
             />
           </FilterBlock>
           <FilterBlock
@@ -521,6 +526,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   ),
                 },
               ]}
+              trackUnsaved={false}
             />
           </FilterBlock>
           <AddSkillsToFilter allSkills={skills ?? []} />

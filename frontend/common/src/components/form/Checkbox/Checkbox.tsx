@@ -23,6 +23,8 @@ export interface CheckboxProps
   boundingBox?: boolean;
   /** Label for the bounding box. */
   boundingBoxLabel?: React.ReactNode;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
@@ -33,13 +35,14 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   context,
   boundingBox = false,
   boundingBoxLabel = label,
+  trackUnsaved = true,
   ...rest
 }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
-  const stateStyles = useFieldStateStyles(name);
+  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
 
@@ -56,6 +59,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           required={!!rules.required}
           context={context}
           error={error}
+          trackUnsaved={trackUnsaved}
           data-h2-flex-direction="base(row)"
           data-h2-align-items="base(center)"
         >
@@ -77,6 +81,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           required={!!rules.required}
           context={context}
           error={error}
+          trackUnsaved={trackUnsaved}
           fillLabel
         >
           <div

@@ -31,6 +31,8 @@ export interface RadioGroupProps extends React.HTMLProps<HTMLFieldSetElement> {
   columns?: number;
   /** If true, the legend will be hidden */
   hideLegend?: boolean;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 /**
@@ -49,6 +51,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   defaultSelected,
   columns = 1,
   hideLegend,
+  trackUnsaved = true,
   ...rest
 }) => {
   const {
@@ -74,6 +77,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
       disabled={disabled}
       hideOptional={hideOptional}
       hideLegend={hideLegend}
+      trackUnsaved={trackUnsaved}
       {...rest}
     >
       <div data-h2-flex-grid="base(flex-start, x1, 0)">
@@ -87,6 +91,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
                 labelSize="copy"
                 // Don't show Required tag, error or context on individual input, as its handled by Fieldset.
                 required={false}
+                trackUnsaved={trackUnsaved}
                 hideOptional
                 data-h2-flex-direction="base(row)"
                 data-h2-margin="base(x.25, 0, 0, 0)"

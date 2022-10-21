@@ -16,6 +16,7 @@ export interface InputLabelProps {
   hideOptional?: boolean;
   hideBottomMargin?: boolean;
   fillLabel?: boolean;
+  trackUnsaved?: boolean;
 }
 
 const InputLabel: React.FC<InputLabelProps> = ({
@@ -23,6 +24,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
   label,
   labelSize,
   fillLabel = false,
+  trackUnsaved = true,
   required,
   contextToggleHandler = () => {
     /* returns nothing */
@@ -37,7 +39,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
     setContextIsActive((currentState) => !currentState);
   };
   const intl = useIntl();
-  const fieldState = useFieldState(inputId);
+  const fieldState = useFieldState(inputId, !trackUnsaved);
   const appendLabel =
     required || !hideOptional || contextIsVisible || fieldState !== "unset";
 
@@ -94,7 +96,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
               </span>
             )
           }
-          {fieldState === "dirty" && (
+          {fieldState === "dirty" && trackUnsaved && (
             <span
               data-h2-font-size="base(caption)"
               data-h2-display="base(inline-block)"

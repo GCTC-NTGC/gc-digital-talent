@@ -171,12 +171,15 @@ export type FieldState = "unset" | "invalid" | "dirty";
  * @param string name The inputs name
  * @returns FieldState
  */
-export const useFieldState = (name: string): FieldState => {
+export const useFieldState = (
+  name: string,
+  ignoreUnsaved = false,
+): FieldState => {
   const { errors, dirtyFields } = useFormState();
   const isDirty = get(dirtyFields, name, false);
   const isInvalid = get(errors, name, false);
 
-  if (isDirty) {
+  if (isDirty && !ignoreUnsaved) {
     return "dirty";
   }
 
@@ -189,12 +192,15 @@ export const useFieldState = (name: string): FieldState => {
  *
  * NOTE: Must be used within a FormProvider
  *
- * @param isDirty
- * @param error
+ * @param name  string    Name of the input
+ * @param ignoreUnsaved   boolean   IF you should ignore state and always render default
  * @returns Record<string, string>
  */
-export const useFieldStateStyles = (name: string) => {
-  const fieldState = useFieldState(name ?? "");
+export const useFieldStateStyles = (name: string, ignoreUnsaved = false) => {
+  let fieldState = useFieldState(name ?? "");
+  if (ignoreUnsaved && fieldState === "dirty") {
+    fieldState = "unset";
+  }
 
   return fieldStateStyles[fieldState] || {};
 };

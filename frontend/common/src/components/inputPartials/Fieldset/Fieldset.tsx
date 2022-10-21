@@ -24,6 +24,8 @@ export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   hideOptional?: boolean;
   /** If true, the legend will be hidden */
   hideLegend?: boolean;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 const Fieldset: React.FC<FieldsetProps> = ({
@@ -36,12 +38,13 @@ const Fieldset: React.FC<FieldsetProps> = ({
   hideOptional,
   hideLegend,
   children,
+  trackUnsaved = true,
   ...rest
 }) => {
   const [contextIsActive, setContextIsActive] = useState(false);
   const intl = useIntl();
   const fieldState = useFieldState(name ?? "");
-  const stateStyles = useFieldStateStyles(name ?? "");
+  const stateStyles = useFieldStateStyles(name ?? "", !trackUnsaved);
   return (
     <fieldset
       name={name}
@@ -92,7 +95,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
               </span>
             )
           }
-          {fieldState === "dirty" && (
+          {fieldState === "dirty" && trackUnsaved && (
             <span
               data-h2-font-size="base(caption)"
               data-h2-margin="base(0, 0, 0, x.125)"

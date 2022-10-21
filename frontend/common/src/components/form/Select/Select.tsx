@@ -26,6 +26,8 @@ export interface SelectProps
   context?: string;
   /** Null selection string provides a null value with instructions to user (eg. Select a department...) */
   nullSelection?: string;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 const Select: React.FunctionComponent<SelectProps> = ({
@@ -36,13 +38,14 @@ const Select: React.FunctionComponent<SelectProps> = ({
   rules,
   context,
   nullSelection,
+  trackUnsaved = true,
   ...rest
 }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
-  const stateStyles = useFieldStateStyles(name);
+  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
 
   const error = get(errors, name)?.message as FieldError;
   return (
@@ -53,6 +56,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
         required={!!rules?.required}
         context={context}
         error={error}
+        trackUnsaved={trackUnsaved}
       >
         <select
           data-h2-padding="base(x.25, x.5)"

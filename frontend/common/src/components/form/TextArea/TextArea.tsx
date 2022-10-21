@@ -18,6 +18,8 @@ export interface TextAreaProps
   rules?: RegisterOptions;
   // Whether to trim leading/ending whitespace upon blurring of an input, default on
   whitespaceTrim?: boolean;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 const TextArea: React.FunctionComponent<TextAreaProps> = ({
@@ -27,6 +29,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   name,
   rules = {},
   children,
+  trackUnsaved = true,
   whitespaceTrim = true,
   ...rest
 }) => {
@@ -35,7 +38,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
     formState: { errors },
     setValue,
   } = useFormContext();
-  const stateStyles = useFieldStateStyles(name);
+  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
 
@@ -54,6 +57,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
         required={!!rules.required}
         context={context}
         error={error}
+        trackUnsaved={trackUnsaved}
       >
         <textarea
           data-h2-padding="base(x.25, x.5)"

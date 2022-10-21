@@ -28,6 +28,8 @@ export interface ChecklistProps {
   disabled?: boolean;
   /** If true, and this input is not required, 'Optional' will not be shown above the fieldset. */
   hideOptional?: boolean;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 /**
@@ -43,6 +45,7 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
   context,
   disabled,
   hideOptional,
+  trackUnsaved = true,
 }) => {
   const {
     register,
@@ -61,6 +64,7 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
       context={context}
       disabled={disabled}
       hideOptional={hideOptional}
+      trackUnsaved={trackUnsaved}
     >
       {items.map(({ value, label }) => {
         const id = `${idPrefix}-${value}`;
