@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use App\Models\PoolCandidate;
+use App\Models\User;
 
 class MigratingPoolCandidateData extends Migration
 {
@@ -31,13 +32,13 @@ class MigratingPoolCandidateData extends Migration
         // insert data into cmo_users and classifications_user using PoolCandidate and User models with query builder
         $allPoolCandidates = PoolCandidate::all();
         foreach($allPoolCandidates as $candidate){
-            $user = $candidate->user()->getChild();
+            $userId = $candidate->user_id;
 
             // build arrays of Assets and Classifications existing on PoolCandidate model and attached User
             $classificationsCandidate = $candidate->expectedClassifications()->pluck('classifications.id')->toArray();
             $assetsCandidate = $candidate->cmoAssets()->pluck('cmo_assets.id')->toArray();
-            $classificationsUser = $user->expectedClassifications()->pluck('classifications.id')->toArray();
-            $assetsUser = $user->cmoAssets()->pluck('cmo_assets.id')->toArray();
+            $classificationsUser = User::where('id', $userId)->first()->expectedClassifications()->pluck('classifications.id')->toArray();
+            $assetsUser = User::where('id', $userId)->first()->cmoAssets()->pluck('cmo_assets.id')->toArray();
 
             // merge into a combined Assets array as well as Classifications array, then remove duplicates
             $combinedClassifications = array_merge($classificationsCandidate, $classificationsUser);
@@ -46,8 +47,8 @@ class MigratingPoolCandidateData extends Migration
             $combinedAssetsDedupe = array_unique($combinedAssets);
 
             // sync the User with the de-duped arrays
-            $user->expectedClassifications()->sync($combinedClassificationsDedupe);
-            $user->cmoAssets()->sync($combinedAssetsDedupe);
+            User::where('id', $userId)->first()->expectedClassifications()->sync($combinedClassificationsDedupe);
+            User::where('id', $userId)->first()->cmoAssets()->sync($combinedAssetsDedupe);
         }
     }
 
