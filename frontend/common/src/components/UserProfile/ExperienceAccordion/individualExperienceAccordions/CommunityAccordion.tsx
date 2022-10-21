@@ -128,16 +128,20 @@ const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
         data-h2-border="base(none)"
         data-h2-margin="base(x1, 0)"
       />
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Additional information: {details}",
-            id: "OvJwG6",
-            description: "Additional information if provided",
-          },
-          { details },
-        )}
+      <p
+        data-h2-color="base(dt-primary)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x1, 0, x.25, 0)"
+      >
+        {intl.formatMessage({
+          defaultMessage: "Additional information:",
+          id: "gLioY2",
+          description: "Additional information if provided",
+        })}
       </p>
+      <LineBreaks>
+        <p>{details}</p>
+      </LineBreaks>
       {editUrl && (
         <div>
           <hr
