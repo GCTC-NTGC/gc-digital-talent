@@ -67,6 +67,9 @@ export const YourImpactSection = ({
         fr: formValues.yourImpactFr,
       },
     });
+    methods.reset(formValues, {
+      keepDirty: false,
+    });
   };
 
   // disabled unless status is draft

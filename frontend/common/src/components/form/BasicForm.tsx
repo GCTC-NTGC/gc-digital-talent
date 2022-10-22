@@ -1,4 +1,5 @@
 import React, { PropsWithChildren, ReactElement } from "react";
+import { DevTool } from "@hookform/devtools";
 import {
   FieldValues,
   FormProvider,
@@ -7,8 +8,11 @@ import {
   useForm,
   UseFormProps,
 } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useIntl } from "react-intl";
 import {
   getFromSessionStorage,
+  removeFromSessionStorage,
   setInSessionStorage,
 } from "../../helpers/storageUtils";
 import UnsavedChanges from "./UnsavedChanges";
@@ -39,6 +43,7 @@ export function BasicForm<TFieldValues extends FieldValues>({
   cacheKey,
   labels,
 }: BasicFormProps<TFieldValues>): ReactElement {
+  const intl = useIntl();
   const methods = useForm({
     mode: "onChange",
     ...options,
@@ -48,6 +53,24 @@ export function BasicForm<TFieldValues extends FieldValues>({
     // Whenever form values change, update cache.
     methods.watch((values: unknown) => setInSessionStorage(cacheKey, values));
   }
+
+  const {
+    reset,
+    formState: { isDirty },
+  } = methods;
+
+  const handleSubmit = (data: TFieldValues) => {
+    // Reset form to clear dirty values
+    reset(data, {
+      keepDirty: false,
+    });
+    if (cacheKey) {
+      // Clear the cache as well (no longer needed)
+      removeFromSessionStorage(cacheKey);
+    }
+    // Fire the submit we passed in
+    onSubmit(data);
+  };
 
   React.useEffect(() => {
     if (cacheKey) {
@@ -83,8 +106,12 @@ export function BasicForm<TFieldValues extends FieldValues>({
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        {cacheKey && <UnsavedChanges labels={labels} />}
+      <form onSubmit={methods.handleSubmit(handleSubmit)}>
+        {cacheKey && isDirty && <UnsavedChanges labels={labels} />}
+        {/**
+         * DEBUG: This is used to debug react-hook-form
+         */}
+        {/* <DevTool control={methods.control} /> */}
         {children}
       </form>
     </FormProvider>

@@ -72,6 +72,9 @@ export const ClosingDateSection = ({
     onSave({
       expiryDate: expiryDateInUtc,
     });
+    methods.reset(formValues, {
+      keepDirty: false,
+    });
   };
 
   // disabled unless status is draft
