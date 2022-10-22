@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, ReactElement } from "react";
-import { DevTool } from "@hookform/devtools";
+
 import {
   FieldValues,
   FormProvider,
@@ -8,8 +8,6 @@ import {
   useForm,
   UseFormProps,
 } from "react-hook-form";
-import { toast } from "react-toastify";
-import { useIntl } from "react-intl";
 import {
   getFromSessionStorage,
   removeFromSessionStorage,
@@ -43,7 +41,6 @@ export function BasicForm<TFieldValues extends FieldValues>({
   cacheKey,
   labels,
 }: BasicFormProps<TFieldValues>): ReactElement {
-  const intl = useIntl();
   const methods = useForm({
     mode: "onChange",
     ...options,
@@ -108,10 +105,6 @@ export function BasicForm<TFieldValues extends FieldValues>({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         {cacheKey && isDirty && <UnsavedChanges labels={labels} />}
-        {/**
-         * DEBUG: This is used to debug react-hook-form
-         */}
-        {/* <DevTool control={methods.control} /> */}
         {children}
       </form>
     </FormProvider>
