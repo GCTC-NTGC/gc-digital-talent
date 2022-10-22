@@ -49,7 +49,7 @@ const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
     })
     .filter(notEmpty);
 
-  return (
+  return unsavedFields.length > 0 ? (
     <Alert
       icon={Icon}
       type="info"
@@ -68,7 +68,7 @@ const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
         ))}
       </ul>
     </Alert>
-  );
+  ) : null;
 };
 
 export default UnsavedChanges;
