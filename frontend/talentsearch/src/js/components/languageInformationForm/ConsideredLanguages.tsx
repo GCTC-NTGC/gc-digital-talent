@@ -29,7 +29,7 @@ interface ConsideredLanguagesProps {
 const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   const intl = useIntl();
   const locale = useLocale();
-  const { watch } = useFormContext();
+  const { watch, resetField } = useFormContext();
 
   const selfAssessmentLink = (msg: React.ReactNode): React.ReactNode => {
     return (
@@ -158,7 +158,47 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
     },
   ];
 
-  return consideredLanguages.includes("lookingForBilingual") ? (
+  const isLookingForBilingual = consideredLanguages.includes(
+    "lookingForBilingual",
+  );
+  const hasCompletedEvaluation =
+    bilingualEvaluation !== BilingualEvaluation.NotCompleted;
+
+  /**
+   * Reset un-rendered fields
+   */
+  React.useEffect(() => {
+    const resetDirtyField = (name: string) => {
+      resetField(name, { keepDirty: false });
+    };
+
+    const resetEvaluations = () => {
+      resetDirtyField("comprehensionLevel");
+      resetDirtyField("writtenLevel");
+      resetDirtyField("verbalLevel");
+    };
+
+    const resetEstimation = () => {
+      resetDirtyField("estimatedLanguageAbility");
+    };
+
+    // Reset all bilingual fields
+    if (!isLookingForBilingual) {
+      resetDirtyField("bilingualEvaluation");
+      resetEstimation();
+      resetEvaluations();
+    }
+
+    // Reset either evaluation or estimation
+    // fields depending on the users evaluation status
+    if (!hasCompletedEvaluation) {
+      resetEvaluations();
+    } else {
+      resetEstimation();
+    }
+  }, [resetField, isLookingForBilingual, hasCompletedEvaluation]);
+
+  return isLookingForBilingual ? (
     <>
       <div data-h2-padding="base(x.5, 0, 0, 0)">
         <RadioGroup
@@ -171,7 +211,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
           items={BilingualEvaluationItems}
         />
       </div>
-      {bilingualEvaluation !== BilingualEvaluation.NotCompleted ? (
+      {hasCompletedEvaluation ? (
         <div data-h2-padding="base(x.5, 0, 0, 0)">
           <p>
             {intl.formatMessage({

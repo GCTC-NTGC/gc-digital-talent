@@ -211,7 +211,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
   GovernmentInfoFormProps
 > = ({ departments, classifications, labels }) => {
   const intl = useIntl();
-  const { watch } = useFormContext();
+  const { watch, resetField } = useFormContext();
   // hooks to watch, needed for conditional rendering
   const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =
     watch([
@@ -259,6 +259,29 @@ export const GovernmentInfoForm: React.FunctionComponent<
     (govEmployeeStatus === GovEmployeeType.Term ||
       govEmployeeStatus === GovEmployeeType.Indeterminate ||
       govEmployeeStatus === GovEmployeeType.Casual);
+
+  /**
+   * Reset fields when they disappear
+   * to avoid confusing users about unsaved changes
+   */
+  React.useEffect(() => {
+    const resetDirtyField = (name: string) => {
+      resetField(name, {
+        keepDirty: false,
+      });
+    };
+
+    if (!isGovEmployee) {
+      resetDirtyField("department");
+      resetDirtyField("govEmployeeType");
+      if (!isPlaced) {
+        resetDirtyField("currentClassificationGroup");
+        if (groupSelection === "Choose Department") {
+          resetDirtyField("currentClassificationLevel");
+        }
+      }
+    }
+  }, [isGovEmployee, resetField, isPlaced, groupSelection]);
 
   // render the actual form
   return (
