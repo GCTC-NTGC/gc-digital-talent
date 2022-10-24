@@ -460,6 +460,15 @@ export const PoolDashboard: React.FC = () => {
       <Dashboard contentRoutes={routes(paths, loggedIn)} />
       <Helmet>
         <html lang={getLocale(intl)} />
+        <meta
+          name="description"
+          content={intl.formatMessage({
+            defaultMessage:
+              "Recruit and manage IT employees in the Government of Canada.",
+            id: "J8kIar",
+            description: "Meta tag description for Admin site",
+          })}
+        />
       </Helmet>
     </Pending>
   );

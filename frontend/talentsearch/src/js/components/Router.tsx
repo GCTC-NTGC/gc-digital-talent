@@ -596,6 +596,15 @@ export const Router: React.FC = () => {
       />
       <Helmet>
         <html lang={locale} />
+        <meta
+          name="description"
+          content={intl.formatMessage({
+            defaultMessage:
+              "GC Digital Talent is the new recruitment platform for digital and tech jobs in the Government of Canada. Apply now!",
+            id: "jRmRd+",
+            description: "Meta tag description for Talent Search site",
+          })}
+        />
       </Helmet>
     </Pending>
   );
