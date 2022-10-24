@@ -1,4 +1,4 @@
-import { PoolCandidateStatus } from "../../api/generated";
+import { PoolCandidateStatus } from "../../../api/generated";
 
 export type BorderMapKey = "cta" | "dt-primary" | "dt-secondary" | "dt-gray";
 
