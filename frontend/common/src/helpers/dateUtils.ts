@@ -58,8 +58,8 @@ export function getDateRange({
       );
 }
 
-// parameters for the relativeExpiryDate function
-export type formatDateOptions = {
+// parameters for the formatDate function
+export type FormatDateOptions = {
   date: Date;
   formatString: string;
   intl: IntlShape;
@@ -67,6 +67,7 @@ export type formatDateOptions = {
 };
 
 /**
+ * Format a date in given format and locale, optionally in a different time zone
  * @returns String in the given format
  */
 export const formatDate = ({
@@ -74,7 +75,7 @@ export const formatDate = ({
   formatString,
   intl,
   timeZone,
-}: formatDateOptions): string => {
+}: FormatDateOptions): string => {
   const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
 
