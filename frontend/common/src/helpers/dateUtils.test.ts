@@ -83,7 +83,7 @@ describe("relativeExpiryDate tests", () => {
   test("future days in a different time zone", () => {
     const s = f({
       expiryDate: toDate("2021-12-31 23:59:59", { timeZone: "Canada/Pacific" }),
-      now: new Date("2021-12-01"),
+      now: toDate("2021-12-01", { timeZone: "Canada/Eastern" }),
       intl,
     });
     expect(s).toBe("January 1st, 2022 2:59 AM");
