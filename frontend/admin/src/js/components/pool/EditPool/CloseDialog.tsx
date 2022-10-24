@@ -3,11 +3,7 @@ import { useIntl } from "react-intl";
 import Dialog from "@common/components/Dialog";
 import { InputWrapper } from "@common/components/inputPartials";
 import { PoolAdvertisement } from "@common/api/generated";
-import {
-  DATE_FORMAT_STRING,
-  formatDate,
-  parseDateTimeUtc,
-} from "@common/helpers/dateUtils";
+import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import { Button } from "@common/components";
 
 type CloseDialogProps = {
