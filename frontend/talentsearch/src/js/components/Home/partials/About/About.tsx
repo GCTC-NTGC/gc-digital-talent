@@ -111,6 +111,7 @@ const About = () => {
                 })}
                 link={{
                   href: `/${locale}/talent-cloud/report`,
+                  external: true,
                   label: intl.formatMessage({
                     defaultMessage:
                       "Learn more<hidden> about how the platform was created</hidden>",
