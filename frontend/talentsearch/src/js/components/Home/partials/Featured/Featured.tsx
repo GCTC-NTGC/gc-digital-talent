@@ -42,7 +42,10 @@ const Featured = () => {
       }),
 
       img: {
-        path: "https://images.unsplash.com/photo-1513677341490-f92c141c9d7c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        path: imageUrl(
+          TALENTSEARCH_APP_DIR,
+          "check_it_out_digital_ambition.jpg",
+        ),
       },
       link: {
         path:
@@ -71,7 +74,10 @@ const Featured = () => {
           "Summary of the Indigenous Apprenticeship Program for the homepage",
       }),
       img: {
-        path: "https://images.unsplash.com/photo-1571844305128-244233caa679?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
+        path: imageUrl(
+          TALENTSEARCH_APP_DIR,
+          "check_it_out_IAP_manager_callout.jpg",
+        ),
       },
       link: {
         path: `mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca?subject=${iapEmail.subject}&body=${iapEmail.body}`,
