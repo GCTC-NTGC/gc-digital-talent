@@ -4,6 +4,8 @@ import { useIntl } from "react-intl";
 import { imageUrl } from "@common/helpers/router";
 
 import Heading from "@common/components/Heading";
+import { getLocale } from "@common/helpers/localize";
+import { useTalentSearchRoutes } from "talentsearch/src/js/talentSearchRoutes";
 import TALENTSEARCH_APP_DIR from "../../../../talentSearchConstants";
 
 import Block from "./Block";
@@ -11,47 +13,73 @@ import Block from "./Block";
 // Create the page component
 const Featured = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const tsPaths = useTalentSearchRoutes();
+
+  const iapEmail = {
+    subject: encodeURIComponent(
+      "I'm interested in hiring Indigenous IT apprentices for my team",
+    ),
+    body: encodeURIComponent(
+      "I discovered the Indigenous Apprenticeship Program on talent.canada.ca and I’d like to learn more about how I can hire apprentices to my team.",
+    ),
+  };
+
   // This array is just a temporary data object representing the content required by the feature blocks. This data will need to be migrated to wherever makes sense, and we'll also need dynamic routes and translated strings
   const featured = [
     {
-      key: "pride",
+      key: "digital-ambition",
       title: intl.formatMessage({
-        defaultMessage: "Pride in tech",
-        id: "muwFhL",
-        description: "Title for the pride in tech featured item",
+        defaultMessage: "The Digital Ambition",
+        id: "tTuBmE",
+        description: "Title for the digital ambition featured item",
       }),
-      summary:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis. ",
+      summary: intl.formatMessage({
+        defaultMessage:
+          'The Digital Ambition outlines the Government of Canada\'s commitment to create modern, accessible digital services. Achieving these priorities will result in a government that provides improved "digital-first," user-centred, and barrier-free services and programs.',
+        id: "CbzWqJ",
+        description: "Summary of the digital ambition featured item",
+      }),
+
       img: {
         path: "https://images.unsplash.com/photo-1513677341490-f92c141c9d7c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       },
       link: {
-        path: "#", // TO DO: Update link when page created
+        path:
+          locale === "en"
+            ? "https://www.canada.ca/en/government/system/digital-government/government-canada-digital-operations-strategic-plans/canada-digital-ambition.html"
+            : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/plans-strategiques-operations-numeriques-gouvernement-canada/ambition-numerique-canada.html",
         label: intl.formatMessage({
-          defaultMessage: "Learn more<hidden> about pride in tech</hidden>",
-          id: "jefAOX",
-          description: "Link text to learn about pride in tech",
+          defaultMessage: "Read the Digital Ambition",
+          id: "Gil1Zj",
+          description: "Link text to read the Digital Ambition",
         }),
       },
     },
     {
-      key: "women",
+      key: "hiring-indigenous-talent",
       title: intl.formatMessage({
-        defaultMessage: "Women in STEM",
-        id: "oMSsJd",
-        description: "Title for the Women in STEM feature item",
+        defaultMessage: "Hiring Indigenous Tech Talent",
+        id: "nYA+Tj",
+        description: "Title for the Indigenous tech talent feature item",
       }),
-      summary:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis. ",
+      summary: intl.formatMessage({
+        defaultMessage:
+          "Are you looking for entry-level IT talent and want to support diversity, inclusion, and reconciliation? Connect with the IT Apprenticeship Program for Indigenous Peoples and start the process to hire Indigenous apprentices today!",
+        id: "cYg+l1",
+        description:
+          "Summary of the Indigenous Apprenticeship Program for the homepage",
+      }),
       img: {
         path: "https://images.unsplash.com/photo-1571844305128-244233caa679?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
       },
       link: {
-        path: "#", // TO DO: Update link when page created
+        path: `mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca?subject=${iapEmail.subject}&body=${iapEmail.body}`,
         label: intl.formatMessage({
-          defaultMessage: "Learn more<hidden> about women in STEM</hidden>",
-          id: "MUpqIp",
-          description: "Link text to learn more about women in STEM",
+          defaultMessage: "Contact the Apprenticeship Program",
+          id: "gG5eAt",
+          description:
+            "Link text to email about the Indigenous Apprenticeship Program",
         }),
       },
     },
