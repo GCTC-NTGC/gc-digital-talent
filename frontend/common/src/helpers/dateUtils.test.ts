@@ -80,13 +80,15 @@ describe("relativeExpiryDate tests", () => {
     expect(s).toBe("Closes tomorrow at 11:59:59 PM");
   });
 
+  // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
   test("future days in a different time zone", () => {
     const s = f({
       expiryDate: toDate("2021-12-31 23:59:59", { timeZone: "Canada/Pacific" }),
       now: toDate("2021-12-01", { timeZone: "Canada/Eastern" }),
       intl,
+      timeZone: "Canada/Pacific",
     });
-    expect(s).toBe("January 1st, 2022 2:59 AM");
+    expect(s).toBe("December 31st, 2021 11:59 PM");
   });
 });
 
