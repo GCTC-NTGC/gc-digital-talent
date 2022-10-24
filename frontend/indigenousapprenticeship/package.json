@@ -124,7 +124,7 @@
     "react-helmet": "^6.1.0",
     "react-hook-form": "~7.32.2",
     "react-intl": "^6.2.1",
-    "react-select": "^5.5.1",
+    "react-select": "^5.5.4",
     "react-toastify": "^9.0.8",
     "regenerator-runtime": "^0.13.10",
     "universal-router": "^9.1.0",
