@@ -110,7 +110,7 @@ const About = () => {
                   description: "Title for how the platform was created",
                 })}
                 link={{
-                  href: "#", // TO DO: Update link when page is created
+                  href: `/${locale}/talent-cloud/report`,
                   label: intl.formatMessage({
                     defaultMessage:
                       "Learn more<hidden> about how the platform was created</hidden>",
