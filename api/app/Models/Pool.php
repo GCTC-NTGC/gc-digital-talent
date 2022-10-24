@@ -69,6 +69,18 @@ class Pool extends Model
         'is_remote',
         'expiry_date',
         'published_at',
+        'user_id',
+        'name',
+        'key_tasks',
+        'stream',
+        'security_clearance',
+        'advertisement_language',
+        'description',
+        'your_impact',
+        'advertisement_location',
+        'publishing_group',
+        'process_number',
+        'operational_requirements',
     ];
 
     public function user(): BelongsTo
