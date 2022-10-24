@@ -58,27 +58,32 @@ export function getDateRange({
       );
 }
 
+// parameters for the relativeExpiryDate function
+export type formatDateOptions = {
+  date: Date;
+  formatString: string;
+  intl: IntlShape;
+  timeZone?: string;
+};
+
 /**
- * @param date
- * @param intl
- * @returns String in the format of MONTH DAY, YEAR localized
+ * @returns String in the given format
  */
-export const formattedDateMonthDayYear = (
-  date: Date,
-  intl: IntlShape,
-  timeZone?: string,
-): string => {
+export const formatDate = ({
+  date,
+  formatString,
+  intl,
+  timeZone,
+}: formatDateOptions): string => {
   const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
-  const formatString = `MMMM d, yyyy`;
-  const day = timeZone
-    ? formatInTimeZone(date, timeZone, formatString, {
-        locale,
-      })
-    : format(date, formatString, {
-        locale,
-      });
-  return `${day}`;
+
+  // A date formatting function that can use time zones optionally
+  const result = timeZone
+    ? formatInTimeZone(date, timeZone, formatString, { locale })
+    : format(date, formatString, { locale });
+
+  return result;
 };
 
 // parameters for the relativeExpiryDate function
