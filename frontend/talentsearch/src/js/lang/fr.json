@@ -770,6 +770,10 @@
     "defaultMessage": "Afficher les bassins ouverts",
     "description": "Link text to view all open pools"
   },
+  "G1RNXj": {
+    "defaultMessage": "Accueil",
+    "description": "Link to the Homepage in the nav menu."
+  },
   "GAjpqU": {
     "defaultMessage": "Voici où vous pouvez ajouter des expériences et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
     "description": "Description for the experience and skills page in applicant profile."
