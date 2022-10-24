@@ -1,19 +1,47 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+namespace App\Console\Commands;
+
 use Illuminate\Support\Facades\DB;
 use App\Models\PoolCandidate;
 use App\Models\User;
+use Illuminate\Console\Command;
 
-class MigratingPoolCandidateData extends Migration
+class MigratePoolCandidatesToUser extends Command
 {
+    // this command copies data from the pool candidates table that has been deemed best to fit on the User model
+    // this includes personal info, as well as Assets/Classifications
+
     /**
-     * Run the migrations.
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'migrate:pool_candidate_to_user';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Migrate data over from Pool Candidates to User tables';
+
+    /**
+     * Create a new command instance.
      *
      * @return void
      */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-    public function up()
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
     {
         // update table users with data from table pool_candidates
         DB::statement('UPDATE users
@@ -50,15 +78,5 @@ class MigratingPoolCandidateData extends Migration
             User::where('id', $userId)->first()->expectedClassifications()->sync($combinedClassificationsDedupe);
             User::where('id', $userId)->first()->cmoAssets()->sync($combinedAssetsDedupe);
         }
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        // not a reversible migration
     }
 }
