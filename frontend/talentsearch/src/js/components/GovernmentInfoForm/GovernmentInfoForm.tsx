@@ -253,6 +253,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
       };
     });
 
+  const hasPriorityEntitlement = priorityEntitlement === "yes";
   const isGovEmployee = govEmployee === "yes";
   const isPlaced =
     isGovEmployee &&
@@ -281,7 +282,17 @@ export const GovernmentInfoForm: React.FunctionComponent<
         }
       }
     }
-  }, [isGovEmployee, resetField, isPlaced, groupSelection]);
+
+    if (!hasPriorityEntitlement) {
+      resetDirtyField("priorityEntitlementNumber");
+    }
+  }, [
+    isGovEmployee,
+    resetField,
+    isPlaced,
+    groupSelection,
+    hasPriorityEntitlement,
+  ]);
 
   // render the actual form
   return (
@@ -449,7 +460,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
             },
           ]}
         />
-        {priorityEntitlement === "yes" && (
+        {hasPriorityEntitlement && (
           <div data-h2-padding="base(x.25, 0)">
             <Input
               id="priorityEntitlementNumber"
