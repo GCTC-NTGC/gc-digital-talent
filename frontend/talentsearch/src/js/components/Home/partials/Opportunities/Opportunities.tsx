@@ -9,6 +9,8 @@ import { CardFlat } from "@common/components/Card";
 import useLocale from "@common/hooks/useLocale";
 import { imageUrl } from "@common/helpers/router";
 
+import { AuthenticationContext } from "@common/components/Auth";
+import { useApplicantProfileRoutes } from "talentsearch/src/js/applicantProfileRoutes";
 import TALENTSEARCH_APP_DIR from "../../../../talentSearchConstants";
 import { useDirectIntakeRoutes } from "../../../../directIntakeRoutes";
 
@@ -16,7 +18,10 @@ import { useDirectIntakeRoutes } from "../../../../directIntakeRoutes";
 const Opportunities = () => {
   const intl = useIntl();
   const diPaths = useDirectIntakeRoutes();
+  const profilePaths = useApplicantProfileRoutes();
   const locale = useLocale();
+  const { loggedIn } = React.useContext(AuthenticationContext);
+
   return (
     <div data-h2-margin="base(-3%, 0, 0, 0)" data-h2-layer="base(2, relative)">
       <div
@@ -146,19 +151,35 @@ const Opportunities = () => {
                 description: "Heading for executive jobs in government",
               })}
               link={{
-                href: "#", // TO DO: Get new path
-                label: intl.formatMessage({
-                  defaultMessage: "Browse exec jobs",
-                  id: "QcrDDA",
-                  description: "Link text to find executive jobs in government",
-                }),
+                href: profilePaths.myProfile(), // TO DO: Get new path
+                label: loggedIn
+                  ? intl.formatMessage({
+                      defaultMessage: "Get ready by updating your profile",
+                      id: "OMDX09",
+                      description:
+                        "Link text to update your profile for executive jobs in government",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Get ready by creating a profile",
+                      id: "qLYONf",
+                      description:
+                        "Link text to create a profile for executive jobs in government",
+                    }),
               }}
             >
               <p>
                 {intl.formatMessage({
+                  defaultMessage: "Coming soon",
+                  id: "mI6AeU",
+                  description:
+                    "Text displayed for executive jobs on homepage, indicating it is not ready",
+                })}
+              </p>
+              <p>
+                {intl.formatMessage({
                   defaultMessage:
-                    "From entry-level executives to CIO opportunities across the GC, this is the place to come if you're ready to take on a digital leadership role making a difference for Canadians.",
-                  id: "EWCP4t",
+                    "From entry-level executives to CIO opportunities across the GC, this is the place to come if you’re ready to take on a digital leadership role making a difference for Canadians.",
+                  id: "pDGY5P",
                   description: "Description for executive jobs in government",
                 })}
               </p>
