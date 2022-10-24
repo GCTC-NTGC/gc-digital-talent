@@ -252,6 +252,8 @@ const SelectFieldV2 = ({
                       ...provided,
                       ...accessibleTextStyle,
                     }),
+                    // Setting the z-index to 11 since the InputLabel is set to 10.
+                    menu: (provided) => ({ ...provided, zIndex: 11 }),
                   }}
                 />
               );

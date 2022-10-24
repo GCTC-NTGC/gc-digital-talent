@@ -10,35 +10,18 @@ import Pending from "@common/components/Pending";
 import { useState } from "react";
 import Button from "@common/components/Button";
 import { useGetMeQuery, User } from "../../api/generated";
-import {
-  FRESHDESK_API_KEY,
-  FRESHDESK_API_TICKETS_ENDPOINT,
-  FRESHDESK_API_TICKET_TAG,
-} from "../../talentSearchConstants";
+import { API_SUPPORT_ENDPOINT } from "../../talentSearchConstants";
 
-type FormValues = {
+export type FormValues = {
   name: string;
   email: string;
   description: string;
   subject: string;
 };
-
-export type CreateTicketInput = {
-  name: string;
-  email: string;
-  description: string;
-  subject: string;
-  priority: number;
-  status: number;
-  tags?: string[];
-};
-
 interface SupportFormProps {
   showSupportForm: boolean;
   onFormToggle: (show: boolean) => void;
-  handleCreateTicket: (
-    data: CreateTicketInput,
-  ) => Promise<number | null | void>;
+  handleCreateTicket: (data: FormValues) => Promise<number | null | void>;
   currentUser?: User | null;
 }
 
@@ -116,13 +99,7 @@ export const SupportForm = ({
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    const ticketInput = {
-      ...data,
-      priority: 1, // Required by Freshdesk API. Priority of the ticket. The default value is 1.
-      status: 2, // Required by Freshdesk API. Status of the ticket. The default Value is 2.
-      tags: [FRESHDESK_API_TICKET_TAG],
-    };
-    return handleCreateTicket(ticketInput).then(() => {
+    return handleCreateTicket(data).then(() => {
       onFormToggle(false);
     });
   };
@@ -236,16 +213,15 @@ export const SupportForm = ({
 
 const SupportFormApi = () => {
   const intl = useIntl();
-  const handleCreateTicket = (data: CreateTicketInput) =>
-    fetch(FRESHDESK_API_TICKETS_ENDPOINT, {
+  const handleCreateTicket = (data: FormValues) =>
+    fetch(API_SUPPORT_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Basic ${window.btoa(`${FRESHDESK_API_KEY}:X`)}`,
       },
       body: JSON.stringify(data),
     }).then((response) => {
-      if (response.status === 201) {
+      if (response.status === 200) {
         // status code 201 = created.
         toast.success(
           intl.formatMessage({

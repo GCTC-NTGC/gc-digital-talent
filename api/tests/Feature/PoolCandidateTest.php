@@ -7,7 +7,6 @@ use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Database\Eloquent\Factories\Sequence;
-use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
@@ -45,8 +44,8 @@ class PoolCandidateTest extends TestCase
     PoolCandidate::factory()->count(2)->create([
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-      ])->each(function($candidate) use ($classification) {
-      $candidate->expectedClassifications()->save($classification);
+    ])->each(function($candidate) use ($classification) {
+      $candidate->user->expectedClassifications()->save($classification);
     });
 
     // Assert query with no classifications filter will return all candidates
@@ -69,7 +68,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'classifications' => [['group' => 'ZZ', 'level' => 1 ]],
+        'expectedClassifications' => [['group' => 'ZZ', 'level' => 1 ]],
       ]
     ])->assertJson([
       'data' => [
@@ -84,7 +83,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'classifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+        'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
       ]
     ])->assertJson([
       'data' => [
@@ -157,7 +156,9 @@ class PoolCandidateTest extends TestCase
   {
     // Create initial data.
     PoolCandidate::factory()->count(5)->create([
-      'accepted_operational_requirements' => null,
+      'user_id' => User::factory([
+        'accepted_operational_requirements' => null,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, // ensure no candidates are expired for this test
     ]);
@@ -167,14 +168,18 @@ class PoolCandidateTest extends TestCase
 
     // Create a few with a op_req 1
     PoolCandidate::factory()->count(2)->create([
-      'accepted_operational_requirements' => [$operationalRequirement1],
+      'user_id' => User::factory([
+        'accepted_operational_requirements' => [$operationalRequirement1],
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
 
     // Create a few with op_req 1 and 2
     PoolCandidate::factory()->count(2)->create([
-      'accepted_operational_requirements' => [$operationalRequirement1, $operationalRequirement2],
+      'user_id' => User::factory([
+        'accepted_operational_requirements' => [$operationalRequirement1, $operationalRequirement2],
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
@@ -317,14 +322,18 @@ class PoolCandidateTest extends TestCase
 
     // Create initial set of 5 candidates with no diploma.
     PoolCandidate::factory()->count(5)->create([
+      'user_id' => User::factory([
+        'has_diploma' => false,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
-      'has_diploma' => false,
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
 
     // Create two new pool candidates with a diploma.
     PoolCandidate::factory()->count(2)->create([
-      'has_diploma' => true,
+      'user_id' => User::factory([
+        'has_diploma' => true,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
@@ -376,46 +385,56 @@ class PoolCandidateTest extends TestCase
   public function testFilterByEmploymentEquity(): void
   {
 
-    // Create initial data.
-    PoolCandidate::factory()->count(5)->create([
-      'has_disability' => false,
-      'is_indigenous' => false,
-      'is_visible_minority' => false,
-      'is_woman' => false,
+     // Create initial data.
+     PoolCandidate::factory()->count(5)->create([
+      'user_id' => User::factory([
+        'has_disability' => false,
+        'is_indigenous' => false,
+        'is_visible_minority' => false,
+        'is_woman' => false,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
 
     // Create one new candidate for each EmploymentEquity filter
     PoolCandidate::factory()->create([
-      'has_disability' => true,
-      'is_indigenous' => false,
-      'is_visible_minority' => false,
-      'is_woman' => false,
+      'user_id' => User::factory([
+        'has_disability' => true,
+        'is_indigenous' => false,
+        'is_visible_minority' => false,
+        'is_woman' => false,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
-      'has_disability' => false,
-      'is_indigenous' => true,
-      'is_visible_minority' => false,
-      'is_woman' => false,
+      'user_id' => User::factory([
+        'has_disability' => false,
+        'is_indigenous' => true,
+        'is_visible_minority' => false,
+        'is_woman' => false,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
-      'has_disability' => false,
-      'is_indigenous' => false,
-      'is_visible_minority' => true,
-      'is_woman' => false,
+      'user_id' => User::factory([
+        'has_disability' => false,
+        'is_indigenous' => false,
+        'is_visible_minority' => true,
+        'is_woman' => false,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
-      'has_disability' => false,
-      'is_indigenous' => false,
-      'is_visible_minority' => false,
-      'is_woman' => true,
+      'user_id' => User::factory([
+        'has_disability' => false,
+        'is_indigenous' => false,
+        'is_visible_minority' => false,
+        'is_woman' => true,
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
@@ -646,24 +665,32 @@ class PoolCandidateTest extends TestCase
 
     // Create initial data.
     PoolCandidate::factory()->count(5)->create([
-      'language_ability' => 'TEST',
+      'user_id' => User::factory([
+        'language_ability' => 'TEST',
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
 
     // Create new LanguageAbility and attach to 3 new pool candidates.
     PoolCandidate::factory()->create([
-      'language_ability' => 'FRENCH',
+      'user_id' => User::factory([
+        'language_ability' => 'FRENCH',
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
-      'language_ability' => 'ENGLISH',
+      'user_id' => User::factory([
+        'language_ability' => 'ENGLISH',
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
     PoolCandidate::factory()->create([
-      'language_ability' => 'BILINGUAL',
+      'user_id' => User::factory([
+        'language_ability' => 'BILINGUAL',
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
@@ -739,18 +766,22 @@ class PoolCandidateTest extends TestCase
     ]);
   }
 
-  public function testFilterByWorkRegions(): void
+  public function testFilterByLocationPreferences(): void
   {
     // Create 5 new pool candidates with a ONTARIO location preference.
     PoolCandidate::factory()->count(5)->create([
-      'location_preferences' => ["ONTARIO"],
+      'user_id' => User::factory([
+        'location_preferences' => ["ONTARIO"],
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
 
     // Create 2 new pool candidates with a TELEWORK location preference.
     PoolCandidate::factory()->count(2)->create([
-      'location_preferences' => ["TELEWORK"],
+      'user_id' => User::factory([
+        'location_preferences' => ["TELEWORK"],
+      ]),
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
@@ -775,7 +806,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'workRegions' => ["TELEWORK"],
+        'locationPreferences' => ["TELEWORK"],
       ]
     ])->assertJson([
       'data' => [
@@ -790,7 +821,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'workRegions' => [],
+        'locationPreferences' => [],
       ]
     ])->assertJson([
       'data' => [
@@ -854,8 +885,8 @@ class PoolCandidateTest extends TestCase
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
-    $poolCandidate1->expectedClassifications()->delete();
-    $poolCandidate1->expectedClassifications()->save($classificationLvl1);
+    $poolCandidate1->user->expectedClassifications()->delete();
+    $poolCandidate1->user->expectedClassifications()->save($classificationLvl1);
 
     // Attach new candidates that overlap the expected salary range.
     $poolCandidate2 = PoolCandidate::factory()->create([
@@ -863,7 +894,7 @@ class PoolCandidateTest extends TestCase
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
-    $poolCandidate2->expectedClassifications()->delete();
+    $poolCandidate2->user->expectedClassifications()->delete();
 
     // Attach new candidates that are over the expected salary range.
     $poolCandidate3 = PoolCandidate::factory()->create([
@@ -871,7 +902,7 @@ class PoolCandidateTest extends TestCase
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
-    $poolCandidate3->expectedClassifications()->delete();
+    $poolCandidate3->user->expectedClassifications()->delete();
 
     // Assert query with no classifications filter will return all candidates
     $this->graphQL(/** @lang Graphql */ '
@@ -893,7 +924,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'classifications' => [['group' => 'ZZ', 'level' => 1 ]],
+        'expectedClassifications' => [['group' => 'ZZ', 'level' => 1 ]],
       ]
     ])->assertJson([
       'data' => [
@@ -908,7 +939,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'classifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+        'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
       ]
     ])->assertJson([
       'data' => [
@@ -941,8 +972,8 @@ class PoolCandidateTest extends TestCase
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
-    $poolCandidate1->expectedClassifications()->delete();
-    $poolCandidate1->expectedClassifications()->save($myClassification);
+    $poolCandidate1->user->expectedClassifications()->delete();
+    $poolCandidate1->user->expectedClassifications()->save($myClassification);
 
     // Attach new candidate in the pool that overlaps the expected salary range and has a matching class group (but not level).
     $poolCandidate2 = PoolCandidate::factory()->create([
@@ -951,7 +982,7 @@ class PoolCandidateTest extends TestCase
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
-    $poolCandidate2->expectedClassifications()->delete();
+    $poolCandidate2->user->expectedClassifications()->delete();
 
     // Attach new candidate in the pool that is over the expected salary range and has a matching class group (but not level).
     $poolCandidate3 = PoolCandidate::factory()->create([
@@ -960,7 +991,7 @@ class PoolCandidateTest extends TestCase
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
-    $poolCandidate3->expectedClassifications()->delete();
+    $poolCandidate3->user->expectedClassifications()->delete();
 
     // *** now make the same three candidates in the wrong pool
 
@@ -971,8 +1002,8 @@ class PoolCandidateTest extends TestCase
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
-    $poolCandidate1WrongPool->expectedClassifications()->delete();
-    $poolCandidate1WrongPool->expectedClassifications()->save($myClassification);
+    $poolCandidate1WrongPool->user->expectedClassifications()->delete();
+    $poolCandidate1WrongPool->user->expectedClassifications()->save($myClassification);
 
     // Attach new candidate in the pool that overlaps the expected salary range. WRONG POOL
     $poolCandidate2WrongPool = PoolCandidate::factory()->create([
@@ -981,7 +1012,7 @@ class PoolCandidateTest extends TestCase
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
-    $poolCandidate2WrongPool->expectedClassifications()->delete();
+    $poolCandidate2WrongPool->user->expectedClassifications()->delete();
 
     // Attach new candidate in the pool that is over the expected salary range.  WRONG POOL
     $poolCandidate3WrongPool = PoolCandidate::factory()->create([
@@ -990,7 +1021,7 @@ class PoolCandidateTest extends TestCase
       'expiry_date' => config('constants.far_future_date'),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
     ]);
-    $poolCandidate3WrongPool->expectedClassifications()->delete();
+    $poolCandidate3WrongPool->user->expectedClassifications()->delete();
 
     // Assert query with just pool filters will return all candidates in that pool
     $this->graphQL(/** @lang Graphql */ '
@@ -1015,7 +1046,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'pools' => [['id' => $myPool->id ]],
-        'classifications' => [['group' => 'ZZ', 'level' => 1 ]],
+        'expectedClassifications' => [['group' => 'ZZ', 'level' => 1 ]],
       ]
     ])->assertJson([
       'data' => [
@@ -1031,7 +1062,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'pools' => [['id' => $myPool->id ]],
-        'classifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+        'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
       ]
     ])->assertJson([
       'data' => [

@@ -65,7 +65,7 @@ jobs:
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
       - name: "Run Cypress tests: all"
-        uses: cypress-io/github-action@v2.11.8
+        uses: cypress-io/github-action@v4.2.0
         with:
           working-directory: ./frontend
           spec: "**/*.spec.js"

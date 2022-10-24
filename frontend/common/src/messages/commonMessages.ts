@@ -32,6 +32,12 @@ const messages = defineMessages({
     id: "ufSiRU",
     description: "Title displayed when an item cannot be found.",
   },
+  notAvailable: {
+    defaultMessage: "N/A",
+    id: "r7x5H3",
+    description:
+      "Message displayed when specific information is not applicable",
+  },
   requiredFieldsMissing: {
     defaultMessage: "There are <red>required</red> fields missing.",
     id: "ZcvDAo",

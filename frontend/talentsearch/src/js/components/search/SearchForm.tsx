@@ -35,12 +35,19 @@ import AddSkillsToFilter from "../skills/AddSkillsToFilter";
 
 const NullSelection = "NULL_SELECTION";
 
-function mapIdToValue<T extends { id: string }>(objects: T[]): Map<string, T> {
+function mapObjectsByKey<T>(
+  keyFunction: (t: T) => string,
+  objects: T[],
+): Map<string, T> {
   return objects.reduce((map, obj) => {
-    map.set(obj.id, obj);
+    map.set(keyFunction(obj), obj);
     return map;
   }, new Map());
 }
+
+const classificationToKey = (
+  classification: Pick<Classification, "group" | "level">,
+) => `${classification.group}-0${classification.level}`;
 
 type Option<V> = { value: V; label: string };
 export type FormValues = Pick<
@@ -64,7 +71,7 @@ type LocationState = {
 };
 
 export interface SearchFormProps {
-  classifications: Classification[];
+  classifications: Pick<Classification, "group" | "level">[];
   skills?: Skill[];
   onUpdateApplicantFilter: (filter: ApplicantFilterInput) => void;
 }
@@ -102,10 +109,9 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     const intl = useIntl();
     const location = useLocation();
 
-    const classificationMap = React.useMemo(
-      () => mapIdToValue(classifications),
-      [classifications],
-    );
+    const classificationMap = React.useMemo(() => {
+      return mapObjectsByKey(classificationToKey, classifications);
+    }, [classifications]);
 
     // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
     const state = location.state as LocationState;
@@ -197,8 +203,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
 
     const classificationOptions: Option<string>[] = React.useMemo(
       () =>
-        classifications.map(({ id, group, level }) => ({
-          value: id,
+        classifications.map(({ group, level }) => ({
+          value: classificationToKey({ group, level }),
           label: getClassificationLabel(group, level),
         })),
       [classifications, getClassificationLabel],

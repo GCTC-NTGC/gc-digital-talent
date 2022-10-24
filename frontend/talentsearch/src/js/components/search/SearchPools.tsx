@@ -31,9 +31,11 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
       <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage(
           {
-            defaultMessage:
-              "There are <heavyPrimary><testId>{candidateCount}</testId></heavyPrimary> matching candidates in this pool",
-            id: "ICPJ8D",
+            defaultMessage: `{candidateCount, plural,
+              one {There is <strong><testId>{candidateCount}</testId></strong> matching candidate in this pool}
+              other {There are <strong><testId>{candidateCount}</testId></strong> matching candidates in this pool}
+            }`,
+            id: "bbso+7",
             description:
               "Message for total estimated matching candidates in pool",
           },

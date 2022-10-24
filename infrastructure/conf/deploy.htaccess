@@ -16,6 +16,7 @@ DirectorySlash off
     # Rewrite api requests
     RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
     RewriteRule ^graphql$ api/public/graphql [L]
+    RewriteRule ^api(/(.*))?$ api/public/$2 [L]
 
     # Send api login request to api
     RewriteRule ^login$ api/public/login [L]

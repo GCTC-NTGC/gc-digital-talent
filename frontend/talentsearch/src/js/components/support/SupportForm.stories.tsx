@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { fakeUsers } from "@common/fakeData";
 import { action } from "@storybook/addon-actions";
-import { CreateTicketInput, SupportForm } from "./SupportForm";
+import { FormValues, SupportForm } from "./SupportForm";
 
 export default {
   component: SupportForm,
@@ -16,7 +16,7 @@ const Template: ComponentStory<typeof SupportForm> = (args) => {
       {...args}
       showSupportForm={showSupportForm}
       onFormToggle={setShowSupportForm}
-      handleCreateTicket={async (data: CreateTicketInput) => {
+      handleCreateTicket={async (data: FormValues) => {
         await new Promise((resolve) => {
           setTimeout(resolve, 1000);
         });

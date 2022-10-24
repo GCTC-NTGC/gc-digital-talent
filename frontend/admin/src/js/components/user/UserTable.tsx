@@ -9,6 +9,7 @@ import Pending from "@common/components/Pending";
 import printStyles from "@common/constants/printStyles";
 import { useReactToPrint } from "react-to-print";
 import { Link } from "@common/components";
+import { SubmitHandler } from "react-hook-form";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   InputMaybe,
@@ -34,6 +35,13 @@ import TableFooter from "../apiManagedTable/TableFooter";
 import TableHeader from "../apiManagedTable/TableHeader";
 import UserProfileDocument from "./UserProfileDocument";
 import useUserCsvData from "./useUserCsvData";
+import UserTableFilterDialog, { FormValues } from "./UserTableFilterDialog";
+import {
+  stringToEnumJobLooking,
+  stringToEnumLanguage,
+  stringToEnumLocation,
+  stringToEnumOperational,
+} from "./util";
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
@@ -117,6 +125,45 @@ export const UserTable: React.FC = () => {
       jobLookingStatus: fancyFilterState?.jobLookingStatus,
       poolFilters: fancyFilterState?.poolFilters,
     };
+  };
+
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
+    setUserFilterInput({
+      applicantFilter: {
+        expectedClassifications: data.classifications.map((classification) => {
+          const splitString = classification.split("-");
+          return { group: splitString[0], level: Number(splitString[1]) };
+        }),
+        languageAbility: data.languageAbility[0]
+          ? stringToEnumLanguage(data.languageAbility[0])
+          : undefined,
+        locationPreferences: data.workRegion.map((region) => {
+          return stringToEnumLocation(region);
+        }),
+        operationalRequirements: data.operationalRequirement.map(
+          (requirement) => {
+            return stringToEnumOperational(requirement);
+          },
+        ),
+        skills: data.skills.map((skill) => {
+          const skillString = skill;
+          return { id: skillString };
+        }),
+        wouldAcceptTemporary: data.employmentDuration[0]
+          ? data.employmentDuration[0] === "TERM"
+          : undefined,
+      },
+      isGovEmployee: data.govEmployee[0] ? true : undefined,
+      isProfileComplete: data.profileComplete[0] ? true : undefined,
+      jobLookingStatus: data.jobLookingStatus.map((status) => {
+        return stringToEnumJobLooking(status);
+      }),
+      poolFilters: data.pools.map((pool) => {
+        const poolString = pool;
+        return { poolId: poolString };
+      }),
+    });
   };
 
   useEffect(() => {
@@ -253,7 +300,11 @@ export const UserTable: React.FC = () => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     pageStyle: printStyles,
-    documentTitle: "Candidate Profiles",
+    documentTitle: intl.formatMessage({
+      defaultMessage: "Candidate Profiles",
+      id: "IE82VM",
+      description: "Document title for printing User table results",
+    }),
   });
   const selectedApplicants =
     selectedUsersData?.applicants.filter(notEmpty) ?? [];
@@ -325,7 +376,9 @@ export const UserTable: React.FC = () => {
           )
         }
         hiddenColumnIds={hiddenColumnIds}
-        onFilterChange={setUserFilterInput}
+        filterButtonComponent={
+          <UserTableFilterDialog.Button onSubmit={handleFilterSubmit} />
+        }
       />
       <div data-h2-radius="base(s)">
         <Pending fetching={fetching} error={error} inline>

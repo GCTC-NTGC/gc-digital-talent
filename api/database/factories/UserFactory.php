@@ -104,7 +104,7 @@ class UserFactory extends Factory
             'has_disability' => $this->faker->boolean(),
             'is_indigenous' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),
-            'has_diploma' => $this->faker->boolean(),
+            'has_diploma' => $this->faker->boolean(90), // temporary fix for Cypress workflows
             'language_ability' => $this->faker->randomElement(['FRENCH', 'ENGLISH', 'BILINGUAL']),
             'location_preferences' => $this->faker->randomElements(
                 [

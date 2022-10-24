@@ -303,19 +303,19 @@ class User extends Model implements Authenticatable
         $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
         return $query;
     }
-    public function filterByLocationPreferences(Builder $query, array $locations): Builder
+    public function filterByLocationPreferences(Builder $query, array $workRegions): Builder
     {
-        if (empty($locations)) {
+        if (empty($workRegions)) {
             return $query;
         }
-        // LocationPreferences acts as an OR filter. The query should return candidates willing to work in ANY of the locations.
-        $query->where(function ($query) use ($locations) {
-            foreach ($locations as $index => $location) {
+        // LocationPreferences acts as an OR filter. The query should return candidates willing to work in ANY of the workRegions.
+        $query->where(function ($query) use ($workRegions) {
+            foreach ($workRegions as $index => $workRegion) {
                 if ($index === 0) {
                     // First iteration must use where instead of orWhere
-                    $query->whereJsonContains('location_preferences', $location);
+                    $query->whereJsonContains('location_preferences', $workRegion);
                 } else {
-                    $query->orWhereJsonContains('location_preferences', $location);
+                    $query->orWhereJsonContains('location_preferences', $workRegion);
                 }
             }
         });
