@@ -5,7 +5,6 @@ import { imageUrl } from "@common/helpers/router";
 
 import Heading from "@common/components/Heading";
 import { getLocale } from "@common/helpers/localize";
-import { useTalentSearchRoutes } from "talentsearch/src/js/talentSearchRoutes";
 import TALENTSEARCH_APP_DIR from "../../../../talentSearchConstants";
 
 import Block from "./Block";
@@ -14,7 +13,6 @@ import Block from "./Block";
 const Featured = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const tsPaths = useTalentSearchRoutes();
 
   const iapEmail = {
     subject: encodeURIComponent(
