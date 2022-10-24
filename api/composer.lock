@@ -2395,16 +2395,16 @@
         },
         {
             "name": "mll-lab/graphql-php-scalars",
-            "version": "v5.4.0",
+            "version": "v5.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mll-lab/graphql-php-scalars.git",
-                "reference": "a4c51fdfbed29d6d12453d2107a19bd33a3dfce0"
+                "reference": "0e71c350f1192819f603db783b92598e00c80549"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mll-lab/graphql-php-scalars/zipball/a4c51fdfbed29d6d12453d2107a19bd33a3dfce0",
-                "reference": "a4c51fdfbed29d6d12453d2107a19bd33a3dfce0",
+                "url": "https://api.github.com/repos/mll-lab/graphql-php-scalars/zipball/0e71c350f1192819f603db783b92598e00c80549",
+                "reference": "0e71c350f1192819f603db783b92598e00c80549",
                 "shasum": ""
             },
             "require": {
@@ -2451,9 +2451,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mll-lab/graphql-php-scalars/issues",
-                "source": "https://github.com/mll-lab/graphql-php-scalars/tree/v5.4.0"
+                "source": "https://github.com/mll-lab/graphql-php-scalars/tree/v5.4.1"
             },
-            "time": "2022-01-28T09:28:10+00:00"
+            "time": "2022-10-20T19:34:29+00:00"
         },
         {
             "name": "mll-lab/laravel-graphql-playground",
