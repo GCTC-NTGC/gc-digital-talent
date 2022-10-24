@@ -17,7 +17,7 @@ class MigratePoolCandidatesToUser extends Command
      *
      * @var string
      */
-    protected $signature = 'migrate:pool_candidate_to_user';
+    protected $signature = 'copy:pool_candidate_to_user';
 
     /**
      * The console command description.
