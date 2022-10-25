@@ -235,11 +235,14 @@ const SupportFormApi = () => {
       toast.error(
         intl.formatMessage(
           {
-            defaultMessage: `Error: creating ticket failed (code {errorCode})`,
-            id: "C3Lv2t",
+            defaultMessage: `Sorry, something went wrong. Please email {emailAddress} and mention this error code: {errorCode}.`,
+            id: "tZLItl",
             description: "Support form toast message error",
           },
-          { errorCode: response.status },
+          {
+            emailAddress: "gctalent-talentgc@support-soutien.gc.ca",
+            errorCode: response.status,
+          },
         ),
       );
       return Promise.reject(response.status);
