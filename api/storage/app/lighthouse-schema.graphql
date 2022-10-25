@@ -979,6 +979,7 @@ type Query {
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
   searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [PoolCandidate]!
+  searchApplicants(where: ApplicantFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [Applicant]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   cmoAsset(id: ID!): CmoAsset

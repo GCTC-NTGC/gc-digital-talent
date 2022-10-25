@@ -850,6 +850,16 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @guard
     @can(ability: "viewAny")
+  # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
+  searchApplicants(
+    where: ApplicantFilterInput
+    orderBy: [OrderByClause!] @orderBy
+    expiryStatus: CandidateExpiryFilter
+  ): [Applicant]!
+    @all(scopes: ["expiryFilter", "available"])
+    @orderBy(column: "created_at", direction: DESC)
+    @guard
+    @can(ability: "viewAny")
   classification(id: ID! @eq): Classification @find
   classifications: [Classification]! @all
   cmoAsset(id: ID! @eq): CmoAsset @find
