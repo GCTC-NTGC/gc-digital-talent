@@ -12,7 +12,6 @@ import { useAuthRoutes } from "../../../../authRoutes";
 
 import "./profile.css";
 
-// Create the page component
 const Profile = () => {
   const intl = useIntl();
   const apPaths = useApplicantProfileRoutes();
@@ -106,5 +105,4 @@ const Profile = () => {
   );
 };
 
-// Export the component
 export default Profile;

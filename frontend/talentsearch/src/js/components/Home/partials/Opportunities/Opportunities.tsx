@@ -67,7 +67,6 @@ const Opportunities = () => {
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
       >
         <div data-h2-padding="base(x3, 0) p-tablet(x5, 0, x4, 0) l-tablet(x7, 0, x6, 0)">
-          {/* Requires an ID and a translated text string */}
           <Heading
             level="h2"
             Icon={MagnifyingGlassCircleIcon}
@@ -151,7 +150,7 @@ const Opportunities = () => {
                 description: "Heading for executive jobs in government",
               })}
               link={{
-                href: profilePaths.myProfile(), // TO DO: Get new path
+                href: profilePaths.myProfile(),
                 label: loggedIn
                   ? intl.formatMessage({
                       defaultMessage: "Get ready by updating your profile",
@@ -178,8 +177,8 @@ const Opportunities = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "From entry-level executives to CIO opportunities across the GC, this is the place to come if you’re ready to take on a digital leadership role making a difference for Canadians.",
-                  id: "pDGY5P",
+                    "From entry-level executives to CIO opportunities across the GC, this is the place to come if you're ready to take on a digital leadership role making a difference for Canadians.",
+                  id: "EWCP4t",
                   description: "Description for executive jobs in government",
                 })}
               </p>

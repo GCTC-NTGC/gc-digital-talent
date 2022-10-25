@@ -63,8 +63,8 @@ const About = () => {
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "GC Digital Talent is only one of the many initiatives being led by the Office of the Chief Information Officer of Canada (OCIO). Learn more about OCIO’s role in the Government of Canada. Check out the GC Digital Ambition to see where OCIO is heading in the future.",
-                    id: "jVoHKZ",
+                      "GC Digital Talent is only one of the many initiatives being led by the Office of the Chief Information Officer of Canada (OCIO). Learn more about OCIO's role in the Government of Canada. Check out the GC Digital Ambition to see where OCIO is heading in the future.",
+                    id: "hKPuCT",
                     description:
                       "Description of the Office of the Chief Information Officer",
                   })}
@@ -95,8 +95,8 @@ const About = () => {
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Behind the GC Digital Talent platform is a whole team of people designing, developing, screening applicants, talent managing employees, placing executives, and helping managers find the talent they need to deliver services to Canadians. ",
-                    id: "+6+eor",
+                      "Behind the GC Digital Talent platform is a whole team of people designing, developing, screening applicants, talent managing employees, placing executives, and helping managers find the talent they need to deliver services to Canadians.",
+                    id: "JKL7Yw",
                     description:
                       "Description for the Digital Community Management Office",
                   })}
@@ -124,8 +124,8 @@ const About = () => {
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Curious about how the GC Digital Talent platform was developed? Want to learn more about the ideas, designs, and philosophy going on behind the scenes? Check out the path from Talent Cloud’s experimental pilot to today’s full-scale platform.",
-                    id: "wSQmDk",
+                      "Curious about how the GC Digital Talent platform was developed? Want to learn more about the ideas, designs, and philosophy going on behind the scenes? Check out the path from Talent Cloud's experimental pilot to today's full-scale platform.",
+                    id: "GSzckJ",
                     description: "Description of how the platform was created.",
                   })}
                 </p>

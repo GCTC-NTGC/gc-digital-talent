@@ -16,10 +16,22 @@ const Featured = () => {
 
   const iapEmail = {
     subject: encodeURIComponent(
-      "I'm interested in hiring Indigenous IT apprentices for my team",
+      intl.formatMessage({
+        defaultMessage:
+          "I'm interested in hiring Indigenous IT apprentices for my team",
+        id: "p/dXxz",
+        description:
+          "Subject of email for info on Indigenous Apprenticeship Program",
+      }),
     ),
     body: encodeURIComponent(
-      "I discovered the Indigenous Apprenticeship Program on talent.canada.ca and I’d like to learn more about how I can hire apprentices to my team.",
+      intl.formatMessage({
+        defaultMessage:
+          "I discovered the Indigenous Apprenticeship Program on talent.canada.ca and I'd like to learn more about how I can hire apprentices to my team.",
+        id: "dIIccA",
+        description:
+          "Body of email for info on Indigenous Apprenticeship Program",
+      }),
     ),
   };
 
