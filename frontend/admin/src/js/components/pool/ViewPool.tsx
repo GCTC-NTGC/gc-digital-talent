@@ -13,7 +13,6 @@ import {
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
-import LineBreaks from "@common/components/LineBreaks/LineBreaks";
 import { commonMessages } from "@common/messages";
 import { getLocale, getLocalizedName } from "@common/helpers/localize";
 
@@ -439,40 +438,36 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               </h2>
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <LineBreaks>
-                <p
-                  data-h2-margin="base(x1, 0, 0, 0)"
-                  data-h2-font-weight="base(700)"
-                  data-h2-font-size="base(h6)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "English impact text",
-                    id: "BzaGwp",
-                    description: "Title for English pool advertisement impact",
-                  })}
-                </p>
-                <p data-h2-margin="base(x.5, 0, 0, 0)">
-                  {pool.yourImpact?.en || ""}
-                </p>
-              </LineBreaks>
+              <p
+                data-h2-margin="base(x1, 0, 0, 0)"
+                data-h2-font-weight="base(700)"
+                data-h2-font-size="base(h6)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "English impact text",
+                  id: "BzaGwp",
+                  description: "Title for English pool advertisement impact",
+                })}
+              </p>
+              <p data-h2-margin="base(x.5, 0, 0, 0)">
+                {pool.yourImpact?.en || ""}
+              </p>
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <LineBreaks>
-                <p
-                  data-h2-margin="base(x1, 0, 0, 0)"
-                  data-h2-font-weight="base(700)"
-                  data-h2-font-size="base(h6)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "French impact text",
-                    id: "CTnN9W",
-                    description: "Title for French pool advertisement impact",
-                  })}
-                </p>
-                <p data-h2-margin="base(x.5, 0, 0, 0)">
-                  {pool.yourImpact?.fr || ""}
-                </p>
-              </LineBreaks>
+              <p
+                data-h2-margin="base(x1, 0, 0, 0)"
+                data-h2-font-weight="base(700)"
+                data-h2-font-size="base(h6)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "French impact text",
+                  id: "CTnN9W",
+                  description: "Title for French pool advertisement impact",
+                })}
+              </p>
+              <p data-h2-margin="base(x.5, 0, 0, 0)">
+                {pool.yourImpact?.fr || ""}
+              </p>
             </div>
             <div data-h2-flex-item="base(1of1)">
               <h2
@@ -487,40 +482,36 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               </h2>
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <LineBreaks>
-                <p
-                  data-h2-margin="base(x1, 0, 0, 0)"
-                  data-h2-font-weight="base(700)"
-                  data-h2-font-size="base(h6)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "English work text",
-                    id: "UjGx0m",
-                    description: "Title for English pool advertisement Work",
-                  })}
-                </p>
-                <p data-h2-margin="base(x.5, 0, 0, 0)">
-                  {pool.keyTasks?.en || ""}
-                </p>
-              </LineBreaks>
+              <p
+                data-h2-margin="base(x1, 0, 0, 0)"
+                data-h2-font-weight="base(700)"
+                data-h2-font-size="base(h6)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "English work text",
+                  id: "UjGx0m",
+                  description: "Title for English pool advertisement Work",
+                })}
+              </p>
+              <p data-h2-margin="base(x.5, 0, 0, 0)">
+                {pool.keyTasks?.en || ""}
+              </p>
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <LineBreaks>
-                <p
-                  data-h2-margin="base(x1, 0, 0, 0)"
-                  data-h2-font-weight="base(700)"
-                  data-h2-font-size="base(h6)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "French work text",
-                    id: "88Haix",
-                    description: "Title for French pool advertisement Work",
-                  })}
-                </p>
-                <p data-h2-margin="base(x.5, 0, 0, 0)">
-                  {pool.keyTasks?.fr || ""}
-                </p>
-              </LineBreaks>
+              <p
+                data-h2-margin="base(x1, 0, 0, 0)"
+                data-h2-font-weight="base(700)"
+                data-h2-font-size="base(h6)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "French work text",
+                  id: "88Haix",
+                  description: "Title for French pool advertisement Work",
+                })}
+              </p>
+              <p data-h2-margin="base(x.5, 0, 0, 0)">
+                {pool.keyTasks?.fr || ""}
+              </p>
             </div>
           </div>
           <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">

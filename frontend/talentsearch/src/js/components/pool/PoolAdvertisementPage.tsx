@@ -7,7 +7,6 @@ import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import Card from "@common/components/Card";
 import { Button } from "@common/components";
-import LineBreaks from "@common/components/LineBreaks/LineBreaks";
 import { getLocale } from "@common/helpers/localize";
 import { imageUrl, navigate } from "@common/helpers/router";
 
@@ -382,7 +381,7 @@ const PoolAdvertisement = ({
                       "Title for a pool advertisements impact section.",
                   })}
                 </IconTitle>
-                <LineBreaks>{poolAdvertisement.yourImpact[locale]}</LineBreaks>
+                <p>{poolAdvertisement.yourImpact[locale]}</p>
               </>
             ) : null}
             {poolAdvertisement.keyTasks ? (
@@ -395,7 +394,7 @@ const PoolAdvertisement = ({
                       "Title for a pool advertisements key tasks section.",
                   })}
                 </IconTitle>
-                <LineBreaks>{poolAdvertisement.keyTasks[locale]}</LineBreaks>
+                <p>{poolAdvertisement.keyTasks[locale]}</p>
               </>
             ) : null}
           </TableOfContents.Section>
@@ -424,11 +423,11 @@ const PoolAdvertisement = ({
                 </Text>
                 {essentialSkills[SkillCategory.Technical]?.map((skill) => (
                   <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <LineBreaks>
+                    <p>
                       <Text>
                         {skill.description ? skill.description[locale] : ""}
                       </Text>
-                    </LineBreaks>
+                    </p>
                   </Accordion>
                 ))}
               </>

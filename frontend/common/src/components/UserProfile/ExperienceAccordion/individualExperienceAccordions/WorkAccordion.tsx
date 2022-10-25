@@ -1,7 +1,6 @@
 import React from "react";
 import BriefCaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
 import { useIntl } from "react-intl";
-import LineBreaks from "../../../LineBreaks/LineBreaks";
 import Accordion from "../../../accordion/Accordion";
 import { Link } from "../../..";
 import { getLocale } from "../../../../helpers/localize";
@@ -43,17 +42,13 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
               </p>
             )}
             {skill.description && skill.description[locale] && (
-              <LineBreaks>
-                <p data-h2-margin="base(0, 0, x.25, 0)">
-                  {skill.description[locale]}
-                </p>
-              </LineBreaks>
+              <p data-h2-margin="base(0, 0, x.25, 0)">
+                {skill.description[locale]}
+              </p>
             )}
             {skill.experienceSkillRecord &&
               skill.experienceSkillRecord.details && (
-                <LineBreaks>
-                  <p>{skill.experienceSkillRecord.details}</p>
-                </LineBreaks>
+                <p>{skill.experienceSkillRecord.details}</p>
               )}
           </li>
         </ul>
@@ -139,9 +134,7 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
           description: "Additional information if provided",
         })}
       </p>
-      <LineBreaks>
-        <p>{details}</p>
-      </LineBreaks>
+      <p>{details}</p>
       {editUrl && (
         <div>
           <hr

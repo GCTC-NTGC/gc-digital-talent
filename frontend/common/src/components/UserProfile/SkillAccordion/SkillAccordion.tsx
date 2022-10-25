@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as React from "react";
 import { useIntl } from "react-intl";
-import LineBreaks from "../../LineBreaks/LineBreaks";
 import { getLocale } from "../../../helpers/localize";
 import Accordion from "../../accordion";
 import {
@@ -146,22 +145,20 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             ? intl.formatMessage(getAwardedScope(awardedScope))
             : ""}
         </p>
-        <LineBreaks>
-          <p>{skill.experienceSkillRecord?.details}</p>
-          <p
-            data-h2-color="base(dt-primary)"
-            data-h2-font-weight="base(700)"
-            data-h2-margin="base(x1, 0, x.25, 0)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Additional information:",
-              id: "gLioY2",
-              description: "Additional information if provided",
-            })}
-          </p>
+        <p>{skill.experienceSkillRecord?.details}</p>
+        <p
+          data-h2-color="base(dt-primary)"
+          data-h2-font-weight="base(700)"
+          data-h2-margin="base(x1, 0, x.25, 0)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Additional information:",
+            id: "gLioY2",
+            description: "Additional information if provided",
+          })}
+        </p>
 
-          <p>{details}</p>
-        </LineBreaks>
+        <p>{details}</p>
       </>
     );
   };
@@ -194,21 +191,19 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             { project },
           )}
         </p>
-        <LineBreaks>
-          <p>{skill.experienceSkillRecord?.details}</p>
-          <p
-            data-h2-color="base(dt-primary)"
-            data-h2-font-weight="base(700)"
-            data-h2-margin="base(x1, 0, x.25, 0)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Additional information:",
-              id: "gLioY2",
-              description: "Additional information if provided",
-            })}
-          </p>
-          <p>{details}</p>
-        </LineBreaks>
+        <p>{skill.experienceSkillRecord?.details}</p>
+        <p
+          data-h2-color="base(dt-primary)"
+          data-h2-font-weight="base(700)"
+          data-h2-margin="base(x1, 0, x.25, 0)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Additional information:",
+            id: "gLioY2",
+            description: "Additional information if provided",
+          })}
+        </p>
+        <p>{details}</p>
       </>
     );
   };
@@ -233,21 +228,19 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {getDateRange({ endDate, startDate, intl, locale })}
         </p>
         <p>{division}</p>
-        <LineBreaks>
-          <p>{skill.experienceSkillRecord?.details}</p>
-          <p
-            data-h2-color="base(dt-primary)"
-            data-h2-font-weight="base(700)"
-            data-h2-margin="base(x1, 0, x.25, 0)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Additional information:",
-              id: "gLioY2",
-              description: "Additional information if provided",
-            })}
-          </p>
-          <p>{details}</p>
-        </LineBreaks>
+        <p>{skill.experienceSkillRecord?.details}</p>
+        <p
+          data-h2-color="base(dt-primary)"
+          data-h2-font-weight="base(700)"
+          data-h2-margin="base(x1, 0, x.25, 0)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Additional information:",
+            id: "gLioY2",
+            description: "Additional information if provided",
+          })}
+        </p>
+        <p>{details}</p>
       </>
     );
   };
