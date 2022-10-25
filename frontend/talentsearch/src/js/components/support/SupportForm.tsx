@@ -256,6 +256,7 @@ const SupportFormApi = () => {
             },
           )}
         </>,
+        { autoClose: 20000 },
       );
       return Promise.reject(response.status);
     });
