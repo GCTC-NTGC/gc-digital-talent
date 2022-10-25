@@ -68,7 +68,7 @@ const applicantFilterToQueryArgs = (
 
 export interface SearchContainerProps {
   classifications: Pick<Classification, "group" | "level">[];
-  pool?: Pick<Pool, "name" | "description">;
+  pools?: Pool[];
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   skills?: Skill[];
   candidateCount: number;
@@ -84,7 +84,7 @@ const testId = (chunks: React.ReactNode): React.ReactNode => (
 
 export const SearchContainer: React.FC<SearchContainerProps> = ({
   classifications,
-  pool,
+  pools,
   poolOwner,
   skills,
   candidateCount,
@@ -148,6 +148,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             <SearchForm
               classifications={classifications}
               skills={skills}
+              pools={pools}
               onUpdateApplicantFilter={onUpdateApplicantFilter}
               ref={searchRef}
             />
@@ -206,7 +207,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           {!updatePending ? (
             <CandidateResults
               candidateCount={candidateCount}
-              pool={pool}
               poolOwner={poolOwner}
               handleSubmit={tryHandleSubmit}
             />
@@ -222,6 +222,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 const SearchContainerApi: React.FC = () => {
   const [{ data, fetching, error }] = useGetSearchFormDataAcrossAllPoolsQuery();
   const skills = data?.skills;
+  const pools = data?.pools;
 
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
@@ -247,6 +248,7 @@ const SearchContainerApi: React.FC = () => {
       <SearchContainer
         classifications={NonExecutiveITClassifications()}
         skills={skills as Skill[]}
+        pools={pools as Pool[]}
         applicantFilter={applicantFilter}
         candidateCount={candidateCount}
         updatePending={countFetching}
