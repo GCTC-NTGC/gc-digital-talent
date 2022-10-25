@@ -423,7 +423,6 @@ const directIntakeRoutes = (
     path: directIntakePaths.allPools(),
     action: () => ({
       component: <BrowsePoolsPage />,
-      authorizedRoles: [Role.Applicant],
     }),
   },
   {
