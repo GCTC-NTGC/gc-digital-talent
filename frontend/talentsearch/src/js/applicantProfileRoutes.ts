@@ -12,7 +12,7 @@ const applicantProfileRoutes = (lang: string) => {
     applicationId ? path.join(`?applicationId=${applicationId}`) : "";
   return {
     home,
-    myProfile: (): string => path.join("/", lang, "talent", "profile"),
+    myProfile: (): string => path.join("/", lang, "users", "me"),
     createAccount: (): string => path.join("/", lang, "create-account"),
     aboutMe: (userId: string, applicationId?: string): string =>
       path.join(

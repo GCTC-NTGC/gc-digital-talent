@@ -1,22 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
 import { imageUrl } from "@common/helpers/router";
 
 import CallToAction from "../../../CallToAction";
 
 import TALENTSEARCH_APP_DIR from "../../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../../applicantProfileRoutes";
-import { useAuthRoutes } from "../../../../authRoutes";
 
 import "./profile.css";
 
 const Profile = () => {
   const intl = useIntl();
   const apPaths = useApplicantProfileRoutes();
-  const authPaths = useAuthRoutes();
-  const auth = useAuthorizationContext();
 
   return (
     <div
@@ -88,9 +84,7 @@ const Profile = () => {
               type="link"
               context="profile"
               content={{
-                path: auth.loggedInUser
-                  ? apPaths.home(auth.loggedInUser.id)
-                  : authPaths.login(),
+                path: apPaths.myProfile(),
                 label: intl.formatMessage({
                   defaultMessage: "Create a profile",
                   id: "7hUWc+",
