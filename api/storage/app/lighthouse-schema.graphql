@@ -147,6 +147,11 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+type CandidateSearchPoolResult {
+  poolId: ID
+  candidateCount: Int
+}
+
 enum CitizenshipStatus {
   CITIZEN
   PERMANENT_RESIDENT
@@ -979,6 +984,7 @@ type Query {
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
   searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [PoolCandidate]!
+  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   cmoAsset(id: ID!): CmoAsset

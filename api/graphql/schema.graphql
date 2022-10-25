@@ -776,6 +776,11 @@ input ApplicantFilterInput {
     @builder(method: "App\\Models\\User@filterByAvailableInPools") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
 }
 
+type CandidateSearchPoolResult {
+  poolId: ID
+  candidateCount: Int
+}
+
 type Query {
   me: User @auth
   user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
@@ -850,6 +855,7 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @guard
     @can(ability: "viewAny")
+  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: ID! @eq): Classification @find
   classifications: [Classification]! @all
   cmoAsset(id: ID! @eq): CmoAsset @find
