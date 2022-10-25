@@ -21,6 +21,7 @@ export type FormValues = {
   description: string;
   subject: string;
 };
+
 interface SupportFormProps {
   showSupportForm: boolean;
   onFormToggle: (show: boolean) => void;
@@ -31,6 +32,10 @@ interface SupportFormProps {
 interface SupportFormSuccessProps {
   onFormToggle: (show: boolean) => void;
 }
+
+const anchorTag = (chunks: React.ReactNode): React.ReactNode => (
+  <a href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>{chunks}</a>
+);
 
 const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
   const intl = useIntl();
@@ -236,17 +241,21 @@ const SupportFormApi = () => {
         return Promise.resolve(response.status);
       }
       toast.error(
-        intl.formatMessage(
-          {
-            defaultMessage: `Sorry, something went wrong. Please email {emailAddress} and mention this error code: {errorCode}.`,
-            id: "tZLItl",
-            description: "Support form toast message error",
-          },
-          {
-            emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
-            errorCode: response.status,
-          },
-        ),
+        <>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Sorry, something went wrong. Please email <anchorTag>{emailAddress}</anchorTag> and mention this error code: {errorCode}.",
+              id: "rNVDaA",
+              description: "Support form toast message error",
+            },
+            {
+              anchorTag,
+              emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
+              errorCode: response.status,
+            },
+          )}
+        </>,
       );
       return Promise.reject(response.status);
     });

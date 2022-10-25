@@ -2388,8 +2388,8 @@
     "defaultMessage": "Talent numérique du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
     "description": "Meta tag description for Talent Search site"
   },
-  "tZLItl": {
-    "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à {emailAddress} et mentionner ce code d’erreur : {errorCode}.",
+  "rNVDaA": {
+    "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
     "description": "Support form toast message error"
   }
 }
