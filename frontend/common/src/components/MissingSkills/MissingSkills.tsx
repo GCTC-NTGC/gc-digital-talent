@@ -21,8 +21,8 @@ const MissingSkillsBlock = ({
   ...rest
 }: {
   pillType: { color: PillColor; mode: PillMode };
-  title: string;
-  blurb: string;
+  title: React.ReactNode;
+  blurb: React.ReactNode;
   icon: React.ReactNode;
   missingSkills: Skill[];
 }) => {
