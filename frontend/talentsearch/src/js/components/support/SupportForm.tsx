@@ -10,7 +10,10 @@ import Pending from "@common/components/Pending";
 import { useState } from "react";
 import Button from "@common/components/Button";
 import { useGetMeQuery, User } from "../../api/generated";
-import { API_SUPPORT_ENDPOINT } from "../../talentSearchConstants";
+import {
+  API_SUPPORT_ENDPOINT,
+  TALENTSEARCH_SUPPORT_EMAIL,
+} from "../../talentSearchConstants";
 
 export type FormValues = {
   name: string;
@@ -240,7 +243,7 @@ const SupportFormApi = () => {
             description: "Support form toast message error",
           },
           {
-            emailAddress: "gctalent-talentgc@support-soutien.gc.ca",
+            emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
             errorCode: response.status,
           },
         ),
