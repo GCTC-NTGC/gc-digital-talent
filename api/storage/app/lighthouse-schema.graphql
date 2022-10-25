@@ -148,8 +148,8 @@ enum CandidateExpiryFilter {
 }
 
 type CandidateSearchPoolResult {
-  poolId: ID
-  candidateCount: Int
+  pool: Pool!
+  candidateCount: Int!
 }
 
 enum CitizenshipStatus {

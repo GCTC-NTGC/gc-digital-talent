@@ -7,6 +7,7 @@ use App\Models\User;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
+use App\Models\Pool;
 
 final class CountPoolCandidatesByPool
 {
@@ -84,10 +85,15 @@ final class CountPoolCandidatesByPool
             ->groupBy('pool_id')
             ->get();
 
+        // would be nice to do this in the same query as above but alas...
+        $allPools = Pool::whereIn('id', $databaseRows->pluck('pool_id'))->get();
+
         $resultSet = [];
         foreach ($databaseRows as $row) {
             array_push($resultSet, [
-                "poolId" => $row->pool_id,
+                "pool" => $allPools->sole(function ($pool) use ($row) { // attach the matching full Pool model to the results
+                    return $pool->id == $row->pool_id;
+                }),
                 "candidateCount" => $row->candidate_count,
             ]);
         }
