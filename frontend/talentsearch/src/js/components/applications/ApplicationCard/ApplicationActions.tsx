@@ -5,23 +5,17 @@ import { Button, Link } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
-import { refresh } from "@common/helpers/router";
 
-import { toast } from "react-toastify";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+import { useDirectIntakeRoutes } from "../../../directIntakeRoutes";
 
 import type { Application } from "./ApplicationCard";
-import {
-  useArchiveApplicationMutation,
-  useDeleteApplicationMutation,
-} from "../../api/generated";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
+import getFullPoolAdvertisementTitle from "../../pool/getFullPoolAdvertisementTitle";
 
-interface ActionProps {
+export interface ActionProps {
   show: boolean;
 }
 
-interface ContinueActionProps extends ActionProps {
+export interface ContinueActionProps extends ActionProps {
   application: Application;
 }
 
@@ -53,7 +47,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
   );
 };
 
-interface SeeAdvertisementActionProps extends ActionProps {
+export interface SeeAdvertisementActionProps extends ActionProps {
   advertisement: Application["poolAdvertisement"];
 }
 
@@ -87,40 +81,13 @@ const SeeAdvertisementAction = ({
   );
 };
 
-interface DeleteActionProps extends ActionProps {
+export interface DeleteActionProps extends ActionProps {
   application: Application;
+  onDelete: () => void;
 }
 
-const DeleteAction = ({ show, application }: DeleteActionProps) => {
+const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
   const intl = useIntl();
-  const [, executeMutation] = useDeleteApplicationMutation();
-
-  const onDelete = () => {
-    executeMutation({
-      id: application.id,
-    }).then((result) => {
-      if (result.data?.deleteApplication) {
-        refresh();
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Application deleted successfully!",
-            id: "xdGPxT",
-            description:
-              "Message displayed to user after application is deleted successfully.",
-          }),
-        );
-      } else {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: deleting application failed",
-            id: "M3c9Yo",
-            description:
-              "Message displayed to user after application fails to get deleted.",
-          }),
-        );
-      }
-    });
-  };
 
   if (!show) {
     return null;
@@ -197,40 +164,17 @@ const DeleteAction = ({ show, application }: DeleteActionProps) => {
   );
 };
 
-interface ArchiveActionProps extends ActionProps {
+export interface ArchiveActionProps extends ActionProps {
   application: Application;
+  onArchive: () => void;
 }
 
-const ArchiveAction = ({ show, application }: ArchiveActionProps) => {
+const ArchiveAction = ({
+  show,
+  application,
+  onArchive,
+}: ArchiveActionProps) => {
   const intl = useIntl();
-  const [, executeMutation] = useArchiveApplicationMutation();
-
-  const onArchive = () => {
-    executeMutation({
-      id: application.id,
-    }).then((result) => {
-      if (result.data?.archiveApplication) {
-        refresh();
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Application archived successfully!",
-            id: "KEhCJX",
-            description:
-              "Message displayed to user after application is archived successfully.",
-          }),
-        );
-      } else {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: archiving application failed",
-            id: "i3IjQt",
-            description:
-              "Message displayed to user after application fails to get archived.",
-          }),
-        );
-      }
-    });
-  };
 
   if (!show) {
     return null;
