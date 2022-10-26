@@ -209,7 +209,7 @@ export const SupportForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <Submit />
+            <Submit color="blue" />
           </form>
         </FormProvider>
       </div>
