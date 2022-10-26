@@ -3,25 +3,11 @@ site-title:
   fr: GC Talent
 navigation:
   en:
-    - label: Home
-      title: Visit the GC Talent homepage.
+    - label: "&lt; Return to GC Digital Talent"
       route: /en/
-    - label: Talent Cloud
-      title: Learn more about the Talent Cloud project.
-      route: /en/talent-cloud/
-    - label: Digital Talent
-      title: Learn more about the Digital Talent community.
-      route: /en/communities/digital-talent/
   fr:
-    - label: Accueil
-      title: Visitez la page d'accueil de GC Talent.
+    - label: "&lt; Retour à Talent Numérique du GC"
       route: /fr/
-    - label: Nuage de talents
-      title: En savoir plus sur le projet Nuage de talents.
-      route: /fr/talent-cloud/
-    - label: Talent numérique
-      title: En savoir plus sur la communauté des talents numériques.
-      route: /fr/communities/digital-talent/
 breadcrumbs:
   home:
     title:
