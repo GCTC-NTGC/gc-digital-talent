@@ -68,7 +68,7 @@ const applicantFilterToQueryArgs = (
 
 export interface SearchContainerProps {
   classifications: Pick<Classification, "group" | "level">[];
-  pools?: Pool[];
+  pools?: Pick<Pool, "id" | "classifications">[];
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   skills?: Skill[];
   candidateCount: number;

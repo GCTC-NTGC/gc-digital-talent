@@ -63,7 +63,7 @@ export type FormValues = Pick<
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolCandidates: UserPoolFilterInput;
-  pools: Pool[];
+  pools?: Pick<Pool, "id" | "classifications">[];
 };
 
 type LocationState = {
@@ -75,7 +75,7 @@ type LocationState = {
 export interface SearchFormProps {
   classifications: Pick<Classification, "group" | "level">[];
   skills?: Skill[];
-  pools?: Pool[];
+  pools?: Pick<Pool, "id" | "classifications">[];
   onUpdateApplicantFilter: (filter: ApplicantFilterInput) => void;
 }
 
@@ -111,7 +111,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
   ({ classifications, skills, pools, onUpdateApplicantFilter }, ref) => {
     const intl = useIntl();
     const location = useLocation();
-    console.log(pools);
     const classificationMap = React.useMemo(() => {
       return mapObjectsByKey(classificationToKey, classifications);
     }, [classifications]);
@@ -175,10 +174,9 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
           wouldAcceptTemporary:
             values.employmentDuration === "true" ? true : null,
           locationPreferences: values.locationPreferences || [],
-          pools: filterPoolsBySelectedClassification(
-            pools,
-            selectedClassification,
-          ),
+          pools: pools
+            ? filterPoolsBySelectedClassification(pools, selectedClassification)
+            : [],
         };
       };
 
@@ -207,19 +205,18 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     );
 
     const filterPoolsBySelectedClassification = (
-      allPools: Maybe<Array<Pool>>,
+      allPools: Pick<Pool, "id" | "classifications">[],
       classification: Maybe<Pick<Classification, "group" | "level">>,
-    ) => {
-      return allPools
-        ?.filter((pool: Pool) => {
-          return pool.classifications?.some(
+    ) =>
+      allPools
+        ?.filter((pool: Maybe<Pick<Pool, "id" | "classifications">>) => {
+          return pool?.classifications?.some(
             (x) =>
               x?.group === classification?.group &&
               x?.level === classification?.level,
           );
         })
         .filter(notEmpty);
-    };
 
     const classificationOptions: Option<string>[] = React.useMemo(
       () =>
