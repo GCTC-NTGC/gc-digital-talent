@@ -32,8 +32,8 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
   const [{ fetching: creating, data: mutationData }, executeMutation] =
     useCreateApplicationMutation();
 
-  // Store pool path to redirect to later on
-  const poolPath = paths.pool(poolId);
+  // Store path to redirect to later on
+  let redirectPath = paths.pool(poolId);
 
   /**
    * There is a possibility someone navigates
@@ -70,61 +70,66 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
   const canCreate =
     !creating && !mutationData && userId && poolId && isVisible && !hasApplied;
 
+  // Set the redirect path to the application
+  // if the user has applied and it exists
+  if (hasApplied && application) {
+    redirectPath = paths.reviewApplication(application.id);
+  }
+
   /**
-   * Actually run the mutation
+   * Handle any errors that occur during mutation
+   *
+   * @returns null
    */
-  if (canCreate) {
-    /**
-     * Handle any errors that occur during mutation
-     *
-     * @returns null
-     */
-    const handleError = () => {
-      redirect(poolPath);
-      toast.error(
+  const handleError = (msg?: React.ReactNode) => {
+    redirect(redirectPath);
+    toast.error(
+      msg ||
         intl.formatMessage({
           defaultMessage: "Error application creation failed",
           id: "tlAiJm",
           description: "Application creation failed",
         }),
-      );
-      return null;
-    };
+    );
+    return null;
+  };
 
-    if (userId) {
-      executeMutation({ userId, poolId })
-        .then((result) => {
-          if (result.data?.createApplication) {
-            // Redirect user to the application on success
-            redirect(paths.reviewApplication(result.data.createApplication.id));
-            toast.success(
-              intl.formatMessage({
-                defaultMessage: "Application created",
-                id: "U/ji+A",
-                description: "Application created successfully",
-              }),
-            );
-            return null;
-          }
-          return handleError();
-        })
-        .catch(handleError);
-    }
+  /**
+   * Actually run the mutation
+   */
+  if (canCreate) {
+    executeMutation({ userId, poolId })
+      .then((result) => {
+        if (result.data?.createApplication) {
+          // Redirect user to the application on success
+          redirect(paths.reviewApplication(result.data.createApplication.id));
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Application created",
+              id: "U/ji+A",
+              description: "Application created successfully",
+            }),
+          );
+          return null;
+        }
+        return handleError();
+      })
+      .catch(handleError);
   }
 
-  // If a pool is not visible, you can create one
-  // So redirect them back to the pool page
-  if (!isVisible) {
-    redirect(poolPath);
-  }
-
-  // If a user has already applied, redirect to the existing application
-  // Or, back to the pool page if we cannot find it
-  if (hasApplied && !creating) {
-    const redirectPath = application
-      ? paths.reviewApplication(application.id)
-      : poolPath;
-    redirect(redirectPath);
+  // If a user has already applied or this pool is a draft
+  // redirect them away from this route with a toast
+  if ((hasApplied || !isVisible) && !creating) {
+    handleError(
+      hasApplied
+        ? intl.formatMessage({
+            defaultMessage: "You have already applied to this.",
+            id: "mwEGU+",
+            description:
+              "Disabled button when a user already applied to a pool opportunity",
+          })
+        : undefined,
+    );
   }
 
   /**
