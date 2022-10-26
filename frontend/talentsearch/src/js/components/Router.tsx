@@ -171,6 +171,14 @@ const profileRoutes = (
     }),
   },
   {
+    path: profilePaths.myProfile(),
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.home(myUserId) : undefined,
+    }),
+  },
+  {
     path: profilePaths.governmentInformation(":userId"),
     action: (context) => {
       const userId = context.params.userId as string;
@@ -267,7 +275,7 @@ const profileRoutes = (
 
   // Old routes - these redirect to the current route for the page
   {
-    path: profilePaths.myProfile(),
+    path: profilePaths.myProfileDeprecated(),
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
