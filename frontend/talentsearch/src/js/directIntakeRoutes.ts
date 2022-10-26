@@ -12,6 +12,7 @@ const directIntakeRoutes = (lang: string) => {
 
   return {
     home,
+    support: (): string => path.join("/", lang, "support"),
     allPools: (): string => path.join(home(), "pools"),
     pool: (id: string) => path.join(home(), "pools", id),
     signAndSubmit: (id: string) =>
