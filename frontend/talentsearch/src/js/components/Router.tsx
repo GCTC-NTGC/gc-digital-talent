@@ -9,6 +9,7 @@ import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { getLocale } from "@common/helpers/localize";
 import useFeatureFlags from "@common/hooks/useFeatureFlags";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
+import Pending from "@common/components/Pending";
 import PageContainer, { MenuLink } from "./PageContainer";
 import {
   useTalentSearchRoutes,
@@ -479,7 +480,7 @@ export const Router: React.FC = () => {
     React.useState<boolean>(false);
 
   const [result] = useGetAboutMeQuery();
-  const { data } = result;
+  const { data, fetching, error } = result;
   const aiConnectionString = getRuntimeVariable(
     "APPLICATIONINSIGHTS_CONNECTION_STRING",
   );
@@ -597,18 +598,20 @@ export const Router: React.FC = () => {
 
   return (
     <>
-      <PageContainer
-        menuItems={menuItems}
-        authLinks={authLinks}
-        contentRoutes={[
-          ...talentRoutes(talentPaths),
-          ...authRoutes(authPaths),
-          ...profileRoutes(profilePaths, data?.me?.id),
-          ...(featureFlags.directIntake
-            ? directIntakeRoutes(directIntakePaths)
-            : []),
-        ]}
-      />
+      <Pending fetching={fetching} error={error}>
+        <PageContainer
+          menuItems={menuItems}
+          authLinks={authLinks}
+          contentRoutes={[
+            ...talentRoutes(talentPaths),
+            ...authRoutes(authPaths),
+            ...profileRoutes(profilePaths, data?.me?.id),
+            ...(featureFlags.directIntake
+              ? directIntakeRoutes(directIntakePaths)
+              : []),
+          ]}
+        />
+      </Pending>
       <Helmet>
         <html lang={locale} />
         <meta
