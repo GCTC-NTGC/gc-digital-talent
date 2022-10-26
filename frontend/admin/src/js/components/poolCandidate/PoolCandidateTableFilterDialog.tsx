@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import { BasicForm } from "@common/components/form";
 import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
-import "./UserTableFilterDialog.css";
+import "../user/UserTableFilterDialog.css";
 import { useFormContext } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { AdjustmentsVerticalIcon } from "@heroicons/react/24/outline";
@@ -15,22 +15,20 @@ import { ButtonIcon } from "../Table/tableComponents";
 type Option = { value: string; label: string };
 
 export type FormValues = {
-  pools: Option["value"][];
   languageAbility: Option["value"][];
   classifications: Option["value"][];
   operationalRequirement: Option["value"][];
   workRegion: Option["value"][];
-  // TODO: Make mandatory once data model settles.
-  // See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
-  educationType?: Option["value"][];
-  employmentDuration: Option["value"][];
-  jobLookingStatus: Option["value"][];
-  skills: Option["value"][];
-  profileComplete: Option["value"][];
-  govEmployee: Option["value"][];
+  hasDiploma: Option["value"][];
+  equity: Option["value"][];
+  status: Option["value"][];
+  priorityWeight: Option["value"][];
 };
 
-type FooterProps = Pick<UserTableFilterDialogProps, "enableEducationType">;
+type FooterProps = Pick<
+  PoolCandidateTableFilterDialogProps,
+  "enableEducationType"
+>;
 const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
   const { formatMessage } = useIntl();
   const { reset } = useFormContext();
@@ -59,7 +57,7 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
   );
 };
 
-interface UserTableFilterDialogProps {
+interface PoolCandidateTableFilterDialogProps {
   isOpen: boolean;
   onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
   onSubmit: SubmitHandler<FormValues>;
@@ -67,13 +65,13 @@ interface UserTableFilterDialogProps {
   enableEducationType?: boolean;
 }
 
-const UserTableFilterDialog = ({
+const PoolCandidateTableFilterDialog = ({
   isOpen,
   onDismiss,
   onSubmit,
   activeFilters,
   enableEducationType = false,
-}: UserTableFilterDialogProps): JSX.Element => {
+}: PoolCandidateTableFilterDialogProps): JSX.Element => {
   const { formatMessage } = useIntl();
   const { optionsData, rawGraphqlResults } =
     useFilterOptions(enableEducationType);
@@ -102,17 +100,6 @@ const UserTableFilterDialog = ({
         }}
       >
         <div data-h2-flex-grid="base(flex-start, x1, x.5)">
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
-            <MultiSelectFieldV2
-              id="pools"
-              label={formatMessage({
-                defaultMessage: "Pools",
-                id: "mjyHeP",
-              })}
-              options={optionsData.pools}
-              isLoading={rawGraphqlResults.pools.fetching}
-            />
-          </div>
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
             <SelectFieldV2
               forceArrayFormValue
@@ -155,70 +142,45 @@ const UserTableFilterDialog = ({
               options={optionsData.workRegion}
             />
           </div>
-          {enableEducationType && (
-            <div data-h2-flex-item="base(1of1)">
-              <MultiSelectFieldV2
-                id="educationType"
-                label={formatMessage({
-                  defaultMessage: "Education",
-                  id: "jtygmI",
-                })}
-                options={optionsData.educationType}
-              />
-            </div>
-          )}
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
             <SelectFieldV2
               forceArrayFormValue
-              id="employmentDuration"
+              id="hasDiploma"
               label={formatMessage({
-                defaultMessage: "Duration Preferences",
-                id: "hmfQmT",
+                defaultMessage: "Has Diploma",
+                id: "+tzO5t",
               })}
-              options={optionsData.employmentDuration}
+              options={optionsData.hasDiploma}
             />
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
             <MultiSelectFieldV2
-              id="jobLookingStatus"
+              id="equity"
               label={formatMessage({
-                defaultMessage: "Availability",
-                id: "hOxIeP",
+                defaultMessage: "Employment Equity",
+                id: "Gr3BwB",
               })}
-              options={optionsData.jobLookingStatus}
+              options={optionsData.equity}
             />
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-            <SelectFieldV2
-              forceArrayFormValue
-              id="profileComplete"
-              label={formatMessage({
-                defaultMessage: "Profile Complete",
-                id: "OPG1Q0",
-              })}
-              options={optionsData.profileComplete}
-            />
-          </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
             <MultiSelectFieldV2
-              id="skills"
+              id="status"
               label={formatMessage({
-                defaultMessage: "Skill Filter",
-                id: "GGaxMx",
+                defaultMessage: "Status",
+                id: "tzMNF3",
               })}
-              options={optionsData.skills}
-              isLoading={rawGraphqlResults.skills.fetching}
+              options={optionsData.status}
             />
           </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
-            <SelectFieldV2
-              forceArrayFormValue
-              id="govEmployee"
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
+            <MultiSelectFieldV2
+              id="priorityWeight"
               label={formatMessage({
-                defaultMessage: "Government Employee",
-                id: "YojrdC",
+                defaultMessage: "Priority",
+                id: "8lCjAM",
               })}
-              options={optionsData.govEmployee}
+              options={optionsData.priorityWeight}
             />
           </div>
         </div>
@@ -230,18 +192,18 @@ const UserTableFilterDialog = ({
   );
 };
 
-export type UserTableFilterButtonProps = Pick<
-  UserTableFilterDialogProps,
+export type PoolCandidateTableFilterButtonProps = Pick<
+  PoolCandidateTableFilterDialogProps,
   "onSubmit" | "enableEducationType"
 > & {
   isOpenDefault?: boolean;
 };
-const UserTableFilterButton = ({
+const PoolCandidateTableFilterButton = ({
   onSubmit,
   isOpenDefault = false,
   enableEducationType,
   ...rest
-}: UserTableFilterButtonProps) => {
+}: PoolCandidateTableFilterButtonProps) => {
   const { formatMessage } = useIntl();
   const { emptyFormValues } = useFilterOptions(enableEducationType);
   const [activeFilters, setActiveFilters] =
@@ -276,7 +238,7 @@ const UserTableFilterButton = ({
           })}
         </span>
       </Button>
-      <UserTableFilterDialog
+      <PoolCandidateTableFilterDialog
         {...{ isOpen, activeFilters, enableEducationType }}
         {...rest}
         onDismiss={handleDismiss}
@@ -285,5 +247,5 @@ const UserTableFilterButton = ({
     </>
   );
 };
-UserTableFilterDialog.Button = UserTableFilterButton;
-export default UserTableFilterDialog;
+PoolCandidateTableFilterDialog.Button = PoolCandidateTableFilterButton;
+export default PoolCandidateTableFilterDialog;

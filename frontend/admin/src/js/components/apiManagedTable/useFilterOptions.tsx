@@ -7,11 +7,14 @@ import {
   getJobLookingStatus,
   EmploymentDuration,
   OperationalRequirementV2,
+  getEmploymentEquityGroup,
+  getPoolCandidateStatus,
+  poolCandidatePriorities,
 } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { notEmpty } from "@common/helpers/util";
 import mapValues from "lodash/mapValues";
-import { useIntl } from "react-intl";
+import { MessageDescriptor, useIntl } from "react-intl";
 import useLocale from "@common/hooks/useLocale";
 import { OperationContext } from "urql";
 import {
@@ -19,9 +22,8 @@ import {
   EducationType,
   JobLookingStatus,
   LanguageAbility,
-  useAllSkillsQuery,
-  useGetClassificationsQuery,
-  useGetPoolsQuery,
+  PoolCandidateStatus,
+  useGetFilterDataQuery,
 } from "../../api/generated";
 
 const context: Partial<OperationContext> = {
@@ -37,13 +39,9 @@ export default function useFilterOptions(enableEducationType = false) {
   // TODO: Implement way to return `fetching` states from hook, so that can pass
   // to react-select's `isLoading` prop on <Select />.
   // See: https://react-select.com/props#select-props
-  const [skillsRes] = useAllSkillsQuery({
+  const [filterRes] = useGetFilterDataQuery({
     context,
   });
-  const [classificationsRes] = useGetClassificationsQuery({
-    context,
-  });
-  const [poolsRes] = useGetPoolsQuery();
 
   const yesOption = {
     // Values expected to be strings or numbers.
@@ -52,8 +50,13 @@ export default function useFilterOptions(enableEducationType = false) {
     label: intl.formatMessage({ defaultMessage: "Yes", id: "a5msuh" }),
   };
 
+  const equityOption = (value: string, message: MessageDescriptor) => ({
+    value,
+    label: intl.formatMessage(message),
+  });
+
   const optionsData = {
-    pools: poolsRes.data?.pools.filter(notEmpty).map(({ id, name }) => ({
+    pools: filterRes.data?.pools.filter(notEmpty).map(({ id, name }) => ({
       value: id,
       // TODO: Must name and translations be optional in types?
       label: name?.[locale] || "Error: name not loaded",
@@ -62,7 +65,7 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getLanguageAbility(value)),
     })),
-    classifications: classificationsRes.data?.classifications
+    classifications: filterRes.data?.classifications
       .filter(notEmpty)
       .map(({ group, level }) => ({
         value: `${group}-${level}`,
@@ -93,13 +96,32 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getJobLookingStatus(value, "short")),
     })),
-    skills: skillsRes.data?.skills.filter(notEmpty).map(({ id, name }) => ({
+    skills: filterRes.data?.skills.filter(notEmpty).map(({ id, name }) => ({
       value: id,
       // TODO: Must name and translations be optional in types?
       label: name[locale] || "Error: name not loaded",
     })),
+    equity: [
+      equityOption("isWoman", getEmploymentEquityGroup("woman")),
+      equityOption("hasDisability", getEmploymentEquityGroup("disability")),
+      equityOption("isIndigenous", getEmploymentEquityGroup("indigenous")),
+      equityOption("isVisibleMinority", getEmploymentEquityGroup("minority")),
+    ],
+    status: enumToOptions(PoolCandidateStatus).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getPoolCandidateStatus(value)),
+    })),
+    priorityWeight: Object.keys(poolCandidatePriorities).map((key) => ({
+      value: Number(key),
+      label: intl.formatMessage(
+        poolCandidatePriorities[
+          Number(key) as keyof typeof poolCandidatePriorities
+        ],
+      ),
+    })),
     profileComplete: [yesOption],
     govEmployee: [yesOption],
+    hasDiploma: [yesOption],
   };
 
   // Creates an object keyed with all fields, each with empty array.
@@ -110,9 +132,9 @@ export default function useFilterOptions(enableEducationType = false) {
     optionsData,
     emptyFormValues,
     rawGraphqlResults: {
-      skills: skillsRes,
-      classifications: classificationsRes,
-      pools: poolsRes,
+      skills: filterRes,
+      classifications: filterRes,
+      pools: filterRes,
     },
   };
 }

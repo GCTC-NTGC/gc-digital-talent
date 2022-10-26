@@ -2,10 +2,10 @@ import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 
 import { pushToStateThenNavigate } from "@common/helpers/router";
-import { notEmpty } from "@common/helpers/util";
 import pick from "lodash/pick";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
+import NonExecutiveITClassifications from "@common/constants/NonExecutiveITClassifications";
 import {
   Classification,
   CountApplicantsQueryVariables,
@@ -14,8 +14,8 @@ import {
   ApplicantFilterInput,
   Skill,
   useCountApplicantsQuery,
-  useGetSearchFormDataQuery,
   UserPublicProfile,
+  useGetSearchFormDataAcrossAllPoolsQuery,
 } from "../../api/generated";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
@@ -23,7 +23,6 @@ import Spinner from "../Spinner";
 import CandidateResults from "./CandidateResults";
 import SearchForm, { SearchFormRef } from "./SearchForm";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
-import { DIGITAL_CAREERS_POOL_KEY } from "../../talentSearchConstants";
 
 const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
@@ -68,7 +67,7 @@ const applicantFilterToQueryArgs = (
 };
 
 export interface SearchContainerProps {
-  classifications: Classification[];
+  classifications: Pick<Classification, "group" | "level">[];
   pool?: Pick<Pool, "name" | "description">;
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   skills?: Skill[];
@@ -221,10 +220,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 };
 
 const SearchContainerApi: React.FC = () => {
-  const [{ data, fetching, error }] = useGetSearchFormDataQuery({
-    variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
-  });
-  const pool = data?.poolByKey;
+  const [{ data, fetching, error }] = useGetSearchFormDataAcrossAllPoolsQuery();
   const skills = data?.skills;
 
   const [applicantFilter, setApplicantFilter] = React.useState<
@@ -233,18 +229,12 @@ const SearchContainerApi: React.FC = () => {
 
   const [{ data: countData, fetching: countFetching }] =
     useCountApplicantsQuery({
-      variables: applicantFilterToQueryArgs(applicantFilter, pool?.id),
+      variables: applicantFilterToQueryArgs(applicantFilter),
     });
 
   const candidateCount = countData?.countApplicants ?? 0;
-
   const paths = useTalentSearchRoutes();
   const onSubmit = async () => {
-    // pool ID is not in the form so it must be added manually
-    if (applicantFilter && pool) {
-      applicantFilter.pools = [{ id: pool.id }];
-    }
-
     return pushToStateThenNavigate(paths.request(), {
       applicantFilter,
       candidateCount,
@@ -255,10 +245,8 @@ const SearchContainerApi: React.FC = () => {
   return (
     <Pending {...{ fetching, error }}>
       <SearchContainer
-        classifications={pool?.classifications?.filter(notEmpty) ?? []}
-        pool={pool ?? undefined}
+        classifications={NonExecutiveITClassifications()}
         skills={skills as Skill[]}
-        poolOwner={pool?.owner ?? undefined}
         applicantFilter={applicantFilter}
         candidateCount={candidateCount}
         updatePending={countFetching}

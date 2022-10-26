@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+p {
+  white-space: pre-wrap;
+}
+
 button:not(disabled) {
   cursor: pointer;
 }

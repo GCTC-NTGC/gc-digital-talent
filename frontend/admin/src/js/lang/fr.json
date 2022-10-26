@@ -2784,5 +2784,9 @@
   "IE82VM": {
     "defaultMessage": "Profils des candidats",
     "description": "Document title for printing User table results"
+  },
+  "J8kIar": {
+    "defaultMessage": "Recruter et gérer des employés en TI au gouvernement du Canada.",
+    "description": "Meta tag description for Admin site"
   }
 }

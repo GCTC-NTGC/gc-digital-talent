@@ -67,6 +67,7 @@ module.exports = {
         TALENTSEARCH_APP_DIR: JSON.stringify(process.env.TALENTSEARCH_APP_DIR),
         BUILD_DATE: JSON.stringify(new Date()),
         API_SUPPORT_ENDPOINT: JSON.stringify(process.env.API_SUPPORT_ENDPOINT),
+        TALENTSEARCH_SUPPORT_EMAIL: JSON.stringify(process.env.TALENTSEARCH_SUPPORT_EMAIL),
       },
     }),
 
