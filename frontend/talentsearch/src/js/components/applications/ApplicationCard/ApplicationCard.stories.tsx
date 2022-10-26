@@ -2,8 +2,9 @@ import React from "react";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { fakePoolCandidates } from "@common/fakeData";
 import { FAR_PAST_DATE } from "@common/helpers/dateUtils";
-import ApplicationCard from "./ApplicationCard";
-import { PoolCandidateStatus } from "../../api/generated";
+import { action } from "@storybook/addon-actions";
+import { ApplicationCard } from "./ApplicationCard";
+import { PoolCandidateStatus } from "../../../api/generated";
 
 type Story = ComponentStory<typeof ApplicationCard>;
 type Meta = ComponentMeta<typeof ApplicationCard>;
@@ -46,7 +47,11 @@ const Template: Story = () => {
               {application.archivedAt && "(ARCHIVED) "}
               {application.status}
             </h2>
-            <ApplicationCard application={application} />
+            <ApplicationCard
+              application={application}
+              onDelete={() => action("Delete")}
+              onArchive={() => action("Archive")}
+            />
           </div>
         ))}
       </div>

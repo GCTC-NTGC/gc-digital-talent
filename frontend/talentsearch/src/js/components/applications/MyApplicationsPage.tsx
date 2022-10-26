@@ -9,9 +9,11 @@ import { notEmpty } from "@common/helpers/util";
 
 import { useMyApplicationsQuery } from "../../api/generated";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import ApplicationCard, { type Application } from "./ApplicationCard";
+import ApplicationCard, {
+  type Application,
+} from "./ApplicationCard/ApplicationCard";
 import ArchivedApplications from "./ArchivedApplications";
-import { statusSortMap } from "./maps";
+import { statusSortMap } from "./ApplicationCard/maps";
 
 interface MyApplicationsProps {
   applications: Array<Application>;

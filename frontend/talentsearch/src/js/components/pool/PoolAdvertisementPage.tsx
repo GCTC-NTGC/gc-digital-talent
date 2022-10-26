@@ -381,7 +381,7 @@ const PoolAdvertisement = ({
                       "Title for a pool advertisements impact section.",
                   })}
                 </IconTitle>
-                {poolAdvertisement.yourImpact[locale]}
+                <p>{poolAdvertisement.yourImpact[locale]}</p>
               </>
             ) : null}
             {poolAdvertisement.keyTasks ? (
@@ -394,7 +394,7 @@ const PoolAdvertisement = ({
                       "Title for a pool advertisements key tasks section.",
                   })}
                 </IconTitle>
-                {poolAdvertisement.keyTasks[locale]}
+                <p>{poolAdvertisement.keyTasks[locale]}</p>
               </>
             ) : null}
           </TableOfContents.Section>
@@ -423,9 +423,11 @@ const PoolAdvertisement = ({
                 </Text>
                 {essentialSkills[SkillCategory.Technical]?.map((skill) => (
                   <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <Text>
-                      {skill.description ? skill.description[locale] : ""}
-                    </Text>
+                    <p>
+                      <Text>
+                        {skill.description ? skill.description[locale] : ""}
+                      </Text>
+                    </p>
                   </Accordion>
                 ))}
               </>
