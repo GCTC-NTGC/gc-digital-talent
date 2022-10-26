@@ -440,7 +440,7 @@ const directIntakeRoutes = (
     action: (context) => {
       const poolId = context.params.id as string;
       return {
-        component: <CreateApplication id={poolId} />,
+        component: <CreateApplication poolId={poolId} />,
         authorizedRoles: [Role.Applicant],
       };
     },

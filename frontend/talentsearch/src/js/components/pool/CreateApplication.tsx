@@ -15,7 +15,7 @@ import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { hasUserApplied, isAdvertisementVisible } from "./utils";
 
 interface CreateApplicationProps {
-  id: Scalars["ID"];
+  poolId: Scalars["ID"];
 }
 
 /**
@@ -23,17 +23,17 @@ interface CreateApplicationProps {
  * it exists only to create an application
  * and forward a user on
  */
-const CreateApplication = ({ id }: CreateApplicationProps) => {
+const CreateApplication = ({ poolId }: CreateApplicationProps) => {
   const intl = useIntl();
   const paths = useDirectIntakeRoutes();
   const [{ data }] = useGetPoolAdvertisementQuery({
-    variables: { id },
+    variables: { id: poolId },
   });
   const [{ fetching: creating, data: mutationData }, executeMutation] =
     useCreateApplicationMutation();
 
   // Store pool path to redirect to later on
-  const poolPath = paths.pool(id);
+  const poolPath = paths.pool(poolId);
 
   /**
    * There is a possibility someone navigates
@@ -68,7 +68,7 @@ const CreateApplication = ({ id }: CreateApplicationProps) => {
    */
   const userId = data?.me?.id;
   const canCreate =
-    !creating && !mutationData && userId && id && isVisible && !hasApplied;
+    !creating && !mutationData && userId && poolId && isVisible && !hasApplied;
 
   /**
    * Actually run the mutation
@@ -92,7 +92,7 @@ const CreateApplication = ({ id }: CreateApplicationProps) => {
     };
 
     if (userId) {
-      executeMutation({ userId, poolId: id })
+      executeMutation({ userId, poolId })
         .then((result) => {
           if (result.data?.createApplication) {
             // Redirect user to the application on success
