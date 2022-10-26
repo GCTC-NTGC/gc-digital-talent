@@ -8,20 +8,34 @@ import {
 } from "@common/helpers/dateUtils";
 
 import { notEmpty } from "@common/helpers/util";
-import { type PoolCandidate, PoolCandidateStatus } from "../../api/generated";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
+import {
+  type PoolCandidate,
+  PoolCandidateStatus,
+} from "../../../api/generated";
+import getFullPoolAdvertisementTitle from "../../pool/getFullPoolAdvertisementTitle";
 
 import ApplicationActions from "./ApplicationActions";
-import { canBeArchived, canBeDeleted, isDraft } from "./utils";
+import type {
+  ArchiveActionProps,
+  DeleteActionProps,
+} from "./ApplicationActions";
+import { canBeArchived, canBeDeleted, isDraft } from "../utils";
 import { type BorderMapKey, borderKeyMap, borderMap } from "./maps";
+import useMutations from "./useMutations";
 
 export type Application = Omit<PoolCandidate, "pool" | "user">;
 
 export interface ApplicationCardProps {
   application: Application;
+  onDelete: DeleteActionProps["onDelete"];
+  onArchive: ArchiveActionProps["onArchive"];
 }
 
-const ApplicationCard = ({ application }: ApplicationCardProps) => {
+export const ApplicationCard = ({
+  application,
+  onDelete,
+  onArchive,
+}: ApplicationCardProps) => {
   const intl = useIntl();
 
   const applicationIsDraft = isDraft(application.status);
@@ -65,10 +79,12 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
               advertisement={application.poolAdvertisement}
             />
             <ApplicationActions.DeleteAction
+              onDelete={onDelete}
               show={applicationCanBeDeleted}
               application={application}
             />
             <ApplicationActions.ArchiveAction
+              onArchive={onArchive}
               show={applicationCanBeArchived}
               application={application}
             />
@@ -82,12 +98,12 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
                 data-h2-color="base(dt-primary)"
               >
                 {application.poolAdvertisement.expiryDate
-                  ? relativeExpiryDate(
-                      parseDateTimeUtc(
+                  ? relativeExpiryDate({
+                      expiryDate: parseDateTimeUtc(
                         application.poolAdvertisement.expiryDate,
                       ),
                       intl,
-                    )
+                    })
                   : ""}
               </p>
             ) : (
@@ -118,4 +134,20 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
   );
 };
 
-export default ApplicationCard;
+interface ApplicationCardApiProps {
+  application: Application;
+}
+
+const ApplicationCardApi = ({ application }: ApplicationCardApiProps) => {
+  const mutations = useMutations();
+
+  return (
+    <ApplicationCard
+      application={application}
+      onDelete={() => mutations.delete(application.id)}
+      onArchive={() => mutations.archive(application.id)}
+    />
+  );
+};
+
+export default ApplicationCardApi;

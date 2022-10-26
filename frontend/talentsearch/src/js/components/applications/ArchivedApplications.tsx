@@ -2,8 +2,8 @@ import { Button } from "@common/components";
 import React from "react";
 import { useIntl } from "react-intl";
 
-import type { Application } from "./ApplicationCard";
-import ApplicationCard from "./ApplicationCard";
+import type { Application } from "./ApplicationCard/ApplicationCard";
+import ApplicationCard from "./ApplicationCard/ApplicationCard";
 
 interface ArchivedApplicationsProps {
   applications: Array<Application>;

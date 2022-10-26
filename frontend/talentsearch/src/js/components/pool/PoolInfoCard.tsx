@@ -57,7 +57,10 @@ const PoolInfoCard = ({
             description: "Label for pool advertisement closing date",
           })}{" "}
           {closingDate
-            ? relativeExpiryDate(parseDateTimeUtc(closingDate), intl)
+            ? relativeExpiryDate({
+                expiryDate: parseDateTimeUtc(closingDate),
+                intl,
+              })
             : ""}
         </span>
       </P>

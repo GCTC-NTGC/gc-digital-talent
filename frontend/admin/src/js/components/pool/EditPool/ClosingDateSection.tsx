@@ -83,9 +83,17 @@ export const ClosingDateSection = ({
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
-      <TableOfContents.Heading data-h2-margin="base(x3, 0, 0, 0)">
+      <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
         {sectionMetadata.title}
       </TableOfContents.Heading>
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "The closing time will be automatically set to 11:59 PM in the Pacific time zone.",
+          id: "Aaas0w",
+          description: "Helper message for changing the pool closing date",
+        })}
+      </p>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleSave)}>
           <div data-h2-display="base(flex)">

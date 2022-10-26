@@ -163,12 +163,7 @@ export const ReviewMyApplication: React.FunctionComponent<
             ),
             override: (
               <>
-                <div
-                  data-h2-background-color="base(dt-gray.light)"
-                  data-h2-padding="base(x1)"
-                  data-h2-radius="base(s)"
-                  data-h2-margin="base(0, 0, x1, 0)"
-                >
+                <div data-h2-margin="base(0, 0, x1, 0)">
                   {missingSkills && (
                     <MissingSkills
                       addedSkills={

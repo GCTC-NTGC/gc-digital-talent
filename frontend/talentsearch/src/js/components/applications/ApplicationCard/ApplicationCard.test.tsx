@@ -8,25 +8,30 @@ import { axeTest, render } from "@common/helpers/testUtils";
 import { fakePoolCandidates } from "@common/fakeData";
 import { FAR_PAST_DATE } from "@common/helpers/dateUtils";
 
-import ApplicationCard, { type ApplicationCardProps } from "./ApplicationCard";
-import { PoolCandidateStatus } from "../../api/generated";
+import { ApplicationCard, type ApplicationCardProps } from "./ApplicationCard";
+import { PoolCandidateStatus } from "../../../api/generated";
 
 const mockApplication = fakePoolCandidates()[0];
+
+const defaultProps = {
+  application: mockApplication,
+  onDelete: jest.fn(),
+  onArchive: jest.fn(),
+};
 
 const renderApplicationCard = (props: ApplicationCardProps) =>
   render(<ApplicationCard {...props} />);
 
 describe("ApplicationCard", () => {
   it("should have no accessibility errors", async () => {
-    const { container } = renderApplicationCard({
-      application: mockApplication,
-    });
+    const { container } = renderApplicationCard(defaultProps);
 
     await axeTest(container);
   });
 
   it("should show continue and delete link if draft", () => {
     renderApplicationCard({
+      ...defaultProps,
       application: {
         ...mockApplication,
         status: PoolCandidateStatus.Draft,
@@ -48,6 +53,7 @@ describe("ApplicationCard", () => {
 
   it("should show delete link if draft expired", () => {
     renderApplicationCard({
+      ...defaultProps,
       application: {
         ...mockApplication,
         status: PoolCandidateStatus.DraftExpired,
@@ -63,6 +69,7 @@ describe("ApplicationCard", () => {
 
   it("should show archive link if screened out (application)", () => {
     renderApplicationCard({
+      ...defaultProps,
       application: {
         ...mockApplication,
         status: PoolCandidateStatus.ScreenedOutApplication,
@@ -79,6 +86,7 @@ describe("ApplicationCard", () => {
 
   it("should show archive link if screened out (assessment)", () => {
     renderApplicationCard({
+      ...defaultProps,
       application: {
         ...mockApplication,
         status: PoolCandidateStatus.ScreenedOutAssessment,
@@ -95,6 +103,7 @@ describe("ApplicationCard", () => {
 
   it("should show archive link if expired", () => {
     renderApplicationCard({
+      ...defaultProps,
       application: {
         ...mockApplication,
         status: PoolCandidateStatus.Expired,
@@ -111,6 +120,7 @@ describe("ApplicationCard", () => {
 
   it("should not show archive link if already archived", () => {
     renderApplicationCard({
+      ...defaultProps,
       application: {
         ...mockApplication,
         status: PoolCandidateStatus.Expired,
