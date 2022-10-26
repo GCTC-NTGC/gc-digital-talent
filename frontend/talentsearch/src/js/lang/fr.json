@@ -1964,7 +1964,7 @@
     "defaultMessage": "Emplacement : À distance",
     "description": "Pool advertisement location requirement, Remote option"
   },
-  "+6+eor": {
+  "JKL7Yw": {
     "defaultMessage": "Derrière la plateforme des talents numériques du GC, il y a toute une équipe de personnes qui conçoivent, développent, sélectionnent les candidats, gèrent les talents des employés, placent les cadres et aident les gestionnaires à trouver les talents dont ils ont besoin pour offrir des services aux Canadiens.",
     "description": "Description for the Digital Community Management Office"
   },
@@ -2264,7 +2264,7 @@
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
     "description": "Link text to learn more about the platform creation"
   },
-  "jVoHKZ": {
+  "hKPuCT": {
     "defaultMessage": "Talents numériques du GC n’est qu’une des nombreuses initiatives menées par le Bureau du dirigeant principal de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du GC pour voir où le BCIO se dirige à l’avenir.",
     "description": "Description of the Office of the Chief Information Officer"
   },
@@ -2352,7 +2352,7 @@
     "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
     "description": "Link text to apply for the Indigenous Apprenticeship Program"
   },
-  "wSQmDk": {
+  "GSzckJ": {
     "defaultMessage": "Curieux de savoir comment la plateforme Talents numériques du GC a été développée? Vous voulez en savoir plus sur les idées, les conceptions et la philosophie de celle-ci? Découvrez le chemin parcouru depuis le pilote expérimental du Nuage de talents du GC jusqu’à la plateforme complète d’aujourd’hui.",
     "description": "Description of how the platform was created."
   },
@@ -2391,5 +2391,9 @@
   "jRmRd+": {
     "defaultMessage": "Talent numérique du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
     "description": "Meta tag description for Talent Search site"
+  },
+  "rNVDaA": {
+    "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
+    "description": "Support form toast message error"
   }
 }
