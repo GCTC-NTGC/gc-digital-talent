@@ -5,8 +5,8 @@ import { Button } from "@common/components";
 import { InputWrapper } from "@common/components/inputPartials";
 import { PoolAdvertisement } from "@common/api/generated";
 import {
-  formattedDateMonthDayYear,
   parseDateTimeUtc,
+  relativeExpiryDate,
 } from "@common/helpers/dateUtils";
 
 type PublishDialogProps = {
@@ -55,6 +55,22 @@ const PublishDialog = ({
     ),
     [intl, onPublish],
   );
+
+  let closingStringLocal;
+  let closingStringPacific;
+  if (expiryDate) {
+    const expiryDateObject = parseDateTimeUtc(expiryDate);
+    closingStringLocal = relativeExpiryDate({
+      expiryDate: expiryDateObject,
+      intl,
+    });
+    closingStringPacific = relativeExpiryDate({
+      expiryDate: expiryDateObject,
+      intl,
+      timeZone: "Canada/Pacific",
+    });
+  }
+
   return (
     <Dialog.Root>
       <Dialog.Trigger>
@@ -114,15 +130,33 @@ const PublishDialog = ({
             data-h2-padding="base(x.5)"
             data-h2-radius="base(s)"
           >
-            {expiryDate
-              ? formattedDateMonthDayYear(
-                  parseDateTimeUtc(expiryDate),
-                  intl,
-                  "Canada/Pacific",
-                )
-              : ""}
+            {closingStringLocal}
           </div>
         </InputWrapper>
+        {closingStringPacific && closingStringPacific !== closingStringLocal && (
+          <InputWrapper
+            inputId="closingDatePacific"
+            label={intl.formatMessage({
+              defaultMessage: "Closing Date (Pacific time zone)",
+              id: "hGlM9B",
+              description:
+                "Closing Date field label for publish pool dialog in the Pacific time zone",
+            })}
+            hideOptional
+            required={false}
+          >
+            <div
+              data-h2-display="base(flex)"
+              data-h2-width="base(100%)"
+              data-h2-gap="base(.5rem)"
+              data-h2-background-color="base(dt-gray.light)"
+              data-h2-padding="base(x.5)"
+              data-h2-radius="base(s)"
+            >
+              {closingStringPacific}
+            </div>
+          </InputWrapper>
+        )}
         <Dialog.Footer>{Footer}</Dialog.Footer>
       </Dialog.Content>
     </Dialog.Root>
