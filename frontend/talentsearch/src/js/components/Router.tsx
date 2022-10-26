@@ -80,6 +80,7 @@ const BrowsePoolsPage = React.lazy(() => import("./Browse/BrowsePoolsPage"));
 const PoolAdvertisementPage = React.lazy(
   () => import("./pool/PoolAdvertisementPage"),
 );
+const CreateApplication = React.lazy(() => import("./pool/CreateApplication"));
 const SignAndSubmitPage = React.lazy(
   () => import("./signAndSubmit/SignAndSubmitPage"),
 );
@@ -423,7 +424,6 @@ const directIntakeRoutes = (
     path: directIntakePaths.allPools(),
     action: () => ({
       component: <BrowsePoolsPage />,
-      authorizedRoles: [Role.Applicant],
     }),
   },
   {
@@ -432,6 +432,16 @@ const directIntakeRoutes = (
       const poolId = context.params.id as string;
       return {
         component: <PoolAdvertisementPage id={poolId} />,
+      };
+    },
+  },
+  {
+    path: directIntakePaths.createApplication(":id"),
+    action: (context) => {
+      const poolId = context.params.id as string;
+      return {
+        component: <CreateApplication poolId={poolId} />,
+        authorizedRoles: [Role.Applicant],
       };
     },
   },
