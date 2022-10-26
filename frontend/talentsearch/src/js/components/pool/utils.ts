@@ -8,7 +8,7 @@ import {
 
 /**
  * Determine if the advertisement can be
- * viewed based on user roles and statu
+ * viewed based on user roles and status
  *
  * @param roles
  * @param status
