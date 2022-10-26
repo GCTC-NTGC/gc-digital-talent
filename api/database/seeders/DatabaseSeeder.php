@@ -47,12 +47,12 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
-        Pool::factory()->count(10)->create();
+        // Pool::factory()->count(10)->create();
 
         User::factory([
             'roles' => [ApiEnums::ROLE_APPLICANT]
         ])
-            ->count(150)
+            ->count(200)
             ->afterCreating(function (User $user) use ($faker) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);
@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
                 $randomPool = Pool::inRandomOrder()->limit(1)->first();
                 $digitalTalentPool = Pool::where('key', "digital_careers")->first();
-                $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
+                $pool = $faker->boolean(100) ? $digitalTalentPool : $randomPool;
 
                 // are they a government user?
                 if (rand(0, 1)) {
@@ -186,11 +186,24 @@ class DatabaseSeeder extends Seeder
 
     private function seedPoolCandidate(User $user, Pool $pool)
     {
+        $faker = Faker\Factory::create();
         // create a pool candidate in the pool
         PoolCandidate::factory()->count(1)->sequence(fn () => [
             'pool_id' => $pool->id,
             'user_id' => $user->id,
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) {
+        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($faker) {
+            $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
+            $classification = Classification::inRandomOrder()->limit(1)->pluck('id')->toArray();
+            $candidate->cmoAssets()->sync($assets);
+            // 50-50 expected classification OR expected salary
+            if ($faker->boolean()){
+                $candidate->expectedClassifications()->sync($classification);
+                $candidate->expected_salary = null;
+            }
+            else {
+                $candidate->expectedClassifications()->sync([]);
+                $candidate->expected_salary = $faker->randomElements(ApiEnums::salaryRanges(), 3);
+            }
             if ($candidate->submitted_at) {
                 $candidate->createSnapshot();
             }
