@@ -356,14 +356,3 @@ footerDate:
   fr:
     dateLabel: Date de modification
     date: July 07, 2021
-auth:
-  en:
-    - label: Login
-      route: https://talent.canada.ca/login?locale=en
-    - label: Register
-      route: https://talent.canada.ca/register?locale=en
-  fr:
-    - label: Connexion
-      route: https://talent.canada.ca/login?locale=fr
-    - label: S'inscrire
-      route: https://talent.canada.ca/register?locale=fr
