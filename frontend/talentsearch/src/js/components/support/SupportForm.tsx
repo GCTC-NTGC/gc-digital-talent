@@ -10,7 +10,10 @@ import Pending from "@common/components/Pending";
 import { useState } from "react";
 import Button from "@common/components/Button";
 import { useGetMeQuery, User } from "../../api/generated";
-import { API_SUPPORT_ENDPOINT } from "../../talentSearchConstants";
+import {
+  API_SUPPORT_ENDPOINT,
+  TALENTSEARCH_SUPPORT_EMAIL,
+} from "../../talentSearchConstants";
 
 export type FormValues = {
   name: string;
@@ -18,6 +21,7 @@ export type FormValues = {
   description: string;
   subject: string;
 };
+
 interface SupportFormProps {
   showSupportForm: boolean;
   onFormToggle: (show: boolean) => void;
@@ -28,6 +32,10 @@ interface SupportFormProps {
 interface SupportFormSuccessProps {
   onFormToggle: (show: boolean) => void;
 }
+
+const anchorTag = (chunks: React.ReactNode): React.ReactNode => (
+  <a href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>{chunks}</a>
+);
 
 const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
   const intl = useIntl();
@@ -233,14 +241,22 @@ const SupportFormApi = () => {
         return Promise.resolve(response.status);
       }
       toast.error(
-        intl.formatMessage(
-          {
-            defaultMessage: `Error: creating ticket failed (code {errorCode})`,
-            id: "C3Lv2t",
-            description: "Support form toast message error",
-          },
-          { errorCode: response.status },
-        ),
+        <>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Sorry, something went wrong. Please email <anchorTag>{emailAddress}</anchorTag> and mention this error code: {errorCode}.",
+              id: "rNVDaA",
+              description: "Support form toast message error",
+            },
+            {
+              anchorTag,
+              emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
+              errorCode: response.status,
+            },
+          )}
+        </>,
+        { autoClose: 20000 },
       );
       return Promise.reject(response.status);
     });
