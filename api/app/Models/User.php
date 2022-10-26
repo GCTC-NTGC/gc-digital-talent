@@ -279,7 +279,7 @@ class User extends Model implements Authenticatable
                 'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]
             ];
         }
-        return $this->filterByPools($query, $poolFilters);
+        return self::filterByPools($query, $poolFilters);
     }
     public static function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
@@ -405,10 +405,10 @@ class User extends Model implements Authenticatable
                 }
             });
             $query->orWhere(function ($query) use ($classifications) {
-                $this->filterByClassificationToSalary($query, $classifications);
+                self::filterByClassificationToSalary($query, $classifications);
             });
             $query->orWhere(function ($query) use ($classifications) {
-                $this->filterByClassificationToGenericJobTitles($query, $classifications);
+                self::filterByClassificationToGenericJobTitles($query, $classifications);
             });
         });
 

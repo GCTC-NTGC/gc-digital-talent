@@ -66,12 +66,12 @@ final class CountPoolCandidatesByPool
 
             // wouldAcceptTemporary
             if (array_key_exists('wouldAcceptTemporary', $filters)) {
-                User::filterByWouldAcceptTemporary($userQuery, $filters['wouldAcceptTemporary']);
+                User::scopeWouldAcceptTemporary($userQuery, $filters['wouldAcceptTemporary']);
             }
 
             // expectedClassifications
             if (array_key_exists('expectedClassifications', $filters)) {
-                User::filterByExpectedClassifications($userQuery, $filters['expectedClassifications']);
+                User::scopeClassifications($userQuery, $filters['expectedClassifications']);
             }
 
             // skills
