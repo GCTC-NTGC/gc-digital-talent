@@ -480,7 +480,7 @@ export const Router: React.FC = () => {
     React.useState<boolean>(false);
 
   const [result] = useGetAboutMeQuery();
-  const { data, fetching, error } = result;
+  const { data } = result;
   const aiConnectionString = getRuntimeVariable(
     "APPLICATIONINSIGHTS_CONNECTION_STRING",
   );
@@ -598,20 +598,18 @@ export const Router: React.FC = () => {
 
   return (
     <>
-      <Pending fetching={fetching} error={error}>
-        <PageContainer
-          menuItems={menuItems}
-          authLinks={authLinks}
-          contentRoutes={[
-            ...talentRoutes(talentPaths),
-            ...authRoutes(authPaths),
-            ...profileRoutes(profilePaths, data?.me?.id),
-            ...(featureFlags.directIntake
-              ? directIntakeRoutes(directIntakePaths)
-              : []),
-          ]}
-        />
-      </Pending>
+      <PageContainer
+        menuItems={menuItems}
+        authLinks={authLinks}
+        contentRoutes={[
+          ...talentRoutes(talentPaths),
+          ...authRoutes(authPaths),
+          ...profileRoutes(profilePaths, data?.me?.id),
+          ...(featureFlags.directIntake
+            ? directIntakeRoutes(directIntakePaths)
+            : []),
+        ]}
+      />
       <Helmet>
         <html lang={locale} />
         <meta
