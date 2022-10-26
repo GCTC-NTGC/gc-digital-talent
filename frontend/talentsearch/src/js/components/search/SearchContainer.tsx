@@ -224,6 +224,21 @@ const SearchContainerApi: React.FC = () => {
   const skills = data?.skills;
   const pools = data?.pools;
 
+  const availableClassifications = pools?.map(
+    (pool) => pool?.classifications[0],
+  );
+
+  const ITClassifications = NonExecutiveITClassifications();
+  const searchableClassifications = ITClassifications.filter(
+    (classification) => {
+      return availableClassifications?.some(
+        (x) =>
+          x?.group === classification?.group &&
+          x?.level === classification?.level,
+      );
+    },
+  );
+
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
   >(undefined);
@@ -246,7 +261,7 @@ const SearchContainerApi: React.FC = () => {
   return (
     <Pending {...{ fetching, error }}>
       <SearchContainer
-        classifications={NonExecutiveITClassifications()}
+        classifications={searchableClassifications}
         skills={skills as Skill[]}
         pools={pools as Pool[]}
         applicantFilter={applicantFilter}
