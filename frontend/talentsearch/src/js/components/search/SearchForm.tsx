@@ -122,6 +122,19 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     );
     const methods = useForm<FormValues>({ defaultValues: initialValues });
     const { watch, trigger } = methods;
+    const filterPoolsBySelectedClassification = (
+      allPools: SimplePool[],
+      classification: Maybe<SimpleClassification>,
+    ) =>
+      allPools
+        ?.filter((pool: Maybe<Pick<Pool, "id" | "classifications">>) => {
+          return pool?.classifications?.some(
+            (x) =>
+              x?.group === classification?.group &&
+              x?.level === classification?.level,
+          );
+        })
+        .filter(notEmpty);
 
     useImperativeHandle(
       ref,
@@ -202,20 +215,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       },
       [intl],
     );
-
-    const filterPoolsBySelectedClassification = (
-      allPools: SimplePool[],
-      classification: Maybe<SimpleClassification>,
-    ) =>
-      allPools
-        ?.filter((pool: Maybe<Pick<Pool, "id" | "classifications">>) => {
-          return pool?.classifications?.some(
-            (x) =>
-              x?.group === classification?.group &&
-              x?.level === classification?.level,
-          );
-        })
-        .filter(notEmpty);
 
     const classificationOptions: Option<string>[] = React.useMemo(
       () =>
