@@ -7,10 +7,8 @@ import { unpackMaybes } from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
 import NonExecutiveITClassifications from "@common/constants/NonExecutiveITClassifications";
 import {
-  Classification,
   CountApplicantsQueryVariables,
   Maybe,
-  Pool,
   ApplicantFilterInput,
   Skill,
   useCountApplicantsQuery,
@@ -23,6 +21,7 @@ import Spinner from "../Spinner";
 import CandidateResults from "./CandidateResults";
 import SearchForm, { SearchFormRef } from "./SearchForm";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+import { SimpleClassification, SimplePool } from "../../types/PoolUtils";
 
 const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
@@ -67,8 +66,8 @@ const applicantFilterToQueryArgs = (
 };
 
 export interface SearchContainerProps {
-  classifications: Pick<Classification, "group" | "level">[];
-  pools?: Pick<Pool, "id" | "classifications">[];
+  classifications: SimpleClassification[];
+  pools?: SimplePool[];
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   skills?: Skill[];
   candidateCount: number;
@@ -225,7 +224,7 @@ const SearchContainerApi: React.FC = () => {
   const pools = data?.pools;
 
   const availableClassifications = pools?.map(
-    (pool) => pool?.classifications[0],
+    (pool) => pool?.classifications && pool?.classifications[0],
   );
 
   const ITClassifications = NonExecutiveITClassifications();
@@ -263,7 +262,7 @@ const SearchContainerApi: React.FC = () => {
       <SearchContainer
         classifications={searchableClassifications}
         skills={skills as Skill[]}
-        pools={pools as Pool[]}
+        pools={pools as SimplePool[]}
         applicantFilter={applicantFilter}
         candidateCount={candidateCount}
         updatePending={countFetching}
