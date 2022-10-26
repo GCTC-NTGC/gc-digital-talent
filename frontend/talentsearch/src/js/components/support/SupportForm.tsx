@@ -64,14 +64,14 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
           description: "Support form success paragraph two",
         })}
       </p>
-      <p data-h2-margin="base(x1, 0)">
+      {/* <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "In the meantime, feel free to check out our FAQs for further information.",
           id: "QX1l/C",
           description: "Support form success paragraph three",
         })}
-      </p>
+      </p> */}
       <div data-h2-text-align="base(center)">
         <Button
           onClick={() => {
