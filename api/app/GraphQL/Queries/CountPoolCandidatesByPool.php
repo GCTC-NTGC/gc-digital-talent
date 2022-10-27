@@ -4,9 +4,7 @@ namespace App\GraphQL\Queries;
 
 use App\Models\PoolCandidate;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Log;
 use App\Models\Pool;
 
 final class CountPoolCandidatesByPool
@@ -39,7 +37,7 @@ final class CountPoolCandidatesByPool
             // user status scope
             User::scopeAvailableForOpportunities($userQuery);
 
-            // has diploma
+            // hasDiploma
             if (array_key_exists('hasDiploma', $filters)) {
                 User::scopeHasDiploma($userQuery, $filters['hasDiploma']);
             }

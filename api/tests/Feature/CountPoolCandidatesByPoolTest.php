@@ -629,7 +629,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $users = User::factory(3)
             ->afterCreating(function ($user) use ($pool) {
                 $exp = AwardExperience::factory()->create(['user_id' => $user->id]);
-                print_r($exp);
                 PoolCandidate::factory()->create([
                     'pool_id' => $pool->id,
                     'user_id' => $user->id,
