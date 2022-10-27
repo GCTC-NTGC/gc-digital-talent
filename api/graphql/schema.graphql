@@ -779,7 +779,7 @@ input ApplicantFilterInput {
 
 type CandidateSearchPoolResult {
   pool: Pool!
-  candidateCount: Int!
+  candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
 type Query {

@@ -96,6 +96,58 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
     }
 
+    // the attached pool can have its properties requested
+    // creates a single candidate and expects it to be returned with the pool properties
+    public function testThatPoolPropertiesCanBeReturned()
+    {
+        $pool = Pool::factory()->create([
+            'name' => [
+                'en' => 'Test Pool EN',
+                'fr' => 'Test Pool FR'
+            ]
+        ]);
+        $user = User::factory()->create([
+            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool->id,
+            'user_id' => $user->id
+        ]);
+
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+            query ($where: ApplicantFilterInput) {
+                countPoolCandidatesByPool(where: $where) {
+                  pool {
+                    id,
+                    name { en, fr }
+                  }
+                  candidateCount
+                }
+              }
+            ',
+            [
+                'where' => []
+            ]
+        )->assertSimilarJson([
+            'data' => [
+                'countPoolCandidatesByPool' => [
+                    [
+                        'pool' => [
+                            'id' => $pool->id,
+                            'name' => [
+                                'en' => $pool->name['en'],
+                                'fr' => $pool->name['fr']
+                            ]
+                        ],
+                        'candidateCount' => 1
+                    ]
+                ]
+            ]
+        ]);
+    }
+
     // single user returns two candidate is returned with no filters
     // creates one users with two candidates and expects both candidates to be returned
     public function testThatEmptyReturnsTwoCandidatesForOneUser()

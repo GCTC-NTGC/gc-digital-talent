@@ -79,23 +79,11 @@ final class CountPoolCandidatesByPool
         });
 
         $databaseRows = $queryBuilder
+            ->with('pool')
             ->selectRaw('count(*) as candidate_count, pool_id')
             ->groupBy('pool_id')
             ->get();
 
-        // would be nice to do this in the same query as above but alas...
-        $allPools = Pool::whereIn('id', $databaseRows->pluck('pool_id'))->get();
-
-        $resultSet = [];
-        foreach ($databaseRows as $row) {
-            array_push($resultSet, [
-                "pool" => $allPools->sole(function ($pool) use ($row) { // attach the matching full Pool model to the results
-                    return $pool->id == $row->pool_id;
-                }),
-                "candidateCount" => $row->candidate_count,
-            ]);
-        }
-
-        return $resultSet;
+        return $databaseRows;
     }
 }
