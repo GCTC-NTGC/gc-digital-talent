@@ -57,12 +57,11 @@ class CreateDigitalCareersPoolsCandidates extends Command
 
         // organizing assets and streams mapping
         $assetsCollection = CmoAsset::all();
-        global $assetArray;
-        $assetArray = [];
-        // index is asset model id field, value is asset key field
-        foreach ($assetsCollection as $asset) {
-            $assetArray[$asset->id] = $asset->key;
-        }
+        // array where the index is the asset model id field, value is asset key field
+        global $assetArrayMap;
+        $assetArrayMap = $assetsCollection->mapWithKeys(function ($asset) {
+            return [$asset['id'] => $asset['key']];
+        });
         global $assetKeyToStreamMap;
         $assetKeyToStreamMap = [
             "db_admin" => ApiEnums::POOL_STREAM_DATABASE_MANAGEMENT,
@@ -102,23 +101,25 @@ class CreateDigitalCareersPoolsCandidates extends Command
                 $salaryArray = [];
                 // $expectedSalary is an array of strings, need to convert to array of array pairs, each pair creating lower/upper limits of ints
                 foreach ($expectedSalary as $salary) {
-                    if ($salary == '_50_59K'){
-                        array_push($salaryArray, [50000, 59999]);
-                    }
-                    elseif ($salary == '_60_69K') {
-                        array_push($salaryArray, [60000, 69999]);
-                    }
-                    elseif ($salary == '_70_79K') {
-                        array_push($salaryArray, [70000, 79999]);
-                    }
-                    elseif ($salary == '_80_89K') {
-                        array_push($salaryArray, [80000, 89999]);
-                    }
-                    elseif ($salary == '_90_99K') {
-                        array_push($salaryArray, [90000, 99999]);//
-                    }
-                    elseif ($salary == '_100K_PLUS') {
-                        array_push($salaryArray, [100000, 999999]);
+                    switch($salary) {
+                        case '_50_59K':
+                            array_push($salaryArray, [50000, 59999]);
+                            break;
+                        case '_60_69K':
+                            array_push($salaryArray, [60000, 69999]);
+                            break;
+                        case '_70_79K':
+                            array_push($salaryArray, [70000, 79999]);
+                            break;
+                        case '_80_89K':
+                            array_push($salaryArray, [80000, 89999]);
+                            break;
+                        case '_90_99K':
+                            array_push($salaryArray, [90000, 99999]);
+                            break;
+                        case'_100K_PLUS':
+                            array_push($salaryArray, [100000, 999999]);
+                            break;
                     }
                 }
 
@@ -142,7 +143,7 @@ class CreateDigitalCareersPoolsCandidates extends Command
          * @return boolean
         */
         function candidateMatchesStream(string $candidateId, string $stream): bool {
-            global $assetArray, $assetKeyToStreamMap;
+            global $assetArrayMap, $assetKeyToStreamMap;
 
             // must build array of cmo asset id's associated with a candidate
             $candidateWithAssetsCollection = PoolCandidate::where('id', $candidateId)
@@ -158,7 +159,7 @@ class CreateDigitalCareersPoolsCandidates extends Command
 
             // having collected an array of asset ids, can now iterate through and check for matches using the global variables
             foreach ($assetsIdArray as $assetId) {
-                $assetKey = $assetArray[$assetId];
+                $assetKey = $assetArrayMap[$assetId];
                 // to avoid errors where the map is missing a key
                 if (array_key_exists($assetKey, $assetKeyToStreamMap)){
                     $correspondingStream = $assetKeyToStreamMap[$assetKey];
