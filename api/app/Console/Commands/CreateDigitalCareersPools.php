@@ -50,7 +50,7 @@ class CreateDigitalCareersPools extends Command
         $ITLevels = [1, 2, 3, 4];
         $poolStreams = ApiEnums::poolStreams();
         $dateNow = Carbon::now();
-        $ownerId = User::where('sub', 'ilike', 'admin@test.com')->first()->toArray()['id'];
+        $ownerId = User::all()->sole('sub', 'admin@test.com')['id'];
 
         foreach ($ITLevels as $index => $level) {
             foreach ($poolStreams as $index => $stream) {
@@ -76,19 +76,16 @@ class CreateDigitalCareersPools extends Command
                 ]);
 
                 // connect pool essential skills
-                $skillsToAdd = [];
+                $teamworkId = Skill::all()->sole('key', 'teamwork')['id'];
+                $analyticalThinkingId = Skill::all()->sole('key', 'analytical_thinking')['id'];
+                $clientFocusId = Skill::all()->sole('key', 'client_focus')['id'];
+                $verbalCommId = Skill::all()->sole('key', 'verbal_communication')['id'];
+                $writtenCommId = Skill::all()->sole('key', 'written_communication')['id'];
 
-                $teamworkId = Skill::where('key', 'ilike', 'teamwork')->first()->toArray()['id'];
-                $analyticalThinkingId = Skill::where('key', 'ilike', 'analytical_thinking')->first()->toArray()['id'];
-                $clientFocusId = Skill::where('key', 'ilike', 'client_focus')->first()->toArray()['id'];
-                $verbalCommId = Skill::where('key', 'ilike', 'verbal_communication')->first()->toArray()['id'];
-                $writtenCommId = Skill::where('key', 'ilike', 'written_communication')->first()->toArray()['id'];
-
-                array_push($skillsToAdd, $teamworkId, $analyticalThinkingId, $clientFocusId, $verbalCommId, $writtenCommId);
-                $newPool->essentialSkills()->sync($skillsToAdd);
+                $newPool->essentialSkills()->sync([$teamworkId, $analyticalThinkingId, $clientFocusId, $verbalCommId, $writtenCommId]);
 
                 // connect classification
-                $classificationId = Classification::where('group', 'ilike', 'IT')->where('level', $level)->first()->toArray()['id'];
+                $classificationId = Classification::where('group', 'ilike', 'IT')->where('level', $level)->sole()['id'];
                 $newPool->classifications()->sync([$classificationId]);
             }
         }
