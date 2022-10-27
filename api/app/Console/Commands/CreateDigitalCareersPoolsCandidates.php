@@ -69,12 +69,10 @@ class CreateDigitalCareersPoolsCandidates extends Command
             "cybersecurity" => ApiEnums::POOL_STREAM_SECURITY,
             "app_dev" => ApiEnums::POOL_STREAM_SOFTWARE_SOLUTIONS,
             "enterprise_architecture" => ApiEnums::POOL_STREAM_ENTERPRISE_ARCHITECTURE,
-            // IT Business Analyst / IT Project Management -> Project Portfolio Management
-            //  ? -> Business Line Advisory Services
-            // ? -> Planning and Reporting
-            // Application Testing / Quality Assurance -> ?
-            // Data Science / Analysis -> ?
-            // Information Management (IM) -> ?
+            // "app_testing" => ?,
+            // "data_science" => ?,
+            // "information_management" => ?,
+            // "project_management" => ?,
         ];
 
         /**

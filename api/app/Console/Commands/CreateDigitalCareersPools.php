@@ -50,7 +50,8 @@ class CreateDigitalCareersPools extends Command
         $ITLevels = [1, 2, 3, 4];
         $poolStreams = ApiEnums::poolStreams();
         $dateNow = Carbon::now();
-        $ownerId = User::all()->sole('sub', 'admin@test.com')['id'];
+        $ownerId = User::all()->sole('sub', 'ilike', 'admin@test.com')['id']; // this for local testing, the one below for other environments
+        // $ownerId = User::all()->sole('email', 'ilike' 'Anne-marie.kirouac@tbs-sct.gc.ca')['id'];
 
         foreach ($ITLevels as $index => $level) {
             foreach ($poolStreams as $index => $stream) {
