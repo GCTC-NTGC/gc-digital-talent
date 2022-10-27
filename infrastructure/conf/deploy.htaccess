@@ -31,6 +31,10 @@ DirectorySlash off
     # Send localized admin requests also to admin dist folder
     RewriteRule ^(en|fr)/admin(/(.*))?$ frontend/admin/dist/$3 [L]
 
+    # Send homepage requests to talentsearch dist folder
+    RewriteRule ^$ frontend/talentsearch/dist/ [L]
+    RewriteRule ^(en|fr)$ frontend/talentsearch/dist/ [L]
+
     # Send talent requests to talentsearch dist folder (with or without public/ path prefix).
     RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
     RewriteRule ^talent(/(.*))?$ frontend/talentsearch/dist/$2 [L]

@@ -122,11 +122,11 @@ const Footer = ({ width }: FooterProps) => {
               rel="noopener noreferrer"
             >
               <CanadaLogo
-                data-h2-display="base(block) base:dark(none)"
+                data-h2-display="base(inline-block) base:dark(none)"
                 data-h2-max-width="base(x10)"
               />
               <CanadaLogoWhite
-                data-h2-display="base(none) base:dark(block)"
+                data-h2-display="base(none) base:dark(inline-block)"
                 data-h2-max-width="base(x10)"
               />
               <span data-h2-visibility="base(invisible)">
