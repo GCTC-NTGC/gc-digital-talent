@@ -69,10 +69,10 @@ class CreateDigitalCareersPoolsCandidates extends Command
             "cybersecurity" => ApiEnums::POOL_STREAM_SECURITY,
             "app_dev" => ApiEnums::POOL_STREAM_SOFTWARE_SOLUTIONS,
             "enterprise_architecture" => ApiEnums::POOL_STREAM_ENTERPRISE_ARCHITECTURE,
-            // "app_testing" => ?,
-            // "data_science" => ?,
-            // "information_management" => ?,
-            // "project_management" => ?,
+            "app_testing" => ApiEnums::POOL_STREAM_SOFTWARE_SOLUTIONS,
+            "data_science" => ApiEnums::POOL_STREAM_INFORMATION_DATA_FUNCTIONS,
+            "information_management" => ApiEnums::POOL_STREAM_INFORMATION_DATA_FUNCTIONS,
+            "project_management" => ApiEnums::POOL_STREAM_PROJECT_PORTFOLIO_MANAGEMENT,
         ];
 
         /**

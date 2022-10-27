@@ -1335,6 +1335,11 @@ export const poolStream = defineMessages({
     id: "8SCmdb",
     description: "Pool Stream described as Software Solutions.",
   },
+  [PoolStream.InformationDataFunctions]: {
+    defaultMessage: "Information and Data Functions",
+    id: "xr36aa",
+    description: "Pool Stream described as Information and Data Functions.",
+  },
 });
 
 export const getPoolStream = (

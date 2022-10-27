@@ -278,6 +278,8 @@ class ApiEnums
     const POOL_STREAM_PROJECT_PORTFOLIO_MANAGEMENT = 'PROJECT_PORTFOLIO_MANAGEMENT';
     const POOL_STREAM_SECURITY = 'SECURITY';
     const POOL_STREAM_SOFTWARE_SOLUTIONS = 'SOFTWARE_SOLUTIONS';
+    const POOL_STREAM_INFORMATION_DATA_FUNCTIONS = 'INFORMATION_DATA_FUNCTIONS';
+
     public static function poolStreams() : array
     {
         return [
@@ -289,6 +291,7 @@ class ApiEnums
             self::POOL_STREAM_PROJECT_PORTFOLIO_MANAGEMENT,
             self::POOL_STREAM_SECURITY,
             self::POOL_STREAM_SOFTWARE_SOLUTIONS,
+            self::POOL_STREAM_INFORMATION_DATA_FUNCTIONS,
         ];
     }
 
