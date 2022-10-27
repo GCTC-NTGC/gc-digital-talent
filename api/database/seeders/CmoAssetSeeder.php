@@ -78,34 +78,6 @@ class CmoAssetSeeder extends Seeder
                     'fr' => 'Analyste des activités de la TI / Gestion de projets de la TI'
                 ],
             ],
-            [
-                'key' => 'teamwork',
-                'name' => [
-                    'en' => 'Teamwork',
-                    'fr' => 'Travail d\'équipe'
-                ],
-            ],
-            [
-                'key' => 'at',
-                'name' => [
-                    'en' => 'Analytical Thinking',
-                    'fr' => 'Pensée Stratégique'
-                ],
-            ],
-            [
-                'key' => 'cs',
-                'name' => [
-                    'en' => 'Client Service',
-                    'fr' => 'Orientation client'
-                ],
-            ],
-            [
-                'key' => 'comms',
-                'name' => [
-                    'en' => 'Communication',
-                    'fr' => 'Communication'
-                ],
-            ],
         ];
         foreach ($assets as $asset) {
             $identifier = [
