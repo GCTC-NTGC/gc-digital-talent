@@ -29,8 +29,8 @@ import {
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import {
-  formattedDateMonthDayYear,
   parseDateTimeUtc,
+  relativeExpiryDate,
 } from "@common/helpers/dateUtils";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -149,6 +149,24 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
       ),
     },
   ] as BreadcrumbsProps["links"];
+
+  let closingStringLocal;
+  let closingStringPacific;
+  if (pool.expiryDate) {
+    const expiryDateObject = parseDateTimeUtc(pool.expiryDate);
+    closingStringLocal = relativeExpiryDate({
+      expiryDate: expiryDateObject,
+      intl,
+    });
+    closingStringPacific = relativeExpiryDate({
+      expiryDate: expiryDateObject,
+      intl,
+      timeZone: "Canada/Pacific",
+    });
+  } else {
+    closingStringLocal = "";
+    closingStringPacific = "";
+  }
 
   return (
     <DashboardContentContainer>
@@ -391,15 +409,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 type="text"
                 readOnly
                 hideOptional
-                value={
-                  pool.expiryDate
-                    ? formattedDateMonthDayYear(
-                        parseDateTimeUtc(pool.expiryDate),
-                        intl,
-                        "Canada/Pacific",
-                      )
-                    : ""
-                }
+                value={closingStringLocal}
                 label={intl.formatMessage({
                   defaultMessage: "Closing date",
                   id: "VWz3+d",
@@ -407,6 +417,25 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 })}
               />
             </div>
+            {closingStringPacific &&
+              closingStringPacific !== closingStringLocal && (
+                <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
+                  <Input
+                    id="expiryDatePacific"
+                    name="expiryDatePacific"
+                    type="text"
+                    readOnly
+                    hideOptional
+                    value={closingStringPacific}
+                    label={intl.formatMessage({
+                      defaultMessage: "Closing date (Pacific time zone)",
+                      id: "j6V32h",
+                      description:
+                        "Label for a pool advertisements expiry date in the Pacific time zone",
+                    })}
+                  />
+                </div>
+              )}
             <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
               <Input
                 id="status"
