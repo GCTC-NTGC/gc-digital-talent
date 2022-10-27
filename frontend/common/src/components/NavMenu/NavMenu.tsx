@@ -30,7 +30,7 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
     >
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <div data-h2-flex-grid="base(center, x3, 0)">
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+          <div data-h2-flex-item="base(1of1) p-tablet(2of3)">
             <nav
               aria-label={intl.formatMessage({
                 defaultMessage: "Main menu",
@@ -42,6 +42,7 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
                 data-h2-list-style="base(none)"
                 data-h2-flex-grid="base(flex-start, x1, 0)"
                 data-h2-justify-content="base(center) p-tablet(flex-start)"
+                data-h2-padding="base(0, 0, 0, 0)"
               >
                 {mainItems.map((item) => (
                   <ListItem key={item.key}>{item}</ListItem>
@@ -50,7 +51,7 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
             </nav>
           </div>
           {utilityItems && utilityItems.length > 0 ? (
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+            <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
               <nav
                 aria-label={intl.formatMessage({
                   defaultMessage: "Utility",
@@ -62,6 +63,7 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
                   data-h2-list-style="base(none)"
                   data-h2-flex-grid="base(flex-start, x1, 0)"
                   data-h2-justify-content="base(center) p-tablet(flex-end)"
+                  data-h2-padding="base(0, 0, 0, 0)"
                 >
                   {utilityItems.map((item) => (
                     <ListItem key={item.key}>{item}</ListItem>

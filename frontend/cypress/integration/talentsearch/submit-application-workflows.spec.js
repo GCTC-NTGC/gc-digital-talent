@@ -143,7 +143,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("heading", { name: /Apply now/i })
       .should("exist")
       .and("be.visible");
-    cy.findAllByRole("button", { name: /Apply for this process/i })
+    cy.findAllByRole("link", { name: /Apply for this process/i })
       .first()
       .click();
     cy.wait("@gqlcreateApplicationMutation");

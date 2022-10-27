@@ -113,7 +113,10 @@ const ApplicationPageWrapper = ({
                 })}
                 <br />
                 {closingDate
-                  ? relativeExpiryDate(parseDateTimeUtc(closingDate), intl)
+                  ? relativeExpiryDate({
+                      expiryDate: parseDateTimeUtc(closingDate),
+                      intl,
+                    })
                   : ""}
               </p>
             </div>
