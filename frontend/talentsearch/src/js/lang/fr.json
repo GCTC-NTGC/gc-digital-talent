@@ -2391,5 +2391,13 @@
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
     "description": "Support form toast message error"
+  },
+  "MZJYQd": {
+    "defaultMessage": "Contact et soutien",
+    "description": "Page title for the Support page"
+  },
+  "axQDlj": {
+    "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
+    "description": "Subtitle for the Support page"
   }
 }
