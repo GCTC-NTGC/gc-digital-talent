@@ -97,7 +97,7 @@ class PoolApplicationTest extends TestCase
                 'createApplication' => null
             ],
             'errors' => [[
-                'message' => 'AlreadyApplied',
+                'message' => 'AlreadyAppliedToPool',
             ]]
         ]);
 

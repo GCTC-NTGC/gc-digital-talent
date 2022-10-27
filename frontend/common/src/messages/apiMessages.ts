@@ -150,6 +150,12 @@ export const messages: { [key: string]: MessageDescriptor } = defineMessages({
     description:
       "Error message that the pool advertisement must have publishing group filled.",
   },
+  AlreadyAppliedToPool: {
+    defaultMessage: "You have already applied to this pool",
+    description:
+      "Message displayed when a user attempts to apply to pool more than once",
+    id: "0OPWbJ",
+  },
 });
 
 export const tryFindMessageDescriptor = (

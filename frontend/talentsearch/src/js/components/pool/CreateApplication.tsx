@@ -3,6 +3,8 @@ import Loading from "@common/components/Pending/Loading";
 import { redirect } from "@common/helpers/router";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+import { notEmpty } from "@common/helpers/util";
+import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
 import {
   Scalars,
   useCreateApplicationMutation,
@@ -25,8 +27,10 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
   const [{ data }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId },
   });
-  const [{ fetching: creating, data: mutationData }, executeMutation] =
-    useCreateApplicationMutation();
+  const [
+    { fetching: creating, data: mutationData, operation },
+    executeMutation,
+  ] = useCreateApplicationMutation();
 
   // Store path to redirect to later on
   let redirectPath = paths.pool(poolId);
@@ -36,18 +40,21 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
    *
    * @returns null
    */
-  const handleError = (msg?: React.ReactNode) => {
-    redirect(redirectPath);
-    toast.error(
-      msg ||
-        intl.formatMessage({
-          defaultMessage: "Error application creation failed",
-          id: "tlAiJm",
-          description: "Application creation failed",
-        }),
-    );
-    return null;
-  };
+  const handleError = React.useCallback(
+    (msg?: React.ReactNode) => {
+      redirect(redirectPath);
+      toast.error(
+        msg ||
+          intl.formatMessage({
+            defaultMessage: "Error application creation failed",
+            id: "tlAiJm",
+            description: "Application creation failed",
+          }),
+      );
+      return null;
+    },
+    [intl, redirectPath],
+  );
 
   /**
    * Store if the application can be created
@@ -60,41 +67,55 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
    * !hasApplied - Users can only apply to a single pool advertisement
    */
   const userId = data?.me?.id;
-  const isCreating = !creating && !mutationData;
+  const hasMutationData = notEmpty(mutationData);
+  const isCreating = creating || hasMutationData || operation?.key;
   const hasRequiredData = userId && poolId;
 
   if (!hasRequiredData) {
     if (!poolId) {
       redirectPath = paths.allPools();
     }
+    console.log("no data");
     handleError();
   }
 
-  /**
-   * Actually run the mutation
-   */
-  if (!isCreating && hasRequiredData) {
-    executeMutation({ userId, poolId })
-      .then((result) => {
-        if (result.data?.createApplication) {
-          // Redirect user to the application on success
-          redirect(paths.reviewApplication(result.data.createApplication.id));
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Application created",
-              id: "U/ji+A",
-              description: "Application created successfully",
-            }),
-          );
-        }
-        if (result.error) {
-          handleError(result.error);
-        }
+  const createApplication = React.useCallback(() => {
+    if (!isCreating && userId && poolId) {
+      executeMutation({ userId, poolId })
+        .then((result) => {
+          if (result.data?.createApplication) {
+            // Redirect user to the application on success
+            redirect(paths.reviewApplication(result.data.createApplication.id));
+            toast.success(
+              intl.formatMessage({
+                defaultMessage: "Application created",
+                id: "U/ji+A",
+                description: "Application created successfully",
+              }),
+            );
+          } else if (result.error?.message) {
+            const message = tryFindMessageDescriptor(result.error.message);
+            console.log("has message");
+            handleError(message);
+          } else {
+            // Fallback to generic message
+            console.log("fallback");
+            handleError();
+          }
+        })
+        .catch(() => {
+          console.log("error caught");
+          handleError();
+        });
+    }
+  }, [isCreating, userId, poolId, executeMutation, handleError, paths, intl]);
 
-        // Finally, handle any other issue
-        handleError();
-      })
-      .catch(handleError);
+  React.useEffect(() => {
+    createApplication();
+  }, [createApplication]);
+
+  if (hasMutationData) {
+    return null;
   }
 
   /**

@@ -38,6 +38,6 @@ class NotAlreadyApplied implements Rule
      */
     public function message()
     {
-        return 'AlreadyApplied';
+        return 'AlreadyAppliedToPool';
     }
 }
