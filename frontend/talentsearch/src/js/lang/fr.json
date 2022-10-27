@@ -1917,11 +1917,11 @@
     "description": "Explanation that employment equity information is optional."
   },
   "QpfFEG": {
-    "defaultMessage": "Ces renseignements seront utilisées sous une forme anonyme à des fins statistiques.",
+    "defaultMessage": "Ces renseignements seront utilisés sous une forme anonyme à des fins statistiques.",
     "description": "Explanation on how employment equity information will be used, item three"
   },
   "zqBqj1": {
-    "defaultMessage": "Ces renseignements seront utilisées pour vous faire correspondre aux emplois prioritaires.",
+    "defaultMessage": "Ces renseignements seront utilisés pour vous faire correspondre aux emplois prioritaires.",
     "description": "Explanation on how employment equity information will be used, item two"
   },
   "HHEQgM": {
@@ -2317,7 +2317,7 @@
     "description": "Link text for breadcrumb to user applications page."
   },
   "qDYcDP": {
-    "defaultMessage": "Vous êtes toujours encouragé à maintenir votre profil à jour, les versions actualisées seront utilisées lors des étapes ultérieures du processus d’embauche.",
+    "defaultMessage": "Vous êtes toujours encouragé à maintenir votre profil à jour, les versions actualisées seront utilisés lors des étapes ultérieures du processus d’embauche.",
     "description": "Important info list item on sign and submit page."
   },
   "r6DZ71": {
