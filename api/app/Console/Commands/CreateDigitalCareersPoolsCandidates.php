@@ -97,9 +97,41 @@ class CreateDigitalCareersPoolsCandidates extends Command
                 return true;
             }
             if ($expectedSalary) {
-                // var_dump($expectedSalary);
-                // var_dump($classificationMinSalary);
-                // var_dump($classificationMaxSalary);
+                $minSalaryInt = intval($classificationMinSalary);
+                $maxSalaryInt = intval($classificationMaxSalary);
+                $salaryArray = [];
+                // $expectedSalary is an array of strings, need to convert to array of array pairs, each pair creating lower/upper limits of ints
+                foreach ($expectedSalary as $salary) {
+                    if ($salary == '_50_59K'){
+                        array_push($salaryArray, [50000, 59999]);
+                    }
+                    elseif ($salary == '_60_69K') {
+                        array_push($salaryArray, [60000, 69999]);
+                    }
+                    elseif ($salary == '_70_79K') {
+                        array_push($salaryArray, [70000, 79999]);
+                    }
+                    elseif ($salary == '_80_89K') {
+                        array_push($salaryArray, [80000, 89999]);
+                    }
+                    elseif ($salary == '_90_99K') {
+                        array_push($salaryArray, [90000, 99999]);//
+                    }
+                    elseif ($salary == '_100K_PLUS') {
+                        array_push($salaryArray, [100000, 999999]);
+                    }
+                }
+
+                // having created the array of arrays with paired ints, step through each one and see if a classification's salary range lines up
+                // a match is when a salary int is MORE than the lower limit AND LESS than the upper limit
+                foreach ($salaryArray as $salaryPair) {
+                    if ($salaryPair[0] <= $minSalaryInt && $salaryPair[1] >= $minSalaryInt) {
+                        return true;
+                    }
+                    if ($salaryPair[0] <= $maxSalaryInt && $salaryPair[1] >= $maxSalaryInt) {
+                        return true;
+                    }
+                }
                 return false;
             }
             return false;
