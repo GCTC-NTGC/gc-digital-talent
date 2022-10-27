@@ -6,9 +6,6 @@ import SkillPicker from "@common/components/SkillPicker";
 import { notEmpty } from "@common/helpers/util";
 import SkillBlock from "@common/components/SkillPicker/SkillBlock";
 import Separator from "@common/components/Separator";
-import Heading from "@common/components/Heading";
-import Chip, { Chips } from "@common/components/Chip";
-import { getLocalizedName } from "@common/helpers/localize";
 import type { PoolAdvertisement, Skill } from "../../api/generated";
 import SkillsInDetail from "../skills/SkillsInDetail/SkillsInDetail";
 
@@ -105,9 +102,23 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
               data-h2-radius="base(rounded)"
               data-h2-shadow="base(s)"
               data-h2-padding="base(x.5, x1, x.5, x.5)"
+              data-h2-margin="base(x2, 0, x1, 0)"
             >
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Need-to-have skills",
+                  id: "PXlO7h",
+                  description:
+                    "Title text for group of need-to-have skills for pool advertisement on experience forms",
+                })}
+              </span>
+              <Separator
+                color="black"
+                data-h2-margin="base(x.5, 0)"
+                orientation="horizontal"
+              />
               {poolAdvertisement.essentialSkills.map((skill, index: number) => (
-                <React.Fragment key={skill.id}>
+                <div key={skill.id} data-h2-padding="base(x0, x0, x0, x.5)">
                   <SkillBlock
                     skill={skill}
                     isAdded={
@@ -124,7 +135,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                       orientation="horizontal"
                     />
                   ) : null}
-                </React.Fragment>
+                </div>
               ))}
             </div>
           )}
@@ -134,9 +145,22 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
               data-h2-shadow="base(s)"
               data-h2-padding="base(x.5, x1, x.5, x.5)"
             >
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Nice-to-have skills",
+                  id: "xQ2Vfi",
+                  description:
+                    "Title text for group of nice-to-have skills for pool advertisement on experience forms",
+                })}
+              </span>
+              <Separator
+                color="black"
+                data-h2-margin="base(x.5, 0)"
+                orientation="horizontal"
+              />
               {poolAdvertisement.nonessentialSkills.map(
                 (skill, index: number) => (
-                  <React.Fragment key={skill.id}>
+                  <div key={skill.id} data-h2-padding="base(x0, x0, x0, x.5)">
                     <SkillBlock
                       skill={skill}
                       isAdded={
@@ -155,37 +179,11 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                         orientation="horizontal"
                       />
                     ) : null}
-                  </React.Fragment>
+                  </div>
                 ),
               )}
             </div>
           )}
-          {addedSkills.length > 0 ? (
-            <>
-              <Heading
-                data-h2-font-size="base(copy, 1)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x.75, 0, x.5, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Selected skills",
-                  id: "l7Hif/",
-                  description: "Section header for a list of skills selected",
-                })}
-              </Heading>
-              <Chips>
-                {addedSkills.map((skill) => (
-                  <Chip
-                    key={skill.id}
-                    label={getLocalizedName(skill.name, intl)}
-                    color="primary"
-                    mode="outline"
-                    onDismiss={() => handleRemoveSkill(skill.id)}
-                  />
-                ))}
-              </Chips>
-            </>
-          ) : null}
         </>
       ) : (
         <SkillPicker
