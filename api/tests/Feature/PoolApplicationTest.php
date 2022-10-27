@@ -94,10 +94,17 @@ class PoolApplicationTest extends TestCase
         '
         )->assertJson([
             'data' => [
-                'createApplication' => null
+                'createApplication' => [
+                    'user' => [
+                        'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+                    ],
+                    'pool' => [
+                        'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+                    ],
+                ]
             ],
             'errors' => [[
-                'message' => 'AlreadyAppliedToPool',
+                'message' => ApiEnums::POOL_CANDIDATE_EXISTS,
             ]]
         ]);
 
@@ -143,7 +150,7 @@ class PoolApplicationTest extends TestCase
                 'createApplication' => null
             ],
             'errors' => [[
-                'message' => 'PoolNotPublished',
+                'message' => ApiEnums::POOL_CANDIDATE_POOL_NOT_PUBLISHED,
             ]]
         ]);
     }
@@ -183,7 +190,7 @@ class PoolApplicationTest extends TestCase
                 'createApplication' => null
             ],
             'errors' => [[
-                'message' => 'PoolNotPublished',
+                'message' => ApiEnums::POOL_CANDIDATE_POOL_NOT_PUBLISHED,
             ]]
         ]);
     }
