@@ -504,6 +504,15 @@ export const Router: React.FC = () => {
   }
   const menuItems = [
     <MenuLink
+      key="home"
+      href={talentPaths.home()}
+      text={intl.formatMessage({
+        defaultMessage: "Home",
+        id: "G1RNXj",
+        description: "Link to the Homepage in the nav menu.",
+      })}
+    />,
+    <MenuLink
       key="search"
       href={talentPaths.search()}
       text={intl.formatMessage({
