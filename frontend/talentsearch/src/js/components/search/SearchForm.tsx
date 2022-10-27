@@ -204,7 +204,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       });
 
       return () => subscription.unsubscribe();
-    }, [watch, classificationMap, pools, onUpdateApplicantFilter]);
+    }, [watch, classificationMap, onUpdateApplicantFilter, pools]);
 
     const getClassificationLabel = React.useCallback(
       (group: string, level: number): string => {

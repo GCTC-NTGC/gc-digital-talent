@@ -94,8 +94,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 }) => {
   const intl = useIntl();
 
-  const classificationFilterCount =
-    applicantFilter?.expectedClassifications?.length ?? 0;
+  const poolClassificationFilterCount = applicantFilter?.pools?.length ?? 0;
   const operationalRequirementFilterCount =
     applicantFilter?.operationalRequirements?.length ?? 0;
   const locationPreferencesCount =
@@ -108,7 +107,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   // re-producing this pattern elsewhere.
   // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
   const tryHandleSubmit = async () => {
-    if (classificationFilterCount === 0 || locationPreferencesCount === 0) {
+    if (poolClassificationFilterCount === 0 || locationPreferencesCount === 0) {
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
     } else {
@@ -196,7 +195,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             )}
           </h3>
           <SearchFilterAdvice
-            classificationFilterCount={classificationFilterCount}
+            classificationFilterCount={poolClassificationFilterCount}
             operationalRequirementFilterCount={
               operationalRequirementFilterCount
             }
