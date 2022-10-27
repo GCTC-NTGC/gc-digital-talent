@@ -9,7 +9,6 @@ import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { getLocale } from "@common/helpers/localize";
 import useFeatureFlags from "@common/hooks/useFeatureFlags";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-import Pending from "@common/components/Pending";
 import PageContainer, { MenuLink } from "./PageContainer";
 import {
   useTalentSearchRoutes,
