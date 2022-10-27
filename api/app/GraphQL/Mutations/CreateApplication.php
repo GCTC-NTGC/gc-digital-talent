@@ -18,11 +18,11 @@ final class CreateApplication
     {
         // Check to see if the pool is published (can't apply to draft or expired)
         $pool = Pool::find($args['poolId']);
-        if (in_array($pool->status, [
+        if (in_array($pool->advertisement_status, [
             ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
             ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED
         ])) {
-            throw ValidationException::withMessages(['you are unable to apply to this pool']);
+            throw ValidationException::withMessages(['You are unable to apply to this pool']);
         }
 
         // Do not allow users to apply if they already have
@@ -30,7 +30,7 @@ final class CreateApplication
             ->where('pool_id', $args['poolId'])
             ->exists();
         if ($exists) {
-            throw ValidationException::withMessages(['you are unable to apply to this pool']);
+            throw ValidationException::withMessages(['You have already applied to this pool']);
         }
 
         // attempt to find existing application, if found return that otherwise create new application
