@@ -1,18 +1,14 @@
 import React from "react";
 import Loading from "@common/components/Pending/Loading";
 import { redirect } from "@common/helpers/router";
-import { notEmpty } from "@common/helpers/util";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import {
-  Maybe,
-  PoolCandidate,
   Scalars,
   useCreateApplicationMutation,
   useGetPoolAdvertisementQuery,
 } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
-import { hasUserApplied, isAdvertisementVisible } from "./utils";
 
 interface CreateApplicationProps {
   poolId: Scalars["ID"];
@@ -36,47 +32,6 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
   let redirectPath = paths.pool(poolId);
 
   /**
-   * There is a possibility someone navigates
-   * directly to this, so check if they should
-   * be able to view/apply to it
-   */
-  const isVisible = isAdvertisementVisible(
-    data?.me?.roles?.filter(notEmpty) || [],
-    data?.poolAdvertisement?.advertisementStatus ?? null,
-  );
-  const hasApplied = hasUserApplied(
-    (data?.me?.poolCandidates as Maybe<PoolCandidate>[]) || [],
-    data?.poolAdvertisement?.id,
-  );
-
-  /**
-   * Check to see if the application even exists
-   */
-  const application = data?.me?.poolCandidates?.find((candidate) => {
-    return candidate?.pool.id === data?.poolAdvertisement?.id;
-  });
-
-  /**
-   * Store if the application can be created
-   *
-   * !creating - Not currently running a mutation
-   * !mutationData - The mutation has not previously ran
-   * userId - We need a user ID to run the mutation
-   * id - We need a pool ID to run the mutation
-   * isVisible - Should't run it if user cannot view it
-   * !hasApplied - Users can only apply to a single pool advertisement
-   */
-  const userId = data?.me?.id;
-  const canCreate =
-    !creating && !mutationData && userId && poolId && isVisible && !hasApplied;
-
-  // Set the redirect path to the application
-  // if the user has applied and it exists
-  if (hasApplied && application) {
-    redirectPath = paths.reviewApplication(application.id);
-  }
-
-  /**
    * Handle any errors that occur during mutation
    *
    * @returns null
@@ -95,9 +50,30 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
   };
 
   /**
+   * Store if the application can be created
+   *
+   * !creating - Not currently running a mutation
+   * !mutationData - The mutation has not previously ran
+   * userId - We need a user ID to run the mutation
+   * id - We need a pool ID to run the mutation
+   * isVisible - Should't run it if user cannot view it
+   * !hasApplied - Users can only apply to a single pool advertisement
+   */
+  const userId = data?.me?.id;
+  const isCreating = !creating && !mutationData;
+  const hasRequiredData = userId && poolId;
+
+  if (!hasRequiredData) {
+    if (!poolId) {
+      redirectPath = paths.allPools();
+    }
+    handleError();
+  }
+
+  /**
    * Actually run the mutation
    */
-  if (canCreate) {
+  if (!isCreating && hasRequiredData) {
     executeMutation({ userId, poolId })
       .then((result) => {
         if (result.data?.createApplication) {
@@ -110,26 +86,15 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
               description: "Application created successfully",
             }),
           );
-          return null;
         }
-        return handleError();
+        if (result.error) {
+          handleError(result.error);
+        }
+
+        // Finally, handle any other issue
+        handleError();
       })
       .catch(handleError);
-  }
-
-  // If a user has already applied or this pool is a draft
-  // redirect them away from this route with a toast
-  if ((hasApplied || !isVisible) && !creating) {
-    handleError(
-      hasApplied
-        ? intl.formatMessage({
-            defaultMessage: "You have already applied to this.",
-            id: "mwEGU+",
-            description:
-              "Disabled button when a user already applied to a pool opportunity",
-          })
-        : undefined,
-    );
   }
 
   /**
