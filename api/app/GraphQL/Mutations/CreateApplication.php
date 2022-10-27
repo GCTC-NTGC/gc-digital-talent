@@ -6,6 +6,8 @@ use App\Models\PoolCandidate;
 use App\Models\Pool;
 use Database\Helpers\ApiEnums;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
+use App\GraphQL\Validators\Mutation\CreateApplicationValidator;
+use Illuminate\Support\Facades\Validator;
 
 final class CreateApplication
 {
@@ -16,25 +18,19 @@ final class CreateApplication
      */
     public function __invoke($_, array $args)
     {
-        // Check to see if the pool is published (can't apply to draft or expired)
-        $pool = Pool::find($args['poolId']);
-        if (in_array($pool->advertisement_status, [
-            ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
-            ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED
-        ])) {
-            throw ValidationException::withMessages(['You are unable to apply to this pool']);
+        $createValidator = new CreateApplicationValidator($args['poolId'], $args['userId']);
+        $validator = Validator::make(
+            $args,
+            $createValidator->rules(),
+            $createValidator->messages()
+        );
+
+        if ($validator->fails()) {
+            throw new ValidationException($validator->errors()->first(), $validator);
         }
 
-        // Do not allow users to apply if they already have
-        $exists = PoolCandidate::where('user_id', $args['userId'])
-            ->where('pool_id', $args['poolId'])
-            ->exists();
-        if ($exists) {
-            throw ValidationException::withMessages(['You have already applied to this pool']);
-        }
-
-        // attempt to find existing application, if found return that otherwise create new application
-        $application = PoolCandidate::firstOrCreate([
+        // Passed validation so we are free to create
+        $application = PoolCandidate::create([
             'user_id' => $args['userId'],
             'pool_id' => $args['poolId'],
         ]);

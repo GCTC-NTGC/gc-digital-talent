@@ -41,6 +41,7 @@ class PoolApplicationTest extends TestCase
         // create an unexpired Pool instance
         Pool::factory()->create([
             'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+            'published_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
 
@@ -96,10 +97,7 @@ class PoolApplicationTest extends TestCase
                 'createApplication' => null
             ],
             'errors' => [[
-                'message' => 'The given data was invalid.',
-                'extensions' => [
-                    'validation' => [["You have already applied to this pool"]]
-                ]
+                'message' => 'AlreadyApplied',
             ]]
         ]);
 
@@ -120,7 +118,7 @@ class PoolApplicationTest extends TestCase
         $newUser->save();
 
         Pool::factory()->create([
-            'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+            'id' => '3ecf840d-b0ed-4207-8fc4-f45c4a865eaf',
             'published_at' => null,
             'expiry_date' => config('constants.far_future_date'),
         ]);
@@ -129,7 +127,7 @@ class PoolApplicationTest extends TestCase
             /** @lang Graphql */
             '
             mutation createApplication {
-                createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
+                createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "3ecf840d-b0ed-4207-8fc4-f45c4a865eaf") {
                     user {
                         id
                     }
@@ -145,10 +143,7 @@ class PoolApplicationTest extends TestCase
                 'createApplication' => null
             ],
             'errors' => [[
-                'message' => 'The given data was invalid.',
-                'extensions' => [
-                    'validation' => [["You are unable to apply to this pool"]]
-                ]
+                'message' => 'PoolNotPublished',
             ]]
         ]);
     }
@@ -163,7 +158,7 @@ class PoolApplicationTest extends TestCase
         $newUser->save();
 
         Pool::factory()->create([
-            'id' => 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+            'id' => 'f755f7da-c490-4fe1-a1f0-a6c233796442',
             'published_at' => null,
             'expiry_date' => config('constants.far_past_date'),
         ]);
@@ -172,7 +167,7 @@ class PoolApplicationTest extends TestCase
             /** @lang Graphql */
             '
             mutation createApplication {
-                createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
+                createApplication(userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", poolId: "f755f7da-c490-4fe1-a1f0-a6c233796442") {
                     user {
                         id
                     }
@@ -188,10 +183,7 @@ class PoolApplicationTest extends TestCase
                 'createApplication' => null
             ],
             'errors' => [[
-                'message' => 'The given data was invalid.',
-                'extensions' => [
-                    'validation' => [["You are unable to apply to this pool"]]
-                ]
+                'message' => 'PoolNotPublished',
             ]]
         ]);
     }
