@@ -75,7 +75,6 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
     if (!poolId) {
       redirectPath = paths.allPools();
     }
-    console.log("no data");
     handleError();
   }
 
@@ -95,18 +94,13 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
             );
           } else if (result.error?.message) {
             const message = tryFindMessageDescriptor(result.error.message);
-            console.log("has message");
             handleError(message);
           } else {
             // Fallback to generic message
-            console.log("fallback");
             handleError();
           }
         })
-        .catch(() => {
-          console.log("error caught");
-          handleError();
-        });
+        .catch(handleError);
     }
   }, [isCreating, userId, poolId, executeMutation, handleError, paths, intl]);
 
@@ -114,6 +108,7 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
     createApplication();
   }, [createApplication]);
 
+  // Don't render the page if the mutation ran already
   if (hasMutationData) {
     return null;
   }
