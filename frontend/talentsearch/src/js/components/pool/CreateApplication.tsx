@@ -41,8 +41,8 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
    * @returns null
    */
   const handleError = React.useCallback(
-    (msg?: React.ReactNode) => {
-      redirect(redirectPath);
+    (msg?: React.ReactNode, path?: string) => {
+      redirect(path || redirectPath);
       toast.error(
         msg ||
           intl.formatMessage({
@@ -83,18 +83,26 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
       executeMutation({ userId, poolId })
         .then((result) => {
           if (result.data?.createApplication) {
-            // Redirect user to the application on success
-            redirect(paths.reviewApplication(result.data.createApplication.id));
-            toast.success(
-              intl.formatMessage({
-                defaultMessage: "Application created",
-                id: "U/ji+A",
-                description: "Application created successfully",
-              }),
+            const newPath = paths.reviewApplication(
+              result.data.createApplication.id,
             );
+            // Redirect user to the application if it exists
+            // Toast success or error
+            if (!result.error) {
+              redirect(newPath);
+              toast.success(
+                intl.formatMessage({
+                  defaultMessage: "Application created",
+                  id: "U/ji+A",
+                  description: "Application created successfully",
+                }),
+              );
+            } else {
+              const message = tryFindMessageDescriptor(result.error.message);
+              handleError(message, newPath);
+            }
           } else if (result.error?.message) {
-            const message = tryFindMessageDescriptor(result.error.message);
-            handleError(message);
+            handleError(tryFindMessageDescriptor(result.error.message));
           } else {
             // Fallback to generic message
             handleError();

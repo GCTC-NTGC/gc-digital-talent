@@ -18,30 +18,44 @@ final class CreateApplication
      */
     public function __invoke($_, array $args)
     {
-        $createValidator = new CreateApplicationValidator($args['poolId'], $args['userId']);
-        $validator = Validator::make(
-            $args,
-            $createValidator->rules(),
-            $createValidator->messages()
-        );
+        try {
+            $createValidator = new CreateApplicationValidator($args['poolId'], $args['userId']);
+            $validator = Validator::make(
+                $args,
+                $createValidator->rules(),
+                $createValidator->messages(),
+            );
 
-        if ($validator->fails()) {
-            throw new ValidationException($validator->errors()->first(), $validator);
+            if ($validator->fails()) {
+                throw new ValidationException(
+                    $validator->errors()->first(),
+                    $validator
+                );
+            }
+
+            // Passed validation so we are free to create
+            $application = PoolCandidate::create([
+                'user_id' => $args['userId'],
+                'pool_id' => $args['poolId'],
+            ]);
+
+            // draft expiry date is the same as the expiry of the pool it is attached to
+            $poolExpiry = Pool::find($application->pool_id)->expiry_date;
+
+            // set to DRAFT in the database itself, Accessor already returns this as DRAFT if unexpired via API
+            $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_DRAFT;
+            $application->expiry_date = $poolExpiry;
+            $application->save();
+        } catch (\Throwable $error) {
+            // Add the error to the pool
+            $errorPool = app(\Nuwave\Lighthouse\Execution\ErrorPool::class);
+            $errorPool->record($error);
+
+            // Partial error, lets return the found pool
+            $application = PoolCandidate::where('user_id', $args['userId'])
+                ->where('pool_id', $args['poolId'])
+                ->first();
         }
-
-        // Passed validation so we are free to create
-        $application = PoolCandidate::create([
-            'user_id' => $args['userId'],
-            'pool_id' => $args['poolId'],
-        ]);
-
-        // draft expiry date is the same as the expiry of the pool it is attached to
-        $poolExpiry = Pool::find($application->pool_id)->expiry_date;
-
-        // set to DRAFT in the database itself, Accessor already returns this as DRAFT if unexpired via API
-        $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_DRAFT;
-        $application->expiry_date = $poolExpiry;
-        $application->save();
 
         return $application;
     }

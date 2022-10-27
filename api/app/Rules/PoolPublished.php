@@ -42,6 +42,6 @@ class PoolPublished implements Rule
      */
     public function message()
     {
-        return 'PoolNotPublished';
+        return ApiEnums::POOL_CANDIDATE_POOL_NOT_PUBLISHED;
     }
 }

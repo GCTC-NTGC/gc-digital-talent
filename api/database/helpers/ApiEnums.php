@@ -10,7 +10,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function operationalRequirements() : array
+    public static function operationalRequirements(): array
     {
         return [
             'SHIFT_WORK',
@@ -34,7 +34,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function languageAbilities() : array
+    public static function languageAbilities(): array
     {
         return [
             self::LANGUAGE_ABILITY_ENGLISH,
@@ -52,7 +52,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function govEmployeeTypes() : array
+    public static function govEmployeeTypes(): array
     {
         return [
             self::GOV_EMPLOYEE_TYPE_STUDENT,
@@ -70,7 +70,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function candidateExpiryFilters() : array
+    public static function candidateExpiryFilters(): array
     {
         return [
             self::CANDIDATE_EXPIRY_FILTER_ACTIVE,
@@ -86,7 +86,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function roles() : array
+    public static function roles(): array
     {
         return [
             self::ROLE_ADMIN,
@@ -99,7 +99,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function salaryRanges() : array
+    public static function salaryRanges(): array
     {
         return [
             '_50_59K',
@@ -127,7 +127,7 @@ class ApiEnums
     const CANDIDATE_STATUS_PLACED_INDETERMINATE = 'PLACED_INDETERMINATE';
     const CANDIDATE_STATUS_EXPIRED = 'EXPIRED';
 
-    public static function candidateStatuses() : array
+    public static function candidateStatuses(): array
     {
         return [
             self::CANDIDATE_STATUS_DRAFT,
@@ -160,7 +160,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function poolStatuses() : array
+    public static function poolStatuses(): array
     {
         return [
             self::POOL_STATUS_NOT_TAKING_APPLICATIONS,
@@ -179,7 +179,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function genericJobTitleKeys() : array
+    public static function genericJobTitleKeys(): array
     {
         return [
             self::GENERIC_JOB_TITLE_KEY_TECHNICIAN_IT01,
@@ -204,7 +204,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function workRegions() : array
+    public static function workRegions(): array
     {
         return [
             self::WORK_REGION_TELEWORK,
@@ -224,7 +224,7 @@ class ApiEnums
     const POOL_ADVERTISEMENT_IS_DRAFT = 'DRAFT';
     const POOL_ADVERTISEMENT_IS_PUBLISHED = 'PUBLISHED';
     const POOL_ADVERTISEMENT_IS_EXPIRED = 'EXPIRED';
-    public static function poolAdvertisementStatuses() : array
+    public static function poolAdvertisementStatuses(): array
     {
         return [
             self::POOL_ADVERTISEMENT_IS_DRAFT,
@@ -241,7 +241,7 @@ class ApiEnums
     const POOL_ADVERTISEMENT_VARIOUS = 'VARIOUS';
     const POOL_ADVERTISEMENT_BILINGUAL_INTERMEDIATE = 'BILINGUAL_INTERMEDIATE';
     const POOL_ADVERTISEMENT_BILINGUAL_ADVANCED = 'BILINGUAL_ADVANCED';
-    public static function poolAdvertisementLanguages() : array
+    public static function poolAdvertisementLanguages(): array
     {
         return [
             self::POOL_ADVERTISEMENT_ENGLISH,
@@ -258,7 +258,7 @@ class ApiEnums
     const POOL_ADVERTISEMENT_RELIABILITY = 'RELIABILITY';
     const POOL_ADVERTISEMENT_SECRET = 'SECRET';
     const POOL_ADVERTISEMENT_TOP_SECRET = 'TOP_SECRET';
-    public static function poolAdvertisementSecurity() : array
+    public static function poolAdvertisementSecurity(): array
     {
         return [
             self::POOL_ADVERTISEMENT_RELIABILITY,
@@ -278,7 +278,7 @@ class ApiEnums
     const POOL_STREAM_PROJECT_PORTFOLIO_MANAGEMENT = 'PROJECT_PORTFOLIO_MANAGEMENT';
     const POOL_STREAM_SECURITY = 'SECURITY';
     const POOL_STREAM_SOFTWARE_SOLUTIONS = 'SOFTWARE_SOLUTIONS';
-    public static function poolStreams() : array
+    public static function poolStreams(): array
     {
         return [
             self::POOL_STREAM_BUSINESS_ADVISORY_SERVICES,
@@ -298,7 +298,7 @@ class ApiEnums
     const CITIZENSHIP_CITIZEN = 'CITIZEN';
     const CITIZENSHIP_PR = 'PERMANENT_RESIDENT';
     const CITIZENSHIP_OTHER = 'OTHER';
-    public static function citizenshipStatuses() : array
+    public static function citizenshipStatuses(): array
     {
         return [
             self::CITIZENSHIP_CITIZEN,
@@ -313,7 +313,7 @@ class ApiEnums
     const ARMED_FORCES_VETERAN = 'VETERAN';
     const ARMED_FORCES_MEMBER = 'MEMBER';
     const ARMED_FORCES_NON_CAF = 'NON_CAF';
-    public static function armedForcesStatuses() : array
+    public static function armedForcesStatuses(): array
     {
         return [
             self::ARMED_FORCES_VETERAN,
@@ -322,19 +322,33 @@ class ApiEnums
         ];
     }
 
-     /**
+    /**
      * Publishing Groups
      */
     const PUBLISHING_GROUP_IT_JOBS = 'IT_JOBS';
     const PUBLISHING_GROUP_EXECUTIVE_JOBS = 'EXECUTIVE_JOBS';
     const PUBLISHING_GROUP_OTHER = 'OTHER';
 
-    public static function publishingGroups() : array
+    public static function publishingGroups(): array
     {
         return [
             self::PUBLISHING_GROUP_IT_JOBS,
             self::PUBLISHING_GROUP_EXECUTIVE_JOBS,
             self::PUBLISHING_GROUP_OTHER,
+        ];
+    }
+
+    /**
+     * Pool Application Errors
+     */
+    const POOL_CANDIDATE_EXISTS = 'APPLICATION_EXISTS';
+    const POOL_CANDIDATE_POOL_NOT_PUBLISHED = 'NOT_PUBLISHED';
+
+    public static function poolCandidateErrors(): array
+    {
+        return [
+            self::POOL_CANDIDATE_EXISTS,
+            self::POOL_CANDIDATE_POOL_NOT_PUBLISHED,
         ];
     }
 }
