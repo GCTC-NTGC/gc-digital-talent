@@ -1002,8 +1002,8 @@
     "defaultMessage": "Vous devez saisir un terme de recherche avant d'appuyer sur la touche « Entrée »",
     "description": "Error message displayed when the search term length is less then 2 characters."
   },
-  "hgipIO": {
-    "defaultMessage": "Retirer cette compétence<hidden> {skillName}</hidden>",
+  "W6Jh6N": {
+    "defaultMessage": "Retirer cette compétence<hidden>: {skillName}</hidden>",
     "description": "Button label to remove the adjacent skill on skill result block."
   },
   "JY6WhU": {
@@ -1014,8 +1014,8 @@
     "defaultMessage": "p. ex. Python, JavaScript, etc.",
     "description": "Placeholder for the skills search bar."
   },
-  "wsmpTz": {
-    "defaultMessage": "Ajouter cette compétence<hidden> {skillName}</hidden>",
+  "MO80Mu": {
+    "defaultMessage": "Ajouter cette compétence<hidden>: {skillName}</hidden>",
     "description": "Button label to add the adjacent skill on skill result block."
   },
   "BnnVAv": {
