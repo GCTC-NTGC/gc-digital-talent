@@ -460,6 +460,13 @@ export const PoolDashboard: React.FC = () => {
       <Dashboard contentRoutes={routes(paths, loggedIn)} />
       <Helmet>
         <html lang={getLocale(intl)} />
+        <title>
+          {intl.formatMessage({
+            defaultMessage: "Admin",
+            id: "wHX/8C",
+            description: "Title tag for Admin site",
+          })}
+        </title>
         <meta
           name="description"
           content={intl.formatMessage({

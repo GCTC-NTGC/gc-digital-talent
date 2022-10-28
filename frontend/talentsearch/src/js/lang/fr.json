@@ -2404,6 +2404,10 @@
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
   },
+  "Mz+gUV": {
+    "defaultMessage": "Talent numérique du GC",
+    "description": "Title tag for Talent Search site"
+  },
   "mI6AeU": {
     "defaultMessage": "À venir",
     "description": "Text displayed for executive jobs on homepage, indicating it is not ready"

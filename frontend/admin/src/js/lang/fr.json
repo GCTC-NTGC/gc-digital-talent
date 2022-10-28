@@ -2788,5 +2788,9 @@
   "J8kIar": {
     "defaultMessage": "Recruter et gérer des employés en TI au gouvernement du Canada.",
     "description": "Meta tag description for Admin site"
+  },
+  "wHX/8C": {
+    "defaultMessage": "Admin",
+    "description": "Title tag for Admin site"
   }
 }

@@ -107,7 +107,6 @@ export interface RouterArgs {
   };
   paths?: {
     welcomeRoute?: string;
-    notFoundRoute?: string;
   };
 }
 
@@ -128,7 +127,7 @@ export const useRouter = ({
     loggedInEmail,
     isLoaded: authorizationLoaded,
   } = React.useContext(AuthorizationContext);
-  const { welcomeRoute, notFoundRoute } = paths;
+  const { welcomeRoute } = paths;
   // Render the result of routing
   useEffect((): void => {
     router
@@ -193,19 +192,13 @@ export const useRouter = ({
           } else {
             setComponent(notAuthorized);
           }
-        } else if (notFoundRoute) {
-          navigate(notFoundRoute);
         } else {
           setComponent(notFound);
         }
         return null;
       })
       .catch(async () => {
-        if (notFoundRoute) {
-          navigate(notFoundRoute);
-        } else {
-          setComponent(notFound);
-        }
+        setComponent(notFound);
       });
   }, [
     apiRoutes,
@@ -218,7 +211,6 @@ export const useRouter = ({
     pathName,
     router,
     welcomeRoute,
-    notFoundRoute,
     authorizationLoaded,
   ]);
 
