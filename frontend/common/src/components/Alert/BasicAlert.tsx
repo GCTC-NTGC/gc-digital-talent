@@ -29,7 +29,8 @@ const BasicAlert = ({
         <Icon
           data-h2-vertical-align="base(top)"
           data-h2-margin="base(0, x.25, 0, 0)"
-          style={{ height: "1em", width: "1em" }}
+          data-h2-height="base(1em)"
+          data-h2-width="base(1em)"
         />
         <span>{title}</span>
       </p>

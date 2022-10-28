@@ -38,7 +38,13 @@ const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
 
   const unsavedFields = Object.keys(dirtyFields)
     .map((field) => {
-      if (labels && field in labels) {
+      /**
+       * Some forms are adding keys for dirtyFields
+       * when they are not dirty so make sure the value
+       * of each key is true.
+       */
+      const fieldDirty = dirtyFields[field];
+      if (labels && field in labels && fieldDirty) {
         return {
           name: field,
           label: labels[field],
