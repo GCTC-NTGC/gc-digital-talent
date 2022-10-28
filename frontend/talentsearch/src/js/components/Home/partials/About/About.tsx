@@ -73,10 +73,9 @@ const About = () => {
               <CardFlat
                 color="black"
                 title={intl.formatMessage({
-                  defaultMessage: "Digital Community Management Office",
-                  id: "LDzKSs",
-                  description:
-                    "Title for the Digital Community Management Office",
+                  defaultMessage: "Digital Community Management",
+                  id: "JRlnNk",
+                  description: "Title for the Digital Community Management",
                 })}
                 link={{
                   href:
