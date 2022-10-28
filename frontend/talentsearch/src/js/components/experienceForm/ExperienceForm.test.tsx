@@ -311,7 +311,9 @@ describe("ExperienceForm", () => {
       skills: mockSkills,
     });
 
-    const skillResults = screen.getAllByRole("button", { name: /add skill/i });
+    const skillResults = screen.getAllByRole("button", {
+      name: /add this skill/i,
+    });
     fireEvent.click(skillResults[0]);
     expect(
       await screen.findByRole("textbox", { name: /skill in detail/i }),
