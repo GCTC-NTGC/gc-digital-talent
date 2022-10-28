@@ -205,6 +205,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
           idPrefix="bilingualEvaluation"
           legend={labels.bilingualEvaluation}
           name="bilingualEvaluation"
+          id="bilingualEvaluation"
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -296,6 +297,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
             idPrefix="estimatedLanguageAbility"
             legend={labels.estimatedLanguageAbility}
             name="estimatedLanguageAbility"
+            id="estimatedLanguageAbility"
             items={estimatedAbilityItems}
           />
         </div>

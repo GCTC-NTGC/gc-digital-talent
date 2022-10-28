@@ -207,6 +207,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                 idPrefix="required-work-preferences"
                 legend={labels.wouldAcceptTemporary}
                 name="wouldAcceptTemporary"
+                id="wouldAcceptTemporary"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -248,6 +249,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                 idPrefix="optional-work-preferences"
                 legend={labels.acceptedOperationalRequirements}
                 name="acceptedOperationalRequirements"
+                id="acceptedOperationalRequirements"
                 items={OperationalRequirementV2.map((value) => ({
                   value,
                   label: (

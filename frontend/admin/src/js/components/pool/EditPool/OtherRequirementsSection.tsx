@@ -201,6 +201,7 @@ export const OtherRequirementsSection = ({
                   description: "Location options in Edit Pool Form",
                 })}
                 name="locationOption"
+                id="locationOption"
                 items={[
                   {
                     value: LocationOption.RemoteOptional,

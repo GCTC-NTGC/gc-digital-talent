@@ -9,7 +9,7 @@ export type Checkbox = {
   label: string | React.ReactNode;
 };
 
-export interface ChecklistProps {
+export interface ChecklistProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
   idPrefix: string;
   /** Holds text for the legend associated with the checklist fieldset. */
@@ -46,6 +46,7 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
   disabled,
   hideOptional,
   trackUnsaved = true,
+  ...rest
 }) => {
   const {
     register,
@@ -65,6 +66,7 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
       disabled={disabled}
       hideOptional={hideOptional}
       trackUnsaved={trackUnsaved}
+      {...rest}
     >
       {items.map(({ value, label }) => {
         const id = `${idPrefix}-${value}`;
