@@ -342,7 +342,7 @@ class ApiEnums
      * Pool Application Errors
      */
     const POOL_CANDIDATE_EXISTS = 'APPLICATION_EXISTS';
-    const POOL_CANDIDATE_POOL_NOT_PUBLISHED = 'NOT_PUBLISHED';
+    const POOL_CANDIDATE_POOL_NOT_PUBLISHED = 'POOL_NOT_PUBLISHED';
 
     public static function poolCandidateErrors(): array
     {
