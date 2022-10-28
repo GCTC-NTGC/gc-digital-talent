@@ -6,11 +6,10 @@ import pick from "lodash/pick";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
 import NonExecutiveITClassifications from "@common/constants/NonExecutiveITClassifications";
+import { notEmpty } from "@common/helpers/util";
 import {
-  Classification,
   CountApplicantsQueryVariables,
   Maybe,
-  Pool,
   ApplicantFilterInput,
   Skill,
   useCountApplicantsQuery,
@@ -23,6 +22,7 @@ import Spinner from "../Spinner";
 import CandidateResults from "./CandidateResults";
 import SearchForm, { SearchFormRef } from "./SearchForm";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+import { SimpleClassification, SimplePool } from "../../types/poolUtils";
 
 const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
@@ -67,8 +67,8 @@ const applicantFilterToQueryArgs = (
 };
 
 export interface SearchContainerProps {
-  classifications: Pick<Classification, "group" | "level">[];
-  pool?: Pick<Pool, "name" | "description">;
+  classifications: SimpleClassification[];
+  pools?: SimplePool[];
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   skills?: Skill[];
   candidateCount: number;
@@ -84,7 +84,7 @@ const testId = (chunks: React.ReactNode): React.ReactNode => (
 
 export const SearchContainer: React.FC<SearchContainerProps> = ({
   classifications,
-  pool,
+  pools,
   poolOwner,
   skills,
   candidateCount,
@@ -95,8 +95,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 }) => {
   const intl = useIntl();
 
-  const classificationFilterCount =
-    applicantFilter?.expectedClassifications?.length ?? 0;
+  const poolClassificationFilterCount = applicantFilter?.pools?.length ?? 0;
   const operationalRequirementFilterCount =
     applicantFilter?.operationalRequirements?.length ?? 0;
   const locationPreferencesCount =
@@ -109,7 +108,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   // re-producing this pattern elsewhere.
   // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
   const tryHandleSubmit = async () => {
-    if (classificationFilterCount === 0 || locationPreferencesCount === 0) {
+    if (poolClassificationFilterCount === 0 || locationPreferencesCount === 0) {
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
     } else {
@@ -148,6 +147,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             <SearchForm
               classifications={classifications}
               skills={skills}
+              pools={pools}
               onUpdateApplicantFilter={onUpdateApplicantFilter}
               ref={searchRef}
             />
@@ -196,7 +196,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             )}
           </h3>
           <SearchFilterAdvice
-            classificationFilterCount={classificationFilterCount}
+            classificationFilterCount={poolClassificationFilterCount}
             operationalRequirementFilterCount={
               operationalRequirementFilterCount
             }
@@ -206,7 +206,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           {!updatePending ? (
             <CandidateResults
               candidateCount={candidateCount}
-              pool={pool}
               poolOwner={poolOwner}
               handleSubmit={tryHandleSubmit}
             />
@@ -222,6 +221,22 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 const SearchContainerApi: React.FC = () => {
   const [{ data, fetching, error }] = useGetSearchFormDataAcrossAllPoolsQuery();
   const skills = data?.skills;
+  const pools = data?.pools;
+
+  const availableClassifications = pools
+    ?.flatMap((pool) => pool?.classifications)
+    .filter(notEmpty);
+
+  const ITClassifications = NonExecutiveITClassifications();
+  const searchableClassifications = ITClassifications.filter(
+    (classification) => {
+      return availableClassifications?.some(
+        (x) =>
+          x?.group === classification?.group &&
+          x?.level === classification?.level,
+      );
+    },
+  );
 
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
@@ -245,8 +260,9 @@ const SearchContainerApi: React.FC = () => {
   return (
     <Pending {...{ fetching, error }}>
       <SearchContainer
-        classifications={NonExecutiveITClassifications()}
+        classifications={searchableClassifications}
         skills={skills as Skill[]}
+        pools={pools as SimplePool[]}
         applicantFilter={applicantFilter}
         candidateCount={candidateCount}
         updatePending={countFetching}
