@@ -31,6 +31,10 @@ export const theme = {
   },
 };
 
+const FontWrapper = ({ children }: { children: React.ReactNode }) => (
+  <div data-h2-color="base(black) base:dark(white)">{children}</div>
+);
+
 const withThemeProvider = (
   Story: StoryFn,
   { globals, parameters }: StoryContext,
@@ -52,7 +56,9 @@ const withThemeProvider = (
           override="light"
           themeSelector="#override-theme-light[data-h2]"
         >
-          <Story />
+          <FontWrapper>
+            <Story />
+          </FontWrapper>
         </ThemeProvider>
       </div>
       <div id="override-theme-dark" data-h2>
@@ -60,13 +66,17 @@ const withThemeProvider = (
           override="dark"
           themeSelector="#override-theme-dark[data-h2]"
         >
-          <Story />
+          <FontWrapper>
+            <Story />
+          </FontWrapper>
         </ThemeProvider>
       </div>
     </>
   ) : (
     <ThemeProvider override={theme}>
-      <Story />
+      <FontWrapper>
+        <Story />
+      </FontWrapper>
     </ThemeProvider>
   );
 };
