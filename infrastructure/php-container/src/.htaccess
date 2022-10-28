@@ -124,6 +124,10 @@ DirectorySlash off
     RewriteCond %{REQUEST_URI} ^/tc-report/assets/
     RewriteRule ^tc-report/assets/(.*)$ tc-report/_site/assets/$1 [L]
 
+    # tc-report pages removed, redirect to replacements
+    RedirectMatch 301 /en/communities/digital-talent https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html
+    RedirectMatch 301 /fr/communities/digital-talent https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html
+
     # Send all other requests to /tc-report/_site
     RewriteCond %{REQUEST_URI} !^/tc-report/_site
     RewriteRule ^(.*)/?$ tc-report/_site/$1 [L]
