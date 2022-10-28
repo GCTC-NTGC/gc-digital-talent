@@ -115,7 +115,7 @@ class CreateDigitalCareersPoolsCandidates extends Command
                         case '_90_99K':
                             array_push($salaryArray, [90000, 99999]);
                             break;
-                        case'_100K_PLUS':
+                        case '_100K_PLUS':
                             array_push($salaryArray, [100000, 999999]);
                             break;
                     }
