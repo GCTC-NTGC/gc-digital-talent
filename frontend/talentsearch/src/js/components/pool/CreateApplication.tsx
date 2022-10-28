@@ -2,7 +2,7 @@ import React from "react";
 import Loading from "@common/components/Pending/Loading";
 import { redirect } from "@common/helpers/router";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+import { Id, toast } from "react-toastify";
 import { notEmpty } from "@common/helpers/util";
 import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
 import {
@@ -23,6 +23,7 @@ interface CreateApplicationProps {
  */
 const CreateApplication = ({ poolId }: CreateApplicationProps) => {
   const intl = useIntl();
+  const errorToastId = React.useRef<Id>("");
   const paths = useDirectIntakeRoutes();
   const [{ data }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId },
@@ -43,14 +44,22 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
   const handleError = React.useCallback(
     (msg?: React.ReactNode, path?: string) => {
       redirect(path || redirectPath);
-      toast.error(
-        msg ||
-          intl.formatMessage({
-            defaultMessage: "Error application creation failed",
-            id: "tlAiJm",
-            description: "Application creation failed",
-          }),
-      );
+      /**
+       * This is supposed to prevent the toast
+       * from firing twice, but it does not appear to
+       * work. Leaving it in, in the hopes
+       * it finally does 🤷‍♀️
+       */
+      if (!toast.isActive(errorToastId.current)) {
+        errorToastId.current = toast.error(
+          msg ||
+            intl.formatMessage({
+              defaultMessage: "Error application creation failed",
+              id: "tlAiJm",
+              description: "Application creation failed",
+            }),
+        );
+      }
       return null;
     },
     [intl, redirectPath],
