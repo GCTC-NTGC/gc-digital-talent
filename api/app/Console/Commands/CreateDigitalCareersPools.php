@@ -50,12 +50,17 @@ class CreateDigitalCareersPools extends Command
         $ITLevels = [1, 2, 3, 4];
         $poolStreams = ApiEnums::poolStreams();
         $dateNow = Carbon::now();
-        $ownerId = User::all()->sole('sub', 'ilike', 'admin@test.com')['id']; // this for local testing, the one below for other environments
+        $ownerId = User::where('sub', 'ilike', 'admin@test.com')->sole()['id']; // this for local testing, the one below for other environments
         // $ownerId = User::all()->sole('email', 'ilike' 'Anne-marie.kirouac@tbs-sct.gc.ca')['id'];
+
+        $teamworkId = Skill::where('key', 'ilike', 'teamwork')->sole()['id'];
+        $analyticalThinkingId = Skill::where('key', 'ilike', 'analytical_thinking')->sole()['id'];
+        $clientFocusId = Skill::where('key', 'ilike', 'client_focus')->sole()['id'];
+        $verbalCommId = Skill::where('key', 'ilike', 'verbal_communication')->sole()['id'];
+        $writtenCommId = Skill::where('key', 'ilike', 'written_communication')->sole()['id'];
 
         foreach ($ITLevels as $index => $level) {
             foreach ($poolStreams as $index => $stream) {
-
                 // create pool with some info
                 $newPool = Pool::create([
                     'user_id' => $ownerId, // replace with whoever
@@ -80,13 +85,7 @@ class CreateDigitalCareersPools extends Command
                     'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS,
                 ]);
 
-                // connect pool essential skills
-                $teamworkId = Skill::all()->sole('key', 'teamwork')['id'];
-                $analyticalThinkingId = Skill::all()->sole('key', 'analytical_thinking')['id'];
-                $clientFocusId = Skill::all()->sole('key', 'client_focus')['id'];
-                $verbalCommId = Skill::all()->sole('key', 'verbal_communication')['id'];
-                $writtenCommId = Skill::all()->sole('key', 'written_communication')['id'];
-
+                // connect pool essential skills pulled at the start
                 $newPool->essentialSkills()->sync([$teamworkId, $analyticalThinkingId, $clientFocusId, $verbalCommId, $writtenCommId]);
 
                 // connect classification

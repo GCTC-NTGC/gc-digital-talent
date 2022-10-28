@@ -48,7 +48,7 @@ class CreateDigitalCareersPoolsCandidates extends Command
     public function handle()
     {
         // collect starting data
-        $oldDigitalCareersId = Pool::where('key', 'ilike', 'digital_careers')->first()->toArray()['id'];
+        $oldDigitalCareersId = Pool::where('key', 'ilike', 'digital_careers')->sole()['id'];
         $candidateCollection = PoolCandidate::where('pool_id', $oldDigitalCareersId)->get();
         $ITLevels = [1, 2, 3, 4];
         $poolStreams = ApiEnums::poolStreams();
@@ -86,7 +86,7 @@ class CreateDigitalCareersPoolsCandidates extends Command
                                                 string $classificationMaxSalary): bool {
 
             $candidateClassificationsArray = PoolCandidate::where('id', $candidateId)
-                                                ->first()
+                                                ->sole()
                                                 ->expectedClassifications()
                                                 ->pluck('classifications.id')
                                                 ->toArray();
@@ -131,7 +131,6 @@ class CreateDigitalCareersPoolsCandidates extends Command
                         return true;
                     }
                 }
-                return false;
             }
             return false;
         }
