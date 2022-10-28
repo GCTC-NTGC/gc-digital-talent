@@ -755,6 +755,7 @@ input UserFilterInput {
     @builder(method: "App\\Models\\User@filterByGeneralSearch")
 }
 
+# Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   hasDiploma: Boolean @scope
   equity: EquitySelectionsInput
@@ -774,6 +775,11 @@ input ApplicantFilterInput {
   pools: [IdInput]
     @pluck(key: "id")
     @builder(method: "App\\Models\\User@filterByAvailableInPools") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+}
+
+type CandidateSearchPoolResult {
+  pool: Pool!
+  candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
 type Query {
@@ -850,6 +856,9 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @guard
     @can(ability: "viewAny")
+  # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
+  # Returns the number of candidates by filtering their parent applicant, grouped by pool.
+  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: ID! @eq): Classification @find
   classifications: [Classification]! @all
   cmoAsset(id: ID! @eq): CmoAsset @find

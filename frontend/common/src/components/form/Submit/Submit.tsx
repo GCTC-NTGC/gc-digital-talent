@@ -1,13 +1,14 @@
 import React from "react";
 import { useFormState } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { Color } from "../../Button";
 import { Button } from "../..";
 
 export interface SubmitProps {
   text?: string | React.ReactNode;
   submittedText?: string | React.ReactNode;
   isSubmittingText?: string | React.ReactNode;
-  color?: "primary" | "secondary" | "cta" | "white";
+  color?: Color;
   mode?: "solid" | "outline" | "inline";
   isSubmitting?: boolean;
   disabled?: boolean;

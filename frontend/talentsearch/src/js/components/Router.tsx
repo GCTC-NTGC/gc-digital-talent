@@ -81,6 +81,7 @@ const BrowsePoolsPage = React.lazy(() => import("./Browse/BrowsePoolsPage"));
 const PoolAdvertisementPage = React.lazy(
   () => import("./pool/PoolAdvertisementPage"),
 );
+const CreateApplication = React.lazy(() => import("./pool/CreateApplication"));
 const SignAndSubmitPage = React.lazy(
   () => import("./signAndSubmit/SignAndSubmitPage"),
 );
@@ -169,6 +170,14 @@ const profileRoutes = (
     action: () => ({
       component: <ProfilePage />,
       authorizedRoles: [Role.Applicant],
+    }),
+  },
+  {
+    path: profilePaths.myProfile(),
+    action: () => ({
+      component: <div />,
+      authorizedRoles: [Role.Applicant],
+      redirect: myUserId ? profilePaths.home(myUserId) : undefined,
     }),
   },
   {
@@ -268,7 +277,7 @@ const profileRoutes = (
 
   // Old routes - these redirect to the current route for the page
   {
-    path: profilePaths.myProfile(),
+    path: profilePaths.myProfileDeprecated(),
     action: () => ({
       component: <div />,
       authorizedRoles: [Role.Applicant],
@@ -424,7 +433,6 @@ const directIntakeRoutes = (
     path: directIntakePaths.allPools(),
     action: () => ({
       component: <BrowsePoolsPage />,
-      authorizedRoles: [Role.Applicant],
     }),
   },
   {
@@ -433,6 +441,16 @@ const directIntakeRoutes = (
       const poolId = context.params.id as string;
       return {
         component: <PoolAdvertisementPage id={poolId} />,
+      };
+    },
+  },
+  {
+    path: directIntakePaths.createApplication(":id"),
+    action: (context) => {
+      const poolId = context.params.id as string;
+      return {
+        component: <CreateApplication poolId={poolId} />,
+        authorizedRoles: [Role.Applicant],
       };
     },
   },
@@ -492,6 +510,15 @@ export const Router: React.FC = () => {
     appInsights.trackPageView();
   }
   const menuItems = [
+    <MenuLink
+      key="home"
+      href={talentPaths.home()}
+      text={intl.formatMessage({
+        defaultMessage: "Home",
+        id: "G1RNXj",
+        description: "Link to the Homepage in the nav menu.",
+      })}
+    />,
     <MenuLink
       key="search"
       href={talentPaths.search()}
