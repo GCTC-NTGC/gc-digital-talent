@@ -623,6 +623,13 @@ export const Router: React.FC = () => {
       />
       <Helmet>
         <html lang={locale} />
+        <title>
+          {intl.formatMessage({
+            defaultMessage: "GC Digital Talent",
+            id: "Mz+gUV",
+            description: "Title tag for Talent Search site",
+          })}
+        </title>
         <meta
           name="description"
           content={intl.formatMessage({

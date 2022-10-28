@@ -2,7 +2,7 @@ import React from "react";
 
 import Svg, { type SVGProps } from "./Svg";
 
-const GocLogo = (props: SVGProps) => (
+const GocLogoEn = (props: SVGProps) => (
   <Svg viewBox="0 0 819 75.97" {...props}>
     <path
       fill="red"
@@ -12,4 +12,4 @@ const GocLogo = (props: SVGProps) => (
   </Svg>
 );
 
-export default GocLogo;
+export default GocLogoEn;

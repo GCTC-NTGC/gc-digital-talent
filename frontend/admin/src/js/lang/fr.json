@@ -1326,8 +1326,8 @@
     "defaultMessage": "Retirer du bassin",
     "description": "title for change expiry date dialog on view-user page"
   },
-  "LGo8fw": {
-    "defaultMessage": "Bienvenue à Talent GC, veuillez vous connecter pour continuer.",
+  "Nfy1HK": {
+    "defaultMessage": "Bienvenue à Talent numérique du GC, veuillez vous connecter pour continuer.",
     "description": "Instructional text for the talent cloud pool manager portal home page."
   },
   "O8U5Sz": {
@@ -2788,5 +2788,9 @@
   "J8kIar": {
     "defaultMessage": "Recruter et gérer des employés en TI au gouvernement du Canada.",
     "description": "Meta tag description for Admin site"
+  },
+  "wHX/8C": {
+    "defaultMessage": "Admin",
+    "description": "Title tag for Admin site"
   }
 }

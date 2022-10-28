@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import Link from "../Link";
-import { GocLogo, GocLogoWhite } from "../Svg";
+import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
 
 import {
   getLocale,
@@ -49,14 +49,29 @@ const Header = ({ width }: HeaderProps) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <GocLogo
-                data-h2-max-width="base(x12) p-tablet(x15)"
-                data-h2-display="base(block) base:dark(none)"
-              />
-              <GocLogoWhite
-                data-h2-max-width="base(x12) p-tablet(x15)"
-                data-h2-display="base(none) base:dark(block)"
-              />
+              {locale === "en" ? (
+                <>
+                  <GocLogoEn
+                    data-h2-max-width="base(x12) p-tablet(x15)"
+                    data-h2-display="base(block) base:dark(none)"
+                  />
+                  <GocLogoWhiteEn
+                    data-h2-max-width="base(x12) p-tablet(x15)"
+                    data-h2-display="base(none) base:dark(block)"
+                  />
+                </>
+              ) : (
+                <>
+                  <GocLogoFr
+                    data-h2-max-width="base(x12) p-tablet(x15)"
+                    data-h2-display="base(block) base:dark(none)"
+                  />
+                  <GocLogoWhiteFr
+                    data-h2-max-width="base(x12) p-tablet(x15)"
+                    data-h2-display="base(none) base:dark(block)"
+                  />
+                </>
+              )}
               <span data-h2-visibility="base(invisible)">
                 {intl.formatMessage({
                   defaultMessage: "Canada.ca",

@@ -3,7 +3,6 @@ import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
 import { Link } from "@common/components";
-import NotFound from "@common/components/NotFound";
 import {
   RouterResult,
   useLocation,
@@ -14,7 +13,8 @@ import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import NotAuthorized from "@common/components/NotAuthorized";
 import { useApplicantProfileRoutes } from "../applicantProfileRoutes";
-import { useTalentSearchRoutes } from "../talentSearchRoutes";
+
+const NotFoundPage = React.lazy(() => import("./404/Error404"));
 
 export const exactMatch = (ref: string | null, test: string): boolean =>
   ref === test;
@@ -95,28 +95,6 @@ export const LogoutButton = React.forwardRef<
   </button>
 ));
 
-const TalentSearchNotFound: React.FC = () => {
-  const intl = useIntl();
-  return (
-    <NotFound
-      headingMessage={intl.formatMessage({
-        description: "Heading for the message saying the page was not found.",
-        defaultMessage: "Sorry, we can't find the page you were looking for.",
-        id: "pBJzgi",
-      })}
-    >
-      <p>
-        {intl.formatMessage({
-          description: "Detailed message saying the page was not found.",
-          defaultMessage:
-            "Oops, it looks like you've landed on a page that either doesn't exist or has moved.",
-          id: "pgHTkX",
-        })}
-      </p>
-    </NotFound>
-  );
-};
-
 const TalentSearchNotAuthorized: React.FC = () => {
   const intl = useIntl();
   return (
@@ -141,7 +119,7 @@ const TalentSearchNotAuthorized: React.FC = () => {
   );
 };
 
-const notFound = <TalentSearchNotFound />;
+const notFound = <NotFoundPage />;
 const notAuthorized = <TalentSearchNotAuthorized />;
 
 export const PageContainer: React.FC<{
@@ -151,7 +129,6 @@ export const PageContainer: React.FC<{
 }> = ({ menuItems, contentRoutes, authLinks }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
-  const tsPaths = useTalentSearchRoutes();
   const content = useRouter({
     routes: contentRoutes,
     components: {
@@ -160,7 +137,6 @@ export const PageContainer: React.FC<{
     },
     paths: {
       welcomeRoute: paths.createAccount(),
-      notFoundRoute: tsPaths.notFound(),
     },
   });
   return (
