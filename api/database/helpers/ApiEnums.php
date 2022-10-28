@@ -5,6 +5,16 @@ namespace Database\Helpers;
 // TODO: any way to pull these directly from the graphql schema?
 class ApiEnums
 {
+    const OPERATIONAL_REQUIREMENT_SHIFT_WORK = 'SHIFT_WORK';
+    const OPERATIONAL_REQUIREMENT_ON_CALL = 'ON_CALL';
+    const OPERATIONAL_REQUIREMENT_TRAVEL = 'TRAVEL';
+    const OPERATIONAL_REQUIREMENT_TRANSPORT_EQUIPMENT = 'TRANSPORT_EQUIPMENT';
+    const OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE = 'DRIVERS_LICENSE';
+    const OPERATIONAL_REQUIREMENT_WORK_WEEKENDS = 'WORK_WEEKENDS';
+    const OPERATIONAL_REQUIREMENT_OVERTIME_SCHEDULED = 'OVERTIME_SCHEDULED';
+    const OPERATIONAL_REQUIREMENT_OVERTIME_SHORT_NOTICE = 'OVERTIME_SHORT_NOTICE';
+    const OPERATIONAL_REQUIREMENT_OVERTIME_OCCASIONAL = 'OVERTIME_OCCASIONAL';
+    const OPERATIONAL_REQUIREMENT_OVERTIME_REGULAR = 'OVERTIME_REGULAR';
     /**
      * A collection of enums for operation_requirement in factories and seeders
      *
@@ -13,16 +23,16 @@ class ApiEnums
     public static function operationalRequirements() : array
     {
         return [
-            'SHIFT_WORK',
-            'ON_CALL',
-            'TRAVEL',
-            'TRANSPORT_EQUIPMENT',
-            'DRIVERS_LICENSE',
-            'WORK_WEEKENDS',
-            'OVERTIME_SCHEDULED',
-            'OVERTIME_SHORT_NOTICE',
-            'OVERTIME_OCCASIONAL',
-            'OVERTIME_REGULAR',
+            self::OPERATIONAL_REQUIREMENT_SHIFT_WORK,
+            self::OPERATIONAL_REQUIREMENT_ON_CALL,
+            self::OPERATIONAL_REQUIREMENT_TRAVEL,
+            self::OPERATIONAL_REQUIREMENT_TRANSPORT_EQUIPMENT,
+            self::OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE,
+            self::OPERATIONAL_REQUIREMENT_WORK_WEEKENDS,
+            self::OPERATIONAL_REQUIREMENT_OVERTIME_SCHEDULED,
+            self::OPERATIONAL_REQUIREMENT_OVERTIME_SHORT_NOTICE,
+            self::OPERATIONAL_REQUIREMENT_OVERTIME_OCCASIONAL,
+            self::OPERATIONAL_REQUIREMENT_OVERTIME_REGULAR,
         ];
     }
 
@@ -151,6 +161,20 @@ class ApiEnums
     const USER_STATUS_ACTIVELY_LOOKING = 'ACTIVELY_LOOKING';
     const USER_STATUS_OPEN_TO_OPPORTUNITIES = 'OPEN_TO_OPPORTUNITIES';
     const USER_STATUS_INACTIVE = 'INACTIVE';
+
+    /**
+     * A collection of enums for user statuses in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function userStatuses() : array
+    {
+        return [
+            self::USER_STATUS_ACTIVELY_LOOKING,
+            self::USER_STATUS_OPEN_TO_OPPORTUNITIES,
+            self::USER_STATUS_INACTIVE
+        ];
+    }
 
     const POOL_STATUS_NOT_TAKING_APPLICATIONS = 'NOT_TAKING_APPLICATIONS';
     const POOL_STATUS_TAKING_APPLICATIONS = 'TAKING_APPLICATIONS';
