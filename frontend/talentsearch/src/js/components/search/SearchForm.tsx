@@ -21,19 +21,21 @@ import {
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { useLocation } from "@common/helpers/router";
 import errorMessages from "@common/messages/errorMessages";
-import { hasKey, notEmpty } from "@common/helpers/util";
+import { hasKey } from "@common/helpers/util";
 import {
   LanguageAbility,
   Skill,
   ApplicantFilterInput,
   WorkRegion,
   UserPoolFilterInput,
-  Pool,
-  Maybe,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
 import AddSkillsToFilter from "../skills/AddSkillsToFilter";
-import { SimpleClassification, SimplePool } from "../../types/PoolUtils";
+import {
+  SimpleClassification,
+  SimplePool,
+  filterPoolsBySelectedClassification,
+} from "../../types/poolUtils";
 
 const NullSelection = "NULL_SELECTION";
 
@@ -122,19 +124,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     );
     const methods = useForm<FormValues>({ defaultValues: initialValues });
     const { watch, trigger } = methods;
-    const filterPoolsBySelectedClassification = (
-      allPools: SimplePool[],
-      classification: Maybe<SimpleClassification>,
-    ) =>
-      allPools
-        ?.filter((pool: Maybe<Pick<Pool, "id" | "classifications">>) => {
-          return pool?.classifications?.some(
-            (x) =>
-              x?.group === classification?.group &&
-              x?.level === classification?.level,
-          );
-        })
-        .filter(notEmpty);
 
     useImperativeHandle(
       ref,

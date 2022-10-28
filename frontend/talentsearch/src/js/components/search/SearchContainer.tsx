@@ -6,6 +6,7 @@ import pick from "lodash/pick";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
 import NonExecutiveITClassifications from "@common/constants/NonExecutiveITClassifications";
+import { notEmpty } from "@common/helpers/util";
 import {
   CountApplicantsQueryVariables,
   Maybe,
@@ -21,7 +22,7 @@ import Spinner from "../Spinner";
 import CandidateResults from "./CandidateResults";
 import SearchForm, { SearchFormRef } from "./SearchForm";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
-import { SimpleClassification, SimplePool } from "../../types/PoolUtils";
+import { SimpleClassification, SimplePool } from "../../types/poolUtils";
 
 const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
