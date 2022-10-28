@@ -4,7 +4,6 @@ namespace App\GraphQL\Validators\Mutation;
 
 use App\Rules\NotAlreadyApplied;
 use App\Rules\PoolPublished;
-use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class CreateApplicationValidator extends Validator
