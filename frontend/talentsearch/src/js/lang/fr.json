@@ -2383,5 +2383,13 @@
   "zqIEuu": {
     "defaultMessage": "Retournez à mes candidatures",
     "description": "Button message on footer of review my application page."
+  },
+  "PXlO7h": {
+    "defaultMessage": "Compétences essentielles",
+    "description": "Title text for group of need-to-have skills for pool advertisement on experience forms"
+  },
+  "xQ2Vfi": {
+    "defaultMessage": "Compétences pratiques",
+    "description": "Title text for group of nice-to-have skills for pool advertisement on experience forms"
   }
 }
