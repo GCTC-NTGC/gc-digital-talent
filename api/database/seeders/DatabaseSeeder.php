@@ -192,7 +192,7 @@ class DatabaseSeeder extends Seeder
             'pool_id' => $pool->id,
             'user_id' => $user->id,
         ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($faker) {
-            $assets = CmoAsset::inRandomOrder()->limit(2)->pluck('id')->toArray();
+            $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
             $classification = Classification::inRandomOrder()->limit(1)->pluck('id')->toArray();
             $candidate->cmoAssets()->sync($assets);
             // 50-50 expected classification OR expected salary
@@ -202,7 +202,7 @@ class DatabaseSeeder extends Seeder
             }
             else {
                 $candidate->expectedClassifications()->sync([]);
-                $candidate->expected_salary = $faker->randomElements(ApiEnums::salaryRanges(), 2);
+                $candidate->expected_salary = $faker->randomElements(ApiEnums::salaryRanges(), 3);
             }
             if ($candidate->submitted_at) {
                 $candidate->createSnapshot();
