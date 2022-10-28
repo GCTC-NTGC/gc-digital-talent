@@ -94,9 +94,9 @@ const About = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "Behind the GC Digital Talent platform is a whole team of people designing, developing, screening applicants, talent managing employees, placing executives, and helping managers find the talent they need to deliver services to Canadians.",
-                    id: "JKL7Yw",
+                    id: "l3tT4m",
                     description:
-                      "Description for the Digital Community Management Office",
+                      "Description for the Digital Community Management",
                   })}
                 </p>
               </CardFlat>
