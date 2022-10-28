@@ -13,6 +13,7 @@ query getPoolAdvertisement($id: ID!) {
     roles
     id
     poolCandidates {
+      id
       pool {
         id
       }

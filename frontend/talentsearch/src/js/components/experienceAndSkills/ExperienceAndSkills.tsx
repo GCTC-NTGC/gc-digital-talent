@@ -197,6 +197,17 @@ export const ExperienceAndSkills: React.FunctionComponent<
         ),
       }}
     >
+      {missingSkills && (
+        <div data-h2-margin="base(x1, 0)">
+          <MissingSkills
+            addedSkills={
+              hasExperiences ? flattenExperienceSkills(experiences) : []
+            }
+            requiredSkills={missingSkills.requiredSkills}
+            optionalSkills={missingSkills.optionalSkills}
+          />
+        </div>
+      )}
       <div data-h2-margin="base(x2, 0)">
         <div data-h2-flex-grid="base(flex-start, x.5)">
           <div data-h2-flex-item="base(1of1)">
@@ -241,17 +252,6 @@ export const ExperienceAndSkills: React.FunctionComponent<
           </div>
         </div>
       </div>
-      {missingSkills && (
-        <div data-h2-margin="base(x1, 0)">
-          <MissingSkills
-            addedSkills={
-              hasExperiences ? flattenExperienceSkills(experiences) : []
-            }
-            requiredSkills={missingSkills.requiredSkills}
-            optionalSkills={missingSkills.optionalSkills}
-          />
-        </div>
-      )}
       {!hasExperiences ? (
         <Well>
           <p data-h2-font-style="base(italic)">

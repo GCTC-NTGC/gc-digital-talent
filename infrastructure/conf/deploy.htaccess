@@ -31,6 +31,10 @@ DirectorySlash off
     # Send localized admin requests also to admin dist folder
     RewriteRule ^(en|fr)/admin(/(.*))?$ frontend/admin/dist/$3 [L]
 
+    # Send homepage requests to talentsearch dist folder
+    RewriteRule ^$ frontend/talentsearch/dist/ [L]
+    RewriteRule ^(en|fr)$ frontend/talentsearch/dist/ [L]
+
     # Send talent requests to talentsearch dist folder (with or without public/ path prefix).
     RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
     RewriteRule ^talent(/(.*))?$ frontend/talentsearch/dist/$2 [L]
@@ -116,6 +120,10 @@ DirectorySlash off
     # Send tc-report/assets requests to correct folder
     RewriteCond %{REQUEST_URI} ^/tc-report/assets/
     RewriteRule ^tc-report/assets/(.*)$ tc-report/_site/assets/$1 [L]
+
+    # tc-report pages removed, redirect to replacements
+    RedirectMatch 301 /en/communities/digital-talent https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html
+    RedirectMatch 301 /fr/communities/digital-talent https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html
 
     # Send all other requests to /tc-report/_site
     RewriteCond %{REQUEST_URI} !^/tc-report/_site

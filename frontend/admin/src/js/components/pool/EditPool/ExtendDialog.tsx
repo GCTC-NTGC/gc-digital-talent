@@ -100,6 +100,14 @@ const ExtendDialog = ({
     >
       <p>
         {intl.formatMessage({
+          defaultMessage:
+            "The closing time will be automatically set to 11:59 PM in the Pacific time zone.",
+          id: "Aaas0w",
+          description: "Helper message for changing the pool closing date",
+        })}
+      </p>
+      <p>
+        {intl.formatMessage({
           defaultMessage: "Write a new closing date:",
           id: "BQsJSG",
           description: "First paragraph for extend pool closing date dialog",

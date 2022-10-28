@@ -91,10 +91,10 @@ const SkillBlock = ({
                 ? intl.formatMessage(
                     {
                       defaultMessage:
-                        "Remove skill<hidden> {skillName}</hidden>",
-                      id: "p5GbCr",
+                        "Remove this skill<hidden>: {skillName}</hidden>",
+                      id: "W6Jh6N",
                       description:
-                        "Button label to remove skill on skill result block.",
+                        "Button label to remove the adjacent skill on skill result block.",
                     },
                     {
                       skillName,
@@ -102,10 +102,11 @@ const SkillBlock = ({
                   )
                 : intl.formatMessage(
                     {
-                      defaultMessage: "Add skill<hidden> {skillName}</hidden>",
-                      id: "HB2yOT",
+                      defaultMessage:
+                        "Add this skill<hidden>: {skillName}</hidden>",
+                      id: "MO80Mu",
                       description:
-                        "Button label to add skill on skill result block.",
+                        "Button label to add the adjacent skill on skill result block.",
                     },
                     { skillName },
                   )}
