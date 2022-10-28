@@ -396,11 +396,9 @@ const PoolAdvertisement = ({
                 </Text>
                 {essentialSkills[SkillCategory.Technical]?.map((skill) => (
                   <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <p>
-                      <Text>
-                        {skill.description ? skill.description[locale] : ""}
-                      </Text>
-                    </p>
+                    <Text>
+                      {skill.description ? skill.description[locale] : ""}
+                    </Text>
                   </Accordion>
                 ))}
               </>
