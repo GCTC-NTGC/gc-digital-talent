@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class CreateDigitalCareersPools extends Command
 {
-    // this command creates 32 pools, 4 classifications by 8 streams
+    // this command creates 36 pools, 4 classifications by 9 streams
     // connected to a classification and 5 essential skills
 
     /**
