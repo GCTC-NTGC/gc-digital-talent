@@ -12,8 +12,9 @@ import {
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import NotAuthorized from "@common/components/NotAuthorized";
-import Error404 from "./404/Error404";
 import { useApplicantProfileRoutes } from "../applicantProfileRoutes";
+
+const NotFoundPage = React.lazy(() => import("./404/Error404"));
 
 export const exactMatch = (ref: string | null, test: string): boolean =>
   ref === test;
@@ -96,7 +97,7 @@ const TalentSearchNotAuthorized: React.FC = () => {
   );
 };
 
-const notFound = <Error404 />;
+const notFound = <NotFoundPage />;
 const notAuthorized = <TalentSearchNotAuthorized />;
 
 export const PageContainer: React.FC<{
