@@ -84,10 +84,9 @@ const About = () => {
                       : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/collectivite-gcnumerique-a-propos.html#dcmo",
                   label: intl.formatMessage({
                     defaultMessage:
-                      "Learn more<hidden> about the Digital Community Management Office</hidden>",
-                    id: "CgK0u0",
-                    description:
-                      "Link text for the Digital Community Management Office",
+                      "Learn more<hidden> about Digital Community Management</hidden>",
+                    id: "VBsMcq",
+                    description: "Link text for Digital Community Management",
                   }),
                 }}
               >
