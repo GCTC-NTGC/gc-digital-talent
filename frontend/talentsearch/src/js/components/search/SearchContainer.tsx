@@ -222,9 +222,9 @@ const SearchContainerApi: React.FC = () => {
   const skills = data?.skills;
   const pools = data?.pools;
 
-  const availableClassifications = pools?.map(
-    (pool) => pool?.classifications && pool?.classifications[0],
-  );
+  const availableClassifications = pools
+    ?.flatMap((pool) => pool?.classifications)
+    .filter(notEmpty);
 
   const ITClassifications = NonExecutiveITClassifications();
   const searchableClassifications = ITClassifications.filter(
