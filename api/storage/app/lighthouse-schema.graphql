@@ -147,6 +147,11 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+type CandidateSearchPoolResult {
+  pool: Pool!
+  candidateCount: Int!
+}
+
 enum CitizenshipStatus {
   CITIZEN
   PERMANENT_RESIDENT
@@ -706,10 +711,6 @@ type PageInfo {
   lastPage: Int!
 }
 
-input PaginatedPoolCandidateFilterInput {
-  pools: [IdInput]
-}
-
 """Information about pagination using a fully featured paginator."""
 type PaginatorInfo {
   """Number of items in the current page."""
@@ -865,14 +866,17 @@ input PoolCandidateFilterBelongsTo {
 }
 
 input PoolCandidateFilterInput {
-  classifications: [ClassificationFilterInput]
   cmoAssets: [KeyFilterInput]
-  hasDiploma: Boolean
   equity: EquitySelectionsInput
+  expectedClassifications: [ClassificationFilterInput]
+  generalSearch: String
+  hasDiploma: Boolean
   languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
-  workRegions: [WorkRegion]
   pools: [IdInput]
+  priorityWeight: [Int]
+  status: [PoolCandidateStatus]
 }
 
 """A paginated list of PoolCandidate items."""
@@ -980,6 +984,7 @@ type Query {
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
   searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [PoolCandidate]!
+  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   cmoAsset(id: ID!): CmoAsset
@@ -1010,7 +1015,7 @@ type Query {
     page: Int
   ): UserPaginator
   poolCandidatesPaginated(
-    where: PaginatedPoolCandidateFilterInput
+    where: PoolCandidateFilterInput
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     """Limits number of fetched items. Maximum allowed value: 1000."""

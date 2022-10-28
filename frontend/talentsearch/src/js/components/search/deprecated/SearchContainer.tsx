@@ -59,11 +59,12 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   const intl = useIntl();
 
   const classificationFilterCount =
-    candidateFilter?.classifications?.length ?? 0;
+    candidateFilter?.expectedClassifications?.length ?? 0;
   const cmoAssetFilterCount = candidateFilter?.cmoAssets?.length ?? 0;
   const operationalRequirementFilterCount =
     candidateFilter?.operationalRequirements?.length ?? 0;
-  const workRegionFilterCount = candidateFilter?.workRegions?.length ?? 0;
+  const workRegionFilterCount =
+    candidateFilter?.locationPreferences?.length ?? 0;
 
   function a(chunks: React.ReactNode): React.ReactNode {
     return (
@@ -257,8 +258,8 @@ const candidateFilterToQueryArgs = (
           isVisibleMinority: filter?.equity?.isVisibleMinority,
           isWoman: filter?.equity?.isWoman,
         },
-        classifications: filter?.classifications
-          ? pickMap(filter.classifications, ["group", "level"])
+        expectedClassifications: filter?.expectedClassifications
+          ? pickMap(filter.expectedClassifications, ["group", "level"])
           : [],
         cmoAssets: filter?.cmoAssets ? pickMap(filter.cmoAssets, "key") : [],
         pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),

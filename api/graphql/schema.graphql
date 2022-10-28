@@ -719,25 +719,25 @@ input UserPoolFilterInput {
 }
 
 input PoolCandidateFilterInput {
-  classifications: [ClassificationFilterInput] @scope
   cmoAssets: [KeyFilterInput]
     @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
-  hasDiploma: Boolean @scope
   equity: EquitySelectionsInput
     @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
+  expectedClassifications: [ClassificationFilterInput]
+    @scope(name: "classifications")
+  generalSearch: String @builder(method: "App\\Models\\PoolCandidate@filterByGeneralSearch")
+  hasDiploma: Boolean @scope
   languageAbility: LanguageAbility
     @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
+  locationPreferences: [WorkRegion]
+    @builder(method: "App\\Models\\PoolCandidate@filterByLocationPreferences")
   operationalRequirements: [OperationalRequirement]
     @builder(
       method: "App\\Models\\PoolCandidate@filterByOperationalRequirements"
     )
-  workRegions: [WorkRegion]
-    @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
   pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
-}
-
-input PaginatedPoolCandidateFilterInput {
-  pools: [IdInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
+  priorityWeight: [Int] @scope(name: "priorityWeight")
+  status: [PoolCandidateStatus] @scope(name: "poolCandidateStatuses")
 }
 
 input UserFilterInput {
@@ -755,6 +755,7 @@ input UserFilterInput {
     @builder(method: "App\\Models\\User@filterByGeneralSearch")
 }
 
+# Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   hasDiploma: Boolean @scope
   equity: EquitySelectionsInput
@@ -774,6 +775,11 @@ input ApplicantFilterInput {
   pools: [IdInput]
     @pluck(key: "id")
     @builder(method: "App\\Models\\User@filterByAvailableInPools") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+}
+
+type CandidateSearchPoolResult {
+  pool: Pool!
+  candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
 type Query {
@@ -815,7 +821,7 @@ type Query {
     @guard
     @can(ability: "viewAny")
   poolCandidatesPaginated(
-    where: PaginatedPoolCandidateFilterInput
+    where: PoolCandidateFilterInput
     orderBy: _
       @orderBy(
         relations: [
@@ -850,6 +856,9 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @guard
     @can(ability: "viewAny")
+  # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
+  # Returns the number of candidates by filtering their parent applicant, grouped by pool.
+  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: ID! @eq): Classification @find
   classifications: [Classification]! @all
   cmoAsset(id: ID! @eq): CmoAsset @find

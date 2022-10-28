@@ -1,27 +1,13 @@
 site-title:
-  en: GC Talent
-  fr: GC Talent
+  en: GC Digital Talent
+  fr: Talent Numérique du GC
 navigation:
   en:
-    - label: Home
-      title: Visit the GC Talent homepage.
+    - label: "&lt; Return to GC Digital Talent"
       route: /en/
-    - label: Talent Cloud
-      title: Learn more about the Talent Cloud project.
-      route: /en/talent-cloud/
-    - label: Digital Talent
-      title: Learn more about the Digital Talent community.
-      route: /en/communities/digital-talent/
   fr:
-    - label: Accueil
-      title: Visitez la page d'accueil de GC Talent.
+    - label: "&lt; Retour à Talent Numérique du GC"
       route: /fr/
-    - label: Nuage de talents
-      title: En savoir plus sur le projet Nuage de talents.
-      route: /fr/talent-cloud/
-    - label: Talent numérique
-      title: En savoir plus sur la communauté des talents numériques.
-      route: /fr/communities/digital-talent/
 breadcrumbs:
   home:
     title:
@@ -35,97 +21,6 @@ breadcrumbs:
       title:
         en: Return to the Talent Cloud results report.
         fr: Retournez au rapport des résultats de Nuage de talents.
-gctalenthome:
-  title:
-    en: Welcome to GC Talent
-    fr: Bienvenue chez le Talent GC
-  about:
-    title:
-      en: About GC Talent
-      fr: À propos du Talent GC
-    content:
-      intro:
-        en: GC Talent connects people looking for career and development opportunities to Government of Canada equity-based and functional communities. These communities manage talent pools and organize development and mobility opportunities for those with key skill sets, working in various types of roles.
-        fr: Le Talent GC met en relation les personnes à la recherche de possibilités de carrière et de perfectionnement avec les collectivités fonctionnelles et axées sur l’équité au sein du gouvernement du Canada. Ces collectivités gèrent des bassins de talents et organisent des possibilités de perfectionnement et de mobilité pour les personnes qui possèdent des compétences clés, et qui occupent divers types de rôles.
-      listLabel:
-        en: 'In this ecosystem, users can:'
-        fr: 'Dans cet écosystème, les utilisateurs peuvent :'
-      list:
-        en:
-          - item: Create a reusable profile that showcases their unique set of skills
-          - item: Curate their list of skills in a way that is recognized and valued by Government of Canada managers
-          - item: Learn about equity-based and functional communities within the Public Service that align with their expertise or identity
-          - item: Browse opportunities within the entire platform ecosystem or choose to focus on opportunities offered by specific communities
-          - item: Get found by Government of Canada managers looking to add new talent to their teams
-        fr:
-          - item: créer un profil réutilisable qui présente leurs compétences uniques;
-          - item: organiser leur liste de compétences de sorte qu’elle soit reconnue et valorisée par les gestionnaires du gouvernement du Canada;
-          - item: prendre connaissance des collectivités fonctionnelles et axées sur l’équité au sein de la fonction publique qui correspondent à leur expertise ou à leur identité;
-          - item: parcourir les possibilités dans l’ensemble de l’écosystème de la plateforme ou choisir de se concentrer sur les possibilités offertes par des collectivités particulières;
-          - item: être sélectionnés par les gestionnaires du gouvernement du Canada qui cherchent à ajouter de nouveaux talents à leur équipe.
-      subscribe:
-        en: 'Both portals are still in development. <a href="mailto:GCTalentGC@tbs-sct.gc.ca" title="Email GC Talent.">Subscribe to our mailing list</a> to be notified when the portals go live.'
-        fr: 'Les deux portails sont toujours en cours d’élaboration. <a href="mailto:GCTalentGC@tbs-sct.gc.ca" title="Envoyer un courriel au Talent GC.">Inscrivez-vous à notre liste de diffusion</a> pour être informé de la mise en service des portails.'
-  partner:
-    en: Community Partner
-    fr: Partenaire communautaire
-  digitalTalent:
-    link:
-      title:
-        en: Learn more about the Digital Talent Community.
-        fr: En savoir plus sur la communauté des talents numériques.
-    title:
-      en: Digital Talent
-      fr: Talents numériques
-    content:
-      en:
-        - item: Connecting Government of Canada managers with digital talent across the country.
-        - item: Play a role in the Government of Canada’s digital journey. Get found by GC Managers, and join a team where you can use your unique skill set to make a difference in the lives of Canadians.
-        - item: 'Be a part of <span data-h2-font-weight="b(bold)">#GCDigital</span>.'
-      fr:
-        - item: Mettre en relation les gestionnaires du gouvernement du Canada avec des talents numériques de tout le pays.
-        - item: Jouer un rôle dans le parcours numérique du gouvernement du Canada. Faites-vous repérer par les directeurs généraux et joignez-vous à une équipe où vous pourrez utiliser vos compétences uniques pour faire une différence dans la vie des Canadiens.
-        - item: 'Faire partie du <span data-h2-font-weight="b(bold)">#GCNumérique</span>.'
-  indigenousTalent:
-    link:
-      title:
-        en: Learn more about the Indigenous Talent Community.
-        fr:
-    title:
-      en: Indigenous Talent
-      fr: Talents autochtones
-    content:
-      en:
-        - item: Built for the Indigenous community, under the guidance and efforts of Indigenous public servants, with the involvement of Indigenous voices from inside and outside government.
-        - item: A portal designed for Indigenous talent to showcase their unique set of skills and share their stories according to their own teachings and beliefs.
-      fr:
-        - item: Conçu pour la communauté autochtone, sous la direction et les efforts de fonctionnaires autochtones, avec la participation des voix autochtones de l’intérieur et de l’extérieur du gouvernement.
-        - item: Un portail conçu pour que les talents autochtones puissent présenter leurs compétences uniques et partager leurs histoires selon leurs propres enseignements et croyances.
-  talentCloud:
-    title:
-      en: 'Research-Driven Innovation: The Talent Cloud Experiment'
-      fr: 'Innovation axée sur la recherche : L’expérience du Nuage de talents'
-    content:
-      en:
-        - item: Talent Cloud was a 3-year experimental project that explored new approaches to talent recruitment and mobility in the Government of Canada. The project concluded in Spring 2021.
-        - item: A comprehensive record of the project, including the goals, structure, process, and outcomes, can be found in the Talent Cloud Results Report.
-      fr:
-        - item: Le Nuage de talents était un projet expérimental de trois ans qui a exploré de nouvelles approches en matière de recrutement de talents et de mobilité au gouvernement du Canada. Le projet a pris fin au printemps 2021.
-        - item: Un dossier complet du projet, y compris les objectifs, la structure, le processus et les résultats, se trouve dans le Rapport sur les résultats du Nuage de talents.
-    tcLink:
-      en:
-        title: Learn more about the Talent Cloud project.
-        label: Learn More About Talent Cloud
-      fr:
-        title: En savoir plus sur le projet nuage de talents.
-        label: En savoir plus sur le Nuage de talents.
-    reportLink:
-      en:
-        title: Read the full Talent Cloud Results Report.
-        label: Read the Report
-      fr:
-        title: Lisez le rapport complet sur les résultats du Nuage de talents.
-        label: Lire le rapport
 talentCloud:
   title:
     en: Talent Cloud
@@ -356,14 +251,3 @@ footerDate:
   fr:
     dateLabel: Date de modification
     date: July 07, 2021
-auth:
-  en:
-    - label: Login
-      route: https://talent.canada.ca/login?locale=en
-    - label: Register
-      route: https://talent.canada.ca/register?locale=en
-  fr:
-    - label: Connexion
-      route: https://talent.canada.ca/login?locale=fr
-    - label: S'inscrire
-      route: https://talent.canada.ca/register?locale=fr

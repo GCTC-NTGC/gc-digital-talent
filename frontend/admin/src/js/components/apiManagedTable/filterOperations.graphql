@@ -1,0 +1,22 @@
+query getFilterData {
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+  classifications {
+    id
+    group
+    level
+  }
+  pools {
+    id
+    name {
+      en
+      fr
+    }
+  }
+}

@@ -153,7 +153,9 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
           ? classificationMap.get(values.classification)
           : undefined;
         return {
-          classifications: maybeClassification ? [maybeClassification] : [],
+          expectedClassifications: maybeClassification
+            ? [maybeClassification]
+            : [],
           cmoAssets: values.cmoAssets
             ? values.cmoAssets?.map((id) => (id ? assetMap.get(id) : undefined))
             : [],
@@ -178,7 +180,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
           ...(values.languageAbility !== NullSelection
             ? { languageAbility: values.languageAbility as LanguageAbility }
             : {}), // Ensure null in FormValues is converted to undefined
-          workRegions: values.workRegions || [],
+          locationPreferences: values.workRegions || [],
         };
       };
 

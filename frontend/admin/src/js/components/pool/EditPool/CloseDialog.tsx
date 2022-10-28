@@ -3,10 +3,7 @@ import { useIntl } from "react-intl";
 import Dialog from "@common/components/Dialog";
 import { InputWrapper } from "@common/components/inputPartials";
 import { PoolAdvertisement } from "@common/api/generated";
-import {
-  formattedDateMonthDayYear,
-  parseDateTimeUtc,
-} from "@common/helpers/dateUtils";
+import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import { Button } from "@common/components";
 
 type CloseDialogProps = {
@@ -93,11 +90,12 @@ const CloseDialog = ({
           data-h2-radius="base(s)"
         >
           {expiryDate
-            ? formattedDateMonthDayYear(
-                parseDateTimeUtc(expiryDate),
+            ? formatDate({
+                date: parseDateTimeUtc(expiryDate),
+                formatString: "PPP",
                 intl,
-                "Canada/Pacific",
-              )
+                timeZone: "Canada/Pacific",
+              })
             : ""}
         </div>
       </InputWrapper>
