@@ -175,6 +175,7 @@ class CreateDigitalCareersPoolsCandidates extends Command
             $candidateId = $candidate->id;
             $userId = $candidate->user_id;
             $expectedSalary = $candidate->expected_salary;
+            $currentStatus = $candidate->pool_candidate_status;
 
             foreach ($ITLevels as $index => $level) {
                 $classification = Classification::where('group', 'ilike', 'IT')
@@ -203,7 +204,7 @@ class CreateDigitalCareersPoolsCandidates extends Command
                             'pool_id' => $associatedPoolId,
                             'submitted_at' => $dateNow,
                             'expiry_date' => $expiryDate,
-                            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+                            'pool_candidate_status' => $currentStatus,
                         ]);
                     }
                 }
