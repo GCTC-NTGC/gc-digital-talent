@@ -63,8 +63,8 @@ const About = () => {
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "GC Digital Talent is only one of the many initiatives being led by the Office of the Chief Information Officer of Canada (OCIO). Learn more about OCIO's role in the Government of Canada. Check out the GC Digital Ambition to see where OCIO is heading in the future.",
-                    id: "hKPuCT",
+                      "GC Digital Talent is only one of the many initiatives being led by the Office of the Chief Information Officer of Canada (OCIO). Learn more about OCIO's role in the Government of Canada. Check out Canada's Digital Ambition 2022 to see where OCIO is heading in the future.",
+                    id: "s3Uz7q",
                     description:
                       "Description of the Office of the Chief Information Officer",
                   })}
