@@ -1,16 +1,16 @@
 import * as React from "react";
 import get from "lodash/get";
-import { RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import Radio from "../Radio";
 import { InputWrapper, Fieldset } from "../../inputPartials";
 
 export type Radio = { value: string | number; label: string | React.ReactNode };
 
-export interface RadioGroupProps {
+export interface RadioGroupProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
   idPrefix: string;
   /** Holds text for the legend associated with the RadioGroup fieldset. */
-  legend: string;
+  legend: React.ReactNode;
   /** The name of this form control.
    * The form's value at this key should be of type Array<string|number>. */
   name: string;
@@ -31,6 +31,8 @@ export interface RadioGroupProps {
   columns?: number;
   /** If true, the legend will be hidden */
   hideLegend?: boolean;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 /**
@@ -49,13 +51,15 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   defaultSelected,
   columns = 1,
   hideLegend,
+  trackUnsaved = true,
+  ...rest
 }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message;
+  const error = get(errors, name)?.message as FieldError;
   const required = !!rules.required;
 
   let columnValue = { "data-h2-flex-item": "base(1of1)" };
@@ -73,6 +77,8 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
       disabled={disabled}
       hideOptional={hideOptional}
       hideLegend={hideLegend}
+      trackUnsaved={trackUnsaved}
+      {...rest}
     >
       <div data-h2-flex-grid="base(flex-start, x1, 0)">
         {items.map(({ value, label }) => {
@@ -85,6 +91,7 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
                 labelSize="copy"
                 // Don't show Required tag, error or context on individual input, as its handled by Fieldset.
                 required={false}
+                trackUnsaved={trackUnsaved}
                 hideOptional
                 data-h2-flex-direction="base(row)"
                 data-h2-margin="base(x.25, 0, 0, 0)"

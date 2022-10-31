@@ -5,6 +5,8 @@ import "@testing-library/jest-dom";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { axeTest, render } from "@common/helpers/testUtils";
+import { act } from "react-dom/test-utils";
+import { fakeUsers } from "@common/fakeData";
 import {
   BilingualEvaluation,
   EvaluatedLanguageAbility,
@@ -15,7 +17,27 @@ import {
   LanguageInformationUpdateHandler,
 } from "./LanguageInformationForm";
 
-const mockUser = { id: "testUserId" };
+const mockUser = {
+  ...fakeUsers()[0],
+  id: "testUserId",
+};
+
+const inCompleteUser = {
+  ...mockUser,
+  lookingForBilingual: true,
+  bilingualEvaluation: undefined,
+};
+
+const bilingualUser = {
+  id: mockUser.id,
+  bilingualEvaluation: BilingualEvaluation.CompletedFrench,
+  comprehensionLevel: EvaluatedLanguageAbility.A,
+  writtenLevel: EvaluatedLanguageAbility.P,
+  verbalLevel: EvaluatedLanguageAbility.E,
+  lookingForEnglish: true,
+  lookingForFrench: false,
+  lookingForBilingual: true,
+};
 
 const renderLanguageInfoForm = ({
   initialData,
@@ -31,102 +53,86 @@ const renderLanguageInfoForm = ({
     />,
   );
 
-describe("LanguageInformationForm tests", () => {
+describe("LanguageInformationForm", () => {
+  beforeEach(() => {
+    window.sessionStorage.clear();
+  });
+
   it("should have no accessibility errors", async () => {
     const { container } = renderLanguageInfoForm({
       initialData: mockUser,
       submitHandler: jest.fn(),
     });
-
     await axeTest(container);
   });
-
-  test("Can't submit if no fields entered.", async () => {
+  it("Can't submit if no fields entered.", async () => {
     const mockSave = jest.fn();
-    renderLanguageInfoForm({
-      initialData: mockUser,
-      submitHandler: mockSave,
+    await act(async () => {
+      renderLanguageInfoForm({
+        initialData: mockUser,
+        submitHandler: mockSave,
+      });
     });
-
     fireEvent.submit(screen.getByText(/save/i));
-
     await waitFor(() => expect(mockSave).not.toHaveBeenCalled());
   });
-  test("Can't submit if only some required fields entered.", async () => {
+  it("Can't submit if only some required fields entered.", async () => {
     const mockSave = jest.fn();
-    renderLanguageInfoForm({
-      initialData: mockUser,
-      submitHandler: mockSave,
+    await act(async () => {
+      renderLanguageInfoForm({
+        initialData: inCompleteUser,
+        submitHandler: mockSave,
+      });
     });
-
-    const bilingualCheckbox = screen.getByLabelText(
-      "Bilingual positions (English and French)",
+    fireEvent.click(
+      await screen.getByLabelText("Bilingual positions (English and French)"),
     );
-    fireEvent.click(bilingualCheckbox);
-    fireEvent.submit(screen.getByText(/save/i));
-
+    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
     await waitFor(() => expect(mockSave).not.toHaveBeenCalled());
   });
-  test("Extra fields appear after selecting bilingual.", async () => {
+  it("Extra fields appear after selecting bilingual.", async () => {
     const mockSave = jest.fn();
-    renderLanguageInfoForm({
-      initialData: mockUser,
-      submitHandler: mockSave,
+    await act(async () => {
+      renderLanguageInfoForm({
+        initialData: mockUser,
+        submitHandler: mockSave,
+      });
     });
-
-    const bilingualEvaluationSection = screen.queryByText(
-      "Bilingual evaluation",
-    );
-    expect(bilingualEvaluationSection).toBeNull();
-
-    const bilingualCheckbox = screen.getByLabelText(
-      "Bilingual positions (English and French)",
-    );
-    fireEvent.click(bilingualCheckbox);
-
-    await waitFor(() => {
-      expect(
-        screen.getByText("Bilingual evaluation", {
-          ignore: "script, style, legend",
-        }),
-      ).toBeInTheDocument();
+    expect(await screen.queryByText("Bilingual evaluation")).toBeNull();
+    const checkbox = await screen.getByRole("checkbox", {
+      name: /bilingual/i,
+    });
+    fireEvent.click(checkbox);
+    await waitFor(async () => {
+      expect(await screen.findAllByText(/bilingual evaluation/i)).toHaveLength(
+        2,
+      );
     });
   });
-  test("If not bilingual extra fields are not required.", async () => {
+  it("should submit when bilingual fields are not required.", async () => {
     const mockSave = jest.fn((data) => Promise.resolve(data));
-    renderLanguageInfoForm({
-      initialData: mockUser,
-      submitHandler: mockSave,
+    await act(async () => {
+      renderLanguageInfoForm({
+        initialData: mockUser,
+        submitHandler: mockSave,
+      });
     });
-
-    const englishCheckbox = screen.getByLabelText("English positions");
-    fireEvent.click(englishCheckbox);
-    fireEvent.submit(screen.getByText(/save/i));
-
+    fireEvent.click(
+      await screen.getByRole("checkbox", { name: /english positions/i }),
+    );
+    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
     await waitFor(() => expect(mockSave).toHaveBeenCalledTimes(1));
   });
-  test("Form submits data in correct shape", async () => {
+  it("should submit data in correct shape", async () => {
     const mockSave = jest.fn((data) => Promise.resolve(data));
-    const user = {
-      id: "testUserId",
-      bilingualEvaluation: BilingualEvaluation.CompletedFrench,
-      comprehensionLevel: EvaluatedLanguageAbility.A,
-      writtenLevel: EvaluatedLanguageAbility.P,
-      verbalLevel: EvaluatedLanguageAbility.E,
-      lookingForEnglish: true,
-      lookingForFrench: false,
-      lookingForBilingual: true,
-    };
 
     renderLanguageInfoForm({
-      initialData: user,
+      initialData: bilingualUser,
       submitHandler: mockSave,
     });
-
-    fireEvent.submit(screen.getByText(/save/i));
-
-    await waitFor(() =>
-      expect(mockSave).toHaveBeenCalledWith(user.id, {
+    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
+    await waitFor(() => {
+      expect(mockSave).toHaveBeenCalledWith(bilingualUser.id, {
         bilingualEvaluation: BilingualEvaluation.CompletedFrench,
         comprehensionLevel: EvaluatedLanguageAbility.A,
         writtenLevel: EvaluatedLanguageAbility.P,
@@ -135,7 +141,7 @@ describe("LanguageInformationForm tests", () => {
         lookingForFrench: false,
         lookingForBilingual: true,
         estimatedLanguageAbility: null,
-      }),
-    );
+      });
+    });
   });
 });

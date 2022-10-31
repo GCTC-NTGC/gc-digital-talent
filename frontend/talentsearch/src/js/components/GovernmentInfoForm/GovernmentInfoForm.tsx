@@ -1,8 +1,8 @@
 import React from "react";
-import { useIntl } from "react-intl";
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import { IntlShape, useIntl } from "react-intl";
+import { SubmitHandler, useFormContext } from "react-hook-form";
 import { errorMessages, navigationMessages } from "@common/messages";
-import { Input, RadioGroup, Select } from "@common/components/form";
+import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
 import { empty } from "@common/helpers/util";
 import { getGovEmployeeType } from "@common/constants/localizedConstants";
 import {
@@ -14,12 +14,12 @@ import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
+import { FieldLabels } from "@common/components/form/BasicForm";
 import {
   Classification,
   UpdateUserAsUserInput,
   GetGovInfoFormLookupDataQuery,
   GovEmployeeType,
-  Maybe,
   Department,
   PoolCandidate,
   User,
@@ -64,6 +64,7 @@ export const formValuesToSubmitData = (
     values.currentClassificationLevel,
     classifications,
   );
+
   // various IF statements are to clean up cases where user toggles the conditionally rendered stuff before submitting
   // IE, picks term position and IT-01, then picks not a government employee before submitting, the conditionally rendered stuff still exists and can get submitted
   if (values.govEmployeeYesNo === "no") {
@@ -161,27 +162,65 @@ const dataToFormValues = (
   };
 };
 
+export const getGovernmentInfoLabels = (intl: IntlShape) => ({
+  govEmployeeYesNo: intl.formatMessage({
+    defaultMessage: "Do you currently work for the government of Canada?",
+    id: "MtONBT",
+    description: "Employee Status in Government Info Form",
+  }),
+  department: intl.formatMessage({
+    defaultMessage: "Which department do you work for?",
+    id: "NP/fsS",
+    description: "Label for department select input in the request form",
+  }),
+  govEmployeeType: intl.formatMessage({
+    defaultMessage: "As an employee, what is your employment status?",
+    id: "3f9P13",
+    description: "Employee Status in Government Info Form",
+  }),
+  currentClassificationGroup: intl.formatMessage({
+    defaultMessage: "Current Classification Group",
+    id: "/K1/1n",
+    description: "Label displayed on classification group input",
+  }),
+  currentClassificationLevel: intl.formatMessage({
+    defaultMessage: "Current Classification Level",
+    id: "gnGAe8",
+    description: "Label displayed on classification level input",
+  }),
+  priorityEntitlementYesNo: intl.formatMessage({
+    defaultMessage: "Priority Entitlement",
+    id: "FqXo5j",
+    description: "Priority Entitlement Status in Government Info Form",
+  }),
+  priorityEntitlementNumber: intl.formatMessage({
+    defaultMessage: "Priority number",
+    id: "P+UY4i",
+    description: "label for priority number input",
+  }),
+});
+
 export interface GovernmentInfoFormProps {
   departments: Department[];
   classifications: Classification[];
-  govEmployee: Maybe<string>;
-  govEmployeeStatus: Maybe<GovEmployeeType>;
-  groupSelection: Maybe<string>;
-  priorityEntitlement: Maybe<string>;
+  labels: FieldLabels;
 }
 
 // inner component
 export const GovernmentInfoForm: React.FunctionComponent<
   GovernmentInfoFormProps
-> = ({
-  departments,
-  classifications,
-  govEmployee,
-  govEmployeeStatus,
-  groupSelection,
-  priorityEntitlement,
-}) => {
+> = ({ departments, classifications, labels }) => {
   const intl = useIntl();
+  const { watch, resetField } = useFormContext();
+  // hooks to watch, needed for conditional rendering
+  const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =
+    watch([
+      "govEmployeeYesNo",
+      "govEmployeeType",
+      "currentClassificationGroup",
+      "priorityEntitlementYesNo",
+    ]);
+
   // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
   // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
   const classGroupsWithDupes: { value: string; label: string }[] =
@@ -214,18 +253,55 @@ export const GovernmentInfoForm: React.FunctionComponent<
       };
     });
 
+  const hasPriorityEntitlement = priorityEntitlement === "yes";
+  const isGovEmployee = govEmployee === "yes";
+  const isPlaced =
+    isGovEmployee &&
+    (govEmployeeStatus === GovEmployeeType.Term ||
+      govEmployeeStatus === GovEmployeeType.Indeterminate ||
+      govEmployeeStatus === GovEmployeeType.Casual);
+
+  /**
+   * Reset fields when they disappear
+   * to avoid confusing users about unsaved changes
+   */
+  React.useEffect(() => {
+    const resetDirtyField = (name: string) => {
+      resetField(name, {
+        keepDirty: false,
+      });
+    };
+
+    if (!isGovEmployee) {
+      resetDirtyField("department");
+      resetDirtyField("govEmployeeType");
+      if (!isPlaced) {
+        resetDirtyField("currentClassificationGroup");
+        if (groupSelection === "Choose Department") {
+          resetDirtyField("currentClassificationLevel");
+        }
+      }
+    }
+
+    if (!hasPriorityEntitlement) {
+      resetDirtyField("priorityEntitlementNumber");
+    }
+  }, [
+    isGovEmployee,
+    resetField,
+    isPlaced,
+    groupSelection,
+    hasPriorityEntitlement,
+  ]);
+
   // render the actual form
   return (
     <div>
       <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of6) desktop(1of12)">
         <RadioGroup
           idPrefix="govEmployeeYesNo"
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Do you currently work for the government of Canada?",
-            id: "MtONBT",
-            description: "Employee Status in Government Info Form",
-          })}
+          legend={labels.govEmployeeYesNo}
+          id="govEmployeeYesNo"
           name="govEmployeeYesNo"
           rules={{
             required: intl.formatMessage(errorMessages.required),
@@ -254,18 +330,13 @@ export const GovernmentInfoForm: React.FunctionComponent<
           ]}
         />
       </div>
-      {govEmployee === "yes" && (
+      {isGovEmployee && (
         <>
           <div data-h2-padding="base(x1, 0)">
             <Select
               id="department"
               name="department"
-              label={intl.formatMessage({
-                defaultMessage: "Which department do you work for?",
-                id: "NP/fsS",
-                description:
-                  "Label for department select input in the request form",
-              })}
+              label={labels.department}
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a department...",
                 id: "WE/Nu+",
@@ -284,13 +355,9 @@ export const GovernmentInfoForm: React.FunctionComponent<
           >
             <RadioGroup
               idPrefix="govEmployeeType"
-              legend={intl.formatMessage({
-                defaultMessage:
-                  "As an employee, what is your employment status?",
-                id: "3f9P13",
-                description: "Employee Status in Government Info Form",
-              })}
+              legend={labels.govEmployeeType}
               name="govEmployeeType"
+              id="govEmployeeType"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -302,10 +369,8 @@ export const GovernmentInfoForm: React.FunctionComponent<
           </div>
         </>
       )}
-      {govEmployee === "yes" &&
-        (govEmployeeStatus === GovEmployeeType.Term ||
-          govEmployeeStatus === GovEmployeeType.Indeterminate ||
-          govEmployeeStatus === GovEmployeeType.Casual) && (
+      {isPlaced && (
+        <>
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -315,26 +380,17 @@ export const GovernmentInfoForm: React.FunctionComponent<
                 "Text blurb, asking about classification and level in the government info form",
             })}
           </p>
-        )}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-      >
-        {govEmployee === "yes" &&
-          (govEmployeeStatus === GovEmployeeType.Term ||
-            govEmployeeStatus === GovEmployeeType.Indeterminate ||
-            govEmployeeStatus === GovEmployeeType.Casual) && (
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column) p-tablet(row)"
+          >
             <div
               data-h2-padding="p-tablet(0, x2, 0, 0)"
               data-h2-width="base(100%)"
             >
               <Select
                 id="currentClassificationGroup"
-                label={intl.formatMessage({
-                  defaultMessage: "Current Classification Group",
-                  id: "/K1/1n",
-                  description: "Label displayed on classification group input",
-                })}
+                label={labels.currentClassificationGroup}
                 name="currentClassificationGroup"
                 nullSelection={intl.formatMessage({
                   defaultMessage: "Choose Group",
@@ -347,34 +403,27 @@ export const GovernmentInfoForm: React.FunctionComponent<
                 options={groupOptions}
               />
             </div>
-          )}
-        {govEmployee === "yes" &&
-          (govEmployeeStatus === GovEmployeeType.Term ||
-            govEmployeeStatus === GovEmployeeType.Indeterminate ||
-            govEmployeeStatus === GovEmployeeType.Casual) &&
-          groupSelection !== "Choose Department" && (
-            <div style={{ width: "100%" }}>
-              <Select
-                id="currentClassificationLevel"
-                label={intl.formatMessage({
-                  defaultMessage: "Current Classification Level",
-                  id: "gnGAe8",
-                  description: "Label displayed on classification level input",
-                })}
-                name="currentClassificationLevel"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Choose Level",
-                  id: "e/ez/m",
-                  description: "Null selection for form.",
-                })}
-                options={levelOptions}
-              />
-            </div>
-          )}
-      </div>
+            {groupSelection !== "Choose Department" && (
+              <div style={{ width: "100%" }}>
+                <Select
+                  id="currentClassificationLevel"
+                  label={labels.currentClassificationLevel}
+                  name="currentClassificationLevel"
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  nullSelection={intl.formatMessage({
+                    defaultMessage: "Choose Level",
+                    id: "e/ez/m",
+                    description: "Null selection for form.",
+                  })}
+                  options={levelOptions}
+                />
+              </div>
+            )}
+          </div>
+        </>
+      )}
       <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of6) desktop(1of12)">
         <p data-h2-padding="base(x1, 0)">
           {intl.formatMessage({
@@ -387,12 +436,9 @@ export const GovernmentInfoForm: React.FunctionComponent<
         </p>
         <RadioGroup
           idPrefix="priorityEntitlementYesNo"
-          legend={intl.formatMessage({
-            defaultMessage: "Priority Entitlement",
-            id: "FqXo5j",
-            description: "Priority Entitlement Status in Government Info Form",
-          })}
+          legend={labels.priorityEntitlementYesNo}
           name="priorityEntitlementYesNo"
+          id="priorityEntitlementYesNo"
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -417,16 +463,12 @@ export const GovernmentInfoForm: React.FunctionComponent<
             },
           ]}
         />
-        {priorityEntitlement === "yes" && (
+        {hasPriorityEntitlement && (
           <div data-h2-padding="base(x.25, 0)">
             <Input
               id="priorityEntitlementNumber"
               type="text"
-              label={intl.formatMessage({
-                defaultMessage: "Priority number",
-                id: "P+UY4i",
-                description: "label for priority number input",
-              })}
+              label={labels.priorityEntitlementNumber}
               name="priorityEntitlementNumber"
             />
           </div>
@@ -462,13 +504,9 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
       ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.home(initialData.id);
 
-  const defaultValues = dataToFormValues(initialData);
+  const labels = getGovernmentInfoLabels(intl);
 
-  const methods = useForm({
-    defaultValues,
-  });
-
-  const onSubmit: SubmitHandler<FormValues> = async (formValues) => {
+  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     await submitHandler(formValuesToSubmitData(formValues, classifications))
       .then(() => {
         navigate(returnRoute);
@@ -478,15 +516,6 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
         toast.error(intl.formatMessage(profileMessages.updatingFailed));
       });
   };
-
-  // hooks to watch, needed for conditional rendering
-  const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =
-    methods.watch([
-      "govEmployeeYesNo",
-      "govEmployeeType",
-      "currentClassificationGroup",
-      "priorityEntitlementYesNo",
-    ]);
 
   const applicationBreadcrumbs = application
     ? [
@@ -545,22 +574,25 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
       ]}
       prefixBreadcrumbs={!application}
     >
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <GovernmentInfoForm
-            departments={departments}
-            classifications={classifications}
-            govEmployee={govEmployee}
-            govEmployeeStatus={govEmployeeStatus}
-            groupSelection={groupSelection}
-            priorityEntitlement={priorityEntitlement}
-          />
-          <ProfileFormFooter
-            mode="saveButton"
-            cancelLink={{ href: returnRoute }}
-          />
-        </form>
-      </FormProvider>
+      <BasicForm
+        labels={labels}
+        cacheKey="gov-info-form"
+        onSubmit={handleSubmit}
+        options={{
+          mode: "onBlur",
+          defaultValues: dataToFormValues(initialData),
+        }}
+      >
+        <GovernmentInfoForm
+          labels={labels}
+          departments={departments}
+          classifications={classifications}
+        />
+        <ProfileFormFooter
+          mode="saveButton"
+          cancelLink={{ href: returnRoute }}
+        />
+      </BasicForm>
     </ProfileFormWrapper>
   );
 };

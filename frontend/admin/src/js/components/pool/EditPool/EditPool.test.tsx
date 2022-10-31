@@ -84,7 +84,10 @@ describe("Edit Pool tests", () => {
     // render story and click the button to open the modal
     await act(async () => {
       render(<DraftAdvertisement {...props} />);
-      fireEvent.click(screen.getByRole("button", { name: /publish/i }));
+    });
+
+    await act(async () => {
+      fireEvent.click(await screen.getByRole("button", { name: /publish/i }));
     });
 
     // find the modal
@@ -114,7 +117,10 @@ describe("Edit Pool tests", () => {
     // render story and click the button to open the modal
     await act(async () => {
       render(<DraftAdvertisement {...props} />);
-      fireEvent.click(screen.getByRole("button", { name: /publish/i }));
+    });
+
+    await act(async () => {
+      fireEvent.click(await screen.getByRole("button", { name: /publish/i }));
     });
 
     // find the modal
@@ -144,7 +150,10 @@ describe("Edit Pool tests", () => {
     // render story and click the button to open the modal
     await act(async () => {
       render(<DraftAdvertisement {...props} />);
-      fireEvent.click(screen.getByRole("button", { name: /delete/i }));
+    });
+
+    await act(async () => {
+      fireEvent.click(await screen.getByRole("button", { name: /delete/i }));
     });
 
     // find the modal
@@ -192,7 +201,10 @@ describe("Edit Pool tests", () => {
     // render story and click the button to open the modal
     await act(async () => {
       render(<PublishedAdvertisement {...props} />);
-      fireEvent.click(screen.getByRole("button", { name: /close/i }));
+    });
+
+    await act(async () => {
+      fireEvent.click(await screen.getByRole("button", { name: /close/i }));
     });
 
     // find the modal
@@ -221,7 +233,12 @@ describe("Edit Pool tests", () => {
     // render story and click the button to open the modal
     await act(async () => {
       render(<PublishedAdvertisement {...props} />);
-      fireEvent.click(screen.getByRole("button", { name: /extend the date/i }));
+    });
+
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /extend the date/i }),
+      );
     });
 
     // find the modal
@@ -271,7 +288,12 @@ describe("Edit Pool tests", () => {
     // render story and click the button to open the modal
     await act(async () => {
       render(<ExpiredAdvertisement {...props} />);
-      fireEvent.click(screen.getByRole("button", { name: /extend the date/i }));
+    });
+
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("button", { name: /extend the date/i }),
+      );
     });
 
     // find the modal

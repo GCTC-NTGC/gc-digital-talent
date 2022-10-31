@@ -1,6 +1,6 @@
 import * as React from "react";
 import get from "lodash/get";
-import { RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import Checkbox from "../Checkbox";
 import { InputWrapper, Fieldset } from "../../inputPartials";
 
@@ -9,7 +9,7 @@ export type Checkbox = {
   label: string | React.ReactNode;
 };
 
-export interface ChecklistProps {
+export interface ChecklistProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
   idPrefix: string;
   /** Holds text for the legend associated with the checklist fieldset. */
@@ -28,6 +28,8 @@ export interface ChecklistProps {
   disabled?: boolean;
   /** If true, and this input is not required, 'Optional' will not be shown above the fieldset. */
   hideOptional?: boolean;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 /**
@@ -43,13 +45,15 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
   context,
   disabled,
   hideOptional,
+  trackUnsaved = true,
+  ...rest
 }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message;
+  const error = get(errors, name)?.message as FieldError;
   const required = !!rules.required;
 
   return (
@@ -61,6 +65,8 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
       context={context}
       disabled={disabled}
       hideOptional={hideOptional}
+      trackUnsaved={trackUnsaved}
+      {...rest}
     >
       {items.map(({ value, label }) => {
         const id = `${idPrefix}-${value}`;
