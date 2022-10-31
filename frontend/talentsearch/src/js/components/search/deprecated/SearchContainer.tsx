@@ -13,7 +13,6 @@ import {
   CountPoolCandidatesQueryVariables,
   PoolCandidateFilterInput,
   Pool,
-  UserPublicProfile,
   Maybe,
 } from "../../../api/generated";
 import {
