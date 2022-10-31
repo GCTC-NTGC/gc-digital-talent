@@ -1382,6 +1382,10 @@
     "defaultMessage": "Services consultatifs auprès des secteurs d’activités de la TI",
     "description": "Pool Stream described as Business Line Advisory Services."
   },
+  "xr36aa": {
+    "defaultMessage": "Fonctions d’information et de données",
+    "description": "Pool Stream described as Information and Data Functions."
+  },
   "fSBslq": {
     "defaultMessage": "Taille de la page",
     "description": "Label for the number of items to display on each page."

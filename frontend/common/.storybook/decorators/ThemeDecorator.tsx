@@ -47,7 +47,9 @@ const withThemeProvider = (
    * have more dark mode stories, we should remove
    * The parameter from usage
    */
-  const showDark = parameters.hasDarkMode && isChromatic();
+  const {hasDarkMode} = parameters;
+  const showDark = hasDarkMode && isChromatic();
+  const StoryWrapper = hasDarkMode ? FontWrapper : React.Fragment;
 
   return showDark ? (
     <>
@@ -74,9 +76,9 @@ const withThemeProvider = (
     </>
   ) : (
     <ThemeProvider override={theme}>
-      <FontWrapper>
+      <StoryWrapper>
         <Story />
-      </FontWrapper>
+      </StoryWrapper>
     </ThemeProvider>
   );
 };

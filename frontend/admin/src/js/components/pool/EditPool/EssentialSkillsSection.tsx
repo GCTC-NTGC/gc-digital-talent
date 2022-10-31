@@ -4,6 +4,8 @@ import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
 import SkillPicker from "@common/components/SkillPicker";
+import { getLocalizedName } from "@common/helpers/localize";
+import Chip, { Chips } from "@common/components/Chip";
 import {
   AdvertisementStatus,
   PoolAdvertisement,
@@ -60,36 +62,50 @@ export const EssentialSkillsSection = ({
       <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
         {sectionMetadata.title}
       </TableOfContents.Heading>
-      <p data-h2-margin="base(x1, 0)">
-        {intl.formatMessage({
-          defaultMessage:
-            "Select the skills that you are looking for in applicants. Any skill selected here will be required for any applicant to apply. To increase the diversity of applications try to keep the selected number of skills to a minimum.",
-          id: "Om6ZoW",
-          description:
-            "Helper message for filling in the pool essential skills",
-        })}
-      </p>
-      <SkillPicker
-        selectedSkills={selectedSkills}
-        skills={skills}
-        onUpdateSelectedSkills={handleChangeSelectedSkills}
-      />
 
-      {!formDisabled && (
-        <p data-h2-margin="base(x1, 0)">
-          <Button
-            onClick={handleSave}
-            color="cta"
-            mode="solid"
-            disabled={isSubmitting}
-          >
+      {!formDisabled ? (
+        <>
+          <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
-              defaultMessage: "Save essential skills",
-              id: "2asU3k",
-              description: "Text on a button to save the pool essential skills",
+              defaultMessage:
+                "Select the skills that you are looking for in applicants. Any skill selected here will be required for any applicant to apply. To increase the diversity of applications try to keep the selected number of skills to a minimum.",
+              id: "Om6ZoW",
+              description:
+                "Helper message for filling in the pool essential skills",
             })}
-          </Button>
-        </p>
+          </p>
+          <SkillPicker
+            selectedSkills={selectedSkills}
+            skills={skills}
+            onUpdateSelectedSkills={handleChangeSelectedSkills}
+          />
+          <p data-h2-margin="base(x1, 0)">
+            <Button
+              onClick={handleSave}
+              color="cta"
+              mode="solid"
+              disabled={isSubmitting}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Save essential skills",
+                id: "2asU3k",
+                description:
+                  "Text on a button to save the pool essential skills",
+              })}
+            </Button>
+          </p>
+        </>
+      ) : (
+        <Chips>
+          {selectedSkills.map((skill) => (
+            <Chip
+              key={skill.id}
+              label={getLocalizedName(skill.name, intl)}
+              color="primary"
+              mode="outline"
+            />
+          ))}
+        </Chips>
       )}
     </TableOfContents.Section>
   );

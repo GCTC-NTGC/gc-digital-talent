@@ -1,11 +1,10 @@
-import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
-import { FieldError } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import { commonMessages } from "../../../messages";
 import InputContext from "../InputContext/InputContext";
-import InputError from "../InputError/InputError";
+import InputError, { type InputFieldError } from "../InputError/InputError";
 
 export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** The text for the legend element. */
@@ -15,7 +14,7 @@ export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** Controls whether Required or Optional text appears above the fieldset. */
   required?: boolean;
   /** If an error string is provided, it will appear below the fieldset inputs. */
-  error?: FieldError | string;
+  error?: InputFieldError;
   /** If a context string is provided, a small button will appear which, when toggled, shows the context string. */
   context?: string | React.ReactNode;
   /** If true, all input elements in this fieldset will be disabled. */
