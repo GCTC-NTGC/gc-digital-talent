@@ -19,6 +19,30 @@ query getApplication($id: ID!) {
         en
         fr
       }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+      }
+      nonessentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+      }
       classifications {
         id
         group

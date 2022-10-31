@@ -4,21 +4,27 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 
 import SkillPicker from "@common/components/SkillPicker";
 import { notEmpty } from "@common/helpers/util";
-import type { Skill } from "../../api/generated";
+import SkillBlock from "@common/components/SkillPicker/SkillBlock";
+import Separator from "@common/components/Separator";
+import type { PoolAdvertisement, Skill } from "../../api/generated";
 import SkillsInDetail from "../skills/SkillsInDetail/SkillsInDetail";
 
 import type { FormSkill, FormSkills } from "./types";
 
 export interface ExperienceSkillsProps {
   skills: Skill[];
+  poolAdvertisement?: PoolAdvertisement;
 }
 
-const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
+const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
+  skills,
+  poolAdvertisement,
+}) => {
   const intl = useIntl();
   const { control, watch } = useFormContext();
   const [addedSkills, setAddedSkills] = React.useState<Skill[]>([]);
   const watchedSkills: FormSkills = watch("skills");
-  const { fields, remove, replace } = useFieldArray({
+  const { fields, remove, replace, append } = useFieldArray({
     control,
     name: "skills",
   });
@@ -51,6 +57,21 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
     replace(massagedSkills);
   };
 
+  const handleAddSkill = (id: string) => {
+    const skillToAdd = skills.find((skill) => skill.id === id);
+
+    if (skillToAdd) {
+      append(
+        {
+          skillId: skillToAdd.id,
+          name: skillToAdd.name,
+          details: "",
+        },
+        { shouldFocus: false },
+      );
+    }
+  };
+
   const handleRemoveSkill = (id: string) => {
     const index = watchedSkills.findIndex(
       (field: FormSkill) => field.skillId === id,
@@ -77,11 +98,103 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
           description: "Description blurb for skills on Experience form",
         })}
       </p>
-      <SkillPicker
-        skills={skills || []}
-        onUpdateSelectedSkills={handleChange}
-        selectedSkills={addedSkills || []}
-      />
+      {poolAdvertisement ? (
+        <>
+          {poolAdvertisement.essentialSkills && (
+            <div
+              data-h2-radius="base(rounded)"
+              data-h2-shadow="base(s)"
+              data-h2-padding="base(x.5, x1, x.5, x.5)"
+              data-h2-margin="base(x2, 0, x1, 0)"
+            >
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Need-to-have skills",
+                  id: "PXlO7h",
+                  description:
+                    "Title text for group of need-to-have skills for pool advertisement on experience forms",
+                })}
+              </span>
+              <Separator
+                color="black"
+                data-h2-margin="base(x.5, 0)"
+                orientation="horizontal"
+              />
+              {poolAdvertisement.essentialSkills.map((skill, index: number) => (
+                <div key={skill.id} data-h2-padding="base(x0, x0, x0, x.5)">
+                  <SkillBlock
+                    skill={skill}
+                    isAdded={
+                      !!addedSkills.find((selected) => selected.id === skill.id)
+                    }
+                    onAddSkill={handleAddSkill}
+                    onRemoveSkill={handleRemoveSkill}
+                  />
+                  {poolAdvertisement.essentialSkills &&
+                  index + 1 !== poolAdvertisement.essentialSkills.length ? (
+                    <Separator
+                      color="black"
+                      data-h2-margin="base(x.5, 0)"
+                      orientation="horizontal"
+                    />
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          )}
+          {poolAdvertisement.nonessentialSkills && (
+            <div
+              data-h2-radius="base(rounded)"
+              data-h2-shadow="base(s)"
+              data-h2-padding="base(x.5, x1, x.5, x.5)"
+            >
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Nice-to-have skills",
+                  id: "xQ2Vfi",
+                  description:
+                    "Title text for group of nice-to-have skills for pool advertisement on experience forms",
+                })}
+              </span>
+              <Separator
+                color="black"
+                data-h2-margin="base(x.5, 0)"
+                orientation="horizontal"
+              />
+              {poolAdvertisement.nonessentialSkills.map(
+                (skill, index: number) => (
+                  <div key={skill.id} data-h2-padding="base(x0, x0, x0, x.5)">
+                    <SkillBlock
+                      skill={skill}
+                      isAdded={
+                        !!addedSkills.find(
+                          (selected) => selected.id === skill.id,
+                        )
+                      }
+                      onAddSkill={handleAddSkill}
+                      onRemoveSkill={handleRemoveSkill}
+                    />
+                    {poolAdvertisement.essentialSkills &&
+                    index + 1 !== poolAdvertisement.essentialSkills.length ? (
+                      <Separator
+                        color="black"
+                        data-h2-margin="base(x.5, 0)"
+                        orientation="horizontal"
+                      />
+                    ) : null}
+                  </div>
+                ),
+              )}
+            </div>
+          )}
+        </>
+      ) : (
+        <SkillPicker
+          skills={skills || []}
+          onUpdateSelectedSkills={handleChange}
+          selectedSkills={addedSkills || []}
+        />
+      )}
       <SkillsInDetail
         skills={fields as FormSkills}
         onDelete={handleRemoveSkill}
