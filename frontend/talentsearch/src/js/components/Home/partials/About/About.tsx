@@ -63,8 +63,8 @@ const About = () => {
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "GC Digital Talent is only one of the many initiatives being led by the Office of the Chief Information Officer of Canada (OCIO). Learn more about OCIO's role in the Government of Canada. Check out the GC Digital Ambition to see where OCIO is heading in the future.",
-                    id: "hKPuCT",
+                      "GC Digital Talent is only one of the many initiatives being led by the Office of the Chief Information Officer of Canada (OCIO). Learn more about OCIO's role in the Government of Canada. Check out Canada's Digital Ambition 2022 to see where OCIO is heading in the future.",
+                    id: "s3Uz7q",
                     description:
                       "Description of the Office of the Chief Information Officer",
                   })}
@@ -73,10 +73,9 @@ const About = () => {
               <CardFlat
                 color="black"
                 title={intl.formatMessage({
-                  defaultMessage: "Digital Community Management Office",
-                  id: "LDzKSs",
-                  description:
-                    "Title for the Digital Community Management Office",
+                  defaultMessage: "Digital Community Management",
+                  id: "JRlnNk",
+                  description: "Title for the Digital Community Management",
                 })}
                 link={{
                   href:
@@ -85,10 +84,9 @@ const About = () => {
                       : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/collectivite-gcnumerique-a-propos.html#dcmo",
                   label: intl.formatMessage({
                     defaultMessage:
-                      "Learn more<hidden> about the Digital Community Management Office</hidden>",
-                    id: "CgK0u0",
-                    description:
-                      "Link text for the Digital Community Management Office",
+                      "Learn more<hidden> about Digital Community Management</hidden>",
+                    id: "VBsMcq",
+                    description: "Link text for Digital Community Management",
                   }),
                 }}
               >
@@ -96,9 +94,9 @@ const About = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "Behind the GC Digital Talent platform is a whole team of people designing, developing, screening applicants, talent managing employees, placing executives, and helping managers find the talent they need to deliver services to Canadians.",
-                    id: "JKL7Yw",
+                    id: "l3tT4m",
                     description:
-                      "Description for the Digital Community Management Office",
+                      "Description for the Digital Community Management",
                   })}
                 </p>
               </CardFlat>

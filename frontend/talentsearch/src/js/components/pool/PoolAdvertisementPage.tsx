@@ -676,8 +676,8 @@ const PoolAdvertisement = ({
             <Text>
               {intl.formatMessage({
                 defaultMessage:
-                  "Please contact the Digital Community Management Office if you require any accommodations during this application process.",
-                id: "JnhEcG",
+                  "Please contact the Digital Community Management team if you require any accommodations during this application process.",
+                id: "p3j/0q",
                 description:
                   "Description of what to do when accommodations are needed",
               })}
