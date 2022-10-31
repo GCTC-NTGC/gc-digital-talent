@@ -86,8 +86,8 @@ class CreateDigitalCareersPoolsCandidates extends Command
                                                 string $classificationMaxSalary): bool {
 
             $expectedSalary = $userModelForCandidate->expected_salary;
-            $candidateClassificationsArray = $userModelForCandidate->expectedClassifications()
-                                                                    ->pluck('classifications.id')
+            $candidateClassificationsArray = $userModelForCandidate->expectedClassifications
+                                                                    ->pluck('id')
                                                                     ->toArray();
 
             if (in_array($classificationId, $candidateClassificationsArray)) {
@@ -139,15 +139,11 @@ class CreateDigitalCareersPoolsCandidates extends Command
          * check whether a candidate can match a pool stream
          * @return boolean
         */
-        function candidateMatchesStream(array $userWithAssets, string $stream): bool {
+        function candidateMatchesStream(object $userModelForCandidate, string $stream): bool {
             global $assetArrayMap, $assetKeyToStreamMap;
 
-            $assetsArray = $userWithAssets['cmo_assets']; // grab array of assets models from the passed in collection
-            // convert array of user assets models to array of asset id's
-            $assetsIdArray = [];
-            foreach ($assetsArray as $asset) {
-                array_push($assetsIdArray, $asset['pivot']['cmo_asset_id']);
-            }
+            // get ids of all CmoAssets associated with the user
+            $assetsIdArray = $userModelForCandidate->cmoAssets->pluck('id');
 
            // having collected an array of asset ids, can iterate through and check for matches using the global variables
             foreach ($assetsIdArray as $assetId) {
@@ -171,14 +167,8 @@ class CreateDigitalCareersPoolsCandidates extends Command
             $currentStatus = $candidate->pool_candidate_status;
 
             // for classification matching grab the user model to pass in as a whole to act on
-            $userModelForCandidate = User::where('id', $userId)->sole();
-
-            // for stream matching, collect user with assets and then pass in
-            $UserForCandidateWithAssetsCollection = User::where('id', $userId)
-                                                            ->get()
-                                                            ->load(['cmoAssets'])
-                                                            ->toArray();
-            $userWithAssets = $UserForCandidateWithAssetsCollection[0]; // get() returns desired collection shape but as an array of one item
+            // We eager load expectedClassifications and cmoAssets because we know we will use them to match Classifications and Streams.
+            $userModelForCandidate = User::where('id', $userId)->with('expectedClassifications')->with('cmoAssets')->sole();
 
             // loop through classifications
             foreach ($ITLevels as $index => $level) {
@@ -203,7 +193,7 @@ class CreateDigitalCareersPoolsCandidates extends Command
 
                     // execute functions, pass in values from above, two booleans are return and if both are TRUE then create a candidate
                     if (candidateMatchesClassification($userModelForCandidate, $classificationId, $classificationMinSalary, $classificationMaxSalary)
-                            && candidateMatchesStream($userWithAssets, $stream)) {
+                            && candidateMatchesStream($userModelForCandidate, $stream)) {
                         PoolCandidate::create([
                             'user_id' => $userId,
                             'pool_id' => $associatedPoolId,
