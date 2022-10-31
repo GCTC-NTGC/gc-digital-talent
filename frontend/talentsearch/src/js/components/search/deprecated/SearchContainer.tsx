@@ -100,7 +100,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
         <SearchPools
           candidateCount={candidateCount}
           pool={pool}
-          poolOwner={poolOwner}
           handleSubmit={tryHandleSubmit}
         />
       </div>

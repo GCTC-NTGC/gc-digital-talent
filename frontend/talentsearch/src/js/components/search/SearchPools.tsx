@@ -3,7 +3,7 @@ import { getLocale } from "@common/helpers/localize";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { Pool, UserPublicProfile } from "../../api/generated";
+import { Pool } from "../../api/generated";
 
 const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
@@ -11,15 +11,13 @@ const testId = (text: React.ReactNode) => (
 
 export interface SearchPoolsProps {
   candidateCount: number;
-  pool?: Pick<Pool, "name" | "description">;
-  poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName">;
-  handleSubmit: () => Promise<void>;
+  pool?: Pick<Pool, "owner" | "name" | "description">;
+  handleSubmit: (candidateCount: number) => Promise<void>;
 }
 
 const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
   candidateCount,
   pool,
-  poolOwner,
   handleSubmit,
 }) => {
   const intl = useIntl();
@@ -53,8 +51,12 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
             description: "Text showing the owner of the HR pool.",
           },
           {
-            name: poolOwner
-              ? getFullNameHtml(poolOwner.firstName, poolOwner.lastName, intl)
+            name: pool?.owner
+              ? getFullNameHtml(
+                  pool?.owner.firstName,
+                  pool?.owner.lastName,
+                  intl,
+                )
               : intl.formatMessage({
                   defaultMessage: "N/A",
                   id: "AauSuA",
@@ -64,7 +66,11 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
         )}
       </p>
       <p data-h2-margin="base(x1, 0)">{pool?.description?.[locale]}</p>
-      <Button color="cta" mode="solid" onClick={handleSubmit}>
+      <Button
+        color="cta"
+        mode="solid"
+        onClick={() => handleSubmit(candidateCount)}
+      >
         {intl.formatMessage({
           defaultMessage: "Request Candidates",
           id: "6mDW+R",
