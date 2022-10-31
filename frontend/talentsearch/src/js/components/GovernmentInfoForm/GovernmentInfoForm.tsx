@@ -14,6 +14,7 @@ import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
+import ExternalLink from "@common/components/Link/ExternalLink";
 import {
   Classification,
   UpdateUserAsUserInput,
@@ -40,6 +41,21 @@ type FormValues = {
   currentClassificationLevel?: string;
   priorityEntitlementYesNo?: "yes" | "no";
   priorityEntitlementNumber?: string;
+};
+
+const priorityEntitlementLink = (
+  locale: string,
+  chunks: React.ReactNode,
+): React.ReactNode => {
+  const href =
+    locale === "en"
+      ? "https://www.canada.ca/en/public-service-commission/services/information-priority-administration.html"
+      : "https://www.canada.ca/fr/commission-fonction-publique/services/administration-priorites.html";
+  return (
+    <ExternalLink href={href} newTab>
+      {chunks}
+    </ExternalLink>
+  );
 };
 
 // take classification group + level from data, return the matching classification from API
@@ -182,6 +198,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
   priorityEntitlement,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
   // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
   const classGroupsWithDupes: { value: string; label: string }[] =
@@ -377,13 +394,19 @@ export const GovernmentInfoForm: React.FunctionComponent<
       </div>
       <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of6) desktop(1of12)">
         <p data-h2-padding="base(x1, 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "Do you have a priority entitlement for Government of Canada job applications?",
-            id: "v0JyBd",
-            description:
-              "Sentence asking whether the user possesses priority entitlement",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Do you have a priority entitlement for Government of Canada job applications? This is a status provided by the Public Service Commission of Canada. To learn more, <priorityEntitlementLink>visit the information on priority entitlements site</priorityEntitlementLink>.",
+              id: "25VYzu",
+              description:
+                "Sentence asking whether the user possesses priority entitlement",
+            },
+            {
+              priorityEntitlementLink: (chunks) =>
+                priorityEntitlementLink(locale, chunks),
+            },
+          )}
         </p>
         <RadioGroup
           idPrefix="priorityEntitlementYesNo"
