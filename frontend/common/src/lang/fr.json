@@ -983,7 +983,7 @@
     "description": "Message that there are required fields missing. Please ignore things in <> tags."
   },
   "9rn/MG": {
-    "defaultMessage": "a un <strong>travail par quart</strong>.",
+    "defaultMessage": "exige <strong>des quarts de travail</strong>.",
     "description": "The operational requirement described as shift work."
   },
   "CFAc15": {
