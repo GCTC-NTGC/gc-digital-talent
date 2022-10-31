@@ -446,9 +446,10 @@ export const GovernmentInfoForm: React.FunctionComponent<
               id="priorityEntitlementNumber"
               type="text"
               label={intl.formatMessage({
-                defaultMessage: "Priority number",
-                id: "P+UY4i",
-                description: "label for priority number input",
+                defaultMessage:
+                  "Priority number provided by the Public Service Commission of Canada",
+                id: "5G+j56",
+                description: "Label for priority number input",
               })}
               name="priorityEntitlementNumber"
             />

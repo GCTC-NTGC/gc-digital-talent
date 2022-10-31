@@ -2152,9 +2152,9 @@
     "defaultMessage": "En option, ajoutez une ville ou un village ici...",
     "description": "Location Exemptions field placeholder for work location preference form"
   },
-  "P+UY4i": {
-    "defaultMessage": "Numéro de priorité",
-    "description": "label for priority number input"
+  "5G+j56": {
+    "defaultMessage": "Numéro de priorité accordé par la Commission de la fonction publique du Canada",
+    "description": "Label for priority number input"
   },
   "PXfQOZ": {
     "defaultMessage": "Archiver",
