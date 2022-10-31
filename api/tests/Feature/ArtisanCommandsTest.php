@@ -15,6 +15,7 @@ use Tests\TestCase;
 
 use Faker;
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertGreaterThan;
 
 class ArtisanCommandsTest extends TestCase
 {
@@ -96,7 +97,7 @@ class ArtisanCommandsTest extends TestCase
         User::factory([
             'roles' => [ApiEnums::ROLE_APPLICANT]
         ])
-            ->count(100)
+            ->count(50)
             ->afterCreating(function (User $user) use ($faker) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);
@@ -136,6 +137,12 @@ class ArtisanCommandsTest extends TestCase
         $appTestingId = CmoAsset::where('key', 'ilike', 'app_testing')->sole()['id'];
         $it04Id = Classification::where('group', 'ilike', 'IT')->where('level', 4)->sole()['id'];
 
+        // ensure there is always at least one eligible user
+        $randomUser = User::whereNotIn('sub', ['admin@test.com'])->first();
+        $randomUser->expectedClassifications()->sync([$it04Id]);
+        $randomUser->cmoAssets()->sync([$appDevId, $appTestingId]);
+        $randomUser->save();
+
         $eligibleUsers = User::whereHas('cmoAssets', function($query) use ($appDevId, $appTestingId) {
                                 $query->where('cmo_assets.id', $appDevId)
                                     ->orWhere('cmo_assets.id', $appTestingId);
@@ -169,5 +176,80 @@ class ArtisanCommandsTest extends TestCase
 
         // assert eligible users for the testing pool equals number of candidates placed into that pool
         assertEquals(count($eligibleUsers), count($candidates));
+
+        // assert the above do not equal zero
+         assertGreaterThan(0, count($candidates));
+    }
+
+    /**
+     * testing api\app\Console\Commands\ExpireOldDigitalCareersPoolCandidates.php
+     */
+    public function testRunningArtisanCandidateExpiring()
+    {
+        //
+        // repeat set-up environment from above
+        //
+
+        $faker = Faker\Factory::create();
+        $this->artisan('db:seed --class=ClassificationSeeder');
+        $this->artisan('db:seed --class=CmoAssetSeeder');
+        $this->artisan('db:seed --class=SkillFamilySeeder');
+        $this->artisan('db:seed --class=SkillSeeder');
+        $this->artisan('db:seed --class=SkillSeeder');
+        $owner = User::where('email', 'ilike', 'admin@test.com')->sole();
+        $oldDigitalPool = Pool::factory()->create([
+            'user_id' => $owner['id'],
+            'name' => [
+                'en' => 'CMO Digital Careers',
+                'fr' => 'CMO Carrières Numériques'
+            ],
+            'key' => 'digital_careers',
+        ]);
+        User::factory([
+            'roles' => [ApiEnums::ROLE_APPLICANT]
+        ])
+            ->count(15)
+            ->afterCreating(function (User $user) use ($faker) {
+                $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
+                $user->cmoAssets()->sync($assets);
+                $digitalTalentPool = Pool::where('key', "digital_careers")->first();
+                if (rand(0, 1)) {
+                    $classification = Classification::inRandomOrder()->limit(1)->pluck('id')->toArray();
+                    $user->expectedClassifications()->sync($classification);
+                    $user->expected_salary = [];
+                    $user->save();
+                } else {
+                    $user->expected_salary = $faker->randomElements(ApiEnums::salaryRanges(), 2);
+                    $user->save();
+                    $user->expectedClassifications()->sync([]);
+                }
+                PoolCandidate::factory()->count(1)->sequence(fn () => [
+                    'pool_id' => $digitalTalentPool->id,
+                    'user_id' => $user->id,
+                ])->create();
+            })
+        ->create();
+
+        //
+        // testing phase
+        //
+
+        // collect count of candidates in pool
+        $poolCandidates = PoolCandidate::all();
+        $poolCandidatesCount = count($poolCandidates);
+
+        // run command
+        $this->artisan('expire:old_digital_pool_candidates')->assertSuccessful();
+
+        // grab expired candidates
+        $expiredCandidates = PoolCandidate::where('pool_candidate_status', ApiEnums::CANDIDATE_STATUS_EXPIRED)->get();
+        $expiredCandidatesCount = count($expiredCandidates);
+
+        // assertions
+        // assert 15 candidates present in the pool before the command was run
+        assertEquals(15, $poolCandidatesCount);
+
+        // assert 15 expired candidates exist
+        assertEquals(15, $expiredCandidatesCount);
     }
 }
