@@ -155,14 +155,14 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
       description={intl.formatMessage({
         defaultMessage:
           "Certain jobs require you to work odd hours or perform tasks that are a little outside of the normal. Please indicate which special requirements you are comfortable with.",
-        id: "wKIVFc",
+        id: "jp6hlj",
         description:
-          "Description text for Profile Form wrapper  in Work Preferences Form",
+          "Description text for Profile Form wrapper in Work Preferences Form",
       })}
       title={intl.formatMessage({
         defaultMessage: "Work preferences",
-        id: "k0++o0",
-        description: "Title for Profile Form wrapper  in Work Preferences Form",
+        id: "64Pv6e",
+        description: "Title for Profile Form wrapper in Work Preferences Form",
       })}
       cancelLink={{
         href: returnRoute,

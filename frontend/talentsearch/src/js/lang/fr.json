@@ -1256,9 +1256,9 @@
     "defaultMessage": "Expérience mise à jour avec succès!",
     "description": "Success message displayed after updating experience on profile"
   },
-  "k0++o0": {
+  "64Pv6e": {
     "defaultMessage": "Préférences de travail",
-    "description": "Title for Profile Form wrapper  in Work Preferences Form"
+    "description": "Title for Profile Form wrapper in Work Preferences Form"
   },
   "kCBLsJ": {
     "defaultMessage": "Rôle et salaire escomptés",
@@ -1448,9 +1448,9 @@
     "defaultMessage": "Recherche...",
     "description": "Message to display when a search is in progress."
   },
-  "wKIVFc": {
+  "jp6hlj": {
     "defaultMessage": "Certains emplois exigent que vous travailliez des heures inhabituelles ou que vous accomplissiez des tâches qui sont un peu en dehors de la normale. Veuillez indiquer les exigences spéciales avec lesquelles vous êtes à l'aise.",
-    "description": "Description text for Profile Form wrapper  in Work Preferences Form"
+    "description": "Description text for Profile Form wrapper in Work Preferences Form"
   },
   "x5C9Ab": {
     "defaultMessage": "Écrit",
