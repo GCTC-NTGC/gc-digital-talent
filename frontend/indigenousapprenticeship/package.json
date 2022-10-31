@@ -111,7 +111,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.12",
     "@microsoft/applicationinsights-react-js": "^3.4.0",
-    "@microsoft/applicationinsights-web": "^2.8.8",
+    "@microsoft/applicationinsights-web": "^2.8.9",
     "core-js": "^3.26.0",
     "debounce": "^1.2.1",
     "dotenv": "^16.0.3",
