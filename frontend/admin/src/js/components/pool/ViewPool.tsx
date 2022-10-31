@@ -108,13 +108,13 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
     },
   );
 
-  const languageRequirement = intl.formatMessage(
-    getLanguageRequirement(pool.advertisementLanguage ?? ""),
-  );
+  const languageRequirement = pool.advertisementLanguage
+    ? intl.formatMessage(getLanguageRequirement(pool.advertisementLanguage))
+    : "";
 
-  const securityClearance = intl.formatMessage(
-    getSecurityClearance(pool.securityClearance ?? ""),
-  );
+  const securityClearance = pool.securityClearance
+    ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
+    : "";
 
   const relativeToAbsoluteURL = (path: string): string => {
     const { host, protocol } = window.location;
