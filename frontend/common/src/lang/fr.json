@@ -971,7 +971,7 @@
     "description": "The work region of Canada described as Atlantic."
   },
   "X/hYMf": {
-    "defaultMessage": "a<strong> des quarts de travail sur appel 24 heures sur 24, 7 jours sur 7 </strong>.",
+    "defaultMessage": "exige des <strong>quarts de travail sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
     "description": "The operational requirement described as 24/7 on-call."
   },
   "qnYbyw": {
