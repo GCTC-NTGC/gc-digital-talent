@@ -1,8 +1,17 @@
 import React from "react";
+import type { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
+
+export type InputErrorError =
+  | string
+  | FieldError
+  // This is from `react-hook-form` so ignore the any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  | Merge<FieldError, FieldErrorsImpl<any>>
+  | undefined;
 
 export interface InputErrorProps {
   isVisible: boolean;
-  error: string;
+  error: InputErrorError;
 }
 
 const InputError: React.FC<InputErrorProps> = ({ error, isVisible }) => {
