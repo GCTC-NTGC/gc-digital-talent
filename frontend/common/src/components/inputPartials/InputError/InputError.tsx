@@ -1,7 +1,7 @@
 import React from "react";
 import type { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 
-export type InputErrorError =
+export type InputFieldError =
   | string
   | FieldError
   // This is from `react-hook-form` so ignore the any
@@ -11,7 +11,7 @@ export type InputErrorError =
 
 export interface InputErrorProps {
   isVisible: boolean;
-  error: InputErrorError;
+  error: InputFieldError;
 }
 
 const InputError: React.FC<InputErrorProps> = ({ error, isVisible }) => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InputContext from "../InputContext/InputContext";
-import InputError, { InputErrorError } from "../InputError/InputError";
+import InputError, { InputFieldError } from "../InputError/InputError";
 import InputLabel from "../InputLabel/InputLabel";
 
 export interface InputWrapperProps {
@@ -8,7 +8,7 @@ export interface InputWrapperProps {
   label: string | React.ReactNode;
   labelSize?: string;
   required: boolean;
-  error?: InputErrorError;
+  error?: InputFieldError;
   errorPosition?: "top" | "bottom";
   context?: string;
   hideOptional?: boolean;

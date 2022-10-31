@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { commonMessages } from "../../../messages";
 import InputContext from "../InputContext/InputContext";
-import InputError, { type InputErrorError } from "../InputError/InputError";
+import InputError, { type InputFieldError } from "../InputError/InputError";
 
 export interface FieldsetProps {
   /** The text for the legend element. */
@@ -13,7 +13,7 @@ export interface FieldsetProps {
   /** Controls whether Required or Optional text appears above the fieldset. */
   required?: boolean;
   /** If an error string is provided, it will appear below the fieldset inputs. */
-  error?: InputErrorError;
+  error?: InputFieldError;
   /** If a context string is provided, a small button will appear which, when toggled, shows the context string. */
   context?: string | React.ReactNode;
   /** If true, all input elements in this fieldset will be disabled. */
