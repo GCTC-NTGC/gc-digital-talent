@@ -1070,7 +1070,7 @@
     "description": "Placeholder displayed on the language information form verbal field."
   },
   "Y7l4/n": {
-    "defaultMessage": "Veuillez indiquer les niveaux linguistiques que vous avez acquis de votre évaluation linguistique du gouvernement du Canada.",
+    "defaultMessage": "Veuillez indiquer les niveaux linguistiques obtenus lors de votre évaluation linguistique du Gouvernement du Canada.",
     "description": "Text requesting language levels given from bilingual evaluation in language information form"
   },
   "YA/7nb": {
@@ -1561,7 +1561,7 @@
     "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
   },
   "ljnSYf": {
-    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>",
+    "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>",
     "description": "Message for the completed english bilingual evaluation option"
   },
   "m21EOJ": {
