@@ -14,6 +14,7 @@ export interface InputWrapperProps {
   hideOptional?: boolean;
   hideBottomMargin?: boolean;
   fillLabel?: boolean;
+  trackUnsaved?: boolean;
 }
 
 const InputWrapper: React.FC<InputWrapperProps> = ({
@@ -28,6 +29,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   children,
   hideBottomMargin,
   fillLabel = false,
+  trackUnsaved = true,
   ...rest
 }) => {
   const [contextVisible, setContextVisible] = useState(false);
@@ -53,6 +55,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
           contextToggleHandler={setContextVisible}
           hideOptional={hideOptional}
           hideBottomMargin={hideBottomMargin}
+          trackUnsaved={trackUnsaved}
         />
         {error && errorPosition === "top" && (
           <div

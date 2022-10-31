@@ -1,7 +1,8 @@
 import * as React from "react";
 import get from "lodash/get";
-import { RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import { InputWrapper } from "../../inputPartials";
+import { useFieldStateStyles } from "../../../helpers/formUtils";
 
 export interface TextAreaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -17,6 +18,8 @@ export interface TextAreaProps
   rules?: RegisterOptions;
   // Whether to trim leading/ending whitespace upon blurring of an input, default on
   whitespaceTrim?: boolean;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 const TextArea: React.FunctionComponent<TextAreaProps> = ({
@@ -26,6 +29,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   name,
   rules = {},
   children,
+  trackUnsaved = true,
   whitespaceTrim = true,
   ...rest
 }) => {
@@ -34,8 +38,9 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
     formState: { errors },
     setValue,
   } = useFormContext();
+  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message;
+  const error = get(errors, name)?.message as FieldError;
 
   const whitespaceTrimmer = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     if (whitespaceTrim) {
@@ -52,12 +57,13 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
         required={!!rules.required}
         context={context}
         error={error}
+        trackUnsaved={trackUnsaved}
       >
         <textarea
           data-h2-padding="base(x.25, x.5)"
           data-h2-radius="base(input)"
           data-h2-min-height="base(x6)"
-          data-h2-border="base(all, 1px, solid, dt-gray)"
+          {...stateStyles}
           style={{ width: "100%", resize: "vertical" }}
           id={id}
           {...register(name, rules)}

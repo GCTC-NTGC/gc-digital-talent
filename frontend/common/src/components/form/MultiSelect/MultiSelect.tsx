@@ -1,5 +1,10 @@
 import React, { useMemo } from "react";
-import { Controller, RegisterOptions, useFormContext } from "react-hook-form";
+import {
+  Controller,
+  FieldError,
+  RegisterOptions,
+  useFormContext,
+} from "react-hook-form";
 import ReactSelect from "react-select";
 import { InputWrapper } from "../../inputPartials";
 
@@ -35,7 +40,7 @@ const MultiSelect = ({
     formState: { errors },
   } = useFormContext();
 
-  const error = errors[name]?.message;
+  const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
   const optionMap = useMemo(() => {
     const map = new Map();

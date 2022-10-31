@@ -6,11 +6,10 @@
     "feedback": "https://forms.office.com/r/vz80dsUabZ",
     "roadmap": "https://github.com/orgs/hydrogen-design-system/projects/1"
   },
-  "temp": [
-    "../*/src/views/*.html"
-  ],
+  "temp": ["../*/src/views/*.html"],
   "input": [
     "common/src/components",
+    "common/src/styles",
     "admin/src/js/components",
     "talentsearch/src/js/components",
     "indigenousapprenticeship/src/js/components"
@@ -94,7 +93,16 @@
         {
           "key": "tm-yellow",
           "color": "#FFAD31",
-          "modifiers": []
+          "modifiers": [
+            {
+              "key": "light",
+              "color": "#FFD79C"
+            },
+            {
+              "key": "dark",
+              "color": "#FF6200"
+            }
+          ]
         },
         {
           "key": "tm-green",
@@ -104,7 +112,16 @@
         {
           "key": "tm-blue",
           "color": "#27C9BC",
-          "modifiers": []
+          "modifiers": [
+            {
+              "key": "light",
+              "color": "#D8F7F5"
+            },
+            {
+              "key": "dark",
+              "color": "#215D62"
+            }
+          ]
         },
         {
           "key": "tm-red",

@@ -125,6 +125,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               description: "Legend for my status option in my status form",
             })}
             name="jobLookingStatus"
+            id="jobLookingStatus"
             disabled={!isFormActive}
             rules={{
               required: intl.formatMessage(errorMessages.required),

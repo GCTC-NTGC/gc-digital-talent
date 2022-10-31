@@ -84,28 +84,33 @@ describe("GovernmentInfoForm", () => {
     ).not.toBeInTheDocument();
 
     // Open second round of form elements
-    fireEvent.click(
-      screen.getByRole("radio", {
-        name: /i am a government of canada employee/i,
-      }),
-    );
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("radio", {
+          name: /i am a government of canada employee/i,
+        }),
+      );
+    });
+
     expect(
       await screen.getByRole("radio", {
         name: /i am a student/i,
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("option", {
+      await screen.getByRole("option", {
         name: /Select a department/i,
       }),
     ).toBeInTheDocument();
 
     // Open the last round of form elements
-    fireEvent.click(
-      screen.getByRole("radio", {
-        name: /i have a term position/i,
-      }),
-    );
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("radio", {
+          name: /i have a term position/i,
+        }),
+      );
+    });
 
     expect(
       screen.getByRole("option", {
@@ -119,11 +124,14 @@ describe("GovernmentInfoForm", () => {
     ).toBeInTheDocument();
 
     // open priority number
-    fireEvent.click(
-      screen.getByRole("radio", {
-        name: /i have a priority entitlement/i,
-      }),
-    );
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("radio", {
+          name: /i have a priority entitlement/i,
+        }),
+      );
+    });
+
     expect(
       screen.queryByRole("textbox", {
         name: /priority number/i,
@@ -140,28 +148,40 @@ describe("GovernmentInfoForm", () => {
         submitHandler: mockSave,
       });
     });
-    const isGovEmployee = await screen.getByRole("radio", {
-      name: /i am a government of canada employee/i,
-    });
-    fireEvent.click(isGovEmployee);
 
-    const termPos = await screen.getByRole("radio", {
-      name: /i have a term position/i,
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("radio", {
+          name: /i am a government of canada employee/i,
+        }),
+      );
     });
-    fireEvent.click(termPos); // Open the other forms
+
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("radio", {
+          name: /i have a term position/i,
+        }),
+      ); // Open the other forms
+    });
 
     expect(await screen.getByText("Current Classification Group")).toBeTruthy();
 
-    const isStudent = await screen.getByRole("radio", {
-      name: /i am a student/i,
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("radio", {
+          name: /i am a student/i,
+        }),
+      );
     });
-    fireEvent.click(isStudent);
 
-    fireEvent.click(
-      screen.getByRole("radio", {
-        name: /i have a priority entitlement/i,
-      }),
-    );
+    await act(async () => {
+      fireEvent.click(
+        await screen.getByRole("radio", {
+          name: /i have a priority entitlement/i,
+        }),
+      );
+    });
 
     fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
     await waitFor(() => {

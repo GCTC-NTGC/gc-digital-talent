@@ -1,45 +1,112 @@
 import React, { PropsWithChildren, ReactElement } from "react";
+
 import {
   FieldValues,
   FormProvider,
+  Path,
   SubmitHandler,
   useForm,
   UseFormProps,
 } from "react-hook-form";
 import {
   getFromSessionStorage,
+  removeFromSessionStorage,
   setInSessionStorage,
 } from "../../helpers/storageUtils";
+import UnsavedChanges from "./UnsavedChanges";
 
-type BasicFormProps<TFieldValues extends FieldValues> = PropsWithChildren<{
-  onSubmit: SubmitHandler<TFieldValues>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  options?: UseFormProps<TFieldValues, any>; // FieldValues deals in "any"
-  cacheKey?: string; // If included, will cache form values in local storage and retrieve from there if possible.
-}>;
+export type FieldLabels = Record<string, React.ReactNode>;
+
+/**
+ * Basic Form Props
+ *
+ * @typeParam TFieldValues - The form values being registered
+ * @param onSubmit - Callback ran when form is submitted
+ * @param options<TFieldValues, unknown> - Options forwarded to react-hook-form
+ * @param cacheKey - If included, will cache form values in local storage and retrieve from there if possible.
+ * @param labels - Used to map field names to human readable labels (errors, unsaved changes)
+ */
+export type BasicFormProps<TFieldValues extends FieldValues> =
+  PropsWithChildren<{
+    onSubmit: SubmitHandler<TFieldValues>;
+    options?: UseFormProps<TFieldValues, unknown>; // FieldValues deals in "any"
+    cacheKey?: string;
+    labels?: FieldLabels;
+  }>;
 
 export function BasicForm<TFieldValues extends FieldValues>({
   onSubmit,
   children,
   options,
   cacheKey,
+  labels,
 }: BasicFormProps<TFieldValues>): ReactElement {
-  const cacheValues = cacheKey
-    ? getFromSessionStorage(cacheKey, options?.defaultValues)
-    : options?.defaultValues;
-
   const methods = useForm({
+    mode: "onChange",
     ...options,
-    defaultValues: cacheValues,
+    defaultValues: options?.defaultValues,
   });
-  const { handleSubmit, watch } = methods;
   if (cacheKey) {
     // Whenever form values change, update cache.
-    watch((values: unknown) => setInSessionStorage(cacheKey, values));
+    methods.watch((values: unknown) => setInSessionStorage(cacheKey, values));
   }
+
+  const {
+    reset,
+    formState: { isDirty },
+  } = methods;
+
+  const handleSubmit = (data: TFieldValues) => {
+    // Reset form to clear dirty values
+    reset(data, {
+      keepDirty: false,
+    });
+    if (cacheKey) {
+      // Clear the cache as well (no longer needed)
+      removeFromSessionStorage(cacheKey);
+    }
+    // Fire the submit we passed in
+    onSubmit(data);
+  };
+
+  React.useEffect(() => {
+    if (cacheKey) {
+      const cachedValues = getFromSessionStorage(
+        cacheKey,
+        options?.defaultValues,
+      ) as TFieldValues;
+
+      if (cachedValues) {
+        /**
+         * Iterates through all cached values touching and dirtying the fields
+         * so we can display any errors and unsaved changes
+         */
+        Object.keys(cachedValues).forEach((field) => {
+          // Hack: Type our field name
+          const typedFieldName = field as Path<TFieldValues>;
+          const value = cachedValues[field];
+          const defaultValue = options?.defaultValues
+            ? options?.defaultValues[field]
+            : null;
+          if (value) {
+            if (!defaultValue || value !== defaultValue) {
+              methods.setValue(typedFieldName, value, {
+                shouldDirty: true, // Need to dirty it for error/unsaved change tracking
+                shouldTouch: true,
+              });
+            }
+          }
+        });
+      }
+    }
+  }, [cacheKey, options, methods]);
+
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>{children}</form>
+      <form onSubmit={methods.handleSubmit(handleSubmit)}>
+        {cacheKey && isDirty && <UnsavedChanges labels={labels} />}
+        {children}
+      </form>
     </FormProvider>
   );
 }
