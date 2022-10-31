@@ -145,8 +145,8 @@ export const LanguageInformationForm: React.FunctionComponent<{
         }
       >
         {intl.formatMessage({
-          defaultMessage: "Government of Canada language evaluation.",
-          id: "Ugr5Yt",
+          defaultMessage: "Government of Canada language evaluation",
+          id: "3vjhOA",
           description: "Message on links to the language evaluation tests",
         })}
       </ExternalLink>
