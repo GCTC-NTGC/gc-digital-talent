@@ -5,8 +5,9 @@ import Input from "@common/components/form/Input";
 import Checkbox from "@common/components/form/Checkbox";
 import TextArea from "@common/components/form/TextArea";
 import { errorMessages } from "@common/messages";
+import { SubExperienceFormProps } from "../experienceForm/types";
 
-export const PersonalExperienceForm: React.FunctionComponent = () => {
+export const PersonalExperienceForm = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const todayDate = Date();
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
@@ -34,12 +35,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
       <div>
         <Input
           id="experienceTitle"
-          label={intl.formatMessage({
-            defaultMessage: "Short title for this experience",
-            id: "97UAb8",
-            description:
-              "Label displayed on Personal Experience form for experience title input",
-          })}
+          label={labels.experienceTitle}
           placeholder={intl.formatMessage({
             defaultMessage: "Write title here...",
             id: "Q18B0y",
@@ -52,12 +48,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
 
         <TextArea
           id="experienceDescription"
-          label={intl.formatMessage({
-            defaultMessage: "Experience Description",
-            id: "q5rd9x",
-            description:
-              "Label displayed on Personal Experience form for experience description input",
-          })}
+          label={labels.experienceDescription}
           placeholder={intl.formatMessage({
             defaultMessage: "Describe experience details here...",
             id: "Os+BwT",
@@ -69,12 +60,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
         <div data-h2-margin="base(0, 0, x1, 0)">
           <Checkbox
             boundingBox
-            boundingBoxLabel={intl.formatMessage({
-              defaultMessage: "Disclaimer",
-              id: "sapxcU",
-              description:
-                "Label displayed on Personal Experience form for disclaimer bounded box",
-            })}
+            boundingBoxLabel={labels.disclaimer}
             id="disclaimer"
             label={intl.formatMessage({
               defaultMessage:
@@ -90,12 +76,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
 
         <Checkbox
           boundingBox
-          boundingBoxLabel={intl.formatMessage({
-            defaultMessage: "Current Experience",
-            id: "OAOnyY",
-            description:
-              "Label displayed on Personal Experience form for current experience bounded box",
-          })}
+          boundingBoxLabel={labels.currentRole}
           id="currentRole"
           label={intl.formatMessage({
             defaultMessage: "I am currently active in this experience",
@@ -113,12 +94,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
           <div data-h2-padding="base(0) p-tablet(0, x2, 0, 0)">
             <Input
               id="startDate"
-              label={intl.formatMessage({
-                defaultMessage: "Start Date",
-                id: "NDunA+",
-                description:
-                  "Label displayed on Personal Experience form for start date input",
-              })}
+              label={labels.startDate}
               name="startDate"
               type="date"
               rules={{
@@ -135,12 +111,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
             {!isCurrent && (
               <Input
                 id="endDate"
-                label={intl.formatMessage({
-                  defaultMessage: "End Date",
-                  id: "qhmriI",
-                  description:
-                    "Label displayed on Personal Experience form for end date input",
-                })}
+                label={labels.endDate}
                 name="endDate"
                 type="date"
                 rules={

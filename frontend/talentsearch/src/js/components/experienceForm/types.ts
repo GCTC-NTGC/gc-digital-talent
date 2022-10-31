@@ -10,6 +10,7 @@ import {
   Maybe,
   Scalars,
 } from "@common/api/generated";
+import type { FieldLabels } from "@common/components/form/BasicForm";
 
 import type {
   AwardExperienceInput,
@@ -212,3 +213,7 @@ export type ExperienceMutationArgs = Exact<{
     id: string;
     workExperience: WorkExperienceInput;
   }>;
+
+export interface SubExperienceFormProps {
+  labels: FieldLabels;
+}

@@ -87,6 +87,9 @@ export const PoolNameSection = ({
     };
 
     onSave(data);
+    methods.reset(formValues, {
+      keepDirty: false,
+    });
   };
 
   const classificationOptions: Option[] = classifications

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InputContext from "../InputContext/InputContext";
-import InputError from "../InputError/InputError";
+import InputError, { InputFieldError } from "../InputError/InputError";
 import InputLabel from "../InputLabel/InputLabel";
 
 export interface InputWrapperProps {
@@ -8,12 +8,13 @@ export interface InputWrapperProps {
   label: string | React.ReactNode;
   labelSize?: string;
   required: boolean;
-  error?: string;
+  error?: InputFieldError;
   errorPosition?: "top" | "bottom";
   context?: string;
   hideOptional?: boolean;
   hideBottomMargin?: boolean;
   fillLabel?: boolean;
+  trackUnsaved?: boolean;
 }
 
 const InputWrapper: React.FC<InputWrapperProps> = ({
@@ -28,6 +29,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   children,
   hideBottomMargin,
   fillLabel = false,
+  trackUnsaved = true,
   ...rest
 }) => {
   const [contextVisible, setContextVisible] = useState(false);
@@ -53,6 +55,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
           contextToggleHandler={setContextVisible}
           hideOptional={hideOptional}
           hideBottomMargin={hideBottomMargin}
+          trackUnsaved={trackUnsaved}
         />
         {error && errorPosition === "top" && (
           <div

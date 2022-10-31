@@ -91,6 +91,16 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
       ? directIntakePaths.reviewApplication(application.id)
       : profilePaths.myProfile();
+
+  const labels = {
+    expectedGenericJobTitles: intl.formatMessage({
+      defaultMessage:
+        "I would like to be referred for jobs at the following levels:",
+      id: "DrR60L",
+      description: "Legend for role and salary checklist form",
+    }),
+  };
+
   const GenericJobTitles = unpackMaybes(initialData?.genericJobTitles);
 
   const handleSubmit = async (formValues: FormValues) => {
@@ -176,7 +186,9 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
       prefixBreadcrumbs={!application}
     >
       <BasicForm
+        cacheKey="role-salary-form"
         onSubmit={handleSubmit}
+        labels={labels}
         options={{
           defaultValues: dataToFormValues(initialData),
         }}
@@ -191,16 +203,12 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
         </p>
         <Checklist
           idPrefix="expectedGenericJobTitles"
-          legend={intl.formatMessage({
-            defaultMessage:
-              "I would like to be referred for jobs at the following levels:",
-            id: "DrR60L",
-            description: "Legend for role and salary checklist form",
-          })}
+          legend={labels.expectedGenericJobTitles}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
           name="expectedGenericJobTitles"
+          id="expectedGenericJobTitles"
           items={[
             {
               value: GenericJobTitleKey.TechnicianIt01,

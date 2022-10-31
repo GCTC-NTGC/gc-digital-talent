@@ -67,6 +67,9 @@ export const WorkTasksSection = ({
         fr: formValues.YourWorkFr,
       },
     });
+    methods.reset(formValues, {
+      keepDirty: false,
+    });
   };
 
   // disabled unless status is draft
