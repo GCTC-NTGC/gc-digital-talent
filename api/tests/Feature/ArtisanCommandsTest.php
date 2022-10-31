@@ -32,7 +32,7 @@ class ArtisanCommandsTest extends TestCase
         // Create admin user we run tests as
         // Note: this extra user does change the results of a couple queries
         $newUser = new User;
-        $newUser->email = 'admin@test.com';
+        $newUser->email = 'Anne-marie.kirouac@tbs-sct.gc.ca';
         $newUser->sub = 'admin@test.com';
         $newUser->roles = ['ADMIN'];
         $newUser->save();
@@ -84,7 +84,7 @@ class ArtisanCommandsTest extends TestCase
         $this->artisan('db:seed --class=SkillSeeder');
         $this->artisan('db:seed --class=SkillSeeder');
 
-        $owner = User::where('email', 'ilike', 'admin@test.com')->sole();
+        $owner = User::where('sub', 'ilike', 'admin@test.com')->sole();
         $oldDigitalPool = Pool::factory()->create([
             'user_id' => $owner['id'],
             'name' => [
@@ -196,7 +196,7 @@ class ArtisanCommandsTest extends TestCase
         $this->artisan('db:seed --class=SkillFamilySeeder');
         $this->artisan('db:seed --class=SkillSeeder');
         $this->artisan('db:seed --class=SkillSeeder');
-        $owner = User::where('email', 'ilike', 'admin@test.com')->sole();
+        $owner = User::where('sub', 'ilike', 'admin@test.com')->sole();
         $oldDigitalPool = Pool::factory()->create([
             'user_id' => $owner['id'],
             'name' => [

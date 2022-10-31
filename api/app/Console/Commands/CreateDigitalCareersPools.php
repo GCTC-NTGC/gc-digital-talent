@@ -50,8 +50,7 @@ class CreateDigitalCareersPools extends Command
         $ITLevels = [1, 2, 3, 4];
         $poolStreams = ApiEnums::poolStreams();
         $dateNow = Carbon::now();
-        $ownerId = User::where('sub', 'ilike', 'admin@test.com')->sole()['id']; // this for local testing, the one below for other environments
-        // $ownerId = User::all()->sole('email', 'ilike' 'Anne-marie.kirouac@tbs-sct.gc.ca')['id'];
+        $ownerId = User::where('email', 'ilike', 'Anne-marie.kirouac@tbs-sct.gc.ca')->sole()['id'];
 
         $teamworkId = Skill::where('key', 'ilike', 'teamwork')->sole()['id'];
         $analyticalThinkingId = Skill::where('key', 'ilike', 'analytical_thinking')->sole()['id'];
