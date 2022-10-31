@@ -17,6 +17,8 @@ describe("Talent Search Workflow Tests", () => {
     });
   };
 
+  const findAllRequestCandidatesButtonsByRole = cy.findAllByRole("button", { name: /Request Candidates/i });
+
   it("searches for candidates and submits a request", () => {
     // first request is without any filters
     cy.wait("@gqlCountPoolCandidatesByPoolQuery");
@@ -49,15 +51,15 @@ describe("Talent Search Workflow Tests", () => {
 
     searchReturnsGreaterThanZeroApplicants();
 
-    cy.findAllByRole("button", { name: /Request Candidates/i }).then($button => {
+    findAllRequestCandidatesButtons.then($button => {
       cy.wrap($button)
         .should("exist")
         .and("be.visible")
         .and("not.be.disabled");
-      // Force click to mitigate async re-render of button that detaches its DOM element.
-      // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
-      cy.wrap($button).click({ force: true });
     });
+    // Force click to mitigate async re-render of button that detaches its DOM element.
+    // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
+    findAllRequestCandidatesButtonsByRole.first().click({ force: true });
 
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
 
