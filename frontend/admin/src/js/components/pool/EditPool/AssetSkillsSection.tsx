@@ -4,6 +4,8 @@ import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
 import { Button } from "@common/components";
 import SkillPicker from "@common/components/SkillPicker";
+import Chip, { Chips } from "@common/components/Chip";
+import { getLocalizedName } from "@common/helpers/localize";
 import {
   AdvertisementStatus,
   PoolAdvertisement,
@@ -61,35 +63,49 @@ export const AssetSkillsSection = ({
       <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
         {sectionMetadata.title}
       </TableOfContents.Heading>
-      <p data-h2-margin="base(x1, 0)">
-        {intl.formatMessage({
-          defaultMessage:
-            "Select skills that will improve the chances of quality matches with managers. These can typically be learned on the job and are not necessary to be accepted into the pool.",
-          id: "xGjm2A",
-          description: "Helper message for filling in the pool asset skills",
-        })}
-      </p>
-      <SkillPicker
-        selectedSkills={selectedSkills}
-        skills={skills}
-        onUpdateSelectedSkills={handleChangeSelectedSkills}
-      />
-
-      {!formDisabled && (
-        <p data-h2-margin="base(x1, 0)">
-          <Button
-            onClick={handleSave}
-            color="cta"
-            mode="solid"
-            disabled={isSubmitting}
-          >
+      {!formDisabled ? (
+        <>
+          {" "}
+          <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
-              defaultMessage: "Save asset skills",
-              id: "j4G/wv",
-              description: "Text on a button to save the pool asset skills",
+              defaultMessage:
+                "Select skills that will improve the chances of quality matches with managers. These can typically be learned on the job and are not necessary to be accepted into the pool.",
+              id: "xGjm2A",
+              description:
+                "Helper message for filling in the pool asset skills",
             })}
-          </Button>
-        </p>
+          </p>
+          <SkillPicker
+            selectedSkills={selectedSkills}
+            skills={skills}
+            onUpdateSelectedSkills={handleChangeSelectedSkills}
+          />
+          <p data-h2-margin="base(x1, 0)">
+            <Button
+              onClick={handleSave}
+              color="cta"
+              mode="solid"
+              disabled={isSubmitting}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Save asset skills",
+                id: "j4G/wv",
+                description: "Text on a button to save the pool asset skills",
+              })}
+            </Button>
+          </p>
+        </>
+      ) : (
+        <Chips>
+          {selectedSkills.map((skill) => (
+            <Chip
+              key={skill.id}
+              label={getLocalizedName(skill.name, intl)}
+              color="primary"
+              mode="outline"
+            />
+          ))}
+        </Chips>
       )}
     </TableOfContents.Section>
   );
