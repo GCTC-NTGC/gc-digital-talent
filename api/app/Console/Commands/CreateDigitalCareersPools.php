@@ -60,9 +60,8 @@ class CreateDigitalCareersPools extends Command
 
         foreach ($ITLevels as $index => $level) {
             foreach ($poolStreams as $index => $stream) {
-                // create pool with some info
-                $newPool = Pool::create([
-                    'user_id' => $ownerId, // replace with whoever
+                // data fillable by mass-assignment
+                $fillableData = [
                     'name' => [
                         'en' => "Digital Careers",
                         'fr' => "Carrières Numériques",
@@ -82,7 +81,12 @@ class CreateDigitalCareersPools extends Command
                     'security_clearance' => ApiEnums::POOL_ADVERTISEMENT_RELIABILITY,
                     'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_VARIOUS,
                     'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS,
-                ]);
+                ];
+
+                // add required user and then save/create
+                $newPool = new Pool($fillableData);
+                $newPool->user_id = $ownerId;
+                $newPool->save();
 
                 // connect pool essential skills pulled at the start
                 $newPool->essentialSkills()->sync([$teamworkId, $analyticalThinkingId, $clientFocusId, $verbalCommId, $writtenCommId]);

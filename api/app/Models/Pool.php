@@ -69,7 +69,6 @@ class Pool extends Model
         'is_remote',
         'expiry_date',
         'published_at',
-        'user_id',
         'name',
         'key_tasks',
         'stream',
