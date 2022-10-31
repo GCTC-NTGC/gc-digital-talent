@@ -49,6 +49,7 @@ class ExpireOldDigitalCareersPoolCandidates extends Command
 
         DB::update("update pool_candidates
                     set expiry_date = TIMESTAMP 'now',
+                        updated_at = TIMESTAMP 'now',
                         pool_candidate_status = :expiry
                     where pool_id = :id",
                     ['expiry' => $expiredStatus, 'id' => $oldDigitalCareersId]);
