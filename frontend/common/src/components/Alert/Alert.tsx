@@ -1,50 +1,52 @@
 import * as React from "react";
+import BasicAlert from "./BasicAlert";
+import LargeAlert from "./LargeAlert";
 
-export type Color = "success";
+import "./alert.css";
+
+export type Color = "success" | "warning" | "info";
+export type AlertMode = "basic" | "large";
 
 export interface AlertProps {
   title: React.ReactNode | string;
-  message: React.ReactNode | string;
-  icon: React.ReactNode;
-  type: "success";
+  children: React.ReactNode;
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  type: Color;
+  mode?: AlertMode;
 }
 
-const typeMap = {
+export type SubAlertProps = Omit<AlertProps, "mode">;
+
+export const typeMap: Record<Color, Record<string, string>> = {
   success: {
-    "data-h2-border": "base(all, 1px, solid, dt-success)",
+    "data-h2-border": "base(all, 0.25rem, solid, dark.dt-success)",
     "data-h2-background-color": "base(light.dt-success.10)",
-    "data-h2-color": "base(dt-success)",
+    "data-h2-color": "base(black)",
+  },
+  warning: {
+    "data-h2-border": "base(all, 0.25rem, solid, dark.tm-yellow)",
+    "data-h2-background-color": "base(light.tm-yellow)",
+    "data-h2-color": "base(black)",
+  },
+  info: {
+    "data-h2-border": "base(all, 0.25rem, solid, dark.tm-blue)",
+    "data-h2-background-color": "base(light.tm-blue)",
+    "data-h2-color": "base(black)",
   },
 };
 
 const Alert: React.FunctionComponent<AlertProps> = ({
-  title,
-  message,
-  icon,
-  type,
+  mode = "basic",
   ...rest
 }) => {
-  return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-radius="base(input)"
-      data-h2-padding="base(x1)"
-      data-h2-margin="base(x1, 0)"
-      {...typeMap[type]}
-      {...rest}
-    >
-      <p
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-font-weight="base(600)"
-      >
-        <span data-h2-margin="base(0, x.25, 0, 0)">{icon}</span>
-        {title}
-      </p>
-      <p data-h2-margin="base(0, 0, 0, 0)">{message}</p>
-    </div>
-  );
+  const alertMap: Record<AlertMode, React.FC<SubAlertProps>> = {
+    basic: BasicAlert,
+    large: LargeAlert,
+  };
+
+  const SubAlert = alertMap[mode];
+
+  return <SubAlert {...rest} />;
 };
 
 export default Alert;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
+import { FormProvider, useForm } from "react-hook-form";
 import InputWrapper from "./InputWrapper";
 import type { InputWrapperProps } from "./InputWrapper";
 
@@ -10,10 +11,13 @@ export default {
 
 const TemplateInputWrapper: Story<InputWrapperProps> = (args) => {
   const { inputId } = args;
+  const methods = useForm();
   return (
-    <InputWrapper {...args}>
-      <input id={inputId} type="text" style={{ minWidth: "100%" }} />
-    </InputWrapper>
+    <FormProvider {...methods}>
+      <InputWrapper {...args}>
+        <input id={inputId} type="text" style={{ minWidth: "100%" }} />
+      </InputWrapper>
+    </FormProvider>
   );
 };
 

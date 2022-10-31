@@ -115,6 +115,10 @@ export const OtherRequirementsSection = ({
         ? formValues.publishingGroup
         : undefined, // can't be set to null, assume not updating if empty
     });
+
+    methods.reset(formValues, {
+      keepDirty: false,
+    });
   };
 
   return (
@@ -197,6 +201,7 @@ export const OtherRequirementsSection = ({
                   description: "Location options in Edit Pool Form",
                 })}
                 name="locationOption"
+                id="locationOption"
                 items={[
                   {
                     value: LocationOption.RemoteOptional,

@@ -1,7 +1,8 @@
 import React from "react";
-import { RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 import { InputWrapper } from "../../inputPartials";
+import { useFieldStateStyles } from "../../../helpers/formUtils";
 
 export interface Option {
   value: string | number;
@@ -25,6 +26,8 @@ export interface SelectProps
   context?: string;
   /** Null selection string provides a null value with instructions to user (eg. Select a department...) */
   nullSelection?: string;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 const Select: React.FunctionComponent<SelectProps> = ({
@@ -35,14 +38,16 @@ const Select: React.FunctionComponent<SelectProps> = ({
   rules,
   context,
   nullSelection,
+  trackUnsaved = true,
   ...rest
 }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
+  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
 
-  const error = get(errors, name)?.message;
+  const error = get(errors, name)?.message as FieldError;
   return (
     <div data-h2-margin="base(x1, 0)">
       <InputWrapper
@@ -51,12 +56,12 @@ const Select: React.FunctionComponent<SelectProps> = ({
         required={!!rules?.required}
         context={context}
         error={error}
+        trackUnsaved={trackUnsaved}
       >
         <select
-          data-h2-background-color="base(dt-white)"
           data-h2-padding="base(x.25, x.5)"
           data-h2-radius="base(input)"
-          data-h2-border="base(all, 1px, solid, dt-gray)"
+          {...stateStyles}
           id={id}
           style={{ width: "100%", paddingTop: "4.5px", paddingBottom: "4.5px" }}
           {...register(name, rules)}

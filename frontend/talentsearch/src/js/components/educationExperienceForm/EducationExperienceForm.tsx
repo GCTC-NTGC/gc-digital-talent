@@ -11,8 +11,9 @@ import {
   getEducationType,
 } from "@common/constants/localizedConstants";
 import { EducationType, EducationStatus } from "../../api/generated";
+import { SubExperienceFormProps } from "../experienceForm/types";
 
-export const EducationExperienceForm: React.FunctionComponent = () => {
+export const EducationExperienceForm = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const todayDate = Date();
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
@@ -42,12 +43,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <Select
               id="educationType"
-              label={intl.formatMessage({
-                defaultMessage: "Type of Education",
-                id: "elFbzT",
-                description:
-                  "Label displayed on Education form for education type input",
-              })}
+              label={labels.educationType}
               name="educationType"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Choose one...",
@@ -78,12 +74,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
               <Checkbox
                 id="currentRole"
                 boundingBox
-                boundingBoxLabel={intl.formatMessage({
-                  defaultMessage: "Current Education",
-                  id: "aDRIDD",
-                  description:
-                    "Label displayed on Education Experience form for current education bounded box",
-                })}
+                boundingBoxLabel={labels.currentRole}
                 label={intl.formatMessage({
                   defaultMessage: "I am currently active in this education",
                   id: "491LrZ",
@@ -97,12 +88,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <Input
               id="areaOfStudy"
-              label={intl.formatMessage({
-                defaultMessage: "Area of study",
-                id: "nzw1ry",
-                description:
-                  "Label displayed on education form for area of study input",
-              })}
+              label={labels.areaOfStudy}
               placeholder={intl.formatMessage({
                 defaultMessage: "Write area of study here...",
                 id: "Uv9q53",
@@ -118,12 +104,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
                   id="startDate"
-                  label={intl.formatMessage({
-                    defaultMessage: "Start Date",
-                    id: "/sQHOb",
-                    description:
-                      "Label displayed on Education Experience form for start date input",
-                  })}
+                  label={labels.startDate}
                   name="startDate"
                   type="date"
                   rules={{
@@ -141,12 +122,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
                 {!isCurrent && (
                   <Input
                     id="endDate"
-                    label={intl.formatMessage({
-                      defaultMessage: "End Date",
-                      id: "Nqwbu3",
-                      description:
-                        "Label displayed on Education Experience form for end date input",
-                    })}
+                    label={labels.endDate}
                     name="endDate"
                     type="date"
                     rules={
@@ -173,12 +149,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <Input
               id="institution"
-              label={intl.formatMessage({
-                defaultMessage: "Institution",
-                id: "o0Yt8Q",
-                description:
-                  "Label displayed on education form for institution input",
-              })}
+              label={labels.institution}
               placeholder={intl.formatMessage({
                 defaultMessage: "Write name here...",
                 id: "EHOcOR",
@@ -192,12 +163,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <Select
               id="educationStatus"
-              label={intl.formatMessage({
-                defaultMessage: "Status",
-                id: "OQhL7A",
-                description:
-                  "Label displayed on Education form for status input",
-              })}
+              label={labels.educationStatus}
               name="educationStatus"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Choose one...",
@@ -223,12 +189,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
           <div data-h2-flex-item="base(1of1)">
             <Input
               id="thesisTitle"
-              label={intl.formatMessage({
-                defaultMessage: "Thesis Title",
-                id: "N87bC7",
-                description:
-                  "Label displayed on education form for thesis title input",
-              })}
+              label={labels.thesisTitle}
               placeholder={intl.formatMessage({
                 defaultMessage: "Write title here...",
                 id: "8THvSC",
