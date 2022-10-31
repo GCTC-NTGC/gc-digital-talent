@@ -35,7 +35,6 @@ export interface SearchContainerProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
   pool?: Pick<Pool, "name" | "description">;
-  poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   candidateCount: number;
   updatePending?: boolean;
   candidateFilter?: PoolCandidateFilterInput | undefined;
@@ -48,7 +47,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   classifications,
   cmoAssets,
   pool,
-  poolOwner,
   candidateCount,
   updatePending,
   candidateFilter,
@@ -303,7 +301,6 @@ export const SearchContainerApi: React.FC = () => {
         classifications={pool?.classifications?.filter(notEmpty) ?? []}
         cmoAssets={pool?.assetCriteria?.filter(notEmpty) ?? []}
         pool={pool ?? undefined}
-        poolOwner={pool?.owner ?? undefined}
         candidateFilter={candidateFilter}
         candidateCount={candidateCount}
         updatePending={countFetching}
