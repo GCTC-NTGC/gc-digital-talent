@@ -139,8 +139,15 @@ class CreateDigitalCareersPoolsCandidates extends Command
          * check whether a candidate can match a pool stream
          * @return boolean
         */
-        function candidateMatchesStream(array $assetsIdArray, string $stream): bool {
+        function candidateMatchesStream(array $userWithAssets, string $stream): bool {
             global $assetArrayMap, $assetKeyToStreamMap;
+
+            $assetsArray = $userWithAssets['cmo_assets']; // grab array of assets models from the passed in collection
+            // convert array of user assets models to array of asset id's
+            $assetsIdArray = [];
+            foreach ($assetsArray as $asset) {
+                array_push($assetsIdArray, $asset['pivot']['cmo_asset_id']);
+            }
 
            // having collected an array of asset ids, can iterate through and check for matches using the global variables
             foreach ($assetsIdArray as $assetId) {
@@ -166,18 +173,12 @@ class CreateDigitalCareersPoolsCandidates extends Command
             // for classification matching grab the user model to pass in as a whole to act on
             $userModelForCandidate = User::where('id', $userId)->sole();
 
-            // for stream matching, collect an array of cmo asset id's associated with a user to pass in
+            // for stream matching, collect user with assets and then pass in
             $UserForCandidateWithAssetsCollection = User::where('id', $userId)
                                                             ->get()
                                                             ->load(['cmoAssets'])
                                                             ->toArray();
             $userWithAssets = $UserForCandidateWithAssetsCollection[0]; // get() returns desired collection shape but as an array of one item
-            $assetsArray = $userWithAssets['cmo_assets']; // grab array of assets models
-            // convert array of user assets models to array of id's
-            $assetsIdArray = [];
-            foreach ($assetsArray as $asset) {
-                array_push($assetsIdArray, $asset['pivot']['cmo_asset_id']);
-            }
 
             // loop through classifications
             foreach ($ITLevels as $index => $level) {
@@ -202,7 +203,7 @@ class CreateDigitalCareersPoolsCandidates extends Command
 
                     // execute functions, pass in values from above, two booleans are return and if both are TRUE then create a candidate
                     if (candidateMatchesClassification($userModelForCandidate, $classificationId, $classificationMinSalary, $classificationMaxSalary)
-                            && candidateMatchesStream($assetsIdArray, $stream)) {
+                            && candidateMatchesStream($userWithAssets, $stream)) {
                         PoolCandidate::create([
                             'user_id' => $userId,
                             'pool_id' => $associatedPoolId,
