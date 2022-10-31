@@ -2408,6 +2408,14 @@
     "defaultMessage": "Talent numérique du GC",
     "description": "Title tag for Talent Search site"
   },
+  "PXlO7h": {
+    "defaultMessage": "Compétences essentielles",
+    "description": "Title text for group of need-to-have skills for pool advertisement on experience forms"
+  },
+  "xQ2Vfi": {
+    "defaultMessage": "Compétences pratiques",
+    "description": "Title text for group of nice-to-have skills for pool advertisement on experience forms"
+  },
   "mI6AeU": {
     "defaultMessage": "À venir",
     "description": "Text displayed for executive jobs on homepage, indicating it is not ready"
