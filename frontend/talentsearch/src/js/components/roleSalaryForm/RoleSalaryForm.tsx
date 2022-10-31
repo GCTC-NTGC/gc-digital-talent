@@ -258,6 +258,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
             required: intl.formatMessage(errorMessages.required),
           }}
           name="expectedGenericJobTitles"
+          id="expectedGenericJobTitles"
           items={[
             {
               value: GenericJobTitleKey.TechnicianIt01,

@@ -166,6 +166,7 @@ export const WorkLocationPreferenceForm: React.FC<
                 idPrefix="work-location"
                 legend={labels.locationPreferences}
                 name="locationPreferences"
+                id="locationPreferences"
                 items={enumToOptions(WorkRegion).map(({ value }) => ({
                   value,
                   label: intl.formatMessage(getWorkRegionsDetailed(value)),

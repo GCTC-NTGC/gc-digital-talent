@@ -30,8 +30,8 @@ const HomePage: React.FC = () => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Welcome to GC Talent, please log in to continue.",
-              id: "LGo8fw",
+                "Welcome to GC Digital Talent, please log in to continue.",
+              id: "Nfy1HK",
               description:
                 "Instructional text for the talent cloud pool manager portal home page.",
             })}

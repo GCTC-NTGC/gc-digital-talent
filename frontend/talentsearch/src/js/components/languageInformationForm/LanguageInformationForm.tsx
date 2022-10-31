@@ -259,6 +259,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
               idPrefix="considered-position-languages"
               legend={labels.consideredPositionLanguages}
               name="consideredPositionLanguages"
+              id="consideredPositionLanguages"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}

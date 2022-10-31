@@ -301,6 +301,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
         <RadioGroup
           idPrefix="govEmployeeYesNo"
           legend={labels.govEmployeeYesNo}
+          id="govEmployeeYesNo"
           name="govEmployeeYesNo"
           rules={{
             required: intl.formatMessage(errorMessages.required),
@@ -356,6 +357,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
               idPrefix="govEmployeeType"
               legend={labels.govEmployeeType}
               name="govEmployeeType"
+              id="govEmployeeType"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -436,6 +438,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
           idPrefix="priorityEntitlementYesNo"
           legend={labels.priorityEntitlementYesNo}
           name="priorityEntitlementYesNo"
+          id="priorityEntitlementYesNo"
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}

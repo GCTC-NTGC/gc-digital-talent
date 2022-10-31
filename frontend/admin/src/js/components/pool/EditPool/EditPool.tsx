@@ -234,7 +234,7 @@ export const EditPoolForm = ({
               {sectionMetadata.status.title}
             </TableOfContents.AnchorLink>
             <Link
-              href={adminPaths.poolTable()}
+              href={adminPaths.poolView(poolAdvertisement.id)}
               color="secondary"
               mode="outline"
               type="button"

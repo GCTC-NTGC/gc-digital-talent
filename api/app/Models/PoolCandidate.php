@@ -249,7 +249,7 @@ RAWSQL2;
         });
         return $query;
     }
-    public function filterByPools(Builder $query, array $pools): Builder
+    public static function filterByPools(Builder $query, array $pools): Builder
     {
         if (empty($pools)) {
             return $query;

@@ -690,9 +690,9 @@
     "defaultMessage": "Annuler",
     "description": "Link text to cancel logging out."
   },
-  "AjEdUz": {
-    "defaultMessage": "L'identité autochtone signifie que la personne s'est identifiée avec les peuples autochtones du Canada. Elles comprennent les personnes qui s'identifient comme étant des Premières Nations (Indiens de l'Amérique du Nord), Métis ou Inuk (Inuits) et qui déclarent être Indien inscrit ou Indien des traités (c'est-à-dire inscrits en vertu de la Loi sur les Indiens) et ceux qui sont membres d'une Première Nation ou d'une bande indienne. Les peuples autochtones du Canada (appelés ici les peuples autochtones) sont définis à l'article 35(2) de la Loi constitutionnelle de 1982 comme comprenant les peuples indiens, inuits et métis du Canada.",
-    "description": "Definition of accepted ways to identify as indigenous."
+  "YDeXEW": {
+    "defaultMessage": "Identité autochtone désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35 (2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada.",
+    "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
   },
   "AtZhfR": {
     "defaultMessage": "3. Compétences en détail",
@@ -769,6 +769,10 @@
   "FtlwFY": {
     "defaultMessage": "Afficher les bassins ouverts",
     "description": "Link text to view all open pools"
+  },
+  "G1RNXj": {
+    "defaultMessage": "Accueil",
+    "description": "Link to the Homepage in the nav menu."
   },
   "GAjpqU": {
     "defaultMessage": "Voici où vous pouvez ajouter des expériences et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
@@ -907,7 +911,7 @@
     "description": "Link text to cancel logging in and return to talent search home."
   },
   "Or11km": {
-    "defaultMessage": "La Loi sur l'équité en matière d'emploi du Canada (1995) identifie quatre groupes qui ont connu des obstacles systémiques à l'emploi et un certain nombre d'obligations pour le gouvernement du Canada de surmonte ces obstacles.",
+    "defaultMessage": "La Loi sur l'équité en matière d'emploi du Canada (1995) identifie quatre groupes qui ont connu des obstacles systémiques à l'emploi et un certain nombre d'obligations pour le gouvernement du Canada de surmonter ces obstacles.",
     "description": "Description text for Profile Form wrapper in DiversityEquityInclusionForm"
   },
   "P/Mm5G": {
@@ -1297,7 +1301,7 @@
     "description": "Title for Profile Form wrapper  in Work Location Preferences Form"
   },
   "nVh2Qh": {
-    "defaultMessage": "Si vous voulez connaître vos niveaux de compétence linguistique, cliquez ici pour le savoir<selfAssessmentLink></selfAssessmentLink>.",
+    "defaultMessage": "Si vous voulez connaître vos niveaux de compétence linguistique, <selfAssessmentLink>cliquez ici pour le savoir</selfAssessmentLink>.",
     "description": "Text including link to language proficiency evaluation in language information form"
   },
   "nrBkon": {
@@ -1492,25 +1496,25 @@
     "defaultMessage": "Compétences organisées par volet",
     "description": "Legend for Skills filter checklist"
   },
-  "E1WElo": {
-    "defaultMessage": "Les personnes dont le sexe est déclaré sont des femmes, en tout ou en partie. Cela comprend les femmes cisgenres (cis) et transgenres (trans).",
-    "description": "Definition of accepted ways to identify as a women"
+  "6danS7": {
+    "defaultMessage": "Cette catégorie comprend les personnes dont le genre déclaré est féminin. Elle comprend les femmes cisgenres (cis) et les femmes transgenres (trans).",
+    "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
   },
   "Jtz3yb": {
     "defaultMessage": "Je suis autochtone.",
     "description": "Label for the checkbox to identify as indigenous under employment equity"
   },
-  "NFL+q8": {
-    "defaultMessage": "Personnes appartenant à une minorité visible, autres que les autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche. Voici des exemples de groupes de minorités visibles : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais.",
-    "description": "Definition of accepted ways to identify as a visible minority"
+  "F4K5RB": {
+    "defaultMessage": "Minorité visible réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ». La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais.",
+    "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
   },
   "bKvvaI": {
     "defaultMessage": "Conditions d'emploi",
     "description": "Legend for the Conditions of Employment filter checklist"
   },
-  "hz8OYx": {
-    "defaultMessage": "Les personnes ayant une déficience, y compris une déficience physique, intellectuelle, cognitive, mentale ou sensorielle, un trouble d'apprentissage ou de la communication ou une limitation fonctionnelle, de nature permanente, temporaire ou épisodique, manifeste ou non et dont l'interaction avec un obstacle nuit à la participation pleine et égale d'une personne dans la société.",
-    "description": "Definition of accepted ways to identify as person with a disability."
+  "y5Z2Li": {
+    "defaultMessage": "Réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité.",
+    "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
   },
   "sdUnnh": {
     "defaultMessage": "Je m'identifie comme faisant partie d'un ou de plusieurs groupes de minorités visibles.",
@@ -1676,8 +1680,8 @@
     "defaultMessage": "Êtes-vous certain de vouloir supprimer cette expérience de votre profil? Cette action ne peut être annulée.",
     "description": "Question displayed when a user attempts to delete an experience from their profile"
   },
-  "JnhEcG": {
-    "defaultMessage": "Veuillez communiquer avec le bureau de gestion de la communauté numérique si vous avez besoin de mesures d'adaptation au cours de ce processus de candidature",
+  "p3j/0q": {
+    "defaultMessage": "Veuillez communiquer avec l'équipe du bureau de gestion de la communauté numérique si vous avez besoin de mesures d'adaptation au cours de ce processus de candidature",
     "description": "Description of what to do when accommodations are needed"
   },
   "Kl5OX1": {
@@ -1685,7 +1689,7 @@
     "description": "Title for a pool advertisements impact section."
   },
   "NSuNSA": {
-    "defaultMessage": "Possibilités de navigation",
+    "defaultMessage": "Parcourez les opportunités",
     "description": "Breadcrumb title for the browse pools page."
   },
   "PBnlYi": {
@@ -1889,7 +1893,7 @@
     "description": "IT-01 classification label including titles and salaries"
   },
   "5lBIzg": {
-    "defaultMessage": "Mon profile",
+    "defaultMessage": "Mon profil",
     "description": "Label displayed on the applicant profile menu item."
   },
   "ioghLh": {
@@ -1897,7 +1901,7 @@
     "description": "Label displayed on the users pool applications menu item."
   },
   "SXvOXV": {
-    "defaultMessage": "Possibilités de navigation",
+    "defaultMessage": "Parcourez les opportunités",
     "description": "Label displayed on the browse pools menu item."
   },
   "8fXduS": {
@@ -1913,11 +1917,11 @@
     "description": "Explanation that employment equity information is optional."
   },
   "QpfFEG": {
-    "defaultMessage": "Ces renseignements seront utilisées sous une forme anonyme à des fins statistiques.",
+    "defaultMessage": "Ces renseignements seront utilisés sous une forme anonyme à des fins statistiques.",
     "description": "Explanation on how employment equity information will be used, item three"
   },
   "zqBqj1": {
-    "defaultMessage": "Ces renseignements seront utilisées pour vous faire correspondre aux emplois prioritaires.",
+    "defaultMessage": "Ces renseignements seront utilisés pour vous faire correspondre aux emplois prioritaires.",
     "description": "Explanation on how employment equity information will be used, item two"
   },
   "HHEQgM": {
@@ -1960,9 +1964,9 @@
     "defaultMessage": "Emplacement : À distance",
     "description": "Pool advertisement location requirement, Remote option"
   },
-  "JKL7Yw": {
-    "defaultMessage": "Derrière la plateforme des talents numériques du GC, il y a toute une équipe de personnes qui conçoivent, développent, sélectionnent les candidats, gèrent les talents des employés, placent les cadres et aident les gestionnaires à trouver les talents dont ils ont besoin pour offrir des services aux Canadiens.",
-    "description": "Description for the Digital Community Management Office"
+  "l3tT4m": {
+    "defaultMessage": "Derrière la plateforme Talents numériques du GC, il y a toute une équipe qui assure le développement et la conception d'outils, la sélection des candidats, la gestion de talents, le placement des cadres et le soutien aux gestionnaires d'embauche dans leur quête de talents pour offrir des services aux Canadiens.",
+    "description": "Description for the Digital Community Management"
   },
   "+cBKDC": {
     "defaultMessage": "Emplois dans le gouvernement numérique",
@@ -1993,7 +1997,7 @@
     "description": "Link text to continue a specific application"
   },
   "1q/MmU": {
-    "defaultMessage": "Vérifier",
+    "defaultMessage": "À vous de découvrir",
     "description": "Heading for featured items on the homepage"
   },
   "1wFFIx": {
@@ -2037,7 +2041,7 @@
     "description": "Heading for the about section of the homepage"
   },
   "951Oju": {
-    "defaultMessage": "Découvrez les dernières perspectives d’emploi du GC dans le domaine du numérique et de la technologie, du premier échelon à la direction. Trouvez une équipe, apportez votre contribution, et soyez inspirés.",
+    "defaultMessage": "Découvrez les dernières perspectives d’emploi du GC dans le domaine du numérique et de la technologie, des candidats en début de carrière aux professionnels chevronnés ayant plusieurs années d'expérience de travail. Les possibilités d’emploi peuvent varier de postes de niveau d’entrée à des postes de niveau supérieur.",
     "description": "Description for the digital government job opportunities"
   },
   "9KOwXq": {
@@ -2060,9 +2064,9 @@
     "defaultMessage": "Mes candidatures",
     "description": "Title for page that displays current users applications."
   },
-  "CgK0u0": {
-    "defaultMessage": "En savoir plus<hidden> sur le Bureau de gestion de la collectivité numérique</hidden>",
-    "description": "Link text for the Digital Community Management Office"
+  "VBsMcq": {
+    "defaultMessage": "En savoir plus<hidden> sur la Gestion de la collectivité numérique</hidden>",
+    "description": "Link text for Digital Community Management"
   },
   "D0bpvq": {
     "defaultMessage": "Candidatures archivées",
@@ -2081,7 +2085,7 @@
     "description": "Button message on footer of review my application page."
   },
   "EWCP4t": {
-    "defaultMessage": "Des possibilités pour les cadres de premier échelon aux DPI à travers le GC, c’est l’endroit si vous êtes prêt à assumer un rôle de leadership numérique en agissant concrètement pour les Canadiens.",
+    "defaultMessage": "Si vous êtes prêt à assumer un rôle de leadership numérique en agissant concrètement pour les Canadiens, vous trouverez des possibilités d'emplois pour des postes de gestions à travers le GC à tous les niveaux jusqu'aux postes de directeur principal de l’information.",
     "description": "Description for executive jobs in government"
   },
   "FFD16/": {
@@ -2108,9 +2112,9 @@
     "defaultMessage": "Présenter ma candidature",
     "description": "Submit button label on sign and submit page."
   },
-  "LDzKSs": {
-    "defaultMessage": "Bureau de gestion de la collectivité numérique",
-    "description": "Title for the Digital Community Management Office"
+  "JRlnNk": {
+    "defaultMessage": "Gestion de la collectivité numérique",
+    "description": "Title for the Digital Community Management"
   },
   "LOh+c5": {
     "defaultMessage": "Étape 2 : Signer et présenter",
@@ -2141,7 +2145,7 @@
     "description": "Link text to learn more about women in STEM"
   },
   "NjHXGh": {
-    "defaultMessage": "En savoir plus<hidden> sur le Bureau du directeur principal de l’information</hidden>",
+    "defaultMessage": "En savoir plus<hidden> sur le Bureau de la dirigeante principale de l’information</hidden>",
     "description": "Link text for the Office of the Chief Information Officer"
   },
   "OH5tTS": {
@@ -2229,7 +2233,7 @@
     "description": "Button text to show a users archived applications."
   },
   "f3Qqop": {
-    "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats de premier échelon pour des possibilités d’apprentissage et de développement des TI dans l’ensemble du gouvernement.",
+    "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats pour des postes de niveau d'entrée pour des possibilités d’apprentissage et de développement des TI dans l’ensemble du gouvernement.",
     "description": "Description for the Indigenous Apprenticeship Program on home page"
   },
   "fI6Hjf": {
@@ -2249,7 +2253,7 @@
     "description": "Confirmation message before signature form on sign and submit page."
   },
   "i9cA5V": {
-    "defaultMessage": "Bureau du directeur principal de l’information",
+    "defaultMessage": "Bureau de la dirigeante principale de l’information",
     "description": "Title for the Office of the Chief Information Officer"
   },
   "iilT16": {
@@ -2260,8 +2264,8 @@
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
     "description": "Link text to learn more about the platform creation"
   },
-  "hKPuCT": {
-    "defaultMessage": "Talents numériques du GC n’est qu’une des nombreuses initiatives menées par le Bureau du dirigeant principal de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du GC pour voir où le BCIO se dirige à l’avenir.",
+  "s3Uz7q": {
+    "defaultMessage": "Talents numériques du GC n’est qu’une des nombreuses initiatives menées par le bureau de la dirigeante principale de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
   },
   "jcl2s9": {
@@ -2313,7 +2317,7 @@
     "description": "Link text for breadcrumb to user applications page."
   },
   "qDYcDP": {
-    "defaultMessage": "Vous êtes toujours encouragé à maintenir votre profil à jour, les versions actualisées seront utilisées lors des étapes ultérieures du processus d’embauche.",
+    "defaultMessage": "Vous êtes toujours encouragé à maintenir votre profil à jour, les versions actualisées seront utilisés lors des étapes ultérieures du processus d’embauche.",
     "description": "Important info list item on sign and submit page."
   },
   "r6DZ71": {
@@ -2349,7 +2353,7 @@
     "description": "Link text to apply for the Indigenous Apprenticeship Program"
   },
   "GSzckJ": {
-    "defaultMessage": "Curieux de savoir comment la plateforme Talents numériques du GC a été développée? Vous voulez en savoir plus sur les idées, les conceptions et la philosophie de celle-ci? Découvrez le chemin parcouru depuis le pilote expérimental du Nuage de talents du GC jusqu’à la plateforme complète d’aujourd’hui.",
+    "defaultMessage": "Curieux de savoir comment la plateforme Talents numériques du GC a été développée? Vous voulez en savoir plus sur les idées, les conceptions et la philosophie de celle-ci? Découvrez le chemin parcouru depuis le pilote expérimental du Nuage de talents du GC jusqu’à la plateforme d’aujourd’hui.",
     "description": "Description of how the platform was created."
   },
   "ww86SN": {
@@ -2365,7 +2369,7 @@
     "description": "Message displayed to user after application is deleted successfully."
   },
   "xggOcb": {
-    "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez développé vos compétences et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, votre profil est votre voie pour être trouvé par les responsables du recrutement.",
+    "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez développé vos compétences et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, votre profil est votre outil pour être découvert par les responsables du recrutement.",
     "description": "Description du fonctionnement des profils de candidature"
   },
   "yiJYdP": {
@@ -2391,5 +2395,29 @@
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
     "description": "Support form toast message error"
+  },
+  "MZJYQd": {
+    "defaultMessage": "Contact et soutien",
+    "description": "Page title for the Support page"
+  },
+  "axQDlj": {
+    "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
+    "description": "Subtitle for the Support page"
+  },
+  "Mz+gUV": {
+    "defaultMessage": "Talent numérique du GC",
+    "description": "Title tag for Talent Search site"
+  },
+  "PXlO7h": {
+    "defaultMessage": "Compétences essentielles",
+    "description": "Title text for group of need-to-have skills for pool advertisement on experience forms"
+  },
+  "xQ2Vfi": {
+    "defaultMessage": "Compétences pratiques",
+    "description": "Title text for group of nice-to-have skills for pool advertisement on experience forms"
+  },
+  "mI6AeU": {
+    "defaultMessage": "À venir",
+    "description": "Text displayed for executive jobs on homepage, indicating it is not ready"
   }
 }

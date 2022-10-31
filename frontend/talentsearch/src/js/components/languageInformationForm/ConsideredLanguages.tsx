@@ -7,6 +7,7 @@ import { errorMessages } from "@common/messages";
 import useLocale from "@common/hooks/useLocale";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { FieldLabels } from "@common/components/form/BasicForm";
+import ExternalLink from "@common/components/Link/ExternalLink";
 import {
   BilingualEvaluation,
   EstimatedLanguageAbility,
@@ -31,27 +32,10 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   const locale = useLocale();
   const { watch, resetField } = useFormContext();
 
-  const selfAssessmentLink = (msg: React.ReactNode): React.ReactNode => {
-    return (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href={
-          locale === "en"
-            ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html"
-            : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde/tests-autoevaluation.html"
-        }
-      >
-        {msg}
-      </a>
-    );
-  };
-
   const languageEvaluationPageLink = () => {
     return (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
+      <ExternalLink
+        newTab
         href={
           locale === "en"
             ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
@@ -63,7 +47,22 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
           id: "Ugr5Yt",
           description: "Message on links to the language evaluation tests",
         })}
-      </a>
+      </ExternalLink>
+    );
+  };
+
+  const selfAssessmentLink = (msg: React.ReactNode): React.ReactNode => {
+    return (
+      <ExternalLink
+        newTab
+        href={
+          locale === "en"
+            ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html"
+            : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde/tests-autoevaluation.html"
+        }
+      >
+        {msg}
+      </ExternalLink>
     );
   };
 
@@ -205,6 +204,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
           idPrefix="bilingualEvaluation"
           legend={labels.bilingualEvaluation}
           name="bilingualEvaluation"
+          id="bilingualEvaluation"
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -296,6 +296,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
             idPrefix="estimatedLanguageAbility"
             legend={labels.estimatedLanguageAbility}
             name="estimatedLanguageAbility"
+            id="estimatedLanguageAbility"
             items={estimatedAbilityItems}
           />
         </div>

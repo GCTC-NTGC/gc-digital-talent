@@ -222,6 +222,7 @@ export const CreateAccountForm: React.FunctionComponent<
             <RadioGroup
               idPrefix="required-lang-preferences"
               legend={labels.preferredLang}
+              id="preferredLang"
               name="preferredLang"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
               items={enumToOptions(Language).map(({ value }) => ({
