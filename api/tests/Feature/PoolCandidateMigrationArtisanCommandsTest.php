@@ -17,7 +17,7 @@ use Faker;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertGreaterThan;
 
-class ArtisanCommandsTest extends TestCase
+class PoolCandidateMigrationArtisanCommandsTest extends TestCase
 {
     use RefreshDatabase;
     use MakesGraphQLRequests;
