@@ -1,18 +1,16 @@
 import React from "react";
 import Loading from "@common/components/Pending/Loading";
 import { redirect } from "@common/helpers/router";
-import { notEmpty } from "@common/helpers/util";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+import { Id, toast } from "react-toastify";
+import { notEmpty } from "@common/helpers/util";
+import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
 import {
-  Maybe,
-  PoolCandidate,
   Scalars,
   useCreateApplicationMutation,
   useGetPoolAdvertisementQuery,
 } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
-import { hasUserApplied, isAdvertisementVisible } from "./utils";
 
 interface CreateApplicationProps {
   poolId: Scalars["ID"];
@@ -25,36 +23,47 @@ interface CreateApplicationProps {
  */
 const CreateApplication = ({ poolId }: CreateApplicationProps) => {
   const intl = useIntl();
+  const errorToastId = React.useRef<Id>("");
   const paths = useDirectIntakeRoutes();
   const [{ data }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId },
   });
-  const [{ fetching: creating, data: mutationData }, executeMutation] =
-    useCreateApplicationMutation();
+  const [
+    { fetching: creating, data: mutationData, operation },
+    executeMutation,
+  ] = useCreateApplicationMutation();
 
   // Store path to redirect to later on
   let redirectPath = paths.pool(poolId);
 
   /**
-   * There is a possibility someone navigates
-   * directly to this, so check if they should
-   * be able to view/apply to it
+   * Handle any errors that occur during mutation
+   *
+   * @returns null
    */
-  const isVisible = isAdvertisementVisible(
-    data?.me?.roles?.filter(notEmpty) || [],
-    data?.poolAdvertisement?.advertisementStatus ?? null,
+  const handleError = React.useCallback(
+    (msg?: React.ReactNode, path?: string) => {
+      redirect(path || redirectPath);
+      /**
+       * This is supposed to prevent the toast
+       * from firing twice, but it does not appear to
+       * work. Leaving it in, in the hopes
+       * it finally does 🤷‍♀️
+       */
+      if (!toast.isActive(errorToastId.current)) {
+        errorToastId.current = toast.error(
+          msg ||
+            intl.formatMessage({
+              defaultMessage: "Error application creation failed",
+              id: "tlAiJm",
+              description: "Application creation failed",
+            }),
+        );
+      }
+      return null;
+    },
+    [intl, redirectPath],
   );
-  const hasApplied = hasUserApplied(
-    (data?.me?.poolCandidates as Maybe<PoolCandidate>[]) || [],
-    data?.poolAdvertisement?.id,
-  );
-
-  /**
-   * Check to see if the application even exists
-   */
-  const application = data?.me?.poolCandidates?.find((candidate) => {
-    return candidate?.pool.id === data?.poolAdvertisement?.id;
-  });
 
   /**
    * Store if the application can be created
@@ -67,69 +76,58 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
    * !hasApplied - Users can only apply to a single pool advertisement
    */
   const userId = data?.me?.id;
-  const canCreate =
-    !creating && !mutationData && userId && poolId && isVisible && !hasApplied;
+  const hasMutationData = notEmpty(mutationData);
+  const isCreating = creating || hasMutationData || operation?.key;
+  const hasRequiredData = userId && poolId;
 
-  // Set the redirect path to the application
-  // if the user has applied and it exists
-  if (hasApplied && application) {
-    redirectPath = paths.reviewApplication(application.id);
+  if (!hasRequiredData) {
+    if (!poolId) {
+      redirectPath = paths.allPools();
+    }
+    handleError();
   }
 
-  /**
-   * Handle any errors that occur during mutation
-   *
-   * @returns null
-   */
-  const handleError = (msg?: React.ReactNode) => {
-    redirect(redirectPath);
-    toast.error(
-      msg ||
-        intl.formatMessage({
-          defaultMessage: "Error application creation failed",
-          id: "tlAiJm",
-          description: "Application creation failed",
-        }),
-    );
+  const createApplication = React.useCallback(() => {
+    if (!isCreating && userId && poolId) {
+      executeMutation({ userId, poolId })
+        .then((result) => {
+          if (result.data?.createApplication) {
+            const newPath = paths.reviewApplication(
+              result.data.createApplication.id,
+            );
+            // Redirect user to the application if it exists
+            // Toast success or error
+            if (!result.error) {
+              redirect(newPath);
+              toast.success(
+                intl.formatMessage({
+                  defaultMessage: "Application created",
+                  id: "U/ji+A",
+                  description: "Application created successfully",
+                }),
+              );
+            } else {
+              const message = tryFindMessageDescriptor(result.error.message);
+              handleError(message, newPath);
+            }
+          } else if (result.error?.message) {
+            handleError(tryFindMessageDescriptor(result.error.message));
+          } else {
+            // Fallback to generic message
+            handleError();
+          }
+        })
+        .catch(handleError);
+    }
+  }, [isCreating, userId, poolId, executeMutation, handleError, paths, intl]);
+
+  React.useEffect(() => {
+    createApplication();
+  }, [createApplication]);
+
+  // Don't render the page if the mutation ran already
+  if (hasMutationData) {
     return null;
-  };
-
-  /**
-   * Actually run the mutation
-   */
-  if (canCreate) {
-    executeMutation({ userId, poolId })
-      .then((result) => {
-        if (result.data?.createApplication) {
-          // Redirect user to the application on success
-          redirect(paths.reviewApplication(result.data.createApplication.id));
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Application created",
-              id: "U/ji+A",
-              description: "Application created successfully",
-            }),
-          );
-          return null;
-        }
-        return handleError();
-      })
-      .catch(handleError);
-  }
-
-  // If a user has already applied or this pool is a draft
-  // redirect them away from this route with a toast
-  if ((hasApplied || !isVisible) && !creating) {
-    handleError(
-      hasApplied
-        ? intl.formatMessage({
-            defaultMessage: "You have already applied to this.",
-            id: "mwEGU+",
-            description:
-              "Disabled button when a user already applied to a pool opportunity",
-          })
-        : undefined,
-    );
   }
 
   /**

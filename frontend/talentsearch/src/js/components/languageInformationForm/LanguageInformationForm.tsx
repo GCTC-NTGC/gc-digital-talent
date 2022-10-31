@@ -11,6 +11,7 @@ import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
+import { ExternalLink } from "@common/components/Link";
 import {
   BilingualEvaluation,
   EstimatedLanguageAbility,
@@ -135,9 +136,8 @@ export const LanguageInformationForm: React.FunctionComponent<{
 
   const languageEvaluationPageLink = () => {
     return (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
+      <ExternalLink
+        newTab
         href={
           locale === "en"
             ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
@@ -149,15 +149,14 @@ export const LanguageInformationForm: React.FunctionComponent<{
           id: "Ugr5Yt",
           description: "Message on links to the language evaluation tests",
         })}
-      </a>
+      </ExternalLink>
     );
   };
 
   const selfAssessmentLink = (msg: React.ReactNode): React.ReactNode => {
     return (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
+      <ExternalLink
+        newTab
         href={
           locale === "en"
             ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html"
@@ -165,7 +164,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
         }
       >
         {msg}
-      </a>
+      </ExternalLink>
     );
   };
 
