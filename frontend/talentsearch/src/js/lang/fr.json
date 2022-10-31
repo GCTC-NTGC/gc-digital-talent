@@ -690,9 +690,9 @@
     "defaultMessage": "Annuler",
     "description": "Link text to cancel logging out."
   },
-  "AjEdUz": {
-    "defaultMessage": "L'identité autochtone signifie que la personne s'est identifiée avec les peuples autochtones du Canada. Elles comprennent les personnes qui s'identifient comme étant des Premières Nations (Indiens de l'Amérique du Nord), Métis ou Inuk (Inuits) et qui déclarent être Indien inscrit ou Indien des traités (c'est-à-dire inscrits en vertu de la Loi sur les Indiens) et ceux qui sont membres d'une Première Nation ou d'une bande indienne. Les peuples autochtones du Canada (appelés ici les peuples autochtones) sont définis à l'article 35(2) de la Loi constitutionnelle de 1982 comme comprenant les peuples indiens, inuits et métis du Canada.",
-    "description": "Definition of accepted ways to identify as indigenous."
+  "YDeXEW": {
+    "defaultMessage": "Identité autochtone désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35 (2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada.",
+    "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
   },
   "AtZhfR": {
     "defaultMessage": "3. Compétences en détail",
@@ -769,6 +769,10 @@
   "FtlwFY": {
     "defaultMessage": "Afficher les bassins ouverts",
     "description": "Link text to view all open pools"
+  },
+  "G1RNXj": {
+    "defaultMessage": "Accueil",
+    "description": "Link to the Homepage in the nav menu."
   },
   "GAjpqU": {
     "defaultMessage": "Voici où vous pouvez ajouter des expériences et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
@@ -907,7 +911,7 @@
     "description": "Link text to cancel logging in and return to talent search home."
   },
   "Or11km": {
-    "defaultMessage": "La Loi sur l'équité en matière d'emploi du Canada (1995) identifie quatre groupes qui ont connu des obstacles systémiques à l'emploi et un certain nombre d'obligations pour le gouvernement du Canada de surmonte ces obstacles.",
+    "defaultMessage": "La Loi sur l'équité en matière d'emploi du Canada (1995) identifie quatre groupes qui ont connu des obstacles systémiques à l'emploi et un certain nombre d'obligations pour le gouvernement du Canada de surmonter ces obstacles.",
     "description": "Description text for Profile Form wrapper in DiversityEquityInclusionForm"
   },
   "P/Mm5G": {
@@ -1297,7 +1301,7 @@
     "description": "Title for Profile Form wrapper  in Work Location Preferences Form"
   },
   "nVh2Qh": {
-    "defaultMessage": "Si vous voulez connaître vos niveaux de compétence linguistique, cliquez ici pour le savoir<selfAssessmentLink></selfAssessmentLink>.",
+    "defaultMessage": "Si vous voulez connaître vos niveaux de compétence linguistique, <selfAssessmentLink>cliquez ici pour le savoir</selfAssessmentLink>.",
     "description": "Text including link to language proficiency evaluation in language information form"
   },
   "nrBkon": {
@@ -1492,25 +1496,25 @@
     "defaultMessage": "Compétences organisées par volet",
     "description": "Legend for Skills filter checklist"
   },
-  "E1WElo": {
-    "defaultMessage": "Les personnes dont le sexe est déclaré sont des femmes, en tout ou en partie. Cela comprend les femmes cisgenres (cis) et transgenres (trans).",
-    "description": "Definition of accepted ways to identify as a women"
+  "6danS7": {
+    "defaultMessage": "Cette catégorie comprend les personnes dont le genre déclaré est féminin. Elle comprend les femmes cisgenres (cis) et les femmes transgenres (trans).",
+    "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
   },
   "Jtz3yb": {
     "defaultMessage": "Je suis autochtone.",
     "description": "Label for the checkbox to identify as indigenous under employment equity"
   },
-  "NFL+q8": {
-    "defaultMessage": "Personnes appartenant à une minorité visible, autres que les autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche. Voici des exemples de groupes de minorités visibles : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais.",
-    "description": "Definition of accepted ways to identify as a visible minority"
+  "F4K5RB": {
+    "defaultMessage": "Minorité visible réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ». La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais.",
+    "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
   },
   "bKvvaI": {
     "defaultMessage": "Conditions d'emploi",
     "description": "Legend for the Conditions of Employment filter checklist"
   },
-  "hz8OYx": {
-    "defaultMessage": "Les personnes ayant une déficience, y compris une déficience physique, intellectuelle, cognitive, mentale ou sensorielle, un trouble d'apprentissage ou de la communication ou une limitation fonctionnelle, de nature permanente, temporaire ou épisodique, manifeste ou non et dont l'interaction avec un obstacle nuit à la participation pleine et égale d'une personne dans la société.",
-    "description": "Definition of accepted ways to identify as person with a disability."
+  "y5Z2Li": {
+    "defaultMessage": "Réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité.",
+    "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
   },
   "sdUnnh": {
     "defaultMessage": "Je m'identifie comme faisant partie d'un ou de plusieurs groupes de minorités visibles.",
@@ -1685,7 +1689,7 @@
     "description": "Title for a pool advertisements impact section."
   },
   "NSuNSA": {
-    "defaultMessage": "Possibilités de navigation",
+    "defaultMessage": "Parcourez les opportunités",
     "description": "Breadcrumb title for the browse pools page."
   },
   "PBnlYi": {
@@ -1897,7 +1901,7 @@
     "description": "Label displayed on the users pool applications menu item."
   },
   "SXvOXV": {
-    "defaultMessage": "Possibilités de navigation",
+    "defaultMessage": "Parcourez les opportunités",
     "description": "Label displayed on the browse pools menu item."
   },
   "8fXduS": {
@@ -1913,11 +1917,11 @@
     "description": "Explanation that employment equity information is optional."
   },
   "QpfFEG": {
-    "defaultMessage": "Ces renseignements seront utilisées sous une forme anonyme à des fins statistiques.",
+    "defaultMessage": "Ces renseignements seront utilisés sous une forme anonyme à des fins statistiques.",
     "description": "Explanation on how employment equity information will be used, item three"
   },
   "zqBqj1": {
-    "defaultMessage": "Ces renseignements seront utilisées pour vous faire correspondre aux emplois prioritaires.",
+    "defaultMessage": "Ces renseignements seront utilisés pour vous faire correspondre aux emplois prioritaires.",
     "description": "Explanation on how employment equity information will be used, item two"
   },
   "HHEQgM": {
@@ -2313,7 +2317,7 @@
     "description": "Link text for breadcrumb to user applications page."
   },
   "qDYcDP": {
-    "defaultMessage": "Vous êtes toujours encouragé à maintenir votre profil à jour, les versions actualisées seront utilisées lors des étapes ultérieures du processus d’embauche.",
+    "defaultMessage": "Vous êtes toujours encouragé à maintenir votre profil à jour, les versions actualisées seront utilisés lors des étapes ultérieures du processus d’embauche.",
     "description": "Important info list item on sign and submit page."
   },
   "r6DZ71": {
@@ -2391,5 +2395,17 @@
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
     "description": "Support form toast message error"
+  },
+  "MZJYQd": {
+    "defaultMessage": "Contact et soutien",
+    "description": "Page title for the Support page"
+  },
+  "axQDlj": {
+    "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
+    "description": "Subtitle for the Support page"
+  },
+  "Mz+gUV": {
+    "defaultMessage": "Talent numérique du GC",
+    "description": "Title tag for Talent Search site"
   }
 }

@@ -23,7 +23,6 @@ import { useLocation } from "@common/helpers/router";
 import errorMessages from "@common/messages/errorMessages";
 import { hasKey } from "@common/helpers/util";
 import {
-  Classification,
   LanguageAbility,
   Skill,
   ApplicantFilterInput,
@@ -32,6 +31,11 @@ import {
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
 import AddSkillsToFilter from "../skills/AddSkillsToFilter";
+import {
+  SimpleClassification,
+  SimplePool,
+  filterPoolsBySelectedClassification,
+} from "../../types/poolUtils";
 
 const NullSelection = "NULL_SELECTION";
 
@@ -45,9 +49,8 @@ function mapObjectsByKey<T>(
   }, new Map());
 }
 
-const classificationToKey = (
-  classification: Pick<Classification, "group" | "level">,
-) => `${classification.group}-0${classification.level}`;
+const classificationToKey = (classification: SimpleClassification) =>
+  `${classification.group}-0${classification.level}`;
 
 type Option<V> = { value: V; label: string };
 export type FormValues = Pick<
@@ -60,8 +63,8 @@ export type FormValues = Pick<
   skills: string[] | undefined;
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
-  poolId: string;
   poolCandidates: UserPoolFilterInput;
+  pools?: SimplePool[];
 };
 
 type LocationState = {
@@ -71,8 +74,9 @@ type LocationState = {
 };
 
 export interface SearchFormProps {
-  classifications: Pick<Classification, "group" | "level">[];
+  classifications: SimpleClassification[];
   skills?: Skill[];
+  pools?: SimplePool[];
   onUpdateApplicantFilter: (filter: ApplicantFilterInput) => void;
 }
 
@@ -105,10 +109,9 @@ const classificationLabels: Record<string, MessageDescriptor> = defineMessages({
 });
 
 const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
-  ({ classifications, skills, onUpdateApplicantFilter }, ref) => {
+  ({ classifications, skills, pools, onUpdateApplicantFilter }, ref) => {
     const intl = useIntl();
     const location = useLocation();
-
     const classificationMap = React.useMemo(() => {
       return mapObjectsByKey(classificationToKey, classifications);
     }, [classifications]);
@@ -136,13 +139,11 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
 
     React.useEffect(() => {
       const formValuesToData = (values: FormValues): ApplicantFilterInput => {
-        const expectedClassification = values.classification
+        const selectedClassification = values.classification
           ? classificationMap.get(values.classification)
           : undefined;
         return {
-          expectedClassifications: expectedClassification
-            ? [expectedClassification]
-            : [],
+          expectedClassifications: [],
           skills: values.skills
             ? values.skills
                 .filter((id) => !!id)
@@ -174,6 +175,9 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
           wouldAcceptTemporary:
             values.employmentDuration === "true" ? true : null,
           locationPreferences: values.locationPreferences || [],
+          pools: pools
+            ? filterPoolsBySelectedClassification(pools, selectedClassification)
+            : [],
         };
       };
 
@@ -189,7 +193,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       });
 
       return () => subscription.unsubscribe();
-    }, [watch, classificationMap, onUpdateApplicantFilter]);
+    }, [watch, classificationMap, onUpdateApplicantFilter, pools]);
 
     const getClassificationLabel = React.useCallback(
       (group: string, level: number): string => {
