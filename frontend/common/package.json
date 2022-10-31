@@ -44,7 +44,7 @@
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.32.2"
+    "react-hook-form": "^7.38.0"
   },
   "sideEffects": [
     "**/*.css"
@@ -73,7 +73,7 @@
     "react-csv": "^2.2.2",
     "react-dom": "^17.0.2",
     "react-focus-lock": "^2.9.1",
-    "react-hook-form": "^7.32.2",
+    "react-hook-form": "^7.38.0",
     "react-intl": "^6.2.1",
     "react-remove-scroll": "^2.5.5",
     "react-select": "^5.5.7",
@@ -91,6 +91,7 @@
     "@graphql-codegen/typescript": "^2.8.0",
     "@graphql-codegen/typescript-operations": "^2.5.5",
     "@graphql-codegen/typescript-urql": "^3.7.2",
+    "@hookform/devtools": "^4.2.2",
     "@hydrogen-css/hydrogen": "2.0.0-beta.29",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",

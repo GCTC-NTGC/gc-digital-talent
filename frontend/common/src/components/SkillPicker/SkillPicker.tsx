@@ -152,6 +152,7 @@ const SkillPicker = ({
             description: "Placeholder for the skills search bar.",
           })}
           autoComplete="off"
+          trackUnsaved={false}
         />
         <MultiSelectFieldV2
           id="skillFamilies"

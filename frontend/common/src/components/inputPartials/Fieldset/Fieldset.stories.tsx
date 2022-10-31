@@ -1,6 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import Fieldset from "./Fieldset";
+import Form from "../../form/BasicForm";
 import type { FieldsetProps } from "./Fieldset";
 
 export default {
@@ -11,20 +13,22 @@ export default {
 const TemplateFieldset: Story<FieldsetProps> = (args) => {
   const { name } = args;
   return (
-    <Fieldset {...args}>
-      <label data-h2-display="base(block)" htmlFor="one">
-        One
-        <input type="checkbox" name={name} value="One" id="one" />
-      </label>
-      <label data-h2-display="base(block)" htmlFor="two">
-        Two
-        <input type="checkbox" name={name} value="Two" id="two" />
-      </label>
-      <label data-h2-display="base(block)" htmlFor="three">
-        Three
-        <input type="checkbox" name={name} value="Three" id="three" />
-      </label>
-    </Fieldset>
+    <Form onSubmit={action("Submit Form")}>
+      <Fieldset {...args}>
+        <label data-h2-display="base(block)" htmlFor="one">
+          One
+          <input type="checkbox" name={name} value="One" id="one" />
+        </label>
+        <label data-h2-display="base(block)" htmlFor="two">
+          Two
+          <input type="checkbox" name={name} value="Two" id="two" />
+        </label>
+        <label data-h2-display="base(block)" htmlFor="three">
+          Three
+          <input type="checkbox" name={name} value="Three" id="three" />
+        </label>
+      </Fieldset>
+    </Form>
   );
 };
 

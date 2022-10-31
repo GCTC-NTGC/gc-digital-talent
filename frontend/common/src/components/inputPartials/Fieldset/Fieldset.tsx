@@ -1,19 +1,21 @@
 import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
+import { FieldError } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import { commonMessages } from "../../../messages";
 import InputContext from "../InputContext/InputContext";
 import InputError from "../InputError/InputError";
 
-export interface FieldsetProps {
+export interface FieldsetProps extends React.HTMLProps<HTMLFieldSetElement> {
   /** The text for the legend element. */
-  legend: string;
+  legend: React.ReactNode;
   /** The name of this form control. */
   name?: string;
   /** Controls whether Required or Optional text appears above the fieldset. */
   required?: boolean;
   /** If an error string is provided, it will appear below the fieldset inputs. */
-  error?: string;
+  error?: FieldError | string;
   /** If a context string is provided, a small button will appear which, when toggled, shows the context string. */
   context?: string | React.ReactNode;
   /** If true, all input elements in this fieldset will be disabled. */
@@ -22,6 +24,8 @@ export interface FieldsetProps {
   hideOptional?: boolean;
   /** If true, the legend will be hidden */
   hideLegend?: boolean;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 const Fieldset: React.FC<FieldsetProps> = ({
@@ -34,9 +38,13 @@ const Fieldset: React.FC<FieldsetProps> = ({
   hideOptional,
   hideLegend,
   children,
+  trackUnsaved = true,
+  ...rest
 }) => {
   const [contextIsActive, setContextIsActive] = useState(false);
   const intl = useIntl();
+  const fieldState = useFieldState(name ?? "");
+  const stateStyles = useFieldStateStyles(name ?? "", !trackUnsaved);
   return (
     <fieldset
       name={name}
@@ -46,6 +54,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
         padding: "0",
       }}
       data-h2-margin="base(0, 0, x.125, 0)"
+      {...rest}
     >
       <legend data-h2-visibility="base(invisible)">{legend}</legend>
       <div
@@ -86,6 +95,15 @@ const Fieldset: React.FC<FieldsetProps> = ({
               </span>
             )
           }
+          {fieldState === "dirty" && trackUnsaved && (
+            <span
+              data-h2-font-size="base(caption)"
+              data-h2-margin="base(0, 0, 0, x.125)"
+              data-h2-color="base(darkest.tm-yellow)"
+            >
+              {intl.formatMessage(commonMessages.unSaved)}
+            </span>
+          )}
           {context && (
             <button
               type="button"
@@ -119,8 +137,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
         </div>
       </div>
       <div
-        data-h2-border="base(all, 1px, solid, dt-gray)"
-        data-h2-background-color="base(dt-white)"
+        {...stateStyles}
         data-h2-radius="base(input)"
         data-h2-padding="base(x.5, x.75, x.75, x.75)"
       >

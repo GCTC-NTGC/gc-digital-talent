@@ -130,20 +130,22 @@ describe("AboutMeForm", () => {
 
   it("Should not submit with empty fields.", async () => {
     const mockSave = jest.fn();
-    renderAboutMeForm({
-      initialUser: {
-        id: "",
-        preferredLang: undefined,
-        currentProvince: undefined,
-        currentCity: undefined,
-        telephone: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        citizenship: null,
-        armedForcesStatus: null,
-      },
-      onUpdateAboutMe: mockSave,
+    await act(async () => {
+      renderAboutMeForm({
+        initialUser: {
+          id: "",
+          preferredLang: undefined,
+          currentProvince: undefined,
+          currentCity: undefined,
+          telephone: "",
+          firstName: "",
+          lastName: "",
+          email: "",
+          citizenship: null,
+          armedForcesStatus: null,
+        },
+        onUpdateAboutMe: mockSave,
+      });
     });
 
     fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
@@ -154,9 +156,11 @@ describe("AboutMeForm", () => {
   it("Should submit successfully with required fields", async () => {
     const mockSave = jest.fn(() => Promise.resolve(mockUser));
 
-    renderAboutMeForm({
-      initialUser: mockUser,
-      onUpdateAboutMe: mockSave,
+    act(() => {
+      renderAboutMeForm({
+        initialUser: mockUser,
+        onUpdateAboutMe: mockSave,
+      });
     });
 
     fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
