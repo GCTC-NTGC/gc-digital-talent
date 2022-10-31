@@ -13,9 +13,9 @@ import {
   Pool,
   ApplicantFilterInput,
   Skill,
-  useCountApplicantsQuery,
-  UserPublicProfile,
   useGetSearchFormDataAcrossAllPoolsQuery,
+  useCountPoolCandidatesByPoolQuery,
+  CandidateSearchPoolResult,
 } from "../../api/generated";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
@@ -68,14 +68,12 @@ const applicantFilterToQueryArgs = (
 
 export interface SearchContainerProps {
   classifications: Pick<Classification, "group" | "level">[];
-  pool?: Pick<Pool, "name" | "description">;
-  poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
+  poolCandidateResults?: CandidateSearchPoolResult[];
   skills?: Skill[];
-  candidateCount: number;
-  updatePending?: boolean;
+  fetchingCandidateCount?: boolean;
   applicantFilter?: ApplicantFilterInput;
   onUpdateApplicantFilter: (applicantFilter: ApplicantFilterInput) => void;
-  onSubmit: () => Promise<void>;
+  onSubmit: (candidateCount: number) => Promise<void>;
 }
 
 const testId = (chunks: React.ReactNode): React.ReactNode => (
@@ -84,11 +82,9 @@ const testId = (chunks: React.ReactNode): React.ReactNode => (
 
 export const SearchContainer: React.FC<SearchContainerProps> = ({
   classifications,
-  pool,
-  poolOwner,
+  poolCandidateResults,
   skills,
-  candidateCount,
-  updatePending,
+  fetchingCandidateCount,
   applicantFilter,
   onUpdateApplicantFilter,
   onSubmit,
@@ -108,14 +104,21 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   // at the very end, in a way that confuses Cypress. Caution advised before
   // re-producing this pattern elsewhere.
   // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
-  const tryHandleSubmit = async () => {
+  const tryHandleSubmit = async (candidateCount: number) => {
     if (classificationFilterCount === 0 || locationPreferencesCount === 0) {
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
     } else {
-      onSubmit();
+      onSubmit(candidateCount);
     }
   };
+
+  const totalCandidateCount =
+    poolCandidateResults?.reduce(
+      (previousValue, currentValue) =>
+        previousValue + currentValue.candidateCount,
+      0,
+    ) || 0;
 
   return (
     <div data-h2-padding="base(0, 0, x3, 0)">
@@ -157,8 +160,8 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             data-h2-flex-item="base(1of1) p-tablet(2of5)"
           >
             <EstimatedCandidates
-              candidateCount={candidateCount}
-              updatePending={updatePending}
+              candidateCount={totalCandidateCount}
+              updatePending={fetchingCandidateCount}
             />
           </div>
         </div>
@@ -180,18 +183,18 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           >
             {intl.formatMessage(
               {
-                defaultMessage: `{candidateCount, plural,
-                  =0 {Results: <testId>{candidateCount}</testId> matching candidates}
-                  =1 {Results: <testId>{candidateCount}</testId> matching candidate}
-                  other {Results: <testId>{candidateCount}</testId> matching candidates}
+                defaultMessage: `{totalCandidateCount, plural,
+                  =0 {Results: <testId>{totalCandidateCount}</testId> matching candidates}
+                  =1 {Results: <testId>{totalCandidateCount}</testId> matching candidate}
+                  other {Results: <testId>{totalCandidateCount}</testId> matching candidates}
                 }`,
-                id: "aWLo7o",
+                id: "eeWkWi",
                 description:
                   "Heading for total matching candidates in results section of search page.",
               },
               {
                 testId,
-                candidateCount,
+                totalCandidateCount,
               },
             )}
           </h3>
@@ -203,13 +206,17 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
         <div>
-          {!updatePending ? (
-            <CandidateResults
-              candidateCount={candidateCount}
-              pool={pool}
-              poolOwner={poolOwner}
-              handleSubmit={tryHandleSubmit}
-            />
+          {!fetchingCandidateCount ? (
+            <div>
+              {poolCandidateResults?.map(({ pool, candidateCount }) => (
+                <CandidateResults
+                  key={pool.id}
+                  candidateCount={candidateCount}
+                  pool={pool}
+                  handleSubmit={tryHandleSubmit}
+                />
+              ))}
+            </div>
           ) : (
             <Spinner />
           )}
@@ -220,36 +227,47 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 };
 
 const SearchContainerApi: React.FC = () => {
-  const [{ data, fetching, error }] = useGetSearchFormDataAcrossAllPoolsQuery();
-  const skills = data?.skills;
+  const [
+    {
+      data: searchFormData,
+      fetching: fetchingSearchFormData,
+      error: searchFormDataError,
+    },
+  ] = useGetSearchFormDataAcrossAllPoolsQuery();
+  const skills = searchFormData?.skills as Skill[];
+  const pools = searchFormData?.pools as Pool[];
 
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
-  >(undefined);
-
-  const [{ data: countData, fetching: countFetching }] =
-    useCountApplicantsQuery({
+  >({ pools });
+  const [{ data: candidateCountData, fetching: fetchingCandidateCount }] =
+    useCountPoolCandidatesByPoolQuery({
       variables: applicantFilterToQueryArgs(applicantFilter),
     });
 
-  const candidateCount = countData?.countApplicants ?? 0;
   const paths = useTalentSearchRoutes();
-  const onSubmit = async () => {
-    return pushToStateThenNavigate(paths.request(), {
+  const onSubmit = async (candidateCount: number) => {
+    return pushToStateThenNavigate<{
+      applicantFilter?: ApplicantFilterInput;
+      candidateCount: number;
+      initialValues?: ApplicantFilterInput;
+    }>(paths.request(), {
       applicantFilter,
       candidateCount,
-      initialValues: null,
+      initialValues: {},
     });
   };
 
   return (
-    <Pending {...{ fetching, error }}>
+    <Pending
+      {...{ fetching: fetchingSearchFormData, error: searchFormDataError }}
+    >
       <SearchContainer
         classifications={NonExecutiveITClassifications()}
-        skills={skills as Skill[]}
+        skills={skills}
         applicantFilter={applicantFilter}
-        candidateCount={candidateCount}
-        updatePending={countFetching}
+        poolCandidateResults={candidateCountData?.countPoolCandidatesByPool}
+        fetchingCandidateCount={fetchingCandidateCount}
         onUpdateApplicantFilter={setApplicantFilter}
         onSubmit={onSubmit}
       />
