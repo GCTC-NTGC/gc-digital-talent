@@ -49,7 +49,7 @@ describe("Talent Search Workflow Tests", () => {
 
     searchReturnsGreaterThanZeroApplicants();
 
-    cy.findByRole("button", { name: /Request Candidates/i }).then($button => {
+    cy.findAllByRole("button", { name: /Request Candidates/i }).then($button => {
       cy.wrap($button)
         .should("exist")
         .and("be.visible")
