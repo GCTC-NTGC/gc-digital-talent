@@ -6,13 +6,33 @@ import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
 import { FromArray } from "@common/types/utilityTypes";
 import Pending from "@common/components/Pending";
-import { getAdvertisementStatus } from "@common/constants/localizedConstants";
+import {
+  getAdvertisementStatus,
+  getPoolStream,
+} from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
-import { GetPoolsQuery, Maybe, useGetPoolsQuery } from "../../api/generated";
+import {
+  GetPoolsQuery,
+  Maybe,
+  PoolStream,
+  useGetPoolsQuery,
+} from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
+type AccessorClassifications =
+  | (
+      | {
+          __typename?: "Classification" | undefined;
+          group: string;
+          level: number;
+        }
+      | null
+      | undefined
+    )[]
+  | null
+  | undefined;
 
 // callbacks extracted to separate function to stabilize memoized component
 function poolCandidatesLinkAccessor(
@@ -44,10 +64,21 @@ function viewLinkAccessor(
   editUrlRoot: string,
   id: string,
   title: string | undefined | null,
+  classifications: AccessorClassifications,
+  stream: PoolStream | null,
+  intl: IntlShape,
 ) {
+  let classificationString = ""; // type wrangling the complex type into a string
+  if (classifications && classifications[0]) {
+    const grouping = classifications[0];
+    classificationString = `${grouping.group}-0${grouping.level}`;
+  }
+
   return (
     <Link href={`${editUrlRoot}/${id}`} type="link">
-      {title}
+      {`${title} (${classificationString}${
+        stream ? ` ${intl.formatMessage(getPoolStream(stream))}` : ""
+      })`}
     </Link>
   );
 }
@@ -91,7 +122,14 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Title displayed for the Pool table pool name column.",
         }),
         accessor: (d) =>
-          viewLinkAccessor(editUrlRoot, d.id, d.name ? d.name[locale] : ""),
+          viewLinkAccessor(
+            editUrlRoot,
+            d.id,
+            d.name ? d.name[locale] : "",
+            d.classifications,
+            d.stream ? d.stream : null,
+            intl,
+          ),
       },
       {
         Header: intl.formatMessage({
