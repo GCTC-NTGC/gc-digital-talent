@@ -12,7 +12,7 @@ export interface AlertProps {
 const typeMap = {
   success: {
     "data-h2-border": "base(all, 1px, solid, dt-success)",
-    "data-h2-background-color": "base(light.dt-success.1)",
+    "data-h2-background-color": "base(light.dt-success.10)",
     "data-h2-color": "base(dt-success)",
   },
 };

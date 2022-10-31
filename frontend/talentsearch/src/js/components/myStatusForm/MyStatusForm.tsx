@@ -92,7 +92,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
             data-h2-margin="base(x1, 0)"
             data-h2-padding="base(x1)"
             data-h2-radius="base(input)"
-            data-h2-background-color="base(light.dt-primary.1)"
+            data-h2-background-color="base(light.dt-primary.10)"
           >
             <p
               data-h2-font-weight="base(700)"
