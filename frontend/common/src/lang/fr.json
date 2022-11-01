@@ -1155,7 +1155,7 @@
     "description": "The work region of Canada described as Telework."
   },
   "IW/eej": {
-    "defaultMessage": "\"Je m’identifie comme une femme\"",
+    "defaultMessage": "« Je m’identifie comme une femme »",
     "description": "Statement for when someone indicates they are a woman"
   },
   "IfCvm5": {
@@ -1175,7 +1175,7 @@
     "description": "Secret security clearance"
   },
   "MLP6tt": {
-    "defaultMessage": "\"Je m'identifie comme une personne handicapée\"",
+    "defaultMessage": "« Je m'identifie comme une personne handicapée »",
     "description": "Statement for when someone indicates they have a disability"
   },
   "O+MHnP": {
@@ -1199,7 +1199,7 @@
     "description": "Group for when someone indicates they have a disability"
   },
   "RBHmM6": {
-    "defaultMessage": "Autres compétences \"utiles à avoir\" que vous pourriez envisager d'ajouter à votre profil :",
+    "defaultMessage": "Autres compétences « utiles à avoir » que vous pourriez envisager d'ajouter à votre profil :",
     "description": "Text that appears when a user is missing optional skills on their profile"
   },
   "RQGy+0": {
@@ -1239,7 +1239,7 @@
     "description": "The name of the Senior advisor classification with group and level."
   },
   "bOch3v": {
-    "defaultMessage": "Les compétences suivantes \"exigence\" <red>required</red> sont manquantes dans votre profil :",
+    "defaultMessage": "Les compétences suivantes « exigence » <red>required</red> sont manquantes dans votre profil :",
     "description": "Text that appears when a user is missing required skills on their profile"
   },
   "c39xT8": {
@@ -1303,7 +1303,7 @@
     "description": "Default placeholder shown when Select field has nothing actively selected."
   },
   "s4y1nI": {
-    "defaultMessage": "\"Je m'identifie comme membre d'une minorité visible\"",
+    "defaultMessage": "« Je m'identifie comme membre d'une minorité visible »",
     "description": "Statement for when someone indicates they are a visible minority"
   },
   "vO/SlS": {
@@ -1315,7 +1315,7 @@
     "description": "The name of the Team leader Analyst classification with group and level."
   },
   "wtImjn": {
-    "defaultMessage": "\"Je suis autochtone\"",
+    "defaultMessage": "« Je suis autochtone »",
     "description": "Statement for when someone indicates they are indigenous"
   },
   "ylHC90": {
