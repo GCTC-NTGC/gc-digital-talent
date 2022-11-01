@@ -79,6 +79,7 @@ const MultiSelect = ({
                     ...provided,
                     color: `#646464`,
                   }),
+                  menu: (provided) => ({ ...provided, zIndex: 11 }),
                 }}
               />
             )}
