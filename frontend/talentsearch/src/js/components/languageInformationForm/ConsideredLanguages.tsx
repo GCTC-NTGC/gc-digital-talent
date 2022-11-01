@@ -43,8 +43,8 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
         }
       >
         {intl.formatMessage({
-          defaultMessage: "Government of Canada language evaluation.",
-          id: "Ugr5Yt",
+          defaultMessage: "Government of Canada language evaluation",
+          id: "3vjhOA",
           description: "Message on links to the language evaluation tests",
         })}
       </ExternalLink>
@@ -78,8 +78,8 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
       label: intl.formatMessage(
         {
           defaultMessage:
-            "I am bilingual (En/Fr) and <strong>have</strong> completed an official <strong>ENGLISH</strong> <languageEvaluationPageLink></languageEvaluationPageLink>",
-          id: "ljnSYf",
+            "I am bilingual (En/Fr) and <strong>have</strong> completed an official <strong>ENGLISH</strong> <languageEvaluationPageLink></languageEvaluationPageLink>.",
+          id: "HPDqDV",
           description:
             "Message for the completed english bilingual evaluation option",
         },
@@ -93,8 +93,8 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
       label: intl.formatMessage(
         {
           defaultMessage:
-            "I am bilingual (En/Fr) and <strong>have</strong> completed an official <strong>FRENCH</strong> <languageEvaluationPageLink></languageEvaluationPageLink>",
-          id: "pak8ye",
+            "I am bilingual (En/Fr) and <strong>have</strong> completed an official <strong>FRENCH</strong> <languageEvaluationPageLink></languageEvaluationPageLink>.",
+          id: "shwFSK",
           description:
             "Message for the completed french bilingual evaluation option",
         },
@@ -108,8 +108,8 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
       label: intl.formatMessage(
         {
           defaultMessage:
-            "I am bilingual (En/Fr) and <strong>have NOT</strong> completed an official <languageEvaluationPageLink></languageEvaluationPageLink>",
-          id: "FfEyFv",
+            "I am bilingual (En/Fr) and <strong>have NOT</strong> completed an official <languageEvaluationPageLink></languageEvaluationPageLink>.",
+          id: "5g49WB",
           description:
             "Message for the haven't completed bilingual evaluation option",
         },
