@@ -3,13 +3,11 @@ import { Meta, Story } from "@storybook/react";
 
 import { FromArray } from "@common/types/utilityTypes";
 
-import { Button } from "@common/components";
 import { action } from "@storybook/addon-actions";
 import { fakeUsers } from "@common/fakeData";
 import BasicTable from "./BasicTable";
 import TableHeader from "./TableHeader";
 import TableFooter from "./TableFooter";
-import { PaginatorInfo, User } from "../../api/generated";
 import {
   ColumnsOf,
   handleColumnHiddenChange,
