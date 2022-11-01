@@ -1002,8 +1002,8 @@
     "defaultMessage": "p. ex. thomas.edison@example.com",
     "description": "Placeholder displayed for the first name field in create account form."
   },
-  "Ugr5Yt": {
-    "defaultMessage": "Évaluation linguistique du gouvernement du Canada.",
+  "3vjhOA": {
+    "defaultMessage": "Évaluation linguistique du gouvernement du Canada",
     "description": "Message on links to the language evaluation tests"
   },
   "Uh9Yj4": {
@@ -1070,7 +1070,7 @@
     "description": "Placeholder displayed on the language information form verbal field."
   },
   "Y7l4/n": {
-    "defaultMessage": "Veuillez indiquer les niveaux linguistiques que vous avez acquis de votre évaluation linguistique du gouvernement du Canada.",
+    "defaultMessage": "Veuillez indiquer les niveaux linguistiques obtenus lors de votre évaluation linguistique du Gouvernement du Canada.",
     "description": "Text requesting language levels given from bilingual evaluation in language information form"
   },
   "YA/7nb": {
@@ -1256,9 +1256,9 @@
     "defaultMessage": "Expérience mise à jour avec succès!",
     "description": "Success message displayed after updating experience on profile"
   },
-  "k0++o0": {
+  "64Pv6e": {
     "defaultMessage": "Préférences de travail",
-    "description": "Title for Profile Form wrapper  in Work Preferences Form"
+    "description": "Title for Profile Form wrapper in Work Preferences Form"
   },
   "kCBLsJ": {
     "defaultMessage": "Rôle et salaire escomptés",
@@ -1301,7 +1301,7 @@
     "description": "Title for Profile Form wrapper  in Work Location Preferences Form"
   },
   "nVh2Qh": {
-    "defaultMessage": "Si vous voulez connaître vos niveaux de compétence linguistique, <selfAssessmentLink>cliquez ici pour le savoir</selfAssessmentLink>.",
+    "defaultMessage": "Si vous voulez connaître votre niveau de compétence linguistique, <selfAssessmentLink>cliquez ici pour le savoir</selfAssessmentLink>.",
     "description": "Text including link to language proficiency evaluation in language information form"
   },
   "nrBkon": {
@@ -1448,9 +1448,9 @@
     "defaultMessage": "Recherche...",
     "description": "Message to display when a search is in progress."
   },
-  "wKIVFc": {
-    "defaultMessage": "Certains emplois exigent que vous travailliez des heures inhabituelles ou que vous accomplissiez des tâches qui sont un peu en dehors de la normale. Veuillez indiquer les exigences spéciales avec lesquelles vous êtes à l'aise.",
-    "description": "Description text for Profile Form wrapper  in Work Preferences Form"
+  "jp6hlj": {
+    "defaultMessage": "Certains emplois exigent que vous travailliez des heures inhabituelles ou que vous accomplissiez des tâches qui sont un peu en dehors de la norme. Veuillez indiquer les exigences spéciales avec lesquelles vous êtes à l'aise.",
+    "description": "Description text for Profile Form wrapper in Work Preferences Form"
   },
   "x5C9Ab": {
     "defaultMessage": "Écrit",
@@ -1540,16 +1540,16 @@
     "defaultMessage": "{candidateCount, plural, one {Il y a <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères dans ce bassin} other {Il y a <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères dans ce bassin}}",
     "description": "Message for total estimated matching candidates in pool"
   },
-  "pak8ye": {
-    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>FRANÇAIS</strong>",
+  "shwFSK": {
+    "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>FRANÇAIS</strong>.",
     "description": "Message for the completed french bilingual evaluation option"
   },
   "paLFgh": {
     "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
     "description": "Message for the advanced language ability option"
   },
-  "FfEyFv": {
-    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>je n'ai PAS</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle",
+  "5g49WB": {
+    "defaultMessage": "Je suis bilingue (anglais et français) et <strong>je n'ai PAS</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle.",
     "description": "Message for the haven't completed bilingual evaluation option"
   },
   "+bC9lc": {
@@ -1560,8 +1560,8 @@
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants. Les conseillers principaux en TI se retrouvent principalement dans six volets de travail :",
     "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
   },
-  "ljnSYf": {
-    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>",
+  "HPDqDV": {
+    "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>.",
     "description": "Message for the completed english bilingual evaluation option"
   },
   "m21EOJ": {
@@ -2152,9 +2152,9 @@
     "defaultMessage": "En option, ajoutez une ville ou un village ici...",
     "description": "Location Exemptions field placeholder for work location preference form"
   },
-  "P+UY4i": {
-    "defaultMessage": "Numéro de priorité",
-    "description": "label for priority number input"
+  "5G+j56": {
+    "defaultMessage": "Numéro de priorité accordé par la Commission de la fonction publique du Canada",
+    "description": "Label for priority number input"
   },
   "PXfQOZ": {
     "defaultMessage": "Archiver",
@@ -2340,8 +2340,8 @@
     "defaultMessage": "J’ai un droit de priorité",
     "description": "Label displayed does have priority entitlement option"
   },
-  "v0JyBd": {
-    "defaultMessage": "Avez-vous un droit de priorité pour les candidatures du gouvernement du Canada?",
+  "25VYzu": {
+    "defaultMessage": "Avez-vous un droit de priorité pour les candidatures du gouvernement du Canada? Ce statut est accordé par la Commission de la fonction publique du Canada. Pour en savoir plus, <priorityEntitlementLink>visitez le site de l'information sur les droits de priorité</priorityEntitlementLink>.",
     "description": "Sentence asking whether the user possesses priority entitlement"
   },
   "vQzmUH": {
