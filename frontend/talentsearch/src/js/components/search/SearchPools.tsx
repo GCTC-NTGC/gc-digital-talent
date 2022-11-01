@@ -11,8 +11,8 @@ const testId = (text: React.ReactNode) => (
 
 export interface SearchPoolsProps {
   candidateCount: number;
-  pool?: Pick<Pool, "owner" | "name" | "description">;
-  handleSubmit: (candidateCount: number) => Promise<void>;
+  pool: Pick<Pool, "id" | "owner" | "name" | "description">;
+  handleSubmit: (candidateCount: number, poolId: string) => Promise<void>;
 }
 
 const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
@@ -69,7 +69,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
       <Button
         color="cta"
         mode="solid"
-        onClick={() => handleSubmit(candidateCount)}
+        onClick={() => handleSubmit(candidateCount, pool.id)}
       >
         {intl.formatMessage({
           defaultMessage: "Request Candidates",

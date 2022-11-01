@@ -32,9 +32,9 @@ import {
 import FilterBlock from "./FilterBlock";
 import AddSkillsToFilter from "../skills/AddSkillsToFilter";
 import {
+  filterPoolsBySelectedClassification,
   SimpleClassification,
   SimplePool,
-  filterPoolsBySelectedClassification,
 } from "../../types/poolUtils";
 
 const NullSelection = "NULL_SELECTION";

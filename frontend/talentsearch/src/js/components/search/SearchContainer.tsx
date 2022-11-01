@@ -15,6 +15,7 @@ import {
   useGetSearchFormDataAcrossAllPoolsQuery,
   useCountPoolCandidatesByPoolQuery,
   CandidateSearchPoolResult,
+  useCountApplicantsQuery,
 } from "../../api/generated";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
@@ -69,12 +70,13 @@ const applicantFilterToQueryArgs = (
 export interface SearchContainerProps {
   applicantFilter?: ApplicantFilterInput;
   classifications: SimpleClassification[];
-  fetchingCandidateCount?: boolean;
-  pools?: SimplePool[];
+  updatePending: boolean;
+  pools: SimplePool[];
   poolCandidateResults?: CandidateSearchPoolResult[];
   skills?: Skill[];
+  totalCandidateCount: number;
   onUpdateApplicantFilter: (applicantFilter: ApplicantFilterInput) => void;
-  onSubmit: (candidateCount: number) => Promise<void>;
+  onSubmit: (candidateCount: number, poolId: string) => Promise<void>;
 }
 
 const testId = (chunks: React.ReactNode): React.ReactNode => (
@@ -84,10 +86,11 @@ const testId = (chunks: React.ReactNode): React.ReactNode => (
 export const SearchContainer: React.FC<SearchContainerProps> = ({
   applicantFilter,
   classifications,
-  fetchingCandidateCount,
+  updatePending,
   poolCandidateResults,
   pools,
   skills,
+  totalCandidateCount,
   onUpdateApplicantFilter,
   onSubmit,
 }) => {
@@ -105,21 +108,14 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   // at the very end, in a way that confuses Cypress. Caution advised before
   // re-producing this pattern elsewhere.
   // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
-  const tryHandleSubmit = async (candidateCount: number) => {
+  const tryHandleSubmit = async (candidateCount: number, poolId: string) => {
     if (poolClassificationFilterCount === 0 || locationPreferencesCount === 0) {
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
     } else {
-      onSubmit(candidateCount);
+      onSubmit(candidateCount, poolId);
     }
   };
-
-  const totalCandidateCount =
-    poolCandidateResults?.reduce(
-      (previousValue, currentValue) =>
-        previousValue + currentValue.candidateCount,
-      0,
-    ) || 0;
 
   return (
     <div data-h2-padding="base(0, 0, x3, 0)">
@@ -163,7 +159,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           >
             <EstimatedCandidates
               candidateCount={totalCandidateCount}
-              updatePending={fetchingCandidateCount}
+              updatePending={updatePending}
             />
           </div>
         </div>
@@ -208,7 +204,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
         <div>
-          {!fetchingCandidateCount ? (
+          {!updatePending ? (
             <div>
               {poolCandidateResults?.map(({ pool, candidateCount }) => (
                 <CandidateResults
@@ -229,6 +225,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 };
 
 const SearchContainerApi: React.FC = () => {
+  // Fetches all data for the filters on the search form (eg. classifications, skills, etc.).
   const [
     {
       data: searchFormData,
@@ -257,19 +254,32 @@ const SearchContainerApi: React.FC = () => {
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
   >({ pools });
-  const [{ data: candidateCountData, fetching: fetchingCandidateCount }] =
-    useCountPoolCandidatesByPoolQuery({
+
+  // Fetches the number of pool candidates by pool to display on pool cards.
+  const [
+    { data: poolCandidateResultsData, fetching: fetchingPoolCandidateResults },
+  ] = useCountPoolCandidatesByPoolQuery({
+    variables: applicantFilterToQueryArgs(applicantFilter),
+  });
+
+  // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
+  const [{ data: countApplicantsData, fetching: fetchingCandidateCount }] =
+    useCountApplicantsQuery({
       variables: applicantFilterToQueryArgs(applicantFilter),
     });
+  const totalCandidateCount = countApplicantsData?.countApplicants || 0;
 
   const paths = useTalentSearchRoutes();
-  const onSubmit = async (candidateCount: number) => {
+  const onSubmit = async (candidateCount: number, poolId: string) => {
     return pushToStateThenNavigate<{
       applicantFilter?: ApplicantFilterInput;
       candidateCount: number;
       initialValues?: ApplicantFilterInput;
     }>(paths.request(), {
-      applicantFilter,
+      applicantFilter: {
+        ...applicantFilter,
+        pools: [{ id: poolId }],
+      },
       candidateCount,
       initialValues: applicantFilter,
     });
@@ -282,10 +292,13 @@ const SearchContainerApi: React.FC = () => {
       <SearchContainer
         applicantFilter={applicantFilter}
         classifications={searchableClassifications}
-        fetchingCandidateCount={fetchingCandidateCount}
+        updatePending={fetchingCandidateCount && fetchingPoolCandidateResults}
         pools={pools}
-        poolCandidateResults={candidateCountData?.countPoolCandidatesByPool}
+        poolCandidateResults={
+          poolCandidateResultsData?.countPoolCandidatesByPool
+        }
         skills={skills}
+        totalCandidateCount={totalCandidateCount}
         onUpdateApplicantFilter={setApplicantFilter}
         onSubmit={onSubmit}
       />

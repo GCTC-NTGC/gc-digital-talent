@@ -33,7 +33,7 @@ const testId = (chunks: React.ReactNode): React.ReactNode => (
 export interface SearchContainerProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  pool?: Pick<Pool, "name" | "description">;
+  pool: Pick<Pool, "id" | "owner" | "name" | "description">;
   candidateCount: number;
   updatePending?: boolean;
   candidateFilter?: PoolCandidateFilterInput | undefined;
@@ -269,7 +269,7 @@ export const SearchContainerApi: React.FC = () => {
   const [{ data, fetching, error }] = useGetSearchFormDataQuery({
     variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
   });
-  const pool = data?.poolByKey;
+  const pool = data?.poolByKey as Pool;
 
   const [candidateFilter, setCandidateFilter] = useState<
     PoolCandidateFilterInput | undefined
@@ -299,7 +299,7 @@ export const SearchContainerApi: React.FC = () => {
       <SearchContainer
         classifications={pool?.classifications?.filter(notEmpty) ?? []}
         cmoAssets={pool?.assetCriteria?.filter(notEmpty) ?? []}
-        pool={pool ?? undefined}
+        pool={pool}
         candidateFilter={candidateFilter}
         candidateCount={candidateCount}
         updatePending={countFetching}
