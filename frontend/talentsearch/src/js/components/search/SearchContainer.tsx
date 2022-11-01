@@ -100,6 +100,16 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     applicantFilter?.operationalRequirements?.length ?? 0;
   const locationPreferencesCount =
     applicantFilter?.locationPreferences?.length ?? 0;
+  const educationSelection = applicantFilter?.hasDiploma;
+  const workingLanguage = applicantFilter?.languageAbility ?? null;
+  const employmentDuration = applicantFilter?.wouldAcceptTemporary;
+  // check if any equity filters are active, counting is not used as selecting multiple equity filters increases the potential match count as it is OR not AND
+  const equityFiltersActive =
+    applicantFilter?.equity?.hasDisability ||
+    applicantFilter?.equity?.isIndigenous ||
+    applicantFilter?.equity?.isVisibleMinority ||
+    applicantFilter?.equity?.isWoman;
+  const skillCount = applicantFilter?.skills?.length ?? 0;
 
   const searchRef = useRef<SearchFormRef>(null);
 
@@ -196,10 +206,14 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             )}
           </h3>
           <SearchFilterAdvice
-            classificationFilterCount={poolClassificationFilterCount}
             operationalRequirementFilterCount={
               operationalRequirementFilterCount
             }
+            educationSelection={educationSelection}
+            workingLanguage={workingLanguage}
+            employmentDuration={employmentDuration}
+            equityFiltersActive={equityFiltersActive}
+            skillCount={skillCount}
           />
         </div>
         <div>
