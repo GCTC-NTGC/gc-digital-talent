@@ -315,9 +315,7 @@ export const SingleSearchRequest: React.FunctionComponent<
               "Heading for the candidate results section of the single search request view.",
           })}
         </h2>
-        <SingleSearchRequestTableApi
-          poolCandidateFilter={poolCandidateFilterInput}
-        />
+        <SingleSearchRequestTableApi filterInput={poolCandidateFilterInput} />
       </div>
       <UpdateSearchRequest initialSearchRequest={searchRequest} />
     </section>

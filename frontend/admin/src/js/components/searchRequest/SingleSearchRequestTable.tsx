@@ -11,6 +11,8 @@ import {
   SearchPoolCandidatesQuery,
   useSearchPoolCandidatesQuery,
   PoolCandidateFilterInput,
+  ApplicantFilterInput,
+  useSearchApplicantsQuery,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -247,19 +249,44 @@ export const SingleSearchRequestTable: React.FunctionComponent<
   return <Table data={memoizedData} columns={columns} />;
 };
 
-export const SingleSearchRequestTableApi: React.FunctionComponent<{
-  poolCandidateFilter: PoolCandidateFilterInput;
-}> = ({ poolCandidateFilter }) => {
-  const [result] = useSearchPoolCandidatesQuery({
-    variables: { poolCandidateFilter },
-  });
-  const { data, fetching, error } = result;
+type AbstractFilterInput = PoolCandidateFilterInput | ApplicantFilterInput;
 
-  return (
-    <Pending fetching={fetching} error={error}>
+function checkIsLegacyFilter(
+  filterInput: AbstractFilterInput,
+): filterInput is PoolCandidateFilterInput {
+  if ("cmoAssets" in filterInput) return true;
+
+  return false;
+}
+
+function useSearchQuery(filterInput: AbstractFilterInput) {
+  const isLegacyFilter = checkIsLegacyFilter(filterInput);
+  // See: https://formidable.com/open-source/urql/docs/basics/react-preact/#pausing-usequery
+  const [legacyResult] = useSearchPoolCandidatesQuery({
+    variables: { poolCandidateFilter: filterInput },
+    pause: !isLegacyFilter,
+  });
+  const [result] = useSearchApplicantsQuery({
+    variables: { applicantFilter: filterInput },
+    pause: isLegacyFilter,
+  });
+
+  return { legacyResult, result };
+}
+
+export const SingleSearchRequestTableApi: React.FunctionComponent<{
+  filterInput: AbstractFilterInput;
+}> = ({ filterInput }) => {
+  const isLegacyFilter = checkIsLegacyFilter(filterInput);
+  const { legacyResult, result } = useSearchQuery(filterInput);
+
+  return isLegacyFilter ? (
+    <Pending fetching={legacyResult.fetching} error={legacyResult.error}>
       <SingleSearchRequestTable
-        searchPoolCandidates={data?.searchPoolCandidates ?? []}
+        searchPoolCandidates={legacyResult.data?.searchPoolCandidates ?? []}
       />
     </Pending>
+  ) : (
+    <div>should not render</div>
   );
 };
