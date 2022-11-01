@@ -13,9 +13,8 @@ import {
   ApplicantFilterInput,
   Skill,
   useGetSearchFormDataAcrossAllPoolsQuery,
-  useCountPoolCandidatesByPoolQuery,
   CandidateSearchPoolResult,
-  useCountApplicantsQuery,
+  useCountApplicantsAndCountPoolCandidatesByPoolQuery,
 } from "../../api/generated";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
@@ -255,19 +254,13 @@ const SearchContainerApi: React.FC = () => {
     ApplicantFilterInput | undefined
   >({ pools });
 
-  // Fetches the number of pool candidates by pool to display on pool cards.
-  const [
-    { data: poolCandidateResultsData, fetching: fetchingPoolCandidateResults },
-  ] = useCountPoolCandidatesByPoolQuery({
-    variables: applicantFilterToQueryArgs(applicantFilter),
-  });
-
+  // Fetches the number of pool candidates by pool to display on pool cards AND
   // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
-  const [{ data: countApplicantsData, fetching: fetchingCandidateCount }] =
-    useCountApplicantsQuery({
+  const [{ data: candidatesData, fetching: fetchingCandidates }] =
+    useCountApplicantsAndCountPoolCandidatesByPoolQuery({
       variables: applicantFilterToQueryArgs(applicantFilter),
     });
-  const totalCandidateCount = countApplicantsData?.countApplicants || 0;
+  const totalCandidateCount = candidatesData?.countApplicants || 0;
 
   const paths = useTalentSearchRoutes();
   const onSubmit = async (candidateCount: number, poolId: string) => {
@@ -292,11 +285,9 @@ const SearchContainerApi: React.FC = () => {
       <SearchContainer
         applicantFilter={applicantFilter}
         classifications={searchableClassifications}
-        updatePending={fetchingCandidateCount && fetchingPoolCandidateResults}
+        updatePending={fetchingCandidates}
         pools={pools}
-        poolCandidateResults={
-          poolCandidateResultsData?.countPoolCandidatesByPool
-        }
+        poolCandidateResults={candidatesData?.countPoolCandidatesByPool}
         skills={skills}
         totalCandidateCount={totalCandidateCount}
         onUpdateApplicantFilter={setApplicantFilter}

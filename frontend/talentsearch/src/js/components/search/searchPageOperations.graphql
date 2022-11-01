@@ -1,4 +1,5 @@
-query CountPoolCandidatesByPool ($where: ApplicantFilterInput) {
+query CountApplicantsAndCountPoolCandidatesByPool ($where: ApplicantFilterInput) {
+  countApplicants(where: $where)
   countPoolCandidatesByPool(where: $where) {
     pool {
       id
