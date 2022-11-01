@@ -37,5 +37,5 @@ export const UpdatingSearchPage = TemplateSearchPage.bind({});
 
 UpdatingSearchPage.args = {
   ...SearchPage.args,
-  fetchingCandidateCount: true,
+  updatePending: true,
 };
