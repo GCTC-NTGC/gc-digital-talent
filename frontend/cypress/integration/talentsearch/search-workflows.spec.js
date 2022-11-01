@@ -40,7 +40,7 @@ describe("Talent Search Workflow Tests", () => {
     cy.findByRole("combobox", { name: /Region/i }).then($input => {
       cy.wrap($input).type("Telework{enter}{enter}")
       cy.wait("@gqlCountPoolCandidatesByPoolQuery");
-      cy.wait("@gqlcountApplicantsQuery");v
+      cy.wait("@gqlcountApplicantsQuery");
 
       cy.wrap($input).type("Ontario{enter}{enter}")
       cy.wait("@gqlCountPoolCandidatesByPoolQuery");
