@@ -101,7 +101,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   const locationPreferencesCount =
     applicantFilter?.locationPreferences?.length ?? 0;
   const educationSelection = applicantFilter?.hasDiploma;
-  const workingLanguage = applicantFilter?.languageAbility ?? null;
+  const workingLanguage = applicantFilter?.languageAbility;
   const employmentDuration = applicantFilter?.wouldAcceptTemporary;
   // check if any equity filters are active, counting is not used as selecting multiple equity filters increases the potential match count as it is OR not AND
   const equityFiltersActive =

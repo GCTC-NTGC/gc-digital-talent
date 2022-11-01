@@ -5,7 +5,7 @@ import { LanguageAbility, Maybe } from "../../api/generated";
 const SearchFilterAdvice: React.FC<{
   operationalRequirementFilterCount: number;
   educationSelection: Maybe<boolean>;
-  workingLanguage: LanguageAbility | null;
+  workingLanguage: Maybe<LanguageAbility>;
   employmentDuration: Maybe<boolean>;
   equityFiltersActive: Maybe<boolean>;
   skillCount: number;

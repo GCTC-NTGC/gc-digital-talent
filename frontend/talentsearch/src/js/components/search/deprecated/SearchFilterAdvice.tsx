@@ -5,7 +5,7 @@ import { LanguageAbility, Maybe } from "talentsearch/src/js/api/generated";
 const SearchFilterAdvice: React.FC<{
   cmoAssetFilterCount: number;
   operationalRequirementFilterCount: number;
-  workingLanguage: LanguageAbility | null;
+  workingLanguage: Maybe<LanguageAbility>;
   educationFilter: Maybe<boolean>;
   equityFiltersActive: Maybe<boolean>;
 }> = ({
