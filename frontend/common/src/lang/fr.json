@@ -1003,7 +1003,7 @@
     "description": "Error message displayed when the search term length is less then 2 characters."
   },
   "W6Jh6N": {
-    "defaultMessage": "Retirer cette compétence<hidden>: {skillName}</hidden>",
+    "defaultMessage": "Retirer cette compétence<hidden> : {skillName}</hidden>",
     "description": "Button label to remove the adjacent skill on skill result block."
   },
   "JY6WhU": {
@@ -1015,7 +1015,7 @@
     "description": "Placeholder for the skills search bar."
   },
   "MO80Mu": {
-    "defaultMessage": "Ajouter cette compétence<hidden>: {skillName}</hidden>",
+    "defaultMessage": "Ajouter cette compétence<hidden> : {skillName}</hidden>",
     "description": "Button label to add the adjacent skill on skill result block."
   },
   "BnnVAv": {
