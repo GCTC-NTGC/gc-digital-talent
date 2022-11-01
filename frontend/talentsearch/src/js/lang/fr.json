@@ -2411,5 +2411,25 @@
   "mI6AeU": {
     "defaultMessage": "À venir",
     "description": "Text displayed for executive jobs on homepage, indicating it is not ready"
+  },
+  "7X5cnb": {
+    "defaultMessage": "Modifier le prix",
+    "description": "Page title for the award profile form"
+  },
+  "LN0Wag": {
+    "defaultMessage": "Modifier l’expérience de la collectivité",
+    "description": "Page title for the community experience profile form"
+  },
+  "7DtNMY": {
+    "defaultMessage": "Modifier l’expérience en matière de scolarité",
+    "description": "Page title for the education experience profile form"
+  },
+  "96GHnx": {
+    "defaultMessage": "Modifier l’expérience personnelle",
+    "description": "Page title for the personal experience profile form"
+  },
+  "Ytlyzb": {
+    "defaultMessage": "Modifier l’expérience de travail",
+    "description": "Page title for the work experience profile form"
   }
 }
