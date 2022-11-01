@@ -21,18 +21,7 @@ import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
-type AccessorClassifications =
-  | (
-      | {
-          __typename?: "Classification" | undefined;
-          group: string;
-          level: number;
-        }
-      | null
-      | undefined
-    )[]
-  | null
-  | undefined;
+type AccessorClassifications = Data["classifications"];
 
 // callbacks extracted to separate function to stabilize memoized component
 function poolCandidatesLinkAccessor(
@@ -63,7 +52,7 @@ function poolCandidatesLinkAccessor(
 function viewLinkAccessor(
   editUrlRoot: string,
   id: string,
-  title: string | undefined | null,
+  title: Maybe<string>,
   classifications: AccessorClassifications,
   stream: PoolStream | null,
   intl: IntlShape,
@@ -76,7 +65,7 @@ function viewLinkAccessor(
 
   return (
     <Link href={`${editUrlRoot}/${id}`} type="link">
-      {`${title} (${classificationString}${
+      {`${title ? `${title} ` : ""}(${classificationString}${
         stream ? ` ${intl.formatMessage(getPoolStream(stream))}` : ""
       })`}
     </Link>
