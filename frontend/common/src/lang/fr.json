@@ -939,7 +939,7 @@
     "description": "The work region of Canada described as Ontario."
   },
   "duwt+A": {
-    "defaultMessage": "m'oblige à <strong>avoir un permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
+    "defaultMessage": "m'exige d'avoir un <strong>permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
   "eYak7E": {
@@ -963,7 +963,7 @@
     "description": "The work region of Canada described as British Columbia."
   },
   "dIZ4oj": {
-    "defaultMessage": "m'oblige à <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
+    "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "ubXVBC": {
@@ -971,11 +971,11 @@
     "description": "The work region of Canada described as Atlantic."
   },
   "X/hYMf": {
-    "defaultMessage": "a<strong> des quarts de travail sur appel 24 heures sur 24, 7 jours sur 7 </strong>.",
+    "defaultMessage": "exige des <strong>quarts de travail sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
     "description": "The operational requirement described as 24/7 on-call."
   },
   "qnYbyw": {
-    "defaultMessage": "m'oblige à <strong>voyager</strong>.",
+    "defaultMessage": "m'exige de <strong>voyager</strong>.",
     "description": "The operational requirement described as travel as required."
   },
   "ZcvDAo": {
@@ -983,7 +983,7 @@
     "description": "Message that there are required fields missing. Please ignore things in <> tags."
   },
   "9rn/MG": {
-    "defaultMessage": "a un <strong>travail par quart</strong>.",
+    "defaultMessage": "exige <strong>des quarts de travail</strong>.",
     "description": "The operational requirement described as shift work."
   },
   "CFAc15": {
@@ -1135,7 +1135,7 @@
     "description": "Beginner, skill level"
   },
   "RYg7vl": {
-    "defaultMessage": "m'oblige à <strong>faire des heures supplémentaires occasionnelles</strong>.",
+    "defaultMessage": "exige des <strong>heures supplémentaires occasionnelles</strong>.",
     "description": "The operational requirement described as occasional overtime."
   },
   "F3/88e": {
@@ -1187,7 +1187,7 @@
     "description": "Text that appears in links that open in a new tab."
   },
   "cEB0aW": {
-    "defaultMessage": "m'oblige à <strong>faire des heures supplémentaires régulièrement</strong>.",
+    "defaultMessage": "exige des <strong>heures supplémentaires régulièrement</strong>.",
     "description": "The operational requirement described as regular overtime."
   },
   "PzyMeM": {
