@@ -26,6 +26,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import {
   getAdvertisementStatus,
   getLanguageRequirement,
+  getPoolStream,
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import {
@@ -322,33 +323,39 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <div data-h2-flex-grid="base(flex-start, x1, 0)">
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
-                  id="targetClassification"
-                  name="targetClassification"
+                  id="classification"
+                  name="classification"
                   type="text"
                   readOnly
                   hideOptional
-                  value={`${classification.group}-0${classification.level}`}
+                  value={`${classification.group}-0${
+                    classification.level
+                  }  (${getLocalizedName(classification.name, intl)})`}
                   label={intl.formatMessage({
-                    defaultMessage: "Target classification",
-                    id: "fhkgW2",
+                    defaultMessage: "Classification",
+                    id: "w/qZsH",
                     description:
-                      "Label for a pool advertisements classification group and level",
+                      "Label displayed on the pool form classification field.",
                   })}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
-                  id="genericTitle"
-                  name="genericTitle"
+                  id="stream"
+                  name="stream"
                   type="text"
                   readOnly
                   hideOptional
-                  value={getLocalizedName(genericTitle?.name, intl)}
+                  value={
+                    pool.stream
+                      ? intl.formatMessage(getPoolStream(pool.stream))
+                      : ""
+                  }
                   label={intl.formatMessage({
-                    defaultMessage: "Generic",
-                    id: "OumQY2",
+                    defaultMessage: "Streams/Job Titles",
+                    id: "PzijvH",
                     description:
-                      "Label for a pool advertisements generic title",
+                      "Label displayed on the pool form stream/job title field.",
                   })}
                 />
               </div>
@@ -359,7 +366,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   type="text"
                   readOnly
                   hideOptional
-                  value={classification?.name?.en ?? ""}
+                  value={pool.name?.en ?? ""}
                   label={intl.formatMessage({
                     defaultMessage: "Specific Title (English)",
                     id: "fTwl6k",
@@ -375,7 +382,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   type="text"
                   readOnly
                   hideOptional
-                  value={classification?.name?.fr ?? ""}
+                  value={pool.name?.fr ?? ""}
                   label={intl.formatMessage({
                     defaultMessage: "Specific Title (French)",
                     id: "MDjwSO",
