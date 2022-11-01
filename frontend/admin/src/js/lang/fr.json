@@ -2788,5 +2788,9 @@
   "wHX/8C": {
     "defaultMessage": "Admin",
     "description": "Title tag for Admin site"
+  },
+  "FxceQZ": {
+    "defaultMessage": "(La demande est toujours en suspens)",
+    "description": "Text for when date done is pending in the manager info section of the single search request view."
   }
 }
