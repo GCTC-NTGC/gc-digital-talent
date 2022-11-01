@@ -4,6 +4,7 @@ describe("Talent Search Workflow Tests", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "CountPoolCandidatesByPool");
+      aliasQuery(req, "countApplicants");
       aliasQuery(req, "getPoolCandidateSearchRequestData");
       aliasMutation(req, "createPoolCandidateSearchRequest");
     });
@@ -22,31 +23,38 @@ describe("Talent Search Workflow Tests", () => {
   it("searches for candidates and submits a request", () => {
     // first request is without any filters
     cy.wait("@gqlCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlcountApplicantsQuery");
 
     // second request is properly filtered
     searchReturnsGreaterThanZeroApplicants();
 
     cy.findByRole("combobox", { name: /Classification/i }).select(1);
     cy.wait("@gqlCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlcountApplicantsQuery");
 
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,
     }).click();
     cy.wait("@gqlCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlcountApplicantsQuery");
 
     // Wait for each request to finish, to minimize inconsistent state.
     cy.findByRole("combobox", { name: /Region/i }).then($input => {
       cy.wrap($input).type("Telework{enter}{enter}")
       cy.wait("@gqlCountPoolCandidatesByPoolQuery");
+      cy.wait("@gqlcountApplicantsQuery");v
 
       cy.wrap($input).type("Ontario{enter}{enter}")
       cy.wait("@gqlCountPoolCandidatesByPoolQuery");
+      cy.wait("@gqlcountApplicantsQuery");
 
       cy.wrap($input).type("National Capital{enter}{enter}")
       cy.wait("@gqlCountPoolCandidatesByPoolQuery");
+      cy.wait("@gqlcountApplicantsQuery");
 
       cy.wrap($input).type("Atlantic{enter}{enter}");
       cy.wait("@gqlCountPoolCandidatesByPoolQuery");
+      cy.wait("@gqlcountApplicantsQuery");
     })
 
     searchReturnsGreaterThanZeroApplicants();
