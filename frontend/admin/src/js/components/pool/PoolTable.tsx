@@ -9,6 +9,10 @@ import Pending from "@common/components/Pending";
 import { getAdvertisementStatus } from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
 import {
+  formatClassificationString,
+  formattedPoolPosterTitle,
+} from "@common/helpers/poolUtils";
+import {
   GetPoolsQuery,
   Maybe,
   PoolStream,
@@ -16,7 +20,6 @@ import {
 } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
-import { formattedPoolPosterTitle } from "./poolUtil";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
 type AccessorClassifications = Data["classifications"];
@@ -58,7 +61,10 @@ function viewLinkAccessor(
   let classificationString = ""; // type wrangling the complex type into a string
   if (classifications && classifications[0]) {
     const grouping = classifications[0];
-    classificationString = `${grouping.group}-0${grouping.level}`;
+    classificationString = formatClassificationString({
+      group: grouping.group,
+      level: grouping.level,
+    });
   }
 
   return (
