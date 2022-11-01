@@ -6,10 +6,7 @@ import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
 import { FromArray } from "@common/types/utilityTypes";
 import Pending from "@common/components/Pending";
-import {
-  getAdvertisementStatus,
-  getPoolStream,
-} from "@common/constants/localizedConstants";
+import { getAdvertisementStatus } from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
 import {
   GetPoolsQuery,
@@ -19,6 +16,7 @@ import {
 } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
+import { formattedPoolPosterTitle } from "./poolUtil";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
 type AccessorClassifications = Data["classifications"];
@@ -65,9 +63,12 @@ function viewLinkAccessor(
 
   return (
     <Link href={`${editUrlRoot}/${id}`} type="link">
-      {`${title ? `${title} ` : ""}(${classificationString}${
-        stream ? ` ${intl.formatMessage(getPoolStream(stream))}` : ""
-      })`}
+      {formattedPoolPosterTitle({
+        title,
+        classification: classificationString,
+        stream,
+        intl,
+      })}
     </Link>
   );
 }
