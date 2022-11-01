@@ -53,19 +53,22 @@ const LoggedOutPage: React.FC = () => {
       >
         <Alert
           type="success"
-          icon={<BellIcon style={{ width: "1rem" }} />}
+          icon={BellIcon}
           title={intl.formatMessage({
             defaultMessage: "You've successfully logged out of the platform",
             id: "NamQ1+",
             description: "Title for the alert displayed after a user logs out",
           })}
-          message={intl.formatMessage({
-            defaultMessage:
-              "Remember, to sign back in, you'll need to use your GC Key username and password. We hope to see you soon!",
-            id: "6UCzgs",
-            description: "Message displayed to a user after logging out.",
-          })}
-        />
+        >
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Remember, to sign back in, you'll need to use your GC Key username and password. We hope to see you soon!",
+              id: "6UCzgs",
+              description: "Message displayed to a user after logging out.",
+            })}
+          </p>
+        </Alert>
         <h2 data-h2-margin="base(x3, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "Quick Links",

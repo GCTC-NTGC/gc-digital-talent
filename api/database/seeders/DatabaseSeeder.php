@@ -20,7 +20,6 @@ use App\Models\EducationExperience;
 use App\Models\GenericJobTitle;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
-use Database\Factories\PoolFactory;
 use Faker;
 use Database\Helpers\ApiEnums;
 
@@ -69,7 +68,8 @@ class DatabaseSeeder extends Seeder
                 // are they a government user?
                 if (rand(0, 1)) {
                     // government users have a current classification and expected classifications but no salary
-                    $user->current_classification = Classification::inRandomOrder()->first()->id;
+                    $classification = Classification::inRandomOrder()->limit(1)->pluck('id')->toArray();
+                    $user->expectedClassifications()->sync($classification);
                     $user->expected_salary = [];
                     $user->save();
 
@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
                 } else {
                     // non-government users have no current classification or expected classifications but have salary
                     $user->current_classification = null;
-                    $user->expected_salary = $faker->randomElements(ApiEnums::salaryRanges(), 3);
+                    $user->expected_salary = $faker->randomElements(ApiEnums::salaryRanges(), 2);
                     $user->save();
 
                     $user->expectedClassifications()->sync([]);

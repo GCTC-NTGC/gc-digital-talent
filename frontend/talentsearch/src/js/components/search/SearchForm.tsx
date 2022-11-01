@@ -3,12 +3,7 @@ import { FormProvider, useForm, UseFormTrigger } from "react-hook-form";
 import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 
-import {
-  Checklist,
-  MultiSelect,
-  RadioGroup,
-  Select,
-} from "@common/components/form";
+import { Checklist, RadioGroup, Select } from "@common/components/form";
 import { getLanguageAbility } from "@common/constants";
 import {
   getEmploymentEquityGroup,
@@ -18,10 +13,12 @@ import {
   EmploymentDuration,
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
+import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { useLocation } from "@common/helpers/router";
 import errorMessages from "@common/messages/errorMessages";
 import { hasKey } from "@common/helpers/util";
+
 import {
   LanguageAbility,
   Skill,
@@ -263,6 +260,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              trackUnsaved={false}
             />
           </FilterBlock>
           <FilterBlock
@@ -313,6 +311,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   }),
                 },
               ]}
+              trackUnsaved={false}
             />
           </FilterBlock>
           <FilterBlock
@@ -345,6 +344,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 value,
                 label: intl.formatMessage(getOperationalRequirement(value)),
               }))}
+              trackUnsaved={false}
             />
           </FilterBlock>
           <FilterBlock
@@ -363,7 +363,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 "Message describing the work location filter in the search form.",
             })}
           >
-            <MultiSelect
+            <MultiSelectFieldV2
               id="locationPreferences"
               name="locationPreferences"
               label={intl.formatMessage({
@@ -427,6 +427,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   label: intl.formatMessage(getLanguageAbility(value)),
                 })),
               ]}
+              trackUnsaved={false}
             />
           </FilterBlock>
           <FilterBlock
@@ -474,6 +475,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   ),
                 },
               ]}
+              trackUnsaved={false}
             />
           </FilterBlock>
           <FilterBlock
@@ -531,6 +533,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   ),
                 },
               ]}
+              trackUnsaved={false}
             />
           </FilterBlock>
           <AddSkillsToFilter allSkills={skills ?? []} />

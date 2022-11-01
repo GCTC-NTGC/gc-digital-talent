@@ -1,7 +1,10 @@
 import { IntlShape } from "react-intl";
+import get from "lodash/get";
+import { useFormState } from "react-hook-form";
 import { LocalizedString, Maybe, Scalars } from "../api/generated";
 import { getLocale } from "./localize";
 import { getId, notEmpty } from "./util";
+import { fieldStateStyles } from "../styles/formStyles";
 
 /**
  * Filters out empty data from data response.
@@ -156,4 +159,48 @@ export const objectsToSortedOptions = (
           description: "Error message when name is not found on listed item.",
         }),
     }));
+};
+
+export type FieldState = "unset" | "invalid" | "dirty";
+
+/**
+ * Determines the fields current state
+ *
+ * NOTE: Must be used within a FormProvider
+ *
+ * @param string name The inputs name
+ * @returns FieldState
+ */
+export const useFieldState = (
+  name: string,
+  ignoreUnsaved = false,
+): FieldState => {
+  const { errors, dirtyFields } = useFormState();
+  const isDirty = get(dirtyFields, name, false);
+  const isInvalid = get(errors, name, false);
+
+  if (isDirty && !ignoreUnsaved) {
+    return "dirty";
+  }
+
+  return isInvalid ? "invalid" : "unset";
+};
+
+/**
+ * Gets hydrogen styles for a form input
+ * based on its current state
+ *
+ * NOTE: Must be used within a FormProvider
+ *
+ * @param name  string    Name of the input
+ * @param ignoreUnsaved   boolean   IF you should ignore state and always render default
+ * @returns Record<string, string>
+ */
+export const useFieldStateStyles = (name: string, ignoreUnsaved = false) => {
+  let fieldState = useFieldState(name ?? "");
+  if (ignoreUnsaved && fieldState === "dirty") {
+    fieldState = "unset";
+  }
+
+  return fieldStateStyles[fieldState] || {};
 };

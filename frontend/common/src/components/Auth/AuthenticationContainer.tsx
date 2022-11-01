@@ -71,9 +71,14 @@ const logoutAndRefreshPage = (
 
 const refreshTokenSet = async (
   refreshPath: string,
-  refreshToken: string,
+  // refreshToken: string,
   setTokens: (tokens: TokenSet) => void,
 ): Promise<TokenSet | null> => {
+  // Local storage should be most up to date, especially if a refresh happened in a different tab.
+  // This is a bit hacky.  It would be better to have the refreshToken passed in as parameter like before.
+  // The provider state could be kept in sync with something like storage events (https://dev.to/cassiolacerda/how-to-syncing-react-state-across-multiple-tabs-with-usestate-hook-4bdm)
+  const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+
   const response = await fetch(`${refreshPath}?refresh_token=${refreshToken}`);
   if (response.ok) {
     const responseBody: {
@@ -176,7 +181,10 @@ const AuthenticationContainer: React.FC<AuthenticationContainerProps> = ({
           },
       refreshTokenSet: () =>
         tokens.refreshToken
-          ? refreshTokenSet(tokenRefreshPath, tokens.refreshToken, setTokens)
+          ? refreshTokenSet(
+              tokenRefreshPath,
+              /* tokens.refreshToken, */ setTokens,
+            )
           : Promise.resolve(null),
     };
   }, [
