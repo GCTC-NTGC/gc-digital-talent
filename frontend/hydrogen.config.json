@@ -29,7 +29,7 @@
   },
   "logging": {
     "logs": false,
-    "timers": true
+    "timers": false
   },
   "media": {
     "base_key": "base",
