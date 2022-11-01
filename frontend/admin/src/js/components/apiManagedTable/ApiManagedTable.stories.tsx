@@ -14,6 +14,7 @@ import {
   IdType,
   SortingRule,
 } from "./basicTableHelpers";
+import { User } from "../../api/generated";
 
 type ApiManageTableProps = {
   header: Omit<
