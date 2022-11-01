@@ -77,9 +77,6 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
 
   const poolName = pool.name ? pool.name[locale] : pageTitle;
   const classification = pool.classifications ? pool.classifications[0] : null;
-  const genericTitle = classification?.genericJobTitles?.length
-    ? classification.genericJobTitles[0]
-    : null;
 
   const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {
     return skill.families?.some(
