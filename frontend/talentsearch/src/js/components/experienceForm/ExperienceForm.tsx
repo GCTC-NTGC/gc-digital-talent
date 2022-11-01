@@ -149,17 +149,6 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
 
   return (
     <ProfileFormWrapper
-      title={intl.formatMessage({
-        defaultMessage: "My experience and skills",
-        id: "omBOZT",
-        description: "Title for the experience profile form",
-      })}
-      description={intl.formatMessage({
-        defaultMessage:
-          "Here is where you can add experience and skills to your profile. This could be anything from helping community members troubleshoot their computers to full-time employment at an IT organization.",
-        id: "pFRKUT",
-        description: "Description for the experience profile form",
-      })}
       prefixBreadcrumbs={!poolAdvertisement}
       crumbs={crumbs}
       cancelLink={{

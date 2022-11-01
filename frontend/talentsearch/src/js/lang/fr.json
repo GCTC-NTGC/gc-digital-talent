@@ -1336,14 +1336,6 @@
     "defaultMessage": "Architecture intégrée de la TI ",
     "description": "work stream example"
   },
-  "omBOZT": {
-    "defaultMessage": "Mon expérience et mes compétences",
-    "description": "Title for the experience profile form"
-  },
-  "pFRKUT": {
-    "defaultMessage": "Voici où vous pouvez ajouter de l'expérience et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
-    "description": "Description for the experience profile form"
-  },
   "pGTTrp": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Display Text for Diversity, equity and inclusion Page"
