@@ -22,10 +22,6 @@ type LocalizedString {
   fr: String
 }
 
-type Test {
-  REMOVE: String
-}
-
 enum Language {
   EN @enum(value: "en")
   FR @enum(value: "fr")
