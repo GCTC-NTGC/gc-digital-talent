@@ -100,7 +100,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button mode="inline" color="black" data-h2-font-weight="base(400)">
+        <Button mode="inline" color="black">
           {intl.formatMessage(
             {
               defaultMessage: "Delete<hidden> application {name}</hidden>",
