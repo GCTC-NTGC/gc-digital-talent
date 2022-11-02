@@ -3,7 +3,7 @@ import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 describe("Talent Search Workflow Tests", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "countApplicants");
+      aliasQuery(req, "CountApplicantsAndCountPoolCandidatesByPool");
       aliasQuery(req, "getPoolCandidateSearchRequestData");
       aliasMutation(req, "createPoolCandidateSearchRequest");
     });
@@ -19,45 +19,49 @@ describe("Talent Search Workflow Tests", () => {
 
   it("searches for candidates and submits a request", () => {
     // first request is without any filters
-    cy.wait("@gqlcountApplicantsQuery");
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
     // second request is properly filtered
     searchReturnsGreaterThanZeroApplicants();
 
     cy.findByRole("combobox", { name: /Classification/i }).select(1);
-    cy.wait("@gqlcountApplicantsQuery");
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,
     }).click();
-    cy.wait("@gqlcountApplicantsQuery");
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
     // Wait for each request to finish, to minimize inconsistent state.
     cy.findByRole("combobox", { name: /Region/i }).then($input => {
       cy.wrap($input).type("Telework{enter}{enter}")
-      cy.wait("@gqlcountApplicantsQuery");
+      cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+
 
       cy.wrap($input).type("Ontario{enter}{enter}")
-      cy.wait("@gqlcountApplicantsQuery");
+      cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+
 
       cy.wrap($input).type("National Capital{enter}{enter}")
-      cy.wait("@gqlcountApplicantsQuery");
+      cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+
 
       cy.wrap($input).type("Atlantic{enter}{enter}");
-      cy.wait("@gqlcountApplicantsQuery");
+      cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+
     })
 
     searchReturnsGreaterThanZeroApplicants();
 
-    cy.findByRole("button", { name: /Request Candidates/i }).then($button => {
+    cy.findAllByRole("button", { name: /Request Candidates/i }).then($button => {
       cy.wrap($button)
         .should("exist")
         .and("be.visible")
         .and("not.be.disabled");
-      // Force click to mitigate async re-render of button that detaches its DOM element.
-      // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
-      cy.wrap($button).click({ force: true });
     });
+    // Force click to mitigate async re-render of button that detaches its DOM element.
+    // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
+    cy.findAllByRole("button", { name: /Request Candidates/i }).first().click({ force: true });
 
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
 

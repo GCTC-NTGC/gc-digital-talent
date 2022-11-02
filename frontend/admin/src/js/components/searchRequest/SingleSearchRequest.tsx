@@ -182,7 +182,12 @@ const ManagerInfo: React.FunctionComponent<{
                     description:
                       "Title for the date done block in the manager info section of the single search request view.",
                   })}
-                  content="NA (Request is still pending)"
+                  content={intl.formatMessage({
+                    defaultMessage: "(Request is still pending)",
+                    id: "FxceQZ",
+                    description:
+                      "Text for when date done is pending in the manager info section of the single search request view.",
+                  })}
                 />
               </div>
             </div>
