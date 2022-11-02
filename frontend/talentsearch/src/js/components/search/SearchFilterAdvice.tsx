@@ -143,8 +143,8 @@ const SearchFilterAdvice: React.FC<{
           {intl.formatMessage(
             {
               defaultMessage: "Skills selected ({skillCount})",
-              id: "RNI+IH",
               description: "Skills selected and then a number in parentheses",
+              id: "RNI+IH",
             },
             { skillCount },
           )}
