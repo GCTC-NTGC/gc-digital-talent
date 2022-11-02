@@ -2792,5 +2792,45 @@
   "FxceQZ": {
     "defaultMessage": "(La demande est toujours en suspens)",
     "description": "Text for when date done is pending in the manager info section of the single search request view."
+  },
+  "+tzO5t": {
+    "defaultMessage": "Possède un diplôme"
+  },
+  "8lCjAM": {
+    "defaultMessage": "Priorité"
+  },
+  "Aaas0w": {
+    "defaultMessage": "L’heure de clôture sera automatiquement fixée à 23 h 59 dans le fuseau horaire du Pacifique.",
+    "description": "Helper message for changing the pool closing date"
+  },
+  "Gr3BwB": {
+    "defaultMessage": "Équité en matière d’emploi"
+  },
+  "Ude1JQ": {
+    "defaultMessage": "Texte",
+    "description": "Title for the application’s profile snapshot."
+  },
+  "hGlM9B": {
+    "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
+    "description": "Closing Date field label for publish pool dialog in the Pacific time zone"
+  },
+  "j6V32h": {
+    "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
+    "description": "Label for a pool advertisements expiry date in the Pacific time zone"
+  },
+  "m0JFE/": {
+    "defaultMessage": "Code",
+    "description": "Title for the application’s profile snapshot."
+  },
+  "tQ674x": {
+    "defaultMessage": "Groupe des publications",
+    "description": "Label displayed on the edit pool form publishing group field."
+  },
+  "tzMNF3": {
+    "defaultMessage": "État"
+  },
+  "z0QI6A": {
+    "defaultMessage": "Tous les candidats du bassin",
+    "description": "Title for the admin pool candidates table"
   }
 }
