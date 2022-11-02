@@ -41,7 +41,7 @@ const ExperienceByType: React.FunctionComponent<{
         data-h2-padding="base(0, 0, x.5, 0)"
       >
         <span data-h2-margin="base(x.125, x.5, 0, 0)">{icon}</span>
-        <p data-h2-font-size="base(h5, 1)">{title} experiences</p>
+        <p data-h2-font-size="base(h5, 1)">{title}</p>
       </div>
       <div>
         {experiences.map((experience) => (
@@ -93,8 +93,10 @@ const ExperienceByTypeListing: React.FunctionComponent<
       {personalExperiences.length > 0 ? (
         <ExperienceByType
           title={intl.formatMessage({
-            defaultMessage: "Personal",
-            id: "NDx+B0",
+            defaultMessage: "Personal experiences",
+            id: "6VyRZ/",
+            description:
+              "Heading for personal experiences in experience by type listing",
           })}
           icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
           experiences={personalExperiences}
@@ -106,8 +108,10 @@ const ExperienceByTypeListing: React.FunctionComponent<
         <div data-h2-margin="base(x2, 0, 0, 0)">
           <ExperienceByType
             title={intl.formatMessage({
-              defaultMessage: "Community",
-              id: "4CrCbD",
+              defaultMessage: "Community experiences",
+              id: "iWD2Pz",
+              description:
+                "Heading for community experiences in experience by type listing",
             })}
             icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
             experiences={communityExperiences}
@@ -119,7 +123,12 @@ const ExperienceByTypeListing: React.FunctionComponent<
       {workExperiences.length > 0 ? (
         <div data-h2-margin="base(x2, 0, 0, 0)">
           <ExperienceByType
-            title={intl.formatMessage({ defaultMessage: "Work", id: "GcPFLS" })}
+            title={intl.formatMessage({
+              defaultMessage: "Work experiences",
+              id: "aBSEkP",
+              description:
+                "Heading for personal experiences in experience by type listing",
+            })}
             icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
             experiences={workExperiences}
             defaultOpen={defaultOpen}
@@ -131,8 +140,10 @@ const ExperienceByTypeListing: React.FunctionComponent<
         <div data-h2-margin="base(x2, 0, 0, 0)">
           <ExperienceByType
             title={intl.formatMessage({
-              defaultMessage: "Education",
-              id: "jtygmI",
+              defaultMessage: "Education experiences",
+              id: "pV96Xv",
+              description:
+                "Heading for education experiences in experience by type listing",
             })}
             icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
             experiences={educationExperiences}
@@ -145,8 +156,10 @@ const ExperienceByTypeListing: React.FunctionComponent<
         <div data-h2-margin="base(x2, 0, 0, 0)">
           <ExperienceByType
             title={intl.formatMessage({
-              defaultMessage: "Award",
-              id: "SEZweh",
+              defaultMessage: "Award experiences",
+              id: "X0YPib",
+              description:
+                "Heading for award experiences in experience by type listing",
             })}
             icon={<StarIcon style={{ width: "1.5rem" }} />}
             experiences={awardExperiences}
