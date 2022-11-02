@@ -19,6 +19,7 @@ import {
 } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
+import { formatClassificationString } from "@common/helpers/poolUtils";
 
 import { PoolAdvertisement } from "../../../api/generated";
 import { useDirectIntakeRoutes } from "../../../directIntakeRoutes";
@@ -34,7 +35,10 @@ const getClassificationStrings = (pool: PoolAdvertisement) => {
     .map((classification) => {
       if (!classification) return undefined;
 
-      return `${classification.group}-0${classification.level}`;
+      return formatClassificationString({
+        group: classification.group,
+        level: classification.level,
+      });
     })
     .filter(notEmpty);
 };

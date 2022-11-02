@@ -4,6 +4,7 @@ import { Button, Link } from "@common/components";
 import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
 import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
+import { FormProvider, useForm } from "react-hook-form";
 import SearchForm from "./SearchForm";
 import { ButtonIcon, IndeterminateCheckbox } from "../Table/tableComponents";
 import type {
@@ -43,6 +44,7 @@ function TableHeader<T extends Record<string, unknown>>({
   filterButtonComponent,
 }: TableHeaderProps<T>): ReactElement {
   const intl = useIntl();
+  const methods = useForm();
 
   const [showList, setShowList] = useState(false);
 
@@ -92,53 +94,59 @@ function TableHeader<T extends Record<string, unknown>>({
                           "Dialog title for the admin tables columns toggle.",
                       })}
                     >
-                      <Fieldset
-                        legend={intl.formatMessage({
-                          defaultMessage: "Visible columns",
-                          id: "H9rxOR",
-                          description:
-                            "Legend for the column toggle in admin tables.",
-                        })}
-                      >
-                        <div data-h2-margin="base(x.125, 0)">
-                          <IndeterminateCheckbox
-                            checked={hiddenColumnIds.length === 0}
-                            indeterminate={
-                              hiddenColumnIds.length > 0 &&
-                              hiddenColumnIds.length < columns.length
-                            }
-                            onChange={() => {
-                              if (onColumnHiddenChange) {
-                                onColumnHiddenChange({
-                                  setHidden: hiddenColumnIds.length === 0,
-                                });
+                      <FormProvider {...methods}>
+                        <Fieldset
+                          legend={intl.formatMessage({
+                            defaultMessage: "Visible columns",
+                            id: "H9rxOR",
+                            description:
+                              "Legend for the column toggle in admin tables.",
+                          })}
+                          trackUnsaved={false}
+                        >
+                          <div data-h2-margin="base(x.125, 0)">
+                            <IndeterminateCheckbox
+                              checked={hiddenColumnIds.length === 0}
+                              indeterminate={
+                                hiddenColumnIds.length > 0 &&
+                                hiddenColumnIds.length < columns.length
                               }
-                            }}
-                          />
-                        </div>
-                        {columns.map((column) => (
-                          <div key={column.id} data-h2-margin="base(x.125, 0)">
-                            <label htmlFor={column.id}>
-                              <input
-                                id={column.id}
-                                type="checkbox"
-                                checked={!hiddenColumnIds.includes(column.id)}
-                                onChange={() => {
-                                  if (onColumnHiddenChange) {
-                                    onColumnHiddenChange({
-                                      columnId: column.id,
-                                      setHidden: !hiddenColumnIds.includes(
-                                        column.id,
-                                      ),
-                                    });
-                                  }
-                                }}
-                              />{" "}
-                              {column.label}
-                            </label>
+                              onChange={() => {
+                                if (onColumnHiddenChange) {
+                                  onColumnHiddenChange({
+                                    setHidden: hiddenColumnIds.length === 0,
+                                  });
+                                }
+                              }}
+                            />
                           </div>
-                        ))}
-                      </Fieldset>
+                          {columns.map((column) => (
+                            <div
+                              key={column.id}
+                              data-h2-margin="base(x.125, 0)"
+                            >
+                              <label htmlFor={column.id}>
+                                <input
+                                  id={column.id}
+                                  type="checkbox"
+                                  checked={!hiddenColumnIds.includes(column.id)}
+                                  onChange={() => {
+                                    if (onColumnHiddenChange) {
+                                      onColumnHiddenChange({
+                                        columnId: column.id,
+                                        setHidden: !hiddenColumnIds.includes(
+                                          column.id,
+                                        ),
+                                      });
+                                    }
+                                  }}
+                                />{" "}
+                                {column.label}
+                              </label>
+                            </div>
+                          ))}
+                        </Fieldset>
+                      </FormProvider>
                     </Dialog>
                   </div>
                 </div>

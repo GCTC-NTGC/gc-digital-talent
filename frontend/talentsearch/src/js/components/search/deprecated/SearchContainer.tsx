@@ -13,7 +13,6 @@ import {
   CountPoolCandidatesQueryVariables,
   PoolCandidateFilterInput,
   Pool,
-  UserPublicProfile,
   Maybe,
 } from "../../../api/generated";
 import {
@@ -34,8 +33,7 @@ const testId = (chunks: React.ReactNode): React.ReactNode => (
 export interface SearchContainerProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  pool?: Pick<Pool, "name" | "description">;
-  poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
+  pool: Pick<Pool, "id" | "owner" | "name" | "description">;
   candidateCount: number;
   updatePending?: boolean;
   candidateFilter?: PoolCandidateFilterInput | undefined;
@@ -48,7 +46,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   classifications,
   cmoAssets,
   pool,
-  poolOwner,
   candidateCount,
   updatePending,
   candidateFilter,
@@ -113,7 +110,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
         <SearchPools
           candidateCount={candidateCount}
           pool={pool}
-          poolOwner={poolOwner}
           handleSubmit={tryHandleSubmit}
         />
       </div>
@@ -213,18 +209,18 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           >
             {intl.formatMessage(
               {
-                defaultMessage: `{candidateCount, plural,
-                  =0 {Results: <testId>{candidateCount}</testId> matching candidates}
-                  =1 {Results: <testId>{candidateCount}</testId> matching candidate}
-                  other {Results: <testId>{candidateCount}</testId> matching candidates}
+                defaultMessage: `{totalCandidateCount, plural,
+                  =0 {Results: <testId>{totalCandidateCount}</testId> matching candidates}
+                  =1 {Results: <testId>{totalCandidateCount}</testId> matching candidate}
+                  other {Results: <testId>{totalCandidateCount}</testId> matching candidates}
                 }`,
-                id: "aWLo7o",
+                id: "eeWkWi",
                 description:
                   "Heading for total matching candidates in results section of search page.",
               },
               {
                 testId,
-                candidateCount,
+                totalCandidateCount: candidateCount,
               },
             )}
           </h3>
@@ -288,7 +284,7 @@ export const SearchContainerApi: React.FC = () => {
   const [{ data, fetching, error }] = useGetSearchFormDataQuery({
     variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
   });
-  const pool = data?.poolByKey;
+  const pool = data?.poolByKey as Pool;
 
   const [candidateFilter, setCandidateFilter] = useState<
     PoolCandidateFilterInput | undefined
@@ -318,8 +314,7 @@ export const SearchContainerApi: React.FC = () => {
       <SearchContainer
         classifications={pool?.classifications?.filter(notEmpty) ?? []}
         cmoAssets={pool?.assetCriteria?.filter(notEmpty) ?? []}
-        pool={pool ?? undefined}
-        poolOwner={pool?.owner ?? undefined}
+        pool={pool}
         candidateFilter={candidateFilter}
         candidateCount={candidateCount}
         updatePending={countFetching}
