@@ -1661,10 +1661,6 @@
     "defaultMessage": "<heavyPrimary>Archivé</heavyPrimary>",
     "description": "Status name of a pool in ARCHIVED status"
   },
-  "+OSYz7": {
-    "defaultMessage": "Nouvel utilisateur",
-    "description": "Text label for link to create new user on admin table"
-  },
   "+svnC6": {
     "defaultMessage": "Publier",
     "description": "Heading for the publish pool dialog"
