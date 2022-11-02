@@ -7,8 +7,6 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import type { HeadingRank } from "../../types/primitiveTypes";
 
-import "./accordion.css";
-
 const Root = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
   | AccordionPrimitive.AccordionMultipleProps
@@ -28,8 +26,9 @@ const Item = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >((props, forwardedRef) => (
   <AccordionPrimitive.Item
-    className="Accordion__Item"
-    data-h2-border="base(left, x.5, solid, dt-secondary)"
+    data-h2-border="
+      base(left, x.5, solid, dt-secondary)
+      base:selectors[[data-state='open']](left, x.5, solid, dt-primary)"
     data-h2-margin="base(x.25, 0)"
     data-h2-shadow="base(l)"
     data-h2-radius="base(0px, s, s, 0px)"
@@ -56,7 +55,6 @@ const StyledTrigger = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >((props, forwardedRef) => (
   <AccordionPrimitive.Trigger
-    className="Accordion__Trigger"
     data-h2-align-items="base(center)"
     data-h2-background-color="base(dt-white)"
     data-h2-cursor="base(pointer)"
@@ -66,6 +64,9 @@ const StyledTrigger = React.forwardRef<
     data-h2-justify-content="base(space-between)"
     data-h2-text-align="base(left)"
     data-h2-width="base(100%)"
+    data-h2-transform="
+      base:children[svg](rotate(0deg))
+      base:selectors[[data-state='open']]:children[svg](rotate(90deg))"
     ref={forwardedRef}
     {...props}
   />
@@ -97,10 +98,8 @@ const Trigger = React.forwardRef<
           <StyledTrigger ref={forwardedRef} {...rest}>
             <div data-h2-margin="base(0, x.25, 0, 0)" style={{ flexShrink: 0 }}>
               <ChevronRightIcon
-                className="Accordion__Trigger__Chevron"
                 data-h2-display="print(none)"
                 data-h2-width="base(x1.5)"
-                data-h2-transform="base(rotate(0deg))"
                 data-h2-transition="base(all, 100ms, ease-in)"
               />
             </div>

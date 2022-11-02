@@ -4,8 +4,6 @@
 import React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 
-import "./tabs.css";
-
 const Root = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>
@@ -27,7 +25,12 @@ const Trigger = React.forwardRef<
   <TabsPrimitive.Trigger
     className="Tabs__Trigger"
     data-h2-background-color="base(dt-white)"
-    data-h2-border="base(all, 1px, solid, dt-gray) base(top, x.5, solid, dt-gray) base:hover(top, x.5, solid, dark.dt-gray)"
+    data-h2-border="
+      base(all, 1px, solid, dt-gray)
+      base(top, x.5, solid, dt-gray)
+      base:selectors[[data-state='active']](top, x.5, solid, dt-primary)
+      base:selectors[[data-state='active']](bottom, 1px, solid, dt-white)
+      base:hover(top, x.5, solid, dark.dt-gray)"
     data-h2-cursor="base(pointer)"
     data-h2-padding="base(x.5, x1)"
     data-h2-margin="base(0, x.5, 0, 0)"

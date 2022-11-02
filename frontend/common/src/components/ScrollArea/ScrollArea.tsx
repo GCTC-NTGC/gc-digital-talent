@@ -4,8 +4,6 @@
 import React from "react";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 
-import "./scroll-area.css";
-
 const Root = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>
@@ -37,10 +35,12 @@ const Scrollbar = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Scrollbar>
 >((props, forwardedRef) => (
   <ScrollAreaPrimitive.Scrollbar
-    className="ScrollArea__Scrollbar"
     data-h2-background-color="base(lighter.dt-gray) base:hover(light.dt-gray)"
     data-h2-display="base(flex)"
     data-h2-padding="base(x.1)"
+    data-h2-flex-direction="base:selectors[[data-orientation='horizontal']](column)"
+    data-h2-height="base:selectors[[data-orientation='horizontal']](10px)"
+    data-h2-width="base:selectors[[data-orientation='vertical']](10px)"
     data-h2-transition="base(background, 100ms, ease-out)"
     style={{
       touchAction: "none",
@@ -56,11 +56,18 @@ const Thumb = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Thumb>
 >((props, forwardedRef) => (
   <ScrollAreaPrimitive.Thumb
-    className="ScrollArea__Thumb"
     data-h2-background-color="base(dt-primary)"
+    data-h2-content="base:selectors[::before]('')"
+    data-h2-flex="base(1)"
+    data-h2-height="base:selectors[::before](100%)"
+    data-h2-left="base:selectors[::before](50%)"
+    data-h2-min-height="base:selectors[::before](44px)"
+    data-h2-min-width="base:selectors[::before](44px)"
+    data-h2-position="base(relative) base:selectors[::before](absolute)"
     data-h2-radius="base(s)"
-    data-h2-position="base(relative)"
-    style={{ flex: 1 }}
+    data-h2-top="base:selectors[::before](50%)"
+    data-h2-transform="base:selectors[::before](translate(-50%, -50%))"
+    data-h2-width="base:selectors[::before](100%)"
     ref={forwardedRef}
     {...props}
   />

@@ -1,7 +1,0 @@
-.Accordion > .Accordion__Item[data-state="open"] {
-  border-left-color: var(--h2-color-dt-primary);
-}
-
-.Accordion__Trigger[data-state="open"] .Accordion__Trigger__Chevron {
-  transform: rotate(90deg);
-}

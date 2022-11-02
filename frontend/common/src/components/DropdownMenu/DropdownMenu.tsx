@@ -4,8 +4,6 @@
 import React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 
-import "./dropdown-menu.css";
-
 const Trigger = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>
@@ -90,7 +88,8 @@ const itemStyleProps = {
   },
   "data-h2-align-items": "base(center)",
   "data-h2-background-color": "base(transparent) base:hover(dt-secondary.15)",
-  "data-h2-color": "base(dark.dt-secondary)",
+  "data-h2-color":
+    "base(dark.dt-secondary) base:selectors[[data-disabled]](dt-gray)",
   "data-h2-cursor": "base(pointer)",
   "data-h2-display": "base(flex)",
   "data-h2-padding": "base(x.25, x.5, x.25, x1)",

@@ -1,8 +1,6 @@
 import React from "react";
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
 
-import "./separator.css";
-
 import { Color } from "../Button";
 
 const colorMap: Record<Color, Record<string, string>> = {
@@ -59,8 +57,13 @@ const Separator = React.forwardRef<
   SeparatorProps
 >(({ color = "primary", ...rest }, forwardedRef) => (
   <SeparatorPrimitive.Root
-    className="Separator"
     {...colorMap[color]}
+    data-h2-height="
+      base:selectors[[data-orientation='vertical']](100%)
+      base:selectors[[data-orientation='horizontal']](1px)"
+    data-h2-width="
+      base:selectors[[data-orientation='vertical']](1px)
+      base:selectors[[data-orientation='horizontal']](100%)"
     ref={forwardedRef}
     {...rest}
   />
