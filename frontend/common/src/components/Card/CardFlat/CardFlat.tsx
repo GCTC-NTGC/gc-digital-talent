@@ -1,4 +1,5 @@
 import React from "react";
+import omit from "lodash/omit";
 
 import Heading from "../../Heading";
 import type { Color } from "../../Button";
@@ -52,7 +53,12 @@ const CardFlat = ({ color, link, title, children }: CardFlatProps) => (
     )}
     {link && (
       <div>
-        <Link color={color} type="button" weight="bold" {...link}>
+        <Link
+          color={color}
+          type="button"
+          weight="bold"
+          {...omit(link, "label")}
+        >
           {link.label}
         </Link>
       </div>
