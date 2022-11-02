@@ -3,12 +3,7 @@ import { FormProvider, useForm, UseFormTrigger } from "react-hook-form";
 import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 
-import {
-  Checklist,
-  MultiSelect,
-  RadioGroup,
-  Select,
-} from "@common/components/form";
+import { Checklist, RadioGroup, Select } from "@common/components/form";
 import { getLanguageAbility } from "@common/constants";
 import {
   getEmploymentEquityGroup,
@@ -18,10 +13,12 @@ import {
   EmploymentDuration,
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
+import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { useLocation } from "@common/helpers/router";
 import errorMessages from "@common/messages/errorMessages";
 import { hasKey } from "@common/helpers/util";
+
 import {
   LanguageAbility,
   Skill,
@@ -32,9 +29,9 @@ import {
 import FilterBlock from "./FilterBlock";
 import AddSkillsToFilter from "../skills/AddSkillsToFilter";
 import {
+  filterPoolsBySelectedClassification,
   SimpleClassification,
   SimplePool,
-  filterPoolsBySelectedClassification,
 } from "../../types/poolUtils";
 
 const NullSelection = "NULL_SELECTION";
@@ -366,7 +363,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 "Message describing the work location filter in the search form.",
             })}
           >
-            <MultiSelect
+            <MultiSelectFieldV2
               id="locationPreferences"
               name="locationPreferences"
               label={intl.formatMessage({

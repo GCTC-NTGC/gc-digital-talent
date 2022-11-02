@@ -14,6 +14,7 @@ import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
+import ExternalLink from "@common/components/Link/ExternalLink";
 import { FieldLabels } from "@common/components/form/BasicForm";
 import {
   Classification,
@@ -40,6 +41,21 @@ type FormValues = {
   currentClassificationLevel?: string;
   priorityEntitlementYesNo?: "yes" | "no";
   priorityEntitlementNumber?: string;
+};
+
+const priorityEntitlementLink = (
+  locale: string,
+  chunks: React.ReactNode,
+): React.ReactNode => {
+  const href =
+    locale === "en"
+      ? "https://www.canada.ca/en/public-service-commission/services/information-priority-administration.html"
+      : "https://www.canada.ca/fr/commission-fonction-publique/services/administration-priorites.html";
+  return (
+    <ExternalLink href={href} newTab>
+      {chunks}
+    </ExternalLink>
+  );
 };
 
 // take classification group + level from data, return the matching classification from API
@@ -194,9 +210,10 @@ export const getGovernmentInfoLabels = (intl: IntlShape) => ({
     description: "Priority Entitlement Status in Government Info Form",
   }),
   priorityEntitlementNumber: intl.formatMessage({
-    defaultMessage: "Priority number",
-    id: "P+UY4i",
-    description: "label for priority number input",
+    defaultMessage:
+      "Priority number provided by the Public Service Commission of Canada",
+    id: "5G+j56",
+    description: "Label for priority number input",
   }),
 });
 
@@ -211,6 +228,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
   GovernmentInfoFormProps
 > = ({ departments, classifications, labels }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const { watch, resetField } = useFormContext();
   // hooks to watch, needed for conditional rendering
   const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =
@@ -426,13 +444,19 @@ export const GovernmentInfoForm: React.FunctionComponent<
       )}
       <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of6) desktop(1of12)">
         <p data-h2-padding="base(x1, 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "Do you have a priority entitlement for Government of Canada job applications?",
-            id: "v0JyBd",
-            description:
-              "Sentence asking whether the user possesses priority entitlement",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Do you have a priority entitlement for Government of Canada job applications? This is a status provided by the Public Service Commission of Canada. To learn more, <priorityEntitlementLink>visit the information on priority entitlements site</priorityEntitlementLink>.",
+              id: "25VYzu",
+              description:
+                "Sentence asking whether the user possesses priority entitlement",
+            },
+            {
+              priorityEntitlementLink: (chunks) =>
+                priorityEntitlementLink(locale, chunks),
+            },
+          )}
         </p>
         <RadioGroup
           idPrefix="priorityEntitlementYesNo"

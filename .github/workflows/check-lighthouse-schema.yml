@@ -15,7 +15,7 @@ jobs:
   runner:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
 
       - name: Create admin .env file, which is referenced in docker-compose
         working-directory: frontend/admin
@@ -31,12 +31,12 @@ jobs:
 
       - name: Check for uncommitted changes
         id: check_changes
-        run: echo "::set-output name=changed::$(git status --porcelain | wc -l)"
+        run: echo "changed=$(git status --porcelain | wc -l)" >> $GITHUB_OUTPUT
 
       - name: Error if changes
         if: steps.check_changes.outputs.changed != 0
         # See: https://github.com/actions/github-script
-        uses: actions/github-script@v5.1.0
+        uses: actions/github-script@v6
         with:
           script: |
             core.setFailed('Please update api/storage/app/lighthouse-schema.graphql')
