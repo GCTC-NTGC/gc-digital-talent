@@ -112,11 +112,11 @@ const Template: Story<ApiManageTableProps> = (args) => {
         hiddenColumnIds={hiddenColumnIds}
         filterButtonComponent={null}
         onSearchChange={(term, type) => {
-          action(JSON.stringify({ term, type }));
           setSearchState({
             term,
             type,
           });
+          action("onSearchChange")({ term, type });
         }}
         searchBy={[
           { label: "First Name", value: "firstName" },
