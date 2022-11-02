@@ -4,6 +4,10 @@ import { toast } from "react-toastify";
 
 import Well from "@common/components/Well";
 import type { Maybe } from "@common/api/generated";
+import {
+  getEmploymentEquityGroup,
+  getEmploymentEquityStatement,
+} from "@common/constants";
 
 import profileMessages from "../profile/profileMessages";
 import Spinner from "../Spinner";
@@ -91,6 +95,9 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   onSave={(newValue) => {
                     handleOptionSave("isWoman", newValue);
                   }}
+                  title={intl.formatMessage(
+                    getEmploymentEquityStatement("woman"),
+                  )}
                 />
               )}
               {resolvedIndigenous && (
@@ -100,6 +107,9 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   onSave={(newValue) => {
                     handleOptionSave("isIndigenous", newValue);
                   }}
+                  title={intl.formatMessage(
+                    getEmploymentEquityStatement("indigenous"),
+                  )}
                 />
               )}
               {resolvedMinority && (
@@ -109,6 +119,9 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   onSave={(newValue) => {
                     handleOptionSave("isVisibleMinority", newValue);
                   }}
+                  title={intl.formatMessage(
+                    getEmploymentEquityStatement("minority"),
+                  )}
                 />
               )}
               {resolvedDisability && (
@@ -118,6 +131,9 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   onSave={(newValue) => {
                     handleOptionSave("hasDisability", newValue);
                   }}
+                  title={intl.formatMessage(
+                    getEmploymentEquityStatement("disability"),
+                  )}
                 />
               )}
             </div>
@@ -159,6 +175,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   onSave={(newValue) => {
                     handleOptionSave("isWoman", newValue);
                   }}
+                  title={intl.formatMessage(getEmploymentEquityGroup("woman"))}
                 />
               )}
               {!resolvedIndigenous && (
@@ -168,6 +185,9 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   onSave={(newValue) => {
                     handleOptionSave("isIndigenous", newValue);
                   }}
+                  title={intl.formatMessage(
+                    getEmploymentEquityGroup("indigenous"),
+                  )}
                 />
               )}
               {!resolvedMinority && (
@@ -177,6 +197,9 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   onSave={(newValue) => {
                     handleOptionSave("isVisibleMinority", newValue);
                   }}
+                  title={intl.formatMessage(
+                    getEmploymentEquityGroup("minority"),
+                  )}
                 />
               )}
               {!resolvedDisability && (
@@ -186,6 +209,9 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   onSave={(newValue) => {
                     handleOptionSave("hasDisability", newValue);
                   }}
+                  title={intl.formatMessage(
+                    getEmploymentEquityGroup("disability"),
+                  )}
                 />
               )}
             </div>

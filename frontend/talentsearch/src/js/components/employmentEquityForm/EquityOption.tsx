@@ -3,13 +3,14 @@ import { useIntl } from "react-intl";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 import { Button } from "@common/components";
-import { getEmploymentEquityGroup } from "@common/constants/localizedConstants";
+
 import {
   DisabilityDialog,
   IndigenousDialog,
   VisibleMinorityDialog,
   WomanDialog,
 } from "./dialogs";
+
 import { EquityDialogProps } from "./types";
 
 type EquityGroup = "woman" | "indigenous" | "minority" | "disability";
@@ -18,6 +19,7 @@ interface EquityOptionProps {
   isAdded: boolean;
   option: EquityGroup;
   onSave: (value: boolean) => void;
+  title: React.ReactNode;
 }
 
 const dialogMap: Record<EquityGroup, React.FC<EquityDialogProps>> = {
@@ -27,9 +29,13 @@ const dialogMap: Record<EquityGroup, React.FC<EquityDialogProps>> = {
   woman: WomanDialog,
 };
 
-const EquityOption = ({ isAdded, option, onSave }: EquityOptionProps) => {
+const EquityOption = ({
+  isAdded,
+  option,
+  onSave,
+  title,
+}: EquityOptionProps) => {
   const intl = useIntl();
-  const title = intl.formatMessage(getEmploymentEquityGroup(option));
   const Dialog = dialogMap[option];
 
   const removeText = intl.formatMessage(
