@@ -1,12 +1,13 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { Link, Pill } from "@common/components";
-import { notEmpty } from "@common/helpers/util";
+import { empty, notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import { getFullNameLabel } from "@common/helpers/nameUtils";
+import { omit, pick } from "lodash";
 import {
   SearchPoolCandidatesQuery,
   useSearchPoolCandidatesQuery,
@@ -16,6 +17,8 @@ import {
   PoolCandidateFilter,
   ApplicantFilter,
   UserFilterInput,
+  IdInput,
+  Maybe,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -328,11 +331,73 @@ const transformFilterToInput = (
   };
 };
 
+function isObject(x: any): x is object {
+  return x !== null && typeof x === "object";
+}
+
+function omitIdAndTypename<T>(
+  x: Maybe<T>,
+): Maybe<Omit<T, "id" | "__typename">> {
+  if (x === null || x === undefined) {
+    return x;
+  }
+  return omit(x, ["id", "__typename"]) as Omit<T, "id" | "__typename">;
+}
+
+function pickId<T extends IdInput>(x: T): IdInput {
+  return pick(x, ["id"]);
+}
+
+const transformApplicantFilterToApplicantFilterInput = (
+  applicantFilter: ApplicantFilter,
+): ApplicantFilterInput => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+  const x = Object.entries(omitIdAndTypename(applicantFilter) ?? {}).reduce(
+    (dict: any, newEntry) => {
+      const [key, value] = newEntry;
+      if (!isObject(value) || empty(value)) {
+        dict[key] = value;
+      } else if (key === "expectedClassifications") {
+        dict[key] = pick(value, ["group", "level"]);
+      } else if (Array.isArray(value)) {
+        dict[key] = value.map(omitIdAndTypename);
+      } else {
+        dict[key] = omitIdAndTypename(value);
+      }
+      return dict;
+    },
+    {},
+  );
+  return x;
+  const { id, __typename, ...applicantFilterInput } = applicantFilter; // strip out fields not part of ApplicantFilterInput so its valid to send to GraphQL.
+  return omit(applicantFilter, [
+    "id",
+    "__typename",
+    "equity.__typename",
+    "classification.__typename",
+    "classification.id",
+    "classification.genericJobTitles",
+    "classification.maxSalary",
+    "classification.minSalary",
+    "classification.name",
+  ]);
+  // return pick(applicantFilter, [
+  //   "equity.hasDisability",
+  //   "equity.isIndigenous",
+  //   "equity.isVisibleMinority",
+  //   "equity.isWoman",
+  //   ""
+  // ];
+};
+
 const transformApplicantFilterToUserFilterInput = (
   applicantFilter: ApplicantFilter,
 ): UserFilterInput => {
+  const applicantFilterInput =
+    transformApplicantFilterToApplicantFilterInput(applicantFilter);
   return {
-    applicantFilter,
+    applicantFilter: applicantFilterInput,
   };
 };
 
