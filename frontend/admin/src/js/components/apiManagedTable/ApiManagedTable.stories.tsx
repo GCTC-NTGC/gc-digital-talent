@@ -107,7 +107,6 @@ const Template: Story<ApiManageTableProps> = (args) => {
   return (
     <>
       <h2 id="heading">API Managed Table</h2>
-      <p>Note: Search not functional</p>
       <TableHeader
         columns={columns}
         hiddenColumnIds={hiddenColumnIds}
