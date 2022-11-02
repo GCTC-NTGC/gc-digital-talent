@@ -20,7 +20,7 @@ export type SubAlertProps = Omit<AlertProps, "mode">;
 export const typeMap: Record<Color, Record<string, string>> = {
   success: {
     "data-h2-border": "base(all, 0.25rem, solid, dark.dt-success)",
-    "data-h2-background-color": "base(light.dt-success.1)",
+    "data-h2-background-color": "base(light.dt-success.10)",
     "data-h2-color": "base(black)",
   },
   warning: {

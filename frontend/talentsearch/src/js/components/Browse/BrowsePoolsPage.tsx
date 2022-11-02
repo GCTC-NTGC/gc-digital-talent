@@ -100,7 +100,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
       />
       {filteredPoolAdvertisements.length ? (
         <div
-          data-h2-background-color="base(black.03) base:dark(black.9)"
+          data-h2-background-color="base(black.03) base:dark(black.90)"
           data-h2-color="base(black) base:dark(white)"
           data-h2-border="base(bottom, 1px, solid, black.50)"
           data-h2-position="base(relative)"
