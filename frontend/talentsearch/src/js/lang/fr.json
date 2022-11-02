@@ -616,7 +616,7 @@
     "description": "Message for the french positions option"
   },
   "6H4uc8": {
-    "defaultMessage": "\"Je m'identifie comme une personne handicapée\"",
+    "defaultMessage": "« Je m'identifie comme une personne handicapée »",
     "description": "Title for when someone indicates they have a disability on their profile"
   },
   "6LTC0y": {
@@ -795,7 +795,7 @@
     "description": "Button label for submit button on create account form."
   },
   "HZB4iF": {
-    "defaultMessage": "\"Je m'identifie comme une femme\"",
+    "defaultMessage": "« Je m'identifie comme une femme »",
     "description": "Title for when someone indicates they are a woman on their profile"
   },
   "Hgd/PL": {
@@ -1126,7 +1126,7 @@
     "description": "Question for user in skills in detail section of experience form."
   },
   "bUeJy1": {
-    "defaultMessage": "\"Je m'identifie comme membre d'une minorité visible\"",
+    "defaultMessage": "« Je m'identifie comme membre d'une minorité visible »",
     "description": "Title for when someone indicates they are a visible minority on their profile"
   },
   "c/Qp8R": {
@@ -1325,7 +1325,7 @@
     "description": "Main heading in create account page."
   },
   "oEFd6y": {
-    "defaultMessage": "\"Je suis autochtone\"",
+    "defaultMessage": "« Je suis autochtone »",
     "description": "Title for when someone indicates they are indigenous on their profile"
   },
   "oG9dAi": {
@@ -1433,7 +1433,7 @@
     "description": "Description for the role and salary expectation form"
   },
   "uQYCfd": {
-    "defaultMessage": "Ces quatre groupes sont les \"femmes, les Autochtones, les personnes handicapées et les membres des minorités visibles.\"",
+    "defaultMessage": "Ces quatre groupes sont les « femmes, les Autochtones, les personnes handicapées et les membres des minorités visibles. »",
     "description": "List of the employment equity categories"
   },
   "uqoN4k": {
@@ -1532,8 +1532,8 @@
     "defaultMessage": "Groupes visés par l’équité en matière d’emploi",
     "description": "Legend for the employment equity checklist"
   },
-  "aWLo7o": {
-    "defaultMessage": "{candidateCount, plural, =0 {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{candidateCount}</testId> candidat correspondant à vos critères} other {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères}}",
+  "eeWkWi": {
+    "defaultMessage": "{totalCandidateCount, plural, =0 {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{totalCandidateCount}</testId> candidat correspondant à vos critères} other {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères}}",
     "description": "Heading for total matching candidates in results section of search page."
   },
   "bbso+7": {
@@ -2129,7 +2129,7 @@
     "description": "Toc navigation item on sign and submit page."
   },
   "9Eke1a": {
-    "defaultMessage": "\"J’atteste que les renseignements que j’ai fournis sont vrais\"",
+    "defaultMessage": "« J’atteste que les renseignements que j’ai fournis sont vrais »",
     "description": "Signature list item on sign and submit page."
   },
   "M3c9Yo": {
@@ -2217,7 +2217,7 @@
     "description": "Message displayed to user after application is submitted successfully."
   },
   "voTvve": {
-    "defaultMessage": "\"J’ai passé en revue tout ce qui est écrit dans ma candidature\"",
+    "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
     "description": "Signature list item on sign and submit page."
   },
   "brQu7D": {
@@ -2225,7 +2225,7 @@
     "description": "Label displayed for does not have priority entitlement option"
   },
   "dIZPra": {
-    "defaultMessage": "\"Je comprends que je fais partie d’une communauté qui se fait confiance\"",
+    "defaultMessage": "« Je comprends que je fais partie d’une communauté qui se fait confiance »",
     "description": "Signature list item on sign and submit page."
   },
   "da8nDk": {

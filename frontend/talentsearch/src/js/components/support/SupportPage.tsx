@@ -53,7 +53,7 @@ export const SupportPage: React.FC = () => {
       <div
         data-h2-position="base(relative)"
         data-h2-padding="base(x4, 0)"
-        data-h2-background-color="base(black.03) base:dark(black.9)"
+        data-h2-background-color="base(black.03) base:dark(black.90)"
       >
         <img
           alt=""

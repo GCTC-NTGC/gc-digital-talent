@@ -18,7 +18,6 @@ const mailLink = (chunks: React.ReactNode): React.ReactNode => (
 const CandidateResults: React.FC<CandidateResultsProps> = ({
   candidateCount,
   pool,
-  poolOwner,
   handleSubmit,
 }) => {
   const intl = useIntl();
@@ -34,7 +33,6 @@ const CandidateResults: React.FC<CandidateResultsProps> = ({
       <SearchPools
         candidateCount={candidateCount}
         pool={pool}
-        poolOwner={poolOwner}
         handleSubmit={handleSubmit}
       />
     </div>

@@ -27,7 +27,7 @@ const colorMap: Record<
     },
     outline: {
       "data-h2-border": "base(all, 1px, solid, dark.dt-primary)",
-      "data-h2-background-color": "base(light.dt-primary.1)",
+      "data-h2-background-color": "base(light.dt-primary.10)",
       "data-h2-color": "base(dark.dt-primary)",
     },
   },
@@ -39,7 +39,7 @@ const colorMap: Record<
     },
     outline: {
       "data-h2-border": "base(all, 1px, solid, dark.dt-secondary)",
-      "data-h2-background-color": "base(light.dt-secondary.1)",
+      "data-h2-background-color": "base(light.dt-secondary.10)",
       "data-h2-color": "base(dark.dt-secondary)",
     },
   },
@@ -51,7 +51,7 @@ const colorMap: Record<
     },
     outline: {
       "data-h2-border": "base(all, 1px, solid, dark.tm-blue)",
-      "data-h2-background-color": "base(light.tm-blue.1)",
+      "data-h2-background-color": "base(light.tm-blue.10)",
       "data-h2-color": "base(dark.tm-blue)",
     },
   },
@@ -64,7 +64,7 @@ const colorMap: Record<
     },
     outline: {
       "data-h2-border": "base(all, 1px, solid, dark.dt-gray)",
-      "data-h2-background-color": "base(dt-gray.1)",
+      "data-h2-background-color": "base(dt-gray.10)",
       "data-h2-color": "base(dark.dt-gray)",
     },
   },
@@ -76,7 +76,7 @@ const colorMap: Record<
     },
     outline: {
       "data-h2-border": "base(all, 1px, solid, dark.dt-error)",
-      "data-h2-background-color": "base(light.dt-error.1)",
+      "data-h2-background-color": "base(light.dt-error.10)",
       "data-h2-color": "base(dark.dt-black)",
     },
   },
