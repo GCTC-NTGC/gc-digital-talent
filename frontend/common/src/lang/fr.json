@@ -1937,7 +1937,7 @@
     "description": "Error message that Work Tasks in English must be filled"
   },
   "w2tWfH": {
-    "defaultMessage": "Un champ obligatoire est manquant : Titres des volets/emplois",
+    "defaultMessage": "Un champ obligatoire est vide : Titres des volets/emplois",
     "description": "Error message that the pool advertisement must have a stream."
   }
 }
