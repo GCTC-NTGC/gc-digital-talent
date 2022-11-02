@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { Link, Pill } from "@common/components";
-import { empty, notEmpty } from "@common/helpers/util";
+import { empty, identity, notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import { getOperationalRequirement } from "@common/constants/localizedConstants";
@@ -19,6 +19,9 @@ import {
   UserFilterInput,
   IdInput,
   Maybe,
+  Classification,
+  Pool,
+  Skill,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -331,16 +334,9 @@ const transformFilterToInput = (
   };
 };
 
-function isObject(x: any): x is object {
-  return x !== null && typeof x === "object";
-}
-
-function omitIdAndTypename<T>(
-  x: Maybe<T>,
-): Maybe<Omit<T, "id" | "__typename">> {
-  if (x === null || x === undefined) {
-    return x;
-  }
+function omitIdAndTypename<T extends object | null | undefined>(
+  x: T,
+): Omit<T, "id" | "__typename"> {
   return omit(x, ["id", "__typename"]) as Omit<T, "id" | "__typename">;
 }
 
@@ -352,43 +348,32 @@ const transformApplicantFilterToApplicantFilterInput = (
   applicantFilter: ApplicantFilter,
 ): ApplicantFilterInput => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const idInputs = ["pools", "skills"];
 
-  const x = Object.entries(omitIdAndTypename(applicantFilter) ?? {}).reduce(
-    (dict: any, newEntry) => {
-      const [key, value] = newEntry;
-      if (!isObject(value) || empty(value)) {
-        dict[key] = value;
-      } else if (key === "expectedClassifications") {
-        dict[key] = pick(value, ["group", "level"]);
-      } else if (Array.isArray(value)) {
-        dict[key] = value.map(omitIdAndTypename);
-      } else {
-        dict[key] = omitIdAndTypename(value);
+  const mapping: Record<keyof ApplicantFilterInput, (x: any) => any> = {
+    equity: omitIdAndTypename,
+    expectedClassifications: (c: Classification) => pick(c, ["group", "level"]),
+    hasDiploma: identity,
+    languageAbility: identity,
+    locationPreferences: identity,
+    operationalRequirements: identity,
+    pools: (x: Array<Maybe<Pool>>) => x.filter(notEmpty).map(pickId),
+    skills: (x: Array<Maybe<Skill>>) => x.filter(notEmpty).map(pickId),
+    wouldAcceptTemporary: identity,
+  };
+
+  return Object.entries(mapping).reduce(
+    (applicantFilterInput: ApplicantFilterInput, filterEntry) => {
+      const [key, transform] = filterEntry;
+      const originalValue = applicantFilter[key as keyof ApplicantFilterInput];
+      if (notEmpty(originalValue)) {
+        applicantFilterInput[key as keyof ApplicantFilterInput] =
+          transform(originalValue);
       }
-      return dict;
+      return applicantFilterInput;
     },
     {},
   );
-  return x;
-  const { id, __typename, ...applicantFilterInput } = applicantFilter; // strip out fields not part of ApplicantFilterInput so its valid to send to GraphQL.
-  return omit(applicantFilter, [
-    "id",
-    "__typename",
-    "equity.__typename",
-    "classification.__typename",
-    "classification.id",
-    "classification.genericJobTitles",
-    "classification.maxSalary",
-    "classification.minSalary",
-    "classification.name",
-  ]);
-  // return pick(applicantFilter, [
-  //   "equity.hasDisability",
-  //   "equity.isIndigenous",
-  //   "equity.isVisibleMinority",
-  //   "equity.isWoman",
-  //   ""
-  // ];
 };
 
 const transformApplicantFilterToUserFilterInput = (
