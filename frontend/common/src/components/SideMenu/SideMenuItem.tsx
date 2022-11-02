@@ -4,11 +4,11 @@ import useLinkClickHandler from "../Link/useLinkClickHandler";
 
 const commonStyles = {
   "data-h2-background-color":
-    "base(light.dt-secondary) base:focus-visible(lighter.dt-secondary.3) base:hover(lighter.dt-secondary.3)",
+    "base(light.dt-secondary) base:focus-visible(lighter.dt-secondary.30) base:hover(lighter.dt-secondary.30)",
   "data-h2-outline": "base(none)",
   "data-h2-padding": "base(x.5, x1)",
   "data-h2-cursor": "base(pointer)",
-  "data-h2-border": "base(bottom, 1px, solid, dt-white.1)",
+  "data-h2-border": "base(bottom, 1px, solid, dt-white.10)",
   "data-h2-color": "base(dt-white)",
   "data-h2-width": "base(100%)",
   "data-h2-text-align": "base(left)",

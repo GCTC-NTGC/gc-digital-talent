@@ -7,37 +7,37 @@ import { Color } from "../Button";
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
-    "data-h2-background-color": "base(dt-primary.5)",
+    "data-h2-background-color": "base(dt-primary.50)",
   },
   secondary: {
-    "data-h2-background-color": "base(dt-secondary.5)",
+    "data-h2-background-color": "base(dt-secondary.50)",
   },
   cta: {
-    "data-h2-background-color": "base(dt-accent.5)",
+    "data-h2-background-color": "base(dt-accent.50)",
   },
   white: {
-    "data-h2-background-color": "base(dt-white.5)",
+    "data-h2-background-color": "base(dt-white.50)",
   },
   black: {
-    "data-h2-background-color": "base(dt-gray.5)",
+    "data-h2-background-color": "base(dt-gray.50)",
   },
   "ia-primary": {
-    "data-h2-background-color": "base(ia-primary.5)",
+    "data-h2-background-color": "base(ia-primary.50)",
   },
   "ia-secondary": {
-    "data-h2-background-color": "base(ia-secondary.5)",
+    "data-h2-background-color": "base(ia-secondary.50)",
   },
   yellow: {
-    "data-h2-background-color": "base(tm-yellow.5)",
+    "data-h2-background-color": "base(tm-yellow.50)",
   },
   red: {
-    "data-h2-background-color": "base(tm-red.5)",
+    "data-h2-background-color": "base(tm-red.50)",
   },
   blue: {
-    "data-h2-background-color": "base(tm-blue.5)",
+    "data-h2-background-color": "base(tm-blue.50)",
   },
   purple: {
-    "data-h2-background-color": "base(tm-purple.5)",
+    "data-h2-background-color": "base(tm-purple.50)",
   },
 };
 
