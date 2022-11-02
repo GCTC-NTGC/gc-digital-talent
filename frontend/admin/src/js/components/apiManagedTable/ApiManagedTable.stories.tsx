@@ -151,7 +151,10 @@ const Template: Story<ApiManageTableProps> = (args) => {
           hasMorePages: pageSize + currentPage * pageSize < mockUsers.length,
         }}
         onCurrentPageChange={setCurrentPage}
-        onPageSizeChange={setPageSize}
+        onPageSizeChange={(newPageSize) => {
+          setPageSize(newPageSize);
+          setCurrentPage(1);
+        }}
       />
     </>
   );
