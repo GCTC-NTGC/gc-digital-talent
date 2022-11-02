@@ -63,7 +63,8 @@ const SearchFilterAdvice: React.FC<{
         >
           {intl.formatMessage({
             defaultMessage: "Diploma required",
-            id: "MG4+wL",
+            description: "Diploma required",
+            id: "w1/0Cd",
           })}
         </a>
       ),
@@ -80,8 +81,9 @@ const SearchFilterAdvice: React.FC<{
           data-h2-font-weight="base(700)"
         >
           {intl.formatMessage({
-            defaultMessage: "Language ability selection",
-            id: "BV+Zp4",
+            defaultMessage: "Language ability",
+            description: "Language ability",
+            id: "mKzQwr",
           })}
         </a>
       ),
@@ -98,8 +100,9 @@ const SearchFilterAdvice: React.FC<{
           data-h2-font-weight="base(700)"
         >
           {intl.formatMessage({
-            defaultMessage: "Duration selection",
-            id: "5F6Cky",
+            defaultMessage: "Employment duration",
+            description: "Employment duration",
+            id: "hRe0yl",
           })}
         </a>
       ),
@@ -117,8 +120,9 @@ const SearchFilterAdvice: React.FC<{
         >
           {intl.formatMessage(
             {
-              defaultMessage: "Equity selection ({equityFiltersActive})",
-              id: "W/4BZt",
+              defaultMessage: "Employment equity ({equityFiltersActive})",
+              description: "Employment equity with a number in parentheses",
+              id: "dE2WB1",
             },
             { equityFiltersActive },
           )}
@@ -139,7 +143,8 @@ const SearchFilterAdvice: React.FC<{
           {intl.formatMessage(
             {
               defaultMessage: "Skills selected ({skillCount})",
-              id: "2LF0/Y",
+              id: "RNI+IH",
+              description: "Skills selected and then a number in parentheses",
             },
             { skillCount },
           )}
