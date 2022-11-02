@@ -67,12 +67,17 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     candidateFilter?.locationPreferences?.length ?? 0;
   const educationFilter = candidateFilter?.hasDiploma;
   const workingLanguage = candidateFilter?.languageAbility;
-  // check if any equity filters are active, counting is not used as selecting multiple equity filters increases the potential match count as it is OR not AND
-  const equityFiltersActive =
-    candidateFilter?.equity?.hasDisability ||
-    candidateFilter?.equity?.isIndigenous ||
-    candidateFilter?.equity?.isVisibleMinority ||
-    candidateFilter?.equity?.isWoman;
+
+  const equityFilters = candidateFilter?.equity;
+  const equityFiltersArray = equityFilters
+    ? Object.values(equityFilters)
+    : null;
+  const equityFiltersArrayTrue = equityFiltersArray
+    ? equityFiltersArray.filter((equityField) => equityField === true)
+    : null;
+  const equityFiltersCount = equityFiltersArrayTrue
+    ? equityFiltersArrayTrue.length
+    : 0;
 
   function a(chunks: React.ReactNode): React.ReactNode {
     return (
@@ -230,7 +235,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             }
             workingLanguage={workingLanguage}
             educationFilter={educationFilter}
-            equityFiltersActive={equityFiltersActive}
+            equityFiltersActive={equityFiltersCount}
           />
         </div>
         <div>{!updatePending ? candidateResults() : <Spinner />}</div>

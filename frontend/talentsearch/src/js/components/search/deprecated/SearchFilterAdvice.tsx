@@ -7,7 +7,7 @@ const SearchFilterAdvice: React.FC<{
   operationalRequirementFilterCount: number;
   workingLanguage: Maybe<LanguageAbility>;
   educationFilter: Maybe<boolean>;
-  equityFiltersActive: Maybe<boolean>;
+  equityFiltersActive: number;
 }> = ({
   cmoAssetFilterCount,
   operationalRequirementFilterCount,
@@ -21,7 +21,7 @@ const SearchFilterAdvice: React.FC<{
     operationalRequirementFilterCount === 0 &&
     !educationFilter &&
     !workingLanguage &&
-    !equityFiltersActive
+    equityFiltersActive === 0
   ) {
     return null;
   }
@@ -102,7 +102,7 @@ const SearchFilterAdvice: React.FC<{
       ),
     });
   }
-  if (equityFiltersActive) {
+  if (equityFiltersActive > 0) {
     recommendations.push({
       key: "employmentEquityFilter",
       link: (
@@ -111,10 +111,13 @@ const SearchFilterAdvice: React.FC<{
           data-h2-color="base(dt-primary)"
           data-h2-font-weight="base(700)"
         >
-          {intl.formatMessage({
-            defaultMessage: "Equity selection",
-            id: "Smhqh7",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage: "Equity selection ({equityFiltersActive})",
+              id: "W/4BZt",
+            },
+            { equityFiltersActive },
+          )}
         </a>
       ),
     });
