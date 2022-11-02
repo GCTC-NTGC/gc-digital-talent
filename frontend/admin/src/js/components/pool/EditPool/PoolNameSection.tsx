@@ -133,9 +133,9 @@ export const PoolNameSection = ({
                 id="classification"
                 label={intl.formatMessage({
                   defaultMessage: "Classification",
-                  id: "jPlK9k",
+                  id: "w/qZsH",
                   description:
-                    "Label displayed on the edit pool form classification field.",
+                    "Label displayed on the pool form classification field.",
                 })}
                 name="classification"
                 options={classificationOptions}
@@ -147,9 +147,9 @@ export const PoolNameSection = ({
                 id="stream"
                 label={intl.formatMessage({
                   defaultMessage: "Streams/Job Titles",
-                  id: "7SOo+L",
+                  id: "PzijvH",
                   description:
-                    "Label displayed on the edit pool form stream/job title field.",
+                    "Label displayed on the pool form stream/job title field.",
                 })}
                 name="stream"
                 nullSelection={intl.formatMessage({
