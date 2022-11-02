@@ -9,11 +9,17 @@ import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstan
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import {
+  ApplicantFilter,
+  PoolCandidateFilter,
   PoolCandidateFilterInput,
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,
 } from "../../api/generated";
-import { SingleSearchRequestTableApi } from "./SingleSearchRequestTable";
+import {
+  SingleSearchRequestTableApi,
+  checkIsLegacyFilter,
+} from "./SingleSearchRequestTable";
+import type { AbstractFilterInput } from "./SingleSearchRequestTable";
 import { UpdateSearchRequest } from "./UpdateSearchRequest";
 
 const ManagerInfo: React.FunctionComponent<{
@@ -206,47 +212,51 @@ export const SingleSearchRequest: React.FunctionComponent<
     searchRequest;
   // TODO: data filter data from applicantFilter instead of poolCandidateFilter if possible.
 
-  const poolCandidateFilterInput: PoolCandidateFilterInput = {
-    expectedClassifications: [
-      ...(poolCandidateFilter?.classifications
-        ? poolCandidateFilter.classifications
-            .filter(notEmpty)
-            .map(({ group, level }) => {
+  const transformFilterToInput = (
+    inputFilter: PoolCandidateFilter,
+  ): PoolCandidateFilterInput => {
+    return {
+      expectedClassifications: [
+        ...(inputFilter?.classifications
+          ? inputFilter.classifications
+              .filter(notEmpty)
+              .map(({ group, level }) => {
+                return {
+                  group,
+                  level,
+                };
+              })
+          : []),
+      ],
+      cmoAssets: [
+        ...(inputFilter?.cmoAssets
+          ? inputFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
               return {
-                group,
-                level,
+                key,
               };
             })
-        : []),
-    ],
-    cmoAssets: [
-      ...(poolCandidateFilter?.cmoAssets
-        ? poolCandidateFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
-            return {
-              key,
-            };
-          })
-        : []),
-    ],
-    operationalRequirements: poolCandidateFilter?.operationalRequirements,
-    pools: [
-      ...(poolCandidateFilter?.pools
-        ? poolCandidateFilter.pools.filter(notEmpty).map(({ id }) => {
-            return {
-              id,
-            };
-          })
-        : []),
-    ],
-    hasDiploma: poolCandidateFilter?.hasDiploma,
-    equity: {
-      hasDisability: poolCandidateFilter?.equity?.hasDisability,
-      isIndigenous: poolCandidateFilter?.equity?.isIndigenous,
-      isVisibleMinority: poolCandidateFilter?.equity?.isVisibleMinority,
-      isWoman: poolCandidateFilter?.equity?.isWoman,
-    },
-    languageAbility: poolCandidateFilter?.languageAbility || undefined,
-    locationPreferences: poolCandidateFilter?.workRegions,
+          : []),
+      ],
+      operationalRequirements: inputFilter?.operationalRequirements,
+      pools: [
+        ...(inputFilter?.pools
+          ? inputFilter.pools.filter(notEmpty).map(({ id }) => {
+              return {
+                id,
+              };
+            })
+          : []),
+      ],
+      hasDiploma: inputFilter?.hasDiploma,
+      equity: {
+        hasDisability: inputFilter?.equity?.hasDisability,
+        isIndigenous: inputFilter?.equity?.isIndigenous,
+        isVisibleMinority: inputFilter?.equity?.isVisibleMinority,
+        isWoman: inputFilter?.equity?.isWoman,
+      },
+      languageAbility: inputFilter?.languageAbility || undefined,
+      locationPreferences: inputFilter?.workRegions,
+    };
   };
 
   return (
@@ -315,7 +325,11 @@ export const SingleSearchRequest: React.FunctionComponent<
               "Heading for the candidate results section of the single search request view.",
           })}
         </h2>
-        <SingleSearchRequestTableApi filterInput={poolCandidateFilterInput} />
+        {poolCandidateFilter && (
+          <SingleSearchRequestTableApi
+            filterInput={transformFilterToInput(poolCandidateFilter)}
+          />
+        )}
       </div>
       <UpdateSearchRequest initialSearchRequest={searchRequest} />
     </section>

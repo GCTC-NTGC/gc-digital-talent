@@ -80,13 +80,17 @@ const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
     </span>
   );
 };
-
-export const UserTable: React.FC = () => {
+type UserTableProps = {
+  initialFilterInput?: UserFilterInput;
+};
+export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
   const { pathname } = useLocation();
 
-  const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>();
+  const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(
+    initialFilterInput ?? {},
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();

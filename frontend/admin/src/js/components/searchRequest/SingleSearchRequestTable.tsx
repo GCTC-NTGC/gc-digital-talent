@@ -16,6 +16,7 @@ import {
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
+import UserTable from "../user/UserTable";
 
 type Data = NonNullable<
   FromArray<SearchPoolCandidatesQuery["searchPoolCandidates"]>
@@ -249,9 +250,11 @@ export const SingleSearchRequestTable: React.FunctionComponent<
   return <Table data={memoizedData} columns={columns} />;
 };
 
-type AbstractFilterInput = PoolCandidateFilterInput | ApplicantFilterInput;
+export type AbstractFilterInput =
+  | PoolCandidateFilterInput
+  | ApplicantFilterInput;
 
-function checkIsLegacyFilter(
+export function checkIsLegacyFilter(
   filterInput: AbstractFilterInput,
 ): filterInput is PoolCandidateFilterInput {
   if ("cmoAssets" in filterInput) return true;
@@ -274,6 +277,8 @@ function useSearchQuery(filterInput: AbstractFilterInput) {
   return { legacyResult, result };
 }
 
+// function transformApplicantToUserFilterInput(applicantFilterInput: )
+
 export const SingleSearchRequestTableApi: React.FunctionComponent<{
   filterInput: AbstractFilterInput;
 }> = ({ filterInput }) => {
@@ -287,6 +292,6 @@ export const SingleSearchRequestTableApi: React.FunctionComponent<{
       />
     </Pending>
   ) : (
-    <div>should not render</div>
+    <UserTable initialFilterInput={filterInput}
   );
 };
