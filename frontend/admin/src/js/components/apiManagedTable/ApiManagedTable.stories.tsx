@@ -5,6 +5,7 @@ import { FromArray } from "@common/types/utilityTypes";
 
 import { action } from "@storybook/addon-actions";
 import { fakeUsers } from "@common/fakeData";
+import { Button } from "@common/components";
 import BasicTable from "./BasicTable";
 import TableHeader from "./TableHeader";
 import TableFooter from "./TableFooter";
@@ -110,7 +111,9 @@ const Template: Story<ApiManageTableProps> = (args) => {
       <TableHeader
         columns={columns}
         hiddenColumnIds={hiddenColumnIds}
-        filterButtonComponent={null}
+        filterButtonComponent={
+          <Button onClick={() => action("onOpenFilters")()}>Filters</Button>
+        }
         onSearchChange={(term, type) => {
           setSearchState({
             term,
