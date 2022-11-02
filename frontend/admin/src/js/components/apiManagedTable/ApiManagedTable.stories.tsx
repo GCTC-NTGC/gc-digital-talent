@@ -41,15 +41,15 @@ type Data = NonNullable<FromArray<Users>>;
 const columns: ColumnsOf<Data> = [
   {
     label: "First Name",
-    id: "name",
+    id: "firstName",
     accessor: (row: User) => row.firstName,
-    sortColumnName: "title",
+    sortColumnName: "firstName",
   },
   {
     label: "Last Name",
-    id: "name",
+    id: "lastName",
     accessor: (row: User) => row.lastName,
-    sortColumnName: "title",
+    sortColumnName: "lastName",
   },
   {
     label: "Email",
