@@ -1,7 +1,7 @@
 import React from "react";
 import debounce from "lodash/debounce";
 import { useIntl } from "react-intl";
-import { CheckIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
 import DropdownMenu from "@common/components/DropdownMenu";
 
@@ -62,11 +62,19 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
           <DropdownMenu.Trigger>
             <Button
               color="secondary"
+              data-h2-align-items="base(center)"
+              data-h2-display="base(flex)"
+              data-h2-flex-shrink="base(0)"
+              data-h2-gap="base(x.25, 0)"
               data-h2-radius="base(s, none, none, s)"
               data-h2-margin-right="base(0)"
-              style={{ flexShrink: 0, borderRightWidth: 0 }}
+              style={{ borderRightWidth: 0 }}
             >
-              {column ? column.label : allTableMsg}
+              <span>{column ? column.label : allTableMsg}</span>
+              <ChevronDownIcon
+                data-h2-height="base(1em)"
+                data-h2-width="base(1em)"
+              />
             </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>

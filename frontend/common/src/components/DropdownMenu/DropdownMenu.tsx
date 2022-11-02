@@ -40,7 +40,7 @@ const StyledArrow = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Arrow>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Arrow
-    style={{ fill: `var(--h2-color-dt-white)` }}
+    style={{ fill: `rgba(var(--h2-color-dt-white), 1)` }}
     ref={forwardedRef}
     {...props}
   />
