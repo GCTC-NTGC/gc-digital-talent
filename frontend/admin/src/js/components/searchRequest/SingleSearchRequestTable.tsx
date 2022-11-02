@@ -258,7 +258,8 @@ export type AbstractFilter = PoolCandidateFilter | ApplicantFilter;
 export function checkIsLegacyFilter(
   filter: AbstractFilter,
 ): filter is PoolCandidateFilter {
-  if (filter.__typename == "PoolCandidateFilter") return true;
+  // eslint-disable-next-line no-underscore-dangle
+  if (filter.__typename === "PoolCandidateFilter") return true;
 
   return false;
 }

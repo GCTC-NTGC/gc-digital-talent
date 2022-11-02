@@ -4,7 +4,6 @@ import SearchRequestFilters from "@common/components/SearchRequestFilters/Search
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { commonMessages } from "@common/messages";
-import { notEmpty } from "@common/helpers/util";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
@@ -19,7 +18,6 @@ import {
   SingleSearchRequestTableApi,
   checkIsLegacyFilter,
 } from "./SingleSearchRequestTable";
-import type { AbstractFilterInput } from "./SingleSearchRequestTable";
 import { UpdateSearchRequest } from "./UpdateSearchRequest";
 
 const ManagerInfo: React.FunctionComponent<{
