@@ -132,6 +132,7 @@ const Template: Story<ApiManageTableProps> = (args) => {
             setHiddenColumnIds,
             event,
           );
+          action("onColumnHiddenChange")(event);
         }}
         {...header}
       />
@@ -139,7 +140,10 @@ const Template: Story<ApiManageTableProps> = (args) => {
         labelledBy="heading"
         columns={columns}
         data={paginatedUsers}
-        onSortingRuleChange={setSortingRule}
+        onSortingRuleChange={(newSortingRule) => {
+          setSortingRule(newSortingRule);
+          action("onSortingRuleChange")(newSortingRule);
+        }}
         sortingRule={sortingRule}
         hiddenColumnIds={hiddenColumnIds}
       />
@@ -152,10 +156,14 @@ const Template: Story<ApiManageTableProps> = (args) => {
           lastPage: mockUsers.length / pageSize,
           hasMorePages: pageSize + currentPage * pageSize < mockUsers.length,
         }}
-        onCurrentPageChange={setCurrentPage}
+        onCurrentPageChange={(newPage) => {
+          setCurrentPage(newPage);
+          action("onCurrentPageChange")(newPage);
+        }}
         onPageSizeChange={(newPageSize) => {
           setPageSize(newPageSize);
           setCurrentPage(1);
+          action("onPageSizeChange")(newPageSize);
         }}
       />
     </>
