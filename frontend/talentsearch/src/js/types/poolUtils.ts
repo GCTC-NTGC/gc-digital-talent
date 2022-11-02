@@ -1,10 +1,10 @@
 import { Classification, Maybe } from "@common/api/generated";
 import { notEmpty } from "@common/helpers/util";
+import { Pool } from "../api/generated";
 
 export type SimpleClassification = Pick<Classification, "group" | "level">;
 
-export type SimplePool = {
-  id: string;
+export type SimplePool = Pick<Pool, "id" | "owner" | "description" | "name"> & {
   classifications?: SimpleClassification[];
 };
 
