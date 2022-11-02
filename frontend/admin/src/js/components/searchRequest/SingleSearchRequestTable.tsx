@@ -13,6 +13,9 @@ import {
   PoolCandidateFilterInput,
   ApplicantFilterInput,
   useSearchApplicantsQuery,
+  PoolCandidateFilter,
+  ApplicantFilter,
+  UserFilterInput,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -250,40 +253,103 @@ export const SingleSearchRequestTable: React.FunctionComponent<
   return <Table data={memoizedData} columns={columns} />;
 };
 
-export type AbstractFilterInput =
-  | PoolCandidateFilterInput
-  | ApplicantFilterInput;
+export type AbstractFilter = PoolCandidateFilter | ApplicantFilter;
 
 export function checkIsLegacyFilter(
-  filterInput: AbstractFilterInput,
-): filterInput is PoolCandidateFilterInput {
-  if ("cmoAssets" in filterInput) return true;
+  filter: AbstractFilter,
+): filter is PoolCandidateFilter {
+  if (filter.__typename == "PoolCandidateFilter") return true;
 
   return false;
 }
 
-function useSearchQuery(filterInput: AbstractFilterInput) {
-  const isLegacyFilter = checkIsLegacyFilter(filterInput);
-  // See: https://formidable.com/open-source/urql/docs/basics/react-preact/#pausing-usequery
-  const [legacyResult] = useSearchPoolCandidatesQuery({
-    variables: { poolCandidateFilter: filterInput },
-    pause: !isLegacyFilter,
-  });
-  const [result] = useSearchApplicantsQuery({
-    variables: { applicantFilter: filterInput },
-    pause: isLegacyFilter,
-  });
+// function useSearchQuery(filterInput: AbstractFilterInput) {
+//   const isLegacyFilter = checkIsLegacyFilter(filterInput);
+//   // See: https://formidable.com/open-source/urql/docs/basics/react-preact/#pausing-usequery
+//   const [legacyResult] = useSearchPoolCandidatesQuery({
+//     variables: { poolCandidateFilter: filterInput },
+//     pause: !isLegacyFilter,
+//   });
+//   const [result] = useSearchApplicantsQuery({
+//     variables: { applicantFilter: filterInput },
+//     pause: isLegacyFilter,
+//   });
 
-  return { legacyResult, result };
-}
+//   return { legacyResult, result };
+// }
 
 // function transformApplicantToUserFilterInput(applicantFilterInput: )
 
+const transformFilterToInput = (
+  inputFilter: PoolCandidateFilter,
+): PoolCandidateFilterInput => {
+  return {
+    expectedClassifications: [
+      ...(inputFilter?.classifications
+        ? inputFilter.classifications
+            .filter(notEmpty)
+            .map(({ group, level }) => {
+              return {
+                group,
+                level,
+              };
+            })
+        : []),
+    ],
+    cmoAssets: [
+      ...(inputFilter?.cmoAssets
+        ? inputFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
+            return {
+              key,
+            };
+          })
+        : []),
+    ],
+    operationalRequirements: inputFilter?.operationalRequirements,
+    pools: [
+      ...(inputFilter?.pools
+        ? inputFilter.pools.filter(notEmpty).map(({ id }) => {
+            return {
+              id,
+            };
+          })
+        : []),
+    ],
+    hasDiploma: inputFilter?.hasDiploma,
+    equity: {
+      hasDisability: inputFilter?.equity?.hasDisability,
+      isIndigenous: inputFilter?.equity?.isIndigenous,
+      isVisibleMinority: inputFilter?.equity?.isVisibleMinority,
+      isWoman: inputFilter?.equity?.isWoman,
+    },
+    languageAbility: inputFilter?.languageAbility || undefined,
+    locationPreferences: inputFilter?.workRegions,
+  };
+};
+
+const transformApplicantFilterToUserFilterInput = (
+  applicantFilter: ApplicantFilter,
+): UserFilterInput => {
+  return {
+    applicantFilter,
+  };
+};
+
 export const SingleSearchRequestTableApi: React.FunctionComponent<{
-  filterInput: AbstractFilterInput;
-}> = ({ filterInput }) => {
-  const isLegacyFilter = checkIsLegacyFilter(filterInput);
-  const { legacyResult, result } = useSearchQuery(filterInput);
+  filter: AbstractFilter;
+}> = ({ filter }) => {
+  const isLegacyFilter = checkIsLegacyFilter(filter);
+
+  const poolCandidateFilterInput = isLegacyFilter
+    ? transformFilterToInput(filter)
+    : undefined;
+  const [legacyResult] = useSearchPoolCandidatesQuery({
+    variables: { poolCandidateFilter: poolCandidateFilterInput },
+    pause: !isLegacyFilter,
+  });
+  const userFilterInput = !isLegacyFilter
+    ? transformApplicantFilterToUserFilterInput(filter)
+    : undefined;
 
   return isLegacyFilter ? (
     <Pending fetching={legacyResult.fetching} error={legacyResult.error}>
@@ -292,6 +358,6 @@ export const SingleSearchRequestTableApi: React.FunctionComponent<{
       />
     </Pending>
   ) : (
-    <UserTable initialFilterInput={filterInput}
+    <UserTable initialFilterInput={userFilterInput} />
   );
 };

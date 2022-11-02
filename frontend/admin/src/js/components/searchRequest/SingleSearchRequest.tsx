@@ -212,53 +212,7 @@ export const SingleSearchRequest: React.FunctionComponent<
     searchRequest;
   // TODO: data filter data from applicantFilter instead of poolCandidateFilter if possible.
 
-  const transformFilterToInput = (
-    inputFilter: PoolCandidateFilter,
-  ): PoolCandidateFilterInput => {
-    return {
-      expectedClassifications: [
-        ...(inputFilter?.classifications
-          ? inputFilter.classifications
-              .filter(notEmpty)
-              .map(({ group, level }) => {
-                return {
-                  group,
-                  level,
-                };
-              })
-          : []),
-      ],
-      cmoAssets: [
-        ...(inputFilter?.cmoAssets
-          ? inputFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
-              return {
-                key,
-              };
-            })
-          : []),
-      ],
-      operationalRequirements: inputFilter?.operationalRequirements,
-      pools: [
-        ...(inputFilter?.pools
-          ? inputFilter.pools.filter(notEmpty).map(({ id }) => {
-              return {
-                id,
-              };
-            })
-          : []),
-      ],
-      hasDiploma: inputFilter?.hasDiploma,
-      equity: {
-        hasDisability: inputFilter?.equity?.hasDisability,
-        isIndigenous: inputFilter?.equity?.isIndigenous,
-        isVisibleMinority: inputFilter?.equity?.isVisibleMinority,
-        isWoman: inputFilter?.equity?.isWoman,
-      },
-      languageAbility: inputFilter?.languageAbility || undefined,
-      locationPreferences: inputFilter?.workRegions,
-    };
-  };
-
+  const abstractFilter = applicantFilter ?? poolCandidateFilter;
   return (
     <section>
       <p>
@@ -293,9 +247,7 @@ export const SingleSearchRequest: React.FunctionComponent<
           data-h2-padding="base(x1)"
           data-h2-background-color="base(lightest.dt-gray)"
         >
-          <SearchRequestFilters
-            filters={applicantFilter || poolCandidateFilter}
-          />
+          <SearchRequestFilters filters={abstractFilter} />
           <div
             data-h2-padding="base(x1, 0, 0, 0)"
             data-h2-border="base(top, 1px, solid, dt-gray)"
@@ -325,10 +277,16 @@ export const SingleSearchRequest: React.FunctionComponent<
               "Heading for the candidate results section of the single search request view.",
           })}
         </h2>
-        {poolCandidateFilter && (
-          <SingleSearchRequestTableApi
-            filterInput={transformFilterToInput(poolCandidateFilter)}
-          />
+        {abstractFilter ? (
+          <SingleSearchRequestTableApi filter={abstractFilter} />
+        ) : (
+          <>
+            {intl.formatMessage({
+              defaultMessage: "Request doesn't include a filter!",
+              id: "hmacO5",
+              description: "Null state for a request not including a filter.",
+            })}
+          </>
         )}
       </div>
       <UpdateSearchRequest initialSearchRequest={searchRequest} />
