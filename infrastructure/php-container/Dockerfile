@@ -1,5 +1,4 @@
-FROM php:7.4-apache
-# FROM php:8.0-apache
+FROM php:8.1-apache
 
 # Install pdo_pgsql extension
 RUN apt-get update \
