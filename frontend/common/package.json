@@ -76,6 +76,7 @@
     "react-hook-form": "^7.38.0",
     "react-intl": "^6.2.1",
     "react-remove-scroll": "^2.5.5",
+    "react-router-dom": "^6.4.3",
     "react-select": "^5.5.7",
     "react-toastify": "^9.0.8",
     "universal-router": "^9.1.0",

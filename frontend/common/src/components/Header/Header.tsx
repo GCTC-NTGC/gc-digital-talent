@@ -90,7 +90,7 @@ const Header = ({ width }: HeaderProps) => {
             data-h2-justify-content="base(center) p-tablet(flex-end)"
             data-h2-text-align="base(center) p-tablet(left)"
           >
-            <div>{/* <ThemeSwitcher /> */}</div>
+            <div>{/* <ThemeSwitcher / > */}</div>
             <div>
               <Link
                 data-h2-background-color="base:focus-visible(focus)"

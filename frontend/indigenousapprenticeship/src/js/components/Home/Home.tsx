@@ -1,5 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { motion } from "framer-motion";
+
 import { Button } from "@common/components";
 import { imageUrl } from "@common/helpers/router";
 
@@ -40,7 +42,12 @@ const Home: React.FunctionComponent = () => {
   const quote = useQuote();
 
   return (
-    <div data-h2-overflow="base(hidden, visible)">
+    <motion.div
+      data-h2-overflow="base(hidden, visible)"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {/* Hero */}
       <div
         data-h2-width="base(100%)"
@@ -932,7 +939,7 @@ const Home: React.FunctionComponent = () => {
         isOpen={isRequirementDialogOpen}
         onDismiss={() => setRequirementDialogOpen(false)}
       />
-    </div>
+    </motion.div>
   );
 };
 

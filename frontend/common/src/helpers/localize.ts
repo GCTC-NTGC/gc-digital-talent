@@ -4,7 +4,7 @@ import type { LocalizedString, Maybe } from "../api/generated";
 
 export type Locales = "en" | "fr";
 
-export function isLocale(locale: string): locale is Locales {
+export function isLocale(locale?: string): locale is Locales {
   return locale === "en" || locale === "fr";
 }
 
