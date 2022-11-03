@@ -29,7 +29,8 @@
   },
   "logging": {
     "logs": false,
-    "timers": false
+    "timers": true,
+    "verbose": true
   },
   "media": {
     "base_key": "base",
