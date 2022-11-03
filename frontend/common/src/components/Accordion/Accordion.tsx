@@ -60,13 +60,13 @@ const StyledTrigger = React.forwardRef<
     data-h2-cursor="base(pointer)"
     data-h2-display="base(flex)"
     data-h2-gap="base(x.5, 0)"
-    data-h2-padding="base(x.75, x.75, x.75, x.5)"
+    data-h2-padding="base(x1, x1, x1, x.5)"
     data-h2-justify-content="base(space-between)"
     data-h2-text-align="base(left)"
     data-h2-width="base(100%)"
     data-h2-transform="
-      base:children[svg](rotate(0deg))
-      base:selectors[[data-state='open']]:children[svg](rotate(90deg))"
+      base:children[.Accordion__Chevron](rotate(0deg))
+      base:selectors[[data-state='open']]:children[.Accordion__Chevron](rotate(90deg))"
     ref={forwardedRef}
     {...props}
   />
@@ -98,6 +98,7 @@ const Trigger = React.forwardRef<
           <StyledTrigger ref={forwardedRef} {...rest}>
             <div data-h2-margin="base(0, x.25, 0, 0)" style={{ flexShrink: 0 }}>
               <ChevronRightIcon
+                className="Accordion__Chevron"
                 data-h2-display="print(none)"
                 data-h2-width="base(x1.5)"
                 data-h2-transition="base(all, 100ms, ease-in)"
