@@ -15,7 +15,7 @@ import {
 } from "@common/constants/localizedConstants";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
-import { pushToState, useLocation } from "@common/helpers/router";
+import { useLocation } from "@common/helpers/router";
 import errorMessages from "@common/messages/errorMessages";
 import { hasKey } from "@common/helpers/util";
 
@@ -131,7 +131,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
 
     React.useEffect(() => {
       onUpdateApplicantFilter(initialValues || {});
-      pushToState({});
     }, [initialValues, onUpdateApplicantFilter]);
 
     React.useEffect(() => {
@@ -139,10 +138,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
         const selectedClassification = values.classification
           ? classificationMap.get(values.classification)
           : undefined;
-        if (state && state.some !== null) {
-          // Pushes the selected classification to the browser state.
-          pushToState({ ...state.some, selectedClassification });
-        }
         return {
           expectedClassifications: [],
           skills: values.skills

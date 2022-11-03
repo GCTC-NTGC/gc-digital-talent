@@ -111,19 +111,18 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 
 const ApplicantFilters: React.FC<{
   applicantFilter?: Maybe<ApplicantFilter>;
-  selectedClassification?: Maybe<SimpleClassification>;
-}> = ({ applicantFilter, selectedClassification }) => {
+  selectedClassifications?: Maybe<SimpleClassification>[];
+}> = ({ applicantFilter, selectedClassifications }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   // else set values if filters prop is of ApplicantFilterInput type
   const classificationsFromBrowserHistory: string[] | undefined =
-    selectedClassification
-      ? [
-          `${selectedClassification?.group.toLocaleUpperCase()}-0${
-            selectedClassification?.level
-          }`,
-        ]
-      : undefined;
+    selectedClassifications?.map(
+      (classification) =>
+        `${classification?.group.toLocaleUpperCase()}-0${
+          classification?.level
+        }`,
+    );
 
   const pools = applicantFilter?.pools?.filter(notEmpty);
   const classifications: Classification[] =
@@ -364,12 +363,12 @@ const ApplicantFilters: React.FC<{
 
 export interface SearchRequestFiltersProps {
   filters?: Maybe<ApplicantFilter | PoolCandidateFilter>;
-  selectedClassification?: Maybe<SimpleClassification>;
+  selectedClassifications?: Maybe<SimpleClassification>[];
 }
 
 const SearchRequestFilters: React.FunctionComponent<
   SearchRequestFiltersProps
-> = ({ filters, selectedClassification }) => {
+> = ({ filters, selectedClassifications }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   let poolCandidateFilter;
@@ -379,7 +378,7 @@ const SearchRequestFilters: React.FunctionComponent<
     return (
       <ApplicantFilters
         applicantFilter={filters}
-        selectedClassification={selectedClassification}
+        selectedClassifications={selectedClassifications}
       />
     );
   }

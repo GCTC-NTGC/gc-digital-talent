@@ -15,7 +15,7 @@ type LocationState = {
     candidateFilter: PoolCandidateFilter; // TODO: Remove candidateFilter when deprecated
     initialValues: SearchFormValues;
     candidateCount: number;
-    selectedClassification: SimpleClassification;
+    selectedClassifications: SimpleClassification[];
   };
 };
 
@@ -27,16 +27,16 @@ const RequestPage: React.FunctionComponent = () => {
   const candidateFilter = state ? state.some.candidateFilter : null; // TODO: Remove candidateFilter when deprecated
   const initialValues = state ? state.some.initialValues : undefined;
   const candidateCount = state ? state.some.candidateCount : null;
-  const selectedClassification = state
-    ? state.some.selectedClassification
-    : null;
+  const selectedClassifications = state
+    ? state.some.selectedClassifications
+    : [];
 
   const CreateRequestForm = checkFeatureFlag("FEATURE_APPLICANTSEARCH") ? (
     <CreateRequest
       applicantFilter={applicantFilter as ApplicantFilterInput}
       searchFormInitialValues={initialValues}
       candidateCount={candidateCount}
-      selectedClassification={selectedClassification}
+      selectedClassifications={selectedClassifications}
     />
   ) : (
     <OldCreateRequest

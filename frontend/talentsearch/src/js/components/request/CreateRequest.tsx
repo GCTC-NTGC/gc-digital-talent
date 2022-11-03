@@ -71,7 +71,7 @@ export interface RequestFormProps {
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassification: Maybe<SimpleClassification>;
+  selectedClassifications?: Maybe<SimpleClassification>[];
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<
@@ -86,7 +86,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   applicantFilter,
   candidateCount,
   searchFormInitialValues,
-  selectedClassification,
+  selectedClassifications,
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
@@ -341,7 +341,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           </h2>
           <SearchRequestFilters
             filters={applicantFilterInputToType}
-            selectedClassification={selectedClassification}
+            selectedClassifications={selectedClassifications}
           />
           <p
             data-h2-margin="base(x2, 0, x1, 0)"
@@ -410,12 +410,12 @@ export const CreateRequest: React.FunctionComponent<{
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassification: Maybe<SimpleClassification>;
+  selectedClassifications?: Maybe<SimpleClassification>[];
 }> = ({
   applicantFilter,
   candidateCount,
   searchFormInitialValues,
-  selectedClassification,
+  selectedClassifications,
 }) => {
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
@@ -446,7 +446,7 @@ export const CreateRequest: React.FunctionComponent<{
         applicantFilter={applicantFilter}
         candidateCount={candidateCount}
         searchFormInitialValues={searchFormInitialValues}
-        selectedClassification={selectedClassification}
+        selectedClassifications={selectedClassifications}
         handleCreatePoolCandidateSearchRequest={
           handleCreatePoolCandidateSearchRequest
         }
