@@ -50,10 +50,11 @@ jobs:
         working-directory: frontend
         run: >
           if test -f "./admin/src/js/lang/untranslated.json"; then
-            echo "Untranslated strings for admin";
+            echo ":x: Untranslated strings for admin" >> $GITHUB_STEP_SUMMARY;
             exit 1;
           else
-            echo "Admin is fully translated";
+            echo
+            echo ":heavy_check_mark: Admin is fully translated" >> $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
 
