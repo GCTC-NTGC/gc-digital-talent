@@ -63,7 +63,7 @@ jobs:
         working-directory: frontend/common/src/lang
         run: >
           if test -f "untranslated.json"; then
-            echo ":x: Common has untranslated strings for " | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":x: Common has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
             exit 1;
           else
             echo ":heavy_check_mark: Common is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
