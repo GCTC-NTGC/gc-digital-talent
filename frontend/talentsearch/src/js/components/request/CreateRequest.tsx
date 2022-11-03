@@ -6,7 +6,11 @@ import { errorMessages } from "@common/messages";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
-import { navigate, pushToStateThenNavigate } from "@common/helpers/router";
+import {
+  navigate,
+  pushToStateThenNavigate,
+  useLocation,
+} from "@common/helpers/router";
 import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
 import {
   getFromSessionStorage,
@@ -33,6 +37,8 @@ import {
   ApplicantFilterInput,
 } from "../../api/generated";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
+import { SimpleClassification } from "../../types/poolUtils";
+import { BrowserHistoryState } from "../search/SearchContainer";
 
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
 type FormValues = {
@@ -64,7 +70,8 @@ export interface RequestFormProps {
   classifications: Classification[];
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
-  searchFormInitialValues: Maybe<SearchFormValues>;
+  searchFormInitialValues?: SearchFormValues;
+  selectedClassification: Maybe<SimpleClassification>;
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<
@@ -79,11 +86,14 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   applicantFilter,
   candidateCount,
   searchFormInitialValues,
+  selectedClassification,
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
   const paths = useTalentSearchRoutes();
   const cacheKey = "ts-createRequest";
+  const location = useLocation();
+  const state = location.state as BrowserHistoryState;
 
   const formMethods = useForm<FormValues>({
     defaultValues: getFromSessionStorage(cacheKey, {}),
@@ -329,7 +339,10 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               description: "Title of Summary of filters section",
             })}
           </h2>
-          <SearchRequestFilters filters={applicantFilterInputToType} />
+          <SearchRequestFilters
+            filters={applicantFilterInputToType}
+            selectedClassification={selectedClassification}
+          />
           <p
             data-h2-margin="base(x2, 0, x1, 0)"
             data-h2-font-weight="base(600)"
@@ -358,8 +371,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 data-h2-margin="base(0, x.5, 0, 0)"
                 onClick={() => {
                   // Save the initial search form values to the state so they are available to user when click back.
-                  pushToStateThenNavigate(paths.search(), {
-                    searchFormInitialValues,
+                  pushToStateThenNavigate<BrowserHistoryState>(paths.search(), {
+                    ...state,
+                    initialValues: searchFormInitialValues,
                   });
                 }}
               >
@@ -395,8 +409,14 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
 export const CreateRequest: React.FunctionComponent<{
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
-  searchFormInitialValues: Maybe<SearchFormValues>;
-}> = ({ applicantFilter, candidateCount, searchFormInitialValues }) => {
+  searchFormInitialValues?: SearchFormValues;
+  selectedClassification: Maybe<SimpleClassification>;
+}> = ({
+  applicantFilter,
+  candidateCount,
+  searchFormInitialValues,
+  selectedClassification,
+}) => {
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
 
@@ -426,6 +446,7 @@ export const CreateRequest: React.FunctionComponent<{
         applicantFilter={applicantFilter}
         candidateCount={candidateCount}
         searchFormInitialValues={searchFormInitialValues}
+        selectedClassification={selectedClassification}
         handleCreatePoolCandidateSearchRequest={
           handleCreatePoolCandidateSearchRequest
         }

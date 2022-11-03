@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 
-import { pushToStateThenNavigate } from "@common/helpers/router";
+import { pushToStateThenNavigate, useLocation } from "@common/helpers/router";
 import pick from "lodash/pick";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
@@ -20,9 +20,16 @@ import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import Spinner from "../Spinner";
 import CandidateResults from "./CandidateResults";
-import SearchForm, { SearchFormRef } from "./SearchForm";
+import SearchForm, { FormValues, SearchFormRef } from "./SearchForm";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import { SimpleClassification, SimplePool } from "../../types/poolUtils";
+
+export type BrowserHistoryState = {
+  applicantFilter?: ApplicantFilterInput;
+  candidateCount: number;
+  initialValues?: FormValues;
+  selectedClassification?: SimpleClassification;
+};
 
 const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
@@ -263,18 +270,16 @@ const SearchContainerApi: React.FC = () => {
   const totalCandidateCount = candidatesData?.countApplicants || 0;
 
   const paths = useTalentSearchRoutes();
+  const location = useLocation();
   const onSubmit = async (candidateCount: number, poolId: string) => {
-    return pushToStateThenNavigate<{
-      applicantFilter?: ApplicantFilterInput;
-      candidateCount: number;
-      initialValues?: ApplicantFilterInput;
-    }>(paths.request(), {
+    const state = location.state as { some: BrowserHistoryState };
+    return pushToStateThenNavigate<BrowserHistoryState>(paths.request(), {
+      ...state.some,
       applicantFilter: {
         ...applicantFilter,
         pools: [{ id: poolId }],
       },
       candidateCount,
-      initialValues: applicantFilter,
     });
   };
 

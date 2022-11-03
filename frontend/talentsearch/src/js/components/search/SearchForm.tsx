@@ -15,7 +15,7 @@ import {
 } from "@common/constants/localizedConstants";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
-import { useLocation } from "@common/helpers/router";
+import { pushToState, useLocation } from "@common/helpers/router";
 import errorMessages from "@common/messages/errorMessages";
 import { hasKey } from "@common/helpers/util";
 
@@ -33,6 +33,7 @@ import {
   SimpleClassification,
   SimplePool,
 } from "../../types/poolUtils";
+import { BrowserHistoryState } from "./SearchContainer";
 
 const NullSelection = "NULL_SELECTION";
 
@@ -65,9 +66,7 @@ export type FormValues = Pick<
 };
 
 type LocationState = {
-  some: {
-    initialValues: FormValues;
-  };
+  some: BrowserHistoryState | null;
 };
 
 export interface SearchFormProps {
@@ -114,9 +113,9 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     }, [classifications]);
 
     // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
-    const state = location.state as LocationState;
+    const state = location.state as LocationState | null;
     const initialValues = React.useMemo(
-      () => (state ? state.some.initialValues : {}),
+      () => (state && state.some ? state.some.initialValues : {}),
       [state],
     );
     const methods = useForm<FormValues>({ defaultValues: initialValues });
@@ -131,7 +130,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     );
 
     React.useEffect(() => {
-      onUpdateApplicantFilter(initialValues);
+      onUpdateApplicantFilter(initialValues || {});
+      pushToState({});
     }, [initialValues, onUpdateApplicantFilter]);
 
     React.useEffect(() => {
@@ -139,6 +139,10 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
         const selectedClassification = values.classification
           ? classificationMap.get(values.classification)
           : undefined;
+        if (state && state.some !== null) {
+          // Pushes the selected classification to the browser state.
+          pushToState({ ...state.some, selectedClassification });
+        }
         return {
           expectedClassifications: [],
           skills: values.skills
@@ -190,7 +194,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       });
 
       return () => subscription.unsubscribe();
-    }, [watch, classificationMap, onUpdateApplicantFilter, pools]);
+    }, [watch, classificationMap, onUpdateApplicantFilter, pools, state]);
 
     const getClassificationLabel = React.useCallback(
       (group: string, level: number): string => {
