@@ -47,8 +47,8 @@ jobs:
           npm run check-intl-talentsearch --workspace=common
 
       - name: "Check if untranslated files exist: all workspaces"
-        working-directory: frontend
-        run: >
+        - working-directory: frontend
+        - run: >
           if test -f "./admin/src/js/lang/untranslated.json"; then
             echo ":x: Admin has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
             exit 1;
@@ -56,7 +56,30 @@ jobs:
             echo ":heavy_check_mark: Admin is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
-
+        - run: >
+          if test -f "./common/src/lang/untranslated.json"; then
+            echo ":x: Common has untranslated strings for " | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: Common is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
+        - run: >
+          if test -f "./indigenousapprenticeship/src/js/lang/untranslated.json"; then
+            echo ":x: Indigenous apprenticeship has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: Indigenous apprenticeship is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
+        - run: >
+          if test -f "./talentsearch/src/js/lang/untranslated.json"; then
+            echo ":x: Talentsearch has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: Talentsearch is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
 
 
       - name: "Upload untranslated file: all workspaces"
