@@ -142,6 +142,7 @@ export const SupportForm = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              trackUnsaved={false}
             />
             <Input
               id="email"
@@ -155,6 +156,7 @@ export const SupportForm = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              trackUnsaved={false}
             />
             <Select
               id="subject"
@@ -201,6 +203,7 @@ export const SupportForm = ({
                   }),
                 },
               ]}
+              trackUnsaved={false}
             />
             <TextArea
               id="description"
@@ -213,6 +216,7 @@ export const SupportForm = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              trackUnsaved={false}
             />
             <Submit color="blue" />
           </form>
