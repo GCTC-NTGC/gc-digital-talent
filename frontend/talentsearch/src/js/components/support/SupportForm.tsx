@@ -2,8 +2,7 @@ import * as React from "react";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { Input, Submit, TextArea } from "@common/components/form";
-import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
+import { Input, Select, Submit, TextArea } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import { getFullNameLabel } from "@common/helpers/nameUtils";
 import Pending from "@common/components/Pending";
@@ -157,7 +156,7 @@ export const SupportForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <SelectFieldV2
+            <Select
               id="subject"
               name="subject"
               rules={{
@@ -167,6 +166,12 @@ export const SupportForm = ({
                 defaultMessage: "I'm looking to...",
                 id: "094835",
                 description: "Support form subject field label",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select...",
+                id: "S/n44h",
+                description:
+                  "Support form subject field default placeholder shown when nothing actively selected",
               })}
               options={[
                 {

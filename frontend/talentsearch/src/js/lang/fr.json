@@ -2619,5 +2619,9 @@
   "ywkgJx": {
     "defaultMessage": "Détails",
     "description": "Support form details field label"
+  },
+  "S/n44h": {
+    "defaultMessage": "Sélectionner...",
+    "description": "Support form subject field default placeholder shown when field has nothing actively selected"
   }
 }
