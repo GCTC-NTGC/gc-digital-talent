@@ -47,6 +47,7 @@ jobs:
           npm run check-intl-talentsearch --workspace=common
 
       - name: "Check if untranslated files exist: admin"
+        if: always()
         working-directory: frontend/admin/src/js/lang
         run: >
           if test -f "untranslated.json"; then
@@ -58,6 +59,7 @@ jobs:
           fi
 
       - name: "Check if untranslated files exist: common"
+        if: always()
         working-directory: frontend/common/src/lang
         run: >
           if test -f "untranslated.json"; then
@@ -69,6 +71,7 @@ jobs:
           fi
 
       - name: "Check if untranslated files exist: indigenousapprenticeship"
+        if: always()
         working-directory: frontend/indigenousapprenticeship/src/js/lang
         run: >
           if test -f ".untranslated.json"; then
@@ -80,6 +83,7 @@ jobs:
           fi
 
       - name: "Check if untranslated files exist: talentsearch"
+        if: always()
         working-directory: frontend/talentsearch/src/js/lang
         run: >
           if test -f "untranslated.json"; then
@@ -91,13 +95,10 @@ jobs:
           fi
 
       - name: "Upload untranslated file: all workspaces"
+        if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: admin-untranslated.json
-          path: |
-            frontend/admin/src/js/lang/untranslated.json
-            frontend/common/src/lang/untranslated.json
-            frontend/indigenousapprenticeship/src/js/lang/untranslated.json
-            frontend/talentsearch/src/js/lang/untranslated.json
+          name: untranslated
+          path: frontend/**/lang/untranslated.json
           if-no-files-found: ignore
 
