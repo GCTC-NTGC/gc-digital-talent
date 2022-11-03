@@ -53,7 +53,7 @@ module.exports = {
           from: "**/*",
           globOptions: {
             dot: true,
-            ignore: ["**/public/index.html"],
+            ignore: ["**/public/index.html", "**/.DS_Store"],
           },
         },
       ],
