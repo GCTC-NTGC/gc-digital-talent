@@ -1,0 +1,57 @@
+name: Translations
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - .github/workflows/translations.yml
+      - frontend/**
+  pull_request:
+    paths:
+      - .github/workflows/translations.yml
+      - frontend/**
+
+jobs:
+  run-linters:
+    name: Check translations
+    runs-on: ubuntu-22.04
+    env:
+      NPM_VERSION: "8.3.0"
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: 'frontend/.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Upgrade npm
+        run: npm install --location=global npm@${{ env.NPM_VERSION }}
+
+      - name: "Install dependencies: workspace"
+        working-directory: frontend
+        run: npm install
+
+      - name: "Extract English files: all workspaces"
+        working-directory: frontend
+        run: npm run intl-extract --workspaces
+
+      - name: "Generate untranslated files: all workspaces"
+        working-directory: frontend
+        run: |
+          npm run check-intl-admin --workspace=common
+          npm run check-intl-common --workspace=common
+          npm run check-intl-indigenousapprenticeship --workspace=common
+          npm run check-intl-talentsearch --workspace=common
+
+      - name: "Check if untranslated files exist: all workspaces"
+        working-directory: frontend
+        run: >
+          if test -f "./admin/src/js/lang/untranslated.json"; then
+            echo "Untranslated strings for admin"
+          else
+            echo "Admin is fully translated"
+          fi
+
