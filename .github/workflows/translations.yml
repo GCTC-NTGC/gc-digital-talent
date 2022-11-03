@@ -46,7 +46,7 @@ jobs:
           npm run check-intl-indigenousapprenticeship --workspace=common
           npm run check-intl-talentsearch --workspace=common
 
-      - name: "Check if untranslated files exist: admin"
+      - name: "Verify no untranslated file: admin"
         if: always()
         working-directory: frontend/admin/src/js/lang
         run: >
@@ -58,7 +58,7 @@ jobs:
             exit 0;
           fi
 
-      - name: "Check if untranslated files exist: common"
+      - name: "Verify no untranslated file: common"
         if: always()
         working-directory: frontend/common/src/lang
         run: >
@@ -70,7 +70,7 @@ jobs:
             exit 0;
           fi
 
-      - name: "Check if untranslated files exist: indigenousapprenticeship"
+      - name: "Verify no untranslated file: indigenousapprenticeship"
         if: always()
         working-directory: frontend/indigenousapprenticeship/src/js/lang
         run: >
@@ -82,7 +82,7 @@ jobs:
             exit 0;
           fi
 
-      - name: "Check if untranslated files exist: talentsearch"
+      - name: "Verify no untranslated file: talentsearch"
         if: always()
         working-directory: frontend/talentsearch/src/js/lang
         run: >
@@ -94,7 +94,7 @@ jobs:
             exit 0;
           fi
 
-      - name: "Upload untranslated file: all workspaces"
+      - name: "Upload untranslated files: all workspaces"
         if: always()
         uses: actions/upload-artifact@v3
         with:
