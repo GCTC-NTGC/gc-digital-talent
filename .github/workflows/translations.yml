@@ -99,6 +99,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: untranslated
-          path: frontend/**/lang/untranslated.json
+          path: frontend/!(node_modules)/**/lang/untranslated.json
           if-no-files-found: ignore
 
