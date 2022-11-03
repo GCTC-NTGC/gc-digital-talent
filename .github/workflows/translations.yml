@@ -51,10 +51,10 @@ jobs:
         run: >
           if test -f "./admin/src/js/lang/untranslated.json"; then
             echo "Untranslated strings for admin";
-            return 1;
+            exit 1;
           else
             echo "Admin is fully translated";
-            return 0;
+            exit 0;
           fi
 
       - name: "Upload untranslated file: all workspaces"
@@ -62,5 +62,5 @@ jobs:
         if: failure()
         with:
           name: admin-untranslated.json
-          path: ./admin/src/js/lang/untranslated.json
+          path: frontend/admin/src/js/lang/untranslated.json
 
