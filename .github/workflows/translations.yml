@@ -16,7 +16,7 @@ jobs:
     name: Check translations
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: "8.3.0"
+      NPM_VERSION: "8.11.0"
 
     steps:
       - uses: actions/checkout@v3
@@ -50,8 +50,17 @@ jobs:
         working-directory: frontend
         run: >
           if test -f "./admin/src/js/lang/untranslated.json"; then
-            echo "Untranslated strings for admin"
+            echo "Untranslated strings for admin";
+            return 1;
           else
-            echo "Admin is fully translated"
+            echo "Admin is fully translated";
+            return 0;
           fi
+
+      - name: "Upload untranslated file: all workspaces"
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: admin-untranslated.json
+          path: ./admin/src/js/lang/untranslated.json
 
