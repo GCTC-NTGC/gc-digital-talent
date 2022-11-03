@@ -158,69 +158,6 @@ directive @whereAuth(
   guard: String
 ) on FIELD_DEFINITION
 
-# Directive class: Nuwave\Lighthouse\Cache\CacheDirective
-"""
-Cache the result of a resolver.
-"""
-directive @cache(
-  """
-  Set the duration it takes for the cache to expire in seconds.
-  If not given, the result will be stored forever.
-  """
-  maxAge: Int
-
-  """
-  Limit access to cached data to the currently authenticated user.
-  When the field is accessible by guest users, this will not have
-  any effect, they will access a shared cache.
-  """
-  private: Boolean = false
-) on FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Cache\CacheKeyDirective
-"""
-Specify the field to use as a key when creating a cache.
-"""
-directive @cacheKey on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Cache\ClearCacheDirective
-"""
-Clear a resolver cache by tags.
-"""
-directive @clearCache(
-  """
-  Name of the parent type of the field to clear.
-  """
-  type: String!
-
-  """
-  Source of the parent ID to clear.
-  """
-  idSource: ClearCacheIdSource
-
-  """
-  Name of the field to clear.
-  """
-  field: String
-) on FIELD_DEFINITION
-
-"""
-Options for the `id` argument on `@clearCache`.
-
-Exactly one of the fields must be given.
-"""
-input ClearCacheIdSource {
-  """
-  Path of an argument the client passes to the field `@clearCache` is applied to.
-  """
-  argument: String
-
-  """
-  Path of a field in the result returned from the field `@clearCache` is applied to.
-  """
-  field: String
-}
-
 # Directive class: Nuwave\Lighthouse\GlobalId\GlobalIdDirective
 """
 Converts between IDs/types and global IDs.
@@ -1686,6 +1623,30 @@ directive @update(
   """
   relation: String
 ) on FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\UploadDirective
+"""
+Uploads given file to storage, removes the argument and sets
+the returned path to the attribute key provided.
+
+This does not change the schema from a client perspective.
+"""
+directive @upload(
+  """
+  The storage disk to be used, defaults to config value `filesystems.default`.
+  """
+  disk: String
+
+  """
+  The path where the file should be stored.
+  """
+  path: String! = "/"
+
+  """
+  Should the visibility be public?
+  """
+  public: Boolean! = false
+) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\UpsertDirective
 """
