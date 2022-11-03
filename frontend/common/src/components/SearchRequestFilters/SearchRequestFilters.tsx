@@ -116,11 +116,14 @@ const ApplicantFilters: React.FC<{
   const intl = useIntl();
   const locale = getLocale(intl);
   // else set values if filters prop is of ApplicantFilterInput type
-  const classificationsFromBrowserHistory = [
-    `${selectedClassification?.group.toLocaleUpperCase()}-0${
-      selectedClassification?.level
-    }`,
-  ];
+  const classificationsFromBrowserHistory: string[] | undefined =
+    selectedClassification
+      ? [
+          `${selectedClassification?.group.toLocaleUpperCase()}-0${
+            selectedClassification?.level
+          }`,
+        ]
+      : undefined;
 
   const pools = applicantFilter?.pools?.filter(notEmpty);
   const classifications: Classification[] =
