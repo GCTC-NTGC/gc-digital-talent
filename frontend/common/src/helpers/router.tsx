@@ -90,7 +90,7 @@ export const navigateBack = (): void => {
 };
 
 export function pushToState<T>(state: T): void {
-  HISTORY.push("#", { some: state });
+  HISTORY.push(HISTORY.location, { some: state });
 }
 
 export function pushToStateThenNavigate<T>(url: string, state: T): void {
