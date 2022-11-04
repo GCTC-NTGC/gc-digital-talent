@@ -147,7 +147,7 @@ const router = createBrowserRouter([
                       {
                         index: true,
                         element: (
-                          <RequireAuth roles={[Role.Admin]}>
+                          <RequireAuth roles={[Role.Applicant]}>
                             <ProfilePage />
                           </RequireAuth>
                         ),
