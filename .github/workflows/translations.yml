@@ -1,0 +1,106 @@
+name: Translations
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - .github/workflows/translations.yml
+      - frontend/**
+  pull_request:
+    paths:
+      - .github/workflows/translations.yml
+      - frontend/**
+
+jobs:
+  run-linters:
+    name: Check translations
+    runs-on: ubuntu-22.04
+    env:
+      NPM_VERSION: "8.11.0"
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: 'frontend/.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Upgrade npm
+        run: npm install --location=global npm@${{ env.NPM_VERSION }}
+
+      - name: "Install dependencies: workspace"
+        working-directory: frontend
+        run: npm install
+
+      - name: "Extract English files: all workspaces"
+        working-directory: frontend
+        run: npm run intl-extract --workspaces
+
+      - name: "Generate untranslated files: all workspaces"
+        working-directory: frontend
+        run: |
+          npm run check-intl-admin --workspace=common
+          npm run check-intl-common --workspace=common
+          npm run check-intl-indigenousapprenticeship --workspace=common
+          npm run check-intl-talentsearch --workspace=common
+
+      - name: "Verify no untranslated file: admin"
+        if: always()
+        working-directory: frontend/admin/src/js/lang
+        run: >
+          if test -f "untranslated.json"; then
+            echo ":x: Admin has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: Admin is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
+
+      - name: "Verify no untranslated file: common"
+        if: always()
+        working-directory: frontend/common/src/lang
+        run: >
+          if test -f "untranslated.json"; then
+            echo ":x: Common has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: Common is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
+
+      - name: "Verify no untranslated file: indigenousapprenticeship"
+        if: always()
+        working-directory: frontend/indigenousapprenticeship/src/js/lang
+        run: >
+          if test -f ".untranslated.json"; then
+            echo ":x: Indigenous apprenticeship has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: Indigenous apprenticeship is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
+
+      - name: "Verify no untranslated file: talentsearch"
+        if: always()
+        working-directory: frontend/talentsearch/src/js/lang
+        run: >
+          if test -f "untranslated.json"; then
+            echo ":x: Talentsearch has untranslated strings" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: Talentsearch is fully translated" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
+
+      - name: "Upload untranslated files: all workspaces"
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: untranslated
+          path: |
+            frontend/**/lang/untranslated.json
+            !frontend/node_modules/**
+          if-no-files-found: ignore
+
