@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import NavMenu from "@common/components/NavMenu";
 import MenuLink from "@common/components/Link/MenuLink";
 import { Toast } from "@common/components";
+import LocaleRedirect from "@common/components/LocaleRedirect/LocaleRedirect";
 import { useLocation, ScrollToTop } from "@common/helpers/router";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
@@ -13,7 +14,7 @@ import { Helmet } from "react-helmet";
 import { getLocale } from "@common/helpers/localize";
 import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-import { useIndigenousApprenticeshipRoutes } from "../indigenousApprenticeshipRoutes";
+import { useIndigenousApprenticeshipRoutes } from "../routes/indigenousApprenticeshipRoutes";
 
 export const Layout = () => {
   const intl = useIntl();
@@ -97,6 +98,7 @@ export const Layout = () => {
           </div>
         </div>
         <Toast />
+        <LocaleRedirect />
       </React.Fragment>
     </AnimatePresence>
   );

@@ -20,7 +20,7 @@ import TrendingUp from "../Svg/TrendingUp";
 import Triangle from "../Svg/Triangle";
 
 import useQuote from "../../hooks/useQuote";
-import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../indigenousApprenticeshipConstants";
+import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../constants/indigenousApprenticeshipConstants";
 
 import { ApplyDialog, LearnDialog, RequirementDialog } from "../Dialog";
 import CTAButtons from "../CallToAction/CTAButtons";
