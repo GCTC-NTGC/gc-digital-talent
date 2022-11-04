@@ -1,6 +1,7 @@
 import { getLocale } from "@common/helpers/localize";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
+import { Scalars } from "./api/generated";
 import { ExperienceType } from "./components/experienceForm/types";
 
 export type ApplicantProfileRoutes = ReturnType<typeof applicantProfileRoutes>;

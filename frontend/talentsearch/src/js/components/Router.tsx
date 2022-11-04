@@ -7,7 +7,8 @@ import RequireAuth from "@common/components/RequireAuth/RequireAuth";
 import Layout from "./Layout";
 import { Role } from "../api/generated";
 
-import TalentRedirect from "./TalentRedirect/TalentRedirect";
+import TalentRedirect from "./Redirects/TalentRedirect";
+import ProfileRedirect from "./Redirects/ProfileRedirect";
 
 /** Home */
 const HomePage = React.lazy(() => import("./Home/HomePage"));
@@ -127,6 +128,14 @@ const router = createBrowserRouter([
           {
             path: "users",
             children: [
+              {
+                path: "me",
+                element: (
+                  <RequireAuth roles={[Role.Applicant]}>
+                    <ProfileRedirect />
+                  </RequireAuth>
+                ),
+              },
               {
                 path: ":userId",
                 children: [
@@ -302,12 +311,11 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: "talent/profile/*",
+            element: <TalentRedirect />,
+          },
         ],
-      },
-
-      {
-        path: "talent/*",
-        element: <TalentRedirect />,
       },
       {
         path: "*",

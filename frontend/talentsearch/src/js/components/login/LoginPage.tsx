@@ -90,7 +90,6 @@ const LoginPage: React.FC = () => {
             <p>
               <Link
                 href={searchPaths.home()}
-                external
                 mode="outline"
                 color="secondary"
                 type="button"

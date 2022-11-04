@@ -18,8 +18,6 @@ export interface LinkProps
   mode?: "solid" | "outline" | "inline";
   block?: boolean;
   type?: "button" | "link";
-  /** For use when linking to a domain outside of the application */
-  external?: boolean;
   weight?: "bold";
 }
 
