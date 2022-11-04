@@ -1,0 +1,36 @@
+services:
+
+  postgres:
+    image: postgres:12.11
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password1234
+    volumes:
+      - ./infrastructure/db:/docker-entrypoint-initdb.d/
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  php:
+    image: webdevops/php-nginx-dev:7.4
+    working_dir: /app
+    environment:
+      # from https://stefan-poeltl.medium.com/php-development-with-docker-the-easy-way-13621ec5d39b
+      - WEB_DOCUMENT_ROOT=/app/public
+      - PHP_DISPLAY_ERRORS=1
+      - PHP_MEMORY_LIMIT=2048M
+      - PHP_MAX_EXECUTION_TIME=-1
+      - XDEBUG_MODE=debug
+      - XDEBUG_START_WITH_REQUEST=yes
+      - XDEBUG_CLIENT_PORT=9000
+      - XDEBUG_CLIENT_HOST=host.docker.internal
+      - XDEBUG_MAX_NESTING_LEVEL=1000
+    ports:
+      - 8000:80
+      - 8001:443
+    volumes:
+      - ./api:/app
+
+volumes:
+  pgdata:
+  maintenancedata:
