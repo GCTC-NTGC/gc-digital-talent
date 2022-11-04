@@ -1,3 +1,4 @@
+import { OperationResult, UseMutationResponse } from "urql";
 import {
   useCreateAwardExperienceMutation,
   useCreateCommunityExperienceMutation,
@@ -14,6 +15,9 @@ import {
   useDeleteEducationExperienceMutation,
   useDeletePersonalExperienceMutation,
   useDeleteWorkExperienceMutation,
+  DeleteAwardExperienceMutation,
+  Exact,
+  DeleteWorkExperienceMutation,
 } from "../../api/generated";
 import type {
   ExperienceDetailsSubmissionData,
@@ -86,6 +90,13 @@ export const useExperienceMutations = (
   };
 };
 
+type DeleteMutation =
+  | ReturnType<typeof useDeleteAwardExperienceMutation>[1]
+  | ReturnType<typeof useDeleteCommunityExperienceMutation>[1]
+  | ReturnType<typeof useDeleteEducationExperienceMutation>[1]
+  | ReturnType<typeof useDeletePersonalExperienceMutation>[1]
+  | ReturnType<typeof useDeleteWorkExperienceMutation>[1];
+
 export const useDeleteExperienceMutation = (
   experienceType?: ExperienceType,
 ) => {
@@ -98,13 +109,14 @@ export const useDeleteExperienceMutation = (
     useDeletePersonalExperienceMutation();
   const [, executeDeleteWorkMutation] = useDeleteWorkExperienceMutation();
 
-  const mutations = {
-    award: executeDeleteAwardMutation,
-    community: executeDeleteCommunityMutation,
-    education: executeDeleteEducationMutation,
-    personal: executeDeletePersonalMutation,
-    work: executeDeleteWorkMutation,
-  };
+  const mutations = new Map<ExperienceType, DeleteMutation>();
 
-  return experienceType ? mutations[experienceType] : null;
+  mutations.set("award", executeDeleteAwardMutation);
+  mutations.set("community", executeDeleteCommunityMutation);
+  mutations.set("community", executeDeleteCommunityMutation);
+  mutations.set("education", executeDeleteEducationMutation);
+  mutations.set("personal", executeDeletePersonalMutation);
+  mutations.set("work", executeDeleteWorkMutation);
+
+  return experienceType ? mutations.get(experienceType) : null;
 };
