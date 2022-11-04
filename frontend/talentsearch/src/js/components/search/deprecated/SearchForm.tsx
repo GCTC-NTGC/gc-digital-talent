@@ -11,7 +11,7 @@ import { getLocale } from "@common/helpers/localize";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
 import { debounce } from "debounce";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import {
   getWorkRegion,
   OperationalRequirementV1,

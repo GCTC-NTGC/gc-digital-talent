@@ -15,7 +15,7 @@ import {
 } from "@common/constants/localizedConstants";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import errorMessages from "@common/messages/errorMessages";
 import { hasKey } from "@common/helpers/util";
 

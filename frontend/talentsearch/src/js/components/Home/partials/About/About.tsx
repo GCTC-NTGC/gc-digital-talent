@@ -8,7 +8,7 @@ import useLocale from "@common/hooks/useLocale";
 
 const About = () => {
   const intl = useIntl();
-  const locale = useLocale();
+  const { locale } = useLocale();
   return (
     <div
       data-h2-background-color="base(tm-linear-footer)"

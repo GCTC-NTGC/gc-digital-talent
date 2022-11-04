@@ -16,6 +16,7 @@ import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { OperationContext } from "urql";
+import { useParams } from "react-router-dom";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
@@ -28,6 +29,7 @@ import WorkExperienceForm from "../workExperienceForm/WorkExperienceForm";
 import ExperienceSkills from "./ExperienceSkills";
 import {
   PoolAdvertisement,
+  Scalars,
   Skill,
   useGetApplicationQuery,
   useGetMyExperiencesQuery,
@@ -289,22 +291,23 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-export interface ExperienceFormContainerProps {
-  userId: string;
+type RouteParams = {
+  userId: Scalars["ID"];
   experienceType: ExperienceType;
-  experienceId?: string;
+  experienceId: Scalars["ID"];
+};
+export interface ExperienceFormContainerProps {
   edit?: boolean;
 }
 
-const ExperienceFormContainer: React.FunctionComponent<
-  ExperienceFormContainerProps
-> = ({ userId, experienceType, experienceId, edit }) => {
+const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const { userId, experienceType, experienceId } = useParams<RouteParams>();
   const paths = applicantProfileRoutes(locale);
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
   const { applicationId } = useQueryParams();
-  const returnPath = `${paths.skillsAndExperiences(userId)}${
+  const returnPath = `${paths.skillsAndExperiences(userId || "")}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
   const [
@@ -381,18 +384,19 @@ const ExperienceFormContainer: React.FunctionComponent<
       // eslint-disable-next-line no-underscore-dangle
       const type = e?.__typename;
       return (
-        e?.id === experienceId && type?.toLowerCase().includes(experienceType)
+        e?.id === experienceId &&
+        type?.toLowerCase().includes(experienceType || "")
       );
     }) as ExperienceQueryData;
   }
 
   const { executeMutation, getMutationArgs } = useExperienceMutations(
-    experienceType,
     experience ? "update" : "create",
+    experienceType,
   );
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
-    const args = getMutationArgs(experienceId || userId, values);
+    const args = getMutationArgs(experienceId || userId || "", values);
     const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
     res.then(handleMutationResponse).catch(handleError);
   };
@@ -403,22 +407,25 @@ const ExperienceFormContainer: React.FunctionComponent<
   const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
 
   const handleDeleteExperience = () => {
-    executeDeletionMutation
-      .executeDeletionMutation({
-        id: experienceIdExact,
-      })
-      .then((result) => {
-        navigate(returnPath);
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Experience Deleted",
-            id: "/qN7tM",
-            description: "Message displayed to user after experience deleted.",
-          }),
-        );
-        return result.data;
-      })
-      .catch(handleError);
+    if (executeDeletionMutation?.executeDeletionMutation) {
+      executeDeletionMutation
+        .executeDeletionMutation({
+          id: experienceIdExact,
+        })
+        .then((result) => {
+          navigate(returnPath);
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Experience Deleted",
+              id: "/qN7tM",
+              description:
+                "Message displayed to user after experience deleted.",
+            }),
+          );
+          return result.data;
+        })
+        .catch(handleError);
+    }
   };
 
   let found = true;
@@ -433,12 +440,12 @@ const ExperienceFormContainer: React.FunctionComponent<
     >
       {skillsData && found ? (
         <ExperienceForm
-          userId={userId}
+          userId={userId || ""}
           poolAdvertisement={
             applicationData?.poolCandidate?.poolAdvertisement || undefined
           }
           experience={experience as ExperienceQueryData}
-          experienceType={experienceType}
+          experienceType={experienceType || "personal"}
           skills={skillsData.skills as Skill[]}
           onUpdateExperience={handleUpdateExperience}
           deleteExperience={handleDeleteExperience}

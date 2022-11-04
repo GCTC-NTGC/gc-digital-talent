@@ -12,7 +12,7 @@ const fs = require("fs");
 module.exports = {
   entry: {
     app: [
-      "./src/js/index.tsx",
+      "./src/js/main.tsx",
       "../common/src/css/hydrogen.css",
       "../common/src/css/common.css",
       "./src/css/app.css",

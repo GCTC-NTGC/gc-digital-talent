@@ -3,58 +3,23 @@ import { useIntl } from "react-intl";
 import { AnimatePresence } from "framer-motion";
 
 import NavMenu from "@common/components/NavMenu";
-import { Link, Toast } from "@common/components";
+import MenuLink from "@common/components/Link/MenuLink";
+import { Toast } from "@common/components";
 import { useLocation, ScrollToTop } from "@common/helpers/router";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
-import { Outlet, useNavigation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import Pending from "@common/components/Pending";
 import { getLocale } from "@common/helpers/localize";
 import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { useIndigenousApprenticeshipRoutes } from "../indigenousApprenticeshipRoutes";
-
-export const exactMatch = (ref: string, test: string): boolean => ref === test;
-
-interface MenuLinkProps {
-  href: string;
-  text: string;
-  title?: string;
-  isActive?: (href: string, path: string) => boolean;
-}
-
-export const MenuLink: React.FC<MenuLinkProps> = ({
-  href,
-  text,
-  title,
-  isActive = exactMatch,
-}) => {
-  const location = useLocation();
-  const activeWeight: Record<string, unknown> = isActive(
-    href ?? null,
-    location.pathname,
-  )
-    ? { "data-h2-font-weight": "base(700)" }
-    : { "data-h2-font-weight": "base(100)" };
-  return (
-    <Link
-      href={href}
-      title={title ?? ""}
-      data-h2-color="base(ia-primary)"
-      {...activeWeight}
-    >
-      {text}
-    </Link>
-  );
-};
 
 export const Layout = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const location = useLocation();
   const paths = useIndigenousApprenticeshipRoutes();
-  const navigation = useNavigation();
 
   const aiConnectionString = getRuntimeVariable(
     "APPLICATIONINSIGHTS_CONNECTION_STRING",
@@ -113,23 +78,19 @@ export const Layout = () => {
             <Header />
             <NavMenu
               mainItems={[
-                <MenuLink
-                  key="home"
-                  href={paths.home()}
-                  text={intl.formatMessage({
+                <MenuLink key="home" to={paths.home()}>
+                  {intl.formatMessage({
                     defaultMessage: "Home",
                     id: "TFeQL2",
                     description:
                       "Link to the homepage for indigenous apprenticeship program.",
                   })}
-                />,
+                </MenuLink>,
               ]}
             />
           </div>
           <main id="main">
-            <Pending fetching={navigation.state === "loading"}>
-              <Outlet />
-            </Pending>
+            <Outlet />
           </main>
           <div style={{ marginTop: "auto" }}>
             <Footer />

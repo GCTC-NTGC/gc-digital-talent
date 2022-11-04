@@ -4,6 +4,8 @@ import type { LocalizedString, Maybe } from "../api/generated";
 
 export type Locales = "en" | "fr";
 
+export const STORED_LOCALE = "stored_locale";
+
 export function isLocale(locale?: string): locale is Locales {
   return locale === "en" || locale === "fr";
 }
@@ -19,6 +21,10 @@ export function getLocale(intl: IntlShape): Locales {
 export function oppositeLocale(locale: Locales): Locales {
   return locale === "fr" ? "en" : "fr";
 }
+
+export const changeLocale = (locale: Locales) => {
+  localStorage.setItem(STORED_LOCALE, locale);
+};
 
 export function localizePath(
   path: string | Partial<Path>,
@@ -46,6 +52,10 @@ export function localizePath(
     search: inputPath.search,
     hash: inputPath.hash,
   });
+}
+
+export function localeRedirect(locale: Locales) {
+  window.location.replace(localizePath(window.location, locale));
 }
 
 export const getLocalizedName = (

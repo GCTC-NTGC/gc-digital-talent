@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/outline";
 import CardLink from "@common/components/CardLink";
 import PageHeader from "@common/components/PageHeader";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import { getLocale } from "@common/helpers/localize";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
 

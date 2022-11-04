@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 export interface LoadingProps {
   inline?: boolean;
+  children?: React.ReactNode;
   /**
    * Determine if the loading state should
    * be announced to users
@@ -18,8 +19,11 @@ export interface LoadingProps {
   live?: "polite" | "assertive";
 }
 
-const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
-  const intl = useIntl();
+const Loading = ({
+  inline = false,
+  live,
+  children,
+}: LoadingProps): JSX.Element => {
   const inlineWrapper = {
     inline: {
       "data-h2-background-color": "base(dt-white)",
@@ -57,13 +61,7 @@ const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
     >
       <div {...inlineWrapper[inline === true ? "inline" : "none"]}>
         <span className="lds-dual-ring">
-          <span data-h2-visibility="base(invisible)">
-            {intl.formatMessage({
-              defaultMessage: "Loading...",
-              id: "FTJdsa",
-              description: "Message to display when a page is loading.",
-            })}
-          </span>
+          <span data-h2-visibility="base(invisible)">{children}</span>
         </span>
       </div>
     </div>

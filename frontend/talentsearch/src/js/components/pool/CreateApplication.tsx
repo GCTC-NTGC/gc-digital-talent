@@ -5,6 +5,7 @@ import { useIntl } from "react-intl";
 import { Id, toast } from "react-toastify";
 import { notEmpty } from "@common/helpers/util";
 import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
+import { useParams } from "react-router-dom";
 import {
   Scalars,
   useCreateApplicationMutation,
@@ -12,21 +13,22 @@ import {
 } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
-interface CreateApplicationProps {
+type RouteParams = {
   poolId: Scalars["ID"];
-}
+};
 
 /**
  * Note: This is not a real page
  * it exists only to create an application
  * and forward a user on
  */
-const CreateApplication = ({ poolId }: CreateApplicationProps) => {
+const CreateApplication = () => {
+  const { poolId } = useParams<RouteParams>();
   const intl = useIntl();
   const errorToastId = React.useRef<Id>("");
   const paths = useDirectIntakeRoutes();
   const [{ data }] = useGetPoolAdvertisementQuery({
-    variables: { id: poolId },
+    variables: { id: poolId || "" },
   });
   const [
     { fetching: creating, data: mutationData, operation },
@@ -34,7 +36,7 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
   ] = useCreateApplicationMutation();
 
   // Store path to redirect to later on
-  let redirectPath = paths.pool(poolId);
+  let redirectPath = paths.pool(poolId || "");
 
   /**
    * Handle any errors that occur during mutation

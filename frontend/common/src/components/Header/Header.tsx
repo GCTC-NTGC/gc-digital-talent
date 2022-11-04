@@ -1,13 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Link from "../Link";
+import useLocale from "@common/hooks/useLocale";
 import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
 
 import {
   getLocale,
   localizePath,
   oppositeLocale,
+  changeLocale,
 } from "../../helpers/localize";
 import { useLocation } from "../../helpers/router";
 
@@ -17,7 +18,7 @@ export interface HeaderProps {
 
 const Header = ({ width }: HeaderProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale, setLocale } = useLocale();
 
   const location = useLocation();
   const changeToLang = oppositeLocale(locale);
@@ -92,11 +93,15 @@ const Header = ({ width }: HeaderProps) => {
           >
             <div>{/* <ThemeSwitcher / > */}</div>
             <div>
-              <Link
+              <a
                 data-h2-background-color="base:focus-visible(focus)"
                 data-h2-outline="base(none)"
                 data-h2-color="base:hover(tm-blue.dark) base:focus-visible(black)"
                 href={languageTogglePath}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setLocale(changeToLang);
+                }}
                 lang={changeToLang === "en" ? "en" : "fr"}
               >
                 {intl.formatMessage({
@@ -105,7 +110,7 @@ const Header = ({ width }: HeaderProps) => {
                   id: "Z3h103",
                   description: "Title for the language toggle link.",
                 })}
-              </Link>
+              </a>
             </div>
           </div>
         </div>

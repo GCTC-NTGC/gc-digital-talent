@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/outline";
 import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { SideMenuItem } from "@common/components/SideMenu";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import { getLocale } from "@common/helpers/localize";
 
 import { AuthenticationContext } from "@common/components/Auth";

@@ -7,11 +7,15 @@ import Link, { type LinkProps } from "../../Link";
 
 type CardColor = Extract<Color, "yellow" | "red" | "blue" | "black" | "purple">;
 
+interface CardFlatLinkProps
+  extends Pick<LinkProps, "href" | "mode" | "external"> {
+  label: string;
+}
 export interface CardFlatProps {
   color: CardColor;
   title: React.ReactNode;
   children?: React.ReactNode;
-  link?: Pick<LinkProps, "href" | "label" | "mode" | "external">;
+  link?: CardFlatLinkProps;
 }
 
 const colorMap: Record<CardColor, Record<string, string>> = {

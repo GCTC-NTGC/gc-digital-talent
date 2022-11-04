@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { ApplicantFilterInput, PoolCandidateFilter } from "../../api/generated";
 import { CreateRequest } from "./CreateRequest";

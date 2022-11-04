@@ -35,6 +35,7 @@ import { categorizeSkill } from "@common/helpers/skillUtils";
 import commonMessages from "@common/messages/commonMessages";
 
 import { notEmpty } from "@common/helpers/util";
+import { useParams } from "react-router-dom";
 import { useGetPoolAdvertisementQuery, Maybe } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -741,15 +742,16 @@ const PoolAdvertisement = ({
   );
 };
 
-interface PoolAdvertisementPageProps {
-  id: string;
-}
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
 
-const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
+const PoolAdvertisementPage = () => {
   const intl = useIntl();
+  const { poolId } = useParams<RouteParams>();
 
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
-    variables: { id },
+    variables: { id: poolId || "" },
   });
 
   const isVisible = isAdvertisementVisible(
@@ -774,7 +776,7 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
         <NotFound
           headingMessage={intl.formatMessage(commonMessages.notFound, {
             type: "Pool",
-            id,
+            id: poolId || "",
           })}
         >
           {intl.formatMessage({

@@ -19,7 +19,7 @@ const Opportunities = () => {
   const intl = useIntl();
   const diPaths = useDirectIntakeRoutes();
   const profilePaths = useApplicantProfileRoutes();
-  const locale = useLocale();
+  const { locale } = useLocale();
   const { loggedIn } = React.useContext(AuthenticationContext);
 
   return (

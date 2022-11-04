@@ -10,6 +10,7 @@ import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
 import React from "react";
 import { useIntl } from "react-intl";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   useGetApplicationQuery,
@@ -97,10 +98,9 @@ const ApiOrContent = ({
     />
   );
 
-const GovernmentInfoFormPage: React.FunctionComponent<{ meId: string }> = ({
-  meId,
-}) => {
+const GovernmentInfoFormPage = () => {
   // needed bits for react-intl, form submits functions, and routing post submission
+  const { userId: meId } = useParams();
   const intl = useIntl();
   const location = useLocation();
   const queryParams = parseUrlQueryParameters(location);

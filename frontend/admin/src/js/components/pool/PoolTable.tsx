@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Link, Pill } from "@common/components";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
 import { FromArray } from "@common/types/utilityTypes";

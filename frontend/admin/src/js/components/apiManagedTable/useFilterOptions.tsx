@@ -35,7 +35,7 @@ const context: Partial<OperationContext> = {
 // See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
 export default function useFilterOptions(enableEducationType = false) {
   const intl = useIntl();
-  const locale = useLocale();
+  const { locale } = useLocale();
   // TODO: Implement way to return `fetching` states from hook, so that can pass
   // to react-select's `isLoading` prop on <Select />.
   // See: https://react-select.com/props#select-props

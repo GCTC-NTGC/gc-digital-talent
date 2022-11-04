@@ -1,30 +1,33 @@
 import React from "react";
 
 import ClientProvider from "../ClientProvider";
-import { Messages } from "../LanguageRedirectContainer";
 import AuthenticationProvider from "./AuthenticationProvider";
 import AuthorizationProvider from "./AuthorizationProvider";
-import LanguageRedirectProvider from "./LanguageRedirectProvider";
+import LanguageProvider, { Messages } from "./LanguageProvider";
+import LocaleProvider from "./LocaleProvider";
 // Note: Commented out until we have dark mode styles properly implemented
 // import ThemeProvider from "../Theme";
 
 export interface ContextContainerProps {
   messages: Messages;
+  children: React.ReactNode;
 }
 
 const ContextContainer: React.FC<ContextContainerProps> = ({
   messages,
   children,
 }) => (
-  <LanguageRedirectProvider messages={messages}>
-    {/* <ThemeProvider> */}
+  <LocaleProvider>
     <AuthenticationProvider>
-      <ClientProvider>
-        <AuthorizationProvider>{children}</AuthorizationProvider>
-      </ClientProvider>
+      <LanguageProvider messages={messages}>
+        {/* <ThemeProvider> */}
+        <ClientProvider>
+          <AuthorizationProvider>{children}</AuthorizationProvider>
+        </ClientProvider>
+        {/* </ThemeProvider> */}
+      </LanguageProvider>
     </AuthenticationProvider>
-    {/* </ThemeProvider> */}
-  </LanguageRedirectProvider>
+  </LocaleProvider>
 );
 
 export default ContextContainer;

@@ -24,8 +24,8 @@ import type {
 type ExperienceMutationType = "create" | "update";
 
 export const useExperienceMutations = (
-  experienceType: ExperienceType,
   mutationType: ExperienceMutationType,
+  experienceType?: ExperienceType,
 ) => {
   const args: Record<ExperienceType, string> = {
     award: "awardExperience",
@@ -39,7 +39,10 @@ export const useExperienceMutations = (
     id: string,
     values: ExperienceDetailsSubmissionData,
   ): ExperienceMutationArgs => {
-    return { id, [args[experienceType]]: values } as ExperienceMutationArgs;
+    return {
+      id,
+      [args[experienceType || "personal"]]: values,
+    } as ExperienceMutationArgs;
   };
 
   const [, executeCreateAwardMutation] = useCreateAwardExperienceMutation();
@@ -78,12 +81,14 @@ export const useExperienceMutations = (
   };
 
   return {
-    executeMutation: mutations[mutationType][experienceType],
+    executeMutation: mutations[mutationType][experienceType || "personal"],
     getMutationArgs: getArgs,
   };
 };
 
-export const useDeleteExperienceMutation = (experienceType: ExperienceType) => {
+export const useDeleteExperienceMutation = (
+  experienceType?: ExperienceType,
+) => {
   const [, executeDeleteAwardMutation] = useDeleteAwardExperienceMutation();
   const [, executeDeleteCommunityMutation] =
     useDeleteCommunityExperienceMutation();
@@ -102,6 +107,6 @@ export const useDeleteExperienceMutation = (experienceType: ExperienceType) => {
   };
 
   return {
-    executeDeletionMutation: mutations[experienceType],
+    executeDeletionMutation: experienceType ? mutations[experienceType] : null,
   };
 };

@@ -4,7 +4,8 @@ import sanitizeUrl from "../../helpers/sanitizeUrl";
 import type { Color } from "../Button";
 import useCommonLinkStyles from "./useCommonLinkStyles";
 
-export interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
+export interface LinkProps
+  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
   /** The style colour of the link */
   href: string;
   color?: Color;
