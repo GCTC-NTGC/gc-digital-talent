@@ -313,7 +313,11 @@ const router = createBrowserRouter([
           },
           {
             path: "talent/profile/*",
-            element: <TalentRedirect />,
+            element: (
+              <RequireAuth roles={[Role.Applicant]}>
+                <TalentRedirect />
+              </RequireAuth>
+            ),
           },
         ],
       },
