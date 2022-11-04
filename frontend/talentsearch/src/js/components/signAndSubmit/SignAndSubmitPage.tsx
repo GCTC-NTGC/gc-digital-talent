@@ -19,10 +19,12 @@ import { toast } from "react-toastify";
 import { notEmpty } from "@common/helpers/util";
 import { getMissingSkills } from "@common/helpers/skillUtils";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
+import { useParams } from "react-router-dom";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
 import {
   PoolAdvertisement,
+  Scalars,
   SubmitApplicationMutation,
   useGetApplicationDataQuery,
   useSubmitApplicationMutation,
@@ -365,10 +367,15 @@ export const SignAndSubmitForm = ({
   );
 };
 
-const SignAndSubmitPage: React.FC<{ id: string }> = ({ id }) => {
+type RouteParams = {
+  poolCandidateId: Scalars["ID"];
+};
+
+const SignAndSubmitPage = () => {
+  const { poolCandidateId } = useParams<RouteParams>();
   const intl = useIntl();
   const [{ data, fetching, error }] = useGetApplicationDataQuery({
-    variables: { id },
+    variables: { id: poolCandidateId || "" },
   });
 
   const jobTitle = data?.poolCandidate?.poolAdvertisement
@@ -405,7 +412,7 @@ const SignAndSubmitPage: React.FC<{ id: string }> = ({ id }) => {
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate && data.poolCandidate.poolAdvertisement ? (
         <SignAndSubmitForm
-          applicationId={id}
+          applicationId={data.poolCandidate.id}
           poolAdvertisementId={data.poolCandidate.poolAdvertisement?.id}
           userId={data.poolCandidate.user.id}
           closingDate={data.poolCandidate.poolAdvertisement?.expiryDate}

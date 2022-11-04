@@ -227,6 +227,14 @@ const router = createBrowserRouter([
                       },
                     ],
                   },
+                  {
+                    path: "applications",
+                    element: (
+                      <RequireAuth roles={[Role.Applicant]}>
+                        <MyApplicationsPage />
+                      </RequireAuth>
+                    ),
+                  },
                 ],
               },
             ],
@@ -250,7 +258,37 @@ const router = createBrowserRouter([
                       },
                       {
                         path: "create-application",
-                        element: <CreateApplication />,
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <CreateApplication />
+                          </RequireAuth>
+                        ),
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                path: "applications",
+                children: [
+                  {
+                    path: ":poolCandidateId",
+                    children: [
+                      {
+                        path: "submit",
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <SignAndSubmitPage />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: "apply",
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <ReviewMyApplicationPage />
+                          </RequireAuth>
+                        ),
                       },
                     ],
                   },

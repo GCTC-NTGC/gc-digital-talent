@@ -14,9 +14,11 @@ import { Link } from "@common/components";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { getMissingSkills } from "@common/helpers/skillUtils";
 
+import { useParams } from "react-router-dom";
 import {
   Applicant,
   PoolAdvertisement,
+  Scalars,
   useGetReviewMyApplicationPageDataQuery,
 } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -238,12 +240,15 @@ export const ReviewMyApplication: React.FunctionComponent<
   );
 };
 
-const ReviewMyApplicationPage: React.FC<{ poolCandidateId: string }> = ({
-  poolCandidateId,
-}) => {
+type RouteParams = {
+  poolCandidateId: Scalars["ID"];
+};
+
+const ReviewMyApplicationPage = () => {
+  const { poolCandidateId } = useParams<RouteParams>();
   const intl = useIntl();
   const [{ data, fetching, error }] = useGetReviewMyApplicationPageDataQuery({
-    variables: { id: poolCandidateId },
+    variables: { id: poolCandidateId || "" },
   });
 
   return (
