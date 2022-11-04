@@ -106,7 +106,5 @@ export const useDeleteExperienceMutation = (
     work: executeDeleteWorkMutation,
   };
 
-  return {
-    executeDeletionMutation: experienceType ? mutations[experienceType] : null,
-  };
+  return experienceType ? mutations[experienceType] : null;
 };

@@ -407,11 +407,10 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
 
   const handleDeleteExperience = () => {
-    if (executeDeletionMutation?.executeDeletionMutation) {
-      executeDeletionMutation
-        .executeDeletionMutation({
-          id: experienceIdExact,
-        })
+    if (executeDeletionMutation) {
+      executeDeletionMutation({
+        id: experienceIdExact,
+      })
         .then((result) => {
           navigate(returnPath);
           toast.success(
