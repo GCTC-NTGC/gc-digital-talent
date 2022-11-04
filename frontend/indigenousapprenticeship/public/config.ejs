@@ -1,0 +1,15 @@
+/**
+ * This file is dynamically updated on build and deployment to send some variables to the client.
+ * First choice variables are substituted from the environment on deployment.  Second choice is variables substituted on build.
+ */
+
+ // only take the string if the variable has been replaced with something
+ const filterUnusable = (value) => !value.startsWith('$') && value.length > 0 ? value : undefined;
+
+
+const data = new Map([
+    // Azure application insights not used in dev
+    ["APPLICATIONINSIGHTS_CONNECTION_STRING", filterUnusable("$APPLICATIONINSIGHTS_CONNECTION_STRING")],
+]);
+
+window.__SERVER_CONFIG__ = data;

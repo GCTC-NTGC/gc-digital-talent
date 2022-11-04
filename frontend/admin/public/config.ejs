@@ -1,0 +1,23 @@
+/**
+ * This file is dynamically updated on build and deployment to send some variables to the client.
+ * First choice variables are substituted from the environment on deployment.  Second choice is variables substituted on build.
+ */
+
+ // only take the string if the variable has been replaced with something
+ const filterUnusable = (value) => !value.startsWith('$') && value.length > 0 ? value : undefined;
+
+
+const data = new Map([
+    // auth settings
+    ["OAUTH_POST_LOGOUT_REDIRECT", filterUnusable("$OAUTH_POST_LOGOUT_REDIRECT") ?? "<%= htmlWebpackPlugin.options.environment.OAUTH_POST_LOGOUT_REDIRECT %>"],
+    ["OAUTH_LOGOUT_URI", filterUnusable("$OAUTH_LOGOUT_URI") ?? "<%= htmlWebpackPlugin.options.environment.OAUTH_LOGOUT_URI %>"],
+
+    // Feature flags
+    ["FEATURE_DIRECTINTAKE", filterUnusable("$FEATURE_DIRECTINTAKE") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_DIRECTINTAKE %>"],
+    ["FEATURE_APPLICANTSEARCH", filterUnusable("$FEATURE_APPLICANTSEARCH") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_APPLICANTSEARCH %>"],
+
+    // Azure application insights not used in dev
+    ["APPLICATIONINSIGHTS_CONNECTION_STRING", filterUnusable("$APPLICATIONINSIGHTS_CONNECTION_STRING")],
+]);
+
+window.__SERVER_CONFIG__ = data;
