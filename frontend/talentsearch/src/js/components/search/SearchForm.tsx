@@ -112,8 +112,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     }, [classifications]);
 
     // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
-    const { initialValues: initialValuesFromState } =
-      location.state as LocationState;
+    const initialValuesFromState = location?.state?.initialValues;
     const initialValues = React.useMemo(
       () => initialValuesFromState || {},
       [initialValuesFromState],

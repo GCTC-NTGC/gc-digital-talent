@@ -125,10 +125,10 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     const assetMap = useMemo(() => mapIdToValue(cmoAssets), [cmoAssets]);
 
     // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
-    const state = location.state as LocationState;
-    const initialValues = useMemo(
-      () => (state ? state.some.initialValues : {}),
-      [state],
+    const initialValuesFromState = location?.state?.initialValues;
+    const initialValues = React.useMemo(
+      () => initialValuesFromState || {},
+      [initialValuesFromState],
     );
     const methods = useForm<FormValues>({ defaultValues: initialValues });
     const { watch, trigger } = methods;
