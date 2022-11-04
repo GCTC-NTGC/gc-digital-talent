@@ -1,15 +1,17 @@
+import React from "react";
+import { SubmitHandler } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { BriefcaseIcon } from "@heroicons/react/24/solid";
+
 import { BasicForm, Checklist, TextArea } from "@common/components/form";
 import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
-import { navigate } from "@common/helpers/router";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { errorMessages, navigationMessages } from "@common/messages";
-import { BriefcaseIcon } from "@heroicons/react/24/solid";
-import React from "react";
-import { SubmitHandler } from "react-hook-form";
-import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+
 import {
   CreateUserInput,
   CreateWorkLocationPreferenceMutation,
@@ -43,6 +45,7 @@ export const WorkLocationPreferenceForm: React.FC<
 > = ({ initialData, application, handleWorkLocationPreference }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const profilePaths = applicantProfileRoutes(locale);
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =

@@ -1,5 +1,6 @@
 import * as React from "react";
-import { imageUrl, navigate } from "@common/helpers/router";
+import { useNavigate } from "react-router-dom";
+import { imageUrl } from "@common/helpers/router";
 import { useIntl } from "react-intl";
 import { Alert } from "@common/components";
 import { BellIcon } from "@heroicons/react/24/outline";
@@ -281,6 +282,7 @@ export const CreateAccountForm: React.FunctionComponent<
 
 const CreateAccount: React.FunctionComponent = () => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
 

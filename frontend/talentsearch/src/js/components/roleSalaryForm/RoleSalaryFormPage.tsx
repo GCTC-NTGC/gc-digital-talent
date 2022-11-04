@@ -1,10 +1,12 @@
 import React from "react";
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import { parseUrlQueryParameters, useLocation } from "@common/helpers/router";
-import { commonMessages } from "@common/messages";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
+
+import NotFound from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
+import { commonMessages } from "@common/messages";
+
 import {
   useGetRoleSalaryInfoQuery,
   useUpdateRoleSalaryMutation,
@@ -48,7 +50,7 @@ const RoleSalaryFormApi: React.FunctionComponent<RoleSalaryFormApiProps> = ({
 };
 
 interface ApiOrContentProps {
-  applicationId?: string;
+  applicationId: string | null;
   initialData: GetRoleSalaryInfoQuery;
   updateRoleSalary: RoleSalaryUpdateHandler;
 }
@@ -72,8 +74,8 @@ const ApiOrContent = ({
 
 const RoleSalaryFormPage: React.FunctionComponent = () => {
   const intl = useIntl();
-  const location = useLocation();
-  const queryParams = parseUrlQueryParameters(location);
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
 
   const [{ data: initialData, fetching, error }] = useGetRoleSalaryInfoQuery();
   const preProfileStatus = initialData?.me?.isProfileComplete;
@@ -106,7 +108,7 @@ const RoleSalaryFormPage: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {initialData?.me ? (
         <ApiOrContent
-          applicationId={queryParams.applicationId}
+          applicationId={applicationId}
           initialData={initialData}
           updateRoleSalary={handleRoleSalary}
         />

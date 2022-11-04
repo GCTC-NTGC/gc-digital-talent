@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { useIntl } from "react-intl";
-
-import { pushToStateThenNavigate } from "@common/helpers/router";
+import { useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
+
 import { unpackMaybes } from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
 import NonExecutiveITClassifications from "@common/constants/NonExecutiveITClassifications";
@@ -223,7 +223,8 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   );
 };
 
-const SearchContainerApi: React.FC = () => {
+const SearchContainerApi = () => {
+  const navigate = useNavigate();
   // Fetches all data for the filters on the search form (eg. classifications, skills, etc.).
   const [
     {
@@ -264,17 +265,15 @@ const SearchContainerApi: React.FC = () => {
 
   const paths = useTalentSearchRoutes();
   const onSubmit = async (candidateCount: number, poolId: string) => {
-    return pushToStateThenNavigate<{
-      applicantFilter?: ApplicantFilterInput;
-      candidateCount: number;
-      initialValues?: ApplicantFilterInput;
-    }>(paths.request(), {
-      applicantFilter: {
-        ...applicantFilter,
-        pools: [{ id: poolId }],
+    navigate(paths.request(), {
+      state: {
+        applicantFilter: {
+          ...applicantFilter,
+          pools: [{ id: poolId }],
+        },
+        candidateCount,
+        initialValues: applicantFilter,
       },
-      candidateCount,
-      initialValues: applicantFilter,
     });
   };
 

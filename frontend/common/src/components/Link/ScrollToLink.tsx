@@ -1,5 +1,5 @@
 import React from "react";
-import { navigate } from "../../helpers/router";
+import { useNavigate } from "react-router-dom";
 
 export interface ScrollToLinkProps
   extends Omit<React.HTMLProps<HTMLAnchorElement>, "href" | "onClick"> {
@@ -7,6 +7,7 @@ export interface ScrollToLinkProps
 }
 
 const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
+  const navigate = useNavigate();
   const [targetSection, setTargetSection] = React.useState<HTMLElement | null>(
     null,
   );

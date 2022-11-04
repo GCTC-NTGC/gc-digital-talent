@@ -1,15 +1,17 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { BasicForm, Checklist } from "@common/components/form";
+import { useNavigate } from "react-router-dom";
 import {
   BriefcaseIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/solid";
+
+import { BasicForm, Checklist } from "@common/components/form";
+
 import { errorMessages, navigationMessages } from "@common/messages";
 import Button from "@common/components/Button";
 import { notEmpty } from "@common/helpers/util";
 import { unpackMaybes } from "@common/helpers/formUtils";
-import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
@@ -105,6 +107,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const profilePaths = applicantProfileRoutes(locale);
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =

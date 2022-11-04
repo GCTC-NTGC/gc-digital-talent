@@ -9,22 +9,23 @@ import { CreateRequest as OldCreateRequest } from "./deprecated/CreateRequest";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
 
 type LocationState = {
-  some: {
-    applicantFilter: ApplicantFilterInput;
-    candidateFilter: PoolCandidateFilter; // TODO: Remove candidateFilter when deprecated
-    initialValues: SearchFormValues;
-    candidateCount: number;
-  };
+  applicantFilter: ApplicantFilterInput;
+  candidateFilter: PoolCandidateFilter; // TODO: Remove candidateFilter when deprecated
+  initialValues: SearchFormValues;
+  candidateCount: number;
 };
 
-const RequestPage: React.FunctionComponent = () => {
+const RequestPage = () => {
   const intl = useIntl();
   const location = useLocation();
   const state = location.state as LocationState;
-  const applicantFilter = state ? state.some.applicantFilter : null;
-  const candidateFilter = state ? state.some.candidateFilter : null; // TODO: Remove candidateFilter when deprecated
-  const initialValues = state ? state.some.initialValues : null;
-  const candidateCount = state ? state.some.candidateCount : null;
+
+  console.log(state);
+
+  const applicantFilter = state ? state.applicantFilter : null;
+  const candidateFilter = state ? state.candidateFilter : null; // TODO: Remove candidateFilter when deprecated
+  const initialValues = state ? state.initialValues : null;
+  const candidateCount = state ? state.candidateCount : null;
 
   const CreateRequestForm = checkFeatureFlag("FEATURE_APPLICANTSEARCH") ? (
     <CreateRequest

@@ -1,8 +1,10 @@
 import React from "react";
-import Hero from "@common/components/Hero";
 import { useIntl } from "react-intl";
 import { imageUrl } from "@common/helpers/router";
+
+import Hero from "@common/components/Hero";
 import useTheme from "@common/hooks/useTheme";
+
 import SupportForm from "./SupportForm";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import useBreadcrumbs from "../../hooks/useBreadcrumbs";

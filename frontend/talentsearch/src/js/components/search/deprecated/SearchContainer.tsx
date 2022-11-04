@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
-import { notEmpty } from "@common/helpers/util";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
-import { pushToStateThenNavigate } from "@common/helpers/router";
+
+import { notEmpty } from "@common/helpers/util";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
 import {
@@ -265,6 +266,7 @@ const candidateFilterToQueryArgs = (
 };
 
 export const SearchContainerApi: React.FC = () => {
+  const navigate = useNavigate();
   const [initialValues, setInitialValues] = useState<FormValues | null>(null);
   const [{ data, fetching, error }] = useGetSearchFormDataQuery({
     variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
@@ -287,10 +289,12 @@ export const SearchContainerApi: React.FC = () => {
     // pool ID is not in the form so it must be added manually
     if (candidateFilter && pool) candidateFilter.pools = [{ id: pool.id }];
 
-    return pushToStateThenNavigate(paths.request(), {
-      candidateFilter,
-      candidateCount,
-      initialValues,
+    return navigate(paths.request(), {
+      state: {
+        candidateFilter,
+        candidateCount,
+        initialValues,
+      },
     });
   };
 

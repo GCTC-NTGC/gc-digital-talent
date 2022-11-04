@@ -1,12 +1,13 @@
-import { Input, Select, Submit, TextArea } from "@common/components/form";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { errorMessages } from "@common/messages";
-import { Button } from "@common/components";
-import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
-import { navigate, pushToStateThenNavigate } from "@common/helpers/router";
+
+import { Input, Select, Submit, TextArea } from "@common/components/form";
+import { errorMessages } from "@common/messages";
+import { Button, Link } from "@common/components";
+import { notEmpty } from "@common/helpers/util";
 import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
 import {
   getFromSessionStorage,
@@ -83,6 +84,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useTalentSearchRoutes();
+  const navigate = useNavigate();
   const cacheKey = "ts-createRequest";
 
   const formMethods = useForm<FormValues>({
@@ -352,16 +354,12 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               data-h2-text-align="base(center) p-tablet(left)"
               data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
-              <Button
+              <Link
                 color="primary"
                 mode="outline"
                 data-h2-margin="base(0, x.5, 0, 0)"
-                onClick={() => {
-                  // Save the initial search form values to the state so they are available to user when click back.
-                  pushToStateThenNavigate(paths.search(), {
-                    searchFormInitialValues,
-                  });
-                }}
+                href={paths.search()}
+                state={searchFormInitialValues}
               >
                 {intl.formatMessage({
                   defaultMessage: "Back",
@@ -369,7 +367,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                   description:
                     "Back button located next to the submit button on the request form.",
                 })}
-              </Button>
+              </Link>
             </div>
             <div
               data-h2-text-align="base(center) p-tablet(right)"

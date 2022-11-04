@@ -1,16 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
-import useLocale from "@common/hooks/useLocale";
 import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
 
-import {
-  getLocale,
-  localizePath,
-  oppositeLocale,
-  changeLocale,
-} from "../../helpers/localize";
-import { useLocation } from "../../helpers/router";
+import { localizePath, oppositeLocale } from "../../helpers/localize";
+import useLocale from "../../hooks/useLocale";
 
 export interface HeaderProps {
   width?: string;

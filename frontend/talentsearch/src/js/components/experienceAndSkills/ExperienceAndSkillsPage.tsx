@@ -1,12 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useSearchParams } from "react-router-dom";
 
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
-import { useQueryParams } from "@common/helpers/router";
 
 import {
   Experience,
@@ -26,9 +26,10 @@ const ExperienceAndSkillsApi = ({
   experiences,
 }: ExperienceAndSkillsApiProps) => {
   const intl = useIntl();
-  const { applicationId } = useQueryParams();
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
   const [{ data, fetching, error }] = useGetApplicationDetailsQuery({
-    variables: { id: applicationId },
+    variables: { id: applicationId || "" },
   });
   return (
     <Pending fetching={fetching} error={error}>
@@ -61,7 +62,7 @@ const ExperienceAndSkillsApi = ({
 };
 
 interface ApiOrContentProps {
-  applicationId?: string;
+  applicationId: string | null;
   applicantId: string;
   experiences: Experience[];
 }
@@ -82,7 +83,8 @@ const ApiOrContent = ({
 
 const ExperienceAndSkillsPage = () => {
   const intl = useIntl();
-  const queryParams = useQueryParams();
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
   const { loggedInUser } = useAuthorizationContext();
   const [{ data, fetching, error }] = useGetAllApplicantExperiencesQuery({
     variables: { id: loggedInUser?.id || "" },
@@ -95,7 +97,7 @@ const ExperienceAndSkillsPage = () => {
       {data?.applicant ? (
         <ApiOrContent
           applicantId={data?.applicant.id}
-          applicationId={queryParams.applicationId || undefined}
+          applicationId={applicationId}
           experiences={experiences || []}
         />
       ) : (

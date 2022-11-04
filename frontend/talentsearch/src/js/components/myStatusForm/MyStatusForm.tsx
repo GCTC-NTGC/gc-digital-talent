@@ -1,9 +1,10 @@
-import { navigate } from "@common/helpers/router";
-import { errorMessages } from "@common/messages";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
+import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getJobLookingStatus } from "@common/constants/localizedConstants";
 import { BasicForm, RadioGroup } from "@common/components/form";
@@ -149,6 +150,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
 const MyStatusApi: React.FunctionComponent = () => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
+  const navigate = useNavigate();
 
   const [{ data: initialData, fetching, error }] = useGetMyStatusQuery();
 

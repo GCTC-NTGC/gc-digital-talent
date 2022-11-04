@@ -6,6 +6,7 @@ import { getLocale } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
+import { ExternalLink } from "@common/components/Link";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
@@ -103,19 +104,18 @@ const LoginPage: React.FC = () => {
               </Link>
             </p>
             <p>
-              <Link
+              <ExternalLink
                 href={loginPath}
                 mode="solid"
                 type="button"
                 color="primary"
-                external
               >
                 {intl.formatMessage({
                   defaultMessage: "Continue to GC Key and Login",
                   id: "CZcsxM",
                   description: "GC Key login link text on the login page.",
                 })}
-              </Link>
+              </ExternalLink>
             </p>
           </div>
         </div>

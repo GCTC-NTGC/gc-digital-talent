@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import { errorMessages, navigationMessages } from "@common/messages";
@@ -11,7 +12,6 @@ import {
 } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import ExternalLink from "@common/components/Link/ExternalLink";
@@ -521,6 +521,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const profilePaths = applicantProfileRoutes(locale);
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =

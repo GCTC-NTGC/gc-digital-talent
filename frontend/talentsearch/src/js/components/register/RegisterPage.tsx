@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { ExternalLink } from "@common/components/Link";
 import { Link } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
@@ -95,12 +96,11 @@ const RegisterPage: React.FC = () => {
               </Link>
             </p>
             <p>
-              <Link
+              <ExternalLink
                 href={loginPath}
                 mode="solid"
                 type="button"
                 color="primary"
-                external
               >
                 {intl.formatMessage({
                   defaultMessage: "Continue to GC Key and Register",
@@ -108,7 +108,7 @@ const RegisterPage: React.FC = () => {
                   description:
                     "GC Key registration link text on the registration page.",
                 })}
-              </Link>
+              </ExternalLink>
             </p>
           </div>
         </div>

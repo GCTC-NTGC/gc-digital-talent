@@ -65,9 +65,7 @@ export type FormValues = Pick<
 };
 
 type LocationState = {
-  some: {
-    initialValues: FormValues;
-  };
+  initialValues: FormValues;
 };
 
 export interface SearchFormProps {
@@ -114,10 +112,11 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     }, [classifications]);
 
     // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
-    const state = location.state as LocationState;
+    const { initialValues: initialValuesFromState } =
+      location.state as LocationState;
     const initialValues = React.useMemo(
-      () => (state ? state.some.initialValues : {}),
-      [state],
+      () => initialValuesFromState || {},
+      [initialValuesFromState],
     );
     const methods = useForm<FormValues>({ defaultValues: initialValues });
     const { watch, trigger } = methods;
@@ -131,7 +130,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     );
 
     React.useEffect(() => {
-      onUpdateApplicantFilter(initialValues);
+      // HACK: Not sure what is going on here, suppress for now
+      onUpdateApplicantFilter(initialValues as ApplicantFilterInput);
     }, [initialValues, onUpdateApplicantFilter]);
 
     React.useEffect(() => {

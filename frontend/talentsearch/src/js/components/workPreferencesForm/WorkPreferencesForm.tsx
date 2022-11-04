@@ -1,17 +1,19 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { SubmitHandler } from "react-hook-form";
+import { BriefcaseIcon } from "@heroicons/react/24/solid";
+
 import { errorMessages, navigationMessages } from "@common/messages";
 import { BasicForm, Checklist, RadioGroup } from "@common/components/form";
 import {
   getOperationalRequirement,
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
-import { SubmitHandler } from "react-hook-form";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import { navigate } from "@common/helpers/router";
-import { toast } from "react-toastify";
-import { BriefcaseIcon } from "@heroicons/react/24/solid";
+
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import {
@@ -71,6 +73,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const profilePaths = applicantProfileRoutes(locale);
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =

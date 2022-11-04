@@ -1,8 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
 
 import TileLink from "@common/components/TileLink";
-import { imageUrl, navigate } from "@common/helpers/router";
+import { imageUrl } from "@common/helpers/router";
 import Dialog from "@common/components/Dialog";
 import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
@@ -17,6 +18,7 @@ import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
   const directIntakePaths = useDirectIntakeRoutes();
   const talentPaths = useTalentSearchRoutes();

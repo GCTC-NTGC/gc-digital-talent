@@ -5,7 +5,6 @@ import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
 import { errorMessages, navigationMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
-import { navigate } from "@common/helpers/router";
 import {
   getProvinceOrTerritory,
   getLanguage,
@@ -16,6 +15,7 @@ import { SubmitHandler } from "react-hook-form";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import { emptyToNull } from "@common/helpers/util";
+import { useNavigate } from "react-router-dom";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
@@ -63,6 +63,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const profilePaths = applicantProfileRoutes(locale);
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =

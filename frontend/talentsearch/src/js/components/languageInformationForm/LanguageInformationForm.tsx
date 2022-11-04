@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
 import { errorMessages, navigationMessages } from "@common/messages";
 import { BasicForm, Checklist } from "@common/components/form";
 import { SubmitHandler } from "react-hook-form";
@@ -7,7 +8,6 @@ import compact from "lodash/compact";
 import omit from "lodash/omit";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import {
@@ -101,6 +101,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
 }> = ({ initialData, application, submitHandler }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const profilePaths = applicantProfileRoutes(locale);
   const directIntakePaths = directIntakeRoutes(locale);
   const returnRoute =
