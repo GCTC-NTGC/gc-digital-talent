@@ -5,7 +5,6 @@ import { AnimatePresence } from "framer-motion";
 
 import NavMenu from "@common/components/NavMenu";
 import MenuLink from "@common/components/Link/MenuLink";
-import { Toast } from "@common/components";
 import LocaleRedirect from "@common/components/LocaleRedirect/LocaleRedirect";
 import { ScrollToTop } from "@common/helpers/router";
 import Header from "@common/components/Header";
@@ -97,7 +96,6 @@ export const Layout = () => {
             <Footer />
           </div>
         </div>
-        <Toast />
         <LocaleRedirect />
       </React.Fragment>
     </AnimatePresence>
