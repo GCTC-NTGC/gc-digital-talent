@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "@common/components";
 import { Input, Submit } from "@common/components/form";
 import NotFound from "@common/components/NotFound";
@@ -13,13 +14,11 @@ import {
 import uniqueId from "lodash/uniqueId";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 
 import { notEmpty } from "@common/helpers/util";
 import { getMissingSkills } from "@common/helpers/skillUtils";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
-import { useParams } from "react-router-dom";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
 import {
@@ -99,6 +98,7 @@ const SignatureForm = ({
   const intl = useIntl();
   const paths = useDirectIntakeRoutes();
   const methods = useForm<FormValues>();
+  const navigate = useNavigate();
   const confirmations = [
     intl.formatMessage({
       defaultMessage: `"I've reviewed everything written in my

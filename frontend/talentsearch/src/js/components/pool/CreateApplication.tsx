@@ -1,11 +1,10 @@
 import React from "react";
 import Loading from "@common/components/Pending/Loading";
-import { redirect } from "@common/helpers/router";
 import { useIntl } from "react-intl";
 import { Id, toast } from "react-toastify";
 import { notEmpty } from "@common/helpers/util";
 import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Scalars,
   useCreateApplicationMutation,
@@ -27,6 +26,8 @@ const CreateApplication = () => {
   const intl = useIntl();
   const errorToastId = React.useRef<Id>("");
   const paths = useDirectIntakeRoutes();
+  const navigate = useNavigate();
+  const redirect = (path: string) => navigate(path, { replace: true });
   const [{ data }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId || "" },
   });
@@ -64,7 +65,7 @@ const CreateApplication = () => {
       }
       return null;
     },
-    [intl, redirectPath],
+    [intl, redirectPath, redirect],
   );
 
   /**
