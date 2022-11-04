@@ -31,11 +31,10 @@ const RequireAuth = ({ children, roles }: RequireAuthProps) => {
     );
 
   if (!isAuthorized) {
-    throw new Response("", {
-      status: 403,
+    throw new Response("Error", {
+      status: 401,
       statusText: "Unauthorized",
     });
-    return null;
   }
 
   // Note: Need to return a React.ReactElement

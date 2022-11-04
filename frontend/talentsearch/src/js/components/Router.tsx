@@ -12,7 +12,7 @@ import ProfileRedirect from "./Redirects/ProfileRedirect";
 
 /** Home */
 const HomePage = React.lazy(() => import("./Home/HomePage"));
-const NotFoundPage = React.lazy(() => import("./404/Error404"));
+const ErrorPage = React.lazy(() => import("./Error/ErrorPage"));
 const SupportPage = React.lazy(() => import("./support/SupportPage"));
 
 /** Search */
@@ -79,9 +79,11 @@ const router = createBrowserRouter([
   {
     path: `/`,
     element: <Layout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: ":locale",
+        errorElement: <ErrorPage />,
         children: [
           {
             index: true,
@@ -145,7 +147,7 @@ const router = createBrowserRouter([
                       {
                         index: true,
                         element: (
-                          <RequireAuth roles={[Role.Applicant]}>
+                          <RequireAuth roles={[Role.Admin]}>
                             <ProfilePage />
                           </RequireAuth>
                         ),
@@ -323,7 +325,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <NotFoundPage />,
+        element: <ErrorPage />,
       },
     ],
   },
