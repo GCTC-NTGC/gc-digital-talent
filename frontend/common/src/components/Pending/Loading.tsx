@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 
 export interface LoadingProps {
   inline?: boolean;

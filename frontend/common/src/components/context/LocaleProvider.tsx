@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  isLocale,
-  localeRedirect,
-  Locales,
-  localizePath,
-} from "../../helpers/localize";
+import { isLocale, localeRedirect, Locales } from "../../helpers/localize";
 
 export const STORED_LOCALE = "stored_locale";
 

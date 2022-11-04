@@ -20,8 +20,6 @@ const RequestPage = () => {
   const location = useLocation();
   const state = location.state as LocationState;
 
-  console.log(state);
-
   const applicantFilter = state ? state.applicantFilter : null;
   const candidateFilter = state ? state.candidateFilter : null; // TODO: Remove candidateFilter when deprecated
   const initialValues = state ? state.initialValues : null;
