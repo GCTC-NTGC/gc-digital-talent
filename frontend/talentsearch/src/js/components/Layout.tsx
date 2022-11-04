@@ -11,7 +11,7 @@ import useAuth from "@common/hooks/useAuth";
 import useFeatureFlags from "@common/hooks/useFeatureFlags";
 
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
-import { Button, Toast } from "@common/components";
+import { Button } from "@common/components";
 import { Helmet } from "react-helmet";
 import Footer from "@common/components/Footer";
 import NavMenu from "@common/components/NavMenu";
@@ -196,7 +196,6 @@ const Layout = () => {
           <Footer />
         </div>
       </div>
-      <Toast />
       <LocaleRedirect />
     </>
   );
