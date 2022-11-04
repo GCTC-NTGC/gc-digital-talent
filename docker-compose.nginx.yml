@@ -12,11 +12,10 @@ services:
       - "5432:5432"
 
   php:
-    image: webdevops/php-nginx-dev:7.4
-    working_dir: /app
+    build: ./infrastructure/php-nginx-container
     environment:
       # from https://stefan-poeltl.medium.com/php-development-with-docker-the-easy-way-13621ec5d39b
-      - WEB_DOCUMENT_ROOT=/app/public
+      - WEB_DOCUMENT_ROOT=/app
       - PHP_DISPLAY_ERRORS=1
       - PHP_MEMORY_LIMIT=2048M
       - PHP_MAX_EXECUTION_TIME=-1
@@ -29,7 +28,10 @@ services:
       - 8000:80
       - 8001:443
     volumes:
-      - ./api:/app
+      - ./api:/app/api
+      - ./frontend/talentsearch/dist:/app/talent
+      - ./frontend/admin/dist:/app/admin
+      - ./frontend/indigenousapprenticeship/dist:/app/indigenous-it-apprentice
 
 volumes:
   pgdata:
