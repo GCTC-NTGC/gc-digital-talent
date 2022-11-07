@@ -1959,5 +1959,13 @@
   "w2tWfH": {
     "defaultMessage": "Un champ obligatoire est vide : Titres des volets/emplois",
     "description": "Error message that the pool advertisement must have a stream."
+  },
+  "9hjEsr": {
+    "defaultMessage": "Vous avez des modifications non sauvegardées",
+    "description": "Title for unsaved changes warning on profile forms"
+  },
+  "rsrNSC": {
+    "defaultMessage": "Modifications non sauvegardées",
+    "description": "Displayed next to form inputs when they have been changed but not saved."
   }
 }
