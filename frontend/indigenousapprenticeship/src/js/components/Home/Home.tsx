@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Button } from "@common/components";
 import { imageUrl } from "@common/helpers/router";
 
 import Banner from "../Banner/Banner";
