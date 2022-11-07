@@ -32,6 +32,7 @@ const StyledContent = React.forwardRef<
     data-h2-max-width="base(48rem)"
     data-h2-margin="base(x3, auto)"
     data-h2-padding="base(x1)"
+    data-h2-position="base(relative)"
     data-h2-radius="base(s)"
     data-h2-shadow="base(s)"
     data-h2-width="base(90vw)"
