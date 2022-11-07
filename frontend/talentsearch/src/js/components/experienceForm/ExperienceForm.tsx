@@ -147,19 +147,46 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
 
   const labels = getExperienceFormLabels(intl, experienceType);
 
+  const pageTitle = () => {
+    switch (experienceType) {
+      case "award":
+        return intl.formatMessage({
+          defaultMessage: "Edit award",
+          id: "7X5cnb",
+          description: "Page title for the award profile form",
+        });
+      case "community":
+        return intl.formatMessage({
+          defaultMessage: "Edit community experience",
+          id: "LN0Wag",
+          description: "Page title for the community experience profile form",
+        });
+      case "education":
+        return intl.formatMessage({
+          defaultMessage: "Edit education experience",
+          id: "7DtNMY",
+          description: "Page title for the education experience profile form",
+        });
+      case "personal":
+        return intl.formatMessage({
+          defaultMessage: "Edit personal experience",
+          id: "96GHnx",
+          description: "Page title for the personal experience profile form",
+        });
+      case "work":
+        return intl.formatMessage({
+          defaultMessage: "Edit work experience",
+          id: "Ytlyzb",
+          description: "Page title for the work experience profile form",
+        });
+      default:
+        return "";
+    }
+  };
+
   return (
     <ProfileFormWrapper
-      title={intl.formatMessage({
-        defaultMessage: "My experience and skills",
-        id: "omBOZT",
-        description: "Title for the experience profile form",
-      })}
-      description={intl.formatMessage({
-        defaultMessage:
-          "Here is where you can add experience and skills to your profile. This could be anything from helping community members troubleshoot their computers to full-time employment at an IT organization.",
-        id: "pFRKUT",
-        description: "Description for the experience profile form",
-      })}
+      title={pageTitle()}
       prefixBreadcrumbs={!poolAdvertisement}
       crumbs={crumbs}
       cancelLink={{
