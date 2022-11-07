@@ -4,10 +4,11 @@ import Dialog from "@common/components/Dialog";
 import { InputWrapper } from "@common/components/inputPartials";
 import { PoolAdvertisement } from "@common/api/generated";
 import {
-  formattedDateMonthDayYear,
   parseDateTimeUtc,
+  relativeExpiryDate,
 } from "@common/helpers/dateUtils";
 import { Button } from "@common/components";
+import { FormProvider, useForm } from "react-hook-form";
 
 type PublishDialogProps = {
   isOpen: boolean;
@@ -23,6 +24,7 @@ const PublishDialog = ({
   onPublish,
 }: PublishDialogProps): JSX.Element => {
   const intl = useIntl();
+  const methods = useForm();
   const Footer = React.useMemo(
     () => (
       <div data-h2-display="base(flex)">
@@ -56,6 +58,22 @@ const PublishDialog = ({
     ),
     [intl, onDismiss, onPublish],
   );
+
+  let closingStringLocal;
+  let closingStringPacific;
+  if (expiryDate) {
+    const expiryDateObject = parseDateTimeUtc(expiryDate);
+    closingStringLocal = relativeExpiryDate({
+      expiryDate: expiryDateObject,
+      intl,
+    });
+    closingStringPacific = relativeExpiryDate({
+      expiryDate: expiryDateObject,
+      intl,
+      timeZone: "Canada/Pacific",
+    });
+  }
+
   return (
     <Dialog
       centered
@@ -90,33 +108,53 @@ const PublishDialog = ({
           description: "Third paragraph for publish pool dialog",
         })}
       </p>
-      <InputWrapper
-        inputId="closingDate"
-        label={intl.formatMessage({
-          defaultMessage: "Closing Date",
-          id: "K+roYh",
-          description: "Closing Date field label for publish pool dialog",
-        })}
-        hideOptional
-        required={false}
-      >
-        <div
-          data-h2-display="base(flex)"
-          data-h2-width="base(100%)"
-          data-h2-gap="base(.5rem)"
-          data-h2-background-color="base(dt-gray.light)"
-          data-h2-padding="base(x.5)"
-          data-h2-radius="base(s)"
+      <FormProvider {...methods}>
+        <InputWrapper
+          inputId="closingDate"
+          label={intl.formatMessage({
+            defaultMessage: "Closing Date",
+            id: "K+roYh",
+            description: "Closing Date field label for publish pool dialog",
+          })}
+          hideOptional
+          required={false}
         >
-          {expiryDate
-            ? formattedDateMonthDayYear(
-                parseDateTimeUtc(expiryDate),
-                intl,
-                "Canada/Pacific",
-              )
-            : ""}
-        </div>
-      </InputWrapper>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-width="base(100%)"
+            data-h2-gap="base(.5rem)"
+            data-h2-background-color="base(dt-gray.light)"
+            data-h2-padding="base(x.5)"
+            data-h2-radius="base(s)"
+          >
+            {closingStringLocal}
+          </div>
+        </InputWrapper>
+        {closingStringPacific && closingStringPacific !== closingStringLocal && (
+          <InputWrapper
+            inputId="closingDatePacific"
+            label={intl.formatMessage({
+              defaultMessage: "Closing Date (Pacific time zone)",
+              id: "hGlM9B",
+              description:
+                "Closing Date field label for publish pool dialog in the Pacific time zone",
+            })}
+            hideOptional
+            required={false}
+          >
+            <div
+              data-h2-display="base(flex)"
+              data-h2-width="base(100%)"
+              data-h2-gap="base(.5rem)"
+              data-h2-background-color="base(dt-gray.light)"
+              data-h2-padding="base(x.5)"
+              data-h2-radius="base(s)"
+            >
+              {closingStringPacific}
+            </div>
+          </InputWrapper>
+        )}
+      </FormProvider>
       <Dialog.Footer>{Footer}</Dialog.Footer>
     </Dialog>
   );

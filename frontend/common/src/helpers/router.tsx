@@ -1,4 +1,4 @@
-import { createBrowserHistory, Location, Path, State } from "history";
+import { createBrowserHistory, Location, Path } from "history";
 import UniversalRouter, { Routes } from "universal-router";
 import React, { useState, useEffect, useMemo, ReactElement } from "react";
 import fromPairs from "lodash/fromPairs";
@@ -89,9 +89,9 @@ export const navigateBack = (): void => {
   HISTORY.back();
 };
 
-export const pushToStateThenNavigate = (url: string, state: State): void => {
+export function pushToStateThenNavigate<T>(url: string, state: T): void {
   HISTORY.push(url, { some: state });
-};
+}
 
 export interface RouterResult {
   component?: ReactElement;
@@ -107,7 +107,6 @@ export interface RouterArgs {
   };
   paths?: {
     welcomeRoute?: string;
-    notFoundRoute?: string;
   };
 }
 
@@ -128,7 +127,7 @@ export const useRouter = ({
     loggedInEmail,
     isLoaded: authorizationLoaded,
   } = React.useContext(AuthorizationContext);
-  const { welcomeRoute, notFoundRoute } = paths;
+  const { welcomeRoute } = paths;
   // Render the result of routing
   useEffect((): void => {
     router
@@ -193,19 +192,13 @@ export const useRouter = ({
           } else {
             setComponent(notAuthorized);
           }
-        } else if (notFoundRoute) {
-          navigate(notFoundRoute);
         } else {
           setComponent(notFound);
         }
         return null;
       })
       .catch(async () => {
-        if (notFoundRoute) {
-          navigate(notFoundRoute);
-        } else {
-          setComponent(notFound);
-        }
+        setComponent(notFound);
       });
   }, [
     apiRoutes,
@@ -218,7 +211,6 @@ export const useRouter = ({
     pathName,
     router,
     welcomeRoute,
-    notFoundRoute,
     authorizationLoaded,
   ]);
 
@@ -318,4 +310,8 @@ export const ScrollToTop = () => {
 export function refresh() {
   const history = HISTORY;
   history.go(0);
+}
+
+export function useHistory() {
+  return HISTORY;
 }

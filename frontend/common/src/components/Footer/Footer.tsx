@@ -55,8 +55,8 @@ const Footer = ({ width }: FooterProps) => {
   return (
     <footer
       className="footer"
-      data-h2-background-color="base(black.lightest.1) base:dark(black.light)"
-      data-h2-border="base(top, 1px, solid, black.2)"
+      data-h2-background-color="base(black.lightest.10) base:dark(black.light)"
+      data-h2-border="base(top, 1px, solid, black.20)"
       data-h2-padding="base(x2, 0)"
       data-h2-margin="base(auto, 0, 0, 0)"
     >
@@ -94,7 +94,7 @@ const Footer = ({ width }: FooterProps) => {
             </nav>
             <div data-h2-margin="base(x2, 0, x1, 0) p-tablet(x1, 0, 0, 0)">
               <p
-                data-h2-color="base(black.7) base:dark(white.7)"
+                data-h2-color="base(black.70) base:dark(white.70)"
                 data-h2-font-size="base(caption)"
               >
                 {intl.formatMessage(
@@ -122,11 +122,11 @@ const Footer = ({ width }: FooterProps) => {
               rel="noopener noreferrer"
             >
               <CanadaLogo
-                data-h2-display="base(block) base:dark(none)"
+                data-h2-display="base(inline-block) base:dark(none)"
                 data-h2-max-width="base(x10)"
               />
               <CanadaLogoWhite
-                data-h2-display="base(none) base:dark(block)"
+                data-h2-display="base(none) base:dark(inline-block)"
                 data-h2-max-width="base(x10)"
               />
               <span data-h2-visibility="base(invisible)">

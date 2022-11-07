@@ -6,11 +6,16 @@ import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import Card from "@common/components/Card";
-import { Button } from "@common/components";
+import { Button, Link } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
-import { imageUrl, navigate } from "@common/helpers/router";
+import { imageUrl } from "@common/helpers/router";
 
-import { AdvertisementStatus, SkillCategory } from "@common/api/generated";
+import {
+  AdvertisementStatus,
+  PoolCandidate,
+  Scalars,
+  SkillCategory,
+} from "@common/api/generated";
 import TableOfContents from "@common/components/TableOfContents";
 import {
   BoltIcon,
@@ -28,12 +33,9 @@ import {
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
 import commonMessages from "@common/messages/commonMessages";
-import { toast } from "react-toastify";
-import {
-  Role,
-  useGetPoolAdvertisementQuery,
-  useCreateApplicationMutation,
-} from "../../api/generated";
+
+import { notEmpty } from "@common/helpers/util";
+import { useGetPoolAdvertisementQuery, Maybe } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import TALENTSEARCH_APP_DIR, {
@@ -42,28 +44,29 @@ import TALENTSEARCH_APP_DIR, {
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
 import getFullPoolAdvertisementTitle from "./getFullPoolAdvertisementTitle";
+import { hasUserApplied, isAdvertisementVisible } from "./utils";
 
 interface ApplyButtonProps {
-  disabled: boolean;
-  onClick: () => void;
+  poolId: Scalars["ID"];
 }
 
-const ApplyButton = ({ disabled, onClick }: ApplyButtonProps) => {
+const ApplyButton = ({ poolId }: ApplyButtonProps) => {
   const intl = useIntl();
+  const paths = useDirectIntakeRoutes();
+
   return (
-    <Button
+    <Link
       type="button"
-      color="primary"
       mode="solid"
-      disabled={disabled}
-      onClick={onClick}
+      color="primary"
+      href={paths.createApplication(poolId)}
     >
       {intl.formatMessage({
         defaultMessage: "Apply for this process",
         id: "W2YIEA",
         description: "Link text to apply for a pool advertisement",
       })}
-    </Button>
+    </Link>
   );
 };
 
@@ -111,14 +114,12 @@ const anchorTag = (chunks: React.ReactNode): React.ReactNode => (
 
 interface PoolAdvertisementProps {
   poolAdvertisement: PoolAdvertisement;
-  userId: string;
-  hasUserApplied?: boolean;
+  hasApplied?: boolean;
 }
 
 const PoolAdvertisement = ({
   poolAdvertisement,
-  userId,
-  hasUserApplied,
+  hasApplied,
 }: PoolAdvertisementProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -149,38 +150,10 @@ const PoolAdvertisement = ({
     poolAdvertisement.nonessentialSkills,
   );
 
-  const [, executeMutation] = useCreateApplicationMutation();
-  const handleCreateApplication = () =>
-    executeMutation({ userId, poolId: poolAdvertisement.id })
-      .then((result) => {
-        if (result.data?.createApplication) {
-          navigate(paths.reviewApplication(result.data.createApplication.id));
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Application created",
-              id: "U/ji+A",
-              description: "Application created successfully",
-            }),
-          );
-          return result.data?.createApplication.id;
-        }
-        return result.data?.createApplication;
-      })
-      .catch((result) => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error application creation failed",
-            id: "tlAiJm",
-            description: "Application creation failed",
-          }),
-        );
-        return Promise.reject(result.error);
-      });
-
-  const applyBtn = hasUserApplied ? (
+  const applyBtn = hasApplied ? (
     <AlreadyAppliedButton />
   ) : (
-    <ApplyButton disabled={!canApply} onClick={handleCreateApplication} />
+    <ApplyButton poolId={poolAdvertisement.id} />
   );
 
   const links = [
@@ -381,7 +354,7 @@ const PoolAdvertisement = ({
                       "Title for a pool advertisements impact section.",
                   })}
                 </IconTitle>
-                {poolAdvertisement.yourImpact[locale]}
+                <p>{poolAdvertisement.yourImpact[locale]}</p>
               </>
             ) : null}
             {poolAdvertisement.keyTasks ? (
@@ -394,7 +367,7 @@ const PoolAdvertisement = ({
                       "Title for a pool advertisements key tasks section.",
                   })}
                 </IconTitle>
-                {poolAdvertisement.keyTasks[locale]}
+                <p>{poolAdvertisement.keyTasks[locale]}</p>
               </>
             ) : null}
           </TableOfContents.Section>
@@ -703,8 +676,8 @@ const PoolAdvertisement = ({
             <Text>
               {intl.formatMessage({
                 defaultMessage:
-                  "Please contact the Digital Community Management Office if you require any accommodations during this application process.",
-                id: "JnhEcG",
+                  "Please contact the Digital Community Management team if you require any accommodations during this application process.",
+                id: "p3j/0q",
                 description:
                   "Description of what to do when accommodations are needed",
               })}
@@ -779,40 +752,23 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
     variables: { id },
   });
 
-  let visible = data?.me?.roles?.includes(Role.Admin) ?? false;
-  if (
-    data?.poolAdvertisement?.advertisementStatus !== AdvertisementStatus.Draft
-  ) {
-    visible = true;
-  }
+  const isVisible = isAdvertisementVisible(
+    data?.me?.roles?.filter(notEmpty) || [],
+    data?.poolAdvertisement?.advertisementStatus ?? null,
+  );
 
   // grab pool candidates of Me, then check whether a pool candidate exists that matches the advertisement AND is submitted
-  const meDataResponse = data?.me;
-  let hasUserApplied = false;
-  if (meDataResponse?.poolCandidates) {
-    const mePoolCandidates = meDataResponse.poolCandidates;
-    mePoolCandidates.map((candidate) => {
-      if (
-        candidate?.pool.id === data?.poolAdvertisement?.id &&
-        candidate?.submittedAt
-      ) {
-        hasUserApplied = true;
-      }
-      return candidate;
-    });
-  }
-
-  // enforce type of userId as String
-  const dataMe = data?.me ? data.me : undefined;
-  const userId = dataMe?.id ? dataMe.id : "";
+  const hasApplied = hasUserApplied(
+    (data?.me?.poolCandidates as Maybe<PoolCandidate>[]) || [],
+    data?.poolAdvertisement?.id,
+  );
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.poolAdvertisement && visible ? (
+      {data?.poolAdvertisement && isVisible ? (
         <PoolAdvertisement
           poolAdvertisement={data?.poolAdvertisement}
-          userId={userId}
-          hasUserApplied={hasUserApplied}
+          hasApplied={hasApplied}
         />
       ) : (
         <NotFound

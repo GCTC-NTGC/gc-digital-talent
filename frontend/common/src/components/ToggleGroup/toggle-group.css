@@ -8,26 +8,26 @@
 }
 
 .ToggleGroup > [data-state="on"].ToggleGroup__Item {
-  background-color: var(--h2-color-white);
-  color: var(--h2-color-dt-black);
+  background-color: rgba(var(--h2-color-white), 1);
+  color: rgba(var(--h2-color-dt-black), 1);
 }
 
 [data-h2="dark"] .ToggleGroup > [data-state="on"].ToggleGroup__Item {
-  background-color: var(--h2-color-black);
-  color: var(--h2-color-dt-white);
+  background-color: rgba(var(--h2-color-black), 1);
+  color: rgba(var(--h2-color-dt-white), 1);
 }
 
 [data-h2="dark"]
   .ToggleGroup
   > [data-state="on"].ToggleGroup__Item:focus-visible,
 .ToggleGroup > [data-state="on"].ToggleGroup__Item:focus-visible {
-  background-color: var(--h2-color-focus);
-  color: var(--h2-color-black);
+  background-color: rgba(var(--h2-color-focus), 1);
+  color: rgba(var(--h2-color-black), 1);
 }
 
 .ToggleGroup.ToggleGroup--white > [data-state="on"].ToggleGroup__Item {
-  background-color: var(--h2-color-dt-black);
-  color: var(--h2-color-white);
+  background-color: rgba(var(--h2-color-dt-black), 1);
+  color: rgba(var(--h2-color-white), 1);
 }
 
 .ToggleGroup > [data-state="off"].ToggleGroup__Item {

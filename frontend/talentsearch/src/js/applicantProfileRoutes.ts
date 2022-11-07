@@ -12,7 +12,7 @@ const applicantProfileRoutes = (lang: string) => {
     applicationId ? path.join(`?applicationId=${applicationId}`) : "";
   return {
     home,
-    myProfile: (): string => path.join("/", lang, "talent", "profile"),
+    myProfile: (): string => path.join("/", lang, "users", "me"),
     createAccount: (): string => path.join("/", lang, "create-account"),
     aboutMe: (userId: string, applicationId?: string): string =>
       path.join(
@@ -83,6 +83,14 @@ const applicantProfileRoutes = (lang: string) => {
       type: ExperienceType,
       experienceId: string,
     ) => path.join(home(userId), "experiences", type, experienceId, "edit"),
+    /**
+     * Deprecated
+     *
+     * The following paths are deprecated and
+     * should contain redirects to new ones.
+     */
+    myProfileDeprecated: (): string =>
+      path.join("/", lang, "talent", "profile"),
   };
 };
 

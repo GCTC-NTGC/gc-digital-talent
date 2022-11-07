@@ -112,9 +112,11 @@ describe("WorkLocationPreferenceForm", () => {
   it("Can't submit unless form is valid (at least one location selected)", async () => {
     const onClick = jest.fn();
 
-    renderWorkLocationPreferenceForm({
-      initialData: { ...mockInitialEmptyData },
-      handleWorkLocationPreference: onClick,
+    await act(async () => {
+      renderWorkLocationPreferenceForm({
+        initialData: { ...mockInitialEmptyData },
+        handleWorkLocationPreference: onClick,
+      });
     });
 
     fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
@@ -122,12 +124,15 @@ describe("WorkLocationPreferenceForm", () => {
       expect(onClick).not.toHaveBeenCalled();
     });
   });
+
   it("Should submit successfully with required fields", async () => {
     const onClick = jest.fn(() => Promise.resolve(mockUser));
 
-    renderWorkLocationPreferenceForm({
-      initialData: { ...mockInitialData },
-      handleWorkLocationPreference: onClick,
+    await act(async () => {
+      renderWorkLocationPreferenceForm({
+        initialData: { ...mockInitialData },
+        handleWorkLocationPreference: onClick,
+      });
     });
 
     fireEvent.submit(await screen.getByRole("button", { name: /save/i }));

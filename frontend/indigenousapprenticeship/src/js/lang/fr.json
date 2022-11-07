@@ -366,5 +366,9 @@
   "Oh1/Gc": {
     "defaultMessage": "Postulez dès aujourd'hui pour entamer votre parcours de carrière en TI.",
     "description": "Meta tag description for Indigenous Apprenticeship Program site"
+  },
+  "C5tUG2": {
+    "defaultMessage": "Programme d’apprentissage destiné aux Autochtones",
+    "description": "Title tag for Indigenous Apprenticeship Program site"
   }
 }

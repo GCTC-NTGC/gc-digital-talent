@@ -6,51 +6,59 @@
     "feedback": "https://forms.office.com/r/vz80dsUabZ",
     "roadmap": "https://github.com/orgs/hydrogen-design-system/projects/1"
   },
-  "temp": [
-    "../*/src/views/*.html"
-  ],
+  "temp": ["../*/src/views/*.html"],
   "input": [
     "common/src/components",
+    "common/src/styles",
     "admin/src/js/components",
     "talentsearch/src/js/components",
     "indigenousapprenticeship/src/js/components"
   ],
   "output": "common/src/css",
-  "build": {
-    "base_query_key": "base",
-    "dark_mode": "toggle",
-    "logs": false,
-    "minification": true,
-    "prefixing": true,
-    "quiet": false,
+  "modes": {
+    "dark": {
+      "automatic": true,
+      "method": "toggle"
+    }
+  },
+  "processing": {
     "reset_styles": true,
-    "validation": true,
+    "prefixing": true,
+    "minification": true,
     "var_export": false
   },
-  "styles": {
-    "foundations": {
-      "media": [
-        {
-          "key": "print",
-          "query": "print"
-        },
-        {
-          "key": "p-tablet",
-          "query": "screen and (min-width: 48em)"
-        },
-        {
-          "key": "l-tablet",
-          "query": "screen and (min-width: 67.5em)"
-        },
-        {
-          "key": "laptop",
-          "query": "screen and (min-width: 80em)"
-        },
-        {
-          "key": "desktop",
-          "query": "screen and (min-width: 100em)"
-        }
-      ],
+  "logging": {
+    "logs": false,
+    "timers": false
+  },
+  "media": {
+    "base_key": "base",
+    "queries": [
+      {
+        "key": "print",
+        "query": "print"
+      },
+      {
+        "key": "p-tablet",
+        "query": "screen and (min-width: 48em)"
+      },
+      {
+        "key": "l-tablet",
+        "query": "screen and (min-width: 67.5em)"
+      },
+      {
+        "key": "laptop",
+        "query": "screen and (min-width: 80em)"
+      },
+      {
+        "key": "desktop",
+        "query": "screen and (min-width: 100em)"
+      }
+    ]
+  },
+  "themes": [
+    {
+      "key": "default",
       "typography": [
         {
           "size": "100%",
@@ -64,379 +72,519 @@
           "query_key": "desktop",
           "type_scale": "1.25"
         }
-      ]
-    },
-    "tokens": {
+      ],
       "colors": [
         {
           "key": "black",
-          "color": "#010101",
-          "modifiers": [
-            {
-              "key": "light",
-              "color": "#2F313D"
-            },
-            {
-              "key": "lighter",
-              "color": "#474a59"
-            },
-            {
-              "key": "darker",
-              "color": "#1b1c22"
-            }
-          ]
+          "default": {
+            "color": "#010101",
+            "modifiers": [
+              {
+                "key": "light",
+                "color": "#2F313D"
+              },
+              {
+                "key": "lighter",
+                "color": "#474a59"
+              },
+              {
+                "key": "darker",
+                "color": "#1b1c22"
+              }
+            ]
+          }
         },
         {
           "key": "white",
-          "color": "#FFFFFF",
-          "modifiers": []
+          "default": {
+            "color": "#FFFFFF",
+            "modifiers": []
+          }
         },
         {
           "key": "tm-yellow",
-          "color": "#FFAD31",
-          "modifiers": []
+          "default": {
+            "color": "#FFAD31",
+            "modifiers": [
+              {
+                "key": "light",
+                "color": "#FFD79C"
+              },
+              {
+                "key": "dark",
+                "color": "#FF6200"
+              }
+            ]
+          }
         },
         {
           "key": "tm-green",
-          "color": "#52C765",
-          "modifiers": []
+          "default": {
+            "color": "#52C765",
+            "modifiers": []
+          }
         },
         {
           "key": "tm-blue",
-          "color": "#27C9BC",
-          "modifiers": []
+          "default": {
+            "color": "#27C9BC",
+            "modifiers": [
+              {
+                "key": "light",
+                "color": "#D8F7F5"
+              },
+              {
+                "key": "dark",
+                "color": "#215D62"
+              }
+            ]
+          }
         },
         {
           "key": "tm-red",
-          "color": "#FF5958",
-          "modifiers": []
+          "default": {
+            "color": "#FF5958",
+            "modifiers": []
+          }
         },
         {
           "key": "tm-purple",
-          "color": "#9747FF",
-          "modifiers": []
+          "default": {
+            "color": "#9747FF",
+            "modifiers": []
+          }
         },
         {
           "key": "focus",
-          "color": "#6492ff",
-          "modifiers": []
+          "default": {
+            "color": "#6492ff",
+            "modifiers": []
+          }
         },
         {
           "key": "dt-black",
-          "color": "#1E1E23",
-          "modifiers": []
+          "default": {
+            "color": "#1E1E23",
+            "modifiers": []
+          }
         },
         {
           "key": "dt-white",
-          "color": "#FFFFFF",
-          "modifiers": []
+          "default": {
+            "color": "#FFFFFF",
+            "modifiers": []
+          }
         },
         {
           "key": "dt-gray",
-          "color": "#B9B9B9",
-          "modifiers": [
-            {
-              "key": "light",
-              "color": "#F0F0F0"
-            },
-            {
-              "key": "dark",
-              "color": "#646464"
-            }
-          ]
+          "default": {
+            "color": "#B9B9B9",
+            "modifiers": [
+              {
+                "key": "light",
+                "color": "#F0F0F0"
+              },
+              {
+                "key": "dark",
+                "color": "#646464"
+              }
+            ]
+          }
         },
         {
           "key": "dt-primary",
-          "color": "#674C90",
-          "modifiers": [
-            {
-              "key": "dark",
-              "color": "#363661"
-            }
-          ]
+          "default": {
+            "color": "#674C90",
+            "modifiers": [
+              {
+                "key": "dark",
+                "color": "#363661"
+              }
+            ]
+          }
         },
         {
           "key": "dt-secondary",
-          "color": "#072131",
-          "modifiers": [
-            {
-              "key": "light",
-              "color": "#1D2C4C"
-            }
-          ]
+          "default": {
+            "color": "#072131",
+            "modifiers": [
+              {
+                "key": "light",
+                "color": "#1D2C4C"
+              }
+            ]
+          }
         },
         {
           "key": "dt-accent",
-          "color": "#F8A812",
-          "modifiers": [
-            {
-              "key": "light",
-              "color": "#FBDCA5"
-            },
-            {
-              "key": "dark",
-              "color": "#F8A812"
-            }
-          ]
+          "default": {
+            "color": "#F8A812",
+            "modifiers": [
+              {
+                "key": "light",
+                "color": "#FBDCA5"
+              },
+              {
+                "key": "dark",
+                "color": "#F8A812"
+              }
+            ]
+          }
         },
         {
           "key": "dt-success",
-          "color": "#087835",
-          "modifiers": []
+          "default": {
+            "color": "#087835",
+            "modifiers": []
+          }
         },
         {
           "key": "dt-error",
-          "color": "#e90101",
-          "modifiers": []
+          "default": {
+            "color": "#e90101",
+            "modifiers": []
+          }
         },
         {
           "key": "ia-black",
-          "color": "#1E1E23",
-          "modifiers": []
+          "default": {
+            "color": "#1E1E23",
+            "modifiers": []
+          }
         },
         {
           "key": "ia-white",
-          "color": "#FFFFFF",
-          "modifiers": []
+          "default": {
+            "color": "#FFFFFF",
+            "modifiers": []
+          }
         },
         {
           "key": "ia-gray",
-          "color": "#B9B9B9",
-          "modifiers": [
-            {
-              "key": "light",
-              "color": "#F0F0F0"
-            },
-            {
-              "key": "dark",
-              "color": "#646464"
-            }
-          ]
+          "default": {
+            "color": "#B9B9B9",
+            "modifiers": [
+              {
+                "key": "light",
+                "color": "#F0F0F0"
+              },
+              {
+                "key": "dark",
+                "color": "#646464"
+              }
+            ]
+          }
         },
         {
           "key": "ia-primary",
-          "color": "#C01E5A",
-          "modifiers": [
-            {
-              "key": "light",
-              "color": "#E9568A"
-            },
-            {
-              "key": "dark",
-              "color": "#781443"
-            },
-            {
-              "key": "hero",
-              "color": "rgb(71, 6, 46)"
-            }
-          ]
+          "default": {
+            "color": "#C01E5A",
+            "modifiers": [
+              {
+                "key": "light",
+                "color": "#E9568A"
+              },
+              {
+                "key": "dark",
+                "color": "#781443"
+              },
+              {
+                "key": "hero",
+                "color": "rgb(71, 6, 46)"
+              }
+            ]
+          }
         },
         {
           "key": "ia-secondary",
-          "color": "#272F6B",
-          "modifiers": [
-            {
-              "key": "light",
-              "color": "#4D5194"
-            },
-            {
-              "key": "dark",
-              "color": "#211C53"
-            }
-          ]
+          "default": {
+            "color": "#272F6B",
+            "modifiers": [
+              {
+                "key": "light",
+                "color": "#4D5194"
+              },
+              {
+                "key": "dark",
+                "color": "#211C53"
+              }
+            ]
+          }
         },
         {
           "key": "ia-error",
-          "color": "#AE0000",
-          "modifiers": []
+          "default": {
+            "color": "#AE0000",
+            "modifiers": []
+          }
         }
       ],
       "containers": [
         {
           "key": "s",
-          "max_width": "39rem"
+          "default": {
+            "max_width": "39rem"
+          }
         },
         {
           "key": "small",
-          "max_width": "39rem"
+          "default": {
+            "max_width": "39rem"
+          }
         },
         {
           "key": "m",
-          "max_width": "60rem"
+          "default": {
+            "max_width": "60rem"
+          }
         },
         {
           "key": "medium",
-          "max_width": "60rem"
+          "default": {
+            "max_width": "60rem"
+          }
         },
         {
           "key": "l",
-          "max_width": "80rem"
+          "default": {
+            "max_width": "80rem"
+          }
         },
         {
           "key": "large",
-          "max_width": "70rem"
+          "default": {
+            "max_width": "70rem"
+          }
         },
         {
           "key": "full",
-          "max_width": "none"
+          "default": {
+            "max_width": "none"
+          }
         },
         {
           "key": "iap-home",
-          "max_width": "70rem"
+          "default": {
+            "max_width": "70rem"
+          }
         }
       ],
       "fonts": [
         {
           "key": "sans",
-          "family": "'Open Sans', sans-serif"
+          "default": {
+            "family": "'Open Sans', sans-serif"
+          }
         },
         {
           "key": "serif",
-          "family": "serif"
+          "default": {
+            "family": "serif"
+          }
         },
         {
           "key": "script",
-          "family": "script"
+          "default": {
+            "family": "script"
+          }
         },
         {
           "key": "mono",
-          "family": "monospace"
+          "default": {
+            "family": "monospace"
+          }
         }
       ],
       "gradients": [
         {
           "key": "tm-linear-divider",
-          "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
-          "fallback": "#FFAD31"
+          "default": {
+            "gradient": "linear-gradient(to right, #FFAD31, #52C765, #27C9BC, #FF5958)",
+            "fallback": "#FFAD31"
+          }
         },
         {
           "key": "tm-linear-text",
-          "gradient": "linear-gradient(to right, rgba(0, 0, 0, 1) 33%, rgba(0, 0, 0, 0))",
-          "fallback": "transparent"
+          "default": {
+            "gradient": "linear-gradient(to right, rgba(0, 0, 0, 1) 33%, rgba(0, 0, 0, 0))",
+            "fallback": "transparent"
+          }
         },
         {
           "key": "tm-linear-footer",
-          "gradient": "linear-gradient(135deg, #27C9BC, #52C765, #FFAD31 110%)",
-          "fallback": "transparent"
+          "default": {
+            "gradient": "linear-gradient(135deg, #27C9BC, #52C765, #FFAD31 110%)",
+            "fallback": "transparent"
+          }
         },
         {
           "key": "dt-linear",
-          "gradient": "linear-gradient(#674C90, #1D2C4C)",
-          "fallback": "#674C90"
+          "default": {
+            "gradient": "linear-gradient(#674C90, #1D2C4C)",
+            "fallback": "#674C90"
+          }
         },
         {
           "key": "ia-linear-primary",
-          "gradient": "linear-gradient(#272F6B, #0F1037)",
-          "fallback": "#272F6B"
+          "default": {
+            "gradient": "linear-gradient(#272F6B, #0F1037)",
+            "fallback": "#272F6B"
+          }
         },
         {
           "key": "ia-linear-secondary",
-          "gradient": "linear-gradient(#C01E5A, #781443)",
-          "fallback": "#C01E5A"
+          "default": {
+            "gradient": "linear-gradient(#C01E5A, #781443)",
+            "fallback": "#C01E5A"
+          }
         },
         {
           "key": "ia-secondary-to-transparent",
-          "gradient": "linear-gradient(RGB(39, 47, 107), RGB(39, 47, 107, 0))",
-          "fallback": "transparent"
+          "default": {
+            "gradient": "linear-gradient(RGB(39, 47, 107), RGB(39, 47, 107, 0))",
+            "fallback": "transparent"
+          }
         },
         {
           "key": "ia-primary-dark-to-transparent",
-          "gradient": "linear-gradient(rgb(71, 6, 46), rgba(71, 6, 46, 0))",
-          "fallback": "transparent"
+          "default": {
+            "gradient": "linear-gradient(rgb(71, 6, 46), rgba(71, 6, 46, 0))",
+            "fallback": "transparent"
+          }
         }
       ],
       "radii": [
         {
           "key": "s",
-          "radius": "10px"
+          "default": {
+            "radius": "10px"
+          }
         },
         {
           "key": "m",
-          "radius": "50rem"
+          "default": {
+            "radius": "50rem"
+          }
         },
         {
           "key": "l",
-          "radius": "100%"
+          "default": {
+            "radius": "100%"
+          }
         },
         {
           "key": "input",
-          "radius": "4px"
+          "default": {
+            "radius": "4px"
+          }
         },
         {
           "key": "iap-home-card",
-          "radius": "20px"
+          "default": {
+            "radius": "20px"
+          }
         },
         {
           "key": "rounded",
-          "radius": "6px"
+          "default": {
+            "radius": "6px"
+          }
         },
         {
           "key": "circle",
-          "radius": "100%"
+          "default": {
+            "radius": "100%"
+          }
         }
       ],
       "shadows": [
         {
           "key": "s",
-          "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2)"
+          "default": {
+            "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2)"
+          }
         },
         {
           "key": "small",
-          "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2)"
+          "default": {
+            "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2)"
+          }
         },
         {
           "key": "m",
-          "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2)"
+          "default": {
+            "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2)"
+          }
         },
         {
           "key": "medium",
-          "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2)"
+          "default": {
+            "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2)"
+          }
         },
         {
           "key": "l",
-          "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .2)"
+          "default": {
+            "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .2)"
+          }
         },
         {
           "key": "large",
-          "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .2)"
+          "default": {
+            "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .2)"
+          }
         },
         {
           "key": "xl",
-          "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .2)"
+          "default": {
+            "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .2)"
+          }
         },
         {
           "key": "larger",
-          "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .2)"
+          "default": {
+            "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .2)"
+          }
         },
         {
           "key": "xxl",
-          "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2)"
+          "default": {
+            "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2)"
+          }
         },
         {
           "key": "largest",
-          "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2)"
+          "default": {
+            "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2)"
+          }
         }
       ],
       "transitions": {
         "durations": [
           {
             "key": "default",
-            "duration": ".2s"
+            "default": {
+              "duration": ".2s"
+            }
           }
         ],
         "functions": [
           {
             "key": "ease",
-            "function": "ease"
+            "default": {
+              "function": "ease"
+            }
           }
         ],
         "delays": [
           {
             "key": "none",
-            "delay": "0s"
+            "default": {
+              "delay": "0s"
+            }
           }
         ]
       }
     }
-  }
+  ]
 }

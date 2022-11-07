@@ -336,15 +336,6 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
           });
         }}
         columns={columns}
-        addBtn={{
-          label: intl.formatMessage({
-            defaultMessage: "New user",
-            id: "+OSYz7",
-            description:
-              "Text label for link to create new user on admin table",
-          }),
-          path: paths.userCreate(),
-        }}
         searchBy={[
           {
             label: intl.formatMessage({

@@ -1,6 +1,7 @@
 import * as React from "react";
 import get from "lodash/get";
-import { RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
+import { useFieldStateStyles } from "../../../helpers/formUtils";
 import { InputWrapper } from "../../inputPartials";
 
 export interface InputProps
@@ -25,6 +26,8 @@ export interface InputProps
   errorPosition?: "top" | "bottom";
   // Whether to trim leading/ending whitespace upon blurring of an input, default on
   whitespaceTrim?: boolean;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 const Input: React.FunctionComponent<InputProps> = ({
@@ -38,15 +41,17 @@ const Input: React.FunctionComponent<InputProps> = ({
   errorPosition = "bottom",
   hideOptional,
   whitespaceTrim = true,
+  trackUnsaved = true,
   ...rest
 }) => {
   const {
     register,
-    formState: { errors },
     setValue,
+    formState: { errors },
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message;
+  const error = get(errors, name)?.message as FieldError;
+  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
 
   const whitespaceTrimmer = (e: React.FocusEvent<HTMLInputElement>) => {
     if (whitespaceTrim) {
@@ -65,11 +70,12 @@ const Input: React.FunctionComponent<InputProps> = ({
         error={error}
         hideOptional={hideOptional}
         errorPosition={errorPosition}
+        trackUnsaved={trackUnsaved}
       >
         <input
           data-h2-padding="base(x.25, x.5)"
           data-h2-radius="base(input)"
-          data-h2-border="base(all, 1px, solid, dt-gray)"
+          {...stateStyles}
           style={{ width: "100%" }}
           id={id}
           {...register(name, rules)}

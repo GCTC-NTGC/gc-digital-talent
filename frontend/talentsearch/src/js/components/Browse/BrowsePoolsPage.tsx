@@ -100,7 +100,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
       />
       {filteredPoolAdvertisements.length ? (
         <div
-          data-h2-background-color="base(black.03) base:dark(black.9)"
+          data-h2-background-color="base(black.03) base:dark(black.90)"
           data-h2-color="base(black) base:dark(white)"
           data-h2-border="base(bottom, 1px, solid, black.50)"
           data-h2-position="base(relative)"
@@ -278,10 +278,10 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                 external: true,
                 label: intl.formatMessage({
                   defaultMessage:
-                    "<hidden>Learn more about </hidden>Indigenous IT apprenticeship<hidden> opportunities</hidden>",
-                  id: "xgocDD",
+                    "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
                   description:
-                    "Link text to go to IAP homepage on browse IT jobs page",
+                    "Link text to go to IAP homepage on Browse IT jobs page",
+                  id: "07BM9O",
                 }),
               }}
             >

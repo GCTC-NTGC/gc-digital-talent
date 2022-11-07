@@ -4,8 +4,9 @@ import { useWatch } from "react-hook-form";
 import Input from "@common/components/form/Input";
 import Checkbox from "@common/components/form/Checkbox";
 import { errorMessages } from "@common/messages";
+import { SubExperienceFormProps } from "../experienceForm/types";
 
-export const WorkExperienceForm: React.FunctionComponent = () => {
+export const WorkExperienceForm = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const todayDate = Date();
 
@@ -36,12 +37,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <Input
               id="role"
-              label={intl.formatMessage({
-                defaultMessage: "My Role",
-                id: "URHhMF",
-                description:
-                  "Label displayed on Work Experience form for role input",
-              })}
+              label={labels.role}
               name="role"
               type="text"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -51,12 +47,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
             <div data-h2-margin="base(x1, 0, x.875, 0)">
               <Checkbox
                 boundingBox
-                boundingBoxLabel={intl.formatMessage({
-                  defaultMessage: "Current Role",
-                  id: "2t3Cqv",
-                  description:
-                    "Label displayed on Work Experience form for current role bounded box",
-                })}
+                boundingBoxLabel={labels.currentRole}
                 id="currentRole"
                 label={intl.formatMessage({
                   defaultMessage: "I am currently active in this role",
@@ -71,12 +62,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <Input
               id="organization"
-              label={intl.formatMessage({
-                defaultMessage: "Organization",
-                id: "9UZ/eS",
-                description:
-                  "Label displayed on Work Experience form for organization input",
-              })}
+              label={labels.organization}
               name="organization"
               type="text"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -87,12 +73,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
                   id="startDate"
-                  label={intl.formatMessage({
-                    defaultMessage: "Start Date",
-                    id: "8VDBW/",
-                    description:
-                      "Label displayed on Work Experience form for start date input",
-                  })}
+                  label={labels.startDate}
                   name="startDate"
                   type="date"
                   rules={{
@@ -111,12 +92,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
                 {!isCurrent && (
                   <Input
                     id="endDate"
-                    label={intl.formatMessage({
-                      defaultMessage: "End Date",
-                      id: "09G0vg",
-                      description:
-                        "Label displayed on Work Experience form for end date input",
-                    })}
+                    label={labels.endDate}
                     name="endDate"
                     type="date"
                     rules={
@@ -140,17 +116,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
             </div>
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-            <Input
-              id="team"
-              label={intl.formatMessage({
-                defaultMessage: "Team, Group, or Division",
-                id: "xJulQ4",
-                description:
-                  "Label displayed on Work Experience form for team/group/division input",
-              })}
-              name="team"
-              type="text"
-            />
+            <Input id="team" label={labels.team} name="team" type="text" />
           </div>
         </div>
       </div>

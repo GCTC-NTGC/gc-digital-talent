@@ -11,7 +11,7 @@ import Link from "@common/components/Link";
 import Chip, { Chips } from "@common/components/Chip";
 
 import { getPoolStream } from "@common/constants/localizedConstants";
-import { formattedDateMonthDayYear } from "@common/helpers/dateUtils";
+import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import {
   getLocale,
   getLocalizedName,
@@ -19,6 +19,7 @@ import {
 } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
+import { formatClassificationString } from "@common/helpers/poolUtils";
 
 import { PoolAdvertisement } from "../../../api/generated";
 import { useDirectIntakeRoutes } from "../../../directIntakeRoutes";
@@ -34,7 +35,10 @@ const getClassificationStrings = (pool: PoolAdvertisement) => {
     .map((classification) => {
       if (!classification) return undefined;
 
-      return `${classification.group}-0${classification.level}`;
+      return formatClassificationString({
+        group: classification.group,
+        level: classification.level,
+      });
     })
     .filter(notEmpty);
 };
@@ -200,7 +204,11 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
               })}
             >
               {pool.expiryDate
-                ? formattedDateMonthDayYear(new Date(pool.expiryDate), intl)
+                ? formatDate({
+                    date: parseDateTimeUtc(pool.expiryDate),
+                    formatString: "PPP p",
+                    intl,
+                  })
                 : intl.formatMessage({
                     defaultMessage: "(To be determined)",
                     description:

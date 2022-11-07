@@ -1,7 +1,8 @@
 import React from "react";
 import get from "lodash/get";
-import { RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import { InputWrapper } from "../../inputPartials";
+import { useFieldStateStyles } from "../../../helpers/formUtils";
 
 export interface CheckboxProps
   extends Omit<
@@ -21,7 +22,9 @@ export interface CheckboxProps
   /** Wrap input in bounding box. */
   boundingBox?: boolean;
   /** Label for the bounding box. */
-  boundingBoxLabel?: string;
+  boundingBoxLabel?: React.ReactNode;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
 }
 
 export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
@@ -32,14 +35,16 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   context,
   boundingBox = false,
   boundingBoxLabel = label,
+  trackUnsaved = true,
   ...rest
 }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
+  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message;
+  const error = get(errors, name)?.message as FieldError;
 
   return (
     <div
@@ -54,6 +59,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           required={!!rules.required}
           context={context}
           error={error}
+          trackUnsaved={trackUnsaved}
           data-h2-flex-direction="base(row)"
           data-h2-align-items="base(center)"
         >
@@ -75,11 +81,12 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           required={!!rules.required}
           context={context}
           error={error}
+          trackUnsaved={trackUnsaved}
           fillLabel
         >
           <div
             data-h2-background-color="base(dt-white)"
-            data-h2-border="base(all, 1px, solid, dt-gray)"
+            {...stateStyles}
             data-h2-radius="base(input)"
             data-h2-padding="base(x.25, x.5)"
             data-h2-display="base(flex)"

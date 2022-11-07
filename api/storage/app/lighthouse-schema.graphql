@@ -147,6 +147,11 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+type CandidateSearchPoolResult {
+  pool: Pool!
+  candidateCount: Int!
+}
+
 enum CitizenshipStatus {
   CITIZEN
   PERMANENT_RESIDENT
@@ -934,6 +939,7 @@ enum PoolStream {
   PROJECT_PORTFOLIO_MANAGEMENT
   SECURITY
   SOFTWARE_SOLUTIONS
+  INFORMATION_DATA_FUNCTIONS
 }
 
 input PoolsHasMany {
@@ -969,6 +975,7 @@ type Query {
   applicant(id: ID!): Applicant
   applicants(includeIds: [ID]!): [Applicant]!
   countApplicants(where: ApplicantFilterInput): Int!
+  searchApplicants(where: ApplicantFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [Applicant]!
   pool(id: ID!): Pool
   poolAdvertisement(id: ID!): PoolAdvertisement
   poolAdvertisements: [PoolAdvertisement]!
@@ -979,7 +986,7 @@ type Query {
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
   searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [PoolCandidate]!
-  searchApplicants(where: ApplicantFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [Applicant]!
+  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   cmoAsset(id: ID!): CmoAsset

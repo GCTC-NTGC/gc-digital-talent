@@ -282,6 +282,7 @@ enum PoolStream {
   PROJECT_PORTFOLIO_MANAGEMENT
   SECURITY
   SOFTWARE_SOLUTIONS
+  INFORMATION_DATA_FUNCTIONS
 }
 
 type PoolAdvertisement {
@@ -755,6 +756,7 @@ input UserFilterInput {
     @builder(method: "App\\Models\\User@filterByGeneralSearch")
 }
 
+# Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   hasDiploma: Boolean @scope
   equity: EquitySelectionsInput
@@ -774,6 +776,11 @@ input ApplicantFilterInput {
   pools: [IdInput]
     @pluck(key: "id")
     @builder(method: "App\\Models\\User@filterByAvailableInPools") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+}
+
+type CandidateSearchPoolResult {
+  pool: Pool!
+  candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
 type Query {
@@ -799,6 +806,16 @@ type Query {
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["availableForOpportunities"])
+  # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
+  searchApplicants(
+    where: ApplicantFilterInput
+    orderBy: [OrderByClause!] @orderBy
+    expiryStatus: CandidateExpiryFilter
+  ): [Applicant]!
+    @all(scopes: ["expiryFilter", "available"])
+    @orderBy(column: "created_at", direction: DESC)
+    @guard
+    @can(ability: "viewAny")
   pool(id: ID! @eq): Pool @find
   poolAdvertisement(id: ID! @eq): PoolAdvertisement @find(model: "Pool")
   poolAdvertisements: [PoolAdvertisement]! @all(model: "Pool")
@@ -850,16 +867,11 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @guard
     @can(ability: "viewAny")
-  # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
-  searchApplicants(
+  # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
+  # Returns the number of candidates by filtering their parent applicant, grouped by pool.
+  countPoolCandidatesByPool(
     where: ApplicantFilterInput
-    orderBy: [OrderByClause!] @orderBy
-    expiryStatus: CandidateExpiryFilter
-  ): [Applicant]!
-    @all(scopes: ["expiryFilter", "available"])
-    @orderBy(column: "created_at", direction: DESC)
-    @guard
-    @can(ability: "viewAny")
+  ): [CandidateSearchPoolResult!]!
   classification(id: ID! @eq): Classification @find
   classifications: [Classification]! @all
   cmoAsset(id: ID! @eq): CmoAsset @find

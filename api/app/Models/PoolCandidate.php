@@ -71,7 +71,9 @@ class PoolCandidate extends Model
         'user_id',
         'pool_id',
         'signature',
-        'profile_snapshot'
+        'profile_snapshot',
+        'expiry_date',
+        'pool_candidate_status',
     ];
 
     public function user(): BelongsTo
@@ -249,7 +251,7 @@ RAWSQL2;
         });
         return $query;
     }
-    public function filterByPools(Builder $query, array $pools): Builder
+    public static function filterByPools(Builder $query, array $pools): Builder
     {
         if (empty($pools)) {
             return $query;

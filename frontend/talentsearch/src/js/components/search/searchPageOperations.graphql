@@ -1,0 +1,22 @@
+query CountApplicantsAndCountPoolCandidatesByPool ($where: ApplicantFilterInput) {
+  countApplicants(where: $where)
+  countPoolCandidatesByPool(where: $where) {
+    pool {
+      id
+    	owner {
+        id
+        firstName
+        lastName
+      }
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+    candidateCount
+  }
+}

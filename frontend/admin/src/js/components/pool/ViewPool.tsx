@@ -26,11 +26,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import {
   getAdvertisementStatus,
   getLanguageRequirement,
+  getPoolStream,
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import {
-  formattedDateMonthDayYear,
   parseDateTimeUtc,
+  relativeExpiryDate,
 } from "@common/helpers/dateUtils";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -76,9 +77,6 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
 
   const poolName = pool.name ? pool.name[locale] : pageTitle;
   const classification = pool.classifications ? pool.classifications[0] : null;
-  const genericTitle = classification?.genericJobTitles?.length
-    ? classification.genericJobTitles[0]
-    : null;
 
   const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {
     return skill.families?.some(
@@ -108,13 +106,13 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
     },
   );
 
-  const languageRequirement = intl.formatMessage(
-    getLanguageRequirement(pool.advertisementLanguage ?? ""),
-  );
+  const languageRequirement = pool.advertisementLanguage
+    ? intl.formatMessage(getLanguageRequirement(pool.advertisementLanguage))
+    : "";
 
-  const securityClearance = intl.formatMessage(
-    getSecurityClearance(pool.securityClearance ?? ""),
-  );
+  const securityClearance = pool.securityClearance
+    ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
+    : "";
 
   const relativeToAbsoluteURL = (path: string): string => {
     const { host, protocol } = window.location;
@@ -149,6 +147,24 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
       ),
     },
   ] as BreadcrumbsProps["links"];
+
+  let closingStringLocal;
+  let closingStringPacific;
+  if (pool.expiryDate) {
+    const expiryDateObject = parseDateTimeUtc(pool.expiryDate);
+    closingStringLocal = relativeExpiryDate({
+      expiryDate: expiryDateObject,
+      intl,
+    });
+    closingStringPacific = relativeExpiryDate({
+      expiryDate: expiryDateObject,
+      intl,
+      timeZone: "Canada/Pacific",
+    });
+  } else {
+    closingStringLocal = "";
+    closingStringPacific = "";
+  }
 
   return (
     <DashboardContentContainer>
@@ -304,33 +320,39 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
             <div data-h2-flex-grid="base(flex-start, x1, 0)">
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
-                  id="targetClassification"
-                  name="targetClassification"
+                  id="classification"
+                  name="classification"
                   type="text"
                   readOnly
                   hideOptional
-                  value={`${classification.group}-0${classification.level}`}
+                  value={`${classification.group}-0${
+                    classification.level
+                  }  (${getLocalizedName(classification.name, intl)})`}
                   label={intl.formatMessage({
-                    defaultMessage: "Target classification",
-                    id: "fhkgW2",
+                    defaultMessage: "Classification",
+                    id: "w/qZsH",
                     description:
-                      "Label for a pool advertisements classification group and level",
+                      "Label displayed on the pool form classification field.",
                   })}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
-                  id="genericTitle"
-                  name="genericTitle"
+                  id="stream"
+                  name="stream"
                   type="text"
                   readOnly
                   hideOptional
-                  value={getLocalizedName(genericTitle?.name, intl)}
+                  value={
+                    pool.stream
+                      ? intl.formatMessage(getPoolStream(pool.stream))
+                      : ""
+                  }
                   label={intl.formatMessage({
-                    defaultMessage: "Generic",
-                    id: "OumQY2",
+                    defaultMessage: "Streams/Job Titles",
+                    id: "PzijvH",
                     description:
-                      "Label for a pool advertisements generic title",
+                      "Label displayed on the pool form stream/job title field.",
                   })}
                 />
               </div>
@@ -341,7 +363,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   type="text"
                   readOnly
                   hideOptional
-                  value={classification?.name?.en ?? ""}
+                  value={pool.name?.en ?? ""}
                   label={intl.formatMessage({
                     defaultMessage: "Specific Title (English)",
                     id: "fTwl6k",
@@ -357,7 +379,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   type="text"
                   readOnly
                   hideOptional
-                  value={classification?.name?.fr ?? ""}
+                  value={pool.name?.fr ?? ""}
                   label={intl.formatMessage({
                     defaultMessage: "Specific Title (French)",
                     id: "MDjwSO",
@@ -391,15 +413,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 type="text"
                 readOnly
                 hideOptional
-                value={
-                  pool.expiryDate
-                    ? formattedDateMonthDayYear(
-                        parseDateTimeUtc(pool.expiryDate),
-                        intl,
-                        "Canada/Pacific",
-                      )
-                    : ""
-                }
+                value={closingStringLocal}
                 label={intl.formatMessage({
                   defaultMessage: "Closing date",
                   id: "VWz3+d",
@@ -407,6 +421,25 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 })}
               />
             </div>
+            {closingStringPacific &&
+              closingStringPacific !== closingStringLocal && (
+                <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
+                  <Input
+                    id="expiryDatePacific"
+                    name="expiryDatePacific"
+                    type="text"
+                    readOnly
+                    hideOptional
+                    value={closingStringPacific}
+                    label={intl.formatMessage({
+                      defaultMessage: "Closing date (Pacific time zone)",
+                      id: "j6V32h",
+                      description:
+                        "Label for a pool advertisements expiry date in the Pacific time zone",
+                    })}
+                  />
+                </div>
+              )}
             <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
               <Input
                 id="status"
