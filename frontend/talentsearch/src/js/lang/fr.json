@@ -2620,6 +2620,10 @@
     "defaultMessage": "Détails",
     "description": "Support form details field label"
   },
+  "07BM9O": {
+    "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
+    "description": "Link text to go to IAP homepage on Browse IT jobs page"
+  },
   "1UYQaC": {
     "defaultMessage": "Date du début",
     "description": "Label displayed on an Experience form for start date input"
