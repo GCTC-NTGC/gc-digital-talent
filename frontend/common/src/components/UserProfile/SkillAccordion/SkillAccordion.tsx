@@ -153,8 +153,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         >
           {intl.formatMessage({
             defaultMessage: "Additional information:",
-            id: "gLioY2",
-            description: "Additional information if provided",
+            id: "+nS/ak",
+            description: "Additional information if provided (without details)",
           })}
         </p>
 
@@ -199,8 +199,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         >
           {intl.formatMessage({
             defaultMessage: "Additional information:",
-            id: "gLioY2",
-            description: "Additional information if provided",
+            id: "+nS/ak",
+            description: "Additional information if provided (without details)",
           })}
         </p>
         <p>{details}</p>
@@ -236,8 +236,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         >
           {intl.formatMessage({
             defaultMessage: "Additional information:",
-            id: "gLioY2",
-            description: "Additional information if provided",
+            id: "+nS/ak",
+            description: "Additional information if provided (without details)",
           })}
         </p>
         <p>{details}</p>

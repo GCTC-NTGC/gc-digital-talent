@@ -568,6 +568,10 @@
     "defaultMessage": "Renseignements supplémentaires : {details}",
     "description": "Additional information if provided"
   },
+  "+nS/ak": {
+    "defaultMessage": "Renseignements supplémentaires : ",
+    "description": "Additional information if provided (without details)"
+  },
   "P/tHlt": {
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
