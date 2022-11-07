@@ -89,7 +89,7 @@
     "@graphql-codegen/add": "^3.2.1",
     "@graphql-codegen/cli": "^2.13.8",
     "@graphql-codegen/typescript": "^2.8.1",
-    "@graphql-codegen/typescript-operations": "^2.5.5",
+    "@graphql-codegen/typescript-operations": "^2.5.6",
     "@graphql-codegen/typescript-urql": "^3.7.2",
     "@hookform/devtools": "^4.2.2",
     "@hydrogen-css/hydrogen": "2.0.0-beta.32",
