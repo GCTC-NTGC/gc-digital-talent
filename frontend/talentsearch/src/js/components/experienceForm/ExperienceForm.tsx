@@ -397,8 +397,10 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
     const args = getMutationArgs(experienceId || userId || "", values);
-    const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
-    res.then(handleMutationResponse).catch(handleError);
+    if (executeMutation) {
+      const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
+      res.then(handleMutationResponse).catch(handleError);
+    }
   };
 
   // delete functionality //

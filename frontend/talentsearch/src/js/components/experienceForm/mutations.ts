@@ -1,3 +1,4 @@
+import { Update } from "history";
 import {
   useCreateAwardExperienceMutation,
   useCreateCommunityExperienceMutation,
@@ -22,6 +23,20 @@ import type {
 } from "./types";
 
 type ExperienceMutationType = "create" | "update";
+
+type CreateMutation =
+  | ReturnType<typeof useCreateAwardExperienceMutation>[1]
+  | ReturnType<typeof useCreateCommunityExperienceMutation>[1]
+  | ReturnType<typeof useCreateEducationExperienceMutation>[1]
+  | ReturnType<typeof useCreatePersonalExperienceMutation>[1]
+  | ReturnType<typeof useCreateWorkExperienceMutation>[1];
+
+type UpdateMutation =
+  | ReturnType<typeof useUpdateAwardExperienceMutation>[1]
+  | ReturnType<typeof useUpdateCommunityExperienceMutation>[1]
+  | ReturnType<typeof useUpdateEducationExperienceMutation>[1]
+  | ReturnType<typeof useUpdatePersonalExperienceMutation>[1]
+  | ReturnType<typeof useUpdateWorkExperienceMutation>[1];
 
 export const useExperienceMutations = (
   mutationType: ExperienceMutationType,
@@ -63,25 +78,31 @@ export const useExperienceMutations = (
     useUpdatePersonalExperienceMutation();
   const [, executeUpdateWorkMutation] = useUpdateWorkExperienceMutation();
 
+  const createMutations = new Map<ExperienceType, CreateMutation>();
+  createMutations.set("award", executeCreateAwardMutation);
+  createMutations.set("community", executeCreateCommunityMutation);
+  createMutations.set("community", executeCreateCommunityMutation);
+  createMutations.set("education", executeCreateEducationMutation);
+  createMutations.set("personal", executeCreatePersonalMutation);
+  createMutations.set("work", executeCreateWorkMutation);
+
+  const updateMutations = new Map<ExperienceType, UpdateMutation>();
+  updateMutations.set("award", executeUpdateAwardMutation);
+  updateMutations.set("community", executeUpdateCommunityMutation);
+  updateMutations.set("community", executeUpdateCommunityMutation);
+  updateMutations.set("education", executeUpdateEducationMutation);
+  updateMutations.set("personal", executeUpdatePersonalMutation);
+  updateMutations.set("work", executeUpdateWorkMutation);
+
   const mutations = {
-    create: {
-      award: executeCreateAwardMutation,
-      community: executeCreateCommunityMutation,
-      education: executeCreateEducationMutation,
-      personal: executeCreatePersonalMutation,
-      work: executeCreateWorkMutation,
-    },
-    update: {
-      award: executeUpdateAwardMutation,
-      community: executeUpdateCommunityMutation,
-      education: executeUpdateEducationMutation,
-      personal: executeUpdatePersonalMutation,
-      work: executeUpdateWorkMutation,
-    },
+    create: createMutations,
+    update: updateMutations,
   };
 
   return {
-    executeMutation: mutations[mutationType][experienceType || "personal"],
+    executeMutation: experienceType
+      ? mutations[mutationType].get(experienceType)
+      : null,
     getMutationArgs: getArgs,
   };
 };
