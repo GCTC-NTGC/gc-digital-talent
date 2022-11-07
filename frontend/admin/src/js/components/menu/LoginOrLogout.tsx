@@ -11,6 +11,7 @@ import { getLocale } from "@common/helpers/localize";
 
 import { AuthenticationContext } from "@common/components/Auth";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
+import Link from "@common/components/Link";
 
 const LoginOrLogout = () => {
   const [isConfirmationOpen, setConfirmationOpen] =
@@ -29,7 +30,7 @@ const LoginOrLogout = () => {
             ? apiRoutes.login(location.pathname, getLocale(intl))
             : undefined
         }
-        as={loggedIn ? "button" : "a"}
+        as={loggedIn ? "button" : Link}
         onClick={() => {
           if (loggedIn) {
             setConfirmationOpen(true);

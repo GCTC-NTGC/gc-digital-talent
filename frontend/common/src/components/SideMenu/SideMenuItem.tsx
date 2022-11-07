@@ -1,9 +1,10 @@
 import React, { MouseEventHandler } from "react";
 import sanitizeUrl from "../../helpers/sanitizeUrl";
+import Link from "../Link";
 import useLinkClickHandler from "../Link/useLinkClickHandler";
 
 export interface SideMenuItemProps {
-  as?: "a" | "button";
+  as?: typeof Link | "button";
   icon: React.FC<{ className?: string }>;
   isActive?: boolean;
   href?: string;
@@ -12,7 +13,7 @@ export interface SideMenuItemProps {
 }
 
 const SideMenuItem: React.FC<SideMenuItemProps> = ({
-  as = "a",
+  as = Link,
   icon,
   children,
   isActive,
@@ -39,13 +40,11 @@ const SideMenuItem: React.FC<SideMenuItemProps> = ({
       data-h2-display="base(block)"
       className={`side-menu__item${isActive ? ` side-menu__item--active` : ``}`}
       onClick={(e) => {
-        if (as === "a" && !onClick) {
-          clickHandler(e as React.MouseEvent<HTMLAnchorElement>);
-        } else if (onClick) {
+        if (onClick) {
           onClick(e as React.MouseEvent<HTMLButtonElement>);
         }
       }}
-      {...(as === "a" ? { href } : { type: "button" })}
+      {...(as === Link ? { href } : { type: "button" })}
     >
       <div data-h2-flex-grid="base(center, x.375, 0)">
         <div data-h2-flex-item="base(content)">

@@ -11,7 +11,7 @@ export interface LinkProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">,
     Omit<RouterLinkProps, "to"> {
   /** The style colour of the link */
-  href: string;
+  href?: string;
   color?: Color;
   disabled?: boolean;
   /** The style mode of the element. */
