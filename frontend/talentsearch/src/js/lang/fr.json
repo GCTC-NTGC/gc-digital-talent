@@ -2629,15 +2629,11 @@
     "description": "Label displayed on an Experience form for current role bounded box"
   },
   "X8JZSG": {
-    "defaultMessage": "Date de la fin",
+    "defaultMessage": "Date de fin",
     "description": "Label displayed on an Experience form for end date input"
   },
   "wl8GI6": {
     "defaultMessage": "Mon rôle",
     "description": "Label displayed on an Experience form for role input"
-  },
-  "xgocDD": {
-    "defaultMessage": "<hidden>Apprenez-en davantage au sujet de </hidden>stages en matière de TI à l’intention des Autochtones<hidden> possibilités d’emploi</hidden>",
-    "description": "Link text to go to IAP homepage on browse IT jobs page"
   }
 }
