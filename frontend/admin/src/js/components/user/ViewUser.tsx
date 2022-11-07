@@ -95,8 +95,8 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         <Tabs.List
           aria-label={intl.formatMessage({
             defaultMessage: "User Information",
-            id: "keR1G1",
-            description: "Title for the user information tabs",
+            id: "mv+9jt",
+            description: "Heading for the user information section",
           })}
         >
           {tabs.map((tab, index) => (
