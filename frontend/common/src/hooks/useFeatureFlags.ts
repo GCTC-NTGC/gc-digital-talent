@@ -1,6 +1,11 @@
 import { getFeatureFlags } from "../helpers/runtimeVariable";
 
-const useFeatureFlags = () => {
+export type FeatureFlags = {
+  applicantSearch: boolean;
+  directIntake: boolean;
+};
+
+const useFeatureFlags = (): FeatureFlags => {
   return getFeatureFlags();
 };
 

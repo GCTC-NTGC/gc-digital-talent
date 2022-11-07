@@ -14,6 +14,7 @@ import UserProfile from "@common/components/UserProfile";
 import { useState } from "react";
 import { Applicant } from "@common/api/generated";
 import TableOfContents from "@common/components/TableOfContents";
+import { useParams } from "react-router-dom";
 import { useAdminRoutes } from "../../../adminRoutes";
 import {
   Scalars,
@@ -247,16 +248,16 @@ export const ViewPoolCandidate = ({
   );
 };
 
-interface ViewPoolCandidatePageProps {
+type RouteParams = {
+  poolId: Scalars["ID"];
   poolCandidateId: Scalars["ID"];
-}
+};
 
-export const ViewPoolCandidatePage = ({
-  poolCandidateId,
-}: ViewPoolCandidatePageProps) => {
+export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
+  const { poolCandidateId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetPoolCandidateSnapshotQuery({
-    variables: { poolCandidateId },
+    variables: { poolCandidateId: poolCandidateId || "" },
   });
 
   return (

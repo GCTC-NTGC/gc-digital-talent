@@ -22,12 +22,14 @@ import {
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { useParams } from "react-router-dom";
 import { useAdminRoutes } from "../../../adminRoutes";
 import {
   Classification,
   CmoAsset,
   Pool,
   PoolStatus,
+  Scalars,
   UpdatePoolInput,
   UpdatePoolMutation,
   useGetUpdatePoolDataQuery,
@@ -373,12 +375,15 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
   );
 };
 
-const UpdatePool: React.FunctionComponent<{
-  poolId: string;
-}> = ({ poolId }) => {
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
+
+const UpdatePool = () => {
   const intl = useIntl();
+  const { poolId } = useParams<RouteParams>();
   const [lookupResult] = useGetUpdatePoolDataQuery({
-    variables: { id: poolId },
+    variables: { id: poolId || "" },
   });
   const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =

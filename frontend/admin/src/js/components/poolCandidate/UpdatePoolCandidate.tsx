@@ -29,6 +29,7 @@ import {
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { User } from "@common/api/generated";
+import { useParams } from "react-router-dom";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   UpdatePoolCandidateAsAdminInput,
@@ -43,6 +44,7 @@ import {
   UpdatePoolCandidateMutation,
   useGetUpdatePoolCandidateDataQuery,
   Language,
+  Scalars,
 } from "../../api/generated";
 
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -489,12 +491,16 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   );
 };
 
-const UpdatePoolCandidate: React.FunctionComponent<{
-  poolCandidateId: string;
-}> = ({ poolCandidateId }) => {
+type RouteParams = {
+  poolId: Scalars["ID"];
+  poolCandidateId: Scalars["ID"];
+};
+
+const UpdatePoolCandidate = () => {
   const intl = useIntl();
+  const { poolCandidateId } = useParams<RouteParams>();
   const [lookupResult] = useGetUpdatePoolCandidateDataQuery({
-    variables: { id: poolCandidateId },
+    variables: { id: poolCandidateId || "" },
   });
   const {
     data: lookupData,

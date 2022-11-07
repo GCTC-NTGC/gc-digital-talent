@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
@@ -12,7 +13,6 @@ import useFeatureFlags from "@common/hooks/useFeatureFlags";
 
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
 import { Button } from "@common/components";
-import { Helmet } from "react-helmet";
 import Footer from "@common/components/Footer";
 import NavMenu from "@common/components/NavMenu";
 import Header from "@common/components/Header";

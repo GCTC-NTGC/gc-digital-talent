@@ -11,10 +11,12 @@ import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { emptyToNull } from "@common/helpers/util";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
+import { useParams } from "react-router-dom";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
   Role,
+  Scalars,
   UpdateUserAsAdminInput,
   UpdateUserAsAdminMutation,
   User,
@@ -226,12 +228,15 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   );
 };
 
-const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
-  userId,
-}) => {
+type RouteParams = {
+  userId: Scalars["ID"];
+};
+
+const UpdateUser = () => {
   const intl = useIntl();
+  const { userId } = useParams<RouteParams>();
   const [{ data: userData, fetching, error }] = useUserQuery({
-    variables: { id: userId },
+    variables: { id: userId || "" },
   });
 
   const [, executeMutation] = useUpdateUserAsAdminMutation();

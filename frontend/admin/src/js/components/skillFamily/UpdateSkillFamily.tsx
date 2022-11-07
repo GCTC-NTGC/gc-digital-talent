@@ -20,6 +20,7 @@ import { errorMessages, commonMessages } from "@common/messages";
 import { getSkillCategory } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { useParams } from "react-router-dom";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -29,6 +30,7 @@ import {
   UpdateSkillFamilyMutation,
   useUpdateSkillFamilyMutation,
   useGetUpdateSkillFamilyDataQuery,
+  Scalars,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
@@ -231,13 +233,16 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
   );
 };
 
-const UpdateSkillFamily: React.FunctionComponent<{
-  skillFamilyId: string;
-}> = ({ skillFamilyId }) => {
+type RouteParams = {
+  skillFamilyId: Scalars["ID"];
+};
+
+const UpdateSkillFamily = () => {
   const intl = useIntl();
+  const { skillFamilyId } = useParams<RouteParams>();
   const [{ data: lookupData, fetching, error }] =
     useGetUpdateSkillFamilyDataQuery({
-      variables: { id: skillFamilyId },
+      variables: { id: skillFamilyId || "" },
     });
   const skills: Skill[] | [] = lookupData?.skills.filter(notEmpty) ?? [];
 

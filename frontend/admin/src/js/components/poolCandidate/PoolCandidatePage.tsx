@@ -5,19 +5,25 @@ import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import Pending from "@common/components/Pending";
 import { getLocale } from "@common/helpers/localize";
+import { useParams } from "react-router-dom";
 import DashboardContentContainer from "../DashboardContentContainer";
 import PoolCandidatesTable from "./PoolCandidatesTable";
 import { useAdminRoutes } from "../../adminRoutes";
-import { useGetPoolQuery } from "../../api/generated";
+import { Scalars, useGetPoolQuery } from "../../api/generated";
 
-export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
+
+export const PoolCandidatePage = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
+  const { poolId } = useParams<RouteParams>();
 
   const [{ data, fetching, error }] = useGetPoolQuery({
     variables: {
-      id: poolId,
+      id: poolId || "",
     },
   });
 
@@ -88,7 +94,7 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
               "Descriptive text about the list of pool candidates in the admin portal.",
           })}
         </p>
-        <PoolCandidatesTable poolId={poolId} />
+        <PoolCandidatesTable poolId={poolId || ""} />
       </DashboardContentContainer>
     </Pending>
   );

@@ -33,8 +33,10 @@ import {
   parseDateTimeUtc,
   relativeExpiryDate,
 } from "@common/helpers/dateUtils";
+import { useParams } from "react-router-dom";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
+  Scalars,
   SkillCategory,
   useGetPoolAdvertisementQuery,
 } from "../../api/generated";
@@ -298,7 +300,6 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 target="_blank"
                 rel="noopener noreferrer"
                 icon={ArrowTopRightOnSquareIcon}
-                external
               >
                 {intl.formatMessage({
                   defaultMessage: "View pool advertisement",
@@ -759,14 +760,15 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
   );
 };
 
-interface ViewPoolProps {
-  poolId: string;
-}
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
 
-const ViewPool = ({ poolId }: ViewPoolProps) => {
+const ViewPool = () => {
   const intl = useIntl();
+  const { poolId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
-    variables: { id: poolId },
+    variables: { id: poolId || "" },
   });
 
   return (

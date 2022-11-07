@@ -1,11 +1,16 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useParams } from "react-router-dom";
+import { Scalars } from "../../api/generated";
 import { SingleSearchRequestApi } from "./SingleSearchRequest";
 
-export const SingleSearchRequestPage: React.FunctionComponent<{
-  searchRequestId: string;
-}> = ({ searchRequestId }) => {
+type RouteParams = {
+  searchRequestId: Scalars["ID"];
+};
+
+export const SingleSearchRequestPage = () => {
   const intl = useIntl();
+  const { searchRequestId } = useParams<RouteParams>();
   return (
     <div>
       <div data-h2-padding="base(0, 0, x3, 0)">
@@ -24,7 +29,7 @@ export const SingleSearchRequestPage: React.FunctionComponent<{
               })}
             </h1>
           </header>
-          <SingleSearchRequestApi searchRequestId={searchRequestId} />
+          <SingleSearchRequestApi searchRequestId={searchRequestId || ""} />
         </div>
       </div>
     </div>

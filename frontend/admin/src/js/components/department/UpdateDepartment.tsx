@@ -8,9 +8,11 @@ import { Input, Submit } from "@common/components/form";
 import { errorMessages, commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { useParams } from "react-router-dom";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Department,
+  Scalars,
   UpdateDepartmentInput,
   UpdateDepartmentMutation,
   useDepartmentQuery,
@@ -131,12 +133,15 @@ export const UpdateDepartmentForm: React.FunctionComponent<
   );
 };
 
-const UpdateDepartment: React.FunctionComponent<{
-  departmentId: string;
-}> = ({ departmentId }) => {
+type RouteParams = {
+  departmentId: Scalars["ID"];
+};
+
+const UpdateDepartment = () => {
   const intl = useIntl();
+  const { departmentId } = useParams<RouteParams>();
   const [{ data: departmentData, fetching, error }] = useDepartmentQuery({
-    variables: { id: departmentId },
+    variables: { id: departmentId || "" },
   });
   const [, executeMutation] = useUpdateDepartmentMutation();
   const handleUpdateDepartment = (id: string, data: UpdateDepartmentInput) =>

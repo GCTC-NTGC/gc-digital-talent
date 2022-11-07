@@ -18,8 +18,9 @@ import { getLocale } from "@common/helpers/localize";
 
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { useParams } from "react-router-dom";
 import { useAdminRoutes } from "../../../adminRoutes";
-import { useGetPoolQuery } from "../../../api/generated";
+import { Scalars, useGetPoolQuery } from "../../../api/generated";
 import type { Pool } from "../../../api/generated";
 
 interface ViewPoolPageProps {
@@ -124,14 +125,15 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
   );
 };
 
-interface ViewPoolProps {
-  poolId: string;
-}
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
 
-const ViewPool: React.FC<ViewPoolProps> = ({ poolId }) => {
+const ViewPool = () => {
   const intl = useIntl();
+  const { poolId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetPoolQuery({
-    variables: { id: poolId },
+    variables: { id: poolId || "" },
   });
 
   return (

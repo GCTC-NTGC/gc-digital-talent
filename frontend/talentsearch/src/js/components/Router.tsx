@@ -661,7 +661,7 @@ const router = createBrowserRouter([
 //   },
 // ];
 
-export const Router = () => (
+const Router = () => (
   <React.Suspense fallback={<Loading />}>
     <RouterProvider router={router} />
   </React.Suspense>

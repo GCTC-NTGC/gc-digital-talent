@@ -31,6 +31,7 @@ import {
 } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
+import { useParams } from "react-router-dom";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreatePoolCandidateAsAdminInput,
@@ -47,6 +48,7 @@ import {
   PoolCandidate,
   useGetCreatePoolCandidateDataQuery,
   Language,
+  Scalars,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
@@ -659,9 +661,12 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   );
 };
 
-const CreatePoolCandidate: React.FunctionComponent<{
-  poolId: string;
-}> = ({ poolId }) => {
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
+
+const CreatePoolCandidate = () => {
+  const { poolId } = useParams<RouteParams>();
   const [lookupResult] = useGetCreatePoolCandidateDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =

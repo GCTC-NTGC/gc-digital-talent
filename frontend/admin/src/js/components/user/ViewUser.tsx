@@ -16,8 +16,9 @@ import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import Heading from "@common/components/Heading";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { useParams } from "react-router-dom";
 import { useAdminRoutes } from "../../adminRoutes";
-import { User, useUserQuery } from "../../api/generated";
+import { Scalars, User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import UserProfileApi from "./UserProfile";
 import GeneralInfoTabApi from "./GeneralInformationTab/GeneralInformationTab";
@@ -118,14 +119,15 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
   );
 };
 
-interface ViewUserProps {
-  userId: string;
-}
+type RouteParams = {
+  userId: Scalars["ID"];
+};
 
-const ViewUser: React.FC<ViewUserProps> = ({ userId }) => {
+const ViewUser = () => {
+  const { userId } = useParams<RouteParams>();
   const intl = useIntl();
   const [{ data, fetching, error }] = useUserQuery({
-    variables: { id: userId },
+    variables: { id: userId || "" },
   });
 
   return (

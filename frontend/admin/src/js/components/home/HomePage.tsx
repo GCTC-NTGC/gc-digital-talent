@@ -6,14 +6,22 @@ import {
 } from "@heroicons/react/24/outline";
 import CardLink from "@common/components/CardLink";
 import PageHeader from "@common/components/PageHeader";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { getLocale } from "@common/helpers/localize";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
+import useAuth from "@common/hooks/useAuth";
+import { useAdminRoutes } from "../../adminRoutes";
 
 const HomePage: React.FC = () => {
   const intl = useIntl();
+  const adminRoutes = useAdminRoutes();
   const apiRoutes = useApiRoutes();
   const location = useLocation();
+  const { loggedIn } = useAuth();
+
+  if (loggedIn) {
+    return <Navigate to={adminRoutes.dashboard()} replace />;
+  }
 
   return (
     <div>
