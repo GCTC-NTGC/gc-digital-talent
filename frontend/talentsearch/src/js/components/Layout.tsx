@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useIntl } from "react-intl";
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 
 import MenuLink from "@common/components/Link/MenuLink";
@@ -188,6 +188,11 @@ const Layout = () => {
           <Footer />
         </div>
       </div>
+      <ScrollRestoration
+        getKey={(location) => {
+          return location.pathname;
+        }}
+      />
       <LocaleRedirect />
     </>
   );
