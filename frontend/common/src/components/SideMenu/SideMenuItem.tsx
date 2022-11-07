@@ -84,6 +84,25 @@ const SideMenuItem: React.FC<SideMenuItemProps> = ({
   );
 };
 
+export const ExternalSideMenuItem = ({
+  icon,
+  children,
+  isActive,
+  href,
+}: Omit<SideMenuItemProps, "as" | "onClick">) => {
+  const url = sanitizeUrl(href);
+
+  return (
+    <a
+      className={`side-menu__item${isActive ? ` side-menu__item--active` : ``}`}
+      {...commonStyles}
+      href={url}
+    >
+      <SideMenuItemChildren icon={icon}>{children}</SideMenuItemChildren>
+    </a>
+  );
+};
+
 type SideMenuButtonProps = React.HTMLProps<HTMLButtonElement> &
   SideMenuItemChildProps;
 
