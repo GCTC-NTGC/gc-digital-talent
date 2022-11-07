@@ -1800,6 +1800,26 @@
     "defaultMessage": "Incapable de postuler pour ce bassin",
     "description": "Message displayed when user attempts to apply to an unpublished pool"
   },
+  "6VyRZ/": {
+    "defaultMessage": "Expériences personnelles",
+    "description": "Heading for personal experiences in experience by type listing"
+  },
+  "iWD2Pz": {
+      "defaultMessage": "Expériences de la collectivité",
+      "description": "Heading for community experiences in experience by type listing"
+  },
+  "aBSEkP": {
+      "defaultMessage": "Expériences de travail",
+      "description": "Heading for personal experiences in experience by type listing"
+  },
+  "pV96Xv": {
+      "defaultMessage": "Expériences scolaires",
+      "description": "Heading for education experiences in experience by type listing"
+  },
+  "X0YPib": {
+      "defaultMessage": "Expériences relatives aux prix",
+      "description": "Heading for award experiences in experience by type listing"
+  },
   "/I9tx9": {
     "defaultMessage": "Cette demande ne peut pas être supprimée. Vous pouvez uniquement supprimer les demandes avant leur soumission.",
     "description": "Error message that the application cannot be deleted."
