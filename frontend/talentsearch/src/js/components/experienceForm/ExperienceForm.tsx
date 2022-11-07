@@ -2,12 +2,15 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
+import { OperationContext } from "urql";
+import { useParams } from "react-router-dom";
+import { TrashIcon } from "@heroicons/react/24/solid";
+
 import { BasicForm, TextArea } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { navigate, useQueryParams } from "@common/helpers/router";
 import { Button } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
-import { TrashIcon } from "@heroicons/react/24/solid";
 
 import { removeFromSessionStorage } from "@common/helpers/storageUtils";
 import NotFound from "@common/components/NotFound";
@@ -15,8 +18,6 @@ import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import { OperationContext } from "urql";
-import { useParams } from "react-router-dom";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 

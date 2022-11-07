@@ -103,16 +103,23 @@ export const useExperienceMutations = (
   mutations.set("create", createMutations);
   mutations.set("update", updateMutations);
 
-  if (mutationType) {
-    return {
-      executeMutation: experienceType
-        ? mutations.get(mutationType)?.get(experienceType)
-        : null,
-      getMutationArgs: getArgs,
-    };
+  let executeMutation: CreateMutation | UpdateMutation | null = null;
+  if (mutationType && mutations.has(mutationType)) {
+    const mutationTypeMutations = mutations.get(mutationType);
+    if (typeof mutationTypeMutations === "object") {
+      if (experienceType && mutationTypeMutations.has(experienceType)) {
+        const mutation = mutationTypeMutations.get(experienceType);
+        if (typeof mutation === "function") {
+          executeMutation = mutation;
+        }
+      }
+    }
   }
 
-  return null;
+  return {
+    executeMutation,
+    getMutationArgs: getArgs,
+  };
 };
 
 type DeleteMutation =
@@ -143,5 +150,12 @@ export const useDeleteExperienceMutation = (
   mutations.set("personal", executeDeletePersonalMutation);
   mutations.set("work", executeDeleteWorkMutation);
 
-  return experienceType ? mutations.get(experienceType) : null;
+  if (experienceType && mutations.has(experienceType)) {
+    const mutation = mutations.get(experienceType);
+    if (typeof mutation === "function") {
+      return mutation;
+    }
+  }
+
+  return null;
 };
