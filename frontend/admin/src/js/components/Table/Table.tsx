@@ -15,6 +15,7 @@ import Pagination from "@common/components/Pagination";
 import { PlusIcon, TableCellsIcon } from "@heroicons/react/24/outline";
 import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
+import { FormProvider, useForm } from "react-hook-form";
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
 
@@ -118,6 +119,7 @@ function Table<T extends Record<string, unknown>>({
 
   const [showList, setShowList] = useState(false);
   const intl = useIntl();
+  const methods = useForm();
 
   return (
     <div>
@@ -164,34 +166,40 @@ function Table<T extends Record<string, unknown>>({
                           "Dialog title for the admin tables columns toggle.",
                       })}
                     >
-                      <Fieldset
-                        legend={intl.formatMessage({
-                          defaultMessage: "Visible columns",
-                          id: "H9rxOR",
-                          description:
-                            "Legend for the column toggle in admin tables.",
-                        })}
-                      >
-                        <div data-h2-margin="base(x.125, 0)">
-                          <IndeterminateCheckbox
-                            {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                              typeof IndeterminateCheckbox
-                            >)}
-                          />
-                        </div>
-                        {allColumns.map((column) => (
-                          <div key={column.id} data-h2-margin="base(x.125, 0)">
-                            <label htmlFor={column.Header?.toString()}>
-                              <input
-                                id={column.Header?.toString()}
-                                type="checkbox"
-                                {...column.getToggleHiddenProps()}
-                              />{" "}
-                              {column.Header}
-                            </label>
+                      <FormProvider {...methods}>
+                        <Fieldset
+                          legend={intl.formatMessage({
+                            defaultMessage: "Visible columns",
+                            id: "H9rxOR",
+                            description:
+                              "Legend for the column toggle in admin tables.",
+                          })}
+                          trackUnsaved={false}
+                        >
+                          <div data-h2-margin="base(x.125, 0)">
+                            <IndeterminateCheckbox
+                              {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                                typeof IndeterminateCheckbox
+                              >)}
+                            />
                           </div>
-                        ))}
-                      </Fieldset>
+                          {allColumns.map((column) => (
+                            <div
+                              key={column.id}
+                              data-h2-margin="base(x.125, 0)"
+                            >
+                              <label htmlFor={column.Header?.toString()}>
+                                <input
+                                  id={column.Header?.toString()}
+                                  type="checkbox"
+                                  {...column.getToggleHiddenProps()}
+                                />{" "}
+                                {column.Header}
+                              </label>
+                            </div>
+                          ))}
+                        </Fieldset>
+                      </FormProvider>
                     </Dialog>
                   </div>
                 )}

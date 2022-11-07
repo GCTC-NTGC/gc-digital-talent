@@ -8,11 +8,21 @@ import { FromArray } from "@common/types/utilityTypes";
 import Pending from "@common/components/Pending";
 import { getAdvertisementStatus } from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
-import { GetPoolsQuery, Maybe, useGetPoolsQuery } from "../../api/generated";
+import {
+  formatClassificationString,
+  formattedPoolPosterTitle,
+} from "@common/helpers/poolUtils";
+import {
+  GetPoolsQuery,
+  Maybe,
+  PoolStream,
+  useGetPoolsQuery,
+} from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
+type AccessorClassifications = Data["classifications"];
 
 // callbacks extracted to separate function to stabilize memoized component
 function poolCandidatesLinkAccessor(
@@ -43,11 +53,28 @@ function poolCandidatesLinkAccessor(
 function viewLinkAccessor(
   editUrlRoot: string,
   id: string,
-  title: string | undefined | null,
+  title: Maybe<string>,
+  classifications: AccessorClassifications,
+  stream: PoolStream | null,
+  intl: IntlShape,
 ) {
+  let classificationString = ""; // type wrangling the complex type into a string
+  if (classifications && classifications[0]) {
+    const grouping = classifications[0];
+    classificationString = formatClassificationString({
+      group: grouping.group,
+      level: grouping.level,
+    });
+  }
+
   return (
     <Link href={`${editUrlRoot}/${id}`} type="link">
-      {title}
+      {formattedPoolPosterTitle({
+        title,
+        classification: classificationString,
+        stream,
+        intl,
+      })}
     </Link>
   );
 }
@@ -91,7 +118,14 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Title displayed for the Pool table pool name column.",
         }),
         accessor: (d) =>
-          viewLinkAccessor(editUrlRoot, d.id, d.name ? d.name[locale] : ""),
+          viewLinkAccessor(
+            editUrlRoot,
+            d.id,
+            d.name ? d.name[locale] : "",
+            d.classifications,
+            d.stream ? d.stream : null,
+            intl,
+          ),
       },
       {
         Header: intl.formatMessage({

@@ -9,6 +9,7 @@ import {
   getPublishingGroup,
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
+import { empty } from "@common/helpers/util";
 import {
   AdvertisementStatus,
   LocalizedString,
@@ -59,12 +60,18 @@ export const OtherRequirementsSection = ({
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
+  const getLocationOption = (isRemote: Maybe<boolean>) => {
+    if (empty(isRemote) || isRemote) {
+      return LocationOption.RemoteOptional;
+    }
+
+    return LocationOption.SpecificLocation;
+  };
+
   const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
     languageRequirement: initialData.advertisementLanguage,
     securityRequirement: initialData.securityClearance,
-    locationOption: initialData.isRemote
-      ? LocationOption.RemoteOptional
-      : LocationOption.SpecificLocation,
+    locationOption: getLocationOption(initialData.isRemote),
     specificLocationEn: initialData.advertisementLocation?.en,
     specificLocationFr: initialData.advertisementLocation?.fr,
     publishingGroup: initialData.publishingGroup,

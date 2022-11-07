@@ -751,7 +751,7 @@
     "description": "Label for the existing user assignment option in the create pool candidate form."
   },
   "sFl+Xl": {
-    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un bassin. Elle doit être basée sur le nom anglais du bassin et doit être concise. Un bon exemple serait \"digital_careers\". Elle peut être utilisée dans le code pour faire référence à ce bassin particulier, et ne peut donc pas être modifiée ultérieurement.",
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un bassin. Elle doit être basée sur le nom anglais du bassin et doit être concise. Un bon exemple serait « digital_careers ». Elle peut être utilisée dans le code pour faire référence à ce bassin particulier, et ne peut donc pas être modifiée ultérieurement.",
     "description": "Additional context describing the purpose of the Pool's 'key' field."
   },
   "sZHcsV": {
@@ -775,7 +775,7 @@
     "description": "Label displayed on the classification form name (French) field."
   },
   "vg3F7X": {
-    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un actif du BGC. Elle doit être basée sur le nom anglais de l’actif du BGC et doit être concise. Un bon exemple serait \"information_management\". Elle peut être utilisée dans le code pour faire référence à cet actif du BGC particulier, et ne peut donc pas être modifiée ultérieurement.",
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un actif du BGC. Elle doit être basée sur le nom anglais de l’actif du BGC et doit être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cet actif du BGC particulier, et ne peut donc pas être modifiée ultérieurement.",
     "description": "Additional context describing the purpose of the CMO Asset's 'key' field."
   },
   "vkus5u": {
@@ -1031,7 +1031,7 @@
     "description": "Label displayed on the update a skill form name (French) field."
   },
   "jthonT": {
-    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une compétence. Elle devrait être fondée sur le nom anglais de la compétence et devrait être concise. Un bon exemple serait \"information_management\". Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une compétence. Elle devrait être fondée sur le nom anglais de la compétence et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
     "description": "Additional context describing the purpose of the skills 'key' field."
   },
   "kY7te0": {
@@ -1095,7 +1095,7 @@
     "description": "Label displayed on the skill form skill families field."
   },
   "ytTGvb": {
-    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une famille de compétences. Elle devrait être fondée sur le nom anglais de la famille de compétences et devrait être concise. Un bon exemple serait \"information_management\". Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une famille de compétences. Elle devrait être fondée sur le nom anglais de la famille de compétences et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
     "description": "Additional context describing the purpose of the skill families 'key' field."
   },
   "zpwZSQ": {
@@ -1661,10 +1661,6 @@
     "defaultMessage": "<heavyPrimary>Archivé</heavyPrimary>",
     "description": "Status name of a pool in ARCHIVED status"
   },
-  "+OSYz7": {
-    "defaultMessage": "Nouvel utilisateur",
-    "description": "Text label for link to create new user on admin table"
-  },
   "+svnC6": {
     "defaultMessage": "Publier",
     "description": "Heading for the publish pool dialog"
@@ -2101,9 +2097,9 @@
     "defaultMessage": "Enregistrer les compétences utiles",
     "description": "Text on a button to save the pool asset skills"
   },
-  "jPlK9k": {
+  "w/qZsH": {
     "defaultMessage": "Classification",
-    "description": "Label displayed on the edit pool form classification field."
+    "description": "Label displayed on the pool form classification field."
   },
   "jdoFE6": {
     "defaultMessage": "Nom du bassin et classification de la cible",
@@ -2371,9 +2367,9 @@
     "defaultMessage": "Date de clôture",
     "description": "Closing Date field label for close pool dialog"
   },
-  "7SOo+L": {
+  "PzijvH": {
     "defaultMessage": "Volets/Titres de postes",
-    "description": "Label displayed on the edit pool form stream/job title field."
+    "description": "Label displayed on the pool form stream/job title field."
   },
   "83v9YH": {
     "defaultMessage": "Autochtones",
@@ -2792,5 +2788,49 @@
   "wHX/8C": {
     "defaultMessage": "Admin",
     "description": "Title tag for Admin site"
+  },
+  "FxceQZ": {
+    "defaultMessage": "(La demande est toujours en suspens)",
+    "description": "Text for when date done is pending in the manager info section of the single search request view."
+  },
+  "+tzO5t": {
+    "defaultMessage": "Possède un diplôme"
+  },
+  "8lCjAM": {
+    "defaultMessage": "Priorité"
+  },
+  "Aaas0w": {
+    "defaultMessage": "L’heure de clôture sera automatiquement fixée à 23 h 59 dans le fuseau horaire du Pacifique.",
+    "description": "Helper message for changing the pool closing date"
+  },
+  "Gr3BwB": {
+    "defaultMessage": "Équité en matière d’emploi"
+  },
+  "Ude1JQ": {
+    "defaultMessage": "Texte",
+    "description": "Title for the application’s profile snapshot."
+  },
+  "hGlM9B": {
+    "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
+    "description": "Closing Date field label for publish pool dialog in the Pacific time zone"
+  },
+  "j6V32h": {
+    "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
+    "description": "Label for a pool advertisements expiry date in the Pacific time zone"
+  },
+  "m0JFE/": {
+    "defaultMessage": "Code",
+    "description": "Title for the application’s profile snapshot."
+  },
+  "tQ674x": {
+    "defaultMessage": "Groupe des publications",
+    "description": "Label displayed on the edit pool form publishing group field."
+  },
+  "tzMNF3": {
+    "defaultMessage": "État"
+  },
+  "z0QI6A": {
+    "defaultMessage": "Tous les candidats du bassin",
+    "description": "Title for the admin pool candidates table"
   }
 }

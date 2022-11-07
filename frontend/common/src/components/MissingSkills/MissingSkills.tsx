@@ -115,7 +115,7 @@ const MissingSkills = ({
       ) : null}
       {missingOptionalSkills.length ? (
         <MissingSkillsBlock
-          data-h2-background-color="base(light.dt-primary.1)"
+          data-h2-background-color="base(light.dt-primary.10)"
           pillType={{ color: "primary", mode: "outline" }}
           title={intl.formatMessage({
             defaultMessage: "Nice to have skills",

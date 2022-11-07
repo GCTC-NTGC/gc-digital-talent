@@ -616,7 +616,7 @@
     "description": "Message for the french positions option"
   },
   "6H4uc8": {
-    "defaultMessage": "\"Je m'identifie comme une personne handicapée\"",
+    "defaultMessage": "« Je m'identifie comme une personne handicapée »",
     "description": "Title for when someone indicates they have a disability on their profile"
   },
   "6LTC0y": {
@@ -795,7 +795,7 @@
     "description": "Button label for submit button on create account form."
   },
   "HZB4iF": {
-    "defaultMessage": "\"Je m'identifie comme une femme\"",
+    "defaultMessage": "« Je m'identifie comme une femme »",
     "description": "Title for when someone indicates they are a woman on their profile"
   },
   "Hgd/PL": {
@@ -1002,8 +1002,8 @@
     "defaultMessage": "p. ex. thomas.edison@example.com",
     "description": "Placeholder displayed for the first name field in create account form."
   },
-  "Ugr5Yt": {
-    "defaultMessage": "Évaluation linguistique du gouvernement du Canada.",
+  "3vjhOA": {
+    "defaultMessage": "Évaluation linguistique du gouvernement du Canada",
     "description": "Message on links to the language evaluation tests"
   },
   "Uh9Yj4": {
@@ -1070,7 +1070,7 @@
     "description": "Placeholder displayed on the language information form verbal field."
   },
   "Y7l4/n": {
-    "defaultMessage": "Veuillez indiquer les niveaux linguistiques que vous avez acquis de votre évaluation linguistique du gouvernement du Canada.",
+    "defaultMessage": "Veuillez indiquer les niveaux linguistiques obtenus lors de votre évaluation linguistique du Gouvernement du Canada.",
     "description": "Text requesting language levels given from bilingual evaluation in language information form"
   },
   "YA/7nb": {
@@ -1126,7 +1126,7 @@
     "description": "Question for user in skills in detail section of experience form."
   },
   "bUeJy1": {
-    "defaultMessage": "\"Je m'identifie comme membre d'une minorité visible\"",
+    "defaultMessage": "« Je m'identifie comme membre d'une minorité visible »",
     "description": "Title for when someone indicates they are a visible minority on their profile"
   },
   "c/Qp8R": {
@@ -1256,9 +1256,9 @@
     "defaultMessage": "Expérience mise à jour avec succès!",
     "description": "Success message displayed after updating experience on profile"
   },
-  "k0++o0": {
+  "64Pv6e": {
     "defaultMessage": "Préférences de travail",
-    "description": "Title for Profile Form wrapper  in Work Preferences Form"
+    "description": "Title for Profile Form wrapper in Work Preferences Form"
   },
   "kCBLsJ": {
     "defaultMessage": "Rôle et salaire escomptés",
@@ -1301,7 +1301,7 @@
     "description": "Title for Profile Form wrapper  in Work Location Preferences Form"
   },
   "nVh2Qh": {
-    "defaultMessage": "Si vous voulez connaître vos niveaux de compétence linguistique, <selfAssessmentLink>cliquez ici pour le savoir</selfAssessmentLink>.",
+    "defaultMessage": "Si vous voulez connaître votre niveau de compétence linguistique, <selfAssessmentLink>cliquez ici pour le savoir</selfAssessmentLink>.",
     "description": "Text including link to language proficiency evaluation in language information form"
   },
   "nrBkon": {
@@ -1325,7 +1325,7 @@
     "description": "Main heading in create account page."
   },
   "oEFd6y": {
-    "defaultMessage": "\"Je suis autochtone\"",
+    "defaultMessage": "« Je suis autochtone »",
     "description": "Title for when someone indicates they are indigenous on their profile"
   },
   "oG9dAi": {
@@ -1425,7 +1425,7 @@
     "description": "Description for the role and salary expectation form"
   },
   "uQYCfd": {
-    "defaultMessage": "Ces quatre groupes sont les \"femmes, les Autochtones, les personnes handicapées et les membres des minorités visibles.\"",
+    "defaultMessage": "Ces quatre groupes sont les « femmes, les Autochtones, les personnes handicapées et les membres des minorités visibles. »",
     "description": "List of the employment equity categories"
   },
   "uqoN4k": {
@@ -1440,9 +1440,9 @@
     "defaultMessage": "Recherche...",
     "description": "Message to display when a search is in progress."
   },
-  "wKIVFc": {
-    "defaultMessage": "Certains emplois exigent que vous travailliez des heures inhabituelles ou que vous accomplissiez des tâches qui sont un peu en dehors de la normale. Veuillez indiquer les exigences spéciales avec lesquelles vous êtes à l'aise.",
-    "description": "Description text for Profile Form wrapper  in Work Preferences Form"
+  "jp6hlj": {
+    "defaultMessage": "Certains emplois exigent que vous travailliez des heures inhabituelles ou que vous accomplissiez des tâches qui sont un peu en dehors de la norme. Veuillez indiquer les exigences spéciales avec lesquelles vous êtes à l'aise.",
+    "description": "Description text for Profile Form wrapper in Work Preferences Form"
   },
   "x5C9Ab": {
     "defaultMessage": "Écrit",
@@ -1524,24 +1524,24 @@
     "defaultMessage": "Groupes visés par l’équité en matière d’emploi",
     "description": "Legend for the employment equity checklist"
   },
-   "aWLo7o": {
-    "defaultMessage": "{candidateCount, plural, =0 {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{candidateCount}</testId> candidat correspondant à vos critères} other {Résultats : <testId>{candidateCount}</testId> candidats correspondants à vos critères}}",
+  "eeWkWi": {
+    "defaultMessage": "{totalCandidateCount, plural, =0 {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{totalCandidateCount}</testId> candidat correspondant à vos critères} other {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères}}",
     "description": "Heading for total matching candidates in results section of search page."
   },
   "bbso+7": {
     "defaultMessage": "{candidateCount, plural, one {Il y a <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères dans ce bassin} other {Il y a <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères dans ce bassin}}",
     "description": "Message for total estimated matching candidates in pool"
   },
-  "pak8ye": {
-    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>FRANÇAIS</strong>",
+  "shwFSK": {
+    "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>FRANÇAIS</strong>.",
     "description": "Message for the completed french bilingual evaluation option"
   },
   "paLFgh": {
     "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
     "description": "Message for the advanced language ability option"
   },
-  "FfEyFv": {
-    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>je n'ai PAS</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle",
+  "5g49WB": {
+    "defaultMessage": "Je suis bilingue (anglais et français) et <strong>je n'ai PAS</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle.",
     "description": "Message for the haven't completed bilingual evaluation option"
   },
   "+bC9lc": {
@@ -1552,8 +1552,8 @@
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants. Les conseillers principaux en TI se retrouvent principalement dans six volets de travail :",
     "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
   },
-  "ljnSYf": {
-    "defaultMessage": "Je suis bilingue (En/Fr) et <strong>j'ai</strong> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>",
+  "HPDqDV": {
+    "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>.",
     "description": "Message for the completed english bilingual evaluation option"
   },
   "m21EOJ": {
@@ -2121,7 +2121,7 @@
     "description": "Toc navigation item on sign and submit page."
   },
   "9Eke1a": {
-    "defaultMessage": "\"J’atteste que les renseignements que j’ai fournis sont vrais\"",
+    "defaultMessage": "« J’atteste que les renseignements que j’ai fournis sont vrais »",
     "description": "Signature list item on sign and submit page."
   },
   "M3c9Yo": {
@@ -2144,9 +2144,9 @@
     "defaultMessage": "En option, ajoutez une ville ou un village ici...",
     "description": "Location Exemptions field placeholder for work location preference form"
   },
-  "P+UY4i": {
-    "defaultMessage": "Numéro de priorité",
-    "description": "label for priority number input"
+  "5G+j56": {
+    "defaultMessage": "Numéro de priorité accordé par la Commission de la fonction publique du Canada",
+    "description": "Label for priority number input"
   },
   "PXfQOZ": {
     "defaultMessage": "Archiver",
@@ -2209,7 +2209,7 @@
     "description": "Message displayed to user after application is submitted successfully."
   },
   "voTvve": {
-    "defaultMessage": "\"J’ai passé en revue tout ce qui est écrit dans ma candidature\"",
+    "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
     "description": "Signature list item on sign and submit page."
   },
   "brQu7D": {
@@ -2217,7 +2217,7 @@
     "description": "Label displayed for does not have priority entitlement option"
   },
   "dIZPra": {
-    "defaultMessage": "\"Je comprends que je fais partie d’une communauté qui se fait confiance\"",
+    "defaultMessage": "« Je comprends que je fais partie d’une communauté qui se fait confiance »",
     "description": "Signature list item on sign and submit page."
   },
   "da8nDk": {
@@ -2332,8 +2332,8 @@
     "defaultMessage": "J’ai un droit de priorité",
     "description": "Label displayed does have priority entitlement option"
   },
-  "v0JyBd": {
-    "defaultMessage": "Avez-vous un droit de priorité pour les candidatures du gouvernement du Canada?",
+  "25VYzu": {
+    "defaultMessage": "Avez-vous un droit de priorité pour les candidatures du gouvernement du Canada? Ce statut est accordé par la Commission de la fonction publique du Canada. Pour en savoir plus, <priorityEntitlementLink>visitez le site de l'information sur les droits de priorité</priorityEntitlementLink>.",
     "description": "Sentence asking whether the user possesses priority entitlement"
   },
   "vQzmUH": {
@@ -2431,5 +2431,229 @@
   "Ytlyzb": {
     "defaultMessage": "Modifier l’expérience de travail",
     "description": "Page title for the work experience profile form"
+  },
+  "+6QgII": {
+    "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
+    "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
+  },
+  "/vsOxF": {
+    "defaultMessage": "Mettre à jour mon profil",
+    "description": "Link text to direct users to the profile page when logged in"
+  },
+  "094835": {
+    "defaultMessage": "Je cherche à...",
+    "description": "Support form subject field label"
+  },
+  "1zkApr": {
+    "defaultMessage": "Posez votre candidature dans le cadre de ce processus de recrutement<hidden> {name}</hidden>",
+    "description": "Message on link that say to apply to a recruitment advertisement"
+  },
+  "2UDONd": {
+    "defaultMessage": "Trouvez des occasions d’emploi pour les talents numériques au sein du gouvernement du Canada et posez votre candidature.",
+    "description": "Subtitle for the browse IT jobs page"
+  },
+  "3sbLPV": {
+    "defaultMessage": "Nous publions constamment de nouvelles offres. En créant votre profil dès maintenant, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
+    "description": "Text describing upcoming opportunities instructing users to create a profile when anonymous"
+  },
+  "3wbcnZ": {
+    "defaultMessage": "Voir les résultats",
+    "description": "A link to view the pools that contain matching talent."
+  },
+  "5r5XSh": {
+    "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
+    "description": "Support form success paragraph two"
+  },
+  "6TX9CR": {
+    "defaultMessage": "(aucune activité)",
+    "description": "Message displayed when a pool has no stream"
+  },
+  "86Y8lx": {
+    "defaultMessage": "Votre nom",
+    "description": "Support form name field label"
+  },
+  "AwIGg0": {
+    "defaultMessage": "Vous avez une question précise? Vous souhaitez faire part de vos commentaires ou signaler un bogue? Envoyez-nous un message au moyen de ce formulaire.",
+    "description": "Support form paragraph one"
+  },
+  "BhfG7a": {
+    "defaultMessage": "Visitez la page de recherche de talents",
+    "description": "Link text to go to the search page on browse IT jobs page"
+  },
+  "CZ3wxJ": {
+    "defaultMessage": "Soumettez un nouveau message",
+    "description": "Support form success action"
+  },
+  "CbzWqJ": {
+    "defaultMessage": "L’Ambition numérique décrit l’engagement du gouvernement du Canada à créer des services numériques modernes et accessibles. La réalisation de ces priorités permettra au gouvernement de fournir des services et des programmes axés sur le numérique, centrés sur l’utilisateur et sans obstacle.",
+    "description": "Summary of the digital ambition featured item"
+  },
+  "EBmWyo": {
+    "defaultMessage": "Accueil",
+    "description": "Link text for the home link in breadcrumbs."
+  },
+  "EIHPGF": {
+    "defaultMessage": "Votre candidature à un processus de dotation sera examinée par notre équipe et, si elle correspond à ce que nous cherchons, vous serez invité à une évaluation. Une fois que votre candidature aura été acceptée, des gestionnaires pourront communiquer avec vous pour vous informer des possibilités d’emploi correspondant à vos compétences.",
+    "description": "Description of how the application process works, paragraph two"
+  },
+  "GZrICV": {
+    "defaultMessage": "Parcourez les offres dans le domaine des TI pour la communauté autochtone",
+    "description": "Title for Indigenous community job opportunities on Browse IT jobs page"
+  },
+  "Gil1Zj": {
+    "defaultMessage": "Lisez l’Ambition numérique",
+    "description": "Link text to read the Digital Ambition"
+  },
+  "Gp+70V": {
+    "defaultMessage": "Postulez d’ici le :",
+    "description": "Label for the pool expiry date"
+  },
+  "Hd0nHP": {
+    "defaultMessage": "(À déterminer)",
+    "description": "Message displayed when a pool has no expiry date yet"
+  },
+  "J2WrFI": {
+    "defaultMessage": "Parcourez les offres dans le domaine des TI",
+    "description": "Page title for the direct intake browse pools page."
+  },
+  "Jorewd": {
+    "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
+    "description": "Text describing upcoming opportunities instructing users to update a profile when logged in"
+  },
+  "Ms6O4W": {
+    "defaultMessage": "Laissez notre équipe vous épargner du temps et de l’énergie en associant vos besoins à des professionnels des TI préalablement sélectionnés et possédant les compétences requises pour le poste. Tous les talents de nos bassins de dotation ont été sélectionnés à l’issue d’un processus concurrentiel. Vous pouvez donc passer directement à l’entrevue et décider s’ils conviennent à votre équipe.",
+    "description": "Summary for to go to the search page on Browse IT jobs page"
+  },
+  "OMDX09": {
+    "defaultMessage": "Préparez-vous en mettant à jour votre profil.",
+    "description": "Link text to update your profile for executive jobs in government"
+  },
+  "OdjW9z": {
+    "defaultMessage": "Nous ferons de notre mieux pour vous répondre dans les deux jours ouvrables suivants.",
+    "description": "Support form success paragraph one"
+  },
+  "QX1l/C": {
+    "defaultMessage": "En attendant, n’hésitez pas à consulter nos foires aux questions (FAQ) pour obtenir plus d’information.",
+    "description": "Support form success paragraph three"
+  },
+  "TrO4uL": {
+    "defaultMessage": "Échelle salariale :",
+    "description": "Label for the range of salary expected for a classification"
+  },
+  "V1DqDX": {
+    "defaultMessage": "Compétences requises :",
+    "description": "Label for the skills required for a pool"
+  },
+  "YImugL": {
+    "defaultMessage": "Processus actifs de recrutement de talents",
+    "description": "Title for the current jobs recruiting candidates"
+  },
+  "cYg+l1": {
+    "defaultMessage": "Vous recherchez des talents en TI de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en TI pour les peuples autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
+    "description": "Summary of the Indigenous Apprenticeship Program for the homepage"
+  },
+  "dIIccA": {
+    "defaultMessage": "J’ai découvert le Programme d’apprentissage pour les peuples autochtones sur talent.canada.ca et j’aimerais en savoir davantage sur la façon dont je peux embaucher des stagiaires pour mon équipe.",
+    "description": "Body of email for info on Indigenous Apprenticeship Program"
+  },
+  "fVAMSw": {
+    "defaultMessage": "Soumettez des commentaires",
+    "description": "Support form subject field feedback option label"
+  },
+  "g+JcDC": {
+    "defaultMessage": "D’autres offres seront bientôt affichées!",
+    "description": "Heading for message about upcoming opportunities"
+  },
+  "gG5eAt": {
+    "defaultMessage": "Communiquez avec le Programme d’apprentissage",
+    "description": "Link text to email about the Indigenous Apprenticeship Program"
+  },
+  "gtaSs1": {
+    "defaultMessage": "Cette plateforme vous permet de poser votre candidature à des processus de recrutement grâce auxquels les gestionnaires d’embauche pourront facilement vous trouver.",
+    "description": "Description of how the application process works, paragraph one"
+  },
+  "hL7Y6p": {
+    "defaultMessage": "(Aucune compétence requise)",
+    "description": "Message displayed when no skills are required for a pool"
+  },
+  "iiEGjW": {
+    "defaultMessage": "Nous avons bien reçu votre message.",
+    "description": "Support form success title"
+  },
+  "jHuiRm": {
+    "defaultMessage": "Billet créé avec succès!",
+    "description": "Support form toast message success"
+  },
+  "jTN0bg": {
+    "defaultMessage": "Embauchez des talents pour votre équipe",
+    "description": "Title for to go to the search page on Browse IT jobs page"
+  },
+  "msn4mz": {
+    "defaultMessage": "Posez une question",
+    "description": "Support form subject field question option label"
+  },
+  "mwEGU+": {
+    "defaultMessage": "Vous avez déjà postulé pour cela.",
+    "description": "Disabled button when a user already applied to a pool opportunity"
+  },
+  "nYA+Tj": {
+    "defaultMessage": "Nous embauchons des talents autochtones dans le domaine de la technologie",
+    "description": "Title for the Indigenous tech talent feature item"
+  },
+  "oXYnZN": {
+    "defaultMessage": "Communiquez avec nous",
+    "description": "Support form title"
+  },
+  "p/dXxz": {
+    "defaultMessage": "Je souhaite embaucher des stagiaires autochtones en TI pour mon équipe",
+    "description": "Subject of email for info on Indigenous Apprenticeship Program"
+  },
+  "qLYONf": {
+    "defaultMessage": "Préparez-vous en créant un profil",
+    "description": "Link text to create a profile for executive jobs in government"
+  },
+  "szLvj0": {
+    "defaultMessage": "Votre courriel",
+    "description": "Support form email field label"
+  },
+  "tTuBmE": {
+    "defaultMessage": "L’Ambition numérique",
+    "description": "Title for the digital ambition featured item"
+  },
+  "wIccbA": {
+    "defaultMessage": "Signaler un bogue",
+    "description": "Support form subject field bug option label"
+  },
+  "wPpvvm": {
+    "defaultMessage": "Créer un profil",
+    "description": "Link text to direct users to the profile page when anonymous"
+  },
+  "ywkgJx": {
+    "defaultMessage": "Détails",
+    "description": "Support form details field label"
+  },
+  "S/n44h": {
+    "defaultMessage": "Sélectionner...",
+    "description": "Support form subject field default placeholder shown when field has nothing actively selected"
+  },
+  "07BM9O": {
+    "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
+    "description": "Link text to go to IAP homepage on Browse IT jobs page"
+  },
+  "1UYQaC": {
+    "defaultMessage": "Date du début",
+    "description": "Label displayed on an Experience form for start date input"
+  },
+  "4f5qcw": {
+    "defaultMessage": "Rôle actuel",
+    "description": "Label displayed on an Experience form for current role bounded box"
+  },
+  "X8JZSG": {
+    "defaultMessage": "Date de fin",
+    "description": "Label displayed on an Experience form for end date input"
+  },
+  "wl8GI6": {
+    "defaultMessage": "Mon rôle",
+    "description": "Label displayed on an Experience form for role input"
   }
 }

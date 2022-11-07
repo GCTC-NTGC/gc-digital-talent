@@ -939,7 +939,7 @@
     "description": "The work region of Canada described as Ontario."
   },
   "duwt+A": {
-    "defaultMessage": "m'oblige à <strong>avoir un permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
+    "defaultMessage": "m'exige d'avoir un <strong>permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
   "eYak7E": {
@@ -963,7 +963,7 @@
     "description": "The work region of Canada described as British Columbia."
   },
   "dIZ4oj": {
-    "defaultMessage": "m'oblige à <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
+    "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "ubXVBC": {
@@ -971,11 +971,11 @@
     "description": "The work region of Canada described as Atlantic."
   },
   "X/hYMf": {
-    "defaultMessage": "a<strong> des quarts de travail sur appel 24 heures sur 24, 7 jours sur 7 </strong>.",
+    "defaultMessage": "exige des <strong>quarts de travail sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
     "description": "The operational requirement described as 24/7 on-call."
   },
   "qnYbyw": {
-    "defaultMessage": "m'oblige à <strong>voyager</strong>.",
+    "defaultMessage": "m'exige de <strong>voyager</strong>.",
     "description": "The operational requirement described as travel as required."
   },
   "ZcvDAo": {
@@ -983,7 +983,7 @@
     "description": "Message that there are required fields missing. Please ignore things in <> tags."
   },
   "9rn/MG": {
-    "defaultMessage": "a un <strong>travail par quart</strong>.",
+    "defaultMessage": "exige <strong>des quarts de travail</strong>.",
     "description": "The operational requirement described as shift work."
   },
   "CFAc15": {
@@ -1003,7 +1003,7 @@
     "description": "Error message displayed when the search term length is less then 2 characters."
   },
   "W6Jh6N": {
-    "defaultMessage": "Retirer cette compétence<hidden>: {skillName}</hidden>",
+    "defaultMessage": "Retirer cette compétence<hidden> : {skillName}</hidden>",
     "description": "Button label to remove the adjacent skill on skill result block."
   },
   "JY6WhU": {
@@ -1015,7 +1015,7 @@
     "description": "Placeholder for the skills search bar."
   },
   "MO80Mu": {
-    "defaultMessage": "Ajouter cette compétence<hidden>: {skillName}</hidden>",
+    "defaultMessage": "Ajouter cette compétence<hidden> : {skillName}</hidden>",
     "description": "Button label to add the adjacent skill on skill result block."
   },
   "BnnVAv": {
@@ -1135,7 +1135,7 @@
     "description": "Beginner, skill level"
   },
   "RYg7vl": {
-    "defaultMessage": "m'oblige à <strong>faire des heures supplémentaires occasionnelles</strong>.",
+    "defaultMessage": "exige des <strong>heures supplémentaires occasionnelles</strong>.",
     "description": "The operational requirement described as occasional overtime."
   },
   "F3/88e": {
@@ -1155,7 +1155,7 @@
     "description": "The work region of Canada described as Telework."
   },
   "IW/eej": {
-    "defaultMessage": "\"Je m’identifie comme une femme\"",
+    "defaultMessage": "« Je m’identifie comme une femme »",
     "description": "Statement for when someone indicates they are a woman"
   },
   "IfCvm5": {
@@ -1175,7 +1175,7 @@
     "description": "Secret security clearance"
   },
   "MLP6tt": {
-    "defaultMessage": "Je m'identifie comme une personne handicapée",
+    "defaultMessage": "« Je m'identifie comme une personne handicapée »",
     "description": "Statement for when someone indicates they have a disability"
   },
   "O+MHnP": {
@@ -1187,7 +1187,7 @@
     "description": "Text that appears in links that open in a new tab."
   },
   "cEB0aW": {
-    "defaultMessage": "m'oblige à <strong>faire des heures supplémentaires régulièrement</strong>.",
+    "defaultMessage": "exige des <strong>heures supplémentaires régulièrement</strong>.",
     "description": "The operational requirement described as regular overtime."
   },
   "PzyMeM": {
@@ -1199,7 +1199,7 @@
     "description": "Group for when someone indicates they have a disability"
   },
   "RBHmM6": {
-    "defaultMessage": "Autres compétences \"utiles à avoir\" que vous pourriez envisager d'ajouter à votre profil :",
+    "defaultMessage": "Autres compétences « utiles à avoir » que vous pourriez envisager d'ajouter à votre profil :",
     "description": "Text that appears when a user is missing optional skills on their profile"
   },
   "RQGy+0": {
@@ -1239,7 +1239,7 @@
     "description": "The name of the Senior advisor classification with group and level."
   },
   "bOch3v": {
-    "defaultMessage": "Les compétences suivantes \"exigence\" <red>required</red> sont manquantes dans votre profil :",
+    "defaultMessage": "Les compétences suivantes « exigence » <red>required</red> sont manquantes dans votre profil :",
     "description": "Text that appears when a user is missing required skills on their profile"
   },
   "c39xT8": {
@@ -1303,7 +1303,7 @@
     "description": "Default placeholder shown when Select field has nothing actively selected."
   },
   "s4y1nI": {
-    "defaultMessage": "\"Je m'identifie comme membre d'une minorité visible\"",
+    "defaultMessage": "« Je m'identifie comme membre d'une minorité visible »",
     "description": "Statement for when someone indicates they are a visible minority"
   },
   "vO/SlS": {
@@ -1315,7 +1315,7 @@
     "description": "The name of the Team leader Analyst classification with group and level."
   },
   "wtImjn": {
-    "defaultMessage": "\"Je suis autochtone\"",
+    "defaultMessage": "« Je suis autochtone »",
     "description": "Statement for when someone indicates they are indigenous"
   },
   "ylHC90": {
@@ -1795,5 +1795,157 @@
   "16AY+M": {
     "defaultMessage": "Incapable de postuler pour ce bassin",
     "description": "Message displayed when user attempts to apply to an unpublished pool"
+  },
+  "/I9tx9": {
+    "defaultMessage": "Cette demande ne peut pas être supprimée. Vous pouvez uniquement supprimer les demandes avant leur soumission.",
+    "description": "Error message that the application cannot be deleted."
+  },
+  "0p1W7Q": {
+    "defaultMessage": "Fils d’Ariane",
+    "description": "Label for the links to page ancestors"
+  },
+  "3e4sM7": {
+    "defaultMessage": "Le lieu doit être indiqué ou l’option « À distance » doit être sélectionnée",
+    "description": "Error message that the pool advertisement must have location filled."
+  },
+  "56WpMU": {
+    "defaultMessage": "Laissez les préférences de votre navigateur dicter le thème du site Web.",
+    "description": "Button text to set no theme mode"
+  },
+  "6O1sjV": {
+    "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
+    "description": "Error message that the given user identifier is already in use when updating."
+  },
+  "6wCHq2": {
+    "defaultMessage": "Activez le mode sombre",
+    "description": "Button text to set theme mode to dark"
+  },
+  "76QTNv": {
+    "defaultMessage": "La demande a déjà été soumise.",
+    "description": "Error message that the given application is already submitted."
+  },
+  "9CkDfr": {
+    "defaultMessage": "Aucune compétence trouvée.",
+    "description": "Message displayed when no skills were found in skill picker search"
+  },
+  "9nJi0W": {
+    "defaultMessage": "Activez le mode lumière",
+    "description": "Button text to set theme mode to light"
+  },
+  "A+dFlE": {
+    "defaultMessage": "La demande a déjà été archivée.",
+    "description": "Error message that the given application is already archived."
+  },
+  "AhQ6xv": {
+    "defaultMessage": "Ces compétences requises sont absentes de votre profil :",
+    "description": "Text that appears when a user is missing required skills on their profile."
+  },
+  "B89Ihf": {
+    "defaultMessage": "Compétences requises pour la demande",
+    "description": "Title that appears when a user is missing required skills on their profile."
+  },
+  "C8nrGM": {
+    "defaultMessage": "Emplois en TI",
+    "description": "The publishing group called IT Jobs"
+  },
+  "CJy0kS": {
+    "defaultMessage": "Compétences constituant un atout",
+    "description": "Title that appears when a user is missing optional skills on their profile."
+  },
+  "CVmEkf": {
+    "defaultMessage": "Création impossible – cet identifiant d’utilisateur (sub) est déjà utilisé",
+    "description": "Error message that the given user identifier is already in use when creating."
+  },
+  "J2V3XI": {
+    "defaultMessage": "Un champ obligatoire est vide : Exigence linguistique",
+    "description": "Error message that the pool advertisement must have an advertisement language."
+  },
+  "Mco0Km": {
+    "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
+    "description": "Error message that at least one Essential Skill is required"
+  },
+  "Mixlw/": {
+    "defaultMessage": "Postes de direction",
+    "description": "The publishing group called Executive Jobs"
+  },
+  "TjeaLS": {
+    "defaultMessage": "Cette demande ne peut pas être archivée. Vous ne pouvez archiver que les demandes ayant expiré.",
+    "description": "Error message that the application cannot be archived."
+  },
+  "V3ReC1": {
+    "defaultMessage": "Envisagez d’ajouter ces compétences constituant un atout à votre profil :",
+    "description": "Text that appears when a user is missing optional skills on their profile"
+  },
+  "VqrVpT": {
+    "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
+    "description": "Error message that the given email address is already in use when updating."
+  },
+  "WUAAr1": {
+    "defaultMessage": "Création impossible – cette adresse courriel est déjà utilisée.",
+    "description": "Error message that the given user identifier is already in use when creating."
+  },
+  "Wwb8Lb": {
+    "defaultMessage": "Sélecteur de mode de couleur du thème",
+    "description": "Label for the group of buttons to change the current colour mode"
+  },
+  "XNDPQM": {
+    "defaultMessage": "Un champ obligatoire est vide : Date de fin",
+    "description": "Error message that the pool advertisement must have an expiry date."
+  },
+  "aMkZ80": {
+    "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
+    "description": "Error message that advertisement locations must be filled in English and French."
+  },
+  "euwgms": {
+    "defaultMessage": "Un champ obligatoire est vide : Français – Votre travail",
+    "description": "Error message that Work Tasks in French must be filled"
+  },
+  "gU/2O6": {
+    "defaultMessage": "Le bassin doit avoir une date d’expiration postérieure à aujourd’hui.",
+    "description": "Error message that pool expiry isn't in the future."
+  },
+  "juklNA": {
+    "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre incidence",
+    "description": "Error message that Your Impact in English must be filled"
+  },
+  "kg28xx": {
+    "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
+    "description": "Error message that Your Impact in French must be filled"
+  },
+  "l7Hif/": {
+    "defaultMessage": "Compétences sélectionnées",
+    "description": "Section header for a list of skills selected"
+  },
+  "mv7JO3": {
+    "defaultMessage": "Autre",
+    "description": "The publishing group called Other"
+  },
+  "nPKPFa": {
+    "defaultMessage": "Un champ obligatoire est vide : Groupe des publications",
+    "description": "Error message that the pool advertisement must have publishing group filled."
+  },
+  "r7x5H3": {
+    "defaultMessage": "S. O.",
+    "description": "Message displayed when specific information is not applicable"
+  },
+  "t4F/0R": {
+    "defaultMessage": "Un champ obligatoire est vide : Exigence relative à la sécurité",
+    "description": "Error message that the pool advertisement must have a security clearance."
+  },
+  "tW4k56": {
+    "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre travail",
+    "description": "Error message that Work Tasks in English must be filled"
+  },
+  "w2tWfH": {
+    "defaultMessage": "Un champ obligatoire est vide : Titres des volets/emplois",
+    "description": "Error message that the pool advertisement must have a stream."
+  },
+  "9hjEsr": {
+    "defaultMessage": "Vous avez des modifications non sauvegardées",
+    "description": "Title for unsaved changes warning on profile forms"
+  },
+  "rsrNSC": {
+    "defaultMessage": "Modifications non sauvegardées",
+    "description": "Displayed next to form inputs when they have been changed but not saved."
   }
 }
