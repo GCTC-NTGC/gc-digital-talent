@@ -1,4 +1,5 @@
 import { Update } from "history";
+import { create } from "lodash";
 import {
   useCreateAwardExperienceMutation,
   useCreateCommunityExperienceMutation,
@@ -94,17 +95,24 @@ export const useExperienceMutations = (
   updateMutations.set("personal", executeUpdatePersonalMutation);
   updateMutations.set("work", executeUpdateWorkMutation);
 
-  const mutations = {
-    create: createMutations,
-    update: updateMutations,
-  };
+  const mutations = new Map<
+    ExperienceMutationType,
+    typeof updateMutations | typeof createMutations
+  >();
 
-  return {
-    executeMutation: experienceType
-      ? mutations[mutationType].get(experienceType)
-      : null,
-    getMutationArgs: getArgs,
-  };
+  mutations.set("create", createMutations);
+  mutations.set("update", updateMutations);
+
+  if (mutationType) {
+    return {
+      executeMutation: experienceType
+        ? mutations.get(mutationType)?.get(experienceType)
+        : null,
+      getMutationArgs: getArgs,
+    };
+  }
+
+  return null;
 };
 
 type DeleteMutation =
