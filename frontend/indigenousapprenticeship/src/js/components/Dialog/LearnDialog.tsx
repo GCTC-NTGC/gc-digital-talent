@@ -1,24 +1,27 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import Button from "@common/components/Button";
 import Dialog from "@common/components/Dialog";
 import Heading from "../Heading/Heading";
 import CloseButton from "./CloseButton";
 
-import type { BasicDialogProps } from "./types";
+import { BasicDialogProps } from "./types";
 
-const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
+const LearnDialog = ({ btnProps }: BasicDialogProps) => {
   const intl = useIntl();
 
   return (
-    <Dialog.Root
-      open={isOpen}
-      onOpenChange={(open: boolean) => {
-        if (!open) {
-          onDismiss();
-        }
-      }}
-    >
+    <Dialog.Root>
+      <Dialog.Trigger>
+        <Button color="ia-secondary" mode="outline" {...btnProps}>
+          {intl.formatMessage({
+            defaultMessage: "Learn More",
+            id: "CY+493",
+            description: "Button text to learn more about the program",
+          })}
+        </Button>
+      </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header color="ia-secondary">
           {intl.formatMessage({

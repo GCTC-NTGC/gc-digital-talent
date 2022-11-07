@@ -1,25 +1,25 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import Button from "@common/components/Button";
 import Dialog from "@common/components/Dialog";
 import CloseButton from "./CloseButton";
 
 import type { BasicDialogProps } from "./types";
 
-const RequirementDialog: React.FC<BasicDialogProps> = ({
-  isOpen,
-  onDismiss,
-}) => {
+const RequirementDialog = ({ btnProps }: BasicDialogProps) => {
   const intl = useIntl();
   return (
-    <Dialog.Root
-      open={isOpen}
-      onOpenChange={(open: boolean) => {
-        if (!open) {
-          onDismiss();
-        }
-      }}
-    >
+    <Dialog.Root>
+      <Dialog.Trigger>
+        <Button color="ia-primary" mode="solid" {...btnProps}>
+          {intl.formatMessage({
+            defaultMessage: "See Eligibility Criteria",
+            id: "+do6jV",
+            description: "Button text for program eligibility criteria",
+          })}
+        </Button>
+      </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header color="ia-secondary">
           {intl.formatMessage({

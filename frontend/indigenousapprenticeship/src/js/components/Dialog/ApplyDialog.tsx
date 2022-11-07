@@ -2,9 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import Dialog from "@common/components/Dialog";
+import Button from "@common/components/Button";
 import CloseButton from "./CloseButton";
 
-import type { BasicDialogProps } from "./types";
+import { BasicDialogProps } from "./types";
 
 const mailAccessor = (chunks: React.ReactNode): React.ReactNode => (
   <a
@@ -15,17 +16,19 @@ const mailAccessor = (chunks: React.ReactNode): React.ReactNode => (
   </a>
 );
 
-const ApplyDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
+const ApplyDialog = ({ btnProps }: BasicDialogProps) => {
   const intl = useIntl();
   return (
-    <Dialog.Root
-      open={isOpen}
-      onOpenChange={(open: boolean) => {
-        if (!open) {
-          onDismiss();
-        }
-      }}
-    >
+    <Dialog.Root>
+      <Dialog.Trigger>
+        <Button color="ia-primary" mode="solid" {...btnProps}>
+          {intl.formatMessage({
+            defaultMessage: "Apply Now",
+            id: "DvmNR7",
+            description: "Button text to apply for program",
+          })}
+        </Button>
+      </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header color="ia-secondary">
           {intl.formatMessage({
