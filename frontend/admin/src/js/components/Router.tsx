@@ -104,12 +104,12 @@ interface CreateRouterArgs {
 const createRouter = ({ featureFlags }: CreateRouterArgs) =>
   createBrowserRouter([
     {
-      path: "/",
+      path: "/:locale",
       element: <Layout />,
       errorElement: <ErrorPage />,
       children: [
         {
-          path: ":locale",
+          path: "admin",
           errorElement: <ErrorPage />,
           children: [
             {
