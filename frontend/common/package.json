@@ -114,7 +114,7 @@
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.40.1",
     "css-minimizer-webpack-plugin": "^4.2.2",
-    "eslint": "^8.26.0",
+    "eslint": "^8.27.0",
     "eslint-config-airbnb": "^19.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-formatjs": "^4.3.4",
