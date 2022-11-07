@@ -268,23 +268,6 @@ export function checkIsLegacyFilter(
   return false;
 }
 
-// function useSearchQuery(filterInput: AbstractFilterInput) {
-//   const isLegacyFilter = checkIsLegacyFilter(filterInput);
-//   // See: https://formidable.com/open-source/urql/docs/basics/react-preact/#pausing-usequery
-//   const [legacyResult] = useSearchPoolCandidatesQuery({
-//     variables: { poolCandidateFilter: filterInput },
-//     pause: !isLegacyFilter,
-//   });
-//   const [result] = useSearchApplicantsQuery({
-//     variables: { applicantFilter: filterInput },
-//     pause: isLegacyFilter,
-//   });
-
-//   return { legacyResult, result };
-// }
-
-// function transformApplicantToUserFilterInput(applicantFilterInput: )
-
 const transformFilterToInput = (
   inputFilter: PoolCandidateFilter,
 ): PoolCandidateFilterInput => {
