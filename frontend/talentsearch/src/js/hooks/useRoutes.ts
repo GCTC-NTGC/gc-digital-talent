@@ -16,6 +16,7 @@ const getRoutes = (lang: Locales) => {
   ) =>
     path.join(
       userUrl(userId),
+      "profile",
       section,
       "edit",
       applicationParam(applicationId),
@@ -28,6 +29,7 @@ const getRoutes = (lang: Locales) => {
   ) =>
     path.join(
       userUrl(userId),
+      "profile",
       "experiences",
       type,
       "create",
@@ -83,6 +85,7 @@ const getRoutes = (lang: Locales) => {
     skillsAndExperiences: (userId: string, applicationId?: string) =>
       path.join(
         userUrl(userId),
+        "profile",
         "experiences",
         applicationParam(applicationId),
       ),
@@ -90,7 +93,15 @@ const getRoutes = (lang: Locales) => {
       userId: string,
       type: ExperienceType,
       experienceId: string,
-    ) => path.join(userUrl(userId), "experiences", type, experienceId, "edit"),
+    ) =>
+      path.join(
+        userUrl(userId),
+        "profile",
+        "experiences",
+        type,
+        experienceId,
+        "edit",
+      ),
     createAward: (userId: string, applicationId?: string) =>
       createExperienceUrl("award", userId, applicationId),
     createCommunity: (userId: string, applicationId?: string) =>
