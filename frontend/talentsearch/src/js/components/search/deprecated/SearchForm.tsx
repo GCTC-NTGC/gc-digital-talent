@@ -20,6 +20,7 @@ import {
 } from "@common/constants/localizedConstants";
 import errorMessages from "@common/messages/errorMessages";
 import { hasKey } from "@common/helpers/util";
+import { commonMessages } from "@common/messages";
 import {
   Classification,
   CmoAsset,
@@ -222,12 +223,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
         cmoAssets.map(({ id, name }) => ({
           value: id,
           label:
-            name[locale] ??
-            intl.formatMessage({
-              defaultMessage: "Error: name not loaded",
-              id: "m+d9ls",
-              description: "Error message for cmo asset filer on search form.",
-            }),
+            name[locale] ?? intl.formatMessage(commonMessages.nameNotLoaded),
         })),
       [cmoAssets, locale, intl],
     );
