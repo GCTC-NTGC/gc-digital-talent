@@ -11,10 +11,12 @@ const StyledOverlay = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >((props, forwardedRef) => (
   <DialogPrimitive.Overlay
+    data-h2-display="base(grid)"
     data-h2-position="base(fixed)"
     data-h2-background-color="base(black.85)"
     data-h2-offset="base(0)"
-    style={{ zIndex: 9998 }}
+    data-h2-overflow="base(inherit, auto)"
+    style={{ placeItems: "center", zIndex: 9998 }}
     ref={forwardedRef}
     {...props}
   />
@@ -27,20 +29,13 @@ const StyledContent = React.forwardRef<
   <DialogPrimitive.Content
     data-h2-font-family="base(sans)"
     data-h2-background-color="base(dt-white)"
+    data-h2-max-width="base(48rem)"
     data-h2-margin="base(x3, auto)"
     data-h2-padding="base(x1)"
-    data-h2-position="base(fixed)"
-    data-h2-location="base(50%, auto, auto, 50%)"
     data-h2-radius="base(s)"
-    data-h2-transform="base(translate(-50%, -50%))"
     data-h2-shadow="base(s)"
     data-h2-width="base(90vw)"
     style={{
-      top: 0,
-      left: "50%",
-      maxWidth: 768,
-      transform: "translateX(-50%)",
-      width: "90vw",
       zIndex: 9999,
     }}
     ref={forwardedRef}
@@ -71,31 +66,32 @@ const Content = React.forwardRef<
 
   return (
     <DialogPrimitive.Portal container={container}>
-      <StyledOverlay />
-      <StyledContent ref={forwardedRef} {...props}>
-        {children}
-        <StyledClose>
-          <button
-            type="button"
-            data-h2-background-color="base(transparent) base:hover(dt-white.15)"
-            data-h2-border="base(none)"
-            data-h2-color="base(dt-white)"
-            data-h2-cursor="base(pointer)"
-            data-h2-line-height="base(0)"
-            data-h2-offset="base(x.5, x.5, auto, auto)"
-            data-h2-padding="base(x.5)"
-            data-h2-position="base(absolute)"
-            data-h2-radius="base(circle)"
-            aria-label={intl.formatMessage({
-              defaultMessage: "Close dialog",
-              id: "g2X8Fx",
-              description: "Text for the button to close a modal dialog.",
-            })}
-          >
-            <XMarkIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
-          </button>
-        </StyledClose>
-      </StyledContent>
+      <StyledOverlay>
+        <StyledContent ref={forwardedRef} {...props}>
+          {children}
+          <StyledClose>
+            <button
+              type="button"
+              data-h2-background-color="base(transparent) base:hover(dt-white.15)"
+              data-h2-border="base(none)"
+              data-h2-color="base(dt-white)"
+              data-h2-cursor="base(pointer)"
+              data-h2-line-height="base(0)"
+              data-h2-offset="base(x.5, x.5, auto, auto)"
+              data-h2-padding="base(x.5)"
+              data-h2-position="base(absolute)"
+              data-h2-radius="base(circle)"
+              aria-label={intl.formatMessage({
+                defaultMessage: "Close dialog",
+                id: "g2X8Fx",
+                description: "Text for the button to close a modal dialog.",
+              })}
+            >
+              <XMarkIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
+            </button>
+          </StyledClose>
+        </StyledContent>
+      </StyledOverlay>
     </DialogPrimitive.Portal>
   );
 });
