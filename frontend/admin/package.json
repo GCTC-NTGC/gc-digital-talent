@@ -102,7 +102,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.12",
+    "@heroicons/react": "^2.0.13",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
     "@types/react-select": "^5.0.1",
