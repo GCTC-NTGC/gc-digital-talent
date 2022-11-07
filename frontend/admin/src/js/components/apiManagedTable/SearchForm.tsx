@@ -1,13 +1,11 @@
 import React from "react";
 import debounce from "lodash/debounce";
 import { useIntl } from "react-intl";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
-import DropdownMenu, {
-  MenuButton,
-  MenuItem,
-  MenuList,
-} from "@common/components/DropdownMenu";
+import DropdownMenu from "@common/components/DropdownMenu";
 
+import { Button } from "@common/components";
 import type { SearchColumn } from "./basicTableHelpers";
 
 export interface SearchFormProps {
@@ -39,9 +37,9 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
     [handleChange],
   );
 
-  const handleColumnChange = (col: SearchColumn | undefined) => {
-    setColumn(col);
-    onChange(searchTerm, col?.value);
+  const handleColumnChange = (col: string) => {
+    setColumn(searchBy?.find((item) => item.value === col));
+    onChange(searchTerm, col);
   };
 
   React.useEffect(() => {
@@ -60,29 +58,45 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, searchBy }) => {
   return (
     <div data-h2-display="base(flex)">
       {showDropdown ? (
-        <DropdownMenu>
-          <MenuButton
-            color="secondary"
-            data-h2-radius="base(s, none, none, s)"
-            data-h2-margin-right="base(0)"
-            style={{ flexShrink: 0, borderRightWidth: 0 }}
-          >
-            {column ? column.label : allTableMsg}
-          </MenuButton>
-          <MenuList>
-            <MenuItem onSelect={() => handleColumnChange(undefined)}>
-              {allTableMsg}
-            </MenuItem>
-            {searchBy.map((col) => (
-              <MenuItem
-                key={col.value}
-                onSelect={() => handleColumnChange(col)}
-              >
-                {col.label}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </DropdownMenu>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button
+              color="secondary"
+              mode="outline"
+              data-h2-align-items="base(center)"
+              data-h2-display="base(flex)"
+              data-h2-flex-shrink="base(0)"
+              data-h2-gap="base(x.25, 0)"
+              data-h2-radius="base(s, none, none, s)"
+              data-h2-margin-right="base(0)"
+              style={{ borderRightWidth: 0 }}
+            >
+              <span>{column ? column.label : allTableMsg}</span>
+              <ChevronDownIcon
+                data-h2-height="base(1em)"
+                data-h2-width="base(1em)"
+              />
+            </Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.RadioGroup
+              value={column?.value}
+              onValueChange={handleColumnChange}
+            >
+              <DropdownMenu.RadioItem value="">
+                {allTableMsg}
+              </DropdownMenu.RadioItem>
+              {searchBy.map((col) => (
+                <DropdownMenu.RadioItem key={col.value} value={col.value}>
+                  <DropdownMenu.ItemIndicator>
+                    <CheckIcon />
+                  </DropdownMenu.ItemIndicator>
+                  {col.label}
+                </DropdownMenu.RadioItem>
+              ))}
+            </DropdownMenu.RadioGroup>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
       ) : null}
       <input
         name="search"
