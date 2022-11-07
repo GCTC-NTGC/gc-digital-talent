@@ -11,6 +11,7 @@ import { UserMinusIcon } from "@heroicons/react/24/solid";
 import isEmpty from "lodash/isEmpty";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { refresh } from "@common/helpers/router";
+import { FormProvider, useForm } from "react-hook-form";
 import {
   CreatePoolCandidateAsAdminInput,
   Pool,
@@ -565,6 +566,7 @@ export const AddToPoolDialog: React.FC<{
 }> = ({ user, pools }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const methods = useForm();
 
   const [selectedPool, setSelectedPool] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
@@ -674,114 +676,117 @@ export const AddToPoolDialog: React.FC<{
               "Second section of text on the add user to pool dialog",
           })}
         </p>
-        <div data-h2-margin="base(x.5, 0, x.125, 0)">
-          <InputWrapper
-            inputId="pool"
-            label={intl.formatMessage({
-              defaultMessage: "Pools",
-              id: "aJVlIF",
-              description:
-                "Label displayed on the pools field of the add user to pool dialog",
-            })}
-            required
-          >
-            <select
-              data-h2-radius="base(s)"
-              data-h2-padding="base(x.25)"
-              data-h2-font-size="base(copy)"
-              data-h2-width="base(100%)"
-              id="pool"
-              defaultValue=""
-              onChange={(e) => setSelectedPool(e.target.value)}
+        <FormProvider {...methods}>
+          <div data-h2-margin="base(x.5, 0, x.125, 0)">
+            <InputWrapper
+              inputId="pool"
+              label={intl.formatMessage({
+                defaultMessage: "Pools",
+                id: "aJVlIF",
+                description:
+                  "Label displayed on the pools field of the add user to pool dialog",
+              })}
+              required
             >
-              <option value="" disabled>
-                {intl.formatMessage({
-                  defaultMessage: "Select a pool...",
-                  id: "X198m3",
-                  description:
-                    "Placeholder displayed on the pool field of the add user to pool dialog.",
+              <select
+                data-h2-radius="base(s)"
+                data-h2-padding="base(x.25)"
+                data-h2-font-size="base(copy)"
+                data-h2-width="base(100%)"
+                id="pool"
+                defaultValue=""
+                onChange={(e) => setSelectedPool(e.target.value)}
+              >
+                <option value="" disabled>
+                  {intl.formatMessage({
+                    defaultMessage: "Select a pool...",
+                    id: "X198m3",
+                    description:
+                      "Placeholder displayed on the pool field of the add user to pool dialog.",
+                  })}
+                </option>
+                {pools.map((pool) => {
+                  if (
+                    isEmpty(pool?.name?.[locale]) ||
+                    currentPools.includes(pool.id)
+                  ) {
+                    return null;
+                  }
+                  return (
+                    <option
+                      data-h2-font-family="base(sans)"
+                      key={pool?.id}
+                      value={pool?.id}
+                    >
+                      {pool?.name?.[locale]}
+                    </option>
+                  );
                 })}
-              </option>
-              {pools.map((pool) => {
-                if (
-                  isEmpty(pool?.name?.[locale]) ||
-                  currentPools.includes(pool.id)
-                ) {
-                  return null;
-                }
-                return (
-                  <option
-                    data-h2-font-family="base(sans)"
-                    key={pool?.id}
-                    value={pool?.id}
-                  >
-                    {pool?.name?.[locale]}
-                  </option>
-                );
-              })}
-            </select>
-          </InputWrapper>
-          <div
-            data-h2-display="base(block)"
-            data-h2-margin="base(x.125, 0, 0, 0)"
-          >
-            <InputError
-              isVisible={showPoolErrorMessage}
-              error={intl.formatMessage({
-                defaultMessage: "Please select a pool",
-                id: "uJSvlo",
-                description:
-                  "Error displayed on the add user to pool dialog if no pool selected",
-              })}
-            />
+              </select>
+            </InputWrapper>
+            <div
+              data-h2-display="base(block)"
+              data-h2-margin="base(x.125, 0, 0, 0)"
+            >
+              <InputError
+                isVisible={showPoolErrorMessage}
+                error={intl.formatMessage({
+                  defaultMessage: "Please select a pool",
+                  id: "uJSvlo",
+                  description:
+                    "Error displayed on the add user to pool dialog if no pool selected",
+                })}
+              />
+            </div>
           </div>
-        </div>
-        <p data-h2-margin="base(x1, 0, 0, 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "Set an expiry date for this candidate on this pool:",
-            id: "9NDM+k",
-            description: "Third section of text on the add user to pool dialog",
-          })}
-        </p>
-        <div data-h2-margin="base(x.5, 0, x.125, 0)">
-          <InputWrapper
-            inputId="date"
-            label={intl.formatMessage({
-              defaultMessage: "Expiry date",
-              id: "sICXeM",
+          <p data-h2-margin="base(x1, 0, 0, 0)">
+            {intl.formatMessage({
+              defaultMessage:
+                "Set an expiry date for this candidate on this pool:",
+              id: "9NDM+k",
               description:
-                "Label displayed on the date field of the add user to pool dialog",
+                "Third section of text on the add user to pool dialog",
             })}
-            required
-          >
-            <input
-              data-h2-radius="base(s)"
-              data-h2-padding="base(x.25)"
-              data-h2-width="base(100%)"
-              data-h2-font-size="base(copy)"
-              data-h2-font-family="base(sans)"
-              data-h2-border="base(all, 1px, solid, dark.dt-gray)"
-              id="date"
-              type="date"
-              onChange={(e) => setSelectedDate(e.target.value)}
-            />
-          </InputWrapper>
-          <div
-            data-h2-display="base(block)"
-            data-h2-margin="base(x.125, 0, 0, 0)"
-          >
-            <InputError
-              isVisible={showDateErrorMessage}
-              error={intl.formatMessage({
-                defaultMessage: "Please select an expiry date",
-                id: "k2FnXH",
+          </p>
+          <div data-h2-margin="base(x.5, 0, x.125, 0)">
+            <InputWrapper
+              inputId="date"
+              label={intl.formatMessage({
+                defaultMessage: "Expiry date",
+                id: "sICXeM",
                 description:
-                  "Error displayed on the add user to pool dialog if no date selected",
+                  "Label displayed on the date field of the add user to pool dialog",
               })}
-            />
+              required
+            >
+              <input
+                data-h2-radius="base(s)"
+                data-h2-padding="base(x.25)"
+                data-h2-width="base(100%)"
+                data-h2-font-size="base(copy)"
+                data-h2-font-family="base(sans)"
+                data-h2-border="base(all, 1px, solid, dark.dt-gray)"
+                id="date"
+                type="date"
+                onChange={(e) => setSelectedDate(e.target.value)}
+              />
+            </InputWrapper>
+            <div
+              data-h2-display="base(block)"
+              data-h2-margin="base(x.125, 0, 0, 0)"
+            >
+              <InputError
+                isVisible={showDateErrorMessage}
+                error={intl.formatMessage({
+                  defaultMessage: "Please select an expiry date",
+                  id: "k2FnXH",
+                  description:
+                    "Error displayed on the add user to pool dialog if no date selected",
+                })}
+              />
+            </div>
           </div>
-        </div>
+        </FormProvider>
         <Dialog.Footer>
           <CloseDialogButton />
           <ConfirmDialogButton
