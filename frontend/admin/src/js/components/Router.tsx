@@ -167,40 +167,6 @@ const createRouter = ({ featureFlags }: CreateRouterArgs) =>
               ],
             },
             {
-              path: "classifications",
-              children: [
-                {
-                  index: true,
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <ClassificationPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: "create",
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <CreateClassification />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: ":classificationId",
-                  children: [
-                    {
-                      path: "edit",
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <UpdateClassification />
-                        </RequireAuth>
-                      ),
-                    },
-                  ],
-                },
-              ],
-            },
-            {
               path: "cmo-assets",
               children: [
                 {
@@ -354,6 +320,40 @@ const createRouter = ({ featureFlags }: CreateRouterArgs) =>
             {
               path: "settings",
               children: [
+                {
+                  path: "classifications",
+                  children: [
+                    {
+                      index: true,
+                      element: (
+                        <RequireAuth roles={[Role.Admin]}>
+                          <ClassificationPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "create",
+                      element: (
+                        <RequireAuth roles={[Role.Admin]}>
+                          <CreateClassification />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: ":classificationId",
+                      children: [
+                        {
+                          path: "edit",
+                          element: (
+                            <RequireAuth roles={[Role.Admin]}>
+                              <UpdateClassification />
+                            </RequireAuth>
+                          ),
+                        },
+                      ],
+                    },
+                  ],
+                },
                 {
                   path: "departments",
                   children: [
