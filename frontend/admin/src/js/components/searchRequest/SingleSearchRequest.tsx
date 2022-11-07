@@ -8,16 +8,10 @@ import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstan
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import {
-  ApplicantFilter,
-  PoolCandidateFilter,
-  PoolCandidateFilterInput,
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,
 } from "../../api/generated";
-import {
-  SingleSearchRequestTableApi,
-  checkIsLegacyFilter,
-} from "./SingleSearchRequestTable";
+import { SingleSearchRequestTableApi } from "./SingleSearchRequestTable";
 import { UpdateSearchRequest } from "./UpdateSearchRequest";
 
 const ManagerInfo: React.FunctionComponent<{

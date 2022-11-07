@@ -1,27 +1,25 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { Link, Pill } from "@common/components";
-import { empty, identity, notEmpty } from "@common/helpers/util";
+import { identity, notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import { getFullNameLabel } from "@common/helpers/nameUtils";
-import { omit, pick } from "lodash";
+import omit from "lodash/omit";
+import pick from "lodash/pick";
 import {
   SearchPoolCandidatesQuery,
   useSearchPoolCandidatesQuery,
   PoolCandidateFilterInput,
   ApplicantFilterInput,
-  useSearchApplicantsQuery,
   PoolCandidateFilter,
   ApplicantFilter,
   UserFilterInput,
   IdInput,
-  Maybe,
   Classification,
-  Pool,
-  Skill,
+  ClassificationFilterInput,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -344,36 +342,52 @@ function pickId<T extends IdInput>(x: T): IdInput {
   return pick(x, ["id"]);
 }
 
+function classificationToInput(c: Classification): ClassificationFilterInput {
+  return pick(c, ["group", "level"]);
+}
+
+// Maps each property in ApplicantFilterInput to a function which transforms the matching value from an ApplicantFilter object to the appropriate shape for ApplicantFilterInput.
+type MappingType = {
+  [Property in keyof ApplicantFilterInput]: (
+    x: ApplicantFilter[Property],
+  ) => ApplicantFilterInput[Property];
+};
+
 const transformApplicantFilterToApplicantFilterInput = (
   applicantFilter: ApplicantFilter,
 ): ApplicantFilterInput => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const idInputs = ["pools", "skills"];
-
-  const mapping: Record<keyof ApplicantFilterInput, (x: any) => any> = {
+  // GraphQL will error if an input object includes any unexpected attributes.
+  // Therefore, transforming ApplicantFilter to ApplicantFilterInput requires omitting any fields not included in the Input type.
+  const mapping: MappingType = {
     equity: omitIdAndTypename,
-    expectedClassifications: (c: Classification) => pick(c, ["group", "level"]),
+    expectedClassifications: (classifications) =>
+      classifications?.filter(notEmpty).map(classificationToInput),
     hasDiploma: identity,
     languageAbility: identity,
     locationPreferences: identity,
     operationalRequirements: identity,
-    pools: (x: Array<Maybe<Pool>>) => x.filter(notEmpty).map(pickId),
-    skills: (x: Array<Maybe<Skill>>) => x.filter(notEmpty).map(pickId),
+    pools: (pools) => pools?.filter(notEmpty).map(pickId),
+    skills: (skills) => skills?.filter(notEmpty).map(pickId),
     wouldAcceptTemporary: identity,
   };
 
-  return Object.entries(mapping).reduce(
-    (applicantFilterInput: ApplicantFilterInput, filterEntry) => {
-      const [key, transform] = filterEntry;
-      const originalValue = applicantFilter[key as keyof ApplicantFilterInput];
-      if (notEmpty(originalValue)) {
-        applicantFilterInput[key as keyof ApplicantFilterInput] =
-          transform(originalValue);
-      }
-      return applicantFilterInput;
-    },
-    {},
-  );
+  const emptyFilter: ApplicantFilterInput = {};
+
+  return Object.entries(mapping).reduce((applicantFilterInput, filterEntry) => {
+    const [key, transform] = filterEntry;
+    const typedKey = key as keyof MappingType;
+
+    // There should be way to get the types to work without using "any", but I'm having trouble.
+    // I think its safe to fallback on any here because mapping has just been defined, and we can be confident that key and transform line up correctly.
+
+    // eslint-disable-next-line no-param-reassign
+    applicantFilterInput[typedKey] = transform(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      applicantFilter[typedKey] as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ) as any;
+    return applicantFilterInput;
+  }, emptyFilter);
 };
 
 const transformApplicantFilterToUserFilterInput = (
