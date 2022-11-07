@@ -1,7 +1,5 @@
 import React, { MouseEventHandler } from "react";
-import sanitizeUrl from "../../helpers/sanitizeUrl";
 import Link from "../Link";
-import useLinkClickHandler from "../Link/useLinkClickHandler";
 
 export interface SideMenuItemProps {
   as?: typeof Link | "button";
@@ -22,10 +20,6 @@ const SideMenuItem: React.FC<SideMenuItemProps> = ({
 }) => {
   const El = as;
   const Icon = icon || null;
-  const url = sanitizeUrl(href);
-  const clickHandler = useLinkClickHandler({
-    to: url || "#",
-  });
 
   return (
     <El

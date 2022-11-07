@@ -27,7 +27,6 @@ const CreateApplication = () => {
   const errorToastId = React.useRef<Id>("");
   const paths = useDirectIntakeRoutes();
   const navigate = useNavigate();
-  const redirect = (path: string) => navigate(path, { replace: true });
   const [{ data }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId || "" },
   });
@@ -46,7 +45,7 @@ const CreateApplication = () => {
    */
   const handleError = React.useCallback(
     (msg?: React.ReactNode, path?: string) => {
-      redirect(path || redirectPath);
+      navigate(path || redirectPath, { replace: true });
       /**
        * This is supposed to prevent the toast
        * from firing twice, but it does not appear to
@@ -65,7 +64,7 @@ const CreateApplication = () => {
       }
       return null;
     },
-    [intl, redirectPath, redirect],
+    [intl, redirectPath, navigate],
   );
 
   /**
@@ -101,7 +100,7 @@ const CreateApplication = () => {
             // Redirect user to the application if it exists
             // Toast success or error
             if (!result.error) {
-              redirect(newPath);
+              navigate(newPath, { replace: true });
               toast.success(
                 intl.formatMessage({
                   defaultMessage: "Application created",
@@ -122,7 +121,16 @@ const CreateApplication = () => {
         })
         .catch(handleError);
     }
-  }, [isCreating, userId, poolId, executeMutation, handleError, paths, intl]);
+  }, [
+    isCreating,
+    userId,
+    poolId,
+    executeMutation,
+    handleError,
+    paths,
+    navigate,
+    intl,
+  ]);
 
   React.useEffect(() => {
     createApplication();

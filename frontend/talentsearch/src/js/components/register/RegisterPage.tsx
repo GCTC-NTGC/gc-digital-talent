@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { ExternalLink } from "@common/components/Link";
-import { Link } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";

@@ -1,4 +1,3 @@
-import { OperationResult, UseMutationResponse } from "urql";
 import {
   useCreateAwardExperienceMutation,
   useCreateCommunityExperienceMutation,
@@ -15,9 +14,6 @@ import {
   useDeleteEducationExperienceMutation,
   useDeletePersonalExperienceMutation,
   useDeleteWorkExperienceMutation,
-  DeleteAwardExperienceMutation,
-  Exact,
-  DeleteWorkExperienceMutation,
 } from "../../api/generated";
 import type {
   ExperienceDetailsSubmissionData,

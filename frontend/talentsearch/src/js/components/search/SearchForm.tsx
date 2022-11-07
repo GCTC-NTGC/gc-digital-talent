@@ -64,10 +64,6 @@ export type FormValues = Pick<
   pools?: SimplePool[];
 };
 
-type LocationState = {
-  initialValues: FormValues;
-};
-
 export interface SearchFormProps {
   classifications: SimpleClassification[];
   skills?: Skill[];

@@ -72,11 +72,6 @@ export type FormValues = Pick<
   poolId: string;
 };
 
-type LocationState = {
-  some: {
-    initialValues: FormValues;
-  };
-};
 export interface SearchFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
