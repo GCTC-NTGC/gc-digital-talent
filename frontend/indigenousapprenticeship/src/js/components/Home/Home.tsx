@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Button } from "@common/components";
 import { imageUrl } from "@common/helpers/router";
 
 import Banner from "../Banner/Banner";
@@ -20,7 +19,7 @@ import Triangle from "../Svg/Triangle";
 import useQuote from "../../hooks/useQuote";
 import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../indigenousApprenticeshipConstants";
 
-import { ApplyDialog, LearnDialog, RequirementDialog } from "../Dialog";
+import { ApplyDialog, RequirementDialog } from "../Dialog";
 import CTAButtons from "../CallToAction/CTAButtons";
 
 import "./home.css";
@@ -30,12 +29,6 @@ const mailLink = (chunks: React.ReactNode): React.ReactNode => (
 );
 
 const Home: React.FunctionComponent = () => {
-  const [isApplyDialogOpen, setApplyDialogOpen] =
-    React.useState<boolean>(false);
-  const [isLearnDialogOpen, setLearnDialogOpen] =
-    React.useState<boolean>(false);
-  const [isRequirementDialogOpen, setRequirementDialogOpen] =
-    React.useState<boolean>(false);
   const intl = useIntl();
   const quote = useQuote();
 
@@ -98,18 +91,7 @@ const Home: React.FunctionComponent = () => {
           data-h2-min-width="base(x12)"
           data-h2-order="base(3)"
         >
-          <Button
-            color="ia-primary"
-            mode="solid"
-            onClick={() => setApplyDialogOpen(true)}
-            block
-          >
-            {intl.formatMessage({
-              defaultMessage: "Apply Now",
-              id: "DvmNR7",
-              description: "Button text to apply for program",
-            })}
-          </Button>
+          <ApplyDialog />
         </div>
       </div>
       {/* About section */}
@@ -219,10 +201,7 @@ const Home: React.FunctionComponent = () => {
                     })}
                   </p>
                   <div data-h2-margin="base(x2, 0, 0, 0)">
-                    <CTAButtons
-                      onClickApply={() => setApplyDialogOpen(true)}
-                      onClickLearn={() => setLearnDialogOpen(true)}
-                    />
+                    <CTAButtons />
                   </div>
                 </div>
               </div>
@@ -323,10 +302,7 @@ const Home: React.FunctionComponent = () => {
                   })}
                 </p>
                 <div data-h2-visibility="base(visible) l-tablet(invisible)">
-                  <CTAButtons
-                    onClickApply={() => setApplyDialogOpen(true)}
-                    onClickLearn={() => setLearnDialogOpen(true)}
-                  />
+                  <CTAButtons />
                 </div>
               </div>
             </div>
@@ -430,19 +406,7 @@ const Home: React.FunctionComponent = () => {
                   data-h2-width="p-tablet(50%)"
                   data-h2-position="base(relative)"
                 >
-                  <Button
-                    color="ia-primary"
-                    mode="solid"
-                    onClick={() => setRequirementDialogOpen(true)}
-                    block
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "See Eligibility Criteria",
-                      id: "+do6jV",
-                      description:
-                        "Button text for program eligibility criteria",
-                    })}
-                  </Button>
+                  <RequirementDialog />
                 </div>
               </div>
             </div>
@@ -546,17 +510,7 @@ const Home: React.FunctionComponent = () => {
                       description: "Application box content",
                     })}
                   </p>
-                  <Button
-                    color="ia-primary"
-                    mode="solid"
-                    onClick={() => setApplyDialogOpen(true)}
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Apply Now",
-                      id: "DvmNR7",
-                      description: "Button text to apply for program",
-                    })}
-                  </Button>
+                  <ApplyDialog />
                 </div>
               </div>
             </div>
@@ -919,19 +873,6 @@ const Home: React.FunctionComponent = () => {
           </div>
         </div>
       </div>
-      {/* Dialogs and alerts */}
-      <ApplyDialog
-        isOpen={isApplyDialogOpen}
-        onDismiss={() => setApplyDialogOpen(false)}
-      />
-      <LearnDialog
-        isOpen={isLearnDialogOpen}
-        onDismiss={() => setLearnDialogOpen(false)}
-      />
-      <RequirementDialog
-        isOpen={isRequirementDialogOpen}
-        onDismiss={() => setRequirementDialogOpen(false)}
-      />
     </div>
   );
 };

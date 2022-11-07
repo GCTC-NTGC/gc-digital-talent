@@ -564,9 +564,13 @@
     "defaultMessage": "Portée :",
     "description": "The scope of the award given"
   },
-  "gLioY2": {
+  "OvJwG6": {
     "defaultMessage": "Renseignements supplémentaires : {details}",
     "description": "Additional information if provided"
+  },
+  "+nS/ak": {
+    "defaultMessage": "Renseignements supplémentaires : ",
+    "description": "Additional information if provided (without details)"
   },
   "P/tHlt": {
     "defaultMessage": "Par type",

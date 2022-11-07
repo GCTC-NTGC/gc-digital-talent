@@ -4,13 +4,7 @@ import { PrinterIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
-import {
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-} from "@common/components/Tabs";
+import Tabs from "@common/components/Tabs";
 import { commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
@@ -97,23 +91,27 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
           </div>
         </div>
       </div>
-      <Tabs>
-        <TabList>
+      <Tabs.Root defaultValue="0">
+        <Tabs.List
+          aria-label={intl.formatMessage({
+            defaultMessage: "User Information",
+            id: "mv+9jt",
+            description: "Heading for the user information section",
+          })}
+        >
           {tabs.map((tab, index) => (
-            <Tab key={tab} index={index}>
+            <Tabs.Trigger key={tab} value={`${index}`}>
               {tab}
-            </Tab>
+            </Tabs.Trigger>
           ))}
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            <GeneralInfoTabApi userId={user.id} />
-          </TabPanel>
-          <TabPanel>
-            <UserProfileApi userId={user.id} />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+        </Tabs.List>
+        <Tabs.Content value="0">
+          <GeneralInfoTabApi userId={user.id} />
+        </Tabs.Content>
+        <Tabs.Content value="1">
+          <UserProfileApi userId={user.id} />
+        </Tabs.Content>
+      </Tabs.Root>
     </>
   );
 };

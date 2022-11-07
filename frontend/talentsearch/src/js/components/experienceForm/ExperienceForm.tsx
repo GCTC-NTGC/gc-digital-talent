@@ -77,8 +77,6 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   edit,
   poolAdvertisement,
 }) => {
-  const [isDialogOpen, setDialogOpen] = React.useState<boolean>(false);
-  const cancelDeleteRef = React.useRef(null);
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
@@ -234,22 +232,68 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         </p>
         <TextArea id="details" label={labels.details} name="details" />
         {edit && (
-          <Button
-            onClick={() => setDialogOpen(true)}
-            type="button"
-            mode="outline"
-            color="secondary"
-            data-h2-margin="base(x2, 0, 0, 0)"
-          >
-            <span>
-              <TrashIcon style={{ width: "0.9rem" }} />{" "}
-              {intl.formatMessage({
-                defaultMessage: "Delete experience from My Profile",
-                id: "uqoN4k",
-                description: "Label on button for delete this experience",
-              })}
-            </span>
-          </Button>
+          <AlertDialog.Root>
+            <AlertDialog.Trigger>
+              <Button
+                type="button"
+                mode="outline"
+                color="secondary"
+                data-h2-margin="base(x2, 0, 0, 0)"
+              >
+                <span>
+                  <TrashIcon style={{ width: "0.9rem" }} />{" "}
+                  {intl.formatMessage({
+                    defaultMessage: "Delete experience from My Profile",
+                    id: "uqoN4k",
+                    description: "Label on button for delete this experience",
+                  })}
+                </span>
+              </Button>
+            </AlertDialog.Trigger>
+            <AlertDialog.Content>
+              <AlertDialog.Title>
+                {intl.formatMessage({
+                  defaultMessage: "Are you sure?",
+                  id: "AcsOrg",
+                  description: "Delete confirmation",
+                })}
+              </AlertDialog.Title>
+              <AlertDialog.Description>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Are you sure you would like to delete this experience from your profile? This action cannot be undone.",
+                  id: "IhXvCe",
+                  description:
+                    "Question displayed when a user attempts to delete an experience from their profile",
+                })}
+              </AlertDialog.Description>
+              <AlertDialog.Footer>
+                <AlertDialog.Cancel>
+                  <Button type="button" mode="outline" color="secondary">
+                    {intl.formatMessage({
+                      defaultMessage: "Cancel",
+                      id: "KnE2Rk",
+                      description: "Cancel confirmation",
+                    })}
+                  </Button>
+                </AlertDialog.Cancel>
+                <AlertDialog.Action>
+                  <Button
+                    type="submit"
+                    mode="solid"
+                    color="primary"
+                    onClick={deleteExperience}
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Delete",
+                      id: "sBksyQ",
+                      description: "Delete confirmation",
+                    })}
+                  </Button>
+                </AlertDialog.Action>
+              </AlertDialog.Footer>
+            </AlertDialog.Content>
+          </AlertDialog.Root>
         )}
         <ProfileFormFooter
           mode="bothButtons"
@@ -258,55 +302,6 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           }}
         />
       </BasicForm>
-      <AlertDialog
-        isOpen={isDialogOpen}
-        onDismiss={() => setDialogOpen(false)}
-        leastDestructiveRef={cancelDeleteRef}
-        title={intl.formatMessage({
-          defaultMessage: "Are you sure?",
-          id: "AcsOrg",
-          description: "Delete confirmation",
-        })}
-      >
-        <AlertDialog.Description>
-          {intl.formatMessage({
-            defaultMessage:
-              "Are you sure you would like to delete this experience from your profile? This action cannot be undone.",
-            id: "IhXvCe",
-            description:
-              "Question displayed when a user attempts to delete an experience from their profile",
-          })}
-        </AlertDialog.Description>
-        <AlertDialog.Footer>
-          <Button
-            type="button"
-            mode="outline"
-            color="secondary"
-            ref={cancelDeleteRef}
-            onClick={() => setDialogOpen(false)}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Cancel",
-              id: "KnE2Rk",
-              description: "Cancel confirmation",
-            })}
-          </Button>
-          <span data-h2-margin="base(0, 0, 0, x.125)">
-            <Button
-              type="submit"
-              mode="solid"
-              color="primary"
-              onClick={deleteExperience}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Delete",
-                id: "sBksyQ",
-                description: "Delete confirmation",
-              })}
-            </Button>
-          </span>
-        </AlertDialog.Footer>
-      </AlertDialog>
     </ProfileFormWrapper>
   );
 };

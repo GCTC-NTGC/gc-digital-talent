@@ -7,8 +7,8 @@ import { render, fireEvent, act, screen } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { IntlProvider } from "react-intl";
-import UserTableFilterDialog from "./UserTableFilterDialog";
-import type { UserTableFilterButtonProps } from "./UserTableFilterDialog";
+import UserTableFilters from "./UserTableFilterDialog";
+import type { UserTableFiltersProps } from "./UserTableFilterDialog";
 
 const mockClient = {
   executeQuery: () =>
@@ -52,13 +52,10 @@ const Providers = ({ children }: ProvidersProps) => (
 const mockSubmit = jest.fn();
 
 // Helpers.
-function renderButton(props: Partial<UserTableFilterButtonProps>) {
-  return render(
-    <UserTableFilterDialog.Button {...props} onSubmit={mockSubmit} />,
-    {
-      wrapper: Providers,
-    },
-  );
+function renderButton(props: Partial<UserTableFiltersProps>) {
+  return render(<UserTableFilters {...props} onSubmit={mockSubmit} />, {
+    wrapper: Providers,
+  });
 }
 
 const openDialog = () => {
@@ -215,7 +212,6 @@ describe("UserTableFilterDialog", () => {
       renderButton({ isOpenDefault: true });
       selectFilterOption(/work locations/i, "Atlantic");
       await submitFilters();
-
       openDialog();
       expect(screen.getByText("Atlantic")).toBeVisible();
     });

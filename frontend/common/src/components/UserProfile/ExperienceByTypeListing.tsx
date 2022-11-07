@@ -19,20 +19,14 @@ import {
   isWorkExperience,
 } from "../../types/ExperienceUtils";
 import { AwardExperience, Experience } from "../../api/generated";
+import Accordion from "../Accordion";
 
 const ExperienceByType: React.FunctionComponent<{
   title: string;
   icon: React.ReactNode;
   experiences: Experience[];
   experienceEditPaths?: ExperiencePaths; // If experienceEditPaths is not defined, links to edit experiences will not appear.
-  defaultOpen?: boolean;
-}> = ({
-  title,
-  icon,
-  experiences,
-  experienceEditPaths,
-  defaultOpen = false,
-}) => {
+}> = ({ title, icon, experiences, experienceEditPaths }) => {
   return (
     <div className="experience-category">
       <div
@@ -44,27 +38,27 @@ const ExperienceByType: React.FunctionComponent<{
         <p data-h2-font-size="base(h5, 1)">{title} experiences</p>
       </div>
       <div>
-        {experiences.map((experience) => (
-          <ExperienceAccordion
-            key={experience.id}
-            experience={experience}
-            editPaths={experienceEditPaths}
-            defaultOpen={defaultOpen}
-          />
-        ))}
+        <Accordion.Root type="single" collapsible>
+          {experiences.map((experience) => (
+            <ExperienceAccordion
+              key={experience.id}
+              experience={experience}
+              editPaths={experienceEditPaths}
+            />
+          ))}
+        </Accordion.Root>
       </div>
     </div>
   );
 };
 export interface ExperienceSectionProps {
   experiences?: Experience[];
-  defaultOpen?: boolean;
   editPaths?: ExperiencePaths;
 }
 
 const ExperienceByTypeListing: React.FunctionComponent<
   ExperienceSectionProps
-> = ({ experiences, editPaths, defaultOpen = false }) => {
+> = ({ experiences, editPaths }) => {
   const intl = useIntl();
 
   const awardExperiences =
@@ -98,7 +92,6 @@ const ExperienceByTypeListing: React.FunctionComponent<
           })}
           icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
           experiences={personalExperiences}
-          defaultOpen={defaultOpen}
           experienceEditPaths={editPaths}
         />
       ) : null}
@@ -111,7 +104,6 @@ const ExperienceByTypeListing: React.FunctionComponent<
             })}
             icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
             experiences={communityExperiences}
-            defaultOpen={defaultOpen}
             experienceEditPaths={editPaths}
           />
         </div>
@@ -122,7 +114,6 @@ const ExperienceByTypeListing: React.FunctionComponent<
             title={intl.formatMessage({ defaultMessage: "Work", id: "GcPFLS" })}
             icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
             experiences={workExperiences}
-            defaultOpen={defaultOpen}
             experienceEditPaths={editPaths}
           />
         </div>
@@ -136,7 +127,6 @@ const ExperienceByTypeListing: React.FunctionComponent<
             })}
             icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
             experiences={educationExperiences}
-            defaultOpen={defaultOpen}
             experienceEditPaths={editPaths}
           />
         </div>
@@ -150,7 +140,6 @@ const ExperienceByTypeListing: React.FunctionComponent<
             })}
             icon={<StarIcon style={{ width: "1.5rem" }} />}
             experiences={awardExperiences}
-            defaultOpen={defaultOpen}
             experienceEditPaths={editPaths}
           />
         </div>

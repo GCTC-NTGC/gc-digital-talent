@@ -4,53 +4,63 @@
 import "@testing-library/jest-dom";
 import { fireEvent, screen } from "@testing-library/react";
 import React from "react";
-import { act } from "react-dom/test-utils";
-import { render } from "../../helpers/testUtils";
-import AlertDialog from "./AlertDialog";
-import type { AlertDialogProps } from "./AlertDialog";
 
-type TestProps = Omit<AlertDialogProps, "leastDestructiveRef" | "onDismiss"> & {
-  actions: React.ReactNode;
-  onDismiss?: () => void;
-};
+import { render, axeTest } from "../../helpers/testUtils";
 
-const defaultProps: TestProps = {
-  isOpen: true,
-  title: "title",
-  children: null,
-  actions: null,
-};
+import AlertDialog from ".";
+import Button from "../Button";
 
-const TestingAlertDialog = ({ children, isOpen, ...rest }: TestProps) => {
-  const ref = React.useRef(null);
-  const [isDialogOpen, setIsOpen] = React.useState<boolean>(isOpen);
-
-  return (
-    <AlertDialog
-      leastDestructiveRef={ref}
-      isOpen={isDialogOpen}
-      onDismiss={() => setIsOpen(false)}
-      {...rest}
-    >
-      <AlertDialog.Description>{children}</AlertDialog.Description>
+type AlertDialogRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
+  typeof AlertDialog.Root
+>;
+const DefaultChildren = () => (
+  <>
+    <AlertDialog.Trigger>
+      <Button>Open Alert Dialog</Button>
+    </AlertDialog.Trigger>
+    <AlertDialog.Content>
+      <AlertDialog.Title>Alert Dialog Title</AlertDialog.Title>
+      <AlertDialog.Description>
+        Alert Dialog Description
+      </AlertDialog.Description>
       <AlertDialog.Footer>
-        <button type="button" ref={ref}>
-          Cancel
-        </button>
+        <AlertDialog.Cancel>
+          <Button color="white">Cancel</Button>
+        </AlertDialog.Cancel>
+        <AlertDialog.Action>
+          <Button color="cta">Action</Button>
+        </AlertDialog.Action>
       </AlertDialog.Footer>
-    </AlertDialog>
-  );
-};
+    </AlertDialog.Content>
+  </>
+);
 
-const renderAlertDialog = (props: TestProps) => {
-  return render(<TestingAlertDialog {...props} />);
+const renderAlertDialog = ({
+  children,
+  ...rest
+}: AlertDialogRootPrimitivePropsWithoutRef) => {
+  return render(<AlertDialog.Root {...rest}>{children}</AlertDialog.Root>);
 };
 
 describe("AlertDialog", () => {
-  it("should not render if closed", () => {
+  it("should not have accessibility errors when closed", async () => {
+    const { container } = renderAlertDialog({
+      children: <DefaultChildren />,
+    });
+    await axeTest(container);
+  });
+
+  it("should not have accessibility errors when open", async () => {
+    const { container } = renderAlertDialog({
+      children: <DefaultChildren />,
+      defaultOpen: true,
+    });
+    await axeTest(container);
+  });
+
+  it("should not render when closed", () => {
     renderAlertDialog({
-      ...defaultProps,
-      isOpen: false,
+      children: <DefaultChildren />,
     });
 
     expect(
@@ -58,25 +68,40 @@ describe("AlertDialog", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("should render if open", () => {
-    renderAlertDialog(defaultProps);
+  it("should render when opened", async () => {
+    renderAlertDialog({
+      children: <DefaultChildren />,
+    });
+
+    fireEvent.click(
+      await screen.getByRole("button", { name: /open alert dialog/i }),
+    );
 
     expect(
       screen.queryByRole("alertdialog", { name: /title/i }),
     ).toBeInTheDocument();
   });
 
-  it("should close on ESC press", () => {
-    renderAlertDialog(defaultProps);
-
-    act(() => {
-      fireEvent.keyDown(screen.getByRole("alertdialog", { name: /title/i }), {
-        key: "Escape",
-        code: "Escape",
-        keyCode: 27,
-        charCode: 27,
-      });
+  it("should close when action taken", async () => {
+    renderAlertDialog({
+      children: <DefaultChildren />,
+      defaultOpen: true,
     });
+
+    fireEvent.click(await screen.getByRole("button", { name: /action/i }));
+
+    expect(
+      screen.queryByRole("alertdialog", { name: /title/i }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("should close when cancelled", async () => {
+    renderAlertDialog({
+      children: <DefaultChildren />,
+      defaultOpen: true,
+    });
+
+    fireEvent.click(await screen.getByRole("button", { name: /cancel/i }));
 
     expect(
       screen.queryByRole("alertdialog", { name: /title/i }),

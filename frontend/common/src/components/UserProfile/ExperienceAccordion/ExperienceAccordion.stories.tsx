@@ -1,5 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
+import Accordion from "../../Accordion";
 import { generators } from "../../../fakeData/fakeExperiences";
 import { Applicant } from "../../../api/generated";
 import ExperienceAccordion, { AccordionProps } from "./ExperienceAccordion";
@@ -15,7 +16,11 @@ export default {
 } as Meta;
 
 const AccordionTemplate: Story<AccordionProps> = (args) => {
-  return <ExperienceAccordion {...args} />;
+  return (
+    <Accordion.Root type="single">
+      <ExperienceAccordion {...args} />
+    </Accordion.Root>
+  );
 };
 
 const editPaths = {

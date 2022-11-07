@@ -1,52 +1,22 @@
 import React from "react";
 
-import { Button } from "@common/components";
-import { useIntl } from "react-intl";
+import { ApplyDialog, LearnDialog } from "../Dialog";
 
-interface CTAButtonsProps {
-  onClickApply?: () => void;
-  onClickLearn?: () => void;
-}
-
-const CTAButtons: React.FC<CTAButtonsProps> = ({
-  onClickApply,
-  onClickLearn,
-}) => {
-  const intl = useIntl();
-
-  return (
-    <div data-h2-display="p-tablet(flex)">
-      <div
-        data-h2-width="p-tablet(50%)"
-        data-h2-margin="base(0, 0, x1, 0) p-tablet(0, x.5, x1, 0)"
-      >
-        <Button color="ia-primary" mode="solid" onClick={onClickApply} block>
-          {intl.formatMessage({
-            defaultMessage: "Apply Now",
-            id: "DvmNR7",
-            description: "Button text to apply for program",
-          })}
-        </Button>
-      </div>
-      <div
-        data-h2-width="p-tablet(50%)"
-        data-h2-margin="base(0, 0, x1, 0) p-tablet(0, 0, x1, x.5)"
-      >
-        <Button
-          color="ia-secondary"
-          mode="outline"
-          onClick={onClickLearn}
-          block
-        >
-          {intl.formatMessage({
-            defaultMessage: "Learn More",
-            id: "CY+493",
-            description: "Button text to learn more about the program",
-          })}
-        </Button>
-      </div>
+const CTAButtons = () => (
+  <div data-h2-display="p-tablet(flex)">
+    <div
+      data-h2-width="p-tablet(50%)"
+      data-h2-margin="base(0, 0, x1, 0) p-tablet(0, x.5, x1, 0)"
+    >
+      <ApplyDialog btnProps={{ block: true }} />
     </div>
-  );
-};
+    <div
+      data-h2-width="p-tablet(50%)"
+      data-h2-margin="base(0, 0, x1, 0) p-tablet(0, 0, x1, x.5)"
+    >
+      <LearnDialog btnProps={{ block: true }} />
+    </div>
+  </div>
+);
 
 export default CTAButtons;

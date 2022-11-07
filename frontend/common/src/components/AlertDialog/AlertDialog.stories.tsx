@@ -1,96 +1,70 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
-import AlertDialog from "./AlertDialog";
-import type { AlertDialogProps } from "./AlertDialog";
+import type { ComponentStory, ComponentMeta } from "@storybook/react";
+
 import OverlayOrDialogDecorator from "../../../.storybook/decorators/OverlayOrDialogDecorator";
 
 import Button from "../Button";
 
+import AlertDialogDocs from "./AlertDialog.docs.mdx";
+import AlertDialog from ".";
+
 export default {
-  component: AlertDialog,
+  component: AlertDialog.Root,
   title: "Components/Alert Dialog",
-  decorators: [OverlayOrDialogDecorator],
-  args: {
-    title: "Alert Dialog",
-    description: null,
-  },
-  argTypes: {
-    title: {
-      name: "title",
-      type: { name: "string", required: true },
-      control: {
-        type: "text",
-      },
-    },
-    description: {
-      name: "description",
-      type: { name: "string", required: false },
-      control: {
-        type: "text",
-      },
+  parameters: {
+    docs: {
+      page: AlertDialogDocs,
     },
   },
-} as Meta;
+} as ComponentMeta<typeof AlertDialog.Root>;
 
-interface StoryArgs {
-  title: AlertDialogProps["title"];
-  description?: string;
-}
-
-const Template: Story<StoryArgs> = (args) => {
-  const leastDestructiveRef = React.useRef(null);
-  const [isOpen, setOpen] = React.useState<boolean>(true);
-
-  const { title, description } = args;
-
-  const open = () => {
-    setOpen(true);
-  };
-
-  const close = () => {
-    setOpen(false);
-  };
-
+const Template: ComponentStory<typeof AlertDialog.Root> = ({ defaultOpen }) => {
+  const [container, setContainer] = React.useState<HTMLElement | null>(null);
   return (
-    <div style={{ width: "100%", height: "100vh" }}>
-      <Button color="primary" mode="solid" onClick={open}>
-        Open Alert Dialog
-      </Button>
-      {isOpen && (
-        <AlertDialog
-          isOpen={isOpen}
-          onDismiss={close}
-          title={title}
-          leastDestructiveRef={leastDestructiveRef}
-        >
-          {description && (
-            <AlertDialog.Description>{description}</AlertDialog.Description>
-          )}
+    <>
+      <AlertDialog.Root defaultOpen={defaultOpen}>
+        <AlertDialog.Trigger>
+          <Button>Open Alert Dialog</Button>
+        </AlertDialog.Trigger>
+        <AlertDialog.Content container={container || undefined}>
+          <AlertDialog.Title>Example Alert Dialog</AlertDialog.Title>
+          <AlertDialog.Description>
+            <p>
+              An alert dialog is a modal dialog that interrupts the user&apos;s
+              workflow to communicate an important message and acquire a
+              response. Examples include action confirmation prompts and error
+              message confirmations.
+            </p>
+          </AlertDialog.Description>
           <AlertDialog.Footer>
-            <Button
-              mode="outline"
-              color="black"
-              ref={leastDestructiveRef}
-              onClick={close}
-            >
-              Cancel
-            </Button>
-            <div data-h2-margin="base(0, 0, 0, x.5)">
-              <Button mode="solid" color="primary" onClick={close}>
-                Confirm
-              </Button>
-            </div>
+            <AlertDialog.Cancel>
+              <Button color="white">Cancel</Button>
+            </AlertDialog.Cancel>
+            <AlertDialog.Action>
+              <Button color="cta">Action</Button>
+            </AlertDialog.Action>
           </AlertDialog.Footer>
-        </AlertDialog>
-      )}
-    </div>
+        </AlertDialog.Content>
+      </AlertDialog.Root>
+      <div ref={setContainer} />
+    </>
   );
 };
 
-export const BasicAlertDialog = Template.bind({});
-export const DescriptionAlertDialog = Template.bind({});
+export const Default = Template.bind({});
+Default.decorators = [OverlayOrDialogDecorator];
+Default.args = {
+  defaultOpen: true,
+};
 
-DescriptionAlertDialog.args = {
-  title: "Description Alert Dialog",
-  description: "Are you sure you would like to read this alert?",
+export const NotOpen = Template.bind({});
+NotOpen.decorators = [
+  (Story) => (
+    <div style={{ width: "100%", height: "auto", margin: "1rem 0" }}>
+      <Story />
+    </div>
+  ),
+];
+NotOpen.args = {
+  defaultOpen: false,
 };
