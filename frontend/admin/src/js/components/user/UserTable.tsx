@@ -367,8 +367,8 @@ export const UserTable: React.FC = () => {
           )
         }
         hiddenColumnIds={hiddenColumnIds}
-        filterButtonComponent={
-          <UserTableFilterDialog.Button onSubmit={handleFilterSubmit} />
+        filterComponent={
+          <UserTableFilterDialog onSubmit={handleFilterSubmit} />
         }
       />
       <div data-h2-radius="base(s)">

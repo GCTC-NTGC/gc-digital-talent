@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
-import React, { HTMLAttributes, ReactElement, useState } from "react";
+import React, { HTMLAttributes, ReactElement } from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -117,7 +117,6 @@ function Table<T extends Record<string, unknown>>({
     usePagination,
   );
 
-  const [showList, setShowList] = useState(false);
   const intl = useIntl();
   const methods = useForm();
 
@@ -137,70 +136,70 @@ function Table<T extends Record<string, unknown>>({
                 )}
                 {filterColumns && (
                   <div data-h2-flex-item="base(content)">
-                    <Button
-                      mode="solid"
-                      color="secondary"
-                      type="button"
-                      data-h2-display="base(inline-flex)"
-                      data-h2-align-items="base(center)"
-                      onClick={() => setShowList(!showList)}
-                    >
-                      <ButtonIcon icon={TableCellsIcon} />
-                      <span>
-                        {intl.formatMessage({
-                          defaultMessage: "Columns",
-                          id: "xcBl1q",
-                          description:
-                            "Label displayed on the Table Columns toggle button.",
-                        })}
-                      </span>
-                    </Button>
-                    <Dialog
-                      color="ts-primary"
-                      isOpen={showList}
-                      onDismiss={() => setShowList(false)}
-                      title={intl.formatMessage({
-                        defaultMessage: "Table columns",
-                        id: "YH6bFU",
-                        description:
-                          "Dialog title for the admin tables columns toggle.",
-                      })}
-                    >
-                      <FormProvider {...methods}>
-                        <Fieldset
-                          legend={intl.formatMessage({
-                            defaultMessage: "Visible columns",
-                            id: "H9rxOR",
-                            description:
-                              "Legend for the column toggle in admin tables.",
-                          })}
-                          trackUnsaved={false}
+                    <Dialog.Root>
+                      <Dialog.Trigger>
+                        <Button
+                          mode="solid"
+                          color="secondary"
+                          type="button"
+                          data-h2-display="base(inline-flex)"
+                          data-h2-align-items="base(center)"
                         >
-                          <div data-h2-margin="base(x.125, 0)">
-                            <IndeterminateCheckbox
-                              {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                                typeof IndeterminateCheckbox
-                              >)}
-                            />
-                          </div>
-                          {allColumns.map((column) => (
-                            <div
-                              key={column.id}
-                              data-h2-margin="base(x.125, 0)"
-                            >
-                              <label htmlFor={column.Header?.toString()}>
-                                <input
-                                  id={column.Header?.toString()}
-                                  type="checkbox"
-                                  {...column.getToggleHiddenProps()}
-                                />{" "}
-                                {column.Header}
-                              </label>
+                          <ButtonIcon icon={TableCellsIcon} />
+                          <span>
+                            {intl.formatMessage({
+                              defaultMessage: "Columns",
+                              id: "xcBl1q",
+                              description:
+                                "Label displayed on the Table Columns toggle button.",
+                            })}
+                          </span>
+                        </Button>
+                      </Dialog.Trigger>
+                      <Dialog.Content>
+                        <Dialog.Header color="ts-primary">
+                          {intl.formatMessage({
+                            defaultMessage: "Table columns",
+                            id: "YH6bFU",
+                            description:
+                              "Dialog title for the admin tables columns toggle.",
+                          })}
+                        </Dialog.Header>
+                        <FormProvider {...methods}>
+                          <Fieldset
+                            legend={intl.formatMessage({
+                              defaultMessage: "Visible columns",
+                              id: "H9rxOR",
+                              description:
+                                "Legend for the column toggle in admin tables.",
+                            })}
+                          >
+                            <div data-h2-margin="base(x.125, 0)">
+                              <IndeterminateCheckbox
+                                {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                                  typeof IndeterminateCheckbox
+                                >)}
+                              />
                             </div>
-                          ))}
-                        </Fieldset>
-                      </FormProvider>
-                    </Dialog>
+                            {allColumns.map((column) => (
+                              <div
+                                key={column.id}
+                                data-h2-margin="base(x.125, 0)"
+                              >
+                                <label htmlFor={column.Header?.toString()}>
+                                  <input
+                                    id={column.Header?.toString()}
+                                    type="checkbox"
+                                    {...column.getToggleHiddenProps()}
+                                  />{" "}
+                                  {column.Header}
+                                </label>
+                              </div>
+                            ))}
+                          </Fieldset>
+                        </FormProvider>
+                      </Dialog.Content>
+                    </Dialog.Root>
                   </div>
                 )}
               </div>

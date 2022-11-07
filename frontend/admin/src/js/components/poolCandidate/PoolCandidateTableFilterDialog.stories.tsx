@@ -13,8 +13,8 @@ import PoolCandidateTableFilterDialog from "./PoolCandidateTableFilterDialog";
 import type { FormValues } from "./PoolCandidateTableFilterDialog";
 
 export default {
-  title: "PoolCandidates/PoolCandidateTableFilterDialog.Button",
-  component: PoolCandidateTableFilterDialog.Button,
+  title: "PoolCandidates/PoolCandidateTableFilterDialog",
+  component: PoolCandidateTableFilterDialog,
   decorators: [OverlayOrDialogDecorator],
   args: {
     isOpenDefault: true,
@@ -31,18 +31,16 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof PoolCandidateTableFilterDialog.Button>;
+} as ComponentMeta<typeof PoolCandidateTableFilterDialog>;
 
-const Template: ComponentStory<typeof PoolCandidateTableFilterDialog.Button> = (
+const Template: ComponentStory<typeof PoolCandidateTableFilterDialog> = (
   args,
 ) => {
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
     action("Update filter")(data);
   };
 
-  return (
-    <PoolCandidateTableFilterDialog.Button {...args} onSubmit={handleSubmit} />
-  );
+  return <PoolCandidateTableFilterDialog {...args} onSubmit={handleSubmit} />;
 };
 
 export const Default = Template.bind({});

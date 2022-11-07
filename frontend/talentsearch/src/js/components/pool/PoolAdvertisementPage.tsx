@@ -26,7 +26,7 @@ import {
   CpuChipIcon,
   CloudIcon,
 } from "@heroicons/react/24/outline";
-import Accordion from "@common/components/accordion";
+import Accordion from "@common/components/Accordion";
 import {
   getLanguageRequirement,
   getSecurityClearance,
@@ -299,52 +299,62 @@ const PoolAdvertisement = ({
             <TableOfContents.Heading>
               {sections.about.title}
             </TableOfContents.Heading>
-            <Accordion
-              title={intl.formatMessage({
-                defaultMessage: "What are pool recruitments?",
-                id: "asP33b",
-                description:
-                  "Title for according describing pool recruitment's",
-              })}
-            >
-              <Text>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
-                  id: "kH4Jsf",
-                  description: "Description of pool recruitment, paragraph one",
-                })}
-              </Text>
-              <Text>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "When hiring managers have IT staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
-                  id: "m5hjaz",
-                  description: "Description of pool recruitment, paragraph two",
-                })}
-              </Text>
-            </Accordion>
-            {genericTitle?.key && (
-              <Accordion
-                title={intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "What does {classification}{genericTitle} mean?",
-                    id: "gpuTAV",
+            <Accordion.Root type="single" collapsible>
+              <Accordion.Item value="when">
+                <Accordion.Trigger>
+                  {intl.formatMessage({
+                    defaultMessage: "What are pool recruitments?",
+                    id: "asP33b",
                     description:
-                      "Title for description of a pool advertisements classification group/level",
-                  },
-                  {
-                    classification: classificationSuffix,
-                    genericTitle: genericTitle?.name
-                      ? ` ${genericTitle.name[locale]}`
-                      : ``,
-                  },
-                )}
-              >
-                <ClassificationDefinition name={genericTitle.key} />
-              </Accordion>
-            )}
+                      "Title for according describing pool recruitment's",
+                  })}
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <Text>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
+                      id: "kH4Jsf",
+                      description:
+                        "Description of pool recruitment, paragraph one",
+                    })}
+                  </Text>
+                  <Text>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "When hiring managers have IT staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
+                      id: "m5hjaz",
+                      description:
+                        "Description of pool recruitment, paragraph two",
+                    })}
+                  </Text>
+                </Accordion.Content>
+              </Accordion.Item>
+              {genericTitle?.key && (
+                <Accordion.Item value="what">
+                  <Accordion.Trigger>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "What does {classification}{genericTitle} mean?",
+                        id: "gpuTAV",
+                        description:
+                          "Title for description of a pool advertisements classification group/level",
+                      },
+                      {
+                        classification: classificationSuffix,
+                        genericTitle: genericTitle?.name
+                          ? ` ${genericTitle.name[locale]}`
+                          : ``,
+                      },
+                    )}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <ClassificationDefinition name={genericTitle.key} />
+                  </Accordion.Content>
+                </Accordion.Item>
+              )}
+            </Accordion.Root>
             {poolAdvertisement.yourImpact ? (
               <>
                 <IconTitle icon={BoltIcon}>
@@ -395,13 +405,20 @@ const PoolAdvertisement = ({
                       "Explanation of a pools required occupational skills",
                   })}
                 </Text>
-                {essentialSkills[SkillCategory.Technical]?.map((skill) => (
-                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <Text>
-                      {skill.description ? skill.description[locale] : ""}
-                    </Text>
-                  </Accordion>
-                ))}
+                <Accordion.Root type="multiple">
+                  {essentialSkills[SkillCategory.Technical]?.map((skill) => (
+                    <Accordion.Item value={skill.id} key={skill.id}>
+                      <Accordion.Trigger>
+                        {skill.name[locale] || ""}
+                      </Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>
+                          {skill.description ? skill.description[locale] : ""}
+                        </Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  ))}
+                </Accordion.Root>
               </>
             ) : null}
             {essentialSkills[SkillCategory.Behavioural]?.length ? (
@@ -423,13 +440,20 @@ const PoolAdvertisement = ({
                       "Explanation of a pools required transferrable skills",
                   })}
                 </Text>
-                {essentialSkills[SkillCategory.Behavioural]?.map((skill) => (
-                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <Text>
-                      {skill.description ? skill.description[locale] : ""}
-                    </Text>
-                  </Accordion>
-                ))}
+                <Accordion.Root type="multiple">
+                  {essentialSkills[SkillCategory.Behavioural]?.map((skill) => (
+                    <Accordion.Item value={skill.id} key={skill.id}>
+                      <Accordion.Trigger>
+                        {skill.name[locale] || ""}
+                      </Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>
+                          {skill.description ? skill.description[locale] : ""}
+                        </Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  ))}
+                </Accordion.Root>
               </>
             ) : null}
           </TableOfContents.Section>
@@ -456,13 +480,20 @@ const PoolAdvertisement = ({
                       "Explanation of a pools optional transferrable skills",
                   })}
                 </Text>
-                {nonEssentialSkills[SkillCategory.Technical]?.map((skill) => (
-                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <Text>
-                      {skill.description ? skill.description[locale] : ""}
-                    </Text>
-                  </Accordion>
-                ))}
+                <Accordion.Root type="single" collapsible>
+                  {nonEssentialSkills[SkillCategory.Technical]?.map((skill) => (
+                    <Accordion.Item value={skill.id} key={skill.id}>
+                      <Accordion.Trigger>
+                        {skill.name[locale] || ""}
+                      </Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>
+                          {skill.description ? skill.description[locale] : ""}
+                        </Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  ))}
+                </Accordion.Root>
               </>
             ) : null}
             {nonEssentialSkills[SkillCategory.Behavioural]?.length ? (
@@ -475,13 +506,22 @@ const PoolAdvertisement = ({
                       "Title for transferrable skills on a pool advertisement",
                   })}
                 </IconTitle>
-                {nonEssentialSkills[SkillCategory.Behavioural]?.map((skill) => (
-                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <Text>
-                      {skill.description ? skill.description[locale] : ""}
-                    </Text>
-                  </Accordion>
-                ))}
+                <Accordion.Root type="single" collapsible>
+                  {nonEssentialSkills[SkillCategory.Behavioural]?.map(
+                    (skill) => (
+                      <Accordion.Item value={skill.id} key={skill.id}>
+                        <Accordion.Trigger>
+                          {skill.name[locale] || ""}
+                        </Accordion.Trigger>
+                        <Accordion.Content>
+                          <Text>
+                            {skill.description ? skill.description[locale] : ""}
+                          </Text>
+                        </Accordion.Content>
+                      </Accordion.Item>
+                    ),
+                  )}
+                </Accordion.Root>
               </>
             ) : null}
           </TableOfContents.Section>

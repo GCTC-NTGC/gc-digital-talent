@@ -1336,14 +1336,6 @@
     "defaultMessage": "Architecture intégrée de la TI ",
     "description": "work stream example"
   },
-  "omBOZT": {
-    "defaultMessage": "Mon expérience et mes compétences",
-    "description": "Title for the experience profile form"
-  },
-  "pFRKUT": {
-    "defaultMessage": "Voici où vous pouvez ajouter de l'expérience et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
-    "description": "Description for the experience profile form"
-  },
   "pGTTrp": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Display Text for Diversity, equity and inclusion Page"
@@ -2420,6 +2412,26 @@
     "defaultMessage": "À venir",
     "description": "Text displayed for executive jobs on homepage, indicating it is not ready"
   },
+  "7X5cnb": {
+    "defaultMessage": "Modifier le prix",
+    "description": "Page title for the award profile form"
+  },
+  "LN0Wag": {
+    "defaultMessage": "Modifier l’expérience de la collectivité",
+    "description": "Page title for the community experience profile form"
+  },
+  "7DtNMY": {
+    "defaultMessage": "Modifier l’expérience en matière de scolarité",
+    "description": "Page title for the education experience profile form"
+  },
+  "96GHnx": {
+    "defaultMessage": "Modifier l’expérience personnelle",
+    "description": "Page title for the personal experience profile form"
+  },
+  "Ytlyzb": {
+    "defaultMessage": "Modifier l’expérience de travail",
+    "description": "Page title for the work experience profile form"
+  },
   "+6QgII": {
     "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
     "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
@@ -2619,6 +2631,10 @@
   "ywkgJx": {
     "defaultMessage": "Détails",
     "description": "Support form details field label"
+  },
+  "S/n44h": {
+    "defaultMessage": "Sélectionner...",
+    "description": "Support form subject field default placeholder shown when field has nothing actively selected"
   },
   "07BM9O": {
     "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",

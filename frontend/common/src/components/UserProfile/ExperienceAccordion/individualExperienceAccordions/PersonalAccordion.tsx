@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
-import Accordion from "../../../accordion/Accordion";
+import Accordion from "../../../Accordion";
 import { Link } from "../../..";
 import { getLocale } from "../../../../helpers/localize";
 import { getDateRange } from "../../../../helpers/dateUtils";
@@ -9,10 +9,10 @@ import { PersonalExperience } from "../../../../api/generated";
 
 type PersonalAccordionProps = PersonalExperience & {
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
-  defaultOpen?: boolean;
 };
 
 const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
+  id,
   title,
   startDate,
   endDate,
@@ -20,7 +20,6 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
   description,
   skills,
   editUrl,
-  defaultOpen = false,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -54,87 +53,88 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
     : "";
 
   return (
-    <Accordion
-      title={title || ""}
-      subtitle={getDateRange({ endDate, startDate, intl, locale })}
-      context={
-        skills?.length === 1
-          ? intl.formatMessage({
-              defaultMessage: "1 Skill",
-              id: "A2KwTw",
-              description: "Pluralization for one skill",
-            })
-          : intl.formatMessage(
-              {
-                defaultMessage: "{skillsLength} Skills",
-                id: "l27ekQ",
-                description: "Pluralization for zero or multiple skills",
-              },
-              { skillsLength: skills?.length },
-            )
-      }
-      Icon={LightBulbIcon}
-      defaultOpen={defaultOpen}
-    >
-      <p>{description}</p>
-      <hr
-        data-h2-background-color="base(dt-gray)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
-      />
-      {skillsList?.length > 0 ? (
-        skillsList
-      ) : (
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "No skills have been linked to this experience yet.",
-            id: "c4r/Zv",
-            description:
-              "A message explaining that the experience has no associated skills",
-          })}
-        </p>
-      )}
-      <hr
-        data-h2-background-color="base(dt-gray)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
-      />
-      <p
-        data-h2-color="base(dt-primary)"
-        data-h2-font-weight="base(700)"
-        data-h2-margin="base(x1, 0, x.25, 0)"
+    <Accordion.Item value={id}>
+      <Accordion.Trigger
+        subtitle={getDateRange({ endDate, startDate, intl, locale })}
+        context={
+          skills?.length === 1
+            ? intl.formatMessage({
+                defaultMessage: "1 Skill",
+                id: "A2KwTw",
+                description: "Pluralization for one skill",
+              })
+            : intl.formatMessage(
+                {
+                  defaultMessage: "{skillsLength} Skills",
+                  id: "l27ekQ",
+                  description: "Pluralization for zero or multiple skills",
+                },
+                { skillsLength: skills?.length },
+              )
+        }
+        Icon={LightBulbIcon}
       >
-        {intl.formatMessage({
-          defaultMessage: "Additional information:",
-          id: "gLioY2",
-          description: "Additional information if provided",
-        })}
-      </p>
-      <p>{details}</p>
-      {editUrl && (
-        <div>
-          <hr
-            data-h2-background-color="base(dt-gray)"
-            data-h2-height="base(1px)"
-            data-h2-width="base(100%)"
-            data-h2-border="base(none)"
-            data-h2-margin="base(x1, 0)"
-          />
-          <Link href={editUrl} color="primary" mode="outline" type="button">
+        {title || ""}
+      </Accordion.Trigger>
+      <Accordion.Content>
+        <p>{description}</p>
+        <hr
+          data-h2-background-color="base(dt-gray)"
+          data-h2-height="base(1px)"
+          data-h2-width="base(100%)"
+          data-h2-border="base(none)"
+          data-h2-margin="base(x1, 0)"
+        />
+        {skillsList?.length > 0 ? (
+          skillsList
+        ) : (
+          <p>
             {intl.formatMessage({
-              defaultMessage: "Edit Experience",
-              id: "phbDSx",
-              description: "Edit Experience button label",
+              defaultMessage:
+                "No skills have been linked to this experience yet.",
+              id: "c4r/Zv",
+              description:
+                "A message explaining that the experience has no associated skills",
             })}
-          </Link>
-        </div>
-      )}
-    </Accordion>
+          </p>
+        )}
+        <hr
+          data-h2-background-color="base(dt-gray)"
+          data-h2-height="base(1px)"
+          data-h2-width="base(100%)"
+          data-h2-border="base(none)"
+          data-h2-margin="base(x1, 0)"
+        />
+        <p>
+          {intl.formatMessage(
+            {
+              defaultMessage: "Additional information: {details}",
+              id: "OvJwG6",
+              description: "Additional information if provided",
+            },
+            { details },
+          )}
+        </p>
+        {editUrl && (
+          <div>
+            <hr
+              data-h2-background-color="base(dt-gray)"
+              data-h2-height="base(1px)"
+              data-h2-width="base(100%)"
+              data-h2-border="base(none)"
+              data-h2-margin="base(x1, 0)"
+            />
+            <Link href={editUrl} color="primary" mode="outline" type="button">
+              {intl.formatMessage({
+                defaultMessage: "Edit Experience",
+                id: "phbDSx",
+                description: "Edit Experience button label",
+              })}
+            </Link>
+          </div>
+        )}
+      </Accordion.Content>
+    </Accordion.Item>
   );
 };
 

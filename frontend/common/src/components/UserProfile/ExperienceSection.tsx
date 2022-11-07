@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "../Tabs";
+import Accordion from "../Accordion";
+import Tabs from "../Tabs";
 import { invertSkillExperienceTree } from "../../helpers/skillUtils";
 import ExperienceAccordion, {
   ExperiencePaths,
@@ -20,7 +21,7 @@ import ExperienceByTypeListing from "./ExperienceByTypeListing";
 
 export interface ExperienceSectionProps {
   experiences?: Experience[];
-  experienceEditPaths?: ExperiencePaths; // If experienceEditPaths is not defined, links to edit experiences will not appear.
+  experienceEditPaths?: ExperiencePaths; //  If experienceEditPaths is not defined, links to edit experiences will not appear.
   editPath?: string;
 }
 
@@ -93,12 +94,12 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
   );
   const skillIds = allSkills.map(({ id }) => id);
   const sortedBySkills = allSkills
-    .filter(({ id }, index) => !skillIds.includes(id, index + 1)) // Remove duplicate skills
+    .filter(({ id }, index) => !skillIds.includes(id, index + 1)) //  Remove duplicate skills
     .sort((skill1, skill2) => {
       const skill1Name: string = skill1.name[locale] || "";
       const skill2Name: string = skill2.name[locale] || "";
       return skill1Name.localeCompare(skill2Name);
-    }); // Sort skills alphabetically
+    }); //  Sort skills alphabetically
 
   let isExperience = false;
   if (allExperiences.length >= 1) {
@@ -127,16 +128,16 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
   ];
 
   return isExperience ? (
-    <Tabs>
-      <TabList>
+    <Tabs.Root defaultValue="0">
+      <Tabs.List>
         {tabs.map((tab, index) => (
-          <Tab key={tab} index={index}>
+          <Tabs.Trigger key={tab} value={`${index}`}>
             {tab}
-          </Tab>
+          </Tabs.Trigger>
         ))}
-      </TabList>
-      <TabPanels>
-        <TabPanel>
+      </Tabs.List>
+      <Tabs.Content value="0">
+        <Accordion.Root type="single" collapsible>
           {sortedByDate.map((experience) => (
             <ExperienceAccordion
               key={experience.id}
@@ -144,20 +145,22 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
               editPaths={experienceEditPaths}
             />
           ))}
-        </TabPanel>
-        <TabPanel>
-          <ExperienceByTypeListing
-            experiences={experiences}
-            editPaths={experienceEditPaths}
-          />
-        </TabPanel>
-        <TabPanel>
+        </Accordion.Root>
+      </Tabs.Content>
+      <Tabs.Content value="1">
+        <ExperienceByTypeListing
+          experiences={experiences}
+          editPaths={experienceEditPaths}
+        />
+      </Tabs.Content>
+      <Tabs.Content value="2">
+        <Accordion.Root type="multiple">
           {sortedBySkills.map((skill) => (
             <SkillAccordion key={skill.id} skill={skill} />
           ))}
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+        </Accordion.Root>
+      </Tabs.Content>
+    </Tabs.Root>
   ) : (
     <div
       data-h2-background-color="base(dt-gray.light)"

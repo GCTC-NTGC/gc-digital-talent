@@ -6,18 +6,40 @@ import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 
 import MenuLink from "@common/components/Link/MenuLink";
 import LocaleRedirect from "@common/components/LocaleRedirect/LocaleRedirect";
+import LogoutConfirmation from "@common/components/LogoutConfirmation";
 import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { getLocale } from "@common/helpers/localize";
 import useAuth from "@common/hooks/useAuth";
 import useFeatureFlags from "@common/hooks/useFeatureFlags";
 
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
-import { Button } from "@common/components";
 import Footer from "@common/components/Footer";
 import NavMenu from "@common/components/NavMenu";
 import Header from "@common/components/Header";
 
 import useRoutes from "../hooks/useRoutes";
+
+interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
+  children: React.ReactNode;
+}
+export const LogoutButton = React.forwardRef<
+  HTMLButtonElement,
+  LogoutButtonProps
+>(({ children, ...rest }, forwardedRef) => (
+  <button
+    data-h2-color="base(dt-primary)"
+    data-h2-font-size="base(normal)"
+    data-h2-text-decoration="base(underline)"
+    style={{
+      background: "none",
+    }}
+    ref={forwardedRef}
+    {...rest}
+    type="button"
+  >
+    {children}
+  </button>
+));
 
 const Layout = () => {
   const intl = useIntl();
@@ -26,9 +48,7 @@ const Layout = () => {
 
   const featureFlags = useFeatureFlags();
   const { loggedInUser } = useAuthorizationContext();
-  const { loggedIn, logout } = useAuth();
-  const [isConfirmationOpen, setConfirmationOpen] =
-    React.useState<boolean>(false);
+  const { loggedIn } = useAuth();
 
   const aiConnectionString = getRuntimeVariable(
     "APPLICATIONINSIGHTS_CONNECTION_STRING",
@@ -119,22 +139,15 @@ const Layout = () => {
 
   if (loggedIn) {
     authLinks = [
-      <Button
-        key="logout"
-        mode="outline"
-        as="button"
-        onClick={() => {
-          if (loggedIn) {
-            setConfirmationOpen(true);
-          }
-        }}
-      >
-        {intl.formatMessage({
-          defaultMessage: "Logout",
-          id: "3vDhoc",
-          description: "Label displayed on the logout link menu item.",
-        })}
-      </Button>,
+      <LogoutConfirmation key="logout">
+        <LogoutButton>
+          {intl.formatMessage({
+            defaultMessage: "Logout",
+            id: "3vDhoc",
+            description: "Label displayed on the logout link menu item.",
+          })}
+        </LogoutButton>
+      </LogoutConfirmation>,
     ];
   }
 

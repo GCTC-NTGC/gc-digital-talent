@@ -106,7 +106,6 @@ const router = createBrowserRouter([
               },
             ],
           },
-
           {
             path: "register-info",
             element: <RegisterPage />,

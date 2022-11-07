@@ -6,13 +6,7 @@ import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
 import { Link } from "@common/components";
-import {
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-} from "@common/components/Tabs";
+import Tabs from "@common/components/Tabs";
 import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 
@@ -108,19 +102,20 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
           </Link>
         </div>
       </div>
-      <Tabs>
-        <TabList>
+      <Tabs.Root defaultValue="0">
+        <Tabs.List>
           {tabs.map((tab, index) => (
-            <Tab key={tab} index={index}>
+            <Tabs.Trigger key={tab} value={`${index}`}>
               {tab}
-            </Tab>
+            </Tabs.Trigger>
           ))}
-        </TabList>
-        <TabPanels>
-          <TabPanel>{tabs[0]}</TabPanel>
-          <TabPanel>{tabs[1]}</TabPanel>
-        </TabPanels>
-      </Tabs>
+        </Tabs.List>
+        {tabs.map((tab, index) => (
+          <Tabs.Content key={tab} value={`${index}`}>
+            {tab}
+          </Tabs.Content>
+        ))}
+      </Tabs.Root>
     </div>
   );
 };

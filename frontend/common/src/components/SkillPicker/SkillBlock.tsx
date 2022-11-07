@@ -119,7 +119,7 @@ const SkillBlock = ({
                   color="primary"
                   mode="inline"
                   type="button"
-                  onClick={(currentIsOpen) => setIsOpen(!currentIsOpen)}
+                  onClick={() => setIsOpen((currentIsOpen) => !currentIsOpen)}
                 >
                   {isOpen
                     ? intl.formatMessage(
