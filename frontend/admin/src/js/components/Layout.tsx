@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 
 import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
+import LocaleRedirect from "@common/components/LocaleRedirect/LocaleRedirect";
 import { Button } from "@common/components";
 import Footer from "@common/components/Footer";
 import Header from "@common/components/Header";
@@ -116,6 +117,7 @@ const Layout = () => {
           description: "Text label for header button that opens side menu.",
         })}
       </OpenMenuButton>
+      <LocaleRedirect />
     </>
   );
 };
