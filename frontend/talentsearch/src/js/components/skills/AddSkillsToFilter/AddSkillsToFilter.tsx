@@ -8,9 +8,13 @@ import { notEmpty } from "@common/helpers/util";
 
 export interface AddSkillsToFilterProps {
   allSkills: Skill[];
+  linkId: string;
 }
 
-const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
+const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
+  allSkills,
+  linkId,
+}) => {
   const intl = useIntl();
   const { control, watch } = useFormContext();
   const watchedSkills = watch("skills");
@@ -49,6 +53,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
         data-h2-font-size="base(h6, 1)"
         data-h2-font-weight="base(700)"
         data-h2-margin="base(x3, 0, x1, 0)"
+        id={linkId}
       >
         {intl.formatMessage({
           defaultMessage: "Skills as filters",
