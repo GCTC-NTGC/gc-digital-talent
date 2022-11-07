@@ -9,7 +9,8 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getJobLookingStatus } from "@common/constants/localizedConstants";
 import { BasicForm, RadioGroup } from "@common/components/form";
 import Pending from "@common/components/Pending";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
+
+import useRoutes from "../../hooks/useRoutes";
 import {
   UpdateUserAsUserInput,
   useGetMyStatusQuery,
@@ -149,7 +150,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
 
 const MyStatusApi: React.FunctionComponent = () => {
   const intl = useIntl();
-  const paths = useApplicantProfileRoutes();
+  const paths = useRoutes();
   const navigate = useNavigate();
 
   const [{ data: initialData, fetching, error }] = useGetMyStatusQuery();
@@ -160,7 +161,7 @@ const MyStatusApi: React.FunctionComponent = () => {
       id,
       user: data,
     }).then((result) => {
-      navigate(paths.home(id));
+      navigate(paths.profile(id));
       toast.success(
         intl.formatMessage({
           defaultMessage: "My Status updated successfully!",

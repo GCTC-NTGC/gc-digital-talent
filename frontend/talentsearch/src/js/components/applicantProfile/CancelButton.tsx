@@ -1,8 +1,10 @@
-import { Link } from "@common/components";
-import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
+import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
+
+import { Link } from "@common/components";
+
+import useRoutes from "../../hooks/useRoutes";
 
 export interface CancelButtonProps {
   href?: string;
@@ -11,10 +13,10 @@ export interface CancelButtonProps {
 
 const CancelButton = ({ href, children }: CancelButtonProps) => {
   const intl = useIntl();
-  const profilePaths = useApplicantProfileRoutes();
+  const paths = useRoutes();
   return (
     <Link
-      href={href || profilePaths.myProfile()}
+      href={href || paths.myProfile()}
       color="secondary"
       mode="inline"
       data-h2-display="p-tablet(inline-flex)"

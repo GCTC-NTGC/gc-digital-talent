@@ -1,15 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Link } from "@common/components";
+import Link, { ExternalLink } from "@common/components/Link";
 import { getLocale } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
-import { ExternalLink } from "@common/components/Link";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+import useRoutes from "../../hooks/useRoutes";
 
 const keyRegistrationLink = (
   path: string,
@@ -18,10 +16,9 @@ const keyRegistrationLink = (
 
 const LoginPage: React.FC = () => {
   const intl = useIntl();
-  const paths = useApiRoutes();
-  const profilePaths = useApplicantProfileRoutes();
-  const searchPaths = useTalentSearchRoutes();
-  const loginPath = paths.login(profilePaths.myProfile(), getLocale(intl));
+  const paths = useRoutes();
+  const apiPaths = useApiRoutes();
+  const loginPath = apiPaths.login(paths.myProfile(), getLocale(intl));
 
   return (
     <>
@@ -89,7 +86,7 @@ const LoginPage: React.FC = () => {
           >
             <p>
               <Link
-                href={searchPaths.home()}
+                href={paths.home()}
                 mode="outline"
                 color="secondary"
                 type="button"

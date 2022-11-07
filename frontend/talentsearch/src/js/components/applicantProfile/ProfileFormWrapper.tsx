@@ -1,10 +1,13 @@
 import * as React from "react";
-import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { useIntl } from "react-intl";
+
+import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { imageUrl } from "@common/helpers/router";
+
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
+import useRoutes from "../../hooks/useRoutes";
+
 import CancelButton, { type CancelButtonProps } from "./CancelButton";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 export interface ProfileFormWrapperProps {
   crumbs: BreadcrumbsProps["links"];
@@ -23,7 +26,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
   prefixBreadcrumbs = true,
 }) => {
   const intl = useIntl();
-  const profilePath = useApplicantProfileRoutes();
+  const paths = useRoutes();
   let links = [...crumbs];
   if (prefixBreadcrumbs) {
     links = [
@@ -33,7 +36,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
           id: "tlsomU",
           description: "Breadcrumb from applicant profile wrapper.",
         }),
-        href: profilePath.myProfile(),
+        href: paths.myProfile(),
       },
       ...links,
     ];

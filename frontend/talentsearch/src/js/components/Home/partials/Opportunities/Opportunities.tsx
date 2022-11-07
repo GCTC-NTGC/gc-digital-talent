@@ -8,17 +8,15 @@ import Heading from "@common/components/Heading";
 import { CardFlat } from "@common/components/Card";
 import useLocale from "@common/hooks/useLocale";
 import { imageUrl } from "@common/helpers/router";
-
 import { AuthenticationContext } from "@common/components/Auth";
-import { useApplicantProfileRoutes } from "talentsearch/src/js/applicantProfileRoutes";
+
 import TALENTSEARCH_APP_DIR from "../../../../talentSearchConstants";
-import { useDirectIntakeRoutes } from "../../../../directIntakeRoutes";
+import useRoutes from "../../../../hooks/useRoutes";
 
 // Create the page component
 const Opportunities = () => {
   const intl = useIntl();
-  const diPaths = useDirectIntakeRoutes();
-  const profilePaths = useApplicantProfileRoutes();
+  const paths = useRoutes();
   const { locale } = useLocale();
   const { loggedIn } = React.useContext(AuthenticationContext);
 
@@ -94,7 +92,7 @@ const Opportunities = () => {
                   "Heading for the digital government job opportunities",
               })}
               link={{
-                href: diPaths.allPools(),
+                href: paths.allPools(),
                 label: intl.formatMessage({
                   defaultMessage: "Browse IT jobs",
                   id: "zNvXSs",
@@ -151,7 +149,7 @@ const Opportunities = () => {
                 description: "Heading for executive jobs in government",
               })}
               link={{
-                href: profilePaths.myProfile(),
+                href: paths.myProfile(),
                 label: loggedIn
                   ? intl.formatMessage({
                       defaultMessage: "Get ready by updating your profile",

@@ -25,9 +25,7 @@ import {
 } from "../../api/generated";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import useBreadcrumbs from "../../hooks/useBreadcrumbs";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+import useRoutes from "../../hooks/useRoutes";
 
 const flourishTopLight = imageUrl(TALENTSEARCH_APP_DIR, "browse_top_light.png");
 const flourishBottomLight = imageUrl(
@@ -56,9 +54,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
   const { mode } = useTheme();
   const intl = useIntl();
   const { loggedIn } = React.useContext(AuthenticationContext);
-  const paths = useDirectIntakeRoutes();
-  const tsPaths = useTalentSearchRoutes();
-  const profilePaths = useApplicantProfileRoutes();
+  const paths = useRoutes();
 
   const title = intl.formatMessage({
     defaultMessage: "Browse IT jobs",
@@ -208,7 +204,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                         mode="outline"
                         type="button"
                         weight="bold"
-                        href={profilePaths.myProfile()}
+                        href={paths.myProfile()}
                         style={{ whiteSpace: "nowrap" }}
                       >
                         {loggedIn
@@ -273,7 +269,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                   "Title for Indigenous community job opportunities on Browse IT jobs page",
               })}
               link={{
-                href: `${tsPaths.home()}/indigenous-it-apprentice`,
+                href: `${paths.home()}/indigenous-it-apprentice`,
                 mode: "outline",
                 external: true,
                 label: intl.formatMessage({
@@ -304,7 +300,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                   "Title for to go to the search page on Browse IT jobs page",
               })}
               link={{
-                href: tsPaths.search(),
+                href: paths.search(),
                 mode: "outline",
                 label: intl.formatMessage({
                   defaultMessage: "Visit the talent search page",

@@ -1,18 +1,18 @@
 import React from "react";
-import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
 import { Navigate, useLocation } from "react-router-dom";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+
+import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
+
+import useRoutes from "../../hooks/useRoutes";
 
 const TalentRedirect = () => {
-  const paths = useApplicantProfileRoutes();
-  const tsPaths = useTalentSearchRoutes();
+  const paths = useRoutes();
   const location = useLocation();
   const { loggedInUser } = useAuthorizationContext();
 
   if (loggedInUser) {
     const { id } = loggedInUser;
-    let profilePath = paths.home(id);
+    let profilePath = paths.profile(id);
     if (location.pathname.includes("about-me")) {
       profilePath = paths.aboutMe(id);
     }
@@ -62,7 +62,7 @@ const TalentRedirect = () => {
     return <Navigate to={profilePath} replace />;
   }
 
-  return <Navigate to={tsPaths.home()} replace />;
+  return <Navigate to={paths.home()} replace />;
 };
 
 export default TalentRedirect;

@@ -17,18 +17,13 @@ import Footer from "@common/components/Footer";
 import NavMenu from "@common/components/NavMenu";
 import Header from "@common/components/Header";
 
-import { useAuthRoutes } from "../authRoutes";
-import { useTalentSearchRoutes } from "../talentSearchRoutes";
-import { useApplicantProfileRoutes } from "../applicantProfileRoutes";
-import { useDirectIntakeRoutes } from "../directIntakeRoutes";
+import useRoutes from "../hooks/useRoutes";
 
 const Layout = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const authPaths = useAuthRoutes();
-  const talentPaths = useTalentSearchRoutes();
-  const profilePaths = useApplicantProfileRoutes();
-  const directIntakePaths = useDirectIntakeRoutes();
+  const paths = useRoutes();
+
   const featureFlags = useFeatureFlags();
   const { loggedInUser } = useAuthorizationContext();
   const { loggedIn, logout } = useAuth();
@@ -49,14 +44,14 @@ const Layout = () => {
   }
 
   let menuItems = [
-    <MenuLink key="home" to={talentPaths.home()} end>
+    <MenuLink key="home" to={paths.home()} end>
       {intl.formatMessage({
         defaultMessage: "Home",
         id: "G1RNXj",
         description: "Link to the Homepage in the nav menu.",
       })}
     </MenuLink>,
-    <MenuLink key="search" to={talentPaths.search()}>
+    <MenuLink key="search" to={paths.search()}>
       {intl.formatMessage({
         defaultMessage: "Search",
         id: "OezjH3",
@@ -68,7 +63,7 @@ const Layout = () => {
   if (featureFlags.directIntake) {
     menuItems = [
       ...menuItems,
-      <MenuLink key="browseOpportunities" to={directIntakePaths.allPools()}>
+      <MenuLink key="browseOpportunities" to={paths.allPools()}>
         {intl.formatMessage({
           defaultMessage: "Browse opportunities",
           id: "SXvOXV",
@@ -80,10 +75,7 @@ const Layout = () => {
     if (featureFlags.directIntake && loggedIn && loggedInUser?.id) {
       menuItems = [
         ...menuItems,
-        <MenuLink
-          key="myApplications"
-          to={directIntakePaths.applications(loggedInUser.id)}
-        >
+        <MenuLink key="myApplications" to={paths.applications(loggedInUser.id)}>
           {intl.formatMessage({
             defaultMessage: "My applications",
             id: "ioghLh",
@@ -98,7 +90,7 @@ const Layout = () => {
   if (loggedIn && loggedInUser?.id) {
     menuItems = [
       ...menuItems,
-      <MenuLink key="myProfile" to={profilePaths.home(loggedInUser.id)}>
+      <MenuLink key="myProfile" to={paths.profile(loggedInUser.id)}>
         {intl.formatMessage({
           defaultMessage: "My profile",
           id: "5lBIzg",
@@ -109,14 +101,14 @@ const Layout = () => {
   }
 
   let authLinks = [
-    <MenuLink key="login-info" to={authPaths.login()}>
+    <MenuLink key="login-info" to={paths.login()}>
       {intl.formatMessage({
         defaultMessage: "Login",
         id: "md7Klw",
         description: "Label displayed on the login link menu item.",
       })}
     </MenuLink>,
-    <MenuLink key="register" to={authPaths.register()}>
+    <MenuLink key="register" to={paths.register()}>
       {intl.formatMessage({
         defaultMessage: "Register",
         id: "LMGaDQ",

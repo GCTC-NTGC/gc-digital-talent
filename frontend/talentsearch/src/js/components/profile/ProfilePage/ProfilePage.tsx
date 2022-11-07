@@ -9,11 +9,11 @@ import ExperienceSection from "@common/components/UserProfile/ExperienceSection"
 
 import UserProfile from "@common/components/UserProfile";
 import type { Applicant } from "@common/api/generated";
-
 import { commonMessages } from "@common/messages";
+
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
-import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
+import useRoutes from "../../../hooks/useRoutes";
 import { useGetMeQuery, User, GetMeQuery } from "../../../api/generated";
 import profileMessages from "../profileMessages";
 
@@ -30,7 +30,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   profileDataInput,
 }) => {
   const { id: userId, experiences } = profileDataInput;
-  const paths = useApplicantProfileRoutes();
+  const paths = useRoutes();
 
   const experienceEditPaths = {
     awardUrl: (id: string) => paths.editExperience(userId, "award", id),

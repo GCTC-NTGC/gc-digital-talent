@@ -28,12 +28,11 @@ import {
   Skill,
   WorkExperience,
 } from "../../api/generated";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import { ExperienceType } from "../experienceForm/types";
 import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
 type MergedExperiences = Array<
   | AwardExperience
@@ -64,8 +63,7 @@ export const ExperienceAndSkills: React.FunctionComponent<
   ExperienceAndSkillsProps
 > = ({ experiences, missingSkills, applicantId, poolAdvertisement }) => {
   const intl = useIntl();
-  const paths = useApplicantProfileRoutes();
-  const directIntakePaths = useDirectIntakeRoutes();
+  const paths = useRoutes();
   const { applicationId } = useQueryParams();
   const applicationParam = applicationId
     ? `?applicationId=${applicationId}`
@@ -152,14 +150,14 @@ export const ExperienceAndSkills: React.FunctionComponent<
           id: "q04FCp",
           description: "Link text for breadcrumb to user applications page.",
         }),
-        href: directIntakePaths.applications(applicantId),
+        href: paths.applications(applicantId),
       },
       {
         title: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
-        href: directIntakePaths.pool(poolAdvertisement.id),
+        href: paths.pool(poolAdvertisement.id),
       },
       {
-        href: directIntakePaths.reviewApplication(applicantId),
+        href: paths.reviewApplication(applicantId),
         title: intl.formatMessage(navigationMessages.stepOne),
       },
       ...crumbs,
@@ -168,8 +166,8 @@ export const ExperienceAndSkills: React.FunctionComponent<
 
   const returnRoute =
     applicationId && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.reviewApplication(applicationId)
-      : paths.home(applicantId);
+      ? paths.reviewApplication(applicationId)
+      : paths.profile(applicantId);
 
   return (
     <ProfileFormWrapper
