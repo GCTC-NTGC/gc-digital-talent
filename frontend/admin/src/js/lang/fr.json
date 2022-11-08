@@ -283,6 +283,10 @@
     "defaultMessage": "Afficher la demande",
     "description": "Heading displayed above the single search request component."
   },
+  "hmacO5": {
+    "defaultMessage": "La demande ne comprend pas de filtre!",
+    "description": "Null state for a request not including a filter."
+  },
   "HocLRh": {
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
