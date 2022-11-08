@@ -37,7 +37,7 @@ import commonMessages from "@common/messages/commonMessages";
 import { notEmpty } from "@common/helpers/util";
 import {
   formatClassificationString,
-  formattedPoolPosterTitle,
+  getFullPoolAdvertisementTitle,
 } from "@common/helpers/poolUtils";
 import { useGetPoolAdvertisementQuery, Maybe } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
@@ -141,11 +141,9 @@ const PoolAdvertisement = ({
       level: classification?.level,
     });
   }
-  const fullTitle = formattedPoolPosterTitle({
-    title: poolAdvertisement.name?.[locale],
-    classification: classificationSuffix,
-    stream: poolAdvertisement.stream || null,
+  const fullTitle = getFullPoolAdvertisementTitle({
     intl,
+    advertisement: poolAdvertisement,
   });
   const canApply =
     poolAdvertisement.advertisementStatus &&
