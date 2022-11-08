@@ -168,6 +168,15 @@ describe('Auth flows (development)', () => {
     beforeEach(() => cy.loginByRole('applicant'))
 
     it('displays a not authorized message if logged in without the admin role', () => {
+
+      /**
+       * React error boundaries are bubbling exceptions
+       * up, so we need to tell cypress to ignore them
+       *
+       * REF: https://github.com/cypress-io/cypress/issues/7196#issuecomment-971592350
+       */
+      cy.on('uncaught:exception', () => false);
+
       [
         '/en/admin/dashboard',
         '/en/admin/talent-requests',
