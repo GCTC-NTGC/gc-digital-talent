@@ -159,7 +159,9 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const { pathname } = useLocation();
 
   const initialStateFilterInput = initialFilterInput ?? {};
-  const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(initialStateFilterInput);
+  const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(
+    initialStateFilterInput,
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
@@ -350,7 +352,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
 
   const csv = useUserCsvData(selectedApplicants);
 
-  const initialActiveFilters = useMemo(
+  const initialFilters = useMemo(
     () => transformUserFilterInputToFormValues(initialFilterInput),
     [initialFilterInput],
   );
@@ -414,7 +416,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
         filterComponent={
           <UserTableFilterDialog
             onSubmit={handleFilterSubmit}
-            initialActiveFilters={initialActiveFilters}
+            initialFilters={initialFilters}
           />
         }
       />
