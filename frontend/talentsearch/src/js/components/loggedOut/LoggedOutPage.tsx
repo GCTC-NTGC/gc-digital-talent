@@ -6,7 +6,6 @@ import { imageUrl } from "@common/helpers/router";
 import AlertDialog from "@common/components/AlertDialog";
 import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
-import { BellIcon } from "@heroicons/react/24/outline";
 import { getLocale } from "@common/helpers/localize";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
@@ -53,7 +52,7 @@ const LoggedOutPage: React.FC = () => {
       >
         <Alert
           type="success"
-          icon={BellIcon}
+          live={false}
           title={intl.formatMessage({
             defaultMessage: "You've successfully logged out of the platform",
             id: "NamQ1+",

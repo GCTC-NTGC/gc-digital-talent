@@ -1,9 +1,10 @@
 import React from "react";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { Meta, Story } from "@storybook/react";
-import Alert, { AlertProps, Color } from "./Alert";
+import { action } from "@storybook/addon-actions";
+import Alert, { AlertProps, AlertType } from "./Alert";
 
-const types: Array<Color> = ["success", "warning"];
+const types: Array<AlertType> = ["info", "success", "warning", "error"];
 
 export default {
   component: Alert,
@@ -31,12 +32,12 @@ const TemplateAlert: Story<AlertProps> = (args) => {
   );
 };
 
-export const BasicAlert = TemplateAlert.bind({});
-BasicAlert.args = {
-  mode: "basic",
-};
+export const Default = TemplateAlert.bind({});
 
-export const LargeAlert = TemplateAlert.bind({});
-LargeAlert.args = {
-  mode: "large",
+export const Dismissible = TemplateAlert.bind({});
+Dismissible.args = {
+  dismissible: true,
+  onDismiss: () => {
+    action("onDismiss")();
+  },
 };

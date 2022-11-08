@@ -2,7 +2,6 @@ import * as React from "react";
 import { imageUrl, navigate } from "@common/helpers/router";
 import { useIntl } from "react-intl";
 import { Alert } from "@common/components";
-import { BellIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
 import { BasicForm, Input, RadioGroup, Submit } from "@common/components/form";
 import { errorMessages } from "@common/messages";
@@ -132,8 +131,8 @@ export const CreateAccountForm: React.FunctionComponent<
             description:
               "Title for successful login alert in create account page.",
           })}
-          icon={BellIcon}
           type="success"
+          live={false}
           data-h2-margin="base(x3, 0, 0, 0)"
         >
           <p>
