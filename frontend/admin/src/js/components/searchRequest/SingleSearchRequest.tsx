@@ -207,7 +207,6 @@ export const SingleSearchRequest: React.FunctionComponent<
   const locale = getLocale(intl);
   const { additionalComments, poolCandidateFilter, applicantFilter } =
     searchRequest;
-  // TODO: data filter data from applicantFilter instead of poolCandidateFilter if possible.
 
   const abstractFilter = applicantFilter ?? poolCandidateFilter;
   return (
