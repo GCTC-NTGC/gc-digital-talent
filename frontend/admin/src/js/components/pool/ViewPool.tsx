@@ -181,7 +181,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               mode="solid"
               color="secondary"
               type="button"
-              href={adminPaths.poolEdit(pool.id)}
+              href={adminPaths.poolCandidateTable(pool.id)}
               icon={UserGroupIcon}
             >
               {intl.formatMessage({
