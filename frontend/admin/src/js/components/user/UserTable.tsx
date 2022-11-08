@@ -158,9 +158,8 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const paths = useAdminRoutes();
   const { pathname } = useLocation();
 
-  const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(
-    initialFilterInput ?? {},
-  );
+  const initialStateFilterInput = initialFilterInput ?? {};
+  const [userFilterInput, setUserFilterInput] = useState<UserFilterInput>(initialStateFilterInput);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();

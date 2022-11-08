@@ -269,9 +269,8 @@ const UserTableFilters = ({
 }: UserTableFiltersProps) => {
   const [isOpen, setOpen] = React.useState<boolean>(isOpenDefault);
   const { emptyFormValues } = useFilterOptions(enableEducationType);
-  const [activeFilters, setActiveFilters] = useState<FormValues>(
-    initialActiveFilters ?? emptyFormValues,
-  );
+  const initialStateFilters = activeFilters ?? emptyFormValues;
+  const [activeFilters, setActiveFilters] = useState<FormValues>(initialStateFilters);
 
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
     onSubmit(data);
