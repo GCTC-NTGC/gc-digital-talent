@@ -297,6 +297,14 @@ const createRouter = ({ featureFlags }: CreateRouterArgs) =>
               ],
             },
             {
+              path: "candidates/:poolCandidateId/application",
+              element: (
+                <RequireAuth roles={[Role.Admin]}>
+                  <ViewPoolCandidatePage />
+                </RequireAuth>
+              ),
+            },
+            {
               path: "talent-requests",
               children: [
                 {

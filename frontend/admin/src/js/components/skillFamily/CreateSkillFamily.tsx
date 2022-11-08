@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
 import { toast } from "react-toastify";
+
 import {
   Input,
   Select,
@@ -12,11 +14,11 @@ import {
 } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
-import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages } from "@common/messages";
 import { getSkillCategory } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -56,6 +58,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
 > = ({ skills, handleCreateSkillFamily }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;

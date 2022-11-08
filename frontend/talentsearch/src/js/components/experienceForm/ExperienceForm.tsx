@@ -1,26 +1,24 @@
 import React from "react";
+import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
 import { OperationContext } from "urql";
-import { useParams } from "react-router-dom";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
 import { BasicForm, TextArea } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
-import { navigate, useQueryParams } from "@common/helpers/router";
 import { Button } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
-
 import { removeFromSessionStorage } from "@common/helpers/storageUtils";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
+
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-
 import AwardDetailsForm from "../awardDetailsForm/AwardDetailsForm";
 import CommunityExperienceForm from "../communityExperienceForm/CommunityExperienceForm";
 import EducationExperienceForm from "../educationExperienceForm/EducationExperienceForm";
@@ -82,12 +80,15 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
+
   const paths = applicantProfileRoutes(locale);
   const directIntakePaths = useDirectIntakeRoutes();
+
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
     : undefined;
-  const { applicationId } = useQueryParams();
   const returnPath = `${paths.skillsAndExperiences(userId)}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
@@ -326,13 +327,16 @@ export interface ExperienceFormContainerProps {
 const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
   const { userId, experienceType, experienceId } = useParams<RouteParams>();
   const paths = applicantProfileRoutes(locale);
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
-  const { applicationId } = useQueryParams();
   const returnPath = `${paths.skillsAndExperiences(userId || "")}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
+
   const [
     {
       data: applicationData,

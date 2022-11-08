@@ -1,14 +1,15 @@
-import pick from "lodash/pick";
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import pick from "lodash/pick";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+
 import { Input, Submit, TextArea } from "@common/components/form";
-import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
-import { useParams } from "react-router-dom";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CmoAsset,
@@ -29,6 +30,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
   UpdateCmoAssetFormProps
 > = ({ initialCmoAsset, handleUpdateCmoAsset }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>({ defaultValues: initialCmoAsset });
   const { handleSubmit } = methods;

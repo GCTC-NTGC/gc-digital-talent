@@ -1,17 +1,18 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import { toast } from "react-toastify";
+
 import { Select, Submit, Input, MultiSelect } from "@common/components/form";
-import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { emptyToNull } from "@common/helpers/util";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import { useParams } from "react-router-dom";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
@@ -49,6 +50,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   handleUpdateUser,
 }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
 
   const formValuesToSubmitData = (

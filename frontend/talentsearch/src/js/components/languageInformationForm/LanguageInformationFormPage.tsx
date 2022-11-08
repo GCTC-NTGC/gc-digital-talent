@@ -1,10 +1,12 @@
 import React from "react";
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import { parseUrlQueryParameters, useLocation } from "@common/helpers/router";
-import { commonMessages } from "@common/messages";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
+
+import NotFound from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
+import { commonMessages } from "@common/messages";
+
 import {
   useGetLanguageInformationQuery,
   useUpdateLanguageInformationMutation,
@@ -48,7 +50,7 @@ const LanguageInformationFormApi: React.FunctionComponent<
 };
 
 interface ApiOrContentProps {
-  applicationId?: string;
+  applicationId?: string | null;
   initialData: User;
   submitHandler: LanguageInformationUpdateHandler;
 }
@@ -72,8 +74,8 @@ const ApiOrContent = ({
 
 const LanguageInformationFormPage: React.FunctionComponent = () => {
   const intl = useIntl();
-  const location = useLocation();
-  const queryParams = parseUrlQueryParameters(location);
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
 
   const [lookUpResult] = useGetLanguageInformationQuery();
   const { data: userData, fetching, error } = lookUpResult;
@@ -101,7 +103,7 @@ const LanguageInformationFormPage: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {userData?.me ? (
         <ApiOrContent
-          applicationId={queryParams.applicationId}
+          applicationId={applicationId}
           initialData={userData.me}
           submitHandler={onSubmit}
         />

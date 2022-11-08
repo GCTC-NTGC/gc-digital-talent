@@ -1,12 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useLocation, Outlet } from "react-router-dom";
+import { useLocation, Outlet, ScrollRestoration } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 import NavMenu from "@common/components/NavMenu";
 import MenuLink from "@common/components/Link/MenuLink";
 import LocaleRedirect from "@common/components/LocaleRedirect/LocaleRedirect";
-import { ScrollToTop } from "@common/helpers/router";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import { Helmet } from "react-helmet";
@@ -59,8 +58,6 @@ export const Layout = () => {
             })}
           />
         </Helmet>
-
-        <ScrollToTop />
         <a href="#main" data-h2-visibility="base(hidden)">
           {intl.formatMessage({
             defaultMessage: "Skip to main content",
@@ -97,6 +94,7 @@ export const Layout = () => {
           </div>
         </div>
         <LocaleRedirect />
+        <ScrollRestoration />
       </React.Fragment>
     </AnimatePresence>
   );

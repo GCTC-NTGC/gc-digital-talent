@@ -1,8 +1,10 @@
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
+
 import {
   Submit,
   Select,
@@ -16,7 +18,6 @@ import {
   unpackMaybes,
   enumToOptions,
 } from "@common/helpers/formUtils";
-import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import {
   getSalaryRange,
@@ -29,7 +30,6 @@ import {
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { User } from "@common/api/generated";
-import { useParams } from "react-router-dom";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   UpdatePoolCandidateAsAdminInput,
@@ -94,6 +94,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   handleUpdatePoolCandidate,
 }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const locale = getLocale(intl);
   const dataToFormValues = (data: PoolCandidate): FormValues => ({

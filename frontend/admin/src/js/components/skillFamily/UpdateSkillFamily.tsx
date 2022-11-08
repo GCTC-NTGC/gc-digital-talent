@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
 import { toast } from "react-toastify";
+
 import {
   Select,
   Submit,
@@ -12,7 +14,6 @@ import {
   TextArea,
 } from "@common/components/form";
 import { notEmpty } from "@common/helpers/util";
-import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import { unpackIds, enumToOptions } from "@common/helpers/formUtils";
 
@@ -20,7 +21,6 @@ import { errorMessages, commonMessages } from "@common/messages";
 import { getSkillCategory } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
-import { useParams } from "react-router-dom";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -54,6 +54,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
 > = ({ initialSkillFamily, skills, handleUpdateSkillFamily }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const sortedSkills = sortBy(skills, (skill) => {
     return skill.name?.[locale]?.toLocaleUpperCase();

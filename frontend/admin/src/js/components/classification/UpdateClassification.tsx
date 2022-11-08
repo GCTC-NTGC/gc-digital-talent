@@ -1,15 +1,16 @@
+import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import pick from "lodash/pick";
 import upperCase from "lodash/upperCase";
-import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+
 import { Input, Select, Submit } from "@common/components/form";
-import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
-import { useParams } from "react-router-dom";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
@@ -33,6 +34,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
   UpdateClassificationFormProps
 > = ({ initialClassification, handleUpdateClassification }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>({
     defaultValues: initialClassification,

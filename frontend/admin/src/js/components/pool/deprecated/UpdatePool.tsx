@@ -1,8 +1,10 @@
-import pick from "lodash/pick";
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import pick from "lodash/pick";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+
 import {
   Input,
   MultiSelect,
@@ -13,7 +15,6 @@ import {
 import { notEmpty } from "@common/helpers/util";
 import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
-import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
 import {
   getOperationalRequirement,
@@ -22,7 +23,7 @@ import {
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
-import { useParams } from "react-router-dom";
+
 import { useAdminRoutes } from "../../../adminRoutes";
 import {
   Classification,
@@ -70,6 +71,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const dataToFormValues = (
     data: Pool | UpdatePoolMutation["updatePool"],

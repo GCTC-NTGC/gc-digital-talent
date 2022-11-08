@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Control,
   FormProvider,
@@ -18,7 +19,6 @@ import {
 } from "@common/components/form";
 import { empty, notEmpty } from "@common/helpers/util";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import {
   getSalaryRange,
@@ -31,7 +31,7 @@ import {
 } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
-import { useParams } from "react-router-dom";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreatePoolCandidateAsAdminInput,
@@ -242,6 +242,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   handleCreatePoolCandidate,
 }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>({

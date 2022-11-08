@@ -1,10 +1,12 @@
 import React from "react";
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import { parseUrlQueryParameters, useLocation } from "@common/helpers/router";
-import { commonMessages } from "@common/messages";
+import { useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+
+import NotFound from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
+import { commonMessages } from "@common/messages";
+
 import {
   useWorkLocationPreferenceQuery,
   useCreateWorkLocationPreferenceMutation,
@@ -50,7 +52,7 @@ const WorkLocationPreferenceApi: React.FunctionComponent<
 };
 
 interface ApiOrContentProps {
-  applicationId?: string;
+  applicationId?: string | null;
   initialData: User;
   handleWorkLocationPreference: (
     id: string,
@@ -77,8 +79,8 @@ const ApiOrContent = ({
 
 export const WorkLocationPreferencePage: React.FunctionComponent = () => {
   const intl = useIntl();
-  const location = useLocation();
-  const queryParams = parseUrlQueryParameters(location);
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
 
   const [{ data: userData, fetching, error }] =
     useWorkLocationPreferenceQuery();
@@ -109,7 +111,7 @@ export const WorkLocationPreferencePage: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {userData?.me ? (
         <ApiOrContent
-          applicationId={queryParams.applicationId}
+          applicationId={applicationId}
           initialData={userData.me}
           handleWorkLocationPreference={handleWorkLocationPreference}
         />

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   BookOpenIcon,
   BriefcaseIcon,
@@ -14,7 +15,6 @@ import MissingSkills from "@common/components/MissingSkills";
 import Well from "@common/components/Well";
 import { notEmpty } from "@common/helpers/util";
 import { navigationMessages } from "@common/messages";
-import { useQueryParams } from "@common/helpers/router";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
@@ -64,7 +64,8 @@ export const ExperienceAndSkills: React.FunctionComponent<
 > = ({ experiences, missingSkills, applicantId, poolAdvertisement }) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { applicationId } = useQueryParams();
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
   const applicationParam = applicationId
     ? `?applicationId=${applicationId}`
     : ``;
