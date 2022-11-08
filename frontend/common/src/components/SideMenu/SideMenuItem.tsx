@@ -95,7 +95,13 @@ export const SideMenuButton = React.forwardRef<
   HTMLButtonElement,
   SideMenuButtonProps
 >(({ icon, children, ...rest }, forwardedRef) => (
-  <button ref={forwardedRef} {...commonStyles} {...rest} type="button">
+  <button
+    ref={forwardedRef}
+    className="side-menu__item"
+    {...commonStyles}
+    {...rest}
+    type="button"
+  >
     <SideMenuItemChildren icon={icon}>{children}</SideMenuItemChildren>
   </button>
 ));
