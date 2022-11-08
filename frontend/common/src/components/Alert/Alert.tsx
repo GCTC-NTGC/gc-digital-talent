@@ -10,7 +10,7 @@ export type AlertType = "success" | "warning" | "info" | "error";
 
 export interface AlertProps
   extends Omit<React.HTMLProps<HTMLDivElement>, "title"> {
-  title: React.ReactNode | string;
+  title: React.ReactNode;
   type: AlertType;
   dismissible?: boolean;
   live?: boolean;
