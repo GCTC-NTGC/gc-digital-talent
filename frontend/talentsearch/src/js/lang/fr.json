@@ -235,10 +235,6 @@
     "defaultMessage": "Propriétaire du bassin : {name}",
     "description": "Text showing the owner of the HR pool."
   },
-  "DdOEWx": {
-    "defaultMessage": "Erreur : nom pas chargé",
-    "description": "Message when name value not found"
-  },
   "1EyeE7": {
     "defaultMessage": "Tous les candidats de ce bassin ont aussi été évalués pour des compétences non techniques.",
     "description": "Message describing the skill filter in the search form."
