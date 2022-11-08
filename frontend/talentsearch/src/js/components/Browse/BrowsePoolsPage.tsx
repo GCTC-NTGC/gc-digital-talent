@@ -11,7 +11,7 @@ import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 
 import { commonMessages } from "@common/messages";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import useTheme from "@common/hooks/useTheme";
 import { AuthenticationContext } from "@common/components/Auth";
 

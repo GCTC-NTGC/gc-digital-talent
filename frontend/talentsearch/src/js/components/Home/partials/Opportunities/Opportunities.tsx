@@ -7,7 +7,7 @@ import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 import Heading from "@common/components/Heading";
 import { CardFlat } from "@common/components/Card";
 import useLocale from "@common/hooks/useLocale";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import { AuthenticationContext } from "@common/components/Auth";
 
 import TALENTSEARCH_APP_DIR from "../../../../talentSearchConstants";

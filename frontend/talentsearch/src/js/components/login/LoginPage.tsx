@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import Link, { ExternalLink } from "@common/components/Link";
 import { getLocale } from "@common/helpers/localize";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";

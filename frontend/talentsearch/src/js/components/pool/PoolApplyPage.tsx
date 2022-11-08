@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+
 import { getLocale } from "@common/helpers/localize";
 import { commonMessages } from "@common/messages";
 import Breadcrumbs from "@common/components/Breadcrumbs";
@@ -7,7 +8,8 @@ import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import Link from "@common/components/Link";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+
+import useRoutes from "../../hooks/useRoutes";
 import { useGetPoolQuery } from "../../api/generated";
 import type { Pool } from "../../api/generated";
 
@@ -18,7 +20,7 @@ interface PoolApplyProps {
 const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   const links = [
     {

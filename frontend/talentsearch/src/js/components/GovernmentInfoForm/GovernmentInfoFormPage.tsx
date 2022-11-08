@@ -1,15 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import {
-  navigate,
-  parseUrlQueryParameters,
-  useLocation,
-} from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
 
@@ -69,7 +64,7 @@ const GovernmentInfoFormApi: React.FunctionComponent<
 };
 
 interface ApiOrContentProps {
-  applicationId?: string;
+  applicationId?: string | null;
   departments: Department[];
   classifications: Classification[];
   initialData: User;
@@ -103,8 +98,9 @@ const GovernmentInfoFormPage = () => {
   // needed bits for react-intl, form submits functions, and routing post submission
   const { userId: meId } = useParams();
   const intl = useIntl();
-  const location = useLocation();
-  const queryParams = parseUrlQueryParameters(location);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
   const paths = useRoutes();
 
   // Fetch departments and classifications from graphQL to pass into component to render and pull "Me" at the same time
@@ -159,7 +155,7 @@ const GovernmentInfoFormPage = () => {
     <Pending fetching={fetching} error={error}>
       {meInfo ? (
         <ApiOrContent
-          applicationId={queryParams.applicationId}
+          applicationId={applicationId}
           departments={departments}
           classifications={classifications}
           initialData={meInfo}

@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { BellIcon } from "@heroicons/react/24/outline";
 
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import { Alert } from "@common/components";
 import { BasicForm, Input, RadioGroup, Submit } from "@common/components/form";
 import { errorMessages } from "@common/messages";

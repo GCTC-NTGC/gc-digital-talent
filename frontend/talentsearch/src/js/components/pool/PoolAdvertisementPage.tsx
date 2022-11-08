@@ -18,7 +18,7 @@ import Pending from "@common/components/Pending";
 import Card from "@common/components/Card";
 import { Button, Link } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import {
   AdvertisementStatus,
   PoolCandidate,

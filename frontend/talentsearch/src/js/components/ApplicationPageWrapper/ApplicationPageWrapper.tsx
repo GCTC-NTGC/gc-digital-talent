@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import {
   parseDateTimeUtc,
   relativeExpiryDate,

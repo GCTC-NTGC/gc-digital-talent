@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 

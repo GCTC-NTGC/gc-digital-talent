@@ -2,7 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import useRoutes from "../../hooks/useRoutes";

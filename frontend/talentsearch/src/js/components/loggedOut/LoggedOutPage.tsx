@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { BellIcon } from "@heroicons/react/24/outline";
 
 import TileLink from "@common/components/TileLink";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import AlertDialog from "@common/components/AlertDialog";
 import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";

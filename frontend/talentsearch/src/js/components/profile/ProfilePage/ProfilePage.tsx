@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import { notEmpty } from "@common/helpers/util";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";

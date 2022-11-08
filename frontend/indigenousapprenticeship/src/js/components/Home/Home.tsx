@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
 
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 
 import Banner from "../Banner/Banner";
 import Card from "../Card/Card";
