@@ -269,7 +269,7 @@ export function checkIsLegacyFilter(
   return false;
 }
 
-const transformFilterToInput = (
+const transformPoolCandidateFilterToFilterInput = (
   inputFilter: PoolCandidateFilter,
 ): PoolCandidateFilterInput => {
   return {
@@ -337,7 +337,7 @@ type MappingType = {
   ) => ApplicantFilterInput[Property];
 };
 
-const transformApplicantFilterToApplicantFilterInput = (
+const transformApplicantFilterToFilterInput = (
   applicantFilter: ApplicantFilter,
 ): ApplicantFilterInput => {
   // GraphQL will error if an input object includes any unexpected attributes.
@@ -378,7 +378,7 @@ const transformApplicantFilterToUserFilterInput = (
   applicantFilter: ApplicantFilter,
 ): UserFilterInput => {
   const applicantFilterInput =
-    transformApplicantFilterToApplicantFilterInput(applicantFilter);
+    transformApplicantFilterToFilterInput(applicantFilter);
   return {
     applicantFilter: applicantFilterInput,
     // The user table makes use of the UserFilterInput.poolFilters field INSTEAD OF the applicantFilterInput.pools field.
@@ -400,7 +400,7 @@ export const SingleSearchRequestTableApi: React.FunctionComponent<{
   const isLegacyFilter = checkIsLegacyFilter(filter);
 
   const poolCandidateFilterInput = isLegacyFilter
-    ? transformFilterToInput(filter)
+    ? transformPoolCandidateFilterToFilterInput(filter)
     : undefined;
   const [legacyResult] = useSearchPoolCandidatesQuery({
     variables: { poolCandidateFilter: poolCandidateFilterInput },

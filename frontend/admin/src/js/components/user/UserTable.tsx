@@ -45,7 +45,9 @@ import {
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
-function formValuesToUserFilterInput(data: FormValues): UserFilterInput {
+function transformFormValuesToUserFilterInput(
+  data: FormValues,
+): UserFilterInput {
   return {
     applicantFilter: {
       expectedClassifications: data.classifications.map((classification) => {
@@ -83,7 +85,7 @@ function formValuesToUserFilterInput(data: FormValues): UserFilterInput {
   };
 }
 
-function userFilterInputToFormValues(
+function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
   return {
@@ -201,7 +203,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
     // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
-    setUserFilterInput(formValuesToUserFilterInput(data));
+    setUserFilterInput(transformFormValuesToUserFilterInput(data));
   };
 
   useEffect(() => {
@@ -350,7 +352,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
   const csv = useUserCsvData(selectedApplicants);
 
   const initialActiveFilters = useMemo(
-    () => userFilterInputToFormValues(initialFilterInput),
+    () => transformUserFilterInputToFormValues(initialFilterInput),
     [initialFilterInput],
   );
 
