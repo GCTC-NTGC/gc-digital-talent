@@ -5,12 +5,12 @@ import { Helmet } from "react-helmet";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 
 import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
-import LocaleRedirect from "@common/components/LocaleRedirect/LocaleRedirect";
 import { Button } from "@common/components";
 import Footer from "@common/components/Footer";
 import Header from "@common/components/Header";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
 import { getLocale } from "@common/helpers/localize";
+import useLocaleRedirect from "@common/hooks/useLocaleRedirect";
 
 import AdminSideMenu from "./menu/AdminSideMenu";
 
@@ -46,6 +46,7 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
 );
 
 const Layout = () => {
+  useLocaleRedirect();
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
   const [isMenuOpen, setMenuOpen] = React.useState(!isSmallScreen);
@@ -117,7 +118,6 @@ const Layout = () => {
           description: "Text label for header button that opens side menu.",
         })}
       </OpenMenuButton>
-      <LocaleRedirect />
     </>
   );
 };

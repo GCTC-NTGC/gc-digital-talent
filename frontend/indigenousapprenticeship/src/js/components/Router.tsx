@@ -6,15 +6,20 @@ import Layout from "./Layout";
 
 const router = createBrowserRouter([
   {
-    path: "/:locale",
+    path: "/",
     element: <Layout />,
     children: [
       {
-        path: "indigenous-it-apprentice",
+        path: ":locale",
         children: [
           {
-            index: true,
-            element: <Home />,
+            path: "indigenous-it-apprentice",
+            children: [
+              {
+                index: true,
+                element: <Home />,
+              },
+            ],
           },
         ],
       },

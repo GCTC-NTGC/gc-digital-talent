@@ -1,20 +1,22 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useLocation, Outlet, ScrollRestoration } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { AnimatePresence } from "framer-motion";
 
 import NavMenu from "@common/components/NavMenu";
 import MenuLink from "@common/components/Link/MenuLink";
-import LocaleRedirect from "@common/components/LocaleRedirect/LocaleRedirect";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
-import { Helmet } from "react-helmet";
 import { getLocale } from "@common/helpers/localize";
 import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
-import { ApplicationInsights } from "@microsoft/applicationinsights-web";
+import useLocaleRedirect from "@common/hooks/useLocaleRedirect";
+
 import { useIndigenousApprenticeshipRoutes } from "../routes/indigenousApprenticeshipRoutes";
 
 export const Layout = () => {
+  useLocaleRedirect();
   const intl = useIntl();
   const locale = getLocale(intl);
   const location = useLocation();
@@ -93,7 +95,6 @@ export const Layout = () => {
             <Footer />
           </div>
         </div>
-        <LocaleRedirect />
         <ScrollRestoration />
       </React.Fragment>
     </AnimatePresence>

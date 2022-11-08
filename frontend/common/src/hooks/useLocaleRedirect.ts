@@ -1,19 +1,17 @@
-import React from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { localeRedirect } from "../../helpers/localize";
-import useLocale from "../../hooks/useLocale";
+import { localeRedirect } from "../helpers/localize";
+import useLocale from "./useLocale";
 
-const LocaleRedirect = () => {
+const useLocaleRedirect = () => {
   const { locale } = useLocale();
   const { locale: localeParam } = useParams();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!localeParam || localeParam !== locale) {
       localeRedirect(locale);
     }
   }, [locale, localeParam]);
-
-  return null;
 };
 
-export default LocaleRedirect;
+export default useLocaleRedirect;
