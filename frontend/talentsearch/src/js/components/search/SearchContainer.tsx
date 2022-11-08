@@ -111,6 +111,22 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     applicantFilter?.operationalRequirements?.length ?? 0;
   const locationPreferencesCount =
     applicantFilter?.locationPreferences?.length ?? 0;
+  const educationSelection = applicantFilter?.hasDiploma;
+  const workingLanguage = applicantFilter?.languageAbility;
+  const employmentDuration = applicantFilter?.wouldAcceptTemporary;
+
+  const equityFilters = applicantFilter?.equity;
+  const equityFiltersArray = equityFilters
+    ? Object.values(equityFilters)
+    : null;
+  const equityFiltersArrayTrue = equityFiltersArray
+    ? equityFiltersArray.filter((equityField) => equityField === true)
+    : null;
+  const equityFiltersCount = equityFiltersArrayTrue
+    ? equityFiltersArrayTrue.length
+    : 0;
+
+  const skillCount = applicantFilter?.skills?.length ?? 0;
 
   const searchRef = useRef<SearchFormRef>(null);
 
@@ -211,10 +227,14 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             )}
           </h3>
           <SearchFilterAdvice
-            classificationFilterCount={poolClassificationFilterCount}
             operationalRequirementFilterCount={
               operationalRequirementFilterCount
             }
+            educationSelection={educationSelection}
+            workingLanguage={workingLanguage}
+            employmentDuration={employmentDuration}
+            equityFiltersActive={equityFiltersCount}
+            skillCount={skillCount}
           />
         </div>
         <div>

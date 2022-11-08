@@ -535,7 +535,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               trackUnsaved={false}
             />
           </FilterBlock>
-          <AddSkillsToFilter allSkills={skills ?? []} />
+          <AddSkillsToFilter allSkills={skills ?? []} linkId="skillFilter" />
         </form>
       </FormProvider>
     );

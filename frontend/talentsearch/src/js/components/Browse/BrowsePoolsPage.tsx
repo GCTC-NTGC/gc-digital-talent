@@ -278,10 +278,10 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                 external: true,
                 label: intl.formatMessage({
                   defaultMessage:
-                    "<hidden>Learn more about </hidden>Indigenous IT apprenticeship<hidden> opportunities</hidden>",
-                  id: "xgocDD",
+                    "Apply<hidden> to the Indigenous Apprenticeship Program</hidden> now",
                   description:
-                    "Link text to go to IAP homepage on browse IT jobs page",
+                    "Link text to go to IAP homepage on Browse IT jobs page",
+                  id: "07BM9O",
                 }),
               }}
             >

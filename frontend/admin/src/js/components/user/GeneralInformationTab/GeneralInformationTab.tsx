@@ -36,7 +36,6 @@ import {
 import {
   User,
   JobLookingStatus,
-  PoolCandidate,
   useGetGeneralInfoQuery,
   Pool,
   useUpdatePoolCandidateMutation,
@@ -53,34 +52,10 @@ interface SectionWithPoolsProps {
 }
 
 // accessible button for modals - generate clickable inline elements resembling <a>
-interface ModalTableButtonProps {
-  click: (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
-  children?: React.ReactNode;
-}
-const ModalTableButton: React.FC<ModalTableButtonProps> = ({
-  click,
-  children,
-}) => {
-  return (
-    <Button
-      color="black"
-      mode="inline"
-      data-h2-padding="base(0)"
-      onClick={click}
-    >
-      <span data-h2-text-decoration="base(underline)">{children}</span>
-    </Button>
-  );
-};
 
 const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-
-  const [changeStatusDialogTarget, setChangeStatusDialogTarget] =
-    React.useState<PoolCandidate | null>(null);
-  const [changeDateDialogTarget, setChangeDateDialogTarget] =
-    React.useState<PoolCandidate | null>(null);
 
   if (isEmpty(user.poolCandidates)) {
     return (
@@ -95,123 +70,97 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
     );
   }
   return (
-    <>
-      <table data-h2-text-align="base(center)">
-        <thead>
-          <tr
-            data-h2-background-color="base(dark.dt-gray)"
-            data-h2-color="base(dt-white)"
-          >
-            <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
-              {intl.formatMessage({
-                defaultMessage: "Pool",
-                id: "icYqDt",
-                description:
-                  "Title of the 'Pool' column for the table on view-user page",
-              })}
-            </th>
-            <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
-              {intl.formatMessage({
-                defaultMessage: "Status",
-                id: "sUx3ZS",
-                description:
-                  "Title of the 'Status' column for the table on view-user page",
-              })}
-            </th>
-            <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
-              {intl.formatMessage({
-                defaultMessage: "Expiry date",
-                id: "STDYoR",
-                description:
-                  "Title of the 'Expiry date' column for the table on view-user page",
-              })}
-            </th>
-            <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
-              {intl.formatMessage({
-                defaultMessage: "Actions",
-                id: "jWNEdi",
-                description:
-                  "Title of the 'Actions' column for the table on view-user page",
-              })}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {user.poolCandidates?.map((candidate) => {
-            if (candidate) {
-              return (
-                <tr key={candidate.id}>
-                  <td
-                    data-h2-background-color="base(light.dt-gray)"
-                    data-h2-padding="base(x.25, 0)"
-                  >
-                    {candidate.pool?.name?.[locale]}
-                  </td>
-                  <td
-                    data-h2-background-color="base(light.dt-gray)"
-                    data-h2-padding="base(x.25, 0)"
-                  >
-                    {intl.formatMessage(
-                      getPoolCandidateStatus(candidate.status as string),
-                    )}
-                    {" - "}
-                    <ModalTableButton
-                      click={() => {
-                        setChangeStatusDialogTarget(candidate);
-                      }}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Change status",
-                        id: "bl7pCx",
-                        description:
-                          "Button to change a users status in a pool - located in the table on view-user page",
-                      })}
-                    </ModalTableButton>
-                  </td>
-                  <td
-                    data-h2-text-decoration="base(underline)"
-                    data-h2-background-color="base(light.dt-gray)"
-                    data-h2-padding="base(x.25, 0)"
-                  >
-                    <ModalTableButton
-                      click={() => {
-                        setChangeDateDialogTarget(candidate);
-                      }}
-                    >
-                      {candidate.expiryDate}
-                    </ModalTableButton>
-                  </td>
-                  <td
-                    data-h2-text-decoration="base(underline)"
-                    data-h2-background-color="base(light.dt-gray)"
-                    data-h2-color="base(dark.dt-gray)"
-                    data-h2-padding="base(x.25, 0)"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Remove from pool",
-                      id: "C8Ltjj",
-                      description:
-                        "Button to remove a user from a pool - located in the table on view-user page",
-                    })}
-                  </td>
-                </tr>
-              );
-            }
-            return null;
-          })}
-        </tbody>
-      </table>
-      <ChangeStatusDialog
-        selectedCandidate={changeStatusDialogTarget}
-        user={user}
-        onDismiss={() => setChangeStatusDialogTarget(null)}
-      />
-      <ChangeDateDialog
-        selectedCandidate={changeDateDialogTarget}
-        user={user}
-        onDismiss={() => setChangeDateDialogTarget(null)}
-      />
-    </>
+    <table data-h2-text-align="base(center)">
+      <thead>
+        <tr
+          data-h2-background-color="base(dark.dt-gray)"
+          data-h2-color="base(dt-white)"
+        >
+          <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
+            {intl.formatMessage({
+              defaultMessage: "Pool",
+              id: "icYqDt",
+              description:
+                "Title of the 'Pool' column for the table on view-user page",
+            })}
+          </th>
+          <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
+            {intl.formatMessage({
+              defaultMessage: "Status",
+              id: "sUx3ZS",
+              description:
+                "Title of the 'Status' column for the table on view-user page",
+            })}
+          </th>
+          <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
+            {intl.formatMessage({
+              defaultMessage: "Expiry date",
+              id: "STDYoR",
+              description:
+                "Title of the 'Expiry date' column for the table on view-user page",
+            })}
+          </th>
+          <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
+            {intl.formatMessage({
+              defaultMessage: "Actions",
+              id: "jWNEdi",
+              description:
+                "Title of the 'Actions' column for the table on view-user page",
+            })}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {user.poolCandidates?.map((candidate) => {
+          if (candidate) {
+            return (
+              <tr key={candidate.id}>
+                <td
+                  data-h2-background-color="base(light.dt-gray)"
+                  data-h2-padding="base(x.25, 0)"
+                >
+                  {candidate.pool?.name?.[locale]}
+                </td>
+                <td
+                  data-h2-background-color="base(light.dt-gray)"
+                  data-h2-padding="base(x.25, 0)"
+                >
+                  {intl.formatMessage(
+                    getPoolCandidateStatus(candidate.status as string),
+                  )}
+                  {" - "}
+                  <ChangeStatusDialog
+                    selectedCandidate={candidate}
+                    user={user}
+                  />
+                </td>
+                <td
+                  data-h2-text-decoration="base(underline)"
+                  data-h2-background-color="base(light.dt-gray)"
+                  data-h2-padding="base(x.25, 0)"
+                >
+                  <ChangeDateDialog selectedCandidate={candidate} user={user} />
+                </td>
+                <td
+                  data-h2-text-decoration="base(underline)"
+                  data-h2-background-color="base(light.dt-gray)"
+                  data-h2-color="base(dark.dt-gray)"
+                  data-h2-padding="base(x.25, 0)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Remove from pool",
+                    id: "C8Ltjj",
+                    description:
+                      "Button to remove a user from a pool - located in the table on view-user page",
+                  })}
+                </td>
+              </tr>
+            );
+          }
+          return null;
+        })}
+      </tbody>
+    </table>
   );
 };
 
@@ -335,8 +284,6 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
 }) => {
   const intl = useIntl();
 
-  const [showAddToPoolDialog, setShowAddToPoolDialog] = React.useState(false);
-
   return (
     <>
       <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
@@ -390,27 +337,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
             "Title of the 'Add user to pools' section of the view-user page",
         })}
       </h5>
-      <Button
-        color="primary"
-        mode="outline"
-        onClick={() => {
-          setShowAddToPoolDialog(true);
-        }}
-      >
-        <span data-h2-text-decoration="base(underline)">
-          {intl.formatMessage({
-            defaultMessage: "Add user to pool",
-            id: "4Irijj",
-            description: "Button to add user to pool on the view-user page",
-          })}
-        </span>
-      </Button>
-      <AddToPoolDialog
-        isVisible={showAddToPoolDialog}
-        user={user}
-        pools={pools}
-        onDismiss={() => setShowAddToPoolDialog(false)}
-      />
+      <AddToPoolDialog user={user} pools={pools} />
     </>
   );
 };
