@@ -1,3 +1,4 @@
+import { errorMessages } from "@common/messages";
 import { useIntl } from "react-intl";
 import { useRouteError } from "react-router-dom";
 
@@ -59,17 +60,8 @@ const useErrorMessages = (): ErrorResponse => {
   return {
     response: error,
     messages: {
-      title: intl.formatMessage({
-        defaultMessage: "Sorry, eh! We encountered an error.",
-        id: "JTXUit",
-        description: "Title for the 404 page not found page.",
-      }),
-      body: intl.formatMessage({
-        defaultMessage:
-          "It looks like we encountered an unknown error while processing your request.",
-        id: "HkUdtI",
-        description: "Body text for the unknown error page page.",
-      }),
+      title: intl.formatMessage(errorMessages.unknownErrorRequestErrorTitle),
+      body: intl.formatMessage(errorMessages.unknownErrorRequestErrorBody),
     },
   };
 };
