@@ -1,3 +1,4 @@
+import React from "react";
 import type {
   UpdateUserAsUserInput,
   UpdateUserAsUserMutation,
@@ -14,10 +15,9 @@ export type EquityKeys =
   | "hasDisability";
 
 export interface EquityDialogProps {
-  isOpen: boolean;
   isAdded: boolean;
-  onDismiss: () => void;
   onSave: (value: boolean) => void;
+  children: React.ReactNode;
 }
 
 export type EquityDialogFooterProps = Pick<

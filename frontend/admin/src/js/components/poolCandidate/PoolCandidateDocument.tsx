@@ -256,7 +256,6 @@ export const PoolCandidateDocument = React.forwardRef<
                   </HeadingWrapper>
                   <ExperienceByTypeListing
                     experiences={candidate.user.experiences?.filter(notEmpty)}
-                    defaultOpen
                   />
                 </div>
               );

@@ -1,7 +1,7 @@
 import React from "react";
 import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import { useIntl } from "react-intl";
-import Accordion from "../../../accordion/Accordion";
+import Accordion from "../../../Accordion";
 import { Link } from "../../..";
 import {
   getAwardedTo,
@@ -13,10 +13,10 @@ import { AwardExperience } from "../../../../api/generated";
 
 type AwardAccordionProps = AwardExperience & {
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
-  defaultOpen?: boolean;
 };
 
 const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
+  id,
   title,
   awardedDate,
   issuedBy,
@@ -25,7 +25,6 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
   awardedScope,
   skills,
   editUrl,
-  defaultOpen = false,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -60,117 +59,120 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
     : "";
 
   return (
-    <Accordion
-      title={`${title || ""} - ${issuedBy || ""}`}
-      subtitle={getDateRange({
-        endDate: undefined,
-        startDate: awardedDate,
-        intl,
-        locale,
-      })}
-      context={
-        skills?.length === 1
-          ? intl.formatMessage({
-              defaultMessage: "1 Skill",
-              id: "A2KwTw",
-              description: "Pluralization for one skill",
-            })
-          : intl.formatMessage(
-              {
-                defaultMessage: "{skillsLength} Skills",
-                id: "l27ekQ",
-                description: "Pluralization for zero or multiple skills",
-              },
-              { skillsLength: skills?.length },
-            )
-      }
-      Icon={StarIcon}
-      defaultOpen={defaultOpen}
-    >
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "{title} issued by {issuedBy}",
-            id: "4BpFoX",
-            description: "The award title is issued by some group",
-          },
-          { title, issuedBy },
-        )}
-      </p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Awarded to : ",
-          id: "HWRZ/z",
-          description: "The award was given to",
-        })}{" "}
-        {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
-      </p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Scope : ",
-          id: "IfsigK",
-          description: "The scope of the award given",
-        })}{" "}
-        {awardedScope ? intl.formatMessage(getAwardedScope(awardedScope)) : ""}
-      </p>
-      <hr
-        data-h2-background-color="base(dt-gray)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
-      />
-      {skillsList?.length > 0 ? (
-        skillsList
-      ) : (
+    <Accordion.Item value={id}>
+      <Accordion.Trigger
+        subtitle={getDateRange({
+          endDate: undefined,
+          startDate: awardedDate,
+          intl,
+          locale,
+        })}
+        context={
+          skills?.length === 1
+            ? intl.formatMessage({
+                defaultMessage: "1 Skill",
+                id: "A2KwTw",
+                description: "Pluralization for one skill",
+              })
+            : intl.formatMessage(
+                {
+                  defaultMessage: "{skillsLength} Skills",
+                  id: "l27ekQ",
+                  description: "Pluralization for zero or multiple skills",
+                },
+                { skillsLength: skills?.length },
+              )
+        }
+        Icon={StarIcon}
+      >
+        {title || ""} - {issuedBy || ""}
+      </Accordion.Trigger>
+      <Accordion.Content>
+        <p>
+          {intl.formatMessage(
+            {
+              defaultMessage: "{title} issued by {issuedBy}",
+              id: "4BpFoX",
+              description: "The award title is issued by some group",
+            },
+            { title, issuedBy },
+          )}
+        </p>
         <p>
           {intl.formatMessage({
-            defaultMessage:
-              "No skills have been linked to this experience yet.",
-            id: "c4r/Zv",
-            description:
-              "A message explaining that the experience has no associated skills",
-          })}
+            defaultMessage: "Awarded to : ",
+            id: "HWRZ/z",
+            description: "The award was given to",
+          })}{" "}
+          {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
         </p>
-      )}
-      <hr
-        data-h2-background-color="base(dt-gray)"
-        data-h2-height="base(1px)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-        data-h2-margin="base(x1, 0)"
-      />
-      <p
-        data-h2-color="base(dt-primary)"
-        data-h2-font-weight="base(700)"
-        data-h2-margin="base(x1, 0, x.25, 0)"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Additional information:",
-          id: "gLioY2",
-          description: "Additional information if provided",
-        })}
-      </p>
-      <p>{details}</p>
-      {editUrl && (
-        <div>
-          <hr
-            data-h2-background-color="base(dt-gray)"
-            data-h2-height="base(1px)"
-            data-h2-width="base(100%)"
-            data-h2-border="base(none)"
-            data-h2-margin="base(x1, 0)"
-          />
-          <Link href={editUrl} color="primary" mode="outline" type="button">
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "Scope : ",
+            id: "IfsigK",
+            description: "The scope of the award given",
+          })}{" "}
+          {awardedScope
+            ? intl.formatMessage(getAwardedScope(awardedScope))
+            : ""}
+        </p>
+        <hr
+          data-h2-background-color="base(dt-gray)"
+          data-h2-height="base(1px)"
+          data-h2-width="base(100%)"
+          data-h2-border="base(none)"
+          data-h2-margin="base(x1, 0)"
+        />
+        {skillsList?.length > 0 ? (
+          skillsList
+        ) : (
+          <p>
             {intl.formatMessage({
-              defaultMessage: "Edit Experience",
-              id: "phbDSx",
-              description: "Edit Experience button label",
+              defaultMessage:
+                "No skills have been linked to this experience yet.",
+              id: "c4r/Zv",
+              description:
+                "A message explaining that the experience has no associated skills",
             })}
-          </Link>
-        </div>
-      )}
-    </Accordion>
+          </p>
+        )}
+        <hr
+          data-h2-background-color="base(dt-gray)"
+          data-h2-height="base(1px)"
+          data-h2-width="base(100%)"
+          data-h2-border="base(none)"
+          data-h2-margin="base(x1, 0)"
+        />
+        <p>
+          {intl.formatMessage(
+            {
+              defaultMessage: "Additional information: {details}",
+              id: "OvJwG6",
+              description: "Additional information if provided",
+            },
+            { details },
+          )}
+        </p>
+        {editUrl && (
+          <div>
+            <hr
+              data-h2-background-color="base(dt-gray)"
+              data-h2-height="base(1px)"
+              data-h2-width="base(100%)"
+              data-h2-border="base(none)"
+              data-h2-margin="base(x1, 0)"
+            />
+            <Link href={editUrl} color="primary" mode="outline" type="button">
+              {intl.formatMessage({
+                defaultMessage: "Edit Experience",
+                id: "phbDSx",
+                description: "Edit Experience button label",
+              })}
+            </Link>
+          </div>
+        )}
+      </Accordion.Content>
+    </Accordion.Item>
   );
 };
 

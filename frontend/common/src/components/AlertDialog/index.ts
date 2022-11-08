@@ -1,4 +1,3 @@
-import AlertDialog, { type AlertDialogProps } from "./AlertDialog";
+import AlertDialog from "./AlertDialog";
 
 export default AlertDialog;
-export type { AlertDialogProps };
