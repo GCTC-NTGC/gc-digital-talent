@@ -230,12 +230,17 @@ const router = createBrowserRouter([
                                 ),
                               },
                               {
-                                path: ":experienceId/edit",
-                                element: (
-                                  <RequireAuth roles={[Role.Applicant]}>
-                                    <ExperienceFormPage edit />
-                                  </RequireAuth>
-                                ),
+                                path: ":experienceId",
+                                children: [
+                                  {
+                                    path: "edit",
+                                    element: (
+                                      <RequireAuth roles={[Role.Applicant]}>
+                                        <ExperienceFormPage edit />
+                                      </RequireAuth>
+                                    ),
+                                  },
+                                ],
                               },
                             ],
                           },

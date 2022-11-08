@@ -47,6 +47,17 @@ const messages = defineMessages({
     description:
       "Error Message displayed on word counter when user passes the limit.",
   },
+  unknownErrorRequestErrorTitle: {
+    defaultMessage: "Sorry, we encountered an error.",
+    id: "Fq2VQp",
+    description: "Title for the 404 page not found page.",
+  },
+  unknownErrorRequestErrorBody: {
+    defaultMessage:
+      "We have encountered an unknown error while processing your request.",
+    id: "r/i13S",
+    description: "Body text for the unknown error page page.",
+  },
 });
 
 export default messages;
