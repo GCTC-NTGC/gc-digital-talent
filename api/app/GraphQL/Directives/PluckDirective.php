@@ -30,9 +30,6 @@ directive @pluck(
 GRAPHQL;
     }
 
-    /**
-     * Remove whitespace from the beginning and end of a given input.
-     */
     public function transform($argumentValue)
     {
         $output = Utils::mapEach(
@@ -44,8 +41,11 @@ GRAPHQL;
         return $output;
     }
 
-    protected function pluckFromArgumentSet(ArgumentSet $argumentSet)
+    protected function pluckFromArgumentSet(?ArgumentSet $argumentSet)
     {
+        if (empty($argumentSet)) {
+            return $argumentSet;
+        }
         $key = $this->directiveArgValue('key');
         return $argumentSet->arguments[$key]->value;
     }
