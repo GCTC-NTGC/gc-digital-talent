@@ -260,7 +260,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
 
 export type AbstractFilter = PoolCandidateFilter | ApplicantFilter;
 
-export function checkIsLegacyFilter(
+export function isPoolCandidateFilter(
   filter: AbstractFilter,
 ): filter is PoolCandidateFilter {
   // eslint-disable-next-line no-underscore-dangle
@@ -397,7 +397,7 @@ const transformApplicantFilterToUserFilterInput = (
 export const SingleSearchRequestTableApi: React.FunctionComponent<{
   filter: AbstractFilter;
 }> = ({ filter }) => {
-  const isLegacyFilter = checkIsLegacyFilter(filter);
+  const isLegacyFilter = isPoolCandidateFilter(filter);
 
   const poolCandidateFilterInput = isLegacyFilter
     ? transformPoolCandidateFilterToFilterInput(filter)
