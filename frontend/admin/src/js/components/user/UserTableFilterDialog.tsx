@@ -235,17 +235,20 @@ export type UserTableFilterButtonProps = Pick<
   "onSubmit" | "enableEducationType"
 > & {
   isOpenDefault?: boolean;
+  initialActiveFilters?: FormValues;
 };
 const UserTableFilterButton = ({
   onSubmit,
   isOpenDefault = false,
   enableEducationType,
+  initialActiveFilters,
   ...rest
 }: UserTableFilterButtonProps) => {
   const { formatMessage } = useIntl();
   const { emptyFormValues } = useFilterOptions(enableEducationType);
-  const [activeFilters, setActiveFilters] =
-    useState<FormValues>(emptyFormValues);
+  const [activeFilters, setActiveFilters] = useState<FormValues>(
+    initialActiveFilters ?? emptyFormValues,
+  );
   const [isOpen, setIsOpen] = useState(isOpenDefault);
 
   const handleOpen = () => setIsOpen(true);

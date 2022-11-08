@@ -20,6 +20,7 @@ import {
   IdInput,
   Classification,
   ClassificationFilterInput,
+  JobLookingStatus,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -380,6 +381,16 @@ const transformApplicantFilterToUserFilterInput = (
     transformApplicantFilterToApplicantFilterInput(applicantFilter);
   return {
     applicantFilter: applicantFilterInput,
+    // The user table makes use of the UserFilterInput.poolFilters field INSTEAD OF the applicantFilterInput.pools field.
+    poolFilters: applicantFilterInput.pools?.filter(notEmpty).map((pool) => ({
+      poolId: pool.id,
+    })),
+    // The following fields can be changed in the UserTable filter, but we initialize them to reasonable defaults.
+    jobLookingStatus: [
+      JobLookingStatus.ActivelyLooking,
+      JobLookingStatus.OpenToOpportunities,
+    ],
+    isProfileComplete: true,
   };
 };
 

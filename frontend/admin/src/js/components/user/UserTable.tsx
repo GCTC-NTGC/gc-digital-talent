@@ -45,6 +45,74 @@ import {
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
+function formValuesToUserFilterInput(data: FormValues): UserFilterInput {
+  return {
+    applicantFilter: {
+      expectedClassifications: data.classifications.map((classification) => {
+        const splitString = classification.split("-");
+        return { group: splitString[0], level: Number(splitString[1]) };
+      }),
+      languageAbility: data.languageAbility[0]
+        ? stringToEnumLanguage(data.languageAbility[0])
+        : undefined,
+      locationPreferences: data.workRegion.map((region) => {
+        return stringToEnumLocation(region);
+      }),
+      operationalRequirements: data.operationalRequirement.map(
+        (requirement) => {
+          return stringToEnumOperational(requirement);
+        },
+      ),
+      skills: data.skills.map((skill) => {
+        const skillString = skill;
+        return { id: skillString };
+      }),
+      wouldAcceptTemporary: data.employmentDuration[0]
+        ? data.employmentDuration[0] === "TERM"
+        : undefined,
+    },
+    isGovEmployee: data.govEmployee[0] ? true : undefined,
+    isProfileComplete: data.profileComplete[0] ? true : undefined,
+    jobLookingStatus: data.jobLookingStatus.map((status) => {
+      return stringToEnumJobLooking(status);
+    }),
+    poolFilters: data.pools.map((pool) => {
+      const poolString = pool;
+      return { poolId: poolString };
+    }),
+  };
+}
+
+function userFilterInputToFormValues(
+  input: UserFilterInput | undefined,
+): FormValues {
+  return {
+    classifications:
+      input?.applicantFilter?.expectedClassifications
+        ?.filter(notEmpty)
+        .map((c) => `${c.group}-${c.level}`) ?? [],
+    languageAbility: input?.applicantFilter?.languageAbility
+      ? [input?.applicantFilter?.languageAbility]
+      : [],
+    workRegion:
+      input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
+    operationalRequirement:
+      input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
+    skills:
+      input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
+    employmentDuration: input?.applicantFilter?.wouldAcceptTemporary
+      ? ["TERM"]
+      : [],
+    govEmployee: input?.isGovEmployee ? ["true"] : [],
+    profileComplete: input?.isProfileComplete ? ["true"] : [],
+    jobLookingStatus: input?.jobLookingStatus?.filter(notEmpty) ?? [],
+    pools:
+      input?.poolFilters
+        ?.filter(notEmpty)
+        .map((poolFilter) => poolFilter.poolId) ?? [],
+  };
+}
+
 // callbacks extracted to separate function to stabilize memoized component
 const languageAccessor = (
   language: Language | null | undefined,
@@ -133,41 +201,7 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
     // this state lives in the UserTable component, this step also acts like a formValuesToSubmitData function
-    setUserFilterInput({
-      applicantFilter: {
-        expectedClassifications: data.classifications.map((classification) => {
-          const splitString = classification.split("-");
-          return { group: splitString[0], level: Number(splitString[1]) };
-        }),
-        languageAbility: data.languageAbility[0]
-          ? stringToEnumLanguage(data.languageAbility[0])
-          : undefined,
-        locationPreferences: data.workRegion.map((region) => {
-          return stringToEnumLocation(region);
-        }),
-        operationalRequirements: data.operationalRequirement.map(
-          (requirement) => {
-            return stringToEnumOperational(requirement);
-          },
-        ),
-        skills: data.skills.map((skill) => {
-          const skillString = skill;
-          return { id: skillString };
-        }),
-        wouldAcceptTemporary: data.employmentDuration[0]
-          ? data.employmentDuration[0] === "TERM"
-          : undefined,
-      },
-      isGovEmployee: data.govEmployee[0] ? true : undefined,
-      isProfileComplete: data.profileComplete[0] ? true : undefined,
-      jobLookingStatus: data.jobLookingStatus.map((status) => {
-        return stringToEnumJobLooking(status);
-      }),
-      poolFilters: data.pools.map((pool) => {
-        const poolString = pool;
-        return { poolId: poolString };
-      }),
-    });
+    setUserFilterInput(formValuesToUserFilterInput(data));
   };
 
   useEffect(() => {
@@ -315,6 +349,11 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
 
   const csv = useUserCsvData(selectedApplicants);
 
+  const initialActiveFilters = useMemo(
+    () => userFilterInputToFormValues(initialFilterInput),
+    [initialFilterInput],
+  );
+
   return (
     <div data-h2-margin="base(x1, 0)">
       <h2 id="user-table-heading" data-h2-visibility="base(invisible)">
@@ -372,7 +411,10 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
         }
         hiddenColumnIds={hiddenColumnIds}
         filterButtonComponent={
-          <UserTableFilterDialog.Button onSubmit={handleFilterSubmit} />
+          <UserTableFilterDialog.Button
+            onSubmit={handleFilterSubmit}
+            initialActiveFilters={initialActiveFilters}
+          />
         }
       />
       <div data-h2-radius="base(s)">
