@@ -21,7 +21,7 @@ import SearchFilterAdvice from "./SearchFilterAdvice";
 import Spinner from "../Spinner";
 import CandidateResults from "./CandidateResults";
 import SearchForm, { SearchFormRef } from "./SearchForm";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import { SimpleClassification, SimplePool } from "../../types/poolUtils";
 
 const applicantFilterToQueryArgs = (
@@ -263,7 +263,7 @@ const SearchContainerApi = () => {
     });
   const totalCandidateCount = candidatesData?.countApplicants || 0;
 
-  const paths = useTalentSearchRoutes();
+  const paths = useRoutes();
   const onSubmit = async (candidateCount: number, poolId: string) => {
     navigate(paths.request(), {
       state: {

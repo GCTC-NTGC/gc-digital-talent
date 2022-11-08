@@ -17,7 +17,8 @@ import {
 import { EquitySelections } from "@common/api/generated";
 import Pending from "@common/components/Pending";
 import { objectsToSortedOptions } from "@common/helpers/formUtils";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+
+import useRoutes from "../../hooks/useRoutes";
 import {
   Department,
   CreatePoolCandidateSearchRequestInput,
@@ -83,7 +84,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
-  const paths = useTalentSearchRoutes();
+  const paths = useRoutes();
   const navigate = useNavigate();
   const cacheKey = "ts-createRequest";
 

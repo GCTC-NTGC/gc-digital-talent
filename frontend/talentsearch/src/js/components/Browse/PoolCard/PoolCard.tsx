@@ -9,7 +9,6 @@ import {
 import Heading, { type HeadingLevel } from "@common/components/Heading";
 import Link from "@common/components/Link";
 import Chip, { Chips } from "@common/components/Chip";
-
 import { getPoolStream } from "@common/constants/localizedConstants";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import {
@@ -22,7 +21,7 @@ import { commonMessages } from "@common/messages";
 import { formatClassificationString } from "@common/helpers/poolUtils";
 
 import { PoolAdvertisement } from "../../../api/generated";
-import { useDirectIntakeRoutes } from "../../../directIntakeRoutes";
+import useRoutes from "../../../hooks/useRoutes";
 
 import IconLabel from "./IconLabel";
 
@@ -67,7 +66,7 @@ export interface PoolCardProps {
 const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   const classifications = getClassificationStrings(pool);
   const classification = classifications?.length ? classifications[0] : null;

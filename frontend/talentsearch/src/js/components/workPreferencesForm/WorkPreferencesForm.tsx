@@ -11,7 +11,6 @@ import {
   getOperationalRequirement,
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
-import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
@@ -22,8 +21,7 @@ import {
   UpdateWorkPreferencesMutation,
   User,
 } from "../../api/generated";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
-import directIntakeRoutes from "../../directIntakeRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import profileMessages from "../profile/profileMessages";
 import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
@@ -72,14 +70,12 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   handleWorkPreferences,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const navigate = useNavigate();
-  const profilePaths = applicantProfileRoutes(locale);
-  const directIntakePaths = directIntakeRoutes(locale);
+  const paths = useRoutes();
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.reviewApplication(application.id)
-      : profilePaths.home(initialData.id);
+      ? paths.reviewApplication(application.id)
+      : paths.profile(initialData.id);
 
   const labels = {
     wouldAcceptTemporary: intl.formatMessage({
@@ -146,7 +142,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
-          href: directIntakePaths.applications(application.user.id),
+          href: paths.applications(application.user.id),
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
@@ -154,10 +150,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             intl,
             application.poolAdvertisement,
           ),
-          href: directIntakePaths.pool(application.pool.id),
+          href: paths.pool(application.pool.id),
         },
         {
-          href: directIntakePaths.reviewApplication(application.id),
+          href: paths.reviewApplication(application.id),
           title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]

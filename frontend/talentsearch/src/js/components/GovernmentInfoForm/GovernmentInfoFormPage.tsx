@@ -1,6 +1,10 @@
+import React from "react";
+import { useIntl } from "react-intl";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import { getLocale } from "@common/helpers/localize";
 import {
   navigate,
   parseUrlQueryParameters,
@@ -8,10 +12,7 @@ import {
 } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
-import React from "react";
-import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+
 import {
   useGetApplicationQuery,
   useGetGovInfoFormLookupDataQuery,
@@ -21,7 +22,7 @@ import {
   UpdateUserAsUserInput,
   User,
 } from "../../api/generated";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import profileMessages from "../profile/profileMessages";
 import GovInfoFormWithProfileWrapper from "./GovernmentInfoForm";
 
@@ -104,9 +105,7 @@ const GovernmentInfoFormPage = () => {
   const intl = useIntl();
   const location = useLocation();
   const queryParams = parseUrlQueryParameters(location);
-
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
+  const paths = useRoutes();
 
   // Fetch departments and classifications from graphQL to pass into component to render and pull "Me" at the same time
   const [lookUpResult] = useGetGovInfoFormLookupDataQuery();
@@ -149,7 +148,7 @@ const GovernmentInfoFormPage = () => {
         const message = intl.formatMessage(profileMessages.profileCompleted);
         if (!preProfileStatus && currentProfileStatus) {
           toast.success(message);
-          navigate(paths.home(meId));
+          navigate(paths.profile(meId));
         }
       }
       return res;

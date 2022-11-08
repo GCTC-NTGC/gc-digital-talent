@@ -1,22 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-
-import Breadcrumbs from "@common/components/Breadcrumbs";
-import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import Card from "@common/components/Card";
-import { Button, Link } from "@common/components";
-import { getLocale } from "@common/helpers/localize";
-import { imageUrl } from "@common/helpers/router";
-
-import {
-  AdvertisementStatus,
-  PoolCandidate,
-  Scalars,
-  SkillCategory,
-} from "@common/api/generated";
-import TableOfContents from "@common/components/TableOfContents";
+import { useParams } from "react-router-dom";
 import {
   BoltIcon,
   BriefcaseIcon as BriefcaseIconOutline,
@@ -26,6 +10,22 @@ import {
   CpuChipIcon,
   CloudIcon,
 } from "@heroicons/react/24/outline";
+
+import Breadcrumbs from "@common/components/Breadcrumbs";
+import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import NotFound from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
+import Card from "@common/components/Card";
+import { Button, Link } from "@common/components";
+import { getLocale } from "@common/helpers/localize";
+import { imageUrl } from "@common/helpers/router";
+import {
+  AdvertisementStatus,
+  PoolCandidate,
+  Scalars,
+  SkillCategory,
+} from "@common/api/generated";
+import TableOfContents from "@common/components/TableOfContents";
 import Accordion from "@common/components/Accordion";
 import {
   getLanguageRequirement,
@@ -33,12 +33,11 @@ import {
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
 import commonMessages from "@common/messages/commonMessages";
-
 import { notEmpty } from "@common/helpers/util";
-import { useParams } from "react-router-dom";
+
 import { useGetPoolAdvertisementQuery, Maybe } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import TALENTSEARCH_APP_DIR, {
   TALENTSEARCH_RECRUITMENT_EMAIL,
 } from "../../talentSearchConstants";
@@ -53,7 +52,7 @@ interface ApplyButtonProps {
 
 const ApplyButton = ({ poolId }: ApplyButtonProps) => {
   const intl = useIntl();
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   return (
     <Link
@@ -124,7 +123,7 @@ const PoolAdvertisement = ({
 }: PoolAdvertisementProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   const classification = poolAdvertisement.classifications
     ? poolAdvertisement.classifications[0]

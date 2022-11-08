@@ -1,25 +1,26 @@
 import * as React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import uniqueId from "lodash/uniqueId";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { toast } from "react-toastify";
+import { ArrowSmallRightIcon } from "@heroicons/react/24/outline";
+import {
+  ClipboardDocumentCheckIcon,
+  UserIcon,
+} from "@heroicons/react/24/solid";
+
 import { Link } from "@common/components";
 import { Input, Submit } from "@common/components/form";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import TableOfContents from "@common/components/TableOfContents";
 import { commonMessages, errorMessages } from "@common/messages";
-import { ArrowSmallRightIcon } from "@heroicons/react/24/outline";
-import {
-  ClipboardDocumentCheckIcon,
-  UserIcon,
-} from "@heroicons/react/24/solid";
-import uniqueId from "lodash/uniqueId";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
-
 import { notEmpty } from "@common/helpers/util";
 import { getMissingSkills } from "@common/helpers/skillUtils";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+
+import useRoutes from "../../hooks/useRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
 import {
   PoolAdvertisement,
@@ -96,7 +97,7 @@ const SignatureForm = ({
   handleSubmitApplication,
 }: SignatureFormProps) => {
   const intl = useIntl();
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
   const methods = useForm<FormValues>();
   const navigate = useNavigate();
   const confirmations = [
@@ -249,7 +250,7 @@ export const SignAndSubmitForm = ({
   handleSubmitApplication,
 }: SignAndSubmitFormProps) => {
   const intl = useIntl();
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   const tocNavItems = [
     {

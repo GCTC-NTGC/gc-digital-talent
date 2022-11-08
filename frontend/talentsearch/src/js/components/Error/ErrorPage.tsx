@@ -6,12 +6,12 @@ import Heading from "@common/components/Heading";
 
 import CallToAction from "../CallToAction";
 import { PugDark, PugLight } from "./Icons";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import useErrorMessages from "./useErrorMessages";
 
 const ErrorPage = () => {
   const intl = useIntl();
-  const paths = useTalentSearchRoutes();
+  const paths = useRoutes();
   const { mode } = useTheme();
   const errorMessage = useErrorMessages();
 

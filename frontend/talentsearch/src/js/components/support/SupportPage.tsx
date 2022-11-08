@@ -8,7 +8,7 @@ import useTheme from "@common/hooks/useTheme";
 import SupportForm from "./SupportForm";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import useBreadcrumbs from "../../hooks/useBreadcrumbs";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+import useRoutes from "../../hooks/useRoutes";
 
 const flourishTopLight = imageUrl(
   TALENTSEARCH_APP_DIR,
@@ -25,7 +25,7 @@ const getFlourishStyles = (isTop: boolean) => ({
 export const SupportPage: React.FC = () => {
   const { mode } = useTheme();
   const intl = useIntl();
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
   const title = intl.formatMessage({
     defaultMessage: "Contact and support",
     id: "MZJYQd",

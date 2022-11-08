@@ -6,6 +6,7 @@ import pick from "lodash/pick";
 import { notEmpty } from "@common/helpers/util";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
+
 import {
   Classification,
   CmoAsset,
@@ -25,7 +26,7 @@ import { FormValues, SearchForm, SearchFormRef } from "./SearchForm";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import SearchPools from "../SearchPools";
 import Spinner from "../../Spinner";
-import { useTalentSearchRoutes } from "../../../talentSearchRoutes";
+import useRoutes from "../../../hooks/useRoutes";
 
 const testId = (chunks: React.ReactNode): React.ReactNode => (
   <span data-testid="candidateCount">{chunks}</span>
@@ -284,7 +285,7 @@ export const SearchContainerApi: React.FC = () => {
 
   const candidateCount = countData?.countPoolCandidates ?? 0;
 
-  const paths = useTalentSearchRoutes();
+  const paths = useRoutes();
   const onSubmit = async () => {
     // pool ID is not in the form so it must be added manually
     if (candidateFilter && pool) candidateFilter.pools = [{ id: pool.id }];

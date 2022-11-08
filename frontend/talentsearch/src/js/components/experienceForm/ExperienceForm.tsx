@@ -7,7 +7,6 @@ import { OperationContext } from "urql";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
 import { BasicForm, TextArea } from "@common/components/form";
-import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
 import { removeFromSessionStorage } from "@common/helpers/storageUtils";
@@ -34,7 +33,7 @@ import {
   useGetMyExperiencesQuery,
   useGetSkillsQuery,
 } from "../../api/generated";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
+import useRoutes from "../../hooks/useRoutes";
 
 import type {
   ExperienceType,
@@ -52,7 +51,6 @@ import {
   useDeleteExperienceMutation,
 } from "./mutations";
 import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import getExperienceFormLabels from "./labels";
 
 export interface ExperienceFormProps {
@@ -79,12 +77,9 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   poolAdvertisement,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
-
-  const paths = applicantProfileRoutes(locale);
-  const directIntakePaths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
@@ -137,7 +132,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           id: "q04FCp",
           description: "Link text for breadcrumb to user applications page.",
         }),
-        href: directIntakePaths.applications(userId),
+        href: paths.applications(userId),
       },
       {
         title: advertisementTitle,
@@ -326,12 +321,11 @@ export interface ExperienceFormContainerProps {
 
 const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
   const { userId, experienceType, experienceId } = useParams<RouteParams>();
-  const paths = applicantProfileRoutes(locale);
+  const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
   const returnPath = `${paths.skillsAndExperiences(userId || "")}${
     applicationId ? `?applicationId=${applicationId}` : ``

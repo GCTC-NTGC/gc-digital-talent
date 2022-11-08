@@ -1,17 +1,18 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { imageUrl } from "@common/helpers/router";
 import { useIntl } from "react-intl";
-import { Alert } from "@common/components";
-import { BellIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
+import { BellIcon } from "@heroicons/react/24/outline";
+
+import { imageUrl } from "@common/helpers/router";
+import { Alert } from "@common/components";
 import { BasicForm, Input, RadioGroup, Submit } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage } from "@common/constants";
-import { getLocale } from "@common/helpers/localize";
 import { emptyToNull, notEmpty } from "@common/helpers/util";
 import Pending from "@common/components/Pending";
+
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import {
   Language,
@@ -27,7 +28,7 @@ import {
   getGovernmentInfoLabels,
   GovernmentInfoForm,
 } from "../GovernmentInfoForm/GovernmentInfoForm";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
+import useRoutes from "../../hooks/useRoutes";
 
 type FormValues = Pick<
   UpdateUserAsUserInput,
@@ -283,8 +284,7 @@ export const CreateAccountForm: React.FunctionComponent<
 const CreateAccount: React.FunctionComponent = () => {
   const intl = useIntl();
   const navigate = useNavigate();
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
+  const paths = useRoutes();
 
   const [lookUpResult] = useGetCreateAccountFormDataQuery();
   const { data: lookupData, fetching, error } = lookUpResult;
@@ -324,7 +324,7 @@ const CreateAccount: React.FunctionComponent = () => {
     }
     await handleCreateAccount(meId, data)
       .then(() => {
-        navigate(paths.home(meId));
+        navigate(paths.profile(meId));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Account successfully created.",

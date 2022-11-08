@@ -6,7 +6,7 @@ import AlertDialog from "@common/components/AlertDialog";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 
-import { useDirectIntakeRoutes } from "../../../directIntakeRoutes";
+import useRoutes from "../../../hooks/useRoutes";
 
 import type { Application } from "./ApplicationCard";
 import getFullPoolAdvertisementTitle from "../../pool/getFullPoolAdvertisementTitle";
@@ -22,7 +22,7 @@ export interface ContinueActionProps extends ActionProps {
 const ContinueAction = ({ show, application }: ContinueActionProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
   const { poolAdvertisement } = application;
 
   if (!show) {
@@ -57,7 +57,7 @@ const SeeAdvertisementAction = ({
 }: SeeAdvertisementActionProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   if (!show || !advertisement) {
     return null;

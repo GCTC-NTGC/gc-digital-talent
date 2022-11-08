@@ -1,16 +1,18 @@
 import React from "react";
-import Loading from "@common/components/Pending/Loading";
 import { useIntl } from "react-intl";
+import { useNavigate, useParams } from "react-router-dom";
 import { Id, toast } from "react-toastify";
+
+import Loading from "@common/components/Pending/Loading";
 import { notEmpty } from "@common/helpers/util";
 import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
-import { useNavigate, useParams } from "react-router-dom";
+
 import {
   Scalars,
   useCreateApplicationMutation,
   useGetPoolAdvertisementQuery,
 } from "../../api/generated";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+import useRoutes from "../../hooks/useRoutes";
 
 type RouteParams = {
   poolId: Scalars["ID"];
@@ -25,7 +27,7 @@ const CreateApplication = () => {
   const { poolId } = useParams<RouteParams>();
   const intl = useIntl();
   const errorToastId = React.useRef<Id>("");
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
   const navigate = useNavigate();
   const [{ data }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId || "" },
