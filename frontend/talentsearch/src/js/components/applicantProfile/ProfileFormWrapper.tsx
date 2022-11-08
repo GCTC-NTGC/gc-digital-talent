@@ -8,7 +8,7 @@ import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 export interface ProfileFormWrapperProps {
   crumbs: BreadcrumbsProps["links"];
-  description: string;
+  description?: string;
   title: string;
   cancelLink?: CancelButtonProps;
   prefixBreadcrumbs?: boolean;
@@ -71,7 +71,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         >
           {title}
         </h1>
-        <p data-h2-margin="base(0, 0, x1, 0)">{description}</p>
+        {description && <p data-h2-margin="base(0, 0, x1, 0)">{description}</p>}
         <div data-h2-margin="base(0, 0, x3, 0)">{children}</div>
       </div>
       {breadcrumbs}

@@ -410,8 +410,8 @@ export const UserTable = ({ initialFilterInput }: UserTableProps) => {
           )
         }
         hiddenColumnIds={hiddenColumnIds}
-        filterButtonComponent={
-          <UserTableFilterDialog.Button
+        filterComponent={
+          <UserTableFilterDialog
             onSubmit={handleFilterSubmit}
             initialActiveFilters={initialActiveFilters}
           />

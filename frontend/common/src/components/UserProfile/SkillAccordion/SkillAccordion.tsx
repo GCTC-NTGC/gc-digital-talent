@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { getLocale } from "../../../helpers/localize";
-import Accordion from "../../accordion";
+import Accordion from "../../Accordion";
 import {
   getAwardedScope,
   getAwardedTo,
@@ -153,8 +153,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         >
           {intl.formatMessage({
             defaultMessage: "Additional information:",
-            id: "gLioY2",
-            description: "Additional information if provided",
+            id: "+nS/ak",
+            description: "Additional information if provided (without details)",
           })}
         </p>
 
@@ -199,8 +199,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         >
           {intl.formatMessage({
             defaultMessage: "Additional information:",
-            id: "gLioY2",
-            description: "Additional information if provided",
+            id: "+nS/ak",
+            description: "Additional information if provided (without details)",
           })}
         </p>
         <p>{details}</p>
@@ -236,8 +236,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         >
           {intl.formatMessage({
             defaultMessage: "Additional information:",
-            id: "gLioY2",
-            description: "Additional information if provided",
+            id: "+nS/ak",
+            description: "Additional information if provided (without details)",
           })}
         </p>
         <p>{details}</p>
@@ -300,28 +300,29 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return renderNoExperience();
   }
   return (
-    <Accordion
-      title={`${name[locale]}`}
-      data-testid="skill"
-      context={
-        experiences?.length === 1
-          ? intl.formatMessage({
-              defaultMessage: "1 Experience",
-              id: "dQseX7",
-              description: "Pluralization for one experience",
-            })
-          : intl.formatMessage(
-              {
-                defaultMessage: "{experienceLength} Experiences",
-                id: "xNVsei",
-                description: "Pluralization for zero or multiple experiences",
-              },
-              { experienceLength: experiences ? experiences.length : 0 },
-            )
-      }
-    >
-      <div data-testid="detail">{renderDetail()}</div>
-    </Accordion>
+    <Accordion.Item value={skill.id}>
+      <Accordion.Trigger
+        context={
+          experiences?.length === 1
+            ? intl.formatMessage({
+                defaultMessage: "1 Experience",
+                id: "dQseX7",
+                description: "Pluralization for one experience",
+              })
+            : intl.formatMessage(
+                {
+                  defaultMessage: "{experienceLength} Experiences",
+                  id: "xNVsei",
+                  description: "Pluralization for zero or multiple experiences",
+                },
+                { experienceLength: experiences ? experiences.length : 0 },
+              )
+        }
+      >
+        {name[locale]}
+      </Accordion.Trigger>
+      <Accordion.Content>{renderDetail()}</Accordion.Content>
+    </Accordion.Item>
   );
 };
 export default SkillAccordion;

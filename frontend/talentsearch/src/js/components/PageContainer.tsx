@@ -73,6 +73,28 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   );
 };
 
+interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
+  children: React.ReactNode;
+}
+export const LogoutButton = React.forwardRef<
+  HTMLButtonElement,
+  LogoutButtonProps
+>(({ children, ...rest }, forwardedRef) => (
+  <button
+    data-h2-color="base(dt-primary)"
+    data-h2-font-size="base(normal)"
+    data-h2-text-decoration="base(underline)"
+    style={{
+      background: "none",
+    }}
+    ref={forwardedRef}
+    {...rest}
+    type="button"
+  >
+    {children}
+  </button>
+));
+
 const TalentSearchNotAuthorized: React.FC = () => {
   const intl = useIntl();
   return (

@@ -2,24 +2,28 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen } from "@testing-library/react";
 import React from "react";
 import { createIntl, createIntlCache } from "react-intl";
+
+import Accordion from "../../Accordion";
 import { fakeSkills } from "../../../fakeData";
 import { generators as experienceGenerator } from "../../../fakeData/fakeExperiences";
-
-import { render } from "../../../helpers/testUtils";
+import { render, screen, axeTest, fireEvent } from "../../../helpers/testUtils";
 import { getDateRange } from "../../../helpers/dateUtils";
-import { Skill } from "../../../api/generated";
+import { Maybe, Skill } from "../../../api/generated";
 import SkillAccordion from "./SkillAccordion";
 
 const skills = fakeSkills();
 const testSkill = skills[0];
 function renderSkillAccordion(skill: Skill) {
-  return render(<SkillAccordion skill={skill} />);
+  return render(
+    <Accordion.Root type="single">
+      <SkillAccordion skill={skill} />
+    </Accordion.Root>,
+  );
 }
 
-describe("SkillAccordion tests", () => {
+describe("SkillAccordion", () => {
   // https://formatjs.io/docs/react-intl/api/#createintl
   const cache = createIntlCache();
   const intl = createIntl(
@@ -30,34 +34,60 @@ describe("SkillAccordion tests", () => {
     cache,
   );
 
-  test("It renders Skill Accordion without any issues", () => {
-    renderSkillAccordion(testSkill);
-    const accordion = screen.getByTestId("skill");
-    expect(accordion).not.toBeNull();
-  });
-  test("It renders proper context and detail when no experience provided", () => {
-    renderSkillAccordion(testSkill);
-    const accordion = screen.getAllByText("0 Experiences");
-    const expectedResult =
-      "<p>You do not have any experiences attached to this skill</p>";
-    const detail = screen.getAllByTestId("detail");
+  const openAccordion = async (name: Maybe<string>) => {
+    fireEvent.click(
+      await screen.getByRole("button", {
+        name: new RegExp(name || "", "i"),
+      }),
+    );
+  };
 
-    expect(accordion).not.toBeNull();
-    expect(detail[0].innerHTML).toEqual(expectedResult);
+  it("should have no accessibility errors", async () => {
+    const { container } = renderSkillAccordion(testSkill);
+
+    await axeTest(container);
   });
 
-  test("It renders proper context and detail when an award experience is provided", () => {
+  it("renders Skill Accordion without any issues", async () => {
+    renderSkillAccordion(testSkill);
+    expect(
+      await screen.getByRole("button", {
+        name: new RegExp(testSkill.name.en || "", "i"),
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it("renders proper context and detail when no experience provided", async () => {
+    renderSkillAccordion(testSkill);
+
+    await openAccordion(testSkill.name.en);
+
+    expect(
+      await screen.getByRole("region", {
+        name: new RegExp(testSkill.name.en || "", "i"),
+      }),
+    ).toContainHTML(
+      "<p>You do not have any experiences attached to this skill</p>",
+    );
+  });
+
+  it("renders proper context and detail when an award experience is provided", async () => {
     const experience = experienceGenerator.awardExperiences()[0];
     testSkill.experiences = [experience];
     renderSkillAccordion(testSkill);
-    const context = screen.getByText("1 Experience");
-    const detail = screen.getByTestId("detail");
-    expect(context).not.toBeNull();
-    expect(detail).not.toBeNull();
-  });
-  test("It renders proper context and detail when a work experience is provided", () => {
-    const experience = experienceGenerator.workExperiences()[0];
 
+    await openAccordion(testSkill.name.en);
+
+    expect(await screen.getByText("1 Experience")).toBeInTheDocument();
+    expect(
+      await screen.getByRole("region", {
+        name: new RegExp(testSkill.name.en || "", "i"),
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it("renders proper context and detail when a work experience is provided", async () => {
+    const experience = experienceGenerator.workExperiences()[0];
     testSkill.experiences = [experience];
     const dateRange = getDateRange({
       endDate: experience.endDate,
@@ -66,33 +96,50 @@ describe("SkillAccordion tests", () => {
       locale: "en",
     });
     renderSkillAccordion(testSkill);
-    const context = screen.getByText("1 Experience");
-    const detail = screen.getByTestId("detail");
-    expect(context).not.toBeNull();
-    expect(detail).not.toBeNull();
-    expect(detail.innerHTML).toContain(experience.details);
-    expect(detail.innerHTML).toContain(experience.division);
-    expect(detail.innerHTML).toContain(dateRange);
-    expect(detail.innerHTML).toContain(experience.organization);
-    expect(detail.innerHTML).toContain(experience.role);
+    await openAccordion(testSkill.name.en);
+
+    expect(await screen.getByText("1 Experience")).toBeInTheDocument();
+
+    const detail = await screen.getByRole("region", {
+      name: new RegExp(testSkill.name.en || "", "i"),
+    });
+
+    expect(detail).toBeInTheDocument();
+    expect(detail).toHaveTextContent(new RegExp(experience.details || "", "i"));
+    expect(detail).toHaveTextContent(
+      new RegExp(experience.division || "", "i"),
+    );
+    expect(detail).toHaveTextContent(
+      new RegExp(`${dateRange}`.replaceAll("   ", " ") || "", "i"),
+    );
+    expect(detail).toHaveTextContent(
+      new RegExp(experience.organization || "", "i"),
+    );
+    expect(detail).toHaveTextContent(new RegExp(experience.role || "", "i"));
   });
 
-  test("It renders proper context and detail when a community experience is provided", () => {
+  it("renders proper context and detail when a community experience is provided", async () => {
     const experience = experienceGenerator.communityExperiences()[0];
     testSkill.experiences = [experience];
     renderSkillAccordion(testSkill);
-    const context = screen.getByText("1 Experience");
-    const detail = screen.getByTestId("detail");
-    expect(context).not.toBeNull();
-    expect(detail).not.toBeNull();
-    expect(detail.innerHTML).toContain(experience.details);
-    expect(detail.innerHTML).toContain(experience.organization);
-    expect(detail.innerHTML).toContain(experience.project);
-    expect(detail.innerHTML).toContain(experience.organization);
-    expect(detail.innerHTML).toContain(experience.title);
+
+    await openAccordion(testSkill.name.en);
+
+    expect(await screen.getByText("1 Experience")).toBeInTheDocument();
+
+    const detail = await screen.getByRole("region", {
+      name: new RegExp(testSkill.name.en || "", "i"),
+    });
+
+    expect(detail).toBeInTheDocument();
+    expect(detail).toHaveTextContent(experience.details || "");
+    expect(detail).toHaveTextContent(experience.organization || "");
+    expect(detail).toHaveTextContent(experience.project || "");
+    expect(detail).toHaveTextContent(experience.organization || "");
+    expect(detail).toHaveTextContent(experience.title || "");
   });
 
-  test("It renders proper context and detail when a education experience is provided", () => {
+  it("renders proper context and detail when a education experience is provided", async () => {
     const experience = experienceGenerator.educationExperiences()[0];
     testSkill.experiences = [experience];
     const dateRange = getDateRange({
@@ -102,18 +149,24 @@ describe("SkillAccordion tests", () => {
       locale: "en",
     });
     renderSkillAccordion(testSkill);
-    const context = screen.getByText("1 Experience");
-    const detail = screen.getByTestId("detail");
-    expect(context).not.toBeNull();
-    expect(detail).not.toBeNull();
-    expect(detail.innerHTML).toContain(experience.details);
-    expect(detail.innerHTML).toContain(experience.institution);
-    expect(detail.innerHTML).toContain(experience.areaOfStudy);
-    expect(detail.innerHTML).toContain(experience.thesisTitle);
-    expect(detail.innerHTML).toContain(dateRange);
+
+    await openAccordion(testSkill.name.en);
+
+    expect(await screen.getByText("1 Experience")).toBeInTheDocument();
+
+    const detail = await screen.getByRole("region", {
+      name: new RegExp(testSkill.name.en || "", "i"),
+    });
+
+    expect(detail).toBeInTheDocument();
+    expect(detail).toHaveTextContent(experience.details || "");
+    expect(detail).toHaveTextContent(experience.institution || "");
+    expect(detail).toHaveTextContent(experience.areaOfStudy || "");
+    expect(detail).toHaveTextContent(experience.thesisTitle || "");
+    expect(detail).toHaveTextContent(`${dateRange}`.replaceAll("   ", " "));
   });
 
-  test("It renders proper context and detail when a personal experience is provided", () => {
+  it("renders proper context and detail when a personal experience is provided", async () => {
     const experience = experienceGenerator.personalExperiences()[0];
     testSkill.experiences = [experience];
     const dateRange = getDateRange({
@@ -123,28 +176,39 @@ describe("SkillAccordion tests", () => {
       locale: "en",
     });
     renderSkillAccordion(testSkill);
-    const context = screen.getByText("1 Experience");
-    const detail = screen.getByTestId("detail");
-    expect(context).not.toBeNull();
-    expect(detail).not.toBeNull();
-    expect(detail.innerHTML).toContain(experience.details);
-    expect(detail.innerHTML).toContain(experience.description);
-    expect(detail.innerHTML).toContain(dateRange);
-    expect(detail.innerHTML).toContain(experience.title);
+
+    await openAccordion(testSkill.name.en);
+
+    expect(await screen.getByText("1 Experience")).toBeInTheDocument();
+
+    const detail = await screen.getByRole("region", {
+      name: new RegExp(testSkill.name.en || "", "i"),
+    });
+
+    expect(detail).toBeInTheDocument();
+    expect(detail).toHaveTextContent(experience.details || "");
+    expect(detail).toHaveTextContent(experience.description || "");
+    expect(detail).toHaveTextContent(`${dateRange}`.replaceAll("   ", " "));
+    expect(detail).toHaveTextContent(experience.title || "");
   });
 
-  test("It renders proper context and detail when more than one experiences provided", () => {
+  it("renders proper context and detail when more than one experiences provided", async () => {
     const experience1 = experienceGenerator.workExperiences()[0];
     const experience2 = experienceGenerator.educationExperiences(2)[1];
 
     testSkill.experiences = [experience1, experience2];
     renderSkillAccordion(testSkill);
-    const accordion = screen.getByText("2 Experiences");
-    const detail = screen.getByTestId("detail");
-    expect(detail).not.toBeNull();
-    expect(detail.innerHTML).toContain(experience1.details);
-    expect(detail.innerHTML).toContain(experience2.details);
 
-    expect(accordion).not.toBeNull();
+    await openAccordion(testSkill.name.en);
+
+    expect(await screen.getByText("2 Experiences")).toBeInTheDocument();
+
+    const detail = await screen.getByRole("region", {
+      name: new RegExp(testSkill.name.en || "", "i"),
+    });
+
+    expect(detail).toBeInTheDocument();
+    expect(detail).toHaveTextContent(experience1.details || "");
+    expect(detail).toHaveTextContent(experience2.details || "");
   });
 });

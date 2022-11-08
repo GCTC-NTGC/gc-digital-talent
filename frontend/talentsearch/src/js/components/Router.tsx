@@ -9,7 +9,8 @@ import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { getLocale } from "@common/helpers/localize";
 import useFeatureFlags from "@common/hooks/useFeatureFlags";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-import PageContainer, { MenuLink } from "./PageContainer";
+import Pending from "@common/components/Pending";
+import PageContainer, { LogoutButton, MenuLink } from "./PageContainer";
 import {
   useTalentSearchRoutes,
   TalentSearchRoutes,
@@ -492,12 +493,10 @@ export const Router: React.FC = () => {
   const profilePaths = useApplicantProfileRoutes();
   const directIntakePaths = useDirectIntakeRoutes();
   const featureFlags = useFeatureFlags();
-  const { loggedIn, logout } = React.useContext(AuthenticationContext);
-  const [isConfirmationOpen, setConfirmationOpen] =
-    React.useState<boolean>(false);
+  const { loggedIn } = React.useContext(AuthenticationContext);
 
   const [result] = useGetAboutMeQuery();
-  const { data } = result;
+  const { data, fetching, error } = result;
   const aiConnectionString = getRuntimeVariable(
     "APPLICATIONINSIGHTS_CONNECTION_STRING",
   );
@@ -596,25 +595,20 @@ export const Router: React.FC = () => {
   ];
   if (loggedIn) {
     authLinks = [
-      <MenuLink
-        key="logout"
-        as="button"
-        onClick={() => {
-          if (loggedIn) {
-            setConfirmationOpen(true);
-          }
-        }}
-        text={intl.formatMessage({
-          defaultMessage: "Logout",
-          id: "3vDhoc",
-          description: "Label displayed on the logout link menu item.",
-        })}
-      />,
+      <LogoutConfirmation key="logout">
+        <LogoutButton>
+          {intl.formatMessage({
+            defaultMessage: "Logout",
+            id: "3vDhoc",
+            description: "Label displayed on the logout link menu item.",
+          })}
+        </LogoutButton>
+      </LogoutConfirmation>,
     ];
   }
 
   return (
-    <>
+    <Pending fetching={fetching} error={error}>
       <PageContainer
         menuItems={menuItems}
         authLinks={authLinks}
@@ -646,14 +640,7 @@ export const Router: React.FC = () => {
           })}
         />
       </Helmet>
-      {loggedIn && (
-        <LogoutConfirmation
-          isOpen={isConfirmationOpen}
-          onDismiss={() => setConfirmationOpen(false)}
-          onLogout={() => logout()}
-        />
-      )}
-    </>
+    </Pending>
   );
 };
 
