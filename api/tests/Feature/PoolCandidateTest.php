@@ -750,7 +750,7 @@ class PoolCandidateTest extends TestCase
         'countPoolCandidates' => 1
       ]
     ]);
-    // Assert query with a unknown LanguageAbility filter will return no candidates
+    // Assert query with a null LanguageAbility filter will return all candidates
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -761,7 +761,7 @@ class PoolCandidateTest extends TestCase
       ]
     ])->assertJson([
       'data' => [
-        'countPoolCandidates' => 0
+        'countPoolCandidates' => 8
       ]
     ]);
   }
