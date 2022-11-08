@@ -42,7 +42,7 @@ const getRoutes = (lang: Locales) => {
     notFound: () => path.join(baseUrl, "404"),
     support: () => path.join(baseUrl, "support"),
     search: () => path.join(baseUrl, "search"),
-    request: () => path.join(baseUrl, "request"),
+    request: () => path.join(baseUrl, "search", "request"),
     register: () => path.join(baseUrl, "register-info"),
     login: () => path.join(baseUrl, "login-info"),
     loggedOut: () => path.join(baseUrl, "logged-out"),
