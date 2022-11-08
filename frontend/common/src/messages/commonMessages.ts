@@ -44,6 +44,11 @@ const messages = defineMessages({
     description:
       "Message that there are required fields missing. Please ignore things in <> tags.",
   },
+  nameNotLoaded: {
+    defaultMessage: "Error: name not loaded",
+    id: "DdOEWx",
+    description: "Message when name value not found",
+  },
 });
 
 export default messages;

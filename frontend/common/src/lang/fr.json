@@ -1971,5 +1971,9 @@
   "rsrNSC": {
     "defaultMessage": "Modifications non sauvegardées",
     "description": "Displayed next to form inputs when they have been changed but not saved."
+  },
+  "DdOEWx": {
+    "defaultMessage": "Erreur : nom pas chargé",
+    "description": "Message when name value not found"
   }
 }
