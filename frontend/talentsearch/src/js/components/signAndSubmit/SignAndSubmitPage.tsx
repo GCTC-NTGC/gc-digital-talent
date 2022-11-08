@@ -12,10 +12,10 @@ import {
 
 import { Link } from "@common/components";
 import { Input, Submit } from "@common/components/form";
-import NotFound, { ThrowNotFound } from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import TableOfContents from "@common/components/TableOfContents";
-import { commonMessages, errorMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { getMissingSkills } from "@common/helpers/skillUtils";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";

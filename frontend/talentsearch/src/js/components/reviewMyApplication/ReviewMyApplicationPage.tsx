@@ -5,11 +5,11 @@ import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
 
 import UserProfile from "@common/components/UserProfile";
 import Pending from "@common/components/Pending";
-import NotFound, { ThrowNotFound } from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import MissingSkills from "@common/components/MissingSkills";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import Well from "@common/components/Well";
-import { commonMessages, navigationMessages } from "@common/messages";
+import { navigationMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { Link } from "@common/components";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
