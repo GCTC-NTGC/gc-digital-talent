@@ -235,10 +235,6 @@
     "defaultMessage": "Propriétaire du bassin : {name}",
     "description": "Text showing the owner of the HR pool."
   },
-  "m+d9ls": {
-    "defaultMessage": "Erreur : nom pas chargé",
-    "description": "Error message for cmo asset filer on search form."
-  },
   "1EyeE7": {
     "defaultMessage": "Tous les candidats de ce bassin ont aussi été évalués pour des compétences non techniques.",
     "description": "Message describing the skill filter in the search form."
@@ -2631,6 +2627,26 @@
   "ywkgJx": {
     "defaultMessage": "Détails",
     "description": "Support form details field label"
+  },
+  "w1/0Cd": {
+    "defaultMessage": "Diplôme exigé",
+    "description": "Diploma required"
+  },
+  "mKzQwr": {
+    "defaultMessage": "Compétence linguistique",
+    "description": "Language ability"
+  },
+  "hRe0yl": {
+    "defaultMessage": "Durée de l’emploi",
+    "description": "Employment duration"
+  },
+  "dE2WB1": {
+    "defaultMessage": "Équité en matière d’emploi ({equityFiltersActive})",
+    "description": "Employment equity with a number in parentheses"
+  },
+  "RNI+IH": {
+    "defaultMessage": "Compétences sélectionnées ({skillCount})",
+    "description": "Skills selected and then a number in parentheses"
   },
   "S/n44h": {
     "defaultMessage": "Sélectionner...",

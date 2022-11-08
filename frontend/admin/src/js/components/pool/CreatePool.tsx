@@ -7,7 +7,7 @@ import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
 import { Select, Submit } from "@common/components/form";
 import { unpackMaybes } from "@common/helpers/formUtils";
-import { errorMessages } from "@common/messages";
+import { errorMessages, commonMessages } from "@common/messages";
 import { getGenericJobTitlesWithClassification } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import PageHeader from "@common/components/PageHeader/PageHeader";
@@ -127,7 +127,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
       value: classificationId,
       label:
         intl.formatMessage(getGenericJobTitlesWithClassification(key)) ??
-        "Error: name not loaded",
+        intl.formatMessage(commonMessages.nameNotLoaded),
     }),
   );
 

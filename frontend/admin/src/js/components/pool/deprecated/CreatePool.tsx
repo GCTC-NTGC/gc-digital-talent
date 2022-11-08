@@ -13,7 +13,7 @@ import {
 } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
-import { errorMessages } from "@common/messages";
+import { errorMessages, commonMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import {
   getOperationalRequirement,
@@ -116,7 +116,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 
   const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
     value: id,
-    label: name[locale] ?? "Error: name not loaded",
+    label: name[locale] ?? intl.formatMessage(commonMessages.nameNotLoaded),
   }));
 
   const classificationOptions: Option<string>[] = classifications.map(

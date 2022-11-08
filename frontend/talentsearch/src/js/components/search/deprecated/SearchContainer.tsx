@@ -64,6 +64,19 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     candidateFilter?.operationalRequirements?.length ?? 0;
   const workRegionFilterCount =
     candidateFilter?.locationPreferences?.length ?? 0;
+  const educationFilter = candidateFilter?.hasDiploma;
+  const workingLanguage = candidateFilter?.languageAbility;
+
+  const equityFilters = candidateFilter?.equity;
+  const equityFiltersArray = equityFilters
+    ? Object.values(equityFilters)
+    : null;
+  const equityFiltersArrayTrue = equityFiltersArray
+    ? equityFiltersArray.filter((equityField) => equityField === true)
+    : null;
+  const equityFiltersCount = equityFiltersArrayTrue
+    ? equityFiltersArrayTrue.length
+    : 0;
 
   function a(chunks: React.ReactNode): React.ReactNode {
     return (
@@ -214,11 +227,13 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             )}
           </h3>
           <SearchFilterAdvice
-            classificationFilterCount={classificationFilterCount}
             cmoAssetFilterCount={cmoAssetFilterCount}
             operationalRequirementFilterCount={
               operationalRequirementFilterCount
             }
+            workingLanguage={workingLanguage}
+            educationFilter={educationFilter}
+            equityFiltersActive={equityFiltersCount}
           />
         </div>
         <div>{!updatePending ? candidateResults() : <Spinner />}</div>
