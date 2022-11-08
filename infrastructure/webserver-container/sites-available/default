@@ -1,3 +1,12 @@
+# enable rewrite logging for debugging
+# error_log /var/log/nginx/error.log notice;
+# rewrite_log on;
+
+# allow substitutions of runtime variables
+sub_filter_last_modified on;
+
+
+
 server {
     #proxy_cache cache;
 	#proxy_cache_valid 200 1s;
@@ -68,7 +77,18 @@ server {
         root /home/site/wwwroot;
     }
 
-    location /talent {
+    location ~ ^/(en|fr)/talent {
+        rewrite ^/(en|fr)/talent(/.+)?$ /index.html?locale=$1 last;
+        root /home/site/wwwroot;
+    }
+
+    location ~ ^/talent {
+        root /home/site/wwwroot;
+    }
+
+    location = /talent/config.html {
+        env OAUTH_POST_LOGOUT_REDIRECT;
+        sub_filter '<!--#echo var="OAUTH_POST_LOGOUT_REDIRECT" -->'  '${OAUTH_POST_LOGOUT_REDIRECT}';
         root /home/site/wwwroot;
     }
 
@@ -123,4 +143,6 @@ server {
     #     fastcgi_busy_buffers_size 256k;
     #     fastcgi_temp_file_write_size 256k;
     # }
+
 }
+

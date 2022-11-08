@@ -18,11 +18,15 @@ services:
       - "8000:8000"
     volumes:
       - ./infrastructure/webserver-container/sites-available:/etc/nginx/sites-available
+      - ./infrastructure/bin:/home/infrastructure-bin
       # - ./infrastructure/webserver-container/test:/home/site/wwwroot
       - ./api:/home/site/api
       - ./frontend/talentsearch/dist:/home/site/wwwroot/talent
       - ./frontend/admin/dist:/home/site/wwwroot/admin
       - ./frontend/indigenousapprenticeship/dist:/home/site/wwwroot/indigenous-it-apprentice
+    env_file:
+      - ./frontend/.webserver_env
+    command: /home/infrastructure-bin/post_deployment.sh .
 
 volumes:
   pgdata:
