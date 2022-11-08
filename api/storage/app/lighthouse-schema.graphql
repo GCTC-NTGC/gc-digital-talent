@@ -975,7 +975,6 @@ type Query {
   applicant(id: ID!): Applicant
   applicants(includeIds: [ID]!): [Applicant]!
   countApplicants(where: ApplicantFilterInput): Int!
-  searchApplicants(where: ApplicantFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [Applicant]!
   pool(id: ID!): Pool
   poolAdvertisement(id: ID!): PoolAdvertisement
   poolAdvertisements: [PoolAdvertisement]!

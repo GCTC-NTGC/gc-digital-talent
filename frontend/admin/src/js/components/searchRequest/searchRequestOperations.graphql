@@ -34,34 +34,3 @@ query searchPoolCandidates($poolCandidateFilter: PoolCandidateFilterInput) {
     }
   }
 }
-
-query searchApplicants($applicantFilter: ApplicantFilterInput) {
-  searchApplicants(where: $applicantFilter) {
-    id
-    email
-    firstName
-    lastName
-    expectedClassifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-    }
-    acceptedOperationalRequirements
-    isWoman
-    hasDisability
-    isIndigenous
-    isVisibleMinority
-    cmoAssets {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-  }
-}
