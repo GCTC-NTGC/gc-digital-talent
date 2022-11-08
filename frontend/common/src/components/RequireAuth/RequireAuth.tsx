@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, json } from "react-router-dom";
 
 import useAuth from "../../hooks/useAuth";
 import useAuthorizationContext from "../../hooks/useAuthorizationContext";
@@ -31,10 +31,12 @@ const RequireAuth = ({ children, roles }: RequireAuthProps) => {
     );
 
   if (!isAuthorized) {
-    throw new Response("Error", {
-      status: 401,
-      statusText: "Unauthorized",
-    });
+    throw json(
+      {
+        message: "Unauthorized",
+      },
+      { status: 401 },
+    );
   }
 
   // Note: Need to return a React.ReactElement
