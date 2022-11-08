@@ -1,11 +1,11 @@
-import React, { MouseEventHandler, SVGAttributes } from "react";
+import React, { SVGAttributes } from "react";
 
-import Link from "../Link";
+import { NavLink, NavLinkProps } from "react-router-dom";
 import sanitizeUrl from "../../helpers/sanitizeUrl";
 
 const commonStyles = {
   "data-h2-background-color":
-    "base(light.dt-secondary) base:focus-visible(lighter.dt-secondary.30) base:hover(lighter.dt-secondary.30)",
+    "base(light.dt-secondary) base:selectors[.active](lighter.dt-secondary.10) base:focus-visible(lighter.dt-secondary.30) base:hover(lighter.dt-secondary.30)",
   "data-h2-outline": "base(none)",
   "data-h2-padding": "base(x.5, x1)",
   "data-h2-cursor": "base(pointer)",
@@ -48,56 +48,41 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
   );
 };
 
-export interface SideMenuItemProps extends SideMenuItemChildProps {
-  as?: typeof Link | "button";
-  isActive?: boolean;
+export interface SideMenuItemProps
+  extends SideMenuItemChildProps,
+    Omit<NavLinkProps, "children" | "to"> {
   href?: string;
-  external?: boolean;
-  onClick?: MouseEventHandler<HTMLAnchorElement> &
-    MouseEventHandler<HTMLButtonElement>;
 }
 
 const SideMenuItem: React.FC<SideMenuItemProps> = ({
-  as = Link,
   icon,
   children,
-  isActive,
-  onClick,
   href,
+  ...rest
 }: SideMenuItemProps) => {
-  const El = as;
   const url = sanitizeUrl(href);
 
   return (
-    <El
-      className={`side-menu__item${isActive ? ` side-menu__item--active` : ``}`}
+    <NavLink
+      to={url || "#"}
+      className="side-menu__item"
       {...commonStyles}
-      onClick={(e) => {
-        if (onClick) {
-          onClick(e as React.MouseEvent<HTMLButtonElement>);
-        }
-      }}
-      {...(as === Link ? { href: url } : { type: "button" })}
+      {...rest}
     >
       <SideMenuItemChildren icon={icon}>{children}</SideMenuItemChildren>
-    </El>
+    </NavLink>
   );
 };
 
 export const ExternalSideMenuItem = ({
   icon,
   children,
-  isActive,
   href,
-}: Omit<SideMenuItemProps, "as" | "onClick">) => {
+}: Omit<SideMenuItemProps, "onClick" | "isActive">) => {
   const url = sanitizeUrl(href);
 
   return (
-    <a
-      className={`side-menu__item${isActive ? ` side-menu__item--active` : ``}`}
-      {...commonStyles}
-      href={url}
-    >
+    <a className="side-menu__item" {...commonStyles} href={url}>
       <SideMenuItemChildren icon={icon}>{children}</SideMenuItemChildren>
     </a>
   );

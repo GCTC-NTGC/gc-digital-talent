@@ -181,11 +181,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       {menuItems.map((item) => (
         <React.Fragment key={item.key}>
           {checkRole(item.roles, loggedInUserRoles) ? (
-            <SideMenuItem
-              href={item.href}
-              icon={item.icon}
-              isActive={item.href === location.pathname}
-            >
+            <SideMenuItem href={item.href} icon={item.icon} end>
               {item.text}
             </SideMenuItem>
           ) : null}
