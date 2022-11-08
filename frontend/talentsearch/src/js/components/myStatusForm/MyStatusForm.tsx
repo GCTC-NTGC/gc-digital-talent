@@ -10,6 +10,7 @@ import { getJobLookingStatus } from "@common/constants/localizedConstants";
 import { BasicForm, RadioGroup } from "@common/components/form";
 import Pending from "@common/components/Pending";
 
+import { ThrowNotFound } from "@common/components/NotFound";
 import useRoutes from "../../hooks/useRoutes";
 import {
   UpdateUserAsUserInput,
@@ -195,7 +196,9 @@ const MyStatusApi: React.FunctionComponent = () => {
           handleMyStatus={handleMyStatus}
         />
       ) : (
-        <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
       )}
     </Pending>
   );

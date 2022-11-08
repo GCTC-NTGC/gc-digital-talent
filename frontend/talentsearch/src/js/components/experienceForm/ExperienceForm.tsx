@@ -10,9 +10,8 @@ import { BasicForm, TextArea } from "@common/components/form";
 import { Button } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
 import { removeFromSessionStorage } from "@common/helpers/storageUtils";
-import NotFound from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 
@@ -475,16 +474,14 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           edit={edit}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "No experience found.",
-              id: "Yhd/hk",
-              description:
-                "Message displayed when no experience is found for experience form.",
-            })}
-          </p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage({
+            defaultMessage: "No experience found.",
+            id: "Yhd/hk",
+            description:
+              "Message displayed when no experience is found for experience form.",
+          })}
+        />
       )}
     </Pending>
   );

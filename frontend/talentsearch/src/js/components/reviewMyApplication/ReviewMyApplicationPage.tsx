@@ -5,7 +5,7 @@ import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
 
 import UserProfile from "@common/components/UserProfile";
 import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
+import NotFound, { ThrowNotFound } from "@common/components/NotFound";
 import MissingSkills from "@common/components/MissingSkills";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import Well from "@common/components/Well";
@@ -218,16 +218,34 @@ export const ReviewMyApplication: React.FunctionComponent<
   );
 };
 
+const ApplicationNotFound = () => {
+  const intl = useIntl();
+
+  return (
+    <ThrowNotFound
+      message={intl.formatMessage({
+        id: "jcl2s9",
+        defaultMessage: "Error, pool candidate unable to be loaded",
+        description: "Error message, placeholder",
+      })}
+    />
+  );
+};
+
 type RouteParams = {
   poolCandidateId: Scalars["ID"];
 };
 
 const ReviewMyApplicationPage = () => {
   const { poolCandidateId } = useParams<RouteParams>();
-  const intl = useIntl();
   const [{ data, fetching, error }] = useGetReviewMyApplicationPageDataQuery({
     variables: { id: poolCandidateId || "" },
+    pause: !poolCandidateId,
   });
+
+  if (error || !poolCandidateId) {
+    return <ApplicationNotFound />;
+  }
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -239,15 +257,7 @@ const ReviewMyApplicationPage = () => {
           closingDate={data.poolCandidate.poolAdvertisement?.expiryDate}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage({
-              id: "jcl2s9",
-              defaultMessage: "Error, pool candidate unable to be loaded",
-              description: "Error message, placeholder",
-            })}
-          </p>
-        </NotFound>
+        <ApplicationNotFound />
       )}
     </Pending>
   );

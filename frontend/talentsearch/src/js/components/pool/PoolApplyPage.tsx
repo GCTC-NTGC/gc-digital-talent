@@ -2,11 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { getLocale } from "@common/helpers/localize";
-import { commonMessages } from "@common/messages";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import Link from "@common/components/Link";
-import NotFound from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 
 import useRoutes from "../../hooks/useRoutes";
@@ -73,15 +72,13 @@ const PoolApplyPage: React.FC<PoolApplyPageProps> = ({ id }) => {
       {data?.pool ? (
         <PoolApply pool={data?.pool} />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Error, pool unable to be loaded",
-              id: "DcEinN",
-              description: "Error message, placeholder",
-            })}
-          </p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage({
+            defaultMessage: "Error, pool unable to be loaded",
+            id: "DcEinN",
+            description: "Error message, placeholder",
+          })}
+        />
       )}
     </Pending>
   );

@@ -13,7 +13,7 @@ const ErrorPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { mode } = useTheme();
-  const errorMessage = useErrorMessages();
+  const error = useErrorMessages();
 
   const Image = mode === "dark" ? PugDark : PugLight;
 
@@ -39,7 +39,7 @@ const ErrorPage = () => {
             data-h2-font-weight="base(700)"
             data-h2-margin="base(0)"
           >
-            {errorMessage.title}
+            {error.messages.title}
           </Heading>
           <Image
             data-h2-display="base(inline-block)"
@@ -48,8 +48,18 @@ const ErrorPage = () => {
             data-h2-width="base(70%)"
           />
           <p data-h2-margin="base(x1, 0) p-tablet(0, 0, x3, 0)">
-            {errorMessage.body}
+            {error.messages.body}
           </p>
+          {error.response.statusText && (
+            <p
+              data-h2-margin="base(x1, 0) p-tablet(0, 0, x3, 0)"
+              data-h2-font-size="base(caption)"
+              data-h2-font-style="base(italic)"
+            >
+              {error.response.statusText}
+            </p>
+          )}
+
           <div
             data-h2-display="base(flex)"
             data-h2-gap="base(x1)"

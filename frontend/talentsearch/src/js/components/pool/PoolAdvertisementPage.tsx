@@ -13,7 +13,7 @@ import {
 
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import NotFound from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import Card from "@common/components/Card";
 import { Button, Link } from "@common/components";
@@ -32,7 +32,6 @@ import {
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
-import commonMessages from "@common/messages/commonMessages";
 import { notEmpty } from "@common/helpers/util";
 
 import { useGetPoolAdvertisementQuery, Maybe } from "../../api/generated";
@@ -812,18 +811,13 @@ const PoolAdvertisementPage = () => {
           hasApplied={hasApplied}
         />
       ) : (
-        <NotFound
-          headingMessage={intl.formatMessage(commonMessages.notFound, {
-            type: "Pool",
-            id: poolId || "",
-          })}
-        >
-          {intl.formatMessage({
+        <ThrowNotFound
+          message={intl.formatMessage({
             defaultMessage: "Error, pool unable to be loaded",
             id: "DcEinN",
             description: "Error message, placeholder",
           })}
-        </NotFound>
+        />
       )}
     </Pending>
   );

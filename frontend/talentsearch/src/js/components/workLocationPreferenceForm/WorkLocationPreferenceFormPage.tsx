@@ -3,9 +3,8 @@ import { useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 
-import NotFound from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import { commonMessages } from "@common/messages";
 
 import {
   useWorkLocationPreferenceQuery,
@@ -116,9 +115,9 @@ export const WorkLocationPreferencePage: React.FunctionComponent = () => {
           handleWorkLocationPreference={handleWorkLocationPreference}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
       )}
     </Pending>
   );

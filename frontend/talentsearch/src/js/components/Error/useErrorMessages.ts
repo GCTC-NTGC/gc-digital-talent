@@ -1,20 +1,19 @@
 import { useIntl } from "react-intl";
 import { useRouteError } from "react-router-dom";
 
-interface ErrorResponse {
-  status: number;
-  statusText: string;
-}
-
 interface ErrorMessage {
   title: React.ReactNode;
   body: React.ReactNode;
 }
+interface ErrorResponse {
+  response: Response;
+  messages: ErrorMessage;
+}
 
-const useErrorMessages = (): ErrorMessage => {
-  const error = useRouteError() as ErrorResponse;
+const useErrorMessages = (): ErrorResponse => {
+  const error = useRouteError() as Response;
   const intl = useIntl();
-  const messages: Record<number, ErrorMessage> = {
+  const messages: Record<number, Omit<ErrorMessage, "error">> = {
     401: {
       title: intl.formatMessage({
         description:
@@ -47,21 +46,31 @@ const useErrorMessages = (): ErrorMessage => {
   };
 
   if ("status" in error) {
-    if (error.status in messages) return messages[error.status];
+    if (error.status in messages) {
+      return {
+        response: error,
+        messages: {
+          ...messages[error.status],
+        },
+      };
+    }
   }
 
   return {
-    title: intl.formatMessage({
-      defaultMessage: "Sorry, eh! We encountered an error.",
-      id: "JTXUit",
-      description: "Title for the 404 page not found page.",
-    }),
-    body: intl.formatMessage({
-      defaultMessage:
-        "It looks like we encountered an unknown error while processing your request.",
-      id: "HkUdtI",
-      description: "Body text for the unknown error page page.",
-    }),
+    response: error,
+    messages: {
+      title: intl.formatMessage({
+        defaultMessage: "Sorry, eh! We encountered an error.",
+        id: "JTXUit",
+        description: "Title for the 404 page not found page.",
+      }),
+      body: intl.formatMessage({
+        defaultMessage:
+          "It looks like we encountered an unknown error while processing your request.",
+        id: "HkUdtI",
+        description: "Body text for the unknown error page page.",
+      }),
+    },
   };
 };
 

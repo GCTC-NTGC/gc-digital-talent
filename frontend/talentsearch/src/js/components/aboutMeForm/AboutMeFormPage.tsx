@@ -1,9 +1,8 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 
-import NotFound from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import { commonMessages } from "@common/messages";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { OperationResult } from "urql";
@@ -114,9 +113,9 @@ const AboutMeFormPage = () => {
           onUpdateAboutMe={handleUpdateUser}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
       )}
     </Pending>
   );

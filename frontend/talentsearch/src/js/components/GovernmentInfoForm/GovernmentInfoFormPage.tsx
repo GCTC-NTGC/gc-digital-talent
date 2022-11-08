@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import NotFound from "@common/components/NotFound";
+import NotFound, { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
@@ -162,9 +162,9 @@ const GovernmentInfoFormPage = () => {
           submitHandler={onSubmit}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
       )}
     </Pending>
   );

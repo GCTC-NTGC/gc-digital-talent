@@ -12,7 +12,7 @@ import {
 
 import { Link } from "@common/components";
 import { Input, Submit } from "@common/components/form";
-import NotFound from "@common/components/NotFound";
+import NotFound, { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import TableOfContents from "@common/components/TableOfContents";
 import { commonMessages, errorMessages } from "@common/messages";
@@ -422,15 +422,13 @@ const SignAndSubmitPage = () => {
           handleSubmitApplication={handleSubmitApplication}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Error, application unable to be loaded",
-              id: "0+hcuo",
-              description: "Error message, placeholder",
-            })}
-          </p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage({
+            defaultMessage: "Error, application unable to be loaded",
+            id: "0+hcuo",
+            description: "Error message, placeholder",
+          })}
+        />
       )}
     </Pending>
   );

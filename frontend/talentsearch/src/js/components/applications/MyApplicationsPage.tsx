@@ -1,10 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import NotFound from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import imageUrl from "@common/helpers/imageUrl";
-import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 
 import { useMyApplicationsQuery } from "../../api/generated";
@@ -113,13 +112,13 @@ const MyApplicationsPage = () => {
           applications={data.me.poolCandidates.filter(notEmpty)}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          {intl.formatMessage({
+        <ThrowNotFound
+          message={intl.formatMessage({
             defaultMessage: "Error, applications unable to be loaded",
             id: "Q7yh4j",
             description: "My applications error message, placeholder",
           })}
-        </NotFound>
+        />
       )}
     </Pending>
   );
