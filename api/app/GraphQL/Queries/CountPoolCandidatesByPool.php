@@ -23,6 +23,7 @@ final class CountPoolCandidatesByPool
         $queryBuilder->whereHas('user', function (Builder $userQuery) use ($filters) {
             // user filters go here
 
+            // available in pools
             if (array_key_exists('pools', $filters)) {
                 // pool candidate filter uses Pool while Applicant filter users IdInput
                 $pools = array_map(function ($id) {
