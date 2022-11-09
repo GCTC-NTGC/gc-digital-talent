@@ -12,15 +12,23 @@ import { AlertType } from "./Alert";
 export const styleMap: Record<AlertType, Record<string, string>> = {
   success: {
     "data-h2-border": "base(all, 0.25rem, solid, dark.tm-green)",
+    "data-h2-background-color":
+      "base(white) base:children[.Alert__Separator](dark.tm-green)",
   },
   warning: {
     "data-h2-border": "base(all, 0.25rem, solid, dark.tm-yellow)",
+    "data-h2-background-color":
+      "base(white) base:children[.Alert__Separator](dark.tm-yellow)",
   },
   info: {
     "data-h2-border": "base(all, 0.25rem, solid, dark.tm-blue)",
+    "data-h2-background-color":
+      "base(white) base:children[.Alert__Separator](dark.tm-blue)",
   },
   error: {
     "data-h2-border": "base(all, 0.25rem, solid, dark.tm-red)",
+    "data-h2-background-color":
+      "base(white) base:children[.Alert__Separator](dark.tm-red)",
   },
 };
 

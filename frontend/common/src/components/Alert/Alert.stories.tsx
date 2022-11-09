@@ -30,18 +30,12 @@ const TemplateAlert: Story<AlertProps> = ({ children, ...args }) => {
           >
             {children}
             {type === "error" && (
-              <>
-                <Separator
-                  orientation="horizontal"
-                  data-h2-background-color="base(dark.tm-red)"
-                  data-h2-margin="base(x.5, 0)"
-                  data-h2-height="base(0.25rem)"
-                />
+              <Alert.Footer>
                 <p>
                   <a href="/#">Reach out to our support team</a> if you have any
                   questions.
                 </p>
-              </>
+              </Alert.Footer>
             )}
           </Alert>
         </React.Fragment>

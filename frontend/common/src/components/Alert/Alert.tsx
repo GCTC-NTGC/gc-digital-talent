@@ -13,6 +13,7 @@ import {
 } from "./utils";
 
 import "./alert.css";
+import Separator from "../Separator";
 
 export type AlertType = "success" | "warning" | "info" | "error";
 type AlertHeadingLevel = HeadingLevel | "p";
@@ -136,5 +137,22 @@ const Alert = ({
     </div>
   ) : null;
 };
+interface AlertFooterProps {
+  children: React.ReactNode;
+}
+
+const Footer = ({ children }: AlertFooterProps) => (
+  <>
+    <Separator
+      className="Alert__Separator"
+      orientation="horizontal"
+      data-h2-margin="base(x.5, 0)"
+      data-h2-height="base(0.25rem)"
+    />
+    {children}
+  </>
+);
+
+Alert.Footer = Footer;
 
 export default Alert;
