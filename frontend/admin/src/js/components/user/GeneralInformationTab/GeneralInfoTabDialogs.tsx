@@ -114,6 +114,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const navigate = useNavigate();
+  const methods = useForm();
 
   const [selectedStatus, setSelectedStatus] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -212,60 +213,62 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
               "Third section of text on the change candidate status dialog",
           })}
         </p>
-        <div data-h2-margin="base(x.5, 0, x.125, 0)">
-          <InputWrapper
-            inputId="status"
-            label={intl.formatMessage({
-              defaultMessage: "Pool status",
-              id: "n9YPWe",
-              description:
-                "Label displayed on the status field of the change candidate status dialog",
-            })}
-            required
-          >
-            <select
-              data-h2-radius="base(s)"
-              data-h2-padding="base(x.25)"
-              data-h2-font-size="base(copy)"
-              data-h2-width="base(100%)"
-              id="status"
-              defaultValue=""
-              onChange={(e) => setSelectedStatus(e.target.value)}
-            >
-              <option value="" disabled>
-                {intl.formatMessage({
-                  defaultMessage: "Select a pool status...",
-                  id: "usNShh",
-                  description:
-                    "Placeholder displayed on the status field of the change candidate status dialog.",
-                })}
-              </option>
-              {enumToOptions(PoolCandidateStatus).map(({ value }) => (
-                <option
-                  data-h2-font-family="base(sans)"
-                  key={value}
-                  value={value}
-                >
-                  {intl.formatMessage(getPoolCandidateStatus(value))}
-                </option>
-              ))}
-            </select>
-          </InputWrapper>
-          <div
-            data-h2-display="base(block)"
-            data-h2-margin="base(x.125, 0, 0, 0)"
-          >
-            <InputError
-              isVisible={showErrorMessage}
-              error={intl.formatMessage({
-                defaultMessage: "Please select a status",
-                id: "eaHqS2",
+        <FormProvider {...methods}>
+          <div data-h2-margin="base(x.5, 0, x.125, 0)">
+            <InputWrapper
+              inputId="status"
+              label={intl.formatMessage({
+                defaultMessage: "Pool status",
+                id: "n9YPWe",
                 description:
-                  "Error displayed on the change candidate status dialog if no status selected",
+                  "Label displayed on the status field of the change candidate status dialog",
               })}
-            />
+              required
+            >
+              <select
+                data-h2-radius="base(s)"
+                data-h2-padding="base(x.25)"
+                data-h2-font-size="base(copy)"
+                data-h2-width="base(100%)"
+                id="status"
+                defaultValue=""
+                onChange={(e) => setSelectedStatus(e.target.value)}
+              >
+                <option value="" disabled>
+                  {intl.formatMessage({
+                    defaultMessage: "Select a pool status...",
+                    id: "usNShh",
+                    description:
+                      "Placeholder displayed on the status field of the change candidate status dialog.",
+                  })}
+                </option>
+                {enumToOptions(PoolCandidateStatus).map(({ value }) => (
+                  <option
+                    data-h2-font-family="base(sans)"
+                    key={value}
+                    value={value}
+                  >
+                    {intl.formatMessage(getPoolCandidateStatus(value))}
+                  </option>
+                ))}
+              </select>
+            </InputWrapper>
+            <div
+              data-h2-display="base(block)"
+              data-h2-margin="base(x.125, 0, 0, 0)"
+            >
+              <InputError
+                isVisible={showErrorMessage}
+                error={intl.formatMessage({
+                  defaultMessage: "Please select a status",
+                  id: "eaHqS2",
+                  description:
+                    "Error displayed on the change candidate status dialog if no status selected",
+                })}
+              />
+            </div>
           </div>
-        </div>
+        </FormProvider>
         <Dialog.Footer>
           <CloseDialogButton />
           <ConfirmDialogButton
@@ -297,6 +300,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
 }) => {
   const intl = useIntl();
   const navigate = useNavigate();
+  const methods = useForm();
 
   const [selectedDate, setSelectedDate] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -383,43 +387,45 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
               "Second section of text on the change candidate expiry date dialog",
           })}
         </p>
-        <div data-h2-margin="base(x.5, 0, x.125, 0)">
-          <InputWrapper
-            inputId="date"
-            label={intl.formatMessage({
-              defaultMessage: "Expiry date",
-              id: "WAO4vD",
-              description:
-                "Label displayed on the date field of the change candidate expiry date dialog",
-            })}
-            required
-          >
-            <input
-              data-h2-radius="base(s)"
-              data-h2-padding="base(x.25)"
-              data-h2-width="base(100%)"
-              data-h2-font-size="base(copy)"
-              data-h2-font-family="base(sans)"
-              id="date"
-              type="date"
-              onChange={(e) => setSelectedDate(e.target.value)}
-            />
-          </InputWrapper>
-          <div
-            data-h2-display="base(block)"
-            data-h2-margin="base(x.125, 0, 0, 0)"
-          >
-            <InputError
-              isVisible={showErrorMessage}
-              error={intl.formatMessage({
-                defaultMessage: "Please select a date",
-                id: "Cbo1no",
+        <FormProvider {...methods}>
+          <div data-h2-margin="base(x.5, 0, x.125, 0)">
+            <InputWrapper
+              inputId="date"
+              label={intl.formatMessage({
+                defaultMessage: "Expiry date",
+                id: "WAO4vD",
                 description:
-                  "Error displayed on the change candidate expiry date dialog if no date selected",
+                  "Label displayed on the date field of the change candidate expiry date dialog",
               })}
-            />
+              required
+            >
+              <input
+                data-h2-radius="base(s)"
+                data-h2-padding="base(x.25)"
+                data-h2-width="base(100%)"
+                data-h2-font-size="base(copy)"
+                data-h2-font-family="base(sans)"
+                id="date"
+                type="date"
+                onChange={(e) => setSelectedDate(e.target.value)}
+              />
+            </InputWrapper>
+            <div
+              data-h2-display="base(block)"
+              data-h2-margin="base(x.125, 0, 0, 0)"
+            >
+              <InputError
+                isVisible={showErrorMessage}
+                error={intl.formatMessage({
+                  defaultMessage: "Please select a date",
+                  id: "Cbo1no",
+                  description:
+                    "Error displayed on the change candidate expiry date dialog if no date selected",
+                })}
+              />
+            </div>
           </div>
-        </div>
+        </FormProvider>
         <Dialog.Footer>
           <CloseDialogButton />
           <ConfirmDialogButton

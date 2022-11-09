@@ -859,7 +859,9 @@ type Query {
     @can(ability: "viewAny")
   # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
   # Returns the number of candidates by filtering their parent applicant, grouped by pool.
-  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
+  countPoolCandidatesByPool(
+    where: ApplicantFilterInput
+  ): [CandidateSearchPoolResult!]!
   classification(id: ID! @eq): Classification @find
   classifications: [Classification]! @all
   cmoAsset(id: ID! @eq): CmoAsset @find

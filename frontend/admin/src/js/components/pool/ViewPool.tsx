@@ -5,7 +5,6 @@ import {
   ClipboardIcon,
   CogIcon,
   ArrowTopRightOnSquareIcon,
-  TicketIcon,
   UserGroupIcon,
   Squares2X2Icon,
 } from "@heroicons/react/24/outline";
@@ -183,7 +182,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               mode="solid"
               color="secondary"
               type="button"
-              href={adminPaths.poolEdit(pool.id)}
+              href={adminPaths.poolCandidateTable(pool.id)}
               icon={UserGroupIcon}
             >
               {intl.formatMessage({
@@ -194,6 +193,8 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               })}
             </IconLink>
           </Spacer>
+          {/*
+          TODO - uncomment once something to link to exists and reimport TicketIcon
           <Spacer>
             <IconLink
               mode="solid"
@@ -211,6 +212,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
               })}
             </IconLink>
           </Spacer>
+          */}
           <Spacer>
             <IconLink
               mode="solid"
