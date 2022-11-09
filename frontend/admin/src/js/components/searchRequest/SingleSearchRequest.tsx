@@ -7,6 +7,7 @@ import { commonMessages } from "@common/messages";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import {
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,
@@ -171,7 +172,15 @@ const ManagerInfo: React.FunctionComponent<{
                     description:
                       "Title for the date requested block in the manager info section of the single search request view.",
                   })}
-                  content={requestedDate}
+                  content={
+                    requestedDate
+                      ? formatDate({
+                          date: parseDateTimeUtc(requestedDate),
+                          formatString: "PPP p",
+                          intl,
+                        })
+                      : null
+                  }
                 />
                 <FilterBlock
                   title={intl.formatMessage({
