@@ -112,7 +112,7 @@ const Alert = ({
         data-h2-padding="base(x1)"
         {...iconStyleMap[type]}
       >
-        <Icon data-h2-width="base(2.25rem)" strokeWidth={2.5} />
+        <Icon data-h2-width="base(2.5rem)" strokeWidth={2.5} />
       </div>
       <div
         style={{ flexGrow: 1 }}
