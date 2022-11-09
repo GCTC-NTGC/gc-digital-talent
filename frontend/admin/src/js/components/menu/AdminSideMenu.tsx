@@ -14,7 +14,6 @@ import {
   UserIcon,
   Squares2X2Icon,
 } from "@heroicons/react/24/outline";
-import { useLocation } from "react-router-dom";
 import { AuthorizationContext } from "@common/components/Auth";
 import LoginOrLogout from "./LoginOrLogout";
 
@@ -59,7 +58,6 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
-  const location = useLocation();
 
   const { loggedInUserRoles } = React.useContext(AuthorizationContext);
 

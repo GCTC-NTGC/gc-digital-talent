@@ -4,7 +4,7 @@ import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
-import SideMenuItem, { SideMenuButton } from "./SideMenuItem";
+import { SideMenuButton } from "./SideMenuItem";
 import useIsSmallScreen from "../../hooks/useIsSmallScreen";
 import "./sideMenu.css";
 
