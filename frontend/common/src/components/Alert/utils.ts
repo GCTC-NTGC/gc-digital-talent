@@ -51,6 +51,21 @@ export const dismissStyleMap: Record<AlertType, Record<string, string>> = {
   },
 };
 
+export const separatorStyleMap: Record<AlertType, Record<string, string>> = {
+  success: {
+    "data-h2-background-color": "base(dark.tm-green)",
+  },
+  warning: {
+    "data-h2-background-color": "base(dark.tm-yellow)",
+  },
+  info: {
+    "data-h2-background-color": "base(dark.tm-blue)",
+  },
+  error: {
+    "data-h2-background-color": "base(dark.tm-red)",
+  },
+};
+
 export const iconMap: Record<
   AlertType,
   React.FC<React.SVGAttributes<SVGSVGElement>>

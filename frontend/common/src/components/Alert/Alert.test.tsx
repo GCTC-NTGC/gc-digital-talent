@@ -15,9 +15,9 @@ const defaultProps = {
 
 const renderAlert = (props: Omit<AlertProps, "children">) => {
   return render(
-    <Alert {...props}>
+    <Alert.Root {...props}>
       <p>This is an alert test.</p>
-    </Alert>,
+    </Alert.Root>,
   );
 };
 

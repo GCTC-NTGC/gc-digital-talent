@@ -2,6 +2,7 @@ import * as React from "react";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 
+import Separator from "../Separator";
 import type { HeadingLevel } from "../Heading";
 
 import {
@@ -10,50 +11,48 @@ import {
   iconMap,
   dismissStyleMap,
   getAlertLevelTitle,
+  separatorStyleMap,
 } from "./utils";
 
 import "./alert.css";
-import Separator from "../Separator";
 
 export type AlertType = "success" | "warning" | "info" | "error";
-type AlertHeadingLevel = HeadingLevel | "p";
+
+type AlertContextValue = {
+  type: AlertType;
+};
+
+const AlertContext = React.createContext<AlertContextValue | undefined>(
+  undefined,
+);
 
 /**
- * Props that can be passed to an `<Alert />`
+ * Props that can be passed to an `<Alert.Root />`
  *
  * @interface AlertProps
- * @member {React.ReactNode} title for the alert
  * @member {AlertType} type the category of information displayed in the alert
- * @member {AlertHeadingLevel} headingLevel is the semantic heading level to render the title in
  * @member {boolean} dismissible controls if the user can dismiss the alert or not
  * @member {boolean} live adds [role="alert"] forcing the alert to be read out to assistive technology
  * @member {function} onDismiss execute code when the alert is dismissed
  */
-export interface AlertProps
-  extends Omit<React.HTMLProps<HTMLDivElement>, "title"> {
-  title: React.ReactNode;
+export interface AlertProps extends React.HTMLProps<HTMLDivElement> {
   type: AlertType;
-  headingLevel?: AlertHeadingLevel; // REF: https://www.w3.org/WAI/tutorials/page-structure/headings/#heading-ranks
   dismissible?: boolean;
   live?: boolean; // REF: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role
   onDismiss?: () => void;
 }
 
 const Alert = ({
-  title,
   type,
+  onDismiss,
   live = true,
   dismissible = false,
-  headingLevel = "p",
-  onDismiss,
   children,
   ...rest
 }: AlertProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState(true);
   const Icon = iconMap[type];
-  const Heading = headingLevel;
-  const alertLevelTitle = getAlertLevelTitle(type, intl);
 
   const close = () => {
     setIsOpen((currentIsOpen) => !currentIsOpen);
@@ -62,97 +61,142 @@ const Alert = ({
     }
   };
 
-  return isOpen ? (
-    <div
-      className={`Alert Alert--${type}`}
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column) p-tablet(row)"
-      data-h2-background-color="base(white)"
-      data-h2-position="base(relative)"
-      data-h2-radius="base(s)"
-      data-h2-shadow="base(s)"
-      data-h2-overflow="base(hidden)"
-      data-h2-margin="base(x1, 0)"
-      {...(live ? { role: "alert" } : {})}
-      {...styleMap[type]}
+  const state = React.useMemo(
+    () => ({
+      type,
+    }),
+    [type],
+  );
+
+  return (
+    <AlertContext.Provider value={state}>
+      {isOpen ? (
+        <div
+          className={`Alert Alert--${type}`}
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column) p-tablet(row)"
+          data-h2-background-color="base(white)"
+          data-h2-position="base(relative)"
+          data-h2-radius="base(s)"
+          data-h2-shadow="base(s)"
+          data-h2-overflow="base(hidden)"
+          data-h2-margin="base(x1, 0)"
+          {...(live ? { role: "alert" } : {})}
+          {...styleMap[type]}
+          {...rest}
+        >
+          {dismissible && (
+            <button
+              type="button"
+              data-h2-background-color="base(transparent) base:hover(black.10)"
+              data-h2-outline="base(none)"
+              data-h2-radius="base(9999px)"
+              data-h2-position="base(absolute)"
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(center)"
+              data-h2-offset="base(x.10, x.10, auto, auto)"
+              data-h2-cursor="base(pointer)"
+              data-h2-padding="base(0)"
+              data-h2-transition="base(all, 100ms, ease-in)"
+              data-h2-z-index="base(9)"
+              {...dismissStyleMap[type]}
+              onClick={close}
+            >
+              <XCircleIcon
+                data-h2-width="base(2rem)"
+                data-h2-height="base(2rem)"
+              />
+              <span data-h2-visibility="base(invisible)">
+                {intl.formatMessage({
+                  defaultMessage: "Close alert",
+                  id: "oGXgxJ",
+                  description: "Text for the close button on alerts",
+                })}
+              </span>
+            </button>
+          )}
+          <div
+            className="Alert__Icon"
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(center) p-tablet(flex-start)"
+            data-h2-justify-content="base(center)"
+            data-h2-position="base(relative)"
+            data-h2-padding="base(x1)"
+            {...iconStyleMap[type]}
+          >
+            <Icon data-h2-width="base(2.5rem)" strokeWidth={2.5} />
+          </div>
+          <div
+            style={{ flexGrow: 1 }}
+            data-h2-align-self="base(center)"
+            data-h2-padding="base(x2, x1, x1, x1) p-tablet(x1, x1, x1, x2)"
+          >
+            {children}
+          </div>
+        </div>
+      ) : null}
+    </AlertContext.Provider>
+  );
+};
+
+type AlertHeadingLevel = HeadingLevel | "p";
+
+/**
+ * Props that can be passed to an `<Alert.Title />`
+ *
+ * @interface AlertTitleProps
+ * @member {AlertHeadingLevel} as is the semantic heading level to render the title in
+ */
+interface AlertTitleProps
+  extends React.HTMLProps<HTMLHeadingElement | HTMLParagraphElement> {
+  children: React.ReactNode;
+  as?: AlertHeadingLevel;
+}
+
+const Title = ({ as = "p", children, ...rest }: AlertTitleProps) => {
+  const intl = useIntl();
+  const ctx = React.useContext(AlertContext);
+  const alertLevelTitle = getAlertLevelTitle(ctx?.type || "info", intl);
+  const Heading = as;
+
+  return (
+    <Heading
+      data-h2-font-size="base(h5, 1)"
+      data-h2-font-weight="base(600)"
+      data-h2-margin="base(0, 0, x.25, 0)"
       {...rest}
     >
-      {dismissible && (
-        <button
-          type="button"
-          data-h2-background-color="base(transparent) base:hover(black.10)"
-          data-h2-outline="base(none)"
-          data-h2-radius="base(9999px)"
-          data-h2-position="base(absolute)"
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(center)"
-          data-h2-offset="base(x.10, x.10, auto, auto)"
-          data-h2-cursor="base(pointer)"
-          data-h2-padding="base(0)"
-          data-h2-transition="base(all, 100ms, ease-in)"
-          data-h2-z-index="base(9)"
-          {...dismissStyleMap[type]}
-          onClick={close}
-        >
-          <XCircleIcon data-h2-width="base(2rem)" data-h2-height="base(2rem)" />
-          <span data-h2-visibility="base(invisible)">
-            {intl.formatMessage({
-              defaultMessage: "Close alert",
-              id: "oGXgxJ",
-              description: "Text for the close button on alerts",
-            })}
-          </span>
-        </button>
+      {alertLevelTitle && (
+        <span data-h2-visibility="base(invisible)">
+          {alertLevelTitle}&nbsp;
+        </span>
       )}
-      <div
-        className="Alert__Icon"
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center) p-tablet(flex-start)"
-        data-h2-justify-content="base(center)"
-        data-h2-position="base(relative)"
-        data-h2-padding="base(x1)"
-        {...iconStyleMap[type]}
-      >
-        <Icon data-h2-width="base(2.5rem)" strokeWidth={2.5} />
-      </div>
-      <div
-        style={{ flexGrow: 1 }}
-        data-h2-align-self="base(center)"
-        data-h2-padding="base(x2, x1, x1, x1) p-tablet(x1, x1, x1, x2)"
-      >
-        <Heading
-          data-h2-font-size="base(h5, 1)"
-          data-h2-font-weight="base(600)"
-          data-h2-margin="base(0, 0, x.25, 0)"
-        >
-          {alertLevelTitle && (
-            <span data-h2-visibility="base(invisible)">
-              {alertLevelTitle}&nbsp;
-            </span>
-          )}
-          {title}
-        </Heading>
-        <div data-h2-margin="base(0, 0, 0, 0)">{children}</div>
-      </div>
-    </div>
-  ) : null;
+      {children}
+    </Heading>
+  );
 };
 interface AlertFooterProps {
   children: React.ReactNode;
 }
 
-const Footer = ({ children }: AlertFooterProps) => (
-  <>
-    <Separator
-      className="Alert__Separator"
-      orientation="horizontal"
-      data-h2-margin="base(x.5, 0)"
-      data-h2-height="base(0.25rem)"
-    />
-    {children}
-  </>
-);
+const Footer = ({ children }: AlertFooterProps) => {
+  const ctx = React.useContext(AlertContext);
 
-Alert.Footer = Footer;
+  return (
+    <>
+      <Separator
+        orientation="horizontal"
+        data-h2-margin="base(x.5, 0)"
+        data-h2-height="base(0.25rem)"
+        {...(ctx?.type && separatorStyleMap[ctx.type])}
+      />
+      {children}
+    </>
+  );
+};
 
-export default Alert;
+export default {
+  Root: Alert,
+  Title,
+  Footer,
+};

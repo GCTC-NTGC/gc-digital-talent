@@ -124,17 +124,19 @@ export const CreateAccountForm: React.FunctionComponent<
         data-h2-padding="base(0, x2) p-tablet(0)"
         style={{ margin: "auto" }}
       >
-        <Alert
-          title={intl.formatMessage({
-            defaultMessage: "You’ve successfully logged in",
-            id: "4FEV7d",
-            description:
-              "Title for successful login alert in create account page.",
-          })}
+        <Alert.Root
           type="success"
           live={false}
           data-h2-margin="base(x3, 0, 0, 0)"
         >
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage: "You’ve successfully logged in",
+              id: "4FEV7d",
+              description:
+                "Title for successful login alert in create account page.",
+            })}
+          </Alert.Title>
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -144,7 +146,7 @@ export const CreateAccountForm: React.FunctionComponent<
                 "Message for successful login alert in create account page.",
             })}
           </p>
-        </Alert>
+        </Alert.Root>
         <BasicForm onSubmit={handleSubmit} cacheKey={cacheKey} labels={labels}>
           <h2 data-h2-margin="base(x2, 0, x1, 0)">
             {intl.formatMessage({

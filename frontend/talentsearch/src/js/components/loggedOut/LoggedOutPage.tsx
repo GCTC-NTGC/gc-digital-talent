@@ -50,15 +50,15 @@ const LoggedOutPage: React.FC = () => {
         data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
         data-h2-margin="base(x3, 0)"
       >
-        <Alert
-          type="success"
-          live={false}
-          title={intl.formatMessage({
-            defaultMessage: "You've successfully logged out of the platform",
-            id: "NamQ1+",
-            description: "Title for the alert displayed after a user logs out",
-          })}
-        >
+        <Alert.Root type="success" live={false}>
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage: "You've successfully logged out of the platform",
+              id: "NamQ1+",
+              description:
+                "Title for the alert displayed after a user logs out",
+            })}
+          </Alert.Title>
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -67,7 +67,7 @@ const LoggedOutPage: React.FC = () => {
               description: "Message displayed to a user after logging out.",
             })}
           </p>
-        </Alert>
+        </Alert.Root>
         <h2 data-h2-margin="base(x3, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "Quick Links",

@@ -1,33 +1,34 @@
 import React from "react";
 import { BellIcon } from "@heroicons/react/24/outline";
-import { Meta, Story } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Alert, { AlertProps, AlertType } from "./Alert";
+import Alert, { AlertType } from "./Alert";
 
 const types: Array<AlertType> = ["info", "success", "warning", "error"];
 
 export default {
-  component: Alert,
+  component: Alert.Root,
   title: "Components/Alert",
   args: {
-    title: "Alert",
     children:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum eligendi dolore vel optio! Amet non adipisci blanditiis accusantium? Laborum nobis facilis vel dolore numquam libero velit aspernatur, ut consectetur neque.",
     icon: BellIcon,
   },
-} as Meta;
+} as ComponentMeta<typeof Alert.Root>;
 
-const TemplateAlert: Story<AlertProps> = ({ children, ...args }) => {
+const TemplateAlert: ComponentStory<typeof Alert.Root> = ({
+  children,
+  ...args
+}) => {
   return (
     <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
       {types.map((type) => (
         <React.Fragment key={type}>
-          <Alert
-            {...args}
-            type={type}
-            title={type.charAt(0).toUpperCase() + type.slice(1)}
-          >
-            {children}
+          <Alert.Root {...args} type={type}>
+            <Alert.Title>
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </Alert.Title>
+            <p>{children}</p>
             {type === "error" && (
               <Alert.Footer>
                 <p>
@@ -36,7 +37,7 @@ const TemplateAlert: Story<AlertProps> = ({ children, ...args }) => {
                 </p>
               </Alert.Footer>
             )}
-          </Alert>
+          </Alert.Root>
         </React.Fragment>
       ))}
     </div>

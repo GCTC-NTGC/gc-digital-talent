@@ -39,14 +39,14 @@ const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
     .filter(notEmpty);
 
   return unsavedFields.length > 0 ? (
-    <Alert
-      type="info"
-      title={intl.formatMessage({
-        defaultMessage: "You have unsaved changes",
-        id: "9hjEsr",
-        description: "Title for unsaved changes warning on profile forms",
-      })}
-    >
+    <Alert.Root type="info">
+      <Alert.Title>
+        {intl.formatMessage({
+          defaultMessage: "You have unsaved changes",
+          id: "9hjEsr",
+          description: "Title for unsaved changes warning on profile forms",
+        })}
+      </Alert.Title>
       <ul data-h2-margin="base(x.5, 0, 0, 0)">
         {unsavedFields.map((field) => (
           <li key={field.name}>
@@ -54,7 +54,7 @@ const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
           </li>
         ))}
       </ul>
-    </Alert>
+    </Alert.Root>
   ) : null;
 };
 
