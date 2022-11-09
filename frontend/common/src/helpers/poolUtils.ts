@@ -1,25 +1,7 @@
 import { IntlShape } from "react-intl";
 import { getPoolStream } from "../constants/localizedConstants";
-import { Maybe, PoolAdvertisement, PoolStream } from "../api/generated";
+import { Maybe, PoolAdvertisement } from "../api/generated";
 import { getLocalizedName } from "./localize";
-
-export interface formattedPoolPosterTitleProps {
-  title: Maybe<string>;
-  classification: string;
-  stream: PoolStream | null;
-  intl: IntlShape;
-}
-
-export const formattedPoolPosterTitle = ({
-  title,
-  classification,
-  stream,
-  intl,
-}: formattedPoolPosterTitleProps): string => {
-  return `${title ? `${title} ` : ""}(${classification}${
-    stream ? ` ${intl.formatMessage(getPoolStream(stream))}` : ""
-  })`;
-};
 
 export interface formatClassificationStringProps {
   group: string;
