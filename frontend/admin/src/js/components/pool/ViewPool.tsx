@@ -68,7 +68,13 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
     }
   }, [linkCopied, setLinkCopied]);
 
-  const poolName = transformPoolToPosterTitle(pool, intl);
+  const defaultPageTitle = intl.formatMessage({
+    defaultMessage: "Pool Details",
+    id: "yBmBnd",
+    description: "Title for the page when viewing an individual pool.",
+  });
+
+  const poolName = transformPoolToPosterTitle(pool, intl, defaultPageTitle);
   const classification = pool.classifications ? pool.classifications[0] : null;
 
   const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {

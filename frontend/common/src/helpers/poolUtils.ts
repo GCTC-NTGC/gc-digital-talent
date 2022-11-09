@@ -40,14 +40,15 @@ export const formatClassificationString = ({
 export const transformPoolToPosterTitle = (
   pool: Pick<PoolAdvertisement, "name" | "classifications" | "stream">,
   intl: IntlShape,
+  defaultTitle = "", // allow a fallback if name, classifications and stream are all empty
 ): string => {
-  // TODO: If a pool has multiple classifications, only the first will be shown.
-  return formattedPoolPosterTitle({
+  const formattedTitle = formattedPoolPosterTitle({
     title: getLocalizedName(pool.name, intl),
-    classification: pool?.classifications?.[0]
+    classification: pool?.classifications?.[0] // TODO: If a pool has multiple classifications, only the first will be shown.
       ? formatClassificationString(pool?.classifications?.[0])
       : null,
     stream: pool.stream,
     intl,
   });
+  return formattedTitle || defaultTitle;
 };
