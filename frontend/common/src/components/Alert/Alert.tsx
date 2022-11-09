@@ -85,17 +85,15 @@ const Alert = ({
           data-h2-position="base(absolute)"
           data-h2-display="base(flex)"
           data-h2-align-items="base(center)"
-          data-h2-offset="base(x.5, x.5, auto, auto)"
+          data-h2-offset="base(x.10, x.10, auto, auto)"
           data-h2-cursor="base(pointer)"
           data-h2-padding="base(0)"
           data-h2-transition="base(all, 100ms, ease-in)"
+          data-h2-z-index="base(9)"
           {...dismissStyleMap[type]}
           onClick={close}
         >
-          <XCircleIcon
-            data-h2-width="base(1.5rem)"
-            data-h2-height="base(1.5rem)"
-          />
+          <XCircleIcon data-h2-width="base(2rem)" data-h2-height="base(2rem)" />
           <span data-h2-visibility="base(invisible)">
             {intl.formatMessage({
               defaultMessage: "Close alert",
@@ -114,7 +112,7 @@ const Alert = ({
         data-h2-padding="base(x1)"
         {...iconStyleMap[type]}
       >
-        <Icon data-h2-width="base(2rem)" />
+        <Icon data-h2-width="base(2.25rem)" strokeWidth={2.5} />
       </div>
       <div
         style={{ flexGrow: 1 }}
