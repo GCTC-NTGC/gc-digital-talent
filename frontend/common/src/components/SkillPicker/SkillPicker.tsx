@@ -142,8 +142,11 @@ const SkillPicker = ({
             type="text"
             autoComplete="off"
             {...methods.register("query")}
+            data-h2-background-color="base(white) base:focus-visible(lighter.dt-primary.10)"
+            data-h2-outline="base(none)"
+            data-h2-shadow="base:focus-visible(s, dt-primary.30)"
             data-h2-flex-grow="base(1)"
-            data-h2-border="base(all, 1px, solid, dt-primary)"
+            data-h2-border="base(all, 1px, solid, dt-primary) base:focus-visible(all, 1px, solid, dark.dt-primary)"
             data-h2-radius="base(0, input, input, 0)"
             data-h2-padding="base(x.5, x1)"
             placeholder={intl.formatMessage({
