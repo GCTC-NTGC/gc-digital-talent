@@ -88,6 +88,11 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
         en
         fr
       }
+      classifications {
+        id
+        group
+        level
+      }
     }
   }
 }
@@ -100,43 +105,6 @@ query getPoolCandidateSearchRequests {
 query getPoolCandidateSearchRequest($id: ID!) {
   poolCandidateSearchRequest(id: $id) {
     ...poolCandidateSearchRequest
-  }
-}
-
-query searchPoolCandidates($poolCandidateFilter: PoolCandidateFilterInput) {
-  searchPoolCandidates(where: $poolCandidateFilter) {
-    id
-    user {
-      id
-      email
-      firstName
-      lastName
-    }
-    expectedClassifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-    }
-    acceptedOperationalRequirements
-    isWoman
-    hasDisability
-    isIndigenous
-    isVisibleMinority
-    cmoAssets {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-    pool {
-      id
-    }
   }
 }
 

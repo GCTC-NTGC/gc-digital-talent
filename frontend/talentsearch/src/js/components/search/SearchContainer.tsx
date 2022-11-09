@@ -20,9 +20,16 @@ import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import Spinner from "../Spinner";
 import CandidateResults from "./CandidateResults";
-import SearchForm, { SearchFormRef } from "./SearchForm";
+import SearchForm, { FormValues, SearchFormRef } from "./SearchForm";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import { SimpleClassification, SimplePool } from "../../types/poolUtils";
+
+export type BrowserHistoryState = {
+  applicantFilter?: ApplicantFilterInput;
+  candidateCount: number;
+  initialValues?: FormValues;
+  selectedClassifications?: SimpleClassification[];
+};
 
 const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
@@ -75,7 +82,11 @@ export interface SearchContainerProps {
   skills?: Skill[];
   totalCandidateCount: number;
   onUpdateApplicantFilter: (applicantFilter: ApplicantFilterInput) => void;
-  onSubmit: (candidateCount: number, poolId: string) => Promise<void>;
+  onSubmit: (
+    candidateCount: number,
+    poolId: string,
+    selectedClassifications: SimpleClassification[],
+  ) => Promise<void>;
 }
 
 const testId = (chunks: React.ReactNode): React.ReactNode => (
@@ -123,12 +134,16 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   // at the very end, in a way that confuses Cypress. Caution advised before
   // re-producing this pattern elsewhere.
   // See: https://github.com/GCTC-NTGC/gc-digital-talent/pull/4119#issuecomment-1271642887
-  const tryHandleSubmit = async (candidateCount: number, poolId: string) => {
+  const tryHandleSubmit = async (
+    candidateCount: number,
+    poolId: string,
+    selectedClassifications: SimpleClassification[],
+  ) => {
     if (poolClassificationFilterCount === 0 || locationPreferencesCount === 0) {
       // Validate all fields, and focus on the first one that is invalid.
       searchRef.current?.triggerValidation(undefined, { shouldFocus: true });
     } else {
-      onSubmit(candidateCount, poolId);
+      onSubmit(candidateCount, poolId, selectedClassifications);
     }
   };
 
@@ -283,18 +298,18 @@ const SearchContainerApi: React.FC = () => {
   const totalCandidateCount = candidatesData?.countApplicants || 0;
 
   const paths = useTalentSearchRoutes();
-  const onSubmit = async (candidateCount: number, poolId: string) => {
-    return pushToStateThenNavigate<{
-      applicantFilter?: ApplicantFilterInput;
-      candidateCount: number;
-      initialValues?: ApplicantFilterInput;
-    }>(paths.request(), {
+  const onSubmit = async (
+    candidateCount: number,
+    poolId: string,
+    selectedClassifications: SimpleClassification[],
+  ) => {
+    return pushToStateThenNavigate<BrowserHistoryState>(paths.request(), {
       applicantFilter: {
         ...applicantFilter,
         pools: [{ id: poolId }],
       },
       candidateCount,
-      initialValues: applicantFilter,
+      selectedClassifications,
     });
   };
 

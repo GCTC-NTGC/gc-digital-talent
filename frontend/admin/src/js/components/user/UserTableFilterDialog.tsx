@@ -257,18 +257,22 @@ export type UserTableFiltersProps = Pick<
   "onSubmit" | "enableEducationType"
 > & {
   isOpenDefault?: boolean;
+  initialFilters?: FormValues;
 };
 
 const UserTableFilters = ({
   onSubmit,
   isOpenDefault = false,
   enableEducationType,
+  initialFilters,
   ...rest
 }: UserTableFiltersProps) => {
   const [isOpen, setOpen] = React.useState<boolean>(isOpenDefault);
   const { emptyFormValues } = useFilterOptions(enableEducationType);
-  const [activeFilters, setActiveFilters] =
-    useState<FormValues>(emptyFormValues);
+  const initialStateActiveFilters = initialFilters ?? emptyFormValues;
+  const [activeFilters, setActiveFilters] = useState<FormValues>(
+    initialStateActiveFilters,
+  );
 
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
     onSubmit(data);
