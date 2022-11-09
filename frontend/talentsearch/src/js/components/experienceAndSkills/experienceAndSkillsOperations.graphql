@@ -113,6 +113,7 @@ query GetApplicationDetails($id: ID!) {
         en
         fr
       }
+      stream
       classifications {
         id
         group

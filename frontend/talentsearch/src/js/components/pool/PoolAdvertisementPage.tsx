@@ -141,10 +141,7 @@ const PoolAdvertisement = ({
       level: classification?.level,
     });
   }
-  const fullTitle = getFullPoolAdvertisementTitle({
-    intl,
-    advertisement: poolAdvertisement,
-  });
+  const fullTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
   const canApply =
     poolAdvertisement.advertisementStatus &&
     poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;

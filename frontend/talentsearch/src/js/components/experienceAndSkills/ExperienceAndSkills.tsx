@@ -18,6 +18,7 @@ import { useQueryParams } from "@common/helpers/router";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import {
   AwardExperience,
@@ -32,7 +33,6 @@ import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import { ExperienceType } from "../experienceForm/types";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
 type MergedExperiences = Array<

@@ -13,6 +13,7 @@ query MyApplications {
           en
           fr
         }
+        stream
         classifications {
           id
           group

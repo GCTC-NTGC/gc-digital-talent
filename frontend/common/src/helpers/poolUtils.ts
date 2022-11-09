@@ -33,16 +33,11 @@ export const formatClassificationString = ({
   return `${group}-0${level}`;
 };
 
-export interface getFullPoolAdvertisementTitleProps {
-  intl: IntlShape;
-  advertisement: Maybe<PoolAdvertisement>;
-}
-
-export const getFullPoolAdvertisementTitle = ({
-  intl,
-  advertisement,
-}: getFullPoolAdvertisementTitleProps): string => {
-  if (advertisement === null || advertisement === undefined)
+export const getFullPoolAdvertisementTitle = (
+  intl: IntlShape,
+  poolAdvertisement: Maybe<PoolAdvertisement>,
+): string => {
+  if (poolAdvertisement === null || poolAdvertisement === undefined)
     return intl.formatMessage({
       id: "D91nGW",
       defaultMessage: "Job title not found.",
@@ -50,8 +45,8 @@ export const getFullPoolAdvertisementTitle = ({
         "Message shown to user when pool name or classification are not found.",
     });
 
-  const classification = advertisement.classifications
-    ? advertisement.classifications[0]
+  const classification = poolAdvertisement.classifications
+    ? poolAdvertisement.classifications[0]
     : null;
 
   let classificationSuffix = ""; // type wrangling the complex type into a string
@@ -61,11 +56,11 @@ export const getFullPoolAdvertisementTitle = ({
       level: classification?.level,
     });
   }
-  const genericTitle = getLocalizedName(advertisement.name, intl);
+  const genericTitle = getLocalizedName(poolAdvertisement.name, intl);
 
   return `${genericTitle ? `${genericTitle} ` : ""}(${classificationSuffix}${
-    advertisement.stream
-      ? ` ${intl.formatMessage(getPoolStream(advertisement.stream))}`
+    poolAdvertisement.stream
+      ? ` ${intl.formatMessage(getPoolStream(poolAdvertisement.stream))}`
       : ""
   })`;
 };
