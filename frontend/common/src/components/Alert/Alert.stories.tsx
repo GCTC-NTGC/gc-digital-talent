@@ -3,7 +3,6 @@ import { BellIcon } from "@heroicons/react/24/outline";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import Alert, { AlertProps, AlertType } from "./Alert";
-import Separator from "../Separator";
 
 const types: Array<AlertType> = ["info", "success", "warning", "error"];
 
