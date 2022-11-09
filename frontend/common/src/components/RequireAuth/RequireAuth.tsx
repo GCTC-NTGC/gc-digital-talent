@@ -17,7 +17,7 @@ const RequireAuth = ({ children, roles }: RequireAuthProps) => {
   const location = useLocation();
   const apiRoutes = useApiRoutes();
   const { loggedIn } = useAuth();
-  const { loggedInUserRoles } = useAuthorizationContext();
+  const { loggedInUserRoles, isLoaded } = useAuthorizationContext();
 
   if (!loggedIn) {
     window.location.replace(apiRoutes.login(location.pathname, locale));
@@ -25,7 +25,7 @@ const RequireAuth = ({ children, roles }: RequireAuthProps) => {
   }
 
   const isAuthorized =
-    roles.length === 0 ||
+    isLoaded &&
     roles.some((authorizedRole: Role) =>
       loggedInUserRoles?.includes(authorizedRole),
     );
