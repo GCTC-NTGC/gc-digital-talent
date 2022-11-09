@@ -1975,5 +1975,13 @@
   "DdOEWx": {
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
+  },
+  "edeLyW": {
+    "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
+    "description": "Title for the unexpected error page."
+  },
+  "quLfED": {
+    "defaultMessage": "Nous avons relevé une erreur d’origine inconnue pendant le traitement de votre demande.",
+    "description": "Body text for the unexpected error page."
   }
 }

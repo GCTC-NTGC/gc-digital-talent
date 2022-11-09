@@ -49,14 +49,14 @@ const messages = defineMessages({
   },
   unknownErrorRequestErrorTitle: {
     defaultMessage: "Sorry, we encountered an error.",
-    id: "Fq2VQp",
-    description: "Title for the 404 page not found page.",
+    id: "edeLyW",
+    description: "Title for the unexpected error page.",
   },
   unknownErrorRequestErrorBody: {
     defaultMessage:
       "We have encountered an unknown error while processing your request.",
-    id: "r/i13S",
-    description: "Body text for the unknown error page page.",
+    id: "quLfED",
+    description: "Body text for the unexpected error page.",
   },
 });
 
