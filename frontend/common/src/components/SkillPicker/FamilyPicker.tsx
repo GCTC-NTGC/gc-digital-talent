@@ -73,8 +73,8 @@ const FamilyPicker = ({
         >
           <span>
             {intl.formatMessage({
-              defaultMessage: "Families",
-              id: "JyUPiu",
+              defaultMessage: "All skills",
+              id: "6uce1H",
               description: "Label for the skill picker family filter",
             })}
           </span>
