@@ -10,7 +10,6 @@ import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 import { getLocale } from "@common/helpers/localize";
 import useAuth from "@common/hooks/useAuth";
 import useFeatureFlags from "@common/hooks/useFeatureFlags";
-import useLocaleRedirect from "@common/hooks/useLocaleRedirect";
 
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
 import Footer from "@common/components/Footer";
@@ -42,7 +41,6 @@ export const LogoutButton = React.forwardRef<
 ));
 
 const Layout = () => {
-  useLocaleRedirect();
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();

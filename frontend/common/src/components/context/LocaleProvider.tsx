@@ -40,13 +40,20 @@ interface LocaleContainerProps {
 const LocaleContainer = ({ children }: LocaleContainerProps) => {
   const guessedLocale = guessLocale();
   const [locale, setLocale] = React.useState<Locales>(guessedLocale);
+  const pathSegments = window.location.pathname.split("/");
+  const pathLocale = pathSegments[1]; // Leading slash leads to first item being empty
 
   React.useEffect(() => {
+    // Redirect to initial locale if it doesn't exist in path
+    if (!isLocale(pathLocale)) {
+      localeRedirect(locale);
+    }
+
     if (locale !== guessedLocale) {
       localStorage.setItem(STORED_LOCALE, locale);
       localeRedirect(locale);
     }
-  }, [locale, guessedLocale]);
+  }, [locale, guessedLocale, pathLocale]);
 
   const state = React.useMemo(() => {
     return {

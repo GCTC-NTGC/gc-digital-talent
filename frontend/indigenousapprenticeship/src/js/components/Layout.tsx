@@ -11,12 +11,10 @@ import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import { getLocale } from "@common/helpers/localize";
 import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
-import useLocaleRedirect from "@common/hooks/useLocaleRedirect";
 
 import { useIndigenousApprenticeshipRoutes } from "../routes/indigenousApprenticeshipRoutes";
 
 export const Layout = () => {
-  useLocaleRedirect();
   const intl = useIntl();
   const locale = getLocale(intl);
   const location = useLocation();
