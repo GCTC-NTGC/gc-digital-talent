@@ -4,12 +4,10 @@ import SearchRequestFilters from "@common/components/SearchRequestFilters/Search
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { commonMessages } from "@common/messages";
-import { notEmpty } from "@common/helpers/util";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import {
-  PoolCandidateFilterInput,
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,
 } from "../../api/generated";
@@ -209,51 +207,8 @@ export const SingleSearchRequest: React.FunctionComponent<
   const locale = getLocale(intl);
   const { additionalComments, poolCandidateFilter, applicantFilter } =
     searchRequest;
-  // TODO: data filter data from applicantFilter instead of poolCandidateFilter if possible.
 
-  const poolCandidateFilterInput: PoolCandidateFilterInput = {
-    expectedClassifications: [
-      ...(poolCandidateFilter?.classifications
-        ? poolCandidateFilter.classifications
-            .filter(notEmpty)
-            .map(({ group, level }) => {
-              return {
-                group,
-                level,
-              };
-            })
-        : []),
-    ],
-    cmoAssets: [
-      ...(poolCandidateFilter?.cmoAssets
-        ? poolCandidateFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
-            return {
-              key,
-            };
-          })
-        : []),
-    ],
-    operationalRequirements: poolCandidateFilter?.operationalRequirements,
-    pools: [
-      ...(poolCandidateFilter?.pools
-        ? poolCandidateFilter.pools.filter(notEmpty).map(({ id }) => {
-            return {
-              id,
-            };
-          })
-        : []),
-    ],
-    hasDiploma: poolCandidateFilter?.hasDiploma,
-    equity: {
-      hasDisability: poolCandidateFilter?.equity?.hasDisability,
-      isIndigenous: poolCandidateFilter?.equity?.isIndigenous,
-      isVisibleMinority: poolCandidateFilter?.equity?.isVisibleMinority,
-      isWoman: poolCandidateFilter?.equity?.isWoman,
-    },
-    languageAbility: poolCandidateFilter?.languageAbility || undefined,
-    locationPreferences: poolCandidateFilter?.workRegions,
-  };
-
+  const abstractFilter = applicantFilter ?? poolCandidateFilter;
   return (
     <section>
       <p>
@@ -288,9 +243,7 @@ export const SingleSearchRequest: React.FunctionComponent<
           data-h2-padding="base(x1)"
           data-h2-background-color="base(lightest.dt-gray)"
         >
-          <SearchRequestFilters
-            filters={applicantFilter || poolCandidateFilter}
-          />
+          <SearchRequestFilters filters={abstractFilter} />
           <div
             data-h2-padding="base(x1, 0, 0, 0)"
             data-h2-border="base(top, 1px, solid, dt-gray)"
@@ -320,9 +273,17 @@ export const SingleSearchRequest: React.FunctionComponent<
               "Heading for the candidate results section of the single search request view.",
           })}
         </h2>
-        <SingleSearchRequestTableApi
-          poolCandidateFilter={poolCandidateFilterInput}
-        />
+        {abstractFilter ? (
+          <SingleSearchRequestTableApi filter={abstractFilter} />
+        ) : (
+          <>
+            {intl.formatMessage({
+              defaultMessage: "Request doesn't include a filter!",
+              id: "hmacO5",
+              description: "Null state for a request not including a filter.",
+            })}
+          </>
+        )}
       </div>
       <UpdateSearchRequest initialSearchRequest={searchRequest} />
     </section>
