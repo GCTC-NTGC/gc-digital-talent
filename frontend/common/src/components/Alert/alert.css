@@ -1,8 +1,8 @@
-.Alert--large .Alert__Icon {
+.Alert .Alert__Icon {
   flex-shrink: 0;
 }
 
-.Alert--large .Alert__Icon:after {
+.Alert .Alert__Icon:after {
   content: "";
   position: absolute;
   width: 0;
@@ -15,24 +15,24 @@
 }
 
 
-.Alert--large.Alert--success .Alert__Icon:after {
+.Alert.Alert--success .Alert__Icon:after {
   border-color: rgba(var(--h2-color-tm-green-light), 1)  transparent transparent transparent;
 }
 
-.Alert--large.Alert--warning .Alert__Icon:after {
+.Alert.Alert--warning .Alert__Icon:after {
   border-color: rgba(var(--h2-color-tm-yellow-light), 1) transparent transparent transparent;
 }
 
-.Alert--large.Alert--info .Alert__Icon:after {
+.Alert.Alert--info .Alert__Icon:after {
   border-color: rgba(var(--h2-color-tm-blue-light), 1) transparent transparent transparent;
 }
 
-.Alert--large.Alert--error .Alert__Icon:after {
+.Alert.Alert--error .Alert__Icon:after {
   border-color: rgba(var(--h2-color-tm-red-light), 1) transparent transparent transparent;
 }
 
 @media screen and (min-width: 48em) {
-  .Alert--large .Alert__Icon:after {
+  .Alert .Alert__Icon:after {
     transform: translate(0);
     bottom: auto;
     top: calc((1*var(--h2-base-whitespace))*1rem);
@@ -40,19 +40,19 @@
     border-width: 20px 0 20px 24px;
   }
 
-  .Alert--large.Alert--success .Alert__Icon:after {
+  .Alert.Alert--success .Alert__Icon:after {
     border-color: transparent transparent transparent rgba(var(--h2-color-tm-green-light), 1);
   }
 
-  .Alert--large.Alert--warning .Alert__Icon:after {
+  .Alert.Alert--warning .Alert__Icon:after {
     border-color: transparent transparent transparent rgba(var(--h2-color-tm-yellow-light), 1);
   }
 
-  .Alert--large.Alert--info .Alert__Icon:after {
+  .Alert.Alert--info .Alert__Icon:after {
     border-color: transparent transparent transparent rgba(var(--h2-color-tm-blue-light), 1);
   }
 
-  .Alert--large.Alert--error .Alert__Icon:after {
+  .Alert.Alert--error .Alert__Icon:after {
     border-color: transparent transparent transparent rgba(var(--h2-color-tm-red-light), 1);
   }
 }

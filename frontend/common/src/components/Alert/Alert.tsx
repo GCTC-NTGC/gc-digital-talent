@@ -2,16 +2,26 @@ import * as React from "react";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 
-import { styleMap, iconStyleMap, iconMap, dismissStyleMap } from "./styles";
+import type { HeadingLevel } from "../Heading";
+
+import {
+  styleMap,
+  iconStyleMap,
+  iconMap,
+  dismissStyleMap,
+  getAlertLevelTitle,
+} from "./utils";
 
 import "./alert.css";
 
 export type AlertType = "success" | "warning" | "info" | "error";
+type AlertHeadingLevel = HeadingLevel | "p";
 
 export interface AlertProps
   extends Omit<React.HTMLProps<HTMLDivElement>, "title"> {
   title: React.ReactNode;
   type: AlertType;
+  headingLevel?: AlertHeadingLevel;
   dismissible?: boolean;
   live?: boolean;
   onDismiss?: () => void;
@@ -22,6 +32,7 @@ const Alert = ({
   type,
   live = true,
   dismissible = false,
+  headingLevel = "p",
   onDismiss,
   children,
   ...rest
@@ -29,6 +40,8 @@ const Alert = ({
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState(true);
   const Icon = iconMap[type];
+  const Heading = headingLevel;
+  const alertLevelTitle = getAlertLevelTitle(type, intl);
 
   const close = () => {
     setIsOpen((currentIsOpen) => !currentIsOpen);
@@ -39,7 +52,7 @@ const Alert = ({
 
   return isOpen ? (
     <div
-      className={`Alert Alert--large Alert--${type}`}
+      className={`Alert Alert--${type}`}
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column) p-tablet(row)"
       data-h2-background-color="base(white)"
@@ -83,7 +96,6 @@ const Alert = ({
       )}
       <div
         className="Alert__Icon"
-        data-h2-content="base:selectors[::after]('')"
         data-h2-display="base(flex)"
         data-h2-align-items="base(center) p-tablet(flex-start)"
         data-h2-justify-content="base(center)"
@@ -98,13 +110,18 @@ const Alert = ({
         data-h2-align-self="base(center)"
         data-h2-padding="base(x2, x1, x1, x1) p-tablet(x1, x1, x1, x2)"
       >
-        <p
+        <Heading
           data-h2-font-size="base(h5, 1)"
           data-h2-font-weight="base(600)"
           data-h2-margin="base(0, 0, x.25, 0)"
         >
+          {alertLevelTitle && (
+            <span data-h2-visibility="base(invisible)">
+              {alertLevelTitle}&nbsp;
+            </span>
+          )}
           {title}
-        </p>
+        </Heading>
         <div data-h2-margin="base(0, 0, 0, 0)">{children}</div>
       </div>
     </div>
