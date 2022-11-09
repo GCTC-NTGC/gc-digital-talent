@@ -4,6 +4,7 @@ import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
 import Button from "../Button";
 import DropdownMenu from "../DropdownMenu";
+import ScrollArea from "../ScrollArea";
 
 import { getLocalizedName } from "../../helpers/localize";
 import { Scalars, SkillCategory, SkillFamily } from "../../api/generated";
@@ -85,45 +86,58 @@ const FamilyPicker = ({ families, onSelectFamily }: FamilyPickerProps) => {
           />
         </Button>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content>
-        <DropdownMenu.RadioGroup
-          value={currentFamilyId}
-          onValueChange={setCurrentFamilyId}
+      <DropdownMenu.Content data-h2-padding="base(0)">
+        <ScrollArea.Root
+          data-h2-width="base(100%)"
+          data-h2-height="base(320px)"
+          data-h2-max-height="base(50vh)"
         >
-          <DropdownMenu.RadioItem
-            value=""
-            onSelect={() => {
-              onSelectFamily("");
-            }}
-          >
-            <DropdownMenu.ItemIndicator>
-              <CheckIcon />
-            </DropdownMenu.ItemIndicator>
-            {allSkillsLabel}
-          </DropdownMenu.RadioItem>
-          {skillFamilyOptions.map((category, index) => (
-            <React.Fragment key={category.id}>
-              <DropdownMenu.Label>{category.label}</DropdownMenu.Label>
-              {category.options.map((option) => (
+          <ScrollArea.Viewport data-h2-background-color="base(white)">
+            <div data-h2-padding="base(x.5, x1, x.5, x.5)">
+              <DropdownMenu.RadioGroup
+                value={currentFamilyId}
+                onValueChange={setCurrentFamilyId}
+              >
                 <DropdownMenu.RadioItem
-                  value={option.value}
-                  key={option.value}
+                  value=""
                   onSelect={() => {
-                    onSelectFamily(option.value);
+                    onSelectFamily("");
                   }}
                 >
                   <DropdownMenu.ItemIndicator>
                     <CheckIcon />
                   </DropdownMenu.ItemIndicator>
-                  {option.label}
+                  {allSkillsLabel}
                 </DropdownMenu.RadioItem>
-              ))}
-              {index + 1 < skillFamilyOptions.length && (
-                <DropdownMenu.Separator />
-              )}
-            </React.Fragment>
-          ))}
-        </DropdownMenu.RadioGroup>
+                {skillFamilyOptions.map((category, index) => (
+                  <React.Fragment key={category.id}>
+                    <DropdownMenu.Label>{category.label}</DropdownMenu.Label>
+                    {category.options.map((option) => (
+                      <DropdownMenu.RadioItem
+                        value={option.value}
+                        key={option.value}
+                        onSelect={() => {
+                          onSelectFamily(option.value);
+                        }}
+                      >
+                        <DropdownMenu.ItemIndicator>
+                          <CheckIcon />
+                        </DropdownMenu.ItemIndicator>
+                        {option.label}
+                      </DropdownMenu.RadioItem>
+                    ))}
+                    {index + 1 < skillFamilyOptions.length && (
+                      <DropdownMenu.Separator />
+                    )}
+                  </React.Fragment>
+                ))}
+              </DropdownMenu.RadioGroup>
+            </div>
+          </ScrollArea.Viewport>
+          <ScrollArea.Scrollbar orientation="vertical">
+            <ScrollArea.Thumb />
+          </ScrollArea.Scrollbar>
+        </ScrollArea.Root>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );

@@ -11,7 +11,6 @@ import SkillBlock from "./SkillBlock";
 
 import { Scalars, Skill, SkillFamily } from "../../api/generated";
 import { getLocalizedName } from "../../helpers/localize";
-import { notEmpty } from "../../helpers/util";
 import {
   filterSkillsByNameOrKeywords,
   invertSkillSkillFamilyTree,
@@ -167,6 +166,7 @@ const SkillPicker = ({
         data-h2-width="base(100%)"
         data-h2-height="base(320px)"
         data-h2-max-height="base(50vh)"
+        data-h2-shadow="base(s)"
       >
         <ScrollArea.Viewport data-h2-background-color="base(white)">
           <div data-h2-padding="base(x.5, x1, x.5, x.5)">
