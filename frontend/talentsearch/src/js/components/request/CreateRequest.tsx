@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
@@ -35,6 +35,8 @@ import {
   ApplicantFilterInput,
 } from "../../api/generated";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
+import { SimpleClassification } from "../../types/poolUtils";
+import { BrowserHistoryState } from "../search/SearchContainer";
 
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
 type FormValues = {
@@ -67,7 +69,8 @@ export interface RequestFormProps {
   classifications: Classification[];
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
-  searchFormInitialValues: Maybe<SearchFormValues>;
+  searchFormInitialValues?: SearchFormValues;
+  selectedClassifications?: Maybe<SimpleClassification>[];
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<
@@ -82,12 +85,15 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   applicantFilter,
   candidateCount,
   searchFormInitialValues,
+  selectedClassifications,
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const cacheKey = "ts-createRequest";
+  const location = useLocation();
+  const state = location.state as BrowserHistoryState;
 
   const formMethods = useForm<FormValues>({
     defaultValues: getFromSessionStorage(cacheKey, {}),
@@ -336,7 +342,10 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               description: "Title of Summary of filters section",
             })}
           </h2>
-          <SearchRequestFilters filters={applicantFilterInputToType} />
+          <SearchRequestFilters
+            filters={applicantFilterInputToType}
+            selectedClassifications={selectedClassifications}
+          />
           <p
             data-h2-margin="base(x2, 0, x1, 0)"
             data-h2-font-weight="base(600)"
@@ -364,7 +373,10 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 mode="outline"
                 data-h2-margin="base(0, x.5, 0, 0)"
                 href={paths.search()}
-                state={searchFormInitialValues}
+                state={{
+                  ...state,
+                  initialValues: searchFormInitialValues,
+                }}
               >
                 {intl.formatMessage({
                   defaultMessage: "Back",
@@ -398,8 +410,14 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
 export const CreateRequest: React.FunctionComponent<{
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
-  searchFormInitialValues: Maybe<SearchFormValues>;
-}> = ({ applicantFilter, candidateCount, searchFormInitialValues }) => {
+  searchFormInitialValues?: SearchFormValues;
+  selectedClassifications?: Maybe<SimpleClassification>[];
+}> = ({
+  applicantFilter,
+  candidateCount,
+  searchFormInitialValues,
+  selectedClassifications,
+}) => {
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
 
@@ -429,6 +447,7 @@ export const CreateRequest: React.FunctionComponent<{
         applicantFilter={applicantFilter}
         candidateCount={candidateCount}
         searchFormInitialValues={searchFormInitialValues}
+        selectedClassifications={selectedClassifications}
         handleCreatePoolCandidateSearchRequest={
           handleCreatePoolCandidateSearchRequest
         }

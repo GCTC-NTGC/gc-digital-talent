@@ -33,6 +33,7 @@ import {
   SimpleClassification,
   SimplePool,
 } from "../../types/poolUtils";
+import { BrowserHistoryState } from "./SearchContainer";
 
 const NullSelection = "NULL_SELECTION";
 
@@ -63,6 +64,8 @@ export type FormValues = Pick<
   poolCandidates: UserPoolFilterInput;
   pools?: SimplePool[];
 };
+
+type LocationState = BrowserHistoryState | null;
 
 export interface SearchFormProps {
   classifications: SimpleClassification[];
@@ -108,10 +111,10 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     }, [classifications]);
 
     // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
-    const initialValuesFromState = location?.state?.initialValues;
+    const state = location.state as LocationState;
     const initialValues = React.useMemo(
-      () => initialValuesFromState || {},
-      [initialValuesFromState],
+      () => (state ? state.initialValues : {}),
+      [state],
     );
     const methods = useForm<FormValues>({ defaultValues: initialValues });
     const { watch, trigger } = methods;
@@ -125,8 +128,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     );
 
     React.useEffect(() => {
-      // HACK: Not sure what is going on here, suppress for now
-      onUpdateApplicantFilter(initialValues as ApplicantFilterInput);
+      onUpdateApplicantFilter(initialValues || {});
     }, [initialValues, onUpdateApplicantFilter]);
 
     React.useEffect(() => {
@@ -185,7 +187,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       });
 
       return () => subscription.unsubscribe();
-    }, [watch, classificationMap, onUpdateApplicantFilter, pools]);
+    }, [watch, classificationMap, onUpdateApplicantFilter, pools, state]);
 
     const getClassificationLabel = React.useCallback(
       (group: string, level: number): string => {
