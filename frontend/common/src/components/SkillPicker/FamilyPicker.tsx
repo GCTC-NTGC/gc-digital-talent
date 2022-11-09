@@ -6,23 +6,26 @@ import Button from "../Button";
 import DropdownMenu from "../DropdownMenu";
 
 import { getLocalizedName } from "../../helpers/localize";
-import { SkillCategory, SkillFamily } from "../../api/generated";
+import { Scalars, SkillCategory, SkillFamily } from "../../api/generated";
 
 interface FamilyPickerProps {
   families: Array<SkillFamily>;
-  selectedFamilies: Array<SkillFamily["id"]>;
-  onCheckedFamilyChange: (
-    id: SkillFamily["id"],
-    checked: boolean | "indeterminate",
-  ) => void;
+  onSelectFamily: (id: SkillFamily["id"]) => void;
 }
 
-const FamilyPicker = ({
-  families,
-  selectedFamilies,
-  onCheckedFamilyChange,
-}: FamilyPickerProps) => {
+const FamilyPicker = ({ families, onSelectFamily }: FamilyPickerProps) => {
   const intl = useIntl();
+  const [currentFamilyId, setCurrentFamilyId] =
+    React.useState<Scalars["ID"]>("");
+  const currentFamily = families.find(
+    (family) => family.id === currentFamilyId,
+  );
+
+  const allSkillsLabel = intl.formatMessage({
+    defaultMessage: "All skills",
+    id: "6uce1H",
+    description: "Label for the skill picker family filter",
+  });
 
   const skillFamilyOptions = React.useMemo(() => {
     return [
@@ -72,24 +75,10 @@ const FamilyPicker = ({
           style={{ borderRightWidth: 0 }}
         >
           <span>
-            {intl.formatMessage({
-              defaultMessage: "All skills",
-              id: "6uce1H",
-              description: "Label for the skill picker family filter",
-            })}
+            {currentFamily
+              ? getLocalizedName(currentFamily.name, intl)
+              : allSkillsLabel}
           </span>
-          {selectedFamilies.length > 0 ? (
-            <span
-              data-h2-radius="base(9999px)"
-              data-h2-background-color="base(dt-primary)"
-              data-h2-font-weight="base(400)"
-              data-h2-color="base(dt-white)"
-              data-h2-padding="base(x.15, x.25)"
-              data-h2-font-size="base(caption, 1)"
-            >
-              {selectedFamilies.length}
-            </span>
-          ) : null}
           <ChevronDownIcon
             data-h2-height="base(1em)"
             data-h2-width="base(1em)"
@@ -97,34 +86,44 @@ const FamilyPicker = ({
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content>
-        {skillFamilyOptions.map((category, index) => (
-          <React.Fragment key={category.id}>
-            <DropdownMenu.Label>{category.label}</DropdownMenu.Label>
-            <DropdownMenu.Group>
+        <DropdownMenu.RadioGroup
+          value={currentFamilyId}
+          onValueChange={setCurrentFamilyId}
+        >
+          <DropdownMenu.RadioItem
+            value=""
+            onSelect={() => {
+              onSelectFamily("");
+            }}
+          >
+            <DropdownMenu.ItemIndicator>
+              <CheckIcon />
+            </DropdownMenu.ItemIndicator>
+            {allSkillsLabel}
+          </DropdownMenu.RadioItem>
+          {skillFamilyOptions.map((category, index) => (
+            <React.Fragment key={category.id}>
+              <DropdownMenu.Label>{category.label}</DropdownMenu.Label>
               {category.options.map((option) => (
-                <DropdownMenu.CheckboxItem
+                <DropdownMenu.RadioItem
+                  value={option.value}
                   key={option.value}
-                  checked={selectedFamilies.includes(option.value)}
-                  onCheckedChange={(checked) =>
-                    onCheckedFamilyChange(option.value, checked)
-                  }
-                  onSelect={(e) => {
-                    // Prevent dropdown closing on select
-                    e.preventDefault();
+                  onSelect={() => {
+                    onSelectFamily(option.value);
                   }}
                 >
                   <DropdownMenu.ItemIndicator>
                     <CheckIcon />
                   </DropdownMenu.ItemIndicator>
                   {option.label}
-                </DropdownMenu.CheckboxItem>
+                </DropdownMenu.RadioItem>
               ))}
-            </DropdownMenu.Group>
-            {index + 1 < skillFamilyOptions.length && (
-              <DropdownMenu.Separator />
-            )}
-          </React.Fragment>
-        ))}
+              {index + 1 < skillFamilyOptions.length && (
+                <DropdownMenu.Separator />
+              )}
+            </React.Fragment>
+          ))}
+        </DropdownMenu.RadioGroup>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );

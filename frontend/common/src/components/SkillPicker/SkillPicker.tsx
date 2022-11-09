@@ -22,12 +22,12 @@ type Skills = Array<Skill>;
 
 interface FormValues {
   query: string;
-  skillFamilies: Array<Scalars["ID"]>;
+  skillFamily: Scalars["ID"];
 }
 
 const defaultValues: FormValues = {
   query: "",
-  skillFamilies: [],
+  skillFamily: "",
 };
 export interface SkillPickerProps {
   skills: Skills;
@@ -52,10 +52,10 @@ const SkillPicker = ({
   const { watch } = methods;
 
   React.useEffect(() => {
-    const subscription = watch(({ query, skillFamilies }) => {
+    const subscription = watch(({ query, skillFamily }) => {
       setValidData({
         query: query ?? "",
-        skillFamilies: skillFamilies ? skillFamilies?.filter(notEmpty) : [],
+        skillFamily: skillFamily ?? "",
       });
     });
 
@@ -79,9 +79,9 @@ const SkillPicker = ({
   const filteredSkills = React.useMemo(() => {
     return filterSkillsByNameOrKeywords(skills, validData.query, intl).filter(
       (skill) => {
-        if (validData.skillFamilies.length) {
-          return skill?.families?.some((family) =>
-            validData.skillFamilies.includes(family.id),
+        if (validData.skillFamily) {
+          return skill?.families?.some(
+            (family) => family.id === validData.skillFamily,
           );
         }
 
@@ -103,19 +103,8 @@ const SkillPicker = ({
     handleSkillUpdate(newSkills);
   };
 
-  const handleCheckFamily = (
-    id: SkillFamily["id"],
-    checked: boolean | string,
-  ) => {
-    const currentFamilies = methods.getValues("skillFamilies");
-    let newFamilies = [];
-    if (!checked) {
-      newFamilies = currentFamilies.filter((value) => value !== id);
-    } else {
-      newFamilies = [...currentFamilies, id];
-    }
-
-    methods.setValue("skillFamilies", newFamilies);
+  const handleCheckFamily = (id: SkillFamily["id"]) => {
+    methods.setValue("skillFamily", id);
   };
 
   return (
@@ -133,8 +122,7 @@ const SkillPicker = ({
         />
         <div data-h2-display="base(flex)" data-h2-margin="base(x.25, 0, 0, 0)">
           <FamilyPicker
-            selectedFamilies={methods.getValues("skillFamilies")}
-            onCheckedFamilyChange={handleCheckFamily}
+            onSelectFamily={handleCheckFamily}
             families={allSkillFamilies}
           />
           <input
