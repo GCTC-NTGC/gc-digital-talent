@@ -32,6 +32,7 @@ import {
   parseDateTimeUtc,
   relativeExpiryDate,
 } from "@common/helpers/dateUtils";
+import { transformPoolToPosterTitle } from "@common/helpers/poolUtils";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   SkillCategory,
@@ -54,7 +55,6 @@ interface ViewPoolPageProps {
 
 export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const adminPaths = useAdminRoutes();
   const form = useForm();
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
@@ -68,13 +68,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
     }
   }, [linkCopied, setLinkCopied]);
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Pool Details",
-    id: "yBmBnd",
-    description: "Title for the page when viewing an individual pool.",
-  });
-
-  const poolName = pool.name ? pool.name[locale] : pageTitle;
+  const poolName = transformPoolToPosterTitle(pool, intl);
   const classification = pool.classifications ? pool.classifications[0] : null;
 
   const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {
