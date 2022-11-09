@@ -1,8 +1,4 @@
 {
-    // "AWiMVP": {
-    //   "defaultMessage": "", ### missing translation for Contact Us, previously Feedback (Ankaptasi ta’n teluwa’tijik)
-    //   "description": "Label for the support link in the Footer."
-    // },
     "ZGpncy": {
     "defaultMessage": "Klusuwaqn & ta’n tela’sik",
       "description": "Label for the terms and conditions link in the Footer."
@@ -10,5 +6,5 @@
     "VcOlXA": {
       "defaultMessage": "Ta’n mu wen nuta’nuk kjijitn Policy",
       "description": "Label for the privacy link in the Footer."
-    },
+    }
   }

@@ -1,0 +1,6 @@
+{
+    "AWiMVP": {
+      "defaultMessage": "Contact Us", ### missing translation, previously Feedback (Ankaptasi ta’n teluwa’tijik)
+      "description": "Label for the support link in the Footer."
+    }
+  }
