@@ -20,7 +20,7 @@ import {
   getProvinceOrTerritory,
 } from "@common/constants/localizedConstants";
 import { getLocale } from "@common/helpers/localize";
-import { Button } from "@common/components";
+import { Button, Link } from "@common/components";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { commonMessages } from "@common/messages";
@@ -28,6 +28,8 @@ import { BasicForm, TextArea } from "@common/components/form";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import Heading from "@common/components/Heading";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { transformPoolToPosterTitle } from "@common/helpers/poolUtils";
+import { useAdminRoutes } from "admin/src/js/adminRoutes";
 import {
   AddToPoolDialog,
   ChangeDateDialog,
@@ -55,7 +57,7 @@ interface SectionWithPoolsProps {
 
 const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const routes = useAdminRoutes();
 
   if (isEmpty(user.poolCandidates)) {
     return (
@@ -119,7 +121,13 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                   data-h2-background-color="base(light.dt-gray)"
                   data-h2-padding="base(x.25, 0)"
                 >
-                  {candidate.pool?.name?.[locale]}
+                  {candidate.pool ? (
+                    <Link href={routes.poolView(candidate.pool.id)}>
+                      {transformPoolToPosterTitle(candidate.pool, intl)}
+                    </Link>
+                  ) : (
+                    ""
+                  )}
                 </td>
                 <td
                   data-h2-background-color="base(light.dt-gray)"

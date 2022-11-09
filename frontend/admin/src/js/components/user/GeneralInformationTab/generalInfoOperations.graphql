@@ -28,6 +28,12 @@ query GetGeneralInfo($id: ID!) {
           en
           fr
         }
+        classifications {
+          id
+          group
+          level
+        }
+        stream
       }
       status
       expiryDate

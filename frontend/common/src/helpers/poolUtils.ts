@@ -1,11 +1,12 @@
 import { IntlShape } from "react-intl";
 import { getPoolStream } from "../constants/localizedConstants";
-import { Maybe, PoolStream } from "../api/generated";
+import { Maybe, PoolStream, PoolAdvertisement } from "../api/generated";
+import { getLocalizedName } from "./localize";
 
 export interface formattedPoolPosterTitleProps {
   title: Maybe<string>;
-  classification: string;
-  stream: PoolStream | null;
+  classification: Maybe<string>;
+  stream: Maybe<PoolStream>;
   intl: IntlShape;
 }
 
@@ -15,9 +16,13 @@ export const formattedPoolPosterTitle = ({
   stream,
   intl,
 }: formattedPoolPosterTitleProps): string => {
-  return `${title ? `${title} ` : ""}(${classification}${
-    stream ? ` ${intl.formatMessage(getPoolStream(stream))}` : ""
-  })`;
+  const streamString = stream
+    ? `${intl.formatMessage(getPoolStream(stream))}`
+    : null;
+  const genericTitle = `${classification} ${streamString}`.trim();
+  return `${title ? `${title} ` : ""}${
+    genericTitle ? ` (${genericTitle})` : "" // Wrap genericTitle in parentheses if it exists
+  }`;
 };
 
 export interface formatClassificationStringProps {
@@ -30,4 +35,19 @@ export const formatClassificationString = ({
   level,
 }: formatClassificationStringProps): string => {
   return `${group}-0${level}`;
+};
+
+export const transformPoolToPosterTitle = (
+  pool: Pick<PoolAdvertisement, "name" | "classifications" | "stream">,
+  intl: IntlShape,
+): string => {
+  // TODO: If a pool has multiple classifications, only the first will be shown.
+  return formattedPoolPosterTitle({
+    title: getLocalizedName(pool.name, intl),
+    classification: pool?.classifications?.[0]
+      ? formatClassificationString(pool?.classifications?.[0])
+      : null,
+    stream: pool.stream,
+    intl,
+  });
 };
