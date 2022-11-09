@@ -20,19 +20,16 @@ final class CountPoolCandidatesByPool
         // query counts pool candidate rows, so start on that model
         $queryBuilder = PoolCandidate::query();
 
-        // pool candidate filters go here
-
-        // candidate pool scope
-        if (array_key_exists('pools', $filters)) {
-            // pool candidate filter uses Pool while Applicant filter users IdInput
-            $pools = array_map(function ($id) {
-                return ['id' => $id];
-            }, $filters['pools']);
-            PoolCandidate::filterByPools($queryBuilder, $pools);
-        }
-
         $queryBuilder->whereHas('user', function (Builder $userQuery) use ($filters) {
             // user filters go here
+
+            if (array_key_exists('pools', $filters)) {
+                // pool candidate filter uses Pool while Applicant filter users IdInput
+                $pools = array_map(function ($id) {
+                    return ['id' => $id];
+                }, $filters['pools']);
+                User::filterByAvailableInPools($userQuery, $pools);
+            }
 
             // user status scope
             User::scopeAvailableForOpportunities($userQuery);
