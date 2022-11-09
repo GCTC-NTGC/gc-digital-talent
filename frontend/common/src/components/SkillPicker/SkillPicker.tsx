@@ -6,17 +6,17 @@ import type { HeadingLevel } from "../Heading";
 import Chip, { Chips } from "../Chip";
 import Separator from "../Separator";
 import ScrollArea from "../ScrollArea";
-import { Input } from "../form";
-import MultiSelectFieldV2 from "../form/MultiSelect/MultiSelectFieldV2";
+import { InputLabel } from "../inputPartials";
 import SkillBlock from "./SkillBlock";
 
-import { Scalars, Skill, SkillCategory } from "../../api/generated";
+import { Scalars, Skill, SkillFamily } from "../../api/generated";
 import { getLocalizedName } from "../../helpers/localize";
 import { notEmpty } from "../../helpers/util";
 import {
   filterSkillsByNameOrKeywords,
   invertSkillSkillFamilyTree,
 } from "../../helpers/skillUtils";
+import FamilyPicker from "./FamilyPicker";
 
 type Skills = Array<Skill>;
 
@@ -103,67 +103,56 @@ const SkillPicker = ({
     handleSkillUpdate(newSkills);
   };
 
-  const skillFamilyOptions = React.useMemo(() => {
-    return [
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Technical skills",
-          id: "kxseH4",
-          description: "Tab name for a list of technical skills",
-        }),
-        options: allSkillFamilies
-          .filter((sf) => sf.category === SkillCategory.Technical)
-          .map((family) => ({
-            value: family.id,
-            label: getLocalizedName(family.name, intl),
-          })),
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Behavioural skills",
-          id: "LjkK5G",
-          description: "Tab name for a list of behavioural skills",
-        }),
-        options: allSkillFamilies
-          .filter((sf) => sf.category === SkillCategory.Behavioural)
-          .map((family) => ({
-            value: family.id,
-            label: getLocalizedName(family.name, intl),
-          })),
-      },
-    ];
-  }, [allSkillFamilies, intl]);
+  const handleCheckFamily = (
+    id: SkillFamily["id"],
+    checked: boolean | string,
+  ) => {
+    const currentFamilies = methods.getValues("skillFamilies");
+    let newFamilies = [];
+    if (!checked) {
+      newFamilies = currentFamilies.filter((value) => value !== id);
+    } else {
+      newFamilies = [...currentFamilies, id];
+    }
+
+    methods.setValue("skillFamilies", newFamilies);
+  };
 
   return (
     <>
       <FormProvider {...methods}>
-        <Input
-          id="query"
-          name="query"
-          type="text"
+        <InputLabel
+          required={false}
+          inputId="query"
+          trackUnsaved={false}
           label={intl.formatMessage({
             defaultMessage: "Search skills by keyword",
             id: "ARqO1j",
             description: "Label for the skills search bar.",
           })}
-          placeholder={intl.formatMessage({
-            defaultMessage: "e.g. Python, JavaScript, etc.",
-            id: "PF4ya+",
-            description: "Placeholder for the skills search bar.",
-          })}
-          autoComplete="off"
-          trackUnsaved={false}
         />
-        <MultiSelectFieldV2
-          id="skillFamilies"
-          name="skillFamilies"
-          label={intl.formatMessage({
-            defaultMessage: "Filter skills by type",
-            description: "Label for the skills families dropdown",
-            id: "SwsGvU",
-          })}
-          options={skillFamilyOptions}
-        />
+        <div data-h2-display="base(flex)" data-h2-margin="base(x.25, 0, 0, 0)">
+          <FamilyPicker
+            selectedFamilies={methods.getValues("skillFamilies")}
+            onCheckedFamilyChange={handleCheckFamily}
+            families={allSkillFamilies}
+          />
+          <input
+            id="query"
+            type="text"
+            autoComplete="off"
+            {...methods.register("query")}
+            data-h2-flex-grow="base(1)"
+            data-h2-border="base(all, 1px, solid, dt-primary)"
+            data-h2-radius="base(0, input, input, 0)"
+            data-h2-padding="base(x.5, x1)"
+            placeholder={intl.formatMessage({
+              defaultMessage: "e.g. Python, JavaScript, etc.",
+              id: "PF4ya+",
+              description: "Placeholder for the skills search bar.",
+            })}
+          />
+        </div>
       </FormProvider>
       <p
         aria-live="polite"
