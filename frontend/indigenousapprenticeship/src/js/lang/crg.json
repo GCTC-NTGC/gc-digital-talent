@@ -327,6 +327,10 @@
     "defaultMessage": "Itayimoow chi-mawchistahk ooma Paminikaywin ishpee apray di 2022.",
     "description": "Talent portal strategy item 4 content"
   },
+  "Hu04cP": {
+    "defaultMessage": "IT Mawchikoushkounawawpiwin Paminikaywin poor Indigene Li moond",
+    "description": "Homepage title for Indigenous Apprenticeship Program"
+  },
   // "pBJzgi": {
   //   "defaultMessage": "Sorry, we can't find the page you were looking for.", ### missing translation
   //   "description": "Heading for the message saying the page was not found."
@@ -338,10 +342,6 @@
   // "404R1N": {
   //   "defaultMessage": "This program has been a life-changing opportunity for me and I see a <b>greater future ahead</b>.", ### missing translation where to bold text "Ooma Paminikaywin kee-ikouhk kaw-pimatishihk en-shawnzhraw li sawns poor niya pi niwawpastaen nawut miyeu li tawn ki vyaen."
   //   "description": "testimonial number one"
-  // },
-  // "Hu04cP": {
-  //   "defaultMessage": "IT Apprenticeship Program for Indigenous Peoples", ### missing translation
-  //   "description": "Homepage title for Indigenous Apprenticeship Program"
   // },
   // "Srs7a4": {
   //   "defaultMessage": "Skip to main content", ### missing translation
