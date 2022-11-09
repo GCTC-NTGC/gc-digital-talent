@@ -283,6 +283,9 @@ class User extends Model implements Authenticatable
     }
     public static function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
+        if (empty($languageAbility)) {
+            return $query;
+        }
         // If filtering for a specific language the query should return candidates of that language OR bilingual.
         $query->where(function ($query) use ($languageAbility) {
             $query->where('language_ability', $languageAbility);
@@ -303,7 +306,7 @@ class User extends Model implements Authenticatable
         $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
         return $query;
     }
-    public static function filterByLocationPreferences(Builder $query, array $workRegions): Builder
+    public static function filterByLocationPreferences(Builder $query, ?array $workRegions): Builder
     {
         if (empty($workRegions)) {
             return $query;

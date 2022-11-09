@@ -77,7 +77,7 @@ describe("MultiSelectFieldV2", () => {
     expect(document.querySelectorAll('input[type="hidden"]')).toHaveLength(1);
     expect(
       document.querySelector('input[type="hidden"]')?.getAttribute("value"),
-    ).toBeNull();
+    ).toEqual("");
   });
 
   it("should submit undefine when no default (no validation rules)", async () => {

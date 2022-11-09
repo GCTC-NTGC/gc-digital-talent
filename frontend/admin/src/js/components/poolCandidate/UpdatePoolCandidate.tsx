@@ -158,7 +158,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
 
   const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
     value: id,
-    label: name[locale] ?? "Error: name not loaded",
+    label: name[locale] ?? intl.formatMessage(commonMessages.nameNotLoaded),
   }));
 
   const classificationOptions: Option<string>[] = classifications.map(

@@ -235,10 +235,6 @@
     "defaultMessage": "Propriétaire du bassin : {name}",
     "description": "Text showing the owner of the HR pool."
   },
-  "m+d9ls": {
-    "defaultMessage": "Erreur : nom pas chargé",
-    "description": "Error message for cmo asset filer on search form."
-  },
   "1EyeE7": {
     "defaultMessage": "Tous les candidats de ce bassin ont aussi été évalués pour des compétences non techniques.",
     "description": "Message describing the skill filter in the search form."
@@ -1336,14 +1332,6 @@
     "defaultMessage": "Architecture intégrée de la TI ",
     "description": "work stream example"
   },
-  "omBOZT": {
-    "defaultMessage": "Mon expérience et mes compétences",
-    "description": "Title for the experience profile form"
-  },
-  "pFRKUT": {
-    "defaultMessage": "Voici où vous pouvez ajouter de l'expérience et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
-    "description": "Description for the experience profile form"
-  },
   "pGTTrp": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Display Text for Diversity, equity and inclusion Page"
@@ -2420,6 +2408,26 @@
     "defaultMessage": "À venir",
     "description": "Text displayed for executive jobs on homepage, indicating it is not ready"
   },
+  "7X5cnb": {
+    "defaultMessage": "Modifier le prix",
+    "description": "Page title for the award profile form"
+  },
+  "LN0Wag": {
+    "defaultMessage": "Modifier l’expérience de la collectivité",
+    "description": "Page title for the community experience profile form"
+  },
+  "7DtNMY": {
+    "defaultMessage": "Modifier l’expérience en matière de scolarité",
+    "description": "Page title for the education experience profile form"
+  },
+  "96GHnx": {
+    "defaultMessage": "Modifier l’expérience personnelle",
+    "description": "Page title for the personal experience profile form"
+  },
+  "Ytlyzb": {
+    "defaultMessage": "Modifier l’expérience de travail",
+    "description": "Page title for the work experience profile form"
+  },
   "+6QgII": {
     "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
     "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
@@ -2619,5 +2627,49 @@
   "ywkgJx": {
     "defaultMessage": "Détails",
     "description": "Support form details field label"
+  },
+  "w1/0Cd": {
+    "defaultMessage": "Diplôme exigé",
+    "description": "Diploma required"
+  },
+  "mKzQwr": {
+    "defaultMessage": "Compétence linguistique",
+    "description": "Language ability"
+  },
+  "hRe0yl": {
+    "defaultMessage": "Durée de l’emploi",
+    "description": "Employment duration"
+  },
+  "dE2WB1": {
+    "defaultMessage": "Équité en matière d’emploi ({equityFiltersActive})",
+    "description": "Employment equity with a number in parentheses"
+  },
+  "RNI+IH": {
+    "defaultMessage": "Compétences sélectionnées ({skillCount})",
+    "description": "Skills selected and then a number in parentheses"
+  },
+  "S/n44h": {
+    "defaultMessage": "Sélectionner...",
+    "description": "Support form subject field default placeholder shown when field has nothing actively selected"
+  },
+  "07BM9O": {
+    "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
+    "description": "Link text to go to IAP homepage on Browse IT jobs page"
+  },
+  "1UYQaC": {
+    "defaultMessage": "Date du début",
+    "description": "Label displayed on an Experience form for start date input"
+  },
+  "4f5qcw": {
+    "defaultMessage": "Rôle actuel",
+    "description": "Label displayed on an Experience form for current role bounded box"
+  },
+  "X8JZSG": {
+    "defaultMessage": "Date de fin",
+    "description": "Label displayed on an Experience form for end date input"
+  },
+  "wl8GI6": {
+    "defaultMessage": "Mon rôle",
+    "description": "Label displayed on an Experience form for role input"
   }
 }

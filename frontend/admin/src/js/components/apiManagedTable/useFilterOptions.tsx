@@ -17,6 +17,7 @@ import mapValues from "lodash/mapValues";
 import { MessageDescriptor, useIntl } from "react-intl";
 import useLocale from "@common/hooks/useLocale";
 import { OperationContext } from "urql";
+import { commonMessages } from "@common/messages";
 import {
   WorkRegion,
   EducationType,
@@ -59,7 +60,7 @@ export default function useFilterOptions(enableEducationType = false) {
     pools: filterRes.data?.pools.filter(notEmpty).map(({ id, name }) => ({
       value: id,
       // TODO: Must name and translations be optional in types?
-      label: name?.[locale] || "Error: name not loaded",
+      label: name?.[locale] || intl.formatMessage(commonMessages.nameNotLoaded),
     })),
     languageAbility: enumToOptions(LanguageAbility).map(({ value }) => ({
       value,
@@ -99,7 +100,7 @@ export default function useFilterOptions(enableEducationType = false) {
     skills: filterRes.data?.skills.filter(notEmpty).map(({ id, name }) => ({
       value: id,
       // TODO: Must name and translations be optional in types?
-      label: name[locale] || "Error: name not loaded",
+      label: name[locale] || intl.formatMessage(commonMessages.nameNotLoaded),
     })),
     equity: [
       equityOption("isWoman", getEmploymentEquityGroup("woman")),

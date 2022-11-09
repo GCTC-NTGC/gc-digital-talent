@@ -2,65 +2,97 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, fireEvent } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import React from "react";
-import { render } from "../../helpers/testUtils";
-import Dialog from "./Dialog";
-import type { DialogProps, Color } from "./Dialog";
 
-const defaultProps = {
-  isOpen: true, // isOpen true by default so we don't need to keep opening it.
-  color: "primary" as Color,
-  title: "title",
-  children: "content",
-  onDismiss: jest.fn() as (
-    e: React.MouseEvent<Element> | React.KeyboardEvent<Element>,
-  ) => void,
-};
+import { render, axeTest } from "../../helpers/testUtils";
 
-const renderDialog = ({ children, ...props }: DialogProps) => {
-  return render(<Dialog {...props}>{children}</Dialog>);
+import Dialog from ".";
+import Button from "../Button";
+
+type DialogRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
+  typeof Dialog.Root
+>;
+const DefaultChildren = () => (
+  <>
+    <Dialog.Trigger>
+      <Button>Open Dialog</Button>
+    </Dialog.Trigger>
+    <Dialog.Content>
+      <Dialog.Header color="ia-primary" subtitle="Dialog Subtitle">
+        Dialog Title
+      </Dialog.Header>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur
+        leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor
+        pellentesque rhoncus.
+      </p>
+      <Dialog.Footer>
+        <Dialog.Close>
+          <Button color="cta">Close Action</Button>
+        </Dialog.Close>
+      </Dialog.Footer>
+    </Dialog.Content>
+  </>
+);
+
+const renderDialog = ({
+  children,
+  ...rest
+}: DialogRootPrimitivePropsWithoutRef) => {
+  return render(<Dialog.Root {...rest}>{children}</Dialog.Root>);
 };
 
 describe("Dialog", () => {
-  it("Should not render if closed", () => {
+  it("should not have accessibility errors when closed", async () => {
+    const { container } = renderDialog({
+      children: <DefaultChildren />,
+    });
+    await axeTest(container);
+  });
+
+  it("should not have accessibility errors when open", async () => {
+    const { container } = renderDialog({
+      children: <DefaultChildren />,
+      defaultOpen: true,
+    });
+    await axeTest(container);
+  });
+
+  it("should not render when closed", () => {
     renderDialog({
-      ...defaultProps,
-      isOpen: false,
+      children: <DefaultChildren />,
     });
 
     expect(
-      screen.queryByRole("dialog", { name: /title/i }),
+      screen.queryByRole("dialog", { name: /dialog title/i }),
     ).not.toBeInTheDocument();
   });
 
-  it("Should render if open", () => {
-    renderDialog(defaultProps);
+  it("should render when opened", async () => {
+    renderDialog({
+      children: <DefaultChildren />,
+    });
+
+    fireEvent.click(await screen.getByRole("button", { name: /open dialog/i }));
 
     expect(
-      screen.queryByRole("dialog", { name: /title/i }),
+      screen.queryByRole("dialog", { name: /dialog title/i }),
     ).toBeInTheDocument();
   });
 
-  it("Should call onDismiss on close", () => {
-    const handleDismiss = jest.fn();
-    const { getByText } = renderDialog({
-      ...defaultProps,
-      onDismiss: handleDismiss,
+  it("should close when close action taken", async () => {
+    renderDialog({
+      children: <DefaultChildren />,
+      defaultOpen: true,
     });
 
-    fireEvent.click(getByText(/close/i));
+    fireEvent.click(
+      await screen.getByRole("button", { name: /close action/i }),
+    );
 
-    expect(handleDismiss).toHaveBeenCalledTimes(1);
-  });
-
-  it("Should render subtitle", () => {
-    const subtitle = "subtitle";
-    const { getByText } = renderDialog({
-      ...defaultProps,
-      subtitle,
-    });
-
-    expect(getByText(subtitle)).toBeInTheDocument();
+    expect(
+      screen.queryByRole("dialog", { name: /dialog title/i }),
+    ).not.toBeInTheDocument();
   });
 });
