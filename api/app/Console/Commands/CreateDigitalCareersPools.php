@@ -27,7 +27,7 @@ class CreateDigitalCareersPools extends Command
      *
      * @var string
      */
-    protected $description = 'Create 32 pools';
+    protected $description = 'Create 36 pools, one for each 9 Streams x 4 IT Classifications';
 
     /**
      * Create a new command instance.
