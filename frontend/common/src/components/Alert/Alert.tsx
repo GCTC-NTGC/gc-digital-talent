@@ -17,13 +17,24 @@ import "./alert.css";
 export type AlertType = "success" | "warning" | "info" | "error";
 type AlertHeadingLevel = HeadingLevel | "p";
 
+/**
+ * Props that can be passed to an `<Alert />`
+ *
+ * @interface AlertProps
+ * @member {React.ReactNode} title for the alert
+ * @member {AlertType} type the category of information displayed in the alert
+ * @member {AlertHeadingLevel} headingLevel is the semantic heading level to render the title in
+ * @member {boolean} dismissible controls if the user can dismiss the alert or not
+ * @member {boolean} live adds [role="alert"] forcing the alert to be read out to assistive technology
+ * @member {function} onDismiss execute code when the alert is dismissed
+ */
 export interface AlertProps
   extends Omit<React.HTMLProps<HTMLDivElement>, "title"> {
   title: React.ReactNode;
   type: AlertType;
-  headingLevel?: AlertHeadingLevel;
+  headingLevel?: AlertHeadingLevel; // REF: https://www.w3.org/WAI/tutorials/page-structure/headings/#heading-ranks
   dismissible?: boolean;
-  live?: boolean;
+  live?: boolean; // REF: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role
   onDismiss?: () => void;
 }
 
