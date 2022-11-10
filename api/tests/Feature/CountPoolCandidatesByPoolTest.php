@@ -691,7 +691,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
         PoolCandidate::factory()->create($this->poolCandidateData($pool3, $user, false));
 
         // Create a placed casual pool candidate with inactive expiry date in Pool 3. Should not appear in response.
-        PoolCandidate::factory()->create($this->poolCandidateData($pool3, $user2, false));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool3, $user2, true, false));
 
         $this->graphQL(
             /** @lang GraphQL */
