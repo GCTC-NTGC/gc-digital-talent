@@ -17,19 +17,19 @@
   }
 
   .Alert.Alert--success .Alert__Icon:after {
-    border-color: transparent transparent transparent rgba(var(--h2-color-tm-green-light), 1);
+    border-color: transparent transparent transparent rgba(var(--h2-color-tm-green-lightest), 1);
   }
 
   .Alert.Alert--warning .Alert__Icon:after {
-    border-color: transparent transparent transparent rgba(var(--h2-color-tm-yellow-light), 1);
+    border-color: transparent transparent transparent rgba(var(--h2-color-tm-yellow-lightest), 1);
   }
 
   .Alert.Alert--info .Alert__Icon:after {
-    border-color: transparent transparent transparent rgba(var(--h2-color-tm-blue-light), 1);
+    border-color: transparent transparent transparent rgba(var(--h2-color-tm-blue-lightest), 1);
   }
 
   .Alert.Alert--error .Alert__Icon:after {
-    border-color: transparent transparent transparent rgba(var(--h2-color-tm-red-light), 1);
+    border-color: transparent transparent transparent rgba(var(--h2-color-tm-red-lightest), 1);
   }
 }
 

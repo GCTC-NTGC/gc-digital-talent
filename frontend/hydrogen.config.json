@@ -106,64 +106,28 @@
           "key": "tm-yellow",
           "default": {
             "color": "#FFAD31",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#FFD88E"
-              },
-              {
-                "key": "dark",
-                "color": "#80590E"
-              }
-            ]
+            "modifiers": []
           }
         },
         {
           "key": "tm-green",
           "default": {
             "color": "#52C765",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#D1F4D7"
-              },
-              {
-                "key": "dark",
-                "color": "#23692F"
-              }
-            ]
+            "modifiers": []
           }
         },
         {
           "key": "tm-blue",
           "default": {
             "color": "#27C9BC",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#BFF5F1"
-              },
-              {
-                "key": "dark",
-                "color": "#006B64"
-              }
-            ]
+            "modifiers": []
           }
         },
         {
           "key": "tm-red",
           "default": {
             "color": "#FF5958",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#FDC1CB"
-              },
-              {
-                "key": "dark",
-                "color": "#7C0418"
-              }
-            ]
+            "modifiers": []
           }
         },
         {

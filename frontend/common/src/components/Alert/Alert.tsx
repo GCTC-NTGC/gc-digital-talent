@@ -1,5 +1,5 @@
 import * as React from "react";
-import { XCircleIcon } from "@heroicons/react/24/outline";
+import { XCircleIcon } from "@heroicons/react/24/solid";
 import { useIntl } from "react-intl";
 
 import Separator from "../Separator";
@@ -75,10 +75,11 @@ const Alert = ({
           className={`Alert Alert--${type}`}
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column) p-tablet(row)"
-          data-h2-background-color="base(white)"
+          data-h2-background-color="base(white) base:dark(black.light)"
+          data-h2-color="base(black) base:dark(white)"
           data-h2-position="base(relative)"
-          data-h2-radius="base(s)"
-          data-h2-shadow="base(s)"
+          data-h2-radius="base(rounded)"
+          data-h2-shadow="base(m)"
           data-h2-overflow="base(hidden)"
           data-h2-margin="base(x1, 0)"
           {...(live ? { role: "alert" } : {})}
@@ -97,7 +98,7 @@ const Alert = ({
             <Icon
               data-h2-margin="p-tablet(x.1, 0, 0, 0)"
               data-h2-width="base(x2)"
-              strokeWidth={2.5}
+              strokeWidth="2px"
             />
           </div>
           <div
@@ -110,7 +111,6 @@ const Alert = ({
           {dismissible && (
             <button
               type="button"
-              data-h2-background-color="base(transparent) base:hover(black.10)"
               data-h2-outline="base(none)"
               data-h2-radius="base(9999px)"
               data-h2-position="base(absolute)"
@@ -118,16 +118,16 @@ const Alert = ({
               data-h2-align-items="base(center)"
               data-h2-offset="base(x1.15, x.5, auto, auto) p-tablet(x.5, x.5, auto, auto)"
               data-h2-cursor="base(pointer)"
-              data-h2-padding="base(0)"
+              data-h2-padding="base(x.25)"
               data-h2-transition="base(all, 100ms, ease-in)"
               data-h2-z-index="base(9)"
               {...dismissStyleMap[type]}
               onClick={close}
             >
               <XCircleIcon
-                data-h2-width="base(2rem)"
-                data-h2-height="base(2rem)"
-                strokeWidth={2.5}
+                data-h2-width="base(1.5rem)"
+                data-h2-height="base(1.5rem)"
+                strokeWidth="2px"
               />
               <span data-h2-visibility="base(invisible)">
                 {intl.formatMessage({
