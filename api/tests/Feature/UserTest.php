@@ -2825,4 +2825,79 @@ class UserTest extends TestCase
             ]
         ]);
     }
+
+    public function testNullFiltersEqualToUndefined(): void {
+        // Create users to test filters on
+        User::factory(60)->create();
+
+        // Assert that using an empty (ie undefined) filter returns all users
+        $this->graphQL(
+            /** @lang Graphql */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 61
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert that setting every value to null also returns all users
+        $this->graphQL(
+            /** @lang Graphql */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ',
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'hasDiploma' => null,
+                        'equity' => null,
+                        'languageAbility' => null,
+                        'operationalRequirements' => null,
+                        'locationPreferences' => null,
+                        'wouldAcceptTemporary' => null,
+                        'expectedClassifications' => null,
+                        'skills' => null,
+                        'pools' => null,
+                    ],
+                    'poolFilters' => null,
+                    'jobLookingStatus' => null,
+                    'isProfileComplete' => null,
+                    'isGovEmployee' => null,
+                    'telephone' => null,
+                    'email' => null,
+                    'name' => null,
+                    'generalSearch' => null
+                ]
+            ]
+        )->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 61
+                    ]
+                ]
+            ]
+        ]);
+    }
 }
