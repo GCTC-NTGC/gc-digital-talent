@@ -106,16 +106,7 @@
           "key": "tm-yellow",
           "default": {
             "color": "#FFAD31",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#FFD79C"
-              },
-              {
-                "key": "dark",
-                "color": "#FF6200"
-              }
-            ]
+            "modifiers": []
           }
         },
         {
@@ -129,16 +120,7 @@
           "key": "tm-blue",
           "default": {
             "color": "#27C9BC",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#D8F7F5"
-              },
-              {
-                "key": "dark",
-                "color": "#215D62"
-              }
-            ]
+            "modifiers": []
           }
         },
         {

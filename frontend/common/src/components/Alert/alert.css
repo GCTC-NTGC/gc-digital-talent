@@ -1,51 +1,35 @@
-.Alert--large .Alert__Icon {
+.Alert .Alert__Icon {
   flex-shrink: 0;
 }
 
-.Alert--large .Alert__Icon:after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  transform: translate(-50%, 0);
-  top: 100%;
-  left: 50%;
-  border-width: 31.2px 18px 0 18px;
-}
-
-
-.Alert--large.Alert--success .Alert__Icon:after {
-  border-color: rgba(var(--h2-color-dt-success), 1)  transparent transparent transparent;
-}
-
-.Alert--large.Alert--warning .Alert__Icon:after {
-  border-color: rgba(var(--h2-color-tm-yellow), 1) transparent transparent transparent;
-}
-
-.Alert--large.Alert--info .Alert__Icon:after {
-  border-color: rgba(var(--h2-color-tm-blue), 1) transparent transparent transparent;
-}
-
 @media screen and (min-width: 48em) {
-  .Alert--large .Alert__Icon:after {
-    transform: translate(0, -50%);
+  .Alert .Alert__Icon:after {
+    border-style: solid;
+    border-width: 20px 0 20px 24px;
     bottom: auto;
-    top: 50%;
+    content: "";
+    height: 0;
     left: 100%;
-    border-width: 24px 0 24px 41.6px;
+    position: absolute;
+    top: calc((1.5*var(--h2-base-whitespace))*1rem);
+    transform: translate(0);
+    width: 0;
   }
 
-  .Alert--large.Alert--success .Alert__Icon:after {
-    border-color: transparent transparent transparent rgba(var(--h2-color-dt-success), 1);
+  .Alert.Alert--success .Alert__Icon:after {
+    border-color: transparent transparent transparent rgba(var(--h2-color-tm-green-lightest), 1);
   }
 
-  .Alert--large.Alert--warning .Alert__Icon:after {
-    border-color: transparent transparent transparent rgba(var(--h2-color-tm-yellow), 1);
+  .Alert.Alert--warning .Alert__Icon:after {
+    border-color: transparent transparent transparent rgba(var(--h2-color-tm-yellow-lightest), 1);
   }
 
-  .Alert--large.Alert--info .Alert__Icon:after {
-    border-color: transparent transparent transparent rgba(var(--h2-color-tm-blue), 1);
+  .Alert.Alert--info .Alert__Icon:after {
+    border-color: transparent transparent transparent rgba(var(--h2-color-tm-blue-lightest), 1);
+  }
+
+  .Alert.Alert--error .Alert__Icon:after {
+    border-color: transparent transparent transparent rgba(var(--h2-color-tm-red-lightest), 1);
   }
 }
 

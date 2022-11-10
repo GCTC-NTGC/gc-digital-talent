@@ -1976,6 +1976,26 @@
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
   },
+  "oGXgxJ": {
+    "defaultMessage": "Alerte de fermeture",
+    "description": "Text for the close button on alerts"
+  },
+  "vGENdP": {
+    "defaultMessage": "Alerte d’information :",
+    "description": "Descriptor for an info alert"
+  },
+  "6iZHGg": {
+    "defaultMessage": "Alerte d’avertissement :",
+    "description": "Descriptor for a warning alert"
+  },
+  "Ss95s5": {
+    "defaultMessage": "Alerte de réussite :",
+    "description": "Descriptor for a success alert"
+  },
+  "oSa0Aa": {
+    "defaultMessage": "Alerte d’erreur :",
+    "description": "Descriptor for an error alert"
+  },
   "6uce1H": {
     "defaultMessage": "Toutes les compétences",
     "description": "Label for the skill picker family filter"
