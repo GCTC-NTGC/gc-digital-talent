@@ -57,16 +57,20 @@ export const dismissStyleMap: Record<AlertType, Record<string, string>> = {
 
 export const separatorStyleMap: Record<AlertType, Record<string, string>> = {
   success: {
-    "data-h2-background-color": "base(darker.tm-green)",
+    "data-h2-background-color":
+      "base(darker.tm-green) base:dark(lightest.tm-green)",
   },
   warning: {
-    "data-h2-background-color": "base(darker.tm-yellow)",
+    "data-h2-background-color":
+      "base(darker.tm-yellow) base:dark(lightest.tm-yellow)",
   },
   info: {
-    "data-h2-background-color": "base(darker.tm-blue)",
+    "data-h2-background-color":
+      "base(darker.tm-blue) base:dark(lightest.tm-blue)",
   },
   error: {
-    "data-h2-background-color": "base(darker.tm-red)",
+    "data-h2-background-color":
+      "base(darker.tm-red) base:dark(lightest.tm-red)",
   },
 };
 
