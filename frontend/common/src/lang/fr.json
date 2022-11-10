@@ -1995,5 +1995,9 @@
   "oSa0Aa": {
     "defaultMessage": "Alerte d’erreur :",
     "description": "Descriptor for an error alert"
+  },
+  "6uce1H": {
+    "defaultMessage": "Toutes les compétences",
+    "description": "Label for the skill picker family filter"
   }
 }

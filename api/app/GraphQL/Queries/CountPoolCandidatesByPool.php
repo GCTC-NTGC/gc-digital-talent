@@ -5,7 +5,7 @@ namespace App\GraphQL\Queries;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Pool;
+use Database\Helpers\ApiEnums;
 
 final class CountPoolCandidatesByPool
 {
@@ -30,6 +30,13 @@ final class CountPoolCandidatesByPool
             }, $filters['pools']);
             PoolCandidate::filterByPools($queryBuilder, $pools);
         }
+
+        // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL)
+        PoolCandidate::scopeAvailable($queryBuilder);
+
+        // expiry status filter (filter active pool candidates)
+        PoolCandidate::scopeExpiryFilter($queryBuilder, [ 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE ]);
+
 
         $queryBuilder->whereHas('user', function (Builder $userQuery) use ($filters) {
             // user filters go here
