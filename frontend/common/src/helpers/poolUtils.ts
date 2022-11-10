@@ -18,11 +18,11 @@ export const formattedPoolPosterTitle = ({
 }: formattedPoolPosterTitleProps): string => {
   const streamString = stream
     ? `${intl.formatMessage(getPoolStream(stream))}`
-    : null;
-  const genericTitle = `${classification} ${streamString}`.trim();
-  return `${title ? `${title} ` : ""}${
+    : "";
+  const genericTitle = `${classification ?? ""} ${streamString}`.trim();
+  return `${title ? `${title}` : ""}${
     genericTitle ? ` (${genericTitle})` : "" // Wrap genericTitle in parentheses if it exists
-  }`;
+  }`.trim();
 };
 
 export interface formatClassificationStringProps {
