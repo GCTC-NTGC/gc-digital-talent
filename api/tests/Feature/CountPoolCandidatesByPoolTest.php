@@ -34,6 +34,15 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $newUser->save();
     }
 
+    public function poolCandidateData(Pool $pool, User $user, ?bool $available = true, ?bool $futureDate = true) {
+        return [
+            'pool_id' => $pool,
+            'user_id' => $user,
+            'pool_candidate_status' => $available ? ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE : ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
+            'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date') ,
+        ];
+    }
+
     // user (admin) not returned if no candidates
     // the admin has no candidates so should get no results
     public function testThatEmptyDoesNotReturnTheAdmin()
@@ -66,10 +75,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $user = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
         ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user->id
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
 
         $this->graphQL(
             /** @lang GraphQL */
@@ -109,10 +115,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $user = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
         ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user->id
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
 
         $this->graphQL(
             /** @lang GraphQL */
@@ -157,14 +160,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $user = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
         ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool1->id,
-            'user_id' => $user->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool2->id,
-            'user_id' => $user->id
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool1, $user));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool2, $user));
 
         $this->graphQL(
             /** @lang GraphQL */
@@ -204,10 +201,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
             $user = User::factory()->create([
                 'job_looking_status' => $status
             ]);
-            PoolCandidate::factory()->create([
-                'pool_id' => $pool->id,
-                'user_id' => $user->id
-            ]);
+            PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
         }
 
         $this->graphQL(
@@ -252,18 +246,9 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'has_diploma' => null
         ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user1->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user2->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user3->id
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user3));
 
         $this->graphQL(
             /** @lang GraphQL */
@@ -309,18 +294,9 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'is_woman' => null
         ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user1->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user2->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user3->id
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user3));
 
         $this->graphQL(
             /** @lang GraphQL */
@@ -370,18 +346,9 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH
         ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user1->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user2->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user3->id
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user3));
 
         $this->graphQL(
             /** @lang GraphQL */
@@ -436,18 +403,9 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 ApiEnums::OPERATIONAL_REQUIREMENT_OVERTIME_OCCASIONAL
             ]
         ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user1->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user2->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user3->id
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user3));
 
         $this->graphQL(
             /** @lang GraphQL */
@@ -505,18 +463,9 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 ApiEnums::WORK_REGION_NATIONAL_CAPITAL
             ]
         ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user1->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user2->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user3->id
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user3));
 
         $this->graphQL(
             /** @lang GraphQL */
@@ -565,18 +514,9 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
             'would_accept_temporary' => null
         ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user1->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user2->id
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-            'user_id' => $user3->id
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user3));
 
         $this->graphQL(
             /** @lang GraphQL */
@@ -616,10 +556,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
             );
         $users = User::factory(3)
             ->afterCreating(function ($user) use ($pool) {
-                PoolCandidate::factory()->create([
-                    'pool_id' => $pool->id,
-                    'user_id' => $user->id,
-                ]);
+                PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
             })
             ->create([
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
@@ -681,10 +618,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $users = User::factory(3)
             ->afterCreating(function ($user) use ($pool) {
                 $exp = AwardExperience::factory()->create(['user_id' => $user->id]);
-                PoolCandidate::factory()->create([
-                    'pool_id' => $pool->id,
-                    'user_id' => $user->id,
-                ]);
+                PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
             })
             ->create(['job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING]);
 
@@ -748,36 +682,16 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
 
         // Create a qualified available pool candidate with active expiry date in Pool 1.
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool1->id,
-            'user_id' => $user->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool1, $user));
 
         // Create a placed casual pool candidate with active expiry date in Pool 2.
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool2->id,
-            'user_id' => $user->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool2, $user));
 
         // Create a screened out pool candidate with active expiry date in Pool 3. Should not appear in response.
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool3->id,
-            'user_id' => $user->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool3, $user, false));
 
         // Create a placed casual pool candidate with inactive expiry date in Pool 3. Should not appear in response.
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool3->id,
-            'user_id' => $user2->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-            'expiry_date' => config('constants.past_date'),
-        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($pool3, $user2, false));
 
         $this->graphQL(
             /** @lang GraphQL */
