@@ -53,9 +53,11 @@ class MigratePoolCandidatesToUser extends Command
                         language_ability = p.language_ability,
                         location_preferences = p.location_preferences,
                         accepted_operational_requirements = p.accepted_operational_requirements,
-                        expected_salary = p.expected_salary
+                        expected_salary = p.expected_salary,
+                        job_looking_status = :status
                     FROM pool_candidates p
-                    WHERE users.id = p.user_id');
+                    WHERE users.id = p.user_id',
+                    ['status' => 'ACTIVELY_LOOKING']);
 
         // insert data into cmo_users and classifications_user using PoolCandidate and User models with query builder
         $allPoolCandidates = PoolCandidate::all();

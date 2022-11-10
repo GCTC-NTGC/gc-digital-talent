@@ -4,6 +4,7 @@ import { getFullNameHtml } from "@common/helpers/nameUtils";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Pool } from "../../api/generated";
+import { SimpleClassification } from "../../types/poolUtils";
 
 const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
@@ -11,8 +12,12 @@ const testId = (text: React.ReactNode) => (
 
 export interface SearchPoolsProps {
   candidateCount: number;
-  pool: Pick<Pool, "id" | "owner" | "name" | "description">;
-  handleSubmit: (candidateCount: number, poolId: string) => Promise<void>;
+  pool: Pick<Pool, "id" | "owner" | "name" | "description" | "classifications">;
+  handleSubmit: (
+    candidateCount: number,
+    poolId: string,
+    selectedClassifications: SimpleClassification[],
+  ) => Promise<void>;
 }
 
 const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
@@ -22,6 +27,8 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const selectedClassifications =
+    pool.classifications as SimpleClassification[];
 
   return (
     <div data-h2-padding="base(x1)">
@@ -69,7 +76,9 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
       <Button
         color="cta"
         mode="solid"
-        onClick={() => handleSubmit(candidateCount, pool.id)}
+        onClick={() =>
+          handleSubmit(candidateCount, pool.id, selectedClassifications)
+        }
       >
         {intl.formatMessage({
           defaultMessage: "Request Candidates",
