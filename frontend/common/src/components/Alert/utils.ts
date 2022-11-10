@@ -100,32 +100,32 @@ export const getAlertLevelTitle = (type: AlertType, intl: IntlShape) => {
     [
       "success",
       intl.formatMessage({
-        defaultMessage: "Success:",
-        id: "ZaFaQ+",
+        defaultMessage: "Success alert:",
+        id: "Ss95s5",
         description: "Descriptor for a success alert",
       }),
     ],
     [
       "warning",
       intl.formatMessage({
-        defaultMessage: "Warning:",
-        id: "2t5zKg",
+        defaultMessage: "Warning alert:",
+        id: "6iZHGg",
         description: "Descriptor for a warning alert",
       }),
     ],
     [
       "error",
       intl.formatMessage({
-        defaultMessage: "Error:",
-        id: "lQyDwc",
+        defaultMessage: "Error alert:",
+        id: "oSa0Aa",
         description: "Descriptor for an error alert",
       }),
     ],
     [
       "info",
       intl.formatMessage({
-        defaultMessage: "Information:",
-        id: "1U20j5",
+        defaultMessage: "Info alert:",
+        id: "vGENdP",
         description: "Descriptor for an info alert",
       }),
     ],
