@@ -24,18 +24,21 @@ BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": 
 
 cd $ROOT_DIR/api
 
+# Create cache directory
 if mkdir --parents /tmp/bootstrap/cache ; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Cache directory creation *successful*.\" } }"
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Cache directory creation *failed*. $MENTION\" } }"
 fi
 
+# Chown cache directory
 if chown www-data:www-data /tmp/bootstrap/cache ; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Cache directory chown *successful*.\" } }"
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Cache directory chown *failed*. $MENTION\" } }"
 fi
 
+# Laravel database migrations
 # Unfortunately, no useful exit codes from artisan :-(
 MIGRATION_STDOUT=$(php artisan migrate --no-interaction --force --no-ansi)
 # https://unix.stackexchange.com/a/649781
@@ -51,6 +54,27 @@ elif [ "$OCCURRENCES_WORD_MIGRATING" == "$OCCURRENCES_WORD_MIGRATED" ] ; then
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Database migration *unknown* status. $MENTION\" } }"
 fi
+
+# Copy nginx config and reload
+if cp /home/site/wwwroot/infrastructure/conf/nginx-local.conf /etc/nginx/sites-available/default && nginx -s reload ; then
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Nginx config copy *successful*.\" } }"
+else
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Nginx config copy *failed*. $MENTION\" } }"
+fi
+
+# Environment config variable substitutions
+if test -f "/home/site/wwwroot/frontend/talentsearch/dist/config.js.template"; then
+    if envsubst < /home/site/wwwroot/frontend/talentsearch/dist/config.js.template > /home/site/wwwroot/frontend/talentsearch/dist/config.js ; then
+        BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Environment variable substitution *successful*.\" } }"
+    else
+        BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Environment variable substitution *failed*. $MENTION\" } }"
+    fi
+else
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":warning: Environment variable substitution *skipped*. $MENTION\" } }"
+fi
+
+
+
 
 # Include the stdout from the migration as its own block, cleaned to make Slack happy
 CLEANED_STDOUT=${MIGRATION_STDOUT//[^a-zA-Z0-9_ $'\n']/}

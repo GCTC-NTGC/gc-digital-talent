@@ -1,0 +1,3 @@
+# inject environment variables into the container build here
+# OAUTH_POST_LOGOUT_REDIRECT=
+# OAUTH_LOGOUT_URI=
