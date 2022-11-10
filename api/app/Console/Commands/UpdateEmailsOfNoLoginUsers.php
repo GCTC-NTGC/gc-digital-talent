@@ -9,6 +9,7 @@ class UpdateEmailsOfNoLoginUsers extends Command
 {
     // this command updates the email fields of users who have NULL for the sub field OR sub is identical to email
     // updates to tack on a tag to those emails, freeing the original emails for reuse
+    // this command will update admin and other test users with sub = email
 
     /**
      * The name and signature of the console command.
@@ -58,4 +59,3 @@ class UpdateEmailsOfNoLoginUsers extends Command
         }
     }
 }
-// php artisan update:obsolete_user_email
