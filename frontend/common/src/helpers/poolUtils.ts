@@ -38,8 +38,8 @@ export const formatClassificationString = ({
 };
 
 export const transformPoolToPosterTitle = (
-  pool: Pick<PoolAdvertisement, "name" | "classifications" | "stream">,
   intl: IntlShape,
+  pool: Pick<PoolAdvertisement, "name" | "classifications" | "stream">,
   defaultTitle = "", // allow a fallback if name, classifications and stream are all empty
 ): string => {
   const formattedTitle = formattedPoolPosterTitle({

@@ -74,7 +74,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
     description: "Title for the page when viewing an individual pool.",
   });
 
-  const poolName = transformPoolToPosterTitle(pool, intl, defaultPageTitle);
+  const poolName = transformPoolToPosterTitle(intl, pool, defaultPageTitle);
   const classification = pool.classifications ? pool.classifications[0] : null;
 
   const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {

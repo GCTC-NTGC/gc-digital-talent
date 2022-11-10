@@ -123,7 +123,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                 >
                   {candidate.pool ? (
                     <Link href={routes.poolView(candidate.pool.id)}>
-                      {transformPoolToPosterTitle(candidate.pool, intl)}
+                      {transformPoolToPosterTitle(intl, candidate.pool)}
                     </Link>
                   ) : (
                     ""
