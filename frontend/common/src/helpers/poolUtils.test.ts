@@ -1,6 +1,5 @@
 import { createIntl, createIntlCache } from "react-intl";
 import { PoolStream } from "../api/generated";
-import { getExpectedClassifications } from "./csvUtils";
 import { formattedPoolPosterTitle } from "./poolUtils";
 
 describe("poolUtils tests", () => {
