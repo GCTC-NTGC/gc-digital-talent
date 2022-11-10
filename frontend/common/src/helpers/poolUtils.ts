@@ -17,7 +17,9 @@ export const formatClassificationString = ({
 
 export const getFullPoolAdvertisementTitle = (
   intl: IntlShape,
-  poolAdvertisement: Maybe<PoolAdvertisement>,
+  poolAdvertisement: Maybe<
+    Pick<PoolAdvertisement, "name" | "classifications" | "stream">
+  >,
 ): string => {
   if (poolAdvertisement === null || poolAdvertisement === undefined)
     return intl.formatMessage({
@@ -38,9 +40,9 @@ export const getFullPoolAdvertisementTitle = (
       level: classification?.level,
     });
   }
-  const genericTitle = getLocalizedName(poolAdvertisement.name, intl);
+  const specificTitle = getLocalizedName(poolAdvertisement.name, intl);
 
-  return `${genericTitle ? `${genericTitle} ` : ""}(${classificationSuffix}${
+  return `${specificTitle ? `${specificTitle} ` : ""}(${classificationSuffix}${
     poolAdvertisement.stream
       ? ` ${intl.formatMessage(getPoolStream(poolAdvertisement.stream))}`
       : ""
