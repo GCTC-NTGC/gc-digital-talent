@@ -10,6 +10,7 @@ import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   CreateUserInput,
   CreateWorkLocationPreferenceMutation,
@@ -22,7 +23,6 @@ import applicantProfileRoutes from "../../applicantProfileRoutes";
 import directIntakeRoutes from "../../directIntakeRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<

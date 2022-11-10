@@ -52,3 +52,35 @@ export const transformPoolToPosterTitle = (
   });
   return formattedTitle || defaultTitle;
 };
+
+export const getFullPoolAdvertisementTitle = (
+  intl: IntlShape,
+  poolAdvertisement: Maybe<PoolAdvertisement>,
+): string => {
+  if (poolAdvertisement === null || poolAdvertisement === undefined)
+    return intl.formatMessage({
+      id: "D91nGW",
+      defaultMessage: "Job title not found.",
+      description:
+        "Message shown to user when pool name or classification are not found.",
+    });
+
+  const classification = poolAdvertisement.classifications
+    ? poolAdvertisement.classifications[0]
+    : null;
+
+  let classificationSuffix = ""; // type wrangling the complex type into a string
+  if (classification) {
+    classificationSuffix = formatClassificationString({
+      group: classification?.group,
+      level: classification?.level,
+    });
+  }
+  const genericTitle = getLocalizedName(poolAdvertisement.name, intl);
+
+  return `${genericTitle ? `${genericTitle} ` : ""}(${classificationSuffix}${
+    poolAdvertisement.stream
+      ? ` ${intl.formatMessage(getPoolStream(poolAdvertisement.stream))}`
+      : ""
+  })`;
+};

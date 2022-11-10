@@ -36,6 +36,11 @@ query getApplicationData($id: ID!) {
     }
     poolAdvertisement {
       id
+      name {
+        en
+        fr
+      }
+      stream
       classifications {
         id
         name {

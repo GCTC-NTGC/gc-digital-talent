@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import { notEmpty } from "@common/helpers/util";
 import { getMissingSkills } from "@common/helpers/skillUtils";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
 import {
@@ -27,7 +28,6 @@ import {
   useGetApplicationDataQuery,
   useSubmitApplicationMutation,
 } from "../../api/generated";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 const ImportantInfo = () => {
   const intl = useIntl();
