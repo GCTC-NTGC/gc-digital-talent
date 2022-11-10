@@ -735,23 +735,48 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates three pools but filters on only 1 and 2
     public function testPoolFilter()
     {
+
         $pool1 = Pool::factory()->create();
         $pool2 = Pool::factory()->create();
         $pool3 = Pool::factory()->create();
+
         $user = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
         ]);
+        $user2 = User::factory()->create([
+            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+        ]);
+
+        // Create a qualified available pool candidate with active expiry date in Pool 1.
         PoolCandidate::factory()->create([
             'pool_id' => $pool1->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'expiry_date' => config('constants.far_future_date'),
         ]);
+
+        // Create a placed casual pool candidate with active expiry date in Pool 2.
         PoolCandidate::factory()->create([
             'pool_id' => $pool2->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'expiry_date' => config('constants.far_future_date'),
         ]);
+
+        // Create a screened out pool candidate with active expiry date in Pool 3. Should not appear in response.
         PoolCandidate::factory()->create([
             'pool_id' => $pool3->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
+            'expiry_date' => config('constants.far_future_date'),
+        ]);
+
+        // Create a placed casual pool candidate with inactive expiry date in Pool 3. Should not appear in response.
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool3->id,
+            'user_id' => $user2->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'expiry_date' => config('constants.past_date'),
         ]);
 
         $this->graphQL(
@@ -768,7 +793,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'where' => [
                     "pools" => [
                         ["id" => $pool1->id],
-                        ["id" => $pool2->id]
+                        ["id" => $pool2->id],
+                        ["id" => $pool3->id], // pool3 should not appear in response below since both candidates do not meet requirements.
                     ]
                 ]
             ]
@@ -782,7 +808,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
                     [
                         'pool' => ['id' => $pool2->id],
                         'candidateCount' => 1
-                    ]
+                    ],
                 ]
             ]
         ]);
