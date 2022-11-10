@@ -669,29 +669,16 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates three pools but filters on only 1 and 2
     public function testPoolFilter()
     {
-
         $pool1 = Pool::factory()->create();
         $pool2 = Pool::factory()->create();
         $pool3 = Pool::factory()->create();
-
         $user = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
         ]);
-        $user2 = User::factory()->create([
-            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
-        ]);
 
-        // Create a qualified available pool candidate with active expiry date in Pool 1.
         PoolCandidate::factory()->create($this->poolCandidateData($pool1, $user));
-
-        // Create a placed casual pool candidate with active expiry date in Pool 2.
         PoolCandidate::factory()->create($this->poolCandidateData($pool2, $user));
-
-        // Create a screened out pool candidate with active expiry date in Pool 3. Should not appear in response.
-        PoolCandidate::factory()->create($this->poolCandidateData($pool3, $user, false));
-
-        // Create a placed casual pool candidate with inactive expiry date in Pool 3. Should not appear in response.
-        PoolCandidate::factory()->create($this->poolCandidateData($pool3, $user2, true, false));
+        PoolCandidate::factory()->create($this->poolCandidateData($pool3, $user));
 
         $this->graphQL(
             /** @lang GraphQL */
@@ -707,8 +694,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'where' => [
                     "pools" => [
                         ["id" => $pool1->id],
-                        ["id" => $pool2->id],
-                        ["id" => $pool3->id], // pool3 should not appear in response below since both candidates do not meet requirements.
+                        ["id" => $pool2->id]
                     ]
                 ]
             ]
@@ -722,7 +708,83 @@ class CountPoolCandidatesByPoolTest extends TestCase
                     [
                         'pool' => ['id' => $pool2->id],
                         'candidateCount' => 1
-                    ],
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    public function testAvailableScope()
+    {
+        $pool = Pool::factory()->create();
+        foreach (ApiEnums::candidateStatuses() as $status) {
+            $user = User::factory()->create([
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+            ]);
+            PoolCandidate::factory()->create([
+                'pool_id' => $pool,
+                'user_id' => $user,
+                'pool_candidate_status' => $status,
+                'expiry_date' => config('constants.far_future_date')
+            ]);
+        }
+
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+                query ($where: ApplicantFilterInput) {
+                    countPoolCandidatesByPool(where: $where) {
+                      pool { id }
+                      candidateCount
+                    }
+                  }
+                ',
+            [
+                'where' => []
+            ]
+        )->assertSimilarJson([
+            'data' => [
+                'countPoolCandidatesByPool' => [
+                    [
+                        'pool' => ['id' => $pool->id],
+                        'candidateCount' => 2
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    public function testExpiryFilter()
+    {
+        $pool1 = Pool::factory()->create();
+        $pool2 = Pool::factory()->create();
+        $user = User::factory()->create([
+            'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+        ]);
+
+        PoolCandidate::factory()->create($this->poolCandidateData($pool1, $user, true, true)); // future expiry date
+        PoolCandidate::factory()->create($this->poolCandidateData($pool2, $user, true, false)); // past expiry date
+
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+                query ($where: ApplicantFilterInput) {
+                    countPoolCandidatesByPool(where: $where) {
+                      pool { id }
+                      candidateCount
+                    }
+                  }
+                ',
+            [
+                'where' => []
+            ]
+        )->assertSimilarJson([
+            'data' => [
+                'countPoolCandidatesByPool' => [
+                    [
+                        'pool' => ['id' => $pool1->id],
+                        'candidateCount' => 1
+                    ]
                 ]
             ]
         ]);
