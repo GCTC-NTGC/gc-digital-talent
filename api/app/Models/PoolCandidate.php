@@ -337,7 +337,7 @@ RAWSQL2;
         return $query;
     }
 
-    public function scopeAvailable(Builder $query): Builder
+    public static function scopeAvailable(Builder $query): Builder
     {
         return $query->whereIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]);
     }
@@ -357,12 +357,14 @@ RAWSQL2;
         return $query;
     }
 
-    public function scopeExpiryFilter(Builder $query, ?array $args)
+    public static function scopeExpiryFilter(Builder $query, ?array $args)
     {
         $expiryStatus = isset($args['expiryStatus']) ? $args['expiryStatus'] : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
         if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
-            $query->whereDate('expiry_date', '>=', date("Y-m-d"))
-                ->orWhereNull('expiry_date');
+            $query->where(function ($query) {
+                $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+                    ->orWhereNull('expiry_date');
+            });
         } else if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
             $query->whereDate('expiry_date', '<', date("Y-m-d"));
         }
