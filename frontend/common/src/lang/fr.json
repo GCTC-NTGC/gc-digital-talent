@@ -1975,5 +1975,9 @@
   "DdOEWx": {
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
+  },
+  "D91nGW": {
+    "defaultMessage": "Titre du poste non trouvé.",
+    "description": "Message shown to user when pool name or classification are not found."
   }
 }
