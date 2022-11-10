@@ -94,7 +94,7 @@ const Alert = ({
               data-h2-position="base(absolute)"
               data-h2-display="base(flex)"
               data-h2-align-items="base(center)"
-              data-h2-offset="base(x.10, x.10, auto, auto)"
+              data-h2-offset="base(x1.15, x.5, auto, auto) p-tablet(x.5, x.5, auto, auto)"
               data-h2-cursor="base(pointer)"
               data-h2-padding="base(0)"
               data-h2-transition="base(all, 100ms, ease-in)"
@@ -105,6 +105,7 @@ const Alert = ({
               <XCircleIcon
                 data-h2-width="base(2rem)"
                 data-h2-height="base(2rem)"
+                strokeWidth={2.5}
               />
               <span data-h2-visibility="base(invisible)">
                 {intl.formatMessage({
@@ -118,18 +119,22 @@ const Alert = ({
           <div
             className="Alert__Icon"
             data-h2-display="base(flex)"
-            data-h2-align-items="base(center) p-tablet(flex-start)"
-            data-h2-justify-content="base(center)"
+            data-h2-align-items="base(flex-start)"
+            data-h2-justify-content="base(flex-start)"
             data-h2-position="base(relative)"
-            data-h2-padding="base(x1)"
+            data-h2-padding="base(x1) p-tablet(x1.5, x1, x1, x1)"
             {...iconStyleMap[type]}
           >
-            <Icon data-h2-width="base(2.5rem)" strokeWidth={2.5} />
+            <Icon
+              data-h2-margin="p-tablet(x.1, 0, 0, 0)"
+              data-h2-width="base(x2)"
+              strokeWidth={2.5}
+            />
           </div>
           <div
             style={{ flexGrow: 1 }}
             data-h2-align-self="base(center)"
-            data-h2-padding="base(x2, x1, x1, x1) p-tablet(x1, x1, x1, x2)"
+            data-h2-padding="base(x1) p-tablet(x2)"
           >
             {children}
           </div>
@@ -161,9 +166,9 @@ const Title = ({ as = "p", children, ...rest }: AlertTitleProps) => {
 
   return (
     <Heading
-      data-h2-font-size="base(h5, 1)"
-      data-h2-font-weight="base(600)"
-      data-h2-margin="base(0, 0, x.25, 0)"
+      data-h2-font-size="base(h6, 1)"
+      data-h2-font-weight="base(700)"
+      data-h2-margin="base(0, 0, x.5, 0)"
       {...rest}
     >
       {alertLevelTitle && (
@@ -186,7 +191,7 @@ const Footer = ({ children }: AlertFooterProps) => {
     <>
       <Separator
         orientation="horizontal"
-        data-h2-margin="base(x.5, 0)"
+        data-h2-margin="base(x1, 0)"
         data-h2-height="base(0.25rem)"
         {...(ctx?.type && separatorStyleMap[ctx.type])}
       />
