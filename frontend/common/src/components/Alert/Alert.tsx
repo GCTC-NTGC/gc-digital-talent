@@ -158,7 +158,7 @@ interface AlertTitleProps
   as?: AlertHeadingLevel;
 }
 
-const Title = ({ as = "p", children, ...rest }: AlertTitleProps) => {
+const Title = ({ as = "h2", children, ...rest }: AlertTitleProps) => {
   const intl = useIntl();
   const ctx = React.useContext(AlertContext);
   const alertLevelTitle = getAlertLevelTitle(ctx?.type || "info", intl);
