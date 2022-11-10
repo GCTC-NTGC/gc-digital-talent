@@ -172,7 +172,7 @@ const ItemIndicator = React.forwardRef<
   />
 ));
 
-const { Root, RadioGroup } = DropdownMenuPrimitive;
+const { Root, RadioGroup, Group } = DropdownMenuPrimitive;
 
 /**
  * @name DropdownMenu
@@ -235,6 +235,12 @@ const DropdownMenu = {
    * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#label)
    */
   Label,
+  /**
+   * @name Group
+   * @desc Used to group multiple DropdownMenu.Items.
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#group)
+   */
+  Group,
   /**
    * @name Separator
    * @desc Used to visually separate items in the dropdown menu.
