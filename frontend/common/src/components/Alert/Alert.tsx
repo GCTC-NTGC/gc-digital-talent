@@ -85,6 +85,28 @@ const Alert = ({
           {...styleMap[type]}
           {...rest}
         >
+          <div
+            className="Alert__Icon"
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(flex-start)"
+            data-h2-justify-content="base(flex-start)"
+            data-h2-position="base(relative)"
+            data-h2-padding="base(x1) p-tablet(x1.5, x1, x1, x1)"
+            {...iconStyleMap[type]}
+          >
+            <Icon
+              data-h2-margin="p-tablet(x.1, 0, 0, 0)"
+              data-h2-width="base(x2)"
+              strokeWidth={2.5}
+            />
+          </div>
+          <div
+            style={{ flexGrow: 1 }}
+            data-h2-align-self="base(center)"
+            data-h2-padding="base(x1) p-tablet(x2)"
+          >
+            {children}
+          </div>
           {dismissible && (
             <button
               type="button"
@@ -116,28 +138,6 @@ const Alert = ({
               </span>
             </button>
           )}
-          <div
-            className="Alert__Icon"
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(flex-start)"
-            data-h2-justify-content="base(flex-start)"
-            data-h2-position="base(relative)"
-            data-h2-padding="base(x1) p-tablet(x1.5, x1, x1, x1)"
-            {...iconStyleMap[type]}
-          >
-            <Icon
-              data-h2-margin="p-tablet(x.1, 0, 0, 0)"
-              data-h2-width="base(x2)"
-              strokeWidth={2.5}
-            />
-          </div>
-          <div
-            style={{ flexGrow: 1 }}
-            data-h2-align-self="base(center)"
-            data-h2-padding="base(x1) p-tablet(x2)"
-          >
-            {children}
-          </div>
         </div>
       ) : null}
     </AlertContext.Provider>
