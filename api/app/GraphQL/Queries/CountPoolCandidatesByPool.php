@@ -5,7 +5,7 @@ namespace App\GraphQL\Queries;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Pool;
+use Database\Helpers\ApiEnums;
 
 final class CountPoolCandidatesByPool
 {
@@ -20,17 +20,25 @@ final class CountPoolCandidatesByPool
         // query counts pool candidate rows, so start on that model
         $queryBuilder = PoolCandidate::query();
 
+        // pool candidate filters go here
+
+        // candidate pool scope
+        if (array_key_exists('pools', $filters)) {
+            // pool candidate filter uses Pool while Applicant filter users IdInput
+            $pools = array_map(function ($id) {
+                return ['id' => $id];
+            }, $filters['pools']);
+            PoolCandidate::filterByPools($queryBuilder, $pools);
+        }
+
+        // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL)
+        PoolCandidate::scopeAvailable($queryBuilder);
+
+        // expiry status filter (filter active pool candidates)
+        PoolCandidate::scopeExpiryFilter($queryBuilder, [ 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE ]);
+
         $queryBuilder->whereHas('user', function (Builder $userQuery) use ($filters) {
             // user filters go here
-
-            // available in pools
-            if (array_key_exists('pools', $filters)) {
-                // pool candidate filter uses Pool while Applicant filter users IdInput
-                $pools = array_map(function ($id) {
-                    return ['id' => $id];
-                }, $filters['pools']);
-                User::filterByAvailableInPools($userQuery, $pools);
-            }
 
             // user status scope
             User::scopeAvailableForOpportunities($userQuery);
