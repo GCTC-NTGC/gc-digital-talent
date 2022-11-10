@@ -205,7 +205,7 @@ const SkillPicker = ({
                   />
                   {index + 1 !== filteredSkills.length ? (
                     <Separator
-                      data-h2-background-color="base(black.50)"
+                      data-h2-background-color="base(dt-gray.50)"
                       data-h2-margin="base(x.5, 0)"
                       orientation="horizontal"
                     />
