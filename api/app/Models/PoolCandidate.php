@@ -361,9 +361,11 @@ RAWSQL2;
     {
         $expiryStatus = isset($args['expiryStatus']) ? $args['expiryStatus'] : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
         if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
-            $query->whereDate('expiry_date', '>=', date("Y-m-d"))
-            ->orWhereNull('expiry_date');
-        } else if (array_key_exists('expiryStatus', $args) && $expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+            $query->where(function ($query) {
+                $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+                    ->orWhereNull('expiry_date');
+            });
+        } else if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
             $query->whereDate('expiry_date', '<', date("Y-m-d"));
         }
         return $query;

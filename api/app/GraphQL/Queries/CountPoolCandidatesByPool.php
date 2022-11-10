@@ -34,6 +34,10 @@ final class CountPoolCandidatesByPool
         // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL)
         PoolCandidate::scopeAvailable($queryBuilder);
 
+        // expiry status filter (filter active pool candidates)
+        PoolCandidate::scopeExpiryFilter($queryBuilder, [ 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE ]);
+
+
         $queryBuilder->whereHas('user', function (Builder $userQuery) use ($filters) {
             // user filters go here
 
@@ -80,9 +84,6 @@ final class CountPoolCandidatesByPool
                 User::filterBySkills($userQuery, $filters['skills']);
             }
         });
-
-        // expiry status filter (filter active pool candidates)
-        PoolCandidate::scopeExpiryFilter($queryBuilder, [ 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE ]);
 
         $databaseRows = $queryBuilder
             ->with('pool')
