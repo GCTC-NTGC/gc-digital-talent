@@ -282,8 +282,8 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "If you want to find out your language proficiency levels, <selfAssessmentLink>click here to find out.</selfAssessmentLink>",
-                id: "nVh2Qh",
+                  "You can find out find out your levels with a <selfAssessmentLink>language proficiency self assessment</selfAssessmentLink>.",
+                id: "SNY1Qo",
                 description:
                   "Text including link to language proficiency evaluation in language information form",
               },
