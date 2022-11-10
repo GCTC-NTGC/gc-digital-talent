@@ -1983,5 +1983,9 @@
   "quLfED": {
     "defaultMessage": "Nous avons relevé une erreur d’origine inconnue pendant le traitement de votre demande.",
     "description": "Body text for the unexpected error page."
+  },
+  "6uce1H": {
+    "defaultMessage": "Toutes les compétences",
+    "description": "Label for the skill picker family filter"
   }
 }

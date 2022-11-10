@@ -11,7 +11,6 @@ const Root = React.forwardRef<
   <ScrollAreaPrimitive.Root
     data-h2-overflow="base(hidden)"
     data-h2-radius="base(rounded)"
-    data-h2-shadow="base(s)"
     ref={forwardedRef}
     {...props}
   />
