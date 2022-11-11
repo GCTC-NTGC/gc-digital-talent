@@ -8,9 +8,6 @@ import Hero from "@common/components/Hero";
 import Heading from "@common/components/Heading";
 import Link from "@common/components/Link";
 import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
-
-import { commonMessages } from "@common/messages";
 import { imageUrl } from "@common/helpers/router";
 import useTheme from "@common/hooks/useTheme";
 import { AuthenticationContext } from "@common/components/Auth";
