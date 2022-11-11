@@ -54,13 +54,7 @@ const applicantFilterToQueryArgs = (
     return {
       where: {
         ...filter,
-        // TODO: does recreating the equity object serve any purpose?
-        equity: {
-          hasDisability: filter?.equity?.hasDisability,
-          isIndigenous: filter?.equity?.isIndigenous,
-          isVisibleMinority: filter?.equity?.isVisibleMinority,
-          isWoman: filter?.equity?.isWoman,
-        },
+        equity: { ...filter?.equity },
         expectedClassifications: filter?.expectedClassifications
           ? pickMap(filter.expectedClassifications, ["group", "level"])
           : [],
