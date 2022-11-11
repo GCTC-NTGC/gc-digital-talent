@@ -46,7 +46,6 @@ export function BasicForm<TFieldValues extends FieldValues>({
   const methods = useForm({
     mode: "onChange",
     shouldFocusError: false,
-    reValidateMode: "onSubmit",
     ...options,
     defaultValues: options?.defaultValues,
   });
