@@ -35,7 +35,7 @@ const AlertContext = React.createContext<AlertContextValue | undefined>(
  * @member {boolean} live adds [role="alert"] forcing the alert to be read out to assistive technology
  * @member {function} onDismiss execute code when the alert is dismissed
  */
-export interface AlertProps extends React.HTMLProps<HTMLDivElement> {
+export interface AlertProps extends React.ComponentPropsWithoutRef<"div"> {
   type: AlertType;
   dismissible?: boolean;
   live?: boolean; // REF: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role
