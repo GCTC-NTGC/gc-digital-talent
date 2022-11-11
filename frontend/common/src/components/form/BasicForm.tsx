@@ -13,6 +13,7 @@ import {
   removeFromSessionStorage,
   setInSessionStorage,
 } from "../../helpers/storageUtils";
+import ErrorSummary from "./ErrorSummary";
 import UnsavedChanges from "./UnsavedChanges";
 
 export type FieldLabels = Record<string, React.ReactNode>;
@@ -53,7 +54,7 @@ export function BasicForm<TFieldValues extends FieldValues>({
 
   const {
     reset,
-    formState: { isDirty },
+    formState: { isDirty, errors },
   } = methods;
 
   const handleSubmit = (data: TFieldValues) => {
@@ -99,11 +100,14 @@ export function BasicForm<TFieldValues extends FieldValues>({
         });
       }
     }
+
+    methods.trigger();
   }, [cacheKey, options, methods]);
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
+        {errors && <ErrorSummary labels={labels} />}
         {cacheKey && isDirty && <UnsavedChanges labels={labels} />}
         {children}
       </form>
