@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { BellIcon } from "@heroicons/react/24/outline";
 
 import TileLink from "@common/components/TileLink";
 import imageUrl from "@common/helpers/imageUrl";
