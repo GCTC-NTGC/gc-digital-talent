@@ -21,74 +21,86 @@ const renderExperienceForm = (props: ExperienceFormProps) =>
 
 describe("ExperienceForm", () => {
   it("award type should have no accessibility errors", async () => {
-    const { container } = renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "award",
-      onUpdateExperience: mockCallback,
-      deleteExperience: mockCallback,
-      skills: mockSkills,
-    });
+    await act(async () => {
+      const { container } = renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "award",
+        onUpdateExperience: mockCallback,
+        deleteExperience: mockCallback,
+        skills: mockSkills,
+      });
 
-    await axeTest(container);
+      await axeTest(container);
+    });
   });
 
   it("community type should have no accessibility errors", async () => {
-    const { container } = renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "community",
-      onUpdateExperience: mockCallback,
-      deleteExperience: mockCallback,
-      skills: mockSkills,
-    });
+    await act(async () => {
+      const { container } = renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "community",
+        onUpdateExperience: mockCallback,
+        deleteExperience: mockCallback,
+        skills: mockSkills,
+      });
 
-    await axeTest(container);
+      await axeTest(container);
+    });
   });
 
   it("education type should have no accessibility errors", async () => {
-    const { container } = renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "education",
-      onUpdateExperience: mockCallback,
-      deleteExperience: mockCallback,
-      skills: mockSkills,
-    });
+    await act(async () => {
+      const { container } = renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "education",
+        onUpdateExperience: mockCallback,
+        deleteExperience: mockCallback,
+        skills: mockSkills,
+      });
 
-    await axeTest(container);
+      await axeTest(container);
+    });
   });
 
   it("personal type should have no accessibility errors", async () => {
-    const { container } = renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "personal",
-      onUpdateExperience: mockCallback,
-      deleteExperience: mockCallback,
-      skills: mockSkills,
-    });
+    await act(async () => {
+      const { container } = renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "personal",
+        onUpdateExperience: mockCallback,
+        deleteExperience: mockCallback,
+        skills: mockSkills,
+      });
 
-    await axeTest(container);
+      await axeTest(container);
+    });
   });
 
   it("work type should have no accessibility errors", async () => {
-    const { container } = renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "work",
-      onUpdateExperience: mockCallback,
-      deleteExperience: mockCallback,
-      skills: mockSkills,
-    });
+    await act(async () => {
+      const { container } = renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "work",
+        onUpdateExperience: mockCallback,
+        deleteExperience: mockCallback,
+        skills: mockSkills,
+      });
 
-    await axeTest(container);
+      await axeTest(container);
+    });
   });
 
-  it("should render award fields", () => {
+  it("should render award fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "award",
-      onUpdateExperience: mockSave,
-      deleteExperience: mockDelete,
-      skills: mockSkills,
+    await act(async () => {
+      renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "award",
+        onUpdateExperience: mockSave,
+        deleteExperience: mockDelete,
+        skills: mockSkills,
+      });
     });
 
     expect(
@@ -107,15 +119,17 @@ describe("ExperienceForm", () => {
     expect(screen.getByLabelText("Date Awarded")).toBeInTheDocument();
   });
 
-  it("should render community fields", () => {
+  it("should render community fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "community",
-      onUpdateExperience: mockSave,
-      deleteExperience: mockDelete,
-      skills: mockSkills,
+    await act(async () => {
+      renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "community",
+        onUpdateExperience: mockSave,
+        deleteExperience: mockDelete,
+        skills: mockSkills,
+      });
     });
 
     expect(
@@ -130,15 +144,17 @@ describe("ExperienceForm", () => {
     expect(screen.getByLabelText("End Date")).toBeInTheDocument();
   });
 
-  it("should render education fields", () => {
+  it("should render education fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "education",
-      onUpdateExperience: mockSave,
-      deleteExperience: mockDelete,
-      skills: mockSkills,
+    await act(async () => {
+      renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "education",
+        onUpdateExperience: mockSave,
+        deleteExperience: mockDelete,
+        skills: mockSkills,
+      });
     });
 
     expect(
@@ -161,15 +177,17 @@ describe("ExperienceForm", () => {
     expect(screen.getByLabelText("End Date")).toBeInTheDocument();
   });
 
-  it("should render personal fields", () => {
+  it("should render personal fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "personal",
-      onUpdateExperience: mockSave,
-      deleteExperience: mockDelete,
-      skills: mockSkills,
+    await act(async () => {
+      renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "personal",
+        onUpdateExperience: mockSave,
+        deleteExperience: mockDelete,
+        skills: mockSkills,
+      });
     });
 
     expect(
@@ -189,15 +207,17 @@ describe("ExperienceForm", () => {
     expect(screen.getByLabelText("End Date")).toBeInTheDocument();
   });
 
-  it("should render work fields", () => {
+  it("should render work fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "work",
-      onUpdateExperience: mockSave,
-      deleteExperience: mockDelete,
-      skills: mockSkills,
+    await act(async () => {
+      renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "work",
+        onUpdateExperience: mockSave,
+        deleteExperience: mockDelete,
+        skills: mockSkills,
+      });
     });
 
     expect(
@@ -218,12 +238,14 @@ describe("ExperienceForm", () => {
   it("should render work fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "work", // Type of form shouldn't matter here
-      onUpdateExperience: mockSave,
-      deleteExperience: mockDelete,
-      skills: mockSkills,
+    await act(async () => {
+      renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "work", // Type of form shouldn't matter here
+        onUpdateExperience: mockSave,
+        deleteExperience: mockDelete,
+        skills: mockSkills,
+      });
     });
 
     expect(
@@ -235,15 +257,17 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render additional information", () => {
+  it("should render additional information", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "work", // Type of form shouldn't matter here
-      onUpdateExperience: mockSave,
-      deleteExperience: mockDelete,
-      skills: mockSkills,
+    await act(async () => {
+      renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "work", // Type of form shouldn't matter here
+        onUpdateExperience: mockSave,
+        deleteExperience: mockDelete,
+        skills: mockSkills,
+      });
     });
 
     expect(screen.getByRole("textbox", { name: /additional information/i }));
@@ -252,12 +276,14 @@ describe("ExperienceForm", () => {
   it("should not submit award with empty fields", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "award",
-      onUpdateExperience: mockSave,
-      deleteExperience: mockDelete,
-      skills: mockSkills,
+    await act(async () => {
+      renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "award",
+        onUpdateExperience: mockSave,
+        deleteExperience: mockDelete,
+        skills: mockSkills,
+      });
     });
 
     act(() => {
@@ -282,13 +308,15 @@ describe("ExperienceForm", () => {
         .toLowerCase() as ExperienceType;
     }
 
-    renderExperienceForm({
-      userId: mockUserId,
-      experienceType,
-      onUpdateExperience: mockSave,
-      deleteExperience: mockDelete,
-      skills: mockSkills,
-      experience: experience as ExperienceQueryData,
+    await act(async () => {
+      renderExperienceForm({
+        userId: mockUserId,
+        experienceType,
+        onUpdateExperience: mockSave,
+        deleteExperience: mockDelete,
+        skills: mockSkills,
+        experience: experience as ExperienceQueryData,
+      });
     });
 
     act(() => {
@@ -303,12 +331,14 @@ describe("ExperienceForm", () => {
   it("should add skill", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
-    renderExperienceForm({
-      userId: mockUserId,
-      experienceType: "award",
-      onUpdateExperience: mockSave,
-      deleteExperience: mockDelete,
-      skills: mockSkills,
+    await act(async () => {
+      renderExperienceForm({
+        userId: mockUserId,
+        experienceType: "award",
+        onUpdateExperience: mockSave,
+        deleteExperience: mockDelete,
+        skills: mockSkills,
+      });
     });
 
     const skillResults = screen.getAllByRole("button", {
@@ -324,13 +354,15 @@ describe("ExperienceForm", () => {
 it("delete should not render when edit is false", async () => {
   const mockSave = jest.fn();
   const mockDelete = jest.fn(() => Promise.resolve());
-  renderExperienceForm({
-    userId: mockUserId,
-    experienceType: "award",
-    onUpdateExperience: mockSave,
-    deleteExperience: mockDelete,
-    skills: mockSkills,
-    edit: false,
+  await act(async () => {
+    renderExperienceForm({
+      userId: mockUserId,
+      experienceType: "award",
+      onUpdateExperience: mockSave,
+      deleteExperience: mockDelete,
+      skills: mockSkills,
+      edit: false,
+    });
   });
 
   expect(screen.queryByText("Delete experience from My Profile")).toBeFalsy();
@@ -339,13 +371,15 @@ it("delete should not render when edit is false", async () => {
 it("delete should render when edit is true and be called properly", async () => {
   const mockSave = jest.fn();
   const mockDelete = jest.fn(() => Promise.resolve());
-  renderExperienceForm({
-    userId: mockUserId,
-    experienceType: "award",
-    onUpdateExperience: mockSave,
-    deleteExperience: mockDelete,
-    skills: mockSkills,
-    edit: true,
+  await act(async () => {
+    renderExperienceForm({
+      userId: mockUserId,
+      experienceType: "award",
+      onUpdateExperience: mockSave,
+      deleteExperience: mockDelete,
+      skills: mockSkills,
+      edit: true,
+    });
   });
 
   // get and open Dialog Component
