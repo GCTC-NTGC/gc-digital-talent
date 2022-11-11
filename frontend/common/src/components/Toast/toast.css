@@ -90,7 +90,7 @@
   align-items: flex-start;
   align-self: stretch;
   padding: calc(0.5 * var(--toast-space));
-  padding-top: calc(0.75 * var(--toast-space));
+  padding-top: calc(0.6 * var(--toast-space));
 }
 
 .Toastify__toast--info .Toastify__toast-icon {

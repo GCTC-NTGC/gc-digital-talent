@@ -56,7 +56,9 @@ interface ToastMessageProps {
 }
 
 const ToastMessage = ({ children }: ToastMessageProps) => (
-  <div data-h2-padding="base(x.5)">{children}</div>
+  <div data-h2-padding="base(x.5)" data-h2-line-height="base(1.2)">
+    {children}
+  </div>
 );
 
 export const toast = {
