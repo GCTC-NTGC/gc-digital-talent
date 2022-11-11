@@ -21,73 +21,63 @@ const renderExperienceForm = (props: ExperienceFormProps) =>
 
 describe("ExperienceForm", () => {
   it("award type should have no accessibility errors", async () => {
-    await act(async () => {
-      const { container } = renderExperienceForm({
-        userId: mockUserId,
-        experienceType: "award",
-        onUpdateExperience: mockCallback,
-        deleteExperience: mockCallback,
-        skills: mockSkills,
-      });
-
-      await axeTest(container);
+    const { container } = renderExperienceForm({
+      userId: mockUserId,
+      experienceType: "award",
+      onUpdateExperience: mockCallback,
+      deleteExperience: mockCallback,
+      skills: mockSkills,
     });
+
+    await axeTest(container);
   });
 
   it("community type should have no accessibility errors", async () => {
-    await act(async () => {
-      const { container } = renderExperienceForm({
-        userId: mockUserId,
-        experienceType: "community",
-        onUpdateExperience: mockCallback,
-        deleteExperience: mockCallback,
-        skills: mockSkills,
-      });
-
-      await axeTest(container);
+    const { container } = renderExperienceForm({
+      userId: mockUserId,
+      experienceType: "community",
+      onUpdateExperience: mockCallback,
+      deleteExperience: mockCallback,
+      skills: mockSkills,
     });
+
+    await axeTest(container);
   });
 
   it("education type should have no accessibility errors", async () => {
-    await act(async () => {
-      const { container } = renderExperienceForm({
-        userId: mockUserId,
-        experienceType: "education",
-        onUpdateExperience: mockCallback,
-        deleteExperience: mockCallback,
-        skills: mockSkills,
-      });
-
-      await axeTest(container);
+    const { container } = renderExperienceForm({
+      userId: mockUserId,
+      experienceType: "education",
+      onUpdateExperience: mockCallback,
+      deleteExperience: mockCallback,
+      skills: mockSkills,
     });
+
+    await axeTest(container);
   });
 
   it("personal type should have no accessibility errors", async () => {
-    await act(async () => {
-      const { container } = renderExperienceForm({
-        userId: mockUserId,
-        experienceType: "personal",
-        onUpdateExperience: mockCallback,
-        deleteExperience: mockCallback,
-        skills: mockSkills,
-      });
-
-      await axeTest(container);
+    const { container } = renderExperienceForm({
+      userId: mockUserId,
+      experienceType: "personal",
+      onUpdateExperience: mockCallback,
+      deleteExperience: mockCallback,
+      skills: mockSkills,
     });
+
+    await axeTest(container);
   });
 
   it("work type should have no accessibility errors", async () => {
-    await act(async () => {
-      const { container } = renderExperienceForm({
-        userId: mockUserId,
-        experienceType: "work",
-        onUpdateExperience: mockCallback,
-        deleteExperience: mockCallback,
-        skills: mockSkills,
-      });
-
-      await axeTest(container);
+    const { container } = renderExperienceForm({
+      userId: mockUserId,
+      experienceType: "work",
+      onUpdateExperience: mockCallback,
+      deleteExperience: mockCallback,
+      skills: mockSkills,
     });
+
+    await axeTest(container);
   });
 
   it("should render award fields", async () => {
