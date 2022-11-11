@@ -17,8 +17,12 @@ const a = (chunks: React.ReactNode) => (
   <a href="mailto:gctalent-talentgc@support-soutien.gc.ca">{chunks}</a>
 );
 
-const ErrorSummary = ({ labels }: ErrorSummaryProps) => {
+const ErrorSummary = React.forwardRef<
+  React.ElementRef<"div">,
+  ErrorSummaryProps
+>(({ labels }, forwardedRef) => {
   const intl = useIntl();
+
   const locale = getLocale(intl);
   const { errors } = useFormState();
 
@@ -37,7 +41,14 @@ const ErrorSummary = ({ labels }: ErrorSummaryProps) => {
         return {
           name: field,
           label: labels[field],
-          message: fieldInvalid?.message || null,
+          message:
+            fieldInvalid?.message ||
+            intl.formatMessage({
+              defaultMessage: "Unknown error",
+              id: "iqD8qE",
+              description:
+                "Fallback text when an error message is not supplied",
+            }),
         };
       }
 
@@ -46,7 +57,7 @@ const ErrorSummary = ({ labels }: ErrorSummaryProps) => {
     .filter(notEmpty);
 
   return invalidFields.length > 0 ? (
-    <Alert.Root type="error">
+    <Alert.Root type="error" ref={forwardedRef} tabIndex={0}>
       <Alert.Title>
         {intl.formatMessage({
           defaultMessage: "Oops, you have some errors!",
@@ -86,6 +97,6 @@ const ErrorSummary = ({ labels }: ErrorSummaryProps) => {
       </Alert.Footer>
     </Alert.Root>
   ) : null;
-};
+});
 
 export default ErrorSummary;
