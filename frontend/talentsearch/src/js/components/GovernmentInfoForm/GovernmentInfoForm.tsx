@@ -12,7 +12,7 @@ import {
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import ExternalLink from "@common/components/Link/ExternalLink";
 import { FieldLabels } from "@common/components/form/BasicForm";

@@ -4,7 +4,7 @@ import Pending from "@common/components/Pending";
 import { useLocation, parseUrlQueryParameters } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import {
   User,
   useGetApplicationQuery,

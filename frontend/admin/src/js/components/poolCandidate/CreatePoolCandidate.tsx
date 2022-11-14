@@ -6,7 +6,7 @@ import {
   useForm,
   useWatch,
 } from "react-hook-form";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { useIntl } from "react-intl";
 import {
   Submit,

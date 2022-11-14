@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import { errorMessages } from "@common/messages";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import {
   navigate,
   pushToStateThenNavigate,

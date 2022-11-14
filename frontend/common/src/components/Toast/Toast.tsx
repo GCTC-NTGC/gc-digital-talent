@@ -64,22 +64,22 @@ const ToastMessage = ({ children }: ToastMessageProps) => (
 );
 
 export const toast = {
-  success: (message: string, options?: ToastOptions) =>
+  success: (message: React.ReactNode, options?: ToastOptions) =>
     toastify.success(<ToastMessage>{message}</ToastMessage>, {
       icon: <CheckCircleIcon {...iconStyles} />,
       ...options,
     }),
-  error: (message: string, options?: ToastOptions) =>
+  error: (message: React.ReactNode, options?: ToastOptions) =>
     toastify.error(<ToastMessage>{message}</ToastMessage>, {
       icon: <ExclamationTriangleIcon {...iconStyles} />,
       ...options,
     }),
-  warning: (message: string, options: ToastOptions) =>
+  warning: (message: React.ReactNode, options: ToastOptions) =>
     toastify.warning(<ToastMessage>{message}</ToastMessage>, {
       icon: <ExclamationCircleIcon {...iconStyles} />,
       ...options,
     }),
-  info: (message: string, options: ToastOptions) =>
+  info: (message: React.ReactNode, options: ToastOptions) =>
     toastify.info(<ToastMessage>{message}</ToastMessage>, {
       icon: <EyeIcon {...iconStyles} />,
       ...options,

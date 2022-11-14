@@ -4,7 +4,7 @@ import Pending from "@common/components/Pending";
 import { parseUrlQueryParameters, useLocation } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import {
   useWorkLocationPreferenceQuery,
   useCreateWorkLocationPreferenceMutation,

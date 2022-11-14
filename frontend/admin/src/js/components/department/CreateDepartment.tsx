@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { navigate } from "@common/helpers/router";
 import { Input, Submit } from "@common/components/form";
 import { errorMessages } from "@common/messages";

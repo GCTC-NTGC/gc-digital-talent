@@ -9,7 +9,7 @@ import { errorMessages, navigationMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import Well from "@common/components/Well";

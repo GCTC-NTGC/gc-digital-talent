@@ -1,7 +1,7 @@
 import * as React from "react";
-import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { toast } from "@common/components/Toast";
 import { Input, Select, Submit, TextArea } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import { getFullNameLabel } from "@common/helpers/nameUtils";

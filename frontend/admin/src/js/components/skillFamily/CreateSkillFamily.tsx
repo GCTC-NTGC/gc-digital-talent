@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import {
   Input,
   Select,

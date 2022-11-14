@@ -1,6 +1,6 @@
 import { refresh } from "@common/helpers/router";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import {
   Scalars,
   useArchiveApplicationMutation,
