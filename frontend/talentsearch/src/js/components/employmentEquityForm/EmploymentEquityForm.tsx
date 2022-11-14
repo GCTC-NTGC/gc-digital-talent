@@ -6,6 +6,7 @@ import Well from "@common/components/Well";
 import { navigationMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import EquityOptions from "./EquityOptions";
@@ -14,7 +15,6 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import { User, PoolCandidate } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import directIntakeRoutes from "../../directIntakeRoutes";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export interface EmploymentEquityFormProps {
   user: User;
