@@ -1,6 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
-import useTheme from "@common/hooks/useTheme";
 import Hero from "@common/components/Hero";
 import Heading from "@common/components/Heading";
 import { imageUrl } from "@common/helpers/router";
@@ -9,7 +7,6 @@ import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 
 const AccessibilityStatement = () => {
-  const { mode } = useTheme();
   const paths = useDirectIntakeRoutes();
   const crumbs = useBreadcrumbs([
     {
@@ -20,7 +17,10 @@ const AccessibilityStatement = () => {
   return (
     <>
       <Hero
-        imgPath={imageUrl(TALENTSEARCH_APP_DIR, "browse_header.jpg")}
+        imgPath={imageUrl(
+          TALENTSEARCH_APP_DIR,
+          "accessibility-statement-header.jpg",
+        )}
         title="Accessibility statement"
         subtitle="Our commitment to accessible design, development, and service delivery."
         crumbs={crumbs}
