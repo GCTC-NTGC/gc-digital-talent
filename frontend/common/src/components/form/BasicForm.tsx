@@ -60,6 +60,7 @@ export function BasicForm<TFieldValues extends FieldValues>({
   } = methods;
 
   React.useEffect(() => {
+    // After during submit, if there are errors, focus the summary
     if (errors && isSubmitting && errorSummaryRef.current) {
       errorSummaryRef.current.focus();
     }

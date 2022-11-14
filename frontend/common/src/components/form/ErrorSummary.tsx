@@ -32,9 +32,9 @@ const ErrorSummary = React.forwardRef<
   const invalidFields = Object.keys(errors)
     .map((field) => {
       /**
-       * Some forms are adding keys for dirtyFields
-       * when they are not dirty so make sure the value
-       * of each key is true.
+       * Massages the errors to a human readable
+       * format as well as displaying generic
+       * error message when one is not provided.
        */
       const fieldInvalid = errors[field];
       if (labels && field in labels && fieldInvalid) {
