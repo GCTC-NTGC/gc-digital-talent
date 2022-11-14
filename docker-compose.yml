@@ -25,20 +25,16 @@ services:
     ports:
       - 8080:8080
 
-  php:
-    build: ./infrastructure/php-container
-    working_dir: /var/www/html
-    restart: always
+  webserver:
+    # All images: https://mcr.microsoft.com/v2/appsvc/php/tags/list
+    image: mcr.microsoft.com/appsvc/php:7.4-fpm-xdebug_20220609.1.tuxprod
     volumes:
-      - ./infrastructure/php-container/src:/var/www/html/
-      - ./api:/var/www/html/api
-      - ./frontend:/var/www/html/frontend
-      - ./tc-report:/var/www/html/tc-report
+      - ./:/home/site/wwwroot
     ports:
       - 8000:80
       - 8001:443
-    env_file:
-      - ./frontend/.apache_env
+
+    command: ./infrastructure/bin/post_deployment.sh .
 
   maintenance:
     build: ./infrastructure/maintenance-container

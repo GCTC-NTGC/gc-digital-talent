@@ -161,7 +161,7 @@
       "type": "shell",
 
       "command": "docker-compose",
-      "args": ["-f", "docker-compose.nginx.yml", "up", "--detach", "--build"],
+      "args": ["up", "--detach", "--build"],
 
       "presentation": {
         "echo": true,

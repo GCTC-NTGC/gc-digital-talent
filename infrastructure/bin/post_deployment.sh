@@ -63,17 +63,21 @@ else
 fi
 
 # Environment config variable substitutions
-if test -f "/home/site/wwwroot/frontend/talentsearch/dist/config.js.template"; then
-    if envsubst < /home/site/wwwroot/frontend/talentsearch/dist/config.js.template > /home/site/wwwroot/frontend/talentsearch/dist/config.js ; then
-        BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Environment variable substitution *successful*.\" } }"
-    else
-        BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Environment variable substitution *failed*. $MENTION\" } }"
-    fi
+if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/admin/dist/config.js ; then
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Environment variable substitution for admin *successful*.\" } }"
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":warning: Environment variable substitution *skipped*. $MENTION\" } }"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Environment variable substitution for admin *failed*. $MENTION\" } }"
 fi
-
-
+if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/indigenousapprenticeship/dist/config.js ; then
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Environment variable substitution for indigenousapprenticeship *successful*.\" } }"
+else
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Environment variable substitution for indigenousapprenticeship *failed*. $MENTION\" } }"
+fi
+if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/talentsearch/dist/config.js ; then
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Environment variable substitution for talentsearch *successful*.\" } }"
+else
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Environment variable substitution for talentsearch *failed*. $MENTION\" } }"
+fi
 
 
 # Include the stdout from the migration as its own block, cleaned to make Slack happy
