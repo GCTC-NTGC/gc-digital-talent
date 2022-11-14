@@ -48,7 +48,7 @@
   background-color: rgba(var(--h2-color-white), 1);
   box-sizing: border-box;
   position: relative;
-  margin-bottom: calc((var(--h2-base-whitespace) * .25) * 1rem);
+  margin-bottom: calc((var(--h2-base-whitespace) * 0.25) * 1rem);
   border: 3px solid;
   border-radius: var(--h2-radius-rounded);
   box-shadow: var(--h2-shadow-s);
@@ -65,8 +65,8 @@
   flex: 1 1 auto;
 }
 
-.Toastify__toast-body >div:nth-child(2) {
-  padding-right: calc((var(--h2-base-whitespace) * 2) * 1rem)
+.Toastify__toast-body > div:nth-child(2) {
+  padding-right: calc((var(--h2-base-whitespace) * 2) * 1rem);
 }
 
 .Toastify__toast--default {
@@ -95,6 +95,7 @@
   align-self: stretch;
   padding: calc(var(--h2-base-whitespace) * 1rem);
   padding-top: calc((var(--h2-base-whitespace) * 1.5) * 1rem);
+  position: relative;
 }
 
 .Toastify__toast--info .Toastify__toast-icon {
@@ -117,6 +118,36 @@
   color: rgba(var(--h2-color-tm-red-darker), 1);
 }
 
+.Toastify__toast-icon:after {
+  border-style: solid;
+  border-width: 20px 0 20px 24px;
+  bottom: auto;
+  content: "";
+  height: 0;
+  left: 100%;
+  position: absolute;
+  top: calc((1.75 * var(--h2-base-whitespace)) * 1rem);
+  transform: translate(0);
+  width: 0;
+}
+
+.Toastify__toast--info .Toastify__toast-icon:after {
+  border-color: transparent transparent transparent
+    rgba(var(--h2-color-tm-blue-lightest), 1);
+}
+.Toastify__toast--success .Toastify__toast-icon:after {
+  border-color: transparent transparent transparent
+    rgba(var(--h2-color-tm-green-lightest), 1);
+}
+.Toastify__toast--warning .Toastify__toast-icon:after {
+  border-color: transparent transparent transparent
+    rgba(var(--h2-color-tm-yellow-lightest), 1);
+}
+.Toastify__toast--error .Toastify__toast-icon:after {
+  border-color: transparent transparent transparent
+    rgba(var(--h2-color-tm-red-lightest), 1);
+}
+
 .Toastify--animate {
   animation-fill-mode: both;
   animation-duration: 0.7s;
@@ -130,13 +161,13 @@
   }
   to {
     transform: translateY(0);
-    opacity: 1.0;
+    opacity: 1;
   }
 }
 
 @keyframes Toastify__slideOutRight {
   from {
-    opacity: 1.0;
+    opacity: 1;
     transform: translateX(0);
   }
   to {
