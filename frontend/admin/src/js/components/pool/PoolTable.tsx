@@ -49,12 +49,7 @@ function poolCandidatesLinkAccessor(
 function viewLinkAccessor(editUrlRoot: string, pool: Pool, intl: IntlShape) {
   return (
     <Link href={`${editUrlRoot}/${pool.id}`} type="link">
-      {getFullPoolAdvertisementTitle(intl, {
-        id: pool.id,
-        name: pool.name,
-        classifications: pool.classifications,
-        stream: pool.stream,
-      })}
+      {getFullPoolAdvertisementTitle(intl, pool)}
     </Link>
   );
 }

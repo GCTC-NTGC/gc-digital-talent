@@ -88,7 +88,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
   return (
     <>
       <Hero
-        imgPath={imageUrl(TALENTSEARCH_APP_DIR, "browse_header.png")}
+        imgPath={imageUrl(TALENTSEARCH_APP_DIR, "browse_header.jpg")}
         title={title}
         subtitle={intl.formatMessage({
           defaultMessage:
