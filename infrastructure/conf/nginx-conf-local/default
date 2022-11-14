@@ -1,6 +1,6 @@
 # enable rewrite logging for debugging
 error_log /var/log/nginx/error.log notice;
-rewrite_log on;
+# rewrite_log on;
 
 server {
     #proxy_cache cache;
@@ -12,7 +12,7 @@ server {
     server_name localhost localhost;
 
     # redirect server error pages
-    # error_page   404  /404;
+    error_page   404  /404;
 
     # Disable .git directory
     location ~ /\.git {
@@ -24,6 +24,18 @@ server {
     # Permanent redirects to avoid dead links
     location = /en/communities/digital-talent { return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html; }
     location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
+
+    # local auth
+    location ^~ /oxauth {
+        proxy_pass "http://mock-auth:8080";
+        # Header X-Forwarded-Proto tells mock-oauth2-proxy to use Host for
+        # urls in response from /oxauth/.well-known/openid-confifiguration
+        #
+        # See: https://github.com/navikt/mock-oauth2-server/pull/187
+        proxy_set_header X-Forwarded-Proto http;
+        proxy_set_header Host localhost:8000;
+        break;
+    }
 
     # api
     location = /graphql {

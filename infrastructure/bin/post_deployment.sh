@@ -56,7 +56,7 @@ else
 fi
 
 # Copy nginx config and reload
-if cp /home/site/wwwroot/infrastructure/conf/nginx-local.conf /etc/nginx/sites-available/default && nginx -s reload ; then
+if cp /home/site/wwwroot/infrastructure/conf/nginx-local-deploy/default /etc/nginx/sites-available/ && nginx -s reload ; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Nginx config copy *successful*.\" } }"
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Nginx config copy *failed*. $MENTION\" } }"

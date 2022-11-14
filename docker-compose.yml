@@ -30,11 +30,12 @@ services:
     image: mcr.microsoft.com/appsvc/php:7.4-fpm-xdebug_20220609.1.tuxprod
     volumes:
       - ./:/home/site/wwwroot
+      - ./infrastructure/conf/nginx-conf-local:/etc/nginx/sites-available/
     ports:
       - 8000:80
       - 8001:443
-
-    command: ./infrastructure/bin/post_deployment.sh .
+    # Uncomment to test out post deployment script
+    # command: ./infrastructure/bin/post_deployment.sh .
 
   maintenance:
     build: ./infrastructure/maintenance-container
