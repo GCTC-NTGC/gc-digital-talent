@@ -14,6 +14,7 @@ import { Link } from "@common/components";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { getMissingSkills } from "@common/helpers/skillUtils";
 
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   Applicant,
   PoolAdvertisement,
@@ -21,7 +22,6 @@ import {
 } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 interface ReviewMyApplicationProps {

@@ -14,6 +14,7 @@ import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import Well from "@common/components/Well";
 import { ExternalLink } from "@common/components/Link";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   DialogLevelOne,
   DialogLevelTwo,
@@ -35,7 +36,6 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import profileMessages from "../profile/profileMessages";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import directIntakeRoutes from "../../directIntakeRoutes";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export type FormValues = {
   expectedGenericJobTitles: GenericJobTitleKey[];

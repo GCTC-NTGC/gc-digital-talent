@@ -1999,5 +1999,9 @@
   "6uce1H": {
     "defaultMessage": "Toutes les compétences",
     "description": "Label for the skill picker family filter"
+  },
+  "D91nGW": {
+    "defaultMessage": "Titre du poste non trouvé.",
+    "description": "Message shown to user when pool name or classification are not found."
   }
 }
