@@ -112,7 +112,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.2.2",
     "@types/jest-axe": "^3.5.5",
-    "@types/lodash": "^4.14.186",
+    "@types/lodash": "^4.14.188",
     "@types/mdx": "^2.0.2",
     "@types/node": "^18.11.9",
     "@types/path-browserify": "^1.0.0",
