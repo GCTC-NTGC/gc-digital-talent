@@ -252,4 +252,43 @@ class PoolCandidateMigrationArtisanCommandsTest extends TestCase
         // assert 15 expired candidates exist
         assertEquals(15, $expiredCandidatesCount);
     }
+
+    /**
+     * testing api\app\Console\Commands\UpdateEmailsOfNoLoginUsers.php
+     */
+    public function testRunningArtisanUpdateEmailsOfObsoleteUsers()
+    {
+        // this command will update admin and other test users with sub == email
+        $user1 = User::factory()->create([
+            'email' => 'email@email.com',
+            'sub' => 'email@email.com',
+        ]);
+        $user2 = User::factory()->create([
+            'email' => 'amail@amail.com',
+            'sub' => '2f3ee3fb-91ab-478e-a675-c56fdc043dc6',
+        ]);
+        $user3 = User::factory()->create([
+            'email' => 'bmail@bmail.com',
+            'sub' => null,
+        ]);
+
+        // run the command
+        $this->artisan('update:obsolete_user_email')->assertSuccessful();
+        // added tag is "+admin_entry"
+
+        // assert user1 is still returned as the sole result for that sub
+        // assert user1 email is updated
+        $user1Updated = User::where('sub', 'ilike', 'email@email.com')->sole();
+        assertEquals($user1Updated->email, "email+admin_entry@email.com");
+
+        // assert user2 is still returned as the sole result for that sub
+        // assert user2 email is unchanged
+        $user2Updated = User::where('sub', '2f3ee3fb-91ab-478e-a675-c56fdc043dc6')->sole();
+        assertEquals($user2Updated->email, $user2->email);
+
+        // assert user3 is returned for the expected updated email
+        // assert user3 sub is still null
+        $user3Updated = User::where('email', 'ilike', 'bmail+admin_entry@bmail.com')->sole();
+        assertEquals($user3Updated->sub, $user3->sub);
+    }
 }
