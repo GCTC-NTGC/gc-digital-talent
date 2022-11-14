@@ -1,7 +1,7 @@
 import { TypeOptions } from "react-toastify";
 
 export const iconStyles = {
-  "data-h2-width": "base(1.25rem)",
+  "data-h2-width": "base(x2)",
 };
 
 export const closeButtonStyles: Record<TypeOptions, Record<string, string>> = {

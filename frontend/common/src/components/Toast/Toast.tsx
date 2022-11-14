@@ -27,16 +27,15 @@ const CloseButton = ({ type, closeToast, ariaLabel }: CloseButtonProps) => (
     data-h2-position="base(absolute)"
     data-h2-display="base(flex)"
     data-h2-align-items="base(center)"
-    data-h2-offset="base(x.15, x.15, auto, auto)"
+    data-h2-offset="base(x1, x1, auto, auto)"
     data-h2-cursor="base(pointer)"
-    data-h2-padding="base(x.15)"
     data-h2-transition="base(all, 100ms, ease-in)"
     data-h2-z-index="base(9)"
     aria-label={ariaLabel}
     {...closeButtonStyles[type]}
     onClick={closeToast}
   >
-    <XCircleIcon data-h2-width="base(1rem)" data-h2-height="base(1rem)" />
+    <XCircleIcon data-h2-width="base(x1)" data-h2-height="base(x1)" />
   </button>
 );
 
@@ -56,7 +55,10 @@ interface ToastMessageProps {
 }
 
 const ToastMessage = ({ children }: ToastMessageProps) => (
-  <div data-h2-padding="base(x.5)" data-h2-line-height="base(1.2)">
+  <div
+    data-h2-padding="base(x2)"
+    data-h2-line-height="base(var(--h2-base-line-height))"
+  >
     {children}
   </div>
 );

@@ -6,7 +6,7 @@
 .Toastify__toast-container {
   max-width: calc(100vw - calc(2 * var(--toast-space)));
   position: fixed;
-  width: 25rem;
+  width: 40vw;
   z-index: 9999; /* Display over everything else */
 }
 
@@ -48,7 +48,7 @@
   background-color: rgba(var(--h2-color-white), 1);
   box-sizing: border-box;
   position: relative;
-  margin-bottom: var(--toast-space);
+  margin-bottom: calc((var(--h2-base-whitespace) * .25) * 1rem);
   border: 3px solid;
   border-radius: var(--h2-radius-rounded);
   box-shadow: var(--h2-shadow-s);
@@ -63,6 +63,10 @@
   display: flex;
   margin: auto 0;
   flex: 1 1 auto;
+}
+
+.Toastify__toast-body >div:nth-child(2) {
+  padding-right: calc((var(--h2-base-whitespace) * 2) * 1rem)
 }
 
 .Toastify__toast--default {
@@ -89,8 +93,8 @@
   display: flex;
   align-items: flex-start;
   align-self: stretch;
-  padding: calc(0.5 * var(--toast-space));
-  padding-top: calc(0.6 * var(--toast-space));
+  padding: calc(var(--h2-base-whitespace) * 1rem);
+  padding-top: calc((var(--h2-base-whitespace) * 1.5) * 1rem);
 }
 
 .Toastify__toast--info .Toastify__toast-icon {
