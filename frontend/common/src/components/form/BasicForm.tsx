@@ -102,15 +102,14 @@ export function BasicForm<TFieldValues extends FieldValues>({
             if (!defaultValue || value !== defaultValue) {
               methods.setValue(typedFieldName, value, {
                 shouldDirty: true, // Need to dirty it for error/unsaved change tracking
-                shouldTouch: true,
+                shouldTouch: false,
+                shouldValidate: false,
               });
             }
           }
         });
       }
     }
-
-    methods.trigger();
   }, [cacheKey, options, methods]);
 
   return (
