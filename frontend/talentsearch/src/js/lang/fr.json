@@ -1296,8 +1296,8 @@
     "defaultMessage": "Lieu de travail",
     "description": "Title for Profile Form wrapper  in Work Location Preferences Form"
   },
-  "nVh2Qh": {
-    "defaultMessage": "Si vous voulez connaître votre niveau de compétence linguistique, <selfAssessmentLink>cliquez ici pour le savoir</selfAssessmentLink>.",
+  "1F7at9": {
+    "defaultMessage": "Vous pouvez découvrir vos niveaux à l’aide d’une <selfAssessmentLink>auto-évaluation des aptitudes linguistiques</selfAssessmentLink>.",
     "description": "Text including link to language proficiency evaluation in language information form"
   },
   "nrBkon": {
@@ -2059,10 +2059,6 @@
   "D0bpvq": {
     "defaultMessage": "Candidatures archivées",
     "description": "Title for a users archived applications"
-  },
-  "D91nGW": {
-    "defaultMessage": "Titre du poste non trouvé.",
-    "description": "Message shown to user when pool name or classification are not found."
   },
   "DZwVvi": {
     "defaultMessage": "Membre des Forces armées canadiennes (FAC)",

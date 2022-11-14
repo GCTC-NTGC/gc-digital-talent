@@ -19,6 +19,7 @@ query getApplication($id: ID!) {
         en
         fr
       }
+      stream
       essentialSkills {
         id
         key

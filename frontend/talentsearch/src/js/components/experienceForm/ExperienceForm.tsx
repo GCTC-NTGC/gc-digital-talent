@@ -16,6 +16,7 @@ import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { OperationContext } from "urql";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
@@ -50,7 +51,6 @@ import {
   useExperienceMutations,
   useDeleteExperienceMutation,
 } from "./mutations";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import getExperienceFormLabels from "./labels";
 

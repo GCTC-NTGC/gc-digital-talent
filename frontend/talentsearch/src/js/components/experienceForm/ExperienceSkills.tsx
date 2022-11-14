@@ -116,9 +116,10 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                 })}
               </span>
               <Separator
-                color="black"
+                data-h2-background-color="base(dt-gray.50)"
                 data-h2-margin="base(x.5, 0)"
                 orientation="horizontal"
+                decorative
               />
               {poolAdvertisement.essentialSkills.map((skill, index: number) => (
                 <div key={skill.id} data-h2-padding="base(x0, x0, x0, x.5)">
@@ -130,10 +131,9 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                     onAddSkill={handleAddSkill}
                     onRemoveSkill={handleRemoveSkill}
                   />
-                  {poolAdvertisement.essentialSkills &&
-                  index + 1 !== poolAdvertisement.essentialSkills.length ? (
+                  {index + 1 !== poolAdvertisement?.essentialSkills?.length ? (
                     <Separator
-                      color="black"
+                      data-h2-background-color="base(dt-gray.50)"
                       data-h2-margin="base(x.5, 0)"
                       orientation="horizontal"
                     />
@@ -157,9 +157,10 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                 })}
               </span>
               <Separator
-                color="black"
+                data-h2-background-color="base(dt-gray.50)"
                 data-h2-margin="base(x.5, 0)"
                 orientation="horizontal"
+                decorative
               />
               {poolAdvertisement.nonessentialSkills.map(
                 (skill, index: number) => (
@@ -174,10 +175,10 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
                       onAddSkill={handleAddSkill}
                       onRemoveSkill={handleRemoveSkill}
                     />
-                    {poolAdvertisement.essentialSkills &&
-                    index + 1 !== poolAdvertisement.essentialSkills.length ? (
+                    {index + 1 !==
+                    poolAdvertisement?.nonessentialSkills?.length ? (
                       <Separator
-                        color="black"
+                        data-h2-background-color="base(dt-gray.50)"
                         data-h2-margin="base(x.5, 0)"
                         orientation="horizontal"
                       />

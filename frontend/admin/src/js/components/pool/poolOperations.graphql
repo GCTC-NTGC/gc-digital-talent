@@ -159,6 +159,7 @@ query getPools {
       fr
     }
     classifications {
+      id
       group
       level
     }

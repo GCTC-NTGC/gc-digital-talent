@@ -1533,4 +1533,89 @@ class ApplicantTest extends TestCase
             }
             ')->assertDontSeeText(ApiEnums::CANDIDATE_STATUS_DRAFT);
     }
+
+    public function testNullFilterEqualsUndefinedPoolCandidate() {
+
+        // setup
+        $owner = User::where('sub', 'ilike', 'admin@test.com')->sole();
+        $pool = Pool::factory()->create([
+            'user_id' => $owner['id'],
+        ]);
+        User::factory([
+            'roles' => [ApiEnums::ROLE_APPLICANT]
+        ])
+            ->count(60)
+            ->afterCreating(function (User $user) use ($pool) {
+                PoolCandidate::factory()->count(1)->sequence(fn () => [
+                    'pool_id' => $pool->id,
+                    'user_id' => $user->id,
+                    'expiry_date' => config('constants.far_future_date'),
+                    'submitted_at' => config('constants.past_date'),
+                    'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, // ensuring this passes the notDraft scope
+                ])->create();
+            })
+        ->create();
+
+        // empty input
+        $this->graphQL(
+            /** @lang Graphql */
+            '
+            query poolCandidatesPaginated($where: PoolCandidateFilterInput) {
+                poolCandidatesPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
+            'data' => [
+                'poolCandidatesPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 60
+                    ]
+                ]
+            ]
+        ]);
+
+        // null input
+        $this->graphQL(
+            /** @lang Graphql */
+            '
+            query poolCandidatesPaginated($where: PoolCandidateFilterInput) {
+                poolCandidatesPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ',
+            [
+                'where' => [
+                    'cmoAssets' => null,
+                    'equity' => null,
+                    'expectedClassifications' => null,
+                    'generalSearch' => null,
+                    'hasDiploma' => null,
+                    'languageAbility' => null,
+                    'locationPreferences' => null,
+                    'operationalRequirements' => null,
+                    'pools' => null,
+                    'priorityWeight' => null,
+                    'status' => null,
+                ]
+            ]
+        )->assertJson([
+            'data' => [
+                'poolCandidatesPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 60
+                    ]
+                ]
+            ]
+        ]);
+    }
 }
