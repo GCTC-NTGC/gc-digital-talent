@@ -2671,5 +2671,9 @@
   "wl8GI6": {
     "defaultMessage": "Mon rôle",
     "description": "Label displayed on an Experience form for role input"
+  },
+  "xHjgXz": {
+    "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu!",
+    "description": "Text displayed when there are no pool advertisements to display"
   }
 }
