@@ -45,6 +45,7 @@ query getPoolAdvertisement($id: ID!) {
       minSalary
       maxSalary
     }
+    stream
     expiryDate
     advertisementStatus
     advertisementLanguage

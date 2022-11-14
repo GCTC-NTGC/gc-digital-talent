@@ -122,7 +122,7 @@ const Opportunities = () => {
                   "Heading for the Indigenous Apprenticeship Program on home page",
               })}
               link={{
-                href: `${locale}/indigenous-it-apprentice`,
+                href: `/${locale}/indigenous-it-apprentice`,
                 external: true,
                 label: intl.formatMessage({
                   defaultMessage:

@@ -12,6 +12,7 @@ import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
 import { toast } from "@common/components/Toast";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import {
@@ -23,7 +24,6 @@ import {
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import directIntakeRoutes from "../../directIntakeRoutes";
 import profileMessages from "../profile/profileMessages";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export type FormValues = Pick<
   UpdateUserAsUserInput,

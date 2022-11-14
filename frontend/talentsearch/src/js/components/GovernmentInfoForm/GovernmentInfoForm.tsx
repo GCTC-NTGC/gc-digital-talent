@@ -16,6 +16,7 @@ import { toast } from "@common/components/Toast";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import ExternalLink from "@common/components/Link/ExternalLink";
 import { FieldLabels } from "@common/components/form/BasicForm";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   Classification,
   UpdateUserAsUserInput,
@@ -30,7 +31,6 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 import directIntakeRoutes from "../../directIntakeRoutes";
 import profileMessages from "../profile/profileMessages";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
