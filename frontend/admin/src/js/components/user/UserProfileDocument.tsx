@@ -112,7 +112,7 @@ export const UserProfileDocument = React.forwardRef<
         .accordion-header-context .icon {
           width: 1.5rem;
         }
-        .accordion-header-wrapper svg {
+        .Accordion__Chevron {
           display: none;
         }
       }
