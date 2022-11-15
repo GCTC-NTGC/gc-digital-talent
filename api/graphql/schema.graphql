@@ -727,6 +727,8 @@ input PoolCandidateFilterInput {
   expectedClassifications: [ClassificationFilterInput]
     @scope(name: "classifications")
   generalSearch: String @builder(method: "App\\Models\\PoolCandidate@filterByGeneralSearch")
+  email: String @scope
+  name: String @builder(method: "App\\Models\\PoolCandidate@filterByName")
   hasDiploma: Boolean @scope
   languageAbility: LanguageAbility
     @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")

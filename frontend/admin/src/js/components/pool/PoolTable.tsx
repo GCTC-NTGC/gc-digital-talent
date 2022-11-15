@@ -117,7 +117,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
                 color="primary"
                 mode="outline"
               >
-                {`${classification?.group}-${classification?.level}`}
+                {classification?.group}&#8209;{classification?.level}
               </Pill>
             );
           }),
