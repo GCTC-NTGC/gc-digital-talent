@@ -33,8 +33,8 @@ export interface SkillPickerProps {
   selectedSkills?: Skills;
   onUpdateSelectedSkills?: (newSkills: Skills) => void;
   headingLevel?: HeadingLevel;
-  handleSave: () => void;
-  submitButton: React.ReactNode;
+  handleSave?: () => void;
+  submitButton?: React.ReactNode;
 }
 
 const SkillPicker = ({
@@ -112,142 +112,141 @@ const SkillPicker = ({
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(handleSave)}>
-        <InputLabel
-          required={false}
-          inputId="query"
-          trackUnsaved={false}
-          label={intl.formatMessage({
-            defaultMessage: "Search skills by keyword",
-            id: "ARqO1j",
-            description: "Label for the skills search bar.",
+      <InputLabel
+        required={false}
+        inputId="query"
+        trackUnsaved={false}
+        label={intl.formatMessage({
+          defaultMessage: "Search skills by keyword",
+          id: "ARqO1j",
+          description: "Label for the skills search bar.",
+        })}
+      />
+      <div data-h2-display="base(flex)" data-h2-margin="base(x.25, 0, 0, 0)">
+        <FamilyPicker
+          onSelectFamily={handleCheckFamily}
+          families={allSkillFamilies}
+        />
+        <input
+          id="query"
+          type="text"
+          autoComplete="off"
+          {...methods.register("query")}
+          data-h2-background-color="base(white) base:focus-visible(lighter.dt-primary.10)"
+          data-h2-outline="base(none)"
+          data-h2-shadow="base:focus-visible(s, dt-primary.30)"
+          data-h2-flex-grow="base(1)"
+          data-h2-border="base(all, 1px, solid, dt-primary) base:focus-visible(all, 1px, solid, dark.dt-primary)"
+          data-h2-radius="base(0, input, input, 0)"
+          data-h2-padding="base(x.5, x1)"
+          placeholder={intl.formatMessage({
+            defaultMessage: "e.g. Python, JavaScript, etc.",
+            id: "PF4ya+",
+            description: "Placeholder for the skills search bar.",
           })}
         />
-        <div data-h2-display="base(flex)" data-h2-margin="base(x.25, 0, 0, 0)">
-          <FamilyPicker
-            onSelectFamily={handleCheckFamily}
-            families={allSkillFamilies}
-          />
-          <input
-            id="query"
-            type="text"
-            autoComplete="off"
-            {...methods.register("query")}
-            data-h2-background-color="base(white) base:focus-visible(lighter.dt-primary.10)"
-            data-h2-outline="base(none)"
-            data-h2-shadow="base:focus-visible(s, dt-primary.30)"
-            data-h2-flex-grow="base(1)"
-            data-h2-border="base(all, 1px, solid, dt-primary) base:focus-visible(all, 1px, solid, dark.dt-primary)"
-            data-h2-radius="base(0, input, input, 0)"
-            data-h2-padding="base(x.5, x1)"
-            placeholder={intl.formatMessage({
-              defaultMessage: "e.g. Python, JavaScript, etc.",
-              id: "PF4ya+",
-              description: "Placeholder for the skills search bar.",
-            })}
-          />
-        </div>
+      </div>
 
-        <p
-          aria-live="polite"
-          aria-atomic="true"
-          data-h2-font-size="base(h6)"
-          data-h2-font-weight="base(700)"
-          data-h2-margin="base(x.75, 0, x.5, 0)"
-        >
-          {intl.formatMessage(
-            {
-              defaultMessage: "Found <primary>{skillCount}</primary> skills.",
-              id: "2Ckihd",
-              description:
-                "The number of skills found within the skill picker.",
-            },
-            {
-              skillCount: filteredSkills.length,
-            },
-          )}
-        </p>
-        <ScrollArea.Root
-          data-h2-width="base(100%)"
-          data-h2-height="base(320px)"
-          data-h2-max-height="base(50vh)"
-          data-h2-shadow="base(s)"
-        >
-          <ScrollArea.Viewport data-h2-background-color="base(white)">
-            <div data-h2-padding="base(x.5, x1, x.5, x.5)">
-              {filteredSkills.length > 0 ? (
-                filteredSkills.map((skill, index: number) => (
-                  <React.Fragment key={skill.id}>
-                    <SkillBlock
-                      skill={skill}
-                      isAdded={
-                        !!selectedSkills.find(
-                          (selected) => selected.id === skill.id,
-                        )
-                      }
-                      onAddSkill={handleAddSkill}
-                      onRemoveSkill={handleRemoveSkill}
+      <p
+        aria-live="polite"
+        aria-atomic="true"
+        data-h2-font-size="base(h6)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x.75, 0, x.5, 0)"
+      >
+        {intl.formatMessage(
+          {
+            defaultMessage: "Found <primary>{skillCount}</primary> skills.",
+            id: "2Ckihd",
+            description: "The number of skills found within the skill picker.",
+          },
+          {
+            skillCount: filteredSkills.length,
+          },
+        )}
+      </p>
+      <ScrollArea.Root
+        data-h2-width="base(100%)"
+        data-h2-height="base(320px)"
+        data-h2-max-height="base(50vh)"
+        data-h2-shadow="base(s)"
+      >
+        <ScrollArea.Viewport data-h2-background-color="base(white)">
+          <div data-h2-padding="base(x.5, x1, x.5, x.5)">
+            {filteredSkills.length > 0 ? (
+              filteredSkills.map((skill, index: number) => (
+                <React.Fragment key={skill.id}>
+                  <SkillBlock
+                    skill={skill}
+                    isAdded={
+                      !!selectedSkills.find(
+                        (selected) => selected.id === skill.id,
+                      )
+                    }
+                    onAddSkill={handleAddSkill}
+                    onRemoveSkill={handleRemoveSkill}
+                  />
+                  {index + 1 !== filteredSkills.length ? (
+                    <Separator
+                      data-h2-background-color="base(dt-gray.50)"
+                      data-h2-margin="base(x.5, 0)"
+                      orientation="horizontal"
                     />
-                    {index + 1 !== filteredSkills.length ? (
-                      <Separator
-                        data-h2-background-color="base(dt-gray.50)"
-                        data-h2-margin="base(x.5, 0)"
-                        orientation="horizontal"
-                      />
-                    ) : null}
-                  </React.Fragment>
-                ))
-              ) : (
-                <p
-                  data-h2-align-self="base(center)"
-                  data-h2-font-size="base(h4)"
-                  data-h2-margin="base(x2, 0)"
-                  data-h2-text-align="base(center)"
-                  data-h2-font-style="base(italic)"
-                  data-h2-color="base(dt-gray)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "No skills found.",
-                    id: "9CkDfr",
-                    description:
-                      "Message displayed when no skills were found in skill picker search",
-                  })}
-                </p>
-              )}
-            </div>
-          </ScrollArea.Viewport>
-          <ScrollArea.Scrollbar orientation="vertical">
-            <ScrollArea.Thumb />
-          </ScrollArea.Scrollbar>
-        </ScrollArea.Root>
-        {selectedSkills.length > 0 ? (
-          <>
-            <Heading
-              data-h2-font-size="base(copy, 1)"
-              data-h2-font-weight="base(700)"
-              data-h2-margin="base(x.75, 0, x.5, 0)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Selected skills",
-                id: "l7Hif/",
-                description: "Section header for a list of skills selected",
-              })}
-            </Heading>
-            <Chips>
-              {selectedSkills.map((skill) => (
-                <Chip
-                  key={skill.id}
-                  label={getLocalizedName(skill.name, intl)}
-                  color="primary"
-                  mode="outline"
-                  onDismiss={() => handleRemoveSkill(skill.id)}
-                />
-              ))}
-            </Chips>
-          </>
-        ) : null}
-        {submitButton}
-      </form>
+                  ) : null}
+                </React.Fragment>
+              ))
+            ) : (
+              <p
+                data-h2-align-self="base(center)"
+                data-h2-font-size="base(h4)"
+                data-h2-margin="base(x2, 0)"
+                data-h2-text-align="base(center)"
+                data-h2-font-style="base(italic)"
+                data-h2-color="base(dt-gray)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "No skills found.",
+                  id: "9CkDfr",
+                  description:
+                    "Message displayed when no skills were found in skill picker search",
+                })}
+              </p>
+            )}
+          </div>
+        </ScrollArea.Viewport>
+        <ScrollArea.Scrollbar orientation="vertical">
+          <ScrollArea.Thumb />
+        </ScrollArea.Scrollbar>
+      </ScrollArea.Root>
+      {selectedSkills.length > 0 ? (
+        <>
+          <Heading
+            data-h2-font-size="base(copy, 1)"
+            data-h2-font-weight="base(700)"
+            data-h2-margin="base(x.75, 0, x.5, 0)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Selected skills",
+              id: "l7Hif/",
+              description: "Section header for a list of skills selected",
+            })}
+          </Heading>
+          <Chips>
+            {selectedSkills.map((skill) => (
+              <Chip
+                key={skill.id}
+                label={getLocalizedName(skill.name, intl)}
+                color="primary"
+                mode="outline"
+                onDismiss={() => handleRemoveSkill(skill.id)}
+              />
+            ))}
+          </Chips>
+        </>
+      ) : null}
+      {submitButton && handleSave && (
+        <form onSubmit={handleSubmit(handleSave)}>{submitButton}</form>
+      )}
     </FormProvider>
   );
 };
