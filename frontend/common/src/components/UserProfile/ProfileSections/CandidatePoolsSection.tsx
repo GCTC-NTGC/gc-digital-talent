@@ -4,7 +4,6 @@ import { getFullPoolAdvertisementTitle } from "../../../helpers/poolUtils";
 import Well from "../../Well";
 import { unpackMaybes } from "../../../helpers/formUtils";
 import type { Applicant } from "../../../api/generated";
-import { getLocale } from "../../../helpers/localize";
 
 interface CandidatePoolsSectionProps {
   applicant: Applicant;
@@ -14,7 +13,6 @@ const CandidatePoolsSection: React.FC<CandidatePoolsSectionProps> = ({
   applicant,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const poolCandidates = unpackMaybes(applicant.poolCandidates);
 
   return (

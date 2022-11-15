@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import Dialog from "@common/components/Dialog";
 import Button from "@common/components/Button";
-import { getLocale } from "@common/helpers/localize";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import { InputError, InputWrapper } from "@common/components/inputPartials";
@@ -110,7 +109,6 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
   user,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const methods = useForm();
 
   const [selectedStatus, setSelectedStatus] = useState("");
@@ -454,7 +452,6 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
   user,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   const [submitting, setSubmitting] = useState(false);
 
@@ -571,7 +568,6 @@ export const AddToPoolDialog: React.FC<{
   pools: Pool[];
 }> = ({ user, pools }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const methods = useForm();
 
   const [selectedPool, setSelectedPool] = useState("");

@@ -19,7 +19,6 @@ import {
   getPoolCandidateStatus,
   getProvinceOrTerritory,
 } from "@common/constants/localizedConstants";
-import { getLocale } from "@common/helpers/localize";
 import { Button, Link } from "@common/components";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
@@ -352,7 +351,6 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
 
 const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   const [, executeMutation] = useUpdatePoolCandidateMutation();
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
 import { commonMessages } from "@common/messages";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
@@ -18,7 +17,6 @@ interface PoolApplyProps {
 
 const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useDirectIntakeRoutes();
 
   const links = [
