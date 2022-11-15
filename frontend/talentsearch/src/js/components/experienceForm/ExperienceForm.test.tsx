@@ -20,6 +20,7 @@ const renderExperienceForm = (props: ExperienceFormProps) =>
   render(<ExperienceForm {...props} />);
 
 describe("ExperienceForm", () => {
+  jest.setTimeout(10000); // TODO: remove in #4755
   it("award type should have no accessibility errors", async () => {
     const { container } = renderExperienceForm({
       userId: mockUserId,
