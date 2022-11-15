@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import Well from "@common/components/Well";
-import { getLocale } from "@common/helpers/localize";
 
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { PoolCandidate } from "../../../api/generated";
@@ -11,7 +10,6 @@ const CandidatePoolsSection: React.FunctionComponent<{
   poolCandidates: PoolCandidate[];
 }> = ({ poolCandidates }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   return (
     <Well>

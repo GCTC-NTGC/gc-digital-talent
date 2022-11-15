@@ -4,7 +4,6 @@ import PageHeader from "@common/components/PageHeader";
 import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import Pending from "@common/components/Pending";
-import { getLocale } from "@common/helpers/localize";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import DashboardContentContainer from "../DashboardContentContainer";
 import PoolCandidatesTable from "./PoolCandidatesTable";
@@ -13,7 +12,6 @@ import { useGetPoolQuery } from "../../api/generated";
 
 export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useAdminRoutes();
 
   const [{ data, fetching, error }] = useGetPoolQuery({
