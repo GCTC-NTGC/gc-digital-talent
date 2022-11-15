@@ -442,7 +442,10 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                       defaultMessage: "Notes",
                       id: "CSDdh/",
                       description: "Title for a pool candidates notes field",
-                    })} - ${getFullPoolAdvertisementTitle(intl, pool)}`}
+                    })} - ${getFullPoolAdvertisementTitle(
+                      intl,
+                      candidate.pool,
+                    )}`}
                     defaultValue={candidate.notes ? candidate.notes : ""}
                     placeholder={intl.formatMessage({
                       defaultMessage: "Start writing your notes here...",
