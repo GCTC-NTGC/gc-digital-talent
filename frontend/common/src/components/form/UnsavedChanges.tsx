@@ -14,7 +14,7 @@ interface UnsavedChangesProps {
 
 const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
   const intl = useIntl();
-  const { isDirty, dirtyFields } = useFormState();
+  const { isDirty, dirtyFields, errors } = useFormState();
 
   // Don't show if the form is clean
   if (!isDirty) return null;
@@ -25,9 +25,14 @@ const UnsavedChanges = ({ labels }: UnsavedChangesProps) => {
        * Some forms are adding keys for dirtyFields
        * when they are not dirty so make sure the value
        * of each key is true.
+       *
+       * Also checks if the field has errors, since we cannot
+       * save invalid fields, we prefer error message over
+       * the unsaved message
        */
       const fieldDirty = dirtyFields[field];
-      if (labels && field in labels && fieldDirty) {
+      const fieldInvalid = errors[field];
+      if (labels && field in labels && fieldDirty && !fieldInvalid) {
         return {
           name: field,
           label: labels[field],
