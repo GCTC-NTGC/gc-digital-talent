@@ -8,7 +8,6 @@ import PageHeader from "@common/components/PageHeader";
 import { Link } from "@common/components";
 import Tabs from "@common/components/Tabs";
 import { commonMessages } from "@common/messages";
-import { getLocale } from "@common/helpers/localize";
 
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
@@ -23,7 +22,6 @@ interface ViewPoolPageProps {
 
 export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const adminPaths = useAdminRoutes();
 
   const pageTitle = intl.formatMessage({
