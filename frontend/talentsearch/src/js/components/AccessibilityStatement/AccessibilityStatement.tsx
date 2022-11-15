@@ -6,120 +6,194 @@ import Heading from "@common/components/Heading";
 import { ExternalLink } from "@common/components/Link";
 import { imageUrl } from "@common/helpers/router";
 
+import { getLocale, Locales } from "@common/helpers/localize";
 import useBreadcrumbs from "../../hooks/useBreadcrumbs";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 
-const digitalStandardsLink = (chunks: React.ReactNode) => (
+const digitalStandardsLink = (
+  locale: Locales,
+  chunks: React.ReactNode,
+): React.ReactNode => (
   <ExternalLink
     newTab
-    href="https://www.csps-efpc.gc.ca/tools/jobaids/digital-standards-eng.aspx"
+    href={
+      locale === "en"
+        ? "https://www.csps-efpc.gc.ca/tools/jobaids/digital-standards-eng.aspx"
+        : "https://www.csps-efpc.gc.ca/tools/jobaids/digital-standards-fra.aspx"
+    }
   >
     {chunks}
   </ExternalLink>
 );
 
 const wcagLink = (chunks: React.ReactNode) => (
-  <ExternalLink newTab href="https://www.w3.org/TR/WCAG21/">
+  <ExternalLink newTab hrefLang="en" href="https://www.w3.org/TR/WCAG21/">
     {chunks}
   </ExternalLink>
 );
 
 const atagLink = (chunks: React.ReactNode) => (
-  <ExternalLink newTab href="https://www.w3.org/TR/ATAG20/">
+  <ExternalLink newTab hrefLang="en" href="https://www.w3.org/TR/ATAG20/">
     {chunks}
   </ExternalLink>
 );
 
 const fableLink = (chunks: React.ReactNode) => (
-  <ExternalLink newTab href="https://makeitfable.com/">
+  <ExternalLink newTab hrefLang="en" href="https://makeitfable.com/">
     {chunks}
   </ExternalLink>
 );
 
-const acaLink = (chunks: React.ReactNode) => (
+const acaLink = (locale: Locales, chunks: React.ReactNode): React.ReactNode => (
   <ExternalLink
     newTab
-    href="https://laws.justice.gc.ca/eng/acts/A-0.6/page-1.html"
+    href={
+      locale === "en"
+        ? "https://laws.justice.gc.ca/eng/acts/A-0.6/page-1.html"
+        : "https://laws.justice.gc.ca/fra/lois/a-0.6/page-1.html"
+    }
   >
     {chunks}
   </ExternalLink>
 );
 
-const acrLink = (chunks: React.ReactNode) => (
+const acrLink = (locale: Locales, chunks: React.ReactNode): React.ReactNode => (
   <ExternalLink
     newTab
-    href="https://laws-lois.justice.gc.ca/eng/regulations/SOR-2021-241/page-1.html"
+    href={
+      locale === "en"
+        ? "https://laws-lois.justice.gc.ca/eng/regulations/SOR-2021-241/page-1.html"
+        : "https://laws-lois.justice.gc.ca/fra/reglements/DORS-2021-241/page-1.html"
+    }
   >
     {chunks}
   </ExternalLink>
 );
 
-const complaintsLink = (chunks: React.ReactNode) => (
-  <ExternalLink newTab href="https://www.accessibilitychrc.ca/en/complaints">
-    {chunks}
-  </ExternalLink>
-);
-
-const crtcLink = (chunks: React.ReactNode) => (
+const complaintsLink = (
+  locale: Locales,
+  chunks: React.ReactNode,
+): React.ReactNode => (
   <ExternalLink
     newTab
-    href="https://applications.crtc.gc.ca/question/eng/public-inquiries-form?t=8&_ga=2.164713722.457525239.1621277191-2073149377.1618941793"
+    href={
+      locale === "en"
+        ? "https://www.accessibilitychrc.ca/en/complaints"
+        : "https://www.accessibilitychrc.ca/fr/plaintes-0"
+    }
   >
     {chunks}
   </ExternalLink>
 );
 
-const crtcActLink = (chunks: React.ReactNode) => (
+const crtcLink = (
+  locale: Locales,
+  chunks: React.ReactNode,
+): React.ReactNode => (
   <ExternalLink
     newTab
-    href="https://laws-lois.justice.gc.ca/eng/acts/C-22/index.html"
+    href={
+      locale === "en"
+        ? "https://applications.crtc.gc.ca/question/eng/public-inquiries-form?t=8&_ga=2.164713722.457525239.1621277191-2073149377.1618941793"
+        : "https://applications.crtc.gc.ca/question/fra/formulaire-renseignements?t=8&_ga=2.164713722.457525239.1621277191-2073149377.1618941793"
+    }
   >
     {chunks}
   </ExternalLink>
 );
 
-const chrcLink = (chunks: React.ReactNode) => (
+const crtcActLink = (
+  locale: Locales,
+  chunks: React.ReactNode,
+): React.ReactNode => (
   <ExternalLink
     newTab
-    href="https://www.chrc-ccdp.gc.ca/en/complaints/make-a-complaint"
+    href={
+      locale === "en"
+        ? "https://laws-lois.justice.gc.ca/eng/acts/C-22/index.html"
+        : "https://laws-lois.justice.gc.ca/fra/lois/c-22/index.html"
+    }
   >
     {chunks}
   </ExternalLink>
 );
 
-const chraLink = (chunks: React.ReactNode) => (
+const chrcLink = (
+  locale: Locales,
+  chunks: React.ReactNode,
+): React.ReactNode => (
   <ExternalLink
     newTab
-    href="https://laws-lois.justice.gc.ca/eng/acts/h-6/FullText.html"
+    href={
+      locale === "en"
+        ? "https://www.chrc-ccdp.gc.ca/en/complaints/make-a-complaint"
+        : "https://www.chrc-ccdp.gc.ca/fr/plaintes/deposer-une-plainte"
+    }
   >
     {chunks}
   </ExternalLink>
 );
 
-const ctaLink = (chunks: React.ReactNode) => (
+const chraLink = (
+  locale: Locales,
+  chunks: React.ReactNode,
+): React.ReactNode => (
   <ExternalLink
     newTab
-    href="https://otc-cta.gc.ca/eng/accessibility-complaints-about-transportation-services"
+    href={
+      locale === "en"
+        ? "https://laws-lois.justice.gc.ca/eng/acts/h-6/FullText.html"
+        : "https://laws-lois.justice.gc.ca/fra/lois/h-6/TexteComplet.html"
+    }
   >
     {chunks}
   </ExternalLink>
 );
 
-const relationsLink = (chunks: React.ReactNode) => (
-  <ExternalLink newTab href="https://www.fpslreb-crtespf.gc.ca/en/index.html">
+const ctaLink = (locale: Locales, chunks: React.ReactNode): React.ReactNode => (
+  <ExternalLink
+    newTab
+    href={
+      locale === "en"
+        ? "https://otc-cta.gc.ca/eng/accessibility-complaints-about-transportation-services"
+        : "https://otc-cta.gc.ca/fra/plaintes-relatives-a-laccessibilite-concernant-services-transport"
+    }
+  >
     {chunks}
   </ExternalLink>
 );
 
-const relayServiceLink = (chunks: React.ReactNode) => (
-  <ExternalLink newTab href="https://srvcanadavrs.ca/en/">
+const relationsLink = (
+  locale: Locales,
+  chunks: React.ReactNode,
+): React.ReactNode => (
+  <ExternalLink
+    newTab
+    href={
+      locale === "en"
+        ? "https://www.fpslreb-crtespf.gc.ca/en/index.html"
+        : "https://www.fpslreb-crtespf.gc.ca/fr/index.html"
+    }
+  >
     {chunks}
   </ExternalLink>
 );
 
-const supportLink = (chunks: React.ReactNode) => (
-  <a href="mailto:gctalent-talentgc@support-soutien.gc.ca">{chunks}</a>
+const relayServiceLink = (
+  locale: Locales,
+  chunks: React.ReactNode,
+): React.ReactNode => (
+  <ExternalLink
+    newTab
+    href={
+      locale === "en"
+        ? "https://srvcanadavrs.ca/en/"
+        : "https://srvcanadavrs.ca/fr/"
+    }
+  >
+    {chunks}
+  </ExternalLink>
 );
 
 const chrcMailLink = (chunks: React.ReactNode) => (
@@ -136,6 +210,7 @@ const tollFreeLink = (chunks: React.ReactNode) => (
 
 const AccessibilityStatement = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useDirectIntakeRoutes();
 
   const pageTitle = intl.formatMessage({
@@ -198,7 +273,10 @@ const AccessibilityStatement = () => {
                 id: "tu2Z17",
                 description: "Paragraph describing accessibility standards",
               },
-              { digitalStandardsLink },
+              {
+                digitalStandardsLink: (chunks) =>
+                  digitalStandardsLink(locale, chunks),
+              },
             )}
           </p>
           <Heading level="h2" size="h3" data-h2-margin="base(x2, 0, x1, 0)">
@@ -382,7 +460,11 @@ const AccessibilityStatement = () => {
                   "The Accessibility Commissioner is responsible for enforcing the <acaLink>Accessible Canada Act</acaLink> and the <acrLink>Accessible Canada Regulations</acrLink>  in the federal public service. They will also deal with certain <complaintsLink>accessibility complaints</complaintsLink>. The Accessibility Commissioner is a member of the Canadian Human Rights Commission.",
                 description: "Text describing accessibility commissioner",
               },
-              { acaLink, acrLink, complaintsLink },
+              {
+                acaLink: (chunks) => acaLink(locale, chunks),
+                acrLink: (chunks) => acrLink(locale, chunks),
+                complaintsLink: (chunks) => complaintsLink(locale, chunks),
+              },
             )}
           </p>
           <p>
@@ -404,7 +486,10 @@ const AccessibilityStatement = () => {
                   description:
                     "Description of complaints to the Canadian Radio-television and Telecommunications Commission",
                 },
-                { crtcLink, crtcActLink },
+                {
+                  crtcLink: (chunks) => crtcLink(locale, chunks),
+                  crtcActLink: (chunks) => crtcActLink(locale, chunks),
+                },
               )}
             </li>
             <li>
@@ -416,7 +501,10 @@ const AccessibilityStatement = () => {
                   description:
                     "Description of complaints to the Canadian Human Rights Commission",
                 },
-                { chrcLink, chraLink },
+                {
+                  chrcLink: (chunks) => chrcLink(locale, chunks),
+                  chraLink: (chunks) => chraLink(locale, chunks),
+                },
               )}
             </li>
             <li>
@@ -429,7 +517,7 @@ const AccessibilityStatement = () => {
                     "Description of complaints to the Canadian Transportation Agency",
                 },
                 {
-                  ctaLink,
+                  ctaLink: (chunks) => ctaLink(locale, chunks),
                 },
               )}
             </li>
@@ -442,7 +530,7 @@ const AccessibilityStatement = () => {
                   description:
                     "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<",
                 },
-                { relationsLink },
+                { relationsLink: (chunks) => relationsLink(locale, chunks) },
               )}
             </li>
           </ul>
@@ -493,7 +581,10 @@ const AccessibilityStatement = () => {
                   id: "8M2Tbu",
                   description: "VRS contact info",
                 },
-                { relayServiceLink },
+                {
+                  relayServiceLink: (chunks) =>
+                    relayServiceLink(locale, chunks),
+                },
               )}
             </li>
             <li>
