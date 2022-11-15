@@ -38,7 +38,11 @@ const Footer = ({ width }: FooterProps) => {
     {
       // This needs a real route and translated label
       route: `/${intl.locale}/accessibility-statement`,
-      label: "Accessibility statement",
+      label: intl.formatMessage({
+        defaultMessage: "Accessibility statement",
+        id: "2iCpAL",
+        description: "Title for the websites accessibility statement",
+      }),
     },
     {
       route: `https://www.canada.ca/${intl.locale}.html`,
