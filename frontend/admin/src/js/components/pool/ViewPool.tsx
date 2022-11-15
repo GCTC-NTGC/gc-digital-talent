@@ -13,7 +13,7 @@ import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
 import { commonMessages } from "@common/messages";
-import { getLocale, getLocalizedName } from "@common/helpers/localize";
+import { getLocalizedName } from "@common/helpers/localize";
 
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
@@ -32,7 +32,7 @@ import {
   parseDateTimeUtc,
   relativeExpiryDate,
 } from "@common/helpers/dateUtils";
-import { transformPoolToPosterTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   SkillCategory,
@@ -68,13 +68,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
     }
   }, [linkCopied, setLinkCopied]);
 
-  const defaultPageTitle = intl.formatMessage({
-    defaultMessage: "Pool Details",
-    id: "yBmBnd",
-    description: "Title for the page when viewing an individual pool.",
-  });
-
-  const poolName = transformPoolToPosterTitle(intl, pool, defaultPageTitle);
+  const poolName = getFullPoolAdvertisementTitle(intl, pool);
   const classification = pool.classifications ? pool.classifications[0] : null;
 
   const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {
@@ -365,7 +359,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   type="text"
                   readOnly
                   hideOptional
-                  value={pool.name?.en ?? ""}
+                  value={getFullPoolAdvertisementTitle(intl, pool)}
                   label={intl.formatMessage({
                     defaultMessage: "Specific Title (English)",
                     id: "fTwl6k",

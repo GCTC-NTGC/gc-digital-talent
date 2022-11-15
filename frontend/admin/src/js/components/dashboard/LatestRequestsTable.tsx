@@ -10,7 +10,7 @@ import type { PoolCandidateSearchStatus } from "@common/api/generated";
 import { notEmpty } from "@common/helpers/util";
 import Pending from "@common/components/Pending";
 import Heading from "@common/components/Heading";
-import { transformPoolToPosterTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import Table, { tableViewItemButtonAccessor } from "../Table";
 import type { ColumnsOf } from "../Table";
 
@@ -51,8 +51,8 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
   const paths = useAdminRoutes();
 
   const localizedTransformPoolToPosterTitle = (
-    pool: Parameters<typeof transformPoolToPosterTitle>[1],
-  ) => transformPoolToPosterTitle(intl, pool);
+    pool: Parameters<typeof getFullPoolAdvertisementTitle>[1],
+  ) => getFullPoolAdvertisementTitle(intl, pool);
 
   const columns: ColumnsOf<Data> = [
     {

@@ -37,52 +37,36 @@ export const formatClassificationString = ({
   return `${group}-0${level}`;
 };
 
-export const transformPoolToPosterTitle = (
-  intl: IntlShape,
-  pool: Pick<PoolAdvertisement, "name" | "classifications" | "stream">,
-  defaultTitle = "", // allow a fallback if name, classifications and stream are all empty
-): string => {
-  const formattedTitle = formattedPoolPosterTitle({
-    title: getLocalizedName(pool.name, intl),
-    classification: pool?.classifications?.[0] // TODO: If a pool has multiple classifications, only the first will be shown.
-      ? formatClassificationString(pool?.classifications?.[0])
-      : null,
-    stream: pool.stream,
-    intl,
-  });
-  return formattedTitle || defaultTitle;
-};
-
 export const getFullPoolAdvertisementTitle = (
   intl: IntlShape,
   poolAdvertisement: Maybe<
     Pick<PoolAdvertisement, "name" | "classifications" | "stream">
   >,
+  options?: { defaultTitle?: string },
 ): string => {
-  if (poolAdvertisement === null || poolAdvertisement === undefined)
-    return intl.formatMessage({
+  const fallbackTitle =
+    options?.defaultTitle ??
+    intl.formatMessage({
       id: "D91nGW",
       defaultMessage: "Job title not found.",
       description:
         "Message shown to user when pool name or classification are not found.",
     });
 
-  const classification = poolAdvertisement.classifications
-    ? poolAdvertisement.classifications[0]
+  if (poolAdvertisement === null || poolAdvertisement === undefined)
+    return fallbackTitle;
+
+  const formattedClassification = poolAdvertisement?.classifications?.[0] // TODO: If a pool has multiple classifications, only the first will be shown.
+    ? formatClassificationString(poolAdvertisement?.classifications?.[0])
     : null;
 
-  let classificationSuffix = ""; // type wrangling the complex type into a string
-  if (classification) {
-    classificationSuffix = formatClassificationString({
-      group: classification?.group,
-      level: classification?.level,
-    });
-  }
   const specificTitle = getLocalizedName(poolAdvertisement.name, intl);
 
-  return `${specificTitle ? `${specificTitle} ` : ""}(${classificationSuffix}${
-    poolAdvertisement.stream
-      ? ` ${intl.formatMessage(getPoolStream(poolAdvertisement.stream))}`
-      : ""
-  })`;
+  const formattedTitle = formattedPoolPosterTitle({
+    title: specificTitle,
+    classification: formattedClassification,
+    stream: poolAdvertisement.stream,
+    intl,
+  });
+  return formattedTitle ?? fallbackTitle;
 };

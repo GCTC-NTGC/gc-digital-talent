@@ -28,7 +28,7 @@ import { BasicForm, TextArea } from "@common/components/form";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import Heading from "@common/components/Heading";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
-import { transformPoolToPosterTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { useAdminRoutes } from "admin/src/js/adminRoutes";
 import {
   AddToPoolDialog,
@@ -123,7 +123,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                 >
                   {candidate.pool ? (
                     <Link href={routes.poolView(candidate.pool.id)}>
-                      {transformPoolToPosterTitle(intl, candidate.pool)}
+                      {getFullPoolAdvertisementTitle(intl, candidate.pool)}
                     </Link>
                   ) : (
                     ""
@@ -384,7 +384,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                     "Toast notification for successful update of candidates notes in specified pool",
                 },
                 {
-                  poolName: candidate.pool?.name?.[locale],
+                  poolName: getFullPoolAdvertisementTitle(intl, candidate.pool),
                 },
               ),
             );
@@ -400,7 +400,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                     "Toast notification for failed update of candidates notes in specified pool",
                 },
                 {
-                  poolName: candidate.pool?.name?.[locale],
+                  poolName: getFullPoolAdvertisementTitle(intl, candidate.pool),
                 },
               ),
             );
@@ -442,7 +442,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                       defaultMessage: "Notes",
                       id: "CSDdh/",
                       description: "Title for a pool candidates notes field",
-                    })} - ${candidate.pool?.name?.[locale]}`}
+                    })} - ${getFullPoolAdvertisementTitle(intl, pool)}`}
                     defaultValue={candidate.notes ? candidate.notes : ""}
                     placeholder={intl.formatMessage({
                       defaultMessage: "Start writing your notes here...",
