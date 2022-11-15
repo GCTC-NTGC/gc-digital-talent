@@ -47,6 +47,12 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
         en
         fr
       }
+      classifications {
+        id
+        group
+        level
+      }
+      stream
     }
   }
   requestedDate
@@ -88,6 +94,7 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
         en
         fr
       }
+      stream
       classifications {
         id
         group

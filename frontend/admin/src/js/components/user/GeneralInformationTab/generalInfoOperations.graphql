@@ -46,5 +46,11 @@ query GetGeneralInfo($id: ID!) {
       en
       fr
     }
+    stream
+    classifications {
+      id
+      group
+      level
+    }
   }
 }

@@ -77,5 +77,6 @@ mutation createPool($pool: CreatePoolInput!) {
       key
     }
     operationalRequirements
+    stream
   }
 }

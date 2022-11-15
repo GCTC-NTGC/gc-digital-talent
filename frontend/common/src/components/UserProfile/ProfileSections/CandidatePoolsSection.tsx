@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitle } from "../../../helpers/poolUtils";
 import Well from "../../Well";
 import { unpackMaybes } from "../../../helpers/formUtils";
 import type { Applicant } from "../../../api/generated";
