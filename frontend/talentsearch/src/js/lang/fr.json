@@ -2819,5 +2819,9 @@
   "om2bZu": {
     "defaultMessage": "Le présent énoncé a été préparé le 8 novembre 2022.",
     "description": "Disclaimer for the when the accessibility statement was last updated"
+  },
+  "FkwGWO": {
+    "defaultMessage": "Notre engagement envers la conception, l’élaboration et la prestation de services accessibles.",
+    "description": "Subtitle for the accessibility statement page."
   }
 }
