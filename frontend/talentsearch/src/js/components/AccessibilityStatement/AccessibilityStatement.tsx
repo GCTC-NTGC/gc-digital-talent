@@ -209,13 +209,16 @@ const AccessibilityStatement = () => {
             })}
           </Heading>
           <p>
-            {intl.formatMessage({
-              id: "diqg2D",
-              defaultMessage:
-                "While <wcagLink> Web Content Accessibility Guidelines (WCAG) 2.1</wcagLink> AA standards set out a baseline for conformance, audits from real users allow us to deliver beyond the minimum requirements. Accessibility is considered at every stage of our product design and development cycle. We try to make sure everyone has a pleasant experience on our platform.",
-              description:
-                "Paragraph describing accessibility at every level of development",
-            })}
+            {intl.formatMessage(
+              {
+                id: "5Cwvgi",
+                defaultMessage:
+                  "While <wcagLink>Web Content Accessibility Guidelines (WCAG) 2.1</wcagLink> AA standards set out a baseline for conformance, audits from real users allow us to deliver beyond the minimum requirements. Accessibility is considered at every stage of our product design and development cycle. We try to make sure everyone has a pleasant experience on our platform.",
+                description:
+                  "Paragraph describing accessibility at every level of development",
+              },
+              { wcagLink },
+            )}
           </p>
           <p>
             {intl.formatMessage({
@@ -328,8 +331,8 @@ const AccessibilityStatement = () => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "<strong>Testing with Real Users.</strong> Before we consider anything to be ready for release, we work with <fableLink> Fable Tech Labs</fableLink> to get our products and features evaluated by users who require adaptive technologies to access the web. This is an important step to make sure our products work for real people.",
-                id: "aRS+5C",
+                  "<strong>Testing with Real Users.</strong> Before we consider anything to be ready for release, we work with <fableLink>Fable Tech Labs</fableLink> to get our products and features evaluated by users who require adaptive technologies to access the web. This is an important step to make sure our products work for real people.",
+                id: "HCWGjZ",
                 description:
                   "Text describing our user testing for accessibility",
               },
@@ -352,15 +355,9 @@ const AccessibilityStatement = () => {
             })}
           </p>
           <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "<supportLink>gctalent-talentgc@support-soutien.gc.ca</supportLink>",
-                id: "O5OPKX",
-                description: "Accessibility support email link",
-              },
-              { supportLink },
-            )}
+            <a href="mailto:gctalent-talentgc@support-soutien.gc.ca">
+              gctalent-talentgc@support-soutien.gc.ca
+            </a>
           </p>
           <p>
             {intl.formatMessage({
@@ -402,8 +399,8 @@ const AccessibilityStatement = () => {
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "The <crtcLink>Canadian Radio-television and Telecommunications Commission</crtcLink> (CRTC) deals with broadcasting and telecommunications provider complaints under the <crtcActLink> Canadian Radio-television and Telecommunications Commission Act</crtcActLink>",
-                  id: "dIUPIO",
+                    "The <crtcLink>Canadian Radio-television and Telecommunications Commission</crtcLink> (CRTC) deals with broadcasting and telecommunications provider complaints under the <crtcActLink>Canadian Radio-television and Telecommunications Commission Act</crtcActLink>",
+                  id: "+G/4Zs",
                   description:
                     "Description of complaints to the Canadian Radio-television and Telecommunications Commission",
                 },
