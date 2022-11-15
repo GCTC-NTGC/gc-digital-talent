@@ -74,7 +74,7 @@ describe("Create Account Form tests", () => {
     });
 
     fireEvent.submit(screen.getByRole("button", { name: /save/i }));
-    expect(await screen.findAllByRole("alert")).toHaveLength(5);
+    expect(await screen.findAllByRole("alert")).toHaveLength(6);
     expect(mockSave).not.toHaveBeenCalled();
   });
 

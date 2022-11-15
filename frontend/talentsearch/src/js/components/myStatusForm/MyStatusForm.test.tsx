@@ -9,6 +9,7 @@ import {
   fireEvent,
   waitFor,
   axeTest,
+  act,
 } from "@common/helpers/testUtils";
 import { GetMyStatusQuery } from "../../api/generated";
 import { MyStatusForm, MyStatusFormProps } from "./MyStatusForm";
@@ -38,20 +39,25 @@ const mockEmptyData: GetMyStatusQuery | undefined = {
 
 describe("MyStatusForm tests", () => {
   it("should have no accessibility errors", async () => {
-    const { container } = renderMyStatusForm({
-      initialData: mockDataForCompleteForm,
-      handleMyStatus: jest.fn(),
-    });
+    await act(async () => {
+      const { container } = renderMyStatusForm({
+        initialData: mockDataForCompleteForm,
+        handleMyStatus: jest.fn(),
+      });
 
-    await axeTest(container);
+      await axeTest(container);
+    });
   });
 
-  test("Should render fields", () => {
+  test("Should render fields", async () => {
     const onClick = jest.fn();
-    renderMyStatusForm({
-      initialData: mockDataForCompleteForm,
-      handleMyStatus: onClick,
+    await act(async () => {
+      renderMyStatusForm({
+        initialData: mockDataForCompleteForm,
+        handleMyStatus: onClick,
+      });
     });
+
     expect(
       screen.getByRole("radio", {
         name: /Actively looking -/i,
@@ -68,12 +74,15 @@ describe("MyStatusForm tests", () => {
       }),
     ).toBeInTheDocument();
   });
-  test("If application not complete, inputs disabled and Why can I change my status appears", () => {
+  test("If application not complete, inputs disabled and Why can I change my status appears", async () => {
     const onClick = jest.fn();
-    renderMyStatusForm({
-      initialData: mockDataForIncompleteForm,
-      handleMyStatus: onClick,
+    await act(async () => {
+      renderMyStatusForm({
+        initialData: mockDataForIncompleteForm,
+        handleMyStatus: onClick,
+      });
     });
+
     expect(
       screen.getByRole("radio", {
         name: /Actively looking -/i,
@@ -93,12 +102,15 @@ describe("MyStatusForm tests", () => {
       screen.getByText(`Why can’t I change my status?`),
     ).toBeInTheDocument();
   });
-  test("If application complete, inputs enabled and Why can I change my status hidden", () => {
+  test("If application complete, inputs enabled and Why can I change my status hidden", async () => {
     const onClick = jest.fn();
-    renderMyStatusForm({
-      initialData: mockDataForCompleteForm,
-      handleMyStatus: onClick,
+    await act(async () => {
+      renderMyStatusForm({
+        initialData: mockDataForCompleteForm,
+        handleMyStatus: onClick,
+      });
     });
+
     expect(
       screen.getByRole("radio", {
         name: /Actively looking -/i,
@@ -120,9 +132,11 @@ describe("MyStatusForm tests", () => {
   });
   test("Submit handler called whenever radio selection changes", async () => {
     const OnClick = jest.fn();
-    renderMyStatusForm({
-      initialData: mockEmptyData,
-      handleMyStatus: OnClick,
+    await act(async () => {
+      renderMyStatusForm({
+        initialData: mockEmptyData,
+        handleMyStatus: OnClick,
+      });
     });
 
     fireEvent.click(
