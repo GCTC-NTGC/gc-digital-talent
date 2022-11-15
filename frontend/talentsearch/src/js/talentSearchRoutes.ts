@@ -12,6 +12,8 @@ const talentSearchRoutes = (lang: string) => {
     support: (): string => path.join("/", lang, "support"),
     search: (): string => path.join("/", lang, "search"),
     request: (): string => path.join("/", lang, "search", "request"),
+    accessibility: (): string =>
+      path.join("/", lang, "accessibility-statement"),
   };
 };
 
