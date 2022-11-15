@@ -179,11 +179,15 @@ export const useFieldState = (
   const isDirty = get(dirtyFields, name, false);
   const isInvalid = get(errors, name, false);
 
+  if (isInvalid) {
+    return "invalid";
+  }
+
   if (isDirty && !ignoreUnsaved) {
     return "dirty";
   }
 
-  return isInvalid ? "invalid" : "unset";
+  return "unset";
 };
 
 /**
