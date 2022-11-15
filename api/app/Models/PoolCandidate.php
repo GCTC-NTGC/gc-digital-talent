@@ -334,6 +334,40 @@ RAWSQL2;
         return $query;
     }
 
+    public static function filterByName(Builder $query, ?string $name): Builder
+    {
+        if ($name) {
+            $splitName = explode(" ", $name);
+            $query->whereExists(function ($query) use ($splitName) {
+                $query->select('id')
+                    ->from('users')
+                    ->whereColumn('users.id', 'pool_candidates.user_id')
+                    ->where(function ($query) use ($splitName) {
+                        foreach ($splitName as $index => $value) {
+                            $query->where('first_name', "ilike", "%{$value}%")
+                                ->orWhere('last_name', "ilike", "%{$value}%");
+                        }
+                    });
+            });
+        }
+        return $query;
+    }
+
+    public static function scopeEmail(Builder $query, ?string $email): Builder
+    {
+        if ($email) {
+            $query->whereExists(function ($query) use ($email) {
+                $query->select('id')
+                    ->from('users')
+                    ->whereColumn('users.id', 'pool_candidates.user_id')
+                    ->where(function ($query) use ($email) {
+                        $query->where('email', 'ilike', "%{$email}%");
+                    });
+            });
+        }
+        return $query;
+    }
+
 
     public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
     {

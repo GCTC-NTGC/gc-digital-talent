@@ -8,11 +8,11 @@ export const fieldStateStyles: Record<FieldState, Record<string, string>> = {
     "data-h2-background-color": "base(dt-white)",
   },
   invalid: {
-    "data-h2-border": "base(all, 2px, solid, dark.dt-error)",
-    "data-h2-background-color": "base(light.dt-error.1)",
+    "data-h2-border": "base(all, 2px, solid, dark.tm-red)",
+    "data-h2-background-color": "base(lightest.tm-red)",
   },
   dirty: {
     "data-h2-border": "base(all, 2px, solid, dark.tm-blue)",
-    "data-h2-background-color": "base(light.tm-blue)",
+    "data-h2-background-color": "base(lightest.tm-blue)",
   },
 };
