@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import Well from "@common/components/Well";
 import { getLocale } from "@common/helpers/localize";
 
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { PoolCandidate } from "../../../api/generated";
 
 const CandidatePoolsSection: React.FunctionComponent<{
@@ -34,7 +35,7 @@ const CandidatePoolsSection: React.FunctionComponent<{
             data-h2-padding="base(x1, 0)"
           >
             <div>
-              <p>{poolCandidate?.pool?.name?.[locale]}</p>
+              <p>{getFullPoolAdvertisementTitle(intl, poolCandidate?.pool)}</p>
             </div>
             <div>
               <p>

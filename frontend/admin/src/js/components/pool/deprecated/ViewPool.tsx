@@ -12,6 +12,7 @@ import { getLocale } from "@common/helpers/localize";
 
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { useAdminRoutes } from "../../../adminRoutes";
 import { useGetPoolQuery } from "../../../api/generated";
 import type { Pool } from "../../../api/generated";
@@ -31,7 +32,9 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
     description: "Title for the page when viewing an individual pool.",
   });
 
-  const poolName = pool.name ? pool.name[locale] : pageTitle;
+  const poolName = getFullPoolAdvertisementTitle(intl, pool, {
+    defaultTitle: pageTitle,
+  });
 
   const links = [
     {
@@ -78,14 +81,12 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
         data-h2-flex-direction="base(column) l-tablet(row)"
         data-h2-margin="base(x2, 0)"
       >
-        {pool.name && (
-          <h2
-            data-h2-margin="base(x.5, 0) p-tablet(0)"
-            data-h2-font-weight="base(700)"
-          >
-            {poolName}
-          </h2>
-        )}
+        <h2
+          data-h2-margin="base(x.5, 0) p-tablet(0)"
+          data-h2-font-weight="base(700)"
+        >
+          {getFullPoolAdvertisementTitle(intl, pool)}
+        </h2>
         <div data-h2-margin="l-tablet(0, 0, 0, auto)">
           <Link
             mode="outline"

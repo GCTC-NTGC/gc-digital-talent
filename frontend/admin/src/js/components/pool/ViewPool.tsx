@@ -359,7 +359,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                   type="text"
                   readOnly
                   hideOptional
-                  value={getFullPoolAdvertisementTitle(intl, pool)}
+                  value={pool.name?.en ?? ""}
                   label={intl.formatMessage({
                     defaultMessage: "Specific Title (English)",
                     id: "fTwl6k",

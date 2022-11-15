@@ -7,6 +7,7 @@ import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import Link from "@common/components/Link";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useGetPoolQuery } from "../../api/generated";
 import type { Pool } from "../../api/generated";
@@ -31,7 +32,7 @@ const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
     },
 
     {
-      title: pool?.name?.[locale],
+      title: getFullPoolAdvertisementTitle(intl, pool),
       href: pool ? paths.pool(pool.id) : undefined,
     },
   ] as BreadcrumbsProps["links"];
@@ -39,7 +40,7 @@ const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
   return (
     <>
       <Breadcrumbs links={links} />
-      <h1>{pool.name?.[locale]}</h1>
+      <h1>{getFullPoolAdvertisementTitle(intl, pool)}</h1>
       <Link
         type="button"
         mode="outline"
