@@ -9,6 +9,7 @@ const nullAdvertisement: any = {};
 Object.keys(fakeAdvertisement).forEach((key) => {
   nullAdvertisement[key] = null;
 });
+nullAdvertisement.id = fakeAdvertisement.id; // advertisement will never have a null id
 
 export default {
   component: PoolAdvertisementPoster,
