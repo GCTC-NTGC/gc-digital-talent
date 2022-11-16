@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 
@@ -282,10 +282,16 @@ export const CreateAccountForm: React.FunctionComponent<
   );
 };
 
+type LocationState = {
+  from?: string;
+};
+
 const CreateAccount: React.FunctionComponent = () => {
   const intl = useIntl();
+  const location = useLocation();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const { from } = location.state as LocationState;
 
   const [lookUpResult] = useGetCreateAccountFormDataQuery();
   const { data: lookupData, fetching, error } = lookUpResult;
@@ -325,7 +331,7 @@ const CreateAccount: React.FunctionComponent = () => {
     }
     await handleCreateAccount(meId, data)
       .then(() => {
-        navigate(paths.profile(meId));
+        navigate(from || paths.profile(meId));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Account successfully created.",
