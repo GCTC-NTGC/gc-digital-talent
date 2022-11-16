@@ -74,6 +74,14 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage({
+          defaultMessage: "Pool Name",
+          id: "HocLRh",
+          description: "Title displayed for the Pool table pool name column.",
+        }),
+        accessor: (d) => viewLinkAccessor(editUrlRoot, d, intl),
+      },
+      {
+        Header: intl.formatMessage({
           defaultMessage: "Candidates",
           id: "EdUZaX",
           description:
@@ -88,19 +96,16 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Pool Name",
-          id: "HocLRh",
-          description: "Title displayed for the Pool table pool name column.",
+          defaultMessage: "Status",
+          id: "ioqFVF",
+          description: "Title displayed for the Pool table status column.",
         }),
-        accessor: (d) => viewLinkAccessor(editUrlRoot, d, intl),
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Owner",
-          id: "VgbJiw",
-          description: "Title displayed for the Pool table owner email column.",
-        }),
-        accessor: ({ owner }) => owner?.email,
+        accessor: ({ advertisementStatus }) =>
+          intl.formatMessage(
+            advertisementStatus
+              ? getAdvertisementStatus(advertisementStatus)
+              : commonMessages.notFound,
+          ),
       },
       {
         Header: intl.formatMessage({
@@ -124,16 +129,11 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "ioqFVF",
-          description: "Title displayed for the Pool table status column.",
+          defaultMessage: "Owner",
+          id: "VgbJiw",
+          description: "Title displayed for the Pool table owner email column.",
         }),
-        accessor: ({ advertisementStatus }) =>
-          intl.formatMessage(
-            advertisementStatus
-              ? getAdvertisementStatus(advertisementStatus)
-              : commonMessages.notFound,
-          ),
+        accessor: ({ owner }) => owner?.email,
       },
       {
         Header: intl.formatMessage({
