@@ -42,6 +42,7 @@ export const decorators = [
   MockGraphqlDecorator,
   withIntl,
   withThemeProvider,
+  withRouter,
   (Story) => (
     <div data-h2-font-family="base(sans)">
       <Story />
