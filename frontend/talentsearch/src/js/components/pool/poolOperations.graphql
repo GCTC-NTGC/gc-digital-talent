@@ -5,12 +5,17 @@ query getPool($id: ID!) {
       en
       fr
     }
+    stream
+    classifications {
+      id
+      group
+      level
+    }
   }
 }
 
 query getPoolAdvertisement($id: ID!) {
   me {
-    roles
     id
     poolCandidates {
       id

@@ -11,13 +11,12 @@ import { notEmpty } from "@common/helpers/util";
 import Pending from "@common/components/Pending";
 import Heading from "@common/components/Heading";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import Table, { tableViewItemButtonAccessor } from "../Table";
 import type { ColumnsOf } from "../Table";
 
 import {
   ApplicantFilter,
-  LocalizedString,
-  Maybe,
   PoolCandidateFilter,
   useLatestRequestsQuery,
 } from "../../api/generated";
@@ -52,6 +51,10 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
 
+  const localizedTransformPoolToPosterTitle = (
+    pool: Parameters<typeof getFullPoolAdvertisementTitle>[1],
+  ) => getFullPoolAdvertisementTitle(intl, pool);
+
   const columns: ColumnsOf<Data> = [
     {
       Header: intl.formatMessage({
@@ -84,10 +87,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
         return pools
           ? pools
               .filter(notEmpty)
-              .map(
-                (pool: { name?: Maybe<LocalizedString> }) =>
-                  pool?.name?.[locale],
-              )
+              .map(localizedTransformPoolToPosterTitle)
               .filter(notEmpty)
               .join(", ")
           : null;
@@ -101,7 +101,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
             pool && (
               <React.Fragment key={pool.id}>
                 <a href={paths.poolCandidateTable(pool.id)}>
-                  {pool.name?.[locale]}
+                  {localizedTransformPoolToPosterTitle(pool)}
                 </a>
                 {index > 0 && ", "}
               </React.Fragment>
