@@ -33,7 +33,10 @@ import {
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
 import { notEmpty } from "@common/helpers/util";
-
+import {
+  formatClassificationString,
+  getFullPoolAdvertisementTitle,
+} from "@common/helpers/poolUtils";
 import { useGetPoolAdvertisementQuery, Maybe } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
@@ -42,7 +45,6 @@ import TALENTSEARCH_APP_DIR, {
 } from "../../talentSearchConstants";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
-import getFullPoolAdvertisementTitle from "./getFullPoolAdvertisementTitle";
 import { hasUserApplied, isAdvertisementVisible } from "./utils";
 
 interface ApplyButtonProps {
@@ -130,7 +132,13 @@ const PoolAdvertisement = ({
   const genericTitle = classification?.genericJobTitles?.length
     ? classification.genericJobTitles[0]
     : null;
-  const classificationSuffix = `${classification?.group}-0${classification?.level}`;
+  let classificationSuffix = ""; // type wrangling the complex type into a string
+  if (classification) {
+    classificationSuffix = formatClassificationString({
+      group: classification?.group,
+      level: classification?.level,
+    });
+  }
   const fullTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
   const canApply =
     poolAdvertisement.advertisementStatus &&

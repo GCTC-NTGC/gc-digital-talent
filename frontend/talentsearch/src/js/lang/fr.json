@@ -2060,10 +2060,6 @@
     "defaultMessage": "Candidatures archivées",
     "description": "Title for a users archived applications"
   },
-  "D91nGW": {
-    "defaultMessage": "Titre du poste non trouvé.",
-    "description": "Message shown to user when pool name or classification are not found."
-  },
   "DZwVvi": {
     "defaultMessage": "Membre des Forces armées canadiennes (FAC)",
     "description": "Legend text for required Canadian Armed Forces selection in About Me form"
@@ -2671,5 +2667,9 @@
   "wl8GI6": {
     "defaultMessage": "Mon rôle",
     "description": "Label displayed on an Experience form for role input"
+  },
+  "xHjgXz": {
+    "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu!",
+    "description": "Text displayed when there are no pool advertisements to display"
   }
 }

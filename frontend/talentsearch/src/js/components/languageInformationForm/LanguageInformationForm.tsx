@@ -10,6 +10,7 @@ import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import { errorMessages, navigationMessages } from "@common/messages";
 import { BasicForm, Checklist } from "@common/components/form";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import {
   BilingualEvaluation,
@@ -23,7 +24,6 @@ import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import useRoutes from "../../hooks/useRoutes";
 import profileMessages from "../profile/profileMessages";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 import ConsideredLanguages from "./ConsideredLanguages";
 
 export type FormValues = Pick<

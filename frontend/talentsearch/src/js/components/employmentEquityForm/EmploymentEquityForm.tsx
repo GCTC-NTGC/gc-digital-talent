@@ -5,6 +5,7 @@ import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import Well from "@common/components/Well";
 import { navigationMessages } from "@common/messages";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import EquityOptions from "./EquityOptions";

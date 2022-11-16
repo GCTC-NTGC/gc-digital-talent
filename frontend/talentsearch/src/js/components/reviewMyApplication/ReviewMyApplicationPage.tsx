@@ -14,6 +14,7 @@ import { notEmpty } from "@common/helpers/util";
 import { Link } from "@common/components";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { getMissingSkills } from "@common/helpers/skillUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
 import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";

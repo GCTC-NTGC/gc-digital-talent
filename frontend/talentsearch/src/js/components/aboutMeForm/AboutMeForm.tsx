@@ -17,6 +17,7 @@ import {
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { emptyToNull } from "@common/helpers/util";
 
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {

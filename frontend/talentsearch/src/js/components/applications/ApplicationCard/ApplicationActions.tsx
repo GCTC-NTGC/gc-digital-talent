@@ -5,11 +5,11 @@ import { Button, Link } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import useRoutes from "../../../hooks/useRoutes";
 
 import type { Application } from "./ApplicationCard";
-import getFullPoolAdvertisementTitle from "../../pool/getFullPoolAdvertisementTitle";
 
 export interface ActionProps {
   show: boolean;

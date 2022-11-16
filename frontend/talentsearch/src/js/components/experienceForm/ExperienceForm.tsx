@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
-import { OperationContext } from "urql";
+import { OperationContext, OperationContext } from "urql";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
 import { BasicForm, TextArea } from "@common/components/form";
@@ -14,7 +14,7 @@ import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { notEmpty } from "@common/helpers/util";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import AwardDetailsForm from "../awardDetailsForm/AwardDetailsForm";

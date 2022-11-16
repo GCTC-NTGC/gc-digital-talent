@@ -18,6 +18,7 @@ import { navigationMessages } from "@common/messages";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import {
   AwardExperience,

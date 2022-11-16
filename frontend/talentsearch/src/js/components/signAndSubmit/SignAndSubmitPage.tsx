@@ -19,6 +19,7 @@ import { errorMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { getMissingSkills } from "@common/helpers/skillUtils";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import useRoutes from "../../hooks/useRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
@@ -29,7 +30,6 @@ import {
   useGetApplicationDataQuery,
   useSubmitApplicationMutation,
 } from "../../api/generated";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 const ImportantInfo = () => {
   const intl = useIntl();

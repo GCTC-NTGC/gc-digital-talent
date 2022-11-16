@@ -10,6 +10,7 @@ import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { errorMessages, navigationMessages } from "@common/messages";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import {
   CreateUserInput,
@@ -22,7 +23,6 @@ import {
 import useRoutes from "../../hooks/useRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<

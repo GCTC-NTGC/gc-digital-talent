@@ -17,7 +17,7 @@ import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import ExternalLink from "@common/components/Link/ExternalLink";
 import { FieldLabels } from "@common/components/form/BasicForm";
-
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   Classification,
   UpdateUserAsUserInput,
@@ -31,7 +31,6 @@ import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import useRoutes from "../../hooks/useRoutes";
 import profileMessages from "../profile/profileMessages";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";

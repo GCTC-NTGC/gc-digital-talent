@@ -15,6 +15,7 @@ import { unpackMaybes } from "@common/helpers/formUtils";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import Well from "@common/components/Well";
 import { ExternalLink } from "@common/components/Link";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   DialogLevelOne,
   DialogLevelTwo,

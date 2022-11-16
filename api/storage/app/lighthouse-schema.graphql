@@ -870,6 +870,8 @@ input PoolCandidateFilterInput {
   equity: EquitySelectionsInput
   expectedClassifications: [ClassificationFilterInput]
   generalSearch: String
+  email: String
+  name: String
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]

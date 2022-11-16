@@ -2007,5 +2007,25 @@
   "6uce1H": {
     "defaultMessage": "Toutes les compétences",
     "description": "Label for the skill picker family filter"
+  },
+  "IlPyP8": {
+    "defaultMessage": "Vous devez remédier aux erreurs suivantes avant de soumettre le formulaire :",
+    "description": "Message indicating which errors the form has"
+  },
+  "iqD8qE": {
+    "defaultMessage": "Erreur inconnue",
+    "description": "Fallback text when an error message is not supplied"
+  },
+  "sVsZmT": {
+    "defaultMessage": "<a>Veuillez communiquer avec notre équipe de soutien</a>  si vous avez des questions.",
+    "description": "Telling users to email support team with any questions about errors"
+  },
+  "xAxxmc": {
+    "defaultMessage": "Oupse! Vous avez des erreurs!",
+    "description": "Title for error summary on profile forms"
+  },
+  "D91nGW": {
+    "defaultMessage": "Titre du poste non trouvé.",
+    "description": "Message shown to user when pool name or classification are not found."
   }
 }
