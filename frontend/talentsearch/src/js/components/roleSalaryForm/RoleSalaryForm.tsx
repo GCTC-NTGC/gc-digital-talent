@@ -16,6 +16,7 @@ import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import Well from "@common/components/Well";
 import { ExternalLink } from "@common/components/Link";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+
 import {
   DialogLevelOne,
   DialogLevelTwo,
@@ -36,7 +37,6 @@ import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import profileMessages from "../profile/profileMessages";
 import useRoutes from "../../hooks/useRoutes";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export type FormValues = {
   expectedGenericJobTitles: GenericJobTitleKey[];

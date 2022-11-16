@@ -33,7 +33,6 @@ import useRoutes from "../../hooks/useRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import { ExperienceType } from "../experienceForm/types";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 type MergedExperiences = Array<
   | AwardExperience

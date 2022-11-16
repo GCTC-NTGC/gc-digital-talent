@@ -16,8 +16,8 @@ import {
 } from "@common/constants/localizedConstants";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { emptyToNull } from "@common/helpers/util";
-
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
@@ -31,7 +31,6 @@ import {
 import type { User, UpdateUserAsUserInput } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
 import profileMessages from "../profile/profileMessages";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export type FormValues = Pick<
   User,

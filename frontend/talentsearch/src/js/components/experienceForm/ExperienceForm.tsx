@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
-import { OperationContext, OperationContext } from "urql";
+import { OperationContext } from "urql";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
 import { BasicForm, TextArea } from "@common/components/form";
@@ -49,7 +49,6 @@ import {
   useExperienceMutations,
   useDeleteExperienceMutation,
 } from "./mutations";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 import getExperienceFormLabels from "./labels";
 
 export interface ExperienceFormProps {

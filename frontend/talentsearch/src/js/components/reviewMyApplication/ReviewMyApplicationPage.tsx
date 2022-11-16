@@ -17,7 +17,6 @@ import { getMissingSkills } from "@common/helpers/skillUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 import useRoutes from "../../hooks/useRoutes";
 import {

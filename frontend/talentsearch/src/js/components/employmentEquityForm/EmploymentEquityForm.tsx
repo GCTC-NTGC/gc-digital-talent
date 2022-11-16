@@ -13,7 +13,6 @@ import type { EmploymentEquityUpdateHandler, EquityKeys } from "./types";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import { User, PoolCandidate } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export interface EmploymentEquityFormProps {
   user: User;
