@@ -13,7 +13,7 @@ nullAdvertisement.id = fakeAdvertisement.id; // advertisement will never have a 
 
 export default {
   component: PoolAdvertisementPoster,
-  title: "Pool/PoolAdvertisementPoster",
+  title: "Pools/Pool Advertisement Poster",
 } as Meta;
 
 const TemplatePoolAdvertisementPoster: Story = (...args) => (
