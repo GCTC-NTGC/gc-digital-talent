@@ -147,13 +147,17 @@ export const PoolAdvertisementPoster = ({
     poolAdvertisement.advertisementStatus &&
     poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;
 
-  const languageRequirement = intl.formatMessage(
-    getLanguageRequirement(poolAdvertisement.advertisementLanguage ?? ""),
-  );
+  const languageRequirement = poolAdvertisement.advertisementLanguage
+    ? intl.formatMessage(
+        getLanguageRequirement(poolAdvertisement.advertisementLanguage),
+      )
+    : "";
 
-  const securityClearance = intl.formatMessage(
-    getSecurityClearance(poolAdvertisement.securityClearance ?? ""),
-  );
+  const securityClearance = poolAdvertisement.securityClearance
+    ? intl.formatMessage(
+        getSecurityClearance(poolAdvertisement.securityClearance),
+      )
+    : "";
 
   const essentialSkills = categorizeSkill(poolAdvertisement.essentialSkills);
   const nonEssentialSkills = categorizeSkill(
