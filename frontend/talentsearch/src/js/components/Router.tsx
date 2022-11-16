@@ -15,6 +15,9 @@ import CreateAccountRedirect from "./createAccount/CreateAccountRedirect";
 const HomePage = React.lazy(() => import("./Home/HomePage"));
 const ErrorPage = React.lazy(() => import("./Error/ErrorPage"));
 const SupportPage = React.lazy(() => import("./support/SupportPage"));
+const AccessibilityPage = React.lazy(
+  () => import("./AccessibilityStatement/AccessibilityStatement"),
+);
 
 /** Search */
 const SearchPage = React.lazy(() => import("./search/SearchPage"));
@@ -93,6 +96,10 @@ const router = createBrowserRouter([
           {
             path: "support",
             element: <SupportPage />,
+          },
+          {
+            path: "accessibility-statement",
+            element: <AccessibilityPage />,
           },
           {
             path: "search",

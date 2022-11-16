@@ -2,12 +2,16 @@ alertdialog
 Analyser
 APPLICANTSEARCH
 Assertable
+atag
 Authenticatable
 BEHAVIOURAL
+chra
+chrc
 colour
 colours
 combobox
 corejs
+CRTC
 darkgold
 darkgray
 darknavy
