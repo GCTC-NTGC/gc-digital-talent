@@ -46,7 +46,7 @@ const useErrorMessages = (): ErrorResponse => {
     },
   };
 
-  if ("status" in error) {
+  if (error && "status" in error) {
     if (error.status in messages) {
       return {
         response: error,
