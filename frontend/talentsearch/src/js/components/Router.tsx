@@ -9,6 +9,7 @@ import { Role } from "../api/generated";
 
 import TalentRedirect from "./Redirects/TalentRedirect";
 import ProfileRedirect from "./Redirects/ProfileRedirect";
+import CreateAccountRedirect from "./createAccount/CreateAccountRedirect";
 
 /** Home */
 const HomePage = React.lazy(() => import("./Home/HomePage"));
@@ -128,6 +129,9 @@ const router = createBrowserRouter([
           },
           {
             path: "users",
+            // Redirect any route in this section to /create-account
+            // if no email is set
+            element: <CreateAccountRedirect />,
             children: [
               {
                 path: "me",
