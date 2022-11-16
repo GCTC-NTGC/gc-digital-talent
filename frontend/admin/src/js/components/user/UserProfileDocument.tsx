@@ -17,7 +17,7 @@ import WorkPreferencesSection from "@common/components/UserProfile/ProfileSectio
 import DiversityEquityInclusionSection from "@common/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
 import RoleSalarySection from "@common/components/UserProfile/ProfileSections/RoleSalarySection";
 import { notEmpty } from "@common/helpers/util";
-import ExperienceByTypeListing from "@common/components/UserProfile/ExperienceByTypeListing";
+import PrintExperienceByType from "@common/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { Applicant } from "../../api/generated";
 import AdminAboutSection from "./AdminAboutSection";
 
@@ -238,7 +238,7 @@ export const UserProfileDocument = React.forwardRef<
                       })}
                     </Heading>
                   </HeadingWrapper>
-                  <ExperienceByTypeListing
+                  <PrintExperienceByType
                     experiences={applicant.experiences?.filter(notEmpty)}
                   />
                 </div>

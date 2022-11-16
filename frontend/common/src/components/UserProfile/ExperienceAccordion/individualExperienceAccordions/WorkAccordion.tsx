@@ -6,53 +6,70 @@ import { Link } from "../../..";
 import { getLocale } from "../../../../helpers/localize";
 import { getDateRange } from "../../../../helpers/dateUtils";
 import { WorkExperience } from "../../../../api/generated";
+import SkillList from "../SkillList";
+
+export const WorkContent = ({
+  role,
+  organization,
+  details,
+  division,
+  skills,
+}: WorkExperience) => {
+  const intl = useIntl();
+
+  return (
+    <>
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "{role} at {division}",
+            id: "6RiVQA",
+            description: "Role at division",
+          },
+          { role, division },
+        )}
+      </p>
+      <p>{organization}</p>
+      <hr
+        data-h2-background-color="base(dt-gray)"
+        data-h2-height="base(1px)"
+        data-h2-width="base(100%)"
+        data-h2-border="base(none)"
+        data-h2-margin="base(x1, 0)"
+      />
+      <SkillList skills={skills} />
+      <hr
+        data-h2-background-color="base(dt-gray)"
+        data-h2-height="base(1px)"
+        data-h2-width="base(100%)"
+        data-h2-border="base(none)"
+        data-h2-margin="base(x1, 0)"
+      />
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "Additional information: {details}",
+            id: "OvJwG6",
+            description: "Additional information if provided",
+          },
+          { details },
+        )}
+      </p>
+    </>
+  );
+};
 
 type WorkAccordionProps = WorkExperience & {
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
 };
 
 const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
-  id,
-  role,
-  organization,
-  startDate,
-  endDate,
-  details,
-  division,
-  skills,
   editUrl,
+  ...rest
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-
-  // create unordered list element of skills DOM Element
-  const skillsList = skills
-    ? skills.map((skill, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <ul data-h2-padding="base(0, 0, 0, x1)" key={index}>
-          <li>
-            {skill.name[locale] && (
-              <p
-                data-h2-color="base(dt-primary)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x1, 0, x.25, 0)"
-              >
-                {skill.name[locale]}
-              </p>
-            )}
-            {skill.description && skill.description[locale] && (
-              <p data-h2-margin="base(0, 0, x.25, 0)">
-                {skill.description[locale]}
-              </p>
-            )}
-            {skill.experienceSkillRecord &&
-              skill.experienceSkillRecord.details && (
-                <p>{skill.experienceSkillRecord.details}</p>
-              )}
-          </li>
-        </ul>
-      ))
-    : "";
+  const { id, role, organization, startDate, endDate, skills } = rest;
 
   return (
     <Accordion.Item value={id}>
@@ -86,54 +103,7 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
         )}
       </Accordion.Trigger>
       <Accordion.Content>
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "{role} at {division}",
-              id: "6RiVQA",
-              description: "Role at division",
-            },
-            { role, division },
-          )}
-        </p>
-        <p>{organization}</p>
-        <hr
-          data-h2-background-color="base(dt-gray)"
-          data-h2-height="base(1px)"
-          data-h2-width="base(100%)"
-          data-h2-border="base(none)"
-          data-h2-margin="base(x1, 0)"
-        />
-        {skillsList?.length > 0 ? (
-          skillsList
-        ) : (
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "No skills have been linked to this experience yet.",
-              id: "c4r/Zv",
-              description:
-                "A message explaining that the experience has no associated skills",
-            })}
-          </p>
-        )}
-        <hr
-          data-h2-background-color="base(dt-gray)"
-          data-h2-height="base(1px)"
-          data-h2-width="base(100%)"
-          data-h2-border="base(none)"
-          data-h2-margin="base(x1, 0)"
-        />
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "Additional information: {details}",
-              id: "OvJwG6",
-              description: "Additional information if provided",
-            },
-            { details },
-          )}
-        </p>
+        <WorkContent {...rest} />
         {editUrl && (
           <div>
             <hr
