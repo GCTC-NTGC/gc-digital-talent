@@ -10,7 +10,6 @@ query getPool($id: ID!) {
 
 query getPoolAdvertisement($id: ID!) {
   me {
-    roles
     id
     poolCandidates {
       id

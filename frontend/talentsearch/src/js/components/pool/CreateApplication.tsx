@@ -5,11 +5,8 @@ import { useIntl } from "react-intl";
 import { Id, toast } from "react-toastify";
 import { notEmpty } from "@common/helpers/util";
 import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
-import {
-  Scalars,
-  useCreateApplicationMutation,
-  useGetPoolAdvertisementQuery,
-} from "../../api/generated";
+import { AuthorizationContext } from "@common/components/Auth";
+import { Scalars, useCreateApplicationMutation } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 
 interface CreateApplicationProps {
@@ -25,9 +22,7 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
   const intl = useIntl();
   const errorToastId = React.useRef<Id>("");
   const paths = useDirectIntakeRoutes();
-  const [{ data }] = useGetPoolAdvertisementQuery({
-    variables: { id: poolId },
-  });
+  const auth = React.useContext(AuthorizationContext);
   const [
     { fetching: creating, data: mutationData, operation },
     executeMutation,
@@ -75,7 +70,7 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
    * isVisible - Should't run it if user cannot view it
    * !hasApplied - Users can only apply to a single pool advertisement
    */
-  const userId = data?.me?.id;
+  const userId = auth.loggedInUser?.id;
   const hasMutationData = notEmpty(mutationData);
   const isCreating = creating || hasMutationData || operation?.key;
   const hasRequiredData = userId && poolId;
