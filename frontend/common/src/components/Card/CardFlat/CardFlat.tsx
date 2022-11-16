@@ -63,6 +63,7 @@ const CardFlat = ({ color, link, title, children }: CardFlatProps) => {
             color={color}
             type="button"
             weight="bold"
+            mode="solid"
             {...omit(link, "label", "external")}
           >
             {link.label}

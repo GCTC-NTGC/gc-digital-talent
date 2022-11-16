@@ -47,6 +47,7 @@ const About = () => {
                     "Title for the Office of the Chief Information Officer",
                 })}
                 link={{
+                  external: true,
                   href:
                     locale === "en"
                       ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/mandate/chief-information-officer.html"
@@ -78,6 +79,7 @@ const About = () => {
                   description: "Title for the Digital Community Management",
                 })}
                 link={{
+                  external: true,
                   href:
                     locale === "en"
                       ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/gcdigital-community-about-us.html#dcmo"
