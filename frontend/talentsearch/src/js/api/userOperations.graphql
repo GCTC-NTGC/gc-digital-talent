@@ -158,6 +158,12 @@ query getMe {
           en
           fr
         }
+        stream
+        classifications {
+          id
+          group
+          level
+        }
       }
       id
     }

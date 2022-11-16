@@ -8,12 +8,12 @@ import NotFound from "@common/components/NotFound";
 import Heading from "@common/components/Heading";
 import Well from "@common/components/Well";
 import { CalendarIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
-import { getLocalizedName } from "@common/helpers/localize";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import { strToFormDate } from "@common/helpers/dateUtils";
 import { commonMessages } from "@common/messages";
 import { emptyToNull } from "@common/helpers/util";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   PoolCandidateStatus,
   Scalars,
@@ -179,7 +179,10 @@ export const ApplicationStatusForm = ({
                     "Label for the notes field on the pool candidate application",
                 },
                 {
-                  poolName: getLocalizedName(application.pool.name, intl),
+                  poolName: getFullPoolAdvertisementTitle(
+                    intl,
+                    application.pool,
+                  ),
                 },
               )}
             />

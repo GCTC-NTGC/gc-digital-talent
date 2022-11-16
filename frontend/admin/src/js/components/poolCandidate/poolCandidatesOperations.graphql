@@ -91,6 +91,12 @@ fragment poolCandidateForm on PoolCandidate {
       en
       fr
     }
+    stream
+    classifications {
+      id
+      group
+      level
+    }
   }
   user {
     id
@@ -131,6 +137,7 @@ fragment selectedPoolCandidates on PoolCandidate {
       en
       fr
     }
+    stream
     classifications {
       id
       name {
@@ -722,6 +729,12 @@ query getUserProfile($id: ID!) {
         name {
           en
           fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
         }
       }
       id
