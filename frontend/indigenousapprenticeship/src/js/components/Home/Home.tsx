@@ -34,6 +34,10 @@ const Home: React.FunctionComponent = () => {
   const intl = useIntl();
   const quote = useQuote();
 
+  /**
+   * Language swapping is a little rough here,
+   * motion.div adds a fade to smooth things out a bit
+   */
   return (
     <motion.div
       data-h2-overflow="base(hidden, visible)"
