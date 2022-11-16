@@ -8,7 +8,6 @@ import { imageUrl } from "@common/helpers/router";
 
 import { getLocale, Locales } from "@common/helpers/localize";
 import useBreadcrumbs from "../../hooks/useBreadcrumbs";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
