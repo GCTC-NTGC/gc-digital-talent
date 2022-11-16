@@ -1,16 +1,21 @@
 import React from "react";
 import { DecoratorFn } from "@storybook/react";
-import {MemoryRouter, Routes, Route} from "react-router-dom";
+import {createMemoryRouter, RouterProvider } from "react-router-dom";
+
+const createRouter = (story: JSX.Element) => createMemoryRouter([
+  {
+   /**
+    * Use any route and just pass it the current story
+    */
+    path: "/*",
+    element: story
+  }
+])
 
 
 const withRouter: DecoratorFn = (Story) => {
-  return (
-    <MemoryRouter>
-      <Routes>
-        <Route path="/*" element={<Story />} />
-      </Routes>
-    </MemoryRouter>
-  );
+  const router = createRouter(<Story />);
+  return <RouterProvider router={router} />;
 };
 
 export default withRouter;
