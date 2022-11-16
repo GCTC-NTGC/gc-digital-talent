@@ -121,7 +121,7 @@ interface PoolAdvertisementProps {
   hasApplied?: boolean;
 }
 
-const PoolAdvertisement = ({
+export const PoolAdvertisementPoster = ({
   poolAdvertisement,
   hasApplied,
 }: PoolAdvertisementProps) => {
@@ -817,7 +817,7 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolAdvertisement && isVisible ? (
-        <PoolAdvertisement
+        <PoolAdvertisementPoster
           poolAdvertisement={data?.poolAdvertisement}
           hasApplied={hasApplied}
         />
