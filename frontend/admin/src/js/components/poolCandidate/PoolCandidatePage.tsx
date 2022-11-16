@@ -30,8 +30,14 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
       href: paths.poolTable(),
     },
     {
-      title: getFullPoolAdvertisementTitle(intl, data?.pool),
-      href: paths.poolTable(),
+      title:
+        getFullPoolAdvertisementTitle(intl, data?.pool) ||
+        intl.formatMessage({
+          defaultMessage: "Pool name not found",
+          id: "HGMl3y",
+          description: "Breadcrumb to pool page if pool name not found",
+        }),
+      href: data?.pool ? paths.poolView(data.pool.id) : paths.poolTable(),
     },
     {
       title: intl.formatMessage({
