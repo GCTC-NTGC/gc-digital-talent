@@ -8,6 +8,7 @@ import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstan
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,
@@ -129,13 +130,15 @@ const ManagerInfo: React.FunctionComponent<{
                   })}
                   content={
                     applicantFilter
-                      ? applicantFilter?.pools?.map(
-                          (pool) =>
-                            pool?.name?.[locale] || nonApplicableMessage,
+                      ? applicantFilter?.pools?.map((pool) =>
+                          getFullPoolAdvertisementTitle(intl, pool, {
+                            defaultTitle: nonApplicableMessage,
+                          }),
                         )
-                      : poolCandidateFilter?.pools?.map(
-                          (pool) =>
-                            pool?.name?.[locale] || nonApplicableMessage,
+                      : poolCandidateFilter?.pools?.map((pool) =>
+                          getFullPoolAdvertisementTitle(intl, pool, {
+                            defaultTitle: nonApplicableMessage,
+                          }),
                         )
                   }
                 />

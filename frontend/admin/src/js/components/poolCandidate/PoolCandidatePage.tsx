@@ -4,7 +4,7 @@ import PageHeader from "@common/components/PageHeader";
 import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import Pending from "@common/components/Pending";
-import { getLocale } from "@common/helpers/localize";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import DashboardContentContainer from "../DashboardContentContainer";
 import PoolCandidatesTable from "./PoolCandidatesTable";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -12,7 +12,6 @@ import { useGetPoolQuery } from "../../api/generated";
 
 export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useAdminRoutes();
 
   const [{ data, fetching, error }] = useGetPoolQuery({
@@ -31,13 +30,7 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
       href: paths.poolTable(),
     },
     {
-      title:
-        data?.pool?.name?.[locale] ||
-        intl.formatMessage({
-          defaultMessage: "Pool name not found",
-          id: "HGMl3y",
-          description: "Breadcrumb to pool page if pool name not found",
-        }),
+      title: getFullPoolAdvertisementTitle(intl, data?.pool),
       href: paths.poolTable(),
     },
     {
@@ -68,7 +61,7 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
                 "Subtitle on pool candidates page indicating which pool candidates are from",
             },
             {
-              poolName: data?.pool?.name?.[locale],
+              poolName: getFullPoolAdvertisementTitle(intl, data?.pool),
             },
           )}
         >
