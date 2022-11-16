@@ -6,13 +6,10 @@ import { Id, toast } from "react-toastify";
 import Loading from "@common/components/Pending/Loading";
 import { notEmpty } from "@common/helpers/util";
 import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
+import { AuthorizationContext } from "@common/components/Auth";
 
-import {
-  Scalars,
-  useCreateApplicationMutation,
-  useGetPoolAdvertisementQuery,
-} from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
+import { Scalars, useCreateApplicationMutation } from "../../api/generated";
 
 type RouteParams = {
   poolId: Scalars["ID"];
@@ -29,9 +26,7 @@ const CreateApplication = () => {
   const errorToastId = React.useRef<Id>("");
   const paths = useRoutes();
   const navigate = useNavigate();
-  const [{ data }] = useGetPoolAdvertisementQuery({
-    variables: { id: poolId || "" },
-  });
+  const auth = React.useContext(AuthorizationContext);
   const [
     { fetching: creating, data: mutationData, operation },
     executeMutation,
@@ -79,7 +74,7 @@ const CreateApplication = () => {
    * isVisible - Should't run it if user cannot view it
    * !hasApplied - Users can only apply to a single pool advertisement
    */
-  const userId = data?.me?.id;
+  const userId = auth.loggedInUser?.id;
   const hasMutationData = notEmpty(mutationData);
   const isCreating = creating || hasMutationData || operation?.key;
   const hasRequiredData = userId && poolId;

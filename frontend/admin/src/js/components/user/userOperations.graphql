@@ -158,6 +158,12 @@ query selectedUsers($ids: [ID]!) {
           en
           fr
         }
+        stream
+        classifications {
+          id
+          group
+          level
+        }
       }
       id
     }

@@ -9,7 +9,6 @@ import {
 import Heading, { type HeadingLevel } from "@common/components/Heading";
 import Link from "@common/components/Link";
 import Chip, { Chips } from "@common/components/Chip";
-import { getPoolStream } from "@common/constants/localizedConstants";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import {
   getLocale,
@@ -18,7 +17,10 @@ import {
 } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
-import { formatClassificationString } from "@common/helpers/poolUtils";
+import {
+  formatClassificationString,
+  getFullPoolAdvertisementTitle,
+} from "@common/helpers/poolUtils";
 
 import { PoolAdvertisement } from "../../../api/generated";
 import useRoutes from "../../../hooks/useRoutes";
@@ -120,13 +122,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-margin="base(0, 0, x1, 0) p-tablet(0)"
             style={{ wordBreak: "break-word" }}
           >
-            {pool.stream
-              ? intl.formatMessage(getPoolStream(pool.stream))
-              : intl.formatMessage({
-                  defaultMessage: "(no stream)",
-                  id: "6TX9CR",
-                  description: "Message displayed when a pool has no stream",
-                })}
+            {getFullPoolAdvertisementTitle(intl, pool)}
           </Heading>
           <div
             data-h2-flex-grow="p-tablet(1)"

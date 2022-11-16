@@ -1,12 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { getLocale } from "@common/helpers/localize";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import Link from "@common/components/Link";
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import useRoutes from "../../hooks/useRoutes";
 import { useGetPoolQuery } from "../../api/generated";
@@ -18,7 +18,6 @@ interface PoolApplyProps {
 
 const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useRoutes();
 
   const links = [
@@ -32,7 +31,7 @@ const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
     },
 
     {
-      title: pool?.name?.[locale],
+      title: getFullPoolAdvertisementTitle(intl, pool),
       href: pool ? paths.pool(pool.id) : undefined,
     },
   ] as BreadcrumbsProps["links"];
@@ -40,7 +39,7 @@ const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
   return (
     <>
       <Breadcrumbs links={links} />
-      <h1>{pool.name?.[locale]}</h1>
+      <h1>{getFullPoolAdvertisementTitle(intl, pool)}</h1>
       <Link
         type="button"
         mode="outline"

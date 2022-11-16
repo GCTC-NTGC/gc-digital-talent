@@ -24,7 +24,7 @@ type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
 function poolCandidatesLinkAccessor(
   poolCandidatesTableUrl: string,
   intl: IntlShape,
-  label?: Maybe<string>,
+  pool: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
 ) {
   return (
     <Link
@@ -40,7 +40,7 @@ function poolCandidatesLinkAccessor(
           id: "6R9N+h",
           description: "Text for a link to the Pool Candidates table",
         },
-        { label },
+        { label: getFullPoolAdvertisementTitle(intl, pool) },
       )}
     </Link>
   );
@@ -91,7 +91,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           poolCandidatesLinkAccessor(
             paths.poolCandidateTable(pool.id),
             intl,
-            pool.name ? pool.name[locale] : "",
+            pool,
           ),
       },
       {
