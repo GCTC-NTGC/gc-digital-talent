@@ -10,6 +10,7 @@ import { getLocale, Locales } from "@common/helpers/localize";
 import useBreadcrumbs from "../../hooks/useBreadcrumbs";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
+import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 const digitalStandardsLink = (
   locale: Locales,
@@ -211,7 +212,7 @@ const tollFreeLink = (chunks: React.ReactNode) => (
 const AccessibilityStatement = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+  const paths = useTalentSearchRoutes();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Accessibility statement",
@@ -222,7 +223,7 @@ const AccessibilityStatement = () => {
   const crumbs = useBreadcrumbs([
     {
       label: pageTitle,
-      url: paths.allPools(),
+      url: paths.accessibility(),
     },
   ]);
   return (
