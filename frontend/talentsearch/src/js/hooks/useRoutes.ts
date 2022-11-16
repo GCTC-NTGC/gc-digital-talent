@@ -47,6 +47,7 @@ const getRoutes = (lang: Locales) => {
     login: () => path.join(baseUrl, "login-info"),
     loggedOut: () => path.join(baseUrl, "logged-out"),
     createAccount: () => path.join(baseUrl, "create-account"),
+    accessibility: () => path.join(baseUrl, "accessibility-statement"),
 
     // Pools
     browse: () => path.join(baseUrl, "browse"),
