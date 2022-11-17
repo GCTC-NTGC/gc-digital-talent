@@ -4,10 +4,15 @@
 
 /** Used to define container behavior: width, position: fixed etc... **/
 .Toastify__toast-container {
-  max-width: calc(100vw - calc(2 * var(--toast-space)));
   position: fixed;
-  width: 40vw;
+  width: calc(100vw - calc(2 * var(--toast-space)));
   z-index: 9999; /* Display over everything else */
+}
+
+@media screen and (min-width: 48rem) {
+  .Toastify__toast-container {
+    width: 40vw;
+  }
 }
 
 /** Used to define the position of the ToastContainer **/
