@@ -87,7 +87,8 @@ export function getValues<T>(list: { value: T; label: string }[]): T[] {
 export function escapeAString(unescapedString: string) {
   const inputStringArray = unescapedString.split("");
   const outputStringArray = inputStringArray.map((character) => {
-    if (character.match(/[+*()?]/)) {
+    if (character.match(/[+*()?[\]\\]/)) {
+      // looks a little funny due to needing to escape "\" and "]" characters themselves for matching
       return `\\${character}`;
     }
     return character;

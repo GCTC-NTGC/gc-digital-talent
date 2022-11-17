@@ -32,6 +32,9 @@ describe("string matching tests - assert special characters match and do not cra
     expect(f("(", "C(")).toBeTruthy();
     expect(f(")", "C)")).toBeTruthy();
     expect(f("?", "C?")).toBeTruthy();
+    expect(f("[", "C[")).toBeTruthy();
+    expect(f("]", "C]")).toBeTruthy();
+    expect(f("\\", "C\\")).toBeTruthy();
   });
 });
 
