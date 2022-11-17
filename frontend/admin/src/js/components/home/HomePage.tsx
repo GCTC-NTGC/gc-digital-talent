@@ -5,6 +5,7 @@ import {
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 import CardLink from "@common/components/CardLink";
+import Loading from "@common/components/Pending/Loading";
 import PageHeader from "@common/components/PageHeader";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getLocale } from "@common/helpers/localize";
@@ -20,10 +21,15 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const { loggedIn } = useAuth();
 
-  // If user is logged in, send them to the dashboard instead
+  React.useEffect(() => {
+    // If user is logged in, send them to the dashboard instead
+    if (loggedIn) {
+      navigate(adminRoutes.dashboard(), { replace: true });
+    }
+  }, [adminRoutes, loggedIn, navigate]);
+
   if (loggedIn) {
-    navigate(adminRoutes.dashboard(), { replace: true });
-    return null; // Return null to satisfy type
+    return <Loading />; // Show loading spinner while we process redirect
   }
 
   return (

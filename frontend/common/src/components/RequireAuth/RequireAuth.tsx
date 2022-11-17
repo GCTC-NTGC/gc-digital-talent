@@ -6,6 +6,7 @@ import useAuthorizationContext from "../../hooks/useAuthorizationContext";
 import { Role } from "../../api/generated";
 import { useApiRoutes } from "../../hooks/useApiRoutes";
 import useLocale from "../../hooks/useLocale";
+import Loading from "../Pending/Loading";
 
 interface RequireAuthProps {
   children: React.ReactNode;
@@ -19,18 +20,24 @@ const RequireAuth = ({ children, roles }: RequireAuthProps) => {
   const { loggedIn } = useAuth();
   const { loggedInUserRoles, isLoaded } = useAuthorizationContext();
 
-  if (!loggedIn) {
-    window.location.replace(apiRoutes.login(location.pathname, locale));
-    return null;
-  }
-
   const isAuthorized =
     isLoaded &&
     roles.some((authorizedRole: Role) =>
       loggedInUserRoles?.includes(authorizedRole),
     );
 
-  if (!isAuthorized) {
+  React.useEffect(() => {
+    if (!loggedIn) {
+      window.location.replace(apiRoutes.login(location.pathname, locale));
+    }
+  }, [apiRoutes, locale, location.pathname, loggedIn, isAuthorized]);
+
+  // Prevent showing children while login redirect happens
+  if (!loggedIn) {
+    return <Loading />;
+  }
+
+  if (loggedIn && !isAuthorized) {
     throw new Response("", {
       status: 401,
       statusText: "Unauthorized",

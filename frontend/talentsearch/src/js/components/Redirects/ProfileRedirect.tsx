@@ -1,6 +1,8 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
+import Loading from "@common/components/Pending/Loading";
 
 import useRoutes from "../../hooks/useRoutes";
 
@@ -9,13 +11,15 @@ const ProfileRedirect = () => {
   const navigate = useNavigate();
   const { loggedInUser } = useAuthorizationContext();
 
-  if (loggedInUser) {
-    navigate(paths.profile(loggedInUser.id), { replace: true });
-  }
+  React.useEffect(() => {
+    if (loggedInUser) {
+      navigate(paths.profile(loggedInUser.id), { replace: true });
+    } else {
+      navigate(paths.home(), { replace: true });
+    }
+  }, [loggedInUser, navigate, paths]);
 
-  navigate(paths.home(), { replace: true });
-
-  return null; // Return null to satisfy type
+  return <Loading />; // Show loading spinner while we process redirect
 };
 
 export default ProfileRedirect;
