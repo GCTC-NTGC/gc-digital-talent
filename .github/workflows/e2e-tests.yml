@@ -68,7 +68,7 @@ jobs:
         uses: cypress-io/github-action@v4.2.0
         with:
           working-directory: ./frontend
-          spec: "**/*.spec.js"
+          spec: "**/*.cy.js"
           browser: chrome
           # See: https://github.com/cypress-io/github-action/issues/489#issuecomment-1021379037
           command-prefix: "--"

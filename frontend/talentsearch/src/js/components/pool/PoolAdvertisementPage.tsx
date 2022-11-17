@@ -39,6 +39,7 @@ import {
   formatClassificationString,
   getFullPoolAdvertisementTitle,
 } from "@common/helpers/poolUtils";
+import { AuthorizationContext } from "@common/components/Auth";
 import { useGetPoolAdvertisementQuery, Maybe } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
@@ -796,13 +797,14 @@ interface PoolAdvertisementPageProps {
 
 const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
   const intl = useIntl();
+  const auth = React.useContext(AuthorizationContext);
 
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
     variables: { id },
   });
 
   const isVisible = isAdvertisementVisible(
-    data?.me?.roles?.filter(notEmpty) || [],
+    auth?.loggedInUserRoles?.filter(notEmpty) || [],
     data?.poolAdvertisement?.advertisementStatus ?? null,
   );
 

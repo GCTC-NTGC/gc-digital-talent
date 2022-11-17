@@ -19,7 +19,7 @@
   "devDependencies": {
     "@testing-library/cypress": "^8.0.3",
     "cy-verify-downloads": "^0.1.11",
-    "cypress": "^9.6.1",
+    "cypress": "^10.11.0",
     "cypress-multi-reporters": "^1.6.1",
     "cypress-terminal-report": "^3.5.2",
     "prettier": "^2.6.2"

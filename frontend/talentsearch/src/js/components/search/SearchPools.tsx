@@ -1,6 +1,7 @@
 import { Button } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Pool } from "../../api/generated";
@@ -32,7 +33,9 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
 
   return (
     <div data-h2-padding="base(x1)">
-      <p data-h2-font-weight="base(700)">{pool?.name?.[locale]}</p>
+      <p data-h2-font-weight="base(700)">
+        {getFullPoolAdvertisementTitle(intl, pool)}
+      </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage(
           {

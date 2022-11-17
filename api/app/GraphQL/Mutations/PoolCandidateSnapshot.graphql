@@ -157,6 +157,12 @@ query getProfile($userId: ID!) {
           en
           fr
         }
+        stream
+        classifications {
+          id
+          group
+          level
+        }
       }
       id
     }

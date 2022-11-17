@@ -35,3 +35,7 @@ before(() => {
 // require('./commands')
 
 require('cypress-terminal-report/src/installLogsCollector')()
+
+Cypress.on('uncaught:exception', () => {
+  return false;
+});

@@ -10,6 +10,7 @@ query GetPoolCandidateStatus($id: ID!) {
         en
         fr
       }
+      stream
       classifications {
         id
         group
