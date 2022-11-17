@@ -124,6 +124,11 @@ server {
         rewrite "^(?:/[a-z]{2})?/support(/.*|$)" /frontend/talentsearch/dist/index.html break;
     }
 
+    # rewrite possible lang prefix then "accessibility-statement" to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
     # rewrite possible lang prefix then "create-account" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/create-account(/.*|$)" {
         rewrite "^(?:/[a-z]{2})?/create-account(/.*|$)" /frontend/talentsearch/dist/index.html break;
