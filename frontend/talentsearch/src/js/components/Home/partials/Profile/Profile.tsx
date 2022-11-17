@@ -36,7 +36,7 @@ const Profile = () => {
           style={{
             backgroundImage: `url('${imageUrl(
               TALENTSEARCH_APP_DIR,
-              "Profile hero.png",
+              "hero-profile.jpg",
             )}')`,
           }}
         />
