@@ -1,6 +1,7 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import uniqueId from "lodash/uniqueId";
 
 import type { HeadingLevel } from "../Heading";
 import Chip, { Chips } from "../Chip";
@@ -42,6 +43,8 @@ const SkillPicker = ({
   headingLevel = "h4",
 }: SkillPickerProps) => {
   const intl = useIntl();
+  const skipId = `skip-target-${uniqueId()}`;
+  const skipTargetRef = React.useRef<HTMLDivElement>(null);
   const Heading = headingLevel;
   const [validData, setValidData] = React.useState<FormValues>(defaultValues);
   const methods = useForm<FormValues>({
@@ -106,6 +109,24 @@ const SkillPicker = ({
     methods.setValue("skillFamily", id);
   };
 
+  /**
+   * Hack: This moves the focus past the list of skills
+   * to prevent users being trapped in when navigating
+   * using assistive technologies
+   *
+   * This is a temporary fix until we can come up with
+   * a better solution. Please, do not repeat this pattern
+   * elsewhere 🙂
+   *
+   */
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.ctrlKey && e.key === "Escape" && e.shiftKey) {
+      if (skipTargetRef.current) {
+        skipTargetRef.current.focus();
+      }
+    }
+  };
+
   return (
     <>
       <FormProvider {...methods}>
@@ -162,7 +183,15 @@ const SkillPicker = ({
           },
         )}
       </p>
+      <a href={`#${skipId}`} data-h2-visibility="base(hidden)">
+        {intl.formatMessage({
+          defaultMessage: "Skip list of skills",
+          id: "pg1S01",
+          description: "Link text to skip the list of add skill links",
+        })}
+      </a>
       <ScrollArea.Root
+        onKeyDown={handleKeyDown}
         data-h2-width="base(100%)"
         data-h2-height="base(320px)"
         data-h2-max-height="base(50vh)"
@@ -241,6 +270,12 @@ const SkillPicker = ({
           </Chips>
         </>
       ) : null}
+      {/**
+       * Hack: See previous comment.
+       *
+       * Do not repeat this pattern
+       */}
+      <div id={skipId} ref={skipTargetRef} tabIndex={-1} />
     </>
   );
 };
