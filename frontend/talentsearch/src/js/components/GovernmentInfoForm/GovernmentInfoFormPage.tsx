@@ -10,7 +10,7 @@ import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
 import React from "react";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import {
   useGetApplicationQuery,
   useGetGovInfoFormLookupDataQuery,

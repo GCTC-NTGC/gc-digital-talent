@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
+import { toast } from "@common/components/Toast";
 import { BasicForm, TextArea } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { navigate, useQueryParams } from "@common/helpers/router";

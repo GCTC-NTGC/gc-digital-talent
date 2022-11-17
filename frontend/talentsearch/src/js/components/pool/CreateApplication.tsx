@@ -2,7 +2,8 @@ import React from "react";
 import Loading from "@common/components/Pending/Loading";
 import { redirect } from "@common/helpers/router";
 import { useIntl } from "react-intl";
-import { Id, toast } from "react-toastify";
+import { Id, toast as toastify } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { notEmpty } from "@common/helpers/util";
 import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
 import { AuthorizationContext } from "@common/components/Auth";
@@ -45,7 +46,7 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
        * work. Leaving it in, in the hopes
        * it finally does 🤷‍♀️
        */
-      if (!toast.isActive(errorToastId.current)) {
+      if (!toastify.isActive(errorToastId.current)) {
         errorToastId.current = toast.error(
           msg ||
             intl.formatMessage({

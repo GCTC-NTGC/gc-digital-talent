@@ -9,7 +9,7 @@ import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   CreateUserInput,

@@ -14,7 +14,7 @@ import uniqueId from "lodash/uniqueId";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { navigate } from "@common/helpers/router";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 
 import { notEmpty } from "@common/helpers/util";
 import { getMissingSkills } from "@common/helpers/skillUtils";

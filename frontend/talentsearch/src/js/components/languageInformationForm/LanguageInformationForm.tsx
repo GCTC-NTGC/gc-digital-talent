@@ -8,7 +8,7 @@ import omit from "lodash/omit";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { navigate } from "@common/helpers/router";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {

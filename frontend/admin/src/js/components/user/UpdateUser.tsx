@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { Select, Submit, Input, MultiSelect } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";

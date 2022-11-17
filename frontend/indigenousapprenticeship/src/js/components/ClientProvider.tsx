@@ -7,7 +7,7 @@ import {
   errorExchange,
   Provider,
 } from "urql";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 

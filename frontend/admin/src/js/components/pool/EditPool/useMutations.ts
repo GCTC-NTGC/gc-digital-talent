@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 
+import { toast } from "@common/components/Toast";
 import { navigate } from "@common/helpers/router";
 import { useAdminRoutes } from "../../../adminRoutes";
 import {

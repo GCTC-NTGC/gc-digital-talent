@@ -2,7 +2,7 @@ import * as React from "react";
 import { imageUrl, navigate } from "@common/helpers/router";
 import { useIntl } from "react-intl";
 import { Alert } from "@common/components";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { BasicForm, Input, RadioGroup, Submit } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";

@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
 import { errorMessages, navigationMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";

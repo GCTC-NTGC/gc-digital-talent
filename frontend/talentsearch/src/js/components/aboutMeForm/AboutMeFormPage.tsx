@@ -4,8 +4,8 @@ import Pending from "@common/components/Pending";
 import { parseUrlQueryParameters, useLocation } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 import { OperationResult } from "urql";
+import { toast } from "@common/components/Toast";
 import {
   Exact,
   UpdateUserAsUserInput,

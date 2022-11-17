@@ -6,7 +6,7 @@ import { errorMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { navigate, pushToStateThenNavigate } from "@common/helpers/router";
 import SearchRequestFilters from "@common/components/SearchRequestFilters/deprecated/SearchRequestFilters";
 import {
