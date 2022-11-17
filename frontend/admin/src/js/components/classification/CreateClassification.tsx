@@ -1,10 +1,10 @@
-import upperCase from "lodash/upperCase";
 import * as React from "react";
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Input, Select, Submit } from "@common/components/form";
-import { navigate } from "@common/helpers/router";
+import { toast } from "@common/components/Toast";
 import { errorMessages } from "@common/messages";
 import {
   CreateClassificationInput,
@@ -22,6 +22,7 @@ export const CreateClassificationForm: React.FunctionComponent<
   CreateClassificationFormProps
 > = ({ handleCreateClassification }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit, watch } = methods;

@@ -1,6 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { imageUrl } from "@common/helpers/router";
+import { motion } from "framer-motion";
+
+import imageUrl from "@common/helpers/imageUrl";
 
 import Banner from "../Banner/Banner";
 import Card from "../Card/Card";
@@ -17,7 +19,7 @@ import TrendingUp from "../Svg/TrendingUp";
 import Triangle from "../Svg/Triangle";
 
 import useQuote from "../../hooks/useQuote";
-import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../indigenousApprenticeshipConstants";
+import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../constants/indigenousApprenticeshipConstants";
 
 import { ApplyDialog, RequirementDialog } from "../Dialog";
 import CTAButtons from "../CallToAction/CTAButtons";
@@ -32,8 +34,17 @@ const Home: React.FunctionComponent = () => {
   const intl = useIntl();
   const quote = useQuote();
 
+  /**
+   * Language swapping is a little rough here,
+   * motion.div adds a fade to smooth things out a bit
+   */
   return (
-    <div data-h2-overflow="base(hidden, visible)">
+    <motion.div
+      data-h2-overflow="base(hidden, visible)"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {/* Hero */}
       <div
         data-h2-width="base(100%)"
@@ -873,7 +884,7 @@ const Home: React.FunctionComponent = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

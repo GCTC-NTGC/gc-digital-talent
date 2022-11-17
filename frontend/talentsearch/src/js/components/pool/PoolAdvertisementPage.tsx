@@ -1,22 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-
-import Breadcrumbs from "@common/components/Breadcrumbs";
-import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import Card from "@common/components/Card";
-import { Button, Link } from "@common/components";
-import { getLocale } from "@common/helpers/localize";
-import { imageUrl } from "@common/helpers/router";
-
-import {
-  AdvertisementStatus,
-  PoolCandidate,
-  Scalars,
-  SkillCategory,
-} from "@common/api/generated";
-import TableOfContents from "@common/components/TableOfContents";
+import { useParams } from "react-router-dom";
 import {
   BoltIcon,
   BriefcaseIcon as BriefcaseIconOutline,
@@ -26,14 +10,28 @@ import {
   CpuChipIcon,
   CloudIcon,
 } from "@heroicons/react/24/outline";
+
+import Breadcrumbs from "@common/components/Breadcrumbs";
+import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import { ThrowNotFound } from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
+import Card from "@common/components/Card";
+import { Button, Link } from "@common/components";
+import { getLocale } from "@common/helpers/localize";
+import imageUrl from "@common/helpers/imageUrl";
+import {
+  AdvertisementStatus,
+  PoolCandidate,
+  Scalars,
+  SkillCategory,
+} from "@common/api/generated";
+import TableOfContents from "@common/components/TableOfContents";
 import Accordion from "@common/components/Accordion";
 import {
   getLanguageRequirement,
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
-import commonMessages from "@common/messages/commonMessages";
-
 import { notEmpty } from "@common/helpers/util";
 import {
   formatClassificationString,
@@ -42,7 +40,7 @@ import {
 import { AuthorizationContext } from "@common/components/Auth";
 import { useGetPoolAdvertisementQuery, Maybe } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import TALENTSEARCH_APP_DIR, {
   TALENTSEARCH_RECRUITMENT_EMAIL,
 } from "../../talentSearchConstants";
@@ -56,7 +54,7 @@ interface ApplyButtonProps {
 
 const ApplyButton = ({ poolId }: ApplyButtonProps) => {
   const intl = useIntl();
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   return (
     <Link
@@ -121,13 +119,13 @@ interface PoolAdvertisementProps {
   hasApplied?: boolean;
 }
 
-const PoolAdvertisement = ({
+export const PoolAdvertisementPoster = ({
   poolAdvertisement,
   hasApplied,
 }: PoolAdvertisementProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   const classification = poolAdvertisement.classifications
     ? poolAdvertisement.classifications[0]
@@ -147,13 +145,17 @@ const PoolAdvertisement = ({
     poolAdvertisement.advertisementStatus &&
     poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;
 
-  const languageRequirement = intl.formatMessage(
-    getLanguageRequirement(poolAdvertisement.advertisementLanguage ?? ""),
-  );
+  const languageRequirement = poolAdvertisement.advertisementLanguage
+    ? intl.formatMessage(
+        getLanguageRequirement(poolAdvertisement.advertisementLanguage),
+      )
+    : "";
 
-  const securityClearance = intl.formatMessage(
-    getSecurityClearance(poolAdvertisement.securityClearance ?? ""),
-  );
+  const securityClearance = poolAdvertisement.securityClearance
+    ? intl.formatMessage(
+        getSecurityClearance(poolAdvertisement.securityClearance),
+      )
+    : "";
 
   const essentialSkills = categorizeSkill(poolAdvertisement.essentialSkills);
   const nonEssentialSkills = categorizeSkill(
@@ -791,16 +793,17 @@ const PoolAdvertisement = ({
   );
 };
 
-interface PoolAdvertisementPageProps {
-  id: string;
-}
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
 
-const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
+const PoolAdvertisementPage = () => {
   const intl = useIntl();
+  const { poolId } = useParams<RouteParams>();
   const auth = React.useContext(AuthorizationContext);
 
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
-    variables: { id },
+    variables: { id: poolId || "" },
   });
 
   const isVisible = isAdvertisementVisible(
@@ -817,23 +820,18 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolAdvertisement && isVisible ? (
-        <PoolAdvertisement
+        <PoolAdvertisementPoster
           poolAdvertisement={data?.poolAdvertisement}
           hasApplied={hasApplied}
         />
       ) : (
-        <NotFound
-          headingMessage={intl.formatMessage(commonMessages.notFound, {
-            type: "Pool",
-            id,
-          })}
-        >
-          {intl.formatMessage({
+        <ThrowNotFound
+          message={intl.formatMessage({
             defaultMessage: "Error, pool unable to be loaded",
             id: "DcEinN",
             description: "Error message, placeholder",
           })}
-        </NotFound>
+        />
       )}
     </Pending>
   );

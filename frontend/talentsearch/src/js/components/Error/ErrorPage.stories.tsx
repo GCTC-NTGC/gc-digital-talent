@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 import { widthOf, heightOf } from "@common/helpers/storybookUtils";
-import Error404 from "./Error404";
+import Error404 from "./ErrorPage";
 
 type Meta = ComponentMeta<typeof Error404>;
 type Story = ComponentStory<typeof Error404>;

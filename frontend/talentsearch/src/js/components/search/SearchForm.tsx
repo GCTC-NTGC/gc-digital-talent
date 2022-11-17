@@ -15,7 +15,7 @@ import {
 } from "@common/constants/localizedConstants";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import errorMessages from "@common/messages/errorMessages";
 import { hasKey } from "@common/helpers/util";
 
@@ -65,9 +65,7 @@ export type FormValues = Pick<
   pools?: SimplePool[];
 };
 
-type LocationState = {
-  some: BrowserHistoryState | null;
-};
+type LocationState = BrowserHistoryState | null;
 
 export interface SearchFormProps {
   classifications: SimpleClassification[];
@@ -113,9 +111,9 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     }, [classifications]);
 
     // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
-    const state = location.state as LocationState | null;
+    const state = location.state as LocationState;
     const initialValues = React.useMemo(
-      () => (state && state.some ? state.some.initialValues : {}),
+      () => (state ? state.initialValues : {}),
       [state],
     );
     const methods = useForm<FormValues>({ defaultValues: initialValues });

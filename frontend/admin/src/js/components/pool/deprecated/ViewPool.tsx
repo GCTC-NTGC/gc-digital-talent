@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useParams } from "react-router-dom";
 import { Squares2X2Icon } from "@heroicons/react/24/outline";
 
 import Breadcrumbs from "@common/components/Breadcrumbs";
@@ -8,12 +9,12 @@ import PageHeader from "@common/components/PageHeader";
 import { Link } from "@common/components";
 import Tabs from "@common/components/Tabs";
 import { commonMessages } from "@common/messages";
-
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+
 import { useAdminRoutes } from "../../../adminRoutes";
-import { useGetPoolQuery } from "../../../api/generated";
+import { Scalars, useGetPoolQuery } from "../../../api/generated";
 import type { Pool } from "../../../api/generated";
 
 interface ViewPoolPageProps {
@@ -118,14 +119,15 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
   );
 };
 
-interface ViewPoolProps {
-  poolId: string;
-}
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
 
-const ViewPool: React.FC<ViewPoolProps> = ({ poolId }) => {
+const ViewPool = () => {
   const intl = useIntl();
+  const { poolId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetPoolQuery({
-    variables: { id: poolId },
+    variables: { id: poolId || "" },
   });
 
   return (

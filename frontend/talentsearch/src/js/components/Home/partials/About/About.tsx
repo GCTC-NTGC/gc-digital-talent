@@ -8,7 +8,7 @@ import useLocale from "@common/hooks/useLocale";
 
 const About = () => {
   const intl = useIntl();
-  const locale = useLocale();
+  const { locale } = useLocale();
   return (
     <div
       data-h2-background-color="base(tm-linear-footer)"
@@ -47,6 +47,7 @@ const About = () => {
                     "Title for the Office of the Chief Information Officer",
                 })}
                 link={{
+                  external: true,
                   href:
                     locale === "en"
                       ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/mandate/chief-information-officer.html"
@@ -78,6 +79,7 @@ const About = () => {
                   description: "Title for the Digital Community Management",
                 })}
                 link={{
+                  external: true,
                   href:
                     locale === "en"
                       ? "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/gcdigital-community-about-us.html#dcmo"

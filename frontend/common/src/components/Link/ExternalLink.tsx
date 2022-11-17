@@ -1,21 +1,42 @@
 import React from "react";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
+import { LinkProps } from "./Link";
+import useCommonLinkStyles from "./useCommonLinkStyles";
 
 export interface ExternalLinkProps
-  extends React.LinkHTMLAttributes<HTMLAnchorElement> {
+  extends LinkProps,
+    Omit<
+      React.LinkHTMLAttributes<HTMLAnchorElement>,
+      "color" | "href" | "type"
+    > {
   newTab?: boolean;
 }
 
 const ExternalLink: React.FC<ExternalLinkProps> = ({
   newTab,
   children,
+  color,
+  mode,
+  block,
+  disabled,
+  type,
+  weight,
   ...rest
 }) => {
   const intl = useIntl();
+  const styles = useCommonLinkStyles({
+    color,
+    mode,
+    block,
+    disabled,
+    type,
+    weight,
+  });
 
   return (
     <a
+      {...styles}
       {...(newTab && {
         target: "_blank",
         rel: "noopener noreferrer",

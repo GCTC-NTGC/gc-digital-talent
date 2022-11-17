@@ -3,14 +3,17 @@ import { useIntl } from "react-intl";
 import useTheme from "@common/hooks/useTheme";
 
 import Heading from "@common/components/Heading";
+
 import CallToAction from "../CallToAction";
 import { PugDark, PugLight } from "./Icons";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+import useRoutes from "../../hooks/useRoutes";
+import useErrorMessages from "./useErrorMessages";
 
-const Error404 = () => {
+const ErrorPage = () => {
   const intl = useIntl();
-  const paths = useTalentSearchRoutes();
+  const paths = useRoutes();
   const { mode } = useTheme();
+  const error = useErrorMessages();
 
   const Image = mode === "dark" ? PugDark : PugLight;
 
@@ -36,12 +39,7 @@ const Error404 = () => {
             data-h2-font-weight="base(700)"
             data-h2-margin="base(0)"
           >
-            {intl.formatMessage({
-              defaultMessage:
-                "Sorry, eh! We can't find the page you were looking for.",
-              id: "yExs/j",
-              description: "Title for the 404 page not found page.",
-            })}
+            {error.messages.title}
           </Heading>
           <Image
             data-h2-display="base(inline-block)"
@@ -50,13 +48,18 @@ const Error404 = () => {
             data-h2-width="base(70%)"
           />
           <p data-h2-margin="base(x1, 0) p-tablet(0, 0, x3, 0)">
-            {intl.formatMessage({
-              defaultMessage:
-                "It looks like you've landed on a page that either doesn't exist or has moved.",
-              id: "Q6ws0E",
-              description: "Body text for the 404 page not found page.",
-            })}
+            {error.messages.body}
           </p>
+          {error.response && error.response.statusText && (
+            <p
+              data-h2-margin="base(x1, 0) p-tablet(0, 0, x3, 0)"
+              data-h2-font-size="base(caption)"
+              data-h2-font-style="base(italic)"
+            >
+              {error.response.statusText}
+            </p>
+          )}
+
           <div
             data-h2-display="base(flex)"
             data-h2-gap="base(x1)"
@@ -100,4 +103,4 @@ const Error404 = () => {
   );
 };
 
-export default Error404;
+export default ErrorPage;

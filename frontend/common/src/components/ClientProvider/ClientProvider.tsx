@@ -21,8 +21,8 @@ import {
   makeOperation,
 } from "urql";
 import { GraphQLErrorExtensions } from "graphql";
-import { toast } from "react-toastify";
 import { IntlShape, useIntl } from "react-intl";
+import { toast } from "../Toast";
 import { tryFindMessageDescriptor } from "../../messages/apiMessages";
 import { AuthenticationContext } from "../Auth";
 

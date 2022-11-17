@@ -5,15 +5,32 @@ import {
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 import CardLink from "@common/components/CardLink";
+import Loading from "@common/components/Pending/Loading";
 import PageHeader from "@common/components/PageHeader";
-import { useLocation } from "@common/helpers/router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getLocale } from "@common/helpers/localize";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
+import useAuth from "@common/hooks/useAuth";
+import { useAdminRoutes } from "../../adminRoutes";
 
 const HomePage: React.FC = () => {
   const intl = useIntl();
+  const adminRoutes = useAdminRoutes();
   const apiRoutes = useApiRoutes();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { loggedIn } = useAuth();
+
+  React.useEffect(() => {
+    // If user is logged in, send them to the dashboard instead
+    if (loggedIn) {
+      navigate(adminRoutes.dashboard(), { replace: true });
+    }
+  }, [adminRoutes, loggedIn, navigate]);
+
+  if (loggedIn) {
+    return <Loading />; // Show loading spinner while we process redirect
+  }
 
   return (
     <div>

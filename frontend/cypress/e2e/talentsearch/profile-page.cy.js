@@ -20,7 +20,17 @@ describe("Talentsearch Profile Page", () => {
   context('logged in but no applicant role', () => {
     beforeEach(() => cy.loginByRole('noroles'))
 
+
     it('displays not authorized', () => {
+
+      /**
+       * React error boundaries are bubbling exceptions
+       * up, so we need to tell cypress to ignore them
+       *
+       * REF: https://github.com/cypress-io/cypress/issues/7196#issuecomment-971592350
+       */
+      cy.on('uncaught:exception', () => false);
+
       [
         '/en/talent/profile',
         '/en/users/test-no-role/profile',

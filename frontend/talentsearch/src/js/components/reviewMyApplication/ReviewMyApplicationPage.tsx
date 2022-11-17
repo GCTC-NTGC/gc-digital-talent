@@ -1,28 +1,30 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useParams } from "react-router-dom";
 import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
 
 import UserProfile from "@common/components/UserProfile";
 import Pending from "@common/components/Pending";
-import NotFound from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import MissingSkills from "@common/components/MissingSkills";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import Well from "@common/components/Well";
-import { commonMessages, navigationMessages } from "@common/messages";
+import { navigationMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { Link } from "@common/components";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { getMissingSkills } from "@common/helpers/skillUtils";
-
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+
+import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
+
+import useRoutes from "../../hooks/useRoutes";
 import {
   Applicant,
   PoolAdvertisement,
+  Scalars,
   useGetReviewMyApplicationPageDataQuery,
 } from "../../api/generated";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
-import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 interface ReviewMyApplicationProps {
   applicant: Applicant;
@@ -35,8 +37,7 @@ export const ReviewMyApplication: React.FunctionComponent<
   ReviewMyApplicationProps
 > = ({ applicant, poolAdvertisement, applicationId, closingDate }) => {
   const intl = useIntl();
-  const directIntakePaths = useDirectIntakeRoutes();
-  const applicantProfileRoutes = useApplicantProfileRoutes();
+  const paths = useRoutes();
   const experiences = applicant.experiences?.filter(notEmpty) || [];
   const missingSkills = {
     requiredSkills: poolAdvertisement.essentialSkills?.filter(notEmpty),
@@ -67,11 +68,11 @@ export const ReviewMyApplication: React.FunctionComponent<
             defaultMessage: "My applications",
             description: "Breadcrumb for review application page.",
           }),
-          href: directIntakePaths.applications(applicant.id),
+          href: paths.applications(applicant.id),
         },
         {
           title: jobTitle,
-          href: directIntakePaths.pool(poolAdvertisement.id),
+          href: paths.pool(poolAdvertisement.id),
         },
         {
           title: intl.formatMessage(navigationMessages.stepOne),
@@ -81,7 +82,7 @@ export const ReviewMyApplication: React.FunctionComponent<
         currentStep: 1,
         steps: [
           {
-            path: directIntakePaths.reviewApplication(applicationId),
+            path: paths.reviewApplication(applicationId),
             label: intl.formatMessage({
               id: "LUEVdb",
               defaultMessage: "Step 1: Review my profile",
@@ -89,7 +90,7 @@ export const ReviewMyApplication: React.FunctionComponent<
             }),
           },
           {
-            path: directIntakePaths.signAndSubmit(applicationId),
+            path: paths.signAndSubmit(applicationId),
             label: intl.formatMessage({
               id: "LOh+c5",
               defaultMessage: "Step 2: Sign and submit",
@@ -108,59 +109,38 @@ export const ReviewMyApplication: React.FunctionComponent<
           hiringPools: { isVisible: false },
           about: {
             isVisible: true,
-            editUrl: applicantProfileRoutes.aboutMe(
-              applicant.id,
-              applicationId,
-            ),
+            editUrl: paths.aboutMe(applicant.id, applicationId),
           },
           language: {
             isVisible: true,
-            editUrl: applicantProfileRoutes.languageInformation(
-              applicant.id,
-              applicationId,
-            ),
+            editUrl: paths.languageInformation(applicant.id, applicationId),
           },
           government: {
             isVisible: true,
-            editUrl: applicantProfileRoutes.governmentInformation(
-              applicant.id,
-              applicationId,
-            ),
+            editUrl: paths.governmentInformation(applicant.id, applicationId),
           },
           workLocation: {
             isVisible: true,
-            editUrl: applicantProfileRoutes.workLocation(
-              applicant.id,
-              applicationId,
-            ),
+            editUrl: paths.workLocation(applicant.id, applicationId),
           },
           workPreferences: {
             isVisible: true,
-            editUrl: applicantProfileRoutes.workPreferences(
-              applicant.id,
-              applicationId,
-            ),
+            editUrl: paths.workPreferences(applicant.id, applicationId),
           },
           employmentEquity: {
             isVisible: true,
-            editUrl: applicantProfileRoutes.diversityEquityInclusion(
+            editUrl: paths.diversityEquityInclusion(
               applicant.id,
               applicationId,
             ),
           },
           roleSalary: {
             isVisible: true,
-            editUrl: applicantProfileRoutes.roleSalary(
-              applicant.id,
-              applicationId,
-            ),
+            editUrl: paths.roleSalary(applicant.id, applicationId),
           },
           skillsExperience: {
             isVisible: true,
-            editUrl: applicantProfileRoutes.skillsAndExperiences(
-              applicant.id,
-              applicationId,
-            ),
+            editUrl: paths.skillsAndExperiences(applicant.id, applicationId),
             override: (
               <>
                 <div data-h2-margin="base(0, 0, x1, 0)">
@@ -198,7 +178,7 @@ export const ReviewMyApplication: React.FunctionComponent<
                   style={{ gap: "1rem" }}
                 >
                   <Link
-                    href={directIntakePaths.signAndSubmit(applicationId)}
+                    href={paths.signAndSubmit(applicationId)}
                     color="cta"
                     mode="solid"
                     type="button"
@@ -216,7 +196,7 @@ export const ReviewMyApplication: React.FunctionComponent<
                     />
                   </Link>
                   <Link
-                    href={directIntakePaths.applications(applicant.id)}
+                    href={paths.applications(applicant.id)}
                     color="black"
                     mode="inline"
                     type="button"
@@ -238,13 +218,34 @@ export const ReviewMyApplication: React.FunctionComponent<
   );
 };
 
-const ReviewMyApplicationPage: React.FC<{ poolCandidateId: string }> = ({
-  poolCandidateId,
-}) => {
+const ApplicationNotFound = () => {
   const intl = useIntl();
+
+  return (
+    <ThrowNotFound
+      message={intl.formatMessage({
+        id: "jcl2s9",
+        defaultMessage: "Error, pool candidate unable to be loaded",
+        description: "Error message, placeholder",
+      })}
+    />
+  );
+};
+
+type RouteParams = {
+  poolCandidateId: Scalars["ID"];
+};
+
+const ReviewMyApplicationPage = () => {
+  const { poolCandidateId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetReviewMyApplicationPageDataQuery({
-    variables: { id: poolCandidateId },
+    variables: { id: poolCandidateId || "" },
+    pause: !poolCandidateId,
   });
+
+  if (error || !poolCandidateId) {
+    return <ApplicationNotFound />;
+  }
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -256,15 +257,7 @@ const ReviewMyApplicationPage: React.FC<{ poolCandidateId: string }> = ({
           closingDate={data.poolCandidate.poolAdvertisement?.expiryDate}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage({
-              id: "jcl2s9",
-              defaultMessage: "Error, pool candidate unable to be loaded",
-              description: "Error message, placeholder",
-            })}
-          </p>
-        </NotFound>
+        <ApplicationNotFound />
       )}
     </Pending>
   );

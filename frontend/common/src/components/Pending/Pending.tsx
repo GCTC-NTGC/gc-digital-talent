@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import type { CombinedError } from "urql";
 import ErrorMessage from "./ErrorMessage";
 
@@ -19,6 +20,7 @@ const Pending = ({
   inline = false,
   children,
 }: PendingProps): JSX.Element => {
+  const intl = useIntl();
   if (fetching) {
     return <Loading inline={inline} live={live} />;
   }
@@ -27,7 +29,21 @@ const Pending = ({
     return <ErrorMessage error={error} />;
   }
 
-  return <React.Suspense fallback={<Loading />}>{children}</React.Suspense>;
+  return (
+    <React.Suspense
+      fallback={
+        <Loading>
+          {intl.formatMessage({
+            defaultMessage: "Loading...",
+            id: "FTJdsa",
+            description: "Message to display when a page is loading.",
+          })}
+        </Loading>
+      }
+    >
+      {children}
+    </React.Suspense>
+  );
 };
 
 export default Pending;

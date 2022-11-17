@@ -56,7 +56,7 @@ const SkillBlock = ({
   onRemoveSkill,
 }: SkillBlockProps) => {
   const intl = useIntl();
-  const locale = useLocale();
+  const { locale } = useLocale();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const definition = description ? description[locale] : null;

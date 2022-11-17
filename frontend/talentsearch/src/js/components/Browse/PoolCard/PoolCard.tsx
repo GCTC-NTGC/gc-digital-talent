@@ -23,7 +23,7 @@ import {
 } from "@common/helpers/poolUtils";
 
 import { PoolAdvertisement } from "../../../api/generated";
-import { useDirectIntakeRoutes } from "../../../directIntakeRoutes";
+import useRoutes from "../../../hooks/useRoutes";
 
 import IconLabel from "./IconLabel";
 
@@ -68,7 +68,7 @@ export interface PoolCardProps {
 const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   const classifications = getClassificationStrings(pool);
   const classification = classifications?.length ? classifications[0] : null;

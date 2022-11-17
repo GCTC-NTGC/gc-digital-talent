@@ -1,5 +1,5 @@
 import React from "react";
-import { navigate } from "../../helpers/router";
+import { useLocation } from "react-router-dom";
 
 export interface ScrollToLinkProps
   extends Omit<React.HTMLProps<HTMLAnchorElement>, "href" | "onClick"> {
@@ -7,9 +7,25 @@ export interface ScrollToLinkProps
 }
 
 const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
+  const { pathname, search, hash } = useLocation();
   const [targetSection, setTargetSection] = React.useState<HTMLElement | null>(
     null,
   );
+
+  const scrollToSection = React.useCallback(() => {
+    if (targetSection) {
+      targetSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [targetSection]);
+
+  React.useEffect(() => {
+    if (hash && hash === `#${to}`) {
+      scrollToSection();
+    }
+  }, [pathname, hash, to, scrollToSection]);
 
   React.useEffect(() => {
     const section = document.getElementById(to);
@@ -17,14 +33,10 @@ const ScrollToLink = ({ to, children, ...rest }: ScrollToLinkProps) => {
   }, [to]);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (targetSection) {
-      e.preventDefault();
-      navigate(`#${to}`);
-      targetSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
+    e.preventDefault();
+    e.stopPropagation();
+    window.history.pushState({}, "", `${pathname}${search}#${to}`);
+    scrollToSection();
   };
 
   return (

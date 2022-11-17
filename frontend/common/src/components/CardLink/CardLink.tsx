@@ -1,5 +1,6 @@
 import React from "react";
-import useLinkClickHandler from "../Link/useLinkClickHandler";
+import { Link as RouterLink } from "react-router-dom";
+
 import sanitizeUrl from "../../helpers/sanitizeUrl";
 
 import "./cardLink.css";
@@ -30,6 +31,36 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
 };
 
+interface LinkProps {
+  href: string;
+  external: boolean;
+  children: React.ReactNode;
+}
+
+const Link = ({ href, external, children }: LinkProps) => {
+  const linkProps = {
+    className: "card-link",
+    "data-h2-display": "base(inline-block)",
+    "data-h2-radius": "base(s)",
+    "data-h2-shadow": "base(m) base:hover(xl)",
+    "data-h2-transition": "base:hover(box-shadow, .2s, ease, 0s)",
+  };
+
+  if (external) {
+    return (
+      <a href={href} {...linkProps}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <RouterLink to={href} {...linkProps}>
+      {children}
+    </RouterLink>
+  );
+};
+
 const CardLink: React.FC<CardLinkProps> = ({
   href,
   color = "ts-primary",
@@ -37,28 +68,11 @@ const CardLink: React.FC<CardLinkProps> = ({
   icon,
   label,
   children,
-  ...rest
 }) => {
   const Icon = icon || null;
   const url = sanitizeUrl(href);
-  const clickHandler = useLinkClickHandler({
-    to: url || "#",
-  });
   return (
-    <a
-      href={href}
-      {...(!external
-        ? {
-            onClick: clickHandler,
-          }
-        : null)}
-      className="card-link"
-      data-h2-display="base(inline-block)"
-      data-h2-radius="base(s)"
-      data-h2-shadow="base(m) base:hover(xl)"
-      data-h2-transition="base:hover(box-shadow, .2s, ease, 0s)"
-      {...rest}
-    >
+    <Link href={url || "#"} external={!!external}>
       <span
         className="card-link__header"
         data-h2-display="base(block)"
@@ -82,7 +96,7 @@ const CardLink: React.FC<CardLinkProps> = ({
         {Icon && <Icon className="card-link__icon" />}
         <span>{label}</span>
       </span>
-    </a>
+    </Link>
   );
 };
 
