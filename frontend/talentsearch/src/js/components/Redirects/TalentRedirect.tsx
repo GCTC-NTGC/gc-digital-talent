@@ -59,10 +59,12 @@ const TalentRedirect = () => {
       }
     }
 
-    return navigate(profilePath, { replace: true });
+    navigate(profilePath, { replace: true });
   }
 
-  return navigate(paths.home(), { replace: true });
+  navigate(paths.home(), { replace: true });
+
+  return null; // Return null to satisfy type
 };
 
 export default TalentRedirect;

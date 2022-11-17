@@ -34,10 +34,11 @@ const CreateAccountRedirect = () => {
     empty(loggedInEmail) &&
     location.pathname !== paths.createAccount()
   ) {
-    return navigate(paths.createAccount(), {
+    navigate(paths.createAccount(), {
       replace: true,
       state: { from: location.pathname },
     });
+    return null; // Return null to satisfy type
   }
 
   return <Outlet />;
