@@ -31,6 +31,9 @@ import { Role, useGetAboutMeQuery } from "../api/generated";
 const HomePage = React.lazy(() => import("./Home/HomePage"));
 const NotFoundPage = React.lazy(() => import("./404/Error404"));
 const SupportPage = React.lazy(() => import("./support/SupportPage"));
+const AccessibilityPage = React.lazy(
+  () => import("./AccessibilityStatement/AccessibilityStatement"),
+);
 
 /** Search */
 const SearchPage = React.lazy(() => import("./search/SearchPage"));
@@ -111,6 +114,12 @@ const talentRoutes = (
     path: talentPaths.support(),
     action: () => ({
       component: <SupportPage />,
+    }),
+  },
+  {
+    path: talentPaths.accessibility(),
+    action: () => ({
+      component: <AccessibilityPage />,
     }),
   },
   {

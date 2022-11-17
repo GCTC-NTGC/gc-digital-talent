@@ -3,6 +3,7 @@ import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import { useIntl } from "react-intl";
 import Accordion from "../../../Accordion";
 import { Link } from "../../..";
+import SkillList from "../SkillList";
 import {
   getAwardedTo,
   getAwardedScope,
@@ -11,52 +12,80 @@ import { getLocale } from "../../../../helpers/localize";
 import { getDateRange } from "../../../../helpers/dateUtils";
 import { AwardExperience } from "../../../../api/generated";
 
-type AwardAccordionProps = AwardExperience & {
-  editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
-};
-
-const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
-  id,
+export const AwardContent = ({
   title,
-  awardedDate,
   issuedBy,
   details,
   awardedTo,
   awardedScope,
   skills,
-  editUrl,
-}) => {
+}: AwardExperience) => {
+  const intl = useIntl();
+  return (
+    <>
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "{title} issued by {issuedBy}",
+            id: "4BpFoX",
+            description: "The award title is issued by some group",
+          },
+          { title, issuedBy },
+        )}
+      </p>
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Awarded to : ",
+          id: "HWRZ/z",
+          description: "The award was given to",
+        })}{" "}
+        {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
+      </p>
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Scope : ",
+          id: "IfsigK",
+          description: "The scope of the award given",
+        })}{" "}
+        {awardedScope ? intl.formatMessage(getAwardedScope(awardedScope)) : ""}
+      </p>
+      <hr
+        data-h2-background-color="base(dt-gray)"
+        data-h2-height="base(1px)"
+        data-h2-width="base(100%)"
+        data-h2-border="base(none)"
+        data-h2-margin="base(x1, 0)"
+      />
+      <SkillList skills={skills} />
+      <hr
+        data-h2-background-color="base(dt-gray)"
+        data-h2-height="base(1px)"
+        data-h2-width="base(100%)"
+        data-h2-border="base(none)"
+        data-h2-margin="base(x1, 0)"
+      />
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "Additional information: {details}",
+            id: "OvJwG6",
+            description: "Additional information if provided",
+          },
+          { details },
+        )}
+      </p>
+    </>
+  );
+};
+
+interface AwardAccordionProps extends AwardExperience {
+  editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+}
+
+const AwardAccordion = ({ editUrl, ...rest }: AwardAccordionProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-
-  // create unordered list element of skills DOM Element
-  const skillsList = skills
-    ? skills.map((skill, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <ul data-h2-padding="base(0, 0, 0, x1)" key={index}>
-          <li>
-            {skill.name[locale] && (
-              <p
-                data-h2-color="base(dt-primary)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x1, 0, x.25, 0)"
-              >
-                {skill.name[locale]}
-              </p>
-            )}
-            {skill.description && skill.description[locale] && (
-              <p data-h2-margin="base(0, 0, x.25, 0)">
-                {skill.description[locale]}
-              </p>
-            )}
-            {skill.experienceSkillRecord &&
-              skill.experienceSkillRecord.details && (
-                <p>{skill.experienceSkillRecord.details}</p>
-              )}
-          </li>
-        </ul>
-      ))
-    : "";
+  const { id, title, awardedDate, issuedBy, skills } = rest;
 
   return (
     <Accordion.Item value={id}>
@@ -88,71 +117,7 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
         {title || ""} - {issuedBy || ""}
       </Accordion.Trigger>
       <Accordion.Content>
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "{title} issued by {issuedBy}",
-              id: "4BpFoX",
-              description: "The award title is issued by some group",
-            },
-            { title, issuedBy },
-          )}
-        </p>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Awarded to : ",
-            id: "HWRZ/z",
-            description: "The award was given to",
-          })}{" "}
-          {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
-        </p>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Scope : ",
-            id: "IfsigK",
-            description: "The scope of the award given",
-          })}{" "}
-          {awardedScope
-            ? intl.formatMessage(getAwardedScope(awardedScope))
-            : ""}
-        </p>
-        <hr
-          data-h2-background-color="base(dt-gray)"
-          data-h2-height="base(1px)"
-          data-h2-width="base(100%)"
-          data-h2-border="base(none)"
-          data-h2-margin="base(x1, 0)"
-        />
-        {skillsList?.length > 0 ? (
-          skillsList
-        ) : (
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "No skills have been linked to this experience yet.",
-              id: "c4r/Zv",
-              description:
-                "A message explaining that the experience has no associated skills",
-            })}
-          </p>
-        )}
-        <hr
-          data-h2-background-color="base(dt-gray)"
-          data-h2-height="base(1px)"
-          data-h2-width="base(100%)"
-          data-h2-border="base(none)"
-          data-h2-margin="base(x1, 0)"
-        />
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "Additional information: {details}",
-              id: "OvJwG6",
-              description: "Additional information if provided",
-            },
-            { details },
-          )}
-        </p>
+        <AwardContent {...rest} />
         {editUrl && (
           <div>
             <hr
