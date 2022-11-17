@@ -121,7 +121,7 @@ interface PoolAdvertisementProps {
   hasApplied?: boolean;
 }
 
-const PoolAdvertisement = ({
+export const PoolAdvertisementPoster = ({
   poolAdvertisement,
   hasApplied,
 }: PoolAdvertisementProps) => {
@@ -147,13 +147,17 @@ const PoolAdvertisement = ({
     poolAdvertisement.advertisementStatus &&
     poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;
 
-  const languageRequirement = intl.formatMessage(
-    getLanguageRequirement(poolAdvertisement.advertisementLanguage ?? ""),
-  );
+  const languageRequirement = poolAdvertisement.advertisementLanguage
+    ? intl.formatMessage(
+        getLanguageRequirement(poolAdvertisement.advertisementLanguage),
+      )
+    : "";
 
-  const securityClearance = intl.formatMessage(
-    getSecurityClearance(poolAdvertisement.securityClearance ?? ""),
-  );
+  const securityClearance = poolAdvertisement.securityClearance
+    ? intl.formatMessage(
+        getSecurityClearance(poolAdvertisement.securityClearance),
+      )
+    : "";
 
   const essentialSkills = categorizeSkill(poolAdvertisement.essentialSkills);
   const nonEssentialSkills = categorizeSkill(
@@ -817,7 +821,7 @@ const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolAdvertisement && isVisible ? (
-        <PoolAdvertisement
+        <PoolAdvertisementPoster
           poolAdvertisement={data?.poolAdvertisement}
           hasApplied={hasApplied}
         />
