@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
+
 import { toast } from "@common/components/Toast";
 import {
   Select,
@@ -12,7 +14,6 @@ import {
   TextArea,
 } from "@common/components/form";
 import { notEmpty } from "@common/helpers/util";
-import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import { unpackIds, enumToOptions } from "@common/helpers/formUtils";
 
@@ -29,6 +30,7 @@ import {
   UpdateSkillFamilyMutation,
   useUpdateSkillFamilyMutation,
   useGetUpdateSkillFamilyDataQuery,
+  Scalars,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
@@ -52,6 +54,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
 > = ({ initialSkillFamily, skills, handleUpdateSkillFamily }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const sortedSkills = sortBy(skills, (skill) => {
     return skill.name?.[locale]?.toLocaleUpperCase();
@@ -231,13 +234,16 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
   );
 };
 
-const UpdateSkillFamily: React.FunctionComponent<{
-  skillFamilyId: string;
-}> = ({ skillFamilyId }) => {
+type RouteParams = {
+  skillFamilyId: Scalars["ID"];
+};
+
+const UpdateSkillFamily = () => {
   const intl = useIntl();
+  const { skillFamilyId } = useParams<RouteParams>();
   const [{ data: lookupData, fetching, error }] =
     useGetUpdateSkillFamilyDataQuery({
-      variables: { id: skillFamilyId },
+      variables: { id: skillFamilyId || "" },
     });
   const skills: Skill[] | [] = lookupData?.skills.filter(notEmpty) ?? [];
 

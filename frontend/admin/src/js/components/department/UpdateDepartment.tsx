@@ -1,16 +1,19 @@
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import pick from "lodash/pick";
+
 import { toast } from "@common/components/Toast";
-import { navigate } from "@common/helpers/router";
 import { Input, Submit } from "@common/components/form";
 import { errorMessages, commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Department,
+  Scalars,
   UpdateDepartmentInput,
   UpdateDepartmentMutation,
   useDepartmentQuery,
@@ -32,6 +35,7 @@ export const UpdateDepartmentForm: React.FunctionComponent<
   UpdateDepartmentProps
 > = ({ initialDepartment, handleUpdateDepartment }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -131,12 +135,15 @@ export const UpdateDepartmentForm: React.FunctionComponent<
   );
 };
 
-const UpdateDepartment: React.FunctionComponent<{
-  departmentId: string;
-}> = ({ departmentId }) => {
+type RouteParams = {
+  departmentId: Scalars["ID"];
+};
+
+const UpdateDepartment = () => {
   const intl = useIntl();
+  const { departmentId } = useParams<RouteParams>();
   const [{ data: departmentData, fetching, error }] = useDepartmentQuery({
-    variables: { id: departmentId },
+    variables: { id: departmentId || "" },
   });
   const [, executeMutation] = useUpdateDepartmentMutation();
   const handleUpdateDepartment = (id: string, data: UpdateDepartmentInput) =>

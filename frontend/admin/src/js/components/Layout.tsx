@@ -1,64 +1,17 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import { Helmet } from "react-helmet";
+import { Bars3Icon } from "@heroicons/react/24/solid";
 
-import { useRouter, RouterResult } from "@common/helpers/router";
-import { Routes } from "universal-router";
-import { Button } from "@common/components";
-import NotFound from "@common/components/NotFound";
-import Header from "@common/components/Header";
-import Footer from "@common/components/Footer";
 import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
+import { Button } from "@common/components";
+import Footer from "@common/components/Footer";
+import Header from "@common/components/Header";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
-import NotAuthorized from "@common/components/NotAuthorized";
+import { getLocale } from "@common/helpers/localize";
 
-import AdminSideMenu from "../menu/AdminSideMenu";
-
-const AdminNotFound: React.FC = () => {
-  const intl = useIntl();
-  return (
-    <NotFound
-      headingMessage={intl.formatMessage({
-        description: "Heading for the message saying the page was not found.",
-        defaultMessage: "Sorry, we can't find the page you were looking for.",
-        id: "pBJzgi",
-      })}
-    >
-      <p>
-        {intl.formatMessage({
-          description: "Detailed message saying the page was not found.",
-          defaultMessage:
-            "Oops, it looks like you've landed on a page that either doesn't exist or has moved.",
-          id: "pgHTkX",
-        })}
-      </p>
-    </NotFound>
-  );
-};
-
-const AdminNotAuthorized: React.FC = () => {
-  const intl = useIntl();
-  return (
-    <NotAuthorized
-      headingMessage={intl.formatMessage({
-        description:
-          "Heading for the message saying the page to view is not authorized.",
-        defaultMessage: "Sorry, you are not authorized to view this page.",
-        id: "jPLaDk",
-      })}
-    >
-      <p>
-        {intl.formatMessage({
-          description:
-            "Detailed message saying the page to view is not authorized.",
-          defaultMessage:
-            "Oops, it looks like you've landed on a page that you are not authorized to view.",
-          id: "gKyog2",
-        })}
-      </p>
-    </NotAuthorized>
-  );
-};
+import AdminSideMenu from "./menu/AdminSideMenu";
 
 interface OpenMenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   show: boolean;
@@ -91,24 +44,10 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
   </div>
 );
 
-interface DashboardProps {
-  contentRoutes: Routes<RouterResult>;
-}
-
-const notFound = <AdminNotFound />;
-const notAuthorized = <AdminNotAuthorized />;
-
-const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
+const Layout = () => {
+  const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
   const [isMenuOpen, setMenuOpen] = React.useState(!isSmallScreen);
-  const intl = useIntl();
-  const content = useRouter({
-    routes: contentRoutes,
-    components: {
-      notFound,
-      notAuthorized,
-    },
-  });
 
   const handleMenuToggle = () => {
     setMenuOpen(!isMenuOpen);
@@ -120,6 +59,25 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
 
   return (
     <>
+      <Helmet>
+        <html lang={getLocale(intl)} />
+        <title>
+          {intl.formatMessage({
+            defaultMessage: "Admin",
+            id: "wHX/8C",
+            description: "Title tag for Admin site",
+          })}
+        </title>
+        <meta
+          name="description"
+          content={intl.formatMessage({
+            defaultMessage:
+              "Recruit and manage IT employees in the Government of Canada.",
+            id: "J8kIar",
+            description: "Meta tag description for Admin site",
+          })}
+        />
+      </Helmet>
       <a href="#main" data-h2-visibility="base(hidden)">
         {intl.formatMessage({
           defaultMessage: "Skip to main content",
@@ -127,7 +85,6 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
           description: "Assistive technology skip link",
         })}
       </a>
-
       <div data-h2-flex-grid="base(stretch, 0)">
         <AdminSideMenu
           isOpen={isMenuOpen}
@@ -146,7 +103,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
               data-h2-flex-grow="base(1)"
               data-h2-background-color="base(dt-gray.15)"
             >
-              {content}
+              <Outlet />
             </main>
             <Footer width="full" />
           </div>
@@ -163,4 +120,4 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
   );
 };
 
-export default Dashboard;
+export default Layout;

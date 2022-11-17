@@ -1,5 +1,5 @@
 import * as React from "react";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import { useIntl } from "react-intl";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 

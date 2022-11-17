@@ -1,13 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { commonMessages } from "@common/messages";
+
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import Link from "@common/components/Link";
-import NotFound from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+
+import useRoutes from "../../hooks/useRoutes";
 import { useGetPoolQuery } from "../../api/generated";
 import type { Pool } from "../../api/generated";
 
@@ -17,7 +18,7 @@ interface PoolApplyProps {
 
 const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
   const intl = useIntl();
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   const links = [
     {
@@ -70,15 +71,13 @@ const PoolApplyPage: React.FC<PoolApplyPageProps> = ({ id }) => {
       {data?.pool ? (
         <PoolApply pool={data?.pool} />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Error, pool unable to be loaded",
-              id: "DcEinN",
-              description: "Error message, placeholder",
-            })}
-          </p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage({
+            defaultMessage: "Error, pool unable to be loaded",
+            id: "DcEinN",
+            description: "Error message, placeholder",
+          })}
+        />
       )}
     </Pending>
   );

@@ -5,7 +5,7 @@ import { Button, Link } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
-import { useDirectIntakeRoutes } from "../../../directIntakeRoutes";
+import useRoutes from "../../../hooks/useRoutes";
 
 import type { Application } from "./ApplicationCard";
 
@@ -19,7 +19,7 @@ export interface ContinueActionProps extends ActionProps {
 
 const ContinueAction = ({ show, application }: ContinueActionProps) => {
   const intl = useIntl();
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
   const { poolAdvertisement } = application;
 
   if (!show) {
@@ -51,7 +51,7 @@ const SeeAdvertisementAction = ({
   advertisement,
 }: SeeAdvertisementActionProps) => {
   const intl = useIntl();
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   if (!show || !advertisement) {
     return null;

@@ -2,24 +2,20 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import TileLink from "@common/components/TileLink";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import AlertDialog from "@common/components/AlertDialog";
 import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
 import { getLocale } from "@common/helpers/localize";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
+import useRoutes from "../../hooks/useRoutes";
 
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
-  const directIntakePaths = useDirectIntakeRoutes();
-  const talentPaths = useTalentSearchRoutes();
-  const profilePaths = useApplicantProfileRoutes();
+  const paths = useRoutes();
 
   return (
     <>
@@ -91,7 +87,7 @@ const LoggedOutPage: React.FC = () => {
             style={{ margin: "0 -0.5rem" }}
           >
             <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-              <TileLink href={talentPaths.home()} color="primary">
+              <TileLink href={paths.home()} color="primary">
                 {intl.formatMessage({
                   defaultMessage: "Return home",
                   id: "Hgd/PL",
@@ -100,7 +96,7 @@ const LoggedOutPage: React.FC = () => {
               </TileLink>
             </div>
             <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-              <TileLink href={directIntakePaths.allPools()} color="primary">
+              <TileLink href={paths.allPools()} color="primary">
                 {intl.formatMessage({
                   defaultMessage: "View open pools",
                   id: "FtlwFY",
@@ -148,8 +144,7 @@ const LoggedOutPage: React.FC = () => {
                 mode="outline"
                 color="primary"
                 type="button"
-                href={profilePaths.myProfile()}
-                external
+                href={paths.myProfile()}
               >
                 {intl.formatMessage({
                   defaultMessage: "Cancel",

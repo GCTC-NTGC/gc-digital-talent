@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { useIntl } from "react-intl";
-
-import { pushToStateThenNavigate } from "@common/helpers/router";
+import { useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
+
 import { unpackMaybes } from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
 import NonExecutiveITClassifications from "@common/constants/NonExecutiveITClassifications";
@@ -21,7 +21,7 @@ import SearchFilterAdvice from "./SearchFilterAdvice";
 import Spinner from "../Spinner";
 import CandidateResults from "./CandidateResults";
 import SearchForm, { FormValues, SearchFormRef } from "./SearchForm";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import { SimpleClassification, SimplePool } from "../../types/poolUtils";
 
 export type BrowserHistoryState = {
@@ -252,7 +252,8 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   );
 };
 
-const SearchContainerApi: React.FC = () => {
+const SearchContainerApi = () => {
+  const navigate = useNavigate();
   // Fetches all data for the filters on the search form (eg. classifications, skills, etc.).
   const [
     {
@@ -291,19 +292,21 @@ const SearchContainerApi: React.FC = () => {
     });
   const totalCandidateCount = candidatesData?.countApplicants || 0;
 
-  const paths = useTalentSearchRoutes();
+  const paths = useRoutes();
   const onSubmit = async (
     candidateCount: number,
     poolId: string,
     selectedClassifications: SimpleClassification[],
   ) => {
-    return pushToStateThenNavigate<BrowserHistoryState>(paths.request(), {
-      applicantFilter: {
-        ...applicantFilter,
-        pools: [{ id: poolId }],
+    navigate(paths.request(), {
+      state: {
+        applicantFilter: {
+          ...applicantFilter,
+          pools: [{ id: poolId }],
+        },
+        candidateCount,
+        selectedClassifications,
       },
-      candidateCount,
-      selectedClassifications,
     });
   };
 

@@ -1,6 +1,9 @@
 import React from "react";
+import { BriefcaseIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler, useFormContext } from "react-hook-form";
+
 import { errorMessages, navigationMessages } from "@common/messages";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
 import { empty } from "@common/helpers/util";
@@ -11,9 +14,7 @@ import {
 } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import { navigate } from "@common/helpers/router";
 import { toast } from "@common/components/Toast";
-import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import ExternalLink from "@common/components/Link/ExternalLink";
 import { FieldLabels } from "@common/components/form/BasicForm";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
@@ -28,8 +29,7 @@ import {
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
-import directIntakeRoutes from "../../directIntakeRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import profileMessages from "../profile/profileMessages";
 
 type FormValues = {
@@ -520,13 +520,12 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
   submitHandler,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const profilePaths = applicantProfileRoutes(locale);
-  const directIntakePaths = directIntakeRoutes(locale);
+  const navigate = useNavigate();
+  const paths = useRoutes();
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.reviewApplication(application.id)
-      : profilePaths.home(initialData.id);
+      ? paths.reviewApplication(application.id)
+      : paths.profile(initialData.id);
 
   const labels = getGovernmentInfoLabels(intl);
 
@@ -550,7 +549,7 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
-          href: directIntakePaths.applications(application.user.id),
+          href: paths.applications(application.user.id),
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
@@ -558,10 +557,10 @@ export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
             intl,
             application.poolAdvertisement,
           ),
-          href: directIntakePaths.pool(application.pool.id),
+          href: paths.pool(application.pool.id),
         },
         {
-          href: directIntakePaths.reviewApplication(application.id),
+          href: paths.reviewApplication(application.id),
           title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]

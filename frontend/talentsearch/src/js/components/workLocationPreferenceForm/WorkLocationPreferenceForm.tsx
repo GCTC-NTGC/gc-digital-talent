@@ -1,16 +1,17 @@
-import { BasicForm, Checklist, TextArea } from "@common/components/form";
-import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
-import { enumToOptions } from "@common/helpers/formUtils";
-import { getLocale } from "@common/helpers/localize";
-import { navigate } from "@common/helpers/router";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import { errorMessages, navigationMessages } from "@common/messages";
-import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
+import { BriefcaseIcon } from "@heroicons/react/24/solid";
+
+import { BasicForm, Checklist, TextArea } from "@common/components/form";
+import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
+import { enumToOptions } from "@common/helpers/formUtils";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { errorMessages, navigationMessages } from "@common/messages";
 import { toast } from "@common/components/Toast";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+
 import {
   CreateUserInput,
   CreateWorkLocationPreferenceMutation,
@@ -19,8 +20,7 @@ import {
   User,
   PoolCandidate,
 } from "../../api/generated";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
-import directIntakeRoutes from "../../directIntakeRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import profileMessages from "../profile/profileMessages";
@@ -42,13 +42,12 @@ export const WorkLocationPreferenceForm: React.FC<
   WorkLocationPreferenceFormProps
 > = ({ initialData, application, handleWorkLocationPreference }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const profilePaths = applicantProfileRoutes(locale);
-  const directIntakePaths = directIntakeRoutes(locale);
+  const navigate = useNavigate();
+  const paths = useRoutes();
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.reviewApplication(application.id)
-      : profilePaths.home(initialData.id);
+      ? paths.reviewApplication(application.id)
+      : paths.profile(initialData.id);
 
   const labels = {
     locationPreferences: intl.formatMessage({
@@ -100,7 +99,7 @@ export const WorkLocationPreferenceForm: React.FC<
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
-          href: directIntakePaths.applications(application.user.id),
+          href: paths.applications(application.user.id),
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
@@ -108,10 +107,10 @@ export const WorkLocationPreferenceForm: React.FC<
             intl,
             application.poolAdvertisement,
           ),
-          href: directIntakePaths.pool(application.pool.id),
+          href: paths.pool(application.pool.id),
         },
         {
-          href: directIntakePaths.reviewApplication(application.id),
+          href: paths.reviewApplication(application.id),
           title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]

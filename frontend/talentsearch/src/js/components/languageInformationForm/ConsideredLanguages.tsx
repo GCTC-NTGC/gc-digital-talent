@@ -29,7 +29,7 @@ interface ConsideredLanguagesProps {
 
 const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   const intl = useIntl();
-  const locale = useLocale();
+  const { locale } = useLocale();
   const { watch, resetField } = useFormContext();
 
   const languageEvaluationPageLink = () => {

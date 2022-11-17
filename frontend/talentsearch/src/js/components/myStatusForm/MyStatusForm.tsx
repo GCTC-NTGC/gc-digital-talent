@@ -1,14 +1,17 @@
-import { navigate } from "@common/helpers/router";
-import { errorMessages } from "@common/messages";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
+
+import { errorMessages } from "@common/messages";
 import { toast } from "@common/components/Toast";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getJobLookingStatus } from "@common/constants/localizedConstants";
 import { BasicForm, RadioGroup } from "@common/components/form";
 import Pending from "@common/components/Pending";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
+
+import { ThrowNotFound } from "@common/components/NotFound";
+import useRoutes from "../../hooks/useRoutes";
 import {
   UpdateUserAsUserInput,
   useGetMyStatusQuery,
@@ -148,7 +151,8 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
 
 const MyStatusApi: React.FunctionComponent = () => {
   const intl = useIntl();
-  const paths = useApplicantProfileRoutes();
+  const paths = useRoutes();
+  const navigate = useNavigate();
 
   const [{ data: initialData, fetching, error }] = useGetMyStatusQuery();
 
@@ -158,7 +162,7 @@ const MyStatusApi: React.FunctionComponent = () => {
       id,
       user: data,
     }).then((result) => {
-      navigate(paths.home(id));
+      navigate(paths.profile(id));
       toast.success(
         intl.formatMessage({
           defaultMessage: "My Status updated successfully!",
@@ -192,7 +196,9 @@ const MyStatusApi: React.FunctionComponent = () => {
           handleMyStatus={handleMyStatus}
         />
       ) : (
-        <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
       )}
     </Pending>
   );

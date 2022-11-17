@@ -1,10 +1,11 @@
 import React from "react";
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import { useLocation, parseUrlQueryParameters } from "@common/helpers/router";
-import { commonMessages } from "@common/messages";
+import { useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
+
+import { ThrowNotFound } from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
 import { toast } from "@common/components/Toast";
+
 import {
   User,
   useGetApplicationQuery,
@@ -50,7 +51,7 @@ const WorkPreferencesFormApi: React.FunctionComponent<
 };
 
 interface ApiOrContentProps {
-  applicationId?: string;
+  applicationId?: string | null;
   initialData: User;
   handleWorkPreferences: (
     id: string,
@@ -77,8 +78,8 @@ const ApiOrContent = ({
 
 export const WorkPreferencesApi: React.FunctionComponent = () => {
   const intl = useIntl();
-  const location = useLocation();
-  const queryParams = parseUrlQueryParameters(location);
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
 
   const [{ data: initialData, fetching, error }] = useGetWorkPreferencesQuery();
   const preProfileStatus = initialData?.me?.isProfileComplete;
@@ -113,14 +114,14 @@ export const WorkPreferencesApi: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {initialData?.me ? (
         <ApiOrContent
-          applicationId={queryParams.applicationId}
+          applicationId={applicationId}
           initialData={initialData.me}
           handleWorkPreferences={handleWorkPreferences}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
       )}
     </Pending>
   );

@@ -1,8 +1,8 @@
 import React from "react";
-import NotFound from "@common/components/NotFound";
+import { useSearchParams } from "react-router-dom";
+
+import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import { parseUrlQueryParameters, useLocation } from "@common/helpers/router";
-import { commonMessages } from "@common/messages";
 import { useIntl } from "react-intl";
 import { OperationResult } from "urql";
 import { toast } from "@common/components/Toast";
@@ -51,7 +51,7 @@ const AboutMeFormApi: React.FunctionComponent<AboutMeFormApiProps> = ({
 };
 
 interface ApiOrContentProps {
-  applicationId?: string;
+  applicationId: string | null;
   initialUser: User;
   onUpdateAboutMe: AboutMeUpdateHandler;
 }
@@ -70,10 +70,10 @@ const ApiOrContent = ({
     <AboutMeForm initialUser={initialUser} onUpdateAboutMe={onUpdateAboutMe} />
   );
 
-const AboutMeFormPage: React.FunctionComponent = () => {
+const AboutMeFormPage = () => {
   const intl = useIntl();
-  const location = useLocation();
-  const queryParams = parseUrlQueryParameters(location);
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
 
   const [result] = useGetAboutMeQuery();
   const { data, fetching, error } = result;
@@ -108,14 +108,14 @@ const AboutMeFormPage: React.FunctionComponent = () => {
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
         <ApiOrContent
-          applicationId={queryParams.applicationId}
+          applicationId={applicationId}
           initialUser={data.me}
           onUpdateAboutMe={handleUpdateUser}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
       )}
     </Pending>
   );

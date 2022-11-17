@@ -1,13 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+
 import { toast } from "@common/components/Toast";
 import { Input, MultiSelect, Select, Submit } from "@common/components/form";
-import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
 import { emptyToNull, emptyToUndefined } from "@common/helpers/util";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
@@ -38,6 +40,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   handleCreateUser,
 }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;

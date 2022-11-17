@@ -1,18 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 
 import CallToAction from "../../../CallToAction";
 
 import TALENTSEARCH_APP_DIR from "../../../../talentSearchConstants";
-import { useApplicantProfileRoutes } from "../../../../applicantProfileRoutes";
+import useRoutes from "../../../../hooks/useRoutes";
 
 import "./profile.css";
 
 const Profile = () => {
   const intl = useIntl();
-  const apPaths = useApplicantProfileRoutes();
+  const paths = useRoutes();
 
   return (
     <div
@@ -84,7 +84,7 @@ const Profile = () => {
               type="link"
               context="profile"
               content={{
-                path: apPaths.myProfile(),
+                path: paths.myProfile(),
                 label: intl.formatMessage({
                   defaultMessage: "Create a profile",
                   id: "7hUWc+",

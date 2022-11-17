@@ -1,10 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import jwtDecode, { JwtPayload } from "jwt-decode";
-import {
-  clearQueryParams,
-  parseUrlQueryParameters,
-  useLocation,
-} from "../../helpers/router";
 
 const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
@@ -109,14 +104,12 @@ const refreshTokenSet = async (
   return null;
 };
 
-function getTokensFromLocation(
-  location: ReturnType<typeof useLocation>,
-): TokenSet | null {
-  const queryParams = parseUrlQueryParameters(location);
-  const accessToken: string | null = queryParams.access_token ?? null;
-  const refreshToken: string | null = queryParams.refresh_token ?? null;
-  const idToken: string | null = queryParams.id_token ?? null;
-  if (accessToken && queryParams.token_type?.toUpperCase() === "BEARER") {
+function getTokensFromLocation(): TokenSet | null {
+  const params = new URLSearchParams(window.location.search);
+  const accessToken: string | null = params.get("access_token") ?? null;
+  const refreshToken: string | null = params.get("refresh_token") ?? null;
+  const idToken: string | null = params.get("id_token") ?? null;
+  if (accessToken && params.get("token_type")?.toUpperCase() === "BEARER") {
     return {
       accessToken,
       refreshToken,
@@ -124,6 +117,10 @@ function getTokensFromLocation(
     };
   }
   return null;
+}
+
+function clearQueryParams() {
+  window.history.pushState({}, "", `${window.location.pathname}`);
 }
 
 interface AuthenticationContainerProps {
@@ -144,8 +141,7 @@ const AuthenticationContainer: React.FC<AuthenticationContainerProps> = ({
     idToken: localStorage.getItem(ID_TOKEN),
   });
 
-  const location = useLocation();
-  const newTokens = getTokensFromLocation(location);
+  const newTokens = getTokensFromLocation();
 
   // If newTokens is not null, then we have a new access token in the url. Save it in local storage and in state hook, then clear query parameters.
   useEffect(() => {

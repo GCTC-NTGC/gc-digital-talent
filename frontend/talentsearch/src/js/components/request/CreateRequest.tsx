@@ -1,16 +1,13 @@
-import { Input, Select, Submit, TextArea } from "@common/components/form";
 import * as React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+
+import { Input, Select, Submit, TextArea } from "@common/components/form";
+import { Link } from "@common/components";
 import { errorMessages } from "@common/messages";
-import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { toast } from "@common/components/Toast";
-import {
-  navigate,
-  pushToStateThenNavigate,
-  useLocation,
-} from "@common/helpers/router";
 import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
 import {
   getFromSessionStorage,
@@ -20,7 +17,8 @@ import {
 import { EquitySelections } from "@common/api/generated";
 import Pending from "@common/components/Pending";
 import { objectsToSortedOptions } from "@common/helpers/formUtils";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+
+import useRoutes from "../../hooks/useRoutes";
 import {
   Department,
   CreatePoolCandidateSearchRequestInput,
@@ -91,7 +89,8 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
-  const paths = useTalentSearchRoutes();
+  const paths = useRoutes();
+  const navigate = useNavigate();
   const cacheKey = "ts-createRequest";
   const location = useLocation();
   const state = location.state as BrowserHistoryState;
@@ -369,16 +368,14 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               data-h2-text-align="base(center) p-tablet(left)"
               data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
-              <Button
+              <Link
                 color="primary"
                 mode="outline"
                 data-h2-margin="base(0, x.5, 0, 0)"
-                onClick={() => {
-                  // Save the initial search form values to the state so they are available to user when click back.
-                  pushToStateThenNavigate<BrowserHistoryState>(paths.search(), {
-                    ...state,
-                    initialValues: searchFormInitialValues,
-                  });
+                href={paths.search()}
+                state={{
+                  ...state,
+                  initialValues: searchFormInitialValues,
                 }}
               >
                 {intl.formatMessage({
@@ -387,7 +384,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                   description:
                     "Back button located next to the submit button on the request form.",
                 })}
-              </Button>
+              </Link>
             </div>
             <div
               data-h2-text-align="base(center) p-tablet(right)"

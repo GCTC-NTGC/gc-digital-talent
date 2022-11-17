@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getFullNameHtml, getFullNameLabel } from "@common/helpers/nameUtils";

@@ -4,12 +4,12 @@ import { useIntl } from "react-intl";
 import Hero from "@common/components/Hero";
 import Heading from "@common/components/Heading";
 import { ExternalLink } from "@common/components/Link";
-import { imageUrl } from "@common/helpers/router";
-
+import imageUrl from "@common/helpers/imageUrl";
 import { getLocale, Locales } from "@common/helpers/localize";
+
 import useBreadcrumbs from "../../hooks/useBreadcrumbs";
+import useRoutes from "../../hooks/useRoutes";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 const digitalStandardsLink = (
   locale: Locales,
@@ -211,7 +211,7 @@ const tollFreeLink = (chunks: React.ReactNode) => (
 const AccessibilityStatement = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = useTalentSearchRoutes();
+  const paths = useRoutes();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Accessibility statement",

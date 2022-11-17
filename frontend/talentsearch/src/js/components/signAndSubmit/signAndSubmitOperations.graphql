@@ -29,6 +29,7 @@ fragment applicantExperiences on Applicant {
 
 query getApplicationData($id: ID!) {
   poolCandidate(id: $id) {
+    id
     user {
       id
       isProfileComplete
