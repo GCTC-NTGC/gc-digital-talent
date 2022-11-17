@@ -1,10 +1,10 @@
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 import { errorMessages } from "@common/messages";
+import { toast } from "@common/components/Toast";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getJobLookingStatus } from "@common/constants/localizedConstants";
 import { BasicForm, RadioGroup } from "@common/components/form";

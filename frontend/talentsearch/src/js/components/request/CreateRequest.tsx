@@ -2,12 +2,12 @@ import * as React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 
 import { Input, Select, Submit, TextArea } from "@common/components/form";
-import { errorMessages } from "@common/messages";
 import { Link } from "@common/components";
+import { errorMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
+import { toast } from "@common/components/Toast";
 import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
 import {
   getFromSessionStorage,

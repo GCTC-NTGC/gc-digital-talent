@@ -2,11 +2,11 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 
 import { PoolCandidateSearchRequest } from "@common/api/generated";
 import { Button } from "@common/components";
 import { Submit, TextArea } from "@common/components/form";
+import { toast } from "@common/components/Toast";
 
 import { useAdminRoutes } from "../../adminRoutes";
 import {

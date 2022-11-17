@@ -2,9 +2,9 @@ import * as React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
-import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
 
+import { toast } from "@common/components/Toast";
 import {
   Submit,
   Select,

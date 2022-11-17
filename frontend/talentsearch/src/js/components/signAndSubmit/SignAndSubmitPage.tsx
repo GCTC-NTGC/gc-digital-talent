@@ -3,13 +3,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import uniqueId from "lodash/uniqueId";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 import { ArrowSmallRightIcon } from "@heroicons/react/24/outline";
 import {
   ClipboardDocumentCheckIcon,
   UserIcon,
 } from "@heroicons/react/24/solid";
 
+import { toast } from "@common/components/Toast";
 import { Link } from "@common/components";
 import { Input, Submit } from "@common/components/form";
 import { ThrowNotFound } from "@common/components/NotFound";

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 
+import { toast } from "@common/components/Toast";
 import { useAdminRoutes } from "../../../adminRoutes";
 import {
   useClosePoolAdvertisementMutation,

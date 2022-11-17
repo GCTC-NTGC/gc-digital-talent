@@ -1,8 +1,7 @@
 import React from "react";
-import { toast } from "react-toastify";
 import type { Story, Meta } from "@storybook/react";
 
-import Toast from "./Toast";
+import Toast, { toast } from "./Toast";
 
 interface StoryArgs {
   text: string;
@@ -22,10 +21,11 @@ export default {
 const Template: Story<StoryArgs> = (args) => {
   const { text, longText } = args;
 
+  toast.info(text, { autoClose: false });
+  toast.info(longText, { autoClose: false });
   toast.success(text, { autoClose: false });
-  toast.success(longText, { autoClose: false });
+  toast.warning(text, { autoClose: false });
   toast.error(text, { autoClose: false });
-  toast.error(longText, { autoClose: false });
 
   return <Toast />;
 };

@@ -2,7 +2,6 @@ import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 
 import { BasicForm, Checklist, TextArea } from "@common/components/form";
@@ -10,6 +9,7 @@ import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { errorMessages, navigationMessages } from "@common/messages";
+import { toast } from "@common/components/Toast";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import {

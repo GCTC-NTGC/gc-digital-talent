@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 import { FormProvider, useForm } from "react-hook-form";
 import { UserMinusIcon } from "@heroicons/react/24/solid";
 
@@ -10,6 +9,7 @@ import Button from "@common/components/Button";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import { InputError, InputWrapper } from "@common/components/inputPartials";
+import { toast } from "@common/components/Toast";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {

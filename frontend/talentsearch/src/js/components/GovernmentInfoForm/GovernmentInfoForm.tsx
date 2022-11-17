@@ -1,5 +1,4 @@
 import React from "react";
-import { toast } from "react-toastify";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
@@ -15,6 +14,7 @@ import {
 } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { toast } from "@common/components/Toast";
 import ExternalLink from "@common/components/Link/ExternalLink";
 import { FieldLabels } from "@common/components/form/BasicForm";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";

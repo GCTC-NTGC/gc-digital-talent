@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
@@ -12,6 +11,7 @@ import {
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { toast } from "@common/components/Toast";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";

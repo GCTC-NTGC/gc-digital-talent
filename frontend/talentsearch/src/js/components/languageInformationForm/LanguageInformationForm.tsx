@@ -1,15 +1,16 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
 import compact from "lodash/compact";
 import omit from "lodash/omit";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { toast } from "@common/components/Toast";
+
 import { errorMessages, navigationMessages } from "@common/messages";
 import { BasicForm, Checklist } from "@common/components/form";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import {

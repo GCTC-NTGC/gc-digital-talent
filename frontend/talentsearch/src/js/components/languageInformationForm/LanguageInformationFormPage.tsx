@@ -1,10 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
+import { toast } from "@common/components/Toast";
 
 import {
   useGetLanguageInformationQuery,

@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
 import { OperationContext } from "urql";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
-import { BasicForm, TextArea } from "@common/components/form";
+import { toast } from "@common/components/Toast";
 import { Button } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
+import { BasicForm, TextArea } from "@common/components/form";
 import { removeFromSessionStorage } from "@common/helpers/storageUtils";
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";

@@ -2,9 +2,9 @@ import * as React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 import pick from "lodash/pick";
 
+import { toast } from "@common/components/Toast";
 import { Input, Submit } from "@common/components/form";
 import { errorMessages, commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";

@@ -1,9 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate, useParams } from "react-router-dom";
-import { Id, toast } from "react-toastify";
+import { Id, toast as toastify } from "react-toastify";
 
 import Loading from "@common/components/Pending/Loading";
+import { toast } from "@common/components/Toast";
 import { notEmpty } from "@common/helpers/util";
 import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
 import { AuthorizationContext } from "@common/components/Auth";
@@ -49,7 +50,7 @@ const CreateApplication = () => {
        * work. Leaving it in, in the hopes
        * it finally does 🤷‍♀️
        */
-      if (!toast.isActive(errorToastId.current)) {
+      if (!toastify.isActive(errorToastId.current)) {
         errorToastId.current = toast.error(
           msg ||
             intl.formatMessage({

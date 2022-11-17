@@ -4,8 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 import { OperationResult } from "urql";
+import { toast } from "@common/components/Toast";
 import {
   Exact,
   UpdateUserAsUserInput,

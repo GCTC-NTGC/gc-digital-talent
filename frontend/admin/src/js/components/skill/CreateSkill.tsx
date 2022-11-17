@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
-import { toast } from "react-toastify";
 
+import { toast } from "@common/components/Toast";
 import { Input, TextArea, Submit, MultiSelect } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";

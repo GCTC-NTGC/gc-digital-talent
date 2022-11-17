@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
-import { toast } from "react-toastify";
 import {
   CalculatorIcon,
   InformationCircleIcon,
@@ -10,6 +9,7 @@ import {
   CheckIcon,
 } from "@heroicons/react/24/outline";
 
+import { toast } from "@common/components/Toast";
 import TableOfContents from "@common/components/TableOfContents";
 import Well from "@common/components/Well";
 import {

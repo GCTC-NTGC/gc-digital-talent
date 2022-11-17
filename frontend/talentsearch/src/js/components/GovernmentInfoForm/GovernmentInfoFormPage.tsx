@@ -1,12 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { notEmpty } from "@common/helpers/util";
 
+import { toast } from "@common/components/Toast";
 import {
   useGetApplicationQuery,
   useGetGovInfoFormLookupDataQuery,

@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import {
   BriefcaseIcon,
   InformationCircleIcon,
@@ -12,6 +11,7 @@ import { BasicForm, Checklist } from "@common/components/form";
 import { errorMessages, navigationMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { unpackMaybes } from "@common/helpers/formUtils";
+import { toast } from "@common/components/Toast";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import Well from "@common/components/Well";
 import { ExternalLink } from "@common/components/Link";

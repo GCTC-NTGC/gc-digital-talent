@@ -1,10 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 
+import { toast } from "@common/components/Toast";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
 import { errorMessages, navigationMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
