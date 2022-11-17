@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import {
   AuthenticationContext,
@@ -15,6 +15,7 @@ import useRoutes from "../../hooks/useRoutes";
  */
 const CreateAccountRedirect = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { loggedIn } = React.useContext(AuthenticationContext);
   const { loggedInEmail, isLoaded: authorizationLoaded } =
     React.useContext(AuthorizationContext);
@@ -33,13 +34,10 @@ const CreateAccountRedirect = () => {
     empty(loggedInEmail) &&
     location.pathname !== paths.createAccount()
   ) {
-    return (
-      <Navigate
-        to={paths.createAccount()}
-        state={{ from: location.pathname }}
-        replace
-      />
-    );
+    return navigate(paths.createAccount(), {
+      replace: true,
+      state: { from: location.pathname },
+    });
   }
 
   return <Outlet />;

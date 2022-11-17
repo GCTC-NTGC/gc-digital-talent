@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/outline";
 import CardLink from "@common/components/CardLink";
 import PageHeader from "@common/components/PageHeader";
-import { Navigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getLocale } from "@common/helpers/localize";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
 import useAuth from "@common/hooks/useAuth";
@@ -17,10 +17,13 @@ const HomePage: React.FC = () => {
   const adminRoutes = useAdminRoutes();
   const apiRoutes = useApiRoutes();
   const location = useLocation();
+  const navigate = useNavigate();
   const { loggedIn } = useAuth();
 
+  // If user is logged in, send them to the dashboard instead
   if (loggedIn) {
-    return <Navigate to={adminRoutes.dashboard()} replace />;
+    navigate(adminRoutes.dashboard(), { replace: true });
+    return null; // Return null to satisfy type
   }
 
   return (

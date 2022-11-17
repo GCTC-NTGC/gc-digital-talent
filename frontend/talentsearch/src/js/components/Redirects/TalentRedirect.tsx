@@ -1,5 +1,4 @@
-import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import useAuthorizationContext from "@common/hooks/useAuthorizationContext";
 
@@ -8,6 +7,7 @@ import useRoutes from "../../hooks/useRoutes";
 const TalentRedirect = () => {
   const paths = useRoutes();
   const location = useLocation();
+  const navigate = useNavigate();
   const { loggedInUser } = useAuthorizationContext();
 
   if (loggedInUser) {
@@ -59,10 +59,10 @@ const TalentRedirect = () => {
       }
     }
 
-    return <Navigate to={profilePath} replace />;
+    return navigate(profilePath, { replace: true });
   }
 
-  return <Navigate to={paths.home()} replace />;
+  return navigate(paths.home(), { replace: true });
 };
 
 export default TalentRedirect;
