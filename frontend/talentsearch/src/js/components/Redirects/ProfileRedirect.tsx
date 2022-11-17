@@ -10,10 +10,12 @@ const ProfileRedirect = () => {
   const { loggedInUser } = useAuthorizationContext();
 
   if (loggedInUser) {
-    return navigate(paths.profile(loggedInUser.id), { replace: true });
+    navigate(paths.profile(loggedInUser.id), { replace: true });
   }
 
-  return navigate(paths.home(), { replace: true });
+  navigate(paths.home(), { replace: true });
+
+  return null; // Return null to satisfy type
 };
 
 export default ProfileRedirect;
