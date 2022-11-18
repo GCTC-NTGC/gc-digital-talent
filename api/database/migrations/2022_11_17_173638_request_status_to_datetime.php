@@ -21,7 +21,7 @@ class RequestStatusToDatetime extends Migration
             update pool_candidate_search_requests
                 set done_at =
                     case status
-                        when 'DONE' then TIMESTAMP 'now'
+                        when 'DONE' then coalesce(updated_at, TIMESTAMP 'now')
                         when 'PENDING' then null
                     end
         ");
