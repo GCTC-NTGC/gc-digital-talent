@@ -3,7 +3,7 @@ import { IntlProvider, useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
 import defaultRichTextElements from "../../helpers/format";
-import { LanguageProviderProps } from "./LanguageProvider";
+import { Messages } from "./LanguageProvider";
 
 /**
  * Indigenous Language codes
@@ -13,7 +13,12 @@ import { LanguageProviderProps } from "./LanguageProvider";
  * ojw - Western Ojibway
  * mic - Mikmaq
  */
-type SecondaryLocale = "crg" | "crk" | "ojw" | "mic" | undefined;
+export type SecondaryLocale = "crg" | "crk" | "ojw" | "mic";
+
+interface NestedLanguageProvider {
+  messages: Map<string, Messages>;
+  children: React.ReactNode;
+}
 
 /**
  * Nested Language Provider
@@ -22,28 +27,27 @@ type SecondaryLocale = "crg" | "crk" | "ojw" | "mic" | undefined;
  * existing Language Provider.
  *
  * Note: This must be used within a LanguageProvider
- *
- * @param param0
  */
 const NestedLanguageProvider = ({
   messages,
   children,
-}: LanguageProviderProps) => {
-  const intl = useIntl();
+}: NestedLanguageProvider) => {
+  const { messages: fallbackMessages } = useIntl();
   const [searchParams] = useSearchParams();
   const locale = searchParams.get("locale") as SecondaryLocale;
+  const localeMessages = messages.get(locale);
 
   // Return just children if there is no
   // locale in the search params
-  if (!locale) {
+  if (!locale || !localeMessages) {
     return children as JSX.Element;
   }
 
   // Merge the messages
   const nestedMessages = {
-    ...intl.messages,
-    ...messages,
-  };
+    ...fallbackMessages,
+    ...localeMessages,
+  } as Messages;
 
   return (
     <IntlProvider
