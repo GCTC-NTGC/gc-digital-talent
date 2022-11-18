@@ -210,8 +210,6 @@ describe("SelectFieldV2", () => {
       fireEvent.submit(screen.getByRole("button"));
     });
     expect(mockSubmit).not.toBeCalled();
-    expect(screen.queryByRole("alert")).toBeInTheDocument();
-    expect(screen.getByRole("alert").textContent).toBe("Required!");
   });
 
   it("should prevent submit when required and throw default error message", async () => {
@@ -228,18 +226,6 @@ describe("SelectFieldV2", () => {
       fireEvent.submit(screen.getByRole("button"));
     });
     expect(mockSubmit).not.toBeCalled();
-    expect(screen.queryByRole("alert")).toBeInTheDocument();
-
-    /**
-     * NOTE: Removed until we can fix error messages
-     * and bump react-hook-form
-     */
-    // expect(screen.getByRole("alert").textContent).toBe(
-    //   "Foo Bar: This field is required.",
-    // );
-    expect(screen.getByRole("alert").textContent).toBe(
-      "This field is required.",
-    );
   });
 
   it("should show 'optional' text when not required", () => {
