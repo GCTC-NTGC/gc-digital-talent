@@ -22,6 +22,18 @@ export type Group<T> = {
 };
 export type Options = OptionsOrGroups<Option, Group<Option>>;
 
+declare module "react-select/dist/declarations/src/Select" {
+  export interface Props<
+    /* eslint-disable @typescript-eslint/no-shadow, @typescript-eslint/no-unused-vars */
+    Option,
+    IsMulti extends boolean,
+    Group extends GroupBase<Option>,
+    /* eslint-enable @typescript-eslint/no-shadow, @typescript-eslint/no-unused-vars */
+  > {
+    stateStyles?: Record<string, string>;
+  }
+}
+
 // TODO: Eventually extend react-select's Select Props, so that anything extra is passed through.
 export interface SelectFieldV2Props {
   /** Optional HTML id used to identify the element. Default: camelCase of `label`. */
@@ -100,7 +112,6 @@ const StateStyledSelectContainer = ({
   children,
   ...props
 }: ContainerProps<Option | Group<Option>>) => {
-  // @ts-ignore
   const { stateStyles } = props.selectProps;
 
   return (
@@ -265,7 +276,6 @@ const SelectFieldV2 = ({
                   aria-label={label}
                   aria-required={isRequired}
                   {...stateStyles}
-                  // @ts-ignore
                   stateStyles={stateStyles}
                   styles={{
                     placeholder: (provided) => ({
