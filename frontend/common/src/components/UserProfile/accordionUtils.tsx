@@ -5,7 +5,7 @@ import { Maybe, Scalars } from "../../api/generated";
 export function formattedDate(date: Scalars["Date"], intl: IntlShape) {
   return formatDate({
     date: new Date(date),
-    formatString: "MMM  RRRR",
+    formatString: "MMM RRRR",
     intl,
   });
 }
@@ -18,8 +18,8 @@ export function getDateRange({
   endDate: Maybe<Scalars["Date"]>;
   startDate: Maybe<Scalars["Date"]>;
   intl: IntlShape;
-}): React.ReactNode {
-  if (!startDate) return null;
+}): string {
+  if (!startDate) return "";
   const d1 = formattedDate(startDate, intl);
   if (!endDate)
     return intl.formatMessage(
