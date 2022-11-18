@@ -2,56 +2,14 @@ import type { IntlShape } from "react-intl";
 import { add, format, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import { formatInTimeZone, toDate } from "date-fns-tz";
-import { Maybe, Scalars } from "../api/generated";
-import { getLocale, Locales } from "./localize";
+import { Scalars } from "../api/generated";
+import { getLocale } from "./localize";
 
 // https://date-fns.org/docs/format
 // Date scalar formatting string
 export const DATE_FORMAT_STRING = "yyyy-MM-dd";
 // DateTime scalar formatting string
 export const DATETIME_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";
-
-export function formattedDate(date: Scalars["Date"], intl: IntlShape) {
-  return formatDate({
-    date: new Date(date),
-    formatString: "MMM  RRRR",
-    intl,
-  });
-}
-
-export function getDateRange({
-  endDate,
-  startDate,
-  intl,
-}: {
-  endDate: Maybe<Scalars["Date"]>;
-  startDate: Maybe<Scalars["Date"]>;
-  intl: IntlShape;
-  locale: Locales;
-}): React.ReactNode {
-  if (!startDate) return null;
-  const d1 = formattedDate(startDate, intl);
-  if (!endDate)
-    return intl.formatMessage(
-      {
-        defaultMessage: "Since: {d1}",
-        id: "Zm9Hnf",
-        description: "Since",
-      },
-      { d1 },
-    );
-  const d2 = formattedDate(endDate, intl);
-  return endDate
-    ? `${d1} - ${d2}`
-    : intl.formatMessage(
-        {
-          defaultMessage: "Since: {d1}",
-          id: "Zm9Hnf",
-          description: "Since",
-        },
-        { d1 },
-      );
-}
 
 // parameters for the formatDate function
 export type FormatDateOptions = {
