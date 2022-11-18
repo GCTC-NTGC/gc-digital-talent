@@ -173,7 +173,7 @@ const DeprecatedUpdatePool = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminUpdatePool" */ "./pool/deprecated/UpdatePool"
+        /* webpackChunkName: "adminDeprecatedUpdatePool" */ "./pool/deprecated/UpdatePool"
       ),
   ),
 );
