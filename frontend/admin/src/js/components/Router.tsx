@@ -181,7 +181,7 @@ const DeprecatedCreatePool = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminCreatePool" */ "./pool/deprecated/CreatePool"
+        /* webpackChunkName: "adminDeprecatedCreatePool" */ "./pool/deprecated/CreatePool"
       ),
   ),
 );
