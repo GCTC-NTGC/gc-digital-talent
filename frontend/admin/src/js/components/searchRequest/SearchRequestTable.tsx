@@ -1,44 +1,55 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
-import { FromArray } from "@common/types/utilityTypes";
-import { getLocale } from "@common/helpers/localize";
+import { getLocalizedName } from "@common/helpers/localize";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
 import { PoolCandidateSearchStatus } from "@common/api/generated";
 import Pending from "@common/components/Pending";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import {
-  GetPoolCandidateSearchRequestsQuery,
+  ApplicantFilter,
+  Maybe,
+  PoolCandidateFilter,
+  PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestsQuery,
 } from "../../api/generated";
 import Table, { ColumnsOf, tableViewItemButtonAccessor } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
 
-type Data = NonNullable<
-  FromArray<GetPoolCandidateSearchRequestsQuery["poolCandidateSearchRequests"]>
->;
+interface IRow {
+  original: {
+    poolCandidateFilter?: PoolCandidateFilter;
+    applicantFilter?: ApplicantFilter;
+  };
+}
 
 // callbacks extracted to separate function to stabilize memoized component
 const statusAccessor = (
   status: PoolCandidateSearchStatus | null | undefined,
   intl: IntlShape,
-) => (
-  <span>
-    {status
-      ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
-      : ""}
-  </span>
-);
+) =>
+  status
+    ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
+    : "";
 
-export const SearchRequestTable: React.FunctionComponent<
-  GetPoolCandidateSearchRequestsQuery
-> = ({ poolCandidateSearchRequests }) => {
+interface SearchRequestTableProps {
+  poolCandidateSearchRequests: Array<Maybe<PoolCandidateSearchRequest>>;
+}
+
+export const SearchRequestTable = ({
+  poolCandidateSearchRequests,
+}: SearchRequestTableProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useAdminRoutes();
 
-  const columns = useMemo<ColumnsOf<Data>>(
+  const localizedTransformPoolToPosterTitle = useCallback(
+    (pool: Parameters<typeof getFullPoolAdvertisementTitle>[1]) =>
+      getFullPoolAdvertisementTitle(intl, pool),
+    [intl],
+  );
+
+  const columns = useMemo<ColumnsOf<PoolCandidateSearchRequest>>(
     () => [
       {
         Header: intl.formatMessage({
@@ -47,6 +58,7 @@ export const SearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed for the search request table edit column.",
         }),
+        id: "action", // required when accessor is a function
         accessor: ({ id, fullName }) =>
           tableViewItemButtonAccessor(
             paths.searchRequestView(id),
@@ -58,6 +70,40 @@ export const SearchRequestTable: React.FunctionComponent<
             }),
             fullName || "",
           ),
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Pool",
+          id: "Htqzxb",
+          description:
+            "Title displayed on the search request table pool column.",
+        }),
+        accessor: ({ poolCandidateFilter, applicantFilter }) => {
+          const pools = applicantFilter?.pools ?? poolCandidateFilter?.pools;
+          return pools
+            ? pools
+                .filter(notEmpty)
+                .map(localizedTransformPoolToPosterTitle)
+                .filter(notEmpty)
+                .join(", ")
+            : null;
+        },
+        Cell: ({ row: { original } }: { row: IRow }) => {
+          const pools =
+            original?.applicantFilter?.pools ??
+            original?.poolCandidateFilter?.pools;
+          return pools?.filter(notEmpty).map(
+            (pool, index) =>
+              pool && (
+                <React.Fragment key={pool.id}>
+                  <a href={paths.poolCandidateTable(pool.id)}>
+                    {localizedTransformPoolToPosterTitle(pool)}
+                  </a>
+                  {index > 0 && ", "}
+                </React.Fragment>
+              ),
+          );
+        },
       },
       {
         Header: intl.formatMessage({
@@ -103,21 +149,21 @@ export const SearchRequestTable: React.FunctionComponent<
       },
       {
         Header: intl.formatMessage({
+          defaultMessage: "Email",
+          id: "RwYcDw",
+          description:
+            "Title displayed on the search requests table email column.",
+        }),
+        accessor: "email",
+      },
+      {
+        Header: intl.formatMessage({
           defaultMessage: "Department",
           id: "i3C5Hn",
           description:
             "Title displayed on the search request table department column.",
         }),
-        accessor: ({ department }) => department?.name?.[locale],
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Email",
-          id: "hiZAeF",
-          description:
-            "Title displayed on the search request table email column.",
-        }),
-        accessor: "email",
+        accessor: ({ department }) => getLocalizedName(department?.name, intl),
       },
       {
         Header: intl.formatMessage({
@@ -128,34 +174,8 @@ export const SearchRequestTable: React.FunctionComponent<
         }),
         accessor: "jobTitle",
       },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Pool",
-          id: "Htqzxb",
-          description:
-            "Title displayed on the search request table pool column.",
-        }),
-        accessor: ({ applicantFilter, poolCandidateFilter }) =>
-          applicantFilter
-            ? applicantFilter?.pools?.map(
-                (pool) =>
-                  pool && (
-                    <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
-                      {getFullPoolAdvertisementTitle(intl, pool)}
-                    </a>
-                  ),
-              )
-            : poolCandidateFilter?.pools?.map(
-                (pool) =>
-                  pool && (
-                    <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
-                      {getFullPoolAdvertisementTitle(intl, pool)}
-                    </a>
-                  ),
-              ),
-      },
     ],
-    [intl, locale, paths],
+    [intl, paths, localizedTransformPoolToPosterTitle],
   );
 
   const memoizedData = useMemo(
@@ -163,7 +183,9 @@ export const SearchRequestTable: React.FunctionComponent<
     [poolCandidateSearchRequests],
   );
 
-  return <Table data={memoizedData} columns={columns} hiddenCols={["id"]} />;
+  return (
+    <Table data={memoizedData} columns={columns} hiddenCols={["id", "email"]} />
+  );
 };
 
 export const SearchRequestTableApi: React.FunctionComponent = () => {
