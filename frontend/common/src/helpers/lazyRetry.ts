@@ -16,7 +16,10 @@ import { getFromLocalStorage, setInLocalStorage } from "./storageUtils";
  * @param name  string    Name the component (only needed when using multiple components on same page)
  * @returns
  */
-const lazyRetry = <T extends ComponentType<unknown>>(
+// Note: Using any because it comes from react-types
+// Ref: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/209ad4dd77c99181de178fba15ad8ff01841b4ef/types/react/index.d.ts#L846-L848
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const lazyRetry = <T extends ComponentType<any>>(
   componentImport: () => Promise<{ default: T }>,
   name?: string,
 ): Promise<{ default: T }> => {
