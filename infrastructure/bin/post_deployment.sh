@@ -55,6 +55,10 @@ else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Database migration *unknown* status. $MENTION\" } }"
 fi
 
+# Include the stdout from the migration as its own block, cleaned to make Slack happy
+CLEANED_STDOUT=${MIGRATION_STDOUT//[^a-zA-Z0-9_ $'\n']/}
+BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\":\"$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK\" } }"
+
 # Copy nginx config and reload
 if cp /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default /etc/nginx/sites-available/ && nginx -s reload ; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Nginx config copy *successful*.\" } }"
@@ -78,11 +82,6 @@ if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/f
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Environment variable substitution for talentsearch *failed*. $MENTION\" } }"
 fi
-
-
-# Include the stdout from the migration as its own block, cleaned to make Slack happy
-CLEANED_STDOUT=${MIGRATION_STDOUT//[^a-zA-Z0-9_ $'\n']/}
-BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\":\"$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK\" } }"
 
 # Add a source context block
 read -r -d '' BLOCKS << EndOfMessage
