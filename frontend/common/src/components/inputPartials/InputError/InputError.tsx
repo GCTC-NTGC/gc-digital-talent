@@ -9,12 +9,16 @@ export type InputFieldError =
   | Merge<FieldError, FieldErrorsImpl<any>>
   | undefined;
 
-export interface InputErrorProps {
+export interface InputErrorProps extends React.HTMLProps<HTMLSpanElement> {
   isVisible: boolean;
   error: InputFieldError;
 }
 
-const InputError: React.FC<InputErrorProps> = ({ error, isVisible }) => {
+const InputError: React.FC<InputErrorProps> = ({
+  error,
+  isVisible,
+  ...rest
+}) => {
   return isVisible ? (
     <span
       data-h2-display="base(block)"
@@ -25,7 +29,8 @@ const InputError: React.FC<InputErrorProps> = ({ error, isVisible }) => {
       data-h2-padding="base(x.75)"
       data-h2-color="base(dt-error)"
       data-h2-font-size="base(caption)"
-      role="alert"
+      aria-live="polite"
+      {...rest}
     >
       {error}
     </span>

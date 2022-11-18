@@ -67,6 +67,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
           {...register(name, rules)}
           aria-invalid={error ? "true" : "false"}
           aria-required={rules?.required ? "true" : undefined}
+          aria-describedby={error ? `${id}-error` : undefined}
           {...rest}
           defaultValue=""
         >

@@ -235,6 +235,7 @@ const SelectFieldV2 = ({
                   onChange={convertSingleOrMultiOptionsToValues}
                   aria-label={label}
                   aria-required={isRequired}
+                  aria-describedby={error ? `${id}-error` : undefined}
                   styles={{
                     placeholder: (provided) => ({
                       ...provided,

@@ -147,7 +147,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
           data-h2-display="base(block)"
           data-h2-margin="base(x.125, 0, 0, 0)"
         >
-          <InputError isVisible={!!error} error={error} />
+          <InputError id={`${name}-error`} isVisible={!!error} error={error} />
         </div>
       )}
       {contextIsActive && context && (
