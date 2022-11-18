@@ -36,6 +36,8 @@ export interface SkillPickerProps {
   headingLevel?: HeadingLevel;
 }
 
+const skipId = `skip-target-${uniqueId()}`;
+
 const SkillPicker = ({
   skills,
   onUpdateSelectedSkills,
@@ -43,7 +45,6 @@ const SkillPicker = ({
   headingLevel = "h4",
 }: SkillPickerProps) => {
   const intl = useIntl();
-  const skipId = `skip-target-${uniqueId()}`;
   const skipTargetRef = React.useRef<HTMLDivElement>(null);
   const Heading = headingLevel;
   const [validData, setValidData] = React.useState<FormValues>(defaultValues);
@@ -183,7 +184,14 @@ const SkillPicker = ({
           },
         )}
       </p>
-      <a href={`#${skipId}`} data-h2-visibility="base(hidden)">
+      <a
+        href={`#${skipId}`}
+        data-h2-visibility="base(invisible)"
+        data-h2-position="base:focus(static)"
+        data-h2-offset="base:focus(auto)"
+        data-h2-height="base:focus(auto)"
+        data-h2-width="base:focus(auto)"
+      >
         {intl.formatMessage({
           defaultMessage: "Skip list of skills",
           id: "pg1S01",
