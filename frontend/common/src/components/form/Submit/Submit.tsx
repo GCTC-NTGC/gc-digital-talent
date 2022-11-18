@@ -43,7 +43,7 @@ const Submit: React.FunctionComponent<SubmitProps> = ({
 
   const { isDirty, isSubmitting, isSubmitted, isValid } = useFormState();
   let currentText = text ?? defaultText;
-  if (isSubmitting) {
+  if (isSubmitting || overrideSubmitting) {
     currentText = isSubmittingText ?? defaultIsSubmittingText;
   } else if (!isDirty && isSubmitted && isValid) {
     currentText = submittedText ?? defaultSubmittedText;
