@@ -9,92 +9,197 @@ import Layout from "./Layout";
 
 import { Role } from "../api/generated";
 
-const HomePage = React.lazy(() => import("./home/HomePage"));
-const ErrorPage = React.lazy(() => import("./Error/ErrorPage"));
-const DashboardPage = React.lazy(() => import("./dashboard/DashboardPage"));
+const HomePage = React.lazy(
+  () => import(/* webpackChunkName: "adminHomePage" */ "./home/HomePage"),
+);
+const ErrorPage = React.lazy(
+  () => import(/* webpackChunkName: "adminErrorPage" */ "./Error/ErrorPage"),
+);
+const DashboardPage = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "adminDashboardPage" */ "./dashboard/DashboardPage"
+    ),
+);
 
 /** Users */
-const UserPage = React.lazy(() => import("./user/UserPage"));
-const CreateUser = React.lazy(() => import("./user/CreateUser"));
-const UpdateUser = React.lazy(() => import("./user/UpdateUser"));
-const ViewUser = React.lazy(() => import("./user/ViewUser"));
+const UserPage = React.lazy(
+  () => import(/* webpackChunkName: "adminUserPage" */ "./user/UserPage"),
+);
+const CreateUser = React.lazy(
+  () => import(/* webpackChunkName: "adminCreateUser" */ "./user/CreateUser"),
+);
+const UpdateUser = React.lazy(
+  () => import(/* webpackChunkName: "adminUpdateUser" */ "./user/UpdateUser"),
+);
+const ViewUser = React.lazy(
+  () => import(/* webpackChunkName: "adminViewUser" */ "./user/ViewUser"),
+);
 
 /** Classifications */
 const ClassificationPage = React.lazy(
-  () => import("./classification/ClassificationPage"),
+  () =>
+    import(
+      /* webpackChunkName: "adminClassificationPage" */ "./classification/ClassificationPage"
+    ),
 );
 const CreateClassification = React.lazy(
-  () => import("./classification/CreateClassification"),
+  () =>
+    import(
+      /* webpackChunkName: "adminCreateClassification" */ "./classification/CreateClassification"
+    ),
 );
 const UpdateClassification = React.lazy(
-  () => import("./classification/UpdateClassification"),
+  () =>
+    import(
+      /* webpackChunkName: "adminUpdateClassification" */ "./classification/UpdateClassification"
+    ),
 );
 
 /** CMO Assets */
-const CmoAssetPage = React.lazy(() => import("./cmoAsset/CmoAssetPage"));
-const CreateCmoAsset = React.lazy(() => import("./cmoAsset/CreateCmoAsset"));
-const UpdateCmoAsset = React.lazy(() => import("./cmoAsset/UpdateCmoAsset"));
+const CmoAssetPage = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "adminCmoAssetsPage" */ "./cmoAsset/CmoAssetPage"
+    ),
+);
+const CreateCmoAsset = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "adminCreateCmoAsset" */ "./cmoAsset/CreateCmoAsset"
+    ),
+);
+const UpdateCmoAsset = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "adminUpdateCmoAsset" */ "./cmoAsset/UpdateCmoAsset"
+    ),
+);
 
 /** Pool Candidates */
 const PoolCandidatePage = React.lazy(
-  () => import("./poolCandidate/PoolCandidatePage"),
+  () =>
+    import(
+      /* webpackChunkName: "adminPoolCandidatePage" */ "./poolCandidate/PoolCandidatePage"
+    ),
 );
 const CreatePoolCandidate = React.lazy(
-  () => import("./poolCandidate/CreatePoolCandidate"),
+  () =>
+    import(
+      /* webpackChunkName: "adminCreatePoolCandidate" */ "./poolCandidate/CreatePoolCandidate"
+    ),
 );
 const UpdatePoolCandidate = React.lazy(
-  () => import("./poolCandidate/UpdatePoolCandidate"),
+  () =>
+    import(
+      /* webpackChunkName: "adminUpdatePoolCandidate" */ "./poolCandidate/UpdatePoolCandidate"
+    ),
 );
 const ViewPoolCandidatePage = React.lazy(
-  () => import("./poolCandidate/ViewPoolCandidate/ViewPoolCandidatePage"),
+  () =>
+    import(
+      /* webpackChunkName: "adminViewPoolCandidate" */ "./poolCandidate/ViewPoolCandidate/ViewPoolCandidatePage"
+    ),
 );
 
 /** Pools */
-const PoolPage = React.lazy(() => import("./pool/PoolPage"));
-const CreatePool = React.lazy(() => import("./pool/CreatePool"));
-const EditPool = React.lazy(() => import("./pool/EditPool/EditPool"));
-const ViewPool = React.lazy(() => import("./pool/ViewPool"));
+const PoolPage = React.lazy(
+  () => import(/* webpackChunkName: "adminPoolPage" */ "./pool/PoolPage"),
+);
+const CreatePool = React.lazy(
+  () => import(/* webpackChunkName: "adminCreatePool" */ "./pool/CreatePool"),
+);
+const EditPool = React.lazy(
+  () =>
+    import(/* webpackChunkName: "adminEditPool" */ "./pool/EditPool/EditPool"),
+);
+const ViewPool = React.lazy(
+  () => import(/* webpackChunkName: "adminViewPool" */ "./pool/ViewPool"),
+);
 const DeprecatedViewPool = React.lazy(
-  () => import("./pool/deprecated/ViewPool"),
+  () =>
+    import(
+      /* webpackChunkName: "adminDeprecatedViewPool" */ "./pool/deprecated/ViewPool"
+    ),
 );
 const DeprecatedUpdatePool = React.lazy(
-  () => import("./pool/deprecated/UpdatePool"),
+  () =>
+    import(
+      /* webpackChunkName: "adminUpdatePool" */ "./pool/deprecated/UpdatePool"
+    ),
 );
 const DeprecatedCreatePool = React.lazy(
-  () => import("./pool/deprecated/CreatePool"),
+  () =>
+    import(
+      /* webpackChunkName: "adminCreatePool" */ "./pool/deprecated/CreatePool"
+    ),
 );
 
 /** Departments */
-const DepartmentPage = React.lazy(() => import("./department/DepartmentPage"));
+const DepartmentPage = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "adminDepartmentPage" */ "./department/DepartmentPage"
+    ),
+);
 const CreateDepartment = React.lazy(
-  () => import("./department/CreateDepartment"),
+  () =>
+    import(
+      /* webpackChunkName: "adminCreateDepartment" */ "./department/CreateDepartment"
+    ),
 );
 const UpdateDepartment = React.lazy(
-  () => import("./department/UpdateDepartment"),
+  () =>
+    import(
+      /* webpackChunkName: "adminUpdateDepartment" */ "./department/UpdateDepartment"
+    ),
 );
 
 /** Skill Families */
 const SkillFamilyPage = React.lazy(
-  () => import("./skillFamily/SkillFamilyPage"),
+  () =>
+    import(
+      /* webpackChunkName: "adminSkillFamilyPage" */ "./skillFamily/SkillFamilyPage"
+    ),
 );
 const CreateSkillFamily = React.lazy(
-  () => import("./skillFamily/CreateSkillFamily"),
+  () =>
+    import(
+      /* webpackChunkName: "adminCreateSkillFamily" */ "./skillFamily/CreateSkillFamily"
+    ),
 );
 const UpdateSkillFamily = React.lazy(
-  () => import("./skillFamily/UpdateSkillFamily"),
+  () =>
+    import(
+      /* webpackChunkName: "adminUpdateSkillFamily" */ "./skillFamily/UpdateSkillFamily"
+    ),
 );
 
 /** Skills */
-const SkillPage = React.lazy(() => import("./skill/SkillPage"));
-const CreateSkill = React.lazy(() => import("./skill/CreateSkill"));
-const UpdateSkill = React.lazy(() => import("./skill/UpdateSkill"));
+const SkillPage = React.lazy(
+  () => import(/* webpackChunkName: "adminSkillPage" */ "./skill/SkillPage"),
+);
+const CreateSkill = React.lazy(
+  () =>
+    import(/* webpackChunkName: "adminCreateSkill" */ "./skill/CreateSkill"),
+);
+const UpdateSkill = React.lazy(
+  () =>
+    import(/* webpackChunkName: "adminUpdateSkill" */ "./skill/UpdateSkill"),
+);
 
 /** Search Requests */
 const SearchRequestPage = React.lazy(
-  () => import("./searchRequest/SearchRequestPage"),
+  () =>
+    import(
+      /* webpackChunkName: "adminSearchRequestPage" */ "./searchRequest/SearchRequestPage"
+    ),
 );
 const SingleSearchRequestPage = React.lazy(
-  () => import("./searchRequest/SingleSearchRequestPage"),
+  () =>
+    import(
+      /* webpackChunkName: "adminSingleSearchRequestPage" */ "./searchRequest/SingleSearchRequestPage"
+    ),
 );
 
 interface CreateRouterArgs {
