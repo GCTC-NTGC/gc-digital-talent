@@ -14,7 +14,7 @@ resources:
     type: git
     ref: refs/heads/main
 variables:
-  phpVersion: '7.4'
+  phpVersion: '8.1'
 
 jobs:
 - job: build_artifact

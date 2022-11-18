@@ -5,7 +5,7 @@
     "keywords": ["canada", "talent", "api"],
     "license": "MIT",
     "require": {
-        "php": "^7.4",
+        "php": "^8.1",
         "doctrine/dbal": "^3.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^3.0",
@@ -51,7 +51,7 @@
         "sort-packages": true,
         "optimize-autoloader": true,
         "platform": {
-            "php": "7.4.26"
+            "php": "8.1.9"
         },
         "allow-plugins": {
             "composer/package-versions-deprecated": true
