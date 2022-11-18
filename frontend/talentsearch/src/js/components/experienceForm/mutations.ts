@@ -23,9 +23,23 @@ import type {
 
 type ExperienceMutationType = "create" | "update";
 
+type CreateMutation =
+  | ReturnType<typeof useCreateAwardExperienceMutation>[1]
+  | ReturnType<typeof useCreateCommunityExperienceMutation>[1]
+  | ReturnType<typeof useCreateEducationExperienceMutation>[1]
+  | ReturnType<typeof useCreatePersonalExperienceMutation>[1]
+  | ReturnType<typeof useCreateWorkExperienceMutation>[1];
+
+type UpdateMutation =
+  | ReturnType<typeof useUpdateAwardExperienceMutation>[1]
+  | ReturnType<typeof useUpdateCommunityExperienceMutation>[1]
+  | ReturnType<typeof useUpdateEducationExperienceMutation>[1]
+  | ReturnType<typeof useUpdatePersonalExperienceMutation>[1]
+  | ReturnType<typeof useUpdateWorkExperienceMutation>[1];
+
 export const useExperienceMutations = (
-  experienceType: ExperienceType,
   mutationType: ExperienceMutationType,
+  experienceType?: ExperienceType,
 ) => {
   const args: Record<ExperienceType, string> = {
     award: "awardExperience",
@@ -39,7 +53,10 @@ export const useExperienceMutations = (
     id: string,
     values: ExperienceDetailsSubmissionData,
   ): ExperienceMutationArgs => {
-    return { id, [args[experienceType]]: values } as ExperienceMutationArgs;
+    return {
+      id,
+      [args[experienceType || "personal"]]: values,
+    } as ExperienceMutationArgs;
   };
 
   const [, executeCreateAwardMutation] = useCreateAwardExperienceMutation();
@@ -60,30 +77,59 @@ export const useExperienceMutations = (
     useUpdatePersonalExperienceMutation();
   const [, executeUpdateWorkMutation] = useUpdateWorkExperienceMutation();
 
-  const mutations = {
-    create: {
-      award: executeCreateAwardMutation,
-      community: executeCreateCommunityMutation,
-      education: executeCreateEducationMutation,
-      personal: executeCreatePersonalMutation,
-      work: executeCreateWorkMutation,
-    },
-    update: {
-      award: executeUpdateAwardMutation,
-      community: executeUpdateCommunityMutation,
-      education: executeUpdateEducationMutation,
-      personal: executeUpdatePersonalMutation,
-      work: executeUpdateWorkMutation,
-    },
-  };
+  const createMutations = new Map<ExperienceType, CreateMutation>();
+  createMutations.set("award", executeCreateAwardMutation);
+  createMutations.set("community", executeCreateCommunityMutation);
+  createMutations.set("community", executeCreateCommunityMutation);
+  createMutations.set("education", executeCreateEducationMutation);
+  createMutations.set("personal", executeCreatePersonalMutation);
+  createMutations.set("work", executeCreateWorkMutation);
+
+  const updateMutations = new Map<ExperienceType, UpdateMutation>();
+  updateMutations.set("award", executeUpdateAwardMutation);
+  updateMutations.set("community", executeUpdateCommunityMutation);
+  updateMutations.set("community", executeUpdateCommunityMutation);
+  updateMutations.set("education", executeUpdateEducationMutation);
+  updateMutations.set("personal", executeUpdatePersonalMutation);
+  updateMutations.set("work", executeUpdateWorkMutation);
+
+  const mutations = new Map<
+    ExperienceMutationType,
+    typeof updateMutations | typeof createMutations
+  >();
+
+  mutations.set("create", createMutations);
+  mutations.set("update", updateMutations);
+
+  let executeMutation: CreateMutation | UpdateMutation | null = null;
+  if (mutationType && mutations.has(mutationType)) {
+    const mutationTypeMutations = mutations.get(mutationType);
+    if (typeof mutationTypeMutations === "object") {
+      if (experienceType && mutationTypeMutations.has(experienceType)) {
+        const mutation = mutationTypeMutations.get(experienceType);
+        if (typeof mutation === "function") {
+          executeMutation = mutation;
+        }
+      }
+    }
+  }
 
   return {
-    executeMutation: mutations[mutationType][experienceType],
+    executeMutation,
     getMutationArgs: getArgs,
   };
 };
 
-export const useDeleteExperienceMutation = (experienceType: ExperienceType) => {
+type DeleteMutation =
+  | ReturnType<typeof useDeleteAwardExperienceMutation>[1]
+  | ReturnType<typeof useDeleteCommunityExperienceMutation>[1]
+  | ReturnType<typeof useDeleteEducationExperienceMutation>[1]
+  | ReturnType<typeof useDeletePersonalExperienceMutation>[1]
+  | ReturnType<typeof useDeleteWorkExperienceMutation>[1];
+
+export const useDeleteExperienceMutation = (
+  experienceType?: ExperienceType,
+) => {
   const [, executeDeleteAwardMutation] = useDeleteAwardExperienceMutation();
   const [, executeDeleteCommunityMutation] =
     useDeleteCommunityExperienceMutation();
@@ -93,15 +139,21 @@ export const useDeleteExperienceMutation = (experienceType: ExperienceType) => {
     useDeletePersonalExperienceMutation();
   const [, executeDeleteWorkMutation] = useDeleteWorkExperienceMutation();
 
-  const mutations = {
-    award: executeDeleteAwardMutation,
-    community: executeDeleteCommunityMutation,
-    education: executeDeleteEducationMutation,
-    personal: executeDeletePersonalMutation,
-    work: executeDeleteWorkMutation,
-  };
+  const mutations = new Map<ExperienceType, DeleteMutation>();
 
-  return {
-    executeDeletionMutation: mutations[experienceType],
-  };
+  mutations.set("award", executeDeleteAwardMutation);
+  mutations.set("community", executeDeleteCommunityMutation);
+  mutations.set("community", executeDeleteCommunityMutation);
+  mutations.set("education", executeDeleteEducationMutation);
+  mutations.set("personal", executeDeletePersonalMutation);
+  mutations.set("work", executeDeleteWorkMutation);
+
+  if (experienceType && mutations.has(experienceType)) {
+    const mutation = mutations.get(experienceType);
+    if (typeof mutation === "function") {
+      return mutation;
+    }
+  }
+
+  return null;
 };

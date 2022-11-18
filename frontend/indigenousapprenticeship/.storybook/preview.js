@@ -5,6 +5,7 @@ import defaultRichTextElements from "../../common/src/helpers/format";
 import IndigenousApprenticeshipFrench from "../src/js/lang/frCompiled.json";
 import CommonFrench from "../../common/src/lang";
 import withThemeProvider, { theme } from "../../common/.storybook/decorators/ThemeDecorator"
+import withRouter  from "../../common/.storybook/decorators/RouterDecorator"
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
 export const parameters = {
@@ -41,6 +42,7 @@ export const globalTypes = {
 export const decorators = [
   withIntl,
   withThemeProvider,
+  withRouter,
   (Story) => (
     <div data-h2-font-family="base(sans)">
       <Story />

@@ -2,12 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import Heading from "@common/components/Heading";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 
 import CallToAction from "../../../CallToAction";
 
-import { useTalentSearchRoutes } from "../../../../talentSearchRoutes";
-import { useDirectIntakeRoutes } from "../../../../directIntakeRoutes";
+import useRoutes from "../../../../hooks/useRoutes";
 import TALENTSEARCH_APP_DIR from "../../../../talentSearchConstants";
 
 import "./hero.css";
@@ -28,8 +27,7 @@ export interface HeroProps {
 
 const Hero = ({ defaultImage }: HeroProps) => {
   const intl = useIntl();
-  const tsPaths = useTalentSearchRoutes();
-  const diPaths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   return (
     <div
@@ -76,6 +74,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
         </div>
         <div
           data-h2-display="base(flex)"
+          data-h2-align-items="base(flex-start)"
           data-h2-gap="base(x1)"
           data-h2-justify-content="base(center) p-tablet(flex-start)"
           data-h2-flex-wrap="base(wrap) p-tablet(initial)"
@@ -84,7 +83,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
             type="link"
             context="job"
             content={{
-              path: diPaths.allPools(),
+              path: paths.allPools(),
               label: intl.formatMessage({
                 defaultMessage: "Looking for a job?",
                 id: "Tk2HJy",
@@ -96,7 +95,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
             type="link"
             context="hire"
             content={{
-              path: tsPaths.search(),
+              path: paths.search(),
               label: intl.formatMessage({
                 defaultMessage: "Looking to hire?",
                 id: "1wFFIx",

@@ -1,8 +1,10 @@
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
-import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
+
+import { toast } from "@common/components/Toast";
 import {
   Submit,
   Select,
@@ -16,7 +18,6 @@ import {
   unpackMaybes,
   enumToOptions,
 } from "@common/helpers/formUtils";
-import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import {
   getSalaryRange,
@@ -43,6 +44,7 @@ import {
   UpdatePoolCandidateMutation,
   useGetUpdatePoolCandidateDataQuery,
   Language,
+  Scalars,
 } from "../../api/generated";
 
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -92,6 +94,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   handleUpdatePoolCandidate,
 }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const locale = getLocale(intl);
   const dataToFormValues = (data: PoolCandidate): FormValues => ({
@@ -489,12 +492,16 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   );
 };
 
-const UpdatePoolCandidate: React.FunctionComponent<{
-  poolCandidateId: string;
-}> = ({ poolCandidateId }) => {
+type RouteParams = {
+  poolId: Scalars["ID"];
+  poolCandidateId: Scalars["ID"];
+};
+
+const UpdatePoolCandidate = () => {
   const intl = useIntl();
+  const { poolCandidateId } = useParams<RouteParams>();
   const [lookupResult] = useGetUpdatePoolCandidateDataQuery({
-    variables: { id: poolCandidateId },
+    variables: { id: poolCandidateId || "" },
   });
   const {
     data: lookupData,

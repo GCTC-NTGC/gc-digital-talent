@@ -47,7 +47,7 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
           <Link
             data-h2-display="base(flex)"
             data-h2-align-items="base(center)"
-            href={previousStep.href}
+            href={previousStep.href || "#"}
             key={previousStep.title}
           >
             {previousStep.title}

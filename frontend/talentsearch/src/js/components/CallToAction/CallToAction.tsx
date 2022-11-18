@@ -75,7 +75,7 @@ const CallToAction: React.FC<CallToActionProps> = ({
           href={content.path}
           data-h2-cursor="base(pointer)"
           data-h2-outline="base(none)"
-          data-h2-display="base(flex)"
+          data-h2-display="base(inline-flex)"
           data-h2-align-items="base(center)"
           data-h2-padding="base(0)"
           data-h2-overflow="base(hidden)"
@@ -83,21 +83,21 @@ const CallToAction: React.FC<CallToActionProps> = ({
           data-h2-shadow="base(medium)"
         >
           <div
-            data-h2-display="base(flex)"
-            data-h2-height="base(100%)"
+            data-h2-align-self="base(stretch)"
+            data-h2-display="base(inline-flex)"
+            data-h2-align-items="base(center)"
             data-h2-padding="base(x.5) p-tablet(x.25, x.4)"
             data-h2-radius="base(rounded, 0, 0, rounded)"
             data-h2-width="base:children[svg](var(--h2-font-size-h5))"
           >
             {icon}
           </div>
-          <div data-h2-padding="base(x.5, x1)">
-            <span
-              data-h2-font-weight="base(700)"
-              data-h2-text-decoration="base(underline)"
-            >
-              {content.label}
-            </span>
+          <div
+            data-h2-padding="base(x.5, x1)"
+            data-h2-font-weight="base(700)"
+            data-h2-text-decoration="base(underline)"
+          >
+            {content.label}
           </div>
         </a>
       )}
@@ -115,9 +115,11 @@ const CallToAction: React.FC<CallToActionProps> = ({
           data-h2-shadow="base(medium)"
         >
           <div
-            data-h2-display="base(flex)"
-            data-h2-height="base(100%)"
+            data-h2-align-self="base(stretch)"
+            data-h2-display="base(inline-flex)"
+            data-h2-align-items="base(center)"
             data-h2-padding="base(x.5) p-tablet(x.25, x.4)"
+            data-h2-radius="base(rounded, 0, 0, rounded)"
             data-h2-width="base:children[svg](var(--h2-font-size-h5))"
           >
             {icon}

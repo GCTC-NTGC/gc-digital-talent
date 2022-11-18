@@ -1976,6 +1976,14 @@
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
   },
+  "edeLyW": {
+    "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
+    "description": "Title for the unexpected error page."
+  },
+  "quLfED": {
+    "defaultMessage": "Nous avons relevé une erreur d’origine inconnue pendant le traitement de votre demande.",
+    "description": "Body text for the unexpected error page."
+  },
   "oGXgxJ": {
     "defaultMessage": "Alerte de fermeture",
     "description": "Text for the close button on alerts"
@@ -2019,5 +2027,9 @@
   "D91nGW": {
     "defaultMessage": "Titre du poste non trouvé.",
     "description": "Message shown to user when pool name or classification are not found."
+  },
+  "2iCpAL": {
+    "defaultMessage": "Énoncé sur l’accessibilité",
+    "description": "Title for the websites accessibility statement"
   }
 }

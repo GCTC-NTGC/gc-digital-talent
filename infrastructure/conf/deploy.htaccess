@@ -101,6 +101,13 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/login-info(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
+    # Send accessibility-statement requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^accessibility-statement/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^accessibility-statement(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized talent requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/accessibility-statement(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
     # Indigenous Apprenticeship french vanity url
     RewriteRule ^apprenti-autochtonne-ti(/(.*))?$  %{ENV:APP_URL}/fr/indigenous-it-apprentice$1 [L,R=301]
 

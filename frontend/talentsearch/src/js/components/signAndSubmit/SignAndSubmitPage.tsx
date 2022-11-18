@@ -1,29 +1,31 @@
 import * as React from "react";
-import { Link } from "@common/components";
-import { Input, Submit } from "@common/components/form";
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import TableOfContents from "@common/components/TableOfContents";
-import { commonMessages, errorMessages } from "@common/messages";
+import { useNavigate, useParams } from "react-router-dom";
+import uniqueId from "lodash/uniqueId";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { ArrowSmallRightIcon } from "@heroicons/react/24/outline";
 import {
   ClipboardDocumentCheckIcon,
   UserIcon,
 } from "@heroicons/react/24/solid";
-import uniqueId from "lodash/uniqueId";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useIntl } from "react-intl";
-import { navigate } from "@common/helpers/router";
-import { toast } from "react-toastify";
 
+import { toast } from "@common/components/Toast";
+import { Link } from "@common/components";
+import { Input, Submit } from "@common/components/form";
+import { ThrowNotFound } from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
+import TableOfContents from "@common/components/TableOfContents";
+import { errorMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { getMissingSkills } from "@common/helpers/skillUtils";
 import { flattenExperienceSkills } from "@common/types/ExperienceUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+
+import useRoutes from "../../hooks/useRoutes";
 import ApplicationPageWrapper from "../ApplicationPageWrapper/ApplicationPageWrapper";
 import {
   PoolAdvertisement,
+  Scalars,
   SubmitApplicationMutation,
   useGetApplicationDataQuery,
   useSubmitApplicationMutation,
@@ -95,8 +97,9 @@ const SignatureForm = ({
   handleSubmitApplication,
 }: SignatureFormProps) => {
   const intl = useIntl();
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
   const methods = useForm<FormValues>();
+  const navigate = useNavigate();
   const confirmations = [
     intl.formatMessage({
       defaultMessage: `"I've reviewed everything written in my
@@ -247,7 +250,7 @@ export const SignAndSubmitForm = ({
   handleSubmitApplication,
 }: SignAndSubmitFormProps) => {
   const intl = useIntl();
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   const tocNavItems = [
     {
@@ -365,10 +368,15 @@ export const SignAndSubmitForm = ({
   );
 };
 
-const SignAndSubmitPage: React.FC<{ id: string }> = ({ id }) => {
+type RouteParams = {
+  poolCandidateId: Scalars["ID"];
+};
+
+const SignAndSubmitPage = () => {
+  const { poolCandidateId } = useParams<RouteParams>();
   const intl = useIntl();
   const [{ data, fetching, error }] = useGetApplicationDataQuery({
-    variables: { id },
+    variables: { id: poolCandidateId || "" },
   });
 
   const jobTitle = data?.poolCandidate?.poolAdvertisement
@@ -405,7 +413,7 @@ const SignAndSubmitPage: React.FC<{ id: string }> = ({ id }) => {
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate && data.poolCandidate.poolAdvertisement ? (
         <SignAndSubmitForm
-          applicationId={id}
+          applicationId={data.poolCandidate.id}
           poolAdvertisementId={data.poolCandidate.poolAdvertisement?.id}
           userId={data.poolCandidate.user.id}
           closingDate={data.poolCandidate.poolAdvertisement?.expiryDate}
@@ -414,15 +422,13 @@ const SignAndSubmitPage: React.FC<{ id: string }> = ({ id }) => {
           handleSubmitApplication={handleSubmitApplication}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Error, application unable to be loaded",
-              id: "0+hcuo",
-              description: "Error message, placeholder",
-            })}
-          </p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage({
+            defaultMessage: "Error, application unable to be loaded",
+            id: "0+hcuo",
+            description: "Error message, placeholder",
+          })}
+        />
       )}
     </Pending>
   );

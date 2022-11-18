@@ -3,15 +3,19 @@ import omit from "lodash/omit";
 
 import Heading from "../../Heading";
 import type { Color } from "../../Button";
-import Link, { type LinkProps } from "../../Link";
+import Link, { ExternalLink, type LinkProps } from "../../Link";
 
 type CardColor = Extract<Color, "yellow" | "red" | "blue" | "black" | "purple">;
 
+interface CardFlatLinkProps extends Pick<LinkProps, "href" | "mode"> {
+  label: string;
+  external?: boolean;
+}
 export interface CardFlatProps {
   color: CardColor;
   title: React.ReactNode;
   children?: React.ReactNode;
-  link?: Pick<LinkProps, "href" | "label" | "mode" | "external">;
+  link?: CardFlatLinkProps;
 }
 
 const colorMap: Record<CardColor, Record<string, string>> = {
@@ -32,38 +36,42 @@ const colorMap: Record<CardColor, Record<string, string>> = {
   },
 };
 
-const CardFlat = ({ color, link, title, children }: CardFlatProps) => (
-  <div
-    {...colorMap[color]}
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    data-h2-padding="base(0, 0, 0, x1)"
-  >
-    <Heading
-      level="h3"
-      data-h2-font-size="base(h6)"
-      data-h2-margin="base(0, 0, x0.25, 0)"
+const CardFlat = ({ color, link, title, children }: CardFlatProps) => {
+  const LinkEl = link?.external ? ExternalLink : Link;
+  return (
+    <div
+      {...colorMap[color]}
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-padding="base(0, 0, 0, x1)"
     >
-      {title}
-    </Heading>
-    {children && (
-      <div data-h2-flex-grow="base(1)" data-h2-margin="base(x1, 0)">
-        {children}
-      </div>
-    )}
-    {link && (
-      <div>
-        <Link
-          color={color}
-          type="button"
-          weight="bold"
-          {...omit(link, "label")}
-        >
-          {link.label}
-        </Link>
-      </div>
-    )}
-  </div>
-);
+      <Heading
+        level="h3"
+        data-h2-font-size="base(h6)"
+        data-h2-margin="base(0, 0, x0.25, 0)"
+      >
+        {title}
+      </Heading>
+      {children && (
+        <div data-h2-flex-grow="base(1)" data-h2-margin="base(x1, 0)">
+          {children}
+        </div>
+      )}
+      {link && (
+        <div>
+          <LinkEl
+            color={color}
+            type="button"
+            weight="bold"
+            mode="solid"
+            {...omit(link, "label", "external")}
+          >
+            {link.label}
+          </LinkEl>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default CardFlat;

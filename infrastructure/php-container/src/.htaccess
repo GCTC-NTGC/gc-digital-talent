@@ -73,6 +73,13 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/browse(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
+    # Send accessibility-statement requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^accessibility-statement/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^accessibility-statement(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized talent requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/accessibility-statement(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
     # Send 404s to talentsearch dist folder (with or without public/ path prefix).
     RewriteRule ^404/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
     RewriteRule ^404(/(.*))?$ frontend/talentsearch/dist/$2 [L]

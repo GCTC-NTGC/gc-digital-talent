@@ -1,25 +1,22 @@
 import React from "react";
+import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
-import { BasicForm, TextArea } from "@common/components/form";
-import { getLocale } from "@common/helpers/localize";
-import { navigate, useQueryParams } from "@common/helpers/router";
-import { Button } from "@common/components";
-import AlertDialog from "@common/components/AlertDialog";
+import { OperationContext } from "urql";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
+import { toast } from "@common/components/Toast";
+import { Button } from "@common/components";
+import AlertDialog from "@common/components/AlertDialog";
+import { BasicForm, TextArea } from "@common/components/form";
 import { removeFromSessionStorage } from "@common/helpers/storageUtils";
-import NotFound from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import { OperationContext } from "urql";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-
 import AwardDetailsForm from "../awardDetailsForm/AwardDetailsForm";
 import CommunityExperienceForm from "../communityExperienceForm/CommunityExperienceForm";
 import EducationExperienceForm from "../educationExperienceForm/EducationExperienceForm";
@@ -29,12 +26,13 @@ import WorkExperienceForm from "../workExperienceForm/WorkExperienceForm";
 import ExperienceSkills from "./ExperienceSkills";
 import {
   PoolAdvertisement,
+  Scalars,
   Skill,
   useGetApplicationQuery,
   useGetMyExperiencesQuery,
   useGetSkillsQuery,
 } from "../../api/generated";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
+import useRoutes from "../../hooks/useRoutes";
 
 import type {
   ExperienceType,
@@ -51,7 +49,6 @@ import {
   useExperienceMutations,
   useDeleteExperienceMutation,
 } from "./mutations";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import getExperienceFormLabels from "./labels";
 
 export interface ExperienceFormProps {
@@ -78,13 +75,13 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   poolAdvertisement,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
-  const directIntakePaths = useDirectIntakeRoutes();
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
+  const paths = useRoutes();
+
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
     : undefined;
-  const { applicationId } = useQueryParams();
   const returnPath = `${paths.skillsAndExperiences(userId)}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
@@ -133,7 +130,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           id: "q04FCp",
           description: "Link text for breadcrumb to user applications page.",
         }),
-        href: directIntakePaths.applications(userId),
+        href: paths.applications(userId),
       },
       {
         title: advertisementTitle,
@@ -311,24 +308,27 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-export interface ExperienceFormContainerProps {
-  userId: string;
+type RouteParams = {
+  userId: Scalars["ID"];
   experienceType: ExperienceType;
-  experienceId?: string;
+  experienceId: Scalars["ID"];
+};
+export interface ExperienceFormContainerProps {
   edit?: boolean;
 }
 
-const ExperienceFormContainer: React.FunctionComponent<
-  ExperienceFormContainerProps
-> = ({ userId, experienceType, experienceId, edit }) => {
+const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
+  const { userId, experienceType, experienceId } = useParams<RouteParams>();
+  const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
-  const { applicationId } = useQueryParams();
-  const returnPath = `${paths.skillsAndExperiences(userId)}${
+  const returnPath = `${paths.skillsAndExperiences(userId || "")}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
+
   const [
     {
       data: applicationData,
@@ -403,20 +403,23 @@ const ExperienceFormContainer: React.FunctionComponent<
       // eslint-disable-next-line no-underscore-dangle
       const type = e?.__typename;
       return (
-        e?.id === experienceId && type?.toLowerCase().includes(experienceType)
+        e?.id === experienceId &&
+        type?.toLowerCase().includes(experienceType || "")
       );
     }) as ExperienceQueryData;
   }
 
   const { executeMutation, getMutationArgs } = useExperienceMutations(
-    experienceType,
     experience ? "update" : "create",
+    experienceType,
   );
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
-    const args = getMutationArgs(experienceId || userId, values);
-    const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
-    res.then(handleMutationResponse).catch(handleError);
+    const args = getMutationArgs(experienceId || userId || "", values);
+    if (executeMutation) {
+      const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
+      res.then(handleMutationResponse).catch(handleError);
+    }
   };
 
   // delete functionality //
@@ -425,22 +428,24 @@ const ExperienceFormContainer: React.FunctionComponent<
   const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
 
   const handleDeleteExperience = () => {
-    executeDeletionMutation
-      .executeDeletionMutation({
+    if (executeDeletionMutation) {
+      executeDeletionMutation({
         id: experienceIdExact,
       })
-      .then((result) => {
-        navigate(returnPath);
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Experience Deleted",
-            id: "/qN7tM",
-            description: "Message displayed to user after experience deleted.",
-          }),
-        );
-        return result.data;
-      })
-      .catch(handleError);
+        .then((result) => {
+          navigate(returnPath);
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Experience Deleted",
+              id: "/qN7tM",
+              description:
+                "Message displayed to user after experience deleted.",
+            }),
+          );
+          return result.data;
+        })
+        .catch(handleError);
+    }
   };
 
   let found = true;
@@ -455,12 +460,12 @@ const ExperienceFormContainer: React.FunctionComponent<
     >
       {skillsData && found ? (
         <ExperienceForm
-          userId={userId}
+          userId={userId || ""}
           poolAdvertisement={
             applicationData?.poolCandidate?.poolAdvertisement || undefined
           }
           experience={experience as ExperienceQueryData}
-          experienceType={experienceType}
+          experienceType={experienceType || "personal"}
           skills={skillsData.skills as Skill[]}
           onUpdateExperience={handleUpdateExperience}
           deleteExperience={handleDeleteExperience}
@@ -468,16 +473,14 @@ const ExperienceFormContainer: React.FunctionComponent<
           edit={edit}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "No experience found.",
-              id: "Yhd/hk",
-              description:
-                "Message displayed when no experience is found for experience form.",
-            })}
-          </p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage({
+            defaultMessage: "No experience found.",
+            id: "Yhd/hk",
+            description:
+              "Message displayed when no experience is found for experience form.",
+          })}
+        />
       )}
     </Pending>
   );

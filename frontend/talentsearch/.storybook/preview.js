@@ -6,6 +6,7 @@ import CommonFrench from "../../common/src/lang";
 import defaultRichTextElements from "../../common/src/helpers/format";
 import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
 import withThemeProvider, { theme } from "../../common/.storybook/decorators/ThemeDecorator"
+import withRouter  from "../../common/.storybook/decorators/RouterDecorator"
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
 export const parameters = {
@@ -43,6 +44,7 @@ export const decorators = [
   MockGraphqlDecorator,
   withIntl,
   withThemeProvider,
+  withRouter,
   (Story) => (
     <div data-h2-font-family="base(sans)">
       <Story />

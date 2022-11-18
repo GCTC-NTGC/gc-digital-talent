@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 
+import { toast } from "@common/components/Toast";
 import Well from "@common/components/Well";
 import type { Maybe } from "@common/api/generated";
 import {

@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useParams } from "react-router-dom";
+
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
@@ -9,11 +11,10 @@ import PageHeader from "@common/components/PageHeader";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import { getLocalizedName } from "@common/helpers/localize";
 import UserProfile from "@common/components/UserProfile";
-import { useState } from "react";
 import { Applicant } from "@common/api/generated";
 import TableOfContents from "@common/components/TableOfContents";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { useAdminRoutes } from "../../../adminRoutes";
 import {
   Scalars,
@@ -43,7 +44,7 @@ export const ViewPoolCandidate = ({
   const adminPaths = useAdminRoutes();
 
   // prefer the rich view if available
-  const [preferRichView, setPreferRichView] = useState(true);
+  const [preferRichView, setPreferRichView] = React.useState(true);
 
   const links = [
     {
@@ -55,7 +56,7 @@ export const ViewPoolCandidate = ({
       href: adminPaths.poolTable(),
     },
     {
-      title: getLocalizedName(poolCandidate.pool.name, intl),
+      title: getFullPoolAdvertisementTitle(intl, poolCandidate.pool),
       href: adminPaths.poolView(poolCandidate.pool.id),
     },
     {
@@ -211,7 +212,7 @@ export const ViewPoolCandidate = ({
             },
             {
               submittedAt: poolCandidate.submittedAt,
-              poolName: getLocalizedName(poolCandidate.pool?.name, intl),
+              poolName: getFullPoolAdvertisementTitle(intl, poolCandidate.pool),
             },
           )}
         </p>
@@ -247,16 +248,16 @@ export const ViewPoolCandidate = ({
   );
 };
 
-interface ViewPoolCandidatePageProps {
+type RouteParams = {
+  poolId: Scalars["ID"];
   poolCandidateId: Scalars["ID"];
-}
+};
 
-export const ViewPoolCandidatePage = ({
-  poolCandidateId,
-}: ViewPoolCandidatePageProps) => {
+export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
+  const { poolCandidateId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetPoolCandidateSnapshotQuery({
-    variables: { poolCandidateId },
+    variables: { poolCandidateId: poolCandidateId || "" },
   });
 
   return (

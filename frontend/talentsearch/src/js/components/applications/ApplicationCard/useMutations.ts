@@ -1,6 +1,6 @@
-import { refresh } from "@common/helpers/router";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import {
   Scalars,
   useArchiveApplicationMutation,
@@ -9,6 +9,8 @@ import {
 
 const useMutations = () => {
   const intl = useIntl();
+  const navigate = useNavigate();
+  const refresh = () => navigate(0);
 
   const [, executeDeleteMutation] = useDeleteApplicationMutation();
 

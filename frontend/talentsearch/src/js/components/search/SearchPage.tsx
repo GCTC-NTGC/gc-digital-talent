@@ -5,7 +5,7 @@ import { SearchContainerApi as OldSearchContainerApi } from "./deprecated/Search
 import SearchContainerApi from "./SearchContainer";
 import SearchHeading from "./SearchHeading";
 
-const SearchPage: React.FunctionComponent = () => {
+const SearchPage = () => {
   const SearchContainer = checkFeatureFlag("FEATURE_APPLICANTSEARCH")
     ? SearchContainerApi
     : OldSearchContainerApi;
