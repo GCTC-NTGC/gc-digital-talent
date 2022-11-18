@@ -887,7 +887,9 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
+  poolCandidateSearchRequests(
+    limit: Int @limit
+  ): [PoolCandidateSearchRequest]!
     @all
     @guard
     @can(ability: "viewAny")
@@ -899,6 +901,7 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @guard
     @can(ability: "viewAny")
+    @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
   skillFamily(id: ID! @eq): SkillFamily @find
   skillFamilies: [SkillFamily]! @all
   skill(id: ID! @eq): Skill @find

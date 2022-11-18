@@ -12,9 +12,7 @@ export const LatestRequestsTableApi: React.FC = () => {
     <Pending fetching={fetching} error={error}>
       {/* <LatestRequestsTable data={data} /> */}
       <SearchRequestTable
-        poolCandidateSearchRequests={
-          data?.latestPoolCandidateSearchRequests ?? []
-        }
+        poolCandidateSearchRequests={data?.poolCandidateSearchRequests ?? []}
       />
     </Pending>
   );
