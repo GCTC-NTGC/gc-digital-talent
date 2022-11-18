@@ -2060,10 +2060,6 @@
     "defaultMessage": "Candidatures archivées",
     "description": "Title for a users archived applications"
   },
-  "D91nGW": {
-    "defaultMessage": "Titre du poste non trouvé.",
-    "description": "Message shown to user when pool name or classification are not found."
-  },
   "DZwVvi": {
     "defaultMessage": "Membre des Forces armées canadiennes (FAC)",
     "description": "Legend text for required Canadian Armed Forces selection in About Me form"
@@ -2671,5 +2667,161 @@
   "wl8GI6": {
     "defaultMessage": "Mon rôle",
     "description": "Label displayed on an Experience form for role input"
+  },
+  "xHjgXz": {
+    "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu!",
+    "description": "Text displayed when there are no pool advertisements to display"
+  },
+  "2iCpAL": {
+    "defaultMessage": "Énoncé sur l’accessibilité",
+    "description": "Title for the websites accessibility statement"
+  },
+  "s2+FXu": {
+    "defaultMessage": "Talent numérique du GC s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
+    "description": "Opening paragraph for accessibility statement"
+  },
+  "vC9NsS": {
+    "defaultMessage": "Nos normes",
+    "description": "Title for the accessibility standards"
+  },
+  "tu2Z17": {
+    "defaultMessage": "L’équipe de Talent numérique GC adhère aux <digitalStandardsLink>normes numériques inclusives du gouvernement du Canada</digitalStandardsLink> (GC).",
+    "description": "Paragraph describing accessibility standards"
+  },
+  "ztQSF+": {
+    "defaultMessage": "L’accessibilité, un choix et un élément clé de conception",
+    "description": "Title for the accessible by design section"
+  },
+  "5Cwvgi": {
+    "defaultMessage": "Alors que les standards de niveau AA des <wcagLink>Règles pour l’accessibilité des contenus Web 2.1 (WCAG 2.1)</wcagLink> représente un niveau de base pour la conformité, les évaluations des utilisateurs réels nous permettent d’aller au-delà des exigences minimales. L’accessibilité est prise en compte à chaque étape du cycle de conception et de développement de nos produits. Nous voulons nous assurer que tout le monde connaît une expérience agréable sur notre plateforme.",
+    "description": "Paragraph describing accessibility at every level of development"
+  },
+  "d8FGfc": {
+    "defaultMessage": "<strong>Rendre nos produits accessibles et utilisables par tous.</strong> Notre application Web doit s’adapter aisément à différentes tailles d’écran et permettre à nos utilisateurs d’accéder à la plateforme sur des appareils qui répondent à leurs besoins. Chaque fonctionnalité que nous créons doit être accessible, mais, comme pour préparer une bonne assiette de nachos, il faut les bons ingrédients pour commencer. Nous partons donc de ces ingrédients pratiques : ",
+    "description": "Lead in text for list of items we consider for accessibility"
+  },
+  "Iodi0/": {
+    "defaultMessage": "Nos concepteurs prêtent une attention particulière aux éléments suivants : ",
+    "description": "Intro to list of items designers consider for accessibility"
+  },
+  "BFvwdM": {
+    "defaultMessage": "la conception de mises en page et d’éléments interactifs accessibles",
+    "description": "List item one, things designers consider for accessibility"
+  },
+  "tZmXOj": {
+    "defaultMessage": "l’amélioration de l'accessibilité des couleurs",
+    "description": "List item two, things designers consider for accessibility"
+  },
+  "NdvdT2": {
+    "defaultMessage": "la création des fonctionnalités et des outils accessibles, comme le mode sombre",
+    "description": "List item three, things designers consider for accessibility"
+  },
+  "dAopan": {
+    "defaultMessage": "l’optimisation des résultats de la recherche en matière de l'expérience utilisateur",
+    "description": "List item four, things designers consider for accessibility"
+  },
+  "Wi4tia": {
+    "defaultMessage": "Nos développeurs prêtent une attention particulière aux éléments suivants : ",
+    "description": "Intro to list of items developers consider for accessibility"
+  },
+  "KXEuON": {
+    "defaultMessage": "la conformité avec les Règles d’accessibilité <wcagLink>WCAG 2.1</wcagLink>",
+    "description": "List item one, things developers consider for accessibility"
+  },
+  "9LyLWf": {
+    "defaultMessage": "la conformité avec les Règles d’accessibilité pour les outils d’édition <atagLink>(ATAG) 2.0</atagLink>",
+    "description": "List item two, things developers consider for accessibility"
+  },
+  "V9XmLH": {
+    "defaultMessage": "les résultats des évaluations automatisés d’accessibilité",
+    "description": "List item three, things developers consider for accessibility"
+  },
+  "bBz/OJ": {
+    "defaultMessage": "les résultats d’évaluation d’acceptation par les utilisateurs",
+    "description": "List item four, things developers consider for accessibility"
+  },
+  "HCWGjZ": {
+    "defaultMessage": "<strong>Des évaluations avec de réels utilisateurs.</strong> Avant que nous considérions qu'un produit est prêt à être lancé, nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
+    "description": "Text describing our user testing for accessibility"
+  },
+  "6bvAQ+": {
+    "defaultMessage": "Rétroaction et coordonnées",
+    "description": "Title for the accessibility feedback section"
+  },
+  "Txu5Yq": {
+    "defaultMessage": "Malgré tous les efforts déployés pour rendre notre site Web entièrement accessible, si vous avez besoin d’aide pour accéder aux renseignements ou si vous avez besoin d’un format différent, nous vous encourageons à communiquer avec nous. Votre rétroaction sur nos efforts d’accessibilité est également la bienvenue. Veuillez communiquer avec nous à :",
+    "description": "Lead in text for accessibility contact information"
+  },
+  "hTeiV1": {
+    "defaultMessage": "Nous tentons de répondre aux demandes de renseignements dans un délai de cinq jours ouvrables.",
+    "description": "Disclaimer for support email response time"
+  },
+  "quxa4Q": {
+    "defaultMessage": "Cadre de conformité et d’application de la loi proactives",
+    "description": "Title for the compliance enforcement section."
+  },
+  "WSo3Y/": {
+    "defaultMessage": "Le commissaire à l’accessibilité est responsable de faire appliquer la <acaLink>Loi canadienne sur l’accessibilité</acaLink> et le <acrLink>Règlement canadien sur l’accessibilité</acrLink> dans la fonction publique fédérale. Le commissaire traitera également certaines <complaintsLink>plaintes en matière d’accessibilité</complaintsLink>. Le commissaire à l’accessibilité est membre de la Commission canadienne des droits de la personne.",
+    "description": "Text describing accessibility commissioner"
+  },
+  "SXyhoR": {
+    "defaultMessage": "Ce ne sont pas toutes les plaintes qui parviennent directement au commissaire à l’accessibilité. Certaines exceptions s’appliquent : ",
+    "description": "Disclaimer about accessibility complaint exceptions."
+  },
+  "+G/4Zs": {
+    "defaultMessage": "Le <crtcLink>Conseil de la radiodiffusion et des télécommunications canadiennes</crtcLink> (CRTC) traite les plaintes liées à la radiodiffusion et aux télécommunications en vertu de la <crtcActLink>Loi sur le Conseil de la radiodiffusion et des télécommunications canadiennes</crtcActLink>.",
+    "description": "Description of complaints to the Canadian Radio-television and Telecommunications Commission"
+  },
+  "UoZLL/": {
+    "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> (CCDP) traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
+    "description": "Description of complaints to the Canadian Human Rights Commission"
+  },
+  "/fysAY": {
+    "defaultMessage": "L’<ctaLink>Office des transports du Canada</ctaLink> (OTC) traite les plaintes relatives aux services de transport de compétence fédérale.",
+    "description": "Description of complaints to the Canadian Transportation Agency"
+  },
+  "ZgeBBn": {
+    "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
+    "description": "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<"
+  },
+  "Zre7E9": {
+    "defaultMessage": "Si vous n’êtes pas satisfait de notre réponse à votre plainte, communiquez avec la CCDP aux coordonnées ci-dessous : ",
+    "description": "Description of what to do if users are not content with complaint response"
+  },
+  "OArzY6": {
+    "defaultMessage": "<strong>Téléphone :</strong> <phoneLink>613-995-1151</phoneLink>",
+    "description": "Phone contact info"
+  },
+  "k29AEC": {
+    "defaultMessage": "<strong>Sans frais :</strong> <tollFreeLink>1-888-214-1090</tollFreeLink>",
+    "description": "Toll free phone contact info"
+  },
+  "G4fR8L": {
+    "defaultMessage": "<strong>Téléimprimeur :</strong> 1-888-643-3304",
+    "description": "TTY contact info"
+  },
+  "8M2Tbu": {
+    "defaultMessage": "<strong>Service de relais vidéo :</strong>La CCDP accepte les appels utilisant le service de relais vidéo effectués par l’intermédiaire de <relayServiceLink>SRV Canada</relayServiceLink>.",
+    "description": "VRS contact info"
+  },
+  "Yln61n": {
+    "defaultMessage": "<strong>Télécopieur :</strong> 613-996-9661",
+    "description": "Fax contact info"
+  },
+  "Q79qKT": {
+    "defaultMessage": "<strong>Heures d’ouverture :</strong> Du lundi au vendredi, de 8 h à 20 h (heure de l’Est)",
+    "description": "Hours of operation info"
+  },
+  "UJ/rX1": {
+    "defaultMessage": "<strong>Courriel :</strong> <chrcMailLink>Info.Com@chrc-ccdp.gc.ca</chrcMailLink>",
+    "description": "Email contact info"
+  },
+  "om2bZu": {
+    "defaultMessage": "Le présent énoncé a été préparé le 8 novembre 2022.",
+    "description": "Disclaimer for the when the accessibility statement was last updated"
+  },
+  "FkwGWO": {
+    "defaultMessage": "Notre engagement envers la conception, l’élaboration et la prestation de services accessibles.",
+    "description": "Subtitle for the accessibility statement page."
   }
 }

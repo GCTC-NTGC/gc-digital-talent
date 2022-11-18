@@ -36,6 +36,15 @@ const Footer = ({ width }: FooterProps) => {
       }),
     },
     {
+      // This needs a real route and translated label
+      route: `/${intl.locale}/accessibility-statement`,
+      label: intl.formatMessage({
+        defaultMessage: "Accessibility statement",
+        id: "2iCpAL",
+        description: "Title for the websites accessibility statement",
+      }),
+    },
+    {
       route: `https://www.canada.ca/${intl.locale}.html`,
       label: intl.formatMessage({
         defaultMessage: "Canada.ca",
@@ -63,11 +72,14 @@ const Footer = ({ width }: FooterProps) => {
       <div {...footerWidth}>
         <div
           data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr)"
+          data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr) laptop(repeat(3, minmax(0, 1fr)))"
           data-h2-gap="base(x1) p-tablet(x2)"
           data-h2-align-items="base(center)"
         >
-          <div data-h2-text-align="base(center) p-tablet(left)">
+          <div
+            data-h2-text-align="base(center) p-tablet(left)"
+            data-h2-grid-column="laptop(1 / 3)"
+          >
             <nav
               data-h2-display="base(flex)"
               data-h2-gap="base(x1)"

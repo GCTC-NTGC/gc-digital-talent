@@ -29,6 +29,7 @@ fragment applicantExperiences on Applicant {
 
 query getApplicationData($id: ID!) {
   poolCandidate(id: $id) {
+    id
     user {
       id
       isProfileComplete
@@ -36,6 +37,11 @@ query getApplicationData($id: ID!) {
     }
     poolAdvertisement {
       id
+      name {
+        en
+        fr
+      }
+      stream
       classifications {
         id
         name {

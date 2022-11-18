@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useParams } from "react-router-dom";
 import {
   CheckIcon,
   ClipboardIcon,
@@ -13,8 +14,7 @@ import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
 import { commonMessages } from "@common/messages";
-import { getLocale, getLocalizedName } from "@common/helpers/localize";
-
+import { getLocalizedName } from "@common/helpers/localize";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import Chip, { Chips } from "@common/components/Chip";
@@ -32,8 +32,11 @@ import {
   parseDateTimeUtc,
   relativeExpiryDate,
 } from "@common/helpers/dateUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
+  Scalars,
   SkillCategory,
   useGetPoolAdvertisementQuery,
 } from "../../api/generated";
@@ -54,7 +57,6 @@ interface ViewPoolPageProps {
 
 export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const adminPaths = useAdminRoutes();
   const form = useForm();
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
@@ -68,13 +70,7 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
     }
   }, [linkCopied, setLinkCopied]);
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Pool Details",
-    id: "yBmBnd",
-    description: "Title for the page when viewing an individual pool.",
-  });
-
-  const poolName = pool.name ? pool.name[locale] : pageTitle;
+  const poolName = getFullPoolAdvertisementTitle(intl, pool);
   const classification = pool.classifications ? pool.classifications[0] : null;
 
   const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {
@@ -300,7 +296,6 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
                 target="_blank"
                 rel="noopener noreferrer"
                 icon={ArrowTopRightOnSquareIcon}
-                external
               >
                 {intl.formatMessage({
                   defaultMessage: "View pool advertisement",
@@ -761,14 +756,15 @@ export const ViewPoolPage = ({ pool }: ViewPoolPageProps): JSX.Element => {
   );
 };
 
-interface ViewPoolProps {
-  poolId: string;
-}
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
 
-const ViewPool = ({ poolId }: ViewPoolProps) => {
+const ViewPool = () => {
   const intl = useIntl();
+  const { poolId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
-    variables: { id: poolId },
+    variables: { id: poolId || "" },
   });
 
   return (

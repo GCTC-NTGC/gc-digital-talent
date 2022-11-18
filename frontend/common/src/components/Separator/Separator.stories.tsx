@@ -17,7 +17,11 @@ export default {
 const Template: ComponentStory<typeof Separator> = () => (
   <div data-h2-width="base(100%)" data-h2-max-width="base(320px)">
     <p>Separator for content</p>
-    <Separator orientation="horizontal" data-h2-margin="base(x.5, 0)" />
+    <Separator
+      orientation="horizontal"
+      data-h2-margin="base(x.5, 0)"
+      data-h2-background-color="base(dt-primary.50)"
+    />
     <div
       data-h2-align-items="base(center)"
       data-h2-display="base(flex)"
@@ -28,14 +32,14 @@ const Template: ComponentStory<typeof Separator> = () => (
       <Separator
         decorative
         orientation="vertical"
-        color="secondary"
+        data-h2-background-color="base(dt-secondary.50)"
         data-h2-margin="base(0, x.5)"
       />
       <p>Red</p>
       <Separator
         decorative
         orientation="vertical"
-        color="red"
+        data-h2-background-color="base(tm-red.50)"
         data-h2-margin="base(0, x.5)"
       />
       <p>Vertical</p>

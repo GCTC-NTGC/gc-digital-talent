@@ -13,6 +13,7 @@ import {
   removeFromSessionStorage,
   setInSessionStorage,
 } from "../../helpers/storageUtils";
+import ErrorSummary from "./ErrorSummary";
 import UnsavedChanges from "./UnsavedChanges";
 
 export type FieldLabels = Record<string, React.ReactNode>;
@@ -41,8 +42,10 @@ export function BasicForm<TFieldValues extends FieldValues>({
   cacheKey,
   labels,
 }: BasicFormProps<TFieldValues>): ReactElement {
+  const errorSummaryRef = React.useRef<HTMLDivElement>(null);
   const methods = useForm({
     mode: "onChange",
+    shouldFocusError: false,
     ...options,
     defaultValues: options?.defaultValues,
   });
@@ -53,8 +56,15 @@ export function BasicForm<TFieldValues extends FieldValues>({
 
   const {
     reset,
-    formState: { isDirty },
+    formState: { isDirty, errors, isSubmitting },
   } = methods;
+
+  React.useEffect(() => {
+    // After during submit, if there are errors, focus the summary
+    if (errors && isSubmitting && errorSummaryRef.current) {
+      errorSummaryRef.current.focus();
+    }
+  }, [isSubmitting, errors, errorSummaryRef]);
 
   const handleSubmit = (data: TFieldValues) => {
     // Reset form to clear dirty values
@@ -92,7 +102,8 @@ export function BasicForm<TFieldValues extends FieldValues>({
             if (!defaultValue || value !== defaultValue) {
               methods.setValue(typedFieldName, value, {
                 shouldDirty: true, // Need to dirty it for error/unsaved change tracking
-                shouldTouch: true,
+                shouldTouch: false,
+                shouldValidate: false,
               });
             }
           }
@@ -104,6 +115,7 @@ export function BasicForm<TFieldValues extends FieldValues>({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
+        {errors && <ErrorSummary ref={errorSummaryRef} labels={labels} />}
         {cacheKey && isDirty && <UnsavedChanges labels={labels} />}
         {children}
       </form>

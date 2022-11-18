@@ -153,6 +153,7 @@ query getReviewMyApplicationPageData($id: ID!) {
         en
         fr
       }
+      stream
       expiryDate
       classifications {
         id

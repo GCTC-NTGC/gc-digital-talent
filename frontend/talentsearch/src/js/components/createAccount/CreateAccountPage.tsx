@@ -1,16 +1,17 @@
 import * as React from "react";
-import { imageUrl, navigate } from "@common/helpers/router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
+
+import imageUrl from "@common/helpers/imageUrl";
 import { Alert } from "@common/components";
-import { BellIcon } from "@heroicons/react/24/outline";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { BasicForm, Input, RadioGroup, Submit } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage } from "@common/constants";
-import { getLocale } from "@common/helpers/localize";
 import { emptyToNull, notEmpty } from "@common/helpers/util";
 import Pending from "@common/components/Pending";
+
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import {
   Language,
@@ -26,7 +27,7 @@ import {
   getGovernmentInfoLabels,
   GovernmentInfoForm,
 } from "../GovernmentInfoForm/GovernmentInfoForm";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
+import useRoutes from "../../hooks/useRoutes";
 
 type FormValues = Pick<
   UpdateUserAsUserInput,
@@ -125,17 +126,19 @@ export const CreateAccountForm: React.FunctionComponent<
         data-h2-padding="base(0, x2) p-tablet(0)"
         style={{ margin: "auto" }}
       >
-        <Alert
-          title={intl.formatMessage({
-            defaultMessage: "You’ve successfully logged in",
-            id: "4FEV7d",
-            description:
-              "Title for successful login alert in create account page.",
-          })}
-          icon={BellIcon}
+        <Alert.Root
           type="success"
+          live={false}
           data-h2-margin="base(x3, 0, 0, 0)"
         >
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage: "You’ve successfully logged in",
+              id: "4FEV7d",
+              description:
+                "Title for successful login alert in create account page.",
+            })}
+          </Alert.Title>
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -145,7 +148,7 @@ export const CreateAccountForm: React.FunctionComponent<
                 "Message for successful login alert in create account page.",
             })}
           </p>
-        </Alert>
+        </Alert.Root>
         <BasicForm onSubmit={handleSubmit} cacheKey={cacheKey} labels={labels}>
           <h2 data-h2-margin="base(x2, 0, x1, 0)">
             {intl.formatMessage({
@@ -279,10 +282,16 @@ export const CreateAccountForm: React.FunctionComponent<
   );
 };
 
+type LocationState = {
+  from?: string;
+};
+
 const CreateAccount: React.FunctionComponent = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const paths = useRoutes();
+  const { from } = location.state as LocationState;
 
   const [lookUpResult] = useGetCreateAccountFormDataQuery();
   const { data: lookupData, fetching, error } = lookUpResult;
@@ -322,7 +331,7 @@ const CreateAccount: React.FunctionComponent = () => {
     }
     await handleCreateAccount(meId, data)
       .then(() => {
-        navigate(paths.home(meId));
+        navigate(from || paths.profile(meId));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Account successfully created.",

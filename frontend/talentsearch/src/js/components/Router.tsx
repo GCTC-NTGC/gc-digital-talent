@@ -1,36 +1,23 @@
 import React from "react";
-import { useIntl } from "react-intl";
-import { Helmet } from "react-helmet";
-import { Routes } from "universal-router";
-import { AuthenticationContext } from "@common/components/Auth";
-import LogoutConfirmation from "@common/components/LogoutConfirmation";
-import { RouterResult } from "@common/helpers/router";
-import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
-import { getLocale } from "@common/helpers/localize";
-import useFeatureFlags from "@common/hooks/useFeatureFlags";
-import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-import Pending from "@common/components/Pending";
-import PageContainer, { LogoutButton, MenuLink } from "./PageContainer";
-import {
-  useTalentSearchRoutes,
-  TalentSearchRoutes,
-} from "../talentSearchRoutes";
-import {
-  ApplicantProfileRoutes,
-  useApplicantProfileRoutes,
-} from "../applicantProfileRoutes";
-import { AuthRoutes, useAuthRoutes } from "../authRoutes";
-import {
-  DirectIntakeRoutes,
-  useDirectIntakeRoutes,
-} from "../directIntakeRoutes";
-import { ExperienceType } from "./experienceForm/types";
-import { Role, useGetAboutMeQuery } from "../api/generated";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import Loading from "@common/components/Pending/Loading";
+import RequireAuth from "@common/components/RequireAuth/RequireAuth";
+
+import Layout from "./Layout";
+import { Role } from "../api/generated";
+
+import TalentRedirect from "./Redirects/TalentRedirect";
+import ProfileRedirect from "./Redirects/ProfileRedirect";
+import CreateAccountRedirect from "./createAccount/CreateAccountRedirect";
 
 /** Home */
 const HomePage = React.lazy(() => import("./Home/HomePage"));
-const NotFoundPage = React.lazy(() => import("./404/Error404"));
+const ErrorPage = React.lazy(() => import("./Error/ErrorPage"));
 const SupportPage = React.lazy(() => import("./support/SupportPage"));
+const AccessibilityPage = React.lazy(
+  () => import("./AccessibilityStatement/AccessibilityStatement"),
+);
 
 /** Search */
 const SearchPage = React.lazy(() => import("./search/SearchPage"));
@@ -60,7 +47,7 @@ const WorkLocationPreferenceFormPage = React.lazy(
 const RoleSalaryFormPage = React.lazy(
   () => import("./roleSalaryForm/RoleSalaryFormPage"),
 );
-const ExperienceFormContainer = React.lazy(
+const ExperienceFormPage = React.lazy(
   () => import("./experienceForm/ExperienceForm"),
 );
 const WorkPreferencesFormPage = React.lazy(
@@ -92,556 +79,277 @@ const ReviewMyApplicationPage = React.lazy(
   () => import("./reviewMyApplication/ReviewMyApplicationPage"),
 );
 
-const talentRoutes = (
-  talentPaths: TalentSearchRoutes,
-): Routes<RouterResult> => [
+const router = createBrowserRouter([
   {
-    path: talentPaths.home(),
-    action: () => ({
-      component: <HomePage />,
-    }),
-  },
-  {
-    path: talentPaths.notFound(),
-    action: () => ({
-      component: <NotFoundPage />,
-    }),
-  },
-  {
-    path: talentPaths.support(),
-    action: () => ({
-      component: <SupportPage />,
-    }),
-  },
-  {
-    path: talentPaths.search(),
-    action: () => ({
-      component: <SearchPage />,
-    }),
-  },
-  {
-    path: talentPaths.request(),
-    action: () => ({
-      component: <RequestPage />,
-    }),
-  },
-  {
-    path: `${talentPaths.home()}/search`,
-    action: () => ({
-      component: <div />,
-      redirect: talentPaths.search(),
-    }),
-  },
-];
-
-const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
-  {
-    path: authPaths.register(),
-    action: () => ({
-      component: <RegisterPage />,
-    }),
-  },
-  {
-    path: authPaths.loggedOut(),
-    action: () => ({
-      component: <LoggedOutPage />,
-    }),
-  },
-  {
-    path: authPaths.login(),
-    action: () => ({
-      component: <LoginPage />,
-    }),
-  },
-];
-
-const profileRoutes = (
-  profilePaths: ApplicantProfileRoutes,
-  myUserId?: string,
-): Routes<RouterResult> => [
-  {
-    path: profilePaths.createAccount(),
-    action: () => ({
-      component: <CreateAccount />,
-    }),
-  },
-  {
-    path: profilePaths.home(":userId"),
-    action: () => ({
-      component: <ProfilePage />,
-      authorizedRoles: [Role.Applicant],
-    }),
-  },
-  {
-    path: profilePaths.myProfile(),
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.home(myUserId) : undefined,
-    }),
-  },
-  {
-    path: profilePaths.governmentInformation(":userId"),
-    action: (context) => {
-      const userId = context.params.userId as string;
-      return {
-        component: <GovernmentInfoFormPage meId={userId} />,
-        authorizedRoles: [Role.Applicant],
-      };
-    },
-  },
-  {
-    path: profilePaths.languageInformation(":userId"),
-    action: () => ({
-      component: <LanguageInformationFormPage />,
-      authorizedRoles: [Role.Applicant],
-    }),
-  },
-  {
-    path: profilePaths.workLocation(":userId"),
-    action: () => ({
-      component: <WorkLocationPreferenceFormPage />,
-      authorizedRoles: [Role.Applicant],
-    }),
-  },
-  {
-    path: profilePaths.roleSalary(":userId"),
-    action: () => ({
-      component: <RoleSalaryFormPage />,
-      authorizedRoles: [Role.Applicant],
-    }),
-  },
-  {
-    path: `${profilePaths.skillsAndExperiences(":userId")}/:type/create`,
-    action: (context) => {
-      const userId = context.params.userId as string;
-      const experienceType = context.params.type as ExperienceType;
-      return {
-        component: (
-          <ExperienceFormContainer
-            userId={userId}
-            experienceType={experienceType}
-          />
-        ),
-        authorizedRoles: [Role.Applicant],
-      };
-    },
-  },
-  {
-    path: `${profilePaths.skillsAndExperiences(":userId")}/:type/:id/edit`,
-    action: (context) => {
-      const userId = context.params.userId as string;
-      const experienceType = context.params.type as ExperienceType;
-      const experienceId = context.params.id as string;
-      return {
-        component: (
-          <ExperienceFormContainer
-            userId={userId}
-            experienceType={experienceType}
-            experienceId={experienceId}
-            edit
-          />
-        ),
-        authorizedRoles: [Role.Applicant],
-      };
-    },
-  },
-  {
-    path: profilePaths.workPreferences(":userId"),
-    action: () => ({
-      component: <WorkPreferencesFormPage />,
-      authorizedRoles: [Role.Applicant],
-    }),
-  },
-  {
-    path: profilePaths.aboutMe(":userId"),
-    action: () => ({
-      component: <AboutMeFormPage />,
-      authorizedRoles: [Role.Applicant],
-    }),
-  },
-  {
-    path: profilePaths.diversityEquityInclusion(":userId"),
-    action: () => ({
-      component: <EmploymentEquityFormPage />,
-      authorizedRoles: [Role.Applicant],
-    }),
-  },
-  {
-    path: profilePaths.skillsAndExperiences(":userId"),
-    action: () => ({
-      component: <ExperienceAndSkillsPage />,
-      authorizedRoles: [Role.Applicant],
-    }),
-  },
-
-  // Old routes - these redirect to the current route for the page
-  {
-    path: profilePaths.myProfileDeprecated(),
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.home(myUserId) : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/create-account`,
-    action: () => ({
-      component: <div />,
-      redirect: profilePaths.createAccount(),
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/about-me`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.aboutMe(myUserId) : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/language-information`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId
-        ? profilePaths.languageInformation(myUserId)
-        : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/government-information`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId
-        ? profilePaths.governmentInformation(myUserId)
-        : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/role-salary`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.roleSalary(myUserId) : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/work-location`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.workLocation(myUserId) : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/work-preferences`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.workPreferences(myUserId) : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/diversity-and-inclusion`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId
-        ? profilePaths.diversityEquityInclusion(myUserId)
-        : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/skills-and-experiences`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId
-        ? profilePaths.skillsAndExperiences(myUserId)
-        : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/skills-and-experiences/award/create`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.createAward(myUserId) : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/skills-and-experiences/community/create`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.createCommunity(myUserId) : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/skills-and-experiences/education/create`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.createEducation(myUserId) : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/skills-and-experiences/personal/create`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.createPersonal(myUserId) : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/skills-and-experiences/work`,
-    action: () => ({
-      component: <div />,
-      authorizedRoles: [Role.Applicant],
-      redirect: myUserId ? profilePaths.createWork(myUserId) : undefined,
-    }),
-  },
-  {
-    path: `${profilePaths.myProfile()}/skills-and-experiences/:type/:id/edit`,
-    action: (context) => {
-      const experienceType = context.params.type as ExperienceType;
-      const experienceId = context.params.id as string;
-      return {
-        component: <div />,
-        authorizedRoles: [Role.Applicant],
-        redirect: myUserId
-          ? profilePaths.editExperience(myUserId, experienceType, experienceId)
-          : undefined,
-      };
-    },
-  },
-];
-
-const directIntakeRoutes = (
-  directIntakePaths: DirectIntakeRoutes,
-): Routes<RouterResult> => [
-  {
-    path: directIntakePaths.home(),
-    action: () => ({
-      component: <div />,
-      redirect: directIntakePaths.allPools(),
-    }),
-  },
-  {
-    path: directIntakePaths.allPools(),
-    action: () => ({
-      component: <BrowsePoolsPage />,
-    }),
-  },
-  {
-    path: directIntakePaths.pool(":id"),
-    action: (context) => {
-      const poolId = context.params.id as string;
-      return {
-        component: <PoolAdvertisementPage id={poolId} />,
-      };
-    },
-  },
-  {
-    path: directIntakePaths.createApplication(":id"),
-    action: (context) => {
-      const poolId = context.params.id as string;
-      return {
-        component: <CreateApplication poolId={poolId} />,
-        authorizedRoles: [Role.Applicant],
-      };
-    },
-  },
-  {
-    path: directIntakePaths.signAndSubmit(":id"),
-    action: (context) => {
-      const applicationId = context.params.id as string;
-      return {
-        component: <SignAndSubmitPage id={applicationId} />,
-        authorizedRoles: [Role.Applicant],
-      };
-    },
-  },
-  {
-    path: directIntakePaths.applications(":userId"),
-    action: () => ({
-      component: <MyApplicationsPage />,
-      authorizedRoles: [Role.Applicant],
-    }),
-  },
-  {
-    path: directIntakePaths.reviewApplication(":poolCandidateId"),
-    action: (context) => {
-      const poolCandidateId = context.params.poolCandidateId as string;
-      return {
-        component: (
-          <ReviewMyApplicationPage poolCandidateId={poolCandidateId} />
-        ),
-        authorizedRoles: [Role.Applicant],
-      };
-    },
-  },
-];
-
-export const Router: React.FC = () => {
-  const intl = useIntl();
-  const locale = getLocale(intl);
-  const authPaths = useAuthRoutes();
-  const talentPaths = useTalentSearchRoutes();
-  const profilePaths = useApplicantProfileRoutes();
-  const directIntakePaths = useDirectIntakeRoutes();
-  const featureFlags = useFeatureFlags();
-  const { loggedIn } = React.useContext(AuthenticationContext);
-
-  const [result] = useGetAboutMeQuery();
-  const { data, fetching, error } = result;
-  const aiConnectionString = getRuntimeVariable(
-    "APPLICATIONINSIGHTS_CONNECTION_STRING",
-  );
-  if (aiConnectionString) {
-    const appInsights = new ApplicationInsights({
-      config: {
-        connectionString: aiConnectionString,
+    path: `/`,
+    element: <Layout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: ":locale",
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            index: true,
+            element: <HomePage />,
+          },
+          {
+            path: "support",
+            element: <SupportPage />,
+          },
+          {
+            path: "accessibility-statement",
+            element: <AccessibilityPage />,
+          },
+          {
+            path: "search",
+            children: [
+              {
+                index: true,
+                element: <SearchPage />,
+              },
+              {
+                path: "request",
+                element: <RequestPage />,
+              },
+            ],
+          },
+          {
+            path: "register-info",
+            element: <RegisterPage />,
+          },
+          {
+            path: "logged-out",
+            element: <LoggedOutPage />,
+          },
+          {
+            path: "login-info",
+            element: <LoginPage />,
+          },
+          {
+            path: "create-account",
+            element: (
+              <RequireAuth roles={[Role.Applicant]}>
+                <CreateAccount />
+              </RequireAuth>
+            ),
+          },
+          {
+            path: "users",
+            // Redirect any route in this section to /create-account
+            // if no email is set
+            element: <CreateAccountRedirect />,
+            children: [
+              {
+                path: "me",
+                element: (
+                  <RequireAuth roles={[Role.Applicant]}>
+                    <ProfileRedirect />
+                  </RequireAuth>
+                ),
+              },
+              {
+                path: ":userId",
+                children: [
+                  {
+                    path: "profile",
+                    children: [
+                      {
+                        index: true,
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <ProfilePage />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: "about-me/edit",
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <AboutMeFormPage />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: "government-info/edit",
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <GovernmentInfoFormPage />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: "language-info/edit",
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <LanguageInformationFormPage />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: "work-location/edit",
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <WorkLocationPreferenceFormPage />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: "work-preferences/edit",
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <WorkPreferencesFormPage />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: "employment-equity/edit",
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <EmploymentEquityFormPage />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: "role-salary-expectations/edit",
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <RoleSalaryFormPage />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: "experiences",
+                        children: [
+                          {
+                            index: true,
+                            element: (
+                              <RequireAuth roles={[Role.Applicant]}>
+                                <ExperienceAndSkillsPage />
+                              </RequireAuth>
+                            ),
+                          },
+                          {
+                            path: ":experienceType",
+                            children: [
+                              {
+                                path: "create",
+                                element: (
+                                  <RequireAuth roles={[Role.Applicant]}>
+                                    <ExperienceFormPage />
+                                  </RequireAuth>
+                                ),
+                              },
+                              {
+                                path: ":experienceId",
+                                children: [
+                                  {
+                                    path: "edit",
+                                    element: (
+                                      <RequireAuth roles={[Role.Applicant]}>
+                                        <ExperienceFormPage edit />
+                                      </RequireAuth>
+                                    ),
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    path: "applications",
+                    element: (
+                      <RequireAuth roles={[Role.Applicant]}>
+                        <MyApplicationsPage />
+                      </RequireAuth>
+                    ),
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: "browse",
+            children: [
+              {
+                path: "pools",
+                children: [
+                  {
+                    index: true,
+                    element: <BrowsePoolsPage />,
+                  },
+                  {
+                    path: ":poolId",
+                    children: [
+                      {
+                        index: true,
+                        element: <PoolAdvertisementPage />,
+                      },
+                      {
+                        path: "create-application",
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <CreateApplication />
+                          </RequireAuth>
+                        ),
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                path: "applications",
+                children: [
+                  {
+                    path: ":poolCandidateId",
+                    children: [
+                      {
+                        path: "submit",
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <SignAndSubmitPage />
+                          </RequireAuth>
+                        ),
+                      },
+                      {
+                        path: "apply",
+                        element: (
+                          <RequireAuth roles={[Role.Applicant]}>
+                            <ReviewMyApplicationPage />
+                          </RequireAuth>
+                        ),
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: "talent/profile/*",
+            element: (
+              <RequireAuth roles={[Role.Applicant]}>
+                <TalentRedirect />
+              </RequireAuth>
+            ),
+          },
+        ],
       },
-    });
-    appInsights.loadAppInsights();
-    appInsights.trackPageView();
-  }
-  const menuItems = [
-    <MenuLink
-      key="home"
-      href={talentPaths.home()}
-      text={intl.formatMessage({
-        defaultMessage: "Home",
-        id: "G1RNXj",
-        description: "Link to the Homepage in the nav menu.",
-      })}
-    />,
-    <MenuLink
-      key="search"
-      href={talentPaths.search()}
-      text={intl.formatMessage({
-        defaultMessage: "Search",
-        id: "OezjH3",
-        description: "Label displayed on the Search menu item.",
-      })}
-    />,
-  ];
+      {
+        path: "*",
+        element: <ErrorPage />,
+      },
+    ],
+  },
+]);
 
-  if (featureFlags.directIntake) {
-    menuItems.push(
-      <MenuLink
-        key="browseOpportunities"
-        href={directIntakePaths.allPools()}
-        text={intl.formatMessage({
-          defaultMessage: "Browse opportunities",
-          id: "SXvOXV",
-          description: "Label displayed on the browse pools menu item.",
-        })}
-      />,
-    );
-
-    if (featureFlags.directIntake && loggedIn && data?.me?.id) {
-      menuItems.push(
-        <MenuLink
-          key="myApplications"
-          href={directIntakePaths.applications(data.me.id)}
-          text={intl.formatMessage({
-            defaultMessage: "My applications",
-            id: "ioghLh",
-            description:
-              "Label displayed on the users pool applications menu item.",
-          })}
-        />,
-      );
-    }
-  }
-
-  if (loggedIn && data?.me?.id) {
-    menuItems.push(
-      <MenuLink
-        key="myProfile"
-        href={profilePaths.home(data.me.id)}
-        text={intl.formatMessage({
-          defaultMessage: "My profile",
-          id: "5lBIzg",
-          description: "Label displayed on the applicant profile menu item.",
-        })}
-      />,
-    );
-  }
-
-  let authLinks = [
-    <MenuLink
-      key="login-info"
-      href={authPaths.login()}
-      text={intl.formatMessage({
-        defaultMessage: "Login",
-        id: "md7Klw",
-        description: "Label displayed on the login link menu item.",
-      })}
-    />,
-    <MenuLink
-      key="register"
-      href={authPaths.register()}
-      text={intl.formatMessage({
-        defaultMessage: "Register",
-        id: "LMGaDQ",
-        description: "Label displayed on the register link menu item.",
-      })}
-    />,
-  ];
-  if (loggedIn) {
-    authLinks = [
-      <LogoutConfirmation key="logout">
-        <LogoutButton>
-          {intl.formatMessage({
-            defaultMessage: "Logout",
-            id: "3vDhoc",
-            description: "Label displayed on the logout link menu item.",
-          })}
-        </LogoutButton>
-      </LogoutConfirmation>,
-    ];
-  }
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      <PageContainer
-        menuItems={menuItems}
-        authLinks={authLinks}
-        contentRoutes={[
-          ...talentRoutes(talentPaths),
-          ...authRoutes(authPaths),
-          ...profileRoutes(profilePaths, data?.me?.id),
-          ...(featureFlags.directIntake
-            ? directIntakeRoutes(directIntakePaths)
-            : []),
-        ]}
-      />
-      <Helmet>
-        <html lang={locale} />
-        <title>
-          {intl.formatMessage({
-            defaultMessage: "GC Digital Talent",
-            id: "Mz+gUV",
-            description: "Title tag for Talent Search site",
-          })}
-        </title>
-        <meta
-          name="description"
-          content={intl.formatMessage({
-            defaultMessage:
-              "GC Digital Talent is the new recruitment platform for digital and tech jobs in the Government of Canada. Apply now!",
-            id: "jRmRd+",
-            description: "Meta tag description for Talent Search site",
-          })}
-        />
-      </Helmet>
-    </Pending>
-  );
-};
+const Router = () => (
+  <React.Suspense fallback={<Loading />}>
+    <RouterProvider router={router} fallbackElement={<Loading />} />
+  </React.Suspense>
+);
 
 export default Router;

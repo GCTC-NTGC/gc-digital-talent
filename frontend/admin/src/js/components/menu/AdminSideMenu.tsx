@@ -14,7 +14,6 @@ import {
   UserIcon,
   Squares2X2Icon,
 } from "@heroicons/react/24/outline";
-import { useLocation } from "@common/helpers/router";
 import { AuthorizationContext } from "@common/components/Auth";
 import LoginOrLogout from "./LoginOrLogout";
 
@@ -59,7 +58,6 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
-  const location = useLocation();
 
   const { loggedInUserRoles } = React.useContext(AuthorizationContext);
 
@@ -181,11 +179,7 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
       {menuItems.map((item) => (
         <React.Fragment key={item.key}>
           {checkRole(item.roles, loggedInUserRoles) ? (
-            <SideMenuItem
-              href={item.href}
-              icon={item.icon}
-              isActive={item.href === location.pathname}
-            >
+            <SideMenuItem href={item.href} icon={item.icon} end>
               {item.text}
             </SideMenuItem>
           ) : null}

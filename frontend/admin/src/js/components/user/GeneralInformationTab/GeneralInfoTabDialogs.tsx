@@ -1,17 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
+import { FormProvider, useForm } from "react-hook-form";
+import { UserMinusIcon } from "@heroicons/react/24/solid";
+
 import Dialog from "@common/components/Dialog";
 import Button from "@common/components/Button";
-import { getLocale } from "@common/helpers/localize";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getPoolCandidateStatus } from "@common/constants/localizedConstants";
 import { InputError, InputWrapper } from "@common/components/inputPartials";
-import { toast } from "react-toastify";
-import { UserMinusIcon } from "@heroicons/react/24/solid";
-import isEmpty from "lodash/isEmpty";
+import { toast } from "@common/components/Toast";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
-import { refresh } from "@common/helpers/router";
-import { FormProvider, useForm } from "react-hook-form";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   CreatePoolCandidateAsAdminInput,
   Pool,
@@ -110,7 +110,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
   user,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const navigate = useNavigate();
   const methods = useForm();
 
   const [selectedStatus, setSelectedStatus] = useState("");
@@ -149,7 +149,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
             description: "Toast for successful status update on view-user page",
           }),
         );
-        refresh();
+        navigate(0);
       })
       .catch(() => {
         setSubmitting(false);
@@ -201,7 +201,7 @@ export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
               "Second section of text on the change candidate status dialog",
           })}
         </p>
-        <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
+        <p>- {getFullPoolAdvertisementTitle(intl, selectedCandidate?.pool)}</p>
         <p data-h2-margin="base(x1, 0, 0, 0)">
           {intl.formatMessage({
             defaultMessage: "Choose status:",
@@ -296,6 +296,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
   user,
 }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const methods = useForm();
 
   const [selectedDate, setSelectedDate] = useState("");
@@ -335,7 +336,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
               "Toast for successful expiry date update on view-user page",
           }),
         );
-        refresh();
+        navigate(0);
       })
       .catch(() => {
         setSubmitting(false);
@@ -454,7 +455,6 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
   user,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   const [submitting, setSubmitting] = useState(false);
 
@@ -538,7 +538,7 @@ export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
               "Second section of text on the remove candidate from pool dialog",
           })}
         </p>
-        <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
+        <p>- {getFullPoolAdvertisementTitle(intl, selectedCandidate?.pool)}</p>
         <Dialog.Footer>
           <CloseDialogButton />
           <ConfirmDialogButton
@@ -571,8 +571,8 @@ export const AddToPoolDialog: React.FC<{
   pools: Pool[];
 }> = ({ user, pools }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const methods = useForm();
+  const navigate = useNavigate();
 
   const [selectedPool, setSelectedPool] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
@@ -630,7 +630,7 @@ export const AddToPoolDialog: React.FC<{
               "Toast for successful add user to pool on view-user page",
           }),
         );
-        refresh();
+        navigate(0);
       })
       .catch(() => {
         setSubmitting(false);
@@ -712,10 +712,7 @@ export const AddToPoolDialog: React.FC<{
                   })}
                 </option>
                 {pools.map((pool) => {
-                  if (
-                    isEmpty(pool?.name?.[locale]) ||
-                    currentPools.includes(pool.id)
-                  ) {
+                  if (currentPools.includes(pool.id)) {
                     return null;
                   }
                   return (
@@ -724,7 +721,7 @@ export const AddToPoolDialog: React.FC<{
                       key={pool?.id}
                       value={pool?.id}
                     >
-                      {pool?.name?.[locale]}
+                      {getFullPoolAdvertisementTitle(intl, pool)}
                     </option>
                   );
                 })}

@@ -1,13 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Link } from "@common/components";
+import { ExternalLink } from "@common/components/Link";
 import { getLocale } from "@common/helpers/localize";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
+import useRoutes from "../../hooks/useRoutes";
 
 const keyRegistrationLink = (
   path: string,
@@ -16,9 +16,9 @@ const keyRegistrationLink = (
 
 const RegisterPage: React.FC = () => {
   const intl = useIntl();
-  const profilePaths = useApplicantProfileRoutes();
-  const paths = useApiRoutes();
-  const loginPath = paths.login(profilePaths.myProfile(), getLocale(intl));
+  const paths = useRoutes();
+  const apiPaths = useApiRoutes();
+  const loginPath = apiPaths.login(paths.myProfile(), getLocale(intl));
 
   return (
     <>
@@ -86,21 +86,20 @@ const RegisterPage: React.FC = () => {
             data-h2-justify-content="base(space-between)"
           >
             <p>
-              <Link href={loginPath} external>
+              <ExternalLink href={loginPath}>
                 {intl.formatMessage({
                   defaultMessage: "Log in instead",
                   id: "rUFZwt",
                   description: "Login link text on the registration page.",
                 })}
-              </Link>
+              </ExternalLink>
             </p>
             <p>
-              <Link
+              <ExternalLink
                 href={loginPath}
                 mode="solid"
                 type="button"
                 color="primary"
-                external
               >
                 {intl.formatMessage({
                   defaultMessage: "Continue to GC Key and Register",
@@ -108,7 +107,7 @@ const RegisterPage: React.FC = () => {
                   description:
                     "GC Key registration link text on the registration page.",
                 })}
-              </Link>
+              </ExternalLink>
             </p>
           </div>
         </div>

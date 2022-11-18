@@ -6,6 +6,8 @@ import { getLocale } from "@common/helpers/localize";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
 import { PoolCandidateSearchStatus } from "@common/api/generated";
 import Pending from "@common/components/Pending";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import {
   GetPoolCandidateSearchRequestsQuery,
   useGetPoolCandidateSearchRequestsQuery,
@@ -72,7 +74,14 @@ export const SearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the search request table requested date column.",
         }),
-        accessor: "requestedDate",
+        accessor: ({ requestedDate }) =>
+          requestedDate
+            ? formatDate({
+                date: parseDateTimeUtc(requestedDate),
+                formatString: "PPP p",
+                intl,
+              })
+            : null,
       },
       {
         Header: intl.formatMessage({
@@ -132,7 +141,7 @@ export const SearchRequestTable: React.FunctionComponent<
                 (pool) =>
                   pool && (
                     <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
-                      {pool.name?.[locale]}
+                      {getFullPoolAdvertisementTitle(intl, pool)}
                     </a>
                   ),
               )
@@ -140,7 +149,7 @@ export const SearchRequestTable: React.FunctionComponent<
                 (pool) =>
                   pool && (
                     <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
-                      {pool.name?.[locale]}
+                      {getFullPoolAdvertisementTitle(intl, pool)}
                     </a>
                   ),
               ),

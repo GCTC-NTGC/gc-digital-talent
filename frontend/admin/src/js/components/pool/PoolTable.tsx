@@ -1,34 +1,30 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Link, Pill } from "@common/components";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
 import { FromArray } from "@common/types/utilityTypes";
 import Pending from "@common/components/Pending";
 import { getAdvertisementStatus } from "@common/constants/localizedConstants";
 import { commonMessages } from "@common/messages";
-import {
-  formatClassificationString,
-  formattedPoolPosterTitle,
-} from "@common/helpers/poolUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   GetPoolsQuery,
   Maybe,
-  PoolStream,
+  Pool,
   useGetPoolsQuery,
 } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
-type AccessorClassifications = Data["classifications"];
 
 // callbacks extracted to separate function to stabilize memoized component
 function poolCandidatesLinkAccessor(
   poolCandidatesTableUrl: string,
   intl: IntlShape,
-  label?: Maybe<string>,
+  pool: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
 ) {
   return (
     <Link
@@ -44,37 +40,16 @@ function poolCandidatesLinkAccessor(
           id: "6R9N+h",
           description: "Text for a link to the Pool Candidates table",
         },
-        { label },
+        { label: getFullPoolAdvertisementTitle(intl, pool) },
       )}
     </Link>
   );
 }
 
-function viewLinkAccessor(
-  editUrlRoot: string,
-  id: string,
-  title: Maybe<string>,
-  classifications: AccessorClassifications,
-  stream: PoolStream | null,
-  intl: IntlShape,
-) {
-  let classificationString = ""; // type wrangling the complex type into a string
-  if (classifications && classifications[0]) {
-    const grouping = classifications[0];
-    classificationString = formatClassificationString({
-      group: grouping.group,
-      level: grouping.level,
-    });
-  }
-
+function viewLinkAccessor(editUrlRoot: string, pool: Pool, intl: IntlShape) {
   return (
-    <Link href={`${editUrlRoot}/${id}`} type="link">
-      {formattedPoolPosterTitle({
-        title,
-        classification: classificationString,
-        stream,
-        intl,
-      })}
+    <Link href={`${editUrlRoot}/${pool.id}`} type="link">
+      {getFullPoolAdvertisementTitle(intl, pool)}
     </Link>
   );
 }
@@ -99,6 +74,14 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage({
+          defaultMessage: "Pool Name",
+          id: "HocLRh",
+          description: "Title displayed for the Pool table pool name column.",
+        }),
+        accessor: (d) => viewLinkAccessor(editUrlRoot, d, intl),
+      },
+      {
+        Header: intl.formatMessage({
           defaultMessage: "Candidates",
           id: "EdUZaX",
           description:
@@ -108,32 +91,21 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           poolCandidatesLinkAccessor(
             paths.poolCandidateTable(pool.id),
             intl,
-            pool.name ? pool.name[locale] : "",
+            pool,
           ),
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Pool Name",
-          id: "HocLRh",
-          description: "Title displayed for the Pool table pool name column.",
+          defaultMessage: "Status",
+          id: "ioqFVF",
+          description: "Title displayed for the Pool table status column.",
         }),
-        accessor: (d) =>
-          viewLinkAccessor(
-            editUrlRoot,
-            d.id,
-            d.name ? d.name[locale] : "",
-            d.classifications,
-            d.stream ? d.stream : null,
-            intl,
+        accessor: ({ advertisementStatus }) =>
+          intl.formatMessage(
+            advertisementStatus
+              ? getAdvertisementStatus(advertisementStatus)
+              : commonMessages.notFound,
           ),
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Owner",
-          id: "VgbJiw",
-          description: "Title displayed for the Pool table owner email column.",
-        }),
-        accessor: ({ owner }) => owner?.email,
       },
       {
         Header: intl.formatMessage({
@@ -150,23 +122,18 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
                 color="primary"
                 mode="outline"
               >
-                {`${classification?.group}-${classification?.level}`}
+                {classification?.group}&#8209;{classification?.level}
               </Pill>
             );
           }),
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "ioqFVF",
-          description: "Title displayed for the Pool table status column.",
+          defaultMessage: "Owner",
+          id: "VgbJiw",
+          description: "Title displayed for the Pool table owner email column.",
         }),
-        accessor: ({ advertisementStatus }) =>
-          intl.formatMessage(
-            advertisementStatus
-              ? getAdvertisementStatus(advertisementStatus)
-              : commonMessages.notFound,
-          ),
+        accessor: ({ owner }) => owner?.email,
       },
       {
         Header: intl.formatMessage({

@@ -99,7 +99,6 @@ const Trigger = React.forwardRef<
             <div data-h2-margin="base(0, x.25, 0, 0)" style={{ flexShrink: 0 }}>
               <ChevronRightIcon
                 className="Accordion__Chevron"
-                data-h2-display="print(none)"
                 data-h2-width="base(x1.5)"
                 data-h2-transition="base(all, 100ms, ease-in)"
               />

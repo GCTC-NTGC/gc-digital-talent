@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
-import { toast } from "react-toastify";
 import {
   CalculatorIcon,
   InformationCircleIcon,
@@ -10,6 +9,7 @@ import {
   CheckIcon,
 } from "@heroicons/react/24/outline";
 
+import { toast } from "@common/components/Toast";
 import TableOfContents from "@common/components/TableOfContents";
 import Well from "@common/components/Well";
 import {
@@ -19,8 +19,7 @@ import {
   getPoolCandidateStatus,
   getProvinceOrTerritory,
 } from "@common/constants/localizedConstants";
-import { getLocale } from "@common/helpers/localize";
-import { Button } from "@common/components";
+import { Button, Link } from "@common/components";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { commonMessages } from "@common/messages";
@@ -28,6 +27,8 @@ import { BasicForm, TextArea } from "@common/components/form";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import Heading from "@common/components/Heading";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import { useAdminRoutes } from "admin/src/js/adminRoutes";
 import {
   AddToPoolDialog,
   ChangeDateDialog,
@@ -55,7 +56,7 @@ interface SectionWithPoolsProps {
 
 const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const routes = useAdminRoutes();
 
   if (isEmpty(user.poolCandidates)) {
     return (
@@ -119,7 +120,13 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                   data-h2-background-color="base(light.dt-gray)"
                   data-h2-padding="base(x.25, 0)"
                 >
-                  {candidate.pool?.name?.[locale]}
+                  {candidate.pool ? (
+                    <Link href={routes.poolView(candidate.pool.id)}>
+                      {getFullPoolAdvertisementTitle(intl, candidate.pool)}
+                    </Link>
+                  ) : (
+                    ""
+                  )}
                 </td>
                 <td
                   data-h2-background-color="base(light.dt-gray)"
@@ -344,7 +351,6 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
 
 const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   const [, executeMutation] = useUpdatePoolCandidateMutation();
 
@@ -376,7 +382,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                     "Toast notification for successful update of candidates notes in specified pool",
                 },
                 {
-                  poolName: candidate.pool?.name?.[locale],
+                  poolName: getFullPoolAdvertisementTitle(intl, candidate.pool),
                 },
               ),
             );
@@ -392,7 +398,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                     "Toast notification for failed update of candidates notes in specified pool",
                 },
                 {
-                  poolName: candidate.pool?.name?.[locale],
+                  poolName: getFullPoolAdvertisementTitle(intl, candidate.pool),
                 },
               ),
             );
@@ -434,7 +440,10 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
                       defaultMessage: "Notes",
                       id: "CSDdh/",
                       description: "Title for a pool candidates notes field",
-                    })} - ${candidate.pool?.name?.[locale]}`}
+                    })} - ${getFullPoolAdvertisementTitle(
+                      intl,
+                      candidate.pool,
+                    )}`}
                     defaultValue={candidate.notes ? candidate.notes : ""}
                     placeholder={intl.formatMessage({
                       defaultMessage: "Start writing your notes here...",

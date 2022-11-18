@@ -3,13 +3,11 @@ import { useIntl } from "react-intl";
 
 import { Button, Link } from "@common/components";
 import AlertDialog from "@common/components/AlertDialog";
-import { getLocale } from "@common/helpers/localize";
-import { notEmpty } from "@common/helpers/util";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
-import { useDirectIntakeRoutes } from "../../../directIntakeRoutes";
+import useRoutes from "../../../hooks/useRoutes";
 
 import type { Application } from "./ApplicationCard";
-import getFullPoolAdvertisementTitle from "../../pool/getFullPoolAdvertisementTitle";
 
 export interface ActionProps {
   show: boolean;
@@ -21,8 +19,7 @@ export interface ContinueActionProps extends ActionProps {
 
 const ContinueAction = ({ show, application }: ContinueActionProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
   const { poolAdvertisement } = application;
 
   if (!show) {
@@ -38,9 +35,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
           description: "Link text to continue a specific application",
         },
         {
-          name: notEmpty(poolAdvertisement?.name)
-            ? poolAdvertisement?.name[locale]
-            : application.id,
+          name: getFullPoolAdvertisementTitle(intl, poolAdvertisement),
         },
       )}
     </Link>
@@ -56,8 +51,7 @@ const SeeAdvertisementAction = ({
   advertisement,
 }: SeeAdvertisementActionProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   if (!show || !advertisement) {
     return null;
@@ -72,9 +66,7 @@ const SeeAdvertisementAction = ({
           description: "Link text to see an applications advertisement",
         },
         {
-          name: notEmpty(advertisement.name)
-            ? advertisement.name[locale]
-            : advertisement.id,
+          name: getFullPoolAdvertisementTitle(intl, advertisement),
         },
       )}
     </Link>
@@ -93,10 +85,10 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
     return null;
   }
 
-  const name = application.poolAdvertisement
-    ? getFullPoolAdvertisementTitle(intl, application.poolAdvertisement)
-    : "";
-
+  const name = getFullPoolAdvertisementTitle(
+    intl,
+    application.poolAdvertisement,
+  );
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -180,9 +172,10 @@ const ArchiveAction = ({
     return null;
   }
 
-  const name = application.poolAdvertisement
-    ? getFullPoolAdvertisementTitle(intl, application.poolAdvertisement)
-    : "";
+  const name = getFullPoolAdvertisementTitle(
+    intl,
+    application.poolAdvertisement,
+  );
 
   return (
     <AlertDialog.Root>
