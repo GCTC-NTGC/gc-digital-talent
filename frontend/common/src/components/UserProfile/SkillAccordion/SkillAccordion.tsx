@@ -125,7 +125,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {awardedDate && formattedDate(awardedDate, locale)}
+          {awardedDate && formattedDate(awardedDate, intl)}
         </p>
         <p>
           {intl.formatMessage({

@@ -11,23 +11,18 @@ export const DATE_FORMAT_STRING = "yyyy-MM-dd";
 // DateTime scalar formatting string
 export const DATETIME_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";
 
-export function formattedDate(date: Scalars["Date"], locale: Locales) {
-  const formatter = new Intl.DateTimeFormat(locale, {
-    year: "numeric",
-    month: "short",
-    timeZone: "UTC",
+export function formattedDate(date: Scalars["Date"], intl: IntlShape) {
+  return formatDate({
+    date: new Date(date),
+    formatString: "MMM  RRRR",
+    intl,
   });
-  const formatDate = formatter.format(new Date(date));
-  const formattedMonth = formatDate.substring(0, 4).toUpperCase();
-  const formattedYear = formatDate.substring(4, 10);
-  return `${formattedMonth}  ${formattedYear}`;
 }
 
 export function getDateRange({
   endDate,
   startDate,
   intl,
-  locale,
 }: {
   endDate: Maybe<Scalars["Date"]>;
   startDate: Maybe<Scalars["Date"]>;
@@ -35,7 +30,7 @@ export function getDateRange({
   locale: Locales;
 }): React.ReactNode {
   if (!startDate) return null;
-  const d1 = formattedDate(startDate, locale);
+  const d1 = formattedDate(startDate, intl);
   if (!endDate)
     return intl.formatMessage(
       {
@@ -45,7 +40,7 @@ export function getDateRange({
       },
       { d1 },
     );
-  const d2 = formattedDate(endDate, locale);
+  const d2 = formattedDate(endDate, intl);
   return endDate
     ? `${d1} - ${d2}`
     : intl.formatMessage(
