@@ -5,7 +5,6 @@ import { useIntl } from "react-intl";
 import SkillPicker from "@common/components/SkillPicker";
 import { getLocalizedName } from "@common/helpers/localize";
 import Chip, { Chips } from "@common/components/Chip";
-import { Submit } from "@common/components/form";
 import {
   AdvertisementStatus,
   PoolAdvertisement,
@@ -79,21 +78,12 @@ export const EssentialSkillsSection = ({
             skills={skills}
             onUpdateSelectedSkills={handleChangeSelectedSkills}
             handleSave={handleSave}
-            submitButton={
-              <p data-h2-margin="base(x1, 0)">
-                <Submit
-                  text={intl.formatMessage({
-                    defaultMessage: "Save essential skills",
-                    id: "2asU3k",
-                    description:
-                      "Text on a button to save the pool essential skills",
-                  })}
-                  color="cta"
-                  mode="solid"
-                  isSubmitting={isSubmitting}
-                />
-              </p>
-            }
+            submitButtonText={intl.formatMessage({
+              defaultMessage: "Save essential skills",
+              id: "2asU3k",
+              description: "Text on a button to save the pool essential skills",
+            })}
+            isSubmitting={isSubmitting}
           />
         </>
       ) : (

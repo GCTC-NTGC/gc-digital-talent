@@ -16,6 +16,7 @@ import {
   invertSkillSkillFamilyTree,
 } from "../../helpers/skillUtils";
 import FamilyPicker from "./FamilyPicker";
+import { Submit } from "../form";
 
 type Skills = Array<Skill>;
 
@@ -34,7 +35,8 @@ export interface SkillPickerProps {
   onUpdateSelectedSkills?: (newSkills: Skills) => void;
   headingLevel?: HeadingLevel;
   handleSave?: () => void;
-  submitButton?: React.ReactNode;
+  submitButtonText?: string;
+  isSubmitting?: boolean;
 }
 
 const SkillPicker = ({
@@ -43,7 +45,8 @@ const SkillPicker = ({
   selectedSkills = [],
   headingLevel = "h4",
   handleSave,
-  submitButton,
+  submitButtonText,
+  isSubmitting,
 }: SkillPickerProps) => {
   const intl = useIntl();
   const Heading = headingLevel;
@@ -244,8 +247,16 @@ const SkillPicker = ({
           </Chips>
         </>
       ) : null}
-      {submitButton && handleSave && (
-        <form onSubmit={handleSubmit(handleSave)}>{submitButton}</form>
+      {submitButtonText && handleSave && (
+        <p data-h2-margin="base(x1, 0)">
+          <Submit
+            text={submitButtonText}
+            color="cta"
+            mode="solid"
+            isSubmitting={isSubmitting}
+            onClick={handleSubmit(handleSave)}
+          />
+        </p>
       )}
     </FormProvider>
   );
