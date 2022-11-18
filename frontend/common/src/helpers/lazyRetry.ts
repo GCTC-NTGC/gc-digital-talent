@@ -16,7 +16,7 @@ import { getFromLocalStorage, setInLocalStorage } from "./storageUtils";
  * @param name  string    Name the component (only needed when using multiple components on same page)
  * @returns
  */
-const lazyRetry = <T extends ComponentType<any>>(
+const lazyRetry = <T extends ComponentType<unknown>>(
   componentImport: () => Promise<{ default: T }>,
   name?: string,
 ): Promise<{ default: T }> => {
