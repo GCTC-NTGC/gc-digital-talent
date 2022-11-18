@@ -43,6 +43,7 @@ const TableEditButton: React.FC<{
       color="black"
       mode="inline"
       href={paths.poolCandidateUpdate(poolId || "", poolCandidateId || "")}
+      style={{ whiteSpace: "pre" }}
     >
       {intl.formatMessage(
         {

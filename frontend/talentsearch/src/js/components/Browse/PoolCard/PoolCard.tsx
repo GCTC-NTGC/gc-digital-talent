@@ -222,6 +222,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                 href={paths.pool(pool.id)}
                 data-h2-text-align="base(center)"
                 data-h2-display="base(inline-block)"
+                style={{ whiteSpace: "pre" }}
               >
                 {intl.formatMessage(
                   {
