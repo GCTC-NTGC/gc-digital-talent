@@ -28,11 +28,18 @@ const Template: Story = (args) => {
   };
 
   return (
-    <SkillPicker
-      skills={skills}
-      selectedSkills={addedSkills}
-      onUpdateSelectedSkills={handleChange}
-    />
+    <>
+      <SkillPicker
+        skills={skills}
+        selectedSkills={addedSkills}
+        onUpdateSelectedSkills={handleChange}
+      />
+      <h2 data-h2-margin="base(x1, 0, x.5, 0)">Skip Target</h2>
+      <p data-h2-margin="base(x.25, 0)">
+        Use the skip to link or press <kbd>ctrl</kbd> + <kbd>shift</kbd> +{" "}
+        <kbd>esc</kbd> to jump here.
+      </p>
+    </>
   );
 };
 
