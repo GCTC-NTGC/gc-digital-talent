@@ -254,7 +254,6 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
             data-h2-display="base(grid)"
             data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr)))"
             data-h2-gap="base(x2) p-tablet(x3)"
-            style={{ whiteSpace: "pre" }}
           >
             <CardFlat
               color="purple"

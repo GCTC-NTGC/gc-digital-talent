@@ -58,7 +58,7 @@ const CardFlat = ({ color, link, title, children }: CardFlatProps) => {
         </div>
       )}
       {link && (
-        <div>
+        <div style={{ whiteSpace: "pre" }}>
           <LinkEl
             color={color}
             type="button"

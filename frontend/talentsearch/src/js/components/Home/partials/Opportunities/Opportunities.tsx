@@ -82,7 +82,6 @@ const Opportunities = () => {
             data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
             data-h2-gap="base(x2) p-tablet(x3)"
             data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)"
-            style={{ whiteSpace: "pre" }}
           >
             <CardFlat
               color="yellow"
