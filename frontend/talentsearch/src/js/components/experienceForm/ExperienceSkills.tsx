@@ -196,10 +196,12 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
           selectedSkills={addedSkills || []}
         />
       )}
-      <SkillsInDetail
-        skills={fields as FormSkills}
-        onDelete={handleRemoveSkill}
-      />
+      {poolAdvertisement && (
+        <SkillsInDetail
+          skills={fields as FormSkills}
+          onDelete={handleRemoveSkill}
+        />
+      )}
     </>
   );
 };
