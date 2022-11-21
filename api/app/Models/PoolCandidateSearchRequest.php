@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Model;
