@@ -233,7 +233,6 @@ export const ExperienceAndSkills: React.FunctionComponent<
                     color="primary"
                     icon={icon}
                     block
-                    style={{ whiteSpace: "pre" }}
                   >
                     {intl.formatMessage(
                       {

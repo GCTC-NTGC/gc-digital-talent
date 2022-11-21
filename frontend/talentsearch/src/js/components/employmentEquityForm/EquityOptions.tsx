@@ -87,7 +87,6 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
-              style={{ whiteSpace: "pre" }}
             >
               {resolvedWoman && (
                 <EquityOption
@@ -168,7 +167,6 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
-              style={{ whiteSpace: "pre" }}
             >
               {!resolvedWoman && (
                 <EquityOption

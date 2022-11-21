@@ -98,7 +98,6 @@ const Header = ({ width }: HeaderProps) => {
                   setLocale(changeToLang);
                 }}
                 lang={changeToLang === "en" ? "en" : "fr"}
-                style={{ whiteSpace: "pre" }}
               >
                 {intl.formatMessage({
                   defaultMessage:

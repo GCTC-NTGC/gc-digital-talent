@@ -80,7 +80,7 @@ const SkillBlock = ({
           data-h2-gap="base(x.5, 0)"
           style={{ flexShrink: 0 }}
         >
-          <div style={{ whiteSpace: "pre" }}>
+          <div>
             <Button
               color="primary"
               mode="inline"
@@ -112,7 +112,7 @@ const SkillBlock = ({
                   )}
             </Button>
           </div>
-          <div style={{ whiteSpace: "pre" }}>
+          <div>
             {definition ? (
               <Collapsible.Trigger asChild>
                 <Button

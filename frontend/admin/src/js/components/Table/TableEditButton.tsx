@@ -26,7 +26,6 @@ function TableEditButton({
       mode="inline"
       color="black"
       data-h2-padding="base(0)"
-      style={{ whiteSpace: "pre" }}
     >
       {intl.formatMessage(
         {
