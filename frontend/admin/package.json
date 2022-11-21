@@ -124,7 +124,7 @@
     "react-table": "^7.8.0",
     "react-to-print": "^2.14.10",
     "react-toastify": "^9.1.1",
-    "regenerator-runtime": "^0.13.10",
+    "regenerator-runtime": "^0.13.11",
     "universal-router": "^9.1.0",
     "urql": "^3.0.3"
   }
