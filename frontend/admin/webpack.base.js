@@ -80,7 +80,8 @@ module.exports = {
       template: path.resolve(__dirname, "public/config.ejs"),
       filename: "config.js",
       inject: false,
-      environment: process.env
+      environment: process.env,
+      minify: false, // minify in production causes this to fail
     }),
 
     // run some checks before compilation begins
