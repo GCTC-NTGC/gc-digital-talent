@@ -3,8 +3,7 @@ import BriefCaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
 import { useIntl } from "react-intl";
 import Accordion from "../../../Accordion";
 import { Link } from "../../..";
-import { getLocale } from "../../../../helpers/localize";
-import { getDateRange } from "../../../../helpers/dateUtils";
+import { getDateRange } from "../../accordionUtils";
 import { WorkExperience } from "../../../../api/generated";
 import SkillList from "../SkillList";
 
@@ -68,13 +67,12 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
   ...rest
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const { id, role, organization, startDate, endDate, skills } = rest;
 
   return (
     <Accordion.Item value={id}>
       <Accordion.Trigger
-        subtitle={getDateRange({ endDate, startDate, intl, locale })}
+        subtitle={getDateRange({ endDate, startDate, intl })}
         context={
           skills?.length === 1
             ? intl.formatMessage({
