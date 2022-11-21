@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
@@ -39,7 +39,6 @@ const applicantFilterToQueryArgs = (
      the data object contains other props at runtime, and this will cause the
      graphql operation to fail.
   */
-
   // Apply pick to each element of an array.
   function pickMap<T, K extends keyof T>(
     list: Maybe<Maybe<T>[]> | null | undefined,
@@ -274,11 +273,16 @@ const SearchContainerApi = () => {
     }
   }, [searchFormData?.pools]);
 
+  const queryArgs = useMemo(
+    () => applicantFilterToQueryArgs(applicantFilter),
+    [applicantFilter],
+  );
+
   // Fetches the number of pool candidates by pool to display on pool cards AND
   // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
   const [{ data: candidatesData, fetching: fetchingCandidates }] =
     useCountApplicantsAndCountPoolCandidatesByPoolQuery({
-      variables: applicantFilterToQueryArgs(applicantFilter),
+      variables: queryArgs,
       pause: fetchingSearchFormData, // The first submitted query should wait for pools to be loaded.
     });
   const totalCandidateCount = candidatesData?.countApplicants || 0;
