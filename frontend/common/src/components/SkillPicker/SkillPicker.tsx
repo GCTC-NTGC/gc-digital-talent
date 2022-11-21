@@ -210,20 +210,20 @@ const SkillPicker = ({
           })}
         </a>
       )}
-      <p
-        aria-live="polite"
-        data-h2-visibility="base(invisible)"
-        id="skill-list-help"
-      >
-        {isInSkillList
-          ? intl.formatMessage({
-              id: "tRYI0f",
-              defaultMessage:
-                "Press ctrl + shift + esc while navigating through the list of skills to skip directly to your chosen skills.",
-              description: "Instructional text for skill picker shortcuts",
-            })
-          : null}
-      </p>
+      {isInSkillList ? (
+        <p
+          aria-live="polite"
+          data-h2-visibility="base(invisible)"
+          id="skill-list-help"
+        >
+          {intl.formatMessage({
+            id: "tRYI0f",
+            defaultMessage:
+              "Press ctrl + shift + esc while navigating through the list of skills to skip directly to your chosen skills.",
+            description: "Instructional text for skill picker shortcuts",
+          })}
+        </p>
+      ) : null}
       <ScrollArea.Root
         onKeyDown={handleKeyDown}
         data-h2-width="base(100%)"
@@ -236,12 +236,12 @@ const SkillPicker = ({
         <ScrollArea.Viewport data-h2-background-color="base(white)">
           <div
             data-h2-padding="base(x.5, x1, x.5, x.5)"
-            role="list"
-            aria-describedby="skill-list-help"
+            role={filteredSkills.length > 0 ? "list" : undefined}
+            aria-describedby={isInSkillList ? "skill-list-help" : undefined}
           >
             {filteredSkills.length > 0 ? (
               filteredSkills.map((skill, index: number) => (
-                <React.Fragment key={skill.id}>
+                <div role="listitem" key={skill.id}>
                   <SkillBlock
                     skill={skill}
                     isAdded={
@@ -259,7 +259,7 @@ const SkillPicker = ({
                       orientation="horizontal"
                     />
                   ) : null}
-                </React.Fragment>
+                </div>
               ))
             ) : (
               <p

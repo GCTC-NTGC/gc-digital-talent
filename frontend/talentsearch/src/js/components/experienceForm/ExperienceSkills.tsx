@@ -202,6 +202,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
           skills={skills || []}
           onUpdateSelectedSkills={handleChange}
           selectedSkills={addedSkills || []}
+          headingLevel="h3"
         />
       )}
       <SkillsInDetail
