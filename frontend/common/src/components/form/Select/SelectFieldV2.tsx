@@ -275,7 +275,6 @@ const SelectFieldV2 = ({
                   onChange={convertSingleOrMultiOptionsToValues}
                   aria-label={label}
                   aria-required={isRequired}
-                  {...stateStyles}
                   stateStyles={stateStyles}
                   styles={{
                     placeholder: (provided) => ({
