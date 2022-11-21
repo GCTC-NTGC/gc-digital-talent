@@ -2823,5 +2823,9 @@
   "FkwGWO": {
     "defaultMessage": "Notre engagement envers la conception, l’élaboration et la prestation de services accessibles.",
     "description": "Subtitle for the accessibility statement page."
+  },
+  "jslBEY": {
+    "defaultMessage": "Profile de {name}",
+    "description": "Title for a specific users profile page"
   }
 }

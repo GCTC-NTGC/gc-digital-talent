@@ -17,6 +17,7 @@ import {
   invertSkillSkillFamilyTree,
 } from "../../helpers/skillUtils";
 import FamilyPicker from "./FamilyPicker";
+import { Submit } from "../form";
 
 type Skills = Array<Skill>;
 
@@ -34,6 +35,9 @@ export interface SkillPickerProps {
   selectedSkills?: Skills;
   onUpdateSelectedSkills?: (newSkills: Skills) => void;
   headingLevel?: HeadingLevel;
+  handleSave?: () => void;
+  submitButtonText?: string;
+  isSubmitting?: boolean;
 }
 
 const skipId = `skip-target-${uniqueId()}`;
@@ -43,6 +47,9 @@ const SkillPicker = ({
   onUpdateSelectedSkills,
   selectedSkills = [],
   headingLevel = "h4",
+  handleSave,
+  submitButtonText,
+  isSubmitting,
 }: SkillPickerProps) => {
   const intl = useIntl();
   const skipTargetRef = React.useRef<HTMLDivElement>(null);
@@ -52,7 +59,7 @@ const SkillPicker = ({
     mode: "onChange",
     defaultValues,
   });
-  const { watch } = methods;
+  const { watch, handleSubmit } = methods;
 
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamily }) => {
@@ -129,43 +136,42 @@ const SkillPicker = ({
   };
 
   return (
-    <>
-      <FormProvider {...methods}>
-        <InputLabel
-          required={false}
-          inputId="query"
-          trackUnsaved={false}
-          label={intl.formatMessage({
-            defaultMessage: "Search skills by keyword",
-            id: "ARqO1j",
-            description: "Label for the skills search bar.",
+    <FormProvider {...methods}>
+      <InputLabel
+        required={false}
+        inputId="query"
+        trackUnsaved={false}
+        label={intl.formatMessage({
+          defaultMessage: "Search skills by keyword",
+          id: "ARqO1j",
+          description: "Label for the skills search bar.",
+        })}
+      />
+      <div data-h2-display="base(flex)" data-h2-margin="base(x.25, 0, 0, 0)">
+        <FamilyPicker
+          onSelectFamily={handleCheckFamily}
+          families={allSkillFamilies}
+        />
+        <input
+          id="query"
+          type="text"
+          autoComplete="off"
+          {...methods.register("query")}
+          data-h2-background-color="base(white) base:focus-visible(lighter.dt-primary.10)"
+          data-h2-outline="base(none)"
+          data-h2-shadow="base:focus-visible(s, dt-primary.30)"
+          data-h2-flex-grow="base(1)"
+          data-h2-border="base(all, 1px, solid, dt-primary) base:focus-visible(all, 1px, solid, dark.dt-primary)"
+          data-h2-radius="base(0, input, input, 0)"
+          data-h2-padding="base(x.5, x1)"
+          placeholder={intl.formatMessage({
+            defaultMessage: "e.g. Python, JavaScript, etc.",
+            id: "PF4ya+",
+            description: "Placeholder for the skills search bar.",
           })}
         />
-        <div data-h2-display="base(flex)" data-h2-margin="base(x.25, 0, 0, 0)">
-          <FamilyPicker
-            onSelectFamily={handleCheckFamily}
-            families={allSkillFamilies}
-          />
-          <input
-            id="query"
-            type="text"
-            autoComplete="off"
-            {...methods.register("query")}
-            data-h2-background-color="base(white) base:focus-visible(lighter.dt-primary.10)"
-            data-h2-outline="base(none)"
-            data-h2-shadow="base:focus-visible(s, dt-primary.30)"
-            data-h2-flex-grow="base(1)"
-            data-h2-border="base(all, 1px, solid, dt-primary) base:focus-visible(all, 1px, solid, dark.dt-primary)"
-            data-h2-radius="base(0, input, input, 0)"
-            data-h2-padding="base(x.5, x1)"
-            placeholder={intl.formatMessage({
-              defaultMessage: "e.g. Python, JavaScript, etc.",
-              id: "PF4ya+",
-              description: "Placeholder for the skills search bar.",
-            })}
-          />
-        </div>
-      </FormProvider>
+      </div>
+
       <p
         aria-live="polite"
         aria-atomic="true"
@@ -278,13 +284,18 @@ const SkillPicker = ({
           </Chips>
         </>
       ) : null}
-      {/**
-       * Hack: See previous comment.
-       *
-       * Do not repeat this pattern
-       */}
-      <div id={skipId} ref={skipTargetRef} tabIndex={-1} />
-    </>
+      {submitButtonText && handleSave && (
+        <p data-h2-margin="base(x1, 0)">
+          <Submit
+            text={submitButtonText}
+            color="cta"
+            mode="solid"
+            isSubmitting={isSubmitting}
+            onClick={handleSubmit(handleSave)}
+          />
+        </p>
+      )}
+    </FormProvider>
   );
 };
 

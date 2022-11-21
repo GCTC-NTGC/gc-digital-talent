@@ -93,8 +93,6 @@ describe("ApplicationStatusForm", () => {
       });
     });
 
-    expect(
-      screen.getByRole("button", { name: /save changes/i }),
-    ).toBeDisabled();
+    expect(screen.getByRole("button", { name: /saving.../i })).toBeDisabled();
   });
 });

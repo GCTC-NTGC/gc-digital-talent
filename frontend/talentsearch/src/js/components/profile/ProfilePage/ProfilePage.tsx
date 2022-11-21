@@ -64,10 +64,19 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
             textShadow: "0 3px 3px rgba(10, 10, 10, .3)",
           }}
         >
-          {getFullNameHtml(
-            profileDataInput.firstName,
-            profileDataInput.lastName,
-            intl,
+          {intl.formatMessage(
+            {
+              defaultMessage: "{name}'s profile",
+              id: "jslBEY",
+              description: "Title for a specific users profile page",
+            },
+            {
+              name: getFullNameHtml(
+                profileDataInput.firstName,
+                profileDataInput.lastName,
+                intl,
+              ),
+            },
           )}
         </h1>
       </div>

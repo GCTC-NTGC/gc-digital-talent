@@ -2017,7 +2017,7 @@
     "description": "Fallback text when an error message is not supplied"
   },
   "sVsZmT": {
-    "defaultMessage": "<a>Veuillez communiquer avec notre équipe de soutien</a>  si vous avez des questions.",
+    "defaultMessage": "<a>Veuillez communiquer avec notre équipe de soutien</a> si vous avez des questions.",
     "description": "Telling users to email support team with any questions about errors"
   },
   "xAxxmc": {
