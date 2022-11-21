@@ -2644,10 +2644,6 @@
     "defaultMessage": "Compétences sélectionnées ({skillCount})",
     "description": "Skills selected and then a number in parentheses"
   },
-  "S/n44h": {
-    "defaultMessage": "Sélectionner...",
-    "description": "Support form subject field default placeholder shown when field has nothing actively selected"
-  },
   "07BM9O": {
     "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
     "description": "Link text to go to IAP homepage on Browse IT jobs page"
