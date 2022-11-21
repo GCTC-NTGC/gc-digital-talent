@@ -14,11 +14,13 @@ import type { FormSkill, FormSkills } from "./types";
 export interface ExperienceSkillsProps {
   skills: Skill[];
   poolAdvertisement?: PoolAdvertisement;
+  skillPickerSkipRef?: React.RefObject<HTMLElement>;
 }
 
 const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
   skills,
   poolAdvertisement,
+  skillPickerSkipRef,
 }) => {
   const intl = useIntl();
   const { control, watch } = useFormContext();
@@ -194,6 +196,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
           skills={skills || []}
           onUpdateSelectedSkills={handleChange}
           selectedSkills={addedSkills || []}
+          skipToRef={skillPickerSkipRef}
         />
       )}
       <SkillsInDetail

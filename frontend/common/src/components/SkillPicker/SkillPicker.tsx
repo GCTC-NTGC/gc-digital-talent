@@ -1,7 +1,6 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import uniqueId from "lodash/uniqueId";
 
 import type { HeadingLevel } from "../Heading";
 import Chip, { Chips } from "../Chip";
@@ -38,9 +37,8 @@ export interface SkillPickerProps {
   handleSave?: () => void;
   submitButtonText?: string;
   isSubmitting?: boolean;
+  skipToRef?: React.RefObject<HTMLElement>;
 }
-
-const skipId = `skip-target-${uniqueId()}`;
 
 const SkillPicker = ({
   skills,
@@ -50,9 +48,9 @@ const SkillPicker = ({
   handleSave,
   submitButtonText,
   isSubmitting,
+  skipToRef,
 }: SkillPickerProps) => {
   const intl = useIntl();
-  const skipTargetRef = React.useRef<HTMLDivElement>(null);
   const Heading = headingLevel;
   const [validData, setValidData] = React.useState<FormValues>(defaultValues);
   const methods = useForm<FormValues>({
@@ -60,6 +58,8 @@ const SkillPicker = ({
     defaultValues,
   });
   const { watch, handleSubmit } = methods;
+
+  const skipId = skipToRef?.current ? skipToRef.current.id : null;
 
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamily }) => {
@@ -128,9 +128,11 @@ const SkillPicker = ({
    *
    */
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.ctrlKey && e.key === "Escape" && e.shiftKey) {
-      if (skipTargetRef.current) {
-        skipTargetRef.current.focus();
+    if (skipToRef?.current) {
+      if (e.ctrlKey && e.key === "Escape" && e.shiftKey) {
+        if (skipToRef.current) {
+          skipToRef.current.focus();
+        }
       }
     }
   };
@@ -190,20 +192,22 @@ const SkillPicker = ({
           },
         )}
       </p>
-      <a
-        href={`#${skipId}`}
-        data-h2-visibility="base(invisible)"
-        data-h2-position="base:focus(static)"
-        data-h2-offset="base:focus(auto)"
-        data-h2-height="base:focus(auto)"
-        data-h2-width="base:focus(auto)"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Skip list of skills",
-          id: "pg1S01",
-          description: "Link text to skip the list of add skill links",
-        })}
-      </a>
+      {skipId && (
+        <a
+          href={`#${skipId}`}
+          data-h2-visibility="base(invisible)"
+          data-h2-position="base:focus(static)"
+          data-h2-offset="base:focus(auto)"
+          data-h2-height="base:focus(auto)"
+          data-h2-width="base:focus(auto)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Skip list of skills",
+            id: "pg1S01",
+            description: "Link text to skip the list of add skill links",
+          })}
+        </a>
+      )}
       <ScrollArea.Root
         onKeyDown={handleKeyDown}
         data-h2-width="base(100%)"
@@ -295,12 +299,6 @@ const SkillPicker = ({
           />
         </p>
       )}
-      {/**
-       * Hack: See previous comment.
-       *
-       * Do not repeat this pattern
-       */}
-      <div id={skipId} ref={skipTargetRef} tabIndex={-1} />
     </FormProvider>
   );
 };
