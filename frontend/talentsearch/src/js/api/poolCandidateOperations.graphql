@@ -96,6 +96,7 @@ query getSearchFormDataAcrossAllPools {
       group
       level
     }
+    stream
     assetCriteria {
       id
       key
