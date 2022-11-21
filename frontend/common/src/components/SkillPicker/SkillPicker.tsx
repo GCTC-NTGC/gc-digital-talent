@@ -32,7 +32,6 @@ const defaultValues: FormValues = {
 };
 
 const skipToHeadingId = `selected-skills-heading-${uniqueId()}`;
-const skipToNoSkillsId = `selected-skills-no-skills-${uniqueId()}`;
 export interface SkillPickerProps {
   skills: Skills;
   selectedSkills?: Skills;
@@ -55,7 +54,6 @@ const SkillPicker = ({
   const intl = useIntl();
   const [isInSkillList, setIsInSkillList] = React.useState<boolean>(false);
   const skipToHeading = React.useRef<HTMLHeadingElement>(null);
-  const skipToNoSkills = React.useRef<HTMLParagraphElement>(null);
 
   const Heading = headingLevel;
   const [validData, setValidData] = React.useState<FormValues>(defaultValues);
@@ -65,9 +63,7 @@ const SkillPicker = ({
   });
   const { watch, handleSubmit } = methods;
 
-  const skipId = skipToHeading?.current
-    ? skipToHeading.current.id
-    : skipToNoSkills.current?.id;
+  const skipId = skipToHeading?.current?.id;
 
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamily }) => {
@@ -139,8 +135,6 @@ const SkillPicker = ({
     if (e.ctrlKey && e.key === "Escape" && e.shiftKey) {
       if (skipToHeading?.current) {
         skipToHeading.current.focus();
-      } else if (skipToNoSkills.current) {
-        skipToNoSkills.current.focus();
       }
     }
   };
@@ -290,42 +284,34 @@ const SkillPicker = ({
           <ScrollArea.Thumb />
         </ScrollArea.Scrollbar>
       </ScrollArea.Root>
+      <Heading
+        data-h2-font-size="base(copy, 1)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x.75, 0, x.5, 0)"
+        id={skipToHeadingId}
+        ref={skipToHeading}
+        tabIndex={-1}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Selected skills",
+          id: "l7Hif/",
+          description: "Section header for a list of skills selected",
+        })}
+      </Heading>
       {selectedSkills.length > 0 ? (
-        <>
-          <Heading
-            data-h2-font-size="base(copy, 1)"
-            data-h2-font-weight="base(700)"
-            data-h2-margin="base(x.75, 0, x.5, 0)"
-            id={skipToHeadingId}
-            ref={skipToHeading}
-            tabIndex={-1}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Selected skills",
-              id: "l7Hif/",
-              description: "Section header for a list of skills selected",
-            })}
-          </Heading>
-          <Chips>
-            {selectedSkills.map((skill) => (
-              <Chip
-                key={skill.id}
-                label={getLocalizedName(skill.name, intl)}
-                color="primary"
-                mode="outline"
-                onDismiss={() => handleRemoveSkill(skill.id)}
-              />
-            ))}
-          </Chips>
-        </>
+        <Chips>
+          {selectedSkills.map((skill) => (
+            <Chip
+              key={skill.id}
+              label={getLocalizedName(skill.name, intl)}
+              color="primary"
+              mode="outline"
+              onDismiss={() => handleRemoveSkill(skill.id)}
+            />
+          ))}
+        </Chips>
       ) : (
-        <p
-          id={skipToNoSkillsId}
-          ref={skipToNoSkills}
-          tabIndex={-1}
-          data-h2-margin="base(x1, 0)"
-          data-h2-font-style="base(italic)"
-        >
+        <p data-h2-margin="base(x1, 0)" data-h2-font-style="base(italic)">
           {intl.formatMessage({
             id: "/78DsY",
             defaultMessage: "You have not selected any skills.",
