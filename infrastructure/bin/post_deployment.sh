@@ -67,17 +67,17 @@ else
 fi
 
 # Environment config variable substitutions
-if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/admin/dist/config.js ; then
+if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/admin/dist/config.js /home/site/config-admin.js ; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Environment variable substitution for admin *successful*.\" } }"
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Environment variable substitution for admin *failed*. $MENTION\" } }"
 fi
-if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/indigenousapprenticeship/dist/config.js ; then
+if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/indigenousapprenticeship/dist/config.js /home/site/config-indigenousapprenticeship.js; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Environment variable substitution for indigenousapprenticeship *successful*.\" } }"
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Environment variable substitution for indigenousapprenticeship *failed*. $MENTION\" } }"
 fi
-if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/talentsearch/dist/config.js ; then
+if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/talentsearch/dist/config.js /home/site/config-talentsearch.js; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Environment variable substitution for talentsearch *successful*.\" } }"
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Environment variable substitution for talentsearch *failed*. $MENTION\" } }"

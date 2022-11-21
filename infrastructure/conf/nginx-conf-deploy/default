@@ -58,6 +58,11 @@ server {
         rewrite "^(?:/[a-z]{2})?/?$" /frontend/talentsearch/dist/index.html break;
     }
 
+    # find the admin config in the writable home root
+    location = /admin/config.js {
+        alias /home/site/config-admin.js;
+    }
+
     # rewrite admin static files to "admin/dist"
     location ~ "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf))$" {
         rewrite "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf))$" /frontend/admin/dist/$1 break;
@@ -66,6 +71,11 @@ server {
     # rewrite possible lang prefix then "admin" to admin index.html
     location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
         rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /frontend/admin/dist/index.html break;
+    }
+
+    # find the talentsearch config in the writable home root
+    location = /talent/config.js {
+        alias /home/site/config-talentsearch.js;
     }
 
     # rewrite talent static files to "talentsearch/dist"
@@ -126,6 +136,11 @@ server {
     # rewrite possible lang prefix then "login-info" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/login-info(/.*|$)" {
         rewrite "^(?:/[a-z]{2})?/login-info(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # find the indigenous-it-apprentice config in the writable home root
+    location = /indigenous-it-apprentice/config.js {
+        alias /home/site/config-indigenousapprenticeship.js;
     }
 
     # rewrite talent static files to "indigenousapprenticeship/dist"
