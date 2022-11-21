@@ -2031,5 +2031,17 @@
   "2iCpAL": {
     "defaultMessage": "Énoncé sur l’accessibilité",
     "description": "Title for the websites accessibility statement"
+  },
+  "/78DsY": {
+    "defaultMessage": "Vous n’avez sélectionné aucune compétence.",
+    "description": "Text that appears after skill picker when no skills are selected"
+  },
+  "pg1S01": {
+    "defaultMessage": "Sauter la liste des compétences.",
+    "description": "Link text to skip the list of add skill links"
+  },
+  "tRYI0f": {
+    "defaultMessage": "Appuyez sur ctrl + maj + échap tandis que vous naviguez une liste de compétences pour passer directement à la compétences que vous avez sélectionnée.",
+    "description": "Instructional text for skill picker shortcuts"
   }
 }
