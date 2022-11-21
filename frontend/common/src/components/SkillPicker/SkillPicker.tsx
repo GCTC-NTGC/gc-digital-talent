@@ -1,8 +1,8 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import uniqueId from "lodash/uniqueId";
 
-import { uniqueId } from "lodash";
 import type { HeadingLevel } from "../Heading";
 import Chip, { Chips } from "../Chip";
 import Separator from "../Separator";
