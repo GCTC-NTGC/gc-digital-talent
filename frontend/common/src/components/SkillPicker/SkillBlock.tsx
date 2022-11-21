@@ -65,7 +65,7 @@ const SkillBlock = ({
   const Wrapper = definition ? Collapsible.Root : "div";
 
   return (
-    <Wrapper>
+    <Wrapper role="listitem">
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column) p-tablet(row)"

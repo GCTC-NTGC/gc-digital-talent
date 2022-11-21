@@ -53,6 +53,7 @@ const SkillPicker = ({
   isSubmitting,
 }: SkillPickerProps) => {
   const intl = useIntl();
+  const [isInSkillList, setIsInSkillList] = React.useState<boolean>(false);
   const skipToHeading = React.useRef<HTMLHeadingElement>(null);
   const skipToNoSkills = React.useRef<HTMLParagraphElement>(null);
 
@@ -215,15 +216,35 @@ const SkillPicker = ({
           })}
         </a>
       )}
+      <p
+        aria-live="polite"
+        data-h2-visibility="base(invisible)"
+        id="skill-list-help"
+      >
+        {isInSkillList
+          ? intl.formatMessage({
+              id: "tRYI0f",
+              defaultMessage:
+                "Press ctrl + shift + esc while navigating through the list of skills to skip directly to your chosen skills.",
+              description: "Instructional text for skill picker shortcuts",
+            })
+          : null}
+      </p>
       <ScrollArea.Root
         onKeyDown={handleKeyDown}
         data-h2-width="base(100%)"
         data-h2-height="base(320px)"
         data-h2-max-height="base(50vh)"
         data-h2-shadow="base(s)"
+        onFocus={() => setIsInSkillList(true)}
+        onBlur={() => setIsInSkillList(false)}
       >
         <ScrollArea.Viewport data-h2-background-color="base(white)">
-          <div data-h2-padding="base(x.5, x1, x.5, x.5)">
+          <div
+            data-h2-padding="base(x.5, x1, x.5, x.5)"
+            role="list"
+            aria-describedby="skill-list-help"
+          >
             {filteredSkills.length > 0 ? (
               filteredSkills.map((skill, index: number) => (
                 <React.Fragment key={skill.id}>
