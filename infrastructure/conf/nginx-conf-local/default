@@ -5,8 +5,10 @@ error_log /var/log/nginx/error.log notice;
 server {
     #proxy_cache cache;
     #proxy_cache_valid 200 1s;
-    listen 80;
-    listen [::]:80;
+
+    # on the servers, the pages are served on 8080 then reverse proxied upstream
+    listen 8080;
+    listen [::]:8080;
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
     #server_name localhost;

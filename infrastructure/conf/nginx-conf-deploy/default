@@ -1,8 +1,10 @@
 server {
     #proxy_cache cache;
     #proxy_cache_valid 200 1s;
-    listen 80;
-    listen [::]:80;
+
+    # on the servers, the pages are served on 8080 then reverse proxied upstream
+    listen $NGINX_PORT;
+    listen [::]:$NGINX_PORT;
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
     #server_name talent.canada.ca www.talent.canada.ca;

@@ -60,27 +60,27 @@ CLEANED_STDOUT=${MIGRATION_STDOUT//[^a-zA-Z0-9_ $'\n']/}
 BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\":\"$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK\" } }"
 
 # Copy nginx config and reload
-if cp /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default /etc/nginx/sites-available/ && nginx -s reload ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Nginx config copy *successful*.\" } }"
+if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default /etc/nginx/sites-available/default && nginx -s reload ; then
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Config copy for Nginx *successful*.\" } }"
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Nginx config copy *failed*. $MENTION\" } }"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Config copy for Nginx *failed*. $MENTION\" } }"
 fi
 
 # Environment config variable substitutions
 if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/admin/dist/config.js /home/site/config-admin.js ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Environment variable substitution for admin *successful*.\" } }"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Copy config for admin *successful*.\" } }"
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Environment variable substitution for admin *failed*. $MENTION\" } }"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Copy config for admin *failed*. $MENTION\" } }"
 fi
 if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/indigenousapprenticeship/dist/config.js /home/site/config-indigenousapprenticeship.js; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Environment variable substitution for indigenousapprenticeship *successful*.\" } }"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Copy config for indigenousapprenticeship *successful*.\" } }"
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Environment variable substitution for indigenousapprenticeship *failed*. $MENTION\" } }"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Copy config for indigenousapprenticeship *failed*. $MENTION\" } }"
 fi
 if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/frontend/talentsearch/dist/config.js /home/site/config-talentsearch.js; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Environment variable substitution for talentsearch *successful*.\" } }"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Copy config for talentsearch *successful*.\" } }"
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Environment variable substitution for talentsearch *failed*. $MENTION\" } }"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Copy config for talentsearch *failed*. $MENTION\" } }"
 fi
 
 # Add a source context block
