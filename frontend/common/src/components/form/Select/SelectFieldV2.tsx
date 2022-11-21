@@ -189,7 +189,7 @@ const SelectFieldV2 = ({
     <div data-h2-margin="base(0, 0, x.125, 0)">
       <InputWrapper
         {...{ label, context, error }}
-        inputId={id}
+        inputId={name}
         required={isRequired}
         trackUnsaved={trackUnsaved}
       >
