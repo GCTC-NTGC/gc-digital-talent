@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
@@ -262,33 +262,24 @@ const SearchContainerApi = () => {
       error: searchFormDataError,
     },
   ] = useGetSearchFormDataAcrossAllPoolsQuery();
-  const skills = searchFormData?.skills as Skill[];
-  const pools = searchFormData?.pools as SimplePool[];
-
-  const availableClassifications = pools
-    ?.flatMap((pool) => pool?.classifications)
-    .filter(notEmpty);
-
-  const ITClassifications = NonExecutiveITClassifications();
-  const searchableClassifications = ITClassifications.filter(
-    (classification) => {
-      return availableClassifications?.some(
-        (x) =>
-          x?.group === classification?.group &&
-          x?.level === classification?.level,
-      );
-    },
-  );
 
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
-  >({ pools });
+  >();
+
+  // When pools first load, they should be added to the ApplicantFilter
+  useEffect(() => {
+    if (searchFormData?.pools) {
+      setApplicantFilter({ pools: searchFormData?.pools });
+    }
+  }, [searchFormData?.pools]);
 
   // Fetches the number of pool candidates by pool to display on pool cards AND
   // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
   const [{ data: candidatesData, fetching: fetchingCandidates }] =
     useCountApplicantsAndCountPoolCandidatesByPoolQuery({
       variables: applicantFilterToQueryArgs(applicantFilter),
+      pause: fetchingSearchFormData, // The first submitted query should wait for pools to be loaded.
     });
   const totalCandidateCount = candidatesData?.countApplicants || 0;
 
@@ -309,6 +300,24 @@ const SearchContainerApi = () => {
       },
     });
   };
+
+  const skills = unpackMaybes<Skill>(searchFormData?.skills);
+  const pools = unpackMaybes<SimplePool>(searchFormData?.pools);
+
+  const availableClassifications = pools
+    ?.flatMap((pool) => pool?.classifications)
+    .filter(notEmpty);
+
+  const ITClassifications = NonExecutiveITClassifications();
+  const searchableClassifications = ITClassifications.filter(
+    (classification) => {
+      return availableClassifications?.some(
+        (x) =>
+          x?.group === classification?.group &&
+          x?.level === classification?.level,
+      );
+    },
+  );
 
   return (
     <Pending

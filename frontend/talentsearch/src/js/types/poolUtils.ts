@@ -3,14 +3,20 @@ import {
   Classification,
   Maybe,
   UserPublicProfile,
-  Skill,
-  SkillFamily,
 } from "../api/generated";
 
 export type SimpleClassification = Pick<Classification, "group" | "level">;
+export type SimpleOwner = Pick<
+  UserPublicProfile,
+  "email" | "firstName" | "lastName"
+>;
 
-export type SimplePool = Pick<Pool, "id" | "owner" | "description" | "name"> & {
-  classifications?: SimpleClassification[];
+export type SimplePool = Pick<
+  Pool,
+  "id" | "description" | "name" | "classifications" | "stream"
+> & {
+  classifications?: Maybe<Array<Maybe<SimpleClassification>>>;
+  owner?: Maybe<SimpleOwner>;
 };
 
 export const poolMatchesClassification = (

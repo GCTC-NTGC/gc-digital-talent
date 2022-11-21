@@ -1,10 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import type { Skill } from "@common/api/generated";
 import SkillPicker from "@common/components/SkillPicker";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { notEmpty } from "@common/helpers/util";
+import { Skill } from "../../../api/generated";
 
 export interface AddSkillsToFilterProps {
   allSkills: Skill[];
@@ -29,7 +29,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
   const addedSkills: Skill[] = React.useMemo(() => {
     return addedSkillIds
       .map((id) => allSkills.find((skill) => skill.id === id))
-      .filter((skill) => typeof skill !== "undefined") as Skill[];
+      .filter(notEmpty);
   }, [addedSkillIds, allSkills]);
 
   React.useEffect(() => {
