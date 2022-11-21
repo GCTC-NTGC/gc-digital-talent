@@ -2,6 +2,7 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
+import { uniqueId } from "lodash";
 import type { HeadingLevel } from "../Heading";
 import Chip, { Chips } from "../Chip";
 import Separator from "../Separator";
@@ -29,6 +30,9 @@ const defaultValues: FormValues = {
   query: "",
   skillFamily: "",
 };
+
+const skipToHeadingId = `selected-skills-heading-${uniqueId()}`;
+const skipToNoSkillsId = `selected-skills-no-skills-${uniqueId()}`;
 export interface SkillPickerProps {
   skills: Skills;
   selectedSkills?: Skills;
@@ -37,7 +41,6 @@ export interface SkillPickerProps {
   handleSave?: () => void;
   submitButtonText?: string;
   isSubmitting?: boolean;
-  skipToRef?: React.RefObject<HTMLElement>;
 }
 
 const SkillPicker = ({
@@ -48,9 +51,11 @@ const SkillPicker = ({
   handleSave,
   submitButtonText,
   isSubmitting,
-  skipToRef,
 }: SkillPickerProps) => {
   const intl = useIntl();
+  const skipToHeading = React.useRef<HTMLHeadingElement>(null);
+  const skipToNoSkills = React.useRef<HTMLParagraphElement>(null);
+
   const Heading = headingLevel;
   const [validData, setValidData] = React.useState<FormValues>(defaultValues);
   const methods = useForm<FormValues>({
@@ -59,7 +64,9 @@ const SkillPicker = ({
   });
   const { watch, handleSubmit } = methods;
 
-  const skipId = skipToRef?.current ? skipToRef.current.id : null;
+  const skipId = skipToHeading?.current
+    ? skipToHeading.current.id
+    : skipToNoSkills.current?.id;
 
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamily }) => {
@@ -128,11 +135,11 @@ const SkillPicker = ({
    *
    */
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (skipToRef?.current) {
-      if (e.ctrlKey && e.key === "Escape" && e.shiftKey) {
-        if (skipToRef.current) {
-          skipToRef.current.focus();
-        }
+    if (e.ctrlKey && e.key === "Escape" && e.shiftKey) {
+      if (skipToHeading?.current) {
+        skipToHeading.current.focus();
+      } else if (skipToNoSkills.current) {
+        skipToNoSkills.current.focus();
       }
     }
   };
@@ -268,6 +275,9 @@ const SkillPicker = ({
             data-h2-font-size="base(copy, 1)"
             data-h2-font-weight="base(700)"
             data-h2-margin="base(x.75, 0, x.5, 0)"
+            id={skipToHeadingId}
+            ref={skipToHeading}
+            tabIndex={-1}
           >
             {intl.formatMessage({
               defaultMessage: "Selected skills",
@@ -287,7 +297,22 @@ const SkillPicker = ({
             ))}
           </Chips>
         </>
-      ) : null}
+      ) : (
+        <p
+          id={skipToNoSkillsId}
+          ref={skipToNoSkills}
+          tabIndex={-1}
+          data-h2-margin="base(x1, 0)"
+          data-h2-font-style="base(italic)"
+        >
+          {intl.formatMessage({
+            id: "/78DsY",
+            defaultMessage: "You have not selected any skills.",
+            description:
+              "Text that appears after skill picker when no skills are selected",
+          })}
+        </p>
+      )}
       {submitButtonText && handleSave && (
         <p data-h2-margin="base(x1, 0)">
           <Submit

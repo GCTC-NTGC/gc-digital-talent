@@ -76,7 +76,6 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
 }) => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
-  const skillPickerSkipRef = React.useRef<HTMLHeadingElement>(null);
   const applicationId = searchParams.get("applicationId");
   const paths = useRoutes();
 
@@ -211,15 +210,8 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         <ExperienceSkills
           skills={skills}
           poolAdvertisement={poolAdvertisement}
-          skillPickerSkipRef={skillPickerSkipRef}
         />
-        <h2
-          id="additional-info-heading"
-          ref={skillPickerSkipRef}
-          tabIndex={-1}
-          data-h2-font-size="base(h3, 1)"
-          data-h2-margin="base(x2, 0, x1, 0)"
-        >
+        <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x2, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "4. Additional information for this experience",
             id: "Rgh/Qb",

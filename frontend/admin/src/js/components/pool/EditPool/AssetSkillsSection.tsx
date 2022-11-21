@@ -34,7 +34,6 @@ export const AssetSkillsSection = ({
   onSave,
 }: AssetSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
-  const skipToRef = React.useRef<HTMLDivElement>(null);
   const { isSubmitting } = useEditPoolContext();
 
   const [selectedSkills, setSelectedSkills] = useState<Array<Skill>>(
@@ -86,7 +85,6 @@ export const AssetSkillsSection = ({
               description: "Text on a button to save the pool asset skills",
             })}
             isSubmitting={isSubmitting}
-            skipToRef={skipToRef}
           />
         </>
       ) : (
@@ -101,7 +99,6 @@ export const AssetSkillsSection = ({
           ))}
         </Chips>
       )}
-      <div id="skip-past-asset-skills" ref={skipToRef} tabIndex={-1} />
     </TableOfContents.Section>
   );
 };

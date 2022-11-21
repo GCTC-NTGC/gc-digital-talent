@@ -72,7 +72,6 @@ export interface SearchFormProps {
   skills?: Skill[];
   pools?: SimplePool[];
   onUpdateApplicantFilter: (filter: ApplicantFilterInput) => void;
-  skillPickerSkipRef?: React.RefObject<HTMLElement>;
 }
 
 export interface SearchFormRef {
@@ -104,16 +103,7 @@ const classificationLabels: Record<string, MessageDescriptor> = defineMessages({
 });
 
 const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
-  (
-    {
-      classifications,
-      skills,
-      pools,
-      onUpdateApplicantFilter,
-      skillPickerSkipRef,
-    },
-    ref,
-  ) => {
+  ({ classifications, skills, pools, onUpdateApplicantFilter }, ref) => {
     const intl = useIntl();
     const location = useLocation();
     const classificationMap = React.useMemo(() => {
@@ -543,11 +533,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               trackUnsaved={false}
             />
           </FilterBlock>
-          <AddSkillsToFilter
-            skipToRef={skillPickerSkipRef}
-            allSkills={skills ?? []}
-            linkId="skillFilter"
-          />
+          <AddSkillsToFilter allSkills={skills ?? []} linkId="skillFilter" />
         </form>
       </FormProvider>
     );

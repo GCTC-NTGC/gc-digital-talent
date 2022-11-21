@@ -99,7 +99,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   onSubmit,
 }) => {
   const intl = useIntl();
-  const skillPickerSkipRef = React.useRef<HTMLHeadingElement>(null);
 
   const poolClassificationFilterCount = applicantFilter?.pools?.length ?? 0;
   const operationalRequirementFilterCount =
@@ -176,7 +175,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
               pools={pools}
               onUpdateApplicantFilter={onUpdateApplicantFilter}
               ref={searchRef}
-              skillPickerSkipRef={skillPickerSkipRef}
             />
           </div>
           <div
@@ -202,8 +200,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             data-h2-text-align="base(center) p-tablet(left)"
             data-h2-font-size="base(h4, 1)"
             id="results"
-            ref={skillPickerSkipRef}
-            tabIndex={-1}
             data-h2-font-weight="base(700)"
             data-h2-margin="base(x3, 0, x1, 0)"
           >

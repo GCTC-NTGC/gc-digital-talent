@@ -34,7 +34,6 @@ export const EssentialSkillsSection = ({
   onSave,
 }: EssentialSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
-  const skipToRef = React.useRef<HTMLDivElement>(null);
   const { isSubmitting } = useEditPoolContext();
 
   const [selectedSkills, setSelectedSkills] = useState<Array<Skill>>(
@@ -85,7 +84,6 @@ export const EssentialSkillsSection = ({
               description: "Text on a button to save the pool essential skills",
             })}
             isSubmitting={isSubmitting}
-            skipToRef={skipToRef}
           />
         </>
       ) : (
@@ -100,7 +98,6 @@ export const EssentialSkillsSection = ({
           ))}
         </Chips>
       )}
-      <div id="skip-past-asset-skills" ref={skipToRef} tabIndex={-1} />
     </TableOfContents.Section>
   );
 };

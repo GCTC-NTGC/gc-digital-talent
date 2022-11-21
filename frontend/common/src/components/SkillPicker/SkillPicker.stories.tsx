@@ -21,7 +21,6 @@ export default {
 
 const Template: Story = (args) => {
   const { skills } = args;
-  const skipToRef = React.useRef<HTMLHeadingElement>(null);
   const [addedSkills, setAddedSkills] = React.useState<Skill[]>([]);
 
   const handleChange = (newSkills: Skill[]) => {
@@ -34,16 +33,8 @@ const Template: Story = (args) => {
         skills={skills}
         selectedSkills={addedSkills}
         onUpdateSelectedSkills={handleChange}
-        skipToRef={skipToRef}
       />
-      <h2
-        ref={skipToRef}
-        id="skip-target"
-        tabIndex={-1}
-        data-h2-margin="base(x1, 0, x.5, 0)"
-      >
-        Skip Target
-      </h2>
+      <h2 data-h2-margin="base(x1, 0, x.5, 0)">Skip Target</h2>
       <p data-h2-margin="base(x.25, 0)">
         Use the skip to link or press <kbd>ctrl</kbd> + <kbd>shift</kbd> +{" "}
         <kbd>esc</kbd> to jump here.

@@ -9,13 +9,11 @@ import { notEmpty } from "@common/helpers/util";
 export interface AddSkillsToFilterProps {
   allSkills: Skill[];
   linkId: string;
-  skipToRef?: React.RefObject<HTMLElement>;
 }
 
 const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
   allSkills,
   linkId,
-  skipToRef,
 }) => {
   const intl = useIntl();
   const { control, watch } = useFormContext();
@@ -85,7 +83,6 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
         skills={allSkills || []}
         onUpdateSelectedSkills={handleChange}
         selectedSkills={addedSkills}
-        skipToRef={skipToRef}
       />
     </div>
   );
