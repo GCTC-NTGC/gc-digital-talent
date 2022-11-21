@@ -278,14 +278,23 @@ const SearchContainerApi = () => {
     [applicantFilter],
   );
 
+  // The countApplicants query ignores the pool filter if it is an empty array, just like if it were undefined.
+  // However, we want to treat an empty pool filter as resulting in zero candidates.
+  // Therefore, we can skip the query and override the count results ourselves.
+  const filterIncludesPools: boolean =
+    notEmpty(applicantFilter) &&
+    notEmpty(applicantFilter.pools) &&
+    applicantFilter.pools.filter(notEmpty).length > 0;
+
   // Fetches the number of pool candidates by pool to display on pool cards AND
   // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
   const [{ data: candidatesData, fetching: fetchingCandidates }] =
     useCountApplicantsAndCountPoolCandidatesByPoolQuery({
       variables: queryArgs,
-      pause: fetchingSearchFormData, // The first submitted query should wait for pools to be loaded.
+      pause:
+        fetchingSearchFormData || // The first submitted query should wait for pools to be loaded.
+        !filterIncludesPools, // If filter does not include pools, we wil manually return 0 count.
     });
-  const totalCandidateCount = candidatesData?.countApplicants || 0;
 
   const paths = useRoutes();
   const onSubmit = async (
@@ -323,6 +332,14 @@ const SearchContainerApi = () => {
     },
   );
 
+  const totalCandidateCount =
+    filterIncludesPools && candidatesData?.countApplicants !== undefined
+      ? candidatesData.countApplicants
+      : 0;
+  const poolCandidateResults = filterIncludesPools
+    ? candidatesData?.countPoolCandidatesByPool
+    : [];
+
   return (
     <Pending
       {...{ fetching: fetchingSearchFormData, error: searchFormDataError }}
@@ -332,7 +349,7 @@ const SearchContainerApi = () => {
         classifications={searchableClassifications}
         updatePending={fetchingCandidates}
         pools={pools}
-        poolCandidateResults={candidatesData?.countPoolCandidatesByPool}
+        poolCandidateResults={poolCandidateResults}
         skills={skills}
         totalCandidateCount={totalCandidateCount}
         onUpdateApplicantFilter={setApplicantFilter}

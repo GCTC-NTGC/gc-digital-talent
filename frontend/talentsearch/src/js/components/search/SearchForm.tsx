@@ -119,7 +119,11 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       () => (state ? state.initialValues : {}),
       [state],
     );
-    const methods = useForm<FormValues>({ defaultValues: initialValues });
+    const methods = useForm<FormValues>({
+      defaultValues: initialValues,
+      mode: "onChange",
+      reValidateMode: "onChange",
+    });
     const { watch, trigger } = methods;
 
     useImperativeHandle(
