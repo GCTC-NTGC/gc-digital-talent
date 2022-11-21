@@ -2,25 +2,12 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
-import { axe } from "jest-axe";
 import React from "react";
-import { IntlProvider, MessageFormatElement } from "react-intl";
+import { render, axeTest } from "@common/helpers/testUtils";
+
 import Home from "./Home";
 
-const renderWithReactIntl = (
-  component: React.ReactNode,
-  locale?: "en" | "fr",
-  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
-) => {
-  return render(
-    <IntlProvider locale={locale || "en"} messages={messages}>
-      {component}
-    </IntlProvider>,
-  );
-};
-
-const renderHome = () => renderWithReactIntl(<Home />);
+const renderHome = () => render(<Home />);
 
 describe("Basic test for Home", () => {
   it("should render", () => {
@@ -29,7 +16,7 @@ describe("Basic test for Home", () => {
 
   it("should have no accessibility errors", async () => {
     const { container } = renderHome();
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+
+    await axeTest(container);
   });
 });
