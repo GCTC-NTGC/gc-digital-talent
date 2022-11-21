@@ -8,8 +8,7 @@ import {
   getEducationStatus,
   getEducationType,
 } from "../../../../constants/localizedConstants";
-import { getLocale } from "../../../../helpers/localize";
-import { getDateRange } from "../../../../helpers/dateUtils";
+import { getDateRange } from "../../accordionUtils";
 import SkillList from "../SkillList";
 
 export const EducationContent = ({
@@ -86,13 +85,12 @@ type EducationAccordionProps = EducationExperience & {
 
 const EducationAccordion = ({ editUrl, ...rest }: EducationAccordionProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const { id, areaOfStudy, institution, startDate, endDate, skills } = rest;
 
   return (
     <Accordion.Item value={id}>
       <Accordion.Trigger
-        subtitle={getDateRange({ endDate, startDate, intl, locale })}
+        subtitle={getDateRange({ endDate, startDate, intl })}
         context={
           skills?.length === 1
             ? intl.formatMessage({
