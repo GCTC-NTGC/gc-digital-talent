@@ -295,6 +295,12 @@ const SkillPicker = ({
           />
         </p>
       )}
+      {/**
+       * Hack: See previous comment.
+       *
+       * Do not repeat this pattern
+       */}
+      <div id={skipId} ref={skipTargetRef} tabIndex={-1} />
     </FormProvider>
   );
 };
