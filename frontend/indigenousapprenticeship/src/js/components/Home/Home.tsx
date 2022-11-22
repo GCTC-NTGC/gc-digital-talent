@@ -33,6 +33,12 @@ const mailLink = (chunks: React.ReactNode): React.ReactNode => (
 const Home: React.FunctionComponent = () => {
   const intl = useIntl();
   const quote = useQuote();
+  const pageTitle = intl.formatMessage({
+    defaultMessage:
+      "IT Apprenticeship Program for Indigenous Peoples. Apply today to get started on your IT career journey.",
+    id: "qZvV7b",
+    description: "Homepage title for Indigenous Apprenticeship Program",
+  });
 
   /**
    * Language swapping is a little rough here,
@@ -78,20 +84,17 @@ const Home: React.FunctionComponent = () => {
           data-h2-offset="p-tablet(5%, auto, auto, 50%)"
           data-h2-width="base(100%) p-tablet(40vw)"
         >
-          <img
-            data-h2-width="base(100%)"
-            src={imageUrl(
-              INDIGENOUSAPPRENTICESHIP_APP_DIR,
-              `logo-${intl.locale}.svg`,
-            )}
-            alt={intl.formatMessage({
-              defaultMessage:
-                "IT Apprenticeship Program for Indigenous Peoples",
-              id: "Hu04cP",
-              description:
-                "Homepage title for Indigenous Apprenticeship Program",
-            })}
-          />
+          <h1>
+            <img
+              data-h2-width="base(100%)"
+              src={imageUrl(
+                INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                `logo-${intl.locale}.svg`,
+              )}
+              alt={pageTitle}
+            />
+            <span data-h2-visibility="base(invisible)">{pageTitle}</span>
+          </h1>
         </div>
         <div
           className="hero-cta"
