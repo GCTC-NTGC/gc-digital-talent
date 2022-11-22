@@ -533,6 +533,7 @@ type PoolCandidateSearchRequest {
   adminNotes: String @rename(attribute: "admin_notes")
   poolCandidateFilter: PoolCandidateFilter @belongsTo
   applicantFilter: ApplicantFilter @belongsTo
+  doneDate: DateTime @rename(attribute: "done_at")
 }
 
 enum SkillCategory {
