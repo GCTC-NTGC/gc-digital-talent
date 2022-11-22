@@ -2,7 +2,6 @@ import React from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
-import { isSecondaryLocale } from "../../helpers/localize";
 import defaultRichTextElements from "../../helpers/format";
 import { Messages } from "./LanguageProvider";
 
@@ -28,9 +27,12 @@ const NestedLanguageProvider = ({
   const locale = searchParams.get("locale");
   const localeMessages = messages.get(locale || "");
 
-  // Return just children if there is no
-  // locale in the search params
-  if (!locale || !localeMessages || !isSecondaryLocale(locale)) {
+  /**
+   * If no locale is set or we cannot
+   * find the messages associated with the locale,
+   * just return the children
+   */
+  if (!locale || !localeMessages) {
     return children as JSX.Element;
   }
 
