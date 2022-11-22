@@ -902,6 +902,7 @@ type PoolCandidateSearchRequest {
   adminNotes: String
   poolCandidateFilter: PoolCandidateFilter
   applicantFilter: ApplicantFilter
+  doneDate: DateTime
 }
 
 enum PoolCandidateSearchStatus {

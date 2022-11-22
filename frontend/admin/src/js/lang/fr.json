@@ -1765,6 +1765,10 @@
     "defaultMessage": "Utilisateurs",
     "description": "Title for users page on the admin portal."
   },
+  "GG15JI": {
+    "defaultMessage": "Éditer {label}",
+    "description": "Aria Label displayed for the Edit column."
+  },
   "i9ND/M": {
     "defaultMessage": "Éditer<hidden> {label}</hidden>",
     "description": "Title displayed for the Edit column."

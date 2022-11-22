@@ -84,7 +84,11 @@ export const ClassificationTable: React.FC<
             "Title displayed for the Classification table Edit column.",
         }),
         accessor: (d) =>
-          tableEditButtonAccessor(d.id, editUrlRoot, d.name?.[locale]), // callback extracted to separate function to stabilize memoized component
+          tableEditButtonAccessor(
+            d.id,
+            editUrlRoot,
+            `${d.name?.[locale]} ${d.group}-${d.level}`,
+          ), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl, locale],
