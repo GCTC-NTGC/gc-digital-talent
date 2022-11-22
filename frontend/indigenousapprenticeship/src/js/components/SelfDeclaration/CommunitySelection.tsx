@@ -15,7 +15,7 @@ import HelpLink from "./HelpLink";
 import {
   partOfCommunity,
   getCommunityLabels,
-  hasCommunityAndNotRepresented,
+  hasCommunityAndOther,
 } from "./utils";
 
 interface CommunitySelectionProps {
@@ -42,15 +42,14 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
   ]);
   const isIndigenous = isIndigenousValue === "yes";
   const isFirstNations = partOfCommunity("firstNations", communitiesValue);
-  const isNotRepresentedAndHasCommunity =
-    hasCommunityAndNotRepresented(communitiesValue);
+  const isOtherAndHasCommunity = hasCommunityAndOther(communitiesValue);
 
   React.useEffect(() => {
     // Is not represented and has at least on other community selected
-    if (isNotRepresentedAndHasCommunity && !hasDismissedAlert) {
+    if (isOtherAndHasCommunity && !hasDismissedAlert) {
       setIsAlertOpen((prevIsOpen) => !prevIsOpen);
     }
-  }, [isNotRepresentedAndHasCommunity, setIsAlertOpen, hasDismissedAlert]);
+  }, [isOtherAndHasCommunity, setIsAlertOpen, hasDismissedAlert]);
 
   const handleAlertDismiss = () => {
     setIsAlertOpen(false);
@@ -145,9 +144,9 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
           </div>
           <div>
             <Checkbox
-              id="communityNotRepresented"
+              id="communityOther"
               name="communities"
-              value="notRepresented"
+              value="Other"
               label={intl.formatMessage({
                 defaultMessage: `"I am Indigenous and I don't see my community here"`,
                 id: "FRcbbi",
@@ -219,9 +218,9 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
                     key={community}
                     mode="outline"
                     color={
-                      isNotRepresentedAndHasCommunity &&
+                      isOtherAndHasCommunity &&
                       isAlertOpen &&
-                      community === "notRepresented"
+                      community === "Other"
                         ? "warning"
                         : "primary"
                     }

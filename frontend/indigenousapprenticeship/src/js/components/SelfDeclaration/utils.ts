@@ -25,13 +25,11 @@ export const partOfCommunity = (
   return selectedCommunities && selectedCommunities.includes(community);
 };
 
-export const hasCommunityAndNotRepresented = (
-  selectedCommunities?: Array<string>,
-) => {
+export const hasCommunityAndOther = (selectedCommunities?: Array<string>) => {
   return (
     selectedCommunities &&
     selectedCommunities.length > 1 &&
-    selectedCommunities.includes("notRepresented")
+    selectedCommunities.includes("other")
   );
 };
 
@@ -70,7 +68,7 @@ export const getCommunityLabels = (intl: IntlShape) =>
       }),
     ],
     [
-      "notRepresented",
+      "other",
       intl.formatMessage({
         id: "Xvvcsg",
         defaultMessage: "I am Indigenous and I don't see my community here",
