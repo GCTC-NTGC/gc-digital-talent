@@ -1183,8 +1183,8 @@ enum SkillCategory {
 type SkillFamily {
   id: ID!
   key: KeyString!
-  name: LocalizedString!
-  description: LocalizedString!
+  name: LocalizedString
+  description: LocalizedString
   skills: [Skill!]
   category: SkillCategory!
 }
