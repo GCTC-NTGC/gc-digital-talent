@@ -2332,6 +2332,10 @@
     "defaultMessage": "Avez-vous un droit de priorité pour les candidatures du gouvernement du Canada? Ce statut est accordé par la Commission de la fonction publique du Canada. Pour en savoir plus, <priorityEntitlementLink>visitez le site de l'information sur les droits de priorité</priorityEntitlementLink>.",
     "description": "Sentence asking whether the user possesses priority entitlement"
   },
+  "vQzmUH": {
+    "defaultMessage": "Les techniciens en TI se retrouvent principalement dans trois filières de travail :",
+    "description": "Preceding list description"
+  },
   "w3Kkk2": {
     "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
     "description": "Link text to apply for the Indigenous Apprenticeship Program"
