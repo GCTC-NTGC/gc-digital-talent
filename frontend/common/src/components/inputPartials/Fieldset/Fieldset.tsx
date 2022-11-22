@@ -71,6 +71,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
               role="presentation"
               data-h2-font-size="base(caption)"
               data-h2-margin="base(0, x.125, 0, 0)"
+              data-h2-color="base(inherit)"
             >
               {legend}
             </span>
