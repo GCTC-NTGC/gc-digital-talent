@@ -197,7 +197,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
         />
       )}
       <div
-        data-h2-background-color="base(white) base:dark(black.light)"
+        data-h2-background-color="base(white)"
         data-h2-radius="base(s)"
         data-h2-shadow="base(s)"
         data-h2-padding="base(x1.75, x1.25)"
