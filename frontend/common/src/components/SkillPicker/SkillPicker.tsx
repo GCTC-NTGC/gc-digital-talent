@@ -132,7 +132,7 @@ const SkillPicker = ({
    *
    */
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.ctrlKey && e.key === "Escape" && e.shiftKey) {
+    if (e.altKey && e.key === "Escape" && e.shiftKey) {
       if (skipToHeading?.current) {
         skipToHeading.current.focus();
       }
@@ -217,10 +217,11 @@ const SkillPicker = ({
           id="skill-list-help"
         >
           {intl.formatMessage({
-            id: "tRYI0f",
+            id: "54Dtpp",
             defaultMessage:
-              "Press ctrl + shift + esc while navigating through the list of skills to skip directly to your chosen skills.",
-            description: "Instructional text for skill picker shortcuts",
+              "Press alt (option on a mac) + shift + escape while navigating through the list of skills to skip directly to your chosen skills.",
+            description:
+              "Instructional text for skill picker shortcuts on a keyboard",
           })}
         </p>
       ) : null}
