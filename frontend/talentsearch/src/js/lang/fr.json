@@ -1545,7 +1545,7 @@
     "description": "IT-03 team lead path description, ignore things in <> tags please"
   },
   "58BEeZ": {
-    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants. Les conseillers principaux en TI se retrouvent principalement dans six volets de travail :",
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
     "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
   },
   "HPDqDV": {
@@ -1592,8 +1592,8 @@
     "defaultMessage": "Compétences techniques",
     "description": "Button text for the technical skills tab on skills filter"
   },
-  "/Gu4zR": {
-    "defaultMessage": "Expérience postsecondaire de deux ans",
+  "U6IroF": {
+    "defaultMessage": "Études postsecondaires de deux ans",
     "description": "Title for pool applicant education requirements"
   },
   "0FjYi+": {
@@ -2327,10 +2327,6 @@
   "25VYzu": {
     "defaultMessage": "Avez-vous un droit de priorité pour les candidatures du gouvernement du Canada? Ce statut est accordé par la Commission de la fonction publique du Canada. Pour en savoir plus, <priorityEntitlementLink>visitez le site de l'information sur les droits de priorité</priorityEntitlementLink>.",
     "description": "Sentence asking whether the user possesses priority entitlement"
-  },
-  "vQzmUH": {
-    "defaultMessage": "Les techniciens en TI se retrouvent principalement dans trois filières de travail :",
-    "description": "Preceding list description"
   },
   "w3Kkk2": {
     "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
