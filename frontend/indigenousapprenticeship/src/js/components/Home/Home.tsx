@@ -33,12 +33,6 @@ const mailLink = (chunks: React.ReactNode): React.ReactNode => (
 const Home: React.FunctionComponent = () => {
   const intl = useIntl();
   const quote = useQuote();
-  const pageTitle = intl.formatMessage({
-    defaultMessage:
-      "IT Apprenticeship Program for Indigenous Peoples. Apply today to get started on your IT career journey.",
-    id: "qZvV7b",
-    description: "Homepage title for Indigenous Apprenticeship Program",
-  });
 
   /**
    * Language swapping is a little rough here,
@@ -91,9 +85,17 @@ const Home: React.FunctionComponent = () => {
                 INDIGENOUSAPPRENTICESHIP_APP_DIR,
                 `logo-${intl.locale}.svg`,
               )}
-              alt={pageTitle}
+              alt=""
             />
-            <span data-h2-visibility="base(invisible)">{pageTitle}</span>
+            <span data-h2-visibility="base(invisible)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "IT Apprenticeship Program for Indigenous Peoples. Apply today to get started on your IT career journey.",
+                id: "qZvV7b",
+                description:
+                  "Homepage title for Indigenous Apprenticeship Program",
+              })}
+            </span>
           </h1>
         </div>
         <div
