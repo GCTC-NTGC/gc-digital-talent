@@ -87,7 +87,7 @@ export const ClassificationTable: React.FC<
           tableEditButtonAccessor(
             d.id,
             editUrlRoot,
-            `${d.name?.[locale]} ${d.group}-${d.level}`,
+            `${d.name?.[locale]} ${d.group}-0${d.level}`,
           ), // callback extracted to separate function to stabilize memoized component
       },
     ],
