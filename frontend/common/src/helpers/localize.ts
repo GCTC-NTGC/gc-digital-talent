@@ -4,10 +4,27 @@ import type { LocalizedString, Maybe } from "../api/generated";
 
 export type Locales = "en" | "fr";
 
+/**
+ * Indigenous Language codes
+ *
+ * crg - Michif
+ * crk - Plains Cree
+ * ojw - Western Ojibway
+ * mic - Mikmaq
+ */
+export type SecondaryLocale = "crg" | "crk" | "ojw" | "mic";
+const secondaryLocales = ["crg", "crk", "ojw", "mic"];
+
 export const STORED_LOCALE = "stored_locale";
 
 export function isLocale(locale?: string): locale is Locales {
   return locale === "en" || locale === "fr";
+}
+
+export function isSecondaryLocale(
+  locale?: string | null,
+): locale is SecondaryLocale {
+  return locale ? secondaryLocales.includes(locale) : false;
 }
 
 export function getLocale(intl: IntlShape): Locales {

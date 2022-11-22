@@ -2,18 +2,9 @@ import React from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
+import { isSecondaryLocale } from "../../helpers/localize";
 import defaultRichTextElements from "../../helpers/format";
 import { Messages } from "./LanguageProvider";
-
-/**
- * Indigenous Language codes
- *
- * crg - Michif
- * crk - Plains Cree
- * ojw - Western Ojibway
- * mic - Mikmaq
- */
-export type SecondaryLocale = "crg" | "crk" | "ojw" | "mic";
 
 interface NestedLanguageProvider {
   messages: Map<string, Messages>;
@@ -34,12 +25,12 @@ const NestedLanguageProvider = ({
 }: NestedLanguageProvider) => {
   const { messages: fallbackMessages } = useIntl();
   const [searchParams] = useSearchParams();
-  const locale = searchParams.get("locale") as SecondaryLocale;
-  const localeMessages = messages.get(locale);
+  const locale = searchParams.get("locale");
+  const localeMessages = messages.get(locale || "");
 
   // Return just children if there is no
   // locale in the search params
-  if (!locale || !localeMessages) {
+  if (!locale || !localeMessages || !isSecondaryLocale(locale)) {
     return children as JSX.Element;
   }
 
