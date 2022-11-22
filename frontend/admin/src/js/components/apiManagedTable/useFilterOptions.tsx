@@ -18,6 +18,7 @@ import { MessageDescriptor, useIntl } from "react-intl";
 import useLocale from "@common/hooks/useLocale";
 import { OperationContext } from "urql";
 import { commonMessages } from "@common/messages";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   WorkRegion,
   EducationType,
@@ -57,10 +58,9 @@ export default function useFilterOptions(enableEducationType = false) {
   });
 
   const optionsData = {
-    pools: filterRes.data?.pools.filter(notEmpty).map(({ id, name }) => ({
-      value: id,
-      // TODO: Must name and translations be optional in types?
-      label: name?.[locale] || intl.formatMessage(commonMessages.nameNotLoaded),
+    pools: filterRes.data?.pools.filter(notEmpty).map((pool) => ({
+      value: pool.id,
+      label: getFullPoolAdvertisementTitle(intl, pool),
     })),
     languageAbility: enumToOptions(LanguageAbility).map(({ value }) => ({
       value,
