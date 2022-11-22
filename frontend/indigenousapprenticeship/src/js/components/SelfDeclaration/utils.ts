@@ -11,6 +11,11 @@ export const getSelfDeclarationLabels = (intl: IntlShape) => ({
     id: "+M8xoo",
     description: "label for the First Nations status self-declaration input",
   }),
+  signature: intl.formatMessage({
+    defaultMessage: "Signature",
+    id: "3oW16P",
+    description: "label for the signature input on the self-declaration form",
+  }),
 });
 
 export const partOfCommunity = (

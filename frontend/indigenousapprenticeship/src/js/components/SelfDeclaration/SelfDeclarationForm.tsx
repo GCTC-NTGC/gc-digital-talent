@@ -10,6 +10,7 @@ import { ExternalLink } from "@common/components/Link";
 import Separator from "@common/components/Separator";
 
 import CommunitySelection from "./CommunitySelection";
+import SignAndContinue from "./SignAndContinue";
 import HelpLink from "./HelpLink";
 import { getSelfDeclarationLabels } from "./utils";
 
@@ -103,6 +104,7 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
         />
         <CommunitySelection labels={labels} />
       </div>
+      <SignAndContinue labels={labels} />
       <Separator
         orientation="horizontal"
         decorative
