@@ -1,11 +1,17 @@
 import React from "react";
 import { Controller, FieldError, useFormContext } from "react-hook-form";
 import type { RegisterOptions } from "react-hook-form";
-import ReactSelect, { components, MultiValue, SingleValue } from "react-select";
+import ReactSelect, {
+  components,
+  ContainerProps,
+  MultiValue,
+  SingleValue,
+} from "react-select";
 import type { NoticeProps, GroupBase, OptionsOrGroups } from "react-select";
 import camelCase from "lodash/camelCase";
 import flatMap from "lodash/flatMap";
 import { useIntl } from "react-intl";
+import { useFieldStateStyles } from "../../../helpers/formUtils";
 import { errorMessages } from "../../../messages";
 import { InputWrapper } from "../../inputPartials";
 
@@ -15,6 +21,18 @@ export type Group<T> = {
   options: Array<T>;
 };
 export type Options = OptionsOrGroups<Option, Group<Option>>;
+
+declare module "react-select/dist/declarations/src/Select" {
+  export interface Props<
+    /* eslint-disable @typescript-eslint/no-shadow, @typescript-eslint/no-unused-vars */
+    Option,
+    IsMulti extends boolean,
+    Group extends GroupBase<Option>,
+    /* eslint-enable @typescript-eslint/no-shadow, @typescript-eslint/no-unused-vars */
+  > {
+    stateStyles?: Record<string, string>;
+  }
+}
 
 // TODO: Eventually extend react-select's Select Props, so that anything extra is passed through.
 export interface SelectFieldV2Props {
@@ -37,6 +55,7 @@ export interface SelectFieldV2Props {
   /** Whether to force all form values into array, even single Select. */
   forceArrayFormValue?: boolean;
   isLoading?: boolean;
+  trackUnsaved?: boolean;
 }
 
 // User-defined type guard for react-select's readonly Options.
@@ -88,6 +107,22 @@ const LocalizedNoOptionsMessage = <
     </components.NoOptionsMessage>
   );
 };
+
+const StateStyledSelectContainer = ({
+  children,
+  ...props
+}: ContainerProps<Option | Group<Option>>) => {
+  const { stateStyles } = props.selectProps;
+
+  return (
+    <div {...stateStyles} data-h2-radius="base(input)">
+      <components.SelectContainer {...props}>
+        {children}
+      </components.SelectContainer>
+    </div>
+  );
+};
+
 /**
  * One-off hook to add default messages to validation rule object in place of booleans.
  *
@@ -121,6 +156,7 @@ const SelectFieldV2 = ({
   isMulti = false,
   forceArrayFormValue = false,
   isLoading = false,
+  trackUnsaved = true,
 }: SelectFieldV2Props): JSX.Element => {
   const { formatMessage } = useIntl();
 
@@ -140,6 +176,8 @@ const SelectFieldV2 = ({
     // TODO: Set explicit TFieldValues. Defaults to Record<string, any>
   } = useFormContext();
 
+  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
+
   const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
   // react-hook-form has no way to set default messages when `{ required: true }`,
@@ -151,8 +189,9 @@ const SelectFieldV2 = ({
     <div data-h2-margin="base(0, 0, x.125, 0)">
       <InputWrapper
         {...{ label, context, error }}
-        inputId={id}
+        inputId={name}
         required={isRequired}
+        trackUnsaved={trackUnsaved}
       >
         <div style={{ width: "100%" }}>
           <Controller
@@ -224,6 +263,7 @@ const SelectFieldV2 = ({
                   components={{
                     LoadingMessage: LocalizedLoadingMessage,
                     NoOptionsMessage: LocalizedNoOptionsMessage,
+                    SelectContainer: StateStyledSelectContainer,
                   }}
                   // Adds predictable prefix, helpful for both theming and Jest testing.
                   // E.g., `react-select__control` instead of `css-1s2u09g__control`.
@@ -236,6 +276,7 @@ const SelectFieldV2 = ({
                   aria-label={label}
                   aria-required={isRequired}
                   aria-describedby={error ? `${id}-error` : undefined}
+                  stateStyles={stateStyles}
                   styles={{
                     placeholder: (provided) => ({
                       ...provided,
@@ -252,6 +293,12 @@ const SelectFieldV2 = ({
                     loadingIndicator: (provided) => ({
                       ...provided,
                       ...accessibleTextStyle,
+                    }),
+                    control: (provided) => ({
+                      ...provided,
+                      backgroundColor: "inherit",
+                      border: "none",
+                      boxShadow: "none",
                     }),
                     // Setting the z-index to 11 since the InputLabel is set to 10.
                     menu: (provided) => ({ ...provided, zIndex: 11 }),
