@@ -56,12 +56,21 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
         id={linkId}
       >
         {intl.formatMessage({
-          defaultMessage: "Skills as filters",
-          id: "hEhmBF",
+          defaultMessage: "Skills selection",
+          id: "eFvsOG",
           description: "Title for the skill filters on search page.",
         })}
       </h3>
-      <p>
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "Help us match you to the best candidates by sharing more information with our team on the exact skills you are looking for.",
+          id: "R75HsV",
+          description:
+            "Describing the purpose of the skill filters on the Search page.",
+        })}
+      </p>
+      {/* <p>
         {intl.formatMessage({
           defaultMessage:
             "Find candidates with the right skills for the job. Use the following tabs to find skills that are necessary for the job and select them to use them as filters for matching candidates.",
@@ -78,7 +87,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
           description:
             "Describing how to use the skill filters on search page, paragraph two.",
         })}
-      </p>
+      </p> */}
       <SkillPicker
         skills={allSkills || []}
         onUpdateSelectedSkills={handleChange}
