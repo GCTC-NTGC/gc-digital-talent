@@ -10,7 +10,6 @@ import Chip, { Chips } from "@common/components/Chip";
 import useLocale from "@common/hooks/useLocale";
 import errorMessages from "@common/messages/errorMessages";
 import { Locales } from "@common/helpers/localize";
-import imageUrl from "@common/helpers/imageUrl";
 
 import CommunityIcon from "./CommunityIcon";
 import HelpLink from "./HelpLink";
@@ -19,8 +18,6 @@ import {
   getCommunityLabels,
   hasCommunityAndOther,
 } from "./utils";
-
-import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../constants/indigenousApprenticeshipConstants";
 
 interface CommunitySelectionProps {
   labels: FieldLabels;
