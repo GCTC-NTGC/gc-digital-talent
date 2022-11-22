@@ -7,8 +7,6 @@ import { BasicForm, RadioGroup } from "@common/components/form";
 
 import errorMessages from "@common/messages/errorMessages";
 import { ExternalLink } from "@common/components/Link";
-import { Locales } from "@common/helpers/localize";
-import useLocale from "@common/hooks/useLocale";
 import Separator from "@common/components/Separator";
 
 import CommunitySelection from "./CommunitySelection";
@@ -22,10 +20,6 @@ type FormValues = {
 interface SelfDeclarationFormProps {
   onSubmit: (data: FormValues) => void;
 }
-
-const otherOpportunitiesLink = (chunks: React.ReactNode, locale: Locales) => (
-  <ExternalLink href={`/${locale}/browse/pools`}>{chunks}</ExternalLink>
-);
 
 const whyLink = (chunks: React.ReactNode) => (
   <ExternalLink data-h2-color="base(dt-primary)" href="#">
@@ -41,7 +35,6 @@ const definitionLink = (chunks: React.ReactNode) => (
 
 const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
   const labels = getSelfDeclarationLabels(intl);
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
@@ -108,21 +101,6 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
             },
           ]}
         />
-        <p data-h2-text-align="base(center)" data-h2-margin="base(x1, 0, 0, 0)">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "Not a member of an Indigenous group? <link>Explore other opportunities in IT within the federal government</link>.",
-              id: "yiSRDd",
-              description:
-                "Text to lead non-indigenous people to browse other opportunities.",
-            },
-            {
-              link: (chunks: React.ReactNode) =>
-                otherOpportunitiesLink(chunks, locale),
-            },
-          )}
-        </p>
         <CommunitySelection labels={labels} />
       </div>
       <Separator

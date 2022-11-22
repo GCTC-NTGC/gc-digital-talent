@@ -3,10 +3,13 @@ import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Checkbox, RadioGroup } from "@common/components/form";
+import { ExternalLink } from "@common/components/Link";
 import { FieldLabels } from "@common/components/form/BasicForm";
 import { Alert } from "@common/components";
 import Chip, { Chips } from "@common/components/Chip";
+import useLocale from "@common/hooks/useLocale";
 import errorMessages from "@common/messages/errorMessages";
+import { Locales } from "@common/helpers/localize";
 
 import HelpLink from "./HelpLink";
 import {
@@ -19,8 +22,13 @@ interface CommunitySelectionProps {
   labels: FieldLabels;
 }
 
+const otherOpportunitiesLink = (chunks: React.ReactNode, locale: Locales) => (
+  <ExternalLink href={`/${locale}/browse/pools`}>{chunks}</ExternalLink>
+);
+
 const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [isAlertOpen, setIsAlertOpen] = React.useState<boolean>(false);
   const [hasDismissedAlert, setHasDismissedAlert] =
     React.useState<boolean>(false);
@@ -56,9 +64,25 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
     setValue("communities", newCommunities);
   };
 
-  // We only show this for Indigenous people
+  // Show disclaimer is user is not Indigenous
   if (!isIndigenous) {
-    return null;
+    return (
+      <p data-h2-text-align="base(center)" data-h2-margin="base(x1, 0, 0, 0)">
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "Not a member of an Indigenous group? <link>Explore other opportunities in IT within the federal government</link>.",
+            id: "yiSRDd",
+            description:
+              "Text to lead non-indigenous people to browse other opportunities.",
+          },
+          {
+            link: (chunks: React.ReactNode) =>
+              otherOpportunitiesLink(chunks, locale),
+          },
+        )}
+      </p>
+    );
   }
 
   return (
@@ -134,36 +158,37 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
           </div>
         </div>
       </fieldset>
-      <RadioGroup
-        idPrefix="isStatusFirstNations"
-        id="isStatusFirstNations"
-        name="isStatusFirstNations"
-        disabled={!isFirstNations}
-        legend={labels.isStatusFirstNations}
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-        }}
-        items={[
-          {
-            value: "yes",
-            label: intl.formatMessage({
-              defaultMessage: '"I am Status First Nations"',
-              id: "ssJxrj",
-              description:
-                "Text for the option to self-declare as a status first nations",
-            }),
-          },
-          {
-            value: "no",
-            label: intl.formatMessage({
-              defaultMessage: '"I am Non-Status First Nations"',
-              id: "sSE4kt",
-              description:
-                "Text for the option to self-declare as a non-status first nations",
-            }),
-          },
-        ]}
-      />
+      {isFirstNations && (
+        <RadioGroup
+          idPrefix="isStatusFirstNations"
+          id="isStatusFirstNations"
+          name="isStatusFirstNations"
+          legend={labels.isStatusFirstNations}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={[
+            {
+              value: "yes",
+              label: intl.formatMessage({
+                defaultMessage: '"I am Status First Nations"',
+                id: "ssJxrj",
+                description:
+                  "Text for the option to self-declare as a status first nations",
+              }),
+            },
+            {
+              value: "no",
+              label: intl.formatMessage({
+                defaultMessage: '"I am Non-Status First Nations"',
+                id: "sSE4kt",
+                description:
+                  "Text for the option to self-declare as a non-status first nations",
+              }),
+            },
+          ]}
+        />
+      )}
       <div
         data-h2-background-color="base(white) base:dark(black.light)"
         data-h2-radius="base(s)"
