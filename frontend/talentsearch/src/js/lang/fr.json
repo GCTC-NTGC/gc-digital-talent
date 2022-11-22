@@ -2827,5 +2827,13 @@
   "jslBEY": {
     "defaultMessage": "Profile de {name}",
     "description": "Title for a specific users profile page"
+  },
+  "QJ5uDV": {
+    "defaultMessage": "Sélectionnez un volet",
+    "description": "Placeholder for stream filter in search form."
+  },
+  "qYWmzA": {
+    "defaultMessage": "Volet",
+    "description": "Label for stream filter in search form."
   }
 }
