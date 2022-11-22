@@ -59,6 +59,9 @@ const applicantFilterToQueryArgs = (
           ? pickMap(filter.expectedClassifications, ["group", "level"])
           : [],
         // TODO: pickMap the skills array as well?
+        // For now, while most candidates in production do not have skills populated, we want to ignore skill filters when showing a count to managers.
+        // TODO: Add skills back in when most candidates in production have populated skills.
+        skills: undefined,
 
         // Override the filter's pool if one is provided separately.
         pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
