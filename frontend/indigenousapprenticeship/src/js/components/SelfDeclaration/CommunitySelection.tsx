@@ -10,13 +10,17 @@ import Chip, { Chips } from "@common/components/Chip";
 import useLocale from "@common/hooks/useLocale";
 import errorMessages from "@common/messages/errorMessages";
 import { Locales } from "@common/helpers/localize";
+import imageUrl from "@common/helpers/imageUrl";
 
+import CommunityIcon from "./CommunityIcon";
 import HelpLink from "./HelpLink";
 import {
   partOfCommunity,
   getCommunityLabels,
   hasCommunityAndOther,
 } from "./utils";
+
+import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../constants/indigenousApprenticeshipConstants";
 
 interface CommunitySelectionProps {
   labels: FieldLabels;
@@ -42,6 +46,9 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
   ]);
   const isIndigenous = isIndigenousValue === "yes";
   const isFirstNations = partOfCommunity("firstNations", communitiesValue);
+  const isInuk = partOfCommunity("inuk", communitiesValue);
+  const isMetis = partOfCommunity("metis", communitiesValue);
+  const isOther = partOfCommunity("other", communitiesValue);
   const isOtherAndHasCommunity = hasCommunityAndOther(communitiesValue);
 
   React.useEffect(() => {
@@ -106,6 +113,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
           data-h2-gap="base(x1)"
         >
           <div>
+            <CommunityIcon community="first-nations" on={isFirstNations} />
             <Checkbox
               id="communityFirstNations"
               name="communities"
@@ -119,6 +127,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
             />
           </div>
           <div>
+            <CommunityIcon community="inuit" on={isInuk} />
             <Checkbox
               id="communityInuk"
               name="communities"
@@ -131,6 +140,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
             />
           </div>
           <div>
+            <CommunityIcon community="metis" on={isMetis} />
             <Checkbox
               id="communityMetis"
               name="communities"
@@ -143,10 +153,11 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
             />
           </div>
           <div>
+            <CommunityIcon community="other" on={isOther} />
             <Checkbox
               id="communityOther"
               name="communities"
-              value="Other"
+              value="other"
               label={intl.formatMessage({
                 defaultMessage: `"I am Indigenous and I don't see my community here"`,
                 id: "FRcbbi",
@@ -220,7 +231,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
                     color={
                       isOtherAndHasCommunity &&
                       isAlertOpen &&
-                      community === "Other"
+                      community === "other"
                         ? "warning"
                         : "primary"
                     }
