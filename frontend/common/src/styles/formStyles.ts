@@ -5,7 +5,7 @@ import { FieldState } from "../helpers/formUtils";
 export const fieldStateStyles: Record<FieldState, Record<string, string>> = {
   unset: {
     "data-h2-border": "base(all, 2px, solid, dt-gray)",
-    "data-h2-background-color": "base(dt-white)",
+    "data-h2-background-color": "base(white) base:dark(black.light)",
   },
   invalid: {
     "data-h2-border": "base(all, 2px, solid, dark.tm-red)",

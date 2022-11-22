@@ -9,11 +9,6 @@ import SelfDeclarationForm from "./SelfDeclarationForm";
 export default {
   component: SelfDeclarationForm,
   title: "Pages/Self-Declaration Form",
-  parameters: {
-    backgrounds: {
-      default: "white",
-    },
-  },
 } as ComponentMeta<typeof SelfDeclarationForm>;
 
 const Template: ComponentStory<typeof SelfDeclarationForm> = () => (

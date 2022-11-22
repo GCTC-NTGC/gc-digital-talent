@@ -1,4 +1,4 @@
-import React, { ReactText } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 
@@ -10,6 +10,9 @@ import { ExternalLink } from "@common/components/Link";
 import { Locales } from "@common/helpers/localize";
 import useLocale from "@common/hooks/useLocale";
 import Separator from "@common/components/Separator";
+
+import CommunitySelection from "./CommunitySelection";
+import HelpLink from "./HelpLink";
 import { getSelfDeclarationLabels } from "./utils";
 
 type FormValues = {
@@ -22,12 +25,6 @@ interface SelfDeclarationFormProps {
 
 const otherOpportunitiesLink = (chunks: React.ReactNode, locale: Locales) => (
   <ExternalLink href={`/${locale}/browse/pools`}>{chunks}</ExternalLink>
-);
-
-const contactLink = (chunks: React.ReactNode, locale: Locales) => (
-  <ExternalLink data-h2-color="base(ia-primary)" href={`/${locale}/support`}>
-    {chunks}
-  </ExternalLink>
 );
 
 const whyLink = (chunks: React.ReactNode) => (
@@ -54,6 +51,8 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
   return (
     <BasicForm onSubmit={handleSubmit} labels={labels}>
       <div
+        data-h2-background-color="base(white) base:dark(black.light)"
+        data-h2-color="base(black) base:dark(white)"
         data-h2-radius="base(s)"
         data-h2-shadow="base(s)"
         data-h2-padding="base(x2, x3)"
@@ -80,8 +79,8 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
         </p>
         <RadioGroup
           idPrefix="isIndigenous"
-          id="govEmployeeYesNo"
-          name="govEmployeeYesNo"
+          id="isIndigenous"
+          name="isIndigenous"
           legend={labels.isIndigenous}
           rules={{
             required: intl.formatMessage(errorMessages.required),
@@ -124,6 +123,7 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
             },
           )}
         </p>
+        <CommunitySelection labels={labels} />
       </div>
       <Separator
         orientation="horizontal"
@@ -132,20 +132,7 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
         data-h2-margin="base(x2, 0)"
       />
       <div data-h2-text-align="base(center)">
-        <p>
-          {intl.formatMessage(
-            {
-              id: "YZ/ZhG",
-              defaultMessage:
-                "If you are unsure about providing your information, or if you have any questions regarding the IT Apprenticeship Program for Indigenous Peoples, please <link>contact us</link> and we would be happy to meet with you.",
-              description:
-                "Text describing where to get help with the self-declaration form",
-            },
-            {
-              link: (chunks: React.ReactNode) => contactLink(chunks, locale),
-            },
-          )}
-        </p>
+        <HelpLink />
         <p data-h2-font-weight="base(700)" data-h2-margin="base(x1, 0)">
           {intl.formatMessage(
             {
