@@ -1,7 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-
-import { getLocale } from "../../../helpers/localize";
 import {
   isAwardExperience,
   isCommunityExperience,
@@ -10,7 +8,7 @@ import {
   isWorkExperience,
 } from "../../../types/ExperienceUtils";
 import { Experience, Maybe } from "../../../api/generated";
-import { getDateRange } from "../../../helpers/dateUtils";
+import { getDateRange } from "../accordionUtils";
 import { AwardContent } from "../ExperienceAccordion/individualExperienceAccordions/AwardAccordion";
 import { CommunityContent } from "../ExperienceAccordion/individualExperienceAccordions/CommunityAccordion";
 import { EducationContent } from "../ExperienceAccordion/individualExperienceAccordions/EducationAccordion";
@@ -23,7 +21,6 @@ interface ExperienceItemProps {
 
 const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   const normalizedDateRange = (
     startDate: Maybe<string>,
@@ -33,7 +30,6 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
       startDate,
       endDate,
       intl,
-      locale,
     });
   };
 

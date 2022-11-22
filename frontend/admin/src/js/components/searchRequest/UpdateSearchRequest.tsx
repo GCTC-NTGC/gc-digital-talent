@@ -41,7 +41,6 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
   ) => {
     return handleUpdateSearchRequest(initialSearchRequest.id, {
       adminNotes: data.adminNotes,
-      status: data.status,
     })
       .then(() => {
         toast.success(

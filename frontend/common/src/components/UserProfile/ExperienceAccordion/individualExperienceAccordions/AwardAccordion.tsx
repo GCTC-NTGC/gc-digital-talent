@@ -8,8 +8,7 @@ import {
   getAwardedTo,
   getAwardedScope,
 } from "../../../../constants/localizedConstants";
-import { getLocale } from "../../../../helpers/localize";
-import { getDateRange } from "../../../../helpers/dateUtils";
+import { getDateRange } from "../../accordionUtils";
 import { AwardExperience } from "../../../../api/generated";
 
 export const AwardContent = ({
@@ -84,7 +83,6 @@ interface AwardAccordionProps extends AwardExperience {
 
 const AwardAccordion = ({ editUrl, ...rest }: AwardAccordionProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const { id, title, awardedDate, issuedBy, skills } = rest;
 
   return (
@@ -94,7 +92,6 @@ const AwardAccordion = ({ editUrl, ...rest }: AwardAccordionProps) => {
           endDate: undefined,
           startDate: awardedDate,
           intl,
-          locale,
         })}
         context={
           skills?.length === 1

@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import lazyRetry from "@common/helpers/lazyRetry";
 import Loading from "@common/components/Pending/Loading";
 import RequireAuth from "@common/components/RequireAuth/RequireAuth";
 
@@ -12,71 +13,205 @@ import ProfileRedirect from "./Redirects/ProfileRedirect";
 import CreateAccountRedirect from "./createAccount/CreateAccountRedirect";
 
 /** Home */
-const HomePage = React.lazy(() => import("./Home/HomePage"));
-const ErrorPage = React.lazy(() => import("./Error/ErrorPage"));
-const SupportPage = React.lazy(() => import("./support/SupportPage"));
-const AccessibilityPage = React.lazy(
-  () => import("./AccessibilityStatement/AccessibilityStatement"),
+const HomePage = React.lazy(() =>
+  lazyRetry(
+    () => import(/* webpackChunkName: "tsHomePage" */ "./Home/HomePage"),
+  ),
+);
+const ErrorPage = React.lazy(() =>
+  lazyRetry(
+    () => import(/* webpackChunkName: "tsErrorPage" */ "./Error/ErrorPage"),
+  ),
+);
+const SupportPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(/* webpackChunkName: "tsSupportPage" */ "./support/SupportPage"),
+  ),
+);
+const AccessibilityPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsAccessibilityPage" */ "./AccessibilityStatement/AccessibilityStatement"
+      ),
+  ),
 );
 
 /** Search */
-const SearchPage = React.lazy(() => import("./search/SearchPage"));
-const RequestPage = React.lazy(() => import("./request/RequestPage"));
+const SearchPage = React.lazy(() =>
+  lazyRetry(
+    () => import(/* webpackChunkName: "tsSearchPage" */ "./search/SearchPage"),
+  ),
+);
+const RequestPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(/* webpackChunkName: "tsRequestPage" */ "./request/RequestPage"),
+  ),
+);
 
 /** Auth */
-const RegisterPage = React.lazy(() => import("./register/RegisterPage"));
-const LoggedOutPage = React.lazy(() => import("./loggedOut/LoggedOutPage"));
-const LoginPage = React.lazy(() => import("./login/LoginPage"));
+const RegisterPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsRegisterPage" */ "./register/RegisterPage"
+      ),
+  ),
+);
+const LoggedOutPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsLoggedOutPage" */ "./loggedOut/LoggedOutPage"
+      ),
+  ),
+);
+const LoginPage = React.lazy(() =>
+  lazyRetry(
+    () => import(/* webpackChunkName: "tsLoginPage" */ "./login/LoginPage"),
+  ),
+);
 
 /** Profile */
-const CreateAccount = React.lazy(
-  () => import("./createAccount/CreateAccountPage"),
+const CreateAccount = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsCreateAccountPage" */ "./createAccount/CreateAccountPage"
+      ),
+  ),
 );
-const ProfilePage = React.lazy(
-  () => import("./profile/ProfilePage/ProfilePage"),
+const ProfilePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsProfilePage" */ "./profile/ProfilePage/ProfilePage"
+      ),
+  ),
 );
-const GovernmentInfoFormPage = React.lazy(
-  () => import("./GovernmentInfoForm/GovernmentInfoFormPage"),
+const GovernmentInfoFormPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsGovInfoPage" */ "./GovernmentInfoForm/GovernmentInfoFormPage"
+      ),
+  ),
 );
-const LanguageInformationFormPage = React.lazy(
-  () => import("./languageInformationForm/LanguageInformationFormPage"),
+const LanguageInformationFormPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsLangInfoPage" */ "./languageInformationForm/LanguageInformationFormPage"
+      ),
+  ),
 );
-const WorkLocationPreferenceFormPage = React.lazy(
-  () => import("./workLocationPreferenceForm/WorkLocationPreferenceFormPage"),
+const WorkLocationPreferenceFormPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsWorkLocationPage" */ "./workLocationPreferenceForm/WorkLocationPreferenceFormPage"
+      ),
+  ),
 );
-const RoleSalaryFormPage = React.lazy(
-  () => import("./roleSalaryForm/RoleSalaryFormPage"),
+const RoleSalaryFormPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsRoleSalaryPage" */ "./roleSalaryForm/RoleSalaryFormPage"
+      ),
+  ),
 );
-const ExperienceFormPage = React.lazy(
-  () => import("./experienceForm/ExperienceForm"),
+const ExperienceFormPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsEditExperiencePage" */ "./experienceForm/ExperienceForm"
+      ),
+  ),
 );
-const WorkPreferencesFormPage = React.lazy(
-  () => import("./workPreferencesForm/WorkPreferencesFormPage"),
+const WorkPreferencesFormPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsWorkPrefPage" */ "./workPreferencesForm/WorkPreferencesFormPage"
+      ),
+  ),
 );
-const AboutMeFormPage = React.lazy(
-  () => import("./aboutMeForm/AboutMeFormPage"),
+const AboutMeFormPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsAboutMePage" */ "./aboutMeForm/AboutMeFormPage"
+      ),
+  ),
 );
-const EmploymentEquityFormPage = React.lazy(
-  () => import("./employmentEquityForm/EmploymentEquityFormPage"),
+const EmploymentEquityFormPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsEquityPage" */ "./employmentEquityForm/EmploymentEquityFormPage"
+      ),
+  ),
 );
-const ExperienceAndSkillsPage = React.lazy(
-  () => import("./experienceAndSkills/ExperienceAndSkillsPage"),
+const ExperienceAndSkillsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsExperienceSkillsPage" */ "./experienceAndSkills/ExperienceAndSkillsPage"
+      ),
+  ),
 );
 
 /** Direct Intake */
-const BrowsePoolsPage = React.lazy(() => import("./Browse/BrowsePoolsPage"));
-const PoolAdvertisementPage = React.lazy(
-  () => import("./pool/PoolAdvertisementPage"),
+const BrowsePoolsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsBrowsePoolsPage" */ "./Browse/BrowsePoolsPage"
+      ),
+  ),
 );
-const CreateApplication = React.lazy(() => import("./pool/CreateApplication"));
-const SignAndSubmitPage = React.lazy(
-  () => import("./signAndSubmit/SignAndSubmitPage"),
+const PoolAdvertisementPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsPoolAdvertPage" */ "./pool/PoolAdvertisementPage"
+      ),
+  ),
 );
-const MyApplicationsPage = React.lazy(
-  () => import("./applications/MyApplicationsPage"),
+const CreateApplication = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsCreateApplicationPage" */ "./pool/CreateApplication"
+      ),
+  ),
 );
-const ReviewMyApplicationPage = React.lazy(
-  () => import("./reviewMyApplication/ReviewMyApplicationPage"),
+const SignAndSubmitPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsSignSubmitPage" */ "./signAndSubmit/SignAndSubmitPage"
+      ),
+  ),
+);
+const MyApplicationsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsMyApplicationsPage" */ "./applications/MyApplicationsPage"
+      ),
+  ),
+);
+const ReviewMyApplicationPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsReviewApplicationPage" */ "./reviewMyApplication/ReviewMyApplicationPage"
+      ),
+  ),
 );
 
 const router = createBrowserRouter([
