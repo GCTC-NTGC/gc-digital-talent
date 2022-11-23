@@ -120,10 +120,11 @@ export const SearchRequestTable = ({
           description:
             "Title displayed on the search request table requested date column.",
         }),
-        accessor: ({ requestedDate }) =>
-          requestedDate
+        accessor: "requestedDate",
+        Cell: ({ value }) =>
+          value
             ? formatDate({
-                date: parseDateTimeUtc(requestedDate),
+                date: parseDateTimeUtc(value),
                 formatString: "PPP p",
                 intl,
               })
