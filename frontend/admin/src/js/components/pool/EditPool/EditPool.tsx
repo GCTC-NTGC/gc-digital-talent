@@ -60,7 +60,7 @@ export interface EditPoolFormProps {
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: (submitData: ExtendSubmitData) => void;
+  onExtend: (submitData: ExtendSubmitData) => Promise<void>;
   onArchive: () => void;
 }
 

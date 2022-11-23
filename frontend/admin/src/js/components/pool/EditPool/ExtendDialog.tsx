@@ -18,7 +18,7 @@ export type ExtendSubmitData = Pick<UpdatePoolAdvertisementInput, "expiryDate">;
 
 type ExtendDialogProps = {
   expiryDate: PoolAdvertisement["expiryDate"];
-  onExtend: (submitData: ExtendSubmitData) => void;
+  onExtend: (submitData: ExtendSubmitData) => Promise<void>;
 };
 
 const ExtendDialog = ({
@@ -26,9 +26,10 @@ const ExtendDialog = ({
   onExtend,
 }: ExtendDialogProps): JSX.Element => {
   const intl = useIntl();
+  const [open, setOpen] = React.useState(false);
 
   const handleExtend = useCallback(
-    (formValues: FormValues) => {
+    async (formValues: FormValues) => {
       const expiryDateInUtc = formValues.endDate
         ? convertDateTimeZone(
             `${formValues.endDate} 23:59:59`,
@@ -37,15 +38,19 @@ const ExtendDialog = ({
           )
         : null;
 
-      onExtend({
+      await onExtend({
         expiryDate: expiryDateInUtc,
-      });
+      }).then(() => setOpen(false));
     },
     [onExtend],
   );
 
   const methods = useForm<FormValues>({
-    defaultValues: { endDate: expiryDate },
+    defaultValues: {
+      endDate: expiryDate
+        ? new Date(expiryDate).toISOString().split("T")[0]
+        : "",
+    },
   });
 
   const { handleSubmit } = methods;
@@ -64,23 +69,21 @@ const ExtendDialog = ({
           </Dialog.Close>
         </div>
         <div>
-          <Dialog.Close>
-            <Button mode="solid" color="secondary" type="submit">
-              {intl.formatMessage({
-                defaultMessage: "Extend closing date",
-                id: "OIk63O",
-                description:
-                  "Button to extend the pool closing date in the extend pool closing date dialog",
-              })}
-            </Button>
-          </Dialog.Close>
+          <Button mode="solid" color="secondary" type="submit">
+            {intl.formatMessage({
+              defaultMessage: "Extend closing date",
+              id: "OIk63O",
+              description:
+                "Button to extend the pool closing date in the extend pool closing date dialog",
+            })}
+          </Button>
         </div>
       </>
     ),
     [intl],
   );
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button color="secondary" mode="solid">
           {intl.formatMessage({
