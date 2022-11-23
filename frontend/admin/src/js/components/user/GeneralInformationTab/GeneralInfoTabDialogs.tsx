@@ -713,10 +713,8 @@ export const AddToPoolDialog: React.FC<{
                   })}
                 </option>
                 {pools.map((pool) => {
-                  if (currentPools.includes(pool.id)) {
-                    return null;
-                  }
                   if (
+                    currentPools.includes(pool.id) ||
                     pool.advertisementStatus !== AdvertisementStatus.Published
                   ) {
                     return null;
