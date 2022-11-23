@@ -1,19 +1,17 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { ExternalLink } from "@common/components/Link";
-import useLocale from "@common/hooks/useLocale";
-import { Locales } from "@common/helpers/localize";
-
-const contactLink = (chunks: React.ReactNode, locale: Locales) => (
-  <ExternalLink data-h2-color="base(ia-primary)" href={`/${locale}/support`}>
+const contactLink = (chunks: React.ReactNode) => (
+  <a
+    data-h2-color="base(ia-primary)"
+    href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
+  >
     {chunks}
-  </ExternalLink>
+  </a>
 );
 
 const HelpLink = () => {
   const intl = useIntl();
-  const { locale } = useLocale();
   return (
     <p>
       {intl.formatMessage(
@@ -25,7 +23,7 @@ const HelpLink = () => {
             "Text describing where to get help with the self-declaration form",
         },
         {
-          link: (chunks: React.ReactNode) => contactLink(chunks, locale),
+          link: contactLink,
         },
       )}
     </p>
