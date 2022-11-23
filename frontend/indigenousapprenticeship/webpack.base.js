@@ -83,6 +83,19 @@ module.exports = {
       environment: process.env,
       minify: false, // minify in production causes this to fail
     }),
+
+    // run some checks before compilation begins
+    {
+      apply: (compiler) => {
+        compiler.hooks.compile.tap("Preflight check", () => {
+          const authVariables = [
+            "OAUTH_URI", "OAUTH_TOKEN_URI", "OAUTH_ADMIN_CLIENT_ID", "OAUTH_ADMIN_CLIENT_SECRET"
+          ];
+          if (authVariables.some((v) => process.env.hasOwnProperty(v)))
+            throw 'OAUTH variables should be defined in the api project, not the admin project.  Compare the .env file to the .env.example for proper use.  https://github.com/GCTC-NTGC/gc-digital-talent/pull/2220';
+        });
+      },
+    },
   ],
   module: {
     rules: [
@@ -122,10 +135,10 @@ module.exports = {
     ],
   },
   /**
- * Optimizations only run in production mode
- *
- * Ref: https://webpack.js.org/configuration/optimization/
- */
+   * Optimizations only run in production mode
+   *
+   * Ref: https://webpack.js.org/configuration/optimization/
+   */
   optimization: {
     minimizer: [
       `...`, // Includes default minimizers
@@ -142,6 +155,7 @@ module.exports = {
   output: {
     publicPath: "/indigenous-it-apprentice", // final path for routing
     filename: "[name].js?id=[contenthash]", // file hashing for cache busting
+    chunkFilename: "[name].js?id=[contenthash]",
     path: path.resolve(__dirname, "dist"), // output folder
     clean: true, // delete existing files on recompile
   },
