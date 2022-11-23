@@ -150,9 +150,9 @@ export const SearchRequestTable = ({
       {
         Header: intl.formatMessage({
           defaultMessage: "Email",
-          id: "RwYcDw",
+          id: "hiZAeF",
           description:
-            "Title displayed on the search requests table email column.",
+            "Title displayed on the search request table email column.",
         }),
         accessor: "email",
       },
