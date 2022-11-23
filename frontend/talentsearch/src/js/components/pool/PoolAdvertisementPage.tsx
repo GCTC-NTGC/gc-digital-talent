@@ -16,7 +16,7 @@ import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import Card from "@common/components/Card";
-import { Button, Link } from "@common/components";
+import { Link } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
 import imageUrl from "@common/helpers/imageUrl";
 import {
@@ -38,7 +38,11 @@ import {
   getFullPoolAdvertisementTitle,
 } from "@common/helpers/poolUtils";
 import { AuthorizationContext } from "@common/components/Auth";
-import { useGetPoolAdvertisementQuery, Maybe } from "../../api/generated";
+import {
+  useGetPoolAdvertisementQuery,
+  Maybe,
+  GetPoolAdvertisementQuery,
+} from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
 import TALENTSEARCH_APP_DIR, {
@@ -46,7 +50,7 @@ import TALENTSEARCH_APP_DIR, {
 } from "../../talentSearchConstants";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
-import { hasUserApplied, isAdvertisementVisible } from "./utils";
+import { isAdvertisementVisible } from "./utils";
 
 interface ApplyButtonProps {
   poolId: Scalars["ID"];
@@ -72,17 +76,27 @@ const ApplyButton = ({ poolId }: ApplyButtonProps) => {
   );
 };
 
-const AlreadyAppliedButton = () => {
+interface ContinueButtonProps {
+  applicationId: Scalars["ID"];
+}
+
+const ContinueButton = ({ applicationId }: ContinueButtonProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
+
   return (
-    <Button type="button" color="primary" mode="solid" disabled>
+    <Link
+      type="button"
+      mode="solid"
+      color="primary"
+      href={paths.reviewApplication(applicationId)}
+    >
       {intl.formatMessage({
-        defaultMessage: "You have already applied to this.",
-        id: "mwEGU+",
-        description:
-          "Disabled button when a user already applied to a pool opportunity",
+        defaultMessage: "Continue my application",
+        id: "ugosop",
+        description: "Link text to continue an existing application",
       })}
-    </Button>
+    </Link>
   );
 };
 
@@ -116,12 +130,12 @@ const anchorTag = (chunks: React.ReactNode): React.ReactNode => (
 
 interface PoolAdvertisementProps {
   poolAdvertisement: PoolAdvertisement;
-  hasApplied?: boolean;
+  applicationId?: Scalars["ID"];
 }
 
 export const PoolAdvertisementPoster = ({
   poolAdvertisement,
-  hasApplied,
+  applicationId,
 }: PoolAdvertisementProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -162,8 +176,8 @@ export const PoolAdvertisementPoster = ({
     poolAdvertisement.nonessentialSkills,
   );
 
-  const applyBtn = hasApplied ? (
-    <AlreadyAppliedButton />
+  const applyBtn = applicationId ? (
+    <ContinueButton applicationId={applicationId} />
   ) : (
     <ApplyButton poolId={poolAdvertisement.id} />
   );
@@ -811,10 +825,9 @@ const PoolAdvertisementPage = () => {
     data?.poolAdvertisement?.advertisementStatus ?? null,
   );
 
-  // grab pool candidates of Me, then check whether a pool candidate exists that matches the advertisement AND is submitted
-  const hasApplied = hasUserApplied(
-    (data?.me?.poolCandidates as Maybe<PoolCandidate>[]) || [],
-    data?.poolAdvertisement?.id,
+  // Attempt to find an application for this user+pool combination
+  const application = data?.me?.poolCandidates?.find(
+    (candidate) => candidate?.pool.id === data.poolAdvertisement?.id,
   );
 
   return (
@@ -822,7 +835,7 @@ const PoolAdvertisementPage = () => {
       {data?.poolAdvertisement && isVisible ? (
         <PoolAdvertisementPoster
           poolAdvertisement={data?.poolAdvertisement}
-          hasApplied={hasApplied}
+          applicationId={application?.id}
         />
       ) : (
         <ThrowNotFound
