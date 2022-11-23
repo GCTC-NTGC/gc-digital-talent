@@ -4,6 +4,7 @@ import type { RegisterOptions } from "react-hook-form";
 import ReactSelect, {
   components,
   ContainerProps,
+  InputProps,
   MultiValue,
   SingleValue,
 } from "react-select";
@@ -31,6 +32,7 @@ declare module "react-select/dist/declarations/src/Select" {
     /* eslint-enable @typescript-eslint/no-shadow, @typescript-eslint/no-unused-vars */
   > {
     stateStyles?: Record<string, string>;
+    ariaDescription?: string;
   }
 }
 
@@ -120,6 +122,20 @@ const StateStyledSelectContainer = ({
         {children}
       </components.SelectContainer>
     </div>
+  );
+};
+
+const Input = ({
+  selectProps,
+  ...rest
+}: InputProps<Option | Group<Option>>) => {
+  const { ariaDescription } = selectProps;
+  return (
+    <components.Input
+      {...rest}
+      selectProps={selectProps}
+      aria-describedby={ariaDescription || rest["aria-describedby"]}
+    />
   );
 };
 
@@ -264,6 +280,7 @@ const SelectFieldV2 = ({
                     LoadingMessage: LocalizedLoadingMessage,
                     NoOptionsMessage: LocalizedNoOptionsMessage,
                     SelectContainer: StateStyledSelectContainer,
+                    Input,
                   }}
                   // Adds predictable prefix, helpful for both theming and Jest testing.
                   // E.g., `react-select__control` instead of `css-1s2u09g__control`.
@@ -275,6 +292,7 @@ const SelectFieldV2 = ({
                   onChange={convertSingleOrMultiOptionsToValues}
                   aria-label={label}
                   aria-required={isRequired}
+                  ariaDescription={error ? `${id}-error` : undefined}
                   stateStyles={stateStyles}
                   styles={{
                     placeholder: (provided) => ({

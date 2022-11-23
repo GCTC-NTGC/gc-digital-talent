@@ -66,6 +66,7 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
       disabled={disabled}
       hideOptional={hideOptional}
       trackUnsaved={trackUnsaved}
+      aria-describedby={error ? `${name}-error` : undefined}
       {...rest}
     >
       {items.map(({ value, label }) => {
