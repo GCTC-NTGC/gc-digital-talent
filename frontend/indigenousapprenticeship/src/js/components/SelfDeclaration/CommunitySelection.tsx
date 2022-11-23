@@ -90,17 +90,32 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
     <>
       <fieldset data-h2-border="base(none)" data-h2-margin="base(x1, 0, 0, 0)">
         <legend
+          data-h2-align-items="base(center)"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
           data-h2-text-align="base(center)"
-          data-h2-font-weight="base(700)"
-          data-h2-font-size="base(h6)"
           data-h2-margin="base(x1, 0)"
         >
-          {intl.formatMessage({
-            defaultMessage: "Select your Community(ies):",
-            id: "zSH7Hx",
-            description:
-              "Legend for the checkbox group for selecting Indigenous communities",
-          })}
+          <span
+            data-h2-font-weight="base(700)"
+            data-h2-font-size="base(h6)"
+            data-h2-margin="base(x.25, 0)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Select your Community(ies):",
+              id: "zSH7Hx",
+              description:
+                "Legend for the checkbox group for selecting Indigenous communities",
+            })}
+          </span>
+          <span data-h2-font-style="base(italic)">
+            {intl.formatMessage({
+              defaultMessage: "(Select all that apply to you)",
+              id: "reUbO2",
+              description:
+                "Disclaimer for the checkbox group for selecting Indigenous communities",
+            })}
+          </span>
         </legend>
         <div
           data-h2-display="base(grid)"
