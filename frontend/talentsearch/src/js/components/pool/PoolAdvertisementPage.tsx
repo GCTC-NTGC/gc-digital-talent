@@ -16,7 +16,7 @@ import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import Card from "@common/components/Card";
-import { Link } from "@common/components";
+import { Button, Link } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
 import imageUrl from "@common/helpers/imageUrl";
 import {
@@ -50,7 +50,7 @@ import TALENTSEARCH_APP_DIR, {
 } from "../../talentSearchConstants";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
-import { isAdvertisementVisible } from "./utils";
+import { hasUserApplied, isAdvertisementVisible } from "./utils";
 
 interface ApplyButtonProps {
   poolId: Scalars["ID"];
@@ -100,6 +100,20 @@ const ContinueButton = ({ applicationId }: ContinueButtonProps) => {
   );
 };
 
+const AlreadyAppliedButton = () => {
+  const intl = useIntl();
+  return (
+    <Button type="button" color="primary" mode="solid" disabled>
+      {intl.formatMessage({
+        defaultMessage: "You have already applied to this.",
+        id: "mwEGU+",
+        description:
+          "Disabled button when a user already applied to a pool opportunity",
+      })}
+    </Button>
+  );
+};
+
 const Text = ({ children }: { children: React.ReactNode }) => (
   <p data-h2-margin="base(x0.5, 0, x.5, 0)">{children}</p>
 );
@@ -131,11 +145,13 @@ const anchorTag = (chunks: React.ReactNode): React.ReactNode => (
 interface PoolAdvertisementProps {
   poolAdvertisement: PoolAdvertisement;
   applicationId?: Scalars["ID"];
+  hasApplied?: boolean;
 }
 
 export const PoolAdvertisementPoster = ({
   poolAdvertisement,
   applicationId,
+  hasApplied,
 }: PoolAdvertisementProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -176,11 +192,14 @@ export const PoolAdvertisementPoster = ({
     poolAdvertisement.nonessentialSkills,
   );
 
-  const applyBtn = applicationId ? (
-    <ContinueButton applicationId={applicationId} />
-  ) : (
-    <ApplyButton poolId={poolAdvertisement.id} />
-  );
+  let applyBtn = <ApplyButton poolId={poolAdvertisement.id} />;
+  if (applicationId) {
+    applyBtn = !hasApplied ? (
+      <ContinueButton applicationId={applicationId} />
+    ) : (
+      <AlreadyAppliedButton />
+    );
+  }
 
   const links = [
     {
@@ -836,6 +855,7 @@ const PoolAdvertisementPage = () => {
         <PoolAdvertisementPoster
           poolAdvertisement={data?.poolAdvertisement}
           applicationId={application?.id}
+          hasApplied={notEmpty(application?.submittedAt)}
         />
       ) : (
         <ThrowNotFound
