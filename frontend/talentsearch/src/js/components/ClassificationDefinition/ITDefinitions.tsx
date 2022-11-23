@@ -5,47 +5,14 @@ const LevelOne = () => {
   const intl = useIntl();
 
   return (
-    <>
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "Technicians (IT-01) provide technical support in the development, implementation, integration, and maintenance of service delivery to clients and stakeholders",
-          id: "Z9Uex5",
-          description: "blurb describing IT-01",
-        })}
-      </p>
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "IT Technicians are primarily found in three work streams: ",
-          id: "vQzmUH",
-          description: "Preceding list description",
-        })}
-      </p>
-      <ul>
-        <li>
-          {intl.formatMessage({
-            defaultMessage: "IT Infrastructure Operations",
-            id: "QZ9FZB",
-            description: "work stream example",
-          })}
-        </li>
-        <li>
-          {intl.formatMessage({
-            defaultMessage: "IT Security",
-            id: "nrBkon",
-            description: "work stream example",
-          })}
-        </li>
-        <li>
-          {intl.formatMessage({
-            defaultMessage: "IT Software Solutions",
-            id: "SDDp1t",
-            description: "work stream example",
-          })}
-        </li>
-      </ul>
-    </>
+    <p>
+      {intl.formatMessage({
+        defaultMessage:
+          "Technicians (IT-01) provide technical support in the development, implementation, integration, and maintenance of service delivery to clients and stakeholders",
+        id: "Z9Uex5",
+        description: "blurb describing IT-01",
+      })}
+    </p>
   );
 };
 
@@ -158,56 +125,12 @@ const LevelFourAdvisor = (): JSX.Element => {
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "<strong>Individual Contributor</strong>: IT Senior Advisors (IT-04) provide expert technical advice and strategic direction in their field of expertise in the provision of solutions and services to internal or external clients, and stakeholders. IT Senior Advisors are primarily found in six work streams:",
-          id: "58BEeZ",
+            "<strong>Individual Contributor</strong>: IT Senior Advisors (IT-04) provide expert technical advice and strategic direction in their field of expertise in the provision of solutions and services to internal or external clients, and stakeholders.",
+          id: "VQWGkh",
           description:
             "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please",
         })}
       </p>
-      <ul>
-        <li>
-          {intl.formatMessage({
-            defaultMessage: "IT Infrastructure Operations",
-            id: "QZ9FZB",
-            description: "work stream example",
-          })}
-        </li>
-        <li>
-          {intl.formatMessage({
-            defaultMessage: "IT Security",
-            id: "nrBkon",
-            description: "work stream example",
-          })}
-        </li>
-        <li>
-          {intl.formatMessage({
-            defaultMessage: "IT Software Solutions",
-            id: "SDDp1t",
-            description: "work stream example",
-          })}
-        </li>
-        <li>
-          {intl.formatMessage({
-            defaultMessage: "IT Database Management",
-            id: "6LTC0y",
-            description: "work stream example",
-          })}
-        </li>
-        <li>
-          {intl.formatMessage({
-            defaultMessage: "IT Enterprise Architecture",
-            id: "oOcegG",
-            description: "work stream example",
-          })}
-        </li>
-        <li>
-          {intl.formatMessage({
-            defaultMessage: "IT Project Portfolio Management",
-            id: "tm3zLD",
-            description: "work stream example",
-          })}
-        </li>
-      </ul>
     </>
   );
 };
