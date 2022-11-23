@@ -2843,5 +2843,9 @@
   "eFvsOG": {
     "defaultMessage": "Sélection des compétences",
     "description": "Title for the skill filters on search page."
+  },
+  "ugosop": {
+    "defaultMessage": "Continuer ma candidature",
+    "description": "Link text to continue an existing application"
   }
 }
