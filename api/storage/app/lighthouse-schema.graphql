@@ -1000,8 +1000,8 @@ type Query {
   applicantFilter(id: ID!): ApplicantFilter
   applicantFilters: [ApplicantFilter]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
-  poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
-  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
+  poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
+  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
   skillFamily(id: ID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill

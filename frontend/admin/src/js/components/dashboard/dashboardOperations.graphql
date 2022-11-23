@@ -8,7 +8,7 @@ query me {
 }
 
 query latestRequests {
-  latestPoolCandidateSearchRequests(limit: 10) {
+  poolCandidateSearchRequests(limit: 10) {
     ...poolCandidateSearchRequest
   }
 }
