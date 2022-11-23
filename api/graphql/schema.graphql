@@ -533,6 +533,7 @@ type PoolCandidateSearchRequest {
   adminNotes: String @rename(attribute: "admin_notes")
   poolCandidateFilter: PoolCandidateFilter @belongsTo
   applicantFilter: ApplicantFilter @belongsTo
+  doneDate: DateTime @rename(attribute: "done_at")
 }
 
 enum SkillCategory {
@@ -543,8 +544,8 @@ enum SkillCategory {
 type SkillFamily {
   id: ID!
   key: KeyString!
-  name: LocalizedString!
-  description: LocalizedString!
+  name: LocalizedString
+  description: LocalizedString
   skills: [Skill!] @belongsToMany
   category: SkillCategory!
 }

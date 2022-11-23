@@ -624,8 +624,8 @@ export const PoolAdvertisementPoster = ({
                 style={{ width: "100%" }}
                 color="ts-secondary"
                 title={intl.formatMessage({
-                  defaultMessage: "2-Year Post-secondary Experience",
-                  id: "/Gu4zR",
+                  defaultMessage: "2-Year Post-secondary Education",
+                  id: "U6IroF",
                   description:
                     "Title for pool applicant education requirements",
                 })}

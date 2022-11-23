@@ -12,24 +12,26 @@ import {
   getEmploymentDuration,
   EmploymentDuration,
   OperationalRequirementV2,
+  getPoolStream,
 } from "@common/constants/localizedConstants";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { useLocation } from "react-router-dom";
 import errorMessages from "@common/messages/errorMessages";
-import { hasKey } from "@common/helpers/util";
+import { hasKey, notEmpty } from "@common/helpers/util";
 
 import {
   LanguageAbility,
-  Skill,
   ApplicantFilterInput,
   WorkRegion,
   UserPoolFilterInput,
+  PoolStream,
+  Skill,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
 import AddSkillsToFilter from "../skills/AddSkillsToFilter";
 import {
-  filterPoolsBySelectedClassification,
+  poolMatchesClassification,
   SimpleClassification,
   SimplePool,
 } from "../../types/poolUtils";
@@ -58,6 +60,7 @@ export type FormValues = Pick<
   languageAbility: LanguageAbility | typeof NullSelection;
   employmentDuration: string | typeof NullSelection;
   classification: string | undefined;
+  stream: PoolStream | "";
   skills: string[] | undefined;
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
@@ -116,7 +119,11 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       () => (state ? state.initialValues : {}),
       [state],
     );
-    const methods = useForm<FormValues>({ defaultValues: initialValues });
+    const methods = useForm<FormValues>({
+      defaultValues: initialValues,
+      mode: "onChange",
+      reValidateMode: "onChange",
+    });
     const { watch, trigger } = methods;
 
     useImperativeHandle(
@@ -170,7 +177,18 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             values.employmentDuration === "true" ? true : null,
           locationPreferences: values.locationPreferences || [],
           pools: pools
-            ? filterPoolsBySelectedClassification(pools, selectedClassification)
+            ? pools
+                .filter(notEmpty)
+                .filter(
+                  (pool) =>
+                    selectedClassification === undefined || // If a classification hasn't been selected yet, do not filter out any pools.
+                    poolMatchesClassification(pool, selectedClassification),
+                )
+                .filter(
+                  (pool) =>
+                    values.stream === "" || // If a stream hasn't been selected yet, do not filter out any pools.
+                    pool.stream === values.stream,
+                )
             : [],
         };
       };
@@ -206,6 +224,12 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
           label: getClassificationLabel(group, level),
         })),
       [classifications, getClassificationLabel],
+    );
+    const streamOptions: Option<PoolStream>[] = enumToOptions(PoolStream).map(
+      ({ value }) => ({
+        value: value as PoolStream,
+        label: intl.formatMessage(getPoolStream(value)),
+      }),
     );
 
     return (
@@ -253,6 +277,37 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   }),
                 },
                 ...classificationOptions,
+              ]}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              trackUnsaved={false}
+            />
+            <Select
+              id="stream"
+              label={intl.formatMessage({
+                defaultMessage: "Stream",
+                id: "qYWmzA",
+                description: "Label for stream filter in search form.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select a job stream",
+                id: "QJ5uDV",
+                description: "Placeholder for stream filter in search form.",
+              })}
+              name="stream"
+              options={[
+                {
+                  value: "",
+                  disabled: true,
+                  label: intl.formatMessage({
+                    defaultMessage: "Select a job stream",
+                    id: "QJ5uDV",
+                    description:
+                      "Placeholder for stream filter in search form.",
+                  }),
+                },
+                ...streamOptions,
               ]}
               rules={{
                 required: intl.formatMessage(errorMessages.required),

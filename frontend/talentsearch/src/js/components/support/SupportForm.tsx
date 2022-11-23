@@ -2,12 +2,13 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "@common/components/Toast";
-import { Input, Select, Submit, TextArea } from "@common/components/form";
+import { Input, Submit, TextArea } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import { getFullNameLabel } from "@common/helpers/nameUtils";
 import Pending from "@common/components/Pending";
 import { useState } from "react";
 import Button from "@common/components/Button";
+import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
 import { useGetMeQuery, User } from "../../api/generated";
 import {
   API_SUPPORT_ENDPOINT,
@@ -158,7 +159,7 @@ export const SupportForm = ({
               }}
               trackUnsaved={false}
             />
-            <Select
+            <SelectFieldV2
               id="subject"
               name="subject"
               rules={{
@@ -168,12 +169,6 @@ export const SupportForm = ({
                 defaultMessage: "I'm looking to...",
                 id: "094835",
                 description: "Support form subject field label",
-              })}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select...",
-                id: "S/n44h",
-                description:
-                  "Support form subject field default placeholder shown when nothing actively selected",
               })}
               options={[
                 {

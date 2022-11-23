@@ -242,10 +242,6 @@ describe("ExperienceForm", () => {
     expect(
       screen.getByRole("heading", { name: /skills displayed/i }),
     ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("heading", { name: /skills in detail/i }),
-    ).toBeInTheDocument();
   });
 
   it("should render additional information", async () => {
@@ -260,8 +256,6 @@ describe("ExperienceForm", () => {
         skills: mockSkills,
       });
     });
-
-    expect(screen.getByRole("textbox", { name: /additional information/i }));
   });
 
   it("should not submit award with empty fields", async () => {
@@ -336,9 +330,6 @@ describe("ExperienceForm", () => {
       name: /add this skill/i,
     });
     fireEvent.click(skillResults[0]);
-    expect(
-      await screen.findByRole("textbox", { name: /skill in detail/i }),
-    ).toBeInTheDocument();
   });
 });
 

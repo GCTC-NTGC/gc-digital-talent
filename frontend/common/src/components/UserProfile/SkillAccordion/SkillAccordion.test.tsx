@@ -9,7 +9,7 @@ import Accordion from "../../Accordion";
 import { fakeSkills } from "../../../fakeData";
 import { generators as experienceGenerator } from "../../../fakeData/fakeExperiences";
 import { render, screen, axeTest, fireEvent } from "../../../helpers/testUtils";
-import { getDateRange } from "../../../helpers/dateUtils";
+import { getDateRange } from "../accordionUtils";
 import { Maybe, Skill } from "../../../api/generated";
 import SkillAccordion from "./SkillAccordion";
 
@@ -28,7 +28,7 @@ describe("SkillAccordion", () => {
   const cache = createIntlCache();
   const intl = createIntl(
     {
-      locale: "en-CA",
+      locale: "en",
       messages: {},
     },
     cache,
@@ -93,7 +93,6 @@ describe("SkillAccordion", () => {
       endDate: experience.endDate,
       startDate: experience.startDate,
       intl,
-      locale: "en",
     });
     renderSkillAccordion(testSkill);
     await openAccordion(testSkill.name.en);
@@ -146,7 +145,6 @@ describe("SkillAccordion", () => {
       endDate: experience.endDate,
       startDate: experience.startDate,
       intl,
-      locale: "en",
     });
     renderSkillAccordion(testSkill);
 
@@ -173,7 +171,6 @@ describe("SkillAccordion", () => {
       endDate: experience.endDate,
       startDate: experience.startDate,
       intl,
-      locale: "en",
     });
     renderSkillAccordion(testSkill);
 
@@ -188,7 +185,7 @@ describe("SkillAccordion", () => {
     expect(detail).toBeInTheDocument();
     expect(detail).toHaveTextContent(experience.details || "");
     expect(detail).toHaveTextContent(experience.description || "");
-    expect(detail).toHaveTextContent(`${dateRange}`.replaceAll("   ", " "));
+    expect(detail).toHaveTextContent(dateRange);
     expect(detail).toHaveTextContent(experience.title || "");
   });
 

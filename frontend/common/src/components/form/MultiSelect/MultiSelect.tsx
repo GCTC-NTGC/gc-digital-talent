@@ -74,6 +74,7 @@ const MultiSelect = ({
                   (x) => field.onChange(x ? x.map((option) => option.value) : x) // If x is null or undefined, return it to form
                 }
                 aria-label={label}
+                aria-describedby={error ? `${id}-error` : undefined}
                 styles={{
                   placeholder: (provided) => ({
                     ...provided,

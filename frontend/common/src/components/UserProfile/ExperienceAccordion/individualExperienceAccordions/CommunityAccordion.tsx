@@ -4,8 +4,7 @@ import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 import Accordion from "../../../Accordion";
 import { Link } from "../../..";
 import { CommunityExperience } from "../../../../api/generated";
-import { getLocale } from "../../../../helpers/localize";
-import { getDateRange } from "../../../../helpers/dateUtils";
+import { getDateRange } from "../../accordionUtils";
 import SkillList from "../SkillList";
 
 export const CommunityContent = ({
@@ -65,13 +64,12 @@ type CommunityAccordionProps = CommunityExperience & {
 
 const CommunityAccordion = ({ editUrl, ...rest }: CommunityAccordionProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const { id, endDate, startDate, skills, title, organization } = rest;
 
   return (
     <Accordion.Item value={id}>
       <Accordion.Trigger
-        subtitle={getDateRange({ endDate, startDate, intl, locale })}
+        subtitle={getDateRange({ endDate, startDate, intl })}
         Icon={UserGroupIcon}
         context={
           skills?.length === 1
