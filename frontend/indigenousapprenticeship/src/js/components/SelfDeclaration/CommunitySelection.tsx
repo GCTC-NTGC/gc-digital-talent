@@ -48,9 +48,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
 
   React.useEffect(() => {
     // Is not represented and has at least on other community selected
-    if (isOtherAndHasCommunity && !hasDismissedAlert) {
-      setIsAlertOpen((prevIsOpen) => !prevIsOpen);
-    }
+    setIsAlertOpen(!!(isOtherAndHasCommunity && !hasDismissedAlert));
   }, [isOtherAndHasCommunity, setIsAlertOpen, hasDismissedAlert]);
 
   const handleAlertDismiss = () => {
