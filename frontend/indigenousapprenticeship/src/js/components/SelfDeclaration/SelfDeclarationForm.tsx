@@ -50,26 +50,31 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
         data-h2-shadow="base(s)"
         data-h2-padding="base(x2, x3)"
       >
-        <Heading
-          level="h2"
-          data-h2-text-align="base(center)"
-          data-h2-margin="base(0, 0, x1, 0)"
-        >
-          {intl.formatMessage({
-            id: "pKACZK",
-            defaultMessage: "Indigenous Peoples Self-Declaration Form",
-            description: "Title for the indigenous self-declaration form",
-          })}
-        </Heading>
-        <p data-h2-text-align="base(center)" data-h2-margin="base(x1, 0)">
-          {intl.formatMessage({
-            id: "Ma0UMe",
-            defaultMessage:
-              "We recognize the importance of Indigenous voices in the federal government. The Program was designed in partnership with Indigenous peoples. By completing and signing the Indigenous Peoples Self-Declaration Form, you are helping to protect the space, agreeing that you are a part of the three distinct Indigenous groups in Canada and are interested in joining the Program!",
-            description:
-              "Text describing the self-declaration form and its importance",
-          })}
-        </p>
+        <div data-h2-container="base(center, m)">
+          <Heading
+            level="h2"
+            data-h2-text-align="base(center)"
+            data-h2-margin="base(0, 0, x1, 0)"
+          >
+            {intl.formatMessage({
+              id: "pKACZK",
+              defaultMessage: "Indigenous Peoples Self-Declaration Form",
+              description: "Title for the indigenous self-declaration form",
+            })}
+          </Heading>
+          <p
+            data-h2-text-align="base(center)"
+            data-h2-margin="base(x1, 0, x2, 0)"
+          >
+            {intl.formatMessage({
+              id: "Ma0UMe",
+              defaultMessage:
+                "We recognize the importance of Indigenous voices in the federal government. The Program was designed in partnership with Indigenous peoples. By completing and signing the Indigenous Peoples Self-Declaration Form, you are helping to protect the space, agreeing that you are a part of the three distinct Indigenous groups in Canada and are interested in joining the Program!",
+              description:
+                "Text describing the self-declaration form and its importance",
+            })}
+          </p>
+        </div>
         <RadioGroup
           idPrefix="isIndigenous"
           id="isIndigenous"
@@ -104,29 +109,31 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
         <CommunitySelection labels={labels} />
       </div>
       <SignAndContinue labels={labels} />
-      <Separator
-        orientation="horizontal"
-        decorative
-        data-h2-background-color="base(ia-secondary)"
-        data-h2-margin="base(x2, 0)"
-      />
-      <div data-h2-text-align="base(center)">
-        <HelpLink />
-        <p data-h2-font-weight="base(700)" data-h2-margin="base(x1, 0)">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "See <whyLink>why we are asking you to self declare, how this will be verified</whyLink> and the term <definitionLink>Indigenous as defined for this program</definitionLink>.",
-              id: "fppFGS",
-              description:
-                "Links to more information on the self-declaration process and definition of Indigenous",
-            },
-            {
-              whyLink,
-              definitionLink,
-            },
-          )}
-        </p>
+      <div data-h2-container="base(center, m)">
+        <Separator
+          orientation="horizontal"
+          decorative
+          data-h2-background-color="base(ia-secondary)"
+          data-h2-margin="base(x2, 0)"
+        />
+        <div data-h2-text-align="base(center)">
+          <HelpLink />
+          <p data-h2-font-weight="base(700)" data-h2-margin="base(x1, 0)">
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "See <whyLink>why we are asking you to self declare, how this will be verified</whyLink> and the term <definitionLink>Indigenous as defined for this program</definitionLink>.",
+                id: "fppFGS",
+                description:
+                  "Links to more information on the self-declaration process and definition of Indigenous",
+              },
+              {
+                whyLink,
+                definitionLink,
+              },
+            )}
+          </p>
+        </div>
       </div>
     </BasicForm>
   );

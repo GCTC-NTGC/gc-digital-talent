@@ -88,7 +88,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
 
   return (
     <>
-      <fieldset data-h2-border="base(none)" data-h2-margin="base(x2, 0, 0, 0)">
+      <fieldset data-h2-border="base(none)" data-h2-margin="base(x1, 0, 0, 0)">
         <legend
           data-h2-text-align="base(center)"
           data-h2-font-weight="base(700)"
