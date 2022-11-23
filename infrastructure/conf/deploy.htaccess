@@ -6,6 +6,10 @@ DirectorySlash off
 <IfModule mod_rewrite.c>
     RewriteEngine on
 
+    # Robots.txt for UAT and Production -- change productiondomain.com to the actual url of your production site
+    RewriteCond %{HTTP_HOST} !^talent.canada.ca$ [NC]
+    RewriteRule ^prod.robots.txt uat.robot.txt [L]
+
     # Strip trailing slash from all urls and redirect back to public url, unless already pointing to a public folder
     RewriteCond %{REQUEST_URI} ^/(.+)/$
     RewriteCond %{REQUEST_URI} !/public/$
