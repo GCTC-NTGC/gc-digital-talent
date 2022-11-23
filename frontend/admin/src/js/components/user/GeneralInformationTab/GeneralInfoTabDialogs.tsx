@@ -13,6 +13,7 @@ import { toast } from "@common/components/Toast";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
+  AdvertisementStatus,
   CreatePoolCandidateAsAdminInput,
   Pool,
   PoolCandidate,
@@ -713,6 +714,11 @@ export const AddToPoolDialog: React.FC<{
                 </option>
                 {pools.map((pool) => {
                   if (currentPools.includes(pool.id)) {
+                    return null;
+                  }
+                  if (
+                    pool.advertisementStatus !== AdvertisementStatus.Published
+                  ) {
                     return null;
                   }
                   return (
