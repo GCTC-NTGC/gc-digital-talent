@@ -60,7 +60,7 @@ const SignAndContinue = ({ labels }: SignAndContinueProps) => {
         />
         <p data-h2-margin="base(x1, 0)">
           <Submit
-            color="black"
+            color="ia-primary"
             mode="outline"
             text={intl.formatMessage({
               defaultMessage: "Sign and continue",

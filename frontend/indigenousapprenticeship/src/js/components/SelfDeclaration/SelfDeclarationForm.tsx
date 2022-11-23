@@ -6,12 +6,14 @@ import Heading from "@common/components/Heading";
 import { BasicForm, RadioGroup } from "@common/components/form";
 
 import errorMessages from "@common/messages/errorMessages";
-import { ExternalLink } from "@common/components/Link";
 import Separator from "@common/components/Separator";
 
 import CommunitySelection from "./CommunitySelection";
 import SignAndContinue from "./SignAndContinue";
 import HelpLink from "./HelpLink";
+import SelfDeclarationDialog from "../Dialog/SelfDeclarationDialog";
+import VerificationDialog from "../Dialog/VerificationDialog";
+import DefinitionDialog from "../Dialog/DefinitionDialog";
 import { getSelfDeclarationLabels } from "./utils";
 
 type FormValues = {
@@ -23,15 +25,15 @@ interface SelfDeclarationFormProps {
 }
 
 const whyLink = (chunks: React.ReactNode) => (
-  <ExternalLink data-h2-color="base(dt-primary)" href="#">
-    {chunks}
-  </ExternalLink>
+  <SelfDeclarationDialog>{chunks}</SelfDeclarationDialog>
+);
+
+const verificationLink = (chunks: React.ReactNode) => (
+  <VerificationDialog>{chunks}</VerificationDialog>
 );
 
 const definitionLink = (chunks: React.ReactNode) => (
-  <ExternalLink data-h2-color="base(dt-primary)" href="#">
-    {chunks}
-  </ExternalLink>
+  <DefinitionDialog>{chunks}</DefinitionDialog>
 );
 
 const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
@@ -122,13 +124,14 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "See <whyLink>why we are asking you to self declare, how this will be verified</whyLink> and the term <definitionLink>Indigenous as defined for this program</definitionLink>.",
-                id: "fppFGS",
+                  "See <whyLink>why we are asking you to self declare</whyLink>, <verificationLink>how this will be verified</verificationLink> and the term <definitionLink>Indigenous as defined for this program</definitionLink>.",
+                id: "AMboRG",
                 description:
                   "Links to more information on the self-declaration process and definition of Indigenous",
               },
               {
                 whyLink,
+                verificationLink,
                 definitionLink,
               },
             )}
