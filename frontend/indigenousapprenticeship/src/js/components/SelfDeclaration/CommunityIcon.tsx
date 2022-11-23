@@ -22,7 +22,7 @@ const CommunityIcon = ({ community, on }: CommunityIconProps) => {
   };
 
   return (
-    <div data-h2-padding="p-tablet(0, x1)">
+    <div data-h2-width="base(100%)">
       <div
         data-h2-position="base(relative)"
         data-h2-width="base(100%)"

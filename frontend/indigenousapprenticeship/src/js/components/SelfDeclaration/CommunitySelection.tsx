@@ -2,7 +2,7 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Checkbox, RadioGroup } from "@common/components/form";
+import { RadioGroup } from "@common/components/form";
 import { ExternalLink } from "@common/components/Link";
 import { FieldLabels } from "@common/components/form/BasicForm";
 import { Alert } from "@common/components";
@@ -11,13 +11,13 @@ import useLocale from "@common/hooks/useLocale";
 import errorMessages from "@common/messages/errorMessages";
 import { Locales } from "@common/helpers/localize";
 
-import CommunityIcon from "./CommunityIcon";
 import HelpLink from "./HelpLink";
 import {
   partOfCommunity,
   getCommunityLabels,
   hasCommunityAndOther,
 } from "./utils";
+import CommunityCheckbox from "./CommunityCheckbox";
 
 interface CommunitySelectionProps {
   labels: FieldLabels;
@@ -43,9 +43,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
   ]);
   const isIndigenous = isIndigenousValue === "yes";
   const isFirstNations = partOfCommunity("firstNations", communitiesValue);
-  const isInuk = partOfCommunity("inuk", communitiesValue);
-  const isMetis = partOfCommunity("metis", communitiesValue);
-  const isOther = partOfCommunity("other", communitiesValue);
+
   const isOtherAndHasCommunity = hasCommunityAndOther(communitiesValue);
 
   React.useEffect(() => {
@@ -110,11 +108,11 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
           data-h2-gap="base(x1)"
         >
           <div>
-            <CommunityIcon community="first-nations" on={isFirstNations} />
-            <Checkbox
+            <CommunityCheckbox
               id="communityFirstNations"
               name="communities"
               value="firstNations"
+              community="first-nations"
               label={intl.formatMessage({
                 defaultMessage: `"I am First Nations"`,
                 id: "4e74J2",
@@ -124,11 +122,11 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
             />
           </div>
           <div>
-            <CommunityIcon community="inuit" on={isInuk} />
-            <Checkbox
+            <CommunityCheckbox
               id="communityInuk"
               name="communities"
               value="inuk"
+              community="inuit"
               label={intl.formatMessage({
                 defaultMessage: `"I am Inuk"`,
                 id: "vDb+O+",
@@ -137,11 +135,11 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
             />
           </div>
           <div>
-            <CommunityIcon community="metis" on={isMetis} />
-            <Checkbox
+            <CommunityCheckbox
               id="communityMetis"
               name="communities"
               value="metis"
+              community="metis"
               label={intl.formatMessage({
                 defaultMessage: `"I am Métis"`,
                 id: "/81xCT",
@@ -150,11 +148,11 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
             />
           </div>
           <div>
-            <CommunityIcon community="other" on={isOther} />
-            <Checkbox
+            <CommunityCheckbox
               id="communityOther"
               name="communities"
               value="other"
+              community="other"
               label={intl.formatMessage({
                 defaultMessage: `"I am Indigenous and I don't see my community here"`,
                 id: "FRcbbi",
