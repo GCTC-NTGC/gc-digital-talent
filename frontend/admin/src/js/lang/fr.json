@@ -1605,8 +1605,8 @@
     "defaultMessage": "Veuillez sélectionner un bassin",
     "description": "Error displayed on the add user to pool dialog if no pool selected"
   },
-  "uL7iBo": {
-    "defaultMessage": "Ajouter l'utilisateur à d'autres bassins",
+  "jtEouE": {
+    "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "Title of the 'Add user to pools' section of the view-user page"
   },
   "uMzeiF": {
