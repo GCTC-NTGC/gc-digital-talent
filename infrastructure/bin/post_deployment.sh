@@ -50,7 +50,7 @@ if echo "$MIGRATION_STDOUT"| grep -q 'Exception' ; then
 elif [ "$MIGRATION_STDOUT" == 'Nothing to migrate.' ] ; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Database migration *successful* with the _nothing to migrate_ message.\" } }"
 elif [ "$OCCURRENCES_WORD_MIGRATING" == "$OCCURRENCES_WORD_MIGRATED" ] ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Databse migration appeared *successful* for $OCCURRENCES_WORD_MIGRATING migrations.\" } }"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Database migration appeared *successful* for $OCCURRENCES_WORD_MIGRATING migrations.\" } }"
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Database migration *unknown* status. $MENTION\" } }"
 fi
