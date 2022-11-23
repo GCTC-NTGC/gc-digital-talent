@@ -20,7 +20,7 @@ type FormValues = {
   selfDeclaration?: "yes" | "no";
 };
 
-interface SelfDeclarationFormProps {
+export interface SelfDeclarationFormProps {
   onSubmit: (data: FormValues) => void;
 }
 
