@@ -21,7 +21,6 @@ import { getLocale } from "@common/helpers/localize";
 import imageUrl from "@common/helpers/imageUrl";
 import {
   AdvertisementStatus,
-  PoolCandidate,
   Scalars,
   SkillCategory,
 } from "@common/api/generated";
@@ -38,11 +37,7 @@ import {
   getFullPoolAdvertisementTitle,
 } from "@common/helpers/poolUtils";
 import { AuthorizationContext } from "@common/components/Auth";
-import {
-  useGetPoolAdvertisementQuery,
-  Maybe,
-  GetPoolAdvertisementQuery,
-} from "../../api/generated";
+import { useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
 import TALENTSEARCH_APP_DIR, {
@@ -50,7 +45,7 @@ import TALENTSEARCH_APP_DIR, {
 } from "../../talentSearchConstants";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
-import { hasUserApplied, isAdvertisementVisible } from "./utils";
+import { isAdvertisementVisible } from "./utils";
 
 interface ApplyButtonProps {
   poolId: Scalars["ID"];
