@@ -44,6 +44,9 @@ const Fieldset: React.FC<FieldsetProps> = ({
   const intl = useIntl();
   const fieldState = useFieldState(name ?? "");
   const stateStyles = useFieldStateStyles(name ?? "", !trackUnsaved);
+
+  const ariaDescription = rest["aria-describedby"];
+
   return (
     <fieldset
       name={name}
@@ -147,7 +150,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
           data-h2-display="base(block)"
           data-h2-margin="base(x.125, 0, 0, 0)"
         >
-          <InputError id={`${name}-error`} isVisible={!!error} error={error} />
+          <InputError id={ariaDescription} isVisible={!!error} error={error} />
         </div>
       )}
       {contextIsActive && context && (
