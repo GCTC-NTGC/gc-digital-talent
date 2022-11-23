@@ -234,7 +234,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
         <div>
-          {!updatePending ? (
+          {updatePending === false && (
             <div>
               {poolCandidateResults?.map(({ pool, candidateCount }) => (
                 <CandidateResults
@@ -245,9 +245,8 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
                 />
               ))}
             </div>
-          ) : (
-            <Spinner />
           )}
+          {updatePending === true && <Spinner />}
         </div>
       </div>
     </div>
