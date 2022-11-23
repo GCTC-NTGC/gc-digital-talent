@@ -215,7 +215,12 @@ describe("SelectFieldV2", () => {
   it("should prevent submit when required and throw default error message", async () => {
     const mockSubmit = jest.fn();
     renderWithProviders(
-      <SelectFieldV2 label="Foo Bar" options={[]} rules={{ required: true }} />,
+      <SelectFieldV2
+        name="fooBar"
+        label="Foo Bar"
+        options={[]}
+        rules={{ required: "required" }}
+      />,
       {
         wrapperProps: {
           onSubmit: mockSubmit,
@@ -226,6 +231,11 @@ describe("SelectFieldV2", () => {
       fireEvent.submit(screen.getByRole("button"));
     });
     expect(mockSubmit).not.toBeCalled();
+    expect(
+      screen.getByRole("combobox", {
+        description: /required/i,
+      }),
+    ).toBeInTheDocument();
   });
 
   it("should show 'optional' text when not required", () => {
