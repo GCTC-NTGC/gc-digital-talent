@@ -184,6 +184,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
           id="isStatusFirstNations"
           name="isStatusFirstNations"
           legend={labels.isStatusFirstNations}
+          trackUnsaved={false}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}

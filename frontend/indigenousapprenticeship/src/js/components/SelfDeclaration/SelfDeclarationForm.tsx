@@ -82,6 +82,7 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
           id="isIndigenous"
           name="isIndigenous"
           legend={labels.isIndigenous}
+          trackUnsaved={false}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
