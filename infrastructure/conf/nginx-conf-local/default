@@ -86,8 +86,8 @@ server {
     }
 
     # rewrite admin static files to "admin/dist"
-    location ~ "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf))$" {
-        rewrite "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf))$" /frontend/admin/dist/$1 break;
+    location ~ "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
+        rewrite "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /frontend/admin/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "admin" to admin index.html
@@ -96,8 +96,8 @@ server {
     }
 
     # rewrite talent static files to "talentsearch/dist"
-    location ~ "^/talent/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf))$" {
-        rewrite "^/talent/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf))$" /frontend/talentsearch/dist/$1 break;
+    location ~ "^/talent/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
+        rewrite "^/talent/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /frontend/talentsearch/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "talent" to talentsearch index.html
@@ -156,8 +156,8 @@ server {
     }
 
     # rewrite talent static files to "indigenousapprenticeship/dist"
-    location ~ "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf))$" {
-        rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf))$" /frontend/indigenousapprenticeship/dist/$1 break;
+    location ~ "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
+        rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /frontend/indigenousapprenticeship/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "apprenti-autochtonne-ti" to indigenousapprenticeship index.html
@@ -171,8 +171,8 @@ server {
     }
 
     # rewrite tc-report static files to "tc-report/_site"
-    location ~ "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf))$" {
-        rewrite "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf))$" /tc-report/_site/$1 break;
+    location ~ "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
+        rewrite "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /tc-report/_site/$1 break;
     }
 
     # fallback any other files to "tc-report/_site"
