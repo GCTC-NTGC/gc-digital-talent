@@ -4,6 +4,7 @@ import Pagination from "@common/components/Pagination";
 import Pending from "@common/components/Pending";
 import { Button } from "@common/components";
 import { DownloadCsv, type DownloadCsvProps } from "@common/components/Link";
+import { toast } from "@common/components/Toast";
 import { CombinedError } from "urql";
 import { PaginatorInfo } from "../../api/generated";
 
@@ -41,6 +42,21 @@ function TableFooter({
   selectionError,
 }: TableFooterProps): ReactElement {
   const intl = useIntl();
+
+  const handlePrint = () => {
+    if (disableActions) {
+      toast.warning(
+        intl.formatMessage({
+          defaultMessage: "No rows selected to print.",
+          id: "H6oeBv",
+          description:
+            "Alert message displayed when a user attempts to print without selecting items first",
+        }),
+      );
+    } else if (onPrint) {
+      onPrint();
+    }
+  };
 
   return (
     <div
@@ -83,8 +99,8 @@ function TableFooter({
                       type="button"
                       mode="inline"
                       color="white"
-                      disabled={disableActions}
-                      onClick={onPrint}
+                      data-h2-font-weight="base(400)"
+                      onClick={handlePrint}
                     >
                       {intl.formatMessage({
                         defaultMessage: "Print",
