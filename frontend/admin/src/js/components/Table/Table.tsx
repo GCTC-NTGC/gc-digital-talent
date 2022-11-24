@@ -9,7 +9,6 @@ import {
   useSortBy,
   Column,
   usePagination,
-  TableHeaderProps,
   HeaderGroup,
 } from "react-table";
 import { Button, Link } from "@common/components";
@@ -90,12 +89,12 @@ const getSortAttr = (isSorted: boolean, isSortedDesc?: boolean) => {
   return isSortedDesc ? "descending" : "ascending";
 };
 
-interface HeaderWrapperProps<T extends object = {}> {
+interface HeaderWrapperProps<T extends object> {
   column: HeaderGroup<T>;
   children: React.ReactNode;
 }
 
-const HeaderWrapper = <T extends object = {}>({
+const HeaderWrapper = <T extends object>({
   column,
   children,
 }: HeaderWrapperProps<T>) => {
