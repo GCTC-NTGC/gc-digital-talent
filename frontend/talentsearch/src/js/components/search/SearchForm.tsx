@@ -367,39 +367,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             />
           </FilterBlock>
           <FilterBlock
-            id="operationalRequirementFilter"
-            title={intl.formatMessage({
-              defaultMessage:
-                "Conditions of employment / Operational requirements",
-              id: "laGCzG",
-              description:
-                "Heading for operational requirements section of the search form.",
-            })}
-            text={intl.formatMessage({
-              defaultMessage:
-                "The selected conditions of employment will be compared to those chosen by candidates in their applications.",
-              id: "IT6Djp",
-              description:
-                "Message describing the operational requirements filter in the search form.",
-            })}
-          >
-            <Checklist
-              idPrefix="operationalRequirements"
-              legend={intl.formatMessage({
-                defaultMessage: "Conditions of employment",
-                id: "bKvvaI",
-                description:
-                  "Legend for the Conditions of Employment filter checklist",
-              })}
-              name="operationalRequirements"
-              items={OperationalRequirementV2.map((value) => ({
-                value,
-                label: intl.formatMessage(getOperationalRequirement(value)),
-              }))}
-              trackUnsaved={false}
-            />
-          </FilterBlock>
-          <FilterBlock
             id="locationPreferencesFilter"
             title={intl.formatMessage({
               defaultMessage: "Work location",
@@ -589,6 +556,39 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             />
           </FilterBlock>
           <AddSkillsToFilter allSkills={skills ?? []} linkId="skillFilter" />
+          <FilterBlock
+            id="operationalRequirementFilter"
+            title={intl.formatMessage({
+              defaultMessage:
+                "Conditions of employment / Operational requirements",
+              id: "laGCzG",
+              description:
+                "Heading for operational requirements section of the search form.",
+            })}
+            text={intl.formatMessage({
+              defaultMessage:
+                "The selected conditions of employment will be compared to those chosen by candidates in their applications.",
+              id: "IT6Djp",
+              description:
+                "Message describing the operational requirements filter in the search form.",
+            })}
+          >
+            <Checklist
+              idPrefix="operationalRequirements"
+              legend={intl.formatMessage({
+                defaultMessage: "Conditions of employment",
+                id: "bKvvaI",
+                description:
+                  "Legend for the Conditions of Employment filter checklist",
+              })}
+              name="operationalRequirements"
+              items={OperationalRequirementV2.map((value) => ({
+                value,
+                label: intl.formatMessage(getOperationalRequirement(value)),
+              }))}
+              trackUnsaved={false}
+            />
+          </FilterBlock>
         </form>
       </FormProvider>
     );

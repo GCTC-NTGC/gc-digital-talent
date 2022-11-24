@@ -8,7 +8,6 @@ import { getLanguage } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import printStyles from "@common/constants/printStyles";
 import { useReactToPrint } from "react-to-print";
-import { Link } from "@common/components";
 import { SubmitHandler } from "react-hook-form";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -128,7 +127,7 @@ const languageAccessor = (
 const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
   if (email) {
     return (
-      <Link
+      <a
         href={`mailto:${email}`}
         title={intl.formatMessage({
           defaultMessage: "Link to user email",
@@ -137,7 +136,7 @@ const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
         })}
       >
         {email}
-      </Link>
+      </a>
     );
   }
   return (
