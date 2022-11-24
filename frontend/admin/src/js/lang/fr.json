@@ -2840,5 +2840,9 @@
   "z0QI6A": {
     "defaultMessage": "Tous les candidats du bassin",
     "description": "Title for the admin pool candidates table"
+  },
+  "x/sZcv": {
+    "defaultMessage": "L’impression a échoué : Aucune rangée n’a été sélectionnée",
+    "description": "Alert message displayed when a user attempts to print without selecting items first"
   }
 }
