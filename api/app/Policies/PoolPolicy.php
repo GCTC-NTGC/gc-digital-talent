@@ -45,7 +45,7 @@ class PoolPolicy
      */
     public function viewAdvertisement(User $user = null, Pool $pool)
     {
-        if ($pool->advertisement_status == ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED) {
+        if ($pool->advertisement_status != ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
             return true;
         }
         return $user->isAdmin();
