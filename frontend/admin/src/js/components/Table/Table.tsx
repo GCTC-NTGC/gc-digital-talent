@@ -110,14 +110,13 @@ const HeaderWrapper = <T extends object = {}>({
       })}
       type="button"
       data-h2-offset="base(0)"
-      data-h2-background-color="base(transparent) base:hover(dt-secondary.lightest) base:focus-visible(focus)"
-      data-h2-color="base(dt-white) base:hover(dt-black)"
+      data-h2-background-color="base(transparent) base:hover(dt-secondary.lightest.35) base:focus-visible(focus)"
+      data-h2-color="base(dt-white)"
       data-h2-display="base(flex)"
       data-h2-radius="base(s)"
       data-h2-padding="base(x.25, x.5)"
       data-h2-align-items="base(center)"
       data-h2-text-align="base(left)"
-      data-h2-justify-content="base(space-between)"
       data-h2-width="base(100%)"
       data-h2-outline="base(none)"
     >
@@ -301,7 +300,7 @@ function Table<T extends Record<string, unknown>>({
                       {...column.getHeaderProps()}
                       key={column.id}
                       data-h2-background-color="base(dt-secondary.light)"
-                      data-h2-padding="base(x.15, x.2)"
+                      data-h2-padding="base(x.5, x1)"
                       title={undefined}
                       aria-sort={getSortAttr(
                         column.isSorted,

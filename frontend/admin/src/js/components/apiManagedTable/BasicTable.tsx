@@ -107,9 +107,14 @@ function BasicTable<T extends RecordWithId>({
                       <Button
                         data-h2-display="base(flex)"
                         data-h2-align-items="base(center)"
+                        data-h2-background-color="base(transparent) base:hover(dt-secondary.lightest.35) base:focus-visible(focus)"
+                        data-h2-color="base(dt-white)"
+                        data-h2-outline="base(none)"
+                        data-h2-padding="base(x.25, x.5)"
                         type="button"
                         mode="tableHeader"
                         color="secondary"
+                        block
                         disabled={
                           !column.sortColumnName && column.id !== "selection"
                         }
