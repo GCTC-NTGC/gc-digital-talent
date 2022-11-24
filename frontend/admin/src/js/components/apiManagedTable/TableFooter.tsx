@@ -47,8 +47,8 @@ function TableFooter({
     if (disableActions) {
       toast.error(
         intl.formatMessage({
-          defaultMessage: "Print failed: No rows selected",
-          id: "x/sZcv",
+          defaultMessage: "Download failed: No rows selected",
+          id: "k4xm25",
           description:
             "Alert message displayed when a user attempts to print without selecting items first",
         }),
@@ -103,10 +103,10 @@ function TableFooter({
                       onClick={handlePrint}
                     >
                       {intl.formatMessage({
-                        defaultMessage: "Print",
-                        id: "pLCv50",
+                        defaultMessage: "Download Profiles",
+                        id: "UsFTGT",
                         description:
-                          "Text label for button to print items in a table.",
+                          "Text label for button to download items in a table.",
                       })}
                     </Button>
                   </div>
