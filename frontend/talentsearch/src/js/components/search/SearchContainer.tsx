@@ -246,54 +246,52 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
         <div>
-          {updatePending === false && (
-            <>
-              {poolCandidateResults && poolCandidateResults.length !== 0 && (
-                <div>
-                  {poolCandidateResults.map(({ pool, candidateCount }) => (
-                    <CandidateResults
-                      key={pool.id}
-                      candidateCount={candidateCount}
-                      pool={pool}
-                      handleSubmit={tryHandleSubmit}
-                    />
-                  ))}
-                </div>
-              )}
-              {(!poolCandidateResults || poolCandidateResults.length === 0) && (
-                <div
-                  data-h2-shadow="base(m)"
-                  data-h2-margin="base(x.5, 0, 0, 0)"
-                  data-h2-padding="base(x1)"
-                  data-h2-border="base(left, x1, solid, dt-gray.dark)"
-                >
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "We can still help!",
-                      id: "5U+V2Y",
+          {!updatePending &&
+            (poolCandidateResults && poolCandidateResults.length > 0 ? (
+              /* there are results to show */
+              <div>
+                {poolCandidateResults.map(({ pool, candidateCount }) => (
+                  <CandidateResults
+                    key={pool.id}
+                    candidateCount={candidateCount}
+                    pool={pool}
+                    handleSubmit={tryHandleSubmit}
+                  />
+                ))}
+              </div>
+            ) : (
+              /* there are no results to show */
+              <div
+                data-h2-shadow="base(m)"
+                data-h2-margin="base(x.5, 0, 0, 0)"
+                data-h2-padding="base(x1)"
+                data-h2-border="base(left, x1, solid, dt-gray.dark)"
+              >
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "We can still help!",
+                    id: "5U+V2Y",
+                    description:
+                      "Heading for helping user if no candidates matched the filters chosen.",
+                  })}
+                </p>
+                <p data-h2-margin="base(x.5, 0, 0, 0)">
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "If there are no matching candidates <a>Get in touch!</a>",
+                      id: "+ZXZj+",
                       description:
-                        "Heading for helping user if no candidates matched the filters chosen.",
-                    })}
-                  </p>
-                  <p data-h2-margin="base(x.5, 0, 0, 0)">
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "If there are no matching candidates <a>Get in touch!</a>",
-                        id: "+ZXZj+",
-                        description:
-                          "Message for helping user if no candidates matched the filters chosen.",
-                      },
-                      {
-                        a,
-                      },
-                    )}
-                  </p>
-                </div>
-              )}
-            </>
-          )}
-          {updatePending === true && <Spinner />}
+                        "Message for helping user if no candidates matched the filters chosen.",
+                    },
+                    {
+                      a,
+                    },
+                  )}
+                </p>
+              </div>
+            ))}
+          {updatePending && <Spinner />}
         </div>
       </div>
     </div>
