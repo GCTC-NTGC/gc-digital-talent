@@ -128,7 +128,7 @@ const languageAccessor = (
 const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
   if (email) {
     return (
-      <Link
+      <a
         href={`mailto:${email}`}
         title={intl.formatMessage({
           defaultMessage: "Link to user email",
@@ -137,7 +137,7 @@ const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
         })}
       >
         {email}
-      </Link>
+      </a>
     );
   }
   return (
