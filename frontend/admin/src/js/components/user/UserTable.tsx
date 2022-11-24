@@ -8,7 +8,6 @@ import { getLanguage } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import printStyles from "@common/constants/printStyles";
 import { useReactToPrint } from "react-to-print";
-import { Link } from "@common/components";
 import { SubmitHandler } from "react-hook-form";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
