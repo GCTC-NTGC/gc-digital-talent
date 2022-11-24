@@ -45,10 +45,10 @@ function TableFooter({
 
   const handlePrint = () => {
     if (disableActions) {
-      toast.warning(
+      toast.error(
         intl.formatMessage({
-          defaultMessage: "No rows selected to print.",
-          id: "H6oeBv",
+          defaultMessage: "Print failed: No rows selected",
+          id: "x/sZcv",
           description:
             "Alert message displayed when a user attempts to print without selecting items first",
         }),
