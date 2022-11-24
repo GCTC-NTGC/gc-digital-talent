@@ -727,7 +727,8 @@ input PoolCandidateFilterInput {
     @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
   expectedClassifications: [ClassificationFilterInput]
     @scope(name: "classifications")
-  generalSearch: String @builder(method: "App\\Models\\PoolCandidate@filterByGeneralSearch")
+  generalSearch: String
+    @builder(method: "App\\Models\\PoolCandidate@filterByGeneralSearch")
   email: String @scope
   name: String @builder(method: "App\\Models\\PoolCandidate@filterByName")
   hasDiploma: Boolean @scope
@@ -809,9 +810,13 @@ type Query {
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["availableForOpportunities"])
-  pool(id: ID! @eq): Pool @find
-  poolAdvertisement(id: ID! @eq): PoolAdvertisement @find(model: "Pool")
-  poolAdvertisements: [PoolAdvertisement]! @all(model: "Pool")
+  pool(id: ID! @eq): Pool @find @can(ability: "view", query: true)
+  poolAdvertisement(id: ID! @eq): PoolAdvertisement
+    @find(model: "Pool")
+    @can(ability: "viewAdvertisement", model: "Pool", query: true)
+  poolAdvertisements: [PoolAdvertisement]!
+    @all(model: "Pool")
+    @can(ability: "viewAny", model: "Pool")
   publishedPoolAdvertisements: [PoolAdvertisement!]!
     @all(model: "Pool", scopes: ["wasPublished"])
   poolByKey(key: String! @eq): Pool @find
@@ -888,9 +893,7 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  poolCandidateSearchRequests(
-    limit: Int @limit
-  ): [PoolCandidateSearchRequest]!
+  poolCandidateSearchRequests(limit: Int @limit): [PoolCandidateSearchRequest]!
     @all
     @guard
     @can(ability: "viewAny")
@@ -902,7 +905,9 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @guard
     @can(ability: "viewAny")
-    @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
+    @deprecated(
+      reason: "Use poolCandidateSearchRequests instead, with a specified limit"
+    )
   skillFamily(id: ID! @eq): SkillFamily @find
   skillFamilies: [SkillFamily]! @all
   skill(id: ID! @eq): Skill @find

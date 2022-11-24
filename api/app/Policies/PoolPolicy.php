@@ -37,6 +37,21 @@ class PoolPolicy
     }
 
     /**
+     * Determine whether the user can view a poolAdvertisement. Published is viewable by any, otherwise restricted to admin.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Pool  $pool
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAdvertisement(User $user = null, Pool $pool)
+    {
+        if ($pool->advertisement_status == ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED) {
+            return true;
+        }
+        return $user->isAdmin();
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
