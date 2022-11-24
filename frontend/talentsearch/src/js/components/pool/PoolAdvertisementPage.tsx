@@ -821,6 +821,20 @@ export const PoolAdvertisementPoster = ({
   );
 };
 
+const PoolNotFound = () => {
+  const intl = useIntl();
+
+  return (
+    <ThrowNotFound
+      message={intl.formatMessage({
+        defaultMessage: "Error, pool unable to be loaded",
+        id: "DcEinN",
+        description: "Error message, placeholder",
+      })}
+    />
+  );
+};
+
 type RouteParams = {
   poolId: Scalars["ID"];
 };
@@ -844,6 +858,10 @@ const PoolAdvertisementPage = () => {
     (candidate) => candidate?.pool.id === data.poolAdvertisement?.id,
   );
 
+  if (error) {
+    return <PoolNotFound />;
+  }
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolAdvertisement && isVisible ? (
@@ -853,13 +871,7 @@ const PoolAdvertisementPage = () => {
           hasApplied={notEmpty(application?.submittedAt)}
         />
       ) : (
-        <ThrowNotFound
-          message={intl.formatMessage({
-            defaultMessage: "Error, pool unable to be loaded",
-            id: "DcEinN",
-            description: "Error message, placeholder",
-          })}
-        />
+        <PoolNotFound />
       )}
     </Pending>
   );
