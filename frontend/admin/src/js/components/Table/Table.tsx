@@ -9,6 +9,8 @@ import {
   useSortBy,
   Column,
   usePagination,
+  TableHeaderProps,
+  HeaderGroup,
 } from "react-table";
 import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
@@ -77,6 +79,50 @@ const ButtonIcon: React.FC<{
       style={{ height: "1em", width: "1rem" }}
       data-h2-margin="base(0, x.5, 0, 0)"
     />
+  );
+};
+
+const getSortAttr = (isSorted: boolean, isSortedDesc?: boolean) => {
+  if (!isSorted) {
+    return undefined;
+  }
+
+  return isSortedDesc ? "descending" : "ascending";
+};
+
+interface HeaderWrapperProps<T extends object = {}> {
+  column: HeaderGroup<T>;
+  children: React.ReactNode;
+}
+
+const HeaderWrapper = <T extends object = {}>({
+  column,
+  children,
+}: HeaderWrapperProps<T>) => {
+  if (!column.canSort) {
+    return children as JSX.Element;
+  }
+
+  return (
+    <button
+      {...column.getSortByToggleProps({
+        title: undefined, // Title is unnecessary
+      })}
+      type="button"
+      data-h2-offset="base(0)"
+      data-h2-background-color="base(transparent) base:hover(dt-secondary.lightest) base:focus-visible(focus)"
+      data-h2-color="base(dt-white) base:hover(dt-black)"
+      data-h2-display="base(flex)"
+      data-h2-radius="base(s)"
+      data-h2-padding="base(x.25, x.5)"
+      data-h2-align-items="base(center)"
+      data-h2-text-align="base(left)"
+      data-h2-justify-content="base(space-between)"
+      data-h2-width="base(100%)"
+      data-h2-outline="base(none)"
+    >
+      {children}
+    </button>
   );
 };
 
@@ -237,28 +283,37 @@ function Table<T extends Record<string, unknown>>({
             data-h2-width="base(100%)"
             {...getTableProps()}
           >
+            <caption>
+              <span data-h2-visibility="base(invisible)">
+                {intl.formatMessage({
+                  defaultMessage: "Column headers with buttons are sortable",
+                  id: "/bwX1a",
+                  description:
+                    "Text displayed to instruct users how to sort table rows",
+                })}
+              </span>
+            </caption>
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
                     <th
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      {...column.getHeaderProps()}
                       key={column.id}
                       data-h2-background-color="base(dt-secondary.light)"
-                      data-h2-padding="base(x.5, x1)"
+                      data-h2-padding="base(x.15, x.2)"
+                      title={undefined}
+                      aria-sort={getSortAttr(
+                        column.isSorted,
+                        column.isSortedDesc,
+                      )}
                     >
-                      <span
-                        data-h2-color="base(dt-white)"
-                        data-h2-display="base(flex)"
-                        data-h2-padding="base(x.5, 0)"
-                        data-h2-align-items="base(center)"
-                        data-h2-text-align="base(left)"
-                      >
-                        <span>{column.render("Header")}</span>
+                      <HeaderWrapper column={column}>
+                        {column.render("Header")}
                         {column.isSorted && (
                           <SortIcon isSortedDesc={column.isSortedDesc} />
                         )}
-                      </span>
+                      </HeaderWrapper>
                     </th>
                   ))}
                 </tr>
