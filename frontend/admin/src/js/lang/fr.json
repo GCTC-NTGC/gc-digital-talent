@@ -2840,5 +2840,9 @@
   "z0QI6A": {
     "defaultMessage": "Tous les candidats du bassin",
     "description": "Title for the admin pool candidates table"
+  },
+  "/bwX1a": {
+    "defaultMessage": "Il est possible de trier les en-têtes de colonnes avec boutons",
+    "description": "Text displayed to instruct users how to sort table rows"
   }
 }
