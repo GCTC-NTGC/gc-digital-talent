@@ -338,8 +338,8 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
       <PoolStatusTable user={user} />
       <h5 data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
-          defaultMessage: "Add user to other pools",
-          id: "uL7iBo",
+          defaultMessage: "Add user to pool",
+          id: "jtEouE",
           description:
             "Title of the 'Add user to pools' section of the view-user page",
         })}
