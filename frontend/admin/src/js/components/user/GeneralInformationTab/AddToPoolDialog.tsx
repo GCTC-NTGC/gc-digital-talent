@@ -105,8 +105,8 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
       <Dialog.Content>
         <Dialog.Header color="ts-primary">
           {intl.formatMessage({
-            defaultMessage: "Add to different pool",
-            id: "CTWpfa",
+            defaultMessage: "Add user to pool",
+            id: "bqaNWT",
             description: "title for add to pool dialog on view-user page",
           })}
         </Dialog.Header>
