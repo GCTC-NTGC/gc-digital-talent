@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /login$
+Disallow: */admin
+Disallow: */logged-out
+Disallow: */create-application
+Disallow: */applications/*/submit
+Disallow: */applications/*/apply
+Disallow: */users
+Disallow: */profile
