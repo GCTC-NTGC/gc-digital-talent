@@ -840,7 +840,6 @@ type RouteParams = {
 };
 
 const PoolAdvertisementPage = () => {
-  const intl = useIntl();
   const { poolId } = useParams<RouteParams>();
   const auth = React.useContext(AuthorizationContext);
 
