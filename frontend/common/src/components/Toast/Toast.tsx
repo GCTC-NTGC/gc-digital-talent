@@ -74,12 +74,12 @@ export const toast = {
       icon: <ExclamationTriangleIcon {...iconStyles} />,
       ...options,
     }),
-  warning: (message: React.ReactNode, options: ToastOptions) =>
+  warning: (message: React.ReactNode, options?: ToastOptions) =>
     toastify.warning(<ToastMessage>{message}</ToastMessage>, {
       icon: <ExclamationCircleIcon {...iconStyles} />,
       ...options,
     }),
-  info: (message: React.ReactNode, options: ToastOptions) =>
+  info: (message: React.ReactNode, options?: ToastOptions) =>
     toastify.info(<ToastMessage>{message}</ToastMessage>, {
       icon: <EyeIcon {...iconStyles} />,
       ...options,
