@@ -19,7 +19,7 @@ query getPoolAdvertisement($id: ID!) {
     id
     poolCandidates {
       id
-      pool {
+      poolAdvertisement {
         id
       }
       submittedAt

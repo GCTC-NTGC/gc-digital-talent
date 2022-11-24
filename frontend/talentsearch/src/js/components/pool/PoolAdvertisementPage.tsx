@@ -841,7 +841,8 @@ const PoolAdvertisementPage = () => {
 
   // Attempt to find an application for this user+pool combination
   const application = data?.me?.poolCandidates?.find(
-    (candidate) => candidate?.pool.id === data.poolAdvertisement?.id,
+    (candidate) =>
+      candidate?.poolAdvertisement?.id === data.poolAdvertisement?.id,
   );
 
   return (
