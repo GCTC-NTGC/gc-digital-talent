@@ -1,3 +1,6 @@
+# enable rewrite logging for debugging
+error_log /var/log/nginx/error.log notice;
+# rewrite_log on;
 
 server {
     #proxy_cache cache;
@@ -8,7 +11,7 @@ server {
     listen [::]:8080;
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
-    #server_name talent.canada.ca www.talent.canada.ca;
+    #server_name localhost;
 
     # redirect server error pages
     error_page   404  /404;
@@ -23,12 +26,28 @@ server {
     location = /robots.txt {
         alias /home/site/wwwroot/infrastructure/conf/dev.robot.txt;
     }
-
     # Permanent redirects to avoid dead links
     location = /en/communities/digital-talent { return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html; }
     location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
 
+    # local auth
+    location ^~ /oxauth {
+        proxy_pass "http://mock-auth:8080";
+        # Header X-Forwarded-Proto tells mock-oauth2-proxy to use Host for
+        # urls in response from /oxauth/.well-known/openid-confifiguration
+        #
+        # See: https://github.com/navikt/mock-oauth2-server/pull/187
+        proxy_set_header X-Forwarded-Proto http;
+        proxy_set_header Host localhost:8000;
+        break;
+    }
+
     # api
+    location = /phpinfo.php {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/phpinfo.php;
+    }
     location = /graphql {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
@@ -69,11 +88,6 @@ server {
         rewrite "^(?:/[a-z]{2})?/?$" /frontend/talentsearch/dist/index.html break;
     }
 
-    # find the admin config in the writable home root
-    location = /admin/config.js {
-        alias /home/site/config-admin.js;
-    }
-
     # rewrite admin static files to "admin/dist"
     location ~ "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
         rewrite "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /frontend/admin/dist/$1 break;
@@ -82,11 +96,6 @@ server {
     # rewrite possible lang prefix then "admin" to admin index.html
     location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
         rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /frontend/admin/dist/index.html break;
-    }
-
-    # find the talentsearch config in the writable home root
-    location = /talent/config.js {
-        alias /home/site/config-talentsearch.js;
     }
 
     # rewrite talent static files to "talentsearch/dist"
@@ -147,11 +156,6 @@ server {
     # rewrite possible lang prefix then "login-info" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/login-info(/.*|$)" {
         rewrite "^(?:/[a-z]{2})?/login-info(/.*|$)" /frontend/talentsearch/dist/index.html break;
-    }
-
-    # find the indigenous-it-apprentice config in the writable home root
-    location = /indigenous-it-apprentice/config.js {
-        alias /home/site/config-indigenousapprenticeship.js;
     }
 
     # rewrite talent static files to "indigenousapprenticeship/dist"
