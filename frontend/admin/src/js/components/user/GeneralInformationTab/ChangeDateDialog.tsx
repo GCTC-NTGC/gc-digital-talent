@@ -7,7 +7,7 @@ import Button from "@common/components/Button";
 import { toast } from "@common/components/Toast";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { Input } from "@common/components/form";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
 import {
   PoolCandidate,
@@ -33,7 +33,7 @@ export const ChangeDateDialog: React.FC<ChangeDateDialogProps> = ({
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();
 
-  const [, executeMutation] = useUpdatePoolCandidateMutation();
+  const [{ fetching }, executeMutation] = useUpdatePoolCandidateMutation();
 
   const requestMutation = async (
     id: string,
@@ -158,20 +158,25 @@ export const ChangeDateDialog: React.FC<ChangeDateDialogProps> = ({
               </Dialog.Close>
 
               <Button
+                disabled={fetching}
                 type="submit"
                 mode="solid"
                 color="secondary"
                 data-h2-display="base(flex)"
                 data-h2-align-items="base(center)"
               >
-                <span data-h2-text-decoration="base(underline)">
-                  {intl.formatMessage({
-                    defaultMessage: "Change date",
-                    id: "gvomlw",
-                    description:
-                      "Confirmation button for change expiry date dialog",
-                  })}
-                </span>
+                {fetching ? (
+                  intl.formatMessage(commonMessages.saving)
+                ) : (
+                  <span data-h2-text-decoration="base(underline)">
+                    {intl.formatMessage({
+                      defaultMessage: "Change date",
+                      id: "gvomlw",
+                      description:
+                        "Confirmation button for change expiry date dialog",
+                    })}
+                  </span>
+                )}
               </Button>
             </Dialog.Footer>
           </form>

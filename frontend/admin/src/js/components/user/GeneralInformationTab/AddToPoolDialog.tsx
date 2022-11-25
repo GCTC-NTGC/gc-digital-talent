@@ -8,7 +8,7 @@ import { toast } from "@common/components/Toast";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { Input, Select } from "@common/components/form";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
 import {
   AdvertisementStatus,
@@ -37,7 +37,7 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();
 
-  const [, executeMutation] = useCreatePoolCandidateMutation();
+  const [{ fetching }, executeMutation] = useCreatePoolCandidateMutation();
 
   const currentPools: string[] = [];
   user.poolCandidates?.forEach((candidate) => {
@@ -206,19 +206,24 @@ export const AddToPoolDialog: React.FC<AddToPoolDialogProps> = ({
               </Dialog.Close>
 
               <Button
+                disabled={fetching}
                 type="submit"
                 mode="solid"
                 color="secondary"
                 data-h2-display="base(flex)"
                 data-h2-align-items="base(center)"
               >
-                <span data-h2-text-decoration="base(underline)">
-                  {intl.formatMessage({
-                    defaultMessage: "Add to new pool",
-                    id: "yypk6/",
-                    description: "Confirmation button for add to pool dialog",
-                  })}
-                </span>
+                {fetching ? (
+                  intl.formatMessage(commonMessages.saving)
+                ) : (
+                  <span data-h2-text-decoration="base(underline)">
+                    {intl.formatMessage({
+                      defaultMessage: "Add to new pool",
+                      id: "yypk6/",
+                      description: "Confirmation button for add to pool dialog",
+                    })}
+                  </span>
+                )}
               </Button>
             </Dialog.Footer>
           </form>
