@@ -3,6 +3,8 @@ error_log /var/log/nginx/error.log notice;
 # rewrite_log on;
 
 server {
+
+
     #proxy_cache cache;
     #proxy_cache_valid 200 1s;
 
@@ -15,6 +17,10 @@ server {
 
     # redirect server error pages
     error_page   404  /404;
+
+    location = /robots.txt {
+        try_files /app/conf/$ROBOTS_FILENAME =404;
+    }
 
     # Disable .git directory
     location ~ /\.git {

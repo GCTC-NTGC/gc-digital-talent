@@ -1,7 +1,4 @@
-map $http_host $robotfile {
-  default  /app/conf/uat.robot.txt;
-  talent.canada.ca /app/conf/prod.robot.txt;
-}
+
 server {
     #proxy_cache cache;
     #proxy_cache_valid 200 1s;
@@ -24,7 +21,7 @@ server {
     }
 
     location = /robots.txt {
-        try_files  /$robotfile =404;
+        try_files /app/conf/$ROBOTS_FILENAME =404;
     }
 
     # Permanent redirects to avoid dead links
