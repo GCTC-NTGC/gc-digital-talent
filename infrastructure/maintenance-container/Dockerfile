@@ -1,11 +1,11 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 # install apt packages
 # installing tzdata has an interactive prompt by default
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
   && apt-get install -y perl unzip wget curl \
-  && apt-get install -y php7.4 php-mbstring php-xml php-pgsql php-zip php-curl php-bcmath
+  && apt-get install -y php8.1 php-mbstring php-xml php-pgsql php-zip php-curl php-bcmath
 
 # install node from official image
 COPY --from=node:16.16.0 /usr/local/lib/node_modules /usr/local/lib/node_modules

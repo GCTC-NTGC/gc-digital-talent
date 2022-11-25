@@ -23,6 +23,7 @@ import {
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import Heading from "@common/components/Heading/Heading";
 
 import { useAdminRoutes } from "../../../adminRoutes";
 import {
@@ -160,13 +161,13 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
 
   return (
     <section data-h2-container="base(left, small, 0)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Update Pool",
           id: "H5EJq1",
           description: "Title displayed on the update a pool form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>

@@ -79,6 +79,7 @@ export const AssetSkillsSection = ({
             skills={skills}
             onUpdateSelectedSkills={handleChangeSelectedSkills}
             handleSave={handleSave}
+            headingLevel="h3"
             submitButtonText={intl.formatMessage({
               defaultMessage: "Save asset skills",
               id: "j4G/wv",

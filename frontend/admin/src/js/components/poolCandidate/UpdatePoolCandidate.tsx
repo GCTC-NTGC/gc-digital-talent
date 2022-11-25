@@ -12,6 +12,7 @@ import {
   MultiSelect,
   Checkbox,
 } from "@common/components/form";
+import Heading from "@common/components/Heading/Heading";
 import { notEmpty } from "@common/helpers/util";
 import {
   unpackIds,
@@ -173,27 +174,23 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
 
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Update Pool Candidate",
           id: "cy2UdP",
           description: "Title displayed on the update a user form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h3
-              data-h2-font-size="base(h4)"
-              data-h2-font-weight="base(300)"
-              data-h2-margin="base(x2, 0, x1, 0)"
-            >
+            <Heading level="h2" size="h4">
               {intl.formatMessage({
                 description: "Heading for the user information section",
                 defaultMessage: "User Information",
                 id: "mv+9jt",
               })}
-            </h3>
+            </Heading>
             <Input
               id="email"
               label={intl.formatMessage({
@@ -263,17 +260,13 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 label: intl.formatMessage(getLanguage(value)),
               }))}
             />
-            <h3
-              data-h2-font-size="base(h4)"
-              data-h2-font-weight="base(300)"
-              data-h2-margin="base(x2, 0, x1, 0)"
-            >
+            <Heading level="h2" size="h4">
               {intl.formatMessage({
                 description: "Heading for the candidate information section",
                 defaultMessage: "Candidate Information",
                 id: "1THfui",
               })}
-            </h3>
+            </Heading>
             <Input
               id="cmoIdentifier"
               label={intl.formatMessage({

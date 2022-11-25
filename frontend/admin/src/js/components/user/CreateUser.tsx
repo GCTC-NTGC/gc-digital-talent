@@ -9,6 +9,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
 import { emptyToNull, emptyToUndefined } from "@common/helpers/util";
+import Heading from "@common/components/Heading/Heading";
 
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -72,13 +73,13 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
 
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Create User",
           id: "/uqLeF",
           description: "Title displayed on the create a user form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
