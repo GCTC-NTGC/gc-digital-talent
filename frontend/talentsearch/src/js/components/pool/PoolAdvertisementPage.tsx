@@ -31,7 +31,7 @@ import {
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
-import { isUUID, notEmpty } from "@common/helpers/util";
+import { notEmpty } from "@common/helpers/util";
 import {
   formatClassificationString,
   getFullPoolAdvertisementTitle,
@@ -842,14 +842,12 @@ type RouteParams = {
 const PoolAdvertisementPage = () => {
   const { poolId } = useParams<RouteParams>();
   const auth = React.useContext(AuthorizationContext);
-  const isValidId = isUUID(poolId);
 
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId || "" },
-    pause: !isValidId, // Don't run query if we don't have a valid ID
   });
 
-  if (!isValidId) {
+  if (error) {
     return <PoolNotFound />;
   }
 

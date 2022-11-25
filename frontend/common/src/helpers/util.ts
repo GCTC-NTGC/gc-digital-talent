@@ -119,20 +119,3 @@ export const emptyToUndefined = (s: InputMaybe<string>): string | undefined =>
 export function uniqueItems<T>(arr: T[]): T[] {
   return Array.from(new Set(arr));
 }
-
-/**
- * Determines if a given string is a UUID
- *
- * @param id  string  ID to test
- * @returns   boolean If the string is a UUID
- */
-export function isUUID(id?: string): boolean {
-  // IDs from router can be undefined
-  if (!id) return false;
-
-  // Regular expression to check if string is a valid UUID
-  const regexExp =
-    /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
-
-  return regexExp.test(id);
-}
