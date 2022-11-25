@@ -54,11 +54,6 @@ const messages = defineMessages({
     id: "DdOEWx",
     description: "Message when name value not found",
   },
-  saving: {
-    defaultMessage: "Saving...",
-    id: "m0dcUu",
-    description: "Text displayed when a save operation is taking place",
-  },
 });
 
 export default messages;
