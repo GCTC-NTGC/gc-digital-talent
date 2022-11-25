@@ -81,7 +81,10 @@ const ButtonIcon: React.FC<{
   );
 };
 
-const getSortAttr = (isSorted: boolean, isSortedDesc?: boolean) => {
+const getSortAttr = (
+  isSorted: boolean,
+  isSortedDesc?: boolean,
+): React.AriaAttributes["aria-sort"] => {
   if (!isSorted) {
     return undefined;
   }
