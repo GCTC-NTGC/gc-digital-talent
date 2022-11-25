@@ -820,7 +820,7 @@ type Query {
   publishedPoolAdvertisements: [PoolAdvertisement!]!
     @all(model: "Pool", scopes: ["wasPublished"])
   poolByKey(key: String! @eq): Pool @find
-  pools: [Pool]! @all
+  pools: [Pool]! @all @can(ability: "viewAny")
   poolCandidate(id: ID! @eq): PoolCandidate
     @find
     @guard
