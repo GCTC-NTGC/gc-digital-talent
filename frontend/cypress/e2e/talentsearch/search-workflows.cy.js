@@ -27,6 +27,9 @@ describe("Talent Search Workflow Tests", () => {
     cy.findByRole("combobox", { name: /Classification/i }).select(1);
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
+    cy.findByRole("combobox", { name: /Stream/i }).select(1);
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,
     }).click();
