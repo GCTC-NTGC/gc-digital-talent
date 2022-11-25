@@ -5,7 +5,7 @@ import { PoolAdvertisement } from "@common/api/generated";
 import { Button } from "@common/components";
 import { FormProvider, useForm } from "react-hook-form";
 import { Input } from "@common/components/form";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
 import { convertDateTimeZone } from "@common/helpers/dateUtils";
 import { type UpdatePoolAdvertisementInput } from "../../../api/generated";
@@ -53,35 +53,11 @@ const ExtendDialog = ({
     },
   });
 
-  const { handleSubmit } = methods;
-  const Footer = React.useMemo(
-    () => (
-      <>
-        <div style={{ flexGrow: 2 } /* push other div to the right */}>
-          <Dialog.Close>
-            <Button mode="outline" color="secondary">
-              {intl.formatMessage({
-                defaultMessage: "Cancel and go back",
-                id: "tiF/jI",
-                description: "Close dialog button",
-              })}
-            </Button>
-          </Dialog.Close>
-        </div>
-        <div>
-          <Button mode="solid" color="secondary" type="submit">
-            {intl.formatMessage({
-              defaultMessage: "Extend closing date",
-              id: "OIk63O",
-              description:
-                "Button to extend the pool closing date in the extend pool closing date dialog",
-            })}
-          </Button>
-        </div>
-      </>
-    ),
-    [intl],
-  );
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
+
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
@@ -136,7 +112,36 @@ const ExtendDialog = ({
                 },
               }}
             />
-            <Dialog.Footer>{Footer}</Dialog.Footer>
+            <Dialog.Footer>
+              <div style={{ flexGrow: 2 } /* push other div to the right */}>
+                <Dialog.Close>
+                  <Button mode="outline" color="secondary">
+                    {intl.formatMessage({
+                      defaultMessage: "Cancel and go back",
+                      id: "tiF/jI",
+                      description: "Close dialog button",
+                    })}
+                  </Button>
+                </Dialog.Close>
+              </div>
+              <div>
+                <Button
+                  mode="solid"
+                  color="secondary"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage({
+                        defaultMessage: "Extend closing date",
+                        id: "OIk63O",
+                        description:
+                          "Button to extend the pool closing date in the extend pool closing date dialog",
+                      })}
+                </Button>
+              </div>
+            </Dialog.Footer>
           </form>
         </FormProvider>
       </Dialog.Content>
