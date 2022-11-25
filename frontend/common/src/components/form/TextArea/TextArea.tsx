@@ -70,6 +70,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
           onBlur={whitespaceTrimmer}
           aria-required={rules.required ? "true" : undefined}
           aria-invalid={error ? "true" : "false"}
+          aria-describedby={error ? `${id}-error` : undefined}
           {...rest}
         />
         {children}

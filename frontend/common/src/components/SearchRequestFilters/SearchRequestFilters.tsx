@@ -11,6 +11,8 @@ import {
   PoolCandidateFilter,
 } from "../../api/generated";
 import {
+  EmploymentDuration,
+  getEmploymentDuration,
   getLanguageAbility,
   getOperationalRequirement,
   getWorkRegion,
@@ -156,15 +158,10 @@ const ApplicantFilters: React.FC<{
 
   const employmentDuration: string | undefined =
     applicantFilter?.wouldAcceptTemporary
-      ? intl.formatMessage({
-          defaultMessage:
-            "Term duration (short term, long term, or indeterminate duration)",
-          id: "CO50a/",
-        })
-      : intl.formatMessage({
-          defaultMessage: "Term duration (permanent)",
-          id: "Ekwul3",
-        });
+      ? intl.formatMessage(getEmploymentDuration(EmploymentDuration.Term))
+      : intl.formatMessage(
+          getEmploymentDuration(EmploymentDuration.Indeterminate),
+        );
 
   const educationLevel: string | undefined = applicantFilter?.hasDiploma
     ? intl.formatMessage({

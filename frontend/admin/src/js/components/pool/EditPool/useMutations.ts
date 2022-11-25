@@ -32,11 +32,11 @@ const useMutations = () => {
     );
   };
 
-  const update = (
+  const update = async (
     id: string,
     poolAdvertisement: UpdatePoolAdvertisementInput,
   ) => {
-    executeUpdateMutation({ id, poolAdvertisement })
+    await executeUpdateMutation({ id, poolAdvertisement })
       .then((result) => {
         if (result.data?.updatePoolAdvertisement) {
           toast.success(

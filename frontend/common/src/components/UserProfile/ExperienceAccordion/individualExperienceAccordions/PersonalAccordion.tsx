@@ -3,8 +3,7 @@ import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
 import Accordion from "../../../Accordion";
 import { Link } from "../../..";
-import { getLocale } from "../../../../helpers/localize";
-import { getDateRange } from "../../../../helpers/dateUtils";
+import { getDateRange } from "../../accordionUtils";
 import { PersonalExperience } from "../../../../api/generated";
 import SkillList from "../SkillList";
 
@@ -53,13 +52,12 @@ type PersonalAccordionProps = PersonalExperience & {
 
 const PersonalAccordion = ({ editUrl, ...rest }: PersonalAccordionProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const { id, title, startDate, endDate, skills } = rest;
 
   return (
     <Accordion.Item value={id}>
       <Accordion.Trigger
-        subtitle={getDateRange({ endDate, startDate, intl, locale })}
+        subtitle={getDateRange({ endDate, startDate, intl })}
         context={
           skills?.length === 1
             ? intl.formatMessage({

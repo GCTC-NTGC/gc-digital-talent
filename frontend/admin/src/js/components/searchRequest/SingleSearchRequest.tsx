@@ -28,6 +28,7 @@ const ManagerInfo: React.FunctionComponent<{
     jobTitle,
     status,
     requestedDate,
+    doneDate,
     poolCandidateFilter,
     applicantFilter,
   } = searchRequest;
@@ -192,12 +193,20 @@ const ManagerInfo: React.FunctionComponent<{
                     description:
                       "Title for the date done block in the manager info section of the single search request view.",
                   })}
-                  content={intl.formatMessage({
-                    defaultMessage: "(Request is still pending)",
-                    id: "FxceQZ",
-                    description:
-                      "Text for when date done is pending in the manager info section of the single search request view.",
-                  })}
+                  content={
+                    doneDate
+                      ? formatDate({
+                          date: parseDateTimeUtc(doneDate),
+                          formatString: "PPP p",
+                          intl,
+                        })
+                      : intl.formatMessage({
+                          defaultMessage: "(Request is still pending)",
+                          id: "FxceQZ",
+                          description:
+                            "Text for when date done is pending in the manager info section of the single search request view.",
+                        })
+                  }
                 />
               </div>
             </div>

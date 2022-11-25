@@ -3,6 +3,11 @@ import { isLocale, localeRedirect, Locales } from "../../helpers/localize";
 
 export const STORED_LOCALE = "stored_locale";
 
+function getPathLocale(pathname: string): Locales | null {
+  const pathLocale = pathname.split("/")[1]; // Note: for an absolute path which starts with /, the first element is an empty string.
+  return isLocale(pathLocale) ? pathLocale : null;
+}
+
 const guessLocale = (): Locales => {
   const locale: string | undefined =
     // Check for stored locale in localStorage.
@@ -38,22 +43,27 @@ interface LocaleContainerProps {
 }
 
 const LocaleContainer = ({ children }: LocaleContainerProps) => {
-  const guessedLocale = guessLocale();
-  const [locale, setLocale] = React.useState<Locales>(guessedLocale);
-  const pathSegments = window.location.pathname.split("/");
-  const pathLocale = pathSegments[1]; // Leading slash leads to first item being empty
+  const pathLocale = getPathLocale(window.location.pathname);
+  const desiredLocale = pathLocale || guessLocale(); // figure it out from the path, storage, or browser
+  const [locale, setLocale] = React.useState<Locales>(desiredLocale);
 
   React.useEffect(() => {
-    // Redirect to initial locale if it doesn't exist in path
-    if (!isLocale(pathLocale)) {
+    // Do a locale redirect if the locale doesn't exist in path yet
+    if (!pathLocale) {
       localeRedirect(locale);
     }
 
-    if (locale !== guessedLocale) {
+    // If storage is not up to date, set it now
+    const storedLocale = localStorage.getItem(STORED_LOCALE);
+    if (storedLocale !== locale) {
       localStorage.setItem(STORED_LOCALE, locale);
+    }
+
+    // Do a locale redirect if the current locale is not what it should be
+    if (locale !== desiredLocale) {
       localeRedirect(locale);
     }
-  }, [locale, guessedLocale, pathLocale]);
+  }, [locale, desiredLocale, pathLocale]);
 
   const state = React.useMemo(() => {
     return {

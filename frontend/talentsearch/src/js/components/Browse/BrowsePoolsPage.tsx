@@ -39,6 +39,7 @@ const getFlourishStyles = (isTop: boolean) => ({
   "data-h2-position": "base(absolute)",
   "data-h2-width": "base(25vw)",
   "data-h2-offset": isTop ? "base(0, 0, auto, auto)" : "base(auto, auto, 0, 0)",
+  "data-h2-z-index": "base(-1)",
 });
 
 export interface BrowsePoolsProps {

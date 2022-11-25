@@ -1548,6 +1548,10 @@
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants. Les conseillers principaux en TI se retrouvent principalement dans six volets de travail :",
     "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
   },
+  "VQWGkh": {
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
+    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
+  },
   "HPDqDV": {
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>.",
     "description": "Message for the completed english bilingual evaluation option"
@@ -1568,7 +1572,7 @@
     "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",
     "description": "Message for the intermediate language ability option"
   },
-  "n7UXz5": {
+  "Eubngf": {
     "defaultMessage": "Cette plateforme met l'accent sur l'embauche de talents numériques pour travailler dans des postes classifiés comme TI (technologie de l'information). Examinez les niveaux suivants dans la classification TI et <strong>sélectionnez uniquement</strong> ceux qui représentent le travail que vous voulez faire.",
     "description": "Blurb describing the purpose of the form"
   },
@@ -1592,8 +1596,8 @@
     "defaultMessage": "Compétences techniques",
     "description": "Button text for the technical skills tab on skills filter"
   },
-  "/Gu4zR": {
-    "defaultMessage": "Expérience postsecondaire de deux ans",
+  "U6IroF": {
+    "defaultMessage": "Études postsecondaires de deux ans",
     "description": "Title for pool applicant education requirements"
   },
   "0FjYi+": {
@@ -2644,10 +2648,6 @@
     "defaultMessage": "Compétences sélectionnées ({skillCount})",
     "description": "Skills selected and then a number in parentheses"
   },
-  "S/n44h": {
-    "defaultMessage": "Sélectionner...",
-    "description": "Support form subject field default placeholder shown when field has nothing actively selected"
-  },
   "07BM9O": {
     "defaultMessage": "Inscrivez-vous<hidden> au programme d’apprentissage destiné aux Autochtones</hidden> maintenant",
     "description": "Link text to go to IAP homepage on Browse IT jobs page"
@@ -2827,5 +2827,25 @@
   "jslBEY": {
     "defaultMessage": "Profile de {name}",
     "description": "Title for a specific users profile page"
+  },
+  "QJ5uDV": {
+    "defaultMessage": "Sélectionnez un volet",
+    "description": "Placeholder for stream filter in search form."
+  },
+  "qYWmzA": {
+    "defaultMessage": "Volet",
+    "description": "Label for stream filter in search form."
+  },
+  "R75HsV": {
+    "defaultMessage": "Aidez-nous à vous apparier avec les meilleurs candidats en partageant de plus amples renseignements avec notre équipe sur les compétences particulières dont vous recherchez.",
+    "description": "Describing the purpose of the skill filters on the Search page."
+  },
+  "eFvsOG": {
+    "defaultMessage": "Sélection des compétences",
+    "description": "Title for the skill filters on search page."
+  },
+  "ugosop": {
+    "defaultMessage": "Continuer ma candidature",
+    "description": "Link text to continue an existing application"
   }
 }

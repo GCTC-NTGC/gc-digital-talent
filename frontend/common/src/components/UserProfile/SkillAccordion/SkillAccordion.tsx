@@ -10,7 +10,7 @@ import {
   getEducationType,
 } from "../../../constants/localizedConstants";
 
-import { getDateRange, formattedDate } from "../../../helpers/dateUtils";
+import { getDateRange, formattedDate } from "../accordionUtils";
 import {
   Skill,
   PersonalExperience,
@@ -45,7 +45,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
       <>
         <p data-h2-color="base(dt-primary)">{title}</p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl, locale })}
+          {getDateRange({ endDate, startDate, intl })}
         </p>
         <p> {description} </p>
         <p>{skill.experienceSkillRecord?.details}</p>
@@ -80,7 +80,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl, locale })}
+          {getDateRange({ endDate, startDate, intl })}
         </p>
         <p>
           {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
@@ -125,7 +125,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {awardedDate && formattedDate(awardedDate, locale)}
+          {awardedDate && formattedDate(awardedDate, intl)}
         </p>
         <p>
           {intl.formatMessage({
@@ -179,7 +179,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl, locale })}
+          {getDateRange({ endDate, startDate, intl })}
         </p>
         <p>
           {intl.formatMessage(
@@ -225,7 +225,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl, locale })}
+          {getDateRange({ endDate, startDate, intl })}
         </p>
         <p>{division}</p>
         <p>{skill.experienceSkillRecord?.details}</p>
