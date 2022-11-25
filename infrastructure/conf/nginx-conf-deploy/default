@@ -21,7 +21,7 @@ server {
     }
 
     location = /robots.txt {
-        try_files /app/conf/$ROBOTS_FILENAME =404;
+        alias /home/site/wwwroot/infrastructure/conf/$ROBOTS_FILENAME;
     }
 
     # Permanent redirects to avoid dead links
