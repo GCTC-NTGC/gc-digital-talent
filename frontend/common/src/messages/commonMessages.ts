@@ -6,6 +6,11 @@ const messages = defineMessages({
     id: "B7fcr5",
     description: "Title displayed for a table initial loading state.",
   },
+  saving: {
+    defaultMessage: "Saving...",
+    id: "Tw90Pi",
+    description: "Submitting text for save button.",
+  },
   loadingError: {
     defaultMessage: "Oh no...",
     id: "AvBSV+",

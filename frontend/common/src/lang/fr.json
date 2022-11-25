@@ -2031,5 +2031,9 @@
   "2iCpAL": {
     "defaultMessage": "Énoncé sur l’accessibilité",
     "description": "Title for the websites accessibility statement"
+  },
+  "Tw90Pi": {
+    "defaultMessage": "Enregistrement...",
+    "description": "Submitting text for save button."
   }
 }
