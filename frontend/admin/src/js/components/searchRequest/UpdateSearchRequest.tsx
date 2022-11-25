@@ -8,6 +8,7 @@ import { Button } from "@common/components";
 import { Submit, TextArea } from "@common/components/form";
 import { toast } from "@common/components/Toast";
 
+import { commonMessages } from "@common/messages";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   PoolCandidateSearchStatus,
@@ -29,6 +30,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
   UpdateSearchRequestFormProps
 > = ({ initialSearchRequest, handleUpdateSearchRequest }) => {
   const intl = useIntl();
+  const [isSaving, setIsSaving] = React.useState<boolean>(false);
   const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>({
@@ -39,6 +41,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
   const handleSaveNotes: SubmitHandler<FormValues> = async (
     data: FormValues,
   ) => {
+    setIsSaving(true);
     return handleUpdateSearchRequest(initialSearchRequest.id, {
       adminNotes: data.adminNotes,
     })
@@ -61,6 +64,9 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
               "Message displayed to user after the personal notes fail to save on the single search request page.",
           }),
         );
+      })
+      .finally(() => {
+        setIsSaving(false);
       });
   };
 
@@ -129,16 +135,19 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
                 <Button
                   color="primary"
                   mode="outline"
+                  disabled={isSaving}
                   onClick={() => {
                     handleSaveNotes(getValues());
                   }}
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Save Notes",
-                    id: "DRsBYY",
-                    description:
-                      "Button label displayed on the search request form which saves the users personal notes.",
-                  })}
+                  {isSaving
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage({
+                        defaultMessage: "Save Notes",
+                        id: "DRsBYY",
+                        description:
+                          "Button label displayed on the search request form which saves the users personal notes.",
+                      })}
                 </Button>
               </div>
             </div>
