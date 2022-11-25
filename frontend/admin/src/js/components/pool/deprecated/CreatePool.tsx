@@ -21,6 +21,7 @@ import {
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
+import Heading from "@common/components/Heading/Heading";
 
 import { useAdminRoutes } from "../../../adminRoutes";
 import {
@@ -135,13 +136,13 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 
   return (
     <section data-h2-container="base(left, small, 0)">
-      <h2 data-h2-font-weight="base(700)" data-h2-margin="base(x3, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Create Pool",
           id: "ekKb+G",
           description: "Title displayed on the create a pool form.",
         })}
-      </h2>
+      </Heading>
       <div data-h2-margin="base(x2, 0, 0, 0)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>

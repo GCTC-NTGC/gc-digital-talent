@@ -21,7 +21,6 @@ import { getLocale } from "@common/helpers/localize";
 import imageUrl from "@common/helpers/imageUrl";
 import {
   AdvertisementStatus,
-  PoolCandidate,
   Scalars,
   SkillCategory,
 } from "@common/api/generated";
@@ -38,7 +37,7 @@ import {
   getFullPoolAdvertisementTitle,
 } from "@common/helpers/poolUtils";
 import { AuthorizationContext } from "@common/components/Auth";
-import { useGetPoolAdvertisementQuery, Maybe } from "../../api/generated";
+import { useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
 import TALENTSEARCH_APP_DIR, {
@@ -46,7 +45,7 @@ import TALENTSEARCH_APP_DIR, {
 } from "../../talentSearchConstants";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
-import { hasUserApplied, isAdvertisementVisible } from "./utils";
+import { isAdvertisementVisible } from "./utils";
 
 interface ApplyButtonProps {
   poolId: Scalars["ID"];
@@ -67,6 +66,30 @@ const ApplyButton = ({ poolId }: ApplyButtonProps) => {
         defaultMessage: "Apply for this process",
         id: "W2YIEA",
         description: "Link text to apply for a pool advertisement",
+      })}
+    </Link>
+  );
+};
+
+interface ContinueButtonProps {
+  applicationId: Scalars["ID"];
+}
+
+const ContinueButton = ({ applicationId }: ContinueButtonProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+
+  return (
+    <Link
+      type="button"
+      mode="solid"
+      color="primary"
+      href={paths.reviewApplication(applicationId)}
+    >
+      {intl.formatMessage({
+        defaultMessage: "Continue my application",
+        id: "ugosop",
+        description: "Link text to continue an existing application",
       })}
     </Link>
   );
@@ -116,11 +139,13 @@ const anchorTag = (chunks: React.ReactNode): React.ReactNode => (
 
 interface PoolAdvertisementProps {
   poolAdvertisement: PoolAdvertisement;
+  applicationId?: Scalars["ID"];
   hasApplied?: boolean;
 }
 
 export const PoolAdvertisementPoster = ({
   poolAdvertisement,
+  applicationId,
   hasApplied,
 }: PoolAdvertisementProps) => {
   const intl = useIntl();
@@ -162,11 +187,14 @@ export const PoolAdvertisementPoster = ({
     poolAdvertisement.nonessentialSkills,
   );
 
-  const applyBtn = hasApplied ? (
-    <AlreadyAppliedButton />
-  ) : (
-    <ApplyButton poolId={poolAdvertisement.id} />
-  );
+  let applyBtn = <ApplyButton poolId={poolAdvertisement.id} />;
+  if (applicationId) {
+    applyBtn = !hasApplied ? (
+      <ContinueButton applicationId={applicationId} />
+    ) : (
+      <AlreadyAppliedButton />
+    );
+  }
 
   const links = [
     {
@@ -624,8 +652,8 @@ export const PoolAdvertisementPoster = ({
                 style={{ width: "100%" }}
                 color="ts-secondary"
                 title={intl.formatMessage({
-                  defaultMessage: "2-Year Post-secondary Experience",
-                  id: "/Gu4zR",
+                  defaultMessage: "2-Year Post-secondary Education",
+                  id: "U6IroF",
                   description:
                     "Title for pool applicant education requirements",
                 })}
@@ -811,10 +839,9 @@ const PoolAdvertisementPage = () => {
     data?.poolAdvertisement?.advertisementStatus ?? null,
   );
 
-  // grab pool candidates of Me, then check whether a pool candidate exists that matches the advertisement AND is submitted
-  const hasApplied = hasUserApplied(
-    (data?.me?.poolCandidates as Maybe<PoolCandidate>[]) || [],
-    data?.poolAdvertisement?.id,
+  // Attempt to find an application for this user+pool combination
+  const application = data?.me?.poolCandidates?.find(
+    (candidate) => candidate?.pool.id === data.poolAdvertisement?.id,
   );
 
   return (
@@ -822,7 +849,8 @@ const PoolAdvertisementPage = () => {
       {data?.poolAdvertisement && isVisible ? (
         <PoolAdvertisementPoster
           poolAdvertisement={data?.poolAdvertisement}
-          hasApplied={hasApplied}
+          applicationId={application?.id}
+          hasApplied={notEmpty(application?.submittedAt)}
         />
       ) : (
         <ThrowNotFound

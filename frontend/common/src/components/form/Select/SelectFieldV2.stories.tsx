@@ -14,7 +14,7 @@ export default {
       return (
         <BasicForm
           onSubmit={action("Submit Form")}
-          options={{ defaultValues: { department: "" } }}
+          options={{ defaultValues: { department: null } }}
         >
           {/* See: https://github.com/storybookjs/storybook/issues/12596#issuecomment-723440097 */}
           {Story() /* Can't use <Story /> for inline decorator. */}
@@ -39,6 +39,12 @@ Default.args = {
     { value: 2, label: "TBS" },
     { value: 3, label: "DND" },
   ],
+};
+
+export const TrackUnsavedFalse = Template.bind({});
+TrackUnsavedFalse.args = {
+  ...Default.args,
+  trackUnsaved: false,
 };
 
 export const Required = Template.bind({});

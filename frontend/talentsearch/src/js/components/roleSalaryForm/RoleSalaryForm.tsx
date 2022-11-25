@@ -196,8 +196,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
         <p data-h2-margin="base(0, 0, x2, 0)">
           {intl.formatMessage({
             defaultMessage:
-              "This platform is focused on hiring digital talent to work in positions classified as IT(Information Technology). Look at the following levels within the IT classification and <strong>select only</strong> the ones that represent the work you want to do.",
-            id: "n7UXz5",
+              "This platform is focused on hiring digital talent to work in positions classified as IT (Information Technology). Look at the following levels within the IT classification and <strong>select only</strong> the ones that represent the work you want to do.",
+            id: "Eubngf",
             description: "Blurb describing the purpose of the form",
           })}
         </p>
