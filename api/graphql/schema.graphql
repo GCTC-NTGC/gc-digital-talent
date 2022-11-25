@@ -287,6 +287,8 @@ enum PoolStream {
 
 type PoolAdvertisement {
   id: ID!
+  key: KeyString
+  owner: UserPublicProfile @belongsTo(relation: "user")
   expiryDate: DateTime @rename(attribute: "expiry_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   name: LocalizedString
