@@ -102,10 +102,6 @@
     "defaultMessage": "Avis",
     "description": "Label for the terms and conditions link in the Footer."
   },
-  "mZMdKM": {
-    "defaultMessage": "Soumettre des commentaires au Nuage de talents du GC par courriel.",
-    "description": "Title for the feedback link in the Footer."
-  },
   "h3lIyO": {
     "defaultMessage": "Français",
     "description": "The language French."
@@ -142,10 +138,6 @@
     "defaultMessage": "Région de l’Atlantique",
     "description": "The work region of Canada described as Atlantic."
   },
-  "9iOaI4": {
-    "defaultMessage": "Plus intéressé",
-    "description": "The pool candidate's status is No Longer Interested."
-  },
   "IANM2P": {
     "defaultMessage": "Période indéterminée",
     "description": "The pool candidate's status is Placed Indeterminate."
@@ -173,10 +165,6 @@
   "wCft6M": {
     "defaultMessage": "Colombie Britannique",
     "description": "The work region of Canada described as British Columbia."
-  },
-  "z9Gr7V": {
-    "defaultMessage": "Accessibles",
-    "description": "The pool candidate's status is Available."
   },
   "2eBm5y": {
     "defaultMessage": "Terminé avec succès (titre de compétence accordé)",
@@ -268,9 +256,6 @@
     "defaultMessage": "Autre",
     "description": "Other selection for education type input"
   },
-  "hello": {
-    "defaultMessage": "Bonjour"
-  },
   "jS69se": {
     "defaultMessage": "Certification",
     "description": "Certification selection for education type input"
@@ -355,10 +340,6 @@
     "defaultMessage": "Expiré",
     "description": "The pool candidate's status is Expired."
   },
-  "cQnjsM": {
-    "defaultMessage": "Non Disponible",
-    "description": "The pool candidate's status is Unavailable."
-  },
   "+O6J4u": {
     "defaultMessage": "(Aucun sélectionné)",
     "description": "Text shown when the filter was not selected"
@@ -410,9 +391,6 @@
   "4BpFoX": {
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
-  },
-  "4CrCbD": {
-    "defaultMessage": "Communauté"
   },
   "4Xa7Pd": {
     "defaultMessage": "Aucune information n'a été fournie",
@@ -522,9 +500,6 @@
     "defaultMessage": "Chargement...",
     "description": "Message to display when a page is loading."
   },
-  "GcPFLS": {
-    "defaultMessage": "Travail"
-  },
   "HalXgi": {
     "defaultMessage": "Nouvelle-Écosse",
     "description": "Nova Scotia selection for province or territory input"
@@ -532,10 +507,6 @@
   "JerysR": {
     "defaultMessage": "Par compétences",
     "description": "Tab title for experiences sorted by skills in applicant profile."
-  },
-  "KFGBmb": {
-    "defaultMessage": "Octroyé à :",
-    "description": "The award was given to"
   },
   "MGqCaE": {
     "defaultMessage": "Demandeur",
@@ -553,16 +524,9 @@
     "defaultMessage": "Niveau 3 : Chef d'équipe",
     "description": "The name of the Team leader Analyst role."
   },
-  "NDx+B0": {
-    "defaultMessage": "Personnel"
-  },
   "Nc4sjC": {
     "defaultMessage": "Renseignements gouvernementaux",
     "description": "Title of the Government Information link section"
-  },
-  "OocJKH": {
-    "defaultMessage": "Portée :",
-    "description": "The scope of the award given"
   },
   "OvJwG6": {
     "defaultMessage": "Renseignements supplémentaires : {details}",
@@ -579,10 +543,6 @@
   "P6PD/I": {
     "defaultMessage": "Manitoba",
     "description": "Manitoba selection for province or territory input"
-  },
-  "PJhCQn": {
-    "defaultMessage": "à {institution}",
-    "description": "Study at institution"
   },
   "QdXUwo": {
     "defaultMessage": "Aller à la page :",
@@ -603,13 +563,6 @@
   "SCCX7B": {
     "defaultMessage": "Vous n'avez pas encore ajouté de renseignements ici.",
     "description": "Message for when no data exists for the section"
-  },
-  "SEZweh": {
-    "defaultMessage": "Prix"
-  },
-  "SZZeHq": {
-    "defaultMessage": "Non",
-    "description": "No, did not completed a language evaluation"
   },
   "SvcqPG": {
     "defaultMessage": "Alberta",
@@ -687,10 +640,6 @@
     "defaultMessage": "Langue de communication préférée :",
     "description": "Preferred Language for communication purposes label and colon"
   },
-  "cIHjFT": {
-    "defaultMessage": "Ministère : <strong>{department}</strong>",
-    "description": "Message to state what department user is in."
-  },
   "dQseX7": {
     "defaultMessage": "1 expérience",
     "description": "Pluralization for one experience"
@@ -750,9 +699,6 @@
   "jhImZp": {
     "defaultMessage": "Activer ou désactiver le contexte",
     "description": "Label to toggle the context description of an input."
-  },
-  "jtygmI": {
-    "defaultMessage": "Éducation"
   },
   "kjX7mF": {
     "defaultMessage": "Aucune information n'a été fournie.",
@@ -1002,17 +948,9 @@
     "defaultMessage": "<strong>Inactif</strong> – Je ne veux pas être contacté pour trouver des possibilités d'emploi",
     "description": "Job Looking Status described as Inactive."
   },
-  "FRyIG2": {
-    "defaultMessage": "Vous devez saisir un terme de recherche avant d'appuyer sur la touche « Entrée »",
-    "description": "Error message displayed when the search term length is less then 2 characters."
-  },
   "W6Jh6N": {
     "defaultMessage": "Retirer cette compétence<hidden> : {skillName}</hidden>",
     "description": "Button label to remove the adjacent skill on skill result block."
-  },
-  "JY6WhU": {
-    "defaultMessage": "Rechercher une compétence précise...",
-    "description": "Label for the skills search bar."
   },
   "PF4ya+": {
     "defaultMessage": "p. ex. Python, JavaScript, etc.",
@@ -1150,10 +1088,6 @@
     "defaultMessage": "Clôture demain à {time}",
     "description": "Text displayed when relative date is tomorrow."
   },
-  "GuMTqQ": {
-    "defaultMessage": "Familles de compétences",
-    "description": "Radio group legend for a list of skill families"
-  },
   "GzVxoB": {
     "defaultMessage": "<strong>Virtuel : </strong>Travaillez de chez vous, partout au Canada.",
     "description": "The work region of Canada described as Telework."
@@ -1161,10 +1095,6 @@
   "IW/eej": {
     "defaultMessage": "« Je m’identifie comme une femme »",
     "description": "Statement for when someone indicates they are a woman"
-  },
-  "IfCvm5": {
-    "defaultMessage": "{fieldLabel}: Ce champ est obligatoire",
-    "description": "Error message that this field must filled for the form to be valid."
   },
   "L9AGk7": {
     "defaultMessage": "Modifiez vos options à propos de moi.",
@@ -1202,10 +1132,6 @@
     "defaultMessage": "Personne handicapée",
     "description": "Group for when someone indicates they have a disability"
   },
-  "RBHmM6": {
-    "defaultMessage": "Autres compétences « utiles à avoir » que vous pourriez envisager d'ajouter à votre profil :",
-    "description": "Text that appears when a user is missing optional skills on their profile"
-  },
   "RQGy+0": {
     "defaultMessage": "Publiée",
     "description": "Published pool advertisement status"
@@ -1241,10 +1167,6 @@
   "b02Azd": {
     "defaultMessage": "IT-04 (gestionnaire)",
     "description": "The name of the Senior advisor classification with group and level."
-  },
-  "bOch3v": {
-    "defaultMessage": "Les compétences suivantes « exigence » <red>required</red> sont manquantes dans votre profil :",
-    "description": "Text that appears when a user is missing required skills on their profile"
   },
   "c39xT8": {
     "defaultMessage": "Modifier les options de votre expérience.",
@@ -1309,10 +1231,6 @@
   "s4y1nI": {
     "defaultMessage": "« Je m'identifie comme membre d'une minorité visible »",
     "description": "Statement for when someone indicates they are a visible minority"
-  },
-  "vO/SlS": {
-    "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (dernière minute)",
-    "description": "The operational requirement described as short notice overtime."
   },
   "wFZLxf": {
     "defaultMessage": "IT-03 (chef d'équipe)",
@@ -1398,10 +1316,6 @@
     "defaultMessage": "Aucune définition fournie<hidden> pour {skillName}</hidden>",
     "description": "Message displayed when a skill has no definition"
   },
-  "hm95fj": {
-    "defaultMessage": "Chercher par mot-clé",
-    "description": "A label to show that this tab for searching by keyword"
-  },
   "c4r/Zv": {
     "defaultMessage": "Aucune compétence n’a été liée à cette expérience jusqu’à présent.",
     "description": "A message explaining that the experience has no associated skills"
@@ -1438,10 +1352,6 @@
     "defaultMessage": "Chercher les compétences par mot-clé",
     "description": "Label for the skills search bar."
   },
-  "SwsGvU": {
-    "defaultMessage": "Filtrer les compétences par type",
-    "description": "Label for the skills families dropdown"
-  },
   "2Ckihd": {
     "defaultMessage": "Trouvé <primary>{skillCount}</primary> compétences.",
     "description": "The number of skills found within the skill picker."
@@ -1474,10 +1384,6 @@
     "defaultMessage": "Simple",
     "description": "Sélection simple pour le type d’employé du gouvernement."
   },
-  "3GT1s/": {
-    "defaultMessage": "Vous devez avoir au moins une compétence essentielle.",
-    "description": "Error message that at least one essential skill must be selected."
-  },
   "48qVi9": {
     "defaultMessage": "Autre",
     "description": "user is neither a citizen or permanent resident of Canada"
@@ -1490,19 +1396,9 @@
     "defaultMessage": "Statut de citoyenneté:",
     "description": "Citizenship status label"
   },
-  "BiSzNu": {
-    "defaultMessage": "Compétences sélectionnées ({skillCount})",
-    "description": "A title for a skill list"
-  },
-  "CO50a/": {
-    "defaultMessage": "Durée (court terme, long terme ou durée indéterminée)"
-  },
   "CX/qKY": {
     "defaultMessage": "à {institution}",
     "description": "Study at institution"
-  },
-  "Ekwul3": {
-    "defaultMessage": "Durée (permanente)"
   },
   "FEfWEH": {
     "defaultMessage": "Ébauche",
@@ -1528,10 +1424,6 @@
     "defaultMessage": "Portée:",
     "description": "The scope of the award given"
   },
-  "J3779Q": {
-    "defaultMessage": "Groupes de compétences",
-    "description": "A title for a list of skill families"
-  },
   "JHgARn": {
     "defaultMessage": "Vous avez dépassé la limite de mots, {wordLimit}.",
     "description": "Text read out to assistive technology when over the word limit."
@@ -1539,10 +1431,6 @@
   "K80psp": {
     "defaultMessage": "Autre",
     "description": "Priority text for users with no priority"
-  },
-  "LfNNe4": {
-    "defaultMessage": "Par mot-clé",
-    "description": "Tab name for a box to search for skills"
   },
   "LjkK5G": {
     "defaultMessage": "Compétences comportementales",
@@ -1568,10 +1456,6 @@
     "defaultMessage": "Nouvelle candidature",
     "description": "The pool candidate's status is New Application."
   },
-  "OtOIXG": {
-    "defaultMessage": "déjà archivé",
-    "description": "Error message that the given model is already archived."
-  },
   "PmMr9l": {
     "defaultMessage": "Durée de l’emploi",
     "description": "Title for work language on summary of filters section"
@@ -1595,10 +1479,6 @@
   "S9BRBL": {
     "defaultMessage": "Durée (court terme, long terme)",
     "description": "Duration of a non-permanent length"
-  },
-  "Sx/Pzn": {
-    "defaultMessage": "Toutes les compétences comportementales",
-    "description": "The option label for 'no filter' on the list of behavioural skills"
   },
   "T49QiO": {
     "defaultMessage": "Type d’emploi :",
@@ -1640,10 +1520,6 @@
     "defaultMessage": "Ébauche expirée",
     "description": "The pool candidate's status is Expired Draft."
   },
-  "bhuMGL": {
-    "defaultMessage": "Vous devez saisir advertisement_location si l’annonce n’est pas à distance.",
-    "description": "Error message that the pool advertisement must have a location if it is not for remote work."
-  },
   "dnGlXQ": {
     "defaultMessage": "Accepté",
     "description": "The pool candidate's status is Screened In."
@@ -1668,14 +1544,6 @@
     "defaultMessage": "Compétences techniques",
     "description": "Tab name for a list of technical skills"
   },
-  "l0IDWf": {
-    "defaultMessage": "Résultats ({skillCount})",
-    "description": "A title for a skill list of results"
-  },
-  "l8p1el": {
-    "defaultMessage": "Cet identifiant d’utilisateur (sub) est déjà utilisé",
-    "description": "Error message that the given user identifier is already in use."
-  },
   "lr2+2R": {
     "defaultMessage": "Autre",
     "description": "declaring one to be neither a citizen or permanent resident of Canada"
@@ -1692,17 +1560,9 @@
     "defaultMessage": "Aucun nom fourni",
     "description": "Fallback for name value"
   },
-  "nDaEgr": {
-    "defaultMessage": "Cette adresse courriel est déjà utilisée",
-    "description": "Error message that the given email address is already in use."
-  },
   "nV57as": {
     "defaultMessage": "Département :",
     "description": "Label for applicants department"
-  },
-  "nr62lc": {
-    "defaultMessage": "Résultats ({skillCount})",
-    "description": "Un titre pour une liste de résultats"
   },
   "oMyc4e": {
     "defaultMessage": "Citoyen ou résident",
@@ -1728,10 +1588,6 @@
     "defaultMessage": "Durée indéterminée (permanente)",
     "description": "Duration that is permanent"
   },
-  "s4DN3G": {
-    "defaultMessage": "Résultats des compétences générales",
-    "description": "Accessibility label for a result set of skills, filtered to mainstream skills"
-  },
   "sfr5Pa": {
     "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui.",
     "description": "Error message that the given skill expiry date must be after today."
@@ -1756,10 +1612,6 @@
     "defaultMessage": "Ce champ ne peut pas utiliser de dates dans le futur.",
     "description": "Error message that the date cannot be in the future."
   },
-  "vZgTKh": {
-    "defaultMessage": "Toutes les compétences techniques",
-    "description": "The option label for 'no filter' on the list of occupational skills"
-  },
   "vgxxk0": {
     "defaultMessage": "Vétéran",
     "description": "user is a CAF veteran"
@@ -1767,10 +1619,6 @@
   "w2Jpt8": {
     "defaultMessage": "Étudiant",
     "description": "Simple student selection for government employee type."
-  },
-  "wziEOM": {
-    "defaultMessage": "résultats des compétences de recherche par mot-clé",
-    "description": "Accessibility label for a result set of skills, searched by keyword"
   },
   "x0FRH/": {
     "defaultMessage": "Je n’ai pas de droit de priorité",
@@ -1805,20 +1653,20 @@
     "description": "Heading for personal experiences in experience by type listing"
   },
   "iWD2Pz": {
-      "defaultMessage": "Expériences de la collectivité",
-      "description": "Heading for community experiences in experience by type listing"
+    "defaultMessage": "Expériences de la collectivité",
+    "description": "Heading for community experiences in experience by type listing"
   },
   "aBSEkP": {
-      "defaultMessage": "Expériences de travail",
-      "description": "Heading for personal experiences in experience by type listing"
+    "defaultMessage": "Expériences de travail",
+    "description": "Heading for personal experiences in experience by type listing"
   },
   "pV96Xv": {
-      "defaultMessage": "Expériences scolaires",
-      "description": "Heading for education experiences in experience by type listing"
+    "defaultMessage": "Expériences scolaires",
+    "description": "Heading for education experiences in experience by type listing"
   },
   "X0YPib": {
-      "defaultMessage": "Expériences relatives aux prix",
-      "description": "Heading for award experiences in experience by type listing"
+    "defaultMessage": "Expériences relatives aux prix",
+    "description": "Heading for award experiences in experience by type listing"
   },
   "/I9tx9": {
     "defaultMessage": "Cette demande ne peut pas être supprimée. Vous pouvez uniquement supprimer les demandes avant leur soumission.",
