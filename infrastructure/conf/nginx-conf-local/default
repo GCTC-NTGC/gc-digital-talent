@@ -21,7 +21,7 @@ server {
     }
 
     location = /robots.txt {
-        alias /home/site/wwwroot/infrastructure/conf/uat.robot.txt;
+        alias /home/site/wwwroot/infrastructure/conf/dev.robot.txt;
     }
 
     # Permanent redirects to avoid dead links
