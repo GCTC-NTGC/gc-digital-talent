@@ -7,6 +7,7 @@ import { PoolCandidateSearchRequest } from "@common/api/generated";
 import { Button } from "@common/components";
 import { Submit, TextArea } from "@common/components/form";
 import { toast } from "@common/components/Toast";
+import Heading from "@common/components/Heading/Heading";
 
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -95,17 +96,14 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
 
   return (
     <section>
-      <h2
-        data-h2-margin="base(x2, 0, x.5, 0)"
-        data-h2-font-size="base(h4, 1.3)"
-      >
+      <Heading level="h2" size="h4">
         {intl.formatMessage({
           defaultMessage: "Personal Notes",
           id: "l05aVF",
           description:
             "Heading for the personal notes section of the single search request view.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(handleStatusChangeToDone)}>

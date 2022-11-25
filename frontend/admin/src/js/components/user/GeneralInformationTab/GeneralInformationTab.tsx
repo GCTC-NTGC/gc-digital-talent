@@ -29,11 +29,9 @@ import Heading from "@common/components/Heading";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { useAdminRoutes } from "admin/src/js/adminRoutes";
-import {
-  AddToPoolDialog,
-  ChangeDateDialog,
-  ChangeStatusDialog,
-} from "./GeneralInfoTabDialogs";
+import { ChangeDateDialog } from "./ChangeDateDialog";
+import { AddToPoolDialog } from "./AddToPoolDialog";
+import { ChangeStatusDialog } from "./ChangeStatusDialog";
 import {
   User,
   JobLookingStatus,

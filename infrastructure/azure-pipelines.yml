@@ -14,7 +14,7 @@ resources:
     type: git
     ref: refs/heads/main
 variables:
-  phpVersion: '7.4'
+  phpVersion: '8.1'
 
 jobs:
 - job: build_artifact
@@ -28,9 +28,6 @@ jobs:
 
   - script: infrastructure/bin/set_php_versions.sh ${{ variables.phpVersion }}
     displayName: 'PHP version'
-
-  - script: cp infrastructure/conf/deploy.htaccess .htaccess
-    displayName: 'Write-out htaccess'
 
   - script: infrastructure/bin/deploy.sh $(System.DefaultWorkingDirectory)
     displayName: Dependencies

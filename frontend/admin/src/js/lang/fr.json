@@ -2161,8 +2161,8 @@
     "defaultMessage": "Sélection de la rangée",
     "description": "Label for the row-selection column in the tables column-selection modal."
   },
-  "pLCv50": {
-    "defaultMessage": "Imprimer",
+  "UsFTGT": {
+    "defaultMessage": "Télécharger les profils",
     "description": "Text label for button to print items in a table."
   },
   "rkPb6M": {
@@ -2840,5 +2840,13 @@
   "z0QI6A": {
     "defaultMessage": "Tous les candidats du bassin",
     "description": "Title for the admin pool candidates table"
+  },
+  "/bwX1a": {
+    "defaultMessage": "Il est possible de trier les en-têtes de colonnes avec boutons",
+    "description": "Text displayed to instruct users how to sort table rows"
+  },
+  "k4xm25": {
+    "defaultMessage": "Téléchargement a échoué : Aucune rangée n’a été sélectionnée",
+    "description": "Alert message displayed when a user attempts to print without selecting items first"
   }
 }

@@ -1,6 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
+
+import Heading from "@common/components/Heading/Heading";
+
 import { Scalars } from "../../api/generated";
 import { SingleSearchRequestApi } from "./SingleSearchRequest";
 
@@ -16,18 +19,14 @@ export const SingleSearchRequestPage = () => {
       <div data-h2-padding="base(0, 0, x3, 0)">
         <div data-h2-container="base(center, large, x2)">
           <header>
-            <h1
-              data-h2-font-weight="base(400)"
-              data-h2-margin="base(x2, 0, x1, 0)"
-              style={{ letterSpacing: "-2px" }}
-            >
+            <Heading level="h1" size="h2">
               {intl.formatMessage({
                 defaultMessage: "View Request",
                 id: "HkC8XB",
                 description:
                   "Heading displayed above the single search request component.",
               })}
-            </h1>
+            </Heading>
           </header>
           <SingleSearchRequestApi searchRequestId={searchRequestId || ""} />
         </div>
