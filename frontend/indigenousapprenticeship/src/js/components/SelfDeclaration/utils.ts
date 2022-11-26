@@ -44,14 +44,6 @@ export const getCommunityLabels = (intl: IntlShape) =>
       }),
     ],
     [
-      "firstNations",
-      intl.formatMessage({
-        id: "GSqmjE",
-        defaultMessage: "First Nations",
-        description: "Label for First Nations community",
-      }),
-    ],
-    [
       "inuk",
       intl.formatMessage({
         id: "kUHaE/",
