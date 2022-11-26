@@ -949,6 +949,11 @@ input PoolsHasMany {
   create: [CreatePoolInput]
 }
 
+enum PositionDuration {
+  TEMPORARY
+  PERMANENT
+}
+
 enum ProvinceOrTerritory {
   BRITISH_COLUMBIA
   ALBERTA
