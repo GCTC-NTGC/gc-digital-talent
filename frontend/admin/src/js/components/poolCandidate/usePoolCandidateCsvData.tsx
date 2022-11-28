@@ -21,7 +21,7 @@ import {
   flattenExperiencesToSkills,
 } from "@common/helpers/csvUtils";
 import { getLocale } from "@common/helpers/localize";
-import { PoolCandidate } from "../../api/generated";
+import { PoolCandidate, PositionDuration } from "../../api/generated";
 
 const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
   const intl = useIntl();
@@ -382,7 +382,10 @@ const usePoolCandidateCsvData = (candidates: PoolCandidate[]) => {
           intl,
         ),
         locationExemptions: user.locationExemptions || "",
-        wouldAcceptTemporary: yesOrNo(user.wouldAcceptTemporary, intl),
+        wouldAcceptTemporary: yesOrNo(
+          user.positionDuration?.includes(PositionDuration.Temporary),
+          intl,
+        ),
         acceptedOperationalRequirements: getOperationalRequirements(
           user.acceptedOperationalRequirements,
           intl,
