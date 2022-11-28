@@ -33,6 +33,7 @@ import {
   Skill,
   ApplicantFilter,
   ApplicantFilterInput,
+  PositionDuration,
 } from "../../api/generated";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
 import { SimpleClassification } from "../../types/poolUtils";
@@ -52,7 +53,7 @@ type FormValues = {
       sync?: Array<Maybe<Skill["id"]>>;
     };
     hasDiploma?: ApplicantFilterInput["hasDiploma"];
-    wouldAcceptTemporary?: ApplicantFilterInput["wouldAcceptTemporary"];
+    positionDuration?: ApplicantFilterInput["positionDuration"];
     equity?: EquitySelections;
     languageAbility?: ApplicantFilter["languageAbility"];
     operationalRequirements?: Array<Maybe<OperationalRequirement>>;
@@ -112,9 +113,13 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       additionalComments: values.additionalComments,
       applicantFilter: {
         create: {
-          wouldAcceptTemporary: applicantFilter?.wouldAcceptTemporary
-            ? applicantFilter?.wouldAcceptTemporary
-            : null,
+          positionDuration:
+            applicantFilter?.positionDuration &&
+            applicantFilter.positionDuration.includes(
+              PositionDuration.Temporary,
+            )
+              ? [PositionDuration.Temporary]
+              : null,
           hasDiploma: applicantFilter?.hasDiploma
             ? applicantFilter?.hasDiploma
             : false,

@@ -9,6 +9,7 @@ import {
   Maybe,
   Pool,
   PoolCandidateFilter,
+  PositionDuration,
 } from "../../api/generated";
 import {
   EmploymentDuration,
@@ -157,7 +158,8 @@ const ApplicantFilters: React.FC<{
   });
 
   const employmentDuration: string | undefined =
-    applicantFilter?.wouldAcceptTemporary
+    applicantFilter?.positionDuration &&
+    applicantFilter.positionDuration.includes(PositionDuration.Temporary)
       ? intl.formatMessage(getEmploymentDuration(EmploymentDuration.Term))
       : intl.formatMessage(
           getEmploymentDuration(EmploymentDuration.Indeterminate),
