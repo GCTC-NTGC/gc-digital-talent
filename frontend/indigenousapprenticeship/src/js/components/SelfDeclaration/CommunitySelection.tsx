@@ -208,6 +208,31 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
           ]}
         />
       )}
+      {isAlertOpen && (
+        <Alert.Root type="warning" dismissible onDismiss={handleAlertDismiss}>
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage:
+                'Are you sure you meant to select "I am Indigenous and I don\'t see my community here?"',
+              id: "at11n5",
+              description:
+                "Title for the alert warning users about selection not represented and a represented community",
+            })}
+          </Alert.Title>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "The Program is for First Nations, Inuit, and Métis peoples within the geographic boundaries of Canada. At a later step of the application process, you may be asked to provide proof that you are Indigenous. You can read more about how this will be verified below.",
+              id: "Cn9LYM",
+              description:
+                "Text explaining the program and the possibility of needing to provide proof.",
+            })}
+          </p>
+          <Alert.Footer>
+            <HelpLink />
+          </Alert.Footer>
+        </Alert.Root>
+      )}
       <div
         data-h2-background-color="base(white)"
         data-h2-radius="base(s)"
@@ -253,31 +278,6 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
           ) : null}
         </div>
       </div>
-      {isAlertOpen && (
-        <Alert.Root type="warning" dismissible onDismiss={handleAlertDismiss}>
-          <Alert.Title>
-            {intl.formatMessage({
-              defaultMessage:
-                'Are you sure you meant to select "I am Indigenous and I don\'t see my community here?"',
-              id: "at11n5",
-              description:
-                "Title for the alert warning users about selection not represented and a represented community",
-            })}
-          </Alert.Title>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "The Program is for First Nations, Inuit, and Métis peoples within the geographic boundaries of Canada. At a later step of the application process, you may be asked to provide proof that you are Indigenous. You can read more about how this will be verified below.",
-              id: "Cn9LYM",
-              description:
-                "Text explaining the program and the possibility of needing to provide proof.",
-            })}
-          </p>
-          <Alert.Footer>
-            <HelpLink />
-          </Alert.Footer>
-        </Alert.Root>
-      )}
     </>
   );
 };
