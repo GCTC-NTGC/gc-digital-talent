@@ -20,7 +20,7 @@ class OpenIdBearerTokenTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp(); // intiializes Http facade
+        parent::setUp(); // initializes Http facade
 
         Http::fake([
             self::fakeConfigUrl => Http::response('{ '.
