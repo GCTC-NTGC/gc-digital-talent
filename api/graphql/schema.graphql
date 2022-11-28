@@ -821,7 +821,7 @@ type Query {
     @can(ability: "viewAny", model: "Pool")
   publishedPoolAdvertisements: [PoolAdvertisement!]!
     @all(model: "Pool", scopes: ["wasPublished"])
-  poolByKey(key: String! @eq): Pool @find
+  poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
   pools: [Pool]! @all @can(ability: "viewAny")
   poolCandidate(id: ID! @eq): PoolCandidate
     @find
