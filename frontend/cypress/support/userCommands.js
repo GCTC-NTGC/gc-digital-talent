@@ -42,7 +42,7 @@ Cypress.Commands.add('createUser', (user) => {
     acceptedOperationalRequirements: undefined,
     expectedSalary: undefined,
     expectedClassifications: [],
-    wouldAcceptTemporary: undefined,
+    positionDuration: undefined,
   }
   cy.request({
     method: 'POST',
