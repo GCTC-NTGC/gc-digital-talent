@@ -70,9 +70,10 @@ function transformFormValuesToUserFilterInput(
         const skillString = skill;
         return { id: skillString };
       }),
-      positionDuration: data.employmentDuration[0]
-        ? [durationToEnumPositionDuration(data.employmentDuration[0])]
-        : undefined,
+      positionDuration:
+        data.employmentDuration[0] === "TERM"
+          ? [durationToEnumPositionDuration(data.employmentDuration[0])]
+          : undefined,
     },
     isGovEmployee: data.govEmployee[0] ? true : undefined,
     isProfileComplete: data.profileComplete[0] ? true : undefined,
