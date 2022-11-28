@@ -37,16 +37,19 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
             </span>
           </p>
         )}
-        {!firstName && !lastName && !citizenship && armedForcesStatus === null && (
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "No information has been provided.",
-              id: "/fv4O0",
-              description:
-                "Message on Admin side when user not filled WorkPreferences section.",
-            })}
-          </p>
-        )}
+        {!firstName &&
+          !lastName &&
+          !citizenship &&
+          armedForcesStatus === null && (
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "No information has been provided.",
+                id: "/fv4O0",
+                description:
+                  "Message on Admin side when user not filled WorkPreferences section.",
+              })}
+            </p>
+          )}
         {armedForcesStatus !== null && armedForcesStatus !== undefined && (
           <p>
             {intl.formatMessage({
