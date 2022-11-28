@@ -47,10 +47,6 @@
     "defaultMessage": "Identifiant du candidat",
     "description": "Title displayed on the single search request table id column."
   },
-  "29OmCu": {
-    "defaultMessage": "Expiration",
-    "description": "Title displayed for the Pool Candidates table Expiry column."
-  },
   "2wmzS1": {
     "defaultMessage": "Nom",
     "description": "Title displayed for the Department table Name column."
@@ -119,10 +115,6 @@
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
   },
-  "7SWIeC": {
-    "defaultMessage": "Femme",
-    "description": "Title displayed for the Pool Candidates table Woman column."
-  },
   "7d/ot8": {
     "defaultMessage": "Basculer tout",
     "description": "Label displayed on the Table Columns toggle fieldset."
@@ -134,14 +126,6 @@
   "7wYPgC": {
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the classification form name (English) field."
-  },
-  "8AbNBq": {
-    "defaultMessage": "Bassin de candidats",
-    "description": "Heading displayed above the Pool Candidate Table component."
-  },
-  "8Hw3Zf": {
-    "defaultMessage": "Utilisateur",
-    "description": "Title displayed for the Pool Candidates table User column."
   },
   "8L5kDc": {
     "defaultMessage": "Téléphone",
@@ -195,17 +179,9 @@
     "defaultMessage": "Clé",
     "description": "Label displayed on the create a cmo asset form key field."
   },
-  "Bu20w5": {
-    "defaultMessage": "Minorité visible",
-    "description": "Title displayed for the Pool Candidates table Visible Minority column."
-  },
   "CcOlo0": {
     "defaultMessage": "Clé",
     "description": "Title displayed for the CMO Asset table Key column."
-  },
-  "CdXStL": {
-    "defaultMessage": "Téléphone",
-    "description": "Title displayed on the Pool Candidates table telephone column."
   },
   "D2DUgE": {
     "defaultMessage": "Sélectionner un ou plusieurs actifs du BGC...",
@@ -259,10 +235,6 @@
     "defaultMessage": "Ministère mis à jour avec succès!",
     "description": "Message displayed to user after department is updated successfully."
   },
-  "GZ7CVk": {
-    "defaultMessage": "Compétence linguistique",
-    "description": "Title displayed for the Pool Candidates table Language Ability column."
-  },
   "H5EJq1": {
     "defaultMessage": "Mettre à jour un bassin",
     "description": "Title displayed on the update a pool form."
@@ -294,14 +266,6 @@
   "Htqzxb": {
     "defaultMessage": "Bassin",
     "description": "Title displayed on the search request table pool column."
-  },
-  "IIX75o": {
-    "defaultMessage": "Diplôme",
-    "description": "Title displayed for the Pool Candidates table Diploma column."
-  },
-  "If8CeH": {
-    "defaultMessage": "Identifiant",
-    "description": "Title displayed on the Pool Candidates table ID column."
   },
   "IfWj5I": {
     "defaultMessage": "Toutes les demandes",
@@ -351,10 +315,6 @@
     "defaultMessage": "Créer un actif du BGC",
     "description": "Title displayed on the create a cmo asset form."
   },
-  "NZyO8h": {
-    "defaultMessage": "Autochtone",
-    "description": "Title displayed for the Pool Candidates table Indigenous column."
-  },
   "NhQGh5": {
     "defaultMessage": "Erreur : Échec de la création de l’actif du BGC",
     "description": "Message displayed to user after cmo asset fails to get created."
@@ -394,14 +354,6 @@
   "SqZuQS": {
     "defaultMessage": "Créer un bassin de candidats",
     "description": "Title displayed on the create a user form."
-  },
-  "T+Ak4D": {
-    "defaultMessage": "Clé",
-    "description": "Label displayed on the 'key' input field."
-  },
-  "TAyq5Q": {
-    "defaultMessage": "Handicap",
-    "description": "Title displayed for the Pool Candidates table Disability column."
   },
   "TkvUdX": {
     "defaultMessage": "Compétence linguistique",
@@ -450,10 +402,6 @@
   "W2qRX5": {
     "defaultMessage": "Erreur : Échec de la création du bassin",
     "description": "Message displayed to pool after pool fails to get created."
-  },
-  "W8RhSY": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the search request table edit column."
   },
   "W9DTVh": {
     "defaultMessage": "Nom au complet",
@@ -690,10 +638,6 @@
     "defaultMessage": "Préférences de lieu",
     "description": "Label displayed on the pool candidate form location preferences field."
   },
-  "n0pfBx": {
-    "defaultMessage": "Bassin",
-    "description": "Title displayed for the Pool Candidates table Pool column."
-  },
   "nXRLAX": {
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
     "description": "Message displayed to user after department fails to get updated."
@@ -754,17 +698,9 @@
     "defaultMessage": "Affecter un utilisateur existant",
     "description": "Label for the existing user assignment option in the create pool candidate form."
   },
-  "sFl+Xl": {
-    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un bassin. Elle doit être basée sur le nom anglais du bassin et doit être concise. Un bon exemple serait « digital_careers ». Elle peut être utilisée dans le code pour faire référence à ce bassin particulier, et ne peut donc pas être modifiée ultérieurement.",
-    "description": "Additional context describing the purpose of the Pool's 'key' field."
-  },
   "sZHcsV": {
     "defaultMessage": "Courriel",
     "description": "Label displayed on the user form email field."
-  },
-  "srzf65": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the Edit column."
   },
   "t3sEc+": {
     "defaultMessage": "Statut",
@@ -810,10 +746,6 @@
     "defaultMessage": "L’état de la demande a été réglé avec succès à Effectuée!",
     "description": "Message displayed to user after the request has been successfully set to done on the single search request page."
   },
-  "xxLs3C": {
-    "defaultMessage": "Nom",
-    "description": "Title displayed on the Pool Candidates table name column."
-  },
   "yGlG9e": {
     "defaultMessage": "Création du ministère réussie!",
     "description": "Message displayed to user after department is created successfully."
@@ -825,10 +757,6 @@
   "yoshF7": {
     "defaultMessage": "Création du bassin de candidats réussie!",
     "description": "Message displayed to user after pool candidate is created successfully."
-  },
-  "z+TEpN": {
-    "defaultMessage": "Créer un bassin de candidats",
-    "description": "Heading displayed above the Create Pool Candidate form."
   },
   "z2m2Gp": {
     "defaultMessage": "Modifier",
@@ -1038,10 +966,6 @@
     "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une compétence. Elle devrait être fondée sur le nom anglais de la compétence et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
     "description": "Additional context describing the purpose of the skills 'key' field."
   },
-  "kY7te0": {
-    "defaultMessage": "Mots-clés",
-    "description": "Label displayed on the skill form keywords field."
-  },
   "ksMybU": {
     "defaultMessage": "Erreur : échec de la création de la compétence",
     "description": "Message displayed to user after skill fails to get created."
@@ -1158,25 +1082,9 @@
     "defaultMessage": "Familles de compétences",
     "description": "Label displayed on the skill families menu item."
   },
-  "59EwWA": {
-    "defaultMessage": "Afficher la demande<hidden>{name}</hidden>",
-    "description": "Link text for the view action of the latests requests table on the admin portal dashboard."
-  },
-  "5LWGeI": {
-    "defaultMessage": "Courriel",
-    "description": "Title displayed on the latest requests table email column."
-  },
-  "61vOnW": {
-    "defaultMessage": "Date de réception",
-    "description": "Title displayed on the latest requests table for the date column."
-  },
   "6EOrWk": {
     "defaultMessage": "Accueil",
     "description": "Title for homepage on the talent cloud admin portal."
-  },
-  "6rhyxk": {
-    "defaultMessage": "Déconnexion",
-    "description": "Link text to logout."
   },
   "7B+1RO": {
     "defaultMessage": "Sur cette page, vous pouvez trouver une liste des bassins actifs avec quelques détails sur leur statut.",
@@ -1185,10 +1093,6 @@
   "8Y+eEc": {
     "defaultMessage": "Vous êtes sur le point d'ajouter cet utilisateur à un autre bassin :",
     "description": "First section of text on the add user to pool dialog"
-  },
-  "98PjUH": {
-    "defaultMessage": "Retirer du bassin",
-    "description": "Confirmation button for removing candidate from pool dialog"
   },
   "9NDM+k": {
     "defaultMessage": "Fixer une date d'expiration pour ce candidat dans ce bassin :",
@@ -1201,10 +1105,6 @@
   "AauSuA": {
     "defaultMessage": "S.O.",
     "description": "Not available message."
-  },
-  "AhNR6n": {
-    "defaultMessage": "Annuler",
-    "description": "Link text to cancel logging out."
   },
   "AiOtNy": {
     "defaultMessage": "Tâches principales (en anglais)",
@@ -1233,10 +1133,6 @@
   "bqaNWT": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "title for add to pool dialog on view-user page"
-  },
-  "Cbo1no": {
-    "defaultMessage": "Veuillez sélectionner une date",
-    "description": "Error displayed on the change candidate expiry date dialog if no date selected"
   },
   "CoUFQ5": {
     "defaultMessage": "Notes mises à jour pour le candidat dans le {poolName}",
@@ -1302,10 +1198,6 @@
     "defaultMessage": "Gérer les bassins",
     "description": "Text label for link to pools page on admin dashboard"
   },
-  "Hiv/2m": {
-    "defaultMessage": "Déconnexion",
-    "description": "Title for the modal that appears when an authenticated user lands on /logged-out."
-  },
   "HrXZ6X": {
     "defaultMessage": "Autochtone",
     "description": "Text on view-user page that the user is indigenous"
@@ -1325,10 +1217,6 @@
   "K3LEpl": {
     "defaultMessage": "Choisir un bassin :",
     "description": "Second section of text on the add user to pool dialog"
-  },
-  "KyMCYC": {
-    "defaultMessage": "Retirer du bassin",
-    "description": "title for change expiry date dialog on view-user page"
   },
   "Nfy1HK": {
     "defaultMessage": "Bienvenue à Talent numérique du GC, veuillez vous connecter pour continuer.",
@@ -1366,10 +1254,6 @@
     "defaultMessage": "Passer au contenu principal",
     "description": "Assistive technology skip link"
   },
-  "TZt+a5": {
-    "defaultMessage": "Ministère",
-    "description": "Title displayed on the latest requests table department column."
-  },
   "TxEV7S": {
     "defaultMessage": "Connexion",
     "description": "Text label for the login link to the talent cloud admin portal."
@@ -1402,10 +1286,6 @@
     "defaultMessage": "Détails sur le candidat",
     "description": "Title for the page when viewing an individual user."
   },
-  "YR/3EG": {
-    "defaultMessage": "Mesure",
-    "description": "Title displayed on the latest requests table for the action column."
-  },
   "YtEDfa": {
     "defaultMessage": "Accueil",
     "description": "Breadcrumb title for the home link."
@@ -1421,10 +1301,6 @@
   "Zbk4zf": {
     "defaultMessage": "Choisir un statut :",
     "description": "Third section of text on the change candidate status dialog"
-  },
-  "Zx3BVC": {
-    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
-    "description": "Question displayed when authenticated user lands on /logged-out."
   },
   "aJVlIF": {
     "defaultMessage": "Bassins",
@@ -1454,25 +1330,13 @@
     "defaultMessage": "Utilisateurs",
     "description": "Breadcrumb title for the all users table link."
   },
-  "eaHqS2": {
-    "defaultMessage": "Veuillez sélectionner un statut",
-    "description": "Error displayed on the change candidate status dialog if no status selected"
-  },
   "eickbr": {
     "defaultMessage": "Minorité visible",
     "description": "Text on view-user page that the user is part of a visible minority"
   },
-  "+phJjJ": {
-    "defaultMessage": "Demandes les plus récentes",
-    "description": "Title for the latests requests table in the admin dashboard"
-  },
   "fu4Fen": {
     "defaultMessage": "Statut",
     "description": "Label displayed on the pool form status field."
-  },
-  "gCbb9X": {
-    "defaultMessage": "Soumission",
-    "description": "Text on submit button when submitting"
   },
   "gKyog2": {
     "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
@@ -1494,16 +1358,8 @@
     "defaultMessage": "Statut du bassin",
     "description": "Title of the 'Pool status' section of the view-user page"
   },
-  "hSgcxP": {
-    "defaultMessage": "Statut",
-    "description": "Title displayed on the latest requests table status column."
-  },
   "hlcd+5": {
     "defaultMessage": "Résultats du tableau"
-  },
-  "iIJ/rI": {
-    "defaultMessage": "Nom du bassin",
-    "description": "Title displayed on the latest requests table for the pool column."
   },
   "icYqDt": {
     "defaultMessage": "Bassin",
@@ -1529,10 +1385,6 @@
     "defaultMessage": "Mesures",
     "description": "Title of the 'Actions' column for the table on view-user page"
   },
-  "k2FnXH": {
-    "defaultMessage": "Veuillez sélectionner une date d'expiration",
-    "description": "Error displayed on the add user to pool dialog if no date selected"
-  },
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
@@ -1544,10 +1396,6 @@
   "lIwJp4": {
     "defaultMessage": "Bon retour, {name}",
     "description": "Title for dashboard on the talent cloud admin portal."
-  },
-  "myqzYj": {
-    "defaultMessage": "Gestionnaire",
-    "description": "Title displayed on the latest requests table manager column."
   },
   "n+d6QE": {
     "defaultMessage": "Fixer une date d'expiration pour ce candidat dans ce bassin :",
@@ -1593,17 +1441,9 @@
     "defaultMessage": "Annuler et revenir en arrière",
     "description": "Close dialog button"
   },
-  "tmbdSb": {
-    "defaultMessage": "Candidat retiré avec succès",
-    "description": "Toast for successful removal of candidate from pool on view-user page"
-  },
   "u6GmEz": {
     "defaultMessage": "Portail du gestionnaire de portail",
     "description": "Title for the pool manager login link."
-  },
-  "uJSvlo": {
-    "defaultMessage": "Veuillez sélectionner un bassin",
-    "description": "Error displayed on the add user to pool dialog if no pool selected"
   },
   "jtEouE": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
@@ -1613,10 +1453,6 @@
     "defaultMessage": "Rôle et salaire escomptés",
     "description": "Title of the Role and salary expectations section"
   },
-  "uOtDuW": {
-    "defaultMessage": "Échec de la mise à jour de la date d'expiration",
-    "description": "Toast for failed removal of candidate from pool on view-user page"
-  },
   "usNShh": {
     "defaultMessage": "Sélectionner un statut de bassin...",
     "description": "Placeholder displayed on the status field of the change candidate status dialog."
@@ -1624,10 +1460,6 @@
   "uutH18": {
     "defaultMessage": "À propos",
     "description": "Title of the 'About' section of the view-user page"
-  },
-  "vyJpp2": {
-    "defaultMessage": "À partir du bassin suivant :",
-    "description": "Second section of text on the remove candidate from pool dialog"
   },
   "yBmBnd": {
     "defaultMessage": "Détails sur le bassin",
@@ -1640,10 +1472,6 @@
   "zDO6tt": {
     "defaultMessage": "Date d'expiration",
     "description": "title for change expiry date dialog on view-user page"
-  },
-  "0cEmmG": {
-    "defaultMessage": "Vous êtes sur le point de <strong>retirer l'utilisateur suivant :</strong>",
-    "description": "First section of text on the remove candidate from pool dialog, ignore things in <> tags please"
   },
   "ZLDt/c": {
     "defaultMessage": "<strong>{jobTitle}</strong> à <strong>{department}</strong>",
@@ -1676,10 +1504,6 @@
   "/6voUd": {
     "defaultMessage": "Modifier l'annonce du bassin",
     "description": "Header for page to edit pool advertisements"
-  },
-  "/7tcPl": {
-    "defaultMessage": "Votre travail (anglais)",
-    "description": "Title for English pool advertisement Work"
   },
   "/QUq6L": {
     "defaultMessage": "Vous êtes certain de vouloir continuer?",
@@ -1725,21 +1549,9 @@
     "defaultMessage": "Sélectionnez la classification prévue pour ce processus de recrutement.",
     "description": "Helper message for selecting a classification for the pool"
   },
-  "61XRUJ": {
-    "defaultMessage": "Clé",
-    "description": "Label displayed on the pool form name key field."
-  },
   "66MUMB": {
     "defaultMessage": "Enregistrer les autres exigences",
     "description": "Text on a button to save the pool other requirements"
-  },
-  "6BD4FK": {
-    "defaultMessage": "Votre impact (français)",
-    "description": "Title for French pool advertisement impact"
-  },
-  "6InelL": {
-    "defaultMessage": "Basculer vers filtrer par",
-    "description": "Title to toggle sorting order of a table"
   },
   "7N+tQw": {
     "defaultMessage": "Mes bassins",
@@ -1865,10 +1677,6 @@
     "defaultMessage": "Emplacement (anglais) : {locationEn}",
     "description": "Pool advertisement location requirement, English"
   },
-  "J3779Q": {
-    "defaultMessage": "Groupes de compétences",
-    "description": "A title for a list of skill families"
-  },
   "Jc0lds": {
     "defaultMessage": "Bassin archivé",
     "description": "Button to archive the pool in the archive pool dialog"
@@ -1876,18 +1684,6 @@
   "LccTZJ": {
     "defaultMessage": "Compétences essentielles (exigence)",
     "description": "Sub title for the pool essential skills"
-  },
-  "LfNNe4": {
-    "defaultMessage": "Par mot-clé",
-    "description": "Tab name for a box to search for skills"
-  },
-  "LvsYj+": {
-    "defaultMessage": "Votre impact (anglais)",
-    "description": "Title for English pool advertisement impact"
-  },
-  "M7s4wO": {
-    "defaultMessage": "Compétences professionnelles",
-    "description": "Tab name for a list of occupational skills"
   },
   "MDjwSO": {
     "defaultMessage": "Titre précis (français)",
@@ -1921,10 +1717,6 @@
     "defaultMessage": "Sélectionnez les compétences que vous recherchez chez les candidats. Toute compétence sélectionnée ici sera nécessaire aux candidats pour postuler. Pour accroître la diversité des candidatures, essayez de limiter au maximum le nombre de compétences sélectionnées",
     "description": "Helper message for filling in the pool essential skills"
   },
-  "OumQY2": {
-    "defaultMessage": "Générique",
-    "description": "Label for a pool advertisements generic title"
-  },
   "P5xgmH": {
     "defaultMessage": "Exigences",
     "description": "Title for a pool advertisement requirements"
@@ -1949,10 +1741,6 @@
     "defaultMessage": "Créer une nouvelle affiche de poste à partir de zéro",
     "description": "Form blurb describing create pool form"
   },
-  "Sjluby": {
-    "defaultMessage": "la clé est une chaîne qui identifie un bassin de manière unique. Elle est généré automatiquement en fonction du groupe et du titre du poste du bassin.",
-    "description": "Context displayed on the pool form key field."
-  },
   "TLl20s": {
     "defaultMessage": "Créer un nouveau bassin",
     "description": "Label displayed on submit button for new pool form."
@@ -1972,10 +1760,6 @@
   "VWz3+d": {
     "defaultMessage": "Date de clôture",
     "description": "Label for a pool advertisements expiry date"
-  },
-  "Vl09gv": {
-    "defaultMessage": "Actions sélectionnées :",
-    "description": "Label for action buttons in footer of admin table."
   },
   "VlI1K4": {
     "defaultMessage": "Tous les utilisateurs",
@@ -2057,10 +1841,6 @@
     "defaultMessage": "Titre précis (anglais)",
     "description": "Label for a pool advertisements specific English title"
   },
-  "fhkgW2": {
-    "defaultMessage": "Classification de la cible",
-    "description": "Label for a pool advertisements classification group and level"
-  },
   "fivWMs": {
     "defaultMessage": "Courriel",
     "description": "Label for user table search dropdown (email)."
@@ -2137,10 +1917,6 @@
     "defaultMessage": "Compétences utiles",
     "description": "Title optional skills for a pool advertisement"
   },
-  "l0IDWf": {
-    "defaultMessage": "Résultats ({skillCount})",
-    "description": "A title for a skill list of results"
-  },
   "lb7SoP": {
     "defaultMessage": "Anglais - Votre travail",
     "description": "Label for the English - Your Work textarea in the edit pool page."
@@ -2149,20 +1925,12 @@
     "defaultMessage": "Exigence linguistique",
     "description": "Label displayed on the edit pool form language requirement field."
   },
-  "nr62lc": {
-    "defaultMessage": "Résultats ({skillCount})",
-    "description": "A title for a list of results"
-  },
-  "pD2NXF": {
-    "defaultMessage": "Compétences transférables",
-    "description": "Tab name for a list of transferable skills"
-  },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
     "description": "Label for the row-selection column in the tables column-selection modal."
   },
-  "pLCv50": {
-    "defaultMessage": "Imprimer",
+  "UsFTGT": {
+    "defaultMessage": "Télécharger les profils",
     "description": "Text label for button to print items in a table."
   },
   "rkPb6M": {
@@ -2181,10 +1949,6 @@
     "defaultMessage": "Enregistrer les tâches de travail",
     "description": "Text on a button to save the pool work tasks"
   },
-  "tv35lG": {
-    "defaultMessage": "Compétences essentielles sélectionnées ({skillCount})",
-    "description": "A title for an essential skill list"
-  },
   "uBA5mM": {
     "defaultMessage": "<heavyPrimary>Expirée</heavyPrimary>",
     "description": "Status name of a pool in EXPIRED status"
@@ -2193,25 +1957,13 @@
     "defaultMessage": "Publier le bassin",
     "description": "Button to publish the pool in the publish pool dialog"
   },
-  "v2mXcp": {
-    "defaultMessage": "Gérer les demandes",
-    "description": "Link text for button to manage requests of a specific pool"
-  },
   "v6qX/r": {
     "defaultMessage": "Retour au tableau de bord du bassin",
     "description": "Text on a link to navigate back to the pool dashboard page"
   },
-  "vZgTKh": {
-    "defaultMessage": "Toutes les compétences techniques",
-    "description": "The option label for 'no filter' on the list of occupational skills"
-  },
   "w9FYqi": {
     "defaultMessage": "Annonce du bassin",
     "description": "Sub title for admin view pool page"
-  },
-  "wcdkTU": {
-    "defaultMessage": "Toutes les compétences transférables",
-    "description": "The option label for 'no filter' on the list of transferable skills"
   },
   "xGjm2A": {
     "defaultMessage": "Sélectionnez les compétences qui amélioreront les chances de correspondre aux qualités recherchées par le les gestionnaire. Celles-ci peuvent généralement être appris en cours de travail et ne sont pas nécessaires pour être accepté dans le bassin",
@@ -2233,10 +1985,6 @@
     "defaultMessage": "Détails",
     "description": "Sub title for admin view pool page"
   },
-  "y3mLbv": {
-    "defaultMessage": "Votre travail (français)",
-    "description": "Title for French pool advertisement Work"
-  },
   "y9tCKP": {
     "defaultMessage": "Utilisez ces options pour publier ou clore votre annonce. Une annonce en direct permettra aux candidats de soumettre leur candidature pour ce bassin",
     "description": "Helper message for changing the pool advertisement status"
@@ -2244,14 +1992,6 @@
   "yYDzYE": {
     "defaultMessage": "Fermez le bassin maintenant",
     "description": "Button to close the pool in the close pool dialog"
-  },
-  "s4DN3G": {
-    "defaultMessage": "Résultats des compétences générales",
-    "description": "Accessibility label for a result set of skills, filtered to mainstream skills"
-  },
-  "wziEOM": {
-    "defaultMessage": "résultats des compétences, recherche par mot-clé",
-    "description": "Accessibility label for a result set of skills, searched by keyword"
   },
   "mxOuYK": {
     "defaultMessage": "Télécharger CSV",
@@ -2292,10 +2032,6 @@
   "+wG2Ap": {
     "defaultMessage": "Vue {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
-  },
-  "u9JHS9": {
-    "defaultMessage": "demande",
-    "description": "Text displayed after View text for Latest Request table view action"
   },
   "gLtTaW": {
     "defaultMessage": "demande",
@@ -2840,5 +2576,13 @@
   "z0QI6A": {
     "defaultMessage": "Tous les candidats du bassin",
     "description": "Title for the admin pool candidates table"
+  },
+  "/bwX1a": {
+    "defaultMessage": "Il est possible de trier les en-têtes de colonnes avec boutons",
+    "description": "Text displayed to instruct users how to sort table rows"
+  },
+  "k4xm25": {
+    "defaultMessage": "Téléchargement a échoué : Aucune rangée n’a été sélectionnée",
+    "description": "Alert message displayed when a user attempts to print without selecting items first"
   }
 }

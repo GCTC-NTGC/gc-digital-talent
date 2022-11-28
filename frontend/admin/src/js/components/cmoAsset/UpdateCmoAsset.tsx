@@ -9,6 +9,7 @@ import { Input, Submit, TextArea } from "@common/components/form";
 import { errorMessages, commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import Heading from "@common/components/Heading/Heading";
 
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -61,13 +62,13 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
   };
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Update CMO Asset",
           id: "5JRGJY",
           description: "Title displayed on the update a cmo asset form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
