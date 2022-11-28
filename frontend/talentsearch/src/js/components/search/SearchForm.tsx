@@ -27,6 +27,7 @@ import {
   UserPoolFilterInput,
   PoolStream,
   Skill,
+  PositionDuration,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
 import AddSkillsToFilter from "../skills/AddSkillsToFilter";
@@ -173,8 +174,10 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
           ...(values.languageAbility !== NullSelection
             ? { languageAbility: values.languageAbility as LanguageAbility }
             : {}), // Ensure null in FormValues is converted to undefined
-          wouldAcceptTemporary:
-            values.employmentDuration === "true" ? true : null,
+          positionDuration:
+            values.employmentDuration === "true"
+              ? [PositionDuration.Temporary]
+              : null,
           locationPreferences: values.locationPreferences || [],
           pools: pools
             ? pools

@@ -186,7 +186,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     applicantFilter?.locationPreferences?.length ?? 0;
   const educationSelection = applicantFilter?.hasDiploma;
   const workingLanguage = applicantFilter?.languageAbility;
-  const employmentDuration = applicantFilter?.wouldAcceptTemporary;
+  const employmentDuration = applicantFilter?.positionDuration;
 
   const equityFilters = applicantFilter?.equity;
   const equityFiltersArray = equityFilters
