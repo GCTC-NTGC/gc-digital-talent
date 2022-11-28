@@ -1446,15 +1446,15 @@ class UserTest extends TestCase
     {
         // Create initial set of 5 users which wouldn't accept temporary.
         User::factory()->count(5)->create([
-            'would_accept_temporary' => false,
+            'position_duration' => [ApiEnums::POSITION_DURATION_PERMANENT],
         ]);
 
         // Create two new users who would accept a temporary.
         User::factory()->count(2)->create([
-            'would_accept_temporary' => true,
+            'position_duration' => [ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT],
         ]);
 
-        // Assert query no wouldAcceptTemporary filter will return all users
+        // Assert query no positionDuration filter will return all users
         $this->graphQL(
             /** @lang Graphql */
             '
@@ -1479,7 +1479,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query with wouldAcceptTemporary filter set to true will return correct user count
+        // Assert query with position duration filter set to temporary will return correct user count
         $this->graphQL(
             /** @lang Graphql */
             '
@@ -1494,7 +1494,7 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'wouldAcceptTemporary' => true,
+                        'positionDuration' => [ApiEnums::POSITION_DURATION_TEMPORARY],
                     ]
                 ]
             ]
@@ -1508,7 +1508,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query with wouldAcceptTemporary filter set to false will return all users
+        // Assert query with position duration filter set to null will return all users
         $this->graphQL(
             /** @lang Graphql */
             '
@@ -1523,7 +1523,7 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'wouldAcceptTemporary' => false,
+                        'positionDuration' => null,
                     ]
                 ]
             ]
@@ -2875,7 +2875,7 @@ class UserTest extends TestCase
                         'languageAbility' => null,
                         'operationalRequirements' => null,
                         'locationPreferences' => null,
-                        'wouldAcceptTemporary' => null,
+                        'positionDuration' => null,
                         'expectedClassifications' => null,
                         'skills' => null,
                         'pools' => null,
