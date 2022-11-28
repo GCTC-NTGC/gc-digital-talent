@@ -50,11 +50,12 @@ const SelfDeclarationForm = ({ onSubmit }: SelfDeclarationFormProps) => {
         data-h2-background-color="base(white)"
         data-h2-radius="base(s)"
         data-h2-shadow="base(s)"
-        data-h2-padding="base(x2, x3)"
+        data-h2-padding="base(x1) p-tablet(x2, x3)"
       >
         <div data-h2-container="base(center, m)">
           <Heading
             level="h2"
+            data-h2-font-size="base(h5) p-tablet(h2)"
             data-h2-text-align="base(center)"
             data-h2-margin="base(0, 0, x1, 0)"
           >

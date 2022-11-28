@@ -3,21 +3,21 @@ import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { RadioGroup } from "@common/components/form";
-import { ExternalLink } from "@common/components/Link";
 import { FieldLabels } from "@common/components/form/BasicForm";
 import { Alert } from "@common/components";
+import Tabs from "@common/components/Tabs/Tabs";
 import Chip, { Chips } from "@common/components/Chip";
-import useLocale from "@common/hooks/useLocale";
 import errorMessages from "@common/messages/errorMessages";
-import { Locales } from "@common/helpers/localize";
+import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
 
 import HelpLink from "./HelpLink";
+import CommunityCheckbox from "./CommunityCheckbox";
+import CommunityTabs from "./CommunityTabs";
 import {
   partOfCommunity,
   getCommunityLabels,
   hasCommunityAndOther,
 } from "./utils";
-import CommunityCheckbox from "./CommunityCheckbox";
 
 interface CommunitySelectionProps {
   labels: FieldLabels;
@@ -25,10 +25,11 @@ interface CommunitySelectionProps {
 
 const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const isSmallScreen = useIsSmallScreen();
   const [isAlertOpen, setIsAlertOpen] = React.useState<boolean>(false);
   const [hasDismissedAlert, setHasDismissedAlert] =
     React.useState<boolean>(false);
+  const [currentTab, setCurrentTab] = React.useState<string | null>(null);
   const { watch, setValue } = useFormContext();
 
   const communityLabels = getCommunityLabels(intl);
@@ -64,9 +65,16 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
     return null;
   }
 
+  const CommunityOptionsWrapper = isSmallScreen ? Tabs.Root : "div";
+  const CommunityOption = isSmallScreen ? CommunityTabs.Content : "div";
+
   return (
     <>
-      <fieldset data-h2-border="base(none)" data-h2-margin="base(x1, 0, 0, 0)">
+      <fieldset
+        data-h2-border="base(none)"
+        data-h2-margin="base(x1, 0, 0, 0)"
+        data-h2-padding="base(0)"
+      >
         <legend
           data-h2-align-items="base(center)"
           data-h2-display="base(flex)"
@@ -95,12 +103,68 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
             })}
           </span>
         </legend>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(1fr 1fr) p-tablet(1fr 1fr 1fr 1fr)"
-          data-h2-gap="base(x1)"
+        <CommunityOptionsWrapper
+          onValueChange={setCurrentTab}
+          {...(!isSmallScreen && {
+            "data-h2-display": "base(grid)",
+            "data-h2-grid-template-columns":
+              "base(1fr 1fr) p-tablet(1fr 1fr 1fr 1fr)",
+            "data-h2-gap": "base(x1)",
+          })}
         >
-          <div>
+          {isSmallScreen && (
+            <Tabs.List
+              data-h2-display="base(grid)"
+              data-h2-gap="base(x.25, 0)"
+              data-h2-grid-template-columns="base(repeat(4, 1fr))"
+            >
+              <CommunityTabs.Trigger
+                on={currentTab === "firstNations"}
+                value="firstNations"
+                community="first-nations"
+                label={intl.formatMessage({
+                  defaultMessage: "First Nations",
+                  id: "NxmuI4",
+                  description: "Trigger text for First Nations tab",
+                })}
+              />
+              <CommunityTabs.Trigger
+                on={currentTab === "inuk"}
+                value="inuk"
+                community="inuit"
+                label={intl.formatMessage({
+                  defaultMessage: "Inuk",
+                  id: "WDtanj",
+                  description: "Trigger text for Inuk tab",
+                })}
+              />
+              <CommunityTabs.Trigger
+                on={currentTab === "metis"}
+                value="metis"
+                community="metis"
+                label={intl.formatMessage({
+                  defaultMessage: "Métis",
+                  id: "BIgaKT",
+                  description: "Trigger text for Métis tab",
+                })}
+              />
+              <CommunityTabs.Trigger
+                on={currentTab === "other"}
+                value="other"
+                community="other"
+                label={intl.formatMessage({
+                  defaultMessage: "Other",
+                  id: "WwEznG",
+                  description:
+                    "Trigger text for not represented community declaration tab",
+                })}
+              />
+            </Tabs.List>
+          )}
+          <CommunityOption
+            value="firstNations"
+            on={currentTab === "firstNations"}
+          >
             <CommunityCheckbox
               id="communityFirstNations"
               name="communities"
@@ -113,8 +177,8 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
                   "Label text for First Nations community declaration",
               })}
             />
-          </div>
-          <div>
+          </CommunityOption>
+          <CommunityOption value="inuk" on={currentTab === "inuk"}>
             <CommunityCheckbox
               id="communityInuk"
               name="communities"
@@ -126,8 +190,8 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
                 description: "Label text for Inuk community declaration",
               })}
             />
-          </div>
-          <div>
+          </CommunityOption>
+          <CommunityOption value="metis" on={currentTab === "metis"}>
             <CommunityCheckbox
               id="communityMetis"
               name="communities"
@@ -139,8 +203,8 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
                 description: "Label text for Métis community declaration",
               })}
             />
-          </div>
-          <div>
+          </CommunityOption>
+          <CommunityOption value="other" on={currentTab === "other"}>
             <CommunityCheckbox
               id="communityOther"
               name="communities"
@@ -153,8 +217,8 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
                   "Label text for not represented community declaration",
               })}
             />
-          </div>
-        </div>
+          </CommunityOption>
+        </CommunityOptionsWrapper>
       </fieldset>
       {isFirstNations && (
         <RadioGroup
