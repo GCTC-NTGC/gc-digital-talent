@@ -71,7 +71,7 @@ function transformFormValuesToUserFilterInput(
         return { id: skillString };
       }),
       positionDuration:
-        data.employmentDuration[0] === "TERM"
+        data.employmentDuration[0] === "TERM" // either filter for TEMPORARY or do nothing
           ? [durationToEnumPositionDuration(data.employmentDuration[0])]
           : undefined,
     },

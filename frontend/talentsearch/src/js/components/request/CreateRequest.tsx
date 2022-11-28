@@ -113,6 +113,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       additionalComments: values.additionalComments,
       applicantFilter: {
         create: {
+          // either TEMPORARY or do nothing
           positionDuration:
             applicantFilter?.positionDuration &&
             applicantFilter.positionDuration.includes(
