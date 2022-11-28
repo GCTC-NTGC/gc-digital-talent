@@ -135,7 +135,11 @@ export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
   return !added?.length
     ? required
     : required.filter((skill) => {
-        return !added.find((addedSkill) => addedSkill.id === skill.id);
+        return !added.find(
+          (addedSkill) =>
+            addedSkill.id === skill.id &&
+            addedSkill.experienceSkillRecord?.details,
+        );
       });
 };
 
