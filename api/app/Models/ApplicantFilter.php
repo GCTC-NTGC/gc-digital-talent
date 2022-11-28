@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property boolean $is_visible_minority
  * @property boolean $is_woman
  * @property boolean $would_accept_temporary
+ * @property array $position_duration
  * @property string $language_ability
  * @property array $location_preferences
  * @property array $operational_requirements
@@ -38,6 +39,7 @@ class ApplicantFilter extends Model
     protected $casts = [
         'location_preferences' => 'array',
         'operational_requirements' => 'array',
+        'position_duration' => 'array',
     ];
 
     public function classifications(): BelongsToMany

@@ -53,6 +53,7 @@ use Illuminate\Support\Facades\DB;
  * @property string $location_exemptions
  * @property array $expected_salary
  * @property boolean $would_accept_temporary
+ * @property array $position_duration
  * @property array $accepted_operational_requirements
  * @property string $gov_employee_type
  * @property int $priority_weight
@@ -73,6 +74,7 @@ class User extends Model implements Authenticatable
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
+        'position_duration' => 'array',
     ];
 
     public function pools(): HasMany

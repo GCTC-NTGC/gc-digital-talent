@@ -87,7 +87,10 @@ type User {
     @rename(attribute: "accepted_operational_requirements")
   expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
   expectedClassifications: [Classification] @belongsToMany
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  wouldAcceptTemporary: Boolean
+    @rename(attribute: "would_accept_temporary")
+    @deprecated(reason: "replaced with positionDuration")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: [CmoAsset] @belongsToMany
 
   # Pool info
@@ -227,7 +230,10 @@ type Applicant {
     @rename(attribute: "accepted_operational_requirements")
   expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
   expectedClassifications: [Classification] @belongsToMany
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  wouldAcceptTemporary: Boolean
+    @rename(attribute: "would_accept_temporary")
+    @deprecated(reason: "replaced with positionDuration")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: [CmoAsset] @belongsToMany
 
   # Experiences
@@ -519,7 +525,10 @@ type ApplicantFilter {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  wouldAcceptTemporary: Boolean
+    @rename(attribute: "would_accept_temporary")
+    @deprecated(reason: "replaced with positionDuration")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   expectedClassifications: [Classification]
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
@@ -777,6 +786,7 @@ input ApplicantFilterInput {
   locationPreferences: [WorkRegion]
     @builder(method: "App\\Models\\User@filterByLocationPreferences")
   wouldAcceptTemporary: Boolean @scope
+  #positionDuration: [PositionDuration] @builder()
   expectedClassifications: [ClassificationFilterInput]
     @scope(name: "classifications")
   skills: [IdInput]
@@ -987,7 +997,7 @@ input CreateUserInput {
   expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: CmoAssetBelongsToMany
 
   # Experiences
@@ -1056,7 +1066,7 @@ input UpdateUserAsAdminInput
   expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: CmoAssetBelongsToMany
 
   # Experiences
@@ -1120,7 +1130,7 @@ input UpdateUserAsUserInput
   expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: CmoAssetBelongsToMany
 
   # Experiences
@@ -1297,7 +1307,7 @@ input CreateApplicantFilterInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   expectedClassifications: ClassificationBelongsToMany
     @rename(attribute: "classifications")
   skills: SkillBelongsToMany
