@@ -41,10 +41,9 @@ const SignAndContinue = ({ labels }: SignAndContinueProps) => {
           </p>
           <div
             data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-align-items="base(center) p-tablet(flex-end)"
+            data-h2-flex-direction="base(column)"
+            data-h2-align-items="base(center)"
             data-h2-justify-content="base(center)"
-            data-h2-gap="base(0, x.5) p-tablet(x.5, 0)"
           >
             <Input
               type="text"
@@ -55,18 +54,16 @@ const SignAndContinue = ({ labels }: SignAndContinueProps) => {
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <p data-h2-margin="base(x1, 0)">
-              <Submit
-                color="ia-primary"
-                mode="outline"
-                text={intl.formatMessage({
-                  defaultMessage: "Sign and continue",
-                  id: "7rSh+m",
-                  description:
-                    "Button text to submit the Indigenous self-declaration form.",
-                })}
-              />
-            </p>
+            <Submit
+              color="ia-primary"
+              mode="solid"
+              text={intl.formatMessage({
+                defaultMessage: "Sign and continue",
+                id: "7rSh+m",
+                description:
+                  "Button text to submit the Indigenous self-declaration form.",
+              })}
+            />
           </div>
         </>
       ) : (
