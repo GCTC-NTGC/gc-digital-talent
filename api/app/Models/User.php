@@ -532,6 +532,25 @@ RAWSQL2;
         return $query;
     }
 
+    public static function scopePositionDuration(Builder $query, ?array $positionDuration) : Builder
+    {
+        if (empty($positionDuration)) {
+            return $query;
+        }
+
+        // recycling location preferences code
+        $query->where(function ($query) use ($positionDuration) {
+            foreach ($positionDuration as $index => $duration) {
+                if ($index === 0) {
+                    // First iteration must use where instead of orWhere
+                    $query->whereJsonContains('position_duration', $duration);
+                } else {
+                    $query->orWhereJsonContains('position_duration', $duration);
+                }
+            }
+        });
+        return $query;
+    }
 
     public static function filterByEquity(Builder $query, ?array $equity): Builder
     {

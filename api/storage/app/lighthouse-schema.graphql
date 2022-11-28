@@ -81,7 +81,7 @@ input ApplicantFilterInput {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean
+  positionDuration: [PositionDuration]
   expectedClassifications: [ClassificationFilterInput]
   skills: [IdInput]
   pools: [IdInput]

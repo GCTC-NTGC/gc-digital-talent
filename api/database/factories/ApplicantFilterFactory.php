@@ -32,6 +32,7 @@ class ApplicantFilterFactory extends Factory
             'is_visible_minority' => $this->faker->boolean(),
             'is_woman' => $this->faker->boolean(),
             'would_accept_temporary' => $this->faker->optional(0.5, null)->randomElement([true]), // null or true.
+            'position_duration' => $this->faker->boolean() ? null : [ApiEnums::POSITION_DURATION_PERMANENT, ApiEnums::POSITION_DURATION_TEMPORARY],
             'language_ability' => $this->faker->randomElement(ApiEnums::languageAbilities()),
             'location_preferences' => $this->faker->randomElements(
                 ApiEnums::workRegions(),

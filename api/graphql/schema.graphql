@@ -785,8 +785,7 @@ input ApplicantFilterInput {
     @builder(method: "App\\Models\\User@filterByOperationalRequirements")
   locationPreferences: [WorkRegion]
     @builder(method: "App\\Models\\User@filterByLocationPreferences")
-  wouldAcceptTemporary: Boolean @scope
-  #positionDuration: [PositionDuration] @builder()
+  positionDuration: [PositionDuration] @scope
   expectedClassifications: [ClassificationFilterInput]
     @scope(name: "classifications")
   skills: [IdInput]

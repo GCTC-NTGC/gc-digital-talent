@@ -132,6 +132,9 @@ class UserFactory extends Factory
                 3
             ),
             'would_accept_temporary' => $this->faker->boolean(),
+            'position_duration' => $this->faker->boolean() ?
+                [ApiEnums::POSITION_DURATION_PERMANENT, ApiEnums::POSITION_DURATION_TEMPORARY]
+                : [ApiEnums::POSITION_DURATION_PERMANENT],
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
             'citizenship' => $this->faker->randomElement(ApiEnums::citizenshipStatuses()),
