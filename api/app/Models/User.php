@@ -162,7 +162,7 @@ class User extends Model implements Authenticatable
             is_null($this->attributes['has_priority_entitlement']) or
             is_null($this->attributes['location_preferences']) or
             empty($this->attributes['location_preferences']) or
-            is_null($this->attributes['would_accept_temporary']) or
+            empty($this->attributes['position_duration'])  or
             is_null($this->attributes['citizenship']) or
             is_null($this->attributes['armed_forces_status']) or
             $this->expectedGenericJobTitles->isEmpty()
@@ -191,7 +191,7 @@ class User extends Model implements Authenticatable
             $query->whereNotNull('has_priority_entitlement');
             $query->whereNotNull('location_preferences');
             $query->whereJsonLength('location_preferences', '>', 0);
-            $query->whereNotNull('would_accept_temporary');
+            $query->whereJsonLength('position_duration', '>', 0);
             $query->has('expectedGenericJobTitles');
             $query->whereNotNull('citizenship');
             $query->whereNotNull('armed_forces_status');
