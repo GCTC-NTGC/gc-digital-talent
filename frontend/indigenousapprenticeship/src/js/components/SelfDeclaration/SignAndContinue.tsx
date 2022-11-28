@@ -28,7 +28,7 @@ const SignAndContinue = ({ labels }: SignAndContinueProps) => {
       data-h2-margin="base(x1, auto)"
       data-h2-text-align="base(center)"
     >
-      {isIndigenous ? (
+      {isIndigenous && hasCommunities ? (
         <>
           <p>
             {intl.formatMessage({
@@ -70,18 +70,38 @@ const SignAndContinue = ({ labels }: SignAndContinueProps) => {
           </div>
         </>
       ) : (
-        <p data-h2-margin="base(x1, 0)">
-          <Submit
-            color="ia-primary"
-            mode="outline"
-            text={intl.formatMessage({
-              defaultMessage: "Continue to browse other opportunities",
-              id: "7GZpsk",
+        <>
+          <p data-h2-margin="base(x1, 0)">
+            {intl.formatMessage({
+              defaultMessage:
+                "This Program is for First Nations, Inuit, and Métis peoples within the geographic boundaries of Canada.",
+              id: "qwJkEy",
               description:
-                "Button text to submit the Indigenous self-declaration form when not Indigenous.",
+                "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form.",
             })}
-          />
-        </p>
+          </p>
+          <p data-h2-margin="base(x1, 0)" data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage: "Not a member of an Indigenous group?",
+              id: "Xe90FW",
+              description:
+                "Lead in text for button to submit form and navigate to a different page when no Indigenous",
+            })}
+          </p>
+          <p data-h2-margin="base(x1, 0)">
+            <Submit
+              color="ia-primary"
+              mode="solid"
+              text={intl.formatMessage({
+                defaultMessage:
+                  "Quit, and explore IT opportunities within the federal government",
+                id: "E+Pgfh",
+                description:
+                  "Button text to submit the Indigenous self-declaration form when not Indigenous.",
+              })}
+            />
+          </p>
+        </>
       )}
     </div>
   );

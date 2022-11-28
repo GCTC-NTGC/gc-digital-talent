@@ -23,10 +23,6 @@ interface CommunitySelectionProps {
   labels: FieldLabels;
 }
 
-const otherOpportunitiesLink = (chunks: React.ReactNode, locale: Locales) => (
-  <ExternalLink href={`/${locale}/browse/pools`}>{chunks}</ExternalLink>
-);
-
 const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
   const intl = useIntl();
   const { locale } = useLocale();
@@ -65,23 +61,7 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
 
   // Show disclaimer is user is not Indigenous
   if (!isIndigenous) {
-    return (
-      <p data-h2-text-align="base(center)" data-h2-margin="base(x1, 0, 0, 0)">
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "Not a member of an Indigenous group? <link>Explore other opportunities in IT within the federal government</link>.",
-            id: "yiSRDd",
-            description:
-              "Text to lead non-indigenous people to browse other opportunities.",
-          },
-          {
-            link: (chunks: React.ReactNode) =>
-              otherOpportunitiesLink(chunks, locale),
-          },
-        )}
-      </p>
-    );
+    return null;
   }
 
   return (
