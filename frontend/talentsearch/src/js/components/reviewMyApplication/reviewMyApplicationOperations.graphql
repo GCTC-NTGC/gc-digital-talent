@@ -69,7 +69,7 @@ query getReviewMyApplicationPageData($id: ID!) {
         group
         level
       }
-      wouldAcceptTemporary
+      positionDuration
       cmoAssets {
         id
         name {
