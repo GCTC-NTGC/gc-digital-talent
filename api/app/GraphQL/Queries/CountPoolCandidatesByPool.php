@@ -70,8 +70,8 @@ final class CountPoolCandidatesByPool
             }
 
             // wouldAcceptTemporary
-            if (array_key_exists('wouldAcceptTemporary', $filters)) {
-                User::scopeWouldAcceptTemporary($userQuery, $filters['wouldAcceptTemporary']);
+            if (array_key_exists('positionDuration', $filters)) {
+                User::scopePositionDuration($userQuery, $filters['positionDuration']);
             }
 
             // expectedClassifications

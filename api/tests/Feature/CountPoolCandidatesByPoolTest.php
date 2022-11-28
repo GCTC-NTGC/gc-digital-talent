@@ -497,22 +497,22 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
     }
 
-    // test would accept temporary
+    // test position duration
     // creates a three users with/without/null would accept temporary and expects only one to come back
     public function testWouldAcceptTemporary()
     {
         $pool = Pool::factory()->create();
         $user1 = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            'would_accept_temporary' => true
+            'position_duration' => [ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT],
         ]);
         $user2 = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            'would_accept_temporary' => false
+            'position_duration' => [ApiEnums::POSITION_DURATION_PERMANENT],
         ]);
         $user3 = User::factory()->create([
             'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            'would_accept_temporary' => null
+            'position_duration' => null,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
@@ -530,7 +530,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 ',
             [
                 'where' => [
-                    'wouldAcceptTemporary' => true
+                    'positionDuration' => [ApiEnums::POSITION_DURATION_TEMPORARY],
                 ]
             ]
         )->assertSimilarJson([
