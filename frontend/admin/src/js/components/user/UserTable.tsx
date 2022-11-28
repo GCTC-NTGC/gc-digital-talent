@@ -13,6 +13,7 @@ import { useAdminRoutes } from "../../adminRoutes";
 import {
   InputMaybe,
   Language,
+  PositionDuration,
   useAllUsersPaginatedQuery,
   User,
   UserFilterInput,
@@ -36,6 +37,7 @@ import UserProfileDocument from "./UserProfileDocument";
 import useUserCsvData from "./useUserCsvData";
 import UserTableFilterDialog, { FormValues } from "./UserTableFilterDialog";
 import {
+  durationToEnumPositionDuration,
   stringToEnumJobLooking,
   stringToEnumLanguage,
   stringToEnumLocation,
@@ -68,8 +70,8 @@ function transformFormValuesToUserFilterInput(
         const skillString = skill;
         return { id: skillString };
       }),
-      wouldAcceptTemporary: data.employmentDuration[0]
-        ? data.employmentDuration[0] === "TERM"
+      positionDuration: data.employmentDuration[0]
+        ? [durationToEnumPositionDuration(data.employmentDuration[0])]
         : undefined,
     },
     isGovEmployee: data.govEmployee[0] ? true : undefined,
@@ -101,9 +103,13 @@ function transformUserFilterInputToFormValues(
       input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
     skills:
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
-    employmentDuration: input?.applicantFilter?.wouldAcceptTemporary
-      ? ["TERM"]
-      : [],
+    employmentDuration:
+      input?.applicantFilter?.positionDuration &&
+      input.applicantFilter.positionDuration.includes(
+        PositionDuration.Temporary,
+      )
+        ? ["TERM"]
+        : [],
     govEmployee: input?.isGovEmployee ? ["true"] : [],
     profileComplete: input?.isProfileComplete ? ["true"] : [],
     jobLookingStatus: input?.jobLookingStatus?.filter(notEmpty) ?? [],
