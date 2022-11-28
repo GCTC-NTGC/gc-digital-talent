@@ -18,6 +18,7 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import {
   PoolCandidate,
+  PositionDuration,
   UpdateUserAsUserInput,
   UpdateWorkPreferencesMutation,
   User,
@@ -98,10 +99,11 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
     };
 
     return {
-      wouldAcceptTemporary:
-        typeof data.wouldAcceptTemporary === "boolean"
-          ? boolToString(data.wouldAcceptTemporary)
-          : undefined,
+      wouldAcceptTemporary: data.positionDuration
+        ? boolToString(
+            data.positionDuration.includes(PositionDuration.Temporary),
+          )
+        : undefined,
       acceptedOperationalRequirements: data.acceptedOperationalRequirements,
     };
   };
@@ -117,7 +119,9 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
       return false;
     };
     return {
-      wouldAcceptTemporary: stringToBool(values.wouldAcceptTemporary),
+      positionDuration: stringToBool(values.wouldAcceptTemporary)
+        ? [PositionDuration.Permanent, PositionDuration.Temporary]
+        : [PositionDuration.Permanent], // always accepting permanent, accepting temporary is what is variable
       acceptedOperationalRequirements: values.acceptedOperationalRequirements,
     };
   };
