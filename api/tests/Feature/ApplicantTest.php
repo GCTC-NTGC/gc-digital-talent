@@ -588,7 +588,7 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'would_accept_temporary' => false,
+                'position_duration' => [ApiEnums::POSITION_DURATION_PERMANENT],
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
@@ -598,12 +598,22 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'user_id' => User::factory([
-                'would_accept_temporary' => true,
+                'position_duration' => [ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT],
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
 
-        // Assert false for acceptTemporary
+        PoolCandidate::factory()->count(1)->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'user_id' => User::factory([
+                'position_duration' => null,
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+            ])
+        ]);
+
+        // Assert null for position duration
         $this->graphQL(
             /** @lang Graphql */
             '
@@ -616,16 +626,16 @@ class ApplicantTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']]
                     ],
-                    'wouldAcceptTemporary' => false,
+                    'positionDuration' => null,
                 ]
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 7
+                'countApplicants' => 8
             ]
         ]);
 
-        // Assert true for acceptTemporary
+        // Assert temporary duration
         $this->graphQL(
             /** @lang Graphql */
             '
@@ -638,12 +648,34 @@ class ApplicantTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']]
                     ],
-                    'wouldAcceptTemporary' => true,
+                    'positionDuration' => [ApiEnums::POSITION_DURATION_TEMPORARY],
                 ]
             ]
         )->assertJson([
             'data' => [
                 'countApplicants' => 4
+            ]
+        ]);
+
+        // Assert temporary and permanent duration
+        $this->graphQL(
+            /** @lang Graphql */
+            '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']]
+                    ],
+                    'positionDuration' => [ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT],
+                ]
+            ]
+        )->assertJson([
+            'data' => [
+                'countApplicants' => 7
             ]
         ]);
     }
