@@ -84,11 +84,12 @@ class WouldAcceptTemporaryToPositionDuration extends Migration
             <<<SQL
                 UPDATE users
                     SET would_accept_temporary = false
-                    WHERE jsonb_array_length(position_duration::jsonb) = 1
+                    WHERE ((position_duration ?? :duration) = false)
             SQL, [
+                'duration' => ApiEnums::POSITION_DURATION_TEMPORARY,
         ]);
-        // false corresponds to an array of one item (PERMANENT) as that is the assumption for the migration and elsewhere,
         // can't do a !?? operation
+        // WHERE line is true when the ?? operation is false and position_duration is not NULL
         // all other cases stick to the default (NULL)
 
         DB::statement(
