@@ -53,7 +53,7 @@ MissingSomeSkills.args = {
   requiredSkills: fakeRequiredSkills,
   optionalSkills: fakeOptionalSkills,
   addedSkills: [
-    ...fakeRequiredSkills.splice(0, skills.length / 2),
-    ...fakeOptionalSkills.splice(0, skills.length / 2),
+    ...fakeRequiredSkills.slice(0, fakeRequiredSkills.length / 2),
+    ...fakeOptionalSkills.slice(0, fakeOptionalSkills.length / 2),
   ],
 };

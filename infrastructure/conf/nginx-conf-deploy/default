@@ -1,3 +1,4 @@
+
 server {
     #proxy_cache cache;
     #proxy_cache_valid 200 1s;
@@ -17,6 +18,10 @@ server {
         deny all;
         access_log off;
         log_not_found off;
+    }
+
+    location = /robots.txt {
+        alias /home/site/wwwroot/infrastructure/conf/$ROBOTS_FILENAME;
     }
 
     # Permanent redirects to avoid dead links

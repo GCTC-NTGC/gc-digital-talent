@@ -34,9 +34,14 @@ const Loading = ({
   const typeMap = {
     inline: {
       "data-h2-position": "base(relative)",
+      "data-h2-location": "base(0, x1)",
+      "data-h2-margin": "base(x1, 0)",
     },
     full: {
       "data-h2-position": "base(fixed)",
+      "data-h2-background-color": "base(dt-white.95)",
+      "data-h2-location": "base(0)",
+      "data-h2-z-index": "base(9999)",
     },
   };
 
@@ -49,14 +54,6 @@ const Loading = ({
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-justify-content="base(center)"
-      style={{
-        backgroundColor: inline ? undefined : `rgba(255,255,255,0.95)`,
-        bottom: 0,
-        left: inline ? `1rem` : 0,
-        right: inline ? `1rem` : 0,
-        top: 0,
-        zIndex: 9999,
-      }}
     >
       <div {...inlineWrapper[inline === true ? "inline" : "none"]}>
         <span className="lds-dual-ring">

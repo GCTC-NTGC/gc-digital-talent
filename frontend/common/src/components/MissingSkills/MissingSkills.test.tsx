@@ -101,4 +101,41 @@ describe("MissingSkills", () => {
       defaultProps.optionalSkills.length - 1, // Check that we are missing an item
     );
   });
+
+  it("should ignore added skills with empty experienceSkillRecords detail field", () => {
+    const element = renderMissingSkills({
+      // Adding one from each array to added skills
+      addedSkills: [
+        {
+          ...defaultProps.requiredSkills[0],
+          experienceSkillRecord: { details: null },
+        },
+        {
+          ...defaultProps.requiredSkills[0],
+          experienceSkillRecord: { details: "" },
+        },
+        {
+          ...defaultProps.optionalSkills[0],
+          experienceSkillRecord: { details: null },
+        },
+        {
+          ...defaultProps.optionalSkills[0],
+          experienceSkillRecord: { details: "" },
+        },
+      ],
+    });
+
+    const lists = element.getAllByRole("list");
+    expect(lists.length).toEqual(2);
+
+    const requiredListItems = within(lists[0]).queryAllByRole("listitem");
+    expect(requiredListItems.length).toEqual(
+      defaultProps.requiredSkills.length, // Check that we are not missing any items
+    );
+
+    const optionalListItems = within(lists[1]).queryAllByRole("listitem");
+    expect(optionalListItems.length).toEqual(
+      defaultProps.optionalSkills.length, // Check that we are not missing any items
+    );
+  });
 });

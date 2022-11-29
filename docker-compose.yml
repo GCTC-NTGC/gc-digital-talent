@@ -28,6 +28,7 @@ services:
   webserver:
     # All images: https://mcr.microsoft.com/v2/appsvc/php/tags/list
     image: mcr.microsoft.com/appsvc/php:8.1-fpm-xdebug_20221027.1.tuxprod
+    restart: always
     volumes:
       - ./:/home/site/wwwroot
       - ./infrastructure/conf/nginx-conf-local:/etc/nginx/sites-available/
@@ -35,6 +36,7 @@ services:
       - 8000:8080
     environment:
       - NGINX_PORT=8080
+      - ROBOTS_FILENAME=dev.robot.txt
     # Uncomment to test out post deployment script
     # command: ./infrastructure/bin/post_deployment.sh .
 
