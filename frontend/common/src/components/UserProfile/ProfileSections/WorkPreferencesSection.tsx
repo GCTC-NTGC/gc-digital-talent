@@ -68,7 +68,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {positionDuration === null && (
+        {(positionDuration === null || positionDuration?.length === 0) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
