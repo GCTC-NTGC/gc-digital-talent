@@ -636,4 +636,19 @@ RAWSQL2;
         $query->whereIn('job_looking_status', [ApiEnums::USER_STATUS_ACTIVELY_LOOKING, ApiEnums::USER_STATUS_OPEN_TO_OPPORTUNITIES]);
         return $query;
     }
+
+    /* accessor to maintain functionality of deprecated wouldAcceptTemporary field */
+    public function getWouldAcceptTemporaryAttribute() {
+        $positionDuration = $this->position_duration;
+
+        if ($positionDuration && in_array(ApiEnums::POSITION_DURATION_TEMPORARY, $positionDuration)) {
+            return true;
+        }
+
+        if ($positionDuration && count($positionDuration) >= 1) {
+            return false;
+        }
+
+        return null; // catch all other cases, like null variable or empty array
+    }
 }
