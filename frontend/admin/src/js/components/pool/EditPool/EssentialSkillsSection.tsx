@@ -78,6 +78,7 @@ export const EssentialSkillsSection = ({
             skills={skills}
             onUpdateSelectedSkills={handleChangeSelectedSkills}
             handleSave={handleSave}
+            headingLevel="h3"
             submitButtonText={intl.formatMessage({
               defaultMessage: "Save essential skills",
               id: "2asU3k",

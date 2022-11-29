@@ -62,7 +62,11 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
             data-h2-display="base(block)"
             data-h2-margin="base(0, 0, x.125, 0)"
           >
-            <InputError isVisible={!!error} error={error} />
+            <InputError
+              id={`${inputId}-error`}
+              isVisible={!!error}
+              error={error}
+            />
           </div>
         )}
         {children}
@@ -72,7 +76,11 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
           data-h2-display="base(block)"
           data-h2-margin="base(x.125, 0, 0, 0)"
         >
-          <InputError isVisible={!!error} error={error} />
+          <InputError
+            id={`${inputId}-error`}
+            isVisible={!!error}
+            error={error}
+          />
         </div>
       )}
       {contextVisible && context && (

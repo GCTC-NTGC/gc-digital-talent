@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
@@ -23,6 +23,7 @@ import CandidateResults from "./CandidateResults";
 import SearchForm, { FormValues, SearchFormRef } from "./SearchForm";
 import useRoutes from "../../hooks/useRoutes";
 import { SimpleClassification, SimplePool } from "../../types/poolUtils";
+import { TALENTSEARCH_RECRUITMENT_EMAIL } from "../../talentSearchConstants";
 
 export type BrowserHistoryState = {
   applicantFilter?: ApplicantFilterInput;
@@ -39,7 +40,6 @@ const applicantFilterToQueryArgs = (
      the data object contains other props at runtime, and this will cause the
      graphql operation to fail.
   */
-
   // Apply pick to each element of an array.
   function pickMap<T, K extends keyof T>(
     list: Maybe<Maybe<T>[]> | null | undefined,
@@ -59,12 +59,91 @@ const applicantFilterToQueryArgs = (
           ? pickMap(filter.expectedClassifications, ["group", "level"])
           : [],
         // TODO: pickMap the skills array as well?
+        // For now, while most candidates in production do not have skills populated, we want to ignore skill filters when showing a count to managers.
+        // TODO: Add skills back in when most candidates in production have populated skills.
+        skills: undefined,
 
         // Override the filter's pool if one is provided separately.
         pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
       },
     };
   return {};
+};
+
+function a(chunks: React.ReactNode): React.ReactNode {
+  return (
+    <a
+      href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}
+      data-h2-font-weight="base(700)"
+    >
+      {chunks}
+    </a>
+  );
+}
+
+interface ResultsDisplayProps {
+  pending: boolean;
+  results?: Array<CandidateSearchPoolResult>;
+  handleSubmit: (
+    candidateCount: number,
+    poolId: string,
+    selectedClassifications: SimpleClassification[],
+  ) => Promise<void>;
+}
+
+const ResultsDisplay = ({
+  pending,
+  results,
+  handleSubmit,
+}: ResultsDisplayProps) => {
+  const intl = useIntl();
+
+  if (pending) {
+    return <Spinner />;
+  }
+
+  return results && results.length ? (
+    <div>
+      {results.map(({ pool, candidateCount }) => (
+        <CandidateResults
+          key={pool.id}
+          candidateCount={candidateCount}
+          pool={pool}
+          handleSubmit={handleSubmit}
+        />
+      ))}
+    </div>
+  ) : (
+    <div
+      data-h2-shadow="base(m)"
+      data-h2-margin="base(x.5, 0, 0, 0)"
+      data-h2-padding="base(x1)"
+      data-h2-border="base(left, x1, solid, dt-gray.dark)"
+    >
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "We can still help!",
+          id: "5U+V2Y",
+          description:
+            "Heading for helping user if no candidates matched the filters chosen.",
+        })}
+      </p>
+      <p data-h2-margin="base(x.5, 0, 0, 0)">
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "If there are no matching candidates <a>Get in touch!</a>",
+            id: "+ZXZj+",
+            description:
+              "Message for helping user if no candidates matched the filters chosen.",
+          },
+          {
+            a,
+          },
+        )}
+      </p>
+    </div>
+  );
 };
 
 export interface SearchContainerProps {
@@ -232,20 +311,11 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
         <div>
-          {!updatePending ? (
-            <div>
-              {poolCandidateResults?.map(({ pool, candidateCount }) => (
-                <CandidateResults
-                  key={pool.id}
-                  candidateCount={candidateCount}
-                  pool={pool}
-                  handleSubmit={tryHandleSubmit}
-                />
-              ))}
-            </div>
-          ) : (
-            <Spinner />
-          )}
+          <ResultsDisplay
+            pending={updatePending}
+            results={poolCandidateResults}
+            handleSubmit={tryHandleSubmit}
+          />
         </div>
       </div>
     </div>
@@ -262,35 +332,40 @@ const SearchContainerApi = () => {
       error: searchFormDataError,
     },
   ] = useGetSearchFormDataAcrossAllPoolsQuery();
-  const skills = searchFormData?.skills as Skill[];
-  const pools = searchFormData?.pools as SimplePool[];
-
-  const availableClassifications = pools
-    ?.flatMap((pool) => pool?.classifications)
-    .filter(notEmpty);
-
-  const ITClassifications = NonExecutiveITClassifications();
-  const searchableClassifications = ITClassifications.filter(
-    (classification) => {
-      return availableClassifications?.some(
-        (x) =>
-          x?.group === classification?.group &&
-          x?.level === classification?.level,
-      );
-    },
-  );
 
   const [applicantFilter, setApplicantFilter] = React.useState<
     ApplicantFilterInput | undefined
-  >({ pools });
+  >();
+
+  // When pools first load, they should be added to the ApplicantFilter
+  useEffect(() => {
+    if (searchFormData?.pools) {
+      setApplicantFilter({ pools: searchFormData?.pools });
+    }
+  }, [searchFormData?.pools]);
+
+  const queryArgs = useMemo(
+    () => applicantFilterToQueryArgs(applicantFilter),
+    [applicantFilter],
+  );
+
+  // The countApplicants query ignores the pool filter if it is an empty array, just like if it were undefined.
+  // However, we want to treat an empty pool filter as resulting in zero candidates.
+  // Therefore, we can skip the query and override the count results ourselves.
+  const filterIncludesPools: boolean =
+    notEmpty(applicantFilter) &&
+    notEmpty(applicantFilter.pools) &&
+    applicantFilter.pools.filter(notEmpty).length > 0;
 
   // Fetches the number of pool candidates by pool to display on pool cards AND
   // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
   const [{ data: candidatesData, fetching: fetchingCandidates }] =
     useCountApplicantsAndCountPoolCandidatesByPoolQuery({
-      variables: applicantFilterToQueryArgs(applicantFilter),
+      variables: queryArgs,
+      pause:
+        fetchingSearchFormData || // The first submitted query should wait for pools to be loaded.
+        !filterIncludesPools, // If filter does not include pools, we wil manually return 0 count.
     });
-  const totalCandidateCount = candidatesData?.countApplicants || 0;
 
   const paths = useRoutes();
   const onSubmit = async (
@@ -310,6 +385,32 @@ const SearchContainerApi = () => {
     });
   };
 
+  const skills = unpackMaybes<Skill>(searchFormData?.skills);
+  const pools = unpackMaybes<SimplePool>(searchFormData?.pools);
+
+  const availableClassifications = pools
+    ?.flatMap((pool) => pool?.classifications)
+    .filter(notEmpty);
+
+  const ITClassifications = NonExecutiveITClassifications();
+  const searchableClassifications = ITClassifications.filter(
+    (classification) => {
+      return availableClassifications?.some(
+        (x) =>
+          x?.group === classification?.group &&
+          x?.level === classification?.level,
+      );
+    },
+  );
+
+  const totalCandidateCount =
+    filterIncludesPools && candidatesData?.countApplicants !== undefined
+      ? candidatesData.countApplicants
+      : 0;
+  const poolCandidateResults = filterIncludesPools
+    ? candidatesData?.countPoolCandidatesByPool
+    : [];
+
   return (
     <Pending
       {...{ fetching: fetchingSearchFormData, error: searchFormDataError }}
@@ -319,7 +420,7 @@ const SearchContainerApi = () => {
         classifications={searchableClassifications}
         updatePending={fetchingCandidates}
         pools={pools}
-        poolCandidateResults={candidatesData?.countPoolCandidatesByPool}
+        poolCandidateResults={poolCandidateResults}
         skills={skills}
         totalCandidateCount={totalCandidateCount}
         onUpdateApplicantFilter={setApplicantFilter}

@@ -29,11 +29,9 @@ import Heading from "@common/components/Heading";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import { useAdminRoutes } from "admin/src/js/adminRoutes";
-import {
-  AddToPoolDialog,
-  ChangeDateDialog,
-  ChangeStatusDialog,
-} from "./GeneralInfoTabDialogs";
+import { ChangeDateDialog } from "./ChangeDateDialog";
+import { AddToPoolDialog } from "./AddToPoolDialog";
+import { ChangeStatusDialog } from "./ChangeStatusDialog";
 import {
   User,
   JobLookingStatus,
@@ -338,8 +336,8 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
       <PoolStatusTable user={user} />
       <h5 data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
-          defaultMessage: "Add user to other pools",
-          id: "uL7iBo",
+          defaultMessage: "Add user to pool",
+          id: "jtEouE",
           description:
             "Title of the 'Add user to pools' section of the view-user page",
         })}

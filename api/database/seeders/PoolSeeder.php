@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Pool;
 use App\Models\User;
+use App\Models\Classification;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Seeder;
 
@@ -50,7 +51,14 @@ class PoolSeeder extends Seeder
             ];
             $poolModel = Pool::where($identifier)->first();
             if (!$poolModel) {
-                Pool::factory()->create($poolData);
+                $createdPool = Pool::factory()->create($poolData);
+                // constrain CMO Digital Careers pool to predictable values
+                if ($identifier['key'] == 'digital_careers') {
+                    $classificationIT01Id = Classification::where('group', 'ilike', 'IT')->where('level', 1)->sole()['id'];
+                    $createdPool->classifications()->sync([$classificationIT01Id]);
+                    $createdPool->stream = ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES;
+                    $createdPool->save();
+                }
             } else {
                 $poolModel->update($poolData);
             }

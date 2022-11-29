@@ -6,14 +6,12 @@ import { Maybe, Skill } from "../../../api/generated";
 
 interface SkillListItem {
   name: Skill["name"];
-  description: Skill["description"];
   record: Skill["experienceSkillRecord"];
 }
 
-const SkillListItem = ({ name, description, record }: SkillListItem) => {
+const SkillListItem = ({ name, record }: SkillListItem) => {
   const intl = useIntl();
   const localizedName = getLocalizedName(name, intl);
-  const localizedDesc = getLocalizedName(description, intl);
 
   return (
     <li>
@@ -25,9 +23,6 @@ const SkillListItem = ({ name, description, record }: SkillListItem) => {
         >
           {localizedName}
         </p>
-      )}
-      {localizedDesc && (
-        <p data-h2-margin="base(0, 0, x.25, 0)">{localizedDesc}</p>
       )}
       {record && record.details && <p>{record.details}</p>}
     </li>
@@ -47,7 +42,6 @@ const SkillList = ({ skills }: SkillListProps) => {
         <SkillListItem
           key={skill.id}
           name={skill.name}
-          description={skill.description}
           record={skill.experienceSkillRecord}
         />
       ))}

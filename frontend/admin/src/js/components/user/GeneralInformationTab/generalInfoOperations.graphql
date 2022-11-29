@@ -52,5 +52,6 @@ query GetGeneralInfo($id: ID!) {
       group
       level
     }
+    advertisementStatus
   }
 }

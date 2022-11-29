@@ -26,6 +26,14 @@ function TableEditButton({
       mode="inline"
       color="black"
       data-h2-padding="base(0)"
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage: "Edit {label}",
+          id: "GG15JI",
+          description: "Aria Label displayed for the Edit column.",
+        },
+        { label },
+      )}
     >
       {intl.formatMessage(
         {

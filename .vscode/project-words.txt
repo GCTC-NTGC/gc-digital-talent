@@ -38,10 +38,13 @@ lightgray
 lightnavy
 lightpurple
 Métis
+Michif
+Mikmaq
 noninteractive
 nuage
 Nuwave
 OCIO
+Ojibway
 pgsql
 Queueable
 recruitmentimit

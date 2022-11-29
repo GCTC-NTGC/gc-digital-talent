@@ -4,7 +4,7 @@
 - At least one peer review acceptance
 - Chromatic testing by design
 - Definition of done checklist from issue template (eventually) 
-- If the route to a live page has been changed, a Permanent Redirect (301) has also been added to htaccess file
+- If the route to a live page has been changed, a Permanent Redirect (301) has also been added to the nginx conf file
 - Build pipeline successful, including:
   - JavaScript linting
   - PHPUnit testing

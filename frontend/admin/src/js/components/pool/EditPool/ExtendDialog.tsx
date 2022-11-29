@@ -5,7 +5,7 @@ import { PoolAdvertisement } from "@common/api/generated";
 import { Button } from "@common/components";
 import { FormProvider, useForm } from "react-hook-form";
 import { Input } from "@common/components/form";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import { currentDate } from "@common/helpers/formUtils";
 import { convertDateTimeZone } from "@common/helpers/dateUtils";
 import { type UpdatePoolAdvertisementInput } from "../../../api/generated";
@@ -18,7 +18,7 @@ export type ExtendSubmitData = Pick<UpdatePoolAdvertisementInput, "expiryDate">;
 
 type ExtendDialogProps = {
   expiryDate: PoolAdvertisement["expiryDate"];
-  onExtend: (submitData: ExtendSubmitData) => void;
+  onExtend: (submitData: ExtendSubmitData) => Promise<void>;
 };
 
 const ExtendDialog = ({
@@ -26,9 +26,10 @@ const ExtendDialog = ({
   onExtend,
 }: ExtendDialogProps): JSX.Element => {
   const intl = useIntl();
+  const [open, setOpen] = React.useState(false);
 
   const handleExtend = useCallback(
-    (formValues: FormValues) => {
+    async (formValues: FormValues) => {
       const expiryDateInUtc = formValues.endDate
         ? convertDateTimeZone(
             `${formValues.endDate} 23:59:59`,
@@ -37,50 +38,28 @@ const ExtendDialog = ({
           )
         : null;
 
-      onExtend({
+      await onExtend({
         expiryDate: expiryDateInUtc,
-      });
+      }).then(() => setOpen(false));
     },
     [onExtend],
   );
 
   const methods = useForm<FormValues>({
-    defaultValues: { endDate: expiryDate },
+    defaultValues: {
+      endDate: expiryDate
+        ? new Date(expiryDate).toISOString().split("T")[0]
+        : "",
+    },
   });
 
-  const { handleSubmit } = methods;
-  const Footer = React.useMemo(
-    () => (
-      <>
-        <div style={{ flexGrow: 2 } /* push other div to the right */}>
-          <Dialog.Close>
-            <Button mode="outline" color="secondary">
-              {intl.formatMessage({
-                defaultMessage: "Cancel and go back",
-                id: "tiF/jI",
-                description: "Close dialog button",
-              })}
-            </Button>
-          </Dialog.Close>
-        </div>
-        <div>
-          <Dialog.Close>
-            <Button mode="solid" color="secondary" type="submit">
-              {intl.formatMessage({
-                defaultMessage: "Extend closing date",
-                id: "OIk63O",
-                description:
-                  "Button to extend the pool closing date in the extend pool closing date dialog",
-              })}
-            </Button>
-          </Dialog.Close>
-        </div>
-      </>
-    ),
-    [intl],
-  );
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
+
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button color="secondary" mode="solid">
           {intl.formatMessage({
@@ -133,7 +112,36 @@ const ExtendDialog = ({
                 },
               }}
             />
-            <Dialog.Footer>{Footer}</Dialog.Footer>
+            <Dialog.Footer>
+              <div style={{ flexGrow: 2 } /* push other div to the right */}>
+                <Dialog.Close>
+                  <Button mode="outline" color="secondary">
+                    {intl.formatMessage({
+                      defaultMessage: "Cancel and go back",
+                      id: "tiF/jI",
+                      description: "Close dialog button",
+                    })}
+                  </Button>
+                </Dialog.Close>
+              </div>
+              <div>
+                <Button
+                  mode="solid"
+                  color="secondary"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage({
+                        defaultMessage: "Extend closing date",
+                        id: "OIk63O",
+                        description:
+                          "Button to extend the pool closing date in the extend pool closing date dialog",
+                      })}
+                </Button>
+              </div>
+            </Dialog.Footer>
           </form>
         </FormProvider>
       </Dialog.Content>
