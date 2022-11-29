@@ -538,15 +538,9 @@ RAWSQL2;
             return $query;
         }
 
-        // recycling location preferences code
         $query->where(function ($query) use ($positionDuration) {
             foreach ($positionDuration as $index => $duration) {
-                if ($index === 0) {
-                    // First iteration must use where instead of orWhere
-                    $query->whereJsonContains('position_duration', $duration);
-                } else {
-                    $query->orWhereJsonContains('position_duration', $duration);
-                }
+                $query->orWhereJsonContains('position_duration', $duration);
             }
         });
         return $query;
