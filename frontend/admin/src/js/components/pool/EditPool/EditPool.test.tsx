@@ -183,7 +183,7 @@ describe("Edit Pool tests", () => {
       screen.queryByRole("button", { name: /close/i }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: /extend/i }),
+      screen.queryByRole("button", { name: /extend the date/i }),
     ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("button", { name: /archive/i }),
