@@ -34,7 +34,7 @@ class WouldAcceptTemporaryToPositionDuration extends Migration
         SQL, [
             'wouldAccept' => json_encode([ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT]),
             'wouldNotAccept' => json_encode([ApiEnums::POSITION_DURATION_PERMANENT]),
-        ]);
+        ]); // users always accept PERMANENT
 
         DB::statement(
         <<<SQL
@@ -42,13 +42,12 @@ class WouldAcceptTemporaryToPositionDuration extends Migration
                 SET position_duration =
                     case would_accept_temporary
                         when true then :wouldAccept::jsonb
-                        when false then :wouldNotAccept::jsonb
+                        when false then null
                         when null then null
                     end
         SQL, [
-            'wouldAccept' => json_encode([ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT]),
-            'wouldNotAccept' => json_encode([ApiEnums::POSITION_DURATION_PERMANENT]),
-        ]);
+            'wouldAccept' => json_encode([ApiEnums::POSITION_DURATION_TEMPORARY]),
+        ]); // filter does not always have PERMANENT, having both corresponds to accepting ANY, and there is no filtering for PERMANENT
 
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('would_accept_temporary');
@@ -65,6 +64,44 @@ class WouldAcceptTemporaryToPositionDuration extends Migration
      */
     public function down()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('would_accept_temporary')->nullable()->default(null);
+        });
+        Schema::table('applicant_filters', function (Blueprint $table) {
+            $table->boolean('would_accept_temporary')->nullable()->default(null);
+        });
+
+        DB::statement(
+            <<<SQL
+                UPDATE users
+                    SET would_accept_temporary = true
+                    WHERE position_duration ?? :duration
+            SQL, [
+                'duration' => ApiEnums::POSITION_DURATION_TEMPORARY,
+        ]);
+
+        DB::statement(
+            <<<SQL
+                UPDATE users
+                    SET would_accept_temporary = false
+                    WHERE jsonb_array_length(position_duration::jsonb) = 1
+            SQL, [
+        ]);
+        // false corresponds to an array of one item (PERMANENT) as that is the assumption for the migration and elsewhere,
+        // can't do a !?? operation
+        // all other cases stick to the default (NULL)
+
+        DB::statement(
+            <<<SQL
+                UPDATE applicant_filters
+                    SET would_accept_temporary = true
+                    WHERE position_duration ?? :duration
+            SQL, [
+                'duration' => ApiEnums::POSITION_DURATION_TEMPORARY,
+        ]);
+        // filter is either looking for TEMPORARY or doing nothing, never both as that equals ANY
+        // in which case no point assigning PERMANENT since filtering for it is not a current practice
+
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('position_duration');
         });
