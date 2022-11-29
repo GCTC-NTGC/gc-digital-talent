@@ -788,8 +788,8 @@ const Home: React.FunctionComponent = () => {
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Aim to launch the program in the later half of 2022.",
-                    id: "0sVKGY",
+                      "Aim to launch the program in the early half of 2023.",
+                    id: "0i34ZZ",
                     description: "Talent portal strategy item 4 content",
                   })}
                 </p>
