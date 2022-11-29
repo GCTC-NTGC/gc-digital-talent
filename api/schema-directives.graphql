@@ -1687,6 +1687,30 @@ directive @update(
   relation: String
 ) on FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 
+# Directive class: Nuwave\Lighthouse\Schema\Directives\UploadDirective
+"""
+Uploads given file to storage, removes the argument and sets
+the returned path to the attribute key provided.
+
+This does not change the schema from a client perspective.
+"""
+directive @upload(
+  """
+  The storage disk to be used, defaults to config value `filesystems.default`.
+  """
+  disk: String
+
+  """
+  The path where the file should be stored.
+  """
+  path: String! = "/"
+
+  """
+  Should the visibility be public?
+  """
+  public: Boolean! = false
+) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
 # Directive class: Nuwave\Lighthouse\Schema\Directives\UpsertDirective
 """
 Create or update an Eloquent model with the input values of the field.
