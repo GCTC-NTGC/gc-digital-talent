@@ -358,5 +358,13 @@
   "t2Q+IG": {
     "defaultMessage": "Retourner au Français",
     "description": "Button text for returning to default language from Indigenous language"
+  },
+  "kiH9nz": {
+    "defaultMessage": "Sélectionnez<hidden> une langue autochtone </hidden>",
+    "description": "Button text displayed for Indigenous languages dropdown"
+  },
+  "uoX7ou": {
+    "defaultMessage": "Cette page est accessible en langues autochtones",
+    "description": "Text displayed as label for Indigenous languages selector"
   }
 }
