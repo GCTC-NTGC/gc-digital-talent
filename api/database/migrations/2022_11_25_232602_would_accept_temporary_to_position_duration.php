@@ -49,6 +49,13 @@ class WouldAcceptTemporaryToPositionDuration extends Migration
             'wouldAccept' => json_encode([ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT]),
             'wouldNotAccept' => json_encode([ApiEnums::POSITION_DURATION_PERMANENT]),
         ]);
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('would_accept_temporary');
+        });
+        Schema::table('applicant_filters', function (Blueprint $table) {
+            $table->dropColumn('would_accept_temporary');
+        });
     }
 
     /**

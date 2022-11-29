@@ -52,7 +52,6 @@ use Illuminate\Support\Facades\DB;
  * @property array $location_preferences
  * @property string $location_exemptions
  * @property array $expected_salary
- * @property boolean $would_accept_temporary
  * @property array $position_duration
  * @property array $accepted_operational_requirements
  * @property string $gov_employee_type
@@ -521,13 +520,6 @@ RAWSQL2;
     {
         if ($hasDiploma) {
             $query->where('has_diploma', true);
-        }
-        return $query;
-    }
-    public static function scopeWouldAcceptTemporary(Builder $query, ?bool $wouldAcceptTemporary): Builder
-    {
-        if ($wouldAcceptTemporary) {
-            $query->where('would_accept_temporary', true);
         }
         return $query;
     }

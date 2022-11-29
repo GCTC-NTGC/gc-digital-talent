@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property boolean $is_indigenous
  * @property boolean $is_visible_minority
  * @property boolean $is_woman
- * @property boolean $would_accept_temporary
  * @property array $position_duration
  * @property string $language_ability
  * @property array $location_preferences

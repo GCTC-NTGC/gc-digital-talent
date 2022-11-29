@@ -1742,7 +1742,6 @@ class UserTest extends TestCase
                 'current_city' => 'Somewhere random',
                 'is_gov_employee' => false,
                 'expected_salary' => ['_50_59K'],
-                'would_accept_temporary' => false,
             ]);
 
         // Assert query no isProfileComplete filter will return all users

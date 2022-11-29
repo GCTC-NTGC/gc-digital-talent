@@ -131,7 +131,6 @@ class UserFactory extends Factory
                 ],
                 3
             ),
-            'would_accept_temporary' => $this->faker->boolean(),
             'position_duration' => $this->faker->boolean() ?
                 [ApiEnums::POSITION_DURATION_PERMANENT, ApiEnums::POSITION_DURATION_TEMPORARY]
                 : [ApiEnums::POSITION_DURATION_PERMANENT], // always accepting PERMANENT
