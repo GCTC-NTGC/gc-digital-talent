@@ -157,13 +157,31 @@ const ApplicantFilters: React.FC<{
     );
   });
 
+  const positionDurationToEmploymentDuration = (
+    durations: Maybe<PositionDuration>[],
+  ): string => {
+    if (durations && durations.includes(PositionDuration.Temporary)) {
+      return EmploymentDuration.Term;
+    }
+    return EmploymentDuration.Indeterminate;
+    // Search/Request currently selects TEMPORARY or PERMANENT or NULL, no combinations
+    // therefore if applicant.positionDuration exists, durations exists as an array of either TEMPORARY or PERMANENT
+  };
+
   const employmentDuration: string | undefined =
-    applicantFilter?.positionDuration &&
-    applicantFilter.positionDuration.includes(PositionDuration.Temporary)
-      ? intl.formatMessage(getEmploymentDuration(EmploymentDuration.Term))
-      : intl.formatMessage(
-          getEmploymentDuration(EmploymentDuration.Indeterminate),
-        );
+    applicantFilter && applicantFilter.positionDuration
+      ? intl.formatMessage(
+          getEmploymentDuration(
+            positionDurationToEmploymentDuration(
+              applicantFilter.positionDuration,
+            ),
+          ),
+        )
+      : intl.formatMessage({
+          defaultMessage: "(None selected)",
+          id: "+O6J4u",
+          description: "Text shown when the filter was not selected",
+        });
 
   const educationLevel: string | undefined = applicantFilter?.hasDiploma
     ? intl.formatMessage({
