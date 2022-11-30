@@ -83,7 +83,7 @@ UserProfileNull.args = {
   acceptedOperationalRequirements: null,
   expectedSalary: null,
   expectedClassifications: null,
-  wouldAcceptTemporary: null,
+  positionDuration: null,
   cmoAssets: null,
   armedForcesStatus: null,
   citizenship: null,

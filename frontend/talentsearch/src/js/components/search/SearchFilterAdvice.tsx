@@ -1,12 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { LanguageAbility, Maybe } from "../../api/generated";
+import { LanguageAbility, Maybe, PositionDuration } from "../../api/generated";
 
 const SearchFilterAdvice: React.FC<{
   operationalRequirementFilterCount: number;
   educationSelection: Maybe<boolean>;
   workingLanguage: Maybe<LanguageAbility>;
-  employmentDuration: Maybe<boolean>;
+  employmentDuration: Maybe<Maybe<PositionDuration>[]>;
   equityFiltersActive: number;
   skillCount: number;
 }> = ({

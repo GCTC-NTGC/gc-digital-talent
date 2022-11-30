@@ -352,7 +352,7 @@ const transformApplicantFilterToFilterInput = (
     operationalRequirements: identity,
     pools: (pools) => pools?.filter(notEmpty).map(pickId),
     skills: (skills) => skills?.filter(notEmpty).map(pickId),
-    wouldAcceptTemporary: identity,
+    positionDuration: identity,
   };
 
   const emptyFilter: ApplicantFilterInput = {};

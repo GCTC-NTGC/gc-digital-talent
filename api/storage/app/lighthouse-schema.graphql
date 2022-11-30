@@ -43,7 +43,8 @@ type Applicant {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: [Classification]
-  wouldAcceptTemporary: Boolean
+  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  positionDuration: [PositionDuration]
   cmoAssets: [CmoAsset]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -63,7 +64,8 @@ type ApplicantFilter {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean
+  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  positionDuration: [PositionDuration]
   expectedClassifications: [Classification]
   skills: [Skill]
   pools: [Pool]
@@ -79,7 +81,7 @@ input ApplicantFilterInput {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean
+  positionDuration: [PositionDuration]
   expectedClassifications: [ClassificationFilterInput]
   skills: [IdInput]
   pools: [IdInput]
@@ -239,7 +241,7 @@ input CreateApplicantFilterInput {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean
+  positionDuration: [PositionDuration]
   expectedClassifications: ClassificationBelongsToMany
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
@@ -382,7 +384,7 @@ input CreateUserInput {
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
-  wouldAcceptTemporary: Boolean
+  positionDuration: [PositionDuration]
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
@@ -949,6 +951,11 @@ input PoolsHasMany {
   create: [CreatePoolInput]
 }
 
+enum PositionDuration {
+  TEMPORARY
+  PERMANENT
+}
+
 enum ProvinceOrTerritory {
   BRITISH_COLUMBIA
   ALBERTA
@@ -1358,7 +1365,7 @@ input UpdateUserAsAdminInput {
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
-  wouldAcceptTemporary: Boolean
+  positionDuration: [PositionDuration]
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
@@ -1405,7 +1412,7 @@ input UpdateUserAsUserInput {
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
-  wouldAcceptTemporary: Boolean
+  positionDuration: [PositionDuration]
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
@@ -1453,7 +1460,8 @@ type User {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: [Classification]
-  wouldAcceptTemporary: Boolean
+  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  positionDuration: [PositionDuration]
   cmoAssets: [CmoAsset]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]

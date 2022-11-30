@@ -71,7 +71,7 @@ query getProfile($userId: ID!) {
       group
       level
     }
-    wouldAcceptTemporary
+    positionDuration
     cmoAssets {
       id
       name {

@@ -3,6 +3,7 @@ import {
   LanguageAbility,
   OperationalRequirement,
   PoolCandidateStatus,
+  PositionDuration,
   WorkRegion,
 } from "../../api/generated";
 
@@ -56,6 +57,19 @@ export function stringToEnumPoolCandidateStatus(
     )
   ) {
     return selection as PoolCandidateStatus;
+  }
+  return undefined;
+}
+
+// options on copy are TERM or INDETERMINATE
+export function durationToEnumPositionDuration(
+  selection: string,
+): PositionDuration | undefined {
+  if (selection === "TERM") {
+    return PositionDuration.Temporary;
+  }
+  if (selection === "INDETERMINATE") {
+    return PositionDuration.Permanent;
   }
   return undefined;
 }

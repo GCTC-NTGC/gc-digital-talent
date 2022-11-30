@@ -52,7 +52,7 @@ type FormValues = {
       sync?: Array<Maybe<Skill["id"]>>;
     };
     hasDiploma?: ApplicantFilterInput["hasDiploma"];
-    wouldAcceptTemporary?: ApplicantFilterInput["wouldAcceptTemporary"];
+    positionDuration?: ApplicantFilterInput["positionDuration"];
     equity?: EquitySelections;
     languageAbility?: ApplicantFilter["languageAbility"];
     operationalRequirements?: Array<Maybe<OperationalRequirement>>;
@@ -112,9 +112,10 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       additionalComments: values.additionalComments,
       applicantFilter: {
         create: {
-          wouldAcceptTemporary: applicantFilter?.wouldAcceptTemporary
-            ? applicantFilter?.wouldAcceptTemporary
-            : null,
+          positionDuration:
+            applicantFilter && applicantFilter.positionDuration
+              ? applicantFilter.positionDuration
+              : null,
           hasDiploma: applicantFilter?.hasDiploma
             ? applicantFilter?.hasDiploma
             : false,

@@ -393,4 +393,17 @@ class ApiEnums
         ];
     }
 
+    /**
+     * Position Duration
+     */
+    const POSITION_DURATION_TEMPORARY = 'TEMPORARY';
+    const POSITION_DURATION_PERMANENT = 'PERMANENT';
+
+    public static function positionDurations(): array
+    {
+        return [
+            self::POSITION_DURATION_TEMPORARY,
+            self::POSITION_DURATION_PERMANENT,
+        ];
+    }
 }

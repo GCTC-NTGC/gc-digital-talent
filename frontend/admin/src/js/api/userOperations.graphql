@@ -91,7 +91,7 @@ mutation CreateUser($user: CreateUserInput!) {
       minSalary
       maxSalary
     }
-    wouldAcceptTemporary
+    positionDuration
   }
 }
 
@@ -162,7 +162,7 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
       minSalary
       maxSalary
     }
-    wouldAcceptTemporary
+    positionDuration
   }
 }
 
@@ -235,6 +235,6 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
       minSalary
       maxSalary
     }
-    wouldAcceptTemporary
+    positionDuration
   }
 }

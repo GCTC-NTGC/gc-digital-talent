@@ -5,17 +5,21 @@ import isEmpty from "lodash/isEmpty";
 import Well from "../../Well";
 import messages from "../../../messages/commonMessages";
 import { getOperationalRequirement } from "../../../constants/localizedConstants";
-import { Applicant, OperationalRequirement } from "../../../api/generated";
+import {
+  Applicant,
+  OperationalRequirement,
+  PositionDuration,
+} from "../../../api/generated";
 
 const WorkPreferencesSection: React.FunctionComponent<{
   applicant: Pick<
     Applicant,
-    "acceptedOperationalRequirements" | "wouldAcceptTemporary"
+    "acceptedOperationalRequirements" | "positionDuration"
   >;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
-  const { acceptedOperationalRequirements, wouldAcceptTemporary } = applicant;
+  const { acceptedOperationalRequirements, positionDuration } = applicant;
 
   // generate array of accepted operational requirements
   const acceptedOperationalArray = acceptedOperationalRequirements
@@ -64,7 +68,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {wouldAcceptTemporary === null && (
+        {(positionDuration === null || positionDuration?.length === 0) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
@@ -86,53 +90,55 @@ const WorkPreferencesSection: React.FunctionComponent<{
           </div>
         )}
 
-        {wouldAcceptTemporary && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "I would consider accepting a job that lasts for:",
-                id: "Vc9vE7",
-                description:
-                  "Label for what length of position user prefers, followed by colon",
-              })}
-            </p>
-            <ul data-h2-padding="base(0, 0, 0, x1)">
-              <li>
+        {positionDuration &&
+          positionDuration.includes(PositionDuration.Temporary) && (
+            <div data-h2-flex-item="base(1of1)">
+              <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "any duration. (short term, long term, or indeterminate duration)",
-                  id: "uHx3G7",
+                    "I would consider accepting a job that lasts for:",
+                  id: "Vc9vE7",
                   description:
-                    "Label displayed on Work Preferences form for any duration option",
+                    "Label for what length of position user prefers, followed by colon",
                 })}
-              </li>
-            </ul>
-          </div>
-        )}
+              </p>
+              <ul data-h2-padding="base(0, 0, 0, x1)">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "any duration. (short term, long term, or indeterminate duration)",
+                    id: "uHx3G7",
+                    description:
+                      "Label displayed on Work Preferences form for any duration option",
+                  })}
+                </li>
+              </ul>
+            </div>
+          )}
 
-        {wouldAcceptTemporary === false && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "I would consider accepting a job that lasts for:",
-                id: "Vc9vE7",
-                description:
-                  "Label for what length of position user prefers, followed by colon",
-              })}
-            </p>
-            <ul data-h2-padding="base(0, 0, 0, x1)">
-              <li>
+        {positionDuration &&
+          !positionDuration.includes(PositionDuration.Temporary) && (
+            <div data-h2-flex-item="base(1of1)">
+              <p>
                 {intl.formatMessage({
-                  defaultMessage: "Permanent duration",
-                  id: "8cRL8r",
-                  description: "Permanent duration only",
-                })}{" "}
-              </li>
-            </ul>
-          </div>
-        )}
+                  defaultMessage:
+                    "I would consider accepting a job that lasts for:",
+                  id: "Vc9vE7",
+                  description:
+                    "Label for what length of position user prefers, followed by colon",
+                })}
+              </p>
+              <ul data-h2-padding="base(0, 0, 0, x1)">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage: "Permanent duration",
+                    id: "8cRL8r",
+                    description: "Permanent duration only",
+                  })}{" "}
+                </li>
+              </ul>
+            </div>
+          )}
 
         {anyCriteriaSelected && !isEmpty(unacceptedOperationalArray) && (
           <div data-h2-flex-item="base(1of1)">

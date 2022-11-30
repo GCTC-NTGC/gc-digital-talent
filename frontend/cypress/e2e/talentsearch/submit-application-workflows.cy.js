@@ -3,6 +3,7 @@ import {
   CitizenshipStatus,
   PoolAdvertisementLanguage,
   PoolStream,
+  PositionDuration,
   ProvinceOrTerritory,
   PublishingGroup,
   SecurityStatus,
@@ -56,7 +57,7 @@ describe("Submit Application Workflow Tests", () => {
               isGovEmployee: false,
               hasPriorityEntitlement: false,
               locationPreferences: WorkRegion.Ontario,
-              wouldAcceptTemporary: false,
+              positionDuration: PositionDuration.Permanent,
               expectedGenericJobTitles: {
                 sync: testGenericJobTitleIds,
               },
