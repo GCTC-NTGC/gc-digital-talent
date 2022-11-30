@@ -8,7 +8,7 @@ import {
   PublishingGroup,
   SecurityStatus,
   WorkRegion,
-} from "../../../admin/src/js/api/generated";
+} from "../../../talentsearch/src/js/api/generated";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
@@ -36,7 +36,7 @@ describe("Submit Application Workflow Tests", () => {
     });
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
       cy.wrap([allGenericJobTitles[0].id]).as("testGenericJobTitleIds"); // take the first ID for testing
-      cy.wrap([allGenericJobTitles[0].classification.id]).as("testClassificationIds"); // take the first ID for testing
+      cy.wrap(allGenericJobTitles[0].classification.id).as("testClassificationId"); // take the first ID for testing
     });
 
     cy.loginByRole("admin").then(() => {
@@ -89,8 +89,8 @@ describe("Submit Application Workflow Tests", () => {
     cy.getMe()
       .its("id")
       .then((adminUserId) => {
-        cy.get("@testClassificationIds").then((testClassificationIds) => {
-          cy.createPoolAdvertisement(adminUserId, testClassificationIds)
+        cy.get("@testClassificationId").then((testClassificationId) => {
+          cy.createPoolAdvertisement(adminUserId, [testClassificationId])
             .its("id")
             .as("testPoolAdvertisementId")
             .then((testPoolAdvertisementId) => {
