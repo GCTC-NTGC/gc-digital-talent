@@ -343,9 +343,9 @@ export const PoolAdvertisementPoster = ({
                 <Accordion.Trigger>
                   {intl.formatMessage({
                     defaultMessage: "What are pool recruitments?",
-                    id: "asP33b",
+                    id: "KYFarS",
                     description:
-                      "Title for according describing pool recruitment's",
+                      "Title for accordion describing pool recruitments",
                   })}
                 </Accordion.Trigger>
                 <Accordion.Content>

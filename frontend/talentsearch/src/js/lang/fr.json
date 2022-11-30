@@ -1452,9 +1452,9 @@
     "defaultMessage": "Débutant <gray>- Je possède des compétences de base en lecture, écriture et communication verbale.</gray>",
     "description": "Message for the beginner language ability option"
   },
-  "asP33b": {
+  "KYFarS": {
     "defaultMessage": "Que sont les recrutements en bassin?",
-    "description": "Title for according describing pool recruitment's"
+    "description": "Title for accordion describing pool recruitments"
   },
   "cHJFcW": {
     "defaultMessage": "Autres exigences",
