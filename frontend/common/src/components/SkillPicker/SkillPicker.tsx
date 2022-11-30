@@ -52,9 +52,6 @@ const SkillPicker = ({
   isSubmitting,
 }: SkillPickerProps) => {
   const intl = useIntl();
-  const [isInSkillList, setIsInSkillList] = React.useState<boolean>(false);
-  const skipToHeading = React.useRef<HTMLHeadingElement>(null);
-
   const Heading = headingLevel;
   const [validData, setValidData] = React.useState<FormValues>(defaultValues);
   const methods = useForm<FormValues>({
@@ -63,7 +60,7 @@ const SkillPicker = ({
   });
   const { watch, handleSubmit } = methods;
 
-  const skipId = skipToHeading?.current?.id;
+  const skipId = `list-skip-${uniqueId()}`;
 
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamily }) => {
@@ -119,24 +116,6 @@ const SkillPicker = ({
 
   const handleCheckFamily = (id: SkillFamily["id"]) => {
     methods.setValue("skillFamily", id);
-  };
-
-  /**
-   * Hack: This moves the focus past the list of skills
-   * to prevent users being trapped in when navigating
-   * using assistive technologies
-   *
-   * This is a temporary fix until we can come up with
-   * a better solution. Please, do not repeat this pattern
-   * elsewhere 🙂
-   *
-   */
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.altKey && e.key === "Escape" && e.shiftKey) {
-      if (skipToHeading?.current) {
-        skipToHeading.current.focus();
-      }
-    }
   };
 
   return (
@@ -210,35 +189,16 @@ const SkillPicker = ({
           })}
         </a>
       )}
-      {isInSkillList ? (
-        <p
-          aria-live="polite"
-          data-h2-visibility="base(invisible)"
-          id="skill-list-help"
-        >
-          {intl.formatMessage({
-            id: "54Dtpp",
-            defaultMessage:
-              "Press alt (option on a mac) + shift + escape while navigating through the list of skills to skip directly to your chosen skills.",
-            description:
-              "Instructional text for skill picker shortcuts on a keyboard",
-          })}
-        </p>
-      ) : null}
       <ScrollArea.Root
-        onKeyDown={handleKeyDown}
         data-h2-width="base(100%)"
         data-h2-height="base(320px)"
         data-h2-max-height="base(50vh)"
         data-h2-shadow="base(s)"
-        onFocus={() => setIsInSkillList(true)}
-        onBlur={() => setIsInSkillList(false)}
       >
         <ScrollArea.Viewport data-h2-background-color="base(white)">
           <div
             data-h2-padding="base(x.5, x1, x.5, x.5)"
             role={filteredSkills.length > 0 ? "list" : undefined}
-            aria-describedby={isInSkillList ? "skill-list-help" : undefined}
           >
             {filteredSkills.length > 0 ? (
               filteredSkills.map((skill, index: number) => (
@@ -289,8 +249,7 @@ const SkillPicker = ({
         data-h2-font-size="base(copy, 1)"
         data-h2-font-weight="base(700)"
         data-h2-margin="base(x.75, 0, x.5, 0)"
-        id={skipToHeadingId}
-        ref={skipToHeading}
+        id={skipId}
         tabIndex={-1}
       >
         {intl.formatMessage({
