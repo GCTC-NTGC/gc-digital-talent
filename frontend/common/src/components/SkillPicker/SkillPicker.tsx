@@ -60,8 +60,6 @@ const SkillPicker = ({
   });
   const { watch, handleSubmit } = methods;
 
-  const skipId = `list-skip-${uniqueId()}`;
-
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamily }) => {
       setValidData({
@@ -173,22 +171,20 @@ const SkillPicker = ({
           },
         )}
       </p>
-      {skipId && (
-        <a
-          href={`#${skipId}`}
-          data-h2-visibility="base(invisible)"
-          data-h2-position="base:focus(static)"
-          data-h2-offset="base:focus(auto)"
-          data-h2-height="base:focus(auto)"
-          data-h2-width="base:focus(auto)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Skip list of skills",
-            id: "pg1S01",
-            description: "Link text to skip the list of add skill links",
-          })}
-        </a>
-      )}
+      <a
+        href={`#${skipToHeadingId}`}
+        data-h2-visibility="base(invisible)"
+        data-h2-position="base:focus(static)"
+        data-h2-offset="base:focus(auto)"
+        data-h2-height="base:focus(auto)"
+        data-h2-width="base:focus(auto)"
+      >
+        {intl.formatMessage({
+          defaultMessage: "Skip list of skills",
+          id: "pg1S01",
+          description: "Link text to skip the list of add skill links",
+        })}
+      </a>
       <ScrollArea.Root
         data-h2-width="base(100%)"
         data-h2-height="base(320px)"
@@ -249,7 +245,7 @@ const SkillPicker = ({
         data-h2-font-size="base(copy, 1)"
         data-h2-font-weight="base(700)"
         data-h2-margin="base(x.75, 0, x.5, 0)"
-        id={skipId}
+        id={skipToHeadingId}
         tabIndex={-1}
       >
         {intl.formatMessage({
