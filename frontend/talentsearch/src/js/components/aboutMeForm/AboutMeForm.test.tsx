@@ -130,7 +130,7 @@ describe("AboutMeForm", () => {
     });
 
     fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
-    expect(await screen.findAllByRole("alert")).toHaveLength(10);
+    expect(await screen.findAllByRole("alert")).toHaveLength(1);
     expect(mockSave).not.toHaveBeenCalled();
   });
 

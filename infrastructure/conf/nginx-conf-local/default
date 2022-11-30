@@ -1,0 +1,194 @@
+# enable rewrite logging for debugging
+error_log /var/log/nginx/error.log notice;
+# rewrite_log on;
+
+server {
+    #proxy_cache cache;
+    #proxy_cache_valid 200 1s;
+
+    # on the servers, the pages are served on 8080 then reverse proxied upstream
+    listen 8080;
+    listen [::]:8080;
+    root /home/site/wwwroot;
+    index  index.php index.html index.htm;
+    #server_name localhost;
+
+    # redirect server error pages
+    error_page   404  /404;
+
+    # Disable .git directory
+    location ~ /\.git {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    location = /robots.txt {
+        alias /home/site/wwwroot/infrastructure/conf/dev.robot.txt;
+    }
+    # Permanent redirects to avoid dead links
+    location = /en/communities/digital-talent { return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html; }
+    location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
+
+    # local auth
+    location ^~ /oxauth {
+        proxy_pass "http://mock-auth:8080";
+        # Header X-Forwarded-Proto tells mock-oauth2-proxy to use Host for
+        # urls in response from /oxauth/.well-known/openid-confifiguration
+        #
+        # See: https://github.com/navikt/mock-oauth2-server/pull/187
+        proxy_set_header X-Forwarded-Proto http;
+        proxy_set_header Host localhost:8000;
+        break;
+    }
+
+    # api
+    location = /phpinfo.php {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/phpinfo.php;
+    }
+    location = /graphql {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
+    }
+    location = /graphql-playground {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
+    }
+    location = /login {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
+    }
+    location = /register {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
+    }
+    location = /auth-callback {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
+        ## TUNE buffers to avoid "upstream sent too big headers" error ##
+        fastcgi_buffers 16 32k;
+        fastcgi_buffer_size 64k;
+        fastcgi_busy_buffers_size 64k;
+    }
+    location = /refresh {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
+    }
+
+    # rewrite root-level possible lang prefix to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/?$" {
+        rewrite "^(?:/[a-z]{2})?/?$" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # rewrite admin static files to "admin/dist"
+    location ~ "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
+        rewrite "^/admin/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /frontend/admin/dist/$1 break;
+    }
+
+    # rewrite possible lang prefix then "admin" to admin index.html
+    location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /frontend/admin/dist/index.html break;
+    }
+
+    # rewrite talent static files to "talentsearch/dist"
+    location ~ "^/talent/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
+        rewrite "^/talent/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /frontend/talentsearch/dist/$1 break;
+    }
+
+    # rewrite possible lang prefix then "talent" to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/talent(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/talent(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "users" to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/users(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/users(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "search" to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/search(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/search(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "logged-out" to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/logged-out(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/logged-out(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "browse" to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/browse(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/browse(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "404" to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/404(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/404(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "support" to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/support(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/support(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "accessibility-statement" to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "create-account" to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/create-account(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/create-account(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "register-info" to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/register-info(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/register-info(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "login-info" to talentsearch index.html
+    location ~ "^(?:/[a-z]{2})?/login-info(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/login-info(/.*|$)" /frontend/talentsearch/dist/index.html break;
+    }
+
+    # rewrite talent static files to "indigenousapprenticeship/dist"
+    location ~ "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
+        rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /frontend/indigenousapprenticeship/dist/$1 break;
+    }
+
+    # rewrite possible lang prefix then "apprenti-autochtonne-ti" to indigenousapprenticeship index.html
+    location ~ "^(?:/[a-z]{2})?/apprenti-autochtonne-ti(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/apprenti-autochtonne-ti(/.*|$)" /frontend/indigenousapprenticeship/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "indigenous-it-apprentice" to indigenousapprenticeship index.html
+    location ~ "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" /frontend/indigenousapprenticeship/dist/index.html break;
+    }
+
+    # rewrite tc-report static files to "tc-report/_site"
+    location ~ "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
+        rewrite "^/tc-report/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /tc-report/_site/$1 break;
+    }
+
+    # fallback any other files to "tc-report/_site"
+    ## Must be second to last of the file!
+    location ~ "^/(.*\.(\w+))$" {
+        rewrite "^/(.*\.(\w+))$" /tc-report/_site/$1 break;
+    }
+
+    # fallback any other path to "tc-report/_site" index.html
+    ## Must be last of the file!
+    location ~ ^/(.*)$ {
+        rewrite ^/(.*)$ /tc-report/_site/$1/index.html break;
+    }
+
+}
+

@@ -9,6 +9,7 @@ import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import Heading from "@common/components/Heading/Heading";
 import {
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,
@@ -28,6 +29,7 @@ const ManagerInfo: React.FunctionComponent<{
     jobTitle,
     status,
     requestedDate,
+    doneDate,
     poolCandidateFilter,
     applicantFilter,
   } = searchRequest;
@@ -40,17 +42,14 @@ const ManagerInfo: React.FunctionComponent<{
 
   return (
     <>
-      <h2
-        data-h2-margin="base(x2, 0, x.5, 0)"
-        data-h2-font-size="base(h4, 1.3)"
-      >
+      <Heading level="h2" size="h4">
         {intl.formatMessage({
           defaultMessage: "Manager Information",
           id: "UEsexn",
           description:
             "Heading for the manager info section of the single search request view.",
         })}
-      </h2>
+      </Heading>
       <div data-h2-background-color="base(lightest.dt-gray)">
         <div data-h2-padding="base(x1)">
           <div
@@ -192,12 +191,20 @@ const ManagerInfo: React.FunctionComponent<{
                     description:
                       "Title for the date done block in the manager info section of the single search request view.",
                   })}
-                  content={intl.formatMessage({
-                    defaultMessage: "(Request is still pending)",
-                    id: "FxceQZ",
-                    description:
-                      "Text for when date done is pending in the manager info section of the single search request view.",
-                  })}
+                  content={
+                    doneDate
+                      ? formatDate({
+                          date: parseDateTimeUtc(doneDate),
+                          formatString: "PPP p",
+                          intl,
+                        })
+                      : intl.formatMessage({
+                          defaultMessage: "(Request is still pending)",
+                          id: "FxceQZ",
+                          description:
+                            "Text for when date done is pending in the manager info section of the single search request view.",
+                        })
+                  }
                 />
               </div>
             </div>
@@ -240,17 +247,14 @@ export const SingleSearchRequest: React.FunctionComponent<
       </p>
       <ManagerInfo searchRequest={searchRequest} />
       <div>
-        <h2
-          data-h2-margin="base(x2, 0, x.5, 0)"
-          data-h2-font-size="base(h4, 1.3)"
-        >
+        <Heading level="h2" size="h4">
           {intl.formatMessage({
             defaultMessage: "Request Information",
             id: "AAmd5G",
             description:
               "Heading for the request information section of the single search request view.",
           })}
-        </h2>
+        </Heading>
         <div
           data-h2-padding="base(x1)"
           data-h2-background-color="base(lightest.dt-gray)"
@@ -274,17 +278,14 @@ export const SingleSearchRequest: React.FunctionComponent<
         </div>
       </div>
       <div>
-        <h2
-          data-h2-margin="base(x2, 0, 0, 0)"
-          data-h2-font-size="base(h4, 1.3)"
-        >
+        <Heading level="h2" size="h4">
           {intl.formatMessage({
             defaultMessage: "Candidate Results",
             id: "Duswz0",
             description:
               "Heading for the candidate results section of the single search request view.",
           })}
-        </h2>
+        </Heading>
         {abstractFilter ? (
           <SingleSearchRequestTableApi filter={abstractFilter} />
         ) : (

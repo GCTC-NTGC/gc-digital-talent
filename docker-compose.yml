@@ -25,20 +25,20 @@ services:
     ports:
       - 8080:8080
 
-  php:
-    build: ./infrastructure/php-container
-    working_dir: /var/www/html
+  webserver:
+    # All images: https://mcr.microsoft.com/v2/appsvc/php/tags/list
+    image: mcr.microsoft.com/appsvc/php:8.1-fpm-xdebug_20221027.1.tuxprod
     restart: always
     volumes:
-      - ./infrastructure/php-container/src:/var/www/html/
-      - ./api:/var/www/html/api
-      - ./frontend:/var/www/html/frontend
-      - ./tc-report:/var/www/html/tc-report
+      - ./:/home/site/wwwroot
+      - ./infrastructure/conf/nginx-conf-local:/etc/nginx/sites-available/
     ports:
-      - 8000:80
-      - 8001:443
-    env_file:
-      - ./frontend/.apache_env
+      - 8000:8080
+    environment:
+      - NGINX_PORT=8080
+      - ROBOTS_FILENAME=dev.robot.txt
+    # Uncomment to test out post deployment script
+    # command: ./infrastructure/bin/post_deployment.sh .
 
   maintenance:
     build: ./infrastructure/maintenance-container
