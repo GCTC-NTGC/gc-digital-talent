@@ -33,7 +33,6 @@ import {
   Skill,
   ApplicantFilter,
   ApplicantFilterInput,
-  PositionDuration,
 } from "../../api/generated";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
 import { SimpleClassification } from "../../types/poolUtils";
@@ -113,13 +112,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       additionalComments: values.additionalComments,
       applicantFilter: {
         create: {
-          // either TEMPORARY or do nothing
           positionDuration:
-            applicantFilter?.positionDuration &&
-            applicantFilter.positionDuration.includes(
-              PositionDuration.Temporary,
-            )
-              ? [PositionDuration.Temporary]
+            applicantFilter && applicantFilter.positionDuration
+              ? applicantFilter.positionDuration
               : null,
           hasDiploma: applicantFilter?.hasDiploma
             ? applicantFilter?.hasDiploma

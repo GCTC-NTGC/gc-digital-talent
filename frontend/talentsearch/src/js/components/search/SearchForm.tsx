@@ -106,6 +106,18 @@ const classificationLabels: Record<string, MessageDescriptor> = defineMessages({
   },
 });
 
+const durationSelectionToEnum = (
+  selection: string | null,
+): PositionDuration[] | null => {
+  if (selection && selection === "term") {
+    return [PositionDuration.Temporary];
+  }
+  if (selection && selection === "indeterminate") {
+    return [PositionDuration.Permanent];
+  }
+  return null;
+};
+
 const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
   ({ classifications, skills, pools, onUpdateApplicantFilter }, ref) => {
     const intl = useIntl();
@@ -174,10 +186,9 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
           ...(values.languageAbility !== NullSelection
             ? { languageAbility: values.languageAbility as LanguageAbility }
             : {}), // Ensure null in FormValues is converted to undefined
-          positionDuration:
-            values.employmentDuration === "true"
-              ? [PositionDuration.Temporary]
-              : null,
+          positionDuration: values.employmentDuration
+            ? durationSelectionToEnum(values.employmentDuration)
+            : null,
           locationPreferences: values.locationPreferences || [],
           pools: pools
             ? pools
@@ -485,13 +496,13 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   }),
                 },
                 {
-                  value: "true",
+                  value: "term",
                   label: intl.formatMessage(
                     getEmploymentDuration(EmploymentDuration.Term),
                   ),
                 },
                 {
-                  value: "nothing",
+                  value: "indeterminate",
                   label: intl.formatMessage(
                     getEmploymentDuration(EmploymentDuration.Indeterminate),
                   ),
