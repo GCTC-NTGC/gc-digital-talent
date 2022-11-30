@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 import imageUrl from "@common/helpers/imageUrl";
 
+// import LanguageSelector from "../LanguageSelector/LanguageSelector";
 import Banner from "../Banner/Banner";
 import Card from "../Card/Card";
 import Heading from "../Heading/Heading";
@@ -45,6 +46,8 @@ const Home: React.FunctionComponent = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      {/* TODO: Uncomment in #4617 */}
+      {/* <LanguageSelector /> */}
       {/* Hero */}
       <div
         data-h2-width="base(100%)"
@@ -788,8 +791,8 @@ const Home: React.FunctionComponent = () => {
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Aim to launch the program in the later half of 2022.",
-                    id: "0sVKGY",
+                      "Aim to launch the program in the early half of 2023.",
+                    id: "0i34ZZ",
                     description: "Talent portal strategy item 4 content",
                   })}
                 </p>

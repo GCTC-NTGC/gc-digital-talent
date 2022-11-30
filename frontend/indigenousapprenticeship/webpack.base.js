@@ -53,7 +53,7 @@ module.exports = {
           from: "**/*",
           globOptions: {
             dot: true,
-            ignore: ["**/public/index.html", "**/.DS_Store"],
+            ignore: ["**/public/index.html", "**/.DS_Store", "**/public/config.ejs"],
           },
         },
       ],
@@ -74,6 +74,28 @@ module.exports = {
       title: "Indigenous Apprenticeship Program",
       template: path.resolve(__dirname, "public/index.html"),
     }),
+
+    // generate an config file with the environment variables (not actually HTML but it's handy to reuse the plugin)
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "public/config.ejs"),
+      filename: "config.js",
+      inject: false,
+      environment: process.env,
+      minify: false, // minify in production causes this to fail
+    }),
+
+    // run some checks before compilation begins
+    {
+      apply: (compiler) => {
+        compiler.hooks.compile.tap("Preflight check", () => {
+          const authVariables = [
+            "OAUTH_URI", "OAUTH_TOKEN_URI", "OAUTH_ADMIN_CLIENT_ID", "OAUTH_ADMIN_CLIENT_SECRET"
+          ];
+          if (authVariables.some((v) => process.env.hasOwnProperty(v)))
+            throw 'OAUTH variables should be defined in the api project, not the admin project.  Compare the .env file to the .env.example for proper use.  https://github.com/GCTC-NTGC/gc-digital-talent/pull/2220';
+        });
+      },
+    },
   ],
   module: {
     rules: [
@@ -113,10 +135,10 @@ module.exports = {
     ],
   },
   /**
- * Optimizations only run in production mode
- *
- * Ref: https://webpack.js.org/configuration/optimization/
- */
+   * Optimizations only run in production mode
+   *
+   * Ref: https://webpack.js.org/configuration/optimization/
+   */
   optimization: {
     minimizer: [
       `...`, // Includes default minimizers
@@ -133,6 +155,7 @@ module.exports = {
   output: {
     publicPath: "/indigenous-it-apprentice", // final path for routing
     filename: "[name].js?id=[contenthash]", // file hashing for cache busting
+    chunkFilename: "[name].js?id=[contenthash]",
     path: path.resolve(__dirname, "dist"), // output folder
     clean: true, // delete existing files on recompile
   },

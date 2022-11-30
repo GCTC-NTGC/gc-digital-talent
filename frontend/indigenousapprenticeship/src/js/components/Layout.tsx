@@ -11,8 +11,28 @@ import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import { getLocale } from "@common/helpers/localize";
 import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
+// import { Messages } from "@common/components/context/LanguageProvider";
+// import NestedLanguageProvider from "@common/components/context/NestedLanguageProvider";
 
 import { useIndigenousApprenticeshipRoutes } from "../routes/indigenousApprenticeshipRoutes";
+
+/**
+ * TODO: This will be implemented in #4617
+ *
+ * Wrap entire component in <NestedLanguageProvider messages={messages} />
+ * */
+
+// import * as crgMessages from "../lang/crgCompiled.json";
+// import * as crkMessages from "../lang/crkCompiled.json";
+// import * as ojwMessages from "../lang/ojwCompiled.json";
+// import * as micMessages from "../lang/micCompiled.json";
+
+// const messages: Map<string, Messages> = new Map([
+//   ["crg", crgMessages],
+//   ["crk", crkMessages],
+//   ["ojw", ojwMessages],
+//   ["mic", micMessages],
+// ]);
 
 export const Layout = () => {
   const intl = useIntl();

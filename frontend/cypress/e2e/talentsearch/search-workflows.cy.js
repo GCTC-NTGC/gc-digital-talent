@@ -28,7 +28,7 @@ describe("Talent Search Workflow Tests", () => {
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
     cy.findByRole("combobox", { name: /Stream/i }).select(1);
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    cy.wait(500) // stream is not guaranteed to execute a new request, it depends on seeding, so pause for 0.5 seconds for a query to maybe run
 
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,

@@ -7,7 +7,9 @@ import { PoolCandidateSearchRequest } from "@common/api/generated";
 import { Button } from "@common/components";
 import { Submit, TextArea } from "@common/components/form";
 import { toast } from "@common/components/Toast";
+import Heading from "@common/components/Heading/Heading";
 
+import { commonMessages } from "@common/messages";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   PoolCandidateSearchStatus,
@@ -29,6 +31,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
   UpdateSearchRequestFormProps
 > = ({ initialSearchRequest, handleUpdateSearchRequest }) => {
   const intl = useIntl();
+  const [isSaving, setIsSaving] = React.useState<boolean>(false);
   const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>({
@@ -39,6 +42,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
   const handleSaveNotes: SubmitHandler<FormValues> = async (
     data: FormValues,
   ) => {
+    setIsSaving(true);
     return handleUpdateSearchRequest(initialSearchRequest.id, {
       adminNotes: data.adminNotes,
     })
@@ -61,6 +65,9 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
               "Message displayed to user after the personal notes fail to save on the single search request page.",
           }),
         );
+      })
+      .finally(() => {
+        setIsSaving(false);
       });
   };
 
@@ -95,17 +102,14 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
 
   return (
     <section>
-      <h2
-        data-h2-margin="base(x2, 0, x.5, 0)"
-        data-h2-font-size="base(h4, 1.3)"
-      >
+      <Heading level="h2" size="h4">
         {intl.formatMessage({
           defaultMessage: "Personal Notes",
           id: "l05aVF",
           description:
             "Heading for the personal notes section of the single search request view.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(handleStatusChangeToDone)}>
@@ -129,16 +133,19 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
                 <Button
                   color="primary"
                   mode="outline"
+                  disabled={isSaving}
                   onClick={() => {
                     handleSaveNotes(getValues());
                   }}
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Save Notes",
-                    id: "DRsBYY",
-                    description:
-                      "Button label displayed on the search request form which saves the users personal notes.",
-                  })}
+                  {isSaving
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage({
+                        defaultMessage: "Save Notes",
+                        id: "DRsBYY",
+                        description:
+                          "Button label displayed on the search request form which saves the users personal notes.",
+                      })}
                 </Button>
               </div>
             </div>

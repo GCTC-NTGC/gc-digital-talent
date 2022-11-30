@@ -343,9 +343,9 @@ export const PoolAdvertisementPoster = ({
                 <Accordion.Trigger>
                   {intl.formatMessage({
                     defaultMessage: "What are pool recruitments?",
-                    id: "asP33b",
+                    id: "KYFarS",
                     description:
-                      "Title for according describing pool recruitment's",
+                      "Title for accordion describing pool recruitments",
                   })}
                 </Accordion.Trigger>
                 <Accordion.Content>
@@ -706,8 +706,8 @@ export const PoolAdvertisementPoster = ({
               {poolAdvertisement.isRemote ? (
                 <li>
                   {intl.formatMessage({
-                    defaultMessage: "Location: Remote",
-                    id: "+5cxyT",
+                    defaultMessage: "Location: Remote optional",
+                    id: "rakdZh",
                     description:
                       "Pool advertisement location requirement, Remote option",
                   })}
@@ -821,18 +821,35 @@ export const PoolAdvertisementPoster = ({
   );
 };
 
+const PoolNotFound = () => {
+  const intl = useIntl();
+
+  return (
+    <ThrowNotFound
+      message={intl.formatMessage({
+        defaultMessage: "Error, pool unable to be loaded",
+        id: "DcEinN",
+        description: "Error message, placeholder",
+      })}
+    />
+  );
+};
+
 type RouteParams = {
   poolId: Scalars["ID"];
 };
 
 const PoolAdvertisementPage = () => {
-  const intl = useIntl();
   const { poolId } = useParams<RouteParams>();
   const auth = React.useContext(AuthorizationContext);
 
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
     variables: { id: poolId || "" },
   });
+
+  if (error) {
+    return <PoolNotFound />;
+  }
 
   const isVisible = isAdvertisementVisible(
     auth?.loggedInUserRoles?.filter(notEmpty) || [],
@@ -853,13 +870,7 @@ const PoolAdvertisementPage = () => {
           hasApplied={notEmpty(application?.submittedAt)}
         />
       ) : (
-        <ThrowNotFound
-          message={intl.formatMessage({
-            defaultMessage: "Error, pool unable to be loaded",
-            id: "DcEinN",
-            description: "Error message, placeholder",
-          })}
-        />
+        <PoolNotFound />
       )}
     </Pending>
   );
