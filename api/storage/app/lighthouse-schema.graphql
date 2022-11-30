@@ -789,6 +789,8 @@ type Pool {
 
 type PoolAdvertisement {
   id: ID!
+  key: KeyString
+  owner: UserPublicProfile
   expiryDate: DateTime
   publishedAt: DateTime
   name: LocalizedString
