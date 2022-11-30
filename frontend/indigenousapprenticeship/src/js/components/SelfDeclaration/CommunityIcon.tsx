@@ -2,14 +2,20 @@ import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import imageUrl from "@common/helpers/imageUrl";
+import { useFormContext } from "react-hook-form";
 import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../constants/indigenousApprenticeshipConstants";
+import { partOfCommunity } from "./utils";
 
 interface CommunityIconProps {
   community: string;
-  on?: boolean;
+  value: string;
 }
 
-const CommunityIcon = ({ community, on }: CommunityIconProps) => {
+const CommunityIcon = ({ community, value }: CommunityIconProps) => {
+  const { watch } = useFormContext();
+  const communitiesValue = watch("communities");
+  const isOn = partOfCommunity(value as string, communitiesValue);
+
   const styles = {
     "data-h2-location": "base(0)",
     "data-h2-position": "base(absolute)",
@@ -30,7 +36,7 @@ const CommunityIcon = ({ community, on }: CommunityIconProps) => {
         data-h2-padding="base(0, 0, 100%, 0)"
       >
         <AnimatePresence>
-          {on ? (
+          {isOn ? (
             <motion.img
               {...styles}
               alt=""

@@ -6,11 +6,11 @@ import { InputError } from "@common/components/inputPartials";
 
 import { CheckboxProps } from "@common/components/form/Checkbox";
 import CommunityIcon from "./CommunityIcon";
-import { partOfCommunity } from "./utils";
 
 interface CommunityCheckboxProps
-  extends Pick<CheckboxProps, "id" | "label" | "name" | "value" | "rules"> {
+  extends Pick<CheckboxProps, "id" | "label" | "name" | "rules"> {
   community: string;
+  value: string;
 }
 
 const CommunityCheckbox = ({
@@ -24,14 +24,10 @@ const CommunityCheckbox = ({
 }: CommunityCheckboxProps) => {
   const {
     register,
-    watch,
     formState: { errors },
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
-
-  const communitiesValue = watch("communities");
-  const isOn = partOfCommunity(value as string, communitiesValue);
 
   return (
     <label
@@ -43,7 +39,7 @@ const CommunityCheckbox = ({
       data-h2-padding="base(x1)"
       data-h2-cursor="base(pointer)"
     >
-      <CommunityIcon community={community} on={isOn} />
+      <CommunityIcon community={community} value={value} />
       <span
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"

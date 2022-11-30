@@ -119,7 +119,6 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
               data-h2-grid-template-columns="base(repeat(4, 1fr))"
             >
               <CommunityTabs.Trigger
-                on={currentTab === "firstNations"}
                 value="firstNations"
                 community="first-nations"
                 label={intl.formatMessage({
@@ -129,7 +128,6 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
                 })}
               />
               <CommunityTabs.Trigger
-                on={currentTab === "inuk"}
                 value="inuk"
                 community="inuit"
                 label={intl.formatMessage({
@@ -139,7 +137,6 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
                 })}
               />
               <CommunityTabs.Trigger
-                on={currentTab === "metis"}
                 value="metis"
                 community="metis"
                 label={intl.formatMessage({
@@ -149,7 +146,6 @@ const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
                 })}
               />
               <CommunityTabs.Trigger
-                on={currentTab === "other"}
                 value="other"
                 community="other"
                 label={intl.formatMessage({

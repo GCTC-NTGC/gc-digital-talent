@@ -8,14 +8,12 @@ interface CommunityTabTriggerProps {
   value: string;
   community: string;
   label: React.ReactNode;
-  on: boolean;
 }
 
 const CommunityTabTrigger = ({
   value,
   community,
   label,
-  on,
 }: CommunityTabTriggerProps) => (
   <Tabs.Trigger
     value={value}
@@ -30,7 +28,7 @@ const CommunityTabTrigger = ({
     data-h2-padding="base(x.1)"
     data-h2-cursor="base(pointer)"
   >
-    <CommunityIcon community={community} on={on} />
+    <CommunityIcon community={community} value={value} />
     <span data-h2-visibility="base(invisible)">{label}</span>
   </Tabs.Trigger>
 );
