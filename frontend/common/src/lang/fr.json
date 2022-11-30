@@ -1883,17 +1883,5 @@
   "Tw90Pi": {
     "defaultMessage": "Enregistrement...",
     "description": "Submitting text for save button."
-  },
-  "/78DsY": {
-    "defaultMessage": "Vous n’avez sélectionné aucune compétence.",
-    "description": "Text that appears after skill picker when no skills are selected"
-  },
-  "pg1S01": {
-    "defaultMessage": "Sauter la liste des compétences.",
-    "description": "Link text to skip the list of add skill links"
-  },
-  "54Dtpp": {
-    "defaultMessage": "Appuyez sur alt (« Option » sur un Mac) + maj + échap tandis que vous défilez le long d’une liste de compétences pour passer directement à la compétence que vous souhaitez sélectionner.",
-    "description": "Instructional text for skill picker shortcuts on a keyboard"
   }
 }
