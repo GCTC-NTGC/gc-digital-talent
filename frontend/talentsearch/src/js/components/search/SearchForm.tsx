@@ -109,10 +109,10 @@ const classificationLabels: Record<string, MessageDescriptor> = defineMessages({
 const durationSelectionToEnum = (
   selection: string | null,
 ): PositionDuration[] | null => {
-  if (selection && selection === "term") {
+  if (selection && selection === EmploymentDuration.Term) {
     return [PositionDuration.Temporary];
   }
-  if (selection && selection === "indeterminate") {
+  if (selection && selection === EmploymentDuration.Indeterminate) {
     return [PositionDuration.Permanent];
   }
   return null;
@@ -496,13 +496,13 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   }),
                 },
                 {
-                  value: "term",
+                  value: EmploymentDuration.Term,
                   label: intl.formatMessage(
                     getEmploymentDuration(EmploymentDuration.Term),
                   ),
                 },
                 {
-                  value: "indeterminate",
+                  value: EmploymentDuration.Indeterminate,
                   label: intl.formatMessage(
                     getEmploymentDuration(EmploymentDuration.Indeterminate),
                   ),
