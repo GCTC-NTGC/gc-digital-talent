@@ -1,6 +1,7 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import uniqueId from "lodash/uniqueId";
 
 import type { HeadingLevel } from "../Heading";
 import Chip, { Chips } from "../Chip";
@@ -29,6 +30,8 @@ const defaultValues: FormValues = {
   query: "",
   skillFamily: "",
 };
+
+const skipToHeadingId = `selected-skills-heading-${uniqueId()}`;
 export interface SkillPickerProps {
   skills: Skills;
   selectedSkills?: Skills;
@@ -168,6 +171,20 @@ const SkillPicker = ({
           },
         )}
       </p>
+      <a
+        href={`#${skipToHeadingId}`}
+        data-h2-visibility="base(invisible)"
+        data-h2-position="base:focus(static)"
+        data-h2-offset="base:focus(auto)"
+        data-h2-height="base:focus(auto)"
+        data-h2-width="base:focus(auto)"
+      >
+        {intl.formatMessage({
+          defaultMessage: "Skip list of skills",
+          id: "pg1S01",
+          description: "Link text to skip the list of add skill links",
+        })}
+      </a>
       <ScrollArea.Root
         data-h2-width="base(100%)"
         data-h2-height="base(320px)"
@@ -175,10 +192,13 @@ const SkillPicker = ({
         data-h2-shadow="base(s)"
       >
         <ScrollArea.Viewport data-h2-background-color="base(white)">
-          <div data-h2-padding="base(x.5, x1, x.5, x.5)">
+          <div
+            data-h2-padding="base(x.5, x1, x.5, x.5)"
+            role={filteredSkills.length > 0 ? "list" : undefined}
+          >
             {filteredSkills.length > 0 ? (
               filteredSkills.map((skill, index: number) => (
-                <React.Fragment key={skill.id}>
+                <div role="listitem" key={skill.id}>
                   <SkillBlock
                     skill={skill}
                     isAdded={
@@ -196,7 +216,7 @@ const SkillPicker = ({
                       orientation="horizontal"
                     />
                   ) : null}
-                </React.Fragment>
+                </div>
               ))
             ) : (
               <p
@@ -221,32 +241,41 @@ const SkillPicker = ({
           <ScrollArea.Thumb />
         </ScrollArea.Scrollbar>
       </ScrollArea.Root>
+      <Heading
+        data-h2-font-size="base(copy, 1)"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x.75, 0, x.5, 0)"
+        id={skipToHeadingId}
+        tabIndex={-1}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Selected skills",
+          id: "l7Hif/",
+          description: "Section header for a list of skills selected",
+        })}
+      </Heading>
       {selectedSkills.length > 0 ? (
-        <>
-          <Heading
-            data-h2-font-size="base(copy, 1)"
-            data-h2-font-weight="base(700)"
-            data-h2-margin="base(x.75, 0, x.5, 0)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Selected skills",
-              id: "l7Hif/",
-              description: "Section header for a list of skills selected",
-            })}
-          </Heading>
-          <Chips>
-            {selectedSkills.map((skill) => (
-              <Chip
-                key={skill.id}
-                label={getLocalizedName(skill.name, intl)}
-                color="primary"
-                mode="outline"
-                onDismiss={() => handleRemoveSkill(skill.id)}
-              />
-            ))}
-          </Chips>
-        </>
-      ) : null}
+        <Chips>
+          {selectedSkills.map((skill) => (
+            <Chip
+              key={skill.id}
+              label={getLocalizedName(skill.name, intl)}
+              color="primary"
+              mode="outline"
+              onDismiss={() => handleRemoveSkill(skill.id)}
+            />
+          ))}
+        </Chips>
+      ) : (
+        <p data-h2-margin="base(x1, 0)" data-h2-font-style="base(italic)">
+          {intl.formatMessage({
+            id: "/78DsY",
+            defaultMessage: "You have not selected any skills.",
+            description:
+              "Text that appears after skill picker when no skills are selected",
+          })}
+        </p>
+      )}
       {submitButtonText && handleSave && (
         <p data-h2-margin="base(x1, 0)">
           <Submit
