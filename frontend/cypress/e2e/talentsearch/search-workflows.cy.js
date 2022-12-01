@@ -138,10 +138,6 @@ describe("Talent Search Workflow Tests", () => {
                       publishingGroup: PublishingGroup.ItJobs,
                     }).then((updatedPoolAdvertisement) => {
                       cy.publishPoolAdvertisement(updatedPoolAdvertisement.id)
-                        .then((publishedPoolAdvertisement) => {
-                          cy.log(publishedPoolAdvertisement);
-                          cy.wrap(publishedPoolAdvertisement);
-                        })
                         .its("id")
                         .as("publishedTestPoolAdvertisementId");
                     });
@@ -198,12 +194,13 @@ describe("Talent Search Workflow Tests", () => {
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
     // classification filter
-    cy.get("@testClassificationName").then((testClassificationName) => {
+    cy.get("@testClassificationName").then((classificationName) => {
       cy.get("option")
-        .contains(testClassificationName)
+        .contains(classificationName)
         .invoke("text")
         .then((text) => {
           cy.findByRole("combobox", { name: /Classification/i }).select(text);
+          cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
         });
     });
 
@@ -211,43 +208,51 @@ describe("Talent Search Workflow Tests", () => {
     cy.findByRole("combobox", { name: /Stream/i }).select(
       "Business Line Advisory Services",
     );
+    // stream does not trigger another api request
 
     // education requirement
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,
     }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
     // work location
     cy.findByRole("combobox", { name: /Region/i }).then(($input) => {
       cy.wrap($input).type("Ontario{enter}{enter}");
+      cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
     });
 
     // working language ability
     cy.findByRole("radio", {
       name: /English only/i,
     }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
     // employment duration
     cy.findByRole("radio", {
       name: /Indeterminate duration/i,
     }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
     // employment equity
     cy.findByRole("checkbox", {
       name: /Woman/i,
     }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
     // skills selection
     cy.get("@testSkill").then((skill) => {
       cy.findByRole("button", {
         name: `Add this skill : ${skill.name.en}`,
       }).click();
+      // skill selection does not trigger an api request
     });
 
     // conditions of employment
     cy.findByRole("checkbox", {
       name: /ability to work overtime \(Occasionally\)/i,
     }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
     // no way to know what the exact number should be without resetting the database
     searchReturnsGreaterThanZeroApplicants();
@@ -258,14 +263,20 @@ describe("Talent Search Workflow Tests", () => {
       cy.contains("There is 1 matching candidate in this pool");
 
       cy.findByRole("button", { name: /Request Candidates/i })
-        .should("exist")
-        .and("be.visible")
-        .and("not.be.disabled");
+      .click();
+        // .should("exist")
+        // .and("be.visible")
+        // .and("not.be.disabled");
 
-      cy.findByRole("button", { name: /Request Candidates/i }).click({
-        waitForAnimations: false,
-      });
+      // cy.findByRole("button", { name: /Request Candidates/i }).click({
+      //   waitForAnimations: false,
+      // });
     });
+
+    /*
+     * Request Page (/en/search/request)
+     * I'm using findAllByText instead of findByText since the strings appear multiple times in the DOM.
+     */
 
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
 
@@ -287,10 +298,40 @@ describe("Talent Search Workflow Tests", () => {
       "Treasury Board Secretariat",
     );
 
-    // will actually exist twice in the DOM
+    // classification filter
+    cy.get("@testClassificationName").then((classificationName) => {
+      cy.findAllByText(classificationName).should("exist");
+    });
+
+    // stream doesn't actually appear on this page
+
+    // education requirement
     cy.findAllByText("Required diploma from post-secondary institution").should(
       "exist",
     );
+
+    // work location
+    cy.findAllByText("Ontario").should("exist");
+
+    // working language ability
+    cy.findAllByText("English only").should("exist");
+
+    // employment duration
+    cy.findAllByText("Indeterminate duration (permanent)").should("exist");
+
+    // employment equity
+    cy.findAllByText("Woman").should("exist");
+
+    // skills selection
+    cy.get("@testSkill").then((skill) => {
+      cy.findAllByText(skill.name.en).should("exist");
+    });
+
+    // conditions of employment
+    cy.findAllByText("Availability, willingness and ability to work overtime (Occasionally).").should("exist");
+
+    // estimated total
+    cy.findByText("1 estimated candidate");
 
     cy.findByRole("button", { name: /Submit Request/i }).click();
 
