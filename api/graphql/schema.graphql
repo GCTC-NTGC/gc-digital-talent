@@ -87,7 +87,10 @@ type User {
     @rename(attribute: "accepted_operational_requirements")
   expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
   expectedClassifications: [Classification] @belongsToMany
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  wouldAcceptTemporary: Boolean
+    @rename(attribute: "would_accept_temporary")
+    @deprecated(reason: "replaced with positionDuration")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: [CmoAsset] @belongsToMany
 
   # Pool info
@@ -169,6 +172,11 @@ enum ArmedForcesStatus {
   NON_CAF
 }
 
+enum PositionDuration {
+  TEMPORARY
+  PERMANENT
+}
+
 type Applicant {
   id: ID!
 
@@ -222,7 +230,10 @@ type Applicant {
     @rename(attribute: "accepted_operational_requirements")
   expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
   expectedClassifications: [Classification] @belongsToMany
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  wouldAcceptTemporary: Boolean
+    @rename(attribute: "would_accept_temporary")
+    @deprecated(reason: "replaced with positionDuration")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: [CmoAsset] @belongsToMany
 
   # Experiences
@@ -287,6 +298,8 @@ enum PoolStream {
 
 type PoolAdvertisement {
   id: ID!
+  key: KeyString
+  owner: UserPublicProfile @belongsTo(relation: "user")
   expiryDate: DateTime @rename(attribute: "expiry_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   name: LocalizedString
@@ -514,7 +527,10 @@ type ApplicantFilter {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  wouldAcceptTemporary: Boolean
+    @rename(attribute: "would_accept_temporary")
+    @deprecated(reason: "replaced with positionDuration")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   expectedClassifications: [Classification]
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
@@ -533,6 +549,7 @@ type PoolCandidateSearchRequest {
   adminNotes: String @rename(attribute: "admin_notes")
   poolCandidateFilter: PoolCandidateFilter @belongsTo
   applicantFilter: ApplicantFilter @belongsTo
+  doneDate: DateTime @rename(attribute: "done_at")
 }
 
 enum SkillCategory {
@@ -543,8 +560,8 @@ enum SkillCategory {
 type SkillFamily {
   id: ID!
   key: KeyString!
-  name: LocalizedString!
-  description: LocalizedString!
+  name: LocalizedString
+  description: LocalizedString
   skills: [Skill!] @belongsToMany
   category: SkillCategory!
 }
@@ -726,7 +743,10 @@ input PoolCandidateFilterInput {
     @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
   expectedClassifications: [ClassificationFilterInput]
     @scope(name: "classifications")
-  generalSearch: String @builder(method: "App\\Models\\PoolCandidate@filterByGeneralSearch")
+  generalSearch: String
+    @builder(method: "App\\Models\\PoolCandidate@filterByGeneralSearch")
+  email: String @scope
+  name: String @builder(method: "App\\Models\\PoolCandidate@filterByName")
   hasDiploma: Boolean @scope
   languageAbility: LanguageAbility
     @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
@@ -767,7 +787,7 @@ input ApplicantFilterInput {
     @builder(method: "App\\Models\\User@filterByOperationalRequirements")
   locationPreferences: [WorkRegion]
     @builder(method: "App\\Models\\User@filterByLocationPreferences")
-  wouldAcceptTemporary: Boolean @scope
+  positionDuration: [PositionDuration] @scope
   expectedClassifications: [ClassificationFilterInput]
     @scope(name: "classifications")
   skills: [IdInput]
@@ -806,13 +826,17 @@ type Query {
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["availableForOpportunities"])
-  pool(id: ID! @eq): Pool @find
-  poolAdvertisement(id: ID! @eq): PoolAdvertisement @find(model: "Pool")
-  poolAdvertisements: [PoolAdvertisement]! @all(model: "Pool")
+  pool(id: ID! @eq): Pool @find @can(ability: "view", query: true)
+  poolAdvertisement(id: ID! @eq): PoolAdvertisement
+    @find(model: "Pool")
+    @can(ability: "viewAdvertisement", model: "Pool", query: true)
+  poolAdvertisements: [PoolAdvertisement]!
+    @all(model: "Pool")
+    @can(ability: "viewAny", model: "Pool")
   publishedPoolAdvertisements: [PoolAdvertisement!]!
     @all(model: "Pool", scopes: ["wasPublished"])
-  poolByKey(key: String! @eq): Pool @find
-  pools: [Pool]! @all
+  poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
+  pools: [Pool]! @all @can(ability: "viewAny")
   poolCandidate(id: ID! @eq): PoolCandidate
     @find
     @guard
@@ -859,7 +883,9 @@ type Query {
     @can(ability: "viewAny")
   # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
   # Returns the number of candidates by filtering their parent applicant, grouped by pool.
-  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
+  countPoolCandidatesByPool(
+    where: ApplicantFilterInput
+  ): [CandidateSearchPoolResult!]!
   classification(id: ID! @eq): Classification @find
   classifications: [Classification]! @all
   cmoAsset(id: ID! @eq): CmoAsset @find
@@ -883,7 +909,7 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
+  poolCandidateSearchRequests(limit: Int @limit): [PoolCandidateSearchRequest]!
     @all
     @guard
     @can(ability: "viewAny")
@@ -895,6 +921,9 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @guard
     @can(ability: "viewAny")
+    @deprecated(
+      reason: "Use poolCandidateSearchRequests instead, with a specified limit"
+    )
   skillFamily(id: ID! @eq): SkillFamily @find
   skillFamilies: [SkillFamily]! @all
   skill(id: ID! @eq): Skill @find
@@ -973,7 +1002,7 @@ input CreateUserInput {
   expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: CmoAssetBelongsToMany
 
   # Experiences
@@ -1042,7 +1071,7 @@ input UpdateUserAsAdminInput
   expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: CmoAssetBelongsToMany
 
   # Experiences
@@ -1106,7 +1135,7 @@ input UpdateUserAsUserInput
   expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   cmoAssets: CmoAssetBelongsToMany
 
   # Experiences
@@ -1283,7 +1312,7 @@ input CreateApplicantFilterInput {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-  wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   expectedClassifications: ClassificationBelongsToMany
     @rename(attribute: "classifications")
   skills: SkillBelongsToMany

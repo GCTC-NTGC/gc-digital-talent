@@ -1,8 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import NotFound from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import { imageUrl } from "@common/helpers/router";
+import imageUrl from "@common/helpers/imageUrl";
 import { notEmpty } from "@common/helpers/util";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
@@ -10,10 +10,9 @@ import ExperienceSection from "@common/components/UserProfile/ExperienceSection"
 import UserProfile from "@common/components/UserProfile";
 import type { Applicant } from "@common/api/generated";
 
-import { commonMessages } from "@common/messages";
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
-import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
+import useRoutes from "../../../hooks/useRoutes";
 import { useGetMeQuery, User, GetMeQuery } from "../../../api/generated";
 import profileMessages from "../profileMessages";
 
@@ -30,7 +29,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   profileDataInput,
 }) => {
   const { id: userId, experiences } = profileDataInput;
-  const paths = useApplicantProfileRoutes();
+  const paths = useRoutes();
 
   const experienceEditPaths = {
     awardUrl: (id: string) => paths.editExperience(userId, "award", id),
@@ -65,10 +64,19 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
             textShadow: "0 3px 3px rgba(10, 10, 10, .3)",
           }}
         >
-          {getFullNameHtml(
-            profileDataInput.firstName,
-            profileDataInput.lastName,
-            intl,
+          {intl.formatMessage(
+            {
+              defaultMessage: "{name}'s profile",
+              id: "jslBEY",
+              description: "Title for a specific users profile page",
+            },
+            {
+              name: getFullNameHtml(
+                profileDataInput.firstName,
+                profileDataInput.lastName,
+                intl,
+              ),
+            },
           )}
         </h1>
       </div>
@@ -138,9 +146,9 @@ const ProfilePage: React.FunctionComponent = () => {
       {userData ? (
         <ProfileForm profileDataInput={userData} />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
       )}
     </Pending>
   );

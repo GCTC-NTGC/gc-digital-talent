@@ -1,8 +1,9 @@
-import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
+
 import type { Color } from "../Button";
 import sanitizeUrl from "../../helpers/sanitizeUrl";
-import useLinkClickHandler from "../Link/useLinkClickHandler";
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
@@ -47,37 +48,48 @@ export interface TileLinkProps extends React.HTMLProps<HTMLAnchorElement> {
   external?: boolean;
 }
 
+interface LinkProps extends Omit<TileLinkProps, "title" | "href" | "ref"> {
+  href: string;
+}
+
+const Link = ({ href, color, external, children, ...rest }: LinkProps) => {
+  const linkProps = {
+    "data-h2-background-color": "base(dt-white)",
+    "data-h2-display": "base(flex)",
+    "data-h2-align-items": "base(flex-end)",
+    "data-h2-shadow": "base(m) base:hover(xl)",
+    "data-h2-padding": "base(x.5)",
+    "data-h2-justify-content": "base(space-between)",
+    "data-h2-transition": "base(box-shadow, .2s, ease, 0s)",
+    ...colorMap[color],
+    ...rest,
+  };
+
+  if (external) {
+    return (
+      <a href={href} {...linkProps}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <RouterLink to={href} {...linkProps}>
+      {children}
+    </RouterLink>
+  );
+};
+
 const TileLink: React.FC<TileLinkProps> = ({
   href,
-  title,
   color,
   external,
   children,
   ...rest
 }): React.ReactElement => {
   const url = sanitizeUrl(href);
-  const clickHandler = useLinkClickHandler({
-    to: url || "#",
-  });
   return (
-    <a
-      href={href}
-      title={title}
-      data-h2-background-color="base(dt-white)"
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(flex-end)"
-      data-h2-shadow="base(m) base:hover(xl)"
-      data-h2-padding="base(x.5)"
-      data-h2-justify-content="base(space-between)"
-      data-h2-transition="base(box-shadow, .2s, ease, 0s)"
-      {...colorMap[color]}
-      {...rest}
-      {...(!external
-        ? {
-            onClick: clickHandler,
-          }
-        : null)}
-    >
+    <Link href={url || "#"} external={external} color={color} {...rest}>
       <span
         data-h2-display="base(block)"
         data-h2-overflow="base(hidden)"
@@ -93,7 +105,7 @@ const TileLink: React.FC<TileLinkProps> = ({
       <ChevronDoubleRightIcon
         style={{ height: "1rem", width: "1rem", flexShrink: 0 }}
       />
-    </a>
+    </Link>
   );
 };
 

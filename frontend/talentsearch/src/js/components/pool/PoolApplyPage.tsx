@@ -1,24 +1,23 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
-import { commonMessages } from "@common/messages";
+
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import Link from "@common/components/Link";
-import NotFound from "@common/components/NotFound";
+import { ThrowNotFound } from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
-import { useGetPoolQuery } from "../../api/generated";
-import type { Pool } from "../../api/generated";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+
+import useRoutes from "../../hooks/useRoutes";
+import { PoolAdvertisement, useGetPoolQuery } from "../../api/generated";
 
 interface PoolApplyProps {
-  pool: Pool;
+  pool: PoolAdvertisement;
 }
 
 const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   const links = [
     {
@@ -31,7 +30,7 @@ const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
     },
 
     {
-      title: pool?.name?.[locale],
+      title: getFullPoolAdvertisementTitle(intl, pool),
       href: pool ? paths.pool(pool.id) : undefined,
     },
   ] as BreadcrumbsProps["links"];
@@ -39,7 +38,7 @@ const PoolApply: React.FC<PoolApplyProps> = ({ pool }) => {
   return (
     <>
       <Breadcrumbs links={links} />
-      <h1>{pool.name?.[locale]}</h1>
+      <h1>{getFullPoolAdvertisementTitle(intl, pool)}</h1>
       <Link
         type="button"
         mode="outline"
@@ -68,18 +67,16 @@ const PoolApplyPage: React.FC<PoolApplyPageProps> = ({ id }) => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.pool ? (
-        <PoolApply pool={data?.pool} />
+      {data?.poolAdvertisement ? (
+        <PoolApply pool={data?.poolAdvertisement} />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Error, pool unable to be loaded",
-              id: "DcEinN",
-              description: "Error message, placeholder",
-            })}
-          </p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage({
+            defaultMessage: "Error, pool unable to be loaded",
+            id: "DcEinN",
+            description: "Error message, placeholder",
+          })}
+        />
       )}
     </Pending>
   );

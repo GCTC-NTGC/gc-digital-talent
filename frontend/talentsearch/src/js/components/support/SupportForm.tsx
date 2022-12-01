@@ -1,14 +1,14 @@
 import * as React from "react";
-import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { toast } from "@common/components/Toast";
 import { Input, Submit, TextArea } from "@common/components/form";
-import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
 import { errorMessages } from "@common/messages";
 import { getFullNameLabel } from "@common/helpers/nameUtils";
 import Pending from "@common/components/Pending";
 import { useState } from "react";
 import Button from "@common/components/Button";
+import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
 import { useGetMeQuery, User } from "../../api/generated";
 import {
   API_SUPPORT_ENDPOINT,
@@ -143,6 +143,7 @@ export const SupportForm = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              trackUnsaved={false}
             />
             <Input
               id="email"
@@ -156,6 +157,7 @@ export const SupportForm = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              trackUnsaved={false}
             />
             <SelectFieldV2
               id="subject"
@@ -196,6 +198,7 @@ export const SupportForm = ({
                   }),
                 },
               ]}
+              trackUnsaved={false}
             />
             <TextArea
               id="description"
@@ -208,6 +211,7 @@ export const SupportForm = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              trackUnsaved={false}
             />
             <Submit color="blue" />
           </form>

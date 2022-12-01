@@ -1,22 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-
-import Breadcrumbs from "@common/components/Breadcrumbs";
-import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import Card from "@common/components/Card";
-import { Button, Link } from "@common/components";
-import { getLocale } from "@common/helpers/localize";
-import { imageUrl } from "@common/helpers/router";
-
-import {
-  AdvertisementStatus,
-  PoolCandidate,
-  Scalars,
-  SkillCategory,
-} from "@common/api/generated";
-import TableOfContents from "@common/components/TableOfContents";
+import { useParams } from "react-router-dom";
 import {
   BoltIcon,
   BriefcaseIcon as BriefcaseIconOutline,
@@ -26,25 +10,42 @@ import {
   CpuChipIcon,
   CloudIcon,
 } from "@heroicons/react/24/outline";
-import Accordion from "@common/components/accordion";
+
+import Breadcrumbs from "@common/components/Breadcrumbs";
+import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import { ThrowNotFound } from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
+import Card from "@common/components/Card";
+import { Button, Link } from "@common/components";
+import { getLocale } from "@common/helpers/localize";
+import imageUrl from "@common/helpers/imageUrl";
+import {
+  AdvertisementStatus,
+  Scalars,
+  SkillCategory,
+} from "@common/api/generated";
+import TableOfContents from "@common/components/TableOfContents";
+import Accordion from "@common/components/Accordion";
 import {
   getLanguageRequirement,
   getSecurityClearance,
 } from "@common/constants/localizedConstants";
 import { categorizeSkill } from "@common/helpers/skillUtils";
-import commonMessages from "@common/messages/commonMessages";
-
 import { notEmpty } from "@common/helpers/util";
-import { useGetPoolAdvertisementQuery, Maybe } from "../../api/generated";
+import {
+  formatClassificationString,
+  getFullPoolAdvertisementTitle,
+} from "@common/helpers/poolUtils";
+import { AuthorizationContext } from "@common/components/Auth";
+import { useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import TALENTSEARCH_APP_DIR, {
   TALENTSEARCH_RECRUITMENT_EMAIL,
 } from "../../talentSearchConstants";
 import PoolInfoCard from "./PoolInfoCard";
 import ClassificationDefinition from "../ClassificationDefinition/ClassificationDefinition";
-import getFullPoolAdvertisementTitle from "./getFullPoolAdvertisementTitle";
-import { hasUserApplied, isAdvertisementVisible } from "./utils";
+import { isAdvertisementVisible } from "./utils";
 
 interface ApplyButtonProps {
   poolId: Scalars["ID"];
@@ -52,7 +53,7 @@ interface ApplyButtonProps {
 
 const ApplyButton = ({ poolId }: ApplyButtonProps) => {
   const intl = useIntl();
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   return (
     <Link
@@ -65,6 +66,30 @@ const ApplyButton = ({ poolId }: ApplyButtonProps) => {
         defaultMessage: "Apply for this process",
         id: "W2YIEA",
         description: "Link text to apply for a pool advertisement",
+      })}
+    </Link>
+  );
+};
+
+interface ContinueButtonProps {
+  applicationId: Scalars["ID"];
+}
+
+const ContinueButton = ({ applicationId }: ContinueButtonProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+
+  return (
+    <Link
+      type="button"
+      mode="solid"
+      color="primary"
+      href={paths.reviewApplication(applicationId)}
+    >
+      {intl.formatMessage({
+        defaultMessage: "Continue my application",
+        id: "ugosop",
+        description: "Link text to continue an existing application",
       })}
     </Link>
   );
@@ -114,16 +139,18 @@ const anchorTag = (chunks: React.ReactNode): React.ReactNode => (
 
 interface PoolAdvertisementProps {
   poolAdvertisement: PoolAdvertisement;
+  applicationId?: Scalars["ID"];
   hasApplied?: boolean;
 }
 
-const PoolAdvertisement = ({
+export const PoolAdvertisementPoster = ({
   poolAdvertisement,
+  applicationId,
   hasApplied,
 }: PoolAdvertisementProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = useDirectIntakeRoutes();
+  const paths = useRoutes();
 
   const classification = poolAdvertisement.classifications
     ? poolAdvertisement.classifications[0]
@@ -131,30 +158,43 @@ const PoolAdvertisement = ({
   const genericTitle = classification?.genericJobTitles?.length
     ? classification.genericJobTitles[0]
     : null;
-  const classificationSuffix = `${classification?.group}-0${classification?.level}`;
+  let classificationSuffix = ""; // type wrangling the complex type into a string
+  if (classification) {
+    classificationSuffix = formatClassificationString({
+      group: classification?.group,
+      level: classification?.level,
+    });
+  }
   const fullTitle = getFullPoolAdvertisementTitle(intl, poolAdvertisement);
   const canApply =
     poolAdvertisement.advertisementStatus &&
     poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;
 
-  const languageRequirement = intl.formatMessage(
-    getLanguageRequirement(poolAdvertisement.advertisementLanguage ?? ""),
-  );
+  const languageRequirement = poolAdvertisement.advertisementLanguage
+    ? intl.formatMessage(
+        getLanguageRequirement(poolAdvertisement.advertisementLanguage),
+      )
+    : "";
 
-  const securityClearance = intl.formatMessage(
-    getSecurityClearance(poolAdvertisement.securityClearance ?? ""),
-  );
+  const securityClearance = poolAdvertisement.securityClearance
+    ? intl.formatMessage(
+        getSecurityClearance(poolAdvertisement.securityClearance),
+      )
+    : "";
 
   const essentialSkills = categorizeSkill(poolAdvertisement.essentialSkills);
   const nonEssentialSkills = categorizeSkill(
     poolAdvertisement.nonessentialSkills,
   );
 
-  const applyBtn = hasApplied ? (
-    <AlreadyAppliedButton />
-  ) : (
-    <ApplyButton poolId={poolAdvertisement.id} />
-  );
+  let applyBtn = <ApplyButton poolId={poolAdvertisement.id} />;
+  if (applicationId) {
+    applyBtn = !hasApplied ? (
+      <ContinueButton applicationId={applicationId} />
+    ) : (
+      <AlreadyAppliedButton />
+    );
+  }
 
   const links = [
     {
@@ -298,52 +338,62 @@ const PoolAdvertisement = ({
             <TableOfContents.Heading>
               {sections.about.title}
             </TableOfContents.Heading>
-            <Accordion
-              title={intl.formatMessage({
-                defaultMessage: "What are pool recruitments?",
-                id: "asP33b",
-                description:
-                  "Title for according describing pool recruitment's",
-              })}
-            >
-              <Text>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
-                  id: "kH4Jsf",
-                  description: "Description of pool recruitment, paragraph one",
-                })}
-              </Text>
-              <Text>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "When hiring managers have IT staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
-                  id: "m5hjaz",
-                  description: "Description of pool recruitment, paragraph two",
-                })}
-              </Text>
-            </Accordion>
-            {genericTitle?.key && (
-              <Accordion
-                title={intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "What does {classification}{genericTitle} mean?",
-                    id: "gpuTAV",
+            <Accordion.Root type="single" collapsible>
+              <Accordion.Item value="when">
+                <Accordion.Trigger>
+                  {intl.formatMessage({
+                    defaultMessage: "What are pool recruitments?",
+                    id: "KYFarS",
                     description:
-                      "Title for description of a pool advertisements classification group/level",
-                  },
-                  {
-                    classification: classificationSuffix,
-                    genericTitle: genericTitle?.name
-                      ? ` ${genericTitle.name[locale]}`
-                      : ``,
-                  },
-                )}
-              >
-                <ClassificationDefinition name={genericTitle.key} />
-              </Accordion>
-            )}
+                      "Title for accordion describing pool recruitments",
+                  })}
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <Text>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
+                      id: "kH4Jsf",
+                      description:
+                        "Description of pool recruitment, paragraph one",
+                    })}
+                  </Text>
+                  <Text>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "When hiring managers have IT staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
+                      id: "m5hjaz",
+                      description:
+                        "Description of pool recruitment, paragraph two",
+                    })}
+                  </Text>
+                </Accordion.Content>
+              </Accordion.Item>
+              {genericTitle?.key && (
+                <Accordion.Item value="what">
+                  <Accordion.Trigger>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "What does {classification}{genericTitle} mean?",
+                        id: "gpuTAV",
+                        description:
+                          "Title for description of a pool advertisements classification group/level",
+                      },
+                      {
+                        classification: classificationSuffix,
+                        genericTitle: genericTitle?.name
+                          ? ` ${genericTitle.name[locale]}`
+                          : ``,
+                      },
+                    )}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <ClassificationDefinition name={genericTitle.key} />
+                  </Accordion.Content>
+                </Accordion.Item>
+              )}
+            </Accordion.Root>
             {poolAdvertisement.yourImpact ? (
               <>
                 <IconTitle icon={BoltIcon}>
@@ -394,13 +444,20 @@ const PoolAdvertisement = ({
                       "Explanation of a pools required occupational skills",
                   })}
                 </Text>
-                {essentialSkills[SkillCategory.Technical]?.map((skill) => (
-                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <Text>
-                      {skill.description ? skill.description[locale] : ""}
-                    </Text>
-                  </Accordion>
-                ))}
+                <Accordion.Root type="multiple">
+                  {essentialSkills[SkillCategory.Technical]?.map((skill) => (
+                    <Accordion.Item value={skill.id} key={skill.id}>
+                      <Accordion.Trigger>
+                        {skill.name[locale] || ""}
+                      </Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>
+                          {skill.description ? skill.description[locale] : ""}
+                        </Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  ))}
+                </Accordion.Root>
               </>
             ) : null}
             {essentialSkills[SkillCategory.Behavioural]?.length ? (
@@ -422,13 +479,20 @@ const PoolAdvertisement = ({
                       "Explanation of a pools required transferrable skills",
                   })}
                 </Text>
-                {essentialSkills[SkillCategory.Behavioural]?.map((skill) => (
-                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <Text>
-                      {skill.description ? skill.description[locale] : ""}
-                    </Text>
-                  </Accordion>
-                ))}
+                <Accordion.Root type="multiple">
+                  {essentialSkills[SkillCategory.Behavioural]?.map((skill) => (
+                    <Accordion.Item value={skill.id} key={skill.id}>
+                      <Accordion.Trigger>
+                        {skill.name[locale] || ""}
+                      </Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>
+                          {skill.description ? skill.description[locale] : ""}
+                        </Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  ))}
+                </Accordion.Root>
               </>
             ) : null}
           </TableOfContents.Section>
@@ -455,13 +519,20 @@ const PoolAdvertisement = ({
                       "Explanation of a pools optional transferrable skills",
                   })}
                 </Text>
-                {nonEssentialSkills[SkillCategory.Technical]?.map((skill) => (
-                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <Text>
-                      {skill.description ? skill.description[locale] : ""}
-                    </Text>
-                  </Accordion>
-                ))}
+                <Accordion.Root type="single" collapsible>
+                  {nonEssentialSkills[SkillCategory.Technical]?.map((skill) => (
+                    <Accordion.Item value={skill.id} key={skill.id}>
+                      <Accordion.Trigger>
+                        {skill.name[locale] || ""}
+                      </Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>
+                          {skill.description ? skill.description[locale] : ""}
+                        </Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  ))}
+                </Accordion.Root>
               </>
             ) : null}
             {nonEssentialSkills[SkillCategory.Behavioural]?.length ? (
@@ -474,13 +545,22 @@ const PoolAdvertisement = ({
                       "Title for transferrable skills on a pool advertisement",
                   })}
                 </IconTitle>
-                {nonEssentialSkills[SkillCategory.Behavioural]?.map((skill) => (
-                  <Accordion title={skill.name[locale] || ""} key={skill.id}>
-                    <Text>
-                      {skill.description ? skill.description[locale] : ""}
-                    </Text>
-                  </Accordion>
-                ))}
+                <Accordion.Root type="single" collapsible>
+                  {nonEssentialSkills[SkillCategory.Behavioural]?.map(
+                    (skill) => (
+                      <Accordion.Item value={skill.id} key={skill.id}>
+                        <Accordion.Trigger>
+                          {skill.name[locale] || ""}
+                        </Accordion.Trigger>
+                        <Accordion.Content>
+                          <Text>
+                            {skill.description ? skill.description[locale] : ""}
+                          </Text>
+                        </Accordion.Content>
+                      </Accordion.Item>
+                    ),
+                  )}
+                </Accordion.Root>
               </>
             ) : null}
           </TableOfContents.Section>
@@ -572,8 +652,8 @@ const PoolAdvertisement = ({
                 style={{ width: "100%" }}
                 color="ts-secondary"
                 title={intl.formatMessage({
-                  defaultMessage: "2-Year Post-secondary Experience",
-                  id: "/Gu4zR",
+                  defaultMessage: "2-Year Post-secondary Education",
+                  id: "U6IroF",
                   description:
                     "Title for pool applicant education requirements",
                 })}
@@ -626,8 +706,8 @@ const PoolAdvertisement = ({
               {poolAdvertisement.isRemote ? (
                 <li>
                   {intl.formatMessage({
-                    defaultMessage: "Location: Remote",
-                    id: "+5cxyT",
+                    defaultMessage: "Location: Remote optional",
+                    id: "rakdZh",
                     description:
                       "Pool advertisement location requirement, Remote option",
                   })}
@@ -741,48 +821,57 @@ const PoolAdvertisement = ({
   );
 };
 
-interface PoolAdvertisementPageProps {
-  id: string;
-}
-
-const PoolAdvertisementPage = ({ id }: PoolAdvertisementPageProps) => {
+const PoolNotFound = () => {
   const intl = useIntl();
 
+  return (
+    <ThrowNotFound
+      message={intl.formatMessage({
+        defaultMessage: "Error, pool unable to be loaded",
+        id: "DcEinN",
+        description: "Error message, placeholder",
+      })}
+    />
+  );
+};
+
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
+
+const PoolAdvertisementPage = () => {
+  const { poolId } = useParams<RouteParams>();
+  const auth = React.useContext(AuthorizationContext);
+
   const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
-    variables: { id },
+    variables: { id: poolId || "" },
   });
 
+  if (error) {
+    return <PoolNotFound />;
+  }
+
   const isVisible = isAdvertisementVisible(
-    data?.me?.roles?.filter(notEmpty) || [],
+    auth?.loggedInUserRoles?.filter(notEmpty) || [],
     data?.poolAdvertisement?.advertisementStatus ?? null,
   );
 
-  // grab pool candidates of Me, then check whether a pool candidate exists that matches the advertisement AND is submitted
-  const hasApplied = hasUserApplied(
-    (data?.me?.poolCandidates as Maybe<PoolCandidate>[]) || [],
-    data?.poolAdvertisement?.id,
+  // Attempt to find an application for this user+pool combination
+  const application = data?.me?.poolCandidates?.find(
+    (candidate) =>
+      candidate?.poolAdvertisement?.id === data.poolAdvertisement?.id,
   );
 
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolAdvertisement && isVisible ? (
-        <PoolAdvertisement
+        <PoolAdvertisementPoster
           poolAdvertisement={data?.poolAdvertisement}
-          hasApplied={hasApplied}
+          applicationId={application?.id}
+          hasApplied={notEmpty(application?.submittedAt)}
         />
       ) : (
-        <NotFound
-          headingMessage={intl.formatMessage(commonMessages.notFound, {
-            type: "Pool",
-            id,
-          })}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Error, pool unable to be loaded",
-            id: "DcEinN",
-            description: "Error message, placeholder",
-          })}
-        </NotFound>
+        <PoolNotFound />
       )}
     </Pending>
   );

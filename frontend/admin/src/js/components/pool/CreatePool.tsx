@@ -1,20 +1,22 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+import { Squares2X2Icon } from "@heroicons/react/24/outline";
+
+import { toast } from "@common/components/Toast";
 import { Select, Submit } from "@common/components/form";
 import { unpackMaybes } from "@common/helpers/formUtils";
-import { navigate } from "@common/helpers/router";
-import { errorMessages } from "@common/messages";
+import { errorMessages, commonMessages } from "@common/messages";
 import { getGenericJobTitlesWithClassification } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import PageHeader from "@common/components/PageHeader/PageHeader";
 import Breadcrumbs, {
   BreadcrumbsProps,
 } from "@common/components/Breadcrumbs/Breadcrumbs";
-import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import Link from "@common/components/Link/Link";
 import { getLocalizedName } from "@common/helpers/localize";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreatePoolAdvertisementInput,
@@ -55,6 +57,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   handleCreatePool,
 }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
@@ -124,7 +127,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
       value: classificationId,
       label:
         intl.formatMessage(getGenericJobTitlesWithClassification(key)) ??
-        "Error: name not loaded",
+        intl.formatMessage(commonMessages.nameNotLoaded),
     }),
   );
 

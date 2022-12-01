@@ -43,7 +43,8 @@ type Applicant {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: [Classification]
-  wouldAcceptTemporary: Boolean
+  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  positionDuration: [PositionDuration]
   cmoAssets: [CmoAsset]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -63,7 +64,8 @@ type ApplicantFilter {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean
+  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  positionDuration: [PositionDuration]
   expectedClassifications: [Classification]
   skills: [Skill]
   pools: [Pool]
@@ -79,7 +81,7 @@ input ApplicantFilterInput {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean
+  positionDuration: [PositionDuration]
   expectedClassifications: [ClassificationFilterInput]
   skills: [IdInput]
   pools: [IdInput]
@@ -239,7 +241,7 @@ input CreateApplicantFilterInput {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean
+  positionDuration: [PositionDuration]
   expectedClassifications: ClassificationBelongsToMany
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
@@ -382,7 +384,7 @@ input CreateUserInput {
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
-  wouldAcceptTemporary: Boolean
+  positionDuration: [PositionDuration]
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
@@ -787,6 +789,8 @@ type Pool {
 
 type PoolAdvertisement {
   id: ID!
+  key: KeyString
+  owner: UserPublicProfile
   expiryDate: DateTime
   publishedAt: DateTime
   name: LocalizedString
@@ -870,6 +874,8 @@ input PoolCandidateFilterInput {
   equity: EquitySelectionsInput
   expectedClassifications: [ClassificationFilterInput]
   generalSearch: String
+  email: String
+  name: String
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
@@ -900,6 +906,7 @@ type PoolCandidateSearchRequest {
   adminNotes: String
   poolCandidateFilter: PoolCandidateFilter
   applicantFilter: ApplicantFilter
+  doneDate: DateTime
 }
 
 enum PoolCandidateSearchStatus {
@@ -944,6 +951,11 @@ enum PoolStream {
 
 input PoolsHasMany {
   create: [CreatePoolInput]
+}
+
+enum PositionDuration {
+  TEMPORARY
+  PERMANENT
 }
 
 enum ProvinceOrTerritory {
@@ -997,8 +1009,8 @@ type Query {
   applicantFilter(id: ID!): ApplicantFilter
   applicantFilters: [ApplicantFilter]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
-  poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
-  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
+  poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
+  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
   skillFamily(id: ID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
@@ -1180,8 +1192,8 @@ enum SkillCategory {
 type SkillFamily {
   id: ID!
   key: KeyString!
-  name: LocalizedString!
-  description: LocalizedString!
+  name: LocalizedString
+  description: LocalizedString
   skills: [Skill!]
   category: SkillCategory!
 }
@@ -1355,7 +1367,7 @@ input UpdateUserAsAdminInput {
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
-  wouldAcceptTemporary: Boolean
+  positionDuration: [PositionDuration]
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
@@ -1402,7 +1414,7 @@ input UpdateUserAsUserInput {
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   expectedGenericJobTitles: GenericJobTitleBelongsToMany
-  wouldAcceptTemporary: Boolean
+  positionDuration: [PositionDuration]
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
@@ -1450,7 +1462,8 @@ type User {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: [Classification]
-  wouldAcceptTemporary: Boolean
+  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  positionDuration: [PositionDuration]
   cmoAssets: [CmoAsset]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]

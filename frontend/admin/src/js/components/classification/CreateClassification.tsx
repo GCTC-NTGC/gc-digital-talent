@@ -1,11 +1,12 @@
-import upperCase from "lodash/upperCase";
 import * as React from "react";
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Input, Select, Submit } from "@common/components/form";
-import { navigate } from "@common/helpers/router";
+import { toast } from "@common/components/Toast";
 import { errorMessages } from "@common/messages";
+import Heading from "@common/components/Heading/Heading";
 import {
   CreateClassificationInput,
   useCreateClassificationMutation,
@@ -22,6 +23,7 @@ export const CreateClassificationForm: React.FunctionComponent<
   CreateClassificationFormProps
 > = ({ handleCreateClassification }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit, watch } = methods;
@@ -60,13 +62,13 @@ export const CreateClassificationForm: React.FunctionComponent<
   };
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Create Classification",
           id: "D8Pgbs",
           description: "Title displayed on the create a classification form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>

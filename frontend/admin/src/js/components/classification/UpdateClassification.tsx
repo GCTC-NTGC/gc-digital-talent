@@ -1,17 +1,21 @@
+import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import pick from "lodash/pick";
 import upperCase from "lodash/upperCase";
-import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+
+import { toast } from "@common/components/Toast";
 import { Input, Select, Submit } from "@common/components/form";
-import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import Heading from "@common/components/Heading/Heading";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
+  Scalars,
   UpdateClassificationInput,
   useGetClassificationQuery,
   useUpdateClassificationMutation,
@@ -31,6 +35,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
   UpdateClassificationFormProps
 > = ({ initialClassification, handleUpdateClassification }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>({
     defaultValues: initialClassification,
@@ -73,13 +78,13 @@ export const UpdateClassificationForm: React.FunctionComponent<
   };
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Update Classification",
           id: "U+WqrO",
           description: "Title displayed on the update a classification form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -204,13 +209,16 @@ export const UpdateClassificationForm: React.FunctionComponent<
   );
 };
 
-const UpdateClassification: React.FunctionComponent<{
-  classificationId: string;
-}> = ({ classificationId }) => {
+type RouteParams = {
+  classificationId: Scalars["ID"];
+};
+
+const UpdateClassification = () => {
   const intl = useIntl();
+  const { classificationId } = useParams<RouteParams>();
   const [{ data: classificationData, fetching, error }] =
     useGetClassificationQuery({
-      variables: { id: classificationId },
+      variables: { id: classificationId || "" },
     });
 
   const [, executeMutation] = useUpdateClassificationMutation();

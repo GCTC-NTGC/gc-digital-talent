@@ -1,15 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { errorMessages, navigationMessages } from "@common/messages";
-import { BasicForm, Checklist } from "@common/components/form";
+import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 import compact from "lodash/compact";
 import omit from "lodash/omit";
-import { getLocale } from "@common/helpers/localize";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import { navigate } from "@common/helpers/router";
-import { toast } from "react-toastify";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
+
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { toast } from "@common/components/Toast";
+
+import { errorMessages, navigationMessages } from "@common/messages";
+import { BasicForm, Checklist } from "@common/components/form";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+
 import {
   BilingualEvaluation,
   GetLanguageInformationQuery,
@@ -20,10 +23,8 @@ import {
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
-import directIntakeRoutes from "../../directIntakeRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import profileMessages from "../profile/profileMessages";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 import ConsideredLanguages from "./ConsideredLanguages";
 
 export type FormValues = Pick<
@@ -100,13 +101,12 @@ export const LanguageInformationForm: React.FunctionComponent<{
   submitHandler: LanguageInformationUpdateHandler;
 }> = ({ initialData, application, submitHandler }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const profilePaths = applicantProfileRoutes(locale);
-  const directIntakePaths = directIntakeRoutes(locale);
+  const navigate = useNavigate();
+  const paths = useRoutes();
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.reviewApplication(application.id)
-      : profilePaths.home(initialData.id);
+      ? paths.reviewApplication(application.id)
+      : paths.profile(initialData.id);
 
   const labels = {
     consideredPositionLanguages: intl.formatMessage({
@@ -195,7 +195,7 @@ export const LanguageInformationForm: React.FunctionComponent<{
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
-          href: directIntakePaths.applications(application.user.id),
+          href: paths.applications(application.user.id),
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
@@ -203,10 +203,10 @@ export const LanguageInformationForm: React.FunctionComponent<{
             intl,
             application.poolAdvertisement,
           ),
-          href: directIntakePaths.pool(application.pool.id),
+          href: paths.pool(application.pool.id),
         },
         {
-          href: directIntakePaths.reviewApplication(application.id),
+          href: paths.reviewApplication(application.id),
           title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]

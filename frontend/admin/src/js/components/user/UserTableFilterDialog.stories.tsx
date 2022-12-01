@@ -13,8 +13,8 @@ import UserTableFilterDialog from "./UserTableFilterDialog";
 import type { FormValues } from "./UserTableFilterDialog";
 
 export default {
-  title: "Users/UserTableFilterDialog.Button",
-  component: UserTableFilterDialog.Button,
+  title: "Users/UserTableFilters",
+  component: UserTableFilterDialog,
   decorators: [OverlayOrDialogDecorator],
   args: {
     isOpenDefault: true,
@@ -31,16 +31,14 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof UserTableFilterDialog.Button>;
+} as ComponentMeta<typeof UserTableFilterDialog>;
 
-const Template: ComponentStory<typeof UserTableFilterDialog.Button> = (
-  args,
-) => {
+const Template: ComponentStory<typeof UserTableFilterDialog> = (args) => {
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
     action("Update filter")(data);
   };
 
-  return <UserTableFilterDialog.Button {...args} onSubmit={handleSubmit} />;
+  return <UserTableFilterDialog {...args} onSubmit={handleSubmit} />;
 };
 
 export const Default = Template.bind({});

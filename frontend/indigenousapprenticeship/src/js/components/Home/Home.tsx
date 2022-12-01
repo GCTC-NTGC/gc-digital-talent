@@ -1,8 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Button } from "@common/components";
-import { imageUrl } from "@common/helpers/router";
+import { motion } from "framer-motion";
 
+import imageUrl from "@common/helpers/imageUrl";
+
+// import LanguageSelector from "../LanguageSelector/LanguageSelector";
 import Banner from "../Banner/Banner";
 import Card from "../Card/Card";
 import Heading from "../Heading/Heading";
@@ -18,9 +20,9 @@ import TrendingUp from "../Svg/TrendingUp";
 import Triangle from "../Svg/Triangle";
 
 import useQuote from "../../hooks/useQuote";
-import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../indigenousApprenticeshipConstants";
+import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../constants/indigenousApprenticeshipConstants";
 
-import { ApplyDialog, LearnDialog, RequirementDialog } from "../Dialog";
+import { ApplyDialog, RequirementDialog } from "../Dialog";
 import CTAButtons from "../CallToAction/CTAButtons";
 
 import "./home.css";
@@ -30,17 +32,22 @@ const mailLink = (chunks: React.ReactNode): React.ReactNode => (
 );
 
 const Home: React.FunctionComponent = () => {
-  const [isApplyDialogOpen, setApplyDialogOpen] =
-    React.useState<boolean>(false);
-  const [isLearnDialogOpen, setLearnDialogOpen] =
-    React.useState<boolean>(false);
-  const [isRequirementDialogOpen, setRequirementDialogOpen] =
-    React.useState<boolean>(false);
   const intl = useIntl();
   const quote = useQuote();
 
+  /**
+   * Language swapping is a little rough here,
+   * motion.div adds a fade to smooth things out a bit
+   */
   return (
-    <div data-h2-overflow="base(hidden, visible)">
+    <motion.div
+      data-h2-overflow="base(hidden, visible)"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {/* TODO: Uncomment in #4617 */}
+      {/* <LanguageSelector /> */}
       {/* Hero */}
       <div
         data-h2-width="base(100%)"
@@ -74,20 +81,25 @@ const Home: React.FunctionComponent = () => {
           data-h2-offset="p-tablet(5%, auto, auto, 50%)"
           data-h2-width="base(100%) p-tablet(40vw)"
         >
-          <img
-            data-h2-width="base(100%)"
-            src={imageUrl(
-              INDIGENOUSAPPRENTICESHIP_APP_DIR,
-              `logo-${intl.locale}.svg`,
-            )}
-            alt={intl.formatMessage({
-              defaultMessage:
-                "IT Apprenticeship Program for Indigenous Peoples",
-              id: "Hu04cP",
-              description:
-                "Homepage title for Indigenous Apprenticeship Program",
-            })}
-          />
+          <h1>
+            <img
+              data-h2-width="base(100%)"
+              src={imageUrl(
+                INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                `logo-${intl.locale}.svg`,
+              )}
+              alt=""
+            />
+            <span data-h2-visibility="base(invisible)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "IT Apprenticeship Program for Indigenous Peoples. Apply today to get started on your IT career journey.",
+                id: "qZvV7b",
+                description:
+                  "Homepage title for Indigenous Apprenticeship Program",
+              })}
+            </span>
+          </h1>
         </div>
         <div
           className="hero-cta"
@@ -98,18 +110,7 @@ const Home: React.FunctionComponent = () => {
           data-h2-min-width="base(x12)"
           data-h2-order="base(3)"
         >
-          <Button
-            color="ia-primary"
-            mode="solid"
-            onClick={() => setApplyDialogOpen(true)}
-            block
-          >
-            {intl.formatMessage({
-              defaultMessage: "Apply Now",
-              id: "DvmNR7",
-              description: "Button text to apply for program",
-            })}
-          </Button>
+          <ApplyDialog />
         </div>
       </div>
       {/* About section */}
@@ -219,10 +220,7 @@ const Home: React.FunctionComponent = () => {
                     })}
                   </p>
                   <div data-h2-margin="base(x2, 0, 0, 0)">
-                    <CTAButtons
-                      onClickApply={() => setApplyDialogOpen(true)}
-                      onClickLearn={() => setLearnDialogOpen(true)}
-                    />
+                    <CTAButtons />
                   </div>
                 </div>
               </div>
@@ -323,10 +321,7 @@ const Home: React.FunctionComponent = () => {
                   })}
                 </p>
                 <div data-h2-visibility="base(visible) l-tablet(invisible)">
-                  <CTAButtons
-                    onClickApply={() => setApplyDialogOpen(true)}
-                    onClickLearn={() => setLearnDialogOpen(true)}
-                  />
+                  <CTAButtons />
                 </div>
               </div>
             </div>
@@ -430,19 +425,7 @@ const Home: React.FunctionComponent = () => {
                   data-h2-width="p-tablet(50%)"
                   data-h2-position="base(relative)"
                 >
-                  <Button
-                    color="ia-primary"
-                    mode="solid"
-                    onClick={() => setRequirementDialogOpen(true)}
-                    block
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "See Eligibility Criteria",
-                      id: "+do6jV",
-                      description:
-                        "Button text for program eligibility criteria",
-                    })}
-                  </Button>
+                  <RequirementDialog />
                 </div>
               </div>
             </div>
@@ -546,17 +529,7 @@ const Home: React.FunctionComponent = () => {
                       description: "Application box content",
                     })}
                   </p>
-                  <Button
-                    color="ia-primary"
-                    mode="solid"
-                    onClick={() => setApplyDialogOpen(true)}
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Apply Now",
-                      id: "DvmNR7",
-                      description: "Button text to apply for program",
-                    })}
-                  </Button>
+                  <ApplyDialog />
                 </div>
               </div>
             </div>
@@ -818,8 +791,8 @@ const Home: React.FunctionComponent = () => {
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Aim to launch the program in the later half of 2022.",
-                    id: "0sVKGY",
+                      "Aim to launch the program in the early half of 2023.",
+                    id: "0i34ZZ",
                     description: "Talent portal strategy item 4 content",
                   })}
                 </p>
@@ -919,20 +892,7 @@ const Home: React.FunctionComponent = () => {
           </div>
         </div>
       </div>
-      {/* Dialogs and alerts */}
-      <ApplyDialog
-        isOpen={isApplyDialogOpen}
-        onDismiss={() => setApplyDialogOpen(false)}
-      />
-      <LearnDialog
-        isOpen={isLearnDialogOpen}
-        onDismiss={() => setLearnDialogOpen(false)}
-      />
-      <RequirementDialog
-        isOpen={isRequirementDialogOpen}
-        onDismiss={() => setRequirementDialogOpen(false)}
-      />
-    </div>
+    </motion.div>
   );
 };
 

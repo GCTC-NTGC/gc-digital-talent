@@ -2,38 +2,19 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-} from "@testing-library/react";
+import { screen, fireEvent, waitFor, act } from "@testing-library/react";
 import React from "react";
-import { IntlProvider, MessageFormatElement } from "react-intl";
 import { fakeUsers } from "@common/fakeData";
-import { axeTest } from "@common/helpers/testUtils";
+import { render, axeTest } from "@common/helpers/testUtils";
 import { AboutMeForm, AboutMeFormProps } from "./AboutMeForm";
 
 const mockUser = fakeUsers()[0];
-
-const renderWithReactIntl = (
-  component: React.ReactNode,
-  locale?: "en" | "fr",
-  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
-) => {
-  return render(
-    <IntlProvider locale={locale || "en"} messages={messages}>
-      {component}
-    </IntlProvider>,
-  );
-};
 
 const renderAboutMeForm = ({
   initialUser,
   onUpdateAboutMe,
 }: AboutMeFormProps) =>
-  renderWithReactIntl(
+  render(
     <AboutMeForm initialUser={initialUser} onUpdateAboutMe={onUpdateAboutMe} />,
   );
 
@@ -149,7 +130,7 @@ describe("AboutMeForm", () => {
     });
 
     fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
-    expect(await screen.findAllByRole("alert")).toHaveLength(9);
+    expect(await screen.findAllByRole("alert")).toHaveLength(1);
     expect(mockSave).not.toHaveBeenCalled();
   });
 

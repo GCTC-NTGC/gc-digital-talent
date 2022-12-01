@@ -12,27 +12,31 @@ import {
   getEmploymentDuration,
   EmploymentDuration,
   OperationalRequirementV2,
+  getPoolStream,
 } from "@common/constants/localizedConstants";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import errorMessages from "@common/messages/errorMessages";
-import { hasKey } from "@common/helpers/util";
+import { hasKey, notEmpty } from "@common/helpers/util";
 
 import {
   LanguageAbility,
-  Skill,
   ApplicantFilterInput,
   WorkRegion,
   UserPoolFilterInput,
+  PoolStream,
+  Skill,
+  PositionDuration,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
 import AddSkillsToFilter from "../skills/AddSkillsToFilter";
 import {
-  filterPoolsBySelectedClassification,
+  poolMatchesClassification,
   SimpleClassification,
   SimplePool,
 } from "../../types/poolUtils";
+import { BrowserHistoryState } from "./SearchContainer";
 
 const NullSelection = "NULL_SELECTION";
 
@@ -57,6 +61,7 @@ export type FormValues = Pick<
   languageAbility: LanguageAbility | typeof NullSelection;
   employmentDuration: string | typeof NullSelection;
   classification: string | undefined;
+  stream: PoolStream | "";
   skills: string[] | undefined;
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
@@ -64,11 +69,7 @@ export type FormValues = Pick<
   pools?: SimplePool[];
 };
 
-type LocationState = {
-  some: {
-    initialValues: FormValues;
-  };
-};
+type LocationState = BrowserHistoryState | null;
 
 export interface SearchFormProps {
   classifications: SimpleClassification[];
@@ -105,6 +106,18 @@ const classificationLabels: Record<string, MessageDescriptor> = defineMessages({
   },
 });
 
+const durationSelectionToEnum = (
+  selection: string | null,
+): PositionDuration[] | null => {
+  if (selection && selection === EmploymentDuration.Term) {
+    return [PositionDuration.Temporary];
+  }
+  if (selection && selection === EmploymentDuration.Indeterminate) {
+    return [PositionDuration.Permanent];
+  }
+  return null;
+};
+
 const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
   ({ classifications, skills, pools, onUpdateApplicantFilter }, ref) => {
     const intl = useIntl();
@@ -116,10 +129,14 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
     const state = location.state as LocationState;
     const initialValues = React.useMemo(
-      () => (state ? state.some.initialValues : {}),
+      () => (state ? state.initialValues : {}),
       [state],
     );
-    const methods = useForm<FormValues>({ defaultValues: initialValues });
+    const methods = useForm<FormValues>({
+      defaultValues: initialValues,
+      mode: "onChange",
+      reValidateMode: "onChange",
+    });
     const { watch, trigger } = methods;
 
     useImperativeHandle(
@@ -131,7 +148,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     );
 
     React.useEffect(() => {
-      onUpdateApplicantFilter(initialValues);
+      onUpdateApplicantFilter(initialValues || {});
     }, [initialValues, onUpdateApplicantFilter]);
 
     React.useEffect(() => {
@@ -169,11 +186,23 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
           ...(values.languageAbility !== NullSelection
             ? { languageAbility: values.languageAbility as LanguageAbility }
             : {}), // Ensure null in FormValues is converted to undefined
-          wouldAcceptTemporary:
-            values.employmentDuration === "true" ? true : null,
+          positionDuration: values.employmentDuration
+            ? durationSelectionToEnum(values.employmentDuration)
+            : null,
           locationPreferences: values.locationPreferences || [],
           pools: pools
-            ? filterPoolsBySelectedClassification(pools, selectedClassification)
+            ? pools
+                .filter(notEmpty)
+                .filter(
+                  (pool) =>
+                    selectedClassification === undefined || // If a classification hasn't been selected yet, do not filter out any pools.
+                    poolMatchesClassification(pool, selectedClassification),
+                )
+                .filter(
+                  (pool) =>
+                    values.stream === "" || // If a stream hasn't been selected yet, do not filter out any pools.
+                    pool.stream === values.stream,
+                )
             : [],
         };
       };
@@ -190,7 +219,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
       });
 
       return () => subscription.unsubscribe();
-    }, [watch, classificationMap, onUpdateApplicantFilter, pools]);
+    }, [watch, classificationMap, onUpdateApplicantFilter, pools, state]);
 
     const getClassificationLabel = React.useCallback(
       (group: string, level: number): string => {
@@ -209,6 +238,12 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
           label: getClassificationLabel(group, level),
         })),
       [classifications, getClassificationLabel],
+    );
+    const streamOptions: Option<PoolStream>[] = enumToOptions(PoolStream).map(
+      ({ value }) => ({
+        value: value as PoolStream,
+        label: intl.formatMessage(getPoolStream(value)),
+      }),
     );
 
     return (
@@ -256,6 +291,37 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   }),
                 },
                 ...classificationOptions,
+              ]}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              trackUnsaved={false}
+            />
+            <Select
+              id="stream"
+              label={intl.formatMessage({
+                defaultMessage: "Stream",
+                id: "qYWmzA",
+                description: "Label for stream filter in search form.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select a job stream",
+                id: "QJ5uDV",
+                description: "Placeholder for stream filter in search form.",
+              })}
+              name="stream"
+              options={[
+                {
+                  value: "",
+                  disabled: true,
+                  label: intl.formatMessage({
+                    defaultMessage: "Select a job stream",
+                    id: "QJ5uDV",
+                    description:
+                      "Placeholder for stream filter in search form.",
+                  }),
+                },
+                ...streamOptions,
               ]}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -311,39 +377,6 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   }),
                 },
               ]}
-              trackUnsaved={false}
-            />
-          </FilterBlock>
-          <FilterBlock
-            id="operationalRequirementFilter"
-            title={intl.formatMessage({
-              defaultMessage:
-                "Conditions of employment / Operational requirements",
-              id: "laGCzG",
-              description:
-                "Heading for operational requirements section of the search form.",
-            })}
-            text={intl.formatMessage({
-              defaultMessage:
-                "The selected conditions of employment will be compared to those chosen by candidates in their applications.",
-              id: "IT6Djp",
-              description:
-                "Message describing the operational requirements filter in the search form.",
-            })}
-          >
-            <Checklist
-              idPrefix="operationalRequirements"
-              legend={intl.formatMessage({
-                defaultMessage: "Conditions of employment",
-                id: "bKvvaI",
-                description:
-                  "Legend for the Conditions of Employment filter checklist",
-              })}
-              name="operationalRequirements"
-              items={OperationalRequirementV2.map((value) => ({
-                value,
-                label: intl.formatMessage(getOperationalRequirement(value)),
-              }))}
               trackUnsaved={false}
             />
           </FilterBlock>
@@ -463,13 +496,13 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                   }),
                 },
                 {
-                  value: "true",
+                  value: EmploymentDuration.Term,
                   label: intl.formatMessage(
                     getEmploymentDuration(EmploymentDuration.Term),
                   ),
                 },
                 {
-                  value: "nothing",
+                  value: EmploymentDuration.Indeterminate,
                   label: intl.formatMessage(
                     getEmploymentDuration(EmploymentDuration.Indeterminate),
                   ),
@@ -536,7 +569,40 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
               trackUnsaved={false}
             />
           </FilterBlock>
-          <AddSkillsToFilter allSkills={skills ?? []} />
+          <AddSkillsToFilter allSkills={skills ?? []} linkId="skillFilter" />
+          <FilterBlock
+            id="operationalRequirementFilter"
+            title={intl.formatMessage({
+              defaultMessage:
+                "Conditions of employment / Operational requirements",
+              id: "laGCzG",
+              description:
+                "Heading for operational requirements section of the search form.",
+            })}
+            text={intl.formatMessage({
+              defaultMessage:
+                "The selected conditions of employment will be compared to those chosen by candidates in their applications.",
+              id: "IT6Djp",
+              description:
+                "Message describing the operational requirements filter in the search form.",
+            })}
+          >
+            <Checklist
+              idPrefix="operationalRequirements"
+              legend={intl.formatMessage({
+                defaultMessage: "Conditions of employment",
+                id: "bKvvaI",
+                description:
+                  "Legend for the Conditions of Employment filter checklist",
+              })}
+              name="operationalRequirements"
+              items={OperationalRequirementV2.map((value) => ({
+                value,
+                label: intl.formatMessage(getOperationalRequirement(value)),
+              }))}
+              trackUnsaved={false}
+            />
+          </FilterBlock>
         </form>
       </FormProvider>
     );

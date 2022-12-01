@@ -8,11 +8,11 @@ import {
 } from "@common/helpers/dateUtils";
 
 import { notEmpty } from "@common/helpers/util";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   type PoolCandidate,
   PoolCandidateStatus,
 } from "../../../api/generated";
-import getFullPoolAdvertisementTitle from "../../pool/getFullPoolAdvertisementTitle";
 
 import ApplicationActions from "./ApplicationActions";
 import type {

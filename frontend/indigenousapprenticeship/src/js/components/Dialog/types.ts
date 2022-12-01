@@ -1,4 +1,5 @@
+import { ButtonProps } from "@common/components/Button";
+
 export interface BasicDialogProps {
-  isOpen: boolean;
-  onDismiss: () => void;
+  btnProps?: Omit<ButtonProps, "color" | "mode" | "ref">;
 }

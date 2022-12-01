@@ -2,18 +2,26 @@ import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { notEmpty } from "../../helpers/util";
 import {
   ApplicantFilter,
+  Classification,
   Maybe,
+  Pool,
   PoolCandidateFilter,
+  PositionDuration,
 } from "../../api/generated";
 import {
+  EmploymentDuration,
+  getEmploymentDuration,
   getLanguageAbility,
   getOperationalRequirement,
   getWorkRegion,
 } from "../../constants/localizedConstants";
 import { getLocale } from "../../helpers/localize";
 import Chip, { Chips } from "../Chip";
+
+export type SimpleClassification = Pick<Classification, "group" | "level">;
 
 export interface FilterBlockProps {
   title: string;
@@ -106,12 +114,31 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 
 const ApplicantFilters: React.FC<{
   applicantFilter?: Maybe<ApplicantFilter>;
-}> = ({ applicantFilter }) => {
+  selectedClassifications?: Maybe<SimpleClassification>[];
+}> = ({ applicantFilter, selectedClassifications }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   // else set values if filters prop is of ApplicantFilterInput type
-  const classifications: string[] | undefined =
-    applicantFilter?.expectedClassifications?.map(
+  const classificationsFromBrowserHistory: string[] | undefined =
+    selectedClassifications?.map(
+      (classification) =>
+        `${classification?.group.toLocaleUpperCase()}-0${
+          classification?.level
+        }`,
+    );
+
+  const pools = applicantFilter?.pools?.filter(notEmpty);
+  const classifications: Classification[] =
+    pools?.reduce(
+      (previousValue: Classification[], currentValue: Maybe<Pool>) => {
+        const cls = currentValue?.classifications?.filter(notEmpty) || [];
+        return [...previousValue, ...cls];
+      },
+      [],
+    ) || [];
+  const classificationsFromApplicantFilter = classifications
+    .filter(notEmpty)
+    .map(
       (classification) =>
         `${classification?.group.toLocaleUpperCase()}-0${
           classification?.level
@@ -130,16 +157,30 @@ const ApplicantFilters: React.FC<{
     );
   });
 
+  const positionDurationToEmploymentDuration = (
+    durations: Maybe<PositionDuration>[],
+  ): string => {
+    if (durations && durations.includes(PositionDuration.Temporary)) {
+      return EmploymentDuration.Term;
+    }
+    return EmploymentDuration.Indeterminate;
+    // Search/Request currently selects TEMPORARY or PERMANENT or NULL, no combinations
+    // therefore if applicant.positionDuration exists, durations exists as an array of either TEMPORARY or PERMANENT
+  };
+
   const employmentDuration: string | undefined =
-    applicantFilter?.wouldAcceptTemporary
-      ? intl.formatMessage({
-          defaultMessage:
-            "Term duration (short term, long term, or indeterminate duration)",
-          id: "CO50a/",
-        })
+    applicantFilter && applicantFilter.positionDuration
+      ? intl.formatMessage(
+          getEmploymentDuration(
+            positionDurationToEmploymentDuration(
+              applicantFilter.positionDuration,
+            ),
+          ),
+        )
       : intl.formatMessage({
-          defaultMessage: "Term duration (permanent)",
-          id: "Ekwul3",
+          defaultMessage: "(None selected)",
+          id: "+O6J4u",
+          description: "Text shown when the filter was not selected",
         });
 
   const educationLevel: string | undefined = applicantFilter?.hasDiploma
@@ -228,7 +269,10 @@ const ApplicantFilters: React.FC<{
               description:
                 "Title for group and level on summary of filters section",
             })}
-            content={classifications}
+            content={
+              classificationsFromBrowserHistory ||
+              classificationsFromApplicantFilter
+            }
           />
           <FilterBlock
             title={intl.formatMessage(
@@ -336,18 +380,24 @@ const ApplicantFilters: React.FC<{
 
 export interface SearchRequestFiltersProps {
   filters?: Maybe<ApplicantFilter | PoolCandidateFilter>;
+  selectedClassifications?: Maybe<SimpleClassification>[];
 }
 
 const SearchRequestFilters: React.FunctionComponent<
   SearchRequestFiltersProps
-> = ({ filters }) => {
+> = ({ filters, selectedClassifications }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   let poolCandidateFilter;
 
   // eslint-disable-next-line no-underscore-dangle
   if (filters?.__typename === "ApplicantFilter") {
-    return <ApplicantFilters applicantFilter={filters} />;
+    return (
+      <ApplicantFilters
+        applicantFilter={filters}
+        selectedClassifications={selectedClassifications}
+      />
+    );
   }
 
   // eslint-disable-next-line no-underscore-dangle

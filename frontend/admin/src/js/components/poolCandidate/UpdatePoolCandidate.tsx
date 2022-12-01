@@ -1,8 +1,10 @@
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
-import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
+
+import { toast } from "@common/components/Toast";
 import {
   Submit,
   Select,
@@ -10,13 +12,13 @@ import {
   MultiSelect,
   Checkbox,
 } from "@common/components/form";
+import Heading from "@common/components/Heading/Heading";
 import { notEmpty } from "@common/helpers/util";
 import {
   unpackIds,
   unpackMaybes,
   enumToOptions,
 } from "@common/helpers/formUtils";
-import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import {
   getSalaryRange,
@@ -43,6 +45,7 @@ import {
   UpdatePoolCandidateMutation,
   useGetUpdatePoolCandidateDataQuery,
   Language,
+  Scalars,
 } from "../../api/generated";
 
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -92,6 +95,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   handleUpdatePoolCandidate,
 }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const locale = getLocale(intl);
   const dataToFormValues = (data: PoolCandidate): FormValues => ({
@@ -158,7 +162,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
 
   const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
     value: id,
-    label: name[locale] ?? "Error: name not loaded",
+    label: name[locale] ?? intl.formatMessage(commonMessages.nameNotLoaded),
   }));
 
   const classificationOptions: Option<string>[] = classifications.map(
@@ -170,27 +174,23 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
 
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Update Pool Candidate",
           id: "cy2UdP",
           description: "Title displayed on the update a user form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h3
-              data-h2-font-size="base(h4)"
-              data-h2-font-weight="base(300)"
-              data-h2-margin="base(x2, 0, x1, 0)"
-            >
+            <Heading level="h2" size="h4">
               {intl.formatMessage({
                 description: "Heading for the user information section",
                 defaultMessage: "User Information",
                 id: "mv+9jt",
               })}
-            </h3>
+            </Heading>
             <Input
               id="email"
               label={intl.formatMessage({
@@ -260,17 +260,13 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 label: intl.formatMessage(getLanguage(value)),
               }))}
             />
-            <h3
-              data-h2-font-size="base(h4)"
-              data-h2-font-weight="base(300)"
-              data-h2-margin="base(x2, 0, x1, 0)"
-            >
+            <Heading level="h2" size="h4">
               {intl.formatMessage({
                 description: "Heading for the candidate information section",
                 defaultMessage: "Candidate Information",
                 id: "1THfui",
               })}
-            </h3>
+            </Heading>
             <Input
               id="cmoIdentifier"
               label={intl.formatMessage({
@@ -489,12 +485,16 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   );
 };
 
-const UpdatePoolCandidate: React.FunctionComponent<{
-  poolCandidateId: string;
-}> = ({ poolCandidateId }) => {
+type RouteParams = {
+  poolId: Scalars["ID"];
+  poolCandidateId: Scalars["ID"];
+};
+
+const UpdatePoolCandidate = () => {
   const intl = useIntl();
+  const { poolCandidateId } = useParams<RouteParams>();
   const [lookupResult] = useGetUpdatePoolCandidateDataQuery({
-    variables: { id: poolCandidateId },
+    variables: { id: poolCandidateId || "" },
   });
   const {
     data: lookupData,

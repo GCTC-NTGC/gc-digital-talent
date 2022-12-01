@@ -3,12 +3,15 @@ import React from "react";
 import { render, RenderOptions } from "@testing-library/react";
 import { axe } from "jest-axe";
 import IntlProvider from "react-intl/src/components/provider";
+import { BrowserRouter } from "react-router-dom";
 import defaultRichTextElements from "./format";
 
 const Providers: React.FC = ({ children }) => {
+  window.history.pushState({}, "Test page", "/");
+
   return (
     <IntlProvider locale="en" defaultRichTextElements={defaultRichTextElements}>
-      {children}
+      <BrowserRouter>{children}</BrowserRouter>
     </IntlProvider>
   );
 };

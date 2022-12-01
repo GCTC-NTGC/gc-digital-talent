@@ -1,8 +1,10 @@
-import pick from "lodash/pick";
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import pick from "lodash/pick";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+
+import { toast } from "@common/components/Toast";
 import {
   Input,
   MultiSelect,
@@ -13,7 +15,6 @@ import {
 import { notEmpty } from "@common/helpers/util";
 import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
-import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
 import {
   getOperationalRequirement,
@@ -22,12 +23,15 @@ import {
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import Heading from "@common/components/Heading/Heading";
+
 import { useAdminRoutes } from "../../../adminRoutes";
 import {
   Classification,
   CmoAsset,
   Pool,
   PoolStatus,
+  Scalars,
   UpdatePoolInput,
   UpdatePoolMutation,
   useGetUpdatePoolDataQuery,
@@ -68,6 +72,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const dataToFormValues = (
     data: Pool | UpdatePoolMutation["updatePool"],
@@ -137,7 +142,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
 
   const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
     value: id,
-    label: name[locale] ?? "Error: name not loaded",
+    label: name[locale] ?? intl.formatMessage(commonMessages.nameNotLoaded),
   }));
 
   const classificationOptions: Option<string>[] = classifications.map(
@@ -156,13 +161,13 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
 
   return (
     <section data-h2-container="base(left, small, 0)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Update Pool",
           id: "H5EJq1",
           description: "Title displayed on the update a pool form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -373,12 +378,15 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
   );
 };
 
-const UpdatePool: React.FunctionComponent<{
-  poolId: string;
-}> = ({ poolId }) => {
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
+
+const UpdatePool = () => {
   const intl = useIntl();
+  const { poolId } = useParams<RouteParams>();
   const [lookupResult] = useGetUpdatePoolDataQuery({
-    variables: { id: poolId },
+    variables: { id: poolId || "" },
   });
   const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =

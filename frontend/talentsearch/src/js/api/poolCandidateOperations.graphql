@@ -75,7 +75,7 @@ query getSearchFormData($poolKey: String!) {
 }
 
 query getSearchFormDataAcrossAllPools {
-  pools {
+  publishedPoolAdvertisements {
     id
     key
     owner {
@@ -96,23 +96,7 @@ query getSearchFormDataAcrossAllPools {
       group
       level
     }
-    assetCriteria {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-    essentialCriteria {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-    operationalRequirements
+    stream
   }
   skills {
     id

@@ -1,7 +1,9 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
+
+import { toast } from "@common/components/Toast";
 import {
   Input,
   MultiSelect,
@@ -11,8 +13,7 @@ import {
 } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
-import { navigate } from "@common/helpers/router";
-import { errorMessages } from "@common/messages";
+import { errorMessages, commonMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import {
   getOperationalRequirement,
@@ -20,6 +21,8 @@ import {
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
+import Heading from "@common/components/Heading/Heading";
+
 import { useAdminRoutes } from "../../../adminRoutes";
 import {
   Classification,
@@ -68,6 +71,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
@@ -113,7 +117,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 
   const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
     value: id,
-    label: name[locale] ?? "Error: name not loaded",
+    label: name[locale] ?? intl.formatMessage(commonMessages.nameNotLoaded),
   }));
 
   const classificationOptions: Option<string>[] = classifications.map(
@@ -132,13 +136,13 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 
   return (
     <section data-h2-container="base(left, small, 0)">
-      <h2 data-h2-font-weight="base(700)" data-h2-margin="base(x3, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Create Pool",
           id: "ekKb+G",
           description: "Title displayed on the create a pool form.",
         })}
-      </h2>
+      </Heading>
       <div data-h2-margin="base(x2, 0, 0, 0)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>

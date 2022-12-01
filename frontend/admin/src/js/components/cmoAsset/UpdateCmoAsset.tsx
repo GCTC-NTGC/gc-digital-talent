@@ -1,16 +1,20 @@
-import pick from "lodash/pick";
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import pick from "lodash/pick";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+
+import { toast } from "@common/components/Toast";
 import { Input, Submit, TextArea } from "@common/components/form";
-import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import Heading from "@common/components/Heading/Heading";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CmoAsset,
+  Scalars,
   UpdateCmoAssetInput,
   useGetCmoAssetQuery,
   useUpdateCmoAssetMutation,
@@ -27,6 +31,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
   UpdateCmoAssetFormProps
 > = ({ initialCmoAsset, handleUpdateCmoAsset }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>({ defaultValues: initialCmoAsset });
   const { handleSubmit } = methods;
@@ -57,13 +62,13 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
   };
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Update CMO Asset",
           id: "5JRGJY",
           description: "Title displayed on the update a cmo asset form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -129,12 +134,15 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
   );
 };
 
-const UpdateCmoAsset: React.FunctionComponent<{
-  cmoAssetId: string;
-}> = ({ cmoAssetId }) => {
+type RouteParams = {
+  cmoAssetId: Scalars["ID"];
+};
+
+const UpdateCmoAsset = () => {
   const intl = useIntl();
+  const { cmoAssetId } = useParams<RouteParams>();
   const [{ data: cmoAssetData, fetching, error }] = useGetCmoAssetQuery({
-    variables: { id: cmoAssetId },
+    variables: { id: cmoAssetId || "" },
   });
   const [, executeMutation] = useUpdateCmoAssetMutation();
   const handleUpdateCmoAsset = (id: string, data: UpdateCmoAssetInput) =>

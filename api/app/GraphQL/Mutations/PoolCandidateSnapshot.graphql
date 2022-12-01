@@ -71,7 +71,7 @@ query getProfile($userId: ID!) {
       group
       level
     }
-    wouldAcceptTemporary
+    positionDuration
     cmoAssets {
       id
       name {
@@ -156,6 +156,12 @@ query getProfile($userId: ID!) {
         name {
           en
           fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
         }
       }
       id

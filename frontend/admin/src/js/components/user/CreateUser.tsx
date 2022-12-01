@@ -1,13 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+
+import { toast } from "@common/components/Toast";
 import { Input, MultiSelect, Select, Submit } from "@common/components/form";
-import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
 import { emptyToNull, emptyToUndefined } from "@common/helpers/util";
+import Heading from "@common/components/Heading/Heading";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
@@ -38,6 +41,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   handleCreateUser,
 }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
@@ -69,13 +73,13 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
 
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Create User",
           id: "/uqLeF",
           description: "Title displayed on the create a user form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>

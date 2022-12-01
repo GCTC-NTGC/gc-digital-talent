@@ -11,7 +11,7 @@ import { getLocale } from "@common/helpers/localize";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
 import { debounce } from "debounce";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import {
   getWorkRegion,
   OperationalRequirementV1,
@@ -20,6 +20,7 @@ import {
 } from "@common/constants/localizedConstants";
 import errorMessages from "@common/messages/errorMessages";
 import { hasKey } from "@common/helpers/util";
+import { commonMessages } from "@common/messages";
 import {
   Classification,
   CmoAsset,
@@ -72,11 +73,6 @@ export type FormValues = Pick<
   poolId: string;
 };
 
-type LocationState = {
-  some: {
-    initialValues: FormValues;
-  };
-};
 export interface SearchFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
@@ -125,10 +121,10 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
     const assetMap = useMemo(() => mapIdToValue(cmoAssets), [cmoAssets]);
 
     // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
-    const state = location.state as LocationState;
-    const initialValues = useMemo(
-      () => (state ? state.some.initialValues : {}),
-      [state],
+    const initialValuesFromState = location?.state?.initialValues;
+    const initialValues = React.useMemo(
+      () => initialValuesFromState || {},
+      [initialValuesFromState],
     );
     const methods = useForm<FormValues>({ defaultValues: initialValues });
     const { watch, trigger } = methods;
@@ -222,12 +218,7 @@ export const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
         cmoAssets.map(({ id, name }) => ({
           value: id,
           label:
-            name[locale] ??
-            intl.formatMessage({
-              defaultMessage: "Error: name not loaded",
-              id: "m+d9ls",
-              description: "Error message for cmo asset filer on search form.",
-            }),
+            name[locale] ?? intl.formatMessage(commonMessages.nameNotLoaded),
         })),
       [cmoAssets, locale, intl],
     );

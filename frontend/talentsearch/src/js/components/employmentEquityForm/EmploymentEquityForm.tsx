@@ -4,17 +4,15 @@ import { BriefcaseIcon } from "@heroicons/react/24/solid";
 
 import Well from "@common/components/Well";
 import { navigationMessages } from "@common/messages";
-import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import EquityOptions from "./EquityOptions";
 import type { EmploymentEquityUpdateHandler, EquityKeys } from "./types";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import { User, PoolCandidate } from "../../api/generated";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
-import directIntakeRoutes from "../../directIntakeRoutes";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
+import useRoutes from "../../hooks/useRoutes";
 
 export interface EmploymentEquityFormProps {
   user: User;
@@ -30,13 +28,11 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
   isMutating,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const profilePaths = applicantProfileRoutes(locale);
-  const directIntakePaths = directIntakeRoutes(locale);
+  const paths = useRoutes();
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.reviewApplication(application.id)
-      : profilePaths.home(user.id);
+      ? paths.reviewApplication(application.id)
+      : paths.profile(user.id);
 
   const handleUpdate = (key: EquityKeys, value: boolean) => {
     return onUpdate(user.id, {
@@ -53,7 +49,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
-          href: directIntakePaths.applications(application.user.id),
+          href: paths.applications(application.user.id),
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
@@ -61,10 +57,10 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
             intl,
             application.poolAdvertisement,
           ),
-          href: directIntakePaths.pool(application.pool.id),
+          href: paths.pool(application.pool.id),
         },
         {
-          href: directIntakePaths.reviewApplication(application.id),
+          href: paths.reviewApplication(application.id),
           title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]

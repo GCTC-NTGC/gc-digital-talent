@@ -69,7 +69,7 @@ query getMe {
       group
       level
     }
-    wouldAcceptTemporary
+    positionDuration
     cmoAssets {
       id
       name {
@@ -157,6 +157,12 @@ query getMe {
         name {
           en
           fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
         }
       }
       id

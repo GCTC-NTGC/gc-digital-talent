@@ -1,20 +1,22 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { BasicForm, Checklist } from "@common/components/form";
+import { useNavigate } from "react-router-dom";
 import {
   BriefcaseIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/solid";
+
+import { BasicForm, Checklist } from "@common/components/form";
+
 import { errorMessages, navigationMessages } from "@common/messages";
-import Button from "@common/components/Button";
 import { notEmpty } from "@common/helpers/util";
 import { unpackMaybes } from "@common/helpers/formUtils";
-import { navigate } from "@common/helpers/router";
-import { toast } from "react-toastify";
-import { getLocale } from "@common/helpers/localize";
+import { toast } from "@common/components/Toast";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import Well from "@common/components/Well";
 import { ExternalLink } from "@common/components/Link";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+
 import {
   DialogLevelOne,
   DialogLevelTwo,
@@ -34,31 +36,10 @@ import {
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import profileMessages from "../profile/profileMessages";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
-import directIntakeRoutes from "../../directIntakeRoutes";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
+import useRoutes from "../../hooks/useRoutes";
 
 export type FormValues = {
   expectedGenericJobTitles: GenericJobTitleKey[];
-};
-
-// accessible button for modals - generate clickable inline elements resembling <a>
-interface ModalButtonProps {
-  click: (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
-  children?: React.ReactNode;
-}
-const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
-  return (
-    <Button
-      color="black"
-      mode="inline"
-      data-h2-padding="base(0)"
-      data-h2-font-size="base(caption)"
-      onClick={click}
-    >
-      <span data-h2-text-decoration="base(underline)">{children}</span>
-    </Button>
-  );
 };
 
 const dataToFormValues = (data: GetRoleSalaryInfoQuery): FormValues => {
@@ -104,13 +85,12 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   updateRoleSalary,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const profilePaths = applicantProfileRoutes(locale);
-  const directIntakePaths = directIntakeRoutes(locale);
+  const navigate = useNavigate();
+  const paths = useRoutes();
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.reviewApplication(application.id)
-      : profilePaths.myProfile();
+      ? paths.reviewApplication(application.id)
+      : paths.myProfile();
 
   const labels = {
     expectedGenericJobTitles: intl.formatMessage({
@@ -142,42 +122,12 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
       });
   };
 
-  // modal logic section
-  const [isDialogLevel1Open, setDialogLevel1Open] =
-    React.useState<boolean>(false);
-  const [isDialogLevel2Open, setDialogLevel2Open] =
-    React.useState<boolean>(false);
-  const [isDialogLevel3LeadOpen, setDialogLevel3LeadOpen] =
-    React.useState<boolean>(false);
-  const [isDialogLevel3AdvisorOpen, setDialogLevel3AdvisorOpen] =
-    React.useState<boolean>(false);
-  const [isDialogLevel4ManagerOpen, setDialogLevel4ManagerOpen] =
-    React.useState<boolean>(false);
-  const [isDialogLevel4AdvisorOpen, setDialogLevel4AdvisorOpen] =
-    React.useState<boolean>(false);
-
   // intl styling functions section
   function link(chunks: React.ReactNode, url: string): React.ReactNode {
     return (
       <ExternalLink newTab href={url}>
         {chunks}
       </ExternalLink>
-    );
-  }
-
-  function openModal(
-    chunks: React.ReactNode,
-    setOpenStateFn: (state: boolean) => void,
-  ): React.ReactNode {
-    return (
-      <ModalButton
-        click={(e) => {
-          setOpenStateFn(true);
-          e?.preventDefault();
-        }}
-      >
-        {chunks}
-      </ModalButton>
     );
   }
 
@@ -190,7 +140,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
-          href: directIntakePaths.applications(application.user.id),
+          href: paths.applications(application.user.id),
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
@@ -198,10 +148,10 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
             intl,
             application.poolAdvertisement,
           ),
-          href: directIntakePaths.pool(application.pool.id),
+          href: paths.pool(application.pool.id),
         },
         {
-          href: directIntakePaths.reviewApplication(application.id),
+          href: paths.reviewApplication(application.id),
           title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]
@@ -246,8 +196,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
         <p data-h2-margin="base(0, 0, x2, 0)">
           {intl.formatMessage({
             defaultMessage:
-              "This platform is focused on hiring digital talent to work in positions classified as IT(Information Technology). Look at the following levels within the IT classification and <strong>select only</strong> the ones that represent the work you want to do.",
-            id: "n7UXz5",
+              "This platform is focused on hiring digital talent to work in positions classified as IT (Information Technology). Look at the following levels within the IT classification and <strong>select only</strong> the ones that represent the work you want to do.",
+            id: "Eubngf",
             description: "Blurb describing the purpose of the form",
           })}
         </p>
@@ -271,8 +221,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-01 selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (chunks: string) =>
-                    openModal(chunks, setDialogLevel1Open),
+                  openModal: (msg: React.ReactNode) =>
+                    DialogLevelOne({ children: msg }),
                 },
               ),
             },
@@ -287,8 +237,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-02 selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (chunks: React.ReactNode): React.ReactNode =>
-                    openModal(chunks, setDialogLevel2Open),
+                  openModal: (msg: React.ReactNode) =>
+                    DialogLevelTwo({ children: msg }),
                 },
               ),
             },
@@ -303,8 +253,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (chunks: React.ReactNode): React.ReactNode =>
-                    openModal(chunks, setDialogLevel3LeadOpen),
+                  openModal: (msg: React.ReactNode) =>
+                    DialogLevelThreeLead({ children: msg }),
                 },
               ),
             },
@@ -319,8 +269,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (chunks: React.ReactNode): React.ReactNode =>
-                    openModal(chunks, setDialogLevel3AdvisorOpen),
+                  openModal: (msg: React.ReactNode) =>
+                    DialogLevelThreeAdvisor({ children: msg }),
                 },
               ),
             },
@@ -335,8 +285,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (chunks: React.ReactNode): React.ReactNode =>
-                    openModal(chunks, setDialogLevel4AdvisorOpen),
+                  openModal: (msg: React.ReactNode) =>
+                    DialogLevelFourAdvisor({ children: msg }),
                 },
               ),
             },
@@ -351,8 +301,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
                     "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please",
                 },
                 {
-                  openModal: (chunks: string) =>
-                    openModal(chunks, setDialogLevel4ManagerOpen),
+                  openModal: (msg: React.ReactNode) =>
+                    DialogLevelFourLead({ children: msg }),
                 },
               ),
             },
@@ -388,31 +338,6 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           cancelLink={{ href: returnRoute }}
         />
       </BasicForm>
-
-      <DialogLevelOne
-        isOpen={isDialogLevel1Open}
-        onDismiss={() => setDialogLevel1Open(false)}
-      />
-      <DialogLevelTwo
-        isOpen={isDialogLevel2Open}
-        onDismiss={() => setDialogLevel2Open(false)}
-      />
-      <DialogLevelThreeLead
-        isOpen={isDialogLevel3LeadOpen}
-        onDismiss={() => setDialogLevel3LeadOpen(false)}
-      />
-      <DialogLevelThreeAdvisor
-        isOpen={isDialogLevel3AdvisorOpen}
-        onDismiss={() => setDialogLevel3AdvisorOpen(false)}
-      />
-      <DialogLevelFourAdvisor
-        isOpen={isDialogLevel4AdvisorOpen}
-        onDismiss={() => setDialogLevel4AdvisorOpen(false)}
-      />
-      <DialogLevelFourLead
-        isOpen={isDialogLevel4ManagerOpen}
-        onDismiss={() => setDialogLevel4ManagerOpen(false)}
-      />
     </ProfileFormWrapper>
   );
 };

@@ -6,6 +6,11 @@ const messages = defineMessages({
     id: "B7fcr5",
     description: "Title displayed for a table initial loading state.",
   },
+  saving: {
+    defaultMessage: "Saving...",
+    id: "Tw90Pi",
+    description: "Submitting text for save button.",
+  },
   loadingError: {
     defaultMessage: "Oh no...",
     id: "AvBSV+",
@@ -43,6 +48,11 @@ const messages = defineMessages({
     id: "ZcvDAo",
     description:
       "Message that there are required fields missing. Please ignore things in <> tags.",
+  },
+  nameNotLoaded: {
+    defaultMessage: "Error: name not loaded",
+    id: "DdOEWx",
+    description: "Message when name value not found",
   },
 });
 

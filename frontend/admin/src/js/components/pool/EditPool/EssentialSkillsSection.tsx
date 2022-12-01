@@ -2,7 +2,6 @@ import * as React from "react";
 import { useState } from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
-import { Button } from "@common/components";
 import SkillPicker from "@common/components/SkillPicker";
 import { getLocalizedName } from "@common/helpers/localize";
 import Chip, { Chips } from "@common/components/Chip";
@@ -78,22 +77,15 @@ export const EssentialSkillsSection = ({
             selectedSkills={selectedSkills}
             skills={skills}
             onUpdateSelectedSkills={handleChangeSelectedSkills}
+            handleSave={handleSave}
+            headingLevel="h3"
+            submitButtonText={intl.formatMessage({
+              defaultMessage: "Save essential skills",
+              id: "2asU3k",
+              description: "Text on a button to save the pool essential skills",
+            })}
+            isSubmitting={isSubmitting}
           />
-          <p data-h2-margin="base(x1, 0)">
-            <Button
-              onClick={handleSave}
-              color="cta"
-              mode="solid"
-              disabled={isSubmitting}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Save essential skills",
-                id: "2asU3k",
-                description:
-                  "Text on a button to save the pool essential skills",
-              })}
-            </Button>
-          </p>
         </>
       ) : (
         <Chips>

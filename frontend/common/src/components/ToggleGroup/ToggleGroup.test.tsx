@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import React from "react";
 import { render, axeTest, screen, fireEvent } from "../../helpers/testUtils";
 
-import * as ToggleGroup from "./ToggleGroup";
+import ToggleGroup from ".";
 import type { ToggleGroupProps } from "./ToggleGroup";
 
 const renderToggleGroup = (

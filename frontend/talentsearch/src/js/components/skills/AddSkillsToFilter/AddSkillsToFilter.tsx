@@ -1,16 +1,20 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import type { Skill } from "@common/api/generated";
 import SkillPicker from "@common/components/SkillPicker";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { notEmpty } from "@common/helpers/util";
+import { Skill } from "../../../api/generated";
 
 export interface AddSkillsToFilterProps {
   allSkills: Skill[];
+  linkId: string;
 }
 
-const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
+const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
+  allSkills,
+  linkId,
+}) => {
   const intl = useIntl();
   const { control, watch } = useFormContext();
   const watchedSkills = watch("skills");
@@ -25,7 +29,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
   const addedSkills: Skill[] = React.useMemo(() => {
     return addedSkillIds
       .map((id) => allSkills.find((skill) => skill.id === id))
-      .filter((skill) => typeof skill !== "undefined") as Skill[];
+      .filter(notEmpty);
   }, [addedSkillIds, allSkills]);
 
   React.useEffect(() => {
@@ -49,14 +53,24 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
         data-h2-font-size="base(h6, 1)"
         data-h2-font-weight="base(700)"
         data-h2-margin="base(x3, 0, x1, 0)"
+        id={linkId}
       >
         {intl.formatMessage({
-          defaultMessage: "Skills as filters",
-          id: "hEhmBF",
+          defaultMessage: "Skills selection",
+          id: "eFvsOG",
           description: "Title for the skill filters on search page.",
         })}
       </h3>
-      <p>
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "Help us match you to the best candidates by sharing more information with our team on the exact skills you are looking for.",
+          id: "R75HsV",
+          description:
+            "Describing the purpose of the skill filters on the Search page.",
+        })}
+      </p>
+      {/* <p>
         {intl.formatMessage({
           defaultMessage:
             "Find candidates with the right skills for the job. Use the following tabs to find skills that are necessary for the job and select them to use them as filters for matching candidates.",
@@ -73,7 +87,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
           description:
             "Describing how to use the skill filters on search page, paragraph two.",
         })}
-      </p>
+      </p> */}
       <SkillPicker
         skills={allSkills || []}
         onUpdateSelectedSkills={handleChange}

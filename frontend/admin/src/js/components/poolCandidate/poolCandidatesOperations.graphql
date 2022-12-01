@@ -72,7 +72,7 @@ fragment poolCandidateTable on PoolCandidate {
       group
       level
     }
-    wouldAcceptTemporary
+    positionDuration
     priorityWeight
   }
   cmoIdentifier
@@ -90,6 +90,12 @@ fragment poolCandidateForm on PoolCandidate {
     name {
       en
       fr
+    }
+    stream
+    classifications {
+      id
+      group
+      level
     }
   }
   user {
@@ -131,6 +137,7 @@ fragment selectedPoolCandidates on PoolCandidate {
       en
       fr
     }
+    stream
     classifications {
       id
       name {
@@ -163,7 +170,7 @@ fragment selectedPoolCandidates on PoolCandidate {
     priorityWeight
     locationPreferences
     locationExemptions
-    wouldAcceptTemporary
+    positionDuration
     acceptedOperationalRequirements
     isWoman
     isIndigenous
@@ -500,7 +507,7 @@ query getCandidateProfile($id: ID!) {
       priorityNumber
       locationPreferences
       locationExemptions
-      wouldAcceptTemporary
+      positionDuration
       acceptedOperationalRequirements
       isWoman
       isIndigenous
@@ -615,7 +622,7 @@ query getUserProfile($id: ID!) {
     priorityNumber
     locationPreferences
     locationExemptions
-    wouldAcceptTemporary
+    positionDuration
     acceptedOperationalRequirements
     isWoman
     isIndigenous
@@ -722,6 +729,12 @@ query getUserProfile($id: ID!) {
         name {
           en
           fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
         }
       }
       id

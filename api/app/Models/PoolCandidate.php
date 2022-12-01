@@ -214,8 +214,12 @@ RAWSQL2;
 
         return $query;
     }
-    public function filterByLocationPreferences(Builder $query, array $workRegions): Builder
+    public function filterByLocationPreferences(Builder $query, ?array $workRegions): Builder
     {
+        if (empty($workRegions)) {
+            return $query;
+        }
+
         // WorkRegion acts as an OR filter. The query should return candidates willing to work in ANY of the regions.
         $query->whereExists(function ($query) use ($workRegions) {
             $query->select('id')
@@ -236,6 +240,10 @@ RAWSQL2;
     }
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
+        if (empty($languageAbility)) {
+            return $query;
+        }
+
         // If filtering for a specific language the query should return candidates of that language OR bilingual.
         $query->whereExists(function ($query) use ($languageAbility) {
             $query->select('id')
@@ -251,7 +259,7 @@ RAWSQL2;
         });
         return $query;
     }
-    public static function filterByPools(Builder $query, array $pools): Builder
+    public static function filterByPools(Builder $query, ?array $pools): Builder
     {
         if (empty($pools)) {
             return $query;
@@ -266,7 +274,7 @@ RAWSQL2;
         return $query;
     }
 
-    public function filterByEquity(Builder $query, array $equity): Builder
+    public function filterByEquity(Builder $query, ?array $equity): Builder
     {
         if (empty($equity)) {
             return $query;
@@ -326,6 +334,40 @@ RAWSQL2;
         return $query;
     }
 
+    public static function filterByName(Builder $query, ?string $name): Builder
+    {
+        if ($name) {
+            $splitName = explode(" ", $name);
+            $query->whereExists(function ($query) use ($splitName) {
+                $query->select('id')
+                    ->from('users')
+                    ->whereColumn('users.id', 'pool_candidates.user_id')
+                    ->where(function ($query) use ($splitName) {
+                        foreach ($splitName as $index => $value) {
+                            $query->where('first_name', "ilike", "%{$value}%")
+                                ->orWhere('last_name', "ilike", "%{$value}%");
+                        }
+                    });
+            });
+        }
+        return $query;
+    }
+
+    public static function scopeEmail(Builder $query, ?string $email): Builder
+    {
+        if ($email) {
+            $query->whereExists(function ($query) use ($email) {
+                $query->select('id')
+                    ->from('users')
+                    ->whereColumn('users.id', 'pool_candidates.user_id')
+                    ->where(function ($query) use ($email) {
+                        $query->where('email', 'ilike', "%{$email}%");
+                    });
+            });
+        }
+        return $query;
+    }
+
 
     public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
     {
@@ -337,12 +379,12 @@ RAWSQL2;
         return $query;
     }
 
-    public function scopeAvailable(Builder $query): Builder
+    public static function scopeAvailable(Builder $query): Builder
     {
         return $query->whereIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]);
     }
 
-    public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder
+    public function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
     {
         if ($hasDiploma) {
             $query->whereExists(function ($query) {
@@ -357,12 +399,14 @@ RAWSQL2;
         return $query;
     }
 
-    public function scopeExpiryFilter(Builder $query, ?array $args)
+    public static function scopeExpiryFilter(Builder $query, ?array $args)
     {
         $expiryStatus = isset($args['expiryStatus']) ? $args['expiryStatus'] : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
         if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
-            $query->whereDate('expiry_date', '>=', date("Y-m-d"))
-                ->orWhereNull('expiry_date');
+            $query->where(function ($query) {
+                $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+                    ->orWhereNull('expiry_date');
+            });
         } else if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
             $query->whereDate('expiry_date', '<', date("Y-m-d"));
         }
@@ -430,6 +474,9 @@ RAWSQL2;
 
     public function scopePriorityWeight(Builder $query, ?array $priorityWeights): Builder
     {
+        if (empty($priorityWeights)) {
+            return $query;
+        }
 
         $query->whereExists(function ($query) use ($priorityWeights) {
             $query->select('id')
@@ -450,8 +497,12 @@ RAWSQL2;
     }
 
     // TODO: Deprecate CMO Assets filter after FEATURE_APPLICANTSEARCH flag is turned on.
-    public function filterByCmoAssets(Builder $query, array $cmoAssets): Builder
+    public function filterByCmoAssets(Builder $query, ?array $cmoAssets): Builder
     {
+        if (empty($cmoAssets)) {
+            return $query;
+        }
+
         // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
         // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
         foreach ($cmoAssets as $cmoAsset) {

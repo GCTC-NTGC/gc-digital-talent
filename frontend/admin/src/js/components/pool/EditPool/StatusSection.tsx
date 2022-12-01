@@ -1,7 +1,6 @@
 import * as React from "react";
 import TableOfContents from "@common/components/TableOfContents";
 import { useIntl } from "react-intl";
-import { Button } from "@common/components";
 import { heavyPrimary } from "@common/helpers/format";
 import {
   FolderOpenIcon,
@@ -25,7 +24,7 @@ interface StatusSectionProps {
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: (submitData: ExtendSubmitData) => void;
+  onExtend: (submitData: ExtendSubmitData) => Promise<void>;
   onArchive: () => void;
 }
 
@@ -39,16 +38,6 @@ export const StatusSection = ({
   onArchive,
 }: StatusSectionProps): JSX.Element => {
   const intl = useIntl();
-  const [isPublishDialogOpen, setPublishDialogOpen] =
-    React.useState<boolean>(false);
-  const [isCloseDialogOpen, setCloseDialogOpen] =
-    React.useState<boolean>(false);
-  const [isDeleteDialogOpen, setDeleteDialogOpen] =
-    React.useState<boolean>(false);
-  const [isArchiveDialogOpen, setArchiveDialogOpen] =
-    React.useState<boolean>(false);
-  const [isExtendDialogOpen, setExtendDialogOpen] =
-    React.useState<boolean>(false);
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
@@ -106,28 +95,11 @@ export const StatusSection = ({
                 </span>
               </div>
             </div>
-            <Button
-              onClick={() => setPublishDialogOpen(true)}
-              color="secondary"
-              mode="solid"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Publish",
-                id: "t4WPUU",
-                description: "Text on a button to publish the pool",
-              })}
-            </Button>
-            <Button
-              onClick={() => setDeleteDialogOpen(true)}
-              color="secondary"
-              mode="solid"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Delete",
-                id: "IFGKCz",
-                description: "Text on a button to delete the pool",
-              })}
-            </Button>
+            <PublishDialog
+              expiryDate={poolAdvertisement.expiryDate}
+              onPublish={onPublish}
+            />
+            <DeleteDialog onDelete={onDelete} />
           </>
         ) : undefined}
 
@@ -174,29 +146,14 @@ export const StatusSection = ({
                 </span>
               </div>
             </div>
-            <Button
-              onClick={() => setCloseDialogOpen(true)}
-              color="secondary"
-              mode="solid"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Close",
-                id: "BhtXXY",
-                description: "Text on a button to close the pool",
-              })}
-            </Button>
-            <Button
-              onClick={() => setExtendDialogOpen(true)}
-              color="secondary"
-              mode="solid"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Extend the date",
-                id: "jiUwae",
-                description:
-                  "Text on a button to extend the expiry date the pool",
-              })}
-            </Button>
+            <CloseDialog
+              expiryDate={poolAdvertisement.expiryDate}
+              onClose={onClose}
+            />
+            <ExtendDialog
+              expiryDate={poolAdvertisement.expiryDate}
+              onExtend={onExtend}
+            />
           </>
         ) : undefined}
 
@@ -243,30 +200,11 @@ export const StatusSection = ({
                 </span>
               </div>
             </div>
-            <Button
-              onClick={() => setExtendDialogOpen(true)}
-              color="secondary"
-              mode="solid"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Extend the date",
-                id: "jiUwae",
-                description:
-                  "Text on a button to extend the expiry date the pool",
-              })}
-            </Button>
-            <Button
-              onClick={() => setArchiveDialogOpen(true)}
-              color="secondary"
-              mode="solid"
-              disabled
-            >
-              {intl.formatMessage({
-                defaultMessage: "Archive",
-                id: "P8NuMo",
-                description: "Text on a button to archive the pool",
-              })}
-            </Button>
+            <ExtendDialog
+              expiryDate={poolAdvertisement.expiryDate}
+              onExtend={onExtend}
+            />
+            <ArchiveDialog onArchive={onArchive} />
           </>
         ) : undefined}
 
@@ -313,34 +251,6 @@ export const StatusSection = ({
           </div>
         ) : undefined}
       </div>
-      <PublishDialog
-        isOpen={isPublishDialogOpen}
-        onDismiss={() => setPublishDialogOpen(false)}
-        expiryDate={poolAdvertisement.expiryDate}
-        onPublish={onPublish}
-      />
-      <CloseDialog
-        isOpen={isCloseDialogOpen}
-        onDismiss={() => setCloseDialogOpen(false)}
-        expiryDate={poolAdvertisement.expiryDate}
-        onClose={onClose}
-      />
-      <DeleteDialog
-        isOpen={isDeleteDialogOpen}
-        onDismiss={() => setDeleteDialogOpen(false)}
-        onDelete={onDelete}
-      />
-      <ArchiveDialog
-        isOpen={isArchiveDialogOpen}
-        onDismiss={() => setArchiveDialogOpen(false)}
-        onArchive={onArchive}
-      />
-      <ExtendDialog
-        isOpen={isExtendDialogOpen}
-        onDismiss={() => setExtendDialogOpen(false)}
-        expiryDate={poolAdvertisement.expiryDate}
-        onExtend={onExtend}
-      />
     </TableOfContents.Section>
   );
 };

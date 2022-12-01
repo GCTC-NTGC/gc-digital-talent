@@ -378,4 +378,32 @@ class ApiEnums
             self::POOL_CANDIDATE_POOL_NOT_PUBLISHED,
         ];
     }
+
+    /**
+     * Pool Candidate Request Statuses
+     */
+    const POOL_CANDIDATE_SEARCH_STATUS_DONE = 'DONE';
+    const POOL_CANDIDATE_SEARCH_STATUS_PENDING = 'PENDING';
+
+    public static function poolCandidateSearchStatuses(): array
+    {
+        return [
+            self::POOL_CANDIDATE_SEARCH_STATUS_DONE,
+            self::POOL_CANDIDATE_SEARCH_STATUS_PENDING,
+        ];
+    }
+
+    /**
+     * Position Duration
+     */
+    const POSITION_DURATION_TEMPORARY = 'TEMPORARY';
+    const POSITION_DURATION_PERMANENT = 'PERMANENT';
+
+    public static function positionDurations(): array
+    {
+        return [
+            self::POSITION_DURATION_TEMPORARY,
+            self::POSITION_DURATION_PERMANENT,
+        ];
+    }
 }

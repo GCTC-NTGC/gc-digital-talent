@@ -1,29 +1,30 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
+import { SubmitHandler } from "react-hook-form";
+import { BriefcaseIcon } from "@heroicons/react/24/solid";
+
 import { errorMessages, navigationMessages } from "@common/messages";
 import { BasicForm, Checklist, RadioGroup } from "@common/components/form";
 import {
   getOperationalRequirement,
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
-import { SubmitHandler } from "react-hook-form";
-import { getLocale } from "@common/helpers/localize";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import { navigate } from "@common/helpers/router";
-import { toast } from "react-toastify";
-import { BriefcaseIcon } from "@heroicons/react/24/solid";
+import { toast } from "@common/components/Toast";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import {
   PoolCandidate,
+  PositionDuration,
   UpdateUserAsUserInput,
   UpdateWorkPreferencesMutation,
   User,
 } from "../../api/generated";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
-import directIntakeRoutes from "../../directIntakeRoutes";
+import useRoutes from "../../hooks/useRoutes";
 import profileMessages from "../profile/profileMessages";
-import getFullPoolAdvertisementTitle from "../pool/getFullPoolAdvertisementTitle";
 
 export type FormValues = Pick<
   UpdateUserAsUserInput,
@@ -44,7 +45,7 @@ interface WithEllipsisPrefixProps {
   children: React.ReactNode;
 }
 /**
- * Helps prepend ellipses to other strings.
+ * Helps p repend ellipses to other strings.
  * (Whitespace conventions for using the ellipsis varies between languages.)
  *
  * @see https://www.btb.termiumplus.gc.ca/tcdnstyl-chap?lang=eng&lettr=chapsect17&info0=17.07
@@ -70,13 +71,12 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   handleWorkPreferences,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const profilePaths = applicantProfileRoutes(locale);
-  const directIntakePaths = directIntakeRoutes(locale);
+  const navigate = useNavigate();
+  const paths = useRoutes();
   const returnRoute =
     application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? directIntakePaths.reviewApplication(application.id)
-      : profilePaths.home(initialData.id);
+      ? paths.reviewApplication(application.id)
+      : paths.profile(initialData.id);
 
   const labels = {
     wouldAcceptTemporary: intl.formatMessage({
@@ -99,10 +99,11 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
     };
 
     return {
-      wouldAcceptTemporary:
-        typeof data.wouldAcceptTemporary === "boolean"
-          ? boolToString(data.wouldAcceptTemporary)
-          : undefined,
+      wouldAcceptTemporary: data.positionDuration
+        ? boolToString(
+            data.positionDuration.includes(PositionDuration.Temporary),
+          )
+        : undefined,
       acceptedOperationalRequirements: data.acceptedOperationalRequirements,
     };
   };
@@ -118,7 +119,9 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
       return false;
     };
     return {
-      wouldAcceptTemporary: stringToBool(values.wouldAcceptTemporary),
+      positionDuration: stringToBool(values.wouldAcceptTemporary)
+        ? [PositionDuration.Permanent, PositionDuration.Temporary]
+        : [PositionDuration.Permanent], // always accepting permanent, accepting temporary is what is variable
       acceptedOperationalRequirements: values.acceptedOperationalRequirements,
     };
   };
@@ -143,7 +146,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             description:
               "'My Applications' breadcrumb from applicant profile wrapper.",
           }),
-          href: directIntakePaths.applications(application.user.id),
+          href: paths.applications(application.user.id),
           icon: <BriefcaseIcon style={{ width: "1rem", marginRight: "5px" }} />,
         },
         {
@@ -151,10 +154,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
             intl,
             application.poolAdvertisement,
           ),
-          href: directIntakePaths.pool(application.pool.id),
+          href: paths.pool(application.pool.id),
         },
         {
-          href: directIntakePaths.reviewApplication(application.id),
+          href: paths.reviewApplication(application.id),
           title: intl.formatMessage(navigationMessages.stepOne),
         },
       ]

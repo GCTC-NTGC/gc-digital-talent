@@ -9,6 +9,7 @@ import IndigenousFrench from "../../indigenousapprenticeship/src/js/lang/frCompi
 import defaultRichTextElements from "../../common/src/helpers/format";
 import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
 import withThemeProvider, { theme } from "../../common/.storybook/decorators/ThemeDecorator"
+import withRouter  from "../../common/.storybook/decorators/RouterDecorator"
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
 // CSS files required for building with `MERGE_STORYBOOKS=true`.
@@ -60,6 +61,7 @@ export const decorators = [
   MockGraphqlDecorator,
   withIntl,
   withThemeProvider,
+  withRouter,
   (Story) => (
     <div data-h2-font-family="base(sans)">
       <Story />

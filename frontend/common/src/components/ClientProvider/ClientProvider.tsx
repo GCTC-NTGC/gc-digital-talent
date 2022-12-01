@@ -21,8 +21,8 @@ import {
   makeOperation,
 } from "urql";
 import { GraphQLErrorExtensions } from "graphql";
-import { toast } from "react-toastify";
 import { IntlShape, useIntl } from "react-intl";
+import { toast } from "../Toast";
 import { tryFindMessageDescriptor } from "../../messages/apiMessages";
 import { AuthenticationContext } from "../Auth";
 
@@ -214,16 +214,8 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
         url: apiUri,
         requestPolicy: "cache-and-network",
         exchanges: [
-          /**
-           * Commented out to stop urql errors being displayed in toasts
-           *
-           * TODO: Confirm errors are being logged on the server
-           * before removing console.error
-           */
           errorExchange({
             onError: (error: CombinedError) => {
-              // toast.error(error.message);
-
               const validationErrorMessages =
                 extractValidationErrorMessages(error);
               const validationErrorMessageNode =

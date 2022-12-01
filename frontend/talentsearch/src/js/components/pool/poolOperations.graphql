@@ -1,20 +1,25 @@
 query getPool($id: ID!) {
-  pool(id: $id) {
+  poolAdvertisement (id: $id) {
     id
     name {
       en
       fr
+    }
+    stream
+    classifications {
+      id
+      group
+      level
     }
   }
 }
 
 query getPoolAdvertisement($id: ID!) {
   me {
-    roles
     id
     poolCandidates {
       id
-      pool {
+      poolAdvertisement {
         id
       }
       submittedAt
@@ -45,6 +50,7 @@ query getPoolAdvertisement($id: ID!) {
       minSalary
       maxSalary
     }
+    stream
     expiryDate
     advertisementStatus
     advertisementLanguage

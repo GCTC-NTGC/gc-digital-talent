@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
-import { toast } from "react-toastify";
+
+import { toast } from "@common/components/Toast";
 import {
   Select,
   Submit,
@@ -12,7 +14,6 @@ import {
   TextArea,
 } from "@common/components/form";
 import { notEmpty } from "@common/helpers/util";
-import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import { unpackIds, enumToOptions } from "@common/helpers/formUtils";
 
@@ -20,6 +21,7 @@ import { errorMessages, commonMessages } from "@common/messages";
 import { getSkillCategory } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import Heading from "@common/components/Heading/Heading";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -29,6 +31,7 @@ import {
   UpdateSkillFamilyMutation,
   useUpdateSkillFamilyMutation,
   useGetUpdateSkillFamilyDataQuery,
+  Scalars,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
@@ -52,6 +55,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
 > = ({ initialSkillFamily, skills, handleUpdateSkillFamily }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const sortedSkills = sortBy(skills, (skill) => {
     return skill.name?.[locale]?.toLocaleUpperCase();
@@ -119,13 +123,13 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
 
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Update Skill Family",
           id: "GQskY1",
           description: "Title displayed on the update a skillFamily form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -231,13 +235,16 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<
   );
 };
 
-const UpdateSkillFamily: React.FunctionComponent<{
-  skillFamilyId: string;
-}> = ({ skillFamilyId }) => {
+type RouteParams = {
+  skillFamilyId: Scalars["ID"];
+};
+
+const UpdateSkillFamily = () => {
   const intl = useIntl();
+  const { skillFamilyId } = useParams<RouteParams>();
   const [{ data: lookupData, fetching, error }] =
     useGetUpdateSkillFamilyDataQuery({
-      variables: { id: skillFamilyId },
+      variables: { id: skillFamilyId || "" },
     });
   const skills: Skill[] | [] = lookupData?.skills.filter(notEmpty) ?? [];
 

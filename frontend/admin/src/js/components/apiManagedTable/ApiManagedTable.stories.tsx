@@ -23,7 +23,7 @@ type ApiManageTableProps = {
     | "onSearchChange"
     | "onColumnHiddenChange"
     | "hiddenColumnIds"
-    | "filterButtonComponent"
+    | "filterComponent"
     | "columns"
   >;
 };
@@ -110,7 +110,7 @@ const Template: Story<ApiManageTableProps> = (args) => {
       <TableHeader
         columns={columns}
         hiddenColumnIds={hiddenColumnIds}
-        filterButtonComponent={
+        filterComponent={
           <Button onClick={() => action("onOpenFilters")()}>Filters</Button>
         }
         onSearchChange={(term, type) => {

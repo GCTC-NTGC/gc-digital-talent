@@ -4,12 +4,13 @@ import SearchRequestFilters from "@common/components/SearchRequestFilters/Search
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { commonMessages } from "@common/messages";
-import { notEmpty } from "@common/helpers/util";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { formatDate, parseDateTimeUtc } from "@common/helpers/dateUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+import Heading from "@common/components/Heading/Heading";
 import {
-  PoolCandidateFilterInput,
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,
 } from "../../api/generated";
@@ -28,6 +29,7 @@ const ManagerInfo: React.FunctionComponent<{
     jobTitle,
     status,
     requestedDate,
+    doneDate,
     poolCandidateFilter,
     applicantFilter,
   } = searchRequest;
@@ -40,17 +42,14 @@ const ManagerInfo: React.FunctionComponent<{
 
   return (
     <>
-      <h2
-        data-h2-margin="base(x2, 0, x.5, 0)"
-        data-h2-font-size="base(h4, 1.3)"
-      >
+      <Heading level="h2" size="h4">
         {intl.formatMessage({
           defaultMessage: "Manager Information",
           id: "UEsexn",
           description:
             "Heading for the manager info section of the single search request view.",
         })}
-      </h2>
+      </Heading>
       <div data-h2-background-color="base(lightest.dt-gray)">
         <div data-h2-padding="base(x1)">
           <div
@@ -130,13 +129,15 @@ const ManagerInfo: React.FunctionComponent<{
                   })}
                   content={
                     applicantFilter
-                      ? applicantFilter?.pools?.map(
-                          (pool) =>
-                            pool?.name?.[locale] || nonApplicableMessage,
+                      ? applicantFilter?.pools?.map((pool) =>
+                          getFullPoolAdvertisementTitle(intl, pool, {
+                            defaultTitle: nonApplicableMessage,
+                          }),
                         )
-                      : poolCandidateFilter?.pools?.map(
-                          (pool) =>
-                            pool?.name?.[locale] || nonApplicableMessage,
+                      : poolCandidateFilter?.pools?.map((pool) =>
+                          getFullPoolAdvertisementTitle(intl, pool, {
+                            defaultTitle: nonApplicableMessage,
+                          }),
                         )
                   }
                 />
@@ -173,7 +174,15 @@ const ManagerInfo: React.FunctionComponent<{
                     description:
                       "Title for the date requested block in the manager info section of the single search request view.",
                   })}
-                  content={requestedDate}
+                  content={
+                    requestedDate
+                      ? formatDate({
+                          date: parseDateTimeUtc(requestedDate),
+                          formatString: "PPP p",
+                          intl,
+                        })
+                      : null
+                  }
                 />
                 <FilterBlock
                   title={intl.formatMessage({
@@ -182,12 +191,20 @@ const ManagerInfo: React.FunctionComponent<{
                     description:
                       "Title for the date done block in the manager info section of the single search request view.",
                   })}
-                  content={intl.formatMessage({
-                    defaultMessage: "(Request is still pending)",
-                    id: "FxceQZ",
-                    description:
-                      "Text for when date done is pending in the manager info section of the single search request view.",
-                  })}
+                  content={
+                    doneDate
+                      ? formatDate({
+                          date: parseDateTimeUtc(doneDate),
+                          formatString: "PPP p",
+                          intl,
+                        })
+                      : intl.formatMessage({
+                          defaultMessage: "(Request is still pending)",
+                          id: "FxceQZ",
+                          description:
+                            "Text for when date done is pending in the manager info section of the single search request view.",
+                        })
+                  }
                 />
               </div>
             </div>
@@ -209,51 +226,8 @@ export const SingleSearchRequest: React.FunctionComponent<
   const locale = getLocale(intl);
   const { additionalComments, poolCandidateFilter, applicantFilter } =
     searchRequest;
-  // TODO: data filter data from applicantFilter instead of poolCandidateFilter if possible.
 
-  const poolCandidateFilterInput: PoolCandidateFilterInput = {
-    expectedClassifications: [
-      ...(poolCandidateFilter?.classifications
-        ? poolCandidateFilter.classifications
-            .filter(notEmpty)
-            .map(({ group, level }) => {
-              return {
-                group,
-                level,
-              };
-            })
-        : []),
-    ],
-    cmoAssets: [
-      ...(poolCandidateFilter?.cmoAssets
-        ? poolCandidateFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
-            return {
-              key,
-            };
-          })
-        : []),
-    ],
-    operationalRequirements: poolCandidateFilter?.operationalRequirements,
-    pools: [
-      ...(poolCandidateFilter?.pools
-        ? poolCandidateFilter.pools.filter(notEmpty).map(({ id }) => {
-            return {
-              id,
-            };
-          })
-        : []),
-    ],
-    hasDiploma: poolCandidateFilter?.hasDiploma,
-    equity: {
-      hasDisability: poolCandidateFilter?.equity?.hasDisability,
-      isIndigenous: poolCandidateFilter?.equity?.isIndigenous,
-      isVisibleMinority: poolCandidateFilter?.equity?.isVisibleMinority,
-      isWoman: poolCandidateFilter?.equity?.isWoman,
-    },
-    languageAbility: poolCandidateFilter?.languageAbility || undefined,
-    locationPreferences: poolCandidateFilter?.workRegions,
-  };
-
+  const abstractFilter = applicantFilter ?? poolCandidateFilter;
   return (
     <section>
       <p>
@@ -273,24 +247,19 @@ export const SingleSearchRequest: React.FunctionComponent<
       </p>
       <ManagerInfo searchRequest={searchRequest} />
       <div>
-        <h2
-          data-h2-margin="base(x2, 0, x.5, 0)"
-          data-h2-font-size="base(h4, 1.3)"
-        >
+        <Heading level="h2" size="h4">
           {intl.formatMessage({
             defaultMessage: "Request Information",
             id: "AAmd5G",
             description:
               "Heading for the request information section of the single search request view.",
           })}
-        </h2>
+        </Heading>
         <div
           data-h2-padding="base(x1)"
           data-h2-background-color="base(lightest.dt-gray)"
         >
-          <SearchRequestFilters
-            filters={applicantFilter || poolCandidateFilter}
-          />
+          <SearchRequestFilters filters={abstractFilter} />
           <div
             data-h2-padding="base(x1, 0, 0, 0)"
             data-h2-border="base(top, 1px, solid, dt-gray)"
@@ -309,20 +278,25 @@ export const SingleSearchRequest: React.FunctionComponent<
         </div>
       </div>
       <div>
-        <h2
-          data-h2-margin="base(x2, 0, 0, 0)"
-          data-h2-font-size="base(h4, 1.3)"
-        >
+        <Heading level="h2" size="h4">
           {intl.formatMessage({
             defaultMessage: "Candidate Results",
             id: "Duswz0",
             description:
               "Heading for the candidate results section of the single search request view.",
           })}
-        </h2>
-        <SingleSearchRequestTableApi
-          poolCandidateFilter={poolCandidateFilterInput}
-        />
+        </Heading>
+        {abstractFilter ? (
+          <SingleSearchRequestTableApi filter={abstractFilter} />
+        ) : (
+          <>
+            {intl.formatMessage({
+              defaultMessage: "Request doesn't include a filter!",
+              id: "hmacO5",
+              description: "Null state for a request not including a filter.",
+            })}
+          </>
+        )}
       </div>
       <UpdateSearchRequest initialSearchRequest={searchRequest} />
     </section>

@@ -69,7 +69,7 @@ query getReviewMyApplicationPageData($id: ID!) {
         group
         level
       }
-      wouldAcceptTemporary
+      positionDuration
       cmoAssets {
         id
         name {
@@ -153,6 +153,7 @@ query getReviewMyApplicationPageData($id: ID!) {
         en
         fr
       }
+      stream
       expiryDate
       classifications {
         id

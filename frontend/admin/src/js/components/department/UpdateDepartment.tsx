@@ -1,16 +1,20 @@
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 import pick from "lodash/pick";
-import { navigate } from "@common/helpers/router";
+
+import { toast } from "@common/components/Toast";
 import { Input, Submit } from "@common/components/form";
 import { errorMessages, commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import Heading from "@common/components/Heading/Heading";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Department,
+  Scalars,
   UpdateDepartmentInput,
   UpdateDepartmentMutation,
   useDepartmentQuery,
@@ -32,6 +36,7 @@ export const UpdateDepartmentForm: React.FunctionComponent<
   UpdateDepartmentProps
 > = ({ initialDepartment, handleUpdateDepartment }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -71,13 +76,13 @@ export const UpdateDepartmentForm: React.FunctionComponent<
 
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Update Department",
           id: "KSNNgE",
           description: "Title displayed on the update a department form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -131,12 +136,15 @@ export const UpdateDepartmentForm: React.FunctionComponent<
   );
 };
 
-const UpdateDepartment: React.FunctionComponent<{
-  departmentId: string;
-}> = ({ departmentId }) => {
+type RouteParams = {
+  departmentId: Scalars["ID"];
+};
+
+const UpdateDepartment = () => {
   const intl = useIntl();
+  const { departmentId } = useParams<RouteParams>();
   const [{ data: departmentData, fetching, error }] = useDepartmentQuery({
-    variables: { id: departmentId },
+    variables: { id: departmentId || "" },
   });
   const [, executeMutation] = useUpdateDepartmentMutation();
   const handleUpdateDepartment = (id: string, data: UpdateDepartmentInput) =>

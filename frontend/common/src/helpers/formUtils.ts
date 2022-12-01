@@ -80,6 +80,24 @@ export function getValues<T>(list: { value: T; label: string }[]): T[] {
 }
 
 /**
+ * Returns a string with certain characters escaped, for Regex purposes
+ * @param unescapedString String that you want escaped characters in
+ * @returns { string } String with certain characters escaped
+ */
+export function escapeAString(unescapedString: string) {
+  const inputStringArray = unescapedString.split("");
+  const outputStringArray = inputStringArray.map((character) => {
+    if (character.match(/[+*()?[\]\\]/)) {
+      // looks a little funny due to needing to escape "\" and "]" characters themselves for matching
+      return `\\${character}`;
+    }
+    return character;
+  });
+  const escapedString = outputStringArray.join("");
+  return escapedString;
+}
+
+/**
  * Returns a boolean indicating if the compare string matches the word being searched for (needle).
  * @param needle String that you want to search for.
  * @param compareString A single string to check.
@@ -89,12 +107,13 @@ export function matchStringCaseDiacriticInsensitive(
   needle: string,
   compareString: string,
 ) {
+  const escapedNeedle = escapeAString(needle); // escape certain characters for Regex purposes
   return (
     compareString
       .normalize("NFD") // Normalizing to NFD Unicode normal form decomposes combined graphemes into the combination of simple ones.
       .replace(/[\u0300-\u036f]/g, "") // Using a regex character class to match the U+0300 → U+036F range, it is now trivial to globally get rid of the diacritics, which the Unicode standard conveniently groups as the Combining Diacritical Marks Unicode block.
-      .search(new RegExp(needle, "i")) !== -1 ||
-    compareString.search(new RegExp(needle, "i")) !== -1 // This simple comparison is needed to match a string with diacritics to itself.  Refer to the "it matches strings with diacritics to the same string" test.
+      .search(new RegExp(escapedNeedle, "i")) !== -1 ||
+    compareString.search(new RegExp(escapedNeedle, "i")) !== -1 // This simple comparison is needed to match a string with diacritics to itself.  Refer to the "it matches strings with diacritics to the same string" test.
   );
 }
 
@@ -179,11 +198,15 @@ export const useFieldState = (
   const isDirty = get(dirtyFields, name, false);
   const isInvalid = get(errors, name, false);
 
+  if (isInvalid) {
+    return "invalid";
+  }
+
   if (isDirty && !ignoreUnsaved) {
     return "dirty";
   }
 
-  return isInvalid ? "invalid" : "unset";
+  return "unset";
 };
 
 /**

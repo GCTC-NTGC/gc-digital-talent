@@ -1,7 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { toast } from "react-toastify";
 
-import { navigate } from "@common/helpers/router";
+import { toast } from "@common/components/Toast";
 import { useAdminRoutes } from "../../../adminRoutes";
 import {
   useClosePoolAdvertisementMutation,
@@ -14,6 +14,7 @@ import type { UpdatePoolAdvertisementInput } from "../../../api/generated";
 const useMutations = () => {
   const intl = useIntl();
   const paths = useAdminRoutes();
+  const navigate = useNavigate();
 
   const navigateBack = () => navigate(paths.poolTable());
 
@@ -31,11 +32,11 @@ const useMutations = () => {
     );
   };
 
-  const update = (
+  const update = async (
     id: string,
     poolAdvertisement: UpdatePoolAdvertisementInput,
   ) => {
-    executeUpdateMutation({ id, poolAdvertisement })
+    await executeUpdateMutation({ id, poolAdvertisement })
       .then((result) => {
         if (result.data?.updatePoolAdvertisement) {
           toast.success(

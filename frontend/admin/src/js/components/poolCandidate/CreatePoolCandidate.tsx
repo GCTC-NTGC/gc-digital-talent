@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Control,
   FormProvider,
@@ -6,7 +7,7 @@ import {
   useForm,
   useWatch,
 } from "react-hook-form";
-import { toast } from "react-toastify";
+import { toast } from "@common/components/Toast";
 import { useIntl } from "react-intl";
 import {
   Submit,
@@ -18,7 +19,6 @@ import {
 } from "@common/components/form";
 import { empty, notEmpty } from "@common/helpers/util";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import {
   getSalaryRange,
@@ -29,8 +29,10 @@ import {
   getOperationalRequirement,
   OperationalRequirementV1,
 } from "@common/constants/localizedConstants";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
+import Heading from "@common/components/Heading/Heading";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreatePoolCandidateAsAdminInput,
@@ -47,6 +49,7 @@ import {
   PoolCandidate,
   useGetCreatePoolCandidateDataQuery,
   Language,
+  Scalars,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
@@ -240,6 +243,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   handleCreatePoolCandidate,
 }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>({
@@ -329,7 +333,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
 
   const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
     value: id,
-    label: name[locale] ?? "Error: name not loaded",
+    label: name[locale] ?? intl.formatMessage(commonMessages.nameNotLoaded),
   }));
 
   const classificationOptions: Option<string>[] = classifications.map(
@@ -353,27 +357,23 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
 
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Create Pool Candidate",
           id: "SqZuQS",
           description: "Title displayed on the create a user form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h3
-              data-h2-font-size="base(h4)"
-              data-h2-font-weight="base(300)"
-              data-h2-margin="base(x2, 0, x1, 0)"
-            >
+            <Heading level="h2" size="h4">
               {intl.formatMessage({
                 description: "Heading for the user information section",
                 defaultMessage: "User Information",
                 id: "mv+9jt",
               })}
-            </h3>
+            </Heading>
             <RadioGroup
               idPrefix="userMode"
               legend="User Assignment"
@@ -403,17 +403,13 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               }}
             />
             <UserFormSection control={control} userOptions={userOptions} />
-            <h3
-              data-h2-font-size="base(h4)"
-              data-h2-font-weight="base(300)"
-              data-h2-margin="base(x2, 0, x1, 0)"
-            >
+            <Heading level="h2" size="h4">
               {intl.formatMessage({
                 description: "Heading for the candidate information section",
                 defaultMessage: "Candidate Information",
                 id: "1THfui",
               })}
-            </h3>
+            </Heading>
             <Select
               id="pool"
               label={intl.formatMessage({
@@ -659,9 +655,12 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   );
 };
 
-const CreatePoolCandidate: React.FunctionComponent<{
-  poolId: string;
-}> = ({ poolId }) => {
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
+
+const CreatePoolCandidate = () => {
+  const { poolId } = useParams<RouteParams>();
   const [lookupResult] = useGetCreatePoolCandidateDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =

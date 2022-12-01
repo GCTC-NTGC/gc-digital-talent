@@ -1,9 +1,10 @@
-import NotFound from "@common/components/NotFound";
-import Pending from "@common/components/Pending";
-import { useLocation, parseUrlQueryParameters } from "@common/helpers/router";
-import { commonMessages } from "@common/messages";
+import { useSearchParams } from "react-router-dom";
 import React from "react";
 import { useIntl } from "react-intl";
+
+import { ThrowNotFound } from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
+
 import {
   User,
   useGetApplicationQuery,
@@ -49,7 +50,7 @@ const EmploymentEquityFormApi: React.FunctionComponent<
 };
 
 interface ApiOrContentProps {
-  applicationId?: string;
+  applicationId: string | null;
   user: User;
   isMutating: boolean;
   onUpdate: EmploymentEquityUpdateHandler;
@@ -77,8 +78,8 @@ const ApiOrContent = ({
 
 const EmploymentEquityFormPage: React.FC = () => {
   const intl = useIntl();
-  const location = useLocation();
-  const queryParams = parseUrlQueryParameters(location);
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId");
 
   const [{ data, fetching, error }] = useGetMyDiversityInfoQuery();
   const [{ fetching: mutationFetching }, executeMutation] =
@@ -98,15 +99,15 @@ const EmploymentEquityFormPage: React.FC = () => {
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
         <ApiOrContent
-          applicationId={queryParams.applicationId}
+          applicationId={applicationId}
           user={data.me}
           onUpdate={handleUpdateUser}
           isMutating={mutationFetching}
         />
       ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
-        </NotFound>
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
       )}
     </Pending>
   );

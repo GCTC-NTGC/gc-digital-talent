@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { getLocale } from "../../../helpers/localize";
-import Accordion from "../../accordion";
+import Accordion from "../../Accordion";
 import {
   getAwardedScope,
   getAwardedTo,
@@ -10,7 +10,7 @@ import {
   getEducationType,
 } from "../../../constants/localizedConstants";
 
-import { getDateRange, formattedDate } from "../../../helpers/dateUtils";
+import { getDateRange, formattedDate } from "../accordionUtils";
 import {
   Skill,
   PersonalExperience,
@@ -45,7 +45,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
       <>
         <p data-h2-color="base(dt-primary)">{title}</p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl, locale })}
+          {getDateRange({ endDate, startDate, intl })}
         </p>
         <p> {description} </p>
         <p>{skill.experienceSkillRecord?.details}</p>
@@ -80,7 +80,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl, locale })}
+          {getDateRange({ endDate, startDate, intl })}
         </p>
         <p>
           {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
@@ -125,7 +125,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {awardedDate && formattedDate(awardedDate, locale)}
+          {awardedDate && formattedDate(awardedDate, intl)}
         </p>
         <p>
           {intl.formatMessage({
@@ -153,8 +153,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         >
           {intl.formatMessage({
             defaultMessage: "Additional information:",
-            id: "gLioY2",
-            description: "Additional information if provided",
+            id: "+nS/ak",
+            description: "Additional information if provided (without details)",
           })}
         </p>
 
@@ -179,7 +179,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl, locale })}
+          {getDateRange({ endDate, startDate, intl })}
         </p>
         <p>
           {intl.formatMessage(
@@ -199,8 +199,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         >
           {intl.formatMessage({
             defaultMessage: "Additional information:",
-            id: "gLioY2",
-            description: "Additional information if provided",
+            id: "+nS/ak",
+            description: "Additional information if provided (without details)",
           })}
         </p>
         <p>{details}</p>
@@ -225,7 +225,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl, locale })}
+          {getDateRange({ endDate, startDate, intl })}
         </p>
         <p>{division}</p>
         <p>{skill.experienceSkillRecord?.details}</p>
@@ -236,8 +236,8 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         >
           {intl.formatMessage({
             defaultMessage: "Additional information:",
-            id: "gLioY2",
-            description: "Additional information if provided",
+            id: "+nS/ak",
+            description: "Additional information if provided (without details)",
           })}
         </p>
         <p>{details}</p>
@@ -300,28 +300,29 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return renderNoExperience();
   }
   return (
-    <Accordion
-      title={`${name[locale]}`}
-      data-testid="skill"
-      context={
-        experiences?.length === 1
-          ? intl.formatMessage({
-              defaultMessage: "1 Experience",
-              id: "dQseX7",
-              description: "Pluralization for one experience",
-            })
-          : intl.formatMessage(
-              {
-                defaultMessage: "{experienceLength} Experiences",
-                id: "xNVsei",
-                description: "Pluralization for zero or multiple experiences",
-              },
-              { experienceLength: experiences ? experiences.length : 0 },
-            )
-      }
-    >
-      <div data-testid="detail">{renderDetail()}</div>
-    </Accordion>
+    <Accordion.Item value={skill.id}>
+      <Accordion.Trigger
+        context={
+          experiences?.length === 1
+            ? intl.formatMessage({
+                defaultMessage: "1 Experience",
+                id: "dQseX7",
+                description: "Pluralization for one experience",
+              })
+            : intl.formatMessage(
+                {
+                  defaultMessage: "{experienceLength} Experiences",
+                  id: "xNVsei",
+                  description: "Pluralization for zero or multiple experiences",
+                },
+                { experienceLength: experiences ? experiences.length : 0 },
+              )
+        }
+      >
+        {name[locale]}
+      </Accordion.Trigger>
+      <Accordion.Content>{renderDetail()}</Accordion.Content>
+    </Accordion.Item>
   );
 };
 export default SkillAccordion;

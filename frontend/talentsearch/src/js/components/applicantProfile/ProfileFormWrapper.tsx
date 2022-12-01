@@ -1,14 +1,17 @@
 import * as React from "react";
-import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { useIntl } from "react-intl";
-import { imageUrl } from "@common/helpers/router";
+
+import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import imageUrl from "@common/helpers/imageUrl";
+
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
+import useRoutes from "../../hooks/useRoutes";
+
 import CancelButton, { type CancelButtonProps } from "./CancelButton";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 export interface ProfileFormWrapperProps {
   crumbs: BreadcrumbsProps["links"];
-  description: string;
+  description?: string;
   title: string;
   cancelLink?: CancelButtonProps;
   prefixBreadcrumbs?: boolean;
@@ -23,7 +26,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
   prefixBreadcrumbs = true,
 }) => {
   const intl = useIntl();
-  const profilePath = useApplicantProfileRoutes();
+  const paths = useRoutes();
   let links = [...crumbs];
   if (prefixBreadcrumbs) {
     links = [
@@ -33,7 +36,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
           id: "tlsomU",
           description: "Breadcrumb from applicant profile wrapper.",
         }),
-        href: profilePath.myProfile(),
+        href: paths.myProfile(),
       },
       ...links,
     ];
@@ -71,7 +74,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         >
           {title}
         </h1>
-        <p data-h2-margin="base(0, 0, x1, 0)">{description}</p>
+        {description && <p data-h2-margin="base(0, 0, x1, 0)">{description}</p>}
         <div data-h2-margin="base(0, 0, x3, 0)">{children}</div>
       </div>
       {breadcrumbs}

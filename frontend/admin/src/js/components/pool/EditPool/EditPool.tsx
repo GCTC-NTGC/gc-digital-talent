@@ -11,6 +11,7 @@ import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import TableOfContents from "@common/components/TableOfContents";
 import { notEmpty } from "@common/helpers/util";
+import { useParams } from "react-router-dom";
 import {
   PoolAdvertisement,
   Scalars,
@@ -59,7 +60,7 @@ export interface EditPoolFormProps {
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: (submitData: ExtendSubmitData) => void;
+  onExtend: (submitData: ExtendSubmitData) => Promise<void>;
   onArchive: () => void;
 }
 
@@ -303,14 +304,32 @@ export const EditPoolForm = ({
   );
 };
 
-interface EditPoolProps {
+type RouteParams = {
   poolId: Scalars["ID"];
-}
+};
 
-export const EditPool = ({ poolId }: EditPoolProps) => {
+export const EditPool = () => {
   const intl = useIntl();
+  const { poolId } = useParams<RouteParams>();
+
+  const notFoundMessage = intl.formatMessage(
+    {
+      defaultMessage: "Pool {poolId} not found.",
+      id: "Sb2fEr",
+      description: "Message displayed for pool not found.",
+    },
+    { poolId },
+  );
+
+  if (!poolId) {
+    throw new Response(notFoundMessage, {
+      status: 404,
+      statusText: "Not Found",
+    });
+  }
+
   const [{ data, fetching, error }] = useGetEditPoolDataQuery({
-    variables: { poolId },
+    variables: { poolId: poolId || "" },
   });
 
   const { isFetching, mutations } = useMutations();
@@ -340,16 +359,7 @@ export const EditPool = ({ poolId }: EditPoolProps) => {
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}
           >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Pool {poolId} not found.",
-                  id: "Sb2fEr",
-                  description: "Message displayed for pool not found.",
-                },
-                { poolId },
-              )}
-            </p>
+            <p>{notFoundMessage}</p>
           </NotFound>
         )}
       </DashboardContentContainer>

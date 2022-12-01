@@ -4,7 +4,7 @@ import { HomeIcon } from "@heroicons/react/24/outline";
 
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/solid";
 import SideMenuComponent from "./SideMenu";
-import SideMenuItem from "./SideMenuItem";
+import { SideMenuButton } from "./SideMenuItem";
 
 import Button from "../Button";
 
@@ -40,14 +40,14 @@ const TemplateSideMenu: Story = (args) => {
         isOpen={isOpen}
         onToggle={handleToggle}
         footer={
-          <SideMenuItem as="button" icon={ArrowRightOnRectangleIcon}>
+          <SideMenuButton icon={ArrowRightOnRectangleIcon}>
             Login
-          </SideMenuItem>
+          </SideMenuButton>
         }
       >
-        <SideMenuItem as="button" icon={HomeIcon} onClick={() => null}>
+        <SideMenuButton icon={HomeIcon} onClick={() => null}>
           Home
-        </SideMenuItem>
+        </SideMenuButton>
       </SideMenuComponent>
       <div data-h2-padding="base(x1)" data-h2-width="base(100%)">
         <Button color="primary" mode="solid" onClick={handleToggle}>

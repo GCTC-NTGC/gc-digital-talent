@@ -1,40 +1,40 @@
 import React from "react";
-import Loading from "@common/components/Pending/Loading";
-import { redirect } from "@common/helpers/router";
 import { useIntl } from "react-intl";
-import { Id, toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";
+import { Id, toast as toastify } from "react-toastify";
+
+import Loading from "@common/components/Pending/Loading";
+import { toast } from "@common/components/Toast";
 import { notEmpty } from "@common/helpers/util";
 import { tryFindMessageDescriptor } from "@common/messages/apiMessages";
-import {
-  Scalars,
-  useCreateApplicationMutation,
-  useGetPoolAdvertisementQuery,
-} from "../../api/generated";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
+import { AuthorizationContext } from "@common/components/Auth";
 
-interface CreateApplicationProps {
+import useRoutes from "../../hooks/useRoutes";
+import { Scalars, useCreateApplicationMutation } from "../../api/generated";
+
+type RouteParams = {
   poolId: Scalars["ID"];
-}
+};
 
 /**
  * Note: This is not a real page
  * it exists only to create an application
  * and forward a user on
  */
-const CreateApplication = ({ poolId }: CreateApplicationProps) => {
+const CreateApplication = () => {
+  const { poolId } = useParams<RouteParams>();
   const intl = useIntl();
   const errorToastId = React.useRef<Id>("");
-  const paths = useDirectIntakeRoutes();
-  const [{ data }] = useGetPoolAdvertisementQuery({
-    variables: { id: poolId },
-  });
+  const paths = useRoutes();
+  const navigate = useNavigate();
+  const auth = React.useContext(AuthorizationContext);
   const [
     { fetching: creating, data: mutationData, operation },
     executeMutation,
   ] = useCreateApplicationMutation();
 
   // Store path to redirect to later on
-  let redirectPath = paths.pool(poolId);
+  let redirectPath = paths.pool(poolId || "");
 
   /**
    * Handle any errors that occur during mutation
@@ -43,14 +43,14 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
    */
   const handleError = React.useCallback(
     (msg?: React.ReactNode, path?: string) => {
-      redirect(path || redirectPath);
+      navigate(path || redirectPath, { replace: true });
       /**
        * This is supposed to prevent the toast
        * from firing twice, but it does not appear to
        * work. Leaving it in, in the hopes
        * it finally does 🤷‍♀️
        */
-      if (!toast.isActive(errorToastId.current)) {
+      if (!toastify.isActive(errorToastId.current)) {
         errorToastId.current = toast.error(
           msg ||
             intl.formatMessage({
@@ -62,7 +62,7 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
       }
       return null;
     },
-    [intl, redirectPath],
+    [intl, redirectPath, navigate],
   );
 
   /**
@@ -75,7 +75,7 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
    * isVisible - Should't run it if user cannot view it
    * !hasApplied - Users can only apply to a single pool advertisement
    */
-  const userId = data?.me?.id;
+  const userId = auth.loggedInUser?.id;
   const hasMutationData = notEmpty(mutationData);
   const isCreating = creating || hasMutationData || operation?.key;
   const hasRequiredData = userId && poolId;
@@ -98,7 +98,7 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
             // Redirect user to the application if it exists
             // Toast success or error
             if (!result.error) {
-              redirect(newPath);
+              navigate(newPath, { replace: true });
               toast.success(
                 intl.formatMessage({
                   defaultMessage: "Application created",
@@ -119,7 +119,16 @@ const CreateApplication = ({ poolId }: CreateApplicationProps) => {
         })
         .catch(handleError);
     }
-  }, [isCreating, userId, poolId, executeMutation, handleError, paths, intl]);
+  }, [
+    isCreating,
+    userId,
+    poolId,
+    executeMutation,
+    handleError,
+    paths,
+    navigate,
+    intl,
+  ]);
 
   React.useEffect(() => {
     createApplication();

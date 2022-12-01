@@ -1,15 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
-import { toast } from "react-toastify";
+
+import { toast } from "@common/components/Toast";
 import { Input, TextArea, Submit, MultiSelect } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
-import { navigate } from "@common/helpers/router";
 import { keyStringRegex } from "@common/constants/regularExpressions";
 import { errorMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
+import Heading from "@common/components/Heading/Heading";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -52,6 +54,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
@@ -110,13 +113,13 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
 
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Create Skill",
           id: "qZd17O",
           description: "Title displayed on the create a skill form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>

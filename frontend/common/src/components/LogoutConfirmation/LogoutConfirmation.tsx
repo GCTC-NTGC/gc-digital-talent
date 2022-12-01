@@ -4,65 +4,62 @@ import { useIntl } from "react-intl";
 import AlertDialog from "../AlertDialog";
 import Button from "../Button";
 
+import useAuth from "../../hooks/useAuth";
+
 interface LogoutConfirmationProps {
-  isOpen: boolean;
-  onLogout: () => void;
-  onDismiss: () => void;
+  children: React.ReactNode;
 }
 
-const LogoutConfirmation = ({
-  isOpen,
-  onLogout,
-  onDismiss,
-}: LogoutConfirmationProps) => {
+const LogoutConfirmation = ({ children }: LogoutConfirmationProps) => {
   const intl = useIntl();
-  const cancelRef = React.useRef(null);
-
+  const { logout } = useAuth();
   return (
-    <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onDismiss={onDismiss}
-      title={intl.formatMessage({
-        defaultMessage: "Logout",
-        id: "ivKwx0",
-        description:
-          "Title for the modal that appears when an authenticated user attempts to logout",
-      })}
-    >
-      <AlertDialog.Description>
-        {intl.formatMessage({
-          defaultMessage: "Are you sure you would like to logout?",
-          id: "s3FrzP",
-          description:
-            "Question displayed when authenticated user attempts to logout",
-        })}
-      </AlertDialog.Description>
-      <AlertDialog.Footer>
-        <Button
-          mode="outline"
-          color="primary"
-          type="button"
-          ref={cancelRef}
-          onClick={onDismiss}
-        >
+    <AlertDialog.Root>
+      <AlertDialog.Trigger>{children}</AlertDialog.Trigger>
+      <AlertDialog.Content>
+        <AlertDialog.Title>
           {intl.formatMessage({
-            defaultMessage: "Cancel",
-            id: "AhNR6n",
-            description: "Link text to cancel logging out.",
+            defaultMessage: "Logout",
+            id: "ivKwx0",
+            description:
+              "Title for the modal that appears when an authenticated user attempts to logout",
           })}
-        </Button>
-        <span data-h2-margin="base(0, 0, 0, x.5)">
-          <Button mode="solid" color="primary" type="button" onClick={onLogout}>
-            {intl.formatMessage({
-              defaultMessage: "Logout",
-              id: "6rhyxk",
-              description: "Link text to logout.",
-            })}
-          </Button>
-        </span>
-      </AlertDialog.Footer>
-    </AlertDialog>
+        </AlertDialog.Title>
+        <AlertDialog.Description>
+          {intl.formatMessage({
+            defaultMessage: "Are you sure you would like to logout?",
+            id: "s3FrzP",
+            description:
+              "Question displayed when authenticated user attempts to logout",
+          })}
+        </AlertDialog.Description>
+        <AlertDialog.Footer>
+          <AlertDialog.Cancel>
+            <Button mode="outline" color="primary" type="button">
+              {intl.formatMessage({
+                defaultMessage: "Cancel",
+                id: "AhNR6n",
+                description: "Link text to cancel logging out.",
+              })}
+            </Button>
+          </AlertDialog.Cancel>
+          <AlertDialog.Action>
+            <Button
+              mode="solid"
+              color="primary"
+              type="button"
+              onClick={() => logout()}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Logout",
+                id: "6rhyxk",
+                description: "Link text to logout.",
+              })}
+            </Button>
+          </AlertDialog.Action>
+        </AlertDialog.Footer>
+      </AlertDialog.Content>
+    </AlertDialog.Root>
   );
 };
 

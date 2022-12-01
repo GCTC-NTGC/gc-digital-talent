@@ -1,13 +1,14 @@
-import { Input, Select, Submit, TextArea } from "@common/components/form";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+
+import { Input, Select, Submit, TextArea } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
-import { toast } from "react-toastify";
-import { navigate, pushToStateThenNavigate } from "@common/helpers/router";
+import { toast } from "@common/components/Toast";
 import SearchRequestFilters from "@common/components/SearchRequestFilters/deprecated/SearchRequestFilters";
 import {
   getFromSessionStorage,
@@ -16,7 +17,8 @@ import {
 } from "@common/helpers/storageUtils";
 import { EquitySelections } from "@common/api/generated";
 import Pending from "@common/components/Pending";
-import { useTalentSearchRoutes } from "../../../talentSearchRoutes";
+
+import useRoutes from "../../../hooks/useRoutes";
 import {
   Department,
   PoolCandidateFilter,
@@ -79,7 +81,8 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = useTalentSearchRoutes();
+  const navigate = useNavigate();
+  const paths = useRoutes();
   const cacheKey = "ts-createRequest";
 
   const formMethods = useForm<FormValues>({
@@ -354,8 +357,10 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 data-h2-margin="base(0, x.5, 0, 0)"
                 onClick={() => {
                   // Save the initial search form values to the state so they are available to user when click back.
-                  pushToStateThenNavigate(paths.search(), {
-                    searchFormInitialValues,
+                  navigate(paths.search(), {
+                    state: {
+                      searchFormInitialValues,
+                    },
                   });
                 }}
               >

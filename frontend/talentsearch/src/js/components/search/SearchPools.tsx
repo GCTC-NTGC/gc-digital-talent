@@ -1,9 +1,11 @@
 import { Button } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Pool } from "../../api/generated";
+import { SimpleClassification } from "../../types/poolUtils";
 
 const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
@@ -11,8 +13,12 @@ const testId = (text: React.ReactNode) => (
 
 export interface SearchPoolsProps {
   candidateCount: number;
-  pool: Pick<Pool, "id" | "owner" | "name" | "description">;
-  handleSubmit: (candidateCount: number, poolId: string) => Promise<void>;
+  pool: Pick<Pool, "id" | "owner" | "name" | "description" | "classifications">;
+  handleSubmit: (
+    candidateCount: number,
+    poolId: string,
+    selectedClassifications: SimpleClassification[],
+  ) => Promise<void>;
 }
 
 const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
@@ -22,10 +28,14 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const selectedClassifications =
+    pool.classifications as SimpleClassification[];
 
   return (
     <div data-h2-padding="base(x1)">
-      <p data-h2-font-weight="base(700)">{pool?.name?.[locale]}</p>
+      <p data-h2-font-weight="base(700)">
+        {getFullPoolAdvertisementTitle(intl, pool)}
+      </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage(
           {
@@ -69,7 +79,9 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
       <Button
         color="cta"
         mode="solid"
-        onClick={() => handleSubmit(candidateCount, pool.id)}
+        onClick={() =>
+          handleSubmit(candidateCount, pool.id, selectedClassifications)
+        }
       >
         {intl.formatMessage({
           defaultMessage: "Request Candidates",

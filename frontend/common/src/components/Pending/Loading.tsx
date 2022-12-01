@@ -1,8 +1,8 @@
 import React from "react";
-import { useIntl } from "react-intl";
 
 export interface LoadingProps {
   inline?: boolean;
+  children?: React.ReactNode;
   /**
    * Determine if the loading state should
    * be announced to users
@@ -18,8 +18,11 @@ export interface LoadingProps {
   live?: "polite" | "assertive";
 }
 
-const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
-  const intl = useIntl();
+const Loading = ({
+  inline = false,
+  live,
+  children,
+}: LoadingProps): JSX.Element => {
   const inlineWrapper = {
     inline: {
       "data-h2-background-color": "base(dt-white)",
@@ -31,9 +34,14 @@ const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
   const typeMap = {
     inline: {
       "data-h2-position": "base(relative)",
+      "data-h2-location": "base(0, x1)",
+      "data-h2-margin": "base(x1, 0)",
     },
     full: {
       "data-h2-position": "base(fixed)",
+      "data-h2-background-color": "base(dt-white.95)",
+      "data-h2-location": "base(0)",
+      "data-h2-z-index": "base(9999)",
     },
   };
 
@@ -46,24 +54,10 @@ const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-justify-content="base(center)"
-      style={{
-        backgroundColor: inline ? undefined : `rgba(255,255,255,0.95)`,
-        bottom: 0,
-        left: inline ? `1rem` : 0,
-        right: inline ? `1rem` : 0,
-        top: 0,
-        zIndex: 9999,
-      }}
     >
       <div {...inlineWrapper[inline === true ? "inline" : "none"]}>
         <span className="lds-dual-ring">
-          <span data-h2-visibility="base(invisible)">
-            {intl.formatMessage({
-              defaultMessage: "Loading...",
-              id: "FTJdsa",
-              description: "Message to display when a page is loading.",
-            })}
-          </span>
+          <span data-h2-visibility="base(invisible)">{children}</span>
         </span>
       </div>
     </div>

@@ -1,23 +1,30 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useParams } from "react-router-dom";
+
 import PageHeader from "@common/components/PageHeader";
 import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import Pending from "@common/components/Pending";
-import { getLocale } from "@common/helpers/localize";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
+
 import DashboardContentContainer from "../DashboardContentContainer";
 import PoolCandidatesTable from "./PoolCandidatesTable";
 import { useAdminRoutes } from "../../adminRoutes";
-import { useGetPoolQuery } from "../../api/generated";
+import { Scalars, useGetPoolQuery } from "../../api/generated";
 
-export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
+type RouteParams = {
+  poolId: Scalars["ID"];
+};
+
+export const PoolCandidatePage = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useAdminRoutes();
+  const { poolId } = useParams<RouteParams>();
 
   const [{ data, fetching, error }] = useGetPoolQuery({
     variables: {
-      id: poolId,
+      id: poolId || "",
     },
   });
 
@@ -32,13 +39,13 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
     },
     {
       title:
-        data?.pool?.name?.[locale] ||
+        getFullPoolAdvertisementTitle(intl, data?.pool) ||
         intl.formatMessage({
           defaultMessage: "Pool name not found",
           id: "HGMl3y",
           description: "Breadcrumb to pool page if pool name not found",
         }),
-      href: paths.poolTable(),
+      href: data?.pool ? paths.poolView(data.pool.id) : paths.poolTable(),
     },
     {
       title: intl.formatMessage({
@@ -68,7 +75,7 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
                 "Subtitle on pool candidates page indicating which pool candidates are from",
             },
             {
-              poolName: data?.pool?.name?.[locale],
+              poolName: getFullPoolAdvertisementTitle(intl, data?.pool),
             },
           )}
         >
@@ -88,7 +95,7 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
               "Descriptive text about the list of pool candidates in the admin portal.",
           })}
         </p>
-        <PoolCandidatesTable poolId={poolId} />
+        <PoolCandidatesTable poolId={poolId || ""} />
       </DashboardContentContainer>
     </Pending>
   );

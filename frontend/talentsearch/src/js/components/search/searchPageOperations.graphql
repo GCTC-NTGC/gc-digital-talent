@@ -16,6 +16,12 @@ query CountApplicantsAndCountPoolCandidatesByPool ($where: ApplicantFilterInput)
         en
         fr
       }
+      stream
+      classifications {
+        id
+        group
+        level
+      }
     }
     candidateCount
   }

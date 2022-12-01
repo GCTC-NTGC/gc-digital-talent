@@ -2,25 +2,20 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import TileLink from "@common/components/TileLink";
-import { imageUrl, navigate } from "@common/helpers/router";
-import Dialog from "@common/components/Dialog";
+import imageUrl from "@common/helpers/imageUrl";
+import AlertDialog from "@common/components/AlertDialog";
 import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
-import { BellIcon } from "@heroicons/react/24/outline";
 import { getLocale } from "@common/helpers/localize";
-import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
+import useRoutes from "../../hooks/useRoutes";
 
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
-  const directIntakePaths = useDirectIntakeRoutes();
-  const talentPaths = useTalentSearchRoutes();
-  const profilePaths = useApplicantProfileRoutes();
+  const paths = useRoutes();
 
   return (
     <>
@@ -51,15 +46,15 @@ const LoggedOutPage: React.FC = () => {
         data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
         data-h2-margin="base(x3, 0)"
       >
-        <Alert
-          type="success"
-          icon={BellIcon}
-          title={intl.formatMessage({
-            defaultMessage: "You've successfully logged out of the platform",
-            id: "NamQ1+",
-            description: "Title for the alert displayed after a user logs out",
-          })}
-        >
+        <Alert.Root type="success" live={false}>
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage: "You've successfully logged out of the platform",
+              id: "NamQ1+",
+              description:
+                "Title for the alert displayed after a user logs out",
+            })}
+          </Alert.Title>
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -68,7 +63,7 @@ const LoggedOutPage: React.FC = () => {
               description: "Message displayed to a user after logging out.",
             })}
           </p>
-        </Alert>
+        </Alert.Root>
         <h2 data-h2-margin="base(x3, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "Quick Links",
@@ -92,7 +87,7 @@ const LoggedOutPage: React.FC = () => {
             style={{ margin: "0 -0.5rem" }}
           >
             <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-              <TileLink href={talentPaths.home()} color="primary">
+              <TileLink href={paths.home()} color="primary">
                 {intl.formatMessage({
                   defaultMessage: "Return home",
                   id: "Hgd/PL",
@@ -101,7 +96,7 @@ const LoggedOutPage: React.FC = () => {
               </TileLink>
             </div>
             <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-              <TileLink href={directIntakePaths.allPools()} color="primary">
+              <TileLink href={paths.allPools()} color="primary">
                 {intl.formatMessage({
                   defaultMessage: "View open pools",
                   id: "FtlwFY",
@@ -125,48 +120,40 @@ const LoggedOutPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <Dialog
-        confirmation
-        centered
-        isOpen={loggedIn}
-        onDismiss={() => {
-          navigate(profilePaths.myProfile());
-        }}
-        title={intl.formatMessage({
-          defaultMessage: "Logout",
-          id: "Hiv/2m",
-          description:
-            "Title for the modal that appears when an authenticated user lands on /logged-out.",
-        })}
-      >
-        <p data-h2-font-size="base(h5, 1)">
-          {intl.formatMessage({
-            defaultMessage: "Are you sure you would like to logout?",
-            id: "Zx3BVC",
-            description:
-              "Question displayed when authenticated user lands on /logged-out.",
-          })}
-        </p>
-        <Dialog.Footer>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(center)"
-            data-h2-justify-content="base(flex-end)"
-          >
-            <Link
-              mode="outline"
-              color="primary"
-              type="button"
-              href={profilePaths.myProfile()}
-              external
-            >
-              {intl.formatMessage({
-                defaultMessage: "Cancel",
-                id: "AhNR6n",
-                description: "Link text to cancel logging out.",
-              })}
-            </Link>
-            <span data-h2-margin="base(0, 0, 0, x.5)">
+      <AlertDialog.Root open={loggedIn}>
+        <AlertDialog.Content>
+          <AlertDialog.Title>
+            {intl.formatMessage({
+              defaultMessage: "Logout",
+              id: "Hiv/2m",
+              description:
+                "Title for the modal that appears when an authenticated user lands on /logged-out.",
+            })}
+          </AlertDialog.Title>
+          <p data-h2-font-size="base(h5, 1)">
+            {intl.formatMessage({
+              defaultMessage: "Are you sure you would like to logout?",
+              id: "Zx3BVC",
+              description:
+                "Question displayed when authenticated user lands on /logged-out.",
+            })}
+          </p>
+          <AlertDialog.Footer>
+            <AlertDialog.Cancel>
+              <Link
+                mode="outline"
+                color="primary"
+                type="button"
+                href={paths.myProfile()}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Cancel",
+                  id: "AhNR6n",
+                  description: "Link text to cancel logging out.",
+                })}
+              </Link>
+            </AlertDialog.Cancel>
+            <AlertDialog.Action>
               <Button
                 mode="solid"
                 color="primary"
@@ -181,10 +168,10 @@ const LoggedOutPage: React.FC = () => {
                   description: "Link text to logout.",
                 })}
               </Button>
-            </span>
-          </div>
-        </Dialog.Footer>
-      </Dialog>
+            </AlertDialog.Action>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>
+      </AlertDialog.Root>
     </>
   );
 };

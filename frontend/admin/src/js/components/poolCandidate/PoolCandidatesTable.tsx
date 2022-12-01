@@ -268,6 +268,8 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
     return {
       // search bar
       generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+      email: searchType === "email" ? searchBarTerm : undefined,
+      name: searchType === "name" ? searchBarTerm : undefined,
 
       // from fancy filter
       pools: [{ id: poolId }],
@@ -534,8 +536,8 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       </h2>
       <TableHeader
         columns={columns}
-        filterButtonComponent={
-          <PoolCandidateTableFilterDialog.Button
+        filterComponent={
+          <PoolCandidateTableFilterDialog
             onSubmit={handlePoolCandidateFilterSubmit}
           />
         }
@@ -549,6 +551,24 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             type,
           });
         }}
+        searchBy={[
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Name",
+              id: "36k+Da",
+              description: "Label for user table search dropdown (name).",
+            }),
+            value: "name",
+          },
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Email",
+              id: "fivWMs",
+              description: "Label for user table search dropdown (email).",
+            }),
+            value: "email",
+          },
+        ]}
         addBtn={{
           label: intl.formatMessage({
             defaultMessage: "Create Pool Candidate",

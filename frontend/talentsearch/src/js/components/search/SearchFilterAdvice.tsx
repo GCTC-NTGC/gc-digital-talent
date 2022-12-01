@@ -1,40 +1,35 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { LanguageAbility, Maybe, PositionDuration } from "../../api/generated";
 
 const SearchFilterAdvice: React.FC<{
-  classificationFilterCount: number;
   operationalRequirementFilterCount: number;
-}> = ({ classificationFilterCount, operationalRequirementFilterCount }) => {
+  educationSelection: Maybe<boolean>;
+  workingLanguage: Maybe<LanguageAbility>;
+  employmentDuration: Maybe<Maybe<PositionDuration>[]>;
+  equityFiltersActive: number;
+  skillCount: number;
+}> = ({
+  operationalRequirementFilterCount,
+  educationSelection,
+  workingLanguage,
+  employmentDuration,
+  equityFiltersActive,
+  skillCount,
+}) => {
   const intl = useIntl();
   if (
-    classificationFilterCount === 0 &&
-    operationalRequirementFilterCount === 0
+    operationalRequirementFilterCount === 0 &&
+    !educationSelection &&
+    !workingLanguage &&
+    !employmentDuration &&
+    equityFiltersActive === 0 &&
+    skillCount === 0
   ) {
     return null;
   }
 
   const recommendations = [];
-  if (classificationFilterCount > 0) {
-    recommendations.push({
-      key: "classifications",
-      link: (
-        <a
-          href="#classificationsFilter"
-          data-h2-color="base(dt-primary)"
-          data-h2-font-weight="base(700)"
-        >
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "Classification Filters ({classificationFilterCount})",
-              id: "LRysDa",
-            },
-            { classificationFilterCount },
-          )}
-        </a>
-      ),
-    });
-  }
   if (operationalRequirementFilterCount > 0) {
     recommendations.push({
       key: "operationalRequirements",
@@ -56,6 +51,108 @@ const SearchFilterAdvice: React.FC<{
       ),
     });
   }
+
+  if (educationSelection) {
+    recommendations.push({
+      key: "educationRequirementFilter",
+      link: (
+        <a
+          href="#educationRequirementFilter"
+          data-h2-color="base(dt-primary)"
+          data-h2-font-weight="base(700)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Diploma required",
+            description: "Diploma required",
+            id: "w1/0Cd",
+          })}
+        </a>
+      ),
+    });
+  }
+
+  if (workingLanguage) {
+    recommendations.push({
+      key: "workingLanguageFilter",
+      link: (
+        <a
+          href="#workingLanguageFilter"
+          data-h2-color="base(dt-primary)"
+          data-h2-font-weight="base(700)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Language ability",
+            description: "Language ability",
+            id: "mKzQwr",
+          })}
+        </a>
+      ),
+    });
+  }
+
+  if (employmentDuration) {
+    recommendations.push({
+      key: "employmentDurationFilter",
+      link: (
+        <a
+          href="#employmentDurationFilter"
+          data-h2-color="base(dt-primary)"
+          data-h2-font-weight="base(700)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Employment duration",
+            description: "Employment duration",
+            id: "hRe0yl",
+          })}
+        </a>
+      ),
+    });
+  }
+
+  if (equityFiltersActive > 0) {
+    recommendations.push({
+      key: "employmentEquityFilter",
+      link: (
+        <a
+          href="#employmentEquityFilter"
+          data-h2-color="base(dt-primary)"
+          data-h2-font-weight="base(700)"
+        >
+          {intl.formatMessage(
+            {
+              defaultMessage: "Employment equity ({equityFiltersActive})",
+              description: "Employment equity with a number in parentheses",
+              id: "dE2WB1",
+            },
+            { equityFiltersActive },
+          )}
+        </a>
+      ),
+    });
+  }
+
+  if (skillCount > 0) {
+    recommendations.push({
+      key: "skillFilter",
+      link: (
+        <a
+          href="#skillFilter"
+          data-h2-color="base(dt-primary)"
+          data-h2-font-weight="base(700)"
+        >
+          {intl.formatMessage(
+            {
+              defaultMessage: "Skills selected ({skillCount})",
+              description: "Skills selected and then a number in parentheses",
+              id: "RNI+IH",
+            },
+            { skillCount },
+          )}
+        </a>
+      ),
+    });
+  }
+
   return (
     <p data-h2-margin="base(x1, 0)">
       {intl.formatMessage({

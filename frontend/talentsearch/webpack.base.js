@@ -12,7 +12,7 @@ const fs = require("fs");
 module.exports = {
   entry: {
     app: [
-      "./src/js/pageContainer.tsx",
+      "./src/js/main.tsx",
       "../common/src/css/hydrogen.css",
       "../common/src/css/common.css",
       "./src/css/app.css",
@@ -53,7 +53,7 @@ module.exports = {
           from: "**/*",
           globOptions: {
             dot: true,
-            ignore: ["**/public/index.html", "**/.DS_Store"],
+            ignore: ["**/public/index.html", "**/.DS_Store", "**/public/config.ejs"],
           },
         },
       ],
@@ -75,6 +75,15 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "GC Digital Talent",
       template: path.resolve(__dirname, "public/index.html"),
+    }),
+
+    // generate an config file with the environment variables (not actually HTML but it's handy to reuse the plugin)
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "public/config.ejs"),
+      filename: "config.js",
+      inject: false,
+      environment: process.env,
+      minify: false, // minify in production causes this to fail
     }),
   ],
   module: {

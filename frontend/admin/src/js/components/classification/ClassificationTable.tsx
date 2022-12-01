@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
@@ -84,7 +84,11 @@ export const ClassificationTable: React.FC<
             "Title displayed for the Classification table Edit column.",
         }),
         accessor: (d) =>
-          tableEditButtonAccessor(d.id, editUrlRoot, d.name?.[locale]), // callback extracted to separate function to stabilize memoized component
+          tableEditButtonAccessor(
+            d.id,
+            editUrlRoot,
+            `${d.name?.[locale]} ${d.group}-0${d.level}`,
+          ), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl, locale],

@@ -1,36 +1,39 @@
 /* eslint-disable no-underscore-dangle */
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useLocation } from "@common/helpers/router";
+import { useLocation } from "react-router-dom";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { ApplicantFilterInput, PoolCandidateFilter } from "../../api/generated";
 import { CreateRequest } from "./CreateRequest";
 import { CreateRequest as OldCreateRequest } from "./deprecated/CreateRequest";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
+import { SimpleClassification } from "../../types/poolUtils";
 
 type LocationState = {
-  some: {
-    applicantFilter: ApplicantFilterInput;
-    candidateFilter: PoolCandidateFilter; // TODO: Remove candidateFilter when deprecated
-    initialValues: SearchFormValues;
-    candidateCount: number;
-  };
+  applicantFilter: ApplicantFilterInput;
+  candidateFilter: PoolCandidateFilter; // TODO: Remove candidateFilter when deprecated
+  initialValues: SearchFormValues;
+  candidateCount: number;
+  selectedClassifications: SimpleClassification[];
 };
 
-const RequestPage: React.FunctionComponent = () => {
+const RequestPage = () => {
   const intl = useIntl();
   const location = useLocation();
   const state = location.state as LocationState;
-  const applicantFilter = state ? state.some.applicantFilter : null;
-  const candidateFilter = state ? state.some.candidateFilter : null; // TODO: Remove candidateFilter when deprecated
-  const initialValues = state ? state.some.initialValues : null;
-  const candidateCount = state ? state.some.candidateCount : null;
+
+  const applicantFilter = state ? state.applicantFilter : null;
+  const candidateFilter = state ? state.candidateFilter : null; // TODO: Remove candidateFilter when deprecated
+  const initialValues = state ? state.initialValues : undefined;
+  const candidateCount = state ? state.candidateCount : null;
+  const selectedClassifications = state ? state.selectedClassifications : [];
 
   const CreateRequestForm = checkFeatureFlag("FEATURE_APPLICANTSEARCH") ? (
     <CreateRequest
       applicantFilter={applicantFilter as ApplicantFilterInput}
       searchFormInitialValues={initialValues}
       candidateCount={candidateCount}
+      selectedClassifications={selectedClassifications}
     />
   ) : (
     <OldCreateRequest

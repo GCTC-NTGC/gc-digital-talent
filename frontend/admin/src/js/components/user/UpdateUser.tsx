@@ -1,20 +1,24 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
-import { toast } from "react-toastify";
+
+import { toast } from "@common/components/Toast";
 import { Select, Submit, Input, MultiSelect } from "@common/components/form";
-import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { emptyToNull } from "@common/helpers/util";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
+import Heading from "@common/components/Heading/Heading";
+
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
   Role,
+  Scalars,
   UpdateUserAsAdminInput,
   UpdateUserAsAdminMutation,
   User,
@@ -47,6 +51,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   handleUpdateUser,
 }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useAdminRoutes();
 
   const formValuesToSubmitData = (
@@ -93,13 +98,13 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
 
   return (
     <section data-h2-container="base(left, s)">
-      <h2 data-h2-font-weight="base(700)" data-h2-padding="base(x2, 0, x1, 0)">
+      <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Update User",
           id: "DguVoT",
           description: "Title displayed on the update a user form.",
         })}
-      </h2>
+      </Heading>
       <div>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -226,12 +231,15 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   );
 };
 
-const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
-  userId,
-}) => {
+type RouteParams = {
+  userId: Scalars["ID"];
+};
+
+const UpdateUser = () => {
   const intl = useIntl();
+  const { userId } = useParams<RouteParams>();
   const [{ data: userData, fetching, error }] = useUserQuery({
-    variables: { id: userId },
+    variables: { id: userId || "" },
   });
 
   const [, executeMutation] = useUpdateUserAsAdminMutation();

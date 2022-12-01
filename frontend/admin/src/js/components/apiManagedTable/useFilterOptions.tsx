@@ -17,6 +17,8 @@ import mapValues from "lodash/mapValues";
 import { MessageDescriptor, useIntl } from "react-intl";
 import useLocale from "@common/hooks/useLocale";
 import { OperationContext } from "urql";
+import { commonMessages } from "@common/messages";
+import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 import {
   WorkRegion,
   EducationType,
@@ -35,7 +37,7 @@ const context: Partial<OperationContext> = {
 // See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
 export default function useFilterOptions(enableEducationType = false) {
   const intl = useIntl();
-  const locale = useLocale();
+  const { locale } = useLocale();
   // TODO: Implement way to return `fetching` states from hook, so that can pass
   // to react-select's `isLoading` prop on <Select />.
   // See: https://react-select.com/props#select-props
@@ -56,10 +58,9 @@ export default function useFilterOptions(enableEducationType = false) {
   });
 
   const optionsData = {
-    pools: filterRes.data?.pools.filter(notEmpty).map(({ id, name }) => ({
-      value: id,
-      // TODO: Must name and translations be optional in types?
-      label: name?.[locale] || "Error: name not loaded",
+    pools: filterRes.data?.pools.filter(notEmpty).map((pool) => ({
+      value: pool.id,
+      label: getFullPoolAdvertisementTitle(intl, pool),
     })),
     languageAbility: enumToOptions(LanguageAbility).map(({ value }) => ({
       value,
@@ -99,7 +100,7 @@ export default function useFilterOptions(enableEducationType = false) {
     skills: filterRes.data?.skills.filter(notEmpty).map(({ id, name }) => ({
       value: id,
       // TODO: Must name and translations be optional in types?
-      label: name[locale] || "Error: name not loaded",
+      label: name[locale] || intl.formatMessage(commonMessages.nameNotLoaded),
     })),
     equity: [
       equityOption("isWoman", getEmploymentEquityGroup("woman")),

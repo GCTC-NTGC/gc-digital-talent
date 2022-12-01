@@ -183,7 +183,7 @@ describe("Edit Pool tests", () => {
       screen.queryByRole("button", { name: /close/i }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: /extend/i }),
+      screen.queryByRole("button", { name: /extend the date/i }),
     ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("button", { name: /archive/i }),
@@ -223,7 +223,7 @@ describe("Edit Pool tests", () => {
   });
 
   it("should have an extend button that pops a modal and emits an event when the status is published", async () => {
-    const handleEvent = jest.fn();
+    const handleEvent = jest.fn(() => Promise.resolve());
     const props = {
       ...EditPoolStory.args,
       ...PublishedAdvertisement.args,
@@ -278,7 +278,7 @@ describe("Edit Pool tests", () => {
   });
 
   it("should have an extend button that pops a modal and emits an event when the status is expired", async () => {
-    const handleEvent = jest.fn();
+    const handleEvent = jest.fn(() => Promise.resolve());
     const props = {
       ...EditPoolStory.args,
       ...ExpiredAdvertisement.args,

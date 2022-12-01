@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
-import React, { HTMLAttributes, ReactElement, useState } from "react";
+import React, { HTMLAttributes, ReactElement } from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -9,6 +9,7 @@ import {
   useSortBy,
   Column,
   usePagination,
+  HeaderGroup,
 } from "react-table";
 import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
@@ -80,6 +81,52 @@ const ButtonIcon: React.FC<{
   );
 };
 
+const getSortAttr = (
+  isSorted: boolean,
+  isSortedDesc?: boolean,
+): React.AriaAttributes["aria-sort"] => {
+  if (!isSorted) {
+    return undefined;
+  }
+
+  return isSortedDesc ? "descending" : "ascending";
+};
+
+interface HeaderWrapperProps<T extends object> {
+  column: HeaderGroup<T>;
+  children: React.ReactNode;
+}
+
+const HeaderWrapper = <T extends object>({
+  column,
+  children,
+}: HeaderWrapperProps<T>) => {
+  if (!column.canSort) {
+    return children as JSX.Element;
+  }
+
+  return (
+    <button
+      {...column.getSortByToggleProps({
+        title: undefined, // Title is unnecessary
+      })}
+      type="button"
+      data-h2-offset="base(0)"
+      data-h2-background-color="base(transparent) base:hover(dt-secondary.lightest.35) base:focus-visible(focus)"
+      data-h2-color="base(dt-white)"
+      data-h2-display="base(flex)"
+      data-h2-radius="base(s)"
+      data-h2-padding="base(x.25, x.5)"
+      data-h2-align-items="base(center)"
+      data-h2-text-align="base(left)"
+      data-h2-width="base(100%)"
+      data-h2-outline="base(none)"
+    >
+      {children}
+    </button>
+  );
+};
+
 function Table<T extends Record<string, unknown>>({
   columns,
   data,
@@ -117,7 +164,6 @@ function Table<T extends Record<string, unknown>>({
     usePagination,
   );
 
-  const [showList, setShowList] = useState(false);
   const intl = useIntl();
   const methods = useForm();
 
@@ -137,70 +183,70 @@ function Table<T extends Record<string, unknown>>({
                 )}
                 {filterColumns && (
                   <div data-h2-flex-item="base(content)">
-                    <Button
-                      mode="solid"
-                      color="secondary"
-                      type="button"
-                      data-h2-display="base(inline-flex)"
-                      data-h2-align-items="base(center)"
-                      onClick={() => setShowList(!showList)}
-                    >
-                      <ButtonIcon icon={TableCellsIcon} />
-                      <span>
-                        {intl.formatMessage({
-                          defaultMessage: "Columns",
-                          id: "xcBl1q",
-                          description:
-                            "Label displayed on the Table Columns toggle button.",
-                        })}
-                      </span>
-                    </Button>
-                    <Dialog
-                      color="ts-primary"
-                      isOpen={showList}
-                      onDismiss={() => setShowList(false)}
-                      title={intl.formatMessage({
-                        defaultMessage: "Table columns",
-                        id: "YH6bFU",
-                        description:
-                          "Dialog title for the admin tables columns toggle.",
-                      })}
-                    >
-                      <FormProvider {...methods}>
-                        <Fieldset
-                          legend={intl.formatMessage({
-                            defaultMessage: "Visible columns",
-                            id: "H9rxOR",
-                            description:
-                              "Legend for the column toggle in admin tables.",
-                          })}
-                          trackUnsaved={false}
+                    <Dialog.Root>
+                      <Dialog.Trigger>
+                        <Button
+                          mode="solid"
+                          color="secondary"
+                          type="button"
+                          data-h2-display="base(inline-flex)"
+                          data-h2-align-items="base(center)"
                         >
-                          <div data-h2-margin="base(x.125, 0)">
-                            <IndeterminateCheckbox
-                              {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                                typeof IndeterminateCheckbox
-                              >)}
-                            />
-                          </div>
-                          {allColumns.map((column) => (
-                            <div
-                              key={column.id}
-                              data-h2-margin="base(x.125, 0)"
-                            >
-                              <label htmlFor={column.Header?.toString()}>
-                                <input
-                                  id={column.Header?.toString()}
-                                  type="checkbox"
-                                  {...column.getToggleHiddenProps()}
-                                />{" "}
-                                {column.Header}
-                              </label>
+                          <ButtonIcon icon={TableCellsIcon} />
+                          <span>
+                            {intl.formatMessage({
+                              defaultMessage: "Columns",
+                              id: "xcBl1q",
+                              description:
+                                "Label displayed on the Table Columns toggle button.",
+                            })}
+                          </span>
+                        </Button>
+                      </Dialog.Trigger>
+                      <Dialog.Content>
+                        <Dialog.Header color="ts-primary">
+                          {intl.formatMessage({
+                            defaultMessage: "Table columns",
+                            id: "YH6bFU",
+                            description:
+                              "Dialog title for the admin tables columns toggle.",
+                          })}
+                        </Dialog.Header>
+                        <FormProvider {...methods}>
+                          <Fieldset
+                            legend={intl.formatMessage({
+                              defaultMessage: "Visible columns",
+                              id: "H9rxOR",
+                              description:
+                                "Legend for the column toggle in admin tables.",
+                            })}
+                          >
+                            <div data-h2-margin="base(x.125, 0)">
+                              <IndeterminateCheckbox
+                                {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                                  typeof IndeterminateCheckbox
+                                >)}
+                              />
                             </div>
-                          ))}
-                        </Fieldset>
-                      </FormProvider>
-                    </Dialog>
+                            {allColumns.map((column) => (
+                              <div
+                                key={column.id}
+                                data-h2-margin="base(x.125, 0)"
+                              >
+                                <label htmlFor={column.Header?.toString()}>
+                                  <input
+                                    id={column.Header?.toString()}
+                                    type="checkbox"
+                                    {...column.getToggleHiddenProps()}
+                                  />{" "}
+                                  {column.Header}
+                                </label>
+                              </div>
+                            ))}
+                          </Fieldset>
+                        </FormProvider>
+                      </Dialog.Content>
+                    </Dialog.Root>
                   </div>
                 )}
               </div>
@@ -238,28 +284,37 @@ function Table<T extends Record<string, unknown>>({
             data-h2-width="base(100%)"
             {...getTableProps()}
           >
+            <caption>
+              <span data-h2-visibility="base(invisible)">
+                {intl.formatMessage({
+                  defaultMessage: "Column headers with buttons are sortable",
+                  id: "/bwX1a",
+                  description:
+                    "Text displayed to instruct users how to sort table rows",
+                })}
+              </span>
+            </caption>
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
                     <th
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      {...column.getHeaderProps()}
                       key={column.id}
                       data-h2-background-color="base(dt-secondary.light)"
                       data-h2-padding="base(x.5, x1)"
+                      title={undefined}
+                      aria-sort={getSortAttr(
+                        column.isSorted,
+                        column.isSortedDesc,
+                      )}
                     >
-                      <span
-                        data-h2-color="base(dt-white)"
-                        data-h2-display="base(flex)"
-                        data-h2-padding="base(x.5, 0)"
-                        data-h2-align-items="base(center)"
-                        data-h2-text-align="base(left)"
-                      >
-                        <span>{column.render("Header")}</span>
+                      <HeaderWrapper column={column}>
+                        {column.render("Header")}
                         {column.isSorted && (
                           <SortIcon isSortedDesc={column.isSortedDesc} />
                         )}
-                      </span>
+                      </HeaderWrapper>
                     </th>
                   ))}
                 </tr>

@@ -48,7 +48,7 @@ query selectedUsers($ids: [ID]!) {
     priorityNumber
     locationPreferences
     locationExemptions
-    wouldAcceptTemporary
+    positionDuration
     acceptedOperationalRequirements
     isWoman
     isIndigenous
@@ -157,6 +157,12 @@ query selectedUsers($ids: [ID]!) {
         name {
           en
           fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
         }
       }
       id

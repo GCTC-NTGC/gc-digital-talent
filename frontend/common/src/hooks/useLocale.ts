@@ -1,9 +1,8 @@
-import { useIntl } from "react-intl";
-import { getLocale } from "../helpers/localize";
+import { useContext } from "react";
+import { LocaleContext } from "../components/context/LocaleProvider";
 
 export default function useLocale() {
-  const intl = useIntl();
-  const locale = getLocale(intl);
+  const ctx = useContext(LocaleContext);
 
-  return locale;
+  return ctx;
 }
