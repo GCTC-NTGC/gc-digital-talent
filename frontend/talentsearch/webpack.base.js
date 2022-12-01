@@ -143,8 +143,8 @@ module.exports = {
   },
   output: {
     publicPath: "/talent/", // final path for routing
-    filename: "[name].js?id=[contenthash]", // file hashing for cache busting
-    chunkFilename: "[name].js?id=[contenthash]", // file hashing for cache busting
+    filename: "[hash].[name].js", // file hashing for cache busting
+    chunkFilename: "[hash].[name].js", // file hashing for cache busting
     path: path.resolve(__dirname, "dist"), // output folder
     clean: true, // delete existing files on recompile
   },
