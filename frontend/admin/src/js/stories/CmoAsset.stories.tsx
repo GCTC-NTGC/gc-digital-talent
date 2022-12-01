@@ -1,19 +1,11 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { fakeCmoAssets } from "@common/fakeData";
-import { CmoAssetTable } from "../components/cmoAsset/CmoAssetTable";
 import { CreateCmoAssetForm } from "../components/cmoAsset/CreateCmoAsset";
 import { CmoAsset, CreateCmoAssetInput } from "../api/generated";
 import { UpdateCmoAssetForm } from "../components/cmoAsset/UpdateCmoAsset";
 
-const cmoAssetData = fakeCmoAssets();
-
 const stories = storiesOf("CMO Assets", module);
-
-stories.add("CMO Assets Table", () => (
-  <CmoAssetTable cmoAssets={cmoAssetData} editUrlRoot="#" />
-));
 
 stories.add("Create CMO Asset Form", () => {
   return (

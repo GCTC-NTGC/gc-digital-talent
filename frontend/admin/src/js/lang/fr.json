@@ -75,10 +75,6 @@
     "defaultMessage": "Sélectionner un bassin...",
     "description": "Placeholder displayed on the pool candidate form Pool field."
   },
-  "4XF9kF": {
-    "defaultMessage": "Nom",
-    "description": "Title displayed for the CMO Asset table Name column."
-  },
   "4boO/6": {
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the create a department form name (English) field."
@@ -118,10 +114,6 @@
   "7d/ot8": {
     "defaultMessage": "Basculer tout",
     "description": "Label displayed on the Table Columns toggle fieldset."
-  },
-  "7iglPJ": {
-    "defaultMessage": "Créer un actif du BGC",
-    "description": "Heading displayed above the Create CMO Asset form."
   },
   "7wYPgC": {
     "defaultMessage": "Nom (anglais)",
@@ -179,10 +171,6 @@
     "defaultMessage": "Clé",
     "description": "Label displayed on the create a cmo asset form key field."
   },
-  "CcOlo0": {
-    "defaultMessage": "Clé",
-    "description": "Title displayed for the CMO Asset table Key column."
-  },
   "D2DUgE": {
     "defaultMessage": "Sélectionner un ou plusieurs actifs du BGC...",
     "description": "Placeholder displayed on the pool candidate form cmo assets field."
@@ -222,10 +210,6 @@
   "FGUGtr": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
-  },
-  "FvnSwn": {
-    "defaultMessage": "Identifiant",
-    "description": "Title displayed on the CMO Asset table ID column."
   },
   "GGjwcl": {
     "defaultMessage": "Critères constituant un atout",
@@ -442,10 +426,6 @@
   "ZSXEfX": {
     "defaultMessage": "Classifications",
     "description": "Label displayed on the pool form classifications field."
-  },
-  "ZZaEho": {
-    "defaultMessage": "Description",
-    "description": "Title displayed for the CMO Asset table Description column."
   },
   "ZbW9T7": {
     "defaultMessage": "Erreur : Échec de la mise à jour du bassin",
@@ -749,10 +729,6 @@
   "yoshF7": {
     "defaultMessage": "Création du bassin de candidats réussie!",
     "description": "Message displayed to user after pool candidate is created successfully."
-  },
-  "z2m2Gp": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the CMO Asset table Edit column."
   },
   "zWX4ko": {
     "defaultMessage": "Actifs du BGC",
