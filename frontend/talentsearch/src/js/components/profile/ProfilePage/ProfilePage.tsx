@@ -10,7 +10,6 @@ import ExperienceSection from "@common/components/UserProfile/ExperienceSection"
 import UserProfile from "@common/components/UserProfile";
 import type { Applicant } from "@common/api/generated";
 
-import useFeatureFlags from "@common/hooks/useFeatureFlags";
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import useRoutes from "../../../hooks/useRoutes";
