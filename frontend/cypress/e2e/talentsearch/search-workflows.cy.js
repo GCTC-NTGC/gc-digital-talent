@@ -41,15 +41,24 @@ describe("Talent Search Workflow Tests", () => {
       cy.wrap(allSkills[0]).as("testSkill"); // take the first ID for testing
     });
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
-      const testGenericJobTitle = allGenericJobTitles[0]; // take the first ID for testing
-      cy.wrap([testGenericJobTitle.id]).as("testGenericJobTitleIds");
-      const testClassification = testGenericJobTitle.classification; // take the first ID for testing
-      cy.wrap(testClassification.id).as("testClassificationId");
+      const testGenericJobTitle1 = allGenericJobTitles[0]; // take the first ID for testing
+      const testGenericJobTitle2 = allGenericJobTitles[1]; // take the second ID for negation
+      cy.wrap(testGenericJobTitle1.id).as("testGenericJobTitleId1");
+      cy.wrap(testGenericJobTitle2.id).as("testGenericJobTitleId2");
+      const testClassification1 = testGenericJobTitle1.classification;
+      const testClassification2 = testGenericJobTitle2.classification;
+      cy.wrap(testClassification1.id).as("testClassificationId1");
+      cy.wrap(testClassification2.id).as("testClassificationId2");
       cy.wrap(
-        `${testClassification.group}-${testClassification.level
+        `${testClassification1.group}-${testClassification1.level
           .toString()
           .padStart(2, "0")}`,
-      ).as("testClassificationName");
+      ).as("testClassificationName1");
+      cy.wrap(
+        `${testClassification2.group}-${testClassification2.level
+          .toString()
+          .padStart(2, "0")}`,
+      ).as("testClassificationName2");
     });
 
     // create a test user to attach test candidates to
@@ -57,7 +66,7 @@ describe("Talent Search Workflow Tests", () => {
       cy.getMe()
         .its("id")
         .then((adminUserId) => {
-          cy.get("@testGenericJobTitleIds").then((genericJobTitleIds) => {
+          cy.get("@testGenericJobTitleId1").then((genericJobTitleId1) => {
             cy.get("@testSkill").then((skill) => {
               // This user must have the entire profile completed to be able to apply to a pool
               cy.createUser({
@@ -82,7 +91,7 @@ describe("Talent Search Workflow Tests", () => {
                 ],
                 positionDuration: [PositionDuration.Permanent],
                 expectedGenericJobTitles: {
-                  sync: genericJobTitleIds,
+                  sync: [genericJobTitleId1],
                 },
                 personalExperiences: {
                   create: [
@@ -107,7 +116,7 @@ describe("Talent Search Workflow Tests", () => {
                 .as("testUserSub");
 
               // create, update, and publish a new pool advertisement
-              cy.get("@testClassificationId").then((classificationId) => {
+              cy.get("@testClassificationId1").then((classificationId) => {
                 cy.createPoolAdvertisement(adminUserId, [
                   classificationId,
                 ]).then((createdPoolAdvertisement) => {
@@ -115,8 +124,8 @@ describe("Talent Search Workflow Tests", () => {
                     cy.log(skill);
                     cy.updatePoolAdvertisement(createdPoolAdvertisement.id, {
                       name: {
-                        en: `Cypress Test Pool EN ${uniqueTestId}`,
-                        fr: `Cypress Test Pool FR ${uniqueTestId}`,
+                        en: `Cypress Test Pool EN 1 ${uniqueTestId}`,
+                        fr: `Cypress Test Pool FR 1 ${uniqueTestId}`,
                       },
                       stream: PoolStream.BusinessAdvisoryServices,
                       expiryDate: `${FAR_FUTURE_DATE} 00:00:00`,
@@ -139,7 +148,46 @@ describe("Talent Search Workflow Tests", () => {
                     }).then((updatedPoolAdvertisement) => {
                       cy.publishPoolAdvertisement(updatedPoolAdvertisement.id)
                         .its("id")
-                        .as("publishedTestPoolAdvertisementId");
+                        .as("publishedTestPoolAdvertisementId1");
+                    });
+                  });
+                });
+              });
+
+              // create, update, and publish a new pool advertisement for negation
+              cy.get("@testClassificationId2").then((classificationId) => {
+                cy.createPoolAdvertisement(adminUserId, [
+                  classificationId,
+                ]).then((createdPoolAdvertisement) => {
+                  cy.get("@testSkill").then((skill) => {
+                    cy.log(skill);
+                    cy.updatePoolAdvertisement(createdPoolAdvertisement.id, {
+                      name: {
+                        en: `Cypress Test Pool EN 2 ${uniqueTestId}`,
+                        fr: `Cypress Test Pool FR 2 ${uniqueTestId}`,
+                      },
+                      stream: PoolStream.BusinessAdvisoryServices,
+                      expiryDate: `${FAR_FUTURE_DATE} 00:00:00`,
+                      yourImpact: {
+                        en: "test impact EN",
+                        fr: "test impact FR",
+                      },
+                      keyTasks: { en: "key task EN", fr: "key task FR" },
+                      essentialSkills: {
+                        sync: skill.id,
+                      },
+                      advertisementLanguage: PoolAdvertisementLanguage.Various,
+                      securityClearance: SecurityStatus.Secret,
+                      advertisementLocation: {
+                        en: "test location EN",
+                        fr: "test location FR",
+                      },
+                      isRemote: true,
+                      publishingGroup: PublishingGroup.ItJobs,
+                    }).then((updatedPoolAdvertisement) => {
+                      cy.publishPoolAdvertisement(updatedPoolAdvertisement.id)
+                        .its("id")
+                        .as("publishedTestPoolAdvertisementId2");
                     });
                   });
                 });
@@ -153,7 +201,7 @@ describe("Talent Search Workflow Tests", () => {
     cy.get("@testUserSub").then((sub) => {
       cy.loginBySubject(sub).then(() => {
         cy.getMe().then((testUser) => {
-          cy.get("@publishedTestPoolAdvertisementId").then(
+          cy.get("@publishedTestPoolAdvertisementId1").then(
             (poolAdvertisementId) => {
               cy.createApplication(testUser.id, poolAdvertisementId).then(
                 (poolCandidate) => {
@@ -189,58 +237,123 @@ describe("Talent Search Workflow Tests", () => {
     });
   };
 
-  it("searches for candidates and submits a request", () => {
+  const searchFindsMySingleCandidate = () => {
+    cy.findAllByRole("article", {
+      name: `Cypress Test Pool EN 1 ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
+    }).within(() => {
+      cy.contains("There is 1 matching candidate in this pool");
+
+      cy.findByRole("button", { name: /Request Candidates/i })
+        .should("exist")
+        .and("be.visible")
+        .and("not.be.disabled");
+    });
+  };
+
+  const searchRejectsMySingleCandidate = () => {
+    cy.findAllByRole("article", {
+      name: `Cypress Test Pool 1 EN ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
+    }).should("not.exist");
+  };
+
+  it("searches for a candidate with all the filters and submits a request", () => {
     // first request is without any filters
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
-    // classification filter
-    cy.get("@testClassificationName").then((classificationName) => {
+    searchFindsMySingleCandidate();
+
+    // classification filter - fail
+    cy.get("@testClassificationName2").then((classificationName) => {
       cy.get("option")
         .contains(classificationName)
         .invoke("text")
         .then((text) => {
           cy.findByRole("combobox", { name: /Classification/i }).select(text);
           cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+          searchRejectsMySingleCandidate();
         });
     });
 
-    // stream
-    cy.findByRole("combobox", { name: /Stream/i }).select(
-      "Business Line Advisory Services",
-    );
-    // stream does not trigger another api request
+    // classification filter - pass
+    cy.get("@testClassificationName1").then((classificationName) => {
+      cy.get("option")
+        .contains(classificationName)
+        .invoke("text")
+        .then((text) => {
+          cy.findByRole("combobox", { name: /Classification/i }).select(text);
+          cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+          searchFindsMySingleCandidate();
+        });
+    });
 
-    // education requirement
+    // test stream dropdown, changes do not trigger api requests
+    cy.findByRole("combobox", { name: /Stream/i }).then((dropdown) => {
+      // fail
+      cy.wrap(dropdown).select("Database Management");
+      searchRejectsMySingleCandidate();
+      // pass
+      cy.wrap(dropdown).select("Business Line Advisory Services");
+      searchFindsMySingleCandidate();
+    });
+
+    // education requirement, no negation possible
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,
     }).click();
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchFindsMySingleCandidate();
 
-    // work location
-    cy.findByRole("combobox", { name: /Region/i }).then(($input) => {
-      cy.wrap($input).type("Ontario{enter}{enter}");
+    // work location combobox
+    cy.findByRole("combobox", { name: /Region/i }).then((combobox) => {
+      // fail
+      cy.wrap(combobox).type("Atlantic{enter}{enter}");
       cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+      searchRejectsMySingleCandidate();
+      // reset
+      cy.wrap(combobox).type("{backspace}");
+      // clearing does not trigger another api request
+      // pass
+      cy.wrap(combobox).type("Ontario{enter}{enter}");
+      cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+      searchFindsMySingleCandidate();
     });
 
-    // working language ability
+    // working language ability - fail
+    cy.findByRole("radio", {
+      name: /French only/i,
+    }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchRejectsMySingleCandidate();
+
+    // working language ability - pass
     cy.findByRole("radio", {
       name: /English only/i,
     }).click();
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchFindsMySingleCandidate();
 
-    // employment duration
+    // employment duration - fail
+    cy.findByRole("radio", {
+      name: /Term duration/i,
+    }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchRejectsMySingleCandidate();
+
+    // employment duration - pass
     cy.findByRole("radio", {
       name: /Indeterminate duration/i,
     }).click();
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchFindsMySingleCandidate();
 
-    // employment equity
+    // employment equity, no negation possible
     cy.findByRole("checkbox", {
       name: /Woman/i,
     }).click();
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchFindsMySingleCandidate();
 
-    // skills selection
+    // skills selection, not currently used in search
     cy.get("@testSkill").then((skill) => {
       cy.findByRole("button", {
         name: `Add this skill : ${skill.name.en}`,
@@ -248,29 +361,20 @@ describe("Talent Search Workflow Tests", () => {
       // skill selection does not trigger an api request
     });
 
-    // conditions of employment
+    // conditions of employment, no negation possible
     cy.findByRole("checkbox", {
       name: /ability to work overtime \(Occasionally\)/i,
     }).click();
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchFindsMySingleCandidate();
 
     // no way to know what the exact number should be without resetting the database
     searchReturnsGreaterThanZeroApplicants();
 
     cy.findAllByRole("article", {
-      name: `Cypress Test Pool EN ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
+      name: `Cypress Test Pool EN 1 ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
     }).within(() => {
-      cy.contains("There is 1 matching candidate in this pool");
-
-      cy.findByRole("button", { name: /Request Candidates/i })
-      .click();
-        // .should("exist")
-        // .and("be.visible")
-        // .and("not.be.disabled");
-
-      // cy.findByRole("button", { name: /Request Candidates/i }).click({
-      //   waitForAnimations: false,
-      // });
+      cy.findByRole("button", { name: /Request Candidates/i }).click();
     });
 
     /*
@@ -299,7 +403,7 @@ describe("Talent Search Workflow Tests", () => {
     );
 
     // classification filter
-    cy.get("@testClassificationName").then((classificationName) => {
+    cy.get("@testClassificationName1").then((classificationName) => {
       cy.findAllByText(classificationName).should("exist");
     });
 
@@ -328,7 +432,9 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     // conditions of employment
-    cy.findAllByText("Availability, willingness and ability to work overtime (Occasionally).").should("exist");
+    cy.findAllByText(
+      "Availability, willingness and ability to work overtime (Occasionally).",
+    ).should("exist");
 
     // estimated total
     cy.findByText("1 estimated candidate");
