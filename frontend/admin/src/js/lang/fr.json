@@ -1,8 +1,4 @@
 {
-  "+e8VZ8": {
-    "defaultMessage": "Erreur : Échec de la mise à jour de l’actif du BGC",
-    "description": "Message displayed to user after cmo asset fails to get updated."
-  },
   "/Y7x+s": {
     "defaultMessage": "Créer un bassin",
     "description": "Heading displayed above the Create Pool form."
@@ -86,10 +82,6 @@
   "5FFRV2": {
     "defaultMessage": "Erreur : Échec de la mise à jour de l’utilisateur",
     "description": "Message displayed to user after user fails to get updated."
-  },
-  "5JRGJY": {
-    "defaultMessage": "Mettre à jour un actif du BGC",
-    "description": "Title displayed on the update a cmo asset form."
   },
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
@@ -262,10 +254,6 @@
   "KSNNgE": {
     "defaultMessage": "Mettre à jour un ministère",
     "description": "Title displayed on the update a department form."
-  },
-  "Kdfiu3": {
-    "defaultMessage": "Mise à jour de l’actif du BGC réussie!",
-    "description": "Message displayed to user after cmo asset is updated successfully."
   },
   "Ke0TPJ": {
     "defaultMessage": "Salaire maximal",
@@ -634,10 +622,6 @@
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the search request table requested date column."
   },
-  "rE/ytf": {
-    "defaultMessage": "Actif du BGC {cmoAssetId} introuvable.",
-    "description": "Message displayed for cmo asset not found."
-  },
   "rfkkae": {
     "defaultMessage": "Statut",
     "description": "Label displayed on the pool candidate form status field."
@@ -717,22 +701,6 @@
   "zwcUgi": {
     "defaultMessage": "Ministère",
     "description": "Title for the department block in the manager info section of the single search request view."
-  },
-  "U6V+uR": {
-    "defaultMessage": "Nom (anglais)",
-    "description": "Label displayed on the create a cmo asset form name (English) field."
-  },
-  "oVWttp": {
-    "defaultMessage": "Description (français)",
-    "description": "Label displayed on the create a cmo asset form description (French) field."
-  },
-  "pHVKt/": {
-    "defaultMessage": "Nom (français)",
-    "description": "Label displayed on the create a cmo asset form name (French) field."
-  },
-  "zgaPwN": {
-    "defaultMessage": "Description (anglais)",
-    "description": "Label displayed on the create a cmo asset form description (English) field."
   },
   "0oqRIl": {
     "defaultMessage": "Nom (français)",

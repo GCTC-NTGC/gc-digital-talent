@@ -77,16 +77,6 @@ const UpdateClassification = React.lazy(() =>
   ),
 );
 
-/** CMO Assets */
-const UpdateCmoAsset = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateCmoAsset" */ "./cmoAsset/UpdateCmoAsset"
-      ),
-  ),
-);
-
 /** Pool Candidates */
 const PoolCandidatePage = React.lazy(() =>
   lazyRetry(
