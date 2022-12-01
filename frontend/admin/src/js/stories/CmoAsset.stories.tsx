@@ -1,25 +1,10 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { CreateCmoAssetForm } from "../components/cmoAsset/CreateCmoAsset";
-import { CmoAsset, CreateCmoAssetInput } from "../api/generated";
+import { CmoAsset } from "../api/generated";
 import { UpdateCmoAssetForm } from "../components/cmoAsset/UpdateCmoAsset";
 
 const stories = storiesOf("CMO Assets", module);
-
-stories.add("Create CMO Asset Form", () => {
-  return (
-    <CreateCmoAssetForm
-      handleCreateCmoAsset={async (data: CreateCmoAssetInput) => {
-        await new Promise((resolve) => {
-          setTimeout(resolve, 1000);
-        });
-        action("Create CMO Asset")(data);
-        return data;
-      }}
-    />
-  );
-});
 
 stories.add("Update CMO Asset Form", () => {
   const cmoAsset: CmoAsset = {

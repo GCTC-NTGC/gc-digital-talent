@@ -167,10 +167,6 @@
     "defaultMessage": "Demande de recherche {searchRequestId} introuvable.",
     "description": "Message displayed for search request not found on single search request page."
   },
-  "BfXsHe": {
-    "defaultMessage": "Clé",
-    "description": "Label displayed on the create a cmo asset form key field."
-  },
   "D2DUgE": {
     "defaultMessage": "Sélectionner un ou plusieurs actifs du BGC...",
     "description": "Placeholder displayed on the pool candidate form cmo assets field."
@@ -286,18 +282,6 @@
   "MmFgbF": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed on the single search request table classifications column."
-  },
-  "MpB5zS": {
-    "defaultMessage": "Créer un actif du BGC",
-    "description": "Title displayed on the create a cmo asset form."
-  },
-  "NhQGh5": {
-    "defaultMessage": "Erreur : Échec de la création de l’actif du BGC",
-    "description": "Message displayed to user after cmo asset fails to get created."
-  },
-  "Nhto6b": {
-    "defaultMessage": "Création de l’actif du BGC réussie!",
-    "description": "Message displayed to user after cmo asset is created successfully."
   },
   "OqGhl+": {
     "defaultMessage": "Sélectionner un niveau...",
@@ -685,10 +669,6 @@
   "uAmdiU": {
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the classification form name (French) field."
-  },
-  "vg3F7X": {
-    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un actif du BGC. Elle doit être basée sur le nom anglais de l’actif du BGC et doit être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cet actif du BGC particulier, et ne peut donc pas être modifiée ultérieurement.",
-    "description": "Additional context describing the purpose of the CMO Asset's 'key' field."
   },
   "vkus5u": {
     "defaultMessage": "Sélectionner une ou plusieurs exigences opérationnelles...",

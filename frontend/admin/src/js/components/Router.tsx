@@ -78,14 +78,6 @@ const UpdateClassification = React.lazy(() =>
 );
 
 /** CMO Assets */
-const CreateCmoAsset = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateCmoAsset" */ "./cmoAsset/CreateCmoAsset"
-      ),
-  ),
-);
 const UpdateCmoAsset = React.lazy(() =>
   lazyRetry(
     () =>
