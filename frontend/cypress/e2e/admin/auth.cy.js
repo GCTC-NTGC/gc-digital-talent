@@ -181,7 +181,6 @@ describe('Auth flows (development)', () => {
         '/en/admin/talent-requests',
         '/en/admin/users',
         '/en/admin/settings/classifications',
-        '/en/admin/cmo-assets',
         '/en/admin/pools',
         '/en/admin/settings/departments',
         '/en/admin/settings/skills',
