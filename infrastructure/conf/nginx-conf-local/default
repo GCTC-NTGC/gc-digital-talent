@@ -85,6 +85,8 @@ server {
 
     # rewrite root-level possible lang prefix to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/?$" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/?$" /frontend/talentsearch/dist/index.html break;
     }
 
@@ -95,6 +97,8 @@ server {
 
     # rewrite possible lang prefix then "admin" to admin index.html
     location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /frontend/admin/dist/index.html break;
     }
 
@@ -105,71 +109,99 @@ server {
 
     # rewrite possible lang prefix then "talent" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/talent(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/talent(/.*|$)" /frontend/talentsearch/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "users" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/users(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/users(/.*|$)" /frontend/talentsearch/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "search" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/search(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/search(/.*|$)" /frontend/talentsearch/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "logged-out" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/logged-out(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/logged-out(/.*|$)" /frontend/talentsearch/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "browse" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/browse(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/browse(/.*|$)" /frontend/talentsearch/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "404" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/404(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/404(/.*|$)" /frontend/talentsearch/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "support" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/support(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/support(/.*|$)" /frontend/talentsearch/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "accessibility-statement" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" /frontend/talentsearch/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "create-account" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/create-account(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/create-account(/.*|$)" /frontend/talentsearch/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "register-info" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/register-info(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/register-info(/.*|$)" /frontend/talentsearch/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "login-info" to talentsearch index.html
     location ~ "^(?:/[a-z]{2})?/login-info(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/login-info(/.*|$)" /frontend/talentsearch/dist/index.html break;
     }
 
     # rewrite talent static files to "indigenousapprenticeship/dist"
     location ~ "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /frontend/indigenousapprenticeship/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "apprenti-autochtonne-ti" to indigenousapprenticeship index.html
     location ~ "^(?:/[a-z]{2})?/apprenti-autochtonne-ti(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/apprenti-autochtonne-ti(/.*|$)" /frontend/indigenousapprenticeship/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "indigenous-it-apprentice" to indigenousapprenticeship index.html
     location ~ "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" {
+        add_header Cache-Control no-cache;
+        expires 0;
         rewrite "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" /frontend/indigenousapprenticeship/dist/index.html break;
     }
 
@@ -189,6 +221,5 @@ server {
     location ~ ^/(.*)$ {
         rewrite ^/(.*)$ /tc-report/_site/$1/index.html break;
     }
-
 }
 
