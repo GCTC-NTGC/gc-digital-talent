@@ -45,7 +45,6 @@ use Illuminate\Support\Facades\DB;
  * @property string $armed_forces_status
  * @property boolean $is_woman
  * @property boolean $has_disability
- * @property boolean $is_indigenous
  * @property boolean $is_visible_minority
  * @property boolean $has_diploma
  * @property string $language_ability
@@ -58,6 +57,8 @@ use Illuminate\Support\Facades\DB;
  * @property int $priority_weight
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
+ * @property string $indigenous_declaration_signature
+ * @property array $indigenous_communities
  */
 
 class User extends Model implements Authenticatable
@@ -74,6 +75,7 @@ class User extends Model implements Authenticatable
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
         'position_duration' => 'array',
+        'indigenous_communities' => 'array',
     ];
 
     public function pools(): HasMany
@@ -650,5 +652,20 @@ RAWSQL2;
         }
 
         return null; // catch all other cases, like null variable or empty array
+    }
+
+    /* accessor to maintain functionality of to be deprecated isIndigenous field */
+    public function getIsIndigenousAttribute() {
+        $indigenousCommunities = $this->indigenous_communities;
+
+        if ($indigenousCommunities && in_array(ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS, $indigenousCommunities)) {
+            return true;
+        }
+
+        if ($indigenousCommunities) {
+            return false; // case for when it exists but lacks the legacy value which would reverse to is_indigenous = false
+        }
+
+        return null;
     }
 }
