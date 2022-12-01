@@ -303,10 +303,6 @@
     "defaultMessage": "Statut",
     "description": "Title for the status block in the manager info section of the single search request view."
   },
-  "MMP0XC": {
-    "defaultMessage": "Actifs du BGC",
-    "description": "Label displayed on the CMO Assets menu item."
-  },
   "MmFgbF": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed on the single search request table classifications column."
