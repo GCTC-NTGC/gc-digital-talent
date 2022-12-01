@@ -239,10 +239,6 @@
     "defaultMessage": "Mettre à jour un bassin",
     "description": "Title displayed on the update a pool form."
   },
-  "HAEmDX": {
-    "defaultMessage": "Actifs du BGC",
-    "description": "Heading displayed above the CMO Asset Table component."
-  },
   "HH7lQo": {
     "defaultMessage": "Erreur : Échec de la mise à jour du bassin de candidats",
     "description": "Message displayed to pool candidate after pool candidate fails to get updated."
