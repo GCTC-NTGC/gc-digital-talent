@@ -91,8 +91,8 @@ const SignAndContinue = ({ labels }: SignAndContinueProps) => {
               mode="solid"
               text={intl.formatMessage({
                 defaultMessage:
-                  "Quit, and explore IT opportunities within the federal government",
-                id: "E+Pgfh",
+                  "Explore IT opportunities within the federal government",
+                id: "32qwlv",
                 description:
                   "Button text to submit the Indigenous self-declaration form when not Indigenous.",
               })}
