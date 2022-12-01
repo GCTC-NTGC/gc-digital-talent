@@ -35,6 +35,8 @@ type Applicant {
   hasDisability: Boolean
   isIndigenous: Boolean
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunities]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
@@ -374,8 +376,9 @@ input CreateUserInput {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunities]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -474,8 +477,8 @@ type EquitySelections {
 input EquitySelectionsInput {
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunities]
 }
 
 enum EstimatedLanguageAbility {
@@ -534,6 +537,15 @@ enum GovEmployeeType {
 
 input IdInput {
   id: ID!
+}
+
+enum IndigenousCommunities {
+  STATUS_FIRST_NATIONS
+  NON_STATUS_FIRST_NATIONS
+  INUIT
+  METIS
+  OTHER
+  LEGACY_IS_INDIGENOUS
 }
 
 """
@@ -1357,8 +1369,9 @@ input UpdateUserAsAdminInput {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunities]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -1404,8 +1417,9 @@ input UpdateUserAsUserInput {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunities]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -1455,6 +1469,8 @@ type User {
   hasDisability: Boolean
   isIndigenous: Boolean
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunities]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
