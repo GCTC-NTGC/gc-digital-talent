@@ -17,6 +17,8 @@ scalar KeyString
 "Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org."
 scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
 
+scalar UUID @scalar(class: "UUID")
+
 type LocalizedString {
   en: String
   fr: String
@@ -827,7 +829,7 @@ type Query {
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["availableForOpportunities"])
   pool(id: ID! @eq): Pool @find @can(ability: "view", query: true)
-  poolAdvertisement(id: ID! @eq @rules(apply: ["uuid"])): PoolAdvertisement
+  poolAdvertisement(id: UUID! @eq): PoolAdvertisement
     @find(model: "Pool")
     @can(ability: "viewAdvertisement", model: "Pool", query: true)
   poolAdvertisements: [PoolAdvertisement]!

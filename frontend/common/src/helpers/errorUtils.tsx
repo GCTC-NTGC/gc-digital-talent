@@ -1,5 +1,5 @@
 import React from "react";
-import { GraphQLErrorExtensions } from "graphql";
+import { GraphQLError, GraphQLErrorExtensions } from "graphql";
 import { CombinedError } from "urql";
 import { IntlShape } from "react-intl";
 
@@ -68,11 +68,21 @@ export const buildValidationErrorMessageNode = (
   return null;
 };
 
-export const isValidationError = (combinedError: CombinedError | undefined) => {
-  return (
-    combinedError &&
-    combinedError?.graphQLErrors.some((graphQLError) =>
-      isValidationExtension(graphQLError.extensions),
-    )
+interface ErrorWithDebugMessage extends Error {
+  debugMessage?: string;
+}
+interface GraphqlErrorWithDebugMessage extends GraphQLError {
+  originalError: ErrorWithDebugMessage | undefined;
+}
+
+export const isUuidError = (combinedError: CombinedError | undefined) => {
+  /**
+   * Note: For some reason our api returns debugMessage on the
+   * Error type rather than cause, so we need to cast it here
+   */
+  return combinedError?.graphQLErrors?.some(
+    (error: GraphqlErrorWithDebugMessage) => {
+      return error?.originalError?.debugMessage?.includes("validation.uuid");
+    },
   );
 };

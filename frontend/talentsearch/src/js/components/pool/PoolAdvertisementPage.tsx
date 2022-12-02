@@ -19,7 +19,7 @@ import Card from "@common/components/Card";
 import { Button, Link } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
 import imageUrl from "@common/helpers/imageUrl";
-import { isValidationError } from "@common/helpers/errorUtils";
+import { isUuidError } from "@common/helpers/errorUtils";
 import {
   AdvertisementStatus,
   Scalars,
@@ -38,7 +38,6 @@ import {
   getFullPoolAdvertisementTitle,
 } from "@common/helpers/poolUtils";
 import { AuthorizationContext } from "@common/components/Auth";
-import { CombinedError } from "urql";
 import { useGetPoolAdvertisementQuery } from "../../api/generated";
 import type { PoolAdvertisement } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
@@ -849,7 +848,7 @@ const PoolAdvertisementPage = () => {
     variables: { id: poolId || "" },
   });
 
-  if (isValidationError(error)) {
+  if (isUuidError(error)) {
     return <PoolNotFound />;
   }
 

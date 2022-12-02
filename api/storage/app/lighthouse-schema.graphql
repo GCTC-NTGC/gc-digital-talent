@@ -988,7 +988,7 @@ type Query {
   applicants(includeIds: [ID]!): [Applicant]!
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: ID!): Pool
-  poolAdvertisement(id: ID!): PoolAdvertisement
+  poolAdvertisement(id: UUID!): PoolAdvertisement
   poolAdvertisements: [PoolAdvertisement]!
   publishedPoolAdvertisements: [PoolAdvertisement!]!
   poolByKey(key: String!): Pool
@@ -1234,6 +1234,8 @@ enum Trashed {
   """Only return non-trashed results."""
   WITHOUT
 }
+
+scalar UUID
 
 input UpdateClassificationInput {
   name: LocalizedStringInput

@@ -90,7 +90,7 @@ query getAllApplicantExperiences($id: ID!) {
 
 query getAllApplicantExperiencesAndPoolSkills(
   $applicantId: ID!
-  $poolAdvertisementId: ID!
+  $poolAdvertisementId: UUID!
 ) {
   applicant(id: $applicantId) {
     ...applicantExperiences
