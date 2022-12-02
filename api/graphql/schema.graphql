@@ -805,7 +805,7 @@ type CandidateSearchPoolResult {
 
 type Query {
   me: User @auth
-  user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
+  user(id: ID! @eq @rules(apply: ["uuid"])): User @find @guard @can(ability: "view", query: true)
   users: [User]! @all @guard @can(ability: "viewAny")
   usersPaginated(
     where: UserFilterInput
@@ -815,7 +815,7 @@ type Query {
     @paginate(defaultCount: 10, maxCount: 1000)
     @guard
     @can(ability: "viewAny")
-  applicant(id: ID! @eq): Applicant
+  applicant(id: ID! @eq @rules(apply: ["uuid"])): Applicant
     @find(model: "User")
     @guard
     @can(ability: "viewApplicant", query: true, model: "User")
@@ -827,7 +827,7 @@ type Query {
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["availableForOpportunities"])
   pool(id: ID! @eq): Pool @find @can(ability: "view", query: true)
-  poolAdvertisement(id: ID! @eq): PoolAdvertisement
+  poolAdvertisement(id: ID! @eq @rules(apply: ["uuid"])): PoolAdvertisement
     @find(model: "Pool")
     @can(ability: "viewAdvertisement", model: "Pool", query: true)
   poolAdvertisements: [PoolAdvertisement]!
@@ -837,7 +837,7 @@ type Query {
     @all(model: "Pool", scopes: ["wasPublished"])
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
   pools: [Pool]! @all @can(ability: "viewAny")
-  poolCandidate(id: ID! @eq): PoolCandidate
+  poolCandidate(id: ID! @eq @rules(apply: ["uuid"])): PoolCandidate
     @find
     @guard
     @can(ability: "view", query: true)
@@ -886,13 +886,13 @@ type Query {
   countPoolCandidatesByPool(
     where: ApplicantFilterInput
   ): [CandidateSearchPoolResult!]!
-  classification(id: ID! @eq): Classification @find
+  classification(id: ID! @eq @rules(apply: ["uuid"])): Classification @find
   classifications: [Classification]! @all
-  cmoAsset(id: ID! @eq): CmoAsset @find
+  cmoAsset(id: ID! @eq @rules(apply: ["uuid"])): CmoAsset @find
   cmoAssets: [CmoAsset]! @all
-  department(id: ID! @eq): Department @find
+  department(id: ID! @eq @rules(apply: ["uuid"])): Department @find
   departments: [Department]! @all
-  poolCandidateFilter(id: ID! @eq): PoolCandidateFilter
+  poolCandidateFilter(id: ID! @eq @rules(apply: ["uuid"])): PoolCandidateFilter
     @find
     @guard
     @can(ability: "view", query: true)
@@ -924,11 +924,11 @@ type Query {
     @deprecated(
       reason: "Use poolCandidateSearchRequests instead, with a specified limit"
     )
-  skillFamily(id: ID! @eq): SkillFamily @find
+  skillFamily(id: ID! @eq @rules(apply: ["uuid"])): SkillFamily @find
   skillFamilies: [SkillFamily]! @all
-  skill(id: ID! @eq): Skill @find
+  skill(id: ID! @eq @rules(apply: ["uuid"])): Skill @find
   skills: [Skill]! @all
-  genericJobTitle(id: ID! @eq): GenericJobTitle @find
+  genericJobTitle(id: ID! @eq @rules(apply: ["uuid"])): GenericJobTitle @find
   genericJobTitles: [GenericJobTitle]! @all
 }
 input ClassificationBelongsTo {
