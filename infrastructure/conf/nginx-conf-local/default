@@ -186,8 +186,6 @@ server {
 
     # rewrite talent static files to "indigenousapprenticeship/dist"
     location ~ "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" {
-        add_header Cache-Control no-cache;
-        expires 0;
         rewrite "^/indigenous-it-apprentice/(.*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|webmanifest))$" /frontend/indigenousapprenticeship/dist/$1 break;
     }
 
