@@ -515,7 +515,7 @@ input EquitySelectionsInput {
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunities] @rename(attribute: "indigenous_communities")
+  isIndigenous: Boolean @rename(attribute: "is_indigenous") # this input corresponds to the filters table and not users tables
 }
 
 type PoolCandidateFilter {

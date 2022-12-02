@@ -555,12 +555,7 @@ RAWSQL2;
         if (array_key_exists("has_disability", $equity) && $equity["has_disability"]) {
             array_push($equityVars, "has_disability");
         };
-        // assert indigenousCommunities was passed in, and that it isn't a null array, and then lastly check for the LEGACY enum
-        // if all true then this filter is added
-        if (array_key_exists("indigenous_communities", $equity)
-            && $equity["indigenous_communities"]
-            && in_array(ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS, $equity["indigenous_communities"])
-            ) {
+        if (array_key_exists("is_indigenous", $equity) && $equity["is_indigenous"]) {
             array_push($equityVars, "is_indigenous");
         };
         if (array_key_exists("is_visible_minority", $equity) && $equity["is_visible_minority"]) {

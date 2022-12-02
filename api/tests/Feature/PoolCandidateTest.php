@@ -460,7 +460,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'equity' => [
-          'indigenousCommunities' => [ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS],
+          'isIndigenous' => true,
           'isWoman' => false,
           'isVisibleMinority' => false,
           'hasDisability' => false
@@ -479,7 +479,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'equity' => [
-          'indigenousCommunities' => null,
+          'isIndigenous' => false,
           'isWoman' => false,
           'isVisibleMinority' => true,
           'hasDisability' => false
@@ -498,7 +498,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'equity' => [
-          'indigenousCommunities' => null,
+          'isIndigenous' => false,
           'isWoman' => false,
           'isVisibleMinority' => false,
           'hasDisability' => true
@@ -517,7 +517,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'equity' => [
-          'indigenousCommunities' => null,
+          'isIndigenous' => false,
           'isWoman' => true,
           'isVisibleMinority' => false,
           'hasDisability' => false
@@ -536,7 +536,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'equity' => [
-          'indigenousCommunities' => [ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS],
+          'isIndigenous' => true,
           'isWoman' => true,
           'isVisibleMinority' => false,
           'hasDisability' => false
@@ -555,7 +555,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'equity' => [
-          'indigenousCommunities' => [ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS],
+          'isIndigenous' => true,
           'isWoman' => true,
           'isVisibleMinority' => true,
           'hasDisability' => false
@@ -574,7 +574,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'equity' => [
-          'indigenousCommunities' => [ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS],
+          'isIndigenous' => true,
           'isWoman' => true,
           'isVisibleMinority' => true,
           ]
@@ -592,7 +592,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'equity' => [
-          'indigenousCommunities' => [ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS],
+          'isIndigenous' => true,
           'isWoman' => true,
           'isVisibleMinority' => true,
           'hasDisability' => true
@@ -611,7 +611,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'equity' => [
-          'indigenousCommunities' => null,
+          'isIndigenous' => false,
           'isWoman' => false,
           'isVisibleMinority' => false,
           'hasDisability' => false
@@ -630,7 +630,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'equity' => [
-          'indigenousCommunities' => null,
+          'isIndigenous' => false,
           'isWoman' => false,
           'isVisibleMinority' => false,
           'hasDisability' => false
@@ -649,7 +649,7 @@ class PoolCandidateTest extends TestCase
     ', [
       'where' => [
         'equity' => [
-          'indigenousCommunities' => null,
+          'isIndigenous' => false,
           'isWoman' => null,
         ],
       ]

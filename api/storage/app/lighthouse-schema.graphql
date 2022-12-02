@@ -478,7 +478,7 @@ input EquitySelectionsInput {
   isWoman: Boolean
   hasDisability: Boolean
   isVisibleMinority: Boolean
-  indigenousCommunities: [IndigenousCommunities]
+  isIndigenous: Boolean
 }
 
 enum EstimatedLanguageAbility {

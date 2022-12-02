@@ -187,7 +187,7 @@ class ApplicantTest extends TestCase
                     'equity' => [
                         'isWoman' => false,
                         'hasDisability' => false,
-                        'indigenousCommunities' => null,
+                        'isIndigenous' => false,
                         'isVisibleMinority' => false,
                     ],
                 ]
@@ -237,7 +237,7 @@ class ApplicantTest extends TestCase
                         ['id' => $pool1['id']],
                     ],
                     'equity' => [
-                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS],
+                        'isIndigenous' => true,
                     ],
                 ]
             ]
