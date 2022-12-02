@@ -661,10 +661,10 @@ RAWSQL2;
             return true;
         }
 
-        if ($indigenousCommunities || (count($indigenousCommunities) == 0)) {
-            return false; // case for when it exists but lacks the legacy value which would reverse to is_indigenous = false
+        if (gettype($indigenousCommunities) == "array") {
+            return false; // case for when the array exists but lacks the legacy value which would reverse to is_indigenous = false, or is empty
         }
 
-        return null;
+        return null; // if indigenousCommunities is null then so is isIndigenous
     }
 }
