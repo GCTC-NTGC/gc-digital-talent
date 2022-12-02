@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
                 // pick a published pool in which to place this user
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
                 // digital careers is always published and strictly defined in PoolSeeder
-                $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->limit(1)->first();
+                $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
                 $digitalTalentPool = Pool::where('key', "digital_careers")->first();
                 $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
 
@@ -92,7 +92,7 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         $applicant = User::where('email', 'applicant@test.com')->first();
-        $pool = Pool::inRandomOrder()->first();
+        $pool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
         $this->seedPoolCandidate($applicant, $pool);
 
         // add experiences to all the users
