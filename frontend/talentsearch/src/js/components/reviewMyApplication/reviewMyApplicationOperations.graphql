@@ -53,6 +53,8 @@ query getReviewMyApplicationPageData($id: ID!) {
       isWoman
       hasDisability
       isIndigenous
+      indigenousCommunities
+      indigenousDeclarationSignature
       isVisibleMinority
       jobLookingStatus
       hasDiploma

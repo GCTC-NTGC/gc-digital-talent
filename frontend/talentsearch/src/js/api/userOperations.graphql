@@ -55,6 +55,8 @@ query getMe {
     isIndigenous
     indigenousCommunities
     indigenousDeclarationSignature
+    indigenousCommunities
+    indigenousDeclarationSignature
     isVisibleMinority
     jobLookingStatus
     hasDiploma
