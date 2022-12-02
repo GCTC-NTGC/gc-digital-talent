@@ -141,7 +141,8 @@ class UserFactory extends Factory
             'has_priority_entitlement' => $hasPriorityEntitlement,
             'priority_number' => $hasPriorityEntitlement? $this->faker->word() : null,
             'indigenous_declaration_signature' => $isDeclared ? $this->faker->firstName() : null,
-            'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(ApiEnums::indigenousCommunities())] : null,
+            'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(ApiEnums::indigenousCommunities())] : [],
+            // mirroring migration where isIndigenous = false maps to []
         ];
     }
 

@@ -661,7 +661,7 @@ RAWSQL2;
             return true;
         }
 
-        if ($indigenousCommunities) {
+        if ($indigenousCommunities || (count($indigenousCommunities) == 0)) {
             return false; // case for when it exists but lacks the legacy value which would reverse to is_indigenous = false
         }
 
