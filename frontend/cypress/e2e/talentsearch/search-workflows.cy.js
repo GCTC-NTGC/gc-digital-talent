@@ -1,30 +1,14 @@
-import {
-  ArmedForcesStatus,
-  CitizenshipStatus,
-  PoolAdvertisementLanguage,
-  PoolStream,
-  ProvinceOrTerritory,
-  PublishingGroup,
-  SecurityStatus,
-  WorkRegion,
-} from "../../../talentsearch/src/js/api/generated";
-import {
-  FAR_FUTURE_DATE,
-  FAR_PAST_DATE,
-} from "../../../common/src/helpers/dateUtils";
+import { PoolCandidateStatus } from "../../../common/src/api/generated";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { __Directive } from "graphql";
-import {
-  JobLookingStatus,
-  Language,
-  LanguageAbility,
-  OperationalRequirement,
-  PoolCandidateStatus,
-  PositionDuration,
-  Role,
-} from "../../../common/src/api/generated";
+import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
+import { createApplicant } from "../../support/userHelpers";
 
+// have a unique ID to track the test objects with
 const uniqueTestId = Date.now().valueOf();
+
+// calculate how the classification will be displayed in the UI
+const classificationName = (classification) =>
+  `${classification.group}-${classification.level.toString().padStart(2, "0")}`;
 
 describe("Talent Search Workflow Tests", () => {
   beforeEach(() => {
@@ -38,27 +22,16 @@ describe("Talent Search Workflow Tests", () => {
 
     // select some dimensions to use for testing
     cy.getSkills().then((allSkills) => {
-      cy.wrap(allSkills[0]).as("testSkill"); // take the first ID for testing
+      cy.wrap(allSkills[0]).as("testSkill"); // take the first skill for testing
     });
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
-      const testGenericJobTitle1 = allGenericJobTitles[0]; // take the first ID for testing
-      const testGenericJobTitle2 = allGenericJobTitles[1]; // take the second ID for negation
-      cy.wrap(testGenericJobTitle1.id).as("testGenericJobTitleId1");
+      const testGenericJobTitle1 = allGenericJobTitles[0]; // take the first ID for testing matching
+      cy.wrap(testGenericJobTitle1).as("testGenericJobTitle1");
+      cy.wrap(testGenericJobTitle1.classification).as("testClassification1");
+
+      const testGenericJobTitle2 = allGenericJobTitles[1]; // take the second ID for testing rejection
       cy.wrap(testGenericJobTitle2.id).as("testGenericJobTitleId2");
-      const testClassification1 = testGenericJobTitle1.classification;
-      const testClassification2 = testGenericJobTitle2.classification;
-      cy.wrap(testClassification1.id).as("testClassificationId1");
-      cy.wrap(testClassification2.id).as("testClassificationId2");
-      cy.wrap(
-        `${testClassification1.group}-${testClassification1.level
-          .toString()
-          .padStart(2, "0")}`,
-      ).as("testClassificationName1");
-      cy.wrap(
-        `${testClassification2.group}-${testClassification2.level
-          .toString()
-          .padStart(2, "0")}`,
-      ).as("testClassificationName2");
+      cy.wrap(testGenericJobTitle2.classification).as("testClassification2");
     });
 
     // create a test user to attach test candidates to
@@ -66,130 +39,34 @@ describe("Talent Search Workflow Tests", () => {
       cy.getMe()
         .its("id")
         .then((adminUserId) => {
-          cy.get("@testGenericJobTitleId1").then((genericJobTitleId1) => {
+          cy.get("@testGenericJobTitle1").then((genericJobTitle) => {
             cy.get("@testSkill").then((skill) => {
               // This user must have the entire profile completed to be able to apply to a pool
-              cy.createUser({
+              createApplicant({
                 email: `cypress.user.${uniqueTestId}@example.org`,
                 sub: `cypress.sub.${uniqueTestId}`,
-                roles: [Role.Applicant],
-                currentProvince: ProvinceOrTerritory.Ontario,
-                currentCity: "Test City",
-                telephone: "+10123456789",
-                armedForcesStatus: ArmedForcesStatus.NonCaf,
-                citizenship: CitizenshipStatus.Citizen,
-                lookingForEnglish: true,
-                languageAbility: LanguageAbility.English,
-                isGovEmployee: false,
-                isWoman: true,
-                hasPriorityEntitlement: false,
-                jobLookingStatus: JobLookingStatus.ActivelyLooking,
-                hasDiploma: true,
-                locationPreferences: WorkRegion.Ontario,
-                acceptedOperationalRequirements: [
-                  OperationalRequirement.OvertimeOccasional,
-                ],
-                positionDuration: [PositionDuration.Permanent],
-                expectedGenericJobTitles: {
-                  sync: [genericJobTitleId1],
-                },
-                personalExperiences: {
-                  create: [
-                    {
-                      description: "Test Experience Description",
-                      details: "A Cypress test personal experience",
-                      skills: {
-                        sync: [
-                          {
-                            details: `Test Skill ${skill.name.en}`,
-                            id: skill.id,
-                          },
-                        ],
-                      },
-                      startDate: FAR_PAST_DATE,
-                      title: "Test Experience",
-                    },
-                  ],
-                },
-              })
-                .its("sub")
-                .as("testUserSub");
+                skill,
+                genericJobTitle,
+                userAlias: "testUser",
+              });
 
-              // create, update, and publish a new pool advertisement
-              cy.get("@testClassificationId1").then((classificationId) => {
-                cy.createPoolAdvertisement(adminUserId, [
-                  classificationId,
-                ]).then((createdPoolAdvertisement) => {
-                  cy.get("@testSkill").then((skill) => {
-                    cy.log(skill);
-                    cy.updatePoolAdvertisement(createdPoolAdvertisement.id, {
-                      name: {
-                        en: `Cypress Test Pool EN 1 ${uniqueTestId}`,
-                        fr: `Cypress Test Pool FR 1 ${uniqueTestId}`,
-                      },
-                      stream: PoolStream.BusinessAdvisoryServices,
-                      expiryDate: `${FAR_FUTURE_DATE} 00:00:00`,
-                      yourImpact: {
-                        en: "test impact EN",
-                        fr: "test impact FR",
-                      },
-                      keyTasks: { en: "key task EN", fr: "key task FR" },
-                      essentialSkills: {
-                        sync: skill.id,
-                      },
-                      advertisementLanguage: PoolAdvertisementLanguage.Various,
-                      securityClearance: SecurityStatus.Secret,
-                      advertisementLocation: {
-                        en: "test location EN",
-                        fr: "test location FR",
-                      },
-                      isRemote: true,
-                      publishingGroup: PublishingGroup.ItJobs,
-                    }).then((updatedPoolAdvertisement) => {
-                      cy.publishPoolAdvertisement(updatedPoolAdvertisement.id)
-                        .its("id")
-                        .as("publishedTestPoolAdvertisementId1");
-                    });
-                  });
+              // create, update, and publish a new pool advertisement for testing matching
+              cy.get("@testClassification1").then((classification) => {
+                createAndPublishPoolAdvertisement({
+                  adminUserId,
+                  englishName: `Cypress Test Pool EN 1 ${uniqueTestId}`,
+                  classification,
+                  poolAdvertisementAlias: "publishedTestPoolAdvertisement1",
                 });
               });
 
-              // create, update, and publish a new pool advertisement for negation
-              cy.get("@testClassificationId2").then((classificationId) => {
-                cy.createPoolAdvertisement(adminUserId, [
-                  classificationId,
-                ]).then((createdPoolAdvertisement) => {
-                  cy.get("@testSkill").then((skill) => {
-                    cy.log(skill);
-                    cy.updatePoolAdvertisement(createdPoolAdvertisement.id, {
-                      name: {
-                        en: `Cypress Test Pool EN 2 ${uniqueTestId}`,
-                        fr: `Cypress Test Pool FR 2 ${uniqueTestId}`,
-                      },
-                      stream: PoolStream.BusinessAdvisoryServices,
-                      expiryDate: `${FAR_FUTURE_DATE} 00:00:00`,
-                      yourImpact: {
-                        en: "test impact EN",
-                        fr: "test impact FR",
-                      },
-                      keyTasks: { en: "key task EN", fr: "key task FR" },
-                      essentialSkills: {
-                        sync: skill.id,
-                      },
-                      advertisementLanguage: PoolAdvertisementLanguage.Various,
-                      securityClearance: SecurityStatus.Secret,
-                      advertisementLocation: {
-                        en: "test location EN",
-                        fr: "test location FR",
-                      },
-                      isRemote: true,
-                      publishingGroup: PublishingGroup.ItJobs,
-                    }).then((updatedPoolAdvertisement) => {
-                      cy.publishPoolAdvertisement(updatedPoolAdvertisement.id)
-                        .its("id")
-                        .as("publishedTestPoolAdvertisementId2");
-                    });
-                  });
+              // create, update, and publish a new pool advertisement for testing rejection
+              cy.get("@testClassification2").then((classification) => {
+                createAndPublishPoolAdvertisement({
+                  adminUserId,
+                  englishName: `Cypress Test Pool EN 2 ${uniqueTestId}`,
+                  classification,
+                  poolAdvertisementAlias: "publishedTestPoolAdvertisement2",
                 });
               });
             });
@@ -198,12 +75,12 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     // use new test user to submit an application
-    cy.get("@testUserSub").then((sub) => {
-      cy.loginBySubject(sub).then(() => {
+    cy.get("@testUser").then((testUser) => {
+      cy.loginBySubject(testUser.sub).then(() => {
         cy.getMe().then((testUser) => {
-          cy.get("@publishedTestPoolAdvertisementId1").then(
-            (poolAdvertisementId) => {
-              cy.createApplication(testUser.id, poolAdvertisementId).then(
+          cy.get("@publishedTestPoolAdvertisement1").then(
+            (poolAdvertisement) => {
+              cy.createApplication(testUser.id, poolAdvertisement.id).then(
                 (poolCandidate) => {
                   cy.submitApplication(
                     poolCandidate.id,
@@ -231,12 +108,6 @@ describe("Talent Search Workflow Tests", () => {
     cy.visit("/en/search");
   });
 
-  const searchReturnsGreaterThanZeroApplicants = () => {
-    cy.findByRole("heading", {
-      name: /Results: [1-9][0-9]* matching candidate/i,
-    });
-  };
-
   const searchFindsMySingleCandidate = () => {
     cy.findAllByRole("article", {
       name: `Cypress Test Pool EN 1 ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
@@ -263,9 +134,9 @@ describe("Talent Search Workflow Tests", () => {
     searchFindsMySingleCandidate();
 
     // classification filter - fail
-    cy.get("@testClassificationName2").then((classificationName) => {
+    cy.get("@testClassification2").then((classification) => {
       cy.get("option")
-        .contains(classificationName)
+        .contains(classificationName(classification))
         .invoke("text")
         .then((text) => {
           cy.findByRole("combobox", { name: /Classification/i }).select(text);
@@ -275,9 +146,9 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     // classification filter - pass
-    cy.get("@testClassificationName1").then((classificationName) => {
+    cy.get("@testClassification1").then((classification) => {
       cy.get("option")
-        .contains(classificationName)
+        .contains(classificationName(classification))
         .invoke("text")
         .then((text) => {
           cy.findByRole("combobox", { name: /Classification/i }).select(text);
@@ -368,8 +239,11 @@ describe("Talent Search Workflow Tests", () => {
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
     searchFindsMySingleCandidate();
 
-    // no way to know what the exact number should be without resetting the database
-    searchReturnsGreaterThanZeroApplicants();
+    // check total user count
+    // no way to know what the exact number should be without resetting the database, so just check it's not zero
+    cy.findByRole("heading", {
+      name: /Results: [1-9][0-9]* matching candidate/i,
+    });
 
     cy.findAllByRole("article", {
       name: `Cypress Test Pool EN 1 ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
@@ -381,7 +255,6 @@ describe("Talent Search Workflow Tests", () => {
      * Request Page (/en/search/request)
      * I'm using findAllByText instead of findByText since the strings appear multiple times in the DOM.
      */
-
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
 
     cy.findByRole("textbox", { name: /Full Name/i }).type("Test Full Name");
@@ -403,8 +276,8 @@ describe("Talent Search Workflow Tests", () => {
     );
 
     // classification filter
-    cy.get("@testClassificationName1").then((classificationName) => {
-      cy.findAllByText(classificationName).should("exist");
+    cy.get("@testClassification1").then((classification) => {
+      cy.findAllByText(classificationName(classification)).should("exist");
     });
 
     // stream doesn't actually appear on this page
