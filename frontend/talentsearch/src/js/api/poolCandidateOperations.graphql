@@ -71,7 +71,6 @@ query getSearchFormData($poolKey: String!) {
       }
     }
   }
-
 }
 
 query getSearchFormDataAcrossAllPools {
@@ -123,5 +122,4 @@ query getSearchFormDataAcrossAllPools {
       }
     }
   }
-
 }

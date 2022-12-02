@@ -77,8 +77,10 @@ type User {
   hasDisability: Boolean @rename(attribute: "has_disability")
   isIndigenous: Boolean @rename(attribute: "is_indigenous")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunities] @rename(attribute: "indigenous_communities")
-  indigenousDeclarationSignature: String @rename(attribute: "indigenous_declaration_signature")
+  indigenousCommunities: [IndigenousCommunities]
+    @rename(attribute: "indigenous_communities")
+  indigenousDeclarationSignature: String
+    @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
   jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
@@ -229,8 +231,10 @@ type Applicant {
   hasDisability: Boolean @rename(attribute: "has_disability")
   isIndigenous: Boolean @rename(attribute: "is_indigenous")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunities] @rename(attribute: "indigenous_communities")
-  indigenousDeclarationSignature: String @rename(attribute: "indigenous_declaration_signature")
+  indigenousCommunities: [IndigenousCommunities]
+    @rename(attribute: "indigenous_communities")
+  indigenousDeclarationSignature: String
+    @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
   jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
@@ -1003,8 +1007,10 @@ input CreateUserInput {
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunities] @rename(attribute: "indigenous_communities")
-  indigenousDeclarationSignature: String @rename(attribute: "indigenous_declaration_signature")
+  indigenousCommunities: [IndigenousCommunities]
+    @rename(attribute: "indigenous_communities")
+  indigenousDeclarationSignature: String
+    @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
   jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
@@ -1072,8 +1078,10 @@ input UpdateUserAsAdminInput
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunities] @rename(attribute: "indigenous_communities")
-  indigenousDeclarationSignature: String @rename(attribute: "indigenous_declaration_signature")
+  indigenousCommunities: [IndigenousCommunities]
+    @rename(attribute: "indigenous_communities")
+  indigenousDeclarationSignature: String
+    @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
   jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
@@ -1137,8 +1145,10 @@ input UpdateUserAsUserInput
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunities] @rename(attribute: "indigenous_communities")
-  indigenousDeclarationSignature: String @rename(attribute: "indigenous_declaration_signature")
+  indigenousCommunities: [IndigenousCommunities]
+    @rename(attribute: "indigenous_communities")
+  indigenousDeclarationSignature: String
+    @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
   jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")

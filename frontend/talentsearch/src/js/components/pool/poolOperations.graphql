@@ -1,5 +1,5 @@
 query getPool($id: ID!) {
-  poolAdvertisement (id: $id) {
+  poolAdvertisement(id: $id) {
     id
     name {
       en
