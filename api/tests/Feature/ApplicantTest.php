@@ -119,8 +119,8 @@ class ApplicantTest extends TestCase
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'is_woman' => false,
                 'has_disability' => false,
-                'is_indigenous' => false,
                 'is_visible_minority' => false,
+                'indigenous_communities' => null,
             ])
         ]);
 
@@ -132,7 +132,7 @@ class ApplicantTest extends TestCase
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'is_woman' => true,
                 'has_disability' => false,
-                'is_indigenous' => false,
+                'indigenous_communities' => [ApiEnums::INDIGENOUS_OTHER], // will not be filtered for
                 'is_visible_minority' => false,
             ])
         ]);
@@ -145,7 +145,7 @@ class ApplicantTest extends TestCase
                 'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
                 'is_woman' => true,
                 'has_disability' => true,
-                'is_indigenous' => false,
+                'indigenous_communities' => [ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS], // will be filtered for
                 'is_visible_minority' => false,
             ])
         ]);
@@ -187,7 +187,7 @@ class ApplicantTest extends TestCase
                     'equity' => [
                         'isWoman' => false,
                         'hasDisability' => false,
-                        'isIndigenous' => false,
+                        'indigenousCommunities' => null,
                         'isVisibleMinority' => false,
                     ],
                 ]
@@ -220,6 +220,30 @@ class ApplicantTest extends TestCase
         )->assertJson([
             'data' => [
                 'countApplicants' => 2
+            ]
+        ]);
+
+        // Assert query will correctly filter for LEGACY_IS_INDIGENOUS
+        $this->graphQL(
+            /** @lang Graphql */
+            '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $pool1['id']],
+                    ],
+                    'equity' => [
+                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS],
+                    ],
+                ]
+            ]
+        )->assertJson([
+            'data' => [
+                'countApplicants' => 1
             ]
         ]);
     }
