@@ -154,8 +154,8 @@ module.exports = {
   },
   output: {
     publicPath: "/admin/", // final path for routing
-    filename: "[contenthash].[name].js", // file hashing for cache busting
-    chunkFilename: "[contenthash].[name].js", // file hashing for cache busting
+    filename: "[name].[contenthash].js", // file hashing for cache busting
+    chunkFilename: "[name].[contenthash].js", // file hashing for cache busting
     path: path.resolve(__dirname, "dist"), // output folder
     clean: true, // delete existing files on recompile
   },
