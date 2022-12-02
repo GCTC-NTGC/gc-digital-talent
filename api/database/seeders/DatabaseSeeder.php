@@ -59,9 +59,10 @@ class DatabaseSeeder extends Seeder
                 $genericJobTitles = GenericJobTitle::inRandomOrder()->limit(2)->pluck('id')->toArray();
                 $user->expectedGenericJobTitles()->sync($genericJobTitles);
 
-                // pick a pool in which to place this user
+                // pick a published pool in which to place this user
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
-                $randomPool = Pool::inRandomOrder()->limit(1)->first();
+                // digital careers is always published and strictly defined in PoolSeeder
+                $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->limit(1)->first();
                 $digitalTalentPool = Pool::where('key', "digital_careers")->first();
                 $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
 
