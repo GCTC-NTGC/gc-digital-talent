@@ -43,7 +43,7 @@ module.exports = {
     },
 
     // process and copy CSS files
-    new MiniCssExtractPlugin({ filename: "[name].css?id=[contenthash]" }),
+    new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
 
     // plain copy files to target folder
     new CopyPlugin({
