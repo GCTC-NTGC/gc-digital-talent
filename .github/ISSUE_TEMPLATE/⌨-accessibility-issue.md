@@ -2,7 +2,7 @@
 name: "⌨ Accessibility Issue"
 about: An accessibility related issue template.
 title: "⌨ Accessibility Issue"
-labels: accessibility, component, epic
+labels: accessibility
 assignees: ''
 
 ---
