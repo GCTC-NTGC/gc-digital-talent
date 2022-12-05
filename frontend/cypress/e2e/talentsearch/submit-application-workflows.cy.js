@@ -15,8 +15,6 @@ import {
 } from "../../../common/src/helpers/dateUtils";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
-const uniqueTestId = Date.now().valueOf();
-
 describe("Submit Application Workflow Tests", () => {
   beforeEach(() => {
     // register queries
@@ -38,6 +36,11 @@ describe("Submit Application Workflow Tests", () => {
       cy.wrap([allGenericJobTitles[0].id]).as("testGenericJobTitleIds"); // take the first ID for testing
       cy.wrap(allGenericJobTitles[0].classification.id).as("testClassificationId"); // take the first ID for testing
     });
+  });
+
+  it("Submits an application to a new pool", () => {
+    const uniqueTestId = Date.now().valueOf();
+    cy.log(`Test run ${uniqueTestId}`);
 
     cy.loginByRole("admin").then(() => {
       cy.get("@testGenericJobTitleIds").then((testGenericJobTitleIds) => {
@@ -122,9 +125,7 @@ describe("Submit Application Workflow Tests", () => {
             });
         });
       });
-  });
 
-  it("Submits an application to a new pool", () => {
     cy.get("@testUserSub").then((sub) => {
       cy.loginBySubject(sub);
     });

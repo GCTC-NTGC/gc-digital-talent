@@ -3,17 +3,8 @@ import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
 import { createApplicant } from "../../support/userHelpers";
 
-// have a unique ID to track the test objects with
-const uniqueTestId = Date.now().valueOf();
-
-// calculate how the classification will be displayed in the UI
-const classificationName = (classification) =>
-  `${classification.group}-${classification.level.toString().padStart(2, "0")}`;
-
 describe("Talent Search Workflow Tests", () => {
   beforeEach(() => {
-    cy.log(`Test run ${uniqueTestId}`);
-
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "CountApplicantsAndCountPoolCandidatesByPool");
       aliasQuery(req, "getPoolCandidateSearchRequestData");
@@ -33,6 +24,38 @@ describe("Talent Search Workflow Tests", () => {
       cy.wrap(testGenericJobTitle2.id).as("testGenericJobTitleId2");
       cy.wrap(testGenericJobTitle2.classification).as("testClassification2");
     });
+  });
+
+  // calculate how the classification will be displayed in the UI
+  const classificationName = (classification) =>
+    `${classification.group}-${classification.level
+      .toString()
+      .padStart(2, "0")}`;
+
+  it("searches for a candidate with all the filters and submits a request", () => {
+    // have a unique ID to track the test objects with
+    const uniqueTestId = Date.now().valueOf();
+    cy.log(`Test run ${uniqueTestId}`);
+
+    const searchFindsMySingleCandidate = () => {
+      cy.findAllByRole("article", {
+        name: `Cypress Test Pool EN 1 ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
+      }).within(() => {
+        cy.contains("There is 1 matching candidate in this pool");
+
+        cy.findByRole("button", { name: /Request Candidates/i })
+          .should("exist")
+          .and("be.visible")
+          .and("not.be.disabled");
+      });
+    };
+
+    const searchRejectsMySingleCandidate = () => {
+      cy.findAllByRole("article", {
+        name: `Cypress Test Pool 1 EN ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
+      }).should("not.exist");
+    };
+
 
     // create a test user to attach test candidates to
     cy.loginByRole("admin").then(() => {
@@ -106,28 +129,7 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     cy.visit("/en/search");
-  });
 
-  const searchFindsMySingleCandidate = () => {
-    cy.findAllByRole("article", {
-      name: `Cypress Test Pool EN 1 ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
-    }).within(() => {
-      cy.contains("There is 1 matching candidate in this pool");
-
-      cy.findByRole("button", { name: /Request Candidates/i })
-        .should("exist")
-        .and("be.visible")
-        .and("not.be.disabled");
-    });
-  };
-
-  const searchRejectsMySingleCandidate = () => {
-    cy.findAllByRole("article", {
-      name: `Cypress Test Pool 1 EN ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
-    }).should("not.exist");
-  };
-
-  it("searches for a candidate with all the filters and submits a request", () => {
     // first request is without any filters
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
 
