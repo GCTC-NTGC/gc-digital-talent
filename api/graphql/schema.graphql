@@ -75,7 +75,9 @@ type User {
   # Employment equity
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean @rename(attribute: "is_indigenous")
+  isIndigenous: Boolean
+    @rename(attribute: "is_indigenous")
+    @deprecated(reason: "replaced by indigenousCommunities")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
   indigenousCommunities: [IndigenousCommunity]
     @rename(attribute: "indigenous_communities")
@@ -229,7 +231,9 @@ type Applicant {
   # Employment equity
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean @rename(attribute: "is_indigenous")
+  isIndigenous: Boolean
+    @rename(attribute: "is_indigenous")
+    @deprecated(reason: "replaced by indigenousCommunities")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
   indigenousCommunities: [IndigenousCommunity]
     @rename(attribute: "indigenous_communities")
@@ -508,6 +512,7 @@ enum PoolCandidateSearchStatus {
   DONE
 }
 
+# equity selections goes with the pool/applicant filters and not user model
 type EquitySelections {
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
@@ -519,7 +524,7 @@ input EquitySelectionsInput {
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  isIndigenous: Boolean @rename(attribute: "is_indigenous") # this input corresponds to the filters table and not users tables
+  isIndigenous: Boolean @rename(attribute: "is_indigenous")
 }
 
 type PoolCandidateFilter {

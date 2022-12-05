@@ -33,7 +33,7 @@ type Applicant {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
+  isIndigenous: Boolean @deprecated(reason: "replaced by indigenousCommunities")
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
@@ -1467,7 +1467,7 @@ type User {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
+  isIndigenous: Boolean @deprecated(reason: "replaced by indigenousCommunities")
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
