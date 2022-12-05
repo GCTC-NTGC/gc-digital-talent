@@ -56,7 +56,6 @@ describe("Talent Search Workflow Tests", () => {
       }).should("not.exist");
     };
 
-
     // create a test user to attach test candidates to
     cy.loginByRole("admin").then(() => {
       cy.getMe()
@@ -132,7 +131,6 @@ describe("Talent Search Workflow Tests", () => {
 
     // first request is without any filters
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
-
     searchFindsMySingleCandidate();
 
     // classification filter - fail
@@ -179,14 +177,14 @@ describe("Talent Search Workflow Tests", () => {
     // work location combobox
     cy.findByRole("combobox", { name: /Region/i }).then((combobox) => {
       // fail
-      cy.wrap(combobox).type("Atlantic{enter}{enter}");
+      cy.wrap(combobox).type("Atlantic{enter}");
       cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
       searchRejectsMySingleCandidate();
       // reset
       cy.wrap(combobox).type("{backspace}");
-      // clearing does not trigger another api request
+      searchFindsMySingleCandidate();
       // pass
-      cy.wrap(combobox).type("Ontario{enter}{enter}");
+      cy.wrap(combobox).type("Ontario{enter}");
       cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
       searchFindsMySingleCandidate();
     });
@@ -232,6 +230,7 @@ describe("Talent Search Workflow Tests", () => {
         name: `Add this skill : ${skill.name.en}`,
       }).click();
       // skill selection does not trigger an api request
+      searchFindsMySingleCandidate();
     });
 
     // conditions of employment, no negation possible
