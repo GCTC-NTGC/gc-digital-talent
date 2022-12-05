@@ -1,8 +1,4 @@
 {
-  "+e8VZ8": {
-    "defaultMessage": "Erreur : Échec de la mise à jour de l’actif du BGC",
-    "description": "Message displayed to user after cmo asset fails to get updated."
-  },
   "/Y7x+s": {
     "defaultMessage": "Créer un bassin",
     "description": "Heading displayed above the Create Pool form."
@@ -75,10 +71,6 @@
     "defaultMessage": "Sélectionner un bassin...",
     "description": "Placeholder displayed on the pool candidate form Pool field."
   },
-  "4XF9kF": {
-    "defaultMessage": "Nom",
-    "description": "Title displayed for the CMO Asset table Name column."
-  },
   "4boO/6": {
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the create a department form name (English) field."
@@ -90,10 +82,6 @@
   "5FFRV2": {
     "defaultMessage": "Erreur : Échec de la mise à jour de l’utilisateur",
     "description": "Message displayed to user after user fails to get updated."
-  },
-  "5JRGJY": {
-    "defaultMessage": "Mettre à jour un actif du BGC",
-    "description": "Title displayed on the update a cmo asset form."
   },
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
@@ -118,10 +106,6 @@
   "7d/ot8": {
     "defaultMessage": "Basculer tout",
     "description": "Label displayed on the Table Columns toggle fieldset."
-  },
-  "7iglPJ": {
-    "defaultMessage": "Créer un actif du BGC",
-    "description": "Heading displayed above the Create CMO Asset form."
   },
   "7wYPgC": {
     "defaultMessage": "Nom (anglais)",
@@ -175,14 +159,6 @@
     "defaultMessage": "Demande de recherche {searchRequestId} introuvable.",
     "description": "Message displayed for search request not found on single search request page."
   },
-  "BfXsHe": {
-    "defaultMessage": "Clé",
-    "description": "Label displayed on the create a cmo asset form key field."
-  },
-  "CcOlo0": {
-    "defaultMessage": "Clé",
-    "description": "Title displayed for the CMO Asset table Key column."
-  },
   "D2DUgE": {
     "defaultMessage": "Sélectionner un ou plusieurs actifs du BGC...",
     "description": "Placeholder displayed on the pool candidate form cmo assets field."
@@ -223,10 +199,6 @@
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
   },
-  "FvnSwn": {
-    "defaultMessage": "Identifiant",
-    "description": "Title displayed on the CMO Asset table ID column."
-  },
   "GGjwcl": {
     "defaultMessage": "Critères constituant un atout",
     "description": "Label displayed on the pool form asset criteria field."
@@ -238,10 +210,6 @@
   "H5EJq1": {
     "defaultMessage": "Mettre à jour un bassin",
     "description": "Title displayed on the update a pool form."
-  },
-  "HAEmDX": {
-    "defaultMessage": "Actifs du BGC",
-    "description": "Heading displayed above the CMO Asset Table component."
   },
   "HH7lQo": {
     "defaultMessage": "Erreur : Échec de la mise à jour du bassin de candidats",
@@ -287,10 +255,6 @@
     "defaultMessage": "Mettre à jour un ministère",
     "description": "Title displayed on the update a department form."
   },
-  "Kdfiu3": {
-    "defaultMessage": "Mise à jour de l’actif du BGC réussie!",
-    "description": "Message displayed to user after cmo asset is updated successfully."
-  },
   "Ke0TPJ": {
     "defaultMessage": "Salaire maximal",
     "description": "Title displayed for the Classification table Maximum Salary column."
@@ -303,25 +267,9 @@
     "defaultMessage": "Statut",
     "description": "Title for the status block in the manager info section of the single search request view."
   },
-  "MMP0XC": {
-    "defaultMessage": "Actifs du BGC",
-    "description": "Label displayed on the CMO Assets menu item."
-  },
   "MmFgbF": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed on the single search request table classifications column."
-  },
-  "MpB5zS": {
-    "defaultMessage": "Créer un actif du BGC",
-    "description": "Title displayed on the create a cmo asset form."
-  },
-  "NhQGh5": {
-    "defaultMessage": "Erreur : Échec de la création de l’actif du BGC",
-    "description": "Message displayed to user after cmo asset fails to get created."
-  },
-  "Nhto6b": {
-    "defaultMessage": "Création de l’actif du BGC réussie!",
-    "description": "Message displayed to user after cmo asset is created successfully."
   },
   "OqGhl+": {
     "defaultMessage": "Sélectionner un niveau...",
@@ -450,10 +398,6 @@
   "ZSXEfX": {
     "defaultMessage": "Classifications",
     "description": "Label displayed on the pool form classifications field."
-  },
-  "ZZaEho": {
-    "defaultMessage": "Description",
-    "description": "Title displayed for the CMO Asset table Description column."
   },
   "ZbW9T7": {
     "defaultMessage": "Erreur : Échec de la mise à jour du bassin",
@@ -678,10 +622,6 @@
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the search request table requested date column."
   },
-  "rE/ytf": {
-    "defaultMessage": "Actif du BGC {cmoAssetId} introuvable.",
-    "description": "Message displayed for cmo asset not found."
-  },
   "rfkkae": {
     "defaultMessage": "Statut",
     "description": "Label displayed on the pool candidate form status field."
@@ -713,10 +653,6 @@
   "uAmdiU": {
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the classification form name (French) field."
-  },
-  "vg3F7X": {
-    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un actif du BGC. Elle doit être basée sur le nom anglais de l’actif du BGC et doit être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cet actif du BGC particulier, et ne peut donc pas être modifiée ultérieurement.",
-    "description": "Additional context describing the purpose of the CMO Asset's 'key' field."
   },
   "vkus5u": {
     "defaultMessage": "Sélectionner une ou plusieurs exigences opérationnelles...",
@@ -758,10 +694,6 @@
     "defaultMessage": "Création du bassin de candidats réussie!",
     "description": "Message displayed to user after pool candidate is created successfully."
   },
-  "z2m2Gp": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the CMO Asset table Edit column."
-  },
   "zWX4ko": {
     "defaultMessage": "Actifs du BGC",
     "description": "Label displayed on the pool candidate form cmo assets field."
@@ -769,22 +701,6 @@
   "zwcUgi": {
     "defaultMessage": "Ministère",
     "description": "Title for the department block in the manager info section of the single search request view."
-  },
-  "U6V+uR": {
-    "defaultMessage": "Nom (anglais)",
-    "description": "Label displayed on the create a cmo asset form name (English) field."
-  },
-  "oVWttp": {
-    "defaultMessage": "Description (français)",
-    "description": "Label displayed on the create a cmo asset form description (French) field."
-  },
-  "pHVKt/": {
-    "defaultMessage": "Nom (français)",
-    "description": "Label displayed on the create a cmo asset form name (French) field."
-  },
-  "zgaPwN": {
-    "defaultMessage": "Description (anglais)",
-    "description": "Label displayed on the create a cmo asset form description (English) field."
   },
   "0oqRIl": {
     "defaultMessage": "Nom (français)",
