@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import SEO from "@common/components/SEO/SEO";
 import { ExternalLink } from "@common/components/Link";
 import { getLocale } from "@common/helpers/localize";
 import imageUrl from "@common/helpers/imageUrl";
@@ -20,8 +21,15 @@ const RegisterPage: React.FC = () => {
   const apiPaths = useApiRoutes();
   const loginPath = apiPaths.login(paths.myProfile(), getLocale(intl));
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Register using GC Key",
+    id: "zILELf",
+    description: "Title for the registration page for applicant profiles.",
+  });
+
   return (
     <>
+      <SEO title={pageTitle} />
       <div
         data-h2-padding="base(x1, x.5)"
         data-h2-color="base(dt-white)"
@@ -36,14 +44,7 @@ const RegisterPage: React.FC = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 data-h2-margin="base(x2, 0)">
-          {intl.formatMessage({
-            defaultMessage: "Register using GC Key",
-            id: "zILELf",
-            description:
-              "Title for the registration page for applicant profiles.",
-          })}
-        </h1>
+        <h1 data-h2-margin="base(x2, 0)">{pageTitle}</h1>
       </div>
       <div data-h2-padding="base(x3, 0)">
         <div data-h2-container="base(center, small, x1) p-tablet(center, small, x2)">

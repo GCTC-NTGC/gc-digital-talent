@@ -2479,5 +2479,29 @@
   "ugosop": {
     "defaultMessage": "Continuer ma candidature",
     "description": "Link text to continue an existing application"
+  },
+  "4I6WIU": {
+    "defaultMessage": "Bienvenue",
+    "description": "Title for the homepage"
+  },
+  "KJxmlD": {
+    "defaultMessage": "Parcourez les opportunités",
+    "description": "Title for the brows pools page"
+  },
+  "WPkc5j": {
+    "defaultMessage": "Researche bassin de talents",
+    "description": "Page title for page"
+  },
+  "ZxLDpB": {
+    "defaultMessage": "Profil de candidature",
+    "description": "Page title for pool application review"
+  },
+  "pR23NW": {
+    "defaultMessage": "Mon profil",
+    "description": "Page title for the applicants profile page"
+  },
+  "pf1Ffp": {
+    "defaultMessage": "Submit application profile",
+    "description": "Page title for pool application sign and submit page"
   }
 }

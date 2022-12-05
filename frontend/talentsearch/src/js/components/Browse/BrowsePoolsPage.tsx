@@ -8,6 +8,7 @@ import Hero from "@common/components/Hero";
 import Heading from "@common/components/Heading";
 import Link from "@common/components/Link";
 import Pending from "@common/components/Pending";
+import SEO from "@common/components/SEO/SEO";
 import imageUrl from "@common/helpers/imageUrl";
 import useTheme from "@common/hooks/useTheme";
 import { AuthenticationContext } from "@common/components/Auth";
@@ -81,6 +82,13 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
 
   return (
     <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Browse opportunities",
+          id: "KJxmlD",
+          description: "Title for the brows pools page",
+        })}
+      />
       <Hero
         imgPath={imageUrl(TALENTSEARCH_APP_DIR, "browse_header.jpg")}
         title={title}
