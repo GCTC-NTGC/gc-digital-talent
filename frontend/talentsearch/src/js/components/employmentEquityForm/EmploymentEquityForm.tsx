@@ -11,11 +11,7 @@ import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import EquityOptions from "./EquityOptions";
 import type { EmploymentEquityUpdateHandler, EquityKeys } from "./types";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-import {
-  User,
-  PoolCandidate,
-  IndigenousCommunities,
-} from "../../api/generated";
+import { User, PoolCandidate, IndigenousCommunity } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
 
 export interface EmploymentEquityFormProps {
@@ -44,7 +40,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
     if (key === "isIndigenous") {
       if (value) {
         return onUpdate(user.id, {
-          indigenousCommunities: [IndigenousCommunities.LegacyIsIndigenous],
+          indigenousCommunities: [IndigenousCommunity.LegacyIsIndigenous],
         });
       }
       return onUpdate(user.id, {

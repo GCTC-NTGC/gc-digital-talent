@@ -3,7 +3,7 @@ import type { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { fakeUsers } from "@common/fakeData";
 import {
-  IndigenousCommunities,
+  IndigenousCommunity,
   InputMaybe,
   UpdateUserAsUserInput,
 } from "../../api/generated";
@@ -48,7 +48,7 @@ const TemplateDiversityEquityInclusionForm: Story<
       data;
 
     const isIndigenous = indigenousCommunities?.includes(
-      IndigenousCommunities.LegacyIsIndigenous,
+      IndigenousCommunity.LegacyIsIndigenous,
     );
     const newUser = {
       ...dataToUpdateUser("isWoman", isWoman),

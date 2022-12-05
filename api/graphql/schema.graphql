@@ -77,7 +77,7 @@ type User {
   hasDisability: Boolean @rename(attribute: "has_disability")
   isIndigenous: Boolean @rename(attribute: "is_indigenous")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunities]
+  indigenousCommunities: [IndigenousCommunity]
     @rename(attribute: "indigenous_communities")
   indigenousDeclarationSignature: String
     @rename(attribute: "indigenous_declaration_signature")
@@ -181,7 +181,7 @@ enum PositionDuration {
   PERMANENT
 }
 
-enum IndigenousCommunities {
+enum IndigenousCommunity {
   STATUS_FIRST_NATIONS
   NON_STATUS_FIRST_NATIONS
   INUIT
@@ -231,7 +231,7 @@ type Applicant {
   hasDisability: Boolean @rename(attribute: "has_disability")
   isIndigenous: Boolean @rename(attribute: "is_indigenous")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunities]
+  indigenousCommunities: [IndigenousCommunity]
     @rename(attribute: "indigenous_communities")
   indigenousDeclarationSignature: String
     @rename(attribute: "indigenous_declaration_signature")
@@ -1007,7 +1007,7 @@ input CreateUserInput {
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunities]
+  indigenousCommunities: [IndigenousCommunity]
     @rename(attribute: "indigenous_communities")
   indigenousDeclarationSignature: String
     @rename(attribute: "indigenous_declaration_signature")
@@ -1078,7 +1078,7 @@ input UpdateUserAsAdminInput
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunities]
+  indigenousCommunities: [IndigenousCommunity]
     @rename(attribute: "indigenous_communities")
   indigenousDeclarationSignature: String
     @rename(attribute: "indigenous_declaration_signature")
@@ -1145,7 +1145,7 @@ input UpdateUserAsUserInput
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunities]
+  indigenousCommunities: [IndigenousCommunity]
     @rename(attribute: "indigenous_communities")
   indigenousDeclarationSignature: String
     @rename(attribute: "indigenous_declaration_signature")

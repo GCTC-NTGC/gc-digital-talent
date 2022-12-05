@@ -35,7 +35,7 @@ type Applicant {
   hasDisability: Boolean
   isIndigenous: Boolean
   isVisibleMinority: Boolean
-  indigenousCommunities: [IndigenousCommunities]
+  indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   poolCandidates: [PoolCandidate]
@@ -377,7 +377,7 @@ input CreateUserInput {
   isWoman: Boolean
   hasDisability: Boolean
   isVisibleMinority: Boolean
-  indigenousCommunities: [IndigenousCommunities]
+  indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
@@ -539,7 +539,7 @@ input IdInput {
   id: ID!
 }
 
-enum IndigenousCommunities {
+enum IndigenousCommunity {
   STATUS_FIRST_NATIONS
   NON_STATUS_FIRST_NATIONS
   INUIT
@@ -1370,7 +1370,7 @@ input UpdateUserAsAdminInput {
   isWoman: Boolean
   hasDisability: Boolean
   isVisibleMinority: Boolean
-  indigenousCommunities: [IndigenousCommunities]
+  indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
@@ -1418,7 +1418,7 @@ input UpdateUserAsUserInput {
   isWoman: Boolean
   hasDisability: Boolean
   isVisibleMinority: Boolean
-  indigenousCommunities: [IndigenousCommunities]
+  indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
@@ -1469,7 +1469,7 @@ type User {
   hasDisability: Boolean
   isIndigenous: Boolean
   isVisibleMinority: Boolean
-  indigenousCommunities: [IndigenousCommunities]
+  indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
