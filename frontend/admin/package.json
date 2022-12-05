@@ -120,7 +120,7 @@
     "react-hook-form": "~7.38.0",
     "react-intl": "^6.2.1",
     "react-router-dom": "^6.4.3",
-    "react-select": "^5.6.1",
+    "react-select": "^5.7.0",
     "react-table": "^7.8.0",
     "react-to-print": "^2.14.10",
     "react-toastify": "^9.1.1",
