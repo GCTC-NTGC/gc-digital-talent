@@ -43,7 +43,7 @@ module.exports = {
     },
 
     // process and copy CSS files
-    new MiniCssExtractPlugin({ filename: "[name].css?id=[contenthash]" }),
+    new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
 
     // plain copy files to target folder
     new CopyPlugin({
@@ -68,6 +68,7 @@ module.exports = {
         BUILD_DATE: JSON.stringify(new Date()),
         API_SUPPORT_ENDPOINT: JSON.stringify(process.env.API_SUPPORT_ENDPOINT),
         TALENTSEARCH_SUPPORT_EMAIL: JSON.stringify(process.env.TALENTSEARCH_SUPPORT_EMAIL),
+        TALENTSEARCH_RECRUITMENT_EMAIL: JSON.stringify(process.env.TALENTSEARCH_RECRUITMENT_EMAIL),
       },
     }),
 
@@ -143,8 +144,8 @@ module.exports = {
   },
   output: {
     publicPath: "/talent/", // final path for routing
-    filename: "[name].js?id=[contenthash]", // file hashing for cache busting
-    chunkFilename: "[name].js?id=[contenthash]", // file hashing for cache busting
+    filename: "[name].[contenthash].js", // file hashing for cache busting
+    chunkFilename: "[name].[contenthash].js", // file hashing for cache busting
     path: path.resolve(__dirname, "dist"), // output folder
     clean: true, // delete existing files on recompile
   },
