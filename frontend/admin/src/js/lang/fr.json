@@ -2584,5 +2584,77 @@
   "k4xm25": {
     "defaultMessage": "Téléchargement a échoué : Aucune rangée n’a été sélectionnée",
     "description": "Alert message displayed when a user attempts to print without selecting items first"
+  },
+  "+0wLVV": {
+    "defaultMessage": "Admin",
+    "description": "Page title for the admin dashboard page"
+  },
+  "+4Zmyc": {
+    "defaultMessage": "Demandes de talent",
+    "description": "Page title for the search request index page"
+  },
+  "0VlOQq": {
+    "defaultMessage": "Modifier - compétence",
+    "description": "Page title for the edit skill page."
+  },
+  "dj8GiH": {
+    "defaultMessage": "Détails sur le candidat",
+    "description": "Page title for the individual user page"
+  },
+  "fYyK2p": {
+    "defaultMessage": "Créer une classification",
+    "description": "Page title for the classification creation page"
+  },
+  "Eydy42": {
+    "defaultMessage": "Mettre à jour l’utilisateur",
+    "description": "Page title for the user edit page"
+  },
+  "FCQnWB": {
+    "defaultMessage": "Créer - famille",
+    "description": "Page title for the skill family creation page"
+  },
+  "GKo3Df": {
+    "defaultMessage": "Mettre à jour un ministère",
+    "description": "Page title for the department edit page"
+  },
+  "Kr9mHX": {
+    "defaultMessage": "Utilisateurs",
+    "description": "Page title for the user index page"
+  },
+  "OCmMDP": {
+    "defaultMessage": "Modifier - classification",
+    "description": "Page title for the edit classification page"
+  },
+  "PRrRRN": {
+    "defaultMessage": "Créer un ministère",
+    "description": "Page title for the department creation page"
+  },
+  "SnytBx": {
+    "defaultMessage": "Bassins",
+    "description": "Page title for the pools index page"
+  },
+  "azdo5+": {
+    "defaultMessage": "Modifier - famille",
+    "description": "Page title for the skill family edit page"
+  },
+  "dc5TeX": {
+    "defaultMessage": "Modifier - bassin",
+    "description": "Page title for the edit pool page"
+  },
+  "hUIqiV": {
+    "defaultMessage": "Familles de compétence",
+    "description": "Page title for the skill family index page"
+  },
+  "vINfxJ": {
+    "defaultMessage": "Annonce du bassin",
+    "description": "Page title for the individual pool page"
+  },
+  "xJm72U": {
+    "defaultMessage": "Classifications",
+    "description": "Page title for the classification index page"
+  },
+  "zwYuly": {
+    "defaultMessage": "Créer un bassin",
+    "description": "Page title for the pool creation page"
   }
 }

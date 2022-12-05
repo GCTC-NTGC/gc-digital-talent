@@ -22,6 +22,7 @@ import { getSkillCategory } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import Heading from "@common/components/Heading/Heading";
+import SEO from "@common/components/SEO/SEO";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -272,32 +273,41 @@ const UpdateSkillFamily = () => {
     });
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <DashboardContentContainer>
-        {lookupData?.skillFamily ? (
-          <UpdateSkillFamilyForm
-            initialSkillFamily={lookupData?.skillFamily}
-            skills={skills}
-            handleUpdateSkillFamily={handleUpdateSkillFamily}
-          />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "SkillFamily {skillFamilyId} not found.",
-                  id: "ZWnKEJ",
-                  description: "Message displayed for skillFamily not found.",
-                },
-                { skillFamilyId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </DashboardContentContainer>
-    </Pending>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Edit skill family",
+          id: "azdo5+",
+          description: "Page title for the skill family edit page",
+        })}
+      />
+      <Pending fetching={fetching} error={error}>
+        <DashboardContentContainer>
+          {lookupData?.skillFamily ? (
+            <UpdateSkillFamilyForm
+              initialSkillFamily={lookupData?.skillFamily}
+              skills={skills}
+              handleUpdateSkillFamily={handleUpdateSkillFamily}
+            />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "SkillFamily {skillFamilyId} not found.",
+                    id: "ZWnKEJ",
+                    description: "Message displayed for skillFamily not found.",
+                  },
+                  { skillFamilyId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </DashboardContentContainer>
+      </Pending>
+    </>
   );
 };
 

@@ -11,6 +11,7 @@ import NotFound from "@common/components/NotFound";
 import Heading from "@common/components/Heading";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { useParams } from "react-router-dom";
+import SEO from "@common/components/SEO/SEO";
 import { useAdminRoutes } from "../../adminRoutes";
 import { Scalars, User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -129,28 +130,37 @@ const ViewUser = () => {
   });
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <DashboardContentContainer>
-        {data?.user ? (
-          <ViewUserPage user={data.user} />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "User {userId} not found.",
-                  id: "0SoKjt",
-                  description: "Message displayed for user not found.",
-                },
-                { userId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </DashboardContentContainer>
-    </Pending>
+    <>
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Candidate details",
+          id: "dj8GiH",
+          description: "Page title for the individual user page",
+        })}
+      />
+      <Pending fetching={fetching} error={error}>
+        <DashboardContentContainer>
+          {data?.user ? (
+            <ViewUserPage user={data.user} />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "User {userId} not found.",
+                    id: "0SoKjt",
+                    description: "Message displayed for user not found.",
+                  },
+                  { userId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </DashboardContentContainer>
+      </Pending>
+    </>
   );
 };
 
