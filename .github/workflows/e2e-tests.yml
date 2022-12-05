@@ -94,6 +94,6 @@ jobs:
         if: failure()
         run: docker-compose ps
 
-      - name: 'Check logs: PHP container'
+      - name: 'Check logs: web server container'
         if: failure()
-        run: docker-compose logs php
+        run: docker-compose logs webserver
