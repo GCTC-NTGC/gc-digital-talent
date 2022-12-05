@@ -41,6 +41,7 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
       if (value) {
         return onUpdate(user.id, {
           indigenousCommunities: [IndigenousCommunity.LegacyIsIndigenous],
+          indigenousDeclarationSignature: "PLACEHOLDER",
         });
       }
       return onUpdate(user.id, {

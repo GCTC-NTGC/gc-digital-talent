@@ -34,6 +34,19 @@ return new class extends Migration
             ]
         );
 
+        DB::statement(
+            <<<SQL
+                UPDATE users
+                    SET indigenous_declaration_signature =
+                        case is_indigenous
+                            when true then :placeholder
+                            when false then :placeholder
+                        end
+            SQL, [
+                'placeholder' => 'migrated 2022 december',
+            ]
+        );
+
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('is_indigenous');
         });
