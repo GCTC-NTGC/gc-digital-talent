@@ -55,12 +55,10 @@ return new class extends Migration
                 UPDATE users
                     SET is_indigenous =
                         case
-                            when indigenous_communities ?? :legacy then true
-                            when not indigenous_communities ?? :legacy then false
+                            when (jsonb_array_length(indigenous_communities) > 0) then true
+                            when not (jsonb_array_length(indigenous_communities) > 0) then false
                         end
-            SQL, [
-                'legacy' => ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS,
-            ]
+            SQL, []
         );
 
         Schema::table('users', function (Blueprint $table) {
