@@ -19,7 +19,6 @@ import Card from "@common/components/Card";
 import { Button, Link } from "@common/components";
 import { getLocale } from "@common/helpers/localize";
 import imageUrl from "@common/helpers/imageUrl";
-import { isUuidError } from "@common/helpers/errorUtils";
 import {
   AdvertisementStatus,
   Scalars,
