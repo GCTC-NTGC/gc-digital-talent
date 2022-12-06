@@ -1,7 +1,7 @@
 import * as React from "react";
 import get from "lodash/get";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
-import { useFieldStateStyles } from "../../../helpers/formUtils";
+import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 import { InputWrapper } from "../../inputPartials";
 
 export interface InputProps
@@ -52,6 +52,8 @@ const Input: React.FunctionComponent<InputProps> = ({
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
+  const fieldState = useFieldState(id, !trackUnsaved);
+  const isUnsaved = fieldState === "dirty" && trackUnsaved;
 
   const whitespaceTrimmer = (e: React.FocusEvent<HTMLInputElement>) => {
     if (whitespaceTrim) {
@@ -86,7 +88,7 @@ const Input: React.FunctionComponent<InputProps> = ({
           })}
           readOnly={readOnly}
           aria-required={rules.required ? "true" : undefined}
-          aria-invalid={error ? "true" : "false"}
+          aria-invalid={error || isUnsaved ? "true" : "false"}
           aria-describedby={error ? `${id}-error` : undefined}
           {...rest}
         />

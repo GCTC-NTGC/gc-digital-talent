@@ -2,7 +2,7 @@ import * as React from "react";
 import get from "lodash/get";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import { InputWrapper } from "../../inputPartials";
-import { useFieldStateStyles } from "../../../helpers/formUtils";
+import { useFieldState, useFieldStateStyles } from "../../../helpers/formUtils";
 
 export interface TextAreaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -39,6 +39,8 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
     setValue,
   } = useFormContext();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
+  const fieldState = useFieldState(id, !trackUnsaved);
+  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
 
@@ -70,7 +72,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
           onBlur={whitespaceTrimmer}
           aria-required={rules.required ? "true" : undefined}
           aria-invalid={error ? "true" : "false"}
-          aria-describedby={error ? `${id}-error` : undefined}
+          aria-describedby={error || isUnsaved ? `${id}-error` : undefined}
           {...rest}
         />
         {children}
