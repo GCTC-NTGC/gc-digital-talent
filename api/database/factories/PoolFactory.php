@@ -29,7 +29,6 @@ class PoolFactory extends Factory
     {
         $name = $this->faker->unique()->company();
         $isRemote = $this->faker->boolean();
-        $publishingGroup = $this->faker->optional->randomElement(ApiEnums::publishingGroups());
         return [
             'name' => ['en' => $name, 'fr' => $name],
             'key' => KeyStringHelpers::toKeyString($name),
@@ -47,7 +46,7 @@ class PoolFactory extends Factory
             'is_remote' => $isRemote,
             'stream' => $this->faker->optional->randomElement(ApiEnums::poolStreams()),
             'process_number' => $this->faker->optional->word(),
-            'publishing_group' => $publishingGroup
+            'publishing_group' => $this->faker->optional->randomElement(ApiEnums::publishingGroups())
         ];
     }
 
