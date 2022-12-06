@@ -1393,7 +1393,7 @@
     "description": "declaring one to be a Canadian citizen"
   },
   "92hwzj": {
-    "defaultMessage": "Statut de citoyenneté:",
+    "defaultMessage": "Statut de citoyenneté :",
     "description": "Citizenship status label"
   },
   "CX/qKY": {
@@ -1417,11 +1417,11 @@
     "description": "Link text for button to return to user application"
   },
   "3JL02L": {
-    "defaultMessage": "Décerné à:",
+    "defaultMessage": "Décerné à :",
     "description": "The award was given to"
   },
   "FAOzjP": {
-    "defaultMessage": "Portée:",
+    "defaultMessage": "Portée :",
     "description": "The scope of the award given"
   },
   "JHgARn": {
