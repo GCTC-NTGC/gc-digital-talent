@@ -149,4 +149,17 @@ class Pool extends Model
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
         return $query;
     }
+
+    /**
+     * Converts publishing group to a boolean
+     * to determine if it is ongoing or not
+     *
+     * Note: This should eventually checking against
+     * more than one publishing group but, right now
+     * we only have IT
+     */
+    public function getOngoingRecruitmentAttribute()
+    {
+        return $this->publishing_group === ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING;
+    }
 }
