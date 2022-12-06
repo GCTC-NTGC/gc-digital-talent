@@ -77,32 +77,6 @@ const UpdateClassification = React.lazy(() =>
   ),
 );
 
-/** CMO Assets */
-const CmoAssetPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCmoAssetsPage" */ "./cmoAsset/CmoAssetPage"
-      ),
-  ),
-);
-const CreateCmoAsset = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateCmoAsset" */ "./cmoAsset/CreateCmoAsset"
-      ),
-  ),
-);
-const UpdateCmoAsset = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateCmoAsset" */ "./cmoAsset/UpdateCmoAsset"
-      ),
-  ),
-);
-
 /** Pool Candidates */
 const PoolCandidatePage = React.lazy(() =>
   lazyRetry(
@@ -337,40 +311,6 @@ const createRouter = ({ featureFlags }: CreateRouterArgs) =>
                       element: (
                         <RequireAuth roles={[Role.Admin]}>
                           <UpdateUser />
-                        </RequireAuth>
-                      ),
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              path: "cmo-assets",
-              children: [
-                {
-                  index: true,
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <CmoAssetPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: "create",
-                  element: (
-                    <RequireAuth roles={[Role.Admin]}>
-                      <CreateCmoAsset />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: ":cmoAssetId",
-                  children: [
-                    {
-                      path: "edit",
-                      element: (
-                        <RequireAuth roles={[Role.Admin]}>
-                          <UpdateCmoAsset />
                         </RequireAuth>
                       ),
                     },

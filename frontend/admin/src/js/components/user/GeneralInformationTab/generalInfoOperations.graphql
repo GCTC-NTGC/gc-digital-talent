@@ -1,4 +1,4 @@
-query GetGeneralInfo($id: ID!) {
+query GetGeneralInfo($id: UUID!) {
   user(id: $id) {
     id
     email

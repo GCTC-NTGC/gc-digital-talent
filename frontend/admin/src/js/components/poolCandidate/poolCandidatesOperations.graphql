@@ -309,7 +309,7 @@ fragment selectedPoolCandidates on PoolCandidate {
   notes
   archivedAt
 }
-query getPoolCandidate($id: ID!) {
+query getPoolCandidate($id: UUID!) {
   poolCandidate(id: $id) {
     ...poolCandidateTable
   }
@@ -353,7 +353,7 @@ query GetPoolCandidatesPaginated(
   }
 }
 
-query getPoolCandidatesByPool($id: ID!) {
+query getPoolCandidatesByPool($id: UUID!) {
   pool(id: $id) {
     poolCandidates {
       ...poolCandidateTable
@@ -392,7 +392,7 @@ query getCreatePoolCandidateData {
   }
 }
 
-query getUpdatePoolCandidateData($id: ID!) {
+query getUpdatePoolCandidateData($id: UUID!) {
   classifications {
     id
     group
@@ -488,7 +488,7 @@ mutation deletePoolCandidate($id: ID!) {
   }
 }
 
-query getCandidateProfile($id: ID!) {
+query getCandidateProfile($id: UUID!) {
   poolCandidate(id: $id) {
     user {
       id
@@ -604,7 +604,7 @@ query getCandidateProfile($id: ID!) {
     }
   }
 }
-query getUserProfile($id: ID!) {
+query getUserProfile($id: UUID!) {
   applicant(id: $id) {
     id
     email

@@ -3,7 +3,7 @@ fragment applicant on Applicant {
   email
 }
 
-query getApplicantExperiencesByType($id: ID!) {
+query getApplicantExperiencesByType($id: UUID!) {
   applicant(id: $id) {
     awardExperiences {
       id

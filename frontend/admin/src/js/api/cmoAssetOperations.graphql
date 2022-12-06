@@ -1,4 +1,4 @@
-query getCmoAsset($id: ID!) {
+query getCmoAsset($id: UUID!) {
   cmoAsset(id: $id) {
     id
     key

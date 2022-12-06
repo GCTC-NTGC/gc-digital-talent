@@ -49,13 +49,13 @@ fragment pool on Pool {
   processNumber
 }
 
-query getPool($id: ID!) {
+query getPool($id: UUID!) {
   pool(id: $id) {
     ...pool
   }
 }
 
-query getPoolAdvertisement($id: ID!) {
+query getPoolAdvertisement($id: UUID!) {
   poolAdvertisement(id: $id) {
     id
     name {

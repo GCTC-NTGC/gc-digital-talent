@@ -14,11 +14,6 @@ const adminRoutes = (lang: string) => {
 
     dashboard: (): string => path.join(home(), "dashboard"),
 
-    cmoAssetTable: (): string => path.join(home(), "cmo-assets"),
-    cmoAssetCreate: (): string => path.join(home(), "cmo-assets", "create"),
-    cmoAssetUpdate: (id: string): string =>
-      path.join(home(), "cmo-assets", id, "edit"),
-
     poolTable: (): string => path.join(home(), "pools"),
     poolCreate: (): string => path.join(home(), "pools", "create"),
     poolEdit: (id: string): string => path.join(home(), "pools", id, "edit"),
