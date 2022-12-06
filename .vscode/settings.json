@@ -69,5 +69,8 @@
     ".eslintrc",
     "hydrogen.config.json"
   ],
-  "jest.jestCommandLine": "test"
+  "jest.jestCommandLine": "test",
+  "cSpell.ignoreRegExpList": [
+    "/id\\: \\\"[A-Za-z0-9+\\/]{6}\\\"/g"
+  ]
 }
