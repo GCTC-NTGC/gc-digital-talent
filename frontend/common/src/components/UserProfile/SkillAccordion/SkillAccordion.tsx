@@ -129,16 +129,16 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         </p>
         <p>
           {intl.formatMessage({
-            defaultMessage: "Awarded to : ",
-            id: "HWRZ/z",
+            defaultMessage: "Awarded to: ",
+            id: "3JL02L",
             description: "The award was given to",
           })}
           {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
         </p>
         <p>
           {intl.formatMessage({
-            defaultMessage: "Scope : ",
-            id: "IfsigK",
+            defaultMessage: "Scope: ",
+            id: "FAOzjP",
             description: "The scope of the award given",
           })}
           {awardedScope
