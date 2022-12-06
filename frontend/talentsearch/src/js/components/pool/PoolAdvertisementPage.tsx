@@ -848,10 +848,6 @@ const PoolAdvertisementPage = () => {
     variables: { id: poolId || "" },
   });
 
-  if (isUuidError(error)) {
-    return <PoolNotFound />;
-  }
-
   const isVisible = isAdvertisementVisible(
     auth?.loggedInUserRoles?.filter(notEmpty) || [],
     data?.poolAdvertisement?.advertisementStatus ?? null,
