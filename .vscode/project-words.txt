@@ -20,7 +20,6 @@ darkpurple
 datetime
 DCMO
 dedup
-DIRECTINTAKE
 freshdesk
 Freshdesk
 FRESHDESK

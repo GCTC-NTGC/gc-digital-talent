@@ -40,6 +40,5 @@ export const checkFeatureFlag = (name: string): boolean => {
  */
 export const getFeatureFlags = () => ({
   applicantSearch: checkFeatureFlag("FEATURE_APPLICANTSEARCH"),
-  directIntake: checkFeatureFlag("FEATURE_DIRECTINTAKE"),
   ongoingRecruitments: checkFeatureFlag("FEATURE_ONGOING_RECRUITMENTS"),
 });

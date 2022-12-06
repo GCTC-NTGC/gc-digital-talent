@@ -10,7 +10,6 @@ import {
   getOperationalRequirement,
   OperationalRequirementV2,
 } from "@common/constants/localizedConstants";
-import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { toast } from "@common/components/Toast";
 import { getFullPoolAdvertisementTitle } from "@common/helpers/poolUtils";
 
@@ -73,10 +72,9 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnRoute =
-    application && checkFeatureFlag("FEATURE_DIRECTINTAKE")
-      ? paths.reviewApplication(application.id)
-      : paths.profile(initialData.id);
+  const returnRoute = application
+    ? paths.reviewApplication(application.id)
+    : paths.profile(initialData.id);
 
   const labels = {
     wouldAcceptTemporary: intl.formatMessage({
