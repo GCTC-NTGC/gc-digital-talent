@@ -55,6 +55,8 @@ query getProfile($userId: ID!) {
     isWoman
     hasDisability
     isIndigenous
+    indigenousCommunities
+    indigenousDeclarationSignature
     isVisibleMinority
     jobLookingStatus
     hasDiploma

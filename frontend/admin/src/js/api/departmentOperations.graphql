@@ -9,7 +9,7 @@ query departments {
   }
 }
 
-query department($id: ID!) {
+query department($id: UUID!) {
   department(id: $id) {
     id
     departmentNumber

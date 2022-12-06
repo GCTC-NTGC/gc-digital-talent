@@ -25,7 +25,7 @@ query AllSkills {
   }
 }
 
-query Skill($id: ID!) {
+query Skill($id: UUID!) {
   skill(id: $id) {
     id
     key
@@ -57,7 +57,7 @@ query Skill($id: ID!) {
   }
 }
 
-query GetUpdateSkillData($id: ID!) {
+query GetUpdateSkillData($id: UUID!) {
   skillFamilies {
     id
     key

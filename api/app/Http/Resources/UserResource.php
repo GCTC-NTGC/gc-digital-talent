@@ -65,6 +65,8 @@ class UserResource extends JsonResource
             'hasDisability' => $this->has_disability,
             'isIndigenous' => $this->is_indigenous,
             'isVisibleMinority' => $this->is_visible_minority,
+            'indigenousCommunities' => $this->indigenous_communities,
+            'indigenousDeclarationSignature' => $this->indigenous_declaration_signature,
             'jobLookingStatus' => $this->job_looking_status,
             'hasDiploma' => $this->has_diploma,
             'locationPreferences' => $this->location_preferences,

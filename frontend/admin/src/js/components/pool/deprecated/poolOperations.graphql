@@ -1,4 +1,4 @@
-query getUpdatePoolData($id: ID!) {
+query getUpdatePoolData($id: UUID!) {
   users {
     id
     email

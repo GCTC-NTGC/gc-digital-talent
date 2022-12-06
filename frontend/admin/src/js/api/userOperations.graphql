@@ -9,7 +9,7 @@ query AllUsers {
   }
 }
 
-query User($id: ID!) {
+query User($id: UUID!) {
   user(id: $id) {
     id
     email
@@ -70,8 +70,9 @@ mutation CreateUser($user: CreateUserInput!) {
 
     isWoman
     hasDisability
-    isIndigenous
     isVisibleMinority
+    indigenousCommunities
+    indigenousDeclarationSignature
 
     jobLookingStatus
 
@@ -142,8 +143,9 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
 
     isWoman
     hasDisability
-    isIndigenous
     isVisibleMinority
+    indigenousCommunities
+    indigenousDeclarationSignature
 
     jobLookingStatus
     hasDiploma
@@ -214,8 +216,9 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
 
     isWoman
     hasDisability
-    isIndigenous
     isVisibleMinority
+    indigenousCommunities
+    indigenousDeclarationSignature
 
     jobLookingStatus
 

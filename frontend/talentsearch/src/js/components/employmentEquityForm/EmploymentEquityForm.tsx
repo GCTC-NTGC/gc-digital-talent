@@ -11,7 +11,7 @@ import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import EquityOptions from "./EquityOptions";
 import type { EmploymentEquityUpdateHandler, EquityKeys } from "./types";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-import { User, PoolCandidate } from "../../api/generated";
+import { User, PoolCandidate, IndigenousCommunity } from "../../api/generated";
 import useRoutes from "../../hooks/useRoutes";
 
 export interface EmploymentEquityFormProps {
@@ -35,6 +35,19 @@ export const EmploymentEquityForm: React.FC<EmploymentEquityFormProps> = ({
       : paths.profile(user.id);
 
   const handleUpdate = (key: EquityKeys, value: boolean) => {
+    // isIndigenous has been removed from inputs, indigenousCommunities functions as a replacement
+    // true maps to [LEGACY], false maps to [] OR [non-legacy enums]
+    if (key === "isIndigenous") {
+      if (value) {
+        return onUpdate(user.id, {
+          indigenousCommunities: [IndigenousCommunity.LegacyIsIndigenous],
+          indigenousDeclarationSignature: "PLACEHOLDER",
+        });
+      }
+      return onUpdate(user.id, {
+        indigenousCommunities: [],
+      });
+    }
     return onUpdate(user.id, {
       [key]: value,
     });

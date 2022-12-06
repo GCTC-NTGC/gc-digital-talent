@@ -11,7 +11,7 @@
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.4",
         "laravel/framework": "^9.42",
-        "laravel/sanctum": "^2.11",
+        "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.6",
         "lcobucci/jwt": "^4.1",
         "mll-lab/graphql-php-scalars": "^5.1",
