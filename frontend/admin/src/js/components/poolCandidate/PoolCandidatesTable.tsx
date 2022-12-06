@@ -15,7 +15,6 @@ import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
 import { SubmitHandler } from "react-hook-form";
-import { getFeatureFlags } from "@common/helpers/runtimeVariable";
 import {
   InputMaybe,
   JobLookingStatus,
