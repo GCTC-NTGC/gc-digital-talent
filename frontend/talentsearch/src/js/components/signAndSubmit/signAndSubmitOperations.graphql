@@ -27,7 +27,7 @@ fragment applicantExperiences on Applicant {
   }
 }
 
-query getApplicationData($id: ID!) {
+query getApplicationData($id: UUID!) {
   poolCandidate(id: $id) {
     id
     user {

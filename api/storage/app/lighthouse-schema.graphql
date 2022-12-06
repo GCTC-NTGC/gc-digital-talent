@@ -982,40 +982,40 @@ enum PublishingGroup {
 
 type Query {
   me: User
-  user(id: ID!): User
+  user(id: UUID!): User
   users: [User]!
-  applicant(id: ID!): Applicant
+  applicant(id: UUID!): Applicant
   applicants(includeIds: [ID]!): [Applicant]!
   countApplicants(where: ApplicantFilterInput): Int!
-  pool(id: ID!): Pool
+  pool(id: UUID!): Pool
   poolAdvertisement(id: UUID!): PoolAdvertisement
   poolAdvertisements: [PoolAdvertisement]!
   publishedPoolAdvertisements: [PoolAdvertisement!]!
   poolByKey(key: String!): Pool
   pools: [Pool]!
-  poolCandidate(id: ID!): PoolCandidate
+  poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
   searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [PoolCandidate]!
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
-  classification(id: ID!): Classification
+  classification(id: UUID!): Classification
   classifications: [Classification]!
-  cmoAsset(id: ID!): CmoAsset
+  cmoAsset(id: UUID!): CmoAsset
   cmoAssets: [CmoAsset]!
-  department(id: ID!): Department
+  department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilter(id: ID!): PoolCandidateFilter
+  poolCandidateFilter(id: UUID!): PoolCandidateFilter
   poolCandidateFilters: [PoolCandidateFilter]!
   applicantFilter(id: ID!): ApplicantFilter
   applicantFilters: [ApplicantFilter]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
   latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
-  skillFamily(id: ID!): SkillFamily
+  skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
-  skill(id: ID!): Skill
+  skill(id: UUID!): Skill
   skills: [Skill]!
-  genericJobTitle(id: ID!): GenericJobTitle
+  genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
   usersPaginated(
     where: UserFilterInput

@@ -1,4 +1,4 @@
-query GetPoolCandidateStatus($id: ID!) {
+query GetPoolCandidateStatus($id: UUID!) {
   poolCandidate(id: $id) {
     id
     expiryDate
