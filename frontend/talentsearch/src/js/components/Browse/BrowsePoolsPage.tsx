@@ -8,8 +8,8 @@ import Link from "@common/components/Link";
 import Pending from "@common/components/Pending";
 import imageUrl from "@common/helpers/imageUrl";
 import useTheme from "@common/hooks/useTheme";
+import useFeatureFlags from "@common/hooks/useFeatureFlags";
 import { AuthenticationContext } from "@common/components/Auth";
-
 import {
   AdvertisementStatus,
   PublishingGroup,
@@ -20,6 +20,7 @@ import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import useBreadcrumbs from "../../hooks/useBreadcrumbs";
 import useRoutes from "../../hooks/useRoutes";
 import { ActiveRecruitmentSection } from "./ActiveRecruitmentSection";
+import { OngoingRecruitmentSection } from "./OngoingRecruitmentSection";
 
 const flourishTopLight = imageUrl(TALENTSEARCH_APP_DIR, "browse_top_light.png");
 const flourishBottomLight = imageUrl(
@@ -50,6 +51,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
   const intl = useIntl();
   const { loggedIn } = React.useContext(AuthenticationContext);
   const paths = useRoutes();
+  const featureFlags = useFeatureFlags();
 
   const title = intl.formatMessage({
     defaultMessage: "Browse IT jobs",
@@ -64,17 +66,22 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
     },
   ]);
 
-  const filteredPoolAdvertisements = poolAdvertisements
-    .filter(
-      (p) =>
-        p.advertisementStatus === AdvertisementStatus.Published && // list jobs which have the PUBLISHED AdvertisementStatus
-        p.publishingGroup === PublishingGroup.ItJobs, // and which are meant to be published on the IT Jobs page
-    )
-    .sort(
-      (p1, p2) =>
-        (p1.expiryDate ?? "").localeCompare(p2.expiryDate ?? "") || // first level sort: by expiry date whichever one expires first should appear first on the list
-        (p1.publishedAt ?? "").localeCompare(p2.publishedAt ?? ""), // second level sort: whichever one was published first should appear first
-    );
+  const activeRecruitmentPools = poolAdvertisements.filter(
+    (p) =>
+      p.advertisementStatus === AdvertisementStatus.Published && // list jobs which have the PUBLISHED AdvertisementStatus
+      p.publishingGroup === PublishingGroup.ItJobs, // and which are meant to be published on the IT Jobs page
+  );
+
+  const ongoingRecruitmentPools = poolAdvertisements.filter(
+    (p) =>
+      p.advertisementStatus === AdvertisementStatus.Published && // list jobs which have the PUBLISHED AdvertisementStatus
+      p.publishingGroup === PublishingGroup.ItJobsOngoing, // and which are meant to be published on the IT Jobs page
+  );
+
+  // a different footer message is displayed if there are opportunities showing, otherwise a null state message is used
+  const areOpportunitiesShowing = featureFlags.ongoingRecruitments
+    ? activeRecruitmentPools.length || ongoingRecruitmentPools.length
+    : activeRecruitmentPools.length;
 
   return (
     <>
@@ -106,10 +113,15 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
           data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
           style={{ zIndex: 1 }}
         >
+          <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
+            <ActiveRecruitmentSection pools={activeRecruitmentPools} />
+          </div>
+          {featureFlags.ongoingRecruitments && (
+            <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
+              <OngoingRecruitmentSection pools={ongoingRecruitmentPools} />
+            </div>
+          )}
           <div data-h2-padding="base(x3, 0) p-tablet(x4, 0)">
-            <ActiveRecruitmentSection
-              activeRecruitmentPools={filteredPoolAdvertisements}
-            />
             <div
               data-h2-background-color="base(white) base:dark(black.light)"
               data-h2-color="base(black) base:dark(white)"
@@ -128,7 +140,7 @@ export const BrowsePools: React.FC<BrowsePoolsProps> = ({
                     size="h6"
                     data-h2-margin="base(0, 0, x1, 0)"
                   >
-                    {filteredPoolAdvertisements.length
+                    {areOpportunitiesShowing
                       ? intl.formatMessage({
                           defaultMessage: "More opportunities are coming soon!",
                           id: "g+JcDC",

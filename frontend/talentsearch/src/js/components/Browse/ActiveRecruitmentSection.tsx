@@ -6,13 +6,19 @@ import PoolCard from "./PoolCard";
 import { PoolAdvertisement } from "../../api/generated";
 
 export interface ActiveRecruitmentSectionProps {
-  activeRecruitmentPools: PoolAdvertisement[];
+  pools: PoolAdvertisement[];
 }
 
 export const ActiveRecruitmentSection = ({
-  activeRecruitmentPools,
+  pools,
 }: ActiveRecruitmentSectionProps) => {
   const intl = useIntl();
+
+  pools.sort(
+    (p1, p2) =>
+      (p1.expiryDate ?? "").localeCompare(p2.expiryDate ?? "") || // first level sort: by expiry date whichever one expires first should appear first on the list
+      (p1.publishedAt ?? "").localeCompare(p2.publishedAt ?? ""), // second level sort: whichever one was published first should appear first
+  );
 
   return (
     <>
@@ -47,13 +53,13 @@ export const ActiveRecruitmentSection = ({
         })}
       </p>
       <div data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)">
-        {activeRecruitmentPools.length ? (
+        {pools.length ? (
           <ul
             data-h2-margin="base(0)"
             data-h2-padding="base(0)"
             data-h2-list-style="base(none)"
           >
-            {activeRecruitmentPools.map((poolAdvertisement) => (
+            {pools.map((poolAdvertisement) => (
               <li key={poolAdvertisement.id}>
                 <PoolCard pool={poolAdvertisement} />
               </li>
