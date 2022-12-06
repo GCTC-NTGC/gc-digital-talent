@@ -17,6 +17,7 @@ scalar KeyString
 "Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org."
 scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
 
+"128 bit universally unique identifier (UUID)"
 scalar UUID @scalar(class: "UUID")
 
 type LocalizedString {
