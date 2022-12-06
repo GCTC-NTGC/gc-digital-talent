@@ -277,7 +277,6 @@ type Pool {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-  ongoingRecruitment: Boolean @rename(attribute: "ongoing_recruitment")
 }
 
 enum PoolStatus {
@@ -321,7 +320,6 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-  ongoingRecruitment: Boolean @rename(attribute: "ongoing_recruitment")
 }
 
 enum AdvertisementStatus {

@@ -785,7 +785,6 @@ type Pool {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
-  ongoingRecruitment: Boolean
 }
 
 type PoolAdvertisement {
@@ -809,7 +808,6 @@ type PoolAdvertisement {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
-  ongoingRecruitment: Boolean
 }
 
 enum PoolAdvertisementLanguage {

@@ -47,8 +47,7 @@ class PoolFactory extends Factory
             'is_remote' => $isRemote,
             'stream' => $this->faker->optional->randomElement(ApiEnums::poolStreams()),
             'process_number' => $this->faker->optional->word(),
-            'publishing_group' => $publishingGroup,
-            'ongoing_recruitment' => $publishingGroup === ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING
+            'publishing_group' => $publishingGroup
         ];
     }
 
