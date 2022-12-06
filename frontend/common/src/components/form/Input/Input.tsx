@@ -88,8 +88,8 @@ const Input: React.FunctionComponent<InputProps> = ({
           })}
           readOnly={readOnly}
           aria-required={rules.required ? "true" : undefined}
-          aria-invalid={error || isUnsaved ? "true" : "false"}
-          aria-describedby={error ? `${id}-error` : undefined}
+          aria-invalid={error ? "true" : "false"}
+          aria-describedby={error || isUnsaved ? `${id}-error` : undefined}
           {...rest}
         />
       </InputWrapper>
