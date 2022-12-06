@@ -9,7 +9,7 @@ query AllUsers {
   }
 }
 
-query User($id: ID!) {
+query User($id: UUID!) {
   user(id: $id) {
     id
     email
