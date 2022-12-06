@@ -1,7 +1,6 @@
 import * as React from "react";
 import get from "lodash/get";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
-import Radio from "../Radio";
 import { InputWrapper, Fieldset } from "../../inputPartials";
 
 export type Radio = { value: string | number; label: string | React.ReactNode };

@@ -45,7 +45,7 @@ type Applicant {
   expectedClassifications: [Classification]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
-  cmoAssets: [CmoAsset]
+  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   experiences: [Experience]
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
@@ -596,9 +596,9 @@ type Mutation {
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
   deleteClassification(id: ID!): Classification
-  createCmoAsset(cmoAsset: CreateCmoAssetInput!): CmoAsset
-  updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput!): CmoAsset
-  deleteCmoAsset(id: ID!): CmoAsset
+  createCmoAsset(cmoAsset: CreateCmoAssetInput!): CmoAsset @deprecated(reason: "replaced by skills")
+  updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput!): CmoAsset @deprecated(reason: "replaced by skills")
+  deleteCmoAsset(id: ID!): CmoAsset @deprecated(reason: "replaced by skills")
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
   deleteDepartment(id: ID!): Department
@@ -775,8 +775,8 @@ type Pool {
   key: KeyString
   description: LocalizedString
   classifications: [Classification]
-  assetCriteria: [CmoAsset]
-  essentialCriteria: [CmoAsset]
+  assetCriteria: [CmoAsset] @deprecated(reason: "replaced by skills")
+  essentialCriteria: [CmoAsset] @deprecated(reason: "replaced by skills")
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
@@ -843,7 +843,7 @@ type PoolCandidate {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: [Classification]
-  cmoAssets: [CmoAsset]
+  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   status: PoolCandidateStatus
   statusWeight: Int
   notes: String
@@ -856,7 +856,7 @@ type PoolCandidate {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification]
-  cmoAssets: [CmoAsset]
+  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   hasDiploma: Boolean
   equity: EquitySelections
   languageAbility: LanguageAbility
@@ -1000,8 +1000,8 @@ type Query {
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications: [Classification]!
-  cmoAsset(id: UUID!): CmoAsset
-  cmoAssets: [CmoAsset]!
+  cmoAsset(id: UUID!): CmoAsset @deprecated(reason: "replaced by skills")
+  cmoAssets: [CmoAsset]! @deprecated(reason: "replaced by skills")
   department(id: UUID!): Department
   departments: [Department]!
   poolCandidateFilter(id: UUID!): PoolCandidateFilter
@@ -1235,6 +1235,7 @@ enum Trashed {
   WITHOUT
 }
 
+"""128 bit universally unique identifier (UUID)"""
 scalar UUID
 
 input UpdateClassificationInput {
@@ -1466,7 +1467,7 @@ type User {
   expectedClassifications: [Classification]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
-  cmoAssets: [CmoAsset]
+  cmoAssets: [CmoAsset] @deprecated(reason: "replaced by skills")
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]

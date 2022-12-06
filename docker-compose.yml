@@ -36,7 +36,7 @@ services:
       - 8000:8080
     environment:
       - NGINX_PORT=8080
-      - ROBOTS_FILENAME=dev.robot.txt
+      - ROBOTS_FILENAME=dev.robots.txt
     # Uncomment to test out post deployment script
     # command: ./infrastructure/bin/post_deployment.sh .
 

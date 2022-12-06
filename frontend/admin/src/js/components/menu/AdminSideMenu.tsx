@@ -7,7 +7,6 @@ import {
   AcademicCapIcon,
   HomeIcon,
   BuildingOfficeIcon,
-  PaperClipIcon,
   TagIcon,
   TicketIcon,
   UserGroupIcon,
@@ -115,17 +114,6 @@ const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
         defaultMessage: "Classifications",
         id: "gk7uJQ",
         description: "Label displayed on the classifications menu item.",
-      }),
-    },
-    {
-      key: "cmo-assets",
-      href: paths.cmoAssetTable(),
-      icon: PaperClipIcon,
-      roles: [Role.Admin],
-      text: intl.formatMessage({
-        defaultMessage: "CMO Assets",
-        id: "MMP0XC",
-        description: "Label displayed on the CMO Assets menu item.",
       }),
     },
     {
