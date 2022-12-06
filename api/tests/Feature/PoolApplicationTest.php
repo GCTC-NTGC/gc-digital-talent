@@ -947,7 +947,7 @@ class PoolApplicationTest extends TestCase
         $this->graphQL(
             /** @lang Graphql */
             '
-      query poolCandidate($id: ID!) {
+      query poolCandidate($id: UUID!) {
           poolCandidate(id: $id) {
               status
           }
@@ -985,7 +985,7 @@ class PoolApplicationTest extends TestCase
         $this->graphQL(
             /** @lang Graphql */
             '
-      query poolCandidate($id: ID!) {
+      query poolCandidate($id: UUID!) {
           poolCandidate(id: $id) {
               status
           }

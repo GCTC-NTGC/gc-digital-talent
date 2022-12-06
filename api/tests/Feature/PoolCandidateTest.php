@@ -1325,7 +1325,7 @@ class PoolCandidateTest extends TestCase
 
     // Assert candidate 3 is PLACED_CASUAL, despite being past expiry date
     $this->graphQL(/** @lang Graphql */ '
-      query poolCandidate($id: ID!) {
+      query poolCandidate($id: UUID!) {
           poolCandidate(id: $id) {
               status
           }
@@ -1359,7 +1359,7 @@ class PoolCandidateTest extends TestCase
 
     // Assert candidate 5 is NEW_APPLICATION as it was set
     $this->graphQL(/** @lang Graphql */ '
-      query poolCandidate($id: ID!) {
+      query poolCandidate($id: UUID!) {
           poolCandidate(id: $id) {
               status
           }
@@ -1376,7 +1376,7 @@ class PoolCandidateTest extends TestCase
 
     // Assert candidate 6 is APPLICATION_REVIEW as it was set
     $this->graphQL(/** @lang Graphql */ '
-      query poolCandidate($id: ID!) {
+      query poolCandidate($id: UUID!) {
           poolCandidate(id: $id) {
               status
           }
