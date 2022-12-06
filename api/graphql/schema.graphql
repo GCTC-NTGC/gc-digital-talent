@@ -91,7 +91,7 @@ type User {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: [CmoAsset] @belongsToMany
+  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
 
   # Pool info
   poolCandidates: [PoolCandidate] @hasMany # PoolsCandidate objects associate the user with a pool
@@ -234,7 +234,7 @@ type Applicant {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  cmoAssets: [CmoAsset] @belongsToMany
+  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
 
   # Experiences
   experiences: [Experience]
@@ -263,8 +263,8 @@ type Pool {
   key: KeyString
   description: LocalizedString
   classifications: [Classification] @belongsToMany
-  assetCriteria: [CmoAsset] @belongsToMany
-  essentialCriteria: [CmoAsset] @belongsToMany
+  assetCriteria: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
+  essentialCriteria: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
@@ -390,7 +390,7 @@ type PoolCandidate {
     @rename(attribute: "accepted_operational_requirements")
   expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
   expectedClassifications: [Classification] @belongsToMany
-  cmoAssets: [CmoAsset] @belongsToMany
+  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
 
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
   statusWeight: Int @rename(attribute: "status_weight")
@@ -508,7 +508,7 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification] @belongsToMany
-  cmoAssets: [CmoAsset] @belongsToMany
+  cmoAssets: [CmoAsset] @belongsToMany @deprecated(reason: "replaced by skills")
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelections
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -888,8 +888,8 @@ type Query {
   ): [CandidateSearchPoolResult!]!
   classification(id: ID! @eq): Classification @find
   classifications: [Classification]! @all
-  cmoAsset(id: ID! @eq): CmoAsset @find
-  cmoAssets: [CmoAsset]! @all
+  cmoAsset(id: ID! @eq): CmoAsset @find @deprecated(reason: "replaced by skills")
+  cmoAssets: [CmoAsset]! @all @deprecated(reason: "replaced by skills")
   department(id: ID! @eq): Department @find
   departments: [Department]! @all
   poolCandidateFilter(id: ID! @eq): PoolCandidateFilter
@@ -1555,14 +1555,17 @@ type Mutation {
     @create
     @guard
     @can(ability: "create")
+    @deprecated(reason: "replaced by skills")
   updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput! @spread): CmoAsset
     @update
     @guard
     @can(ability: "update", find: "id")
+    @deprecated(reason: "replaced by skills")
   deleteCmoAsset(id: ID!): CmoAsset
     @delete(globalId: false)
     @guard
     @can(ability: "delete", find: "id")
+    @deprecated(reason: "replaced by skills")
   createDepartment(department: CreateDepartmentInput! @spread): Department
     @create
     @guard

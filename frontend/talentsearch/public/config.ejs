@@ -15,6 +15,7 @@ const data = new Map([
     // Feature flags
     ["FEATURE_DIRECTINTAKE", filterUnusable("$FEATURE_DIRECTINTAKE") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_DIRECTINTAKE %>"],
     ["FEATURE_APPLICANTSEARCH", filterUnusable("$FEATURE_APPLICANTSEARCH") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_APPLICANTSEARCH %>"],
+    ["FEATURE_ONGOING_RECRUITMENTS", filterUnusable("$FEATURE_ONGOING_RECRUITMENTS") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_ONGOING_RECRUITMENTS %>"],
 
     // Azure application insights not used in dev
     ["APPLICATIONINSIGHTS_CONNECTION_STRING", filterUnusable("$APPLICATIONINSIGHTS_CONNECTION_STRING")],
