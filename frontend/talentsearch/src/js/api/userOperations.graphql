@@ -53,6 +53,10 @@ query getMe {
     isWoman
     hasDisability
     isIndigenous
+    indigenousCommunities
+    indigenousDeclarationSignature
+    indigenousCommunities
+    indigenousDeclarationSignature
     isVisibleMinority
     jobLookingStatus
     hasDiploma

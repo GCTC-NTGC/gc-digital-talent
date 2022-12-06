@@ -406,4 +406,26 @@ class ApiEnums
             self::POSITION_DURATION_PERMANENT,
         ];
     }
+
+    /**
+     * Indigenous Communities
+     */
+    const INDIGENOUS_STATUS_FIRST_NATIONS = 'STATUS_FIRST_NATIONS';
+    const INDIGENOUS_NON_STATUS_FIRST_NATIONS = 'NON_STATUS_FIRST_NATIONS';
+    const INDIGENOUS_INUIT = 'INUIT';
+    const INDIGENOUS_METIS = 'METIS';
+    const INDIGENOUS_OTHER = 'OTHER';
+    const INDIGENOUS_LEGACY_IS_INDIGENOUS = 'LEGACY_IS_INDIGENOUS';
+
+    public static function indigenousCommunities(): array
+    {
+        return [
+            self::INDIGENOUS_STATUS_FIRST_NATIONS,
+            self::INDIGENOUS_NON_STATUS_FIRST_NATIONS,
+            self::INDIGENOUS_INUIT,
+            self::INDIGENOUS_METIS,
+            self::INDIGENOUS_OTHER,
+            self::INDIGENOUS_LEGACY_IS_INDIGENOUS,
+        ];
+    }
 }

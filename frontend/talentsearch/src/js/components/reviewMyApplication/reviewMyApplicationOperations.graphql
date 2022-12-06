@@ -53,6 +53,8 @@ query getReviewMyApplicationPageData($id: UUID!) {
       isWoman
       hasDisability
       isIndigenous
+      indigenousCommunities
+      indigenousDeclarationSignature
       isVisibleMinority
       jobLookingStatus
       hasDiploma

@@ -55,6 +55,8 @@ fragment poolCandidateTable on PoolCandidate {
     isIndigenous
     isVisibleMinority
     hasDisability
+    indigenousCommunities
+    indigenousDeclarationSignature
 
     # Applicant info
     jobLookingStatus
@@ -174,6 +176,8 @@ fragment selectedPoolCandidates on PoolCandidate {
     acceptedOperationalRequirements
     isWoman
     isIndigenous
+    indigenousCommunities
+    indigenousDeclarationSignature
     isVisibleMinority
     hasDisability
     citizenship
@@ -511,6 +515,8 @@ query getCandidateProfile($id: UUID!) {
       acceptedOperationalRequirements
       isWoman
       isIndigenous
+      indigenousCommunities
+      indigenousDeclarationSignature
       isVisibleMinority
       hasDisability
       expectedSalary
@@ -626,6 +632,8 @@ query getUserProfile($id: UUID!) {
     acceptedOperationalRequirements
     isWoman
     isIndigenous
+    indigenousCommunities
+    indigenousDeclarationSignature
     isVisibleMinority
     hasDisability
     expectedSalary

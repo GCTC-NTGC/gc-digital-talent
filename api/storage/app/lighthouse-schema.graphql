@@ -33,8 +33,10 @@ type Applicant {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
+  isIndigenous: Boolean @deprecated(reason: "replaced by indigenousCommunities")
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunity]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
@@ -374,8 +376,9 @@ input CreateUserInput {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunity]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -474,8 +477,8 @@ type EquitySelections {
 input EquitySelectionsInput {
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
   isVisibleMinority: Boolean
+  isIndigenous: Boolean
 }
 
 enum EstimatedLanguageAbility {
@@ -534,6 +537,15 @@ enum GovEmployeeType {
 
 input IdInput {
   id: ID!
+}
+
+enum IndigenousCommunity {
+  STATUS_FIRST_NATIONS
+  NON_STATUS_FIRST_NATIONS
+  INUIT
+  METIS
+  OTHER
+  LEGACY_IS_INDIGENOUS
 }
 
 """
@@ -1360,8 +1372,9 @@ input UpdateUserAsAdminInput {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunity]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -1407,8 +1420,9 @@ input UpdateUserAsUserInput {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunity]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -1456,8 +1470,10 @@ type User {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean
+  isIndigenous: Boolean @deprecated(reason: "replaced by indigenousCommunities")
   isVisibleMinority: Boolean
+  indigenousCommunities: [IndigenousCommunity]
+  indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
