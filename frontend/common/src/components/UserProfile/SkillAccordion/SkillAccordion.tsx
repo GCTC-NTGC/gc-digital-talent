@@ -132,7 +132,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             defaultMessage: "Awarded to: ",
             id: "3JL02L",
             description: "The award was given to",
-          })}
+          })}{" "}
           {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
         </p>
         <p>
@@ -140,7 +140,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             defaultMessage: "Scope: ",
             id: "FAOzjP",
             description: "The scope of the award given",
-          })}
+          })}{" "}
           {awardedScope
             ? intl.formatMessage(getAwardedScope(awardedScope))
             : ""}
