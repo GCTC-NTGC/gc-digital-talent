@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+
 import InputContext from "../InputContext/InputContext";
 import InputError, { InputFieldError } from "../InputError/InputError";
 import InputLabel from "../InputLabel/InputLabel";
+import { useFieldState } from "../../../helpers/formUtils";
+import InputUnsaved from "../InputUnsaved/InputUnsaved";
 
 export interface InputWrapperProps {
   inputId: string;
+  inputName?: string;
   label: string | React.ReactNode;
   labelSize?: string;
   required: boolean;
@@ -19,6 +23,7 @@ export interface InputWrapperProps {
 
 const InputWrapper: React.FC<InputWrapperProps> = ({
   inputId,
+  inputName,
   label,
   labelSize,
   required,
@@ -33,10 +38,14 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   ...rest
 }) => {
   const [contextVisible, setContextVisible] = useState(false);
+  const fieldState = useFieldState(inputName || "", !trackUnsaved);
+  const isUnsaved = fieldState === "dirty" && trackUnsaved;
+
   let fontSize = { "data-h2-font-size": "base(caption)" };
   if (labelSize === "copy") {
     fontSize = { "data-h2-font-size": "base(copy)" };
   }
+
   return (
     <>
       <div
@@ -55,7 +64,6 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
           contextToggleHandler={setContextVisible}
           hideOptional={hideOptional}
           hideBottomMargin={hideBottomMargin}
-          trackUnsaved={trackUnsaved}
         />
         {error && errorPosition === "top" && (
           <div
@@ -71,6 +79,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
         )}
         {children}
       </div>
+      <InputUnsaved isVisible={isUnsaved} id={`${inputId}-error`} />
       {error && errorPosition === "bottom" && (
         <div
           data-h2-display="base(block)"
