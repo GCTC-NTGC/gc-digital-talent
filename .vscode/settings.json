@@ -67,11 +67,11 @@
     "generated.ts",
     "tsconfig.json",
     ".eslintrc",
-    "hydrogen.config.json",
-    "fr.json"
+    "hydrogen.config.json"
   ],
   "jest.jestCommandLine": "test",
   "cSpell.ignoreRegExpList": [
-    "/id\\: \\\"[A-Za-z0-9+\\/]{6}\\\"/g"
+    "/id\\: \\\"[A-Za-z0-9+\\/]{6}\\\"/g",
+    "/\"[A-Za-z0-9+\\/]{6}\\\": {/g"
   ]
 }
