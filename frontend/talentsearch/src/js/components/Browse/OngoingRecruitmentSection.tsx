@@ -33,8 +33,8 @@ const selectPoolIdForSection = (
   return pools
     .sort((p1, p2) =>
       (p1.expiryDate ?? FAR_FUTURE_DATE) < (p2.expiryDate ?? FAR_FUTURE_DATE)
-        ? -1
-        : 1,
+        ? 1
+        : -1,
     )
     .find(
       (p) =>
