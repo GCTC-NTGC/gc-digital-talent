@@ -59,9 +59,10 @@ class DatabaseSeeder extends Seeder
                 $genericJobTitles = GenericJobTitle::inRandomOrder()->limit(2)->pluck('id')->toArray();
                 $user->expectedGenericJobTitles()->sync($genericJobTitles);
 
-                // pick a pool in which to place this user
+                // pick a published pool in which to place this user
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
-                $randomPool = Pool::inRandomOrder()->limit(1)->first();
+                // digital careers is always published and strictly defined in PoolSeeder
+                $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
                 $digitalTalentPool = Pool::where('key', "digital_careers")->first();
                 $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
 
@@ -91,7 +92,7 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         $applicant = User::where('email', 'applicant@test.com')->first();
-        $pool = Pool::inRandomOrder()->first();
+        $pool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
         $this->seedPoolCandidate($applicant, $pool);
 
         // add experiences to all the users
