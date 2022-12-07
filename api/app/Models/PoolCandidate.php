@@ -495,7 +495,7 @@ RAWSQL2;
         return $query;
     }
 
-    // TODO: Deprecate CMO Assets filter after FEATURE_APPLICANTSEARCH flag is turned on.
+    // TODO: Remove CMO Assets filter after filterByCmoAssets no longer used anywhere
     public function filterByCmoAssets(Builder $query, ?array $cmoAssets): Builder
     {
         if (empty($cmoAssets)) {
@@ -504,11 +504,16 @@ RAWSQL2;
 
         // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
         // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
-        foreach ($cmoAssets as $cmoAsset) {
-            $query->whereHas('cmoAssets', function ($query) use ($cmoAsset) {
-                $query->where('key', $cmoAsset['key']);
+        // mirroring the logic of scopeClassifications to access a pivot thru USER
+        $query->where(function ($query) use ($cmoAssets) {
+            $query->whereHas('user', function ($query) use ($cmoAssets) {
+                $query->whereHas('cmoAssets', function ($query) use ($cmoAssets) {
+                    foreach ($cmoAssets as $cmoAsset) {
+                        $query->where('key', $cmoAsset['key']);
+                    }
+                });
             });
-        }
+        });
         return $query;
     }
 }

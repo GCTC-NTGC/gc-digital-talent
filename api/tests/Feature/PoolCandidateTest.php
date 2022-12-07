@@ -97,15 +97,23 @@ class PoolCandidateTest extends TestCase
 
     // Create initial data.
     CmoAsset::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create(['expiry_date' => config('constants.far_future_date'), 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,]);
+    PoolCandidate::factory()->count(5)->create([
+      'expiry_date' => config('constants.far_future_date'),
+      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+      'user_id' => User::factory(),
+    ]);
 
     // Create new cmoAsset and attach to two new pool candidates.
     $cmoAsset = CmoAsset::factory()->create([
       'key' => 'new_cmo_asset'
     ]);
-    PoolCandidate::factory()->count(2)->create(['expiry_date' => config('constants.far_future_date'), 'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,])->each(function($candidate) use ($cmoAsset) {
+    PoolCandidate::factory()->count(2)->create([
+      'expiry_date' => config('constants.far_future_date'),
+       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+       'user_id' => User::factory(),
+       ])->each(function($candidate) use ($cmoAsset) {
 
-      $candidate->cmoAssets()->save($cmoAsset);
+      $candidate->user->cmoAssets()->save($cmoAsset);
     });
 
     // Assert query with no cmoAssets filter will return all candidates
