@@ -67,7 +67,8 @@
     "generated.ts",
     "tsconfig.json",
     ".eslintrc",
-    "hydrogen.config.json"
+    "hydrogen.config.json",
+    "fr.json"
   ],
   "jest.jestCommandLine": "test",
   "cSpell.ignoreRegExpList": [
