@@ -25,6 +25,7 @@ describe("Support page", () => {
           subject
         },
       }).then((response) => {
+       // Note: normal to get a 500 status if the service (freshdesk) is not locally configured.
         if(response.status === 404) // verify if route exists.
           throw new Error("404: Not Found")
       })
