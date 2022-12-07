@@ -14,6 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+import 'cypress-network-idle'
 import './commands'
 import './userCommands'
 import './poolAdvertisementCommands'

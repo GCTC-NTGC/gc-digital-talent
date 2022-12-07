@@ -1,0 +1,20 @@
+[
+  "/",
+  "/search",
+  "/browse/pools",
+  "/accessibility-statement",
+  "/support",
+  "/users/{userId}/profile",
+  "/users/{userId}/profile/about-me/edit",
+  "/users/{userId}/profile/language-info/edit",
+  "/users/{userId}/profile/government-info/edit",
+  "/users/{userId}/profile/work-location/edit",
+  "/users/{userId}/profile/work-preferences/edit",
+  "/users/{userId}/profile/employment-equity/edit",
+  "/users/{userId}/profile/experiences/award/create",
+  "/users/{userId}/profile/experiences/education/create",
+  "/users/{userId}/profile/experiences/community/create",
+  "/users/{userId}/profile/experiences/personal/create",
+  "/users/{userId}/profile/experiences/work/create",
+  "/users/{userId}/applications"
+]
