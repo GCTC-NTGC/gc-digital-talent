@@ -8,6 +8,7 @@ import InputUnsaved from "../InputUnsaved/InputUnsaved";
 
 export interface InputWrapperProps {
   inputId: string;
+  inputName?: string;
   label: string | React.ReactNode;
   labelSize?: string;
   required: boolean;
@@ -22,6 +23,7 @@ export interface InputWrapperProps {
 
 const InputWrapper: React.FC<InputWrapperProps> = ({
   inputId,
+  inputName,
   label,
   labelSize,
   required,
@@ -36,7 +38,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   ...rest
 }) => {
   const [contextVisible, setContextVisible] = useState(false);
-  const fieldState = useFieldState(inputId, !trackUnsaved);
+  const fieldState = useFieldState(inputName || "", !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
 
   let fontSize = { "data-h2-font-size": "base(caption)" };

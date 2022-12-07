@@ -208,6 +208,7 @@ const SelectFieldV2 = ({
       <InputWrapper
         {...{ label, context, error }}
         inputId={name}
+        inputName={name}
         required={isRequired}
         trackUnsaved={trackUnsaved}
       >

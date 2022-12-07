@@ -55,6 +55,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
     <div data-h2-margin="base(x1, 0)">
       <InputWrapper
         inputId={id}
+        inputName={name}
         label={label}
         required={!!rules.required}
         context={context}
