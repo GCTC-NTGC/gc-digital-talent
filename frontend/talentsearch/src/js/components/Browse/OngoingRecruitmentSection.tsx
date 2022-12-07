@@ -577,8 +577,8 @@ export const OngoingRecruitmentSection = ({
         }),
         summary: intl.formatMessage({
           defaultMessage:
-            "This stream includes providing specialized IT planning guidance, and the collaborative creation of deliverables that include strategic plans, IT plicies and standards, and governance processes.",
-          id: "dHV27Q",
+            "This stream includes providing specialized IT planning guidance, and the collaborative creation of deliverables that include strategic plans, IT policies and standards, and governance processes.",
+          id: "crqgGQ",
           description: "Title for the 'planning and reporting' IT work stream",
         }),
         classifications: [
