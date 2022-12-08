@@ -30,8 +30,8 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Admin",
-          id: "+0wLVV",
-          description: "Page title for the admin dashboard page",
+          id: "wHX/8C",
+          description: "Title tag for Admin site",
         })}
       />
       <DashboardContentContainer>
