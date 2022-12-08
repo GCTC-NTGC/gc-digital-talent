@@ -128,7 +128,12 @@ const StyledDescription = React.forwardRef<
   />
 ));
 
-type Color = "ts-primary" | "ts-secondary" | "ia-primary" | "ia-secondary";
+type Color =
+  | "ts-primary"
+  | "ts-secondary"
+  | "ia-primary"
+  | "ia-secondary"
+  | "blue";
 
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
@@ -146,6 +151,10 @@ export const colorMap: Record<Color, Record<string, string>> = {
   "ia-secondary": {
     "data-h2-background-color": "base(ia-secondary)",
     "data-h2-color": "base(ia-white)",
+  },
+  blue: {
+    "data-h2-background-color": "base(tm-blue)",
+    "data-h2-color": "base(black)",
   },
 };
 
@@ -176,11 +185,11 @@ const Header = ({
   </div>
 );
 
-interface DialogFooterProps {
+interface DialogFooterProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-const Footer = ({ children }: DialogFooterProps) => (
+const Footer = ({ children, ...rest }: DialogFooterProps) => (
   <div
     data-h2-align-items="base(center)"
     data-h2-border="base(top, 1px, solid, dt-gray.dark)"
@@ -188,7 +197,8 @@ const Footer = ({ children }: DialogFooterProps) => (
     data-h2-justify-content="base(flex-end)"
     data-h2-margin="base(x1, 0, 0, 0)"
     data-h2-padding="base(x1, 0, 0, 0)"
-    style={{ gap: "0 0.5rem" }}
+    data-h2-gap="base(x1, 0)"
+    {...rest}
   >
     {children}
   </div>
