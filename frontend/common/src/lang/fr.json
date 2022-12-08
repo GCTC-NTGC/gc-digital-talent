@@ -1891,5 +1891,9 @@
   "pg1S01": {
     "defaultMessage": "Sauter la liste des compétences.",
     "description": "Link text to skip the list of add skill links"
+  },
+  "SUYPIt": {
+    "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
+    "description": "Message displayed when number of user attempts exceeds rate limit"
   }
 }
