@@ -51,7 +51,48 @@ const ExperienceHelpMessage = () => {
           </Button>
         </Collapsible.Trigger>
         <Collapsible.Content data-h2-margin="base(x.5, 0, 0, 0)">
-          <p>Lorem ipsum</p>
+          <p data-h2-margin="base(x1, 0)">
+            {intl.formatMessage({
+              defaultMessage:
+                "When linking an experience, try answering one or more of these questions:",
+              id: "5J3Won",
+              description: "Help text for writing skill details",
+            })}
+          </p>
+          <ul>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "What did you accomplish, create or deliver using this skill?",
+                id: "pV+oii",
+                description: "Question 1 for clarifying skill details",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "What tasks or activities did you do that relate to this skill?",
+                id: "3sXEjF",
+                description: "Question 2 for clarifying skill details",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Where there any special techniques or approaches that you used?",
+                id: "TYMqgB",
+                description: "Question 3 for clarifying skill details",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "How much responsibility did you have in this role?",
+                id: "mQHftn",
+                description: "Question 4 for clarifying skill details",
+              })}
+            </li>
+          </ul>
         </Collapsible.Content>
       </Collapsible.Root>
     </>
