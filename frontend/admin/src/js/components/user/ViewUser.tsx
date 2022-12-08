@@ -11,18 +11,25 @@ import NotFound from "@common/components/NotFound";
 import Heading from "@common/components/Heading";
 import { getFullNameHtml } from "@common/helpers/nameUtils";
 import { useParams } from "react-router-dom";
+import { notEmpty } from "@common/helpers/util";
 import { useAdminRoutes } from "../../adminRoutes";
-import { Scalars, User, useUserQuery } from "../../api/generated";
+import {
+  Applicant,
+  Pool,
+  Scalars,
+  useGetViewUserDataQuery,
+} from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import UserProfileApi from "./UserProfile";
 import GeneralInfoTabApi from "./GeneralInformationTab/GeneralInformationTab";
 import UserProfilePrintButton from "./UserProfilePrintButton";
 
 interface ViewUserPageProps {
-  user: User;
+  user: Applicant;
+  pools: Pool[];
 }
 
-export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
+export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user, pools }) => {
   const intl = useIntl();
   const adminPaths = useAdminRoutes();
 
@@ -80,6 +87,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(content)">
             <UserProfilePrintButton userId={user.id}>
+              {/* TODO: Change this to pass in the whole user */}
               <span>
                 <PrinterIcon style={{ width: "1rem" }} />{" "}
                 {intl.formatMessage({
@@ -108,9 +116,10 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         </Tabs.List>
         <Tabs.Content value="0">
           <GeneralInfoTabApi userId={user.id} />
+          {/* TODO: Change this to pass in the whole user */}
         </Tabs.Content>
         <Tabs.Content value="1">
-          <UserProfileApi userId={user.id} />
+          <UserProfileApi applicant={user} />
         </Tabs.Content>
       </Tabs.Root>
     </>
@@ -124,15 +133,18 @@ type RouteParams = {
 const ViewUser = () => {
   const { userId } = useParams<RouteParams>();
   const intl = useIntl();
-  const [{ data, fetching, error }] = useUserQuery({
+  const [{ data: lookupData, fetching, error }] = useGetViewUserDataQuery({
     variables: { id: userId || "" },
   });
+
+  const user = lookupData?.applicant;
+  const pools = lookupData?.pools.filter(notEmpty);
 
   return (
     <Pending fetching={fetching} error={error}>
       <DashboardContentContainer>
-        {data?.user ? (
-          <ViewUserPage user={data.user} />
+        {user && pools ? (
+          <ViewUserPage user={user} pools={pools} />
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}
