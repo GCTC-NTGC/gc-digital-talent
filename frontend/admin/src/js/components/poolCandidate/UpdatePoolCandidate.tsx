@@ -5,34 +5,19 @@ import pick from "lodash/pick";
 import { useIntl } from "react-intl";
 
 import { toast } from "@common/components/Toast";
-import {
-  Submit,
-  Select,
-  Input,
-  MultiSelect,
-  Checkbox,
-} from "@common/components/form";
+import { Submit, Select, Input } from "@common/components/form";
 import Heading from "@common/components/Heading/Heading";
 import { notEmpty } from "@common/helpers/util";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { getLocale } from "@common/helpers/localize";
 import {
-  getSalaryRange,
   getLanguage,
-  getLanguageAbility,
-  getWorkRegion,
   getPoolCandidateStatus,
-  getOperationalRequirement,
-  OperationalRequirementV1,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { User } from "@common/api/generated";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   UpdatePoolCandidateAsAdminInput,
-  LanguageAbility,
-  WorkRegion,
-  SalaryRange,
   PoolCandidateStatus,
   CmoAsset,
   Classification,
@@ -45,8 +30,6 @@ import {
 } from "../../api/generated";
 
 import DashboardContentContainer from "../DashboardContentContainer";
-
-type Option<V> = { value: V; label: string };
 
 type FormValues = Pick<
   PoolCandidate,
@@ -71,16 +54,10 @@ interface UpdatePoolCandidateProps {
 
 export const UpdatePoolCandidateForm: React.FunctionComponent<
   UpdatePoolCandidateProps
-> = ({
-  classifications,
-  cmoAssets,
-  initialPoolCandidate,
-  handleUpdatePoolCandidate,
-}) => {
+> = ({ initialPoolCandidate, handleUpdatePoolCandidate }) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useAdminRoutes();
-  const locale = getLocale(intl);
   const dataToFormValues = (data: PoolCandidate): FormValues => ({
     ...data,
     userId: data?.user?.id ?? "",
@@ -129,18 +106,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
         );
       });
   };
-
-  const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
-    value: id,
-    label: name[locale] ?? intl.formatMessage(commonMessages.nameNotLoaded),
-  }));
-
-  const classificationOptions: Option<string>[] = classifications.map(
-    ({ id, group, level }) => ({
-      value: id,
-      label: `${group}-0${level}`,
-    }),
-  );
 
   return (
     <section data-h2-container="base(left, s)">
@@ -261,168 +226,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-            />
-            <Checkbox
-              id="isWoman"
-              label={intl.formatMessage({
-                defaultMessage: "Woman",
-                id: "iDohso",
-                description:
-                  "Label displayed on the pool candidate form is woman field.",
-              })}
-              name="isWoman"
-            />
-            <Checkbox
-              id="hasDisability"
-              label={intl.formatMessage({
-                defaultMessage: "Has Disability",
-                id: "J/HfO8",
-                description:
-                  "Label displayed on the pool candidate form has disability field.",
-              })}
-              name="hasDisability"
-            />
-            <Checkbox
-              id="isIndigenous"
-              label={intl.formatMessage({
-                defaultMessage: "Indigenous",
-                id: "AXASuP",
-                description:
-                  "Placeholder displayed on the pool candidate form is indigenous field.",
-              })}
-              name="isIndigenous"
-            />
-            <Checkbox
-              id="isVisibleMinority"
-              label={intl.formatMessage({
-                defaultMessage: "Visible Minority",
-                id: "xIWdFW",
-                description:
-                  "Label displayed on the pool candidate form is visible minority field.",
-              })}
-              name="isVisibleMinority"
-            />
-            <Checkbox
-              id="hasDiploma"
-              label={intl.formatMessage({
-                defaultMessage: "Has Diploma",
-                id: "ABE9vg",
-                description:
-                  "Label displayed on the pool candidate form has diploma field.",
-              })}
-              name="hasDiploma"
-            />
-            <Select
-              id="languageAbility"
-              label={intl.formatMessage({
-                defaultMessage: "Language Ability",
-                id: "TkvUdX",
-                description:
-                  "Label displayed on the pool candidate form language ability field.",
-              })}
-              name="languageAbility"
-              options={enumToOptions(LanguageAbility).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getLanguageAbility(value)),
-              }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <MultiSelect
-              id="locationPreferences"
-              name="locationPreferences"
-              label={intl.formatMessage({
-                defaultMessage: "Location Preferences",
-                id: "mykZx3",
-                description:
-                  "Label displayed on the pool candidate form location preferences field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more location preferences...",
-                id: "bxh7Ba",
-                description:
-                  "Placeholder displayed on the pool candidate form location preferences field.",
-              })}
-              options={enumToOptions(WorkRegion).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getWorkRegion(value)),
-              }))}
-            />
-            <MultiSelect
-              id="acceptedOperationalRequirements"
-              name="acceptedOperationalRequirements"
-              label={intl.formatMessage({
-                defaultMessage: "Operational Requirements",
-                id: "cH6GzM",
-                description:
-                  "Label displayed on the pool candidate form operational requirements field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage:
-                  "Select one or more operational requirements...",
-                id: "f9E/6Q",
-                description:
-                  "Placeholder displayed on the pool candidate form operational requirements field.",
-              })}
-              options={OperationalRequirementV1.map((value) => ({
-                value,
-                label: intl.formatMessage(getOperationalRequirement(value)),
-              }))}
-            />
-            <MultiSelect
-              id="expectedSalary"
-              label={intl.formatMessage({
-                defaultMessage: "Expected Salary",
-                id: "4r60bZ",
-                description:
-                  "Label displayed on the pool candidate form expected salary field.",
-              })}
-              name="expectedSalary"
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more expected salaries...",
-                id: "cT/8aw",
-                description:
-                  "Placeholder displayed on the pool candidate form expected salary field.",
-              })}
-              options={enumToOptions(SalaryRange).map(({ value }) => ({
-                value,
-                label: getSalaryRange(value),
-              }))}
-            />
-            <MultiSelect
-              id="expectedClassifications"
-              label={intl.formatMessage({
-                defaultMessage: "Expected Classifications",
-                id: "5kFbxW",
-                description:
-                  "Label displayed on the pool candidate form expected classifications field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more classifications...",
-                id: "IvK9RL",
-                description:
-                  "Placeholder displayed on the pool candidate form expected classifications field.",
-              })}
-              name="expectedClassifications"
-              options={classificationOptions}
-            />
-            <MultiSelect
-              id="cmoAssets"
-              label={intl.formatMessage({
-                defaultMessage: "CMO Assets",
-                id: "zWX4ko",
-                description:
-                  "Label displayed on the pool candidate form cmo assets field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more CMO Assets...",
-                id: "D2DUgE",
-                description:
-                  "Placeholder displayed on the pool candidate form cmo assets field.",
-              })}
-              name="cmoAssets"
-              options={cmoAssetOptions}
             />
             <Select
               id="status"
