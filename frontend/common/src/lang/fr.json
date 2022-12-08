@@ -1891,5 +1891,9 @@
   "pg1S01": {
     "defaultMessage": "Sauter la liste des compétences.",
     "description": "Link text to skip the list of add skill links"
+  },
+  "1YuZjR": {
+    "defaultMessage": "Emplois en TI (en cours)",
+    "description": "The publishing group called IT Jobs for ongoing recruitments"
   }
 }
