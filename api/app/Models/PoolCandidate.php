@@ -116,63 +116,14 @@ class PoolCandidate extends Model
 
         // This subquery only works for a non-zero number of filter classifications.
         // If passed zero classifications then return same query builder unchanged.
-        if (count($classifications) == 0)
+        if (count($classifications) == 0) {
             return $query;
-
-        $parameters = [];
-        $sql = <<<RAWSQL1
-
-SELECT NULL    -- find all candidates where a salary/group combination matches a classification filter
-  FROM (
-    SELECT    -- convert salary ranges to numeric min/max values
-      t.candidate_id,
-      CASE t.salary_range_id
-        WHEN '_50_59K' THEN 50000
-        WHEN '_60_69K' THEN 60000
-        WHEN '_70_79K' THEN 70000
-        WHEN '_80_89K' THEN 80000
-        WHEN '_90_99K' THEN 90000
-        WHEN '_100K_PLUS' THEN 100000
-      END min_salary,
-      CASE t.salary_range_id
-        WHEN '_50_59K' THEN 59999
-        WHEN '_60_69K' THEN 69999
-        WHEN '_70_79K' THEN 79999
-        WHEN '_80_89K' THEN 89999
-        WHEN '_90_99K' THEN 99999
-        WHEN '_100K_PLUS' THEN 2147483647
-      END max_salary
-    FROM (
-      SELECT    -- find all salary ranges for each candidate
-        pc.id candidate_id,
-        JSONB_ARRAY_ELEMENTS_TEXT(pc.expected_salary) salary_range_id
-      FROM pool_candidates pc
-    ) t
-  ) u
-  JOIN classifications c ON
-    c.max_salary >= u.min_salary
-    AND c.min_salary <= u.max_salary
-  WHERE (
-
-RAWSQL1;
-
-        foreach ($classifications as $index => $classification) {
-            if ($index === 0) {
-                // First iteration must use where instead of orWhere
-                $sql .= '(c.group = ? AND c.level = ?)';
-            } else {
-                $sql .= ' OR (c.group = ? AND c.level = ?)';
-            }
-            array_push($parameters, [$classification['group'], $classification['level']]);
         }
 
-        $sql .= <<<RAWSQL2
-  )
-  AND u.candidate_id = "pool_candidates".id
-
-RAWSQL2;
-
-        return $query->whereRaw('EXISTS (' . $sql . ')', $parameters);
+        // point at the filter on User.php
+        // this is run from scopeClassifications nested within a whereHas('user'...) block
+        User::scopeClassifications($query, $classifications);
+        return $query;
     }
 
     public function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
