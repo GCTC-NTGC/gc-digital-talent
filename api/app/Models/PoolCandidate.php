@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
 
@@ -17,22 +16,13 @@ use App\Http\Resources\UserResource;
  * @property int $id
  * @property string $cmo_identifier
  * @property Illuminate\Support\Carbon $expiry_date
- * @property boolean $is_woman
- * @property boolean $has_disability
- * @property boolean $is_indigenous
- * @property boolean $is_visible_minority
- * @property boolean $has_diploma
  * @property Illuminate\Support\Carbon $archived_at
  * @property Illuminate\Support\Carbon $submitted_at
- * @property string $language_ability
  * @property string $signature
- * @property array $location_preferences
- * @property array $expected_salary
  * @property string $pool_candidate_status
  * @property int $status_weight
  * @property int $pool_id
  * @property int $user_id
- * @property array $accepted_operational_requirements
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -54,9 +44,6 @@ class PoolCandidate extends Model
         'expiry_date' => 'date',
         'archived_at' => 'datetime',
         'submitted_at' => 'datetime',
-        'location_preferences' => 'array',
-        'expected_salary' => 'array',
-        'accepted_operational_requirements' => 'array',
         'profile_snapshot' => 'json'
     ];
 
@@ -84,15 +71,6 @@ class PoolCandidate extends Model
     {
         return $this->belongsTo(Pool::class);
     }
-    public function expectedClassifications(): BelongsToMany
-    {
-        return $this->belongsToMany(Classification::class, 'classification_pool_candidate');
-    }
-    public function cmoAssets(): BelongsToMany
-    {
-        return $this->belongsToMany(CmoAsset::class);
-    }
-
 
     public function scopeClassifications(Builder $query, ?array $classifications): Builder
     {
