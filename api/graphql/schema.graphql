@@ -824,6 +824,29 @@ input ApplicantFilterInput {
     @builder(method: "App\\Models\\User@filterByAvailableInPools") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
 }
 
+input ApplicantFilterOnPoolCandidateInput {
+  hasDiploma: Boolean @scope
+  equity: EquitySelectionsInput
+    @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
+  languageAbility: LanguageAbility
+    @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
+  operationalRequirements: [OperationalRequirement]
+    @builder(
+      method: "App\\Models\\PoolCandidate@filterByOperationalRequirements"
+    )
+  locationPreferences: [WorkRegion]
+    @builder(method: "App\\Models\\PoolCandidate@filterByLocationPreferences")
+  positionDuration: [PositionDuration] @scope
+  expectedClassifications: [ClassificationFilterInput]
+    @scope(name: "classifications")
+  skills: [IdInput]
+    @pluck(key: "id")
+    @builder(method: "App\\Models\\PoolCandidate@filterBySkills")
+  pools: [IdInput]
+    @pluck(key: "id")
+    @builder(method: "App\\Models\\PoolCandidate@filterByAvailableInPools")
+}
+
 type CandidateSearchPoolResult {
   pool: Pool!
   candidateCount: Int! @rename(attribute: "candidate_count")
@@ -873,6 +896,28 @@ type Query {
     @can(ability: "viewAny")
   poolCandidatesPaginated(
     where: PoolCandidateFilterInput
+    orderBy: _
+      @orderBy(
+        relations: [
+          {
+            relation: "user"
+            columns: [
+              "priority_weight"
+              "job_looking_status"
+              "first_name"
+              "email"
+              "preferred_lang"
+              "current_city"
+            ]
+          }
+        ]
+      )
+  ): [PoolCandidate]!
+    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["notDraft"])
+    @guard
+    @can(ability: "viewAny")
+  poolCandidatesPaginatedApplicantFilter(
+    where: ApplicantFilterOnPoolCandidateInput
     orderBy: _
       @orderBy(
         relations: [

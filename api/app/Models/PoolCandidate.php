@@ -511,4 +511,18 @@ RAWSQL2;
         }
         return $query;
     }
+
+    public function filterBySkills(Builder $query, ?array $skills): Builder
+    {
+        if (empty($skills)) {
+            return $query;
+        }
+
+        // call the skillFilter off connected user
+        $query->whereHas('user', function (Builder $userQuery) use ($skills) {
+            User::filterBySkills($userQuery, $skills);
+        });
+
+        return $query;
+    }
 }
