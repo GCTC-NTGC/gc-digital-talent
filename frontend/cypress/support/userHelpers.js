@@ -1,22 +1,14 @@
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
-  PoolAdvertisementLanguage,
-  PoolStream,
   ProvinceOrTerritory,
-  PublishingGroup,
-  SecurityStatus,
   WorkRegion,
 } from "../../talentsearch/src/js/api/generated";
-import {
-  FAR_FUTURE_DATE,
-  FAR_PAST_DATE,
-} from "../../common/src/helpers/dateUtils";
+import { FAR_PAST_DATE } from "../../common/src/helpers/dateUtils";
 import {
   JobLookingStatus,
   LanguageAbility,
   OperationalRequirement,
-  PoolCandidateStatus,
   PositionDuration,
   Role,
 } from "../../common/src/api/generated";
@@ -70,6 +62,5 @@ export function createApplicant({
         },
       ],
     },
-  })
-    .as(userAlias);
+  }).as(userAlias);
 }

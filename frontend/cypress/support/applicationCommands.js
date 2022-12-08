@@ -1,72 +1,51 @@
-import { CreateApplicationDocument, SubmitApplicationDocument } from "../../talentsearch/src/js/api/generated"
+import {
+  CreateApplicationDocument,
+  SubmitApplicationDocument,
+} from "../../talentsearch/src/js/api/generated";
 import { UpdatePoolCandidateStatusDocument } from "../../admin/src/js/api/generated";
 
 function getGqlString(doc) {
   return doc.loc && doc.loc.source.body;
 }
 
-Cypress.Commands.add('createApplication', (userId, poolId) => {
-  cy.request({
-    method: 'POST',
-    url: '/graphql',
-    auth: {
-      bearer: window.localStorage.getItem('access_token'),
+Cypress.Commands.add("createApplication", (userId, poolId) => {
+  cy.graphqlRequest({
+    operationName: "createApplication",
+    query: getGqlString(CreateApplicationDocument),
+    variables: {
+      userId,
+      poolId,
     },
-    body: {
-      operationName: 'createApplication',
-      query: getGqlString(CreateApplicationDocument),
-      variables: {
-        userId,
-        poolId
-      },
-    },
-  })
-  .then((resp) => {
-    if (resp.body.errors) throw new Error("Errors: " + JSON.stringify(resp.body.errors))
-    cy.wrap(resp.body.data.createApplication);
+  }).then((data) => {
+    cy.wrap(data.createApplication);
   });
 });
 
-Cypress.Commands.add('submitApplication', (applicationId, signature) => {
-  cy.request({
-    method: 'POST',
-    url: '/graphql',
-    auth: {
-      bearer: window.localStorage.getItem('access_token'),
+Cypress.Commands.add("submitApplication", (applicationId, signature) => {
+  cy.graphqlRequest({
+    operationName: "submitApplication",
+    query: getGqlString(SubmitApplicationDocument),
+    variables: {
+      id: applicationId,
+      signature,
     },
-    body: {
-      operationName: 'submitApplication',
-      query: getGqlString(SubmitApplicationDocument),
-      variables: {
-        id: applicationId,
-        signature
-      },
-    },
-  })
-  .then((resp) => {
-    if (resp.body.errors) throw new Error("Errors: " + JSON.stringify(resp.body.errors))
-    cy.wrap(resp.body.data.submitApplication);
+  }).then((data) => {
+    cy.wrap(data.submitApplication);
   });
 });
 
-Cypress.Commands.add('updatePoolCandidateAsAdmin', (applicationId, updatePoolCandidateAsAdminInput) => {
-  cy.request({
-    method: 'POST',
-    url: '/graphql',
-    auth: {
-      bearer: window.localStorage.getItem('access_token'),
-    },
-    body: {
-      operationName: 'UpdatePoolCandidateStatus',
+Cypress.Commands.add(
+  "updatePoolCandidateAsAdmin",
+  (applicationId, updatePoolCandidateAsAdminInput) => {
+    cy.graphqlRequest({
+      operationName: "UpdatePoolCandidateStatus",
       query: getGqlString(UpdatePoolCandidateStatusDocument),
       variables: {
         id: applicationId,
-        input: updatePoolCandidateAsAdminInput
+        input: updatePoolCandidateAsAdminInput,
       },
-    },
-  })
-  .then((resp) => {
-    if (resp.body.errors) throw new Error("Errors: " + JSON.stringify(resp.body.errors))
-    cy.wrap(resp.body.data.updatePoolCandidateAsAdmin);
-  });
-});
+    }).then((data) => {
+      cy.wrap(data.updatePoolCandidateAsAdmin);
+    });
+  },
+);

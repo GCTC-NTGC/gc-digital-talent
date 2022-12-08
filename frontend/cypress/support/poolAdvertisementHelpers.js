@@ -1,25 +1,21 @@
 import {
-  ArmedForcesStatus,
-  CitizenshipStatus,
   PoolAdvertisementLanguage,
   PoolStream,
-  ProvinceOrTerritory,
   PublishingGroup,
   SecurityStatus,
-  WorkRegion,
 } from "../../talentsearch/src/js/api/generated";
 import {
   FAR_FUTURE_DATE,
-  FAR_PAST_DATE,
 } from "../../common/src/helpers/dateUtils";
 
-
-export function createAndPublishPoolAdvertisement ({adminUserId, englishName, classification, poolAdvertisementAlias}) {
-
-
-    cy.createPoolAdvertisement(adminUserId, [
-      classification.id,
-    ]).then((createdPoolAdvertisement) => {
+export function createAndPublishPoolAdvertisement({
+  adminUserId,
+  englishName,
+  classification,
+  poolAdvertisementAlias,
+}) {
+  cy.createPoolAdvertisement(adminUserId, [classification.id]).then(
+    (createdPoolAdvertisement) => {
       cy.get("@testSkill").then((skill) => {
         cy.log(skill);
         cy.updatePoolAdvertisement(createdPoolAdvertisement.id, {
@@ -46,12 +42,11 @@ export function createAndPublishPoolAdvertisement ({adminUserId, englishName, cl
           isRemote: true,
           publishingGroup: PublishingGroup.ItJobs,
         }).then((updatedPoolAdvertisement) => {
-          cy.publishPoolAdvertisement(updatedPoolAdvertisement.id)
-             .as(poolAdvertisementAlias);
+          cy.publishPoolAdvertisement(updatedPoolAdvertisement.id).as(
+            poolAdvertisementAlias,
+          );
         });
       });
-    });
-
-
-
+    },
+  );
 }
