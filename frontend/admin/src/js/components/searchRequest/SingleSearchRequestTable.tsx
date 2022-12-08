@@ -25,6 +25,7 @@ import {
 import Table, { ColumnsOf } from "../Table";
 import { useAdminRoutes } from "../../adminRoutes";
 import UserTable from "../user/UserTable";
+import PoolCandidatesTable from "../poolCandidate/PoolCandidatesTable";
 
 type Data = NonNullable<
   FromArray<SearchPoolCandidatesQuery["searchPoolCandidates"]>
@@ -332,9 +333,10 @@ function classificationToInput(c: Classification): ClassificationFilterInput {
 
 // Maps each property in ApplicantFilterInput to a function which transforms the matching value from an ApplicantFilter object to the appropriate shape for ApplicantFilterInput.
 type MappingType = {
-  [Property in keyof ApplicantFilterInput]: (
-    x: ApplicantFilter[Property],
-  ) => ApplicantFilterInput[Property];
+  [Property in keyof Omit<
+    ApplicantFilterInput,
+    "email" | "name" | "generalSearch"
+  >]: (x: ApplicantFilter[Property]) => ApplicantFilterInput[Property];
 };
 
 const transformApplicantFilterToFilterInput = (
@@ -406,8 +408,8 @@ export const SingleSearchRequestTableApi: React.FunctionComponent<{
     variables: { poolCandidateFilter: poolCandidateFilterInput },
     pause: !isLegacyFilter,
   });
-  const userFilterInput = !isLegacyFilter
-    ? transformApplicantFilterToUserFilterInput(filter)
+  const applicantFilterInput = !isLegacyFilter
+    ? transformApplicantFilterToFilterInput(filter)
     : undefined;
 
   return isLegacyFilter ? (
@@ -417,6 +419,6 @@ export const SingleSearchRequestTableApi: React.FunctionComponent<{
       />
     </Pending>
   ) : (
-    <UserTable initialFilterInput={userFilterInput} />
+    <PoolCandidatesTable initialFilterInput={applicantFilterInput} />
   );
 };

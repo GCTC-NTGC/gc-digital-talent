@@ -16,7 +16,9 @@ import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
 import { SubmitHandler } from "react-hook-form";
 import { getFeatureFlags } from "@common/helpers/runtimeVariable";
+import { flatten, flattenDeep } from "lodash";
 import {
+  ApplicantFilterInput,
   InputMaybe,
   JobLookingStatus,
   Language,
@@ -30,6 +32,7 @@ import {
   SortOrder,
   useGetPoolCandidatesPaginatedQuery,
   useGetSelectedPoolCandidatesQuery,
+  usePoolCandidatesFromApplicantsQuery,
 } from "../../api/generated";
 import TableHeader from "../apiManagedTable/TableHeader";
 import { AdminRoutes, useAdminRoutes } from "../../adminRoutes";
@@ -197,12 +200,15 @@ const provinceAccessor = (
     ? intl.formatMessage(getProvinceOrTerritory(province as string))
     : "";
 
-const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
+const PoolCandidatesTable: React.FC<{
+  initialFilterInput?: ApplicantFilterInput;
+}> = ({ initialFilterInput }) => {
   const intl = useIntl();
   const adminRoutes = useAdminRoutes();
 
-  const [poolCandidateFilterInput, setPoolCandidateFilterInput] =
-    useState<PoolCandidateFilterInput>({ pools: [{ id: poolId }] });
+  const initialStateFilterInput = initialFilterInput ?? {};
+  const [applicantFilterInput, setApplicantFilterInput] =
+    useState<ApplicantFilterInput>(initialStateFilterInput);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
@@ -253,10 +259,10 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
 
   // merge search bar input with fancy filter state
   const addSearchToPoolCandidateFilterInput = (
-    fancyFilterState: PoolCandidateFilterInput | undefined,
+    fancyFilterState: ApplicantFilterInput | undefined,
     searchBarTerm: string | undefined,
     searchType: string | undefined,
-  ): InputMaybe<PoolCandidateFilterInput> => {
+  ): InputMaybe<ApplicantFilterInput> => {
     if (
       fancyFilterState === undefined &&
       searchBarTerm === undefined &&
@@ -272,20 +278,20 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
       name: searchType === "name" ? searchBarTerm : undefined,
 
       // from fancy filter
-      pools: [{ id: poolId }],
+      pools: fancyFilterState?.pools,
       languageAbility: fancyFilterState?.languageAbility,
       expectedClassifications: fancyFilterState?.expectedClassifications,
       operationalRequirements: fancyFilterState?.operationalRequirements,
       locationPreferences: fancyFilterState?.locationPreferences,
       hasDiploma: fancyFilterState?.hasDiploma,
       equity: fancyFilterState?.equity,
-      status: fancyFilterState?.status,
-      priorityWeight: fancyFilterState?.priorityWeight,
+      // status: fancyFilterState?.status,
+      // priorityWeight: fancyFilterState?.priorityWeight,
     };
   };
 
   const handlePoolCandidateFilterSubmit: SubmitHandler<FormValues> = (data) => {
-    setPoolCandidateFilterInput({
+    setApplicantFilterInput({
       languageAbility: data.languageAbility[0]
         ? stringToEnumLanguage(data.languageAbility[0])
         : undefined,
@@ -310,12 +316,12 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
           isVisibleMinority: true,
         }),
       },
-      status: data.status.map((status) => {
-        return stringToEnumPoolCandidateStatus(status);
-      }),
-      priorityWeight: data.priorityWeight.map((priority) => {
-        return Number(priority);
-      }),
+      // status: data.status.map((status) => {
+      //   return stringToEnumPoolCandidateStatus(status);
+      // }),
+      // priorityWeight: data.priorityWeight.map((priority) => {
+      //   return Number(priority);
+      // }),
     });
   };
 
@@ -323,23 +329,24 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
     setSelectedRows([]);
   }, [currentPage, pageSize, searchState, sortingRule]);
 
-  const [result] = useGetPoolCandidatesPaginatedQuery({
+  const [result] = usePoolCandidatesFromApplicantsQuery({
     variables: {
       where: addSearchToPoolCandidateFilterInput(
-        poolCandidateFilterInput,
+        applicantFilterInput,
         searchState?.term,
         searchState?.type,
       ),
       page: currentPage,
       first: pageSize,
-      sortingInput: sortOrder,
     },
   });
 
   const { data, fetching, error } = result;
 
-  const candidateData = data?.poolCandidatesPaginated?.data ?? [];
-  const filteredData = candidateData.filter(notEmpty);
+  const candidateData = data?.poolCandidatesFromApplicants?.data ?? [];
+  const filteredData = candidateData
+    .flatMap((cd) => cd.poolCandidates)
+    .filter(notEmpty);
 
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
@@ -569,17 +576,6 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
             value: "email",
           },
         ]}
-        addBtn={{
-          label: intl.formatMessage({
-            defaultMessage: "Create Pool Candidate",
-            id: "Ox+Gj/",
-            description:
-              "Text label for link to create new pool candidate on admin table",
-          }),
-          path: getFeatureFlags().applicantSearch
-            ? adminRoutes.userCreate()
-            : adminRoutes.poolCandidateCreate(poolId),
-        }}
         onColumnHiddenChange={(event) =>
           handleColumnHiddenChange(
             allColumnIds,
@@ -602,7 +598,7 @@ const PoolCandidatesTable: React.FC<{ poolId: string }> = ({ poolId }) => {
           />
         </Pending>
         <TableFooter
-          paginatorInfo={data?.poolCandidatesPaginated?.paginatorInfo}
+          paginatorInfo={data?.poolCandidatesFromApplicants?.paginatorInfo}
           onCurrentPageChange={setCurrentPage}
           onPageSizeChange={setPageSize}
           hasSelection

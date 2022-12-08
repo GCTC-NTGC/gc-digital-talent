@@ -353,6 +353,34 @@ query GetPoolCandidatesPaginated(
   }
 }
 
+query poolCandidatesFromApplicants(
+  $where: ApplicantFilterInput
+  $first: Int
+  $page: Int
+) {
+  poolCandidatesFromApplicants(
+    where: $where
+    first: $first
+    page: $page
+  ) {
+    data {
+      poolCandidates {
+        ...poolCandidateTable
+      }
+    }
+    paginatorInfo {
+      count
+      currentPage
+      firstItem
+      hasMorePages
+      lastItem
+      lastPage
+      perPage
+      total
+    }
+  }
+}
+
 query getPoolCandidatesByPool($id: UUID!) {
   pool(id: $id) {
     poolCandidates {
