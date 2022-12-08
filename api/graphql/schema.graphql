@@ -820,7 +820,12 @@ input ApplicantFilterInput {
     @builder(method: "App\\Models\\User@filterBySkills") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
   pools: [IdInput]
     @pluck(key: "id")
-    @builder(method: "App\\Models\\User@filterByAvailableInPools") # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+    @builder(method: "App\\Models\\User@filterByAvailableInPools")
+    # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
+  email: String @scope
+  name: String @builder(method: "App\\Models\\User@filterByName")
+  generalSearch: String
+    @builder(method: "App\\Models\\User@filterByGeneralSearch")
 }
 
 type CandidateSearchPoolResult {
@@ -868,6 +873,15 @@ type Query {
     @can(ability: "view", query: true)
   poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]!
     @all
+    @guard
+    @can(ability: "viewAny")
+  poolCandidatesFromApplicants(where: ApplicantFilterInput): [Applicant!]! # TODO: Orderby
+    @paginate(
+      model: "User",
+      defaultCount: 10
+      maxCount: 1000,
+      scopes: ["availableForOpportunities"]
+    )
     @guard
     @can(ability: "viewAny")
   poolCandidatesPaginated(

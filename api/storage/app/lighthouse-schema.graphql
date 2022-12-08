@@ -87,6 +87,18 @@ input ApplicantFilterInput {
   expectedClassifications: [ClassificationFilterInput]
   skills: [IdInput]
   pools: [IdInput]
+  email: String
+  name: String
+  generalSearch: String
+}
+
+"""A paginated list of Applicant items."""
+type ApplicantPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Applicant items."""
+  data: [Applicant!]!
 }
 
 enum ArmedForcesStatus {
@@ -1039,6 +1051,15 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): UserPaginator
+  poolCandidatesFromApplicants(
+    where: ApplicantFilterInput
+
+    """Limits number of fetched items. Maximum allowed value: 1000."""
+    first: Int = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): ApplicantPaginator
   poolCandidatesPaginated(
     where: PoolCandidateFilterInput
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
