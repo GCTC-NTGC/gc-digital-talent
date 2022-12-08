@@ -38,7 +38,7 @@ describe("Talent Search Workflow Tests", () => {
     cy.log(`Test run ${uniqueTestId}`);
 
     const searchFindsMySingleCandidate = () => {
-      cy.findAllByRole("article", {
+      cy.findByRole("article", {
         name: `Cypress Test Pool EN 1 ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
       }).within(() => {
         cy.contains("There is 1 matching candidate in this pool");
@@ -51,7 +51,7 @@ describe("Talent Search Workflow Tests", () => {
     };
 
     const searchRejectsMySingleCandidate = () => {
-      cy.findAllByRole("article", {
+      cy.findByRole("article", {
         name: `Cypress Test Pool 1 EN ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
       }).should("not.exist");
     };
@@ -246,7 +246,7 @@ describe("Talent Search Workflow Tests", () => {
       name: /Results: [1-9][0-9]* matching candidate/i,
     });
 
-    cy.findAllByRole("article", {
+    cy.findByRole("article", {
       name: `Cypress Test Pool EN 1 ${uniqueTestId} (IT-01 Business Line Advisory Services)`,
     }).within(() => {
       cy.findByRole("button", { name: /Request Candidates/i }).click();
