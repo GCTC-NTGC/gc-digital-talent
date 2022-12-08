@@ -2501,7 +2501,15 @@
     "description": "Page title for the applicants profile page"
   },
   "pf1Ffp": {
-    "defaultMessage": "Submit application profile",
+    "defaultMessage": "Soumettre un profil de demande",
     "description": "Page title for pool application sign and submit page"
+  },
+   "lPWUoO": {
+    "defaultMessage": "Créer un compte",
+    "description": "Page title for the account creation page"
+  },
+  "u3eefq": {
+    "defaultMessage": "Demander des candidats faisant partie d’un bassin",
+    "description": "Page title for the request candidates form page"
   }
 }
